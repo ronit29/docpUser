@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Loadable from 'react-loadable';
 
-const Home = Loadable({
-    loader : () => import('./containers/home.js'),
+const SearchCriteria = Loadable({
+    loader : () => import('./containers/searchCriteria.js'),
     loading : () => {
         return ''
     }
@@ -16,7 +16,7 @@ class RouterConfig extends Component {
             <div>
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path='/' component={ Home } />
+                        <Route exact path='/' component={ SearchCriteria } />
                     </Switch>
                 </BrowserRouter>
             </div>

@@ -5,11 +5,12 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 import allReducers from './reducers';
-import Routes from './routes.js'
+import App from './app.js'
 
-require('../css/style.css')
+require('../css/style.scss')
 
 const logger = createLogger();
+
 const store = createStore(
     allReducers,
     applyMiddleware(thunk, logger)
@@ -18,7 +19,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <Routes />
+        <App />
     </Provider>,
     document.getElementById('root')
 );

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Routes from './routes.js'
+import TopBar from './containers/topBar.js'
 
-import Home_View from '../components/home_view.js'
-
-class Home extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -18,7 +18,10 @@ class Home extends React.Component {
     render() {
 
         return (
-            <Home_View/>
+            <div>
+                <TopBar />
+                <Routes />
+            </div>
         );
     }
 }
@@ -37,4 +40,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
