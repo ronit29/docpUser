@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import TopBarView from '../components/topBar/index.js'
+
 class TopBar extends React.Component {
     constructor(props) {
         super(props)
@@ -16,9 +18,7 @@ class TopBar extends React.Component {
     render() {
 
         return (
-            <div id="topbar">
-
-            </div>
+            <TopBarView/>
         );
     }
 }

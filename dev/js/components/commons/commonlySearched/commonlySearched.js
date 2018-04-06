@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Chip from 'material-ui/Chip';
+
+
 class CommonlySearched extends React.Component {
     constructor(props) {
         super(props)
@@ -12,15 +15,14 @@ class CommonlySearched extends React.Component {
 
         let pills = this.props.data.map((pill) => {
             let selected = !!this.props.selected[pill.id]
-            return <span
-                        className={selected ? "pill selected" : "pill"}
-                        key={pill.id}
-                        onClick={() => {
-                            return this.props.togglePill(pill.id)
-                        }}
-                    >
-                        {pill.name}
-                    </span>
+            return <Chip
+                label={pill.name}
+                className={selected ? "pill selected" : "pill"}
+                key={pill.id}
+                onClick={() => {
+                    return this.props.togglePill(pill.id)
+                }}
+            />
 
         })
 

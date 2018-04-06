@@ -9,6 +9,13 @@ const SearchCriteria = Loadable({
     }
 })
 
+const LocationSearch = Loadable({
+    loader : () => import('./containers/locationSearch.js'),
+    loading : () => {
+        return ''
+    }
+})
+
 class RouterConfig extends Component {
 
     render() {
@@ -17,6 +24,7 @@ class RouterConfig extends Component {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path='/' component={ SearchCriteria } />
+                        <Route exact path='/locationsearch' component={ LocationSearch } />
                     </Switch>
                 </BrowserRouter>
             </div>

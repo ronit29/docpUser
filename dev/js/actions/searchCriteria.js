@@ -18,5 +18,13 @@ export const toggleSpeciality = (id) => (dispatch) => {
 
 }
 
+export const selectLocation = (location) => (dispatch) => {
+    dispatch({
+        type: 'SELECT_LOCATION',
+        payload: location
+    })
+
+}
+
 
 
