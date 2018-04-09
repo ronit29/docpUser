@@ -1,118 +1,208 @@
-[
+[{
+  "id":654645,
+  "name": "Dr.Steve Reddy",
+  "practice_duration": 2,
+ 
+   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
+  "email": "dr@dr.com",
+ 
+  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
+  "availability": [
     {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
       },
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
       },
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
+      }
+    },
+    {
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
       },
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
-      }
-      ,
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
-      }
-      ,
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
-      }
-      ,
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
-      }
-      ,
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
-      }
-      ,
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
       },
-      {
-        "name": "rk demo",
-        "practice_duration": "2",
-        "about": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "registration_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "additional_details": "dummy text dummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy textdummy text",
-        "phone_number": "9582557400",
-        "is_phone_number_verified": false,
-        "email": "rajik@hjhg.hgvh",
-        "is_email_verified": true
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
       }
-      
-]
+    }
+  ],
+  "pastExperience":"Ex- Fortis Ex-Aims",
+ 
+  "consultationCount": 121,
+  "rating": 4.2
+},
+{
+  "id":654645,
+  "name": "Dr.Steve Reddy",
+  "practice_duration": 2,
+ 
+   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
+  "email": "dr@dr.com",
+ 
+  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
+  "availability": [
+    {
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
+      },
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
+      },
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
+      }
+    },
+    {
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
+      },
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
+      },
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
+      }
+    }
+  ],
+  "pastExperience":"Ex- Fortis Ex-Aims",
+ 
+  "consultationCount": 121,
+  "rating": 4.2
+},
+{
+  "id":654645,
+  "name": "Dr.Steve Reddy",
+  "practice_duration": 2,
+ 
+   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
+  "email": "dr@dr.com",
+ 
+  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
+  "availability": [
+    {
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
+      },
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
+      },
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
+      }
+    },
+    {
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
+      },
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
+      },
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
+      }
+    }
+  ],
+  "pastExperience":"Ex- Fortis Ex-Aims",
+ 
+  "consultationCount": 121,
+  "rating": 4.2
+},
+{
+  "id":654645,
+  "name": "Dr.Steve Reddy",
+  "practice_duration": 2,
+ 
+   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
+  "email": "dr@dr.com",
+ 
+  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
+  "availability": [
+    {
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
+      },
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
+      },
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
+      }
+    },
+    {
+      "id": 1234,
+      "name": "Reddy Clnic",
+      "address": "abc nagar",
+     
+      "location": {
+        "lat": 28.4595,
+        "long": 77.026344
+      },
+      "nextAvailable": {
+        "from": 1526358600000,
+        "to": 1526365800000
+      },
+      "fee": {
+        "amount": 1500,
+        "discounted": 1200
+      }
+    }
+  ],
+  "pastExperience":"Ex- Fortis Ex-Aims",
+ 
+  "consultationCount": 121,
+  "rating": 4.2
+}]
