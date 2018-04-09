@@ -13,7 +13,7 @@ export default function (state = defaultState, action) {
             if (state.selectedConditions[action.payload.id]) {
                 delete state.selectedConditions[action.payload.id]
             } else {
-                state.selectedConditions[action.payload.id] = true
+                state.selectedConditions[action.payload.id] = new Date()
             }
             return JSON.parse(JSON.stringify(state))
         }
@@ -22,7 +22,7 @@ export default function (state = defaultState, action) {
             if (state.selectedSpecialities[action.payload.id]) {
                 delete state.selectedSpecialities[action.payload.id]
             } else {
-                state.selectedSpecialities[action.payload.id] = true
+                state.selectedSpecialities[action.payload.id] = new Date()
             }
             return JSON.parse(JSON.stringify(state))
         }
