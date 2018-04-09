@@ -1,5 +1,5 @@
 {
-  "name": "mentorclap",
+  "name": "ondoc",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://shubhamqweasd@bitbucket.org/shubhamqweasd/mentorclap.git"
+    "url": ""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/shubhamqweasd/mentorclap#readme",
+  "homepage": "",
   "dependencies": {
     "axios": "^0.18.0",
     "babel-core": "^6.26.0",
