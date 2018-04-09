@@ -10,11 +10,15 @@ class SearchCriteria extends React.Component {
         super(props)
     }
 
+    static contextTypes = {
+        router: () => null
+    }
+
     render() {
 
         return (
             <div className="searchCriteria">
-                <LocationSelector 
+                <LocationSelector
                     selectedLocation={this.props.selectedLocation}
                 />
                 <CommonlySearched
@@ -29,7 +33,9 @@ class SearchCriteria extends React.Component {
                     selected={this.props.selectedSpecialities}
                     togglePill={this.props.toggleSpeciality.bind(this)}
                 />
-                <button className="proceedBtn"> Proceed </button>
+                <button onClick={() => {
+                    this.context.router.history.push('/searchresults')
+                }} className="proceedBtn"> Proceed </button>
             </div>
         );
     }

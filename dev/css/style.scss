@@ -127,3 +127,174 @@ body{
     color: #000;
     display: block;
 }
+
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+  
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 250ms ease-in;
+}
+
+.searchResults{
+    visibility: visible;
+    .doctorsList{
+        visibility: visible;
+
+        .doctorCard{
+            width: 100%;
+            height: 150px;
+            background-color: white;
+            margin-bottom: 5px;
+            
+            .detailsDiv{
+                float: left;
+                width: 100%;
+                height: 75%;
+
+                .subOptionsImage{
+                    width: 20%;
+                    float: left;
+                    height: 100%;
+                    display: block;
+                    box-sizing: border-box;
+                    .doctorImage{
+                        width: 100%;
+                        font-size: 50px;
+                        margin-top: 15px;
+                    }
+                }
+
+                .subOptionsContent{
+                    width: 50%;
+                    float: left;
+                    display: block;
+                    padding: 10px;
+                    height: 100%;
+                    box-sizing: border-box;
+                    .name{
+                        display: block;
+                        font-size: 19px;
+                    }
+
+                    .qualification{
+                        display: block;
+                        font-size: 10px;
+                        margin-top: 5px;
+                        color: #424040;
+                    }
+
+                    .designation{
+                        display: block;
+                        font-size: 10px;
+                        color: #424040;
+                    }
+
+                    .experience{
+                        display: block;
+                        font-size: 10px;
+                        margin-top: 15px;
+                        color: #424040;
+                    }
+                }
+
+                .subOptionsInteract{
+                    width: 30%;
+                    float: left;
+                    height: 100%;
+                    display: block;
+                    box-sizing: border-box;
+
+                    .bookNow{
+                        display: block;
+                        margin-top: 30px;
+                        margin-left: 14px;
+                        border: none;
+                        padding: 7px;
+                        border-radius: 5px;
+                        background-color: #ff7d2d;
+                        color: white;
+                    }
+                    .price{
+                        font-size: 13px;
+                        margin-left: 17px;
+                        float: left;
+                        margin-top: 8px;
+                    }
+                }
+            }
+
+            .bottomOptions{
+                float: left;
+                width: 100%;
+                height: 25%;
+                border-top: 1px solid #efefef;
+
+                .subOptions{
+                    width: 33%;
+                    float: left;
+                    border-right: 1px solid #efefef;
+                    height: 100%;
+                    display: block;
+                
+                    .clinicIcon{
+                        float: left;
+                        margin-top: 8px;
+                        color: gray;
+                        font-size: 20px;
+                        margin-left: 5px;
+                    }
+                    .clinicName{
+                        display: block;
+                        font-size: 11px;
+                        color: #131313;
+                        float: left;
+                        margin-left: 8px;
+                        margin-top: 11px;
+                    }
+                    .timeEntry{
+                        float: left;
+                        font-size: 11px;
+                        margin-top: 3px;
+                        margin-left: 12px;
+                    }
+                }
+            }
+            
+        }
+    }
+
+    .topBar{
+        width: 100%;
+        background-color: white;
+        height: 45px;
+        margin-bottom: 10px;
+
+        .iconsortfilter{
+            float: right;
+            font-size: 30px;
+            margin-top: 7px;
+            margin-right: 10px;
+        }
+    }
+}
+
+.searchResultsFilter{
+    .subFilter{
+        float: left;
+        width: 100%;
+        min-height: 150px;
+        background-color: white;
+        margin-top: 10px;
+        padding: 10px;
+
+        .subHeading{
+            width: 100%;
+            padding: 5px;
+            background-color: #efefef;
+            margin-top: 0px;
+        }
+    }
+}
