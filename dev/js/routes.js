@@ -30,6 +30,34 @@ const SearchResultsFilter = Loadable({
     }
 })
 
+const DoctorProfile = Loadable({
+    loader : () => import('./containers/doctorProfile.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const ClinicList = Loadable({
+    loader : () => import('./containers/clinicList.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const AppointmentSlot = Loadable({
+    loader : () => import('./containers/appointmentSlot.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const PatientDetails = Loadable({
+    loader : () => import('./containers/patientDetails.js'),
+    loading : () => {
+        return ''
+    }
+})
+
 class RouterConfig extends Component {
 
     render() {
@@ -41,6 +69,10 @@ class RouterConfig extends Component {
                         <Route exact path='/locationsearch' component={ LocationSearch } />
                         <Route exact path='/searchresults' component={ SearchResults } />
                         <Route exact path='/searchresults/filter' component={ SearchResultsFilter } />
+                        <Route exact path='/doctorprofile' component={ DoctorProfile } />
+                        <Route exact path='/doctorprofile/cliniclist' component={ ClinicList } />
+                        <Route exact path='/doctorprofile/appointmentslot' component={ AppointmentSlot } />
+                        <Route exact path='/doctorprofile/patientdetails' component={ PatientDetails } />
                     </Switch>
                 </BrowserRouter>
             </div>
