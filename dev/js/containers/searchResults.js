@@ -8,7 +8,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 
 import DoctorsList from '../components/searchResults/doctorsList/index.js'
 import TopBar from '../components/searchResults/topBar/index.js'
-
+import { getDoctors } from "../../../actions";
 class SearchResults extends React.Component {
     constructor(props) {
         super(props)
@@ -16,7 +16,19 @@ class SearchResults extends React.Component {
             anchorEl: null
         }
     }
+    componentDidMount() {
+        console.log('DoctorsList did mount.');
+        this.getDoctorList();
+    }
+    getDoctorList() {
+        //TODO create request from state filters
 
+        this.props.getDoctors();
+
+
+
+
+    }
     handleOpen(event) {
         this.setState({ anchorEl: event.currentTarget })
     }
@@ -31,8 +43,7 @@ class SearchResults extends React.Component {
             <div className="searchResults">
                 <TopBar />
                 <DoctorsList />
-                <DoctorsList />
-                <DoctorsList />
+               
             </div>
         );
     }
@@ -45,11 +56,14 @@ const mapStateToProps = (state) => {
     }
 }
 
+
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getDoctors
     }
 }
+
+
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
