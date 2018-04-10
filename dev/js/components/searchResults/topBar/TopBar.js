@@ -47,7 +47,7 @@ class TopBar extends React.Component {
             </div>
         );
     }
-} TopBar
+}
 
 
 export default TopBar

@@ -1,3 +1,3 @@
-import SearchResultsFilter from './searchResultsFilter.js'
+import SearchResultsFilter from './SearchResultsFilter.js'
 
 export default SearchResultsFilter

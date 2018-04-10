@@ -1,3 +1,3 @@
-import AppointmentSlot from './appointmentSlot.js'
+import AppointmentSlot from './AppointmentSlot.js'
 
 export default AppointmentSlot

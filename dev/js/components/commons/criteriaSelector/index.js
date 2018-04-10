@@ -1,3 +1,3 @@
-import CriteriaSelector from './criteriaSelector.js'
+import CriteriaSelector from './CriteriaSelector.js'
 
 export default CriteriaSelector

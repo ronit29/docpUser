@@ -1,3 +1,3 @@
-import DoctorList from './doctorsList.js'
+import DoctorList from './DoctorsList.js'
 
 export default DoctorList

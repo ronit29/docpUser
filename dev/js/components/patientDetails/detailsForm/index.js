@@ -1,3 +1,3 @@
-import DetailsForm from './detailsForm.js'
+import DetailsForm from './DetailsForm.js'
 
 export default DetailsForm

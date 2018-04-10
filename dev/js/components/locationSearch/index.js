@@ -1,4 +1,4 @@
-import LocationSearch from './locationSearch.js'
+import LocationSearch from './LocationSearch.js'
 
 
 export default LocationSearch

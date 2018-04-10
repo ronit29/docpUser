@@ -1,4 +1,4 @@
-import LocationSelector from './locationSelector.js'
+import LocationSelector from './LocationSelector.js'
 
 
 export default LocationSelector

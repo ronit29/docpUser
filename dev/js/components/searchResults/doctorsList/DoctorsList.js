@@ -8,8 +8,6 @@ import LocationsIcon from 'material-ui-icons/LocationOn';
 
 import DoctorProfileCard from '../../commons/doctorProfileCard/index.js'
 
-
-
 class DoctorsList extends React.Component {
     constructor(props) {
         super(props)
@@ -24,23 +22,12 @@ class DoctorsList extends React.Component {
         return (
             <div className="doctorsList">
                 <DoctorProfileCard />
+                <DoctorProfileCard />
+                <DoctorProfileCard />
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
 
-    return {
-
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(DoctorsList);
+export default DoctorsList

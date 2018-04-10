@@ -1,3 +1,3 @@
-import ProfessionalGraph from './professionalGraph.js'
+import ProfessionalGraph from './ProfessionalGraph.js'
 
 export default ProfessionalGraph

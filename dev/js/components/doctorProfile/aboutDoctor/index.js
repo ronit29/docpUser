@@ -1,3 +1,3 @@
-import AboutDoctor from './aboutDoctor.js'
+import AboutDoctor from './AboutDoctor.js'
 
 export default AboutDoctor

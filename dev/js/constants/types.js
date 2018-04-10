@@ -1,0 +1,1 @@
+export const SEARCH_DOCTOR = 'SEARCH_DOCTOR';

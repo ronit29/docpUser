@@ -1,4 +1,4 @@
-import CommonlySearched from './commonlySearched.js'
+import CommonlySearched from './CommonlySearched.js'
 
 
 export default CommonlySearched

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Routes from './routes.js'
-import TopBar from './containers/topBar.js'
+import TopBar from './containers/TopBar.js'
 
 class App extends React.Component {
     constructor(props) {

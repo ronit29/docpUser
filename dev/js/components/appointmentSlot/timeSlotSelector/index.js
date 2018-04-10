@@ -1,3 +1,3 @@
-import TimeSlotSelector from './timeSlotSelector.js'
+import TimeSlotSelector from './TimeSlotSelector.js'
 
 export default TimeSlotSelector

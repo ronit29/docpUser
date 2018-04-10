@@ -3,56 +3,63 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Loadable from 'react-loadable';
 
 const SearchCriteria = Loadable({
-    loader : () => import('./containers/searchCriteria.js'),
+    loader : () => import('./containers/SearchCriteria.js'),
     loading : () => {
         return ''
     }
 })
 
 const LocationSearch = Loadable({
-    loader : () => import('./containers/locationSearch.js'),
+    loader : () => import('./containers/LocationSearch.js'),
     loading : () => {
         return ''
     }
 })
 
 const SearchResults = Loadable({
-    loader : () => import('./containers/searchResults.js'),
+    loader : () => import('./containers/SearchResults.js'),
     loading : () => {
         return ''
     }
 })
 
 const SearchResultsFilter = Loadable({
-    loader : () => import('./containers/searchResultsFilter.js'),
+    loader : () => import('./containers/SearchResultsFilter.js'),
     loading : () => {
         return ''
     }
 })
 
 const DoctorProfile = Loadable({
-    loader : () => import('./containers/doctorProfile.js'),
+    loader : () => import('./containers/DoctorProfile.js'),
     loading : () => {
         return ''
     }
 })
 
 const ClinicList = Loadable({
-    loader : () => import('./containers/clinicList.js'),
+    loader : () => import('./containers/ClinicList.js'),
     loading : () => {
         return ''
     }
 })
 
 const AppointmentSlot = Loadable({
-    loader : () => import('./containers/appointmentSlot.js'),
+    loader : () => import('./containers/AppointmentSlot.js'),
     loading : () => {
         return ''
     }
 })
 
 const PatientDetails = Loadable({
-    loader : () => import('./containers/patientDetails.js'),
+    loader : () => import('./containers/PatientDetails.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const UserProfile = Loadable({
+    loader : () => import('./containers/UserProfile.js'),
     loading : () => {
         return ''
     }
@@ -73,6 +80,7 @@ class RouterConfig extends Component {
                         <Route exact path='/doctorprofile/cliniclist' component={ ClinicList } />
                         <Route exact path='/doctorprofile/appointmentslot' component={ AppointmentSlot } />
                         <Route exact path='/doctorprofile/patientdetails' component={ PatientDetails } />
+                        <Route exact path='/userprofile' component={ UserProfile } />
                     </Switch>
                 </BrowserRouter>
             </div>

@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import { } from '../actions/index.js'
 
-import DoctorProfileCard from '../components/commons/doctorProfileCard/index.js'
-import ClinicSelector from '../components/commons/clinicSelector/index.js'
+import ClinicListView from '../components/clinicList/index.js'
 
 class ClinicList extends React.Component {
     constructor(props) {
@@ -14,12 +13,7 @@ class ClinicList extends React.Component {
     render() {
 
         return (
-            <div className="doctorProfile">
-                <DoctorProfileCard 
-                    hideBottom={true}
-                />
-                <ClinicSelector />  
-            </div>
+            <ClinicListView />
         );
     }
 }
@@ -27,7 +21,7 @@ class ClinicList extends React.Component {
 const mapStateToProps = (state) => {
 
     return {
-
+        
     }
 }
 
