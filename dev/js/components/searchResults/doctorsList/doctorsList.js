@@ -7,26 +7,14 @@ import ClockIcon from 'material-ui-icons/AvTimer';
 import LocationsIcon from 'material-ui-icons/LocationOn';
 
 import DoctorProfileCard from '../../commons/doctorProfileCard/index.js'
-import { getDoctors } from "../../../actions";
+
 
 
 class DoctorsList extends React.Component {
     constructor(props) {
         super(props)
     }
-    componentDidMount() {
-        console.log('DoctorsList did mount.');
-        this.getDoctorList();
-    }
-    getDoctorList() {
-        //TODO create request from state filters
 
-        this.props.getDoctors();
-
-
-
-
-    }
     static contextTypes = {
         router: () => null
     }
@@ -50,7 +38,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctors
+        
     }
 }
 
