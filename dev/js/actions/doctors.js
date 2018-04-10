@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {SEARCH_DOCTOR} from '../actions/types';
-export const getDoctors=(registrationNo)=>{  
+export const getDoctors=()=>{  
     return(dispatch)=> {
       axios.get('http://localhost:3000/api/doctors.json')
   .then(function (response) {
