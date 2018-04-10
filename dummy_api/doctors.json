@@ -1,4 +1,5 @@
-[{
+{
+  "searchResult":[{
   "id":654645,
   "name": "Dr.Steve Reddy",
   "practice_duration": 2,
@@ -205,4 +206,7 @@
  
   "consultationCount": 121,
   "rating": 4.2
-}]
+}],
+"status" : "OK",
+"msg" : "5 Results found"
+}
