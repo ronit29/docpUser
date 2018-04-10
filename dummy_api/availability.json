@@ -1,0 +1,77 @@
+{
+    "TimeZone": "IST",
+    "dates": [
+      {
+        "date": 1523358308000,
+        "isAvailable": true,
+        "intervals": [
+          {
+            "isAvailable": true,
+            "name": "Morning",
+            "id": 23342,
+            "timeSlots": [
+              {
+                "start": 1523444708000,
+                "isAvailable": true
+              },
+              {
+                "start": 1523808308000,
+                "isAvailable": false
+              }
+            ]
+          },
+          {
+            "isAvailable": false,
+            "name": "Evening",
+            "id": 23343,
+            "timeSlots": [
+              {
+                "start": 1523444708000,
+                "isAvailable": true
+              },
+              {
+                "start": 1523808308000,
+                "isAvailable": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "date": 1523358308000,
+        "isAvailable": true,
+        "intervals": [
+          {
+            "isAvailable": true,
+            "name": "Morning",
+            "id": 23342,
+            "timeSlots": [
+              {
+                "start": 1523444708000,
+                "isAvailable": true
+              },
+              {
+                "start": 1523808308000,
+                "isAvailable": false
+              }
+            ]
+          },
+          {
+            "isAvailable": false,
+            "name": "Evening",
+            "id": 23343,
+            "timeSlots": [
+              {
+                "start": 1523444708000,
+                "isAvailable": true
+              },
+              {
+                "start": 1523808308000,
+                "isAvailable": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
