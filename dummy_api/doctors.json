@@ -1,6 +1,383 @@
 {
   "doctors": [
     {
+      "id": 654644,
+      "name": "Dr.Steve Reddy",
+      "practice_duration": 2,
+      "profile_img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu1usr0f79D4y9v_KiN9SnIdvBUWxTsO2O9BX6LJHE6ApGsqaGoA",
+      "email": "dr@dr.com",
+      "qualificationSpecialization": [
+        {
+          "qualification": "MBBS"
+        },
+        {
+          "qualification": "MD",
+          "Specialization": "orthopedic"
+        },
+        {
+          "qualification": "MS",
+          "Specialization": "orthopedic"
+        }
+      ],
+      "availability": [
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
+        },
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
+        }
+      ],
+      "pastExperience": "Ex- Fortis Ex-Aims",
+      "consultationCount": 121,
+      "rating": 4.2
+    },
+    {
       "id": 654648,
       "name": "Dr.Steve Reddy",
       "practice_duration": 2,
@@ -8,7 +385,7 @@
       "email": "dr@dr.com",
       "qualificationSpecialization": [
         {
-          "qualification": "MD"
+          "qualification": "MBBS"
         },
         {
           "qualification": "MD",
@@ -28,14 +405,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         },
         {
           "id": 1234,
@@ -45,14 +581,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         }
       ],
       "pastExperience": "Ex- Fortis Ex-Aims",
@@ -60,14 +755,14 @@
       "rating": 4.2
     },
     {
-      "id": 6548645,
+      "id": 654628,
       "name": "Dr.Steve Reddy",
       "practice_duration": 2,
       "profile_img": "https://png.pngtree.com/element_pic/00/16/09/1457d8b2683ba6a.jpg",
       "email": "dr@dr.com",
       "qualificationSpecialization": [
         {
-          "qualification": "MD"
+          "qualification": "MBBS"
         },
         {
           "qualification": "MD",
@@ -87,14 +782,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         },
         {
           "id": 1234,
@@ -104,14 +958,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         }
       ],
       "pastExperience": "Ex- Fortis Ex-Aims",
@@ -119,14 +1132,14 @@
       "rating": 4.2
     },
     {
-      "id": 6546345,
+      "id": 651648,
       "name": "Dr.Steve Reddy",
       "practice_duration": 2,
       "profile_img": "https://png.pngtree.com/element_pic/00/16/09/1457d8b2683ba6a.jpg",
       "email": "dr@dr.com",
       "qualificationSpecialization": [
         {
-          "qualification": "MD"
+          "qualification": "MBBS"
         },
         {
           "qualification": "MD",
@@ -146,14 +1159,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         },
         {
           "id": 1234,
@@ -163,14 +1335,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         }
       ],
       "pastExperience": "Ex- Fortis Ex-Aims",
@@ -178,14 +1509,14 @@
       "rating": 4.2
     },
     {
-      "id": 6546145,
+      "id": 614648,
       "name": "Dr.Steve Reddy",
       "practice_duration": 2,
       "profile_img": "https://png.pngtree.com/element_pic/00/16/09/1457d8b2683ba6a.jpg",
       "email": "dr@dr.com",
       "qualificationSpecialization": [
         {
-          "qualification": "MD"
+          "qualification": "MBBS"
         },
         {
           "qualification": "MD",
@@ -205,14 +1536,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         },
         {
           "id": 1234,
@@ -222,14 +1712,173 @@
             "lat": 28.4595,
             "long": 77.026344
           },
-          "nextAvailable": {
-            "from": 1526358600000,
-            "to": 1526365800000
-          },
-          "fee": {
-            "amount": 1500,
-            "discounted": 1200
-          }
+          "days": [
+            {
+              "day": "MONDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "TUESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "WEDNESDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "THURSDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "FRIDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SATURDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            },
+            {
+              "day": "SUNDAY",
+              "time": [
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                },
+                {
+                  "from": 1526358600000,
+                  "to": 1526365800000,
+                  "fee": {
+                    "amount": 1500,
+                    "discounted": 1200
+                  }
+                }
+              ]
+            }
+          ],
+          "nextAvailable": [
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            },
+            {
+              "from": 1526358600000,
+              "to": 1526365800000,
+              "fee": {
+                "amount": 1500,
+                "discounted": 1200
+              }
+            }
+          ]
         }
       ],
       "pastExperience": "Ex- Fortis Ex-Aims",
