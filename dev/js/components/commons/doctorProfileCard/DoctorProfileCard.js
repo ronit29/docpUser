@@ -12,9 +12,13 @@ class DoctorProfileCard extends React.Component {
         super(props)
     }
 
-    cardClick(id) {
-        this.props.selectDoctor(id)
+    cardClick(id,e) {
         this.context.router.history.push(`/doctorprofile/${id}`)
+    }
+
+    bookNow(id,e){
+        e.stopPropagation()
+        this.context.router.history.push(`/doctorprofile/${id}/availability`)
     }
 
     static contextTypes = {
@@ -40,19 +44,19 @@ class DoctorProfileCard extends React.Component {
     }
 
     getAvailability(availability) {
-        if(availability){
+        if (availability) {
             let { nextAvailable } = availability
-            if(nextAvailable[0]){
+            if (nextAvailable[0]) {
                 let date = new Date(nextAvailable[0].from).toDateString()
                 let timeStart = this.getTime(nextAvailable[0].from)
                 let timeEnd = this.getTime(nextAvailable[0].to)
                 return {
-                    date, timeStart, timeEnd, fee:nextAvailable[0].fee
+                    date, timeStart, timeEnd, fee: nextAvailable[0].fee
                 }
             }
         }
 
-        return { date:'', timeStart:'', timeEnd:'', fee: { amount : '' } }
+        return { date: '', timeStart: '', timeEnd: '', fee: { amount: '' } }
     }
 
     render() {
@@ -63,7 +67,7 @@ class DoctorProfileCard extends React.Component {
         let timeAvailable = this.getAvailability(availability[0])
 
         return (
-            <div className="doctorCard" onClick={this.cardClick.bind(this,id)}>
+            <div className="doctorCard" onClick={this.cardClick.bind(this, id)}>
                 <div className="detailsDiv">
                     <div className="subOptionsImage">
                         <img src={profile_img} className="doctorImage" />
@@ -75,7 +79,7 @@ class DoctorProfileCard extends React.Component {
                         <span className="experience">{practice_duration} years of experience</span>
                     </div>
                     <div className="subOptionsInteract">
-                        <button className="bookNow">
+                        <button className="bookNow" onClick={this.bookNow.bind(this, id)}>
                             Book Now
                             </button>
                         <span className="price">Fee: Rs. {timeAvailable.fee.amount}</span>
@@ -90,8 +94,8 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="subOptions">
                                 <ClockIcon className="clinicIcon" />
-                                <span className="timeEntry">{ timeAvailable.date }</span>
-                                <span className="timeEntry">{ timeAvailable.timeStart } to { timeAvailable.timeEnd }</span>
+                                <span className="timeEntry">{timeAvailable.date}</span>
+                                <span className="timeEntry">{timeAvailable.timeStart} to {timeAvailable.timeEnd}</span>
                             </div>
                             <div className="subOptions">
                                 <LocationsIcon className="clinicIcon" />

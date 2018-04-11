@@ -36,21 +36,7 @@ export const getDoctorById = (doctorId) => (dispatch) => {
       payload: [response.doctor]
     })
 
-    dispatch({
-      type: SELECT_DOCTOR,
-      payload: doctorId
-    })
-
   }).catch(function (error) {
 
   })
-}
-
-export const selectDoctor = (doctorId) => (dispatch) => {
-
-  dispatch({
-    type: SELECT_DOCTOR,
-    payload: doctorId
-  })
-  
 }

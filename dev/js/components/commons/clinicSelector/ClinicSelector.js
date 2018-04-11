@@ -11,8 +11,9 @@ class ClinicSelector extends React.Component {
         super(props)
     }
 
-    selectClinic() {
-        this.context.router.history.push('/doctorprofile/appointmentslot')
+    selectClinic(clinicId) {
+        let doctorId = this.props.match.params.id
+        this.context.router.history.push(`/doctorprofile/${doctorId}/${clinicId}/book`)
     }
 
     static contextTypes = {
@@ -58,7 +59,7 @@ class ClinicSelector extends React.Component {
 
                 {
                     availability.map((clinic, i) => {
-                        return <div key={i} className="clinic" onClick={this.selectClinic.bind(this)}>
+                        return <div key={i} className="clinic" onClick={this.selectClinic.bind(this,clinic.id)}>
                             <div className="name">{clinic.name + ", " + clinic.address}</div>
                             <div className="details">
                                 <ClockIcon className="clockIcon" />

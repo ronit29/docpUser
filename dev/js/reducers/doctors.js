@@ -14,7 +14,7 @@ export default function (state = defaultState, action) {
             },{})
 
             state = Object.assign(state,newState)
-            return state
+            return JSON.parse(JSON.stringify(state))
         }
 
     }

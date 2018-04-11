@@ -3,14 +3,28 @@ import { connect } from 'react-redux';
 
 import DoctorProfileCard from '../commons/doctorProfileCard/index.js'
 import TimeSlotSelector from './timeSlotSelector/index.js'
+import SelectedClinic from '../commons/selectedClinic/index.js'
 
 class AppointmentSlot extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            selectedDoctor: null,
+            selectedClinic : null
+        }
     }
 
     proceed() {
         this.context.router.history.push('/doctorprofile/patientdetails')
+    }
+
+    componentDidMount() {
+        let doctorId = this.props.match.params.id
+        let clinicId = this.props.match.params.clinicId
+        if (doctorId && clinicId) {
+            this.setState({ selectedDoctor: doctorId , selectedClinic : clinicId })
+            this.props.getDoctorById(doctorId)
+        }
     }
 
     static contextTypes = {
@@ -21,24 +35,22 @@ class AppointmentSlot extends React.Component {
 
         return (
             <div className="appointmentSlot">
+
                 {
-                    this.props.selectedDoctor ?
-                        <DoctorProfileCard
-                            hideBottom={true}
-                            details={this.props.DOCTORS[this.props.selectedDoctor]}
-                        /> : ''
+                    this.props.DOCTORS[this.state.selectedDoctor] ?
+                        <div>
+                            <DoctorProfileCard
+                                hideBottom={true}
+                                details={this.props.DOCTORS[this.state.selectedDoctor]}
+                            />
+                            <SelectedClinic 
+                                selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
+                                selectedClinic={this.state.selectedClinic}
+                            />
+                            <TimeSlotSelector />
+                            <button className="proceedbtn" onClick={this.proceed.bind(this)}>Proceed</button>
+                        </div> : ""
                 }
-
-                <div className="selectedClinic">
-                    <h5>Selected Clinic</h5>
-                    <span className="clinicName">Sarvodaya Clinic Sector 50, Gurgaon</span>
-                    <span className="fee">Fee: Rs.300</span>
-                </div>
-
-                <TimeSlotSelector />
-
-
-                <button className="proceedbtn" onClick={this.proceed.bind(this)}>Proceed</button>
 
             </div>
         );

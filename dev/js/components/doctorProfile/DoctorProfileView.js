@@ -8,11 +8,15 @@ import ClinicSelector from '../../components/commons/clinicSelector/index.js'
 class DoctorProfileView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            selectedDoctor : null
+        }
     }
 
     componentDidMount() {
         let doctorId = this.props.match.params.id
         if (doctorId) {
+            this.setState({selectedDoctor : doctorId})
             this.props.getDoctorById(doctorId)
         }
     }
@@ -23,15 +27,15 @@ class DoctorProfileView extends React.Component {
             <div className="doctorProfile">
 
                 {
-                    this.props.DOCTORS[this.props.selectedDoctor] ?
+                    this.props.DOCTORS[this.state.selectedDoctor] ?
                         <div>
                             <DoctorProfileCard
                                 hideBottom={true}
-                                details={this.props.DOCTORS[this.props.selectedDoctor]}
+                                details={this.props.DOCTORS[this.state.selectedDoctor]}
                             />
                             <AboutDoctor />
                             <ClinicSelector
-                                details={this.props.DOCTORS[this.props.selectedDoctor]}
+                                details={this.props.DOCTORS[this.state.selectedDoctor]}
                                 {...this.props}
                             />
                             <ProfessionalGraph />

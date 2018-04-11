@@ -19,12 +19,11 @@ class DoctorProfile extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    
-    let { selectedDoctor } = state.DOCTOR_SEARCH
+
     let DOCTORS = state.DOCTORS
 
     return {
-        DOCTORS, selectedDoctor
+        DOCTORS
     }
 }
 
