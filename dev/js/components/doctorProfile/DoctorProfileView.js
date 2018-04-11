@@ -10,27 +10,34 @@ class DoctorProfileView extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        let doctorId = this.props.match.params.id
+        if (doctorId) {
+            this.props.getDoctorById(doctorId)
+        }
+    }
+
     render() {
 
         return (
             <div className="doctorProfile">
+
                 {
-                    this.props.selectedDoctor ?
-                        <DoctorProfileCard
-                            hideBottom={true}
-                            details={this.props.DOCTORS[this.props.selectedDoctor]}
-                        /> : ''
-                }
-                <AboutDoctor />
-                {
-                    this.props.selectedDoctor ?
-                        <ClinicSelector
-                            details={this.props.DOCTORS[this.props.selectedDoctor]}
-                            {...this.props}
-                        /> : ''
+                    this.props.DOCTORS[this.props.selectedDoctor] ?
+                        <div>
+                            <DoctorProfileCard
+                                hideBottom={true}
+                                details={this.props.DOCTORS[this.props.selectedDoctor]}
+                            />
+                            <AboutDoctor />
+                            <ClinicSelector
+                                details={this.props.DOCTORS[this.props.selectedDoctor]}
+                                {...this.props}
+                            />
+                            <ProfessionalGraph />
+                        </div> : ""
                 }
 
-                <ProfessionalGraph />
             </div>
         );
     }

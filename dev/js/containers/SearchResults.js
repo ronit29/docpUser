@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctors: () => dispatch(getDoctors()),
+        getDoctors: (searchState,filterState) => dispatch(getDoctors(searchState,filterState)),
         selectDoctor : (doctorId) => dispatch(selectDoctor(doctorId))
     }
 }

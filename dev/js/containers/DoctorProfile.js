@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../actions/index.js'
+import { getDoctorById } from '../actions/index.js'
 
 import DoctorProfileView from '../components/doctorProfile/index.js'
 
@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getDoctorById : (doctorId) => dispatch(getDoctorById(doctorId))
     }
 }
 

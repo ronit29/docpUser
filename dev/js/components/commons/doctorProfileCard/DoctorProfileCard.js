@@ -14,7 +14,7 @@ class DoctorProfileCard extends React.Component {
 
     cardClick(id) {
         this.props.selectDoctor(id)
-        this.context.router.history.push('/doctorprofile')
+        this.context.router.history.push(`/doctorprofile/${id}`)
     }
 
     static contextTypes = {
@@ -24,8 +24,8 @@ class DoctorProfileCard extends React.Component {
     getQualificationStr(qualificationSpecialization) {
         return qualificationSpecialization.reduce((str, curr, i) => {
             str += `${curr.qualification}`
-            if (curr.Specialization) {
-                str += ` - ${curr.Specialization}`
+            if (curr.specialization) {
+                str += ` - ${curr.specialization}`
             }
             if (i < qualificationSpecialization.length - 1) str += `, `;
             return str
@@ -40,13 +40,19 @@ class DoctorProfileCard extends React.Component {
     }
 
     getAvailability(availability) {
-        let { nextAvailable } = availability
-        let date = new Date(nextAvailable.from).toDateString()
-        let timeStart = this.getTime(nextAvailable.from)
-        let timeEnd = this.getTime(nextAvailable.to)
-        return {
-            date, timeStart, timeEnd
+        if(availability){
+            let { nextAvailable } = availability
+            if(nextAvailable[0]){
+                let date = new Date(nextAvailable[0].from).toDateString()
+                let timeStart = this.getTime(nextAvailable[0].from)
+                let timeEnd = this.getTime(nextAvailable[0].to)
+                return {
+                    date, timeStart, timeEnd, fee:nextAvailable[0].fee
+                }
+            }
         }
+
+        return { date:'', timeStart:'', timeEnd:'', fee: { amount : '' } }
     }
 
     render() {
@@ -72,7 +78,7 @@ class DoctorProfileCard extends React.Component {
                         <button className="bookNow">
                             Book Now
                             </button>
-                        <span className="price">Fee: Rs. {availability[0].fee.amount}</span>
+                        <span className="price">Fee: Rs. {timeAvailable.fee.amount}</span>
                     </div>
                 </div>
                 {

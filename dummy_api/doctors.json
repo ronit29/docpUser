@@ -31,7 +31,7 @@
           "days": [
             {
               "day": "MONDAY",
-              "isAvailable":true,
+              "isAvailable":false,
               "time": [
                 {
                   "from": 1526358600000,
