@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctors } from '../actions/index.js'
+import { getDoctors, selectDoctor } from '../actions/index.js'
 
 import SearchResultsView from '../components/searchResults/index.js'
 
@@ -16,23 +16,23 @@ class SearchResults extends React.Component {
     render() {
 
         return (
-            <SearchResultsView
-                getDoctors={this.props.getDoctors.bind(this)}
-            />
+            <SearchResultsView { ...this.props } />
         );
     }
 }
 
 const mapStateToProps = (state) => {
-
+    let DOCTORS = state.DOCTORS
+    let { doctorList, LOADING, ERROR } = state.DOCTOR_SEARCH
     return {
-
+        DOCTORS, doctorList, LOADING, ERROR
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctors: () => dispatch(getDoctors())
+        getDoctors: () => dispatch(getDoctors()),
+        selectDoctor : (doctorId) => dispatch(selectDoctor(doctorId))
     }
 }
 

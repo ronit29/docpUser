@@ -25,7 +25,7 @@ class SearchResultsView extends React.Component {
         return (
             <div className="searchResults">
                 <TopBar />
-                <DoctorsList />
+                <DoctorsList { ...this.props } />
             </div>
         );
     }

@@ -12,7 +12,8 @@ class DoctorProfileCard extends React.Component {
         super(props)
     }
 
-    cardClick(){
+    cardClick(id) {
+        this.props.selectDoctor(id)
         this.context.router.history.push('/doctorprofile')
     }
 
@@ -20,25 +21,58 @@ class DoctorProfileCard extends React.Component {
         router: () => null
     }
 
+    getQualificationStr(qualificationSpecialization) {
+        return qualificationSpecialization.reduce((str, curr, i) => {
+            str += `${curr.qualification}`
+            if (curr.Specialization) {
+                str += ` - ${curr.Specialization}`
+            }
+            if (i < qualificationSpecialization.length - 1) str += `, `;
+            return str
+        }, "")
+    }
+
+    getTime(unix_timestamp) {
+        var date = new Date(unix_timestamp * 1000);
+        var hours = date.getHours();
+        var minutes = "0" + date.getMinutes();
+        return hours + ':' + minutes.substr(-2)
+    }
+
+    getAvailability(availability) {
+        let { nextAvailable } = availability
+        let date = new Date(nextAvailable.from).toDateString()
+        let timeStart = this.getTime(nextAvailable.from)
+        let timeEnd = this.getTime(nextAvailable.to)
+        return {
+            date, timeStart, timeEnd
+        }
+    }
+
     render() {
 
+        let { id, name, profile_img, practice_duration, qualificationSpecialization, consultationCount, availability, pastExperience } = this.props.details
+
+        let qualificationString = this.getQualificationStr(qualificationSpecialization)
+        let timeAvailable = this.getAvailability(availability[0])
+
         return (
-            <div className="doctorCard" onClick={this.cardClick.bind(this)}>
+            <div className="doctorCard" onClick={this.cardClick.bind(this,id)}>
                 <div className="detailsDiv">
                     <div className="subOptionsImage">
-                        <EmotiIcon className="doctorImage" />
+                        <img src={profile_img} className="doctorImage" />
                     </div>
                     <div className="subOptionsContent">
-                        <span className="name">Dr. Steve Ray</span>
-                        <span className="qualification">MBBS,MD - General Medicine</span>
-                        <span className="designation">General Physician</span>
-                        <span className="experience">12 years of experience</span>
+                        <span className="name">{name}</span>
+                        <span className="qualification">{qualificationString}</span>
+                        <span className="designation">{pastExperience}</span>
+                        <span className="experience">{practice_duration} years of experience</span>
                     </div>
                     <div className="subOptionsInteract">
                         <button className="bookNow">
                             Book Now
                             </button>
-                        <span className="price">Fee: Rs. 250</span>
+                        <span className="price">Fee: Rs. {availability[0].fee.amount}</span>
                     </div>
                 </div>
                 {
@@ -46,16 +80,16 @@ class DoctorProfileCard extends React.Component {
                         <div className="bottomOptions">
                             <div className="subOptions">
                                 <HomeIcon className="clinicIcon" />
-                                <span className="clinicName">Dr. Gupta Clinic</span>
+                                <span className="clinicName">{availability[0].name}</span>
                             </div>
                             <div className="subOptions">
                                 <ClockIcon className="clinicIcon" />
-                                <span className="timeEntry">09:00 to 14:00</span>
-                                <span className="timeEntry">17:00 to 22:00</span>
+                                <span className="timeEntry">{ timeAvailable.date }</span>
+                                <span className="timeEntry">{ timeAvailable.timeStart } to { timeAvailable.timeEnd }</span>
                             </div>
                             <div className="subOptions">
                                 <LocationsIcon className="clinicIcon" />
-                                <span className="clinicName">Sector 5,Gurgaon</span>
+                                <span className="clinicName">{availability[0].address}</span>
                             </div>
                         </div>
                 }

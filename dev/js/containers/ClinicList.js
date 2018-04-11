@@ -13,15 +13,18 @@ class ClinicList extends React.Component {
     render() {
 
         return (
-            <ClinicListView />
+            <ClinicListView {...this.props} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
 
+    let { selectedDoctor } = state.DOCTOR_SEARCH
+    let DOCTORS = state.DOCTORS
+
     return {
-        
+        DOCTORS, selectedDoctor
     }
 }
 

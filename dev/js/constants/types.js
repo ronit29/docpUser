@@ -1,1 +1,3 @@
-export const SEARCH_DOCTOR = 'SEARCH_DOCTOR';
+export const APPEND_DOCTORS = 'APPEND_DOCTORS';
+export const DOCTOR_SEARCH = 'DOCTOR_SEARCH';
+export const SELECT_DOCTOR = 'SELECT_DOCTOR';

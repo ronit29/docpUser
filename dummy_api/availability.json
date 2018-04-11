@@ -8,7 +8,11 @@
           {
             "isAvailable": true,
             "name": "Morning",
-            "id": 23342,
+            "fee": {
+              "amount": 1500,
+              "discounted": 1200
+            },
+            "id": 231342,
             "timeSlots": [
               {
                 "start": 1523444708000,

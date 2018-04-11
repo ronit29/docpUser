@@ -13,15 +13,18 @@ class DoctorProfile extends React.Component {
     render() {
 
         return (
-            <DoctorProfileView />
+            <DoctorProfileView {...this.props} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
+    
+    let { selectedDoctor } = state.DOCTOR_SEARCH
+    let DOCTORS = state.DOCTORS
 
     return {
-
+        DOCTORS, selectedDoctor
     }
 }
 

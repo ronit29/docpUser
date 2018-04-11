@@ -9,7 +9,7 @@ class AppointmentSlot extends React.Component {
         super(props)
     }
 
-    proceed(){
+    proceed() {
         this.context.router.history.push('/doctorprofile/patientdetails')
     }
 
@@ -21,9 +21,13 @@ class AppointmentSlot extends React.Component {
 
         return (
             <div className="appointmentSlot">
-                <DoctorProfileCard
-                    hideBottom={true}
-                />
+                {
+                    this.props.selectedDoctor ?
+                        <DoctorProfileCard
+                            hideBottom={true}
+                            details={this.props.DOCTORS[this.props.selectedDoctor]}
+                        /> : ''
+                }
 
                 <div className="selectedClinic">
                     <h5>Selected Clinic</h5>
@@ -35,7 +39,7 @@ class AppointmentSlot extends React.Component {
 
 
                 <button className="proceedbtn" onClick={this.proceed.bind(this)}>Proceed</button>
-                
+
             </div>
         );
     }

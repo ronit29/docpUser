@@ -1,212 +1,241 @@
 {
-  "searchResult":[{
-  "id":654645,
-  "name": "Dr.Steve Reddy",
-  "practice_duration": 2,
- 
-   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
-  "email": "dr@dr.com",
- 
-  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
-  "availability": [
+  "doctors": [
     {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
+      "id": 654648,
+      "name": "Dr.Steve Reddy",
+      "practice_duration": 2,
+      "profile_img": "https://png.pngtree.com/element_pic/00/16/09/1457d8b2683ba6a.jpg",
+      "email": "dr@dr.com",
+      "qualificationSpecialization": [
+        {
+          "qualification": "MD"
+        },
+        {
+          "qualification": "MD",
+          "Specialization": "orthopedic"
+        },
+        {
+          "qualification": "MS",
+          "Specialization": "orthopedic"
+        }
+      ],
+      "availability": [
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        },
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        }
+      ],
+      "pastExperience": "Ex- Fortis Ex-Aims",
+      "consultationCount": 121,
+      "rating": 4.2
     },
     {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
-    }
-  ],
-  "pastExperience":"Ex- Fortis Ex-Aims",
- 
-  "consultationCount": 121,
-  "rating": 4.2
-},
-{
-  "id":654645,
-  "name": "Dr.Steve Reddy",
-  "practice_duration": 2,
- 
-   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
-  "email": "dr@dr.com",
- 
-  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
-  "availability": [
-    {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
+      "id": 6548645,
+      "name": "Dr.Steve Reddy",
+      "practice_duration": 2,
+      "profile_img": "https://png.pngtree.com/element_pic/00/16/09/1457d8b2683ba6a.jpg",
+      "email": "dr@dr.com",
+      "qualificationSpecialization": [
+        {
+          "qualification": "MD"
+        },
+        {
+          "qualification": "MD",
+          "Specialization": "orthopedic"
+        },
+        {
+          "qualification": "MS",
+          "Specialization": "orthopedic"
+        }
+      ],
+      "availability": [
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        },
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        }
+      ],
+      "pastExperience": "Ex- Fortis Ex-Aims",
+      "consultationCount": 121,
+      "rating": 4.2
     },
     {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
-    }
-  ],
-  "pastExperience":"Ex- Fortis Ex-Aims",
- 
-  "consultationCount": 121,
-  "rating": 4.2
-},
-{
-  "id":654645,
-  "name": "Dr.Steve Reddy",
-  "practice_duration": 2,
- 
-   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
-  "email": "dr@dr.com",
- 
-  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
-  "availability": [
-    {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
+      "id": 6546345,
+      "name": "Dr.Steve Reddy",
+      "practice_duration": 2,
+      "profile_img": "https://png.pngtree.com/element_pic/00/16/09/1457d8b2683ba6a.jpg",
+      "email": "dr@dr.com",
+      "qualificationSpecialization": [
+        {
+          "qualification": "MD"
+        },
+        {
+          "qualification": "MD",
+          "Specialization": "orthopedic"
+        },
+        {
+          "qualification": "MS",
+          "Specialization": "orthopedic"
+        }
+      ],
+      "availability": [
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        },
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        }
+      ],
+      "pastExperience": "Ex- Fortis Ex-Aims",
+      "consultationCount": 121,
+      "rating": 4.2
     },
     {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
+      "id": 6546145,
+      "name": "Dr.Steve Reddy",
+      "practice_duration": 2,
+      "profile_img": "https://png.pngtree.com/element_pic/00/16/09/1457d8b2683ba6a.jpg",
+      "email": "dr@dr.com",
+      "qualificationSpecialization": [
+        {
+          "qualification": "MD"
+        },
+        {
+          "qualification": "MD",
+          "Specialization": "orthopedic"
+        },
+        {
+          "qualification": "MS",
+          "Specialization": "orthopedic"
+        }
+      ],
+      "availability": [
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        },
+        {
+          "id": 1234,
+          "name": "Reddy Clnic",
+          "address": "abc nagar",
+          "location": {
+            "lat": 28.4595,
+            "long": 77.026344
+          },
+          "nextAvailable": {
+            "from": 1526358600000,
+            "to": 1526365800000
+          },
+          "fee": {
+            "amount": 1500,
+            "discounted": 1200
+          }
+        }
+      ],
+      "pastExperience": "Ex- Fortis Ex-Aims",
+      "consultationCount": 121,
+      "rating": 4.2
     }
   ],
-  "pastExperience":"Ex- Fortis Ex-Aims",
- 
-  "consultationCount": 121,
-  "rating": 4.2
-},
-{
-  "id":654645,
-  "name": "Dr.Steve Reddy",
-  "practice_duration": 2,
- 
-   "profile_img": "https://pbs.twimg.com/profile_images/543537716147658752/VzcS3sa_.png",
-  "email": "dr@dr.com",
- 
-  "qualificationSpecialization":[{"qualification":"MD"},{"qualification":"MD","Specialization":"orthopedic"},{"qualification":"MS","Specialization":"orthopedic"}],
-  "availability": [
-    {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
-    },
-    {
-      "id": 1234,
-      "name": "Reddy Clnic",
-      "address": "abc nagar",
-     
-      "location": {
-        "lat": 28.4595,
-        "long": 77.026344
-      },
-      "nextAvailable": {
-        "from": 1526358600000,
-        "to": 1526365800000
-      },
-      "fee": {
-        "amount": 1500,
-        "discounted": 1200
-      }
-    }
-  ],
-  "pastExperience":"Ex- Fortis Ex-Aims",
- 
-  "consultationCount": 121,
-  "rating": 4.2
-}],
-"status" : "OK",
-"msg" : "5 Results found"
+  "message": "5 Results found"
 }

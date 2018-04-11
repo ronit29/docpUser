@@ -19,11 +19,15 @@ class DoctorsList extends React.Component {
 
     render() {
 
+        let { DOCTORS, doctorList } = this.props
+        
         return (
             <div className="doctorsList">
-                <DoctorProfileCard />
-                <DoctorProfileCard />
-                <DoctorProfileCard />
+                {
+                    doctorList.map((docId, i) => {
+                        return <DoctorProfileCard details={DOCTORS[docId]} selectDoctor={this.props.selectDoctor} key={i}/>
+                    })
+                }
             </div>
         );
     }

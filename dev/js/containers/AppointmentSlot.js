@@ -13,15 +13,18 @@ class AppointmentSlot extends React.Component {
     render() {
 
         return (
-            <AppointmentSlotView />
+            <AppointmentSlotView {...this.props} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
 
-    return {
+    let { selectedDoctor } = state.DOCTOR_SEARCH
+    let DOCTORS = state.DOCTORS
 
+    return {
+        DOCTORS, selectedDoctor
     }
 }
 

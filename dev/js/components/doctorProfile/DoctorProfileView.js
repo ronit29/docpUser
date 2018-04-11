@@ -14,12 +14,23 @@ class DoctorProfileView extends React.Component {
 
         return (
             <div className="doctorProfile">
-                <DoctorProfileCard 
-                    hideBottom={true}
-                />
+                {
+                    this.props.selectedDoctor ?
+                        <DoctorProfileCard
+                            hideBottom={true}
+                            details={this.props.DOCTORS[this.props.selectedDoctor]}
+                        /> : ''
+                }
                 <AboutDoctor />
-                <ClinicSelector />
-                <ProfessionalGraph />   
+                {
+                    this.props.selectedDoctor ?
+                        <ClinicSelector
+                            details={this.props.DOCTORS[this.props.selectedDoctor]}
+                            {...this.props}
+                        /> : ''
+                }
+
+                <ProfessionalGraph />
             </div>
         );
     }
