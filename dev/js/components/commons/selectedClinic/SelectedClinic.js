@@ -11,7 +11,7 @@ class SelectedClinic extends React.Component {
     static contextTypes = {
         router: () => null
     }
-
+	
     render() {
 
         let { selectedDoctor, selectedClinic } = this.props

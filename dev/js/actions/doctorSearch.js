@@ -3,40 +3,50 @@ import { API_GET } from '../api/api.js';
 
 
 export const getDoctors = (searchState = {}, filterState = {}) => (dispatch) => {
-  API_GET('/doctors.json').then(function (response) {
-    
-    dispatch({
-      type: APPEND_DOCTORS,
-      payload: response.doctors
-    })
+	API_GET('/doctors.json').then(function (response) {
 
-    dispatch({
-      type: DOCTOR_SEARCH,
-      payload: response.doctors
-    })
+		dispatch({
+			type: APPEND_DOCTORS,
+			payload: response.doctors
+		})
 
-    dispatch({
-      type: MERGE_SEARCH_STATE,
-      payload: searchState
-    })
+		dispatch({
+			type: DOCTOR_SEARCH,
+			payload: response.doctors
+		})
 
-  }).catch(function (error) {
+		dispatch({
+			type: MERGE_SEARCH_STATE,
+			payload: searchState
+		})
 
-  })
+	}).catch(function (error) {
+
+	})
 }
 
 export const getDoctorById = (doctorId) => (dispatch) => {
-  // this API should return detailed doctor
-  API_GET('/doctors.json').then(function (response) {
-    // mocking API , TODO : remove
-    response.doctor = response.doctors.filter( doc => doc.id == doctorId )[0]
+	// this API should return detailed doctor
+	API_GET('/doctors.json').then(function (response) {
+		// mocking API , TODO : remove
+		response.doctor = response.doctors.filter(doc => doc.id == doctorId)[0]
 
-    dispatch({
-      type: APPEND_DOCTORS,
-      payload: [response.doctor]
-    })
+		dispatch({
+			type: APPEND_DOCTORS,
+			payload: [response.doctor]
+		})
 
-  }).catch(function (error) {
+	}).catch(function (error) {
 
-  })
+	})
+}
+
+export const getTimeSlots = (doctorId,clinicId, callback) => (dispatch) => {
+	API_GET('/availability.json').then(function (response) {
+		
+		callback(response)
+
+	}).catch(function (error) {
+
+	})
 }

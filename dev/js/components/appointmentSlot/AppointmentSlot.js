@@ -10,7 +10,8 @@ class AppointmentSlot extends React.Component {
         super(props)
         this.state = {
             selectedDoctor: null,
-            selectedClinic : null
+            selectedClinic: null,
+            timeSlots: null
         }
     }
 
@@ -22,8 +23,12 @@ class AppointmentSlot extends React.Component {
         let doctorId = this.props.match.params.id
         let clinicId = this.props.match.params.clinicId
         if (doctorId && clinicId) {
-            this.setState({ selectedDoctor: doctorId , selectedClinic : clinicId })
+            this.setState({ selectedDoctor: doctorId, selectedClinic: clinicId })
             this.props.getDoctorById(doctorId)
+
+            this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
+                this.setState({ timeSlots })
+            })
         }
     }
 
@@ -43,11 +48,16 @@ class AppointmentSlot extends React.Component {
                                 hideBottom={true}
                                 details={this.props.DOCTORS[this.state.selectedDoctor]}
                             />
-                            <SelectedClinic 
+                            <SelectedClinic
                                 selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                 selectedClinic={this.state.selectedClinic}
                             />
-                            <TimeSlotSelector />
+                            {
+                                this.state.timeSlots ?
+                                    <TimeSlotSelector
+                                        timeSlots={this.state.timeSlots}
+                                    /> : ''
+                            }
                             <button className="proceedbtn" onClick={this.proceed.bind(this)}>Proceed</button>
                         </div> : ""
                 }

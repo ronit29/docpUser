@@ -412,7 +412,7 @@
       ],
       "availability": [
         {
-          "id": 1234,
+          "id": 12345,
           "name": "Reddy Clnic",
           "address": "abc nagar",
           "location": {
@@ -595,8 +595,8 @@
           ]
         },
         {
-          "id": 1234,
-          "name": "Reddy Clnic",
+          "id": 12346,
+          "name": "Gera Clnic",
           "address": "abc nagar",
           "location": {
             "lat": 28.4595,
