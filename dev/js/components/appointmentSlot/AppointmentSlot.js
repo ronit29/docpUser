@@ -11,12 +11,19 @@ class AppointmentSlot extends React.Component {
         this.state = {
             selectedDoctor: null,
             selectedClinic: null,
-            timeSlots: null
+            timeSlots: null,
+            selectedSlot : null
         }
     }
 
     proceed() {
-        this.context.router.history.push('/doctorprofile/patientdetails')
+        if(this.state.selectedSlot){
+            this.context.router.history.push(`/doctorprofile/${this.state.selectedDoctor}/${this.state.selectedClinic}/bookdetails?t=${this.state.selectedSlot.start}`)
+        }
+    }
+
+    selectTimeSlot(slot){
+        this.setState({ selectedSlot: slot })
     }
 
     componentDidMount() {
@@ -56,6 +63,7 @@ class AppointmentSlot extends React.Component {
                                 this.state.timeSlots ?
                                     <TimeSlotSelector
                                         timeSlots={this.state.timeSlots}
+                                        selectTimeSlot= {this.selectTimeSlot.bind(this)}
                                     /> : ''
                             }
                             <button className="proceedbtn" onClick={this.proceed.bind(this)}>Proceed</button>
