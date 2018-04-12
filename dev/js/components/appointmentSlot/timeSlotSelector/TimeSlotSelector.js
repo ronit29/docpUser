@@ -21,6 +21,7 @@ class TimeSlotSelector extends React.Component {
     setDefaultSelected(timeSlots) {
         let days = timeSlots.dates;
         let defaultDayIndex = this.getFirstAvailableDay(days);
+        
         if (defaultDayIndex || defaultDayIndex === 0) {
             this.setState({ selectedDay: defaultDayIndex });
             var defautInterwalIndex = this.getFirstAvailableInterwal(days[defaultDayIndex].intervals);
@@ -44,7 +45,6 @@ class TimeSlotSelector extends React.Component {
                 return parseInt(interwalIndex);
             }
         }
-        return 0;
     }
 
     getFirstAvailableTimeSlot(timeSlots) {
@@ -52,10 +52,14 @@ class TimeSlotSelector extends React.Component {
         for (let timeSlotIndex in timeSlots) {
             let timeSlot = timeSlots[timeSlotIndex];
             if (timeSlot && timeSlot.isAvailable) {
+                // calling parent timeSlot setter
+                this.props.selectTimeSlot(timeSlot)
                 return parseInt(timeSlotIndex);
             }
         }
-        return 0;
+
+        
+
     }
 
     getFirstAvailableDay(days) {
@@ -66,11 +70,10 @@ class TimeSlotSelector extends React.Component {
                 return parseInt(dayIndex);
             }
         }
-        return 0;
     }
     onDateClick(date, selectedIndex, index) {
 
-        if (selectedIndex !== index&&date.isAvailable) {
+        if (selectedIndex !== index && date.isAvailable) {
             var availableInterwal = this.getFirstAvailableInterwal(date.intervals)
             if (availableInterwal || availableInterwal === 0) {
                 let timeSlots = date.intervals[availableInterwal].timeSlots;
@@ -84,7 +87,7 @@ class TimeSlotSelector extends React.Component {
 
 
 
-        if (selectedIndex !== index&&interwal.isAvailable) {
+        if (selectedIndex !== index && interwal.isAvailable) {
             let timeSlots = interwal.timeSlots;
             var availableTimeSlot = this.getFirstAvailableTimeSlot(timeSlots);
 
@@ -95,11 +98,13 @@ class TimeSlotSelector extends React.Component {
     }
     onTimeSlotClick(timeSlot, selectedIndex, index) {
 
-        if (selectedIndex !== index&&timeSlot.isAvailable) {
+        if (selectedIndex !== index && timeSlot.isAvailable) {
             this.setState({ selectedTimeSlot: index });
+            // calling parent timeSlot setter
+            this.props.selectTimeSlot(timeSlot)
         }
     }
- 
+
     render() {
 
         let { dates } = this.props.timeSlots
@@ -109,24 +114,23 @@ class TimeSlotSelector extends React.Component {
         let dateList = []
 
 
-        dateList= dates.map((date, i) => {
+        dateList = dates.map((date, i) => {
             let dayDate = new Date(date.date).getDate()
             let dayName = getDayName(date.date);
             let selected = this.state.selectedDay == i
-            return <div key={i} onClick={this.onDateClick.bind(this, date, this.state.selectedDay, i)} className={date.isAvailable?(selected ? "dateTile selected" : "dateTile"):"dateTile disabled" }>
+            return <div key={i} onClick={this.onDateClick.bind(this, date, this.state.selectedDay, i)} className={date.isAvailable ? (selected ? "dateTile selected" : "dateTile") : "dateTile disabled"}>
                 <p className="date">{dayDate}</p>
                 <p className="day">{dayName}</p>
             </div>
         })
         intervals = dates[this.state.selectedDay].intervals.map((interval, i) => {
-            debugger
             let selected = this.state.selectedInterval == i
-            return <button key={i} onClick={this.onIntervalClick.bind(this, interval, this.state.selectedInterval, i)} className={interval.isAvailable?(selected ? "tsBtn selected" : "tsBtn") : "tsBtn disabled" }>{interval.name}</button>
+            return <button key={i} onClick={this.onIntervalClick.bind(this, interval, this.state.selectedInterval, i)} className={interval.isAvailable ? (selected ? "tsBtn selected" : "tsBtn") : "tsBtn disabled"}>{interval.name}</button>
         })
 
         timeSlots = dates[this.state.selectedDay].intervals[this.state.selectedInterval].timeSlots.map((slot, i) => {
             let selected = this.state.selectedTimeSlot == i
-            return <span key={i} onClick={this.onTimeSlotClick.bind(this, slot, this.state.selectedTimeSlot, i)} className={slot.isAvailable?(selected ? "slot selected" : "slot"):"slot disabled"}>{getTime(slot.start)}</span>
+            return <span key={i} onClick={this.onTimeSlotClick.bind(this, slot, this.state.selectedTimeSlot, i)} className={slot.isAvailable ? (selected ? "slot selected" : "slot") : "slot disabled"}>{getTime(slot.start)}</span>
         })
 
 

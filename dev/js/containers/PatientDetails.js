@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../actions/index.js'
+import { getDoctorById } from '../actions/index.js'
 
 import PatientDetailsView from '../components/patientDetails/index.js'
 
@@ -13,21 +13,23 @@ class PatientDetails extends React.Component {
     render() {
 
         return (
-            <PatientDetailsView />
+            <PatientDetailsView {...this.props} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
 
-    return {
+    let DOCTORS = state.DOCTORS
 
+    return {
+        DOCTORS
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getDoctorById : (doctorId) => dispatch(getDoctorById(doctorId))
     }
 }
 
