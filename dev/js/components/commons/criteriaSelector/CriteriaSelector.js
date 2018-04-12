@@ -8,7 +8,11 @@ class CriteriaSelector extends React.Component {
     }
 
     handleDelete(id, handler) {
-        this.props[handler](id)
+        if(handler == 'toggleCriteria'){
+            this.props[handler]({id})
+        } else{
+            this.props[handler](id)
+        }
     }
 
     static contextTypes = {
@@ -20,6 +24,7 @@ class CriteriaSelector extends React.Component {
         let pills = []
         let conditions = []
         let specialities = []
+        let criterias = []
 
         if (this.props.commonlySearchedConditions) {
             conditions = this.props.commonlySearchedConditions.filter((pill) => {
@@ -39,8 +44,15 @@ class CriteriaSelector extends React.Component {
                 return pill
             })
         }
+        if(this.props.selectedCriteria){
+            criterias = Object.keys(this.props.selectedCriteria).map((criteria) => {
+                let pill = this.props.selectedCriteria[criteria]
+                pill.type = 'toggleCriteria'
+                return pill
+            })
+        }
 
-        pills = [...conditions, ...specialities]
+        pills = [...conditions, ...specialities, ...criterias]
         pills = pills.sort((a,b) => {
             let dateA = new Date(a.ts).getTime()
             let dateB = new Date(b.ts).getTime()

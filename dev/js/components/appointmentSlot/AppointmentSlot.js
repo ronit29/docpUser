@@ -53,6 +53,7 @@ class AppointmentSlot extends React.Component {
                         <div>
                             <DoctorProfileCard
                                 hideBottom={true}
+                                hideBookNow={true}
                                 details={this.props.DOCTORS[this.state.selectedDoctor]}
                             />
                             <SelectedClinic

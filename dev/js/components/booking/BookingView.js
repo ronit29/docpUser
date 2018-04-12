@@ -32,20 +32,20 @@ class BookingView extends React.Component {
 
                 <div className="details">
                     <div>
-                        <span class="lbl">With</span>
-                        <span class="cntnt">Dr. Steve Smith</span>
+                        <span className="lbl">With</span>
+                        <span className="cntnt">Dr. Steve Smith</span>
                     </div>
                     <div>
-                        <span class="lbl">Where</span>
-                        <span class="cntnt">Sarvodaya Clinic, # 361, Sector 50, Gurgaon</span>
+                        <span className="lbl">Where</span>
+                        <span className="cntnt">Sarvodaya Clinic, # 361, Sector 50, Gurgaon</span>
                     </div>
                     <div>
-                        <span class="lbl">When</span>
-                        <span class="cntnt">Wednesday, June 27, 2018, 11:45AM</span>
+                        <span className="lbl">When</span>
+                        <span className="cntnt">Wednesday, June 27, 2018, 11:45AM</span>
                     </div>
                     <div>
-                        <span class="lbl">Reference#</span>
-                        <span class="cntnt">HUVHJB87HJBJH</span>
+                        <span className="lbl">Reference#</span>
+                        <span className="cntnt">HUVHJB87HJBJH</span>
                     </div>
                 </div>
 

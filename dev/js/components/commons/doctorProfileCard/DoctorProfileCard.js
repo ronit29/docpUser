@@ -12,11 +12,11 @@ class DoctorProfileCard extends React.Component {
         super(props)
     }
 
-    cardClick(id,e) {
+    cardClick(id, e) {
         this.context.router.history.push(`/doctorprofile/${id}`)
     }
 
-    bookNow(id,e){
+    bookNow(id, e) {
         e.stopPropagation()
         this.context.router.history.push(`/doctorprofile/${id}/availability`)
     }
@@ -78,12 +78,15 @@ class DoctorProfileCard extends React.Component {
                         <span className="designation">{pastExperience}</span>
                         <span className="experience">{practice_duration} years of experience</span>
                     </div>
-                    <div className="subOptionsInteract">
-                        <button className="bookNow" onClick={this.bookNow.bind(this, id)}>
-                            Book Now
-                            </button>
-                        <span className="price">Fee: Rs. {timeAvailable.fee.amount}</span>
-                    </div>
+                    {
+                        !!this.props.hideBookNow ? '' :
+                            <div className="subOptionsInteract">
+                                <button className="bookNow" onClick={this.bookNow.bind(this, id)}>
+                                    Book Now
+                                    </button>
+                                <span className="price">Fee: Rs. {timeAvailable.fee.amount}</span>
+                            </div>
+                    }
                 </div>
                 {
                     !!this.props.hideBottom ? '' :

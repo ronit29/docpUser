@@ -1,4 +1,5 @@
-import { TOOGLE_CONDITIONS, TOOGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE } from '../constants/types';
+import { TOOGLE_CONDITIONS, TOOGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA } from '../constants/types';
+import { API_GET } from '../api/api.js';
 
 export const toggleCondition = (id) => (dispatch) => {
     dispatch({
@@ -20,6 +21,14 @@ export const toggleSpeciality = (id) => (dispatch) => {
 
 }
 
+export const toggleCriteria = (criteria) => (dispatch) => {
+    dispatch({
+        type: TOGGLE_CRITERIA,
+        payload: criteria
+    })
+
+}
+
 export const selectLocation = (location) => (dispatch) => {
     dispatch({
         type: SELECT_LOCATION,
@@ -36,5 +45,12 @@ export const mergeSearchState = (state) => (dispatch) => {
 
 }
 
+export const getCriteriaResults = (searchString, callback) => (dispatch) => {
+	API_GET('/generic_search.json').then(function (response) {
+		callback(response)
+	}).catch(function (error) {
+        
+	})
+}
 
 
