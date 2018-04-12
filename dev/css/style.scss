@@ -510,6 +510,11 @@ body{
                 background-color: #f3f3f2;
                 color: #00b7b0;
             }
+
+            .dateTile.disabled{
+                background-color: grey;
+                color: white;
+            }
         }
 
         .timeSlots{
@@ -532,6 +537,10 @@ body{
                 background-color: #00b7b0;
                 color: white;
             }
+            .tsBtn.disabled{
+                background-color: grey;
+                color: white;
+            }
             .slots{
                 width: 100%;
                 float: left;
@@ -551,6 +560,10 @@ body{
                 }
                 .slot.selected{
                     background-color: #00b7b0;
+                    color: white;
+                }
+                .slot.disabled{
+                    background-color: grey;
                     color: white;
                 }
             }
