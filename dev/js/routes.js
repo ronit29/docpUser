@@ -65,6 +65,28 @@ const UserProfile = Loadable({
     }
 })
 
+const Payment = Loadable({
+    loader : () => import('./containers/Payment.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const Booking = Loadable({
+    loader : () => import('./containers/Booking.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const CriteriaSearch = Loadable({
+    loader : () => import('./containers/CriteriaSearch.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+
 class RouterConfig extends Component {
 
     render() {
@@ -74,13 +96,16 @@ class RouterConfig extends Component {
                     <Switch>
                         <Route exact path='/' component={ SearchCriteria } />
                         <Route exact path='/locationsearch' component={ LocationSearch } />
+                        <Route exact path='/criteriasearch' component={ CriteriaSearch } />
                         <Route exact path='/searchresults' component={ SearchResults } />
                         <Route exact path='/searchresults/filter' component={ SearchResultsFilter } />
                         <Route exact path='/doctorprofile/:id' component={ DoctorProfile } />
                         <Route exact path='/doctorprofile/:id/availability' component={ ClinicList } />
                         <Route exact path='/doctorprofile/:id/:clinicId/book' component={ AppointmentSlot } />
-                        <Route exact path='/doctorprofile/:id/patientdetails' component={ PatientDetails } />
+                        <Route exact path='/doctorprofile/:id/:clinicId/bookdetails' component={ PatientDetails } />
                         <Route exact path='/userprofile' component={ UserProfile } />
+                        <Route exact path='/payment' component={ Payment } />
+                        <Route exact path='/booking/:refId' component={ Booking } />
                     </Switch>
                 </BrowserRouter>
             </div>

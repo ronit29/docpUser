@@ -4,6 +4,17 @@ import { connect } from 'react-redux';
 class DetailsForm extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            patientName : '',
+            patientEmail : '',
+            patientGender : 'male',
+            patientMobile : '',
+            otp :''
+        }
+    }
+
+    inputHandler(which, e){
+        this.setState({ [which] : e.target.value })
     }
 
     render() {
@@ -12,16 +23,16 @@ class DetailsForm extends React.Component {
             <div className="detailsForm">
                 <h5>Please provide patient details</h5>
 
-                <input className="ptname" placeholder="Patient Name*" />
-                <input className="ptemail" placeholder="Email*" />
+                <input value={this.state.patientName} onChange={this.inputHandler.bind(this,'patientName')} className="ptname" placeholder="Patient Name*" />
+                <input value={this.state.patientEmail} onChange={this.inputHandler.bind(this,'patientEmail')} className="ptemail" placeholder="Email*" />
                 <div className="ptgender">
                     <span>Gender :</span> 
-                    <input type="radio" name="gender" value="male" checked /> Male
-                    <input type="radio" name="gender" value="female" /> Female
+                    <input type="radio" name="gender" value="male" checked={this.state.patientGender === "male"} onChange={this.inputHandler.bind(this,'patientGender')}/> Male
+                    <input type="radio" name="gender" value="female" checked={this.state.patientGender === "female"} onChange={this.inputHandler.bind(this,'patientGender')}/> Female
                 </div>
-                <input className="ptmobile" placeholder="Mobile*" />
+                <input value={this.state.patientMobile} onChange={this.inputHandler.bind(this,'patientMobile')} className="ptmobile" placeholder="Mobile*" />
                 <button className="otpbtn">(Re)Send OTP</button>
-                <input className="ptotp" placeholder="Enter OTP*" />
+                <input value={this.state.otp} onChange={this.inputHandler.bind(this,'otp')} className="ptotp" placeholder="Enter OTP*" />
 
             </div>
         );
