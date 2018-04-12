@@ -1,0 +1,79 @@
+{
+    "message": "message",
+    "result": [
+      {
+        "type": "specialization",
+        "name": "Specialization",
+        "data": [
+          {
+            "id": 1,
+            "name": "General Physicial"
+          },
+          {
+            "id": 2,
+            "name": "Neurology"
+          },
+          {
+            "id": 3,
+            "name": "Cardiologist"
+          },
+          {
+            "id": 4,
+            "name": "Orthopaedic"
+          },
+          {
+            "id": 5,
+            "name": "Infertility"
+          }
+        ]
+      },
+      {
+        "type": "symptoms",
+        "name": "Symptoms",
+        "data": [
+          {
+            "id": 1,
+            "name": "Headache"
+          },
+          {
+            "id": 2,
+            "name": "Stomach-ache"
+          },
+          {
+            "id": 3,
+            "name": "Flu"
+          },
+          {
+            "id": 4,
+            "name": "Hair Fall"
+          },
+          {
+            "id": 5,
+            "name": "Chest Pain"
+          }
+        ]
+      },
+      {
+        "type": "medicalServices",
+        "name": "Medical Services",
+        "data": [
+          {
+            "id": 1,
+            "name": "Teeth Whitening"
+          },
+          {
+            "id": 2,
+            "name": "Gum Bleaching"
+          },
+          {
+            "id": 3,
+            "name": "Smile Designing"
+          },
+          {
+            "id": 4,
+            "name": "Root canal"
+          }
+        ]
+      }
+    ]
+  }
