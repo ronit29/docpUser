@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleCondition, toggleSpeciality } from '../actions/index.js'
+import { toggleCondition, toggleSpeciality, toggleCriteria } from '../actions/index.js'
 import SearchCriteriaView from '../components/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -28,7 +28,8 @@ const mapStateToProps = (state) => {
         selectedConditions,
         commonlySearchedSpecialities,
         selectedSpecialities,
-        selectedLocation
+        selectedLocation,
+        selectedCriteria
     } = state.SEARCH_CRITERIA
 
     return {
@@ -36,14 +37,16 @@ const mapStateToProps = (state) => {
         selectedConditions,
         commonlySearchedSpecialities,
         selectedSpecialities,
-        selectedLocation
+        selectedLocation,
+        selectedCriteria
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         toggleCondition: (id) => dispatch(toggleCondition(id)),
-        toggleSpeciality: (id) => dispatch(toggleSpeciality(id))
+        toggleSpeciality: (id) => dispatch(toggleSpeciality(id)),
+        toggleCriteria : (criteria) => dispatch(toggleCriteria(criteria))
     }
 }
 

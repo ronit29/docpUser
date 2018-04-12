@@ -14,7 +14,8 @@ class SearchCriteriaView extends React.Component {
         let searchData = {
             selectedSpecialities : this.props.selectedSpecialities,
             selectedConditions : this.props.selectedConditions,
-            selectedLocation : this.props.selectedLocation
+            selectedLocation : this.props.selectedLocation,
+            selectedCriteria : this.props.selectedCriteria
         }
         searchData = encodeURIComponent(JSON.stringify(searchData))
         this.context.router.history.push(`/searchresults?search=${searchData}`)
@@ -36,8 +37,10 @@ class SearchCriteriaView extends React.Component {
                     selectedConditions={this.props.selectedConditions}
                     commonlySearchedSpecialities={this.props.commonlySearchedSpecialities}
                     selectedSpecialities={this.props.selectedSpecialities}
+                    selectedCriteria={this.props.selectedCriteria}
                     toggleCondition={this.props.toggleCondition.bind(this)}
                     toggleSpeciality={this.props.toggleSpeciality.bind(this)}
+                    toggleCriteria={this.props.toggleCriteria.bind(this)}
                 />
                 <CommonlySearched
                     heading="Commonly searched conditions"
