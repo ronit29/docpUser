@@ -13,19 +13,37 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        this.getDoctorList();
+        try {
+            let searchState = this.getLocationParam('search')
+            searchState = JSON.parse(searchState)
+            this.getDoctorList(searchState)
+        } catch (e) {
+            this.getDoctorList()
+        }
     }
 
-    getDoctorList() {
-        this.props.getDoctors();
+    getLocationParam(tag) {
+        // this API assumes the context of react-router-4
+        const paramString = this.props.location.search
+        const params = new URLSearchParams(paramString)
+        return params.get(tag)
     }
-    
+
+    getDoctorList(searchState) {
+        this.props.getDoctors(searchState);
+    }
+
     render() {
 
         return (
             <div className="searchResults">
-                <TopBar />
-                <DoctorsList { ...this.props } />
+                {
+                    this.props.LOADING ? "" :
+                        <div>
+                            <TopBar />
+                            <DoctorsList {...this.props} />
+                        </div>
+                }
             </div>
         );
     }

@@ -11,8 +11,9 @@ class ClinicSelector extends React.Component {
         super(props)
     }
 
-    selectClinic() {
-        this.context.router.history.push('/doctorprofile/appointmentslot')
+    selectClinic(clinicId) {
+        let doctorId = this.props.match.params.id
+        this.context.router.history.push(`/doctorprofile/${doctorId}/${clinicId}/book`)
     }
 
     static contextTypes = {
@@ -27,13 +28,19 @@ class ClinicSelector extends React.Component {
     }
 
     getAvailability(availability) {
-        let { nextAvailable } = availability
-        let date = new Date(nextAvailable.from).toDateString()
-        let timeStart = this.getTime(nextAvailable.from)
-        let timeEnd = this.getTime(nextAvailable.to)
-        return {
-            date, timeStart, timeEnd
+        if (availability) {
+            let { nextAvailable } = availability
+            if (nextAvailable[0]) {
+                let date = new Date(nextAvailable[0].from).toDateString()
+                let timeStart = this.getTime(nextAvailable[0].from)
+                let timeEnd = this.getTime(nextAvailable[0].to)
+                return {
+                    date, timeStart, timeEnd, fee: nextAvailable[0].fee
+                }
+            }
         }
+
+        return { date: '', timeStart: '', timeEnd: '', fee: { amount: '' } }
     }
 
     render() {
@@ -44,7 +51,7 @@ class ClinicSelector extends React.Component {
             clinic.timeAvailable = this.getAvailability(clinic)
             return clinic
         })
-        
+
 
         return (
             <div className="clinicSelector">
@@ -52,24 +59,26 @@ class ClinicSelector extends React.Component {
 
                 {
                     availability.map((clinic, i) => {
-                        return <div key={i} className="clinic" onClick={this.selectClinic.bind(this)}>
+                        return <div key={i} className="clinic" onClick={this.selectClinic.bind(this,clinic.id)}>
                             <div className="name">{clinic.name + ", " + clinic.address}</div>
                             <div className="details">
                                 <ClockIcon className="clockIcon" />
                                 <MoneyIcon className="moneyIcon" />
                                 <p>
-                                    <span>S</span>
-                                    <span>M</span>
-                                    <span>T</span>
-                                    <span>W</span>
-                                    <span>T</span>
-                                    <span>F</span>
-                                    <span>S</span>
+                                    {
+                                        clinic.days.map((day, i) => {
+                                            return <span
+                                                key={i}
+                                                className={day.isAvailable ? "isAvailable" : ""}>
+                                                {day.day[0]}
+                                            </span>
+                                        })
+                                    }
                                 </p>
                                 <p>
                                     {clinic.timeAvailable.timeStart} to {clinic.timeAvailable.timeEnd}
                                 </p>
-                                <p>{`Fee: Rs.${clinic.fee.amount}`}</p>
+                                <p>{`Fee: Rs.${clinic.timeAvailable.fee.amount}`}</p>
                             </div>
                             <div className="book">
                                 <span className="text">Book</span>

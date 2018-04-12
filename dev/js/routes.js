@@ -76,10 +76,10 @@ class RouterConfig extends Component {
                         <Route exact path='/locationsearch' component={ LocationSearch } />
                         <Route exact path='/searchresults' component={ SearchResults } />
                         <Route exact path='/searchresults/filter' component={ SearchResultsFilter } />
-                        <Route exact path='/doctorprofile' component={ DoctorProfile } />
-                        <Route exact path='/doctorprofile/cliniclist' component={ ClinicList } />
-                        <Route exact path='/doctorprofile/appointmentslot' component={ AppointmentSlot } />
-                        <Route exact path='/doctorprofile/patientdetails' component={ PatientDetails } />
+                        <Route exact path='/doctorprofile/:id' component={ DoctorProfile } />
+                        <Route exact path='/doctorprofile/:id/availability' component={ ClinicList } />
+                        <Route exact path='/doctorprofile/:id/:clinicId/book' component={ AppointmentSlot } />
+                        <Route exact path='/doctorprofile/:id/patientdetails' component={ PatientDetails } />
                         <Route exact path='/userprofile' component={ UserProfile } />
                     </Switch>
                 </BrowserRouter>

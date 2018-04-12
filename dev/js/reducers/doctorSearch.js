@@ -1,12 +1,9 @@
-import { DOCTOR_SEARCH, SELECT_DOCTOR } from '../constants/types';
+import { DOCTOR_SEARCH } from '../constants/types';
 
 const defaultState = {
     doctorList: [],
     LOADING: true,
-    ERROR: null,
-    selectedDoctor : null,
-    selectedClinic : null,
-    selectedSlot : null
+    ERROR: null
 }
 
 export default function (state = defaultState, action) {
@@ -15,11 +12,6 @@ export default function (state = defaultState, action) {
         case DOCTOR_SEARCH: {
             state.doctorList = action.payload.map(doc => doc.id)
             state.LOADING = false
-            return JSON.parse(JSON.stringify(state))
-        }
-
-        case SELECT_DOCTOR: {
-            state.selectedDoctor = action.payload
             return JSON.parse(JSON.stringify(state))
         }
 

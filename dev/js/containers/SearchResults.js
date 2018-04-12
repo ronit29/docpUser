@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctors, selectDoctor } from '../actions/index.js'
+import { getDoctors } from '../actions/index.js'
 
 import SearchResultsView from '../components/searchResults/index.js'
 
@@ -31,8 +31,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctors: () => dispatch(getDoctors()),
-        selectDoctor : (doctorId) => dispatch(selectDoctor(doctorId))
+        getDoctors: (searchState,filterState) => dispatch(getDoctors(searchState,filterState))
     }
 }
 

@@ -8,12 +8,13 @@ export default function (state = defaultState, action) {
 
     switch (action.type) {
         case APPEND_DOCTORS: {
-            state = action.payload.reduce((doctorMap, doctor) => {
+            let newState = action.payload.reduce((doctorMap, doctor) => {
                 doctorMap[doctor.id] = doctor
                 return doctorMap
             },{})
 
-            return state
+            state = Object.assign(state,newState)
+            return JSON.parse(JSON.stringify(state))
         }
 
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../actions/index.js'
+import { getDoctorById, getTimeSlots } from '../actions/index.js'
 
 import AppointmentSlotView from '../components/appointmentSlot/index.js'
 
@@ -20,17 +20,17 @@ class AppointmentSlot extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let { selectedDoctor } = state.DOCTOR_SEARCH
     let DOCTORS = state.DOCTORS
 
     return {
-        DOCTORS, selectedDoctor
+        DOCTORS
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getDoctorById : (doctorId) => dispatch(getDoctorById(doctorId)),
+        getTimeSlots : (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback))
     }
 }
 

@@ -1,3 +1,5 @@
+import { TOOGLE_CONDITIONS, TOOGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE } from '../constants/types';
+
 const defaultState = {
     commonlySearchedConditions: [{ id: 1, name: 'Headache' }, { id: 2, name: 'Stomach-ache' }, { id: 3, name: 'Flu' }, { id: 4, name: 'Hair Fall' }, { id: 5, name: 'Chest Pain' }],
     selectedConditions: {},
@@ -9,7 +11,7 @@ const defaultState = {
 export default function (state = defaultState, action) {
 
     switch (action.type) {
-        case 'TOOGLE_CONDITIONS': {
+        case TOOGLE_CONDITIONS: {
             if (state.selectedConditions[action.payload.id]) {
                 delete state.selectedConditions[action.payload.id]
             } else {
@@ -18,7 +20,7 @@ export default function (state = defaultState, action) {
             return JSON.parse(JSON.stringify(state))
         }
 
-        case 'TOOGLE_SPECIALITIES': {
+        case TOOGLE_SPECIALITIES: {
             if (state.selectedSpecialities[action.payload.id]) {
                 delete state.selectedSpecialities[action.payload.id]
             } else {
@@ -27,8 +29,13 @@ export default function (state = defaultState, action) {
             return JSON.parse(JSON.stringify(state))
         }
 
-        case 'SELECT_LOCATION': {
+        case SELECT_LOCATION: {
             state.selectedLocation = action.payload
+            return JSON.parse(JSON.stringify(state))
+        }
+
+        case MERGE_SEARCH_STATE: {
+            state = Object.assign(state,action.payload)
             return JSON.parse(JSON.stringify(state))
         }
     }
