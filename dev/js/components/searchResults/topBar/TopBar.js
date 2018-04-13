@@ -9,7 +9,8 @@ class TopBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            anchorEl: null
+            anchorEl: null,
+            searchResults : true
         }
     }
 
@@ -42,7 +43,10 @@ class TopBar extends React.Component {
                     <MenuItem onClick={this.handleClose.bind(this)}>Apointment</MenuItem>
                 </Menu>
                 <FilterIcon className="iconsortfilter" onClick={() => {
-                    this.context.router.history.push('/searchresults/filter')
+                    this.context.router.history.push({
+                        pathname : '/searchresults/filter',
+                        search : window.location.search
+                    })
                 }} />
             </div>
         );

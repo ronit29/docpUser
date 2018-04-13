@@ -5,52 +5,76 @@ const defaultState = {
     selectedConditions: {},
     commonlySearchedSpecialities: [{ id: 1, name: 'General Physicial' }, { id: 2, name: 'Neurology' }, { id: 3, name: 'Cardiologist' }, { id: 4, name: 'Orthopaedic' }, { id: 5, name: 'Infertility' }],
     selectedSpecialities: {},
-    selectedCriteria : {},
-    selectedLocation : null
+    selectedCriteria: {},
+    selectedLocation: null
 }
 
 export default function (state = defaultState, action) {
 
     switch (action.type) {
         case TOOGLE_CONDITIONS: {
-            if (state.selectedConditions[action.payload.id]) {
-                delete state.selectedConditions[action.payload.id]
-            } else {
-                state.selectedConditions[action.payload.id] = new Date()
+            let newState = {
+                ...state,
+                selectedConditions : {
+                    ...state.selectedConditions
+                }
             }
-            state.selectedConditions = Object.assign({},state.selectedConditions)
-            return { ...state }
+
+            if (newState.selectedConditions[action.payload.id]) {
+                delete newState.selectedConditions[action.payload.id]
+            } else {
+                newState.selectedConditions[action.payload.id] = new Date()
+            }
+            return newState
         }
 
         case TOOGLE_SPECIALITIES: {
-            if (state.selectedSpecialities[action.payload.id]) {
-                delete state.selectedSpecialities[action.payload.id]
-            } else {
-                state.selectedSpecialities[action.payload.id] = new Date()
+            let newState = {
+                ...state,
+                selectedSpecialities : {
+                    ...state.selectedSpecialities
+                }
             }
-            state.selectedSpecialities = Object.assign({},state.selectedSpecialities)
-            return { ...state }
+
+            if (newState.selectedSpecialities[action.payload.id]) {
+                delete newState.selectedSpecialities[action.payload.id]
+            } else {
+                newState.selectedSpecialities[action.payload.id] = new Date()
+            }
+
+            return newState
         }
 
         case TOGGLE_CRITERIA: {
-            if (state.selectedCriteria[action.payload.id]) {
-                delete state.selectedCriteria[action.payload.id]
+            let newState = {
+                ...state,
+                selectedCriteria : {
+                    ...state.selectedCriteria
+                }
+            }
+
+            if (newState.selectedCriteria[action.payload.id]) {
+                delete newState.selectedCriteria[action.payload.id]
             } else {
                 action.payload.ts = new Date()
-                state.selectedCriteria[action.payload.id] = action.payload
+                newState.selectedCriteria[action.payload.id] = action.payload
             }
-            state.selectedCriteria = Object.assign({},state.selectedCriteria)
-            return { ...state }
+
+            return newState
         }
 
         case SELECT_LOCATION: {
-            state.selectedLocation = action.payload
-            return { ...state }
+            let newState = { ...state }
+
+            newState.selectedLocation = action.payload
+            return newState
         }
 
         case MERGE_SEARCH_STATE: {
-            state = Object.assign(state,action.payload)
-            return { ...state }
+            let newState = { ...state }
+
+            newState = Object.assign(newState, action.payload)
+            return newState
         }
     }
     return state

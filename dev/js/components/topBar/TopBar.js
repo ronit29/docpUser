@@ -15,7 +15,7 @@ class TopBar extends React.Component {
         super(props)
     }
 
-    goBack(){
+    goBack() {
         window.history.go(-1)
     }
 
@@ -24,7 +24,7 @@ class TopBar extends React.Component {
         return (
             <AppBar position="static" color="default">
                 <Toolbar>
-                    <ArrowBack onClick={this.goBack.bind(this)}/>
+                    <ArrowBack onClick={this.goBack.bind(this)} />
                 </Toolbar>
             </AppBar>
         );
