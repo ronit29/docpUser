@@ -7,7 +7,7 @@ import ClockIcon from 'material-ui-icons/AvTimer';
 import LocationsIcon from 'material-ui-icons/LocationOn';
 
 import DoctorProfileCard from '../../commons/doctorProfileCard/index.js'
-
+import InfiniteScroll from 'react-infinite-scroller';
 class DoctorsList extends React.Component {
     constructor(props) {
         super(props)
@@ -20,14 +20,27 @@ class DoctorsList extends React.Component {
     render() {
 
         let { DOCTORS, doctorList } = this.props
-        
+        var doctorViewList = [];
+        doctorList.map((docId, i) => {
+
+            doctorViewList.push(
+                <DoctorProfileCard details={DOCTORS[docId]} selectDoctor={this.props.selectDoctor} key={i} />
+            );
+
+
+        });
+
         return (
             <div className="doctorsList">
-                {
-                    doctorList.map((docId, i) => {
-                        return <DoctorProfileCard details={DOCTORS[docId]} selectDoctor={this.props.selectDoctor} key={i}/>
-                    })
-                }
+                <InfiniteScroll
+                    pageStart={0}
+                    loadMore={this.props.getDoctors}
+                    hasMore={false}
+                    loader={<div className="loader" key={0}>Loading ...</div>}
+                >
+                    {doctorViewList}
+
+                </InfiniteScroll>
             </div>
         );
     }

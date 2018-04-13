@@ -1956,5 +1956,8 @@
       "rating": 4.2
     }
   ],
+  "totalCount":100,
+  "pageSize":10,
+  "page":2,
   "message": "5 Results found"
 }
