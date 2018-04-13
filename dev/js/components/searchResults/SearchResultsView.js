@@ -15,6 +15,10 @@ class SearchResultsView extends React.Component {
     componentDidMount() {
         try {
             let searchState = this.getLocationParam('search')
+            let filterState = this.getLocationParam('filter')
+            if(filterState){
+                filterState = JSON.parse(filterState)
+            }
             searchState = JSON.parse(searchState)
             this.getDoctorList(searchState)
         } catch (e) {
