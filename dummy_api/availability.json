@@ -6,7 +6,7 @@
       "isAvailable": true,
       "intervals": [
         {
-          "isAvailable": true,
+          "isAvailable": false,
           "fee": {
             "amount": 1500,
             "discounted": 1200
@@ -14,26 +14,7 @@
           "name": "Morning",
           "id": 23342,
           "timeSlots": [
-            {
-              "start": 1523444708000,
-              "isAvailable": true
-            },
-            {
-              "start": 1523444708000,
-              "isAvailable": true
-            },
-            {
-              "start": 1523444708000,
-              "isAvailable": true
-            },
-            {
-              "start": 1523444708000,
-              "isAvailable": true
-            },
-            {
-              "start": 1523808308000,
-              "isAvailable": true
-            },
+           
             {
               "start": 1523808308000,
               "isAvailable": true
@@ -57,6 +38,26 @@
           "name": "Evening",
           "id": 23343,
           "timeSlots": [
+            {
+              "start": 1523444708000,
+              "isAvailable": false
+            },
+            {
+              "start": 1523808308000,
+              "isAvailable": false
+            },
+            {
+              "start": 1523444708000,
+              "isAvailable": true
+            },
+            {
+              "start": 1523444708000,
+              "isAvailable": true
+            },
+            {
+              "start": 1523444708000,
+              "isAvailable": true
+            },
             {
               "start": 1523444708000,
               "isAvailable": true
@@ -134,7 +135,7 @@
     },
     {
       "date": 1523358308000,
-      "isAvailable": true,
+      "isAvailable": false,
       "intervals": [
         {
           "isAvailable": true,
@@ -200,7 +201,7 @@
       "isAvailable": true,
       "intervals": [
         {
-          "isAvailable": true,
+          "isAvailable": false,
           "fee": {
             "amount": 1500,
             "discounted": 1200
