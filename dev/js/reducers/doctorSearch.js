@@ -12,7 +12,7 @@ export default function (state = defaultState, action) {
         case DOCTOR_SEARCH: {
             state.doctorList = action.payload.map(doc => doc.id)
             state.LOADING = false
-            return JSON.parse(JSON.stringify(state))
+            return Object.assign({},state)
         }
 
     }

@@ -18,7 +18,8 @@ export default function (state = defaultState, action) {
             } else {
                 state.selectedConditions[action.payload.id] = new Date()
             }
-            return JSON.parse(JSON.stringify(state))
+            state.selectedConditions = Object.assign({},state.selectedConditions)
+            return { ...state }
         }
 
         case TOOGLE_SPECIALITIES: {
@@ -27,16 +28,8 @@ export default function (state = defaultState, action) {
             } else {
                 state.selectedSpecialities[action.payload.id] = new Date()
             }
-            return JSON.parse(JSON.stringify(state))
-        }
-
-        case TOOGLE_SPECIALITIES: {
-            if (state.selectedSpecialities[action.payload.id]) {
-                delete state.selectedSpecialities[action.payload.id]
-            } else {
-                state.selectedSpecialities[action.payload.id] = new Date()
-            }
-            return JSON.parse(JSON.stringify(state))
+            state.selectedSpecialities = Object.assign({},state.selectedSpecialities)
+            return { ...state }
         }
 
         case TOGGLE_CRITERIA: {
@@ -46,17 +39,18 @@ export default function (state = defaultState, action) {
                 action.payload.ts = new Date()
                 state.selectedCriteria[action.payload.id] = action.payload
             }
-            return JSON.parse(JSON.stringify(state))
+            state.selectedCriteria = Object.assign({},state.selectedCriteria)
+            return { ...state }
         }
 
         case SELECT_LOCATION: {
             state.selectedLocation = action.payload
-            return JSON.parse(JSON.stringify(state))
+            return { ...state }
         }
 
         case MERGE_SEARCH_STATE: {
             state = Object.assign(state,action.payload)
-            return JSON.parse(JSON.stringify(state))
+            return { ...state }
         }
     }
     return state

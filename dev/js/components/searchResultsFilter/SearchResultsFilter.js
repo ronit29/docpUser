@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
@@ -8,6 +9,11 @@ import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'materi
 class SearchResultsFilter extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    componentDidMount(){
+        console.log(this.props)
+        // debugger
     }
 
     render() {
@@ -33,4 +39,4 @@ class SearchResultsFilter extends React.Component {
 }
 
 
-export default SearchResultsFilter
+export default withRouter(SearchResultsFilter)
