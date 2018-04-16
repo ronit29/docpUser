@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 
-import USER from './user.js';
-import SEARCH_CRITERIA from './searchCriteria.js'
-import DOCTORS from './doctors.js'
-import DOCTOR_SEARCH from './doctorSearch.js'
+import USER from './opd/user.js';
+import SEARCH_CRITERIA from './commons/searchCriteria.js'
+import DOCTORS from './opd/doctors.js'
+import DOCTOR_SEARCH from './opd/doctorSearch.js'
 
 const allReducers = combineReducers({
     USER,

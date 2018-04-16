@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Routes from './routes.js'
-import TopBar from './containers/TopBar.js'
+import TopBar from './containers/opd/TopBar.js'
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
