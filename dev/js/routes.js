@@ -3,84 +3,84 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Loadable from 'react-loadable';
 
 const SearchCriteria = Loadable({
-    loader : () => import('./containers/SearchCriteria.js'),
+    loader : () => import('./containers/opd/SearchCriteria.js'),
     loading : () => {
         return ''
     }
 })
 
 const LocationSearch = Loadable({
-    loader : () => import('./containers/LocationSearch.js'),
+    loader : () => import('./containers/opd/LocationSearch.js'),
     loading : () => {
         return ''
     }
 })
 
 const SearchResults = Loadable({
-    loader : () => import('./containers/SearchResults.js'),
+    loader : () => import('./containers/opd/SearchResults.js'),
     loading : () => {
         return ''
     }
 })
 
 const SearchResultsFilter = Loadable({
-    loader : () => import('./containers/SearchResultsFilter.js'),
+    loader : () => import('./containers/opd/SearchResultsFilter.js'),
     loading : () => {
         return ''
     }
 })
 
 const DoctorProfile = Loadable({
-    loader : () => import('./containers/DoctorProfile.js'),
+    loader : () => import('./containers/opd/DoctorProfile.js'),
     loading : () => {
         return ''
     }
 })
 
 const ClinicList = Loadable({
-    loader : () => import('./containers/ClinicList.js'),
+    loader : () => import('./containers/opd/ClinicList.js'),
     loading : () => {
         return ''
     }
 })
 
 const AppointmentSlot = Loadable({
-    loader : () => import('./containers/AppointmentSlot.js'),
+    loader : () => import('./containers/opd/AppointmentSlot.js'),
     loading : () => {
         return ''
     }
 })
 
 const PatientDetails = Loadable({
-    loader : () => import('./containers/PatientDetails.js'),
+    loader : () => import('./containers/opd/PatientDetails.js'),
     loading : () => {
         return ''
     }
 })
 
 const UserProfile = Loadable({
-    loader : () => import('./containers/UserProfile.js'),
+    loader : () => import('./containers/opd/UserProfile.js'),
     loading : () => {
         return ''
     }
 })
 
 const Payment = Loadable({
-    loader : () => import('./containers/Payment.js'),
+    loader : () => import('./containers/opd/Payment.js'),
     loading : () => {
         return ''
     }
 })
 
 const Booking = Loadable({
-    loader : () => import('./containers/Booking.js'),
+    loader : () => import('./containers/opd/Booking.js'),
     loading : () => {
         return ''
     }
 })
 
 const CriteriaSearch = Loadable({
-    loader : () => import('./containers/CriteriaSearch.js'),
+    loader : () => import('./containers/opd/CriteriaSearch.js'),
     loading : () => {
         return ''
     }
