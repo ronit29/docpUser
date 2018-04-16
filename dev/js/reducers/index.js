@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import USER from './opd/user.js';
-import SEARCH_CRITERIA from './opd/searchCriteria.js'
+import SEARCH_CRITERIA from './commons/searchCriteria.js'
 import DOCTORS from './opd/doctors.js'
 import DOCTOR_SEARCH from './opd/doctorSearch.js'
 

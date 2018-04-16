@@ -86,6 +86,19 @@ const CriteriaSearch = Loadable({
     }
 })
 
+const DX_SearchCriteria = Loadable({
+    loader : () => import('./containers/diagnosis/SearchCriteria.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const DX_CriteriaSearch = Loadable({
+    loader : () => import('./containers/diagnosis/CriteriaSearch.js'),
+    loading : () => {
+        return ''
+    }
+})
 
 class RouterConfig extends Component {
 
@@ -106,6 +119,9 @@ class RouterConfig extends Component {
                         <Route exact path='/userprofile' component={ UserProfile } />
                         <Route exact path='/payment' component={ Payment } />
                         <Route exact path='/booking/:refId' component={ Booking } />
+                        <Route exact path='/dx' component={ DX_SearchCriteria } />
+                        <Route exact path='/dx/criteriasearch' component={ DX_CriteriaSearch } />
+
                     </Switch>
                 </BrowserRouter>
             </div>

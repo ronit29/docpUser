@@ -1,0 +1,45 @@
+import React from 'react';
+import { connect } from 'react-redux';
+
+import LocationSelector from '../../commons/locationSelector/index.js'
+import CriteriaSelector from '../commons/criteriaSelector/index.js'
+import CommonlySearched from '../commons/commonlySearched/index.js'
+
+class SearchCriteriaView extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    static contextTypes = {
+        router: () => null
+    }
+
+    render() {
+
+        return (
+            <div className="searchCriteria">
+                <LocationSelector
+                    selectedLocation={this.props.selectedLocation}
+                />
+                <CriteriaSelector
+                    commonlySearchedTests={this.props.commonlySearchedTests}
+                    selectedTests={this.props.selectedTests}
+                    toggleTest={this.props.toggleTest.bind(this)}
+                    selectedDiagnosisCriteria={this.props.selectedDiagnosisCriteria}
+                    toggleDiagnosisCriteria={this.props.toggleDiagnosisCriteria.bind(this)}
+                />
+
+                <CommonlySearched
+                    heading="Commonly searched tests"
+                    data={this.props.commonlySearchedTests}
+                    selected={this.props.selectedTests}
+                    toggleRow={this.props.toggleTest.bind(this)}
+                />
+
+                <button className="proceedBtn"> Proceed </button>
+            </div>
+        );
+    }
+}
+
+export default SearchCriteriaView

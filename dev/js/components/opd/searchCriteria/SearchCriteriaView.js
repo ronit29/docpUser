@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CommonlySearched from '../commons/commonlySearched/index.js'
-import LocationSelector from '../commons/locationSelector/index.js'
+import LocationSelector from '../../commons/locationSelector/index.js'
 import CriteriaSelector from '../commons/criteriaSelector/index.js'
 
 class SearchCriteriaView extends React.Component {

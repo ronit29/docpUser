@@ -32,23 +32,23 @@
         "name": "Symptoms",
         "data": [
           {
-            "id": 1,
+            "id": 11,
             "name": "Headache"
           },
           {
-            "id": 2,
+            "id": 21,
             "name": "Stomach-ache"
           },
           {
-            "id": 3,
+            "id": 31,
             "name": "Flu"
           },
           {
-            "id": 4,
+            "id": 41,
             "name": "Hair Fall"
           },
           {
-            "id": 5,
+            "id": 51,
             "name": "Chest Pain"
           }
         ]
@@ -58,19 +58,19 @@
         "name": "Medical Services",
         "data": [
           {
-            "id": 1,
+            "id": 12,
             "name": "Teeth Whitening"
           },
           {
-            "id": 2,
+            "id": 22,
             "name": "Gum Bleaching"
           },
           {
-            "id": 3,
+            "id": 32,
             "name": "Smile Designing"
           },
           {
-            "id": 4,
+            "id": 42,
             "name": "Root canal"
           }
         ]

@@ -46,6 +46,41 @@ body{
                 border: 1px solid red;
             }
         }
+        .rows{
+            float: left;
+            width: 94%;
+            margin-left: 3%;
+            margin-top: 10px;
+            box-sizing: border-box;
+            box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.25);
+
+            .testRow{
+                float: left;
+                width: 100%;
+                background-color: white;
+                padding: 6px;
+                cursor: pointer;
+                padding-left: 10px;
+                box-sizing: border-box;
+                border-bottom: 1px solid #dcdcdc;
+
+                .head{
+                    margin: 0px;
+                    font-size: 15px;
+                    color: black;
+                }
+                .sub{
+                    margin: 0px;
+                    font-size: 10px;
+                    margin-top: 5px;
+                    color: #656565;
+                }
+            }
+
+            .testRow.selected{
+                background-color: #63b9b042;
+            }
+        }
     }
 
     .locationSelector{
@@ -135,6 +170,24 @@ body{
     font-size: 15px;
     color: #999;
     padding-left: 10px;
+
+    .head{
+        margin: 0px;
+        font-size: 15px;
+        color: black;
+        height: 10px;
+        padding: 0px;
+        background-color : white;
+    }
+    .sub{
+        margin: 0px;
+        font-size: 10px;
+        margin-top: 5px;
+        color: #656565;
+        height: 10px;
+        padding: 0px;
+        background-color : white;
+    }
 }
 
 .pac-icon-marker {
