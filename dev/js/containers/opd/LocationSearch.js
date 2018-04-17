@@ -23,7 +23,7 @@ class LocationSearch extends React.Component {
 const mapStateToProps = (state) => {
     const {
         selectedLocation
-    } = state.SEARCH_CRITERIA
+    } = state.SEARCH_CRITERIA_OPD
 
     return {
         selectedLocation

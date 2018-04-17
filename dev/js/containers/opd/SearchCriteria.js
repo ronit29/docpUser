@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
         selectedSpecialities,
         selectedLocation,
         selectedCriteria
-    } = state.SEARCH_CRITERIA
+    } = state.SEARCH_CRITERIA_OPD
 
     return {
         commonlySearchedConditions,

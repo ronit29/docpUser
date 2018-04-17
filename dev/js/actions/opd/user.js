@@ -1,6 +1,0 @@
-export const initUser = () => (dispatch) => {
-
-}
-
-
-

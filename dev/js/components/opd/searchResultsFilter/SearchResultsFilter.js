@@ -25,25 +25,12 @@ class SearchResultsFilter extends React.Component {
     }
 
     componentDidMount() {
-        let filterState = this.getLocationParam('filter')
-        if (filterState) {
-            filterState = JSON.parse(filterState)
-            this.setState(filterState)
-        }
-    }
-
-    getLocationParam(tag) {
-        // this API assumes the context of react-router-4
-        const paramString = this.props.location.search
-        const params = new URLSearchParams(paramString)
-        return params.get(tag)
+        this.setState({ ...this.props.filterCriteria })
     }
 
     applyFilter() {
-        let searchState = this.getLocationParam('search')
-        searchState = encodeURIComponent(searchState)
-        let filterState = encodeURIComponent(JSON.stringify(this.state))
-        this.props.history.replace(`/searchresults?search=${searchState}&filter=${filterState}`)
+        this.props.setOPDFilters(this.state)
+        this.props.history.go(-1)
     }
 
     handleCheckbox(name, e) {

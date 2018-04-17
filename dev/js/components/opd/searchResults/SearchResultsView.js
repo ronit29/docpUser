@@ -13,17 +13,21 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        try {
-            let searchState = this.getLocationParam('search')
-            let filterState = this.getLocationParam('filter')
-            if(filterState){
-                filterState = JSON.parse(filterState)
-            }
-            searchState = JSON.parse(searchState)
-            this.getDoctorList(searchState)
-        } catch (e) {
-            this.getDoctorList()
-        }
+        
+        console.log(this.props)
+        debugger
+        this.getDoctorList()
+        // try {
+        //     let searchState = this.getLocationParam('search')
+        //     let filterState = this.getLocationParam('filter')
+        //     if(filterState){
+        //         filterState = JSON.parse(filterState)
+        //     }
+        //     searchState = JSON.parse(searchState)
+        //     this.getDoctorList(searchState)
+        // } catch (e) {
+        //     this.getDoctorList()
+        // }
     }
 
     getLocationParam(tag) {
@@ -38,7 +42,7 @@ class SearchResultsView extends React.Component {
     }
 
     render() {
-
+        debugger
         return (
             <div className="searchResults">
                 {
