@@ -44,8 +44,7 @@ class TopBar extends React.Component {
                 </Menu>
                 <FilterIcon className="iconsortfilter" onClick={() => {
                     this.context.router.history.push({
-                        pathname : '/searchresults/filter',
-                        search : window.location.search
+                        pathname : '/searchresults/filter'
                     })
                 }} />
             </div>

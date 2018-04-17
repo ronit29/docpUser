@@ -28,7 +28,8 @@ const mapStateToProps = (state) => {
         selectedSpecialities,
         selectedLocation,
         selectedCriteria,
-        filterCriteria
+        filterCriteria,
+        CRITERIA_LOADED
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -40,13 +41,14 @@ const mapStateToProps = (state) => {
         selectedSpecialities,
         selectedLocation,
         selectedCriteria,
-        filterCriteria
+        filterCriteria,
+        CRITERIA_LOADED
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctors: (searchState,filterState) => dispatch(getDoctors(searchState,filterState))
+        getDoctors: (searchState,filterState,mergeState) => dispatch(getDoctors(searchState,filterState,mergeState))
     }
 }
 
