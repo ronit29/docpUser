@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleCondition, toggleSpeciality, toggleCriteria } from '../../actions/index.js'
+import { toggleCondition, toggleSpeciality, toggleCriteria, loadSearchCriteria } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/opd/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -46,7 +46,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         toggleCondition: (id) => dispatch(toggleCondition(id)),
         toggleSpeciality: (id) => dispatch(toggleSpeciality(id)),
-        toggleCriteria : (criteria) => dispatch(toggleCriteria(criteria))
+        toggleCriteria : (criteria) => dispatch(toggleCriteria(criteria)),
+        loadSearchCriteria: () => dispatch(loadSearchCriteria())
     }
 }
 

@@ -13,21 +13,41 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        
-        console.log(this.props)
-        debugger
-        this.getDoctorList()
-        // try {
-        //     let searchState = this.getLocationParam('search')
-        //     let filterState = this.getLocationParam('filter')
-        //     if(filterState){
-        //         filterState = JSON.parse(filterState)
-        //     }
-        //     searchState = JSON.parse(searchState)
-        //     this.getDoctorList(searchState)
-        // } catch (e) {
-        //     this.getDoctorList()
-        // }
+
+
+        let {
+            selectedConditions,
+            selectedSpecialities,
+            selectedLocation,
+            selectedCriteria,
+            CRITERIA_LOADED
+        } = this.props
+
+        if (CRITERIA_LOADED) {
+            let searchState = {
+                selectedConditions,
+                selectedSpecialities,
+                selectedLocation,
+                selectedCriteria
+            }
+            let filterState = this.props.filterCriteria
+            this.getDoctorList(searchState, filterState, false)
+        } else {
+            try {
+                let searchState = this.getLocationParam('search')
+                let filterState = this.getLocationParam('filter')
+                if (filterState) {
+                    filterState = JSON.parse(filterState)
+                } else {
+                    filterState = {}
+                }
+                searchState = JSON.parse(searchState)
+                this.getDoctorList(searchState, filterState, true)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
     }
 
     getLocationParam(tag) {
@@ -37,12 +57,11 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getDoctorList(searchState) {
-        this.props.getDoctors(searchState);
+    getDoctorList(searchState, filterState, mergeState) {
+        this.props.getDoctors(searchState, filterState, mergeState);
     }
 
     render() {
-        debugger
         return (
             <div className="searchResults">
                 {

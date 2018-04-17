@@ -1,4 +1,4 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, SET_OPD_FILTERS } from '../../constants/types';
+import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, SET_OPD_FILTERS, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
 
 const defaultState = {
     commonlySearchedConditions: [{ id: 1, name: 'Headache' }, { id: 2, name: 'Stomach-ache' }, { id: 3, name: 'Flu' }, { id: 4, name: 'Hair Fall' }, { id: 5, name: 'Chest Pain' }],
@@ -7,12 +7,21 @@ const defaultState = {
     selectedSpecialities: {},
     selectedCriteria: {},
     selectedLocation: null,
-    filterCriteria: {}
+    filterCriteria: {},
+    CRITERIA_LOADED: false
 }
 
 export default function (state = defaultState, action) {
 
     switch (action.type) {
+        case LOAD_SEARCH_CRITERIA_OPD : {
+            let newState = {...state}
+
+            newState.CRITERIA_LOADED = true
+            newState.filterCriteria = {}
+            
+            return newState
+        }
         case TOGGLE_CONDITIONS: {
             let newState = {
                 ...state,
