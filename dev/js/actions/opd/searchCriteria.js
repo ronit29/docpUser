@@ -1,4 +1,4 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA } from '../../constants/types';
+import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, SET_OPD_FILTERS } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const toggleCondition = (id) => (dispatch) => {
@@ -21,27 +21,9 @@ export const toggleSpeciality = (id) => (dispatch) => {
 
 }
 
-export const toggleTest = (id) => (dispatch) => {
-    dispatch({
-        type: TOGGLE_TESTS,
-        payload: {
-            id
-        }
-    })
-
-}
-
 export const toggleCriteria = (criteria) => (dispatch) => {
     dispatch({
         type: TOGGLE_CRITERIA,
-        payload: criteria
-    })
-
-}
-
-export const toggleDiagnosisCriteria = (criteria) => (dispatch) => {
-    dispatch({
-        type: TOGGLE_DIAGNOSIS_CRITERIA,
         payload: criteria
     })
 
@@ -71,12 +53,10 @@ export const getCriteriaResults = (searchString, callback) => (dispatch) => {
 	})
 }
 
-export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch) => {
-	API_GET('/generic_search.json').then(function (response) {
-		callback(response)
-	}).catch(function (error) {
-        
-	})
-}
+export const setOPDFilters = (filterData) => (dispatch) => {
+    dispatch({
+        type: SET_OPD_FILTERS,
+        payload: filterData
+    })
 
-
+} 

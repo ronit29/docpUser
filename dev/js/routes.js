@@ -100,6 +100,13 @@ const DX_CriteriaSearch = Loadable({
     }
 })
 
+const DX_SearchResults = Loadable({
+    loader : () => import('./containers/diagnosis/SearchResults.js'),
+    loading : () => {
+        return ''
+    }
+})
+
 class RouterConfig extends Component {
 
     render() {
@@ -119,9 +126,10 @@ class RouterConfig extends Component {
                         <Route exact path='/userprofile' component={ UserProfile } />
                         <Route exact path='/payment' component={ Payment } />
                         <Route exact path='/booking/:refId' component={ Booking } />
+
                         <Route exact path='/dx' component={ DX_SearchCriteria } />
                         <Route exact path='/dx/criteriasearch' component={ DX_CriteriaSearch } />
-
+                        <Route exact path='/dx/searchresults' component={ DX_SearchResults } />
                     </Switch>
                 </BrowserRouter>
             </div>

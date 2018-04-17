@@ -1,15 +1,13 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA } from '../../constants/types';
+import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, SET_OPD_FILTERS } from '../../constants/types';
 
 const defaultState = {
     commonlySearchedConditions: [{ id: 1, name: 'Headache' }, { id: 2, name: 'Stomach-ache' }, { id: 3, name: 'Flu' }, { id: 4, name: 'Hair Fall' }, { id: 5, name: 'Chest Pain' }],
     selectedConditions: {},
     commonlySearchedSpecialities: [{ id: 1, name: 'General Physicial' }, { id: 2, name: 'Neurology' }, { id: 3, name: 'Cardiologist' }, { id: 4, name: 'Orthopaedic' }, { id: 5, name: 'Infertility' }],
-    commonlySearchedTests: [{ id: 1, name: 'General Physicial' }, { id: 2, name: 'Neurology' }, { id: 3, name: 'Cardiologist' }, { id: 4, name: 'Orthopaedic' }, { id: 5, name: 'Infertility' }],
     selectedSpecialities: {},
     selectedCriteria: {},
-    selectedDiagnosisCriteria : {},
-    selectedTests: {},
-    selectedLocation: null
+    selectedLocation: null,
+    filterCriteria: {}
 }
 
 export default function (state = defaultState, action) {
@@ -48,23 +46,6 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case TOGGLE_TESTS: {
-            let newState = {
-                ...state,
-                selectedTests : {
-                    ...state.selectedTests
-                }
-            }
-
-            if (newState.selectedTests[action.payload.id]) {
-                delete newState.selectedTests[action.payload.id]
-            } else {
-                newState.selectedTests[action.payload.id] = new Date()
-            }
-
-            return newState
-        }
-
         case TOGGLE_CRITERIA: {
             let newState = {
                 ...state,
@@ -83,28 +64,17 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case TOGGLE_DIAGNOSIS_CRITERIA: {
-            let newState = {
-                ...state,
-                selectedDiagnosisCriteria : {
-                    ...state.selectedDiagnosisCriteria
-                }
-            }
-
-            if (newState.selectedDiagnosisCriteria[action.payload.id]) {
-                delete newState.selectedDiagnosisCriteria[action.payload.id]
-            } else {
-                action.payload.ts = new Date()
-                newState.selectedDiagnosisCriteria[action.payload.id] = action.payload
-            }
-
-            return newState
-        }
-
         case SELECT_LOCATION: {
             let newState = { ...state }
 
             newState.selectedLocation = action.payload
+            return newState
+        }
+
+        case SET_OPD_FILTERS: {
+            let newState = { ...state }
+
+            newState.filterCriteria = action.payload
             return newState
         }
 

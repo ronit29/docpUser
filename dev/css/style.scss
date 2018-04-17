@@ -118,27 +118,27 @@ body{
         font-size: 16px;
     }
 
-    .criteriaSelector{
-        width: 100%;
-        min-height: 50px;
-        padding: 5px;
+}
 
-        input{
-            width: 90%;
-            border-radius: 8px;
-            border: 1px solid #c1c1c1;
-            padding: 10px;
-            float: left;
-        }
+.criteriaSelector{
+    width: 100%;
+    min-height: 50px;
+    padding: 5px;
 
-        .pillselected{
-            color: white;
-            background-color: #63b9b0;
-            margin: 5px;
-            margin-left: 0px;
-        }
+    input{
+        width: 90%;
+        border-radius: 8px;
+        border: 1px solid #c1c1c1;
+        padding: 10px;
+        float: left;
     }
 
+    .pillselected{
+        color: white;
+        background-color: #63b9b0;
+        margin: 5px;
+        margin-left: 0px;
+    }
 }
 
 .locationSearch{

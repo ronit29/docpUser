@@ -10,6 +10,16 @@ class SearchCriteriaView extends React.Component {
         super(props)
     }
 
+    searchProceed(){
+        let searchData = {
+            selectedTests : this.props.selectedTests,
+            selectedLocation : this.props.selectedLocation,
+            selectedDiagnosisCriteria : this.props.selectedDiagnosisCriteria
+        }
+        searchData = encodeURIComponent(JSON.stringify(searchData))
+        this.context.router.history.push(`/dx/searchresults?search=${searchData}`)
+    }
+
     static contextTypes = {
         router: () => null
     }
@@ -36,7 +46,7 @@ class SearchCriteriaView extends React.Component {
                     toggleRow={this.props.toggleTest.bind(this)}
                 />
 
-                <button className="proceedBtn"> Proceed </button>
+                <button onClick={this.searchProceed.bind(this)} className="proceedBtn"> Proceed </button>
             </div>
         );
     }
