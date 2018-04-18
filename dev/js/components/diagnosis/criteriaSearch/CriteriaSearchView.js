@@ -61,8 +61,8 @@ class CriteriaSearchView extends React.Component {
                                     type.data.map((resultData, j) => {
                                         return <span key={j} className="pac-item" onClick={this.addCriteria.bind(this, resultData, type.type)}>
                                             <p className="head">{resultData.name}</p>
-                                            <p className="sub">{resultData.name}</p>
-                                        </span>
+                                            <p className="sub">{resultData.sub_name || resultData.address}</p>
+                                        </span> 
                                     })
                                 }
                             </div>

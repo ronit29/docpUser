@@ -17,7 +17,7 @@ class LabProfileCard extends React.Component {
 
     bookNow(id, e) {
         e.stopPropagation()
-        this.context.router.history.push(`/lab/${id}/availability`)
+        this.context.router.history.push(`/lab/${id}`)
     }
 
     static contextTypes = {

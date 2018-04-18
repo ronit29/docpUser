@@ -1,0 +1,135 @@
+{
+    "message": "message",
+    "result": [
+        {
+            "type": "test",
+            "name": "Tests",
+            "data": [
+                {
+                    "sub_name": "Hb, TLC, DLC, PCV, MCV, MCHC, AEC, ABC, ALC, P/L",
+                    "name": "Complete Blood Count",
+                    "id": 5454,
+                    "test_type": "pathology",
+                    "abbreviation": "CBC"
+                },
+                {
+                    "sub_name": "MRI",
+                    "category": "Radiology",
+                    "name": "MRI Brain",
+                    "id": 4332,
+                    "abbreviation": "MRI"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 43232,
+                    "abbreviation": "TSH"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 33223,
+                    "abbreviation": "TSH"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 42232,
+                    "abbreviation": "TSH"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 76543,
+                    "abbreviation": "TSH"
+                }
+            ]
+        },
+        {
+            "type": "labs",
+            "name": "Labs",
+            "data": [
+                {
+                    "id": 654644,
+                    "name": "Modern Diagnostic & Research Centre",
+                    "address": "10/17 sec 44 gurgaon",
+                    "profile_img": "https://www.qhmanagement.com/img/photos/scientist.jpg",
+                    "rating": 4.2
+                },
+                {
+                    "id": 654644,
+                    "name": "Modern Diagnostic & Research Centre",
+                    "address": "10/17 sec 44 gurgaon",
+                    "profile_img": "https://www.qhmanagement.com/img/photos/scientist.jpg",
+                    "rating": 4.2
+                },
+                {
+                    "id": 765433,
+                    "name": "Modern Diagnostic & Research Centre",
+                    "address": "10/17 sec 44 gurgaon",
+                    "profile_img": "https://www.qhmanagement.com/img/photos/scientist.jpg",
+                    "rating": 4.2
+                },
+                {
+                    "id": 455343,
+                    "name": "Modern Diagnostic & Research Centre",
+                    "address": "10/17 sec 44 gurgaon",
+                    "profile_img": "https://www.qhmanagement.com/img/photos/scientist.jpg",
+                    "rating": 4.2
+                }
+            ]
+        },
+        {
+            "type": "testpackages",
+            "name": "Packages",
+            "data": [
+                {
+                    "sub_name": "Hb, TLC, DLC, PCV, MCV, MCHC, AEC, ABC, ALC, P/L",
+                    "name": "Complete Blood Count",
+                    "id": 5454,
+                    "test_type": "pathology",
+                    "abbreviation": "CBC"
+                },
+                {
+                    "sub_name": "MRI",
+                    "category": "Radiology",
+                    "name": "MRI Brain",
+                    "id": 4332,
+                    "abbreviation": "MRI"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 43232,
+                    "abbreviation": "TSH"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 33223,
+                    "abbreviation": "TSH"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 42232,
+                    "abbreviation": "TSH"
+                },
+                {
+                    "sub_name": "TSH",
+                    "category": "Pathology",
+                    "name": "Thyroid Stimulating Hormone",
+                    "id": 76543,
+                    "abbreviation": "TSH"
+                }
+            ]
+        }
+    ]
+}
