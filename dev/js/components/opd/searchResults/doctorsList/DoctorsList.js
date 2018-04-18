@@ -17,30 +17,29 @@ class DoctorsList extends React.Component {
         router: () => null
     }
 
+
     render() {
 
         let { DOCTORS, doctorList } = this.props
+        
         var doctorViewList = [];
-        doctorList.map((docId, i) => {
 
-            doctorViewList.push(
-                <DoctorProfileCard details={DOCTORS[docId]} selectDoctor={this.props.selectDoctor} key={i} />
-            );
-
-
-        });
+        doctorViewList = doctorList.map((docId, i) => {
+            return <DoctorProfileCard details={DOCTORS[docId]} selectDoctor={this.props.selectDoctor} key={i} />
+        })
 
         return (
             <div className="doctorsList">
-                <InfiniteScroll
+                {/* <InfiniteScroll
                     pageStart={0}
                     loadMore={this.props.getDoctors}
                     hasMore={false}
                     loader={<div className="loader" key={0}>Loading ...</div>}
-                >
+                > */}
+                
                     {doctorViewList}
 
-                </InfiniteScroll>
+                {/* </InfiniteScroll> */}
             </div>
         );
     }

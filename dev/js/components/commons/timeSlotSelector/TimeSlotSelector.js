@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getTime, getDayName } from '../../../../utils/dateTimeUtils.js'
+import { getTime, getDayName } from '../../../utils/dateTimeUtils.js'
 
 class TimeSlotSelector extends React.Component {
     constructor(props) {
@@ -130,7 +130,11 @@ class TimeSlotSelector extends React.Component {
 
         timeSlots = dates[this.state.selectedDay].intervals[this.state.selectedInterval].timeSlots.map((slot, i) => {
             let selected = this.state.selectedTimeSlot == i
-            return <span key={i} onClick={this.onTimeSlotClick.bind(this, slot, this.state.selectedTimeSlot, i)} className={slot.isAvailable ? (selected ? "slot selected" : "slot") : "slot disabled"}>{getTime(slot.start)}</span>
+            let slotText = getTime(slot.start)
+            if(slot.end){
+                slotText += ` - ${getTime(slot.end)}`
+            }
+            return <span key={i} onClick={this.onTimeSlotClick.bind(this, slot, this.state.selectedTimeSlot, i)} className={slot.isAvailable ? (selected ? "slot selected" : "slot") : "slot disabled"}>{slotText}</span>
         })
 
 

@@ -629,7 +629,7 @@ body{
                 
                 .slot{
                     width: 72px;
-                    height: 25px;
+                    height: auto;
                     float: left;
                     background-color: #fff;
                     border: 1px solid #dedede;
@@ -653,7 +653,7 @@ body{
 
     .proceedbtn{
         display: block;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
@@ -1025,4 +1025,52 @@ body{
     float: left;
     width: 100%;
     margin: 0px;
+
+    .priceCont{
+        float: left;
+        width: 100%;
+
+        .testPriceRow{
+            float: left;
+            width: 100%;
+            border: 1px solid #e0e0e0;
+            padding: 5px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            padding-left: 10px;
+            border-radius: 5px;
+
+            .tname{
+                float: left;
+                width: 80%;
+                color: #636363;
+            }
+            .tamount{
+                float: left;
+                width: 20%;
+            }
+        }
+
+        .testTotalRow{
+            float: left;
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            padding-left: 10px;
+
+            .tname{
+                float: left;
+                width: 80%;
+                color: #000;
+                font-weight: bold;
+            }
+            .tamount{
+                float: left;
+                width: 20%;
+            }
+        }
+    }
+
+    
 }

@@ -107,8 +107,8 @@ const DX_SearchResults = Loadable({
     }
 })
 
-const LabProfile = Loadable({
-    loader : () => import('./containers/diagnosis/LabProfile.js'),
+const LabSlots = Loadable({
+    loader : () => import('./containers/diagnosis/LabSlots.js'),
     loading : () => {
         return ''
     }
@@ -137,7 +137,7 @@ class RouterConfig extends Component {
                         <Route exact path='/dx' component={ DX_SearchCriteria } />
                         <Route exact path='/dx/criteriasearch' component={ DX_CriteriaSearch } />
                         <Route exact path='/dx/searchresults' component={ DX_SearchResults } />
-                        <Route exact path='/lab/:id' component={ LabProfile } />
+                        <Route exact path='/lab/:id/book' component={ LabSlots } />
                     </Switch>
                 </BrowserRouter>
             </div>

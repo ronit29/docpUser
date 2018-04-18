@@ -3,7 +3,7 @@ import { API_GET } from '../../api/api.js';
 
 
 export const getLabs = (searchState = {}, filterState = {}, mergeState = false) => (dispatch) => {
-	API_GET('/labs.json').then(function (response) {
+	API_GET('/labs_with_tests.json').then(function (response) {
 		
 		dispatch({
 			type: APPEND_LABS,
@@ -32,7 +32,7 @@ export const getLabs = (searchState = {}, filterState = {}, mergeState = false) 
 	})
 }
 
-export const getLabById = (labId) => (dispatch) => {
+export const getLabById = (labId, testIds) => (dispatch) => {
 	// this API should return detailed lab
 	API_GET('/labs_with_tests.json').then(function (response) {
 		// mocking API , TODO : remove
@@ -48,12 +48,12 @@ export const getLabById = (labId) => (dispatch) => {
 	})
 }
 
-// export const getTimeSlots = (doctorId,clinicId, callback) => (dispatch) => {
-// 	API_GET('/availability.json').then(function (response) {
+export const getLabTimeSlots = (labId, testIds, callback) => (dispatch) => {
+	API_GET('/availability_labs.json').then(function (response) {
 		
-// 		callback(response)
+		callback(response)
 
-// 	}).catch(function (error) {
+	}).catch(function (error) {
 
-// 	})
-// }
+	})
+}
