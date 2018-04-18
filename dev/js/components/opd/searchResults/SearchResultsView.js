@@ -13,8 +13,6 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-
-
         let {
             selectedConditions,
             selectedSpecialities,

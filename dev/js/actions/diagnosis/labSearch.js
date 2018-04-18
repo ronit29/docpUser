@@ -1,10 +1,10 @@
-import { APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE } from '../../constants/types';
+import { APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 
-export const getLabs = (searchState = {}, filterState = {}) => (dispatch) => {
+export const getLabs = (searchState = {}, filterState = {}, mergeState = false) => (dispatch) => {
 	API_GET('/labs.json').then(function (response) {
-
+		
 		dispatch({
 			type: APPEND_LABS,
 			payload: response.labs
@@ -15,10 +15,17 @@ export const getLabs = (searchState = {}, filterState = {}) => (dispatch) => {
 			payload: response.labs
 		})
 
-		dispatch({
-			type: MERGE_SEARCH_STATE,
-			payload: searchState
-		})
+		if (mergeState) {
+			dispatch({
+				type: MERGE_SEARCH_STATE_LAB,
+				payload: searchState
+			})
+		}
+
+		let searchStateParam = encodeURIComponent(JSON.stringify(searchState))
+		let filterStateParam = encodeURIComponent(JSON.stringify(filterState))
+		history.replaceState(null, 'hello', `/dx/searchresults?search=${searchStateParam}&filter=${filterStateParam}`)
+
 
 	}).catch(function (error) {
 

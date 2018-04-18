@@ -13,16 +13,39 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        try {
-            let searchState = this.getLocationParam('search')
-            // let filterState = this.getLocationParam('filter')
-            // if(filterState){
-            //     filterState = JSON.parse(filterState)
-            // }
-            searchState = JSON.parse(searchState)
-            this.getLabList(searchState)
-        } catch (e) {
-            this.getLabList()
+        this.getLabs()
+    }
+
+    getLabs() {
+        let {
+            selectedTests,
+            selectedLocation,
+            selectedDiagnosisCriteria,
+            CRITERIA_LOADED
+        } = this.props
+
+        if (CRITERIA_LOADED) {
+            let searchState = {
+                selectedTests,
+                selectedLocation,
+                selectedDiagnosisCriteria
+            }
+            let filterState = this.props.filterCriteria
+            this.getLabList(searchState, filterState, false)
+        } else {
+            try {
+                let searchState = this.getLocationParam('search')
+                let filterState = this.getLocationParam('filter')
+                if (filterState) {
+                    filterState = JSON.parse(filterState)
+                } else {
+                    filterState = {}
+                }
+                searchState = JSON.parse(searchState)
+                this.getLabList(searchState, filterState, true)
+            } catch (e) {
+                console.error(e)
+            }
         }
     }
 
@@ -33,8 +56,15 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(searchState) {
-        this.props.getLabs(searchState);
+    getLabList(searchState, filterState, mergeState) {
+        this.props.getLabs(searchState, filterState, mergeState);
+    }
+
+    updateLabs(fn){
+        return (...args) => {
+            fn(...args)
+            setTimeout(this.getLabs.bind(this) ,0)
+        }
     }
 
     render() {
@@ -45,11 +75,13 @@ class SearchResultsView extends React.Component {
                     this.props.LOADING ? "" :
                         <div>
                             <CriteriaSelector
+                                heading={"Add More test"}
+                                selectedLocation={this.props.selectedLocation}
                                 commonlySearchedTests={this.props.commonlySearchedTests}
                                 selectedTests={this.props.selectedTests}
-                                toggleTest={this.props.toggleTest.bind(this)}
+                                toggleTest={ this.updateLabs.call(this,this.props.toggleTest.bind(this)) }
                                 selectedDiagnosisCriteria={this.props.selectedDiagnosisCriteria}
-                                toggleDiagnosisCriteria={this.props.toggleDiagnosisCriteria.bind(this)}
+                                toggleDiagnosisCriteria={ this.updateLabs.call(this,this.props.toggleDiagnosisCriteria.bind(this)) }
                             />
                             <TopBar />
                             <LabsList {...this.props} />

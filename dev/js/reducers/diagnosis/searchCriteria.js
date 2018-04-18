@@ -1,16 +1,26 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA } from '../../constants/types';
+import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
 
 const defaultState = {
     commonlySearchedTests: [{ id: 1, name: 'General Physicial' }, { id: 2, name: 'Neurology' }, { id: 3, name: 'Cardiologist' }, { id: 4, name: 'Orthopaedic' }, { id: 5, name: 'Infertility' }],
     selectedTests: {},
     selectedDiagnosisCriteria : {},
-    selectedLocation: null
+    selectedLocation: null,
+    filterCriteria: {},
+    CRITERIA_LOADED: false
 }
 
 export default function (state = defaultState, action) {
 
     switch (action.type) {
-        
+        case LOAD_SEARCH_CRITERIA_LAB : {
+            let newState = {...state}
+
+            newState.CRITERIA_LOADED = true
+            newState.filterCriteria = {}
+            
+            return newState
+        }
+
         case TOGGLE_TESTS: {
             let newState = {
                 ...state,
@@ -53,10 +63,11 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case MERGE_SEARCH_STATE: {
+        case MERGE_SEARCH_STATE_LAB: {
             let newState = { ...state }
 
             newState = Object.assign(newState, action.payload)
+            newState.CRITERIA_LOADED = true
             return newState
         }
     }

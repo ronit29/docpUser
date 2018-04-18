@@ -8,9 +8,9 @@ class CriteriaSelector extends React.Component {
     }
 
     handleDelete(id, handler) {
-        if(handler == 'toggleDiagnosisCriteria'){
-            this.props[handler]({id})
-        } else{
+        if (handler == 'toggleDiagnosisCriteria') {
+            this.props[handler]({ id })
+        } else {
             this.props[handler](id)
         }
     }
@@ -21,6 +21,7 @@ class CriteriaSelector extends React.Component {
 
     render() {
 
+        let locationPill = ""
         let pills = []
         let tests = []
         let criterias = []
@@ -35,12 +36,19 @@ class CriteriaSelector extends React.Component {
             })
         }
 
-        if(this.props.selectedDiagnosisCriteria){
+        if (this.props.selectedDiagnosisCriteria) {
             criterias = Object.keys(this.props.selectedDiagnosisCriteria).map((criteria) => {
                 let pill = this.props.selectedDiagnosisCriteria[criteria]
                 pill.type = 'toggleDiagnosisCriteria'
                 return pill
             })
+        }
+
+        if (this.props.selectedLocation) {
+            locationPill = <Chip
+                label={this.props.selectedLocation.name}
+                className={"pillselected location"}
+            />
         }
 
         pills = [...tests, ...criterias]
@@ -61,7 +69,8 @@ class CriteriaSelector extends React.Component {
             <div className="criteriaSelector">
                 <input onClick={() => {
                     this.context.router.history.push('/dx/criteriasearch')
-                }} placeholder={"Search for tests, labs, packages ..etc"} />
+                }} placeholder={this.props.heading || "Search for tests, labs, packages ..etc"} />
+                {locationPill}
                 {pills}
             </div>
         );

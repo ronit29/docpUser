@@ -1,6 +1,13 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA } from '../../constants/types';
+import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
+export const loadLabSearchCriteria = () => (dispatch) => {
+    dispatch({
+        type: LOAD_SEARCH_CRITERIA_LAB,
+        payload: null
+    })
+
+} 
 
 export const toggleTest = (id) => (dispatch) => {
     dispatch({

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleTest, toggleDiagnosisCriteria } from '../../actions/index.js'
+import { toggleTest, toggleDiagnosisCriteria, loadLabSearchCriteria } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/diagnosis/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -40,6 +40,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        loadLabSearchCriteria : () => dispatch(loadLabSearchCriteria()),
         toggleTest: (id) => dispatch(toggleTest(id)),
         toggleDiagnosisCriteria : (criteria) => dispatch(toggleDiagnosisCriteria(criteria))
     }
