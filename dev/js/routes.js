@@ -107,6 +107,13 @@ const DX_SearchResults = Loadable({
     }
 })
 
+const LabProfile = Loadable({
+    loader : () => import('./containers/diagnosis/LabProfile.js'),
+    loading : () => {
+        return ''
+    }
+})
+
 class RouterConfig extends Component {
 
     render() {
@@ -130,6 +137,7 @@ class RouterConfig extends Component {
                         <Route exact path='/dx' component={ DX_SearchCriteria } />
                         <Route exact path='/dx/criteriasearch' component={ DX_CriteriaSearch } />
                         <Route exact path='/dx/searchresults' component={ DX_SearchResults } />
+                        <Route exact path='/lab/:id' component={ LabProfile } />
                     </Switch>
                 </BrowserRouter>
             </div>

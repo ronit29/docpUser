@@ -28,7 +28,7 @@ export const toggleDiagnosisCriteria = (criteria) => (dispatch) => {
 }
 
 export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch) => {
-	API_GET('/generic_search.json').then(function (response) {
+	API_GET('/generic_search_tests.json').then(function (response) {
 		callback(response)
 	}).catch(function (error) {
         

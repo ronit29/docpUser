@@ -34,7 +34,7 @@ export const getLabs = (searchState = {}, filterState = {}, mergeState = false) 
 
 export const getLabById = (labId) => (dispatch) => {
 	// this API should return detailed lab
-	API_GET('/labs.json').then(function (response) {
+	API_GET('/labs_with_tests.json').then(function (response) {
 		// mocking API , TODO : remove
 		response.lab = response.labs.filter(lab => lab.id == labId)[0]
 
