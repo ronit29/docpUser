@@ -10,14 +10,19 @@ class SearchCriteriaView extends React.Component {
         super(props)
     }
 
+    componentDidMount(){
+        this.props.loadLabSearchCriteria()
+    }
+
     searchProceed(){
-        let searchData = {
-            selectedTests : this.props.selectedTests,
-            selectedLocation : this.props.selectedLocation,
-            selectedDiagnosisCriteria : this.props.selectedDiagnosisCriteria
-        }
-        searchData = encodeURIComponent(JSON.stringify(searchData))
-        this.context.router.history.push(`/dx/searchresults?search=${searchData}`)
+        // let searchData = {
+        //     selectedTests : this.props.selectedTests,
+        //     selectedLocation : this.props.selectedLocation,
+        //     selectedDiagnosisCriteria : this.props.selectedDiagnosisCriteria
+        // }
+        // searchData = encodeURIComponent(JSON.stringify(searchData))
+        // this.context.router.history.push(`/dx/searchresults?search=${searchData}`)
+        this.context.router.history.push(`/dx/searchresults`)
     }
 
     static contextTypes = {

@@ -1,4 +1,4 @@
-import { APPEND_DOCTORS, DOCTOR_SEARCH, SELECT_DOCTOR, MERGE_SEARCH_STATE } from '../../constants/types';
+import { APPEND_DOCTORS, DOCTOR_SEARCH, SELECT_DOCTOR, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 
@@ -17,7 +17,7 @@ export const getDoctors = (searchState = {}, filterState = {}, mergeState = fals
 
 		if (mergeState) {
 			dispatch({
-				type: MERGE_SEARCH_STATE,
+				type: MERGE_SEARCH_STATE_OPD,
 				payload: searchState
 			})
 		}
