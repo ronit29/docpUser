@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById } from '../../actions/index.js'
+import { getLabById } from '../../actions/index.js'
 
 import PatientDetailsView from '../../components/diagnosis/patientDetails/index.js'
 
@@ -20,16 +20,16 @@ class PatientDetails extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let DOCTORS = state.DOCTORS
+    let LABS = state.LABS
 
     return {
-        DOCTORS
+        LABS
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorById : (doctorId) => dispatch(getDoctorById(doctorId))
+        getLabById : (labId, testIds) => dispatch(getLabById(labId, testIds))
     }
 }
 

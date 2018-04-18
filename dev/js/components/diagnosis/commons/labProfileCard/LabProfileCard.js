@@ -13,8 +13,10 @@ class LabProfileCard extends React.Component {
 
     generateTestsString(tests) {
         return tests.reduce((str, test, i) => {
-            str += test.id
-            if (i + 1 < tests.length) str += ",";
+            if(test.isAvailable) {
+                str += test.id;
+                if (i + 1 < tests.length) str += ",";
+            }
             return str
         }, "")
     }

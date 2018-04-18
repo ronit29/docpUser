@@ -1,3 +1,3 @@
-import PatientDetails from './PatientDetails.js'
+import PatientDetailsView from './PatientDetailsView.js'
 
-export default PatientDetails
+export default PatientDetailsView

@@ -28,7 +28,7 @@ class AddressForm extends React.Component {
                 <input value={this.state.locality} onChange={this.inputHandler.bind(this,'locality')} className="ptname" placeholder="Locality*" />
                 <input value={this.state.landmark} onChange={this.inputHandler.bind(this,'landmark')} className="ptname" placeholder="Landmark*" />
                 <input value={this.state.pincode} onChange={this.inputHandler.bind(this,'pincode')} className="ptmobile" placeholder="Pincode*" />
-                <input value={this.state.city} onChange={this.inputHandler.bind(this,'city')} disabled className="ptotp" placeholder="City" />
+                {/* <input value={this.state.city} onChange={this.inputHandler.bind(this,'city')} disabled className="ptotp" placeholder="City" /> */}
 
             </div>
         );
@@ -36,4 +36,4 @@ class AddressForm extends React.Component {
 }
 
 
-export default DetailsForm
+export default AddressForm

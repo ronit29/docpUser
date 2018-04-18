@@ -143,7 +143,7 @@ class RouterConfig extends Component {
                         <Route exact path='/dx/criteriasearch' component={ DX_CriteriaSearch } />
                         <Route exact path='/dx/searchresults' component={ DX_SearchResults } />
                         <Route exact path='/lab/:id/book' component={ LabSlots } />
-                        <Route exact path='/dx/patientDetails' component={ DX_PatientDetails } />
+                        <Route exact path='/lab/:id/bookdetails' component={ DX_PatientDetails } />
                     </Switch>
                 </BrowserRouter>
             </div>

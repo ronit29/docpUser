@@ -107,7 +107,7 @@ body{
 
     .proceedBtn{
         display: block;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
@@ -669,7 +669,7 @@ body{
 .patientDetails{
     .proceedbtn{
         display: block;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;

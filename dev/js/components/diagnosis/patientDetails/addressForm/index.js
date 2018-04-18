@@ -1,3 +1,3 @@
-import AddressForm from './DetailsForm.js'
+import AddressForm from './AddressForm.js'
 
 export default AddressForm
