@@ -11,13 +11,25 @@ class LabProfileCard extends React.Component {
         super(props)
     }
 
+    generateTestsString(tests) {
+        return tests.reduce((str, test, i) => {
+            str += test.id
+            if (i + 1 < tests.length) str += ",";
+            return str
+        }, "")
+    }
+
     cardClick(id, e) {
-        this.context.router.history.push(`/lab/${id}`)
+        let { tests } = this.props.details
+        let testsStr = this.generateTestsString(tests)
+        this.context.router.history.push(`/lab/${id}/book?tests=${testsStr}`)
     }
 
     bookNow(id, e) {
         e.stopPropagation()
-        this.context.router.history.push(`/lab/${id}`)
+        let { tests } = this.props.details
+        let testsStr = this.generateTestsString(tests)
+        this.context.router.history.push(`/lab/${id}/book?tests=${testsStr}`)
     }
 
     static contextTypes = {
@@ -64,8 +76,8 @@ class LabProfileCard extends React.Component {
                         !!this.props.hideBookNow ? '' :
                             <div className="subOptionsInteract">
                                 <button className="bookNow" onClick={this.bookNow.bind(this, id)}>
-                                    Book Rs. { price_breakup.amount }
-                                    </button>
+                                    Book Rs. {price_breakup.amount}
+                                </button>
                             </div>
                     }
                 </div>

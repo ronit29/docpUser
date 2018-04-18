@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import DoctorProfileCard from '../commons/doctorProfileCard/index.js'
-import TimeSlotSelector from './timeSlotSelector/index.js'
+import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
 import SelectedClinic from '../commons/selectedClinic/index.js'
 
 class AppointmentSlot extends React.Component {
