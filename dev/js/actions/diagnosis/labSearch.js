@@ -57,3 +57,13 @@ export const getLabTimeSlots = (labId, testIds, callback) => (dispatch) => {
 
 	})
 }
+
+export const getLabBookingSummary = (bookingId, callback) => (dispatch) => {
+	API_GET('/lab_booking_summar.json').then(function (response) {
+		
+		callback(response)
+
+	}).catch(function (error) {
+
+	})
+}

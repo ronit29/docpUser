@@ -13,7 +13,8 @@ class PatientDetailsView extends React.Component {
             selectedLab: null,
             selectedTests: "",
             selectedSlot: null,
-            selectedTests : ""
+            selectedSlotStart : null,
+            selectedSlotEnd : null
         }
     }
 
@@ -25,14 +26,20 @@ class PatientDetailsView extends React.Component {
     }
 
     proceed(){
-        // this.context.router.history.push('/payment')
+        this.context.router.history.push('/lab/booking/summary/IUHBUH8787UHB')
     }
 
     componentDidMount() {
         let labId = this.props.match.params.id
         let tests = this.getLocationParam('tests')
+        let selectedSlotStart = this.getLocationParam('t_start')
+        selectedSlotStart = new Date(parseFloat(selectedSlotStart))
+        selectedSlotStart = selectedSlotStart.toString()
+        let selectedSlotEnd = this.getLocationParam('t_end')
+        selectedSlotEnd = new Date(parseFloat(selectedSlotEnd))
+        selectedSlotEnd = selectedSlotEnd.toString()
         if (labId) {
-            this.setState({ selectedLab: labId, selectedTests: tests })
+            this.setState({ selectedLab: labId, selectedTests: tests, selectedSlotStart, selectedSlotEnd })
             this.props.getLabById(labId)
 
         }
@@ -52,6 +59,11 @@ class PatientDetailsView extends React.Component {
                         <div>
                             <LabDetails data={this.props.LABS[this.state.selectedLab]} />
                             <OrderDetails data={this.props.LABS[this.state.selectedLab]} />
+                            <div className="selectedAppointmentSlot">
+                                <h5>Selected Appointment Slot</h5>
+                                <span className="appdate">Appointment Date</span>
+                                <span className="date">{ this.state.selectedSlotStart }</span>
+                            </div>
                             <DetailsForm />
                             <AddressForm city="Selected value" />
                             <button className="proceedbtn" onClick={this.proceed.bind(this)}>Proceed</button>

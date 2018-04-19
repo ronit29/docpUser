@@ -25,8 +25,6 @@ class UserProfileView extends React.Component {
                     <button>OPD Visits</button>
                     <button>Medical History</button>
                     <button>Test Reports</button>
-                    <button>My Family</button>
-                    <button>Lifecycle</button>
                 </div>
             </div>
         );

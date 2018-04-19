@@ -54,7 +54,9 @@ class CriteriaSearchView extends React.Component {
                 <div className="locationSearchBox">
                     <input className="topSearch" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder="Search for tests, labs, packages ..etc" />
                     {
-                        this.state.searchResults.map((type, i) => {
+                        this.state.searchResults.filter((currVal) => {
+
+                        }).map((type, i) => {
                             return <div className="searchResultType" key={i}>
                                 <p>{type.name}</p>
                                 {
@@ -62,7 +64,7 @@ class CriteriaSearchView extends React.Component {
                                         return <span key={j} className="pac-item" onClick={this.addCriteria.bind(this, resultData, type.type)}>
                                             <p className="head">{resultData.name}</p>
                                             <p className="sub">{resultData.sub_name || resultData.address}</p>
-                                        </span> 
+                                        </span>
                                     })
                                 }
                             </div>

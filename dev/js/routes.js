@@ -113,12 +113,21 @@ const LabSlots = Loadable({
         return ''
     }
 })
+
 const DX_PatientDetails = Loadable({
     loader : () => import('./containers/diagnosis/PatientDetails.js'),
     loading : () => {
         return ''
     }
 })
+
+const DX_BookingSummary = Loadable({
+    loader : () => import('./containers/diagnosis/BookingSummary.js'),
+    loading : () => {
+        return ''
+    }
+})
+
 class RouterConfig extends Component {
 
     render() {
@@ -144,6 +153,7 @@ class RouterConfig extends Component {
                         <Route exact path='/dx/searchresults' component={ DX_SearchResults } />
                         <Route exact path='/lab/:id/book' component={ LabSlots } />
                         <Route exact path='/lab/:id/bookdetails' component={ DX_PatientDetails } />
+                        <Route exact path='/lab/booking/summary/:id' component={ DX_BookingSummary } />
                     </Switch>
                 </BrowserRouter>
             </div>
