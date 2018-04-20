@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../../actions/index.js'
+import { getUserProfile } from '../../actions/index.js'
 
-import UserProfileView from '../../components/opd/userProfile/index.js'
+import UserProfileView from '../../components/commons/userProfile/index.js'
 
 
 class UserProfile extends React.Component {
@@ -14,21 +14,22 @@ class UserProfile extends React.Component {
     render() {
 
         return (
-            <UserProfileView />
+            <UserProfileView {...this.props} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
+    const USER = state.USER
 
     return {
-
+        USER
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getUserProfile : () => dispatch(getUserProfile())
     }
 }
 

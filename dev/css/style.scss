@@ -457,77 +457,6 @@ body{
             margin-bottom: 10px;
         }
 
-        .clinic{
-            float: left;
-            width: 100%;
-            padding: 5px;
-            padding-left: 0px;
-            border-bottom: 1px solid #e2e2e2;
-            padding-bottom: 15px;
-            margin-top: 5px;
-            .name{
-                float: left;
-                width: 33%;
-                word-wrap: break-word;
-                font-size: 13px;
-                padding-top: 9px;
-            }
-            .details{
-                float: left;
-                width: 50%;
-                word-wrap: break-word;
-                font-size: 13px;
-                position: relative;
-
-                .clockIcon{
-                    visibility: visible;
-                    position: absolute;
-                    top: 4px;
-                    left: 16px;
-                    font-size: 20px;
-                    color: gray;
-                }
-                .moneyIcon{
-                    position: absolute;
-                    top: 26px;
-                    left: 16px;
-                    font-size: 20px;
-                    color: gray;
-                }
-                p{
-                    margin: 0;
-                    margin-left: 50px;
-                }
-                span{
-                    margin-right: 2px;
-                }
-            }
-            .book{
-                float: left;
-                width: 12%;
-                word-wrap: break-word;
-                font-size: 13px;
-                position: relative;
-                .text{
-                    float: left;
-                    position: absolute;
-                    width: 70%;
-                    top: 7px;
-                    font-size: 15px;
-                }
-
-                .bookIcon{
-                    float: left;
-                    width: 40%;
-                    position: absolute;
-                    right: -6px;
-                    top: 5px;
-                }
-            }
-            .isAvailable{
-                color: #00b7b0;
-            }
-        }
     }
 }
 
@@ -852,13 +781,20 @@ body{
 }
 
 .profileSlider{
-    height: 150px;
+    height: auto;
     margin-top: 45px;
+    display: block;
+    float: left;
+    
     .slideTile{
         height: 100%;
+        float: left;
+        width: 25%;
         .profileCardImage{
-            width: 100%;
-            height: 150px;
+            width: 90%;
+            height: 100px;
+            border-radius: 100%;
+            margin-left: 5%;
         }
         
     }
@@ -888,6 +824,7 @@ body{
             background-color: white;
             margin-bottom: 0px;
             cursor: pointer;
+            white-space: nowrap;
         }
 
     }
@@ -1073,4 +1010,71 @@ body{
     }
 
     
+}
+
+.appointment{
+    float: left;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    height: 100px;
+    background-color: white;
+    margin-top: 7px;
+    
+    .name{
+        float: left;
+        width: 20%;
+        height: 100%;
+    }
+
+    .details{
+        float: left;
+        width: 50%;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        padding-top: 0px;
+
+        p{
+            margin: 6px;
+        }
+    }
+
+    .book{
+        float: left;
+        width: 30%;
+        height: 100%;
+
+        .text{
+            margin-top: 21px;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+        }
+        .bookIcon{
+            float: left;
+            margin-top: -32px;
+            margin-left: 98px;           
+        }
+    }
+}
+
+.upcomingapp{
+    margin: 0px;
+    width: 100%;
+    margin-top: 20px;
+    float: left;
+    background-color: #00b7b0;
+    padding: 5px;
+    color: white;
+}
+
+.prevapp{
+    margin: 0px;
+    width: 100%;
+    margin-top: 20px;
+    float: left;
+    background-color: #c1c1c1;
+    padding: 5px;
+    color: white;
 }

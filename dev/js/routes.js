@@ -59,7 +59,14 @@ const PatientDetails = Loadable({
 })
 
 const UserProfile = Loadable({
-    loader : () => import('./containers/opd/UserProfile.js'),
+    loader : () => import('./containers/commons/UserProfile.js'),
+    loading : () => {
+        return ''
+    }
+})
+
+const UserAppointments = Loadable({
+    loader : () => import('./containers/commons/UserAppointments.js'),
     loading : () => {
         return ''
     }
@@ -144,7 +151,11 @@ class RouterConfig extends Component {
                         <Route exact path='/doctorprofile/:id/availability' component={ ClinicList } />
                         <Route exact path='/doctorprofile/:id/:clinicId/book' component={ AppointmentSlot } />
                         <Route exact path='/doctorprofile/:id/:clinicId/bookdetails' component={ PatientDetails } />
-                        <Route exact path='/userprofile' component={ UserProfile } />
+                        
+                        <Route exact path='/user' component={ UserProfile } />
+                        <Route exact path='/user/:id' component={ UserProfile } />
+                        <Route exact path='/user/:id/appointments' component={ UserAppointments } />
+
                         <Route exact path='/payment' component={ Payment } />
                         <Route exact path='/booking/:refId' component={ Booking } />
 

@@ -54,9 +54,7 @@ class CriteriaSearchView extends React.Component {
                 <div className="locationSearchBox">
                     <input className="topSearch" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder="Search for tests, labs, packages ..etc" />
                     {
-                        this.state.searchResults.filter((currVal) => {
-
-                        }).map((type, i) => {
+                        this.state.searchResults.map((type, i) => {
                             return <div className="searchResultType" key={i}>
                                 <p>{type.name}</p>
                                 {
