@@ -12,38 +12,7 @@
             "onlineConsultationCount": 3,
             "opdVisitCount": 2,
             "medicalHistoryCount": 5,
-            "medicalTestCount": 5,
-            "appointments": [
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "slot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                }
-            ]
+            "medicalTestCount": 5
         },
         {
             "profileId": 32344423,
@@ -57,38 +26,7 @@
             "onlineConsultationCount": 3,
             "opdVisitCount": 2,
             "medicalHistoryCount": 5,
-            "medicalTestCount": 5,
-            "appointments": [
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "slot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                }
-            ]
+            "medicalTestCount": 5
         },
         {
             "profileId": 35523424,
@@ -102,38 +40,7 @@
             "onlineConsultationCount": 3,
             "opdVisitCount": 2,
             "medicalHistoryCount": 5,
-            "medicalTestCount": 5,
-            "appointments": [
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "slot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                }
-            ]
+            "medicalTestCount": 5
         },
         {
             "profileId": 36623425,
@@ -147,38 +54,7 @@
             "onlineConsultationCount": 3,
             "opdVisitCount": 2,
             "medicalHistoryCount": 5,
-            "medicalTestCount": 5,
-            "appointments": [
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "slot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                },
-                {
-                    "doctorName": "dr. Steffani Graph",
-                    "doctorId": 32312,
-                    "timeSlot": {
-                        "start": 1523808308000,
-                        "end": 1523808308000
-                    },
-                    "isConfirmed": true,
-                    "prescription": "https://drive.google.com/file/d/1VBrxLGbnExsZ3srfPpjV__-TnN7YE8vc/view?usp=sharing"
-                }
-            ]
+            "medicalTestCount": 5
         }
     ]
 }

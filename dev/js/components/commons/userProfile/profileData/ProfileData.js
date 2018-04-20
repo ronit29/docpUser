@@ -10,6 +10,11 @@ class ProfileData extends React.Component {
 
     }
 
+    openReports(profileId) {
+        this.context.router.history.push(`/user/${profileId}/reports`)
+
+    }
+
     static contextTypes = {
         router: () => null
     }
@@ -32,7 +37,7 @@ class ProfileData extends React.Component {
                     <button>Online Consultations({onlineConsultationCount})</button>
                     <button onClick={this.openAppointments.bind(this,profileId)}>OPD Visits ({opdVisitCount})</button>
                     <button>Medical History ({medicalHistoryCount})</button>
-                    <button>Test Reports ({medicalTestCount})</button>
+                    <button onClick={this.openReports.bind(this,profileId)}>Test Reports ({medicalTestCount})</button>
                 </div>
             </div>
         );

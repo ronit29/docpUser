@@ -72,6 +72,13 @@ const UserAppointments = Loadable({
     }
 })
 
+const UserReports = Loadable({
+    loader : () => import('./containers/commons/UserReports.js'),
+    loading : () => {
+        return ''
+    }
+})
+
 const Payment = Loadable({
     loader : () => import('./containers/opd/Payment.js'),
     loading : () => {
@@ -155,6 +162,7 @@ class RouterConfig extends Component {
                         <Route exact path='/user' component={ UserProfile } />
                         <Route exact path='/user/:id' component={ UserProfile } />
                         <Route exact path='/user/:id/appointments' component={ UserAppointments } />
+                        <Route exact path='/user/:id/reports' component={ UserReports } />
 
                         <Route exact path='/payment' component={ Payment } />
                         <Route exact path='/booking/:refId' component={ Booking } />
