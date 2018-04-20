@@ -142,6 +142,13 @@ const DX_BookingSummary = Loadable({
     }
 })
 
+const DoctorChat = Loadable({
+    loader : () => import('./containers/commons/Chat.js'),
+    loading : () => {
+        return ''
+    }
+})
+
 class RouterConfig extends Component {
 
     render() {
@@ -163,6 +170,7 @@ class RouterConfig extends Component {
                         <Route exact path='/user/:id' component={ UserProfile } />
                         <Route exact path='/user/:id/appointments' component={ UserAppointments } />
                         <Route exact path='/user/:id/reports' component={ UserReports } />
+                        <Route exact path='/chat' component={ DoctorChat } />
 
                         <Route exact path='/payment' component={ Payment } />
                         <Route exact path='/booking/:refId' component={ Booking } />
