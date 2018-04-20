@@ -40,6 +40,7 @@ class UserProfileView extends React.Component {
                     selectedUser ? <div>
                         <ProfileSlider 
                             profiles={this.props.USER.profiles}
+                            subRoute=""
                         />
                         <ProfileData 
                             profileData={selectedUser}

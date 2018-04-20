@@ -46,6 +46,7 @@ class UserAppointmentsView extends React.Component {
                     ( selectedUser && selectedUser.appointments ) ? <div>
                         <ProfileSlider
                             profiles={this.props.USER.profiles}
+                            subRoute="/appointments"
                         />
                         <p className="upcomingapp">Upcoming OPD Appointments</p>
                         {

@@ -41,6 +41,7 @@ class UserReportsView extends React.Component {
                     (selectedUser && selectedUser.tests) ? <div>
                         <ProfileSlider
                             profiles={this.props.USER.profiles}
+                            subRoute="/reports"
                         />
                         <p className="upcomingapp">Reports</p>
                         {

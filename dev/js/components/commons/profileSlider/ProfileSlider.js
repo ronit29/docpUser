@@ -7,7 +7,7 @@ class ProfileSlider extends React.Component {
     }
 
     switchUser(profileId) {
-        this.context.router.history.push(`/user/${profileId}`)
+        this.context.router.history.push(`/user/${profileId}${this.props.subRoute}`)
 
     }
 
