@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Routes from './routes.js'
-import TopBar from './containers/opd/TopBar.js'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 class App extends React.Component {
     constructor(props) {
@@ -13,33 +12,20 @@ class App extends React.Component {
         }
     }
 
-    componentWillMount() {
-
+    componentDidMount() {
+        // remove SSR css for material-ui
+        const jssStyles = document.getElementById('jss-server-side');
+        if (jssStyles && jssStyles.parentNode) {
+            jssStyles.parentNode.removeChild(jssStyles);
+        }
     }
 
     render() {
 
-        const theme = createMuiTheme({
-            palette: {
-                primary: {
-                    main : '#00b7b0'
-                },
-                secondary: {
-                    main : '#00b7b0'
-                },
-            },
-            status: {
-                danger: 'orange',
-            },
-        })
-
         return (
-            <div>
-                <MuiThemeProvider theme={theme}>
-                    <TopBar />
-                    <Routes />
-                </MuiThemeProvider>
-            </div>
+            <BrowserRouter>
+                <Routes />
+            </BrowserRouter>
         );
     }
 }

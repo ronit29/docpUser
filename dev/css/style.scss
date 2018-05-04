@@ -1,6 +1,10 @@
 $primary-color : #17a2b8;
 $background-color : #f1f1f1;
 
+#root{
+    display: block !important;
+}
+
 body{
     background-color: $background-color;
     padding: 0px !important;

@@ -3,8 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
+const clientConfig = {
     entry: {
         'index': ['babel-polyfill', './dev/js/index.js']
     },
@@ -13,7 +15,9 @@ module.exports = {
     plugins: [
         // new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(['dist']),
-        new HtmlWebpackPlugin({ template: 'index.template.ejs', inject: 'body' })
+        new MiniCssExtractPlugin({
+            filename: "style.css",
+        })
     ],
 
     optimization: {
@@ -31,7 +35,7 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath : '/'
+        publicPath: '/dist'
     },
 
     module: {
@@ -51,10 +55,11 @@ module.exports = {
                     'style-loader',
                     'css-loader'
                 ]
-            }, {
+            },
+            {
                 test: /\.scss$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
                 ]
@@ -75,3 +80,46 @@ module.exports = {
     }
 
 }
+
+const serverConfig = {
+    entry: './index.js',
+    mode: 'development',
+    devtool: 'inline-source-map',
+    output: {
+        path: __dirname,
+        filename: 'server.js',
+        publicPath: '/'
+    },
+    target: 'node',
+    node: {
+        __dirname: false,
+        __filename: false,
+    },
+    resolve: {
+        modules: ['node_modules', 'src'],
+        extensions: ['*', '.js', '.json'],
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['react', "stage-0",
+                        ['env', {
+                            targets: {
+                                node: 8,
+                            },
+                        }],
+                    ],
+                },
+            },
+        ],
+    },
+    externals: nodeExternals(),
+}
+
+
+
+module.exports = [serverConfig, clientConfig]

@@ -1,188 +1,70 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Loadable from 'react-loadable';
 
-const SearchCriteria = Loadable({
-    loader : () => import('./containers/opd/SearchCriteria.js'),
-    loading : () => {
-        return ''
-    }
-})
+import TopBar from './containers/opd/TopBar.js'
+import SearchCriteria from './containers/opd/SearchCriteria.js'
+import LocationSearch from './containers/opd/LocationSearch.js'
+import SearchResults from './containers/opd/SearchResults.js'
+import SearchResultsFilter from './containers/opd/SearchResultsFilter.js'
+import DoctorProfile from './containers/opd/DoctorProfile.js'
+import ClinicList from './containers/opd/ClinicList.js'
+import AppointmentSlot from './containers/opd/AppointmentSlot.js'
+import PatientDetails from './containers/opd/PatientDetails.js'
+import UserProfile from './containers/commons/UserProfile.js'
+import UserAppointments from './containers/commons/UserAppointments.js'
+import UserReports from './containers/commons/UserReports.js'
+import Payment from './containers/opd/Payment.js'
+import Booking from './containers/opd/Booking.js'
+import CriteriaSearch from './containers/opd/CriteriaSearch.js'
+import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
+import DX_CriteriaSearch from './containers/diagnosis/CriteriaSearch.js'
+import DX_SearchResults from './containers/diagnosis/SearchResults.js'
+import LabSlots from './containers/diagnosis/LabSlots.js'
+import DX_PatientDetails from './containers/diagnosis/PatientDetails.js'
+import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
+import DoctorChat from './containers/commons/Chat.js'
 
-const LocationSearch = Loadable({
-    loader : () => import('./containers/opd/LocationSearch.js'),
-    loading : () => {
-        return ''
-    }
-})
 
-const SearchResults = Loadable({
-    loader : () => import('./containers/opd/SearchResults.js'),
-    loading : () => {
-        return ''
-    }
-})
+const routes = [
 
-const SearchResultsFilter = Loadable({
-    loader : () => import('./containers/opd/SearchResultsFilter.js'),
-    loading : () => {
-        return ''
-    }
-})
+    { path: '/', exact:true, component: SearchCriteria },
+    { path: '/locationsearch', exact:true, component: LocationSearch },
+    { path: '/criteriasearch', exact:true, component: CriteriaSearch },
+    { path: '/searchresults', exact:true, component: SearchResults },
+    { path: '/searchresults/filter', exact:true, component: SearchResultsFilter },
+    { path: '/doctorprofile/:id', exact:true, component: DoctorProfile },
+    { path: '/doctorprofile/:id/availability', exact:true, component: ClinicList },
+    { path: '/doctorprofile/:id/:clinicId/book', exact:true, component: AppointmentSlot },
+    { path: '/doctorprofile/:id/:clinicId/bookdetails', exact:true, component: PatientDetails },
+    { path: '/user', exact:true, component: UserProfile },
+    { path: '/user/:id', exact:true, component: UserProfile },
+    { path: '/user/:id/appointments', exact:true, component: UserAppointments },
+    { path: '/user/:id/reports', exact:true, component: UserReports },
+    { path: '/chat', exact:true, component: DoctorChat },
+    { path: '/payment', exact:true, component: Payment },
+    { path: '/booking/:refId', exact:true, component: Booking },
+    { path: '/dx', exact:true, component: DX_SearchCriteria },
+    { path: '/dx/criteriasearch', exact:true, component: DX_CriteriaSearch },
+    { path: '/dx/searchresults', exact:true, component: DX_SearchResults },
+    { path: '/lab/:id/book', exact:true, component: LabSlots },
+    { path: '/lab/:id/bookdetails', exact:true, component: DX_PatientDetails },
+    { path: '/lab/booking/summary/:id', exact:true, component: DX_BookingSummary },
 
-const DoctorProfile = Loadable({
-    loader : () => import('./containers/opd/DoctorProfile.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const ClinicList = Loadable({
-    loader : () => import('./containers/opd/ClinicList.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const AppointmentSlot = Loadable({
-    loader : () => import('./containers/opd/AppointmentSlot.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const PatientDetails = Loadable({
-    loader : () => import('./containers/opd/PatientDetails.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const UserProfile = Loadable({
-    loader : () => import('./containers/commons/UserProfile.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const UserAppointments = Loadable({
-    loader : () => import('./containers/commons/UserAppointments.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const UserReports = Loadable({
-    loader : () => import('./containers/commons/UserReports.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const Payment = Loadable({
-    loader : () => import('./containers/opd/Payment.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const Booking = Loadable({
-    loader : () => import('./containers/opd/Booking.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const CriteriaSearch = Loadable({
-    loader : () => import('./containers/opd/CriteriaSearch.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const DX_SearchCriteria = Loadable({
-    loader : () => import('./containers/diagnosis/SearchCriteria.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const DX_CriteriaSearch = Loadable({
-    loader : () => import('./containers/diagnosis/CriteriaSearch.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const DX_SearchResults = Loadable({
-    loader : () => import('./containers/diagnosis/SearchResults.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const LabSlots = Loadable({
-    loader : () => import('./containers/diagnosis/LabSlots.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const DX_PatientDetails = Loadable({
-    loader : () => import('./containers/diagnosis/PatientDetails.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const DX_BookingSummary = Loadable({
-    loader : () => import('./containers/diagnosis/BookingSummary.js'),
-    loading : () => {
-        return ''
-    }
-})
-
-const DoctorChat = Loadable({
-    loader : () => import('./containers/commons/Chat.js'),
-    loading : () => {
-        return ''
-    }
-})
+]
 
 class RouterConfig extends Component {
+
+    static ROUTES = routes
 
     render() {
         return (
             <div>
-                <BrowserRouter>
-                    <Switch>
-                        <Route exact path='/' component={ SearchCriteria } />
-                        <Route exact path='/locationsearch' component={ LocationSearch } />
-                        <Route exact path='/criteriasearch' component={ CriteriaSearch } />
-                        <Route exact path='/searchresults' component={ SearchResults } />
-                        <Route exact path='/searchresults/filter' component={ SearchResultsFilter } />
-                        <Route exact path='/doctorprofile/:id' component={ DoctorProfile } />
-                        <Route exact path='/doctorprofile/:id/availability' component={ ClinicList } />
-                        <Route exact path='/doctorprofile/:id/:clinicId/book' component={ AppointmentSlot } />
-                        <Route exact path='/doctorprofile/:id/:clinicId/bookdetails' component={ PatientDetails } />
-                        
-                        <Route exact path='/user' component={ UserProfile } />
-                        <Route exact path='/user/:id' component={ UserProfile } />
-                        <Route exact path='/user/:id/appointments' component={ UserAppointments } />
-                        <Route exact path='/user/:id/reports' component={ UserReports } />
-                        <Route exact path='/chat' component={ DoctorChat } />
-
-                        <Route exact path='/payment' component={ Payment } />
-                        <Route exact path='/booking/:refId' component={ Booking } />
-
-                        <Route exact path='/dx' component={ DX_SearchCriteria } />
-                        <Route exact path='/dx/criteriasearch' component={ DX_CriteriaSearch } />
-                        <Route exact path='/dx/searchresults' component={ DX_SearchResults } />
-                        <Route exact path='/lab/:id/book' component={ LabSlots } />
-                        <Route exact path='/lab/:id/bookdetails' component={ DX_PatientDetails } />
-                        <Route exact path='/lab/booking/summary/:id' component={ DX_BookingSummary } />
-                    </Switch>
-                </BrowserRouter>
+                <TopBar />
+                <Switch>
+                    {routes.map((route,i) => (
+                        <Route {...route} key={i}/>
+                    ))}
+                </Switch>
             </div>
         )
     }

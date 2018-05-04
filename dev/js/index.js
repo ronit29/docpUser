@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 import allReducers from './reducers';
 import App from './App.js'
+
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 require('../css/style.scss')
 
@@ -16,10 +18,26 @@ const store = createStore(
     applyMiddleware(thunk, logger)
 );
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#00b7b0'
+        },
+        secondary: {
+            main: '#00b7b0'
+        },
+    },
+    status: {
+        danger: 'orange',
+    },
+})
 
-ReactDOM.render(
+
+ReactDOM.hydrate(
     <Provider store={store}>
-        <App />
+        <MuiThemeProvider theme={theme}>
+            <App />
+        </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')
 );
