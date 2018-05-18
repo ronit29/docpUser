@@ -25,12 +25,14 @@ class LabDetails extends React.Component {
                                     <p className="location">Sector 52 Gurgaon | <span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span>1.5KM</p>
                                     <ul className="list time-contact">
                                         <li>
-                                            <span className="fw-700 text-sm">Timing: -</span>7:30 AM to 8:30 PM
-                      <span className="open-close">Open Today</span>
+                                            <span className="fw-700 text-sm">Timing: -</span>
+                                            7:30 AM to 8:30 PM
+                                            <span className="open-close">Open Today</span>
                                         </li>
                                         <li>
-                                            <span className="fw-700 text-sm">Contact: -</span>0120 1234567, 0120 7654321
-                      <span className="open-close">Call Now</span>
+                                            <span className="fw-700 text-sm">Contact: -</span>
+                                            0120 1234567, 0120 7654321
+                                            <span className="open-close">Call Now</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -60,13 +62,8 @@ class LabDetails extends React.Component {
                                     <h4 className="wc-title text-md fw-700">About</h4>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi</p>
-                                    <ul className="list pb-list facilty-list">
-                                        <li>Parking Available</li>
-                                        <li>Card Accepted</li>
-                                        <li>E Report Available</li>
-                                        <li>Home Chekup Available</li>
-                                    </ul>
+                                    quis nostrud exercitation ullamco laboris nisi
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,7 @@ import { API_GET } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
 
-    API_GET('/diagnostic/v1/search-pg').then(function (response) {
+    API_GET('/api/v1/diagnostic/labsearch').then(function (response) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_LAB,
             payload: response
@@ -28,7 +28,7 @@ export const toggleDiagnosisCriteria = (type, criteria) => (dispatch) => {
 }
 
 export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch) => {
-    API_GET(`/diagnostic/v1/test?name=${searchString}`).then(function (response) {
+    API_GET(`/api/v1/diagnostic/test?name=${searchString}`).then(function (response) {
         callback(response)
     }).catch(function (error) {
         callback(null)

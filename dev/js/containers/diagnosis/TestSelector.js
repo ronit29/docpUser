@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById } from '../../actions/index.js'
+import { getLabById, toggleDiagnosisCriteria } from '../../actions/index.js'
 
-import LabView from '../../components/diagnosis/lab/index.js'
+import TestSelectorView from '../../components/diagnosis/testSelector'
 
-class Lab extends React.Component {
+class TestSelector extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -17,7 +17,7 @@ class Lab extends React.Component {
     render() {
 
         return (
-            <LabView {...this.props} />
+            <TestSelectorView {...this.props} />
         );
     }
 }
@@ -41,9 +41,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
         getLabById: (labId) => dispatch(getLabById(labId))
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lab);
+export default connect(mapStateToProps, mapDispatchToProps)(TestSelector);

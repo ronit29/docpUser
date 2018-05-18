@@ -27,7 +27,7 @@ class SearchCriteriaView extends React.Component {
         return (
             <div>
 
-                <CriteriaSearch {...this.props}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB}>
                     <section className="wrap wrap-100">
 
                         <CommonlySearched

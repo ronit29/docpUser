@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+
 import SearchCriteria from './containers/opd/SearchCriteria.js'
 import LocationSearch from './containers/opd/LocationSearch.js'
 import SearchResults from './containers/opd/SearchResults.js'
@@ -21,31 +23,35 @@ import Lab from './containers/diagnosis/Lab.js'
 import DX_PatientDetails from './containers/diagnosis/PatientDetails.js'
 import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
 import DoctorChat from './containers/commons/Chat.js'
+import TestSelector from './containers/diagnosis/TestSelector'
 
 
 const routes = [
 
-    { path: '/', exact:true, component: SearchCriteria },
-    { path: '/locationsearch', exact:true, component: LocationSearch },
-    { path: '/criteriasearch', exact:true, component: CriteriaSearch },
-    { path: '/searchresults', exact:true, component: SearchResults },
-    { path: '/searchresults/filter', exact:true, component: SearchResultsFilter },
-    { path: '/doctorprofile/:id', exact:true, component: DoctorProfile },
-    { path: '/doctorprofile/:id/availability', exact:true, component: ClinicList },
-    { path: '/doctorprofile/:id/:clinicId/book', exact:true, component: AppointmentSlot },
-    { path: '/doctorprofile/:id/:clinicId/bookdetails', exact:true, component: PatientDetails },
-    { path: '/user', exact:true, component: UserProfile },
-    { path: '/user/:id', exact:true, component: UserProfile },
-    { path: '/user/:id/appointments', exact:true, component: UserAppointments },
-    { path: '/user/:id/reports', exact:true, component: UserReports },
-    { path: '/chat', exact:true, component: DoctorChat },
-    { path: '/payment', exact:true, component: Payment },
-    { path: '/booking/:refId', exact:true, component: Booking },
-    { path: '/dx', exact:true, component: DX_SearchCriteria },
-    { path: '/dx/searchresults', exact:true, component: DX_SearchResults },
-    { path: '/lab/:id/book', exact:true, component: Lab },
-    { path: '/lab/:id/bookdetails', exact:true, component: DX_PatientDetails },
-    { path: '/lab/booking/summary/:id', exact:true, component: DX_BookingSummary },
+    { path: '/', exact: true, component: SearchCriteria },
+    { path: '/locationsearch', exact: true, component: LocationSearch },
+    { path: '/criteriasearch', exact: true, component: CriteriaSearch },
+    { path: '/searchresults', exact: true, component: SearchResults },
+    { path: '/searchresults/filter', exact: true, component: SearchResultsFilter },
+    { path: '/doctorprofile/:id', exact: true, component: DoctorProfile },
+    { path: '/doctorprofile/:id/availability', exact: true, component: ClinicList },
+    { path: '/doctorprofile/:id/:clinicId/book', exact: true, component: AppointmentSlot },
+    { path: '/doctorprofile/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
+    { path: '/user', exact: true, component: UserProfile },
+    { path: '/user/:id', exact: true, component: UserProfile },
+    { path: '/user/:id/appointments', exact: true, component: UserAppointments },
+    { path: '/user/:id/reports', exact: true, component: UserReports },
+    { path: '/chat', exact: true, component: DoctorChat },
+    { path: '/payment', exact: true, component: Payment },
+    { path: '/booking/:refId', exact: true, component: Booking },
+
+    { path: '/dx', exact: true, component: DX_SearchCriteria },
+    { path: '/dx/searchresults', exact: true, component: DX_SearchResults },
+    { path: '/lab/:id/book', exact: true, component: Lab },
+    { path: '/lab/:id/tests', exact: true, component: TestSelector },
+
+    { path: '/lab/:id/bookdetails', exact: true, component: DX_PatientDetails },
+    { path: '/lab/booking/summary/:id', exact: true, component: DX_BookingSummary },
 
 ]
 
@@ -56,11 +62,27 @@ class RouterConfig extends Component {
     render() {
         return (
             <div>
-                <Switch>
-                    {routes.map((route,i) => (
-                        <Route {...route} key={i}/>
-                    ))}
-                </Switch>
+                <Route
+                    render={
+                        ({ location }) => {
+                            return (
+                                <TransitionGroup>
+                                    <CSSTransition key={location.pathname}
+                                        classNames="fade"
+                                        timeout={300}
+                                    >
+                                        <Switch>
+                                            {routes.map((route, i) => (
+                                                <Route {...route} key={i} />
+                                            ))}
+                                        </Switch>
+                                    </CSSTransition>
+                                </TransitionGroup>
+                            )
+                        }
+                    }
+                />
+
             </div>
         )
     }

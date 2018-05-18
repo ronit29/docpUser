@@ -14,9 +14,9 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 			return finalStr
 		}, "")
 
-	let lat = 77.0266
-	let long = 28.4595
-	if (searchState.selectedLocatio) {
+	let lat = 28.4595
+	let long = 77.0226
+	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
 	}
@@ -25,8 +25,8 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	let min_price = filterCriteria.priceRange[0]
 	let max_price = filterCriteria.priceRange[1]
 	let order_by = filterCriteria.sortBy
-
-	let url = `/diagnostic/v1/lablist?ids=${testIds}&lat=${lat}&long=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
+	
+	let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
 
 	dispatch({
 		type: LAB_SEARCH_START,
@@ -61,7 +61,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 }
 
 export const getLabById = (labId) => (dispatch) => {
-	let url = `/diagnostic/v1/lablist/${labId}`
+	let url = `/api/v1/diagnostic/lablist/${labId}`
 
 	API_GET(url).then(function (response) {
 		

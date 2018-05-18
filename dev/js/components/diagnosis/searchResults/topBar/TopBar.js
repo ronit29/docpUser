@@ -40,7 +40,9 @@ class TopBar extends React.Component {
 
     handleClose(type) {
         this.setState({ anchorEl: null, sortBy: type }, () => {
-            this.applyFilters()
+            if(type){
+                this.applyFilters()
+            }
         })
     }
 
@@ -95,7 +97,7 @@ class TopBar extends React.Component {
                     id="sort-menu"
                     anchorEl={this.state.anchorEl}
                     open={Boolean(this.state.anchorEl)}
-                    onClose={this.handleClose.bind(this)}
+                    onClose={this.handleClose.bind(this, null)}
                 >
                     <MenuItem onClick={this.handleClose.bind(this, 'name')}>Relavance</MenuItem>
                     <MenuItem onClick={this.handleClose.bind(this, 'price')}>Fee</MenuItem>

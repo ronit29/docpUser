@@ -18,14 +18,9 @@ class SearchCriteria extends React.Component {
     }
 
     render() {
-
-        if (this.props.LOADED_SEARCH_CRITERIA_LAB) {
-            return (
-                <SearchCriteriaView {...this.props} />
-            );
-        } else {
-            return ""
-        }
+        return (
+            <SearchCriteriaView {...this.props} />
+        )
     }
 }
 

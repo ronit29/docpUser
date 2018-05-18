@@ -59,20 +59,17 @@ class SearchResultsView extends React.Component {
         let filterData = encodeURIComponent(JSON.stringify(filterState))
         this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
 
-        this.getLabList(searchState, filterState, false)
+        this.getLabList(searchState, filterState, true)
     }
 
     render() {
 
         return (
             <div className="searchResults">
-                {
-                    this.props.LOADED_LABS_SEARCH ?
-                        <CriteriaSearch {...this.props} >
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)}/>
-                            <LabsList {...this.props} />
-                        </CriteriaSearch> : ""
-                }
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH}>
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
+                    <LabsList {...this.props} />
+                </CriteriaSearch>
             </div>
         );
     }

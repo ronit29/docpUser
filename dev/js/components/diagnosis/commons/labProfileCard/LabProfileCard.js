@@ -11,6 +11,8 @@ class LabProfileCard extends React.Component {
 
     render() {
 
+        let { price, lab } = this.props.details
+
         return (
             <div className="widget card" onClick={this.openLab.bind(this,this.props.details.lab.id)}>
                 <div className="widget-content card-content book-card">
@@ -26,14 +28,14 @@ class LabProfileCard extends React.Component {
                         <button className="v-btn v-btn-primary pickup-btn">Pickup Available</button>
                     </div>
                     <div className="book-card-content">
-                        <h4 className="book-cart-title">SRL Dignostics</h4>
+                        <h4 className="book-cart-title">{lab.name}</h4>
                         <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI Sector 52 Gurgaon | <span className="text-primary fw-700">1.5 KM</span></p>
                     </div>
                 </div>
                 <div className="widget-footer card-footer">
                     <div className="row">
                         <div className="col-6">
-                            <p className="lab-price">Total Rs 1354</p>
+                            <p className="lab-price">Total Rs {price}</p>
                         </div>
                         <div className="col-6 text-right">
                             <button className="v-btn v-btn-primary btn-md">Book Lab</button>

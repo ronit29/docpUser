@@ -48,3 +48,44 @@
 .range{
     margin-top: 25px;
 }
+
+
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 250ms ease-in;
+}
+
+.fade-exit {
+    display: none;
+}
+
+.fade-exit.fade-exit-active {
+    display: none;
+}
+
+.loaderCircular{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100vh;
+}
+
+.loaderactual{
+    margin: auto;
+}
+
+.errorMessage{
+    color: red;
+    font-weight: bold;
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { lightBaseTheme } from 'material-ui/styles';
+import Loader from '../../commons/Loader'
 
 const debouncer = (fn, delay) => {
     let timer = null
@@ -109,7 +110,7 @@ class CriteriaSearchView extends React.Component {
                                 </div>
                             </div>
                         </section>
-                        : (this.props.children)
+                        : (this.props.checkForLoad ? this.props.children : <Loader />)
 
                 }
             </div>
