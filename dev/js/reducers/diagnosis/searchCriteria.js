@@ -1,62 +1,57 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
 
 const defaultState = {
-    commonlySearchedTests: [{ id: 1, name: 'General Physicial' }, { id: 2, name: 'Neurology' }, { id: 3, name: 'Cardiologist' }, { id: 4, name: 'Orthopaedic' }, { id: 5, name: 'Infertility' }],
-    selectedTests: {},
-    selectedDiagnosisCriteria : {},
+    LOADED_SEARCH_CRITERIA_LAB: false,
+    common_tests: [],
+    common_conditions: [],
+    preferred_labs: [],
+    selectedCriterias: [],
     selectedLocation: null,
-    filterCriteria: {},
-    CRITERIA_LOADED: false
+    filterCriteria: {
+        priceRange: [100, 1500],
+        distanceRange: [1, 35],
+        sortBy: null
+    }
 }
 
 export default function (state = defaultState, action) {
 
     switch (action.type) {
-        case LOAD_SEARCH_CRITERIA_LAB : {
-            let newState = {...state}
-
-            newState.CRITERIA_LOADED = true
-            newState.filterCriteria = {}
-            
-            return newState
-        }
-
-        case TOGGLE_TESTS: {
-            let newState = {
-                ...state,
-                selectedTests : {
-                    ...state.selectedTests
-                }
+        case LOAD_SEARCH_CRITERIA_LAB: {
+            let newState = { ...state }
+            if (action.payload) {
+                newState = { ...newState, ...action.payload }
             }
-
-            if (newState.selectedTests[action.payload.id]) {
-                delete newState.selectedTests[action.payload.id]
-            } else {
-                newState.selectedTests[action.payload.id] = new Date()
-            }
-
+            newState.LOADED_SEARCH_CRITERIA_LAB = true
             return newState
         }
 
         case TOGGLE_DIAGNOSIS_CRITERIA: {
             let newState = {
                 ...state,
-                selectedDiagnosisCriteria : {
-                    ...state.selectedDiagnosisCriteria
-                }
+                selectedCriterias: [].concat(state.selectedCriterias)
             }
 
-            if (newState.selectedDiagnosisCriteria[action.payload.id]) {
-                delete newState.selectedDiagnosisCriteria[action.payload.id]
-            } else {
-                action.payload.ts = new Date()
-                newState.selectedDiagnosisCriteria[action.payload.id] = action.payload
+            let found = false
+            newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
+                if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
+                    found = true
+                    return false
+                }
+                return true
+            })
+
+            if (!found) {
+                newState.selectedCriterias.push({
+                    ...action.payload.criteria,
+                    type: action.payload.type
+                })
             }
 
             return newState
         }
 
-        case SELECT_LOCATION: {
+        case SELECT_LOCATION_DIAGNOSIS: {
             let newState = { ...state }
 
             newState.selectedLocation = action.payload
@@ -64,12 +59,11 @@ export default function (state = defaultState, action) {
         }
 
         case MERGE_SEARCH_STATE_LAB: {
-            let newState = { ...state }
+            let newState = { ...state, ...action.payload.searchState, filterCriteria : action.payload.filterCriteria }
 
-            newState = Object.assign(newState, action.payload)
-            newState.CRITERIA_LOADED = true
             return newState
         }
+
     }
     return state
 }

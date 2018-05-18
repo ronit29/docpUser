@@ -1,102 +1,45 @@
 import React from 'react';
 
-import EmotiIcon from 'material-ui-icons/AccountCircle';
-import HomeIcon from 'material-ui-icons/Home';
-import ClockIcon from 'material-ui-icons/AvTimer';
-import LocationsIcon from 'material-ui-icons/LocationOn';
-
-
 class LabProfileCard extends React.Component {
     constructor(props) {
         super(props)
     }
 
-    generateTestsString(tests) {
-        return tests.reduce((str, test, i) => {
-            if(test.isAvailable) {
-                str += test.id;
-                if (i + 1 < tests.length) str += ",";
-            }
-            return str
-        }, "")
-    }
-
-    cardClick(id, e) {
-        let { tests } = this.props.details
-        let testsStr = this.generateTestsString(tests)
-        this.context.router.history.push(`/lab/${id}/book?tests=${testsStr}`)
-    }
-
-    bookNow(id, e) {
-        e.stopPropagation()
-        let { tests } = this.props.details
-        let testsStr = this.generateTestsString(tests)
-        this.context.router.history.push(`/lab/${id}/book?tests=${testsStr}`)
-    }
-
-    static contextTypes = {
-        router: () => null
-    }
-
-    getTime(unix_timestamp) {
-        var date = new Date(unix_timestamp * 1000);
-        var hours = date.getHours();
-        var minutes = "0" + date.getMinutes();
-        return hours + ':' + minutes.substr(-2)
-    }
-
-    getAvailability(nextAvailable) {
-        if (nextAvailable[0]) {
-            let date = new Date(nextAvailable[0].from).toDateString()
-            let timeStart = this.getTime(nextAvailable[0].from)
-            let timeEnd = this.getTime(nextAvailable[0].to)
-            return {
-                date, timeStart, timeEnd
-            }
-
-        }
-
-        return { date: '', timeStart: '', timeEnd: '' }
+    openLab(id){
+        this.props.history.push(`/lab/${id}/book`)
     }
 
     render() {
 
-        let { id, name, profile_img, nextAvailable, address, price_breakup } = this.props.details
-
-        let timeAvailable = this.getAvailability(nextAvailable)
-
         return (
-            <div className="doctorCard" onClick={this.cardClick.bind(this, id)}>
-                <div className="detailsDiv">
-                    <div className="subOptionsImage">
-                        <img src={profile_img} className="doctorImage" />
+            <div className="widget card" onClick={this.openLab.bind(this,this.props.details.lab.id)}>
+                <div className="widget-content card-content book-card">
+                    <div className="logo-ratting">
+                        <span className="ct-img lab-icon"><img src="/assets/img/customer-icons/lab1.png" className="img-fluid" /></span>
+                        <ul className="inline-list ratting">
+                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/half-star.svg" className="img-fluid" /></span></li>
+                        </ul>
+                        <button className="v-btn v-btn-primary pickup-btn">Pickup Available</button>
                     </div>
-                    <div className="subOptionsContent">
-                        <span className="name">{name}</span>
+                    <div className="book-card-content">
+                        <h4 className="book-cart-title">SRL Dignostics</h4>
+                        <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI Sector 52 Gurgaon | <span className="text-primary fw-700">1.5 KM</span></p>
                     </div>
-                    {
-                        !!this.props.hideBookNow ? '' :
-                            <div className="subOptionsInteract">
-                                <button className="bookNow" onClick={this.bookNow.bind(this, id)}>
-                                    Book Rs. {price_breakup.amount}
-                                </button>
-                            </div>
-                    }
                 </div>
-                {
-                    !!this.props.hideBottom ? '' :
-                        <div className="bottomOptions">
-                            <div className="subOptions">
-                                <ClockIcon className="clinicIcon" />
-                                <span className="timeEntry">{timeAvailable.date}</span>
-                                <span className="timeEntry">{timeAvailable.timeStart} to {timeAvailable.timeEnd}</span>
-                            </div>
-                            <div className="subOptions">
-                                <LocationsIcon className="clinicIcon" />
-                                <span className="clinicName">{address}</span>
-                            </div>
+                <div className="widget-footer card-footer">
+                    <div className="row">
+                        <div className="col-6">
+                            <p className="lab-price">Total Rs 1354</p>
                         </div>
-                }
+                        <div className="col-6 text-right">
+                            <button className="v-btn v-btn-primary btn-md">Book Lab</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

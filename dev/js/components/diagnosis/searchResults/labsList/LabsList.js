@@ -14,15 +14,21 @@ class LabsList extends React.Component {
     render() {
 
         let { LABS, labList } = this.props
-        
+
         return (
-            <div className="doctorsList">
-                {
-                    labList.map((labId, i) => {
-                        return <LabProfileCard details={LABS[labId]} key={i}/>
-                    })
-                }
-            </div>
+            <section className="wrap search-book-result">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-12">
+                            {
+                                labList.map((labId, i) => {
+                                    return <LabProfileCard {...this.props} details={LABS[labId]} key={i} />
+                                })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
         );
     }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import LabsList from '../searchResults/labsList/index.js'
-import TopBar from '../searchResults/topBar/index.js'
-import CriteriaSelector from '../commons/criteriaSelector/index.js'
+import CriteriaSearch from '../criteriaSearch'
+import TopBar from './topBar'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -18,34 +18,24 @@ class SearchResultsView extends React.Component {
 
     getLabs() {
         let {
-            selectedTests,
             selectedLocation,
-            selectedDiagnosisCriteria,
-            CRITERIA_LOADED
+            selectedCriterias,
+            filterCriteria,
+            LOADED_SEARCH_CRITERIA_LAB
         } = this.props
 
-        if (CRITERIA_LOADED) {
-            let searchState = {
-                selectedTests,
-                selectedLocation,
-                selectedDiagnosisCriteria
+        try {
+            let searchState = this.getLocationParam('search')
+            let filterCriteria = this.getLocationParam('filter')
+            if (filterCriteria) {
+                filterCriteria = JSON.parse(filterCriteria)
+            } else {
+                filterCriteria = {}
             }
-            let filterState = this.props.filterCriteria
-            this.getLabList(searchState, filterState, false)
-        } else {
-            try {
-                let searchState = this.getLocationParam('search')
-                let filterState = this.getLocationParam('filter')
-                if (filterState) {
-                    filterState = JSON.parse(filterState)
-                } else {
-                    filterState = {}
-                }
-                searchState = JSON.parse(searchState)
-                this.getLabList(searchState, filterState, true)
-            } catch (e) {
-                console.error(e)
-            }
+            searchState = JSON.parse(searchState)
+            this.getLabList(searchState, filterCriteria, true)
+        } catch (e) {
+            console.error(e)
         }
     }
 
@@ -56,15 +46,20 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(searchState, filterState, mergeState) {
-        this.props.getLabs(searchState, filterState, mergeState);
+    getLabList(searchState, filterCriteria, mergeState) {
+        this.props.getLabs(searchState, filterCriteria, mergeState);
     }
 
-    updateLabs(fn){
-        return (...args) => {
-            fn(...args)
-            setTimeout(this.getLabs.bind(this) ,0)
+    applyFilters(filterState) {
+        let searchState = {
+            selectedCriterias: this.props.selectedCriterias,
+            selectedLocation: this.props.selectedLocation,
         }
+        let searchData = encodeURIComponent(JSON.stringify(searchState))
+        let filterData = encodeURIComponent(JSON.stringify(filterState))
+        this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
+
+        this.getLabList(searchState, filterState, false)
     }
 
     render() {
@@ -72,20 +67,11 @@ class SearchResultsView extends React.Component {
         return (
             <div className="searchResults">
                 {
-                    this.props.LOADING ? "" :
-                        <div>
-                            <CriteriaSelector
-                                heading={"Add More test"}
-                                selectedLocation={this.props.selectedLocation}
-                                commonlySearchedTests={this.props.commonlySearchedTests}
-                                selectedTests={this.props.selectedTests}
-                                toggleTest={ this.updateLabs.call(this,this.props.toggleTest.bind(this)) }
-                                selectedDiagnosisCriteria={this.props.selectedDiagnosisCriteria}
-                                toggleDiagnosisCriteria={ this.updateLabs.call(this,this.props.toggleDiagnosisCriteria.bind(this)) }
-                            />
-                            <TopBar />
+                    this.props.LOADED_LABS_SEARCH ?
+                        <CriteriaSearch {...this.props} >
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)}/>
                             <LabsList {...this.props} />
-                        </div>
+                        </CriteriaSearch> : ""
                 }
             </div>
         );

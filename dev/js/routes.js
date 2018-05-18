@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import TopBar from './containers/opd/TopBar.js'
 import SearchCriteria from './containers/opd/SearchCriteria.js'
 import LocationSearch from './containers/opd/LocationSearch.js'
 import SearchResults from './containers/opd/SearchResults.js'
@@ -17,9 +16,8 @@ import Payment from './containers/opd/Payment.js'
 import Booking from './containers/opd/Booking.js'
 import CriteriaSearch from './containers/opd/CriteriaSearch.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
-import DX_CriteriaSearch from './containers/diagnosis/CriteriaSearch.js'
 import DX_SearchResults from './containers/diagnosis/SearchResults.js'
-import LabSlots from './containers/diagnosis/LabSlots.js'
+import Lab from './containers/diagnosis/Lab.js'
 import DX_PatientDetails from './containers/diagnosis/PatientDetails.js'
 import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
 import DoctorChat from './containers/commons/Chat.js'
@@ -44,9 +42,8 @@ const routes = [
     { path: '/payment', exact:true, component: Payment },
     { path: '/booking/:refId', exact:true, component: Booking },
     { path: '/dx', exact:true, component: DX_SearchCriteria },
-    { path: '/dx/criteriasearch', exact:true, component: DX_CriteriaSearch },
     { path: '/dx/searchresults', exact:true, component: DX_SearchResults },
-    { path: '/lab/:id/book', exact:true, component: LabSlots },
+    { path: '/lab/:id/book', exact:true, component: Lab },
     { path: '/lab/:id/bookdetails', exact:true, component: DX_PatientDetails },
     { path: '/lab/booking/summary/:id', exact:true, component: DX_BookingSummary },
 
@@ -59,7 +56,6 @@ class RouterConfig extends Component {
     render() {
         return (
             <div>
-                <TopBar />
                 <Switch>
                     {routes.map((route,i) => (
                         <Route {...route} key={i}/>

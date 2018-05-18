@@ -1,46 +1,73 @@
-import { APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
+import { LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 
-export const getLabs = (searchState = {}, filterState = {}, mergeState = false) => (dispatch) => {
-	API_GET('/labs_with_tests.json').then(function (response) {
-		
+export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false) => (dispatch) => {
+
+	let testIds = searchState.selectedCriterias
+		.filter(x => x.type == 'test')
+		.reduce((finalStr, curr, i) => {
+			if (i != 0) {
+				finalStr += ','
+			}
+			finalStr += `${curr.id}`
+			return finalStr
+		}, "")
+
+	let lat = 77.0266
+	let long = 28.4595
+	if (searchState.selectedLocatio) {
+		lat = searchState.selectedLocation.geometry.location.lat
+		long = searchState.selectedLocation.geometry.location.lng
+	}
+	let min_distance = filterCriteria.distanceRange[0]
+	let max_distance = filterCriteria.distanceRange[1]
+	let min_price = filterCriteria.priceRange[0]
+	let max_price = filterCriteria.priceRange[1]
+	let order_by = filterCriteria.sortBy
+
+	let url = `/diagnostic/v1/lablist?ids=${testIds}&lat=${lat}&long=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
+
+	dispatch({
+		type: LAB_SEARCH_START,
+		payload: null
+	})
+
+	API_GET(url).then(function (response) {
+
 		dispatch({
 			type: APPEND_LABS,
-			payload: response.labs
+			payload: response
 		})
 
 		dispatch({
 			type: LAB_SEARCH,
-			payload: response.labs
+			payload: response
 		})
 
 		if (mergeState) {
 			dispatch({
 				type: MERGE_SEARCH_STATE_LAB,
-				payload: searchState
+				payload: {
+					searchState,
+					filterCriteria
+				}
 			})
 		}
-
-		let searchStateParam = encodeURIComponent(JSON.stringify(searchState))
-		let filterStateParam = encodeURIComponent(JSON.stringify(filterState))
-		history.replaceState(null, 'hello', `/dx/searchresults?search=${searchStateParam}&filter=${filterStateParam}`)
-
 
 	}).catch(function (error) {
 
 	})
 }
 
-export const getLabById = (labId, testIds) => (dispatch) => {
-	// this API should return detailed lab
-	API_GET('/labs_with_tests.json').then(function (response) {
-		// mocking API , TODO : remove
-		response.lab = response.labs.filter(lab => lab.id == labId)[0]
+export const getLabById = (labId) => (dispatch) => {
+	let url = `/diagnostic/v1/lablist/${labId}`
 
+	API_GET(url).then(function (response) {
+		
 		dispatch({
 			type: APPEND_LABS,
-			payload: [response.lab]
+			payload: [response]
 		})
 
 	}).catch(function (error) {
@@ -50,7 +77,7 @@ export const getLabById = (labId, testIds) => (dispatch) => {
 
 export const getLabTimeSlots = (labId, testIds, callback) => (dispatch) => {
 	API_GET('/availability_labs.json').then(function (response) {
-		
+
 		callback(response)
 
 	}).catch(function (error) {
@@ -60,7 +87,7 @@ export const getLabTimeSlots = (labId, testIds, callback) => (dispatch) => {
 
 export const getLabBookingSummary = (bookingId, callback) => (dispatch) => {
 	API_GET('/lab_booking_summar.json').then(function (response) {
-		
+
 		callback(response)
 
 	}).catch(function (error) {

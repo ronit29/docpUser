@@ -1,4 +1,5 @@
 import React from 'react';
+import { lightBaseTheme } from 'material-ui/styles';
 
 const debouncer = (fn, delay) => {
     let timer = null
@@ -33,43 +34,84 @@ class CriteriaSearchView extends React.Component {
 
     getSearchResults() {
         this.props.getDiagnosisCriteriaResults(this.state.searchValue, (searchResults) => {
-            this.setState({ searchResults: searchResults.result })
+            if (searchResults) {
+                let tests = searchResults.tests.map(x => { return { ...x, type: 'test' } })
+                this.setState({ searchResults: [...tests] })
+            }
         })
     }
 
-    addCriteria(criteria, type) {
-        criteria.type = type
-        this.props.toggleDiagnosisCriteria(criteria)
-        this.context.router.history.goBack()
+    addCriteria(criteria) {
+        this.props.toggleDiagnosisCriteria(criteria.type, criteria)
+        this.setState({ searchValue: "" })
     }
 
-    static contextTypes = {
-        router: () => null
-    }
 
     render() {
 
-        return (
-            <div className="locationSearch">
-                <div className="locationSearchBox">
-                    <input className="topSearch" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder="Search for tests, labs, packages ..etc" />
-                    {
-                        this.state.searchResults.map((type, i) => {
-                            return <div className="searchResultType" key={i}>
-                                <p>{type.name}</p>
-                                {
-                                    type.data.map((resultData, j) => {
-                                        return <span key={j} className="pac-item" onClick={this.addCriteria.bind(this, resultData, type.type)}>
-                                            <p className="head">{resultData.name}</p>
-                                            <p className="sub">{resultData.sub_name || resultData.address}</p>
-                                        </span>
-                                    })
-                                }
-                            </div>
-                        })
+        let location = "Gurgaon"
+        if (this.props.selectedLocation) {
+            location = this.props.selectedLocation.formatted_address.slice(0, 5)
+        }
 
-                    }
-                </div>
+        return (
+            <div>
+                <header className="skin-primary fixed horizontal top ct-header">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="navigate-row">
+                                    <ul className="inline-list top-nav alpha-bx text-white"
+                                        onClick={() => {
+                                            this.props.history.go(-1)
+                                        }}
+                                    >
+                                        <li><span className="ct-img ct-img-sm arrow-img"><img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" /></span></li>
+                                        <li><div className="screen-title">Search</div></li>
+                                    </ul>
+                                    <ul className="inline-list top-nav beta-bx float-right text-right text-white"
+                                        onClick={() => {
+                                            this.props.history.push('/locationsearch')
+                                        }}
+                                    >
+                                        <li><div className="screen-title"><span className="ct-img ct-img-sm map-marker-img"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span> {location}</div></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="search-row">
+                                    <div className="adon-group">
+                                        <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder="Search for Test & Labs" />
+                                        <span className="ct-img ct-img-sm search-icon"><img src="/assets/img/customer-icons/search-icon.svg" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                {
+                    this.state.searchValue ?
+
+                        <section className="wrap wrap-100">
+                            <div className="widget-panel">
+                                <h4 className="panel-title">Search Result</h4>
+                                <div className="panel-content">
+                                    <ul className="list search-result-list">
+                                        {
+                                            this.state.searchResults.map((curr, i) => {
+                                                return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a></li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                        : (this.props.children)
+
+                }
             </div>
         );
     }

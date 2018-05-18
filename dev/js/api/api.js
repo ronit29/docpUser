@@ -1,37 +1,91 @@
 import Axios from 'axios'
+import STORAGE from '../helpers/storage'
+import NAVIGATE from '../helpers/navigate'
 
 let axiosInstance = Axios.create({
-    baseURL: '/api/',
-    header : {}
+    baseURL: 'http://10.0.32.79:8080',
+    header: {}
 });
 
+function rejectHandler(response, callback) {
+    // if (response && response.response && response.response.status == 401) {
+    //     STORAGE.deleteAuth().then(() => {
+    //         // send to login page
+    //         NAVIGATE.navigateTo('/')
+    //     })
+    // }
+
+    callback(response)
+}
+
 export const API_GET = (url) => {
-    return new Promise((resolve,reject) => {
-        axiosInstance.get(url).then((res) => {
-            resolve(res.data)
-        },(rej) => {
-            reject()
+    return STORAGE.getAuthToken().then((token) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance({
+                method: 'get',
+                url: url,
+                headers: { 'Authorization': `Token ${token}` }
+            }).then((res) => {
+                resolve(res.data)
+            }, (response) => {
+                rejectHandler(response, reject)
+            })
         })
     })
+
+
 }
 export const API_POST = (url, data) => {
-    return new Promise((resolve,reject) => {
-        axiosInstance.post(url, data).then((res) => {
-            resolve(res.data)
-        },reject)
+    return STORAGE.getAuthToken().then((token) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance({
+                method: 'post',
+                url: url,
+                data: data,
+                headers: { 'Authorization': `Token ${token}` }
+            }).then((res) => {
+                resolve(res.data)
+            }, (response) => {
+                rejectHandler(response, reject)
+            })
+        })
     })
+
+
 }
+
 export const API_PUT = (url, data) => {
-    return new Promise((resolve,reject) => {
-        axiosInstance.put(url, data).then((res) => {
-            resolve(res.data)
-        },reject)
+    return STORAGE.getAuthToken().then((token) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance({
+                method: 'put',
+                url: url,
+                data: data,
+                headers: { 'Authorization': `Token ${token}` }
+            }).then((res) => {
+                resolve(res.data)
+            }, (response) => {
+                rejectHandler(response, reject)
+            })
+        })
     })
+
+
 }
+
 export const API_DELETE = (url) => {
-    return new Promise((resolve,reject) => {
-        axiosInstance.delete(url).then((res) => {
-            resolve(res.data)
-        },reject)
+    return STORAGE.getAuthToken().then((token) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance({
+                method: 'delete',
+                url: url,
+                headers: { 'Authorization': `Token ${token}` }
+            }).then((res) => {
+                resolve(res.data)
+            }, (response) => {
+                rejectHandler(response, reject)
+            })
+        })
     })
+
 }

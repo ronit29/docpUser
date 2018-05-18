@@ -1,4 +1,4 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, SET_OPD_FILTERS, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
+import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, SET_OPD_FILTERS, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadSearchCriteria = () => (dispatch) => {
@@ -40,6 +40,11 @@ export const toggleCriteria = (criteria) => (dispatch) => {
 export const selectLocation = (location) => (dispatch) => {
     dispatch({
         type: SELECT_LOCATION,
+        payload: location
+    })
+
+    dispatch({
+        type: SELECT_LOCATION_DIAGNOSIS,
         payload: location
     })
 

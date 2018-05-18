@@ -1,0 +1,50 @@
+.v-btn.v-btn-primary.tag-sm.outline.selected{
+    background-color: #00a5b9;
+    color: white;
+}
+
+.filterRow{
+    display: block;
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    height: 90px;
+}
+
+.tl{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #59afc3;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.tr{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #59afc3;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.bl{
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    font-weight: bold;
+    font-size: 14px;
+}   
+
+.br{
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.range{
+    margin-top: 25px;
+}

@@ -2,7 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Routes from './routes.js'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
+require('../css/normalize.css')
+require('../css/layout.css')
+require('../css/custom.css')
+require('../css/customer.css')
+require('../css/responsive.css')
+require('../css/more.css')
+import 'rc-slider/assets/index.css';
 
 class App extends React.Component {
     constructor(props) {
@@ -22,26 +30,29 @@ class App extends React.Component {
 
     render() {
 
+        const theme = createMuiTheme({
+            palette: {
+                primary: {
+                    main: '#00b7b0'
+                },
+                secondary: {
+                    main: '#00b7b0'
+                },
+            },
+            status: {
+                danger: 'orange',
+            },
+        })
+
         return (
-            <BrowserRouter>
-                <Routes />
-            </BrowserRouter>
+            <MuiThemeProvider theme={theme}>
+                <BrowserRouter>
+                    <Routes />
+                </BrowserRouter>
+            </MuiThemeProvider>
         );
     }
 }
 
-const mapStateToProps = (state) => {
 
-    return {
-
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App

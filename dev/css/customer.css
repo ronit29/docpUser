@@ -1,0 +1,267 @@
+/*common*/
+.ct-img {display: inline-block;}
+.ct-img-lg{width: 60px; height:60px;}
+.ct-img-md{width: 50px; height: 50px;}
+.ct-img-sm{width: 40px; height: 40px;}
+.ct-img-xs{width: 13px; height: 13px; margin-right: 4px;}
+
+.img-fluid{vertical-align: middle;}
+
+.tag-sm{font-size: 14px; font-weight: 500; margin-bottom: 10px; padding: 5px 16px; border-radius: 20px;}
+
+.wrap-100{padding-top: 100px;}
+
+
+.book-header.back-icon{}
+.back-icon-white{margin-top: 12px;}
+
+/*header*/
+.ct-header{height: 100px;}
+.navigate-row{}
+.top-nav>li{line-height: 50px; vertical-align: middle; margin-right: 10px;  font-size: 16px; font-weight: 500;}
+.alpha-bx{}
+.beta-bx {}
+
+.user-notification-action{padding-top: 10px;}
+
+.search-row{position: relative; padding:10px 0; padding-top: 0;}
+.search-input{padding-left: 40px;  box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);}
+.search-icon{position: absolute; top: 0; left:0; padding:11px;}
+
+.map-marker-img,
+.arrow-img{width: 15px; height: 14px;}
+
+/*customer home screen 4*/
+.ct-home-screen{height: 100%; padding-bottom: 0;}
+.ct-profile{margin-top: 10px; margin-bottom: 10px;}
+.ct-profile .ct-profile-icon{float:left;}
+.ct-profile .ct-content{padding-left: 60px;}
+.ct-title{font-size: 16px; font-weight: bold; margin-bottom: 2px;}
+.ct-profile p{color: #757575;   font-size: 14px; font-weight: 500; line-height: 14px;}
+
+.welcome{ font-size: 14px; font-weight: 500;}
+.notification-icon{position: relative;}
+.notification-alert{ background-color: #ff6326; width: 10px ; height: 10px; border-radius: 50%; position: absolute;  right: 0; top: 0; display: inline-block;}
+
+/*booked consultant*/
+.booked-dr{height: 140px; margin-bottom: 10px;}
+.stath-img{margin: 0 auto; margin-bottom: 10px;}
+
+.consultant-quick{margin-bottom: 10px;}
+.enq-suggestion{width: 100%; overflow-x: auto; white-space: nowrap;}
+.round-tag{border-radius: 10px; padding: 2px 15px; font-weight: normal;}
+
+/*talk to consultant screen 5*/
+.talk-to-consutant-note{margin:10px 0;}
+
+/*root map*/
+.root-map-field{padding-right: 55px; position: relative;}
+.root-map-field .root-map{position: absolute; top: 0; right: 0;}
+.root-map>span{display: block; padding-top: 4px; color: #757575; font-size: 12px;}
+.root-map-field .rm-title{ font-size: 16px; font-weight: bold;}
+.root-map-field .dr-with{color: #757575;}
+
+/*list of labs*/
+.total-labs{}
+.total-labs .lab-items>li{text-align: center;  padding:2px 10px; margin-bottom: 10px;}
+.total-labs .lab-items .lab-name{font-size: 14px; font-weight: 500;color: #404040;}
+.total-labs .lab-img{width: 60px;}
+
+/*search screen 8*/
+.search-result-list>li{padding: 10px;}
+.search-result-list>li:last-child{padding-bottom: 0}
+.search-result-list>li:first-child{padding-top: 0}
+.search-result-list>li>a{font-size: 14px; font-weight: 500;}
+
+
+/*location-detect*/
+.location-detect-header{height: auto;}
+.all-test-screen,
+.locaton-detect-screen{padding-top: 120px}
+.select-location-row{position: relative; padding: 10px;}
+.select-location-row .close{position: absolute; top: 0; left: 0;     padding: 5px; width: 24px;}
+.detect-my-locaiton{padding: 4px 0; text-align: right; font-size: 16px; font-weight: 500; color: #00acc1;}
+.location-detect-field .map-marker-blue{width: 20px;height: 20px;}
+.location-detect-field .search-input{box-shadow: none;}
+.map-marker-blue{position:  absolute;top: 8px; left: 10px;}
+
+.locaton-detect-screen .city-list>li{padding: 12px; border-bottom: 1px solid #ddd; background-color: #fff;}
+.locaton-detect-screen .city-list>li>a{font-size: 16px; font-weight: bold;}
+
+/*search with city locality*/
+.city-list>li>a{display: block; position: relative; padding-right: 100px;}
+.city-list>li>a .state{font-size: 14px; font-weight: 500; color: #757575;}
+.city-list>li>a .city-loc{position: absolute; top: 5px; right: 14px;   font-size: 14px; font-weight: normal;}
+
+
+/*search book*/
+.search-book-result{padding-top: 160px}
+.search-book-header{height: auto;}
+.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 10; background-color: #e8eff3 ;margin-top: -3px;}
+
+.filter-item{padding: 10px 0;}
+.filter-title{ font-size: 14px; font-weight: 500;}
+
+.action-filter{float: right; width: 100px; text-align: left; border-left: 1px solid #aaa; padding-top: 5px; height: 35px;}
+.action-filter li{margin-left: 10px;}
+.action-filter li:last-child{margin-left: 4px;}
+.applied-filter{position: relative;}
+.applied-filter-noti{ position: absolute; top: 10px; right: 14px; width: 10px; height: 10px; background-color: orange; border-radius: 50%; }
+.filter-title{padding-right: 110px;}
+
+/*book card*/
+.card{margin-bottom: 10px;}
+.card-content .logo-ratting{  float: right; width: 105px; text-align: right;}
+.ratting{display: block;}
+.pickup-btn{padding: 5px; color: #000; background-color: #fad688; font-size: 12px; font-weight: 500;}
+.card-content .logo-ratting  .lab-icon{display: block; text-align: right;}
+.card-content .logo-ratting  .lab-icon>img{width: 65px}
+.ratting>li{margin-right: -4px;}
+.card .card-footer{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;}
+.logo-ratting{}
+
+.book-card-content{padding-right: 110px;}
+.book-cart-title{font-size: 17px; font-weight: bold;color: #263077; margin-bottom: 5px;}
+
+.lab-price{font-size: 16px; font-weight: 500;color: #263077; padding-top: 3px;}
+
+/*filter popup*/
+.filter-popup{margin-top: 100px;}
+
+/*All test screen 13*/
+.all-test-list>li{position: relative; padding: 20px; border-bottom:1px solid #ddd; padding-right: 70px;}
+.all-test-list .test-price{position: absolute; top: 18px; right:10px; }
+
+.text-price-btn{position: relative;}
+.selected-item{position: absolute; left: 10px; top: 10px}
+
+
+/*=======================
+	profile-book-screen
+=========================*/
+.empty-header {position: fixed; top: 50px; left: 0; right: 0; height: 40px;}
+.profile-book .pb-logo{width: 90px; border: 1px solid #ddd; padding: 5px; border-radius: 4px; text-align: center; margin: 10px auto;}
+
+.pb-title{font-size: 20px; font-weight: bold; color: #263077; margin-bottom: 5px;}
+.wc-title{margin-bottom: 5px;}
+
+.pb-details,
+.pb-header{border-bottom:1px solid #ddd;}
+
+.pb-header .location{color: #00acc1; font-size: 14px; font-weight: 500; margin-bottom: 10px;}
+.profile-book .time-contact{}
+.profile-book .time-contact>li{padding: 1px 0;}
+.profile-book .time-contact>li .open-close{font-size: 14px; font-weight: 500; color: #00acc1;}
+
+.pb-view{ padding: 4px 0; }
+.pb-list>li{padding: 4px 0; font-size: 14px; font-weight: 500; color: #000}
+.pb-list .test-price{float: right;}
+
+.pb-location .address-details .add-map{float: right;}
+.pb-location .address-details .add-info{padding-right: 90px;}
+
+.pb-about>p{margin-bottom: 10px;}
+
+.selected-option{position: absolute; left: 10px; top:15px;}
+
+
+/*===============
+	book-time
+=================*/
+.book-time-screeen{padding-top: 165px;}
+.date-time-calander{position: fixed; left: 0; right: 0;top: 50px; z-index: 10; background-color: #e8eff3}
+.add-new-time{padding: 10px 0;}
+
+
+.booking-type>li{margin-right: 20px;}
+.booking-type>li .radio-inline{font-size: 18px;}
+
+/*booking confirm*/
+.booking-confirm-screen{}
+.booking-confirm-screen{}
+.booking-confirm-screen .lab-details{margin-bottom: 20px;}
+.booking-confirm-screen .lab-details .lab-title{padding-right: 100px;}
+.booking-confirm-screen .lab-details>img{width: 70px; border:1px solid #ddd; padding: 3px ; float: right;}
+.booking-confirm-screen .lab-details .lab-title .title{margin-bottom: 5px;}
+
+.booking-confirm-screen .lab-visit-time{margin-bottom: 30px;}
+.booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
+.booking-confirm-screen .lab-visit-time>p{padding-left: 20px; font-weight: 700;margin-bottom: 4px;}
+
+.payment-method>li{padding: 10px; vertical-align: middle;}
+.payment-method>li>label{font-size: 14px; font-weight: bold;}
+.payment-method>li>label>img{width: 40px; margin-right: 20px; vertical-align: middle;}
+.payment-method .radio-inline{width: 20px; height: 20px; margin-top: 6px;}
+
+.quick-payment>li img{width: 20px!important;}
+
+
+/*credit card screen*/
+.exp-cvv-list{width: 100%}
+.exp-cvv-list .exp-cvv{width: 32.4% ; display: inline-block;}
+
+/*book confirm-timeline*/
+.book-confirmed-timeline{padding-top: 10px;}
+.book-confirmed-timeline .lab-visit-time{margin-bottom: 10px;}
+.cancel-booking-btn{background-color: #b0b0b0; color: #fff;}
+
+
+
+
+/*login mobile verification*/
+.mobile-verification-screen .mv-header{padding: 10px;}
+.mobile-verification-screen .mv-header{padding-top: 20px;}
+.mobile-verification-screen .mobile-field .enter-mobile-number{  width: 200px ; margin: 0 auto;}
+
+/*search dr screen*/
+.search-Dr-Screen{}
+.search-Dr-Screen .drList>li{padding: 6px  0;}
+.search-Dr-Screen .drList>li>a{font-size: 14px; font-weight: 500;}
+
+
+
+/*doctor search result*/
+.search-result-dr{padding-top: 160px;}
+
+.search-dr-list{}
+.search-dr-list .dr-header{}
+
+.search-dr-list .beta{float: right;}
+.search-dr-list .alpha{padding-right: 83px;}
+.search-dr-list .dr-name{ font-size: 16px; font-weight: bold;}
+
+.search-dr-list .dr-info{padding-bottom: 0;}
+
+.search-dr-list .beta.other-info{ }
+.search-dr-list .alpha.dr-exp-details{padding-right: 130px;}
+.search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+
+.pricing{padding-top: 10px;}
+.pricing .new-price{ font-size: 16px; font-weight: 500;color: #00acc1;}
+.pricing .old-price{color: #757575; font-weight: 400; font-size: 12px; text-decoration: line-through;}
+
+.search-dr-list .time-availability,
+.search-dr-list .Clinc-name{padding-left: 7px; display: inline-block; font-size: 12px; font-weight: bold;}
+
+
+/*doctor profile screen*/
+.dr-profile-screen{}
+.dr-profile-screen .dr-qucik-info>img{float: left; width: 80px;}
+.dr-qucik-info .dr-profile {padding-left: 120px;}
+.dr-qucik-info .dr-profile .dr-name{font-size: 18px; font-weight: bold; margin-top:10px; margin-bottom: 5px;}
+.dr-qucik-info .dr-profile .desg{font-size: 14px; font-weight: 500; margin-bottom: 5px;}
+.dr-qucik-info .dr-profile .add-details{font-size: 12px; font-weight: 500; color: #757575; margin-bottom: 2px;}
+
+.drop-down-list>li{font-size: 16px; font-weight: 500; padding: 10px; border-bottom:1px solid #ddd;}
+.drop-down-list>li .title{font-size: 16px; font-weight: 500;}
+.drop-down-list>li .title span{margin-top: 10px;}
+
+/*clinic list*/
+.Clinic-card-list{ width: 100%;}
+.Clinic-card-list>li{ border: solid 1px rgba(0, 0, 0, 0.3); border-radius: 8px; margin-bottom: 10px;}
+.Clinic-card-list>li .location-details>img{float: right; width: 50px;}
+.Clinic-card-list>li .location-details .address{padding-right: 60px; font-size: 14px;font-weight: bold;color: #757575; margin-bottom: 10px;}
+
+.drop-down-list .more-content p{padding-left: 10px}
+
+.timing-details>p{margin-bottom: 3px;}

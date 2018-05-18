@@ -9,13 +9,14 @@ class LocationSearch extends React.Component {
         super(props)
     }
 
+    static contextTypes = {
+        router: () => null
+    }
+
     render() {
 
         return (
-            <LocationSearchView
-                selectedLocation={this.props.selectedLocation}
-                selectLocation={this.props.selectLocation.bind(this)}
-            />
+            <LocationSearchView {...this.props} />
         );
     }
 }

@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleTest, toggleDiagnosisCriteria, loadLabSearchCriteria } from '../../actions/index.js'
+import { loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/diagnosis/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    componentDidMount() {
+        this.props.loadLabCommonCriterias()
     }
 
     static contextTypes = {
@@ -15,34 +19,44 @@ class SearchCriteria extends React.Component {
 
     render() {
 
-        return (
-            <SearchCriteriaView {...this.props} />
-        );
+        if (this.props.LOADED_SEARCH_CRITERIA_LAB) {
+            return (
+                <SearchCriteriaView {...this.props} />
+            );
+        } else {
+            return ""
+        }
     }
 }
 
 const mapStateToProps = (state) => {
 
     const {
-        commonlySearchedTests,
-        selectedTests,
+        LOADED_SEARCH_CRITERIA_LAB,
+        common_tests,
+        common_conditions,
+        preferred_labs,
+        selectedCriterias,
         selectedLocation,
-        selectedDiagnosisCriteria
+        filterCriteria
     } = state.SEARCH_CRITERIA_LABS
 
     return {
-        commonlySearchedTests,
-        selectedTests,
+        LOADED_SEARCH_CRITERIA_LAB,
+        common_tests,
+        common_conditions,
+        preferred_labs,
+        selectedCriterias,
         selectedLocation,
-        selectedDiagnosisCriteria
+        filterCriteria
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadLabSearchCriteria : () => dispatch(loadLabSearchCriteria()),
-        toggleTest: (id) => dispatch(toggleTest(id)),
-        toggleDiagnosisCriteria : (criteria) => dispatch(toggleDiagnosisCriteria(criteria))
+        loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
+        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
+        getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback))
     }
 }
 

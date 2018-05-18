@@ -1,38 +1,38 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
-export const loadLabSearchCriteria = () => (dispatch) => {
-    dispatch({
-        type: LOAD_SEARCH_CRITERIA_LAB,
-        payload: null
+export const loadLabCommonCriterias = () => (dispatch) => {
+
+    API_GET('/diagnostic/v1/search-pg').then(function (response) {
+        dispatch({
+            type: LOAD_SEARCH_CRITERIA_LAB,
+            payload: response
+        })
+    }).catch(function (error) {
+        dispatch({
+            type: LOAD_SEARCH_CRITERIA_LAB,
+            payload: null
+        })
     })
 
-} 
+}
 
-export const toggleTest = (id) => (dispatch) => {
+export const toggleDiagnosisCriteria = (type, criteria) => (dispatch) => {
     dispatch({
-        type: TOGGLE_TESTS,
+        type: TOGGLE_DIAGNOSIS_CRITERIA,
         payload: {
-            id
+            type, criteria
         }
     })
 
 }
 
-export const toggleDiagnosisCriteria = (criteria) => (dispatch) => {
-    dispatch({
-        type: TOGGLE_DIAGNOSIS_CRITERIA,
-        payload: criteria
-    })
-
-}
-
 export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch) => {
-	API_GET('/generic_search_tests.json').then(function (response) {
-		callback(response)
-	}).catch(function (error) {
-        
-	})
+    API_GET(`/diagnostic/v1/test?name=${searchString}`).then(function (response) {
+        callback(response)
+    }).catch(function (error) {
+        callback(null)
+    })
 }
 
 

@@ -20,6 +20,7 @@ import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 
 
+app.use('/assets', Express.static(path.join(__dirname, 'assets')));
 app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 app.use('/api', Express.static(path.join(__dirname, 'dummy_api')));

@@ -7,10 +7,6 @@ import { createLogger } from 'redux-logger'
 import allReducers from './reducers';
 import App from './App.js'
 
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-
-require('../css/style.scss')
-
 const logger = createLogger();
 
 const store = createStore(
@@ -18,26 +14,9 @@ const store = createStore(
     applyMiddleware(thunk, logger)
 );
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#00b7b0'
-        },
-        secondary: {
-            main: '#00b7b0'
-        },
-    },
-    status: {
-        danger: 'orange',
-    },
-})
-
-
 ReactDOM.hydrate(
     <Provider store={store}>
-        <MuiThemeProvider theme={theme}>
-            <App />
-        </MuiThemeProvider>
+        <App />
     </Provider>,
     document.getElementById('root')
 );
