@@ -5,17 +5,12 @@ class TestSelectorView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedLab: null
+            selectedLab: this.props.match.params.id
         }
     }
 
     componentDidMount() {
-        let labId = this.props.match.params.id
-
-        if (labId) {
-            this.setState({ selectedLab: labId })
-            this.props.getLabById(labId)
-        }
+        this.props.getLabById(this.state.selectedLab)
     }
 
     toggleTest(test) {
@@ -23,7 +18,7 @@ class TestSelectorView extends React.Component {
     }
 
     render() {
-
+        
         let labData = this.props.LABS[this.state.selectedLab]
         let tests = []
         let selectedTests = []
@@ -31,7 +26,7 @@ class TestSelectorView extends React.Component {
         if (this.props.selectedCriterias && this.props.selectedCriterias.length) {
             selectedTests = this.props.selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         }
-
+        
         if (labData && labData.tests && labData.tests.length) {
             tests = labData.tests.map((test, i) => {
                 return <li key={i}>
@@ -46,7 +41,7 @@ class TestSelectorView extends React.Component {
         }
 
         return (
-            <div className="appointmentSlot">
+            <div>
 
                 {
                     labData ?

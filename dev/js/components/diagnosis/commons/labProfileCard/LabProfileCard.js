@@ -6,7 +6,7 @@ class LabProfileCard extends React.Component {
     }
 
     openLab(id){
-        this.props.history.push(`/lab/${id}/book`)
+        this.props.history.push(`/lab/${id}`)
     }
 
     render() {

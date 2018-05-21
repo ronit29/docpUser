@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabBookingSummary } from '../../actions/index.js'
+import { getLabById } from '../../actions/index.js'
 
 import BookingSummaryView from '../../components/diagnosis/bookingSummary/index.js'
 
 class BookingSummary extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    static contextTypes = {
+        router: () => null
     }
 
     render() {
@@ -20,16 +24,22 @@ class BookingSummary extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    return {
+    const {
+        selectedCriterias,
+    } = state.SEARCH_CRITERIA_LABS
 
+    let LABS = state.LABS
+
+    return {
+        selectedCriterias,
+        LABS
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getLabBookingSummary : (bookingId, callback) => dispatch(getLabBookingSummary(bookingId, callback))
+        getLabById: (labId) => dispatch(getLabById(labId))
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingSummary);

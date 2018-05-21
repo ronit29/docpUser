@@ -25,7 +25,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	let min_price = filterCriteria.priceRange[0]
 	let max_price = filterCriteria.priceRange[1]
 	let order_by = filterCriteria.sortBy
-	
+
 	let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
 
 	dispatch({
@@ -63,7 +63,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 export const getLabById = (labId) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablist/${labId}`
 
-	API_GET(url).then(function (response) {
+	return API_GET(url).then(function (response) {
 		
 		dispatch({
 			type: APPEND_LABS,

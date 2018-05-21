@@ -26,12 +26,12 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 app.use('/api', Express.static(path.join(__dirname, 'dummy_api')));
 
 
-app.get('*', function(req, res){
+app.get('*', function (req, res) {
 
     const context = {}
 
     const store = createStore(
-        allReducers
+        allReducers, applyMiddleware(thunk)
     );
 
     const sheetsRegistry = new SheetsRegistry();
@@ -50,24 +50,6 @@ app.get('*', function(req, res){
     })
     const generateClassName = createGenerateClassName();
 
-    const html = ReactDOMServer.renderToString(
-        <Provider store={store}>
-            <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-                <MuiThemeProvider theme={theme}>
-                    <StaticRouter
-                        location={req.url}
-                        context={context}
-                    >
-                        <Routes />
-                    </StaticRouter>
-                </MuiThemeProvider>
-            </JssProvider>
-        </Provider>
-    )
-
-    const css = sheetsRegistry.toString()
-
-
     if (context.url) {
         res.writeHead(301, {
             Location: context.url
@@ -77,18 +59,35 @@ app.get('*', function(req, res){
 
         // inside a request
         const promises = []
-     
+
         Routes.ROUTES.some(route => {
             // use `matchPath` here
             const match = matchPath(req.path, route)
-            if (match && route.loadData)
-                promises.push(route.loadData())
+            if (match && route.component.loadData)
+                promises.push(route.component.loadData(store, match))
             return match
         })
 
         Promise.all(promises).then(data => {
+            const storeData = JSON.stringify(store.getState())
+            const html = ReactDOMServer.renderToString(
+                <Provider store={store}>
+                    <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+                        <MuiThemeProvider theme={theme}>
+                            <StaticRouter
+                                location={req.url}
+                                context={context}
+                            >
+                                <Routes />
+                            </StaticRouter>
+                        </MuiThemeProvider>
+                    </JssProvider>
+                </Provider>
+            )
+            const css = sheetsRegistry.toString()
+
             res.render('./index.template.ejs', {
-                html, css
+                html, css, storeData
             })
         })
 

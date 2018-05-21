@@ -7,23 +7,18 @@ class LabView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedLab: null
+            selectedLab: this.props.match.params.id
         }
     }
 
-    componentDidMount() {
-        let labId = this.props.match.params.id
-
-        if (labId) {
-            this.setState({ selectedLab: labId })
-            this.props.getLabById(labId)
-        }
+    bookLab() {
+        this.props.history.push(`/lab/${this.state.selectedLab}/book`)
     }
 
     render() {
 
         return (
-            <div className="appointmentSlot">
+            <div>
                 <header className="skin-primary fixed horizontal top profile-book-header">
                     <div className="container-fluid">
                         <div className="row">
@@ -50,7 +45,7 @@ class LabView extends React.Component {
 
                             <LabDetails {...this.props} data={this.props.LABS[this.state.selectedLab]} />
 
-                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg"><span className="text-xs selected-option">({this.props.selectedCriterias.length} Selected) </span>Book
+                            <button onClick={this.bookLab.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg"><span className="text-xs selected-option">({this.props.selectedCriterias.length} Selected) </span>Book
                             </button>
 
                         </div> : <Loader />

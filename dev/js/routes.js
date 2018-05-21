@@ -11,9 +11,12 @@ import DoctorProfile from './containers/opd/DoctorProfile.js'
 import ClinicList from './containers/opd/ClinicList.js'
 import AppointmentSlot from './containers/opd/AppointmentSlot.js'
 import PatientDetails from './containers/opd/PatientDetails.js'
+
 import UserProfile from './containers/commons/UserProfile.js'
 import UserAppointments from './containers/commons/UserAppointments.js'
 import UserReports from './containers/commons/UserReports.js'
+import UserSignup from './containers/commons/UserSignup'
+
 import Payment from './containers/opd/Payment.js'
 import Booking from './containers/opd/Booking.js'
 import CriteriaSearch from './containers/opd/CriteriaSearch.js'
@@ -37,6 +40,8 @@ const routes = [
     { path: '/doctorprofile/:id/availability', exact: true, component: ClinicList },
     { path: '/doctorprofile/:id/:clinicId/book', exact: true, component: AppointmentSlot },
     { path: '/doctorprofile/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
+    
+    { path: '/user/signup', exact: true, component: UserSignup },
     { path: '/user', exact: true, component: UserProfile },
     { path: '/user/:id', exact: true, component: UserProfile },
     { path: '/user/:id/appointments', exact: true, component: UserAppointments },
@@ -47,10 +52,10 @@ const routes = [
 
     { path: '/dx', exact: true, component: DX_SearchCriteria },
     { path: '/dx/searchresults', exact: true, component: DX_SearchResults },
-    { path: '/lab/:id/book', exact: true, component: Lab },
+    { path: '/lab/:id', exact: true, component: Lab },
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
+    { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
 
-    { path: '/lab/:id/bookdetails', exact: true, component: DX_PatientDetails },
     { path: '/lab/booking/summary/:id', exact: true, component: DX_BookingSummary },
 
 ]
@@ -67,11 +72,13 @@ class RouterConfig extends Component {
                         ({ location }) => {
                             return (
                                 <TransitionGroup>
-                                    <CSSTransition key={location.pathname}
+                                    <CSSTransition
+                                        key={location.pathname}
                                         classNames="fade"
-                                        timeout={300}
+                                        timeout={{ enter: 300, exit: 0 }}
+                                        exit={false}
                                     >
-                                        <Switch>
+                                        <Switch location={location}>
                                             {routes.map((route, i) => (
                                                 <Route {...route} key={i} />
                                             ))}

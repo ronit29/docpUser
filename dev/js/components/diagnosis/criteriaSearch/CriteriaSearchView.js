@@ -25,7 +25,7 @@ class CriteriaSearchView extends React.Component {
     componentDidMount() {
         this.getSearchResults = debouncer(this.getSearchResults.bind(this), 1000)
         let input = document.getElementById('topCriteriaSearch')
-        input.focus()
+        // input.focus()
     }
 
     inputHandler(e) {

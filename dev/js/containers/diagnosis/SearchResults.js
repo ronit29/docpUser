@@ -13,7 +13,6 @@ class SearchResults extends React.Component {
         }
     }
 
-
     static contextTypes = {
         router: () => null
     }

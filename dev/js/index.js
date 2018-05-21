@@ -11,6 +11,7 @@ const logger = createLogger();
 
 const store = createStore(
     allReducers,
+    window.__INITIAL_STATE__,
     applyMiddleware(thunk, logger)
 );
 

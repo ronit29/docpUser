@@ -10,8 +10,16 @@ class Lab extends React.Component {
         super(props)
     }
 
+    static loadData(store, match){
+        return store.dispatch(getLabById(match.params.id))
+    }
+
     static contextTypes = {
         router: () => null
+    }
+
+    componentDidMount() {
+        this.props.getLabById(this.props.match.params.id)
     }
 
     render() {

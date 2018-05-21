@@ -7,6 +7,7 @@ import DOCTOR_SEARCH from './opd/doctorSearch.js'
 import LABS from './diagnosis/labs.js'
 import LAB_SEARCH from './diagnosis/labsSearch.js'
 import USER from './commons/user.js'
+import AUTH from './commons/auth.js'
 
 const allReducers = combineReducers({
     SEARCH_CRITERIA_OPD,
@@ -15,7 +16,8 @@ const allReducers = combineReducers({
     DOCTOR_SEARCH,
     LABS,
     LAB_SEARCH,
-    USER
+    USER,
+    AUTH
 });
 
 export default allReducers

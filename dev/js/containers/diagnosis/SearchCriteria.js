@@ -9,6 +9,10 @@ class SearchCriteria extends React.Component {
         super(props)
     }
 
+    static loadData(store){
+        return store.dispatch(loadLabCommonCriterias())
+    }
+
     componentDidMount() {
         this.props.loadLabCommonCriterias()
     }

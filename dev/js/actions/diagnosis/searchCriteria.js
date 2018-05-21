@@ -3,7 +3,7 @@ import { API_GET } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
 
-    API_GET('/api/v1/diagnostic/labsearch').then(function (response) {
+    return API_GET('/api/v1/diagnostic/labsearch').then(function (response) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_LAB,
             payload: response
