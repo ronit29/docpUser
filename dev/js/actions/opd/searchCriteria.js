@@ -1,45 +1,36 @@
-import { TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, SET_OPD_FILTERS, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
+import { SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
-export const loadSearchCriteria = () => (dispatch) => {
-    dispatch({
-        type: LOAD_SEARCH_CRITERIA_OPD,
-        payload: null
-    })
 
-} 
+export const loadOPDCommonCriteria = () => (dispatch) => {
 
-export const toggleCondition = (id) => (dispatch) => {
-    dispatch({
-        type: TOGGLE_CONDITIONS,
-        payload: {
-            id
-        }
-    })
-
-}
-
-export const toggleSpeciality = (id) => (dispatch) => {
-    dispatch({
-        type: TOGGLE_SPECIALITIES,
-        payload: {
-            id
-        }
+    return API_GET('/api/v1/doctor/searcheditems').then(function (response) {
+        dispatch({
+            type: LOAD_SEARCH_CRITERIA_OPD,
+            payload: response
+        })
+    }).catch(function (error) {
+        dispatch({
+            type: LOAD_SEARCH_CRITERIA_OPD,
+            payload: null
+        })
     })
 
 }
 
-export const toggleCriteria = (criteria) => (dispatch) => {
+export const toggleOPDCriteria = (type, criteria) => (dispatch) => {
     dispatch({
-        type: TOGGLE_CRITERIA,
-        payload: criteria
+        type: TOGGLE_OPD_CRITERIA,
+        payload: {
+            type, criteria
+        }
     })
 
 }
 
 export const selectLocation = (location) => (dispatch) => {
     dispatch({
-        type: SELECT_LOCATION,
+        type: SELECT_LOCATION_OPD,
         payload: location
     })
 
@@ -50,26 +41,11 @@ export const selectLocation = (location) => (dispatch) => {
 
 }
 
-export const mergeSearchState = (state) => (dispatch) => {
-    dispatch({
-        type: MERGE_SEARCH_STATE,
-        payload: state
+export const getOPDCriteriaResults = (searchString, callback) => (dispatch) => {
+    
+    API_GET(`/api/v1/diagnostic/test?name=${searchString}`).then(function (response) {
+        callback(response)
+    }).catch(function (error) {
+        callback(null)
     })
-
 }
-
-export const getCriteriaResults = (searchString, callback) => (dispatch) => {
-	API_GET('/generic_search.json').then(function (response) {
-		callback(response)
-	}).catch(function (error) {
-        
-	})
-}
-
-export const setOPDFilters = (filterData) => (dispatch) => {
-    dispatch({
-        type: SET_OPD_FILTERS,
-        payload: filterData
-    })
-
-} 

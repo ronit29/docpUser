@@ -1,12 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleCondition, toggleSpeciality, toggleCriteria, loadSearchCriteria } from '../../actions/index.js'
+import { getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/opd/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    static loadData(store) {
+        return store.dispatch(loadOPDCommonCriteria())
+    }
+
+    componentDidMount() {
+        this.props.loadOPDCommonCriteria()
     }
 
     static contextTypes = {
@@ -24,30 +32,29 @@ class SearchCriteria extends React.Component {
 const mapStateToProps = (state) => {
 
     const {
-        commonlySearchedConditions,
-        selectedConditions,
-        commonlySearchedSpecialities,
-        selectedSpecialities,
+        LOADED_SEARCH_CRITERIA_OPD,
+        specializations,
+        conditions,
+        selectedCriterias,
         selectedLocation,
-        selectedCriteria
+        filterCriteria
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        commonlySearchedConditions,
-        selectedConditions,
-        commonlySearchedSpecialities,
-        selectedSpecialities,
+        LOADED_SEARCH_CRITERIA_OPD,
+        specializations,
+        conditions,
+        selectedCriterias,
         selectedLocation,
-        selectedCriteria
+        filterCriteria
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toggleCondition: (id) => dispatch(toggleCondition(id)),
-        toggleSpeciality: (id) => dispatch(toggleSpeciality(id)),
-        toggleCriteria : (criteria) => dispatch(toggleCriteria(criteria)),
-        loadSearchCriteria: () => dispatch(loadSearchCriteria())
+        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
+        getOPDCriteriaResults: (searchString, callback) => dispatch(getOPDCriteriaResults(searchString, callback))
     }
 }
 

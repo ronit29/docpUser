@@ -13,9 +13,9 @@ class CommonlySearched extends React.Component {
 
     render() {
 
-        let rows = this.props.data.map((row) => {
+        let rows = this.props.data.map((row,i) => {
             if (this.props.type == 'lab') {
-                return <li key={row.id}>
+                return <li key={i}>
                     <span
                         className="ct-img lab-img"
                         onClick={() => {
@@ -33,7 +33,7 @@ class CommonlySearched extends React.Component {
                         selected = true
                     }
                 })
-                return <li key={row.id}>
+                return <li key={i}>
                     <a
                         className={selected ? "v-btn v-btn-primary tag-sm outline selected" : "v-btn v-btn-primary tag-sm outline"}
                         onClick={() => {

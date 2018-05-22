@@ -10,25 +10,15 @@ export const sendOTP = (number, cb) => (dispatch) => {
         }
     })
 
-    API_POST('/api/v1/user/otp/generate?type=doctor', {
+    API_POST('/api/v1/user/otp/generate', {
         "phone_number": number
     }).then(function (response) {
-        if (response.exists) {
-            dispatch({
-                type: SEND_OTP_SUCCESS,
-                payload: {}
-            })
-            if (cb) cb();
-        } else {
-            dispatch({
-                type: SEND_OTP_FAIL,
-                payload: {
-                    error_message: "Doctor not registered."
-                }
-            })
-        }
+        dispatch({
+            type: SEND_OTP_SUCCESS,
+            payload: {}
+        })
+        if (cb) cb(response.exists);
     }).catch(function (error) {
-        debugger
         let message = "Cannot generate OTP."
         dispatch({
             type: SEND_OTP_FAIL,

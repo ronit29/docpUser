@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctors } from '../../actions/index.js'
+import { getDoctors, getOPDCriteriaResults, toggleOPDCriteria } from '../../actions/index.js'
 
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -13,42 +13,44 @@ class SearchResults extends React.Component {
         }
     }
 
+    static contextTypes = {
+        router: () => null
+    }
+
     render() {
 
         return (
-            <SearchResultsView { ...this.props } />
-        );
+            <SearchResultsView {...this.props} />
+        )
     }
 }
 
 const mapStateToProps = (state) => {
 
     const {
-        selectedConditions,
-        selectedSpecialities,
+        LOADED_SEARCH_CRITERIA_OPD,
+        selectedCriterias,
         selectedLocation,
-        selectedCriteria,
-        filterCriteria,
-        CRITERIA_LOADED
+        filterCriteria
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
-    let { doctorList, LOADING, ERROR } = state.DOCTOR_SEARCH
+    let { doctorList, LOADED_DOCTOR_SEARCH } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, doctorList, LOADING, ERROR,
-        selectedConditions,
-        selectedSpecialities,
+        DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
+        LOADED_SEARCH_CRITERIA_OPD,
+        selectedCriterias,
         selectedLocation,
-        selectedCriteria,
-        filterCriteria,
-        CRITERIA_LOADED
+        filterCriteria
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctors: (searchState,filterState,mergeState) => dispatch(getDoctors(searchState,filterState,mergeState))
+        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
+        getDoctors: (searchState, filterCriteria, mergeState) => dispatch(getDoctors(searchState, filterCriteria, mergeState))
     }
 }
 

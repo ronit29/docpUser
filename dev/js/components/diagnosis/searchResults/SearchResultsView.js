@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LabsList from '../searchResults/labsList/index.js'
-import CriteriaSearch from '../criteriaSearch'
+import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
 
 class SearchResultsView extends React.Component {
@@ -20,8 +20,7 @@ class SearchResultsView extends React.Component {
         let {
             selectedLocation,
             selectedCriterias,
-            filterCriteria,
-            LOADED_SEARCH_CRITERIA_LAB
+            filterCriteria
         } = this.props
 
         try {
@@ -65,8 +64,8 @@ class SearchResultsView extends React.Component {
     render() {
 
         return (
-            <div className="searchResults">
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH}>
+            <div>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs.">
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
                     <LabsList {...this.props} />
                 </CriteriaSearch>

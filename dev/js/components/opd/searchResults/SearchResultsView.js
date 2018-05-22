@@ -1,7 +1,8 @@
 import React from 'react';
 
 import DoctorsList from '../searchResults/doctorsList/index.js'
-import TopBar from '../searchResults/topBar/index.js'
+import CriteriaSearch from '../../commons/criteriaSearch'
+import TopBar from './topBar'
 
 
 class SearchResultsView extends React.Component {
@@ -13,39 +14,42 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
+        this.getDcotors()
+    }
+
+    getDcotors() {
         let {
-            selectedConditions,
-            selectedSpecialities,
             selectedLocation,
-            selectedCriteria,
-            CRITERIA_LOADED
+            selectedCriterias,
+            filterCriteria
         } = this.props
 
-        if (CRITERIA_LOADED) {
-            let searchState = {
-                selectedConditions,
-                selectedSpecialities,
-                selectedLocation,
-                selectedCriteria
+        try {
+            let searchState = this.getLocationParam('search')
+            let filterCriteria = this.getLocationParam('filter')
+            if (filterCriteria) {
+                filterCriteria = JSON.parse(filterCriteria)
+            } else {
+                filterCriteria = {}
             }
-            let filterState = this.props.filterCriteria
-            this.getDoctorList(searchState, filterState, false)
-        } else {
-            try {
-                let searchState = this.getLocationParam('search')
-                let filterState = this.getLocationParam('filter')
-                if (filterState) {
-                    filterState = JSON.parse(filterState)
-                } else {
-                    filterState = {}
-                }
-                searchState = JSON.parse(searchState)
-                this.getDoctorList(searchState, filterState, true)
-            } catch (e) {
-                console.error(e)
-            }
+            searchState = JSON.parse(searchState)
+            this.getDoctorList(searchState, filterCriteria, true)
+        } catch (e) {
+            console.error(e)
         }
 
+    }
+
+    applyFilters(filterState) {
+        let searchState = {
+            selectedCriterias: this.props.selectedCriterias,
+            selectedLocation: this.props.selectedLocation,
+        }
+        let searchData = encodeURIComponent(JSON.stringify(searchState))
+        let filterData = encodeURIComponent(JSON.stringify(filterState))
+        this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}`)
+
+        this.getDoctorList(searchState, filterState, true)
     }
 
     getLocationParam(tag) {
@@ -55,20 +59,17 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getDoctorList(searchState, filterState, mergeState) {
-        this.props.getDoctors(searchState, filterState, mergeState);
+    getDoctorList(searchState, filterCriteria, mergeState) {
+        this.props.getDoctors(searchState, filterCriteria, mergeState);
     }
 
     render() {
         return (
-            <div className="searchResults">
-                {
-                    this.props.LOADING ? "" :
-                        <div>
-                            <TopBar />
-                            <DoctorsList {...this.props} />
-                        </div>
-                }
+            <div>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd">
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
+                    <DoctorsList {...this.props} />
+                </CriteriaSearch>
             </div>
         );
     }

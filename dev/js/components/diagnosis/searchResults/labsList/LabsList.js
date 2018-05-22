@@ -7,10 +7,6 @@ class LabsList extends React.Component {
         super(props)
     }
 
-    static contextTypes = {
-        router: () => null
-    }
-
     render() {
 
         let { LABS, labList } = this.props

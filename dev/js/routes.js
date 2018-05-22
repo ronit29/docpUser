@@ -28,14 +28,15 @@ import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
 import DoctorChat from './containers/commons/Chat.js'
 import TestSelector from './containers/diagnosis/TestSelector'
 
+import UserLogin from './containers/commons/UserLogin'
+import OtpVerify from './containers/commons/OtpVerify'
 
 const routes = [
 
-    { path: '/', exact: true, component: SearchCriteria },
+    { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/locationsearch', exact: true, component: LocationSearch },
-    { path: '/criteriasearch', exact: true, component: CriteriaSearch },
-    { path: '/searchresults', exact: true, component: SearchResults },
-    { path: '/searchresults/filter', exact: true, component: SearchResultsFilter },
+    { path: '/opd/searchresults', exact: true, component: SearchResults },
+    
     { path: '/doctorprofile/:id', exact: true, component: DoctorProfile },
     { path: '/doctorprofile/:id/availability', exact: true, component: ClinicList },
     { path: '/doctorprofile/:id/:clinicId/book', exact: true, component: AppointmentSlot },
@@ -49,6 +50,9 @@ const routes = [
     { path: '/chat', exact: true, component: DoctorChat },
     { path: '/payment', exact: true, component: Payment },
     { path: '/booking/:refId', exact: true, component: Booking },
+
+    { path: '/login', exact: true, component: UserLogin },
+    { path: '/otp/verify', exact: true, component: OtpVerify },
 
     { path: '/dx', exact: true, component: DX_SearchCriteria },
     { path: '/dx/searchresults', exact: true, component: DX_SearchResults },

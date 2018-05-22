@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import CommonlySearched from '../commons/commonlySearched/index.js'
-import CriteriaSearch from '../criteriaSearch'
+import CommonlySearched from '../../commons/commonlySearched/index.js'
+import CriteriaSearch from '../../commons/criteriaSearch'
 
 class SearchCriteriaView extends React.Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class SearchCriteriaView extends React.Component {
         return (
             <div>
 
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for Test and Labs.">
                     <section className="wrap wrap-100">
 
                         <CommonlySearched

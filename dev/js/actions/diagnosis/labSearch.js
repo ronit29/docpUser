@@ -33,7 +33,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		payload: null
 	})
 
-	API_GET(url).then(function (response) {
+	return API_GET(url).then(function (response) {
 
 		dispatch({
 			type: APPEND_LABS,
@@ -64,7 +64,7 @@ export const getLabById = (labId) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablist/${labId}`
 
 	return API_GET(url).then(function (response) {
-		
+
 		dispatch({
 			type: APPEND_LABS,
 			payload: [response]
