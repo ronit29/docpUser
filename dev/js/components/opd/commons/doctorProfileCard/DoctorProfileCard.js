@@ -26,32 +26,12 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
-    getTime(unix_timestamp) {
-        var date = new Date(unix_timestamp * 1000);
-        var hours = date.getHours();
-        var minutes = "0" + date.getMinutes();
-        return hours + ':' + minutes.substr(-2)
-    }
-
-    getAvailability(availability) {
-        if (availability) {
-            let { nextAvailable } = availability
-            if (nextAvailable[0]) {
-                let date = new Date(nextAvailable[0].from).toDateString()
-                let timeStart = this.getTime(nextAvailable[0].from)
-                let timeEnd = this.getTime(nextAvailable[0].to)
-                return {
-                    date, timeStart, timeEnd, fee: nextAvailable[0].fee
-                }
-            }
-        }
-
-        return { date: '', timeStart: '', timeEnd: '', fee: { amount: '' } }
-    }
 
     render() {
 
-        let {id, experience_years, gender, hospital, hospital_count, name, qualifications} = this.props.details
+        let {id, experience_years, gender, hospitals, hospital_count, name, qualifications} = this.props.details
+
+        let hospital = hospitals[0]
 
         return (
             <div className="widget card search-dr-list" onClick={this.cardClick.bind(this,id)}>

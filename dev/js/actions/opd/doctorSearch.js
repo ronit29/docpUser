@@ -63,7 +63,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 export const getDoctorById = (doctorId) => (dispatch) => {
 
-	API_GET(`/api/v1/doctor/profileuserview/${doctorId}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}`).then(function (response) {
 
 		dispatch({
 			type: APPEND_DOCTORS,
@@ -76,10 +76,8 @@ export const getDoctorById = (doctorId) => (dispatch) => {
 }
 
 export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
-	API_GET('/availability.json').then(function (response) {
-
+	return API_GET(`/api/v1/doctor/doctortiming?doctor_id=${doctorId}&hospital_id=${clinicId}`).then(function (response) {
 		callback(response)
-
 	}).catch(function (error) {
 
 	})

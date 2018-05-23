@@ -2,156 +2,115 @@ import React from 'react';
 
 import { getTime, getDayName } from '../../../utils/dateTimeUtils.js'
 
+const DAYS_TO_SHOW = 20
+const WEEK_DAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+
 class TimeSlotSelector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedDay: 0,
-            selectedInterval: 0,
-            selectedTimeSlot: 0
 
         }
     }
-    componentWillMount() {
-        let timeSlots = this.props.timeSlots;
 
-        this.setDefaultSelected(timeSlots);
+    generateDays() {
+        // let days = []
 
-    }
-    setDefaultSelected(timeSlots) {
-        let days = timeSlots.dates;
-        let defaultDayIndex = this.getFirstAvailableDay(days);
-        
-        if (defaultDayIndex || defaultDayIndex === 0) {
-            this.setState({ selectedDay: defaultDayIndex });
-            var defautInterwalIndex = this.getFirstAvailableInterwal(days[defaultDayIndex].intervals);
-        }
-        if (defautInterwalIndex || defautInterwalIndex === 0) {
-            this.setState({ selectedInterval: defautInterwalIndex });
-            var defaultTimeSlotIndex = this.getFirstAvailableTimeSlot(days[defaultDayIndex].intervals[defautInterwalIndex].timeSlots);
+        // for (let i = 0; i < DAYS_TO_SHOW; i++) {
+        //     let offsetDay = new Date()
+        //     offsetDay.setDate(someDate.getDate() + DAYS_TO_SHOW)
+        //     let weekDay = offsetDay.getDay()
 
-        }
-        if (defaultTimeSlotIndex || defaultTimeSlotIndex === 0) {
-            this.setState({ selectedTimeSlot: defaultTimeSlotIndex });
-        }
-
-    }
-
-    getFirstAvailableInterwal(intervals) {
-
-        for (let interwalIndex in intervals) {
-            let interwal = intervals[interwalIndex];
-            if (interwal && interwal.isAvailable) {
-                return parseInt(interwalIndex);
-            }
-        }
-    }
-
-    getFirstAvailableTimeSlot(timeSlots) {
-
-        for (let timeSlotIndex in timeSlots) {
-            let timeSlot = timeSlots[timeSlotIndex];
-            if (timeSlot && timeSlot.isAvailable) {
-                // calling parent timeSlot setter
-                this.props.selectTimeSlot(timeSlot)
-                return parseInt(timeSlotIndex);
-            }
-        }
-
-        
-
-    }
-
-    getFirstAvailableDay(days) {
-
-        for (let dayIndex in days) {
-            let day = days[dayIndex];
-            if (day && day.isAvailable) {
-                return parseInt(dayIndex);
-            }
-        }
-    }
-    onDateClick(date, selectedIndex, index) {
-
-        if (selectedIndex !== index && date.isAvailable) {
-            var availableInterwal = this.getFirstAvailableInterwal(date.intervals)
-            if (availableInterwal || availableInterwal === 0) {
-                let timeSlots = date.intervals[availableInterwal].timeSlots;
-                var availableTimeSlot = this.getFirstAvailableTimeSlot(timeSlots);
-            }
-
-            this.setState({ selectedDay: index, selectedInterval: availableInterwal, selectedTimeSlot: availableTimeSlot });
-        }
-    }
-    onIntervalClick(interwal, selectedIndex, index) {
-
-
-
-        if (selectedIndex !== index && interwal.isAvailable) {
-            let timeSlots = interwal.timeSlots;
-            var availableTimeSlot = this.getFirstAvailableTimeSlot(timeSlots);
-
-
-            this.setState({ selectedInterval: index, selectedTimeSlot: availableTimeSlot });
-        }
-
-    }
-    onTimeSlotClick(timeSlot, selectedIndex, index) {
-
-        if (selectedIndex !== index && timeSlot.isAvailable) {
-            this.setState({ selectedTimeSlot: index });
-            // calling parent timeSlot setter
-            this.props.selectTimeSlot(timeSlot)
-        }
+        //     days.push({
+        //         tag: WEEK_DAYS[weekDay],
+        //         value: weekDay
+        //     })
+        // }
     }
 
     render() {
 
-        let { dates } = this.props.timeSlots
-
-        let intervals = []
-        let timeSlots = []
-        let dateList = []
-
-
-        dateList = dates.map((date, i) => {
-            let dayDate = new Date(date.date).getDate()
-            let dayName = getDayName(date.date);
-            let selected = this.state.selectedDay == i
-            return <div key={i} onClick={this.onDateClick.bind(this, date, this.state.selectedDay, i)} className={date.isAvailable ? (selected ? "dateTile selected" : "dateTile") : "dateTile disabled"}>
-                <p className="date">{dayDate}</p>
-                <p className="day">{dayName}</p>
-            </div>
-        })
-        intervals = dates[this.state.selectedDay].intervals.map((interval, i) => {
-            let selected = this.state.selectedInterval == i
-            return <button key={i} onClick={this.onIntervalClick.bind(this, interval, this.state.selectedInterval, i)} className={interval.isAvailable ? (selected ? "tsBtn selected" : "tsBtn") : "tsBtn disabled"}>{interval.name}</button>
-        })
-
-        timeSlots = dates[this.state.selectedDay].intervals[this.state.selectedInterval].timeSlots.map((slot, i) => {
-            let selected = this.state.selectedTimeSlot == i
-            let slotText = getTime(slot.start)
-            if(slot.end){
-                slotText += ` - ${getTime(slot.end)}`
-            }
-            return <span key={i} onClick={this.onTimeSlotClick.bind(this, slot, this.state.selectedTimeSlot, i)} className={slot.isAvailable ? (selected ? "slot selected" : "slot") : "slot disabled"}>{slotText}</span>
-        })
-
-
         return (
-            <div className="timeSlotSelector">
-                <h5>Select preffered time slot</h5>
-
-                <div className="dateCar">
-                    <div className="scroller">
-                        {dateList}
+            <div>
+                <div className="widget no-shadow no-round skin-transparent">
+                    <div className="widget-content">
+                        <div className="add-new-time mrb-10">
+                            <h4 className="text-md fw-700 mrb-10">Select Date &amp; Time: <span className="float-right text-md fw-700 text-primary">April <span className="text-light">May</span></span></h4>
+                            <div className="choose-time">
+                                <ul className="inline-list datetime-items">
+                                    <li>
+                                        21 <span>S</span>
+                                    </li>
+                                    <li>
+                                        22 <span>M</span>
+                                    </li>
+                                    <li className="active">
+                                        23 <span>T</span>
+                                    </li>
+                                    <li>
+                                        24 <span>W</span>
+                                    </li>
+                                    <li>
+                                        25 <span>T</span>
+                                    </li>
+                                    <li>
+                                        26 <span>F</span>
+                                    </li>
+                                    <li>
+                                        27 <span>S</span>
+                                    </li>
+                                    <li>
+                                        28 <span>S</span>
+                                    </li>
+                                    <li>
+                                        29 <span>M</span>
+                                    </li>
+                                    <li>
+                                        30 <span>T</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div className="timeSlots">
-                    {intervals}
-                    <div className="slots">
-                        {timeSlots}
+                <div className="widget">
+                    <div className="widget-content">
+                        <h4 className="report-on mrb-10">Morning</h4>
+                        <ul className="inline-list time-items">
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">7:30 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">8:00 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">8:30 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">9:00 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">9:30 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">10:00 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">10:30 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-default btn-sm outline">11:00 AM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">11:30 AM</a></li>
+                        </ul>
+                        <h4 className="report-on mrb-10">Afternoon</h4>
+                        <ul className="inline-list time-items">
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">7:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">8:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">8:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">9:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">9:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">10:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">10:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-default btn-sm outline">11:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">11:30 PM</a></li>
+                        </ul>
+                        <h4 className="report-on mrb-10">Evening</h4>
+                        <ul className="inline-list time-items">
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">7:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">8:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">8:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">9:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">9:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">10:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">10:30 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-default btn-sm outline">11:00 PM</a></li>
+                            <li><a href="" className="v-btn v-btn-primary btn-sm outline">11:30 PM</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

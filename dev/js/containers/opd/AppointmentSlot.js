@@ -10,6 +10,18 @@ class AppointmentSlot extends React.Component {
         super(props)
     }
 
+    static loadData(store, match) {
+        return store.dispatch(getDoctorById(match.params.id))
+    }
+
+    static contextTypes = {
+        router: () => null
+    }
+
+    componentDidMount() {
+        this.props.getDoctorById(this.props.match.params.id)
+    }
+
     render() {
 
         return (
@@ -29,8 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorById : (doctorId) => dispatch(getDoctorById(doctorId)),
-        getTimeSlots : (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback))
+        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
+        getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback))
     }
 }
 

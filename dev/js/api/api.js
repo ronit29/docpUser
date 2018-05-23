@@ -8,6 +8,7 @@ let axiosInstance = Axios.create({
 });
 
 function rejectHandler(response, callback) {
+    console.log(response)
     // if (response && response.response && response.response.status == 401) {
     //     STORAGE.deleteAuth().then(() => {
     //         // send to login page

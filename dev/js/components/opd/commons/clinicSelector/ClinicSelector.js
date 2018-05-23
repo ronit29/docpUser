@@ -1,11 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ClockIcon from 'material-ui-icons/AvTimer';
-import RightArrowIcon from 'material-ui-icons/KeyboardArrowRight';
-import MoneyIcon from 'material-ui-icons/AttachMoney';
-
-
 class ClinicSelector extends React.Component {
     constructor(props) {
         super(props)
@@ -13,82 +8,53 @@ class ClinicSelector extends React.Component {
 
     selectClinic(clinicId) {
         let doctorId = this.props.match.params.id
-        this.context.router.history.push(`/doctorprofile/${doctorId}/${clinicId}/book`)
-    }
-
-    static contextTypes = {
-        router: () => null
-    }
-
-    getTime(unix_timestamp) {
-        var date = new Date(unix_timestamp * 1000);
-        var hours = date.getHours();
-        var minutes = "0" + date.getMinutes();
-        return hours + ':' + minutes.substr(-2)
-    }
-
-    getAvailability(availability) {
-        if (availability) {
-            let { nextAvailable } = availability
-            if (nextAvailable[0]) {
-                let date = new Date(nextAvailable[0].from).toDateString()
-                let timeStart = this.getTime(nextAvailable[0].from)
-                let timeEnd = this.getTime(nextAvailable[0].to)
-                return {
-                    date, timeStart, timeEnd, fee: nextAvailable[0].fee
-                }
-            }
-        }
-
-        return { date: '', timeStart: '', timeEnd: '', fee: { amount: '' } }
+        this.props.history.push(`/opd/doctor/${doctorId}/${clinicId}/book`)
     }
 
     render() {
 
-        let { availability } = this.props.details
-
-        availability = availability.map((clinic) => {
-            clinic.timeAvailable = this.getAvailability(clinic)
-            return clinic
-        })
-
+        let { name, hospitals } = this.props.details
 
         return (
-            <div className="clinicSelector">
-                <h5>Dr. Steve is available at</h5>
+            <div className="widget-panel">
+                <h4 className="panel-title">Dr. {name} Available at</h4>
+                <div className="panel-content scroll-x">
+                    <ul className="inline-list Clinic-card-list">
+                        {
+                            hospitals.map((hospital, i) => {
+                                return <li key={i}>
+                                    <div className="widget no-shadow">
+                                        <div className="widget-header">
+                                            <h4 className="widget-title text-md fw-700">{hospital.hospital_name} <span className="float-right">Rs {hospital.fees}</span></h4>
+                                        </div>
+                                        <div className="widget-content">
+                                            <div className="location-details">
+                                                <img src="/assets/img/customer-icons/map-marker-blue.png" className="img-fluid" />
+                                                <p className="address">{hospital.address}</p>
+                                            </div>
+                                            <div className="timing-details">
+                                                {
+                                                    Object.keys(hospital.timings).map((timingKey, key) => {
+                                                        return <p className="fw-700" key={key}>
+                                                            <label className="fw-700 text-md text-primary">
+                                                                {timingKey}
+                                                            </label>
+                                                            {hospital.timings[timingKey].join(', ')}
+                                                        </p>
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="widget-footer text-center">
+                                            <button className="v-btn v-btn-primary outline" onClick={this.selectClinic.bind(this, hospital.hospital_id)}>Book Now</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            })
+                        }
 
-                {
-                    availability.map((clinic, i) => {
-                        return <div key={i} className="clinic" onClick={this.selectClinic.bind(this,clinic.id)}>
-                            <div className="name">{clinic.name + ", " + clinic.address}</div>
-                            <div className="details">
-                                <ClockIcon className="clockIcon" />
-                                <MoneyIcon className="moneyIcon" />
-                                <p>
-                                    {
-                                        clinic.days.map((day, i) => {
-                                            return <span
-                                                key={i}
-                                                className={day.isAvailable ? "isAvailable" : ""}>
-                                                {day.day[0]}
-                                            </span>
-                                        })
-                                    }
-                                </p>
-                                <p>
-                                    {clinic.timeAvailable.timeStart} to {clinic.timeAvailable.timeEnd}
-                                </p>
-                                <p>{`Fee: Rs.${clinic.timeAvailable.fee.amount}`}</p>
-                            </div>
-                            <div className="book">
-                                <span className="text">Book</span>
-                                <RightArrowIcon className="bookIcon" />
-                            </div>
-                        </div>
-                    })
-
-                }
-
+                    </ul>
+                </div>
             </div>
         );
     }

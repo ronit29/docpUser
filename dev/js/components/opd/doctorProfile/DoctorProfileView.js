@@ -1,6 +1,8 @@
 import React from 'react';
 
-import DoctorProfileCard from '../commons/doctorProfileCard/index.js'
+import Loader from '../../commons/Loader'
+
+import DoctorProfileCard from './doctorProfileCard'
 import AboutDoctor from '../doctorProfile/aboutDoctor/index.js'
 import ProfessionalGraph from '../doctorProfile/professionalGraph/index.js'
 import ClinicSelector from '../commons/clinicSelector/index.js'
@@ -12,7 +14,6 @@ class DoctorProfileView extends React.Component {
             selectedDoctor: this.props.match.params.id
         }
     }
-
 
     render() {
 
@@ -29,8 +30,8 @@ class DoctorProfileView extends React.Component {
                             </div>
                             <div className="col-4">
                                 <ul className="inline-list float-right user-notification-action">
-                                    <li><span className="icon icon-md text-middle"><img src="img/customer-icons/user.svg" className="img-fluid" /></span></li>
-                                    <li><span className="icon icon-md text-middle notification-icon"><img src="img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
+                                    <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -40,27 +41,36 @@ class DoctorProfileView extends React.Component {
                 {
                     this.props.DOCTORS[this.state.selectedDoctor] ?
                         <div>
+                            <section className="wrap dr-profile-screen">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                <DoctorProfileCard
+                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                />
+                                                <div className="widge-content pd-0">
+                                                    <AboutDoctor
+                                                        details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                    />
 
+                                                    <ClinicSelector
+                                                        details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                        {...this.props}
+                                                    />
+
+                                                    <ProfessionalGraph
+                                                        details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
                         </div> : <Loader />
                 }
-
-                {/* {
-                    this.props.DOCTORS[this.state.selectedDoctor] ?
-                        <div>
-                            <DoctorProfileCard
-                                hideBottom={true}
-                                details={this.props.DOCTORS[this.state.selectedDoctor]}
-                            />
-                            <AboutDoctor />
-                            <ClinicSelector
-                                details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                {...this.props}
-                            />
-                            <ProfessionalGraph />
-                        </div> : ""
-                } */}
-
             </div>
         );
     }

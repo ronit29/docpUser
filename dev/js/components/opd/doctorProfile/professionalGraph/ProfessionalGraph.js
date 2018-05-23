@@ -7,6 +7,7 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
+
 class ProfessionalGraph extends React.Component {
 
     constructor(props) {
@@ -16,44 +17,186 @@ class ProfessionalGraph extends React.Component {
     render() {
 
         return (
-            <div className="professionalGraph">
-                <h5>Professional Graph</h5>
-                <div className="epanel">
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            Education
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            Memberships
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            Experience
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            Specializations
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            Awards
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
+            <div className="widget-panel">
+                <h4 className="panel-title">Professional Graph</h4>
+                <div className="panel-content pd-0">
+                    <ul className="list drop-down-list">
+                        <li>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <div className="title">
+                                        Education <span className="float-right"></span>
+                                    </div>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div className="more-content">
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Qualification</label>
+                                            <p className="fw-700 text-md text-light">MD</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Specialization</label>
+                                            <p className="fw-700 text-md text-light">Dermitology</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">College</label>
+                                            <p className="fw-700 text-md text-light">MGU University, 2009</p>
+                                        </div>
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </li>
+                        <li>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <div className="title">
+                                        Associate Clinic/Hospital <span className="float-right"></span>
+                                    </div>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div className="more-content">
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Qualification</label>
+                                            <p className="fw-700 text-md text-light">MD</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Specialization</label>
+                                            <p className="fw-700 text-md text-light">Dermitology</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">College</label>
+                                            <p className="fw-700 text-md text-light">MGU University, 2009</p>
+                                        </div>
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </li>
+                        <li>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <div className="title">
+                                        Language <span className="float-right"></span>
+                                    </div>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div className="more-content">
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Qualification</label>
+                                            <p className="fw-700 text-md text-light">MD</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Specialization</label>
+                                            <p className="fw-700 text-md text-light">Dermitology</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">College</label>
+                                            <p className="fw-700 text-md text-light">MGU University, 2009</p>
+                                        </div>
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </li>
+                        <li>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <div className="title">
+                                        Awards <span className="float-right"></span>
+                                    </div>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div className="more-content">
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Qualification</label>
+                                            <p className="fw-700 text-md text-light">MD</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Specialization</label>
+                                            <p className="fw-700 text-md text-light">Dermitology</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">College</label>
+                                            <p className="fw-700 text-md text-light">MGU University, 2009</p>
+                                        </div>
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </li>
+                        <li>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <div className="title">
+                                        Associate Membership <span className="float-right"></span>
+                                    </div>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div className="more-content">
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Qualification</label>
+                                            <p className="fw-700 text-md text-light">MD</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Specialization</label>
+                                            <p className="fw-700 text-md text-light">Dermitology</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">College</label>
+                                            <p className="fw-700 text-md text-light">MGU University, 2009</p>
+                                        </div>
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </li>
+                        <li>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <div className="title">
+                                        Experinece <span className="float-right"></span>
+                                    </div>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div className="more-content">
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Qualification</label>
+                                            <p className="fw-700 text-md text-light">MD</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Specialization</label>
+                                            <p className="fw-700 text-md text-light">Dermitology</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">College</label>
+                                            <p className="fw-700 text-md text-light">MGU University, 2009</p>
+                                        </div>
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </li>
+                        <li>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <div className="title">
+                                        Subscribed Serivces <span className="float-right"></span>
+                                    </div>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div className="more-content">
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Qualification</label>
+                                            <p className="fw-700 text-md text-light">MD</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">Specialization</label>
+                                            <p className="fw-700 text-md text-light">Dermitology</p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="fw-700 text-sm text-primary">College</label>
+                                            <p className="fw-700 text-md text-light">MGU University, 2009</p>
+                                        </div>
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </li>
+                    </ul>
                 </div>
             </div>
         );

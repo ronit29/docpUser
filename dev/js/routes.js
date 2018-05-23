@@ -37,9 +37,9 @@ const routes = [
     { path: '/locationsearch', exact: true, component: LocationSearch },
     { path: '/opd/searchresults', exact: true, component: SearchResults },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile },
+    { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
 
-    { path: '/doctorprofile/:id/availability', exact: true, component: ClinicList },
-    { path: '/doctorprofile/:id/:clinicId/book', exact: true, component: AppointmentSlot },
+    { path: '/opd/doctor/:id/availability', exact: true, component: ClinicList },
     { path: '/doctorprofile/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
     
     { path: '/user/signup', exact: true, component: UserSignup },
