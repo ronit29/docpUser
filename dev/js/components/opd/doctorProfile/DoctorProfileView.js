@@ -9,24 +9,43 @@ class DoctorProfileView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedDoctor : null
+            selectedDoctor: this.props.match.params.id
         }
     }
 
-    componentDidMount() {
-        let doctorId = this.props.match.params.id
-        if (doctorId) {
-            this.setState({selectedDoctor : doctorId})
-            this.props.getDoctorById(doctorId)
-        }
-    }
 
     render() {
 
         return (
-            <div className="doctorProfile">
+            <div>
+
+                <header className="skin-primary fixed horizontal top">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-4">
+                                <div className="header-title fw-700 capitalize text-white">ICON</div>
+                            </div>
+                            <div className="col-4">
+                            </div>
+                            <div className="col-4">
+                                <ul className="inline-list float-right user-notification-action">
+                                    <li><span className="icon icon-md text-middle"><img src="img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li><span className="icon icon-md text-middle notification-icon"><img src="img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </header>
 
                 {
+                    this.props.DOCTORS[this.state.selectedDoctor] ?
+                        <div>
+
+
+                        </div> : <Loader />
+                }
+
+                {/* {
                     this.props.DOCTORS[this.state.selectedDoctor] ?
                         <div>
                             <DoctorProfileCard
@@ -40,7 +59,7 @@ class DoctorProfileView extends React.Component {
                             />
                             <ProfessionalGraph />
                         </div> : ""
-                }
+                } */}
 
             </div>
         );

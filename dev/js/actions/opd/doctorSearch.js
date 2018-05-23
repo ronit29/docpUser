@@ -62,14 +62,12 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 }
 
 export const getDoctorById = (doctorId) => (dispatch) => {
-	// this API should return detailed doctor
-	API_GET('/doctors.json').then(function (response) {
-		// mocking API , TODO : remove
-		response.doctor = response.doctors.filter(doc => doc.id == doctorId)[0]
+
+	API_GET(`/api/v1/doctor/profileuserview/${doctorId}`).then(function (response) {
 
 		dispatch({
 			type: APPEND_DOCTORS,
-			payload: [response.doctor]
+			payload: [response]
 		})
 
 	}).catch(function (error) {

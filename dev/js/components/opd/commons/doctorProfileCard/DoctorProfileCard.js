@@ -7,7 +7,7 @@ class DoctorProfileCard extends React.Component {
     }
 
     cardClick(id, e) {
-        // this.props.history.push(`/doctorprofile/${id}`)
+        this.props.history.push(`/opd/doctor/${id}`)
     }
 
     bookNow(id, e) {
@@ -51,10 +51,10 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let {experience_years, gender, hospital, hospital_count, name, qualifications} = this.props.details
+        let {id, experience_years, gender, hospital, hospital_count, name, qualifications} = this.props.details
 
         return (
-            <div className="widget card search-dr-list">
+            <div className="widget card search-dr-list" onClick={this.cardClick.bind(this,id)}>
                 <div className="widget-header dr-info">
                     <div className="rating-address beta">
                         <ul className="inline-list ratting">
