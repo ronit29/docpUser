@@ -31,7 +31,11 @@ import TestSelector from './containers/diagnosis/TestSelector'
 import UserLogin from './containers/commons/UserLogin'
 import OtpVerify from './containers/commons/OtpVerify'
 
+import Home from './containers/commons/Home'
+
 const routes = [
+
+    { path: '/', exact: true, component: Home },
 
     { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/locationsearch', exact: true, component: LocationSearch },
