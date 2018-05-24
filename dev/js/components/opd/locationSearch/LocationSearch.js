@@ -21,6 +21,7 @@ class LocationSearch extends React.Component {
         };
         if (location) {
             auto.getPlacePredictions(request, function (results, status) {
+                results = results || []
                 this.setState({ searchResults: results })
             }.bind(this))
         }
@@ -54,6 +55,25 @@ class LocationSearch extends React.Component {
         input.focus()
     }
 
+    detectLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                var latlng = { lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) };
+
+                let geocoder = new google.maps.Geocoder
+                geocoder.geocode({ 'location': latlng }, (results, status) => {
+                    if (results && results[0]) {
+                        this.props.selectLocation(results[0])
+                        this.props.history.go(-1)
+                    }
+                })
+            })
+        }
+        else {
+            // geolocation is not supported
+        }
+    }
+
     static contextTypes = {
         router: () => null
     }
@@ -81,7 +101,7 @@ class LocationSearch extends React.Component {
                                         <input type="text" value={this.state.search} onChange={this.inputHandler.bind(this)} className="form-control input-md search-input no-shadow" placeholder="Select any city or locality" id="topLocationSearch" />
                                         <span className="ct-img ct-img-sm map-marker-blue"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>
                                     </div>
-                                    <div className="detect-my-locaiton">
+                                    <div className="detect-my-locaiton" onClick={this.detectLocation.bind(this)}>
                                         <span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/gps.svg" className="img-fluid" /></span>Detect My Location
                                     </div>
                                 </div>

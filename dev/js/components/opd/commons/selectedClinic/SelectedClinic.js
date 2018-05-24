@@ -8,22 +8,38 @@ class SelectedClinic extends React.Component {
         }
     }
 
+    getQualificationStr(qualificationSpecialization) {
+        return qualificationSpecialization.reduce((str, curr, i) => {
+            str += `${curr.qualification}`
+            if (curr.specialization) {
+                str += ` - ${curr.specialization}`
+            }
+            if (i < qualificationSpecialization.length - 1) str += `, `;
+            return str
+        }, "")
+    }
+
     render() {
 
-        // let { selectedDoctor, selectedClinic } = this.props
+        let { name, qualifications, hospitals } = this.props.selectedDoctor
+        let hospitalName = ""
 
-        // let clinicData = selectedDoctor.availability.filter((clinic) => {
-        //     return clinic.id == selectedClinic
-        // })[0]
+        if (hospitals && hospitals.length) {
+            hospitals.map((hospital) => {
+                if (hospital.hospital_id == this.props.selectedClinic) {
+                    hospitalName = hospital.hospital_name
+                }
+            })
+        }
 
         return (
             <div className="widget mrt-10 ct-profile skin-white">
                 <div className="widget-header dr-qucik-info">
                     <img src="/assets/img/customer-icons/user.png" className="img-fluid" />
                     <div className="dr-profile">
-                        <h4 className="dr-name">Dr. Stephny Ray</h4>
-                        <p className="desg">MBBS, MD - Genral Medicine General Physician</p>
-                        <h4 className="dr-name clinic-name mrt-10 text-sm">Apollo Clinic</h4>
+                        <h4 className="dr-name">{name}</h4>
+                        <p className="desg">{this.getQualificationStr(qualifications)}</p>
+                        <h4 className="dr-name clinic-name mrt-10 text-sm">{hospitalName}</h4>
                     </div>
                 </div>
             </div>

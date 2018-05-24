@@ -3,31 +3,36 @@ import { API_GET } from '../../api/api.js';
 
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false) => (dispatch) => {
-	// let testIds = searchState.selectedCriterias
-	// 	.filter(x => x.type == 'test')
-	// 	.reduce((finalStr, curr, i) => {
-	// 		if (i != 0) {
-	// 			finalStr += ','
-	// 		}
-	// 		finalStr += `${curr.id}`
-	// 		return finalStr
-	// 	}, "")
+	let specialization_ids = searchState.selectedCriterias
+		.filter(x => x.type == 'speciality')
+		.reduce((finalStr, curr, i) => {
+			if (i != 0) {
+				finalStr += ','
+			}
+			finalStr += `${curr.id}`
+			return finalStr
+		}, "")
 
-	// let lat = 28.4595
-	// let long = 77.0226
-	// if (searchState.selectedLocation) {
-	// 	lat = searchState.selectedLocation.geometry.location.lat
-	// 	long = searchState.selectedLocation.geometry.location.lng
-	// }
-	// let min_distance = filterCriteria.distanceRange[0]
-	// let max_distance = filterCriteria.distanceRange[1]
-	// let min_price = filterCriteria.priceRange[0]
-	// let max_price = filterCriteria.priceRange[1]
-	// let order_by = filterCriteria.sortBy
+	let sits_at = []
+	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
+	// if(filterCriteria.sits_at_hospital) sits_at.push('hospital');
+	// if(sits_at.length == 0) sits_at = ['clinic','hospital'];
+	sits_at = sits_at.join(',')
 
-	// let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
+	let lat = 28.4595
+	let long = 77.0226
+	if (searchState.selectedLocation) {
+		lat = searchState.selectedLocation.geometry.location.lat
+		long = searchState.selectedLocation.geometry.location.lng
+	}
 
-	let url = `/api/v1/doctor/doctorsearch`
+	let min_fees = filterCriteria.priceRange[0]
+	let max_fees = filterCriteria.priceRange[1]
+	let sort_on = filterCriteria.sort_on || ""
+	let is_available = filterCriteria.is_available
+	let is_female = filterCriteria.is_female
+
+	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${specialization_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}`
 
 	dispatch({
 		type: DOCTOR_SEARCH_START,
