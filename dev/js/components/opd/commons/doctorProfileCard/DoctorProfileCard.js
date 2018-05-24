@@ -29,12 +29,12 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let {id, experience_years, gender, hospitals, hospital_count, name, qualifications} = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications } = this.props.details
 
         let hospital = hospitals[0]
 
         return (
-            <div className="widget card search-dr-list" onClick={this.cardClick.bind(this,id)}>
+            <div className="widget card search-dr-list" onClick={this.cardClick.bind(this, id)}>
                 <div className="widget-header dr-info">
                     <div className="rating-address beta">
                         <ul className="inline-list ratting">
@@ -66,10 +66,10 @@ class DoctorProfileCard extends React.Component {
                 <div className="widget-footer card-footer">
                     <div className="row">
                         <div className="col-6">
-                            <p><img src="/assets/img/customer-icons/home.svg" className="img-fluid" /><span className="Clinc-name">{hospital.hospital_name} <br />&amp; {hospital_count-1} More</span></p>
+                            <p><img src="/assets/img/customer-icons/home.svg" className="img-fluid" /><span className="Clinc-name">{hospital.hospital_name} <br />&amp; {hospital_count - 1} More</span></p>
                         </div>
                         <div className="col-6">
-                            <p><img src="/assets/img/customer-icons/clock-black.svg" className="img-fluid" /><span className="time-availability">8:00 AM to 12:00 PM <br />2:00 PM to 7:00 PM</span></p>
+                            <p><img src="/assets/img/customer-icons/clock-black.svg" className="img-fluid" /><span className="time-availability">{hospital.timings["Mon-Sun"] ? hospital.timings["Mon-Sun"][0] : ""}</span></p>
                         </div>
                     </div>
                 </div>
