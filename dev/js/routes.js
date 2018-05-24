@@ -29,7 +29,7 @@ import DoctorChat from './containers/commons/Chat.js'
 import TestSelector from './containers/diagnosis/TestSelector'
 
 import UserLogin from './containers/commons/UserLogin'
-import OtpVerify from './containers/commons/OtpVerify'
+// import OtpVerify from './containers/commons/OtpVerify'
 
 import Home from './containers/commons/Home'
 
@@ -46,7 +46,7 @@ const routes = [
     { path: '/opd/doctor/:id/availability', exact: true, component: ClinicList },
     { path: '/doctorprofile/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
     
-    { path: '/user/signup', exact: true, component: UserSignup },
+    
     { path: '/user', exact: true, component: UserProfile },
     { path: '/user/:id', exact: true, component: UserProfile },
     { path: '/user/:id/appointments', exact: true, component: UserAppointments },
@@ -56,7 +56,7 @@ const routes = [
     { path: '/booking/:refId', exact: true, component: Booking },
 
     { path: '/login', exact: true, component: UserLogin },
-    { path: '/otp/verify', exact: true, component: OtpVerify },
+    { path: '/signup', exact: true, component: UserSignup },
 
     { path: '/dx', exact: true, component: DX_SearchCriteria },
     { path: '/dx/searchresults', exact: true, component: DX_SearchResults },

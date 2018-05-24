@@ -5,7 +5,9 @@ class UserLoginView extends React.Component {
         super(props)
         this.state = {
             phoneNumber: '',
-            validationError: ''
+            validationError: '',
+            showOTP: false,
+            otp: ""
         }
     }
 
@@ -18,7 +20,11 @@ class UserLoginView extends React.Component {
         if (number.match(/^[789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (exists) => {
-                this.props.history.replace('/otp/verify?exists=${!!exists}')
+                if (exists) {
+                    this.setState({ showOTP: true })
+                } else {
+                    this.props.history.replace('/signup')
+                }
             })
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
@@ -58,15 +64,25 @@ class UserLoginView extends React.Component {
                             </div>
                             <div className="form-group mobile-field">
                                 <div className="adon-group enter-mobile-number">
-                                    <input type="text" className="fc-input text-center" placeholder="234XXXXXX" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" />
+                                    <input type="text" className="fc-input text-center" placeholder="934XXXXXX" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" />
                                 </div>
+
+                                {
+                                    this.state.showOTP ? <div className="adon-group enter-mobile-number">
+                                        <br /><br />
+                                        <input type="text" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" />
+                                    </div> : ""
+                                }
                             </div>
                         </div>
                         <span className="errorMessage">{this.props.error_message}</span>
                         <span className="errorMessage">{this.state.validationError}</span>
                     </div>
                 </section>
-                <button onClick={this.submitOTPRequest.bind(this,this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Continue</button>
+                {
+                    this.state.showOTP ? <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Verify</button> : <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Continue</button>
+                }
+
             </div>
         );
     }

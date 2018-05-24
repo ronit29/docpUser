@@ -36,7 +36,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         payload: {}
     })
 
-    API_POST('/api/v1/user/doctor/login', {
+    API_POST('/api/v1/user/login', {
         "phone_number": number,
         "otp": otp
     }).then(function (response) {
@@ -48,6 +48,31 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
             payload: { token: response.token }
         })
         if (cb) cb();
+    }).catch(function (error) {
+        dispatch({
+            type: SUBMIT_OTP_FAIL,
+            payload: {
+                error_message: "Invalid OTP"
+            }
+        })
+    })
+}
+
+export const registerUser = (postData, cb) => (dispatch) => {
+    dispatch({
+        type: SUBMIT_OTP_REQUEST,
+        payload: {}
+    })
+
+    API_POST('/api/v1/user/register', postData).then(function (response) {
+        // set cookie token explicitly, csrf token is set by default
+        // STORAGE.setAuthToken(response.token)
+        debugger
+        dispatch({
+            type: SUBMIT_OTP_SUCCESS,
+            payload: { token: response.token }
+        })
+        if (cb) cb(response);
     }).catch(function (error) {
         dispatch({
             type: SUBMIT_OTP_FAIL,

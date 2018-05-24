@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../../actions/index.js'
+import { registerUser } from '../../actions/index.js'
 
 import UserSignupView from '../../components/commons/userSignup'
 
@@ -24,16 +24,30 @@ class UserSignup extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const USER = state.USER
+    let {
+        token,
+        error_message,
+        success_message,
+        phoneNumber,
+        submit_otp,
+        submit_otp_success,
+        submit_otp_fail
+    } = state.AUTH
 
     return {
-        USER
+        token,
+        error_message,
+        success_message,
+        phoneNumber,
+        submit_otp,
+        submit_otp_success,
+        submit_otp_fail
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        registerUser: (postData, cb) => dispatch(registerUser(postData, cb))
     }
 }
 
