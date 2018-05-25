@@ -66,13 +66,12 @@ export const registerUser = (postData, cb) => (dispatch) => {
 
     API_POST('/api/v1/user/register', postData).then(function (response) {
         // set cookie token explicitly, csrf token is set by default
-        // STORAGE.setAuthToken(response.token)
-        debugger
+        STORAGE.setAuthToken(response.token)
         dispatch({
             type: SUBMIT_OTP_SUCCESS,
             payload: { token: response.token }
         })
-        if (cb) cb(response);
+        if (cb) cb(null, response);
     }).catch(function (error) {
         dispatch({
             type: SUBMIT_OTP_FAIL,
@@ -80,5 +79,7 @@ export const registerUser = (postData, cb) => (dispatch) => {
                 error_message: "Invalid OTP"
             }
         })
+        if (cb) cb(error, null);
     })
 }
+

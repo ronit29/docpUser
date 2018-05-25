@@ -2,6 +2,11 @@ import React from 'react';
 
 import ProfileSlider from '../profileSlider/index.js'
 import ProfileData from './profileData/index.js'
+import Appointments from './userAppointments'
+import Family from './userFamily'
+import Loader from '../../commons/Loader'
+
+import { Route } from 'react-router-dom'
 
 class UserProfileView extends React.Component {
     constructor(props) {
@@ -10,42 +15,64 @@ class UserProfileView extends React.Component {
 
         }
     }
-    
-    componentDidMount() {
-        this.props.getUserProfile()
-    }
-
-    static contextTypes = {
-        router: () => null
-    }
 
     render() {
 
-        let selectedUser = null
-        let userProfileId = this.props.match.params.id
+        let { profiles, selectedProfile } = this.props.USER
 
-        if (this.props.USER.profiles[userProfileId]) {
-            selectedUser = this.props.USER.profiles[userProfileId]
-        } else {
-            Object.keys(this.props.USER.profiles).map((profileId) => {
-                if (this.props.USER.profiles[profileId].isDefaultUser) {
-                    selectedUser = this.props.USER.profiles[profileId]
-                }
-            })
-        }
-        
         return (
-            <div className="userProfile">
+            <div>
+
+                <header className="skin-primary fixed horizontal top">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-2">
+                                <div className="back-icon" onClick={() => {
+                                    this.props.history.go(-1)
+                                }}>
+                                    <a>
+                                        <img src="/assets/img/icons/back.png" className="img-fluid" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="col-8">
+                                <div className="header-title fw-700 capitalize text-center text-white">My Profile</div>
+                            </div>
+                            <div className="col-2">
+                                <div className="header-title fw-700 capitalize text-center text-white">Edit</div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <section className="wrap consumer-profile-screen">
+                    <div className="container-fluid">
+                        <div className="row">
+                            {
+                                profiles[selectedProfile] ? <div className="col-md-8 offset-md-3">
+
+                                    <ProfileSlider {...this.props} />
+
+                                    <Route exact path={`${this.props.match.url}/`} render={(props) => {
+                                        return <ProfileData {...props} {...this.props} />
+                                    }} />
+
+                                    <Route exact path={`${this.props.match.url}/appointments`} render={(props) => {
+                                        return <Appointments {...props} {...this.props} />
+                                    }} />
+
+                                    <Route exact path={`${this.props.match.url}/family`} render={(props) => {
+                                        return <Family {...props} {...this.props} />
+                                    }} />
+
+                                </div> : ""
+                            }
+                        </div>
+                    </div>
+                </section>
+
                 {
-                    selectedUser ? <div>
-                        <ProfileSlider 
-                            profiles={this.props.USER.profiles}
-                            subRoute=""
-                        />
-                        <ProfileData 
-                            profileData={selectedUser}
-                        />
-                    </div> : ""
+                    profiles[selectedProfile] ? "" : <Loader />
                 }
 
             </div>

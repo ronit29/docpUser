@@ -13,8 +13,6 @@ import AppointmentSlot from './containers/opd/AppointmentSlot.js'
 import PatientDetails from './containers/opd/PatientDetails.js'
 
 import UserProfile from './containers/commons/UserProfile.js'
-import UserAppointments from './containers/commons/UserAppointments.js'
-import UserReports from './containers/commons/UserReports.js'
 import UserSignup from './containers/commons/UserSignup'
 
 import Payment from './containers/opd/Payment.js'
@@ -29,7 +27,6 @@ import DoctorChat from './containers/commons/Chat.js'
 import TestSelector from './containers/diagnosis/TestSelector'
 
 import UserLogin from './containers/commons/UserLogin'
-// import OtpVerify from './containers/commons/OtpVerify'
 
 import Home from './containers/commons/Home'
 
@@ -46,22 +43,21 @@ const routes = [
     { path: '/opd/doctor/:id/availability', exact: true, component: ClinicList },
     { path: '/doctorprofile/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
     
-    
-    { path: '/user', exact: true, component: UserProfile },
-    { path: '/user/:id', exact: true, component: UserProfile },
-    { path: '/user/:id/appointments', exact: true, component: UserAppointments },
-    { path: '/user/:id/reports', exact: true, component: UserReports },
+    { path: '/user', component: UserProfile },
+
     { path: '/chat', exact: true, component: DoctorChat },
     { path: '/payment', exact: true, component: Payment },
     { path: '/booking/:refId', exact: true, component: Booking },
 
     { path: '/login', exact: true, component: UserLogin },
     { path: '/signup', exact: true, component: UserSignup },
+    { path: '/addprofile', exact: true, component: UserSignup },
 
     { path: '/dx', exact: true, component: DX_SearchCriteria },
     { path: '/dx/searchresults', exact: true, component: DX_SearchResults },
     { path: '/lab/:id', exact: true, component: Lab },
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
+    
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
 
     { path: '/lab/booking/summary/:id', exact: true, component: DX_BookingSummary },

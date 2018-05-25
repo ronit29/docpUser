@@ -1,13 +1,12 @@
-import { APPEND_USER_PROFILES } from '../../constants/types';
-import { API_GET } from '../../api/api.js';
+import { APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { API_GET, API_POST } from '../../api/api.js';
 
 
 export const getUserProfile = () => (dispatch) => {
-	API_GET('/user.json').then(function (response) {
-		
+	return API_GET('/api/v1/user/userprofile').then(function (response) {
 		dispatch({
 			type: APPEND_USER_PROFILES,
-			payload: response.profiles
+			payload: response
 		})
 
 	}).catch(function (error) {
@@ -15,22 +14,43 @@ export const getUserProfile = () => (dispatch) => {
 	})
 }
 
-export const getUserProfileWithAppointments = () => (dispatch) => {
-	API_GET('/user_profile_appointments.json').then(function (response) {
-		
+export const getProfileAppointments = (profile_id) => (dispatch) => {
+	API_GET(`/api/v1/doctor/appointment?profile_id=${profile_id}`).then(function (response) {
+
 		dispatch({
-			type: APPEND_USER_PROFILES,
-			payload: response.profiles
+			type: APPEND_USER_APPOINTMENTS,
+			payload: {
+				profile_id, appointments: response
+			}
 		})
 
 	}).catch(function (error) {
 
 	})
 }
+
+export const createProfile = (postData, cb) => (dispatch) => {
+
+	API_POST('/api/v1/user/userprofile/add', postData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const selectProfile = (profile_id, cb) => (dispatch) => {
+	dispatch({
+		type: SELECT_USER_PROFILE,
+		payload: profile_id
+	})
+}
+
+
+
 
 export const getUserProfileWithTests = () => (dispatch) => {
 	API_GET('/user_profile_tests.json').then(function (response) {
-		
+
 		dispatch({
 			type: APPEND_USER_PROFILES,
 			payload: response.profiles
@@ -40,4 +60,3 @@ export const getUserProfileWithTests = () => (dispatch) => {
 
 	})
 }
-

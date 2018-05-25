@@ -1,7 +1,9 @@
-import { APPEND_USER_PROFILES } from '../../constants/types';
+import { APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 
 const defaultState = {
-    profiles: {}
+    profiles: {},
+    appointments: {},
+    selectedProfile: null
 }
 
 export default function (state = defaultState, action) {
@@ -10,13 +12,37 @@ export default function (state = defaultState, action) {
         case APPEND_USER_PROFILES: {
             let newState = {
                 ...state,
-                profiles : { ...state.profiles }
+                profiles: { ...state.profiles }
             }
 
             newState.profiles = action.payload.reduce((profileMap, profile) => {
-                profileMap[profile.profileId] = profile
+                if(profile.is_default_user){
+                    newState.selectedProfile = profile.id
+                }
+                profileMap[profile.id] = profile
                 return profileMap
             }, newState.profiles)
+
+            return newState
+        }
+
+        case APPEND_USER_APPOINTMENTS: {
+            let newState = {
+                ...state,
+                appointments: { ...state.appointments }
+            }
+
+            newState.appointments[action.payload.profile_id] = action.payload.appointments
+
+            return newState
+        }
+
+        case SELECT_USER_PROFILE: {
+            let newState = {
+                ...state
+            }
+
+            newState.selectedProfile = action.payload
 
             return newState
         }

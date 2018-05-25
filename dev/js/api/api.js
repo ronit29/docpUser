@@ -25,7 +25,7 @@ export const API_GET = (url) => {
             axiosInstance({
                 method: 'get',
                 url: url,
-                // headers: { 'Authorization': `Token ${token}` }
+                headers: { 'Authorization': `Token ${token}` }
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {

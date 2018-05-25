@@ -232,7 +232,7 @@
 
 .search-dr-list .dr-info{padding-bottom: 0;}
 
-.search-dr-list .beta.other-info{ }
+.search-dr-list .beta.other-info{}
 .search-dr-list .alpha.dr-exp-details{padding-right: 130px;}
 .search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; }
 
@@ -265,3 +265,39 @@
 .drop-down-list .more-content p{padding-left: 10px}
 
 .timing-details>p{margin-bottom: 3px;}
+
+
+/*consumer profile*/
+.consumer-icon{margin:0 auto!important;}
+
+.online-consultant-list>li{background-color: #fff; border-bottom:1px solid #ddd; padding: 10px}
+.consumer-report-list>li:first-child,
+.online-consultant-list>li:first-child{margin-top: -13px; padding: 10px;}
+.online-consultant-list>li>a{display: block;}
+.online-consultant-list>li .consultant-dp{width: 80px; float: left;}
+.online-consultant-list>li .consultant-details{padding-left: 100px; font-weight: 500; font-size: 14px;}
+.online-consultant-list>li .view-chat{padding:10px;}
+
+
+/*consumer report list*/
+.consumer-report-list>li{background-color: #fff;}
+
+
+.consumer-app-tab{padding-bottom: 0;}
+
+.ls-activity-table{margin-top: -10px;}
+
+/*my family*/
+.family-list>li{ background-color: #fff; padding: 10px; border-bottom:1px solid #ddd; position: relative;}
+.family-list>li .member-icon{float: left; width: 80px; }
+.family-list>li>a{display: block;}
+.family-list>li .member-details{padding-left: 90px; }
+
+.arrow-forward-right{position: absolute; top: 35px; right: 0px; }
+.add-more-members-btn{position: fixed; right: 6%; bottom: 3%; width: 70px; height: 70px; border-radius: 50%;font-size: 40px; text-align: center; padding: 0;}
+
+
+/*consumer profile*/
+.consumer-profile-update{left: 0; position: fixed; top: 50px;right: 0; z-index: 10}
+
+.verify-number{position: absolute; top: 2px; right: 10px; width: 40px; color: #00acc1; z-index: 10; font-weight: bold;padding: 10px 0;}

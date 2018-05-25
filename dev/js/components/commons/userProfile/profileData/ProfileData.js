@@ -5,39 +5,87 @@ class ProfileData extends React.Component {
         super(props)
     }
 
-    openAppointments(profileId) {
-        this.context.router.history.push(`/user/${profileId}/appointments`)
-
-    }
-
-    openReports(profileId) {
-        this.context.router.history.push(`/user/${profileId}/reports`)
-
-    }
-
-    static contextTypes = {
-        router: () => null
+    gotTo(where){
+        this.props.history.push(`/user/${where}`)
     }
 
     render() {
-
-        let {name, gender, age, mobile, medicalHistoryCount, medicalTestCount, onlineConsultationCount, opdVisitCount, profileId} = this.props.profileData
-
+        
         return (
-            <div>                
-                <div className="userDeail">
-                    <p>{name}</p>
-                    <p>{age} Years</p>
-                    <p>{gender}</p>
-                    <p>{mobile}</p>
-                </div>
-                <div className="profileBtns">
-                    <button>Profile Not Verified</button>
-                    <button>No OPD Insurance</button>
-                    <button>Online Consultations({onlineConsultationCount})</button>
-                    <button onClick={this.openAppointments.bind(this,profileId)}>OPD Visits ({opdVisitCount})</button>
-                    <button>Medical History ({medicalHistoryCount})</button>
-                    <button onClick={this.openReports.bind(this,profileId)}>Test Reports ({medicalTestCount})</button>
+            <div className="widget no-round no-shadow skin-transparent profile-nav">
+                <div className="widget-content">
+                    <ul className="list nav-items">
+                        {/* <li>
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/consultant.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">OPD Insurance</h4>
+                                </div>
+                            </a>
+                        </li> */}
+                        <li>
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/message.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">Online Consultant</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={this.gotTo.bind(this,'appointments')}>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">OPD Visit<span className="float-right badge badge-warning">1</span></h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">Medical History<span className="float-right badge badge-warning">2</span></h4>
+                                </div>
+                            </a>
+                        </li>
+                        {/* <li>
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">Test Report <span className="float-right badge badge-warning">5</span></h4>
+                                </div>
+                            </a>
+                        </li> */}
+                        <li>
+                            <a onClick={this.gotTo.bind(this,'family')}>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">My Family</h4>
+                                </div>
+                            </a>
+                        </li>
+                        {/* <li>
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">Life Style</h4>
+                                </div>
+                            </a>
+                        </li> */}
+                    </ul>
                 </div>
             </div>
         );

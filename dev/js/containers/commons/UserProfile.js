@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUserProfile } from '../../actions/index.js'
+import { getUserProfile, getProfileAppointments, selectProfile } from '../../actions/index.js'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
 
@@ -11,6 +11,18 @@ class UserProfile extends React.Component {
         super(props)
     }
 
+    static loadData(store) {
+        return store.dispatch(getUserProfile())
+    }
+
+    static contextTypes = {
+        router: () => null
+    }
+
+    componentDidMount(){
+        this.props.getUserProfile()
+    }
+    
     render() {
 
         return (
@@ -29,7 +41,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserProfile : () => dispatch(getUserProfile())
+        getUserProfile: () => dispatch(getUserProfile()),
+        getProfileAppointments : (profile_id) => dispatch(getProfileAppointments(profile_id)),
+        selectProfile: (profile_id) => dispatch(selectProfile(profile_id))
     }
 }
 

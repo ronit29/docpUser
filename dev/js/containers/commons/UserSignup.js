@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { registerUser } from '../../actions/index.js'
+import { registerUser, createProfile } from '../../actions/index.js'
 
 import UserSignupView from '../../components/commons/userSignup'
 
@@ -47,7 +47,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        registerUser: (postData, cb) => dispatch(registerUser(postData, cb))
+        registerUser: (postData, cb) => dispatch(registerUser(postData, cb)),
+        createProfile: (postData, cb) => dispatch(createProfile(postData, cb))
     }
 }
 
