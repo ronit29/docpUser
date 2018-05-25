@@ -4,6 +4,7 @@ import ProfileSlider from '../profileSlider/index.js'
 import ProfileData from './profileData/index.js'
 import Appointments from './userAppointments'
 import Family from './userFamily'
+import EditProfile from './editProfile'
 import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
@@ -39,37 +40,47 @@ class UserProfileView extends React.Component {
                                 <div className="header-title fw-700 capitalize text-center text-white">My Profile</div>
                             </div>
                             <div className="col-2">
-                                <div className="header-title fw-700 capitalize text-center text-white">Edit</div>
                             </div>
                         </div>
                     </div>
                 </header>
 
-                <section className="wrap consumer-profile-screen">
-                    <div className="container-fluid">
-                        <div className="row">
-                            {
-                                profiles[selectedProfile] ? <div className="col-md-8 offset-md-3">
+                {
+                    profiles[selectedProfile] ?
+                        <section className="wrap consumer-profile-screen">
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-md-8 offset-md-3">
 
-                                    <ProfileSlider {...this.props} />
+                                        <Route exact path={`${this.props.match.url}/`} render={(props) => {
+                                            return <div>
+                                                <ProfileSlider {...this.props} />
+                                                <ProfileData {...props} {...this.props} />
+                                            </div>
+                                        }} />
 
-                                    <Route exact path={`${this.props.match.url}/`} render={(props) => {
-                                        return <ProfileData {...props} {...this.props} />
-                                    }} />
+                                        <Route exact path={`${this.props.match.url}/appointments`} render={(props) => {
+                                            return <div>
+                                                <ProfileSlider {...this.props} />
+                                                <Appointments {...props} {...this.props} />
+                                            </div>
+                                        }} />
 
-                                    <Route exact path={`${this.props.match.url}/appointments`} render={(props) => {
-                                        return <Appointments {...props} {...this.props} />
-                                    }} />
+                                        <Route exact path={`${this.props.match.url}/family`} render={(props) => {
+                                            return <Family {...props} {...this.props} />
+                                        }} />
 
-                                    <Route exact path={`${this.props.match.url}/family`} render={(props) => {
-                                        return <Family {...props} {...this.props} />
-                                    }} />
+                                    </div>
+                                </div>
+                            </div>
+                        </section> : ""
+                }
 
-                                </div> : ""
-                            }
-                        </div>
-                    </div>
-                </section>
+                {
+                    profiles[selectedProfile] ? <Route exact path={`${this.props.match.url}/edit`} render={(props) => {
+                        return <EditProfile {...props} {...this.props} />
+                    }} /> : ""
+                }
 
                 {
                     profiles[selectedProfile] ? "" : <Loader />

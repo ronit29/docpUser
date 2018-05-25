@@ -25,6 +25,10 @@ class UserFamily extends React.Component {
         this.props.history.push('/addprofile?existing=true')
     }
 
+    editProfile(){
+        this.props.history.push(`/user/edit`)
+    }
+
 
     render() {
 
@@ -35,7 +39,7 @@ class UserFamily extends React.Component {
                 <ul className="list family-list">
                     {
                         Object.keys(profiles).map((id, key) => {
-                            return <li key={key}>
+                            return <li key={key} onClick={this.editProfile.bind(this)}>
                                 <a>
                                     <span className="icon icon-lg member-icon">
                                         <img src="/assets/img/customer-icons/user.png" className="img-fluid" />
