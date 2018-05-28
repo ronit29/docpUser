@@ -16,7 +16,7 @@ export default function (state = defaultState, action) {
             }
 
             newState.profiles = action.payload.reduce((profileMap, profile) => {
-                if(profile.is_default_user){
+                if (profile.is_default_user && newState.selectedProfile === null) {
                     newState.selectedProfile = profile.id
                 }
                 profileMap[profile.id] = profile

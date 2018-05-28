@@ -9,6 +9,18 @@ import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
 
+const Section_Component = ({ children }) => {
+    return <section className="wrap consumer-profile-screen">
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-md-8 offset-md-3">
+                    {children}
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
 class UserProfileView extends React.Component {
     constructor(props) {
         super(props)
@@ -47,46 +59,40 @@ class UserProfileView extends React.Component {
 
                 {
                     profiles[selectedProfile] ?
-                        <section className="wrap consumer-profile-screen">
-                            <div className="container-fluid">
-                                <div className="row">
-                                    <div className="col-md-8 offset-md-3">
+                        <div>
 
-                                        <Route exact path={`${this.props.match.url}/`} render={(props) => {
-                                            return <div>
-                                                <ProfileSlider {...this.props} />
-                                                <ProfileData {...props} {...this.props} />
-                                            </div>
-                                        }} />
+                            <Route exact path={`${this.props.match.url}/`} render={(props) => {
+                                return <Section_Component>
+                                    <ProfileSlider {...this.props} />
+                                    <ProfileData  {...this.props} {...props} />
+                                </Section_Component>
+                            }} />
 
-                                        <Route exact path={`${this.props.match.url}/appointments`} render={(props) => {
-                                            return <div>
-                                                <ProfileSlider {...this.props} />
-                                                <Appointments {...props} {...this.props} />
-                                            </div>
-                                        }} />
+                            <Route exact path={`${this.props.match.url}/appointments`} render={(props) => {
+                                return <Section_Component>
+                                    <ProfileSlider {...this.props} />
+                                    <Appointments  {...this.props} {...props} />
+                                </Section_Component>
+                            }} />
 
-                                        <Route exact path={`${this.props.match.url}/family`} render={(props) => {
-                                            return <Family {...props} {...this.props} />
-                                        }} />
+                            <Route exact path={`${this.props.match.url}/family`} render={(props) => {
+                                return <Section_Component>
+                                    <Family  {...this.props} {...props} />
+                                </Section_Component>
+                            }} />
 
-                                    </div>
-                                </div>
-                            </div>
-                        </section> : ""
-                }
+                            <Route exact path={`${this.props.match.url}/edit/:id`} render={(props) => {
+                                return <EditProfile {...this.props} {...props} />
+                            }} />
 
-                {
-                    profiles[selectedProfile] ? <Route exact path={`${this.props.match.url}/edit`} render={(props) => {
-                        return <EditProfile {...props} {...this.props} />
-                    }} /> : ""
+                        </div> : ""
                 }
 
                 {
                     profiles[selectedProfile] ? "" : <Loader />
                 }
 
-            </div>
+            </div >
         );
     }
 }

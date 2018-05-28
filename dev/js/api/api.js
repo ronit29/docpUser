@@ -22,10 +22,12 @@ function rejectHandler(response, callback) {
 export const API_GET = (url) => {
     return STORAGE.getAuthToken().then((token) => {
         return new Promise((resolve, reject) => {
+            let headers = {}
+            if (token) headers['Authorization'] = `Token ${token}`
             axiosInstance({
                 method: 'get',
                 url: url,
-                headers: { 'Authorization': `Token ${token}` }
+                headers
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {

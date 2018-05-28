@@ -23,14 +23,27 @@ class LabView extends React.Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-4">
-                                <div className="header-title fw-700 capitalize text-white">ICON</div>
+                                <div className="header-title fw-700 capitalize text-white">
+                                    <ul className="inline-list top-nav alpha-bx text-white"
+                                        onClick={() => {
+                                            this.props.history.go(-1)
+                                        }}
+                                    >
+                                        <li>
+                                            <span className="ct-img ct-img-sm arrow-img">
+                                                <img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" />
+                                            </span>
+                                        </li>
+                                        <li><div className="screen-title">Results</div></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div className="col-4">
                             </div>
                             <div className="col-4">
                                 <ul className="inline-list float-right user-notification-action">
-                                    <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
-                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
+                                    {/* <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li> */}
                                 </ul>
                             </div>
                         </div>

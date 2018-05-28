@@ -5,7 +5,13 @@ class BasicDetails extends React.Component {
         super(props)
     }
 
+    handleChange(key, e) {
+        this.props.updateProfile(key, e.target.value)
+    }
+
     render() {
+
+        let { name, email, gender, phone_number, profile_image } = this.props.profileData
 
         return (
             <section className="wrap myProfile">
@@ -21,27 +27,27 @@ class BasicDetails extends React.Component {
                     <div className="widget-content">
                         <form className="go-bottom">
                             <div className="labelWrap">
-                                <input id="fname" className="fc-input error-outline" name="fname" type="text" required />
-                                <label htmlFor="fname">Doctor Name</label>
+                                <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input error-outline" name="fname" type="text" required />
+                                <label htmlFor="fname">Name</label>
                             </div>
                             <div className="form-group input-group">
                                 <label className="inline input-label">Gender</label>
                                 <div className="choose-gender">
-                                    <label className="radio-inline"><input type="radio" name="optradio" />Male</label>
-                                    <label className="radio-inline"><input type="radio" name="optradio" />Female</label>
-                                    <label className="radio-inline"><input type="radio" name="optradio" />Other</label>
+                                    <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "m"} value={'m'} onChange={this.handleChange.bind(this, 'gender')}/>Male</label>
+                                    <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "f"} value={'f'} onChange={this.handleChange.bind(this, 'gender')}/>Female</label>
+                                    <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "o"} value={'o'} onChange={this.handleChange.bind(this, 'gender')}/>Other</label>
                                 </div>
                             </div>
-                            <div className="labelWrap">
-                                <input id="age" name="lname" type="text" required />
+                            {/* <div className="labelWrap">
+                                <input value={name} onChange={this.handleChange.bind(this, 'name')} id="age" name="lname" type="text" required />
                                 <label htmlFor="age">Age</label>
-                            </div>
+                            </div> */}
                             <div className="labelWrap">
-                                <input id="email" name="lname" type="text" required />
+                                <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" required />
                                 <label htmlFor="email">Email</label>
                             </div>
                             <div className="labelWrap">
-                                <input id="number" name="lname" type="text" required />
+                                <input value={phone_number||""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" required />
                                 <label htmlFor="number">Mobile Number</label>
                             </div>
                         </form>

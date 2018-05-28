@@ -1,13 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById } from '../../actions/index.js'
+import { getDoctorById, getUserProfile } from '../../actions/index.js'
+import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
 
 class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    static loadData(store, match) {
+        return Promise.all([store.dispatch(getDoctorById(match.params.id)), store.dispatch(getUserProfile())])
+    }
+
+    static contextTypes = {
+        router: () => null
+    }
+
+    componentDidMount() {
+        if(STORAGE.checkAuth()){
+            this.props.getDoctorById(this.props.match.params.id)
+            this.props.getUserProfile()
+        } else {
+            this.props.history.push('/login')
+        }
     }
 
     render() {
@@ -21,15 +39,18 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTORS
+    const { selectedProfile, profiles } = state.USER
+    let { selectedSlot } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS
+        selectedProfile, profiles, DOCTORS, selectedSlot
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorById : (doctorId) => dispatch(getDoctorById(doctorId))
+        getUserProfile: () => dispatch(getUserProfile()),
+        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId))
     }
 }
 

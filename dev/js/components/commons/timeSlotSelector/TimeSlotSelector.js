@@ -47,9 +47,16 @@ class TimeSlotSelector extends React.Component {
         this.setState({ selectedDay: day })
     }
 
-    selectMonth(month,e){
+    selectMonth(month, e) {
         e.stopPropagation()
         this.setState({ selectedMonth: month })
+    }
+
+    selectSlot(slot, e) {
+        e.stopPropagation()
+        e.preventDefault()
+        slot.date = this.state.selectedDay.actualDate
+        this.props.selectTimeSlot(slot)
     }
 
     render() {
@@ -61,16 +68,16 @@ class TimeSlotSelector extends React.Component {
 
         // let monthNum = (new Date).getMonth()
         let thisMonth = MONTHS[(new Date).getMonth()]
-        let nextMonth = MONTHS[(new Date).getMonth()+1]
-        
+        let nextMonth = MONTHS[(new Date).getMonth() + 1]
+
         return (
             <div>
                 <div className="widget no-shadow no-round skin-transparent">
                     <div className="widget-content">
                         <div className="add-new-time mrb-10">
                             <h4 className="text-md fw-700 mrb-10">Select Date &amp; Time:
-                            <span onClick={this.selectMonth.bind(this,thisMonth)} className={"float-right text-md fw-700 text-" + (thisMonth === this.state.selectedMonth ? "primary" : "light")}>{thisMonth}
-                            <span onClick={this.selectMonth.bind(this,nextMonth)} className={"text-" + (nextMonth === this.state.selectedMonth ? "primary" : "light")}>{nextMonth}</span></span></h4>
+                            <span onClick={this.selectMonth.bind(this, thisMonth)} className={"float-right text-md fw-700 text-" + (thisMonth === this.state.selectedMonth ? "primary" : "light")}>{thisMonth}
+                                    <span onClick={this.selectMonth.bind(this, nextMonth)} className={"text-" + (nextMonth === this.state.selectedMonth ? "primary" : "light")}>{nextMonth}</span></span></h4>
                             <div className="choose-time">
                                 <ul className="inline-list datetime-items">
 
@@ -99,7 +106,10 @@ class TimeSlotSelector extends React.Component {
                         <ul className="inline-list time-items">
                             {
                                 selectedSchedule[0].map((time, i) => {
-                                    return <li key={i}><a href="" className="v-btn v-btn-primary btn-sm outline">{time[1]} </a></li>
+                                    return <li key={i} onClick={this.selectSlot.bind(this, {
+                                        slot: 0,
+                                        time: time
+                                    })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == 0 && this.props.selectedSlot.time[1] == time[1] ? "" : "outline")}>{time[1]} </a></li>
                                 })
                             }
                         </ul>
@@ -107,7 +117,10 @@ class TimeSlotSelector extends React.Component {
                         <ul className="inline-list time-items">
                             {
                                 selectedSchedule[1].map((time, i) => {
-                                    return <li key={i}><a href="" className="v-btn v-btn-primary btn-sm outline">{time[1]} </a></li>
+                                    return <li key={i} onClick={this.selectSlot.bind(this, {
+                                        slot: 1,
+                                        time: time
+                                    })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == 1 && this.props.selectedSlot.time[1] == time[1] ? "" : "outline")}>{time[1]} </a></li>
                                 })
                             }
                         </ul>
@@ -115,7 +128,10 @@ class TimeSlotSelector extends React.Component {
                         <ul className="inline-list time-items">
                             {
                                 selectedSchedule[2].map((time, i) => {
-                                    return <li key={i}><a href="" className="v-btn v-btn-primary btn-sm outline">{time[1]} </a></li>
+                                    return <li key={i} onClick={this.selectSlot.bind(this, {
+                                        slot: 2,
+                                        time: time
+                                    })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == 2 && this.props.selectedSlot.time[1] == time[1] ? "" : "outline")}>{time[1]} </a></li>
                                 })
                             }
                         </ul>

@@ -1,8 +1,9 @@
-import { DOCTOR_SEARCH, DOCTOR_SEARCH_START } from '../../constants/types';
+import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
-    LOADED_DOCTOR_SEARCH: false
+    LOADED_DOCTOR_SEARCH: false,
+    selectedSlot: { time: [] }
 }
 
 export default function (state = defaultState, action) {
@@ -22,6 +23,14 @@ export default function (state = defaultState, action) {
 
             newState.doctorList = action.payload.map(doc => doc.id)
             newState.LOADED_DOCTOR_SEARCH = true
+
+            return newState
+        }
+
+        case SELECT_OPD_TIME_SLOT: {
+            let newState = { ...state }
+
+            newState.selectedSlot = action.payload
 
             return newState
         }

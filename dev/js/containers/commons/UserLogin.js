@@ -31,6 +31,9 @@ const mapStateToProps = (state) => {
         otp_request_sent,
         otp_request_success,
         otp_request_fail,
+        submit_otp,
+        submit_otp_success,
+        submit_otp_fail,
         phoneNumber
     } = state.AUTH
 
@@ -41,6 +44,9 @@ const mapStateToProps = (state) => {
         otp_request_sent,
         otp_request_success,
         otp_request_fail,
+        submit_otp,
+        submit_otp_success,
+        submit_otp_fail,
         phoneNumber
     }
 }

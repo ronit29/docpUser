@@ -1,4 +1,4 @@
-import { DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
+import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 
@@ -77,6 +77,13 @@ export const getDoctorById = (doctorId) => (dispatch) => {
 
 	}).catch(function (error) {
 
+	})
+}
+
+export const selectOpdTimeSLot = (slot) => (dispatch) => {
+	dispatch({
+		type: SELECT_OPD_TIME_SLOT,
+		payload: slot
 	})
 }
 

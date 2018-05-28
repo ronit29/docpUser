@@ -10,19 +10,20 @@ class AppointmentSlot extends React.Component {
         this.state = {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
-            timeSlots: null,
-            selectedSlot: null
+            timeSlots: null
         }
     }
 
-    proceed() {
-        // if (this.state.selectedSlot) {
-        //     this.context.router.history.push(`/doctorprofile/${this.state.selectedDoctor}/${this.state.selectedClinic}/bookdetails?t=${this.state.selectedSlot.start}`)
-        // }
+    proceed(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        if (this.props.selectedSlot.date) {
+            this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/bookdetails`)
+        }
     }
 
     selectTimeSlot(slot) {
-        this.setState({ selectedSlot: slot })
+        this.props.selectOpdTimeSLot(slot)
     }
 
     componentDidMount() {
@@ -30,7 +31,7 @@ class AppointmentSlot extends React.Component {
         let doctorId = this.props.match.params.id
 
         this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
-            this.setState({ timeSlots })
+            this.setState({ timeSlots: timeSlots.timeslots })
         })
 
     }
@@ -75,6 +76,7 @@ class AppointmentSlot extends React.Component {
                                                     <TimeSlotSelector
                                                         timeSlots={this.state.timeSlots}
                                                         selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                        selectedSlot={this.props.selectedSlot}
                                                     /> : ''
                                             }
 
@@ -86,7 +88,7 @@ class AppointmentSlot extends React.Component {
                         </div> : ""
                 }
 
-                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg">Select</button>
+                <button onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg">Select</button>
 
             </div>
         );

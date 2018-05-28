@@ -25,8 +25,13 @@ class UserFamily extends React.Component {
         this.props.history.push('/addprofile?existing=true')
     }
 
-    editProfile(){
-        this.props.history.push(`/user/edit`)
+    editProfile(id){
+        if(this.props.location.search.includes('pick=true')){
+            // pick paitent and go back, else go on to edit.
+            this.props.selectProfile(id)
+            this.props.history.go(-1)
+        }
+        this.props.history.push(`/user/edit/${id}`)
     }
 
 
@@ -39,7 +44,7 @@ class UserFamily extends React.Component {
                 <ul className="list family-list">
                     {
                         Object.keys(profiles).map((id, key) => {
-                            return <li key={key} onClick={this.editProfile.bind(this)}>
+                            return <li key={key} onClick={this.editProfile.bind(this,id)}>
                                 <a>
                                     <span className="icon icon-lg member-icon">
                                         <img src="/assets/img/customer-icons/user.png" className="img-fluid" />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import DoctorProfileCard from '../../commons/doctorProfileCard/index.js'
+import DoctorResultCard from '../../commons/doctorResultCard'
 // import InfiniteScroll from 'react-infinite-scroller';
 
 
@@ -21,7 +21,7 @@ class DoctorsList extends React.Component {
                         <div className="col-12">
                             {
                                 doctorList.map((docId, i) => {
-                                    return <DoctorProfileCard {...this.props} details={DOCTORS[docId]} key={i} />
+                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} />
                                 })
                             }
                         </div>

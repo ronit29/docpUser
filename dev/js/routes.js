@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import SearchCriteria from './containers/opd/SearchCriteria.js'
@@ -8,7 +7,7 @@ import LocationSearch from './containers/opd/LocationSearch.js'
 import SearchResults from './containers/opd/SearchResults.js'
 import SearchResultsFilter from './containers/opd/SearchResultsFilter.js'
 import DoctorProfile from './containers/opd/DoctorProfile.js'
-import ClinicList from './containers/opd/ClinicList.js'
+
 import AppointmentSlot from './containers/opd/AppointmentSlot.js'
 import PatientDetails from './containers/opd/PatientDetails.js'
 
@@ -39,10 +38,8 @@ const routes = [
     { path: '/opd/searchresults', exact: true, component: SearchResults },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile },
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
+    { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, private: true, component: PatientDetails },
 
-    { path: '/opd/doctor/:id/availability', exact: true, component: ClinicList },
-    { path: '/doctorprofile/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
-    
     { path: '/user', component: UserProfile },
 
     { path: '/chat', exact: true, component: DoctorChat },
@@ -57,7 +54,6 @@ const routes = [
     { path: '/dx/searchresults', exact: true, component: DX_SearchResults },
     { path: '/lab/:id', exact: true, component: Lab },
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
-    
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
 
     { path: '/lab/booking/summary/:id', exact: true, component: DX_BookingSummary },

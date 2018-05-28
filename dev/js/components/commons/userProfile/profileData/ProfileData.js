@@ -35,8 +35,8 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a onClick={this.gotTo.bind(this,'appointments')}>
+                        <li onClick={this.gotTo.bind(this,'appointments')}>
+                            <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
                                 </span>
@@ -65,8 +65,8 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li>
-                            <a onClick={this.gotTo.bind(this,'family')}>
+                        <li onClick={this.gotTo.bind(this,'family')}>
+                            <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
                                 </span>

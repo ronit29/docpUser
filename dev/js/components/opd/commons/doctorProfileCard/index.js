@@ -1,3 +1,3 @@
-import DoctorProfileCard from './DoctorProfileCard.js'
+import DoctorProfileCard from './DoctorProfileCard'
 
 export default DoctorProfileCard

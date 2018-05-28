@@ -6,15 +6,17 @@ import MedialDetails from './medical'
 class EditProfile extends React.Component {
     constructor(props) {
         super(props)
+        let { profiles } = this.props.USER
         this.state = {
-            selectedTab: 0
+            selectedTab: 0,
+            profileData: { ...profiles[this.props.match.params.id] }
         }
     }
 
     getComp() {
         switch (this.state.selectedTab) {
             case 0: {
-                return <BasicDetails />
+                return <BasicDetails profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} />
             }
             case 1: {
                 return <MedialDetails />
@@ -22,11 +24,12 @@ class EditProfile extends React.Component {
         }
     }
 
+    updateProfile(key, value) {
+        this.state.profileData[key] = value
+        this.setState({ profileData: this.state.profileData })
+    }
+
     render() {
-
-        let { profiles, selectedProfile } = this.props.USER
-
-        let data = profiles[selectedProfile]
 
         return (
             <div>

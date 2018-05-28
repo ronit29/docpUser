@@ -31,6 +31,18 @@ class UserLoginView extends React.Component {
         }
     }
 
+    verifyOTP() {
+        if (this.state.phoneNumber.match(/^[789]{1}[0-9]{9}$/)) {
+            this.setState({ validationError: "" })
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+                this.props.history.go(-1)
+                // this.props.history.replace('/signup')
+            })
+        } else {
+            this.setState({ validationError: "Please provide a valid number (10 digits)" })
+        }
+    }
+
     render() {
 
         return (
@@ -80,7 +92,7 @@ class UserLoginView extends React.Component {
                     </div>
                 </section>
                 {
-                    this.state.showOTP ? <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Verify</button> : <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Continue</button>
+                    this.state.showOTP ? <button onClick={this.verifyOTP.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg" disabled={this.props.submit_otp}>Verify</button> : <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Continue</button>
                 }
 
             </div>
