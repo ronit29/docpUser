@@ -13,7 +13,7 @@ class PickupAddress extends React.Component {
         return (
             <div className="lab-visit-time">
                 <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Pickup Address <span className="float-right"><a href="#" className="text-primary fw-700 text-sm">Change Address</a></span></h4>
-                <p className="date-time">18th April | 3:30 PM</p>
+                <p className="date-time"></p>
             </div>
         );
     }

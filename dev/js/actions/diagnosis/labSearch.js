@@ -1,4 +1,4 @@
-import { LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
+import { SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 
@@ -75,13 +75,27 @@ export const getLabById = (labId) => (dispatch) => {
 	})
 }
 
-export const getLabTimeSlots = (labId, testIds, callback) => (dispatch) => {
-	API_GET('/availability_labs.json').then(function (response) {
-
+export const getLabTimeSlots = (labId, pickup, callback) => (dispatch) => {
+	let url = `/api/v1/doctor/doctortiming?doctor_id=215&hospital_id=215`
+	// let url = `/api/v1/diagnostic/labtiming?lab=${labId}&pickup=${pickup}`
+	return API_GET(url).then(function (response) {
 		callback(response)
-
 	}).catch(function (error) {
 
+	})
+}
+
+export const selectLabTimeSLot = (slot) => (dispatch) => {
+	dispatch({
+		type: SELECT_LAB_TIME_SLOT,
+		payload: slot
+	})
+}
+
+export const selectLabAppointmentType = (type) => (dispatch) => {
+	dispatch({
+		type: SELECR_APPOINTMENT_TYPE_LAB,
+		payload: type
 	})
 }
 

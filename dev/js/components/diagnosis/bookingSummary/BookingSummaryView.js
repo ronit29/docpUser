@@ -10,13 +10,8 @@ class BookingSummaryView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedLab: this.props.match.params.id,
-            pickupType: "lab"
+            selectedLab: this.props.match.params.id
         }
-    }
-
-    componentDidMount() {
-        this.props.getLabById(this.state.selectedLab)
     }
 
     openTests() {
@@ -24,22 +19,41 @@ class BookingSummaryView extends React.Component {
     }
 
     handlePickupType(e) {
-        this.setState({ pickupType: e.target.value })
+        this.props.selectLabAppointmentType(e.target.value)
+    }
+
+    navigateTo(where, e) {
+        switch (where) {
+            case "time": {
+                this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}`)
+                return
+            }
+
+            case "patient": {
+                this.props.history.push(`/user/family?pick=true`)
+                return
+            }
+        }
     }
 
     getSelectors() {
-        switch (this.state.pickupType) {
+        let patient = null
+        if (this.props.selectedProfile) {
+            patient = this.props.profiles[this.props.selectedProfile]
+        }
+
+        switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTime type="lab"/>
-                    <ChoosePatient />
+                    <VisitTime type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                    <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
-                    <VisitTime type="home"/>
-                    <ChoosePatient />
+                    <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                    <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                     <PickupAddress />
                 </div>
             }
@@ -102,8 +116,8 @@ class BookingSummaryView extends React.Component {
                                             <div className="widget mrt-10">
                                                 <div className="widget-header bdr-1 bottom light text-center">
                                                     <ul className="inline-list booking-type">
-                                                        <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.state.pickupType == 'home'} /> Home Pick-up</label></li>
-                                                        <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.state.pickupType == 'lab'} /> Lab Visit</label></li>
+                                                        <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
+                                                        <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
                                                     </ul>
                                                 </div>
                                                 <div className="widget-content">

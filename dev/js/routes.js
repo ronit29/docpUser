@@ -24,7 +24,7 @@ import DX_PatientDetails from './containers/diagnosis/PatientDetails.js'
 import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
 import DoctorChat from './containers/commons/Chat.js'
 import TestSelector from './containers/diagnosis/TestSelector'
-
+import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 import UserLogin from './containers/commons/UserLogin'
 
 import Home from './containers/commons/Home'
@@ -55,6 +55,8 @@ const routes = [
     { path: '/lab/:id', exact: true, component: Lab },
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
+
+    { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
 
     { path: '/lab/booking/summary/:id', exact: true, component: DX_BookingSummary },
 
