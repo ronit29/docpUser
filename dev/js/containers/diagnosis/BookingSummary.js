@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, getUserProfile, selectLabAppointmentType } from '../../actions/index.js'
+import { getLabById, getUserProfile, selectLabAppointmentType, getUserAddress } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryView from '../../components/diagnosis/bookingSummary/index.js'
@@ -23,6 +23,7 @@ class BookingSummary extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getLabById(this.props.match.params.id)
             this.props.getUserProfile()
+            this.props.getUserAddress()
         } else {
             this.props.history.push('/login')
         }
@@ -41,7 +42,7 @@ const mapStateToProps = (state) => {
     const {
         selectedCriterias,
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles } = state.USER
+    const { selectedProfile, profiles, address } = state.USER
     let LABS = state.LABS
     let { selectedSlot, selectedAppointmentType } = state.LAB_SEARCH
 
@@ -56,7 +57,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getUserProfile: () => dispatch(getUserProfile()),
         getLabById: (labId) => dispatch(getLabById(labId)),
-        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type))
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
+        getUserAddress: () => dispatch(getUserAddress())
     }
 }
 

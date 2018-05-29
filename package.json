@@ -54,7 +54,7 @@
     "react-transform-hmr": "^1.0.4",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
-    "webpack": "^4.3.0",
+    "webpack": "^4.4.1",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.13"
   }

@@ -97,10 +97,6 @@ class BookingSummaryView extends React.Component {
                                 <div className="header-title fw-700 capitalize text-center">Booking Confirmation</div>
                             </div>
                             <div className="col-2">
-                                {/* <ul class="inline-list float-right user-notification-action">
-						<li><span class="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" class="img-fluid"></span></li>
-						<li><span class="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" class="img-fluid"> <span class="notification-alert"></span></span></li>
-					</ul> */}
                             </div>
                         </div>
                     </div>

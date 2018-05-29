@@ -109,3 +109,22 @@
 .Clinic-card-list>li {
     width: 100%;
 }
+
+.fullscreen{
+    background-color: #00000096;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.addresspicker{
+    width: 100vw;
+    height: 230px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+}
