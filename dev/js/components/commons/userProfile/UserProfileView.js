@@ -5,6 +5,9 @@ import ProfileData from './profileData/index.js'
 import Appointments from './userAppointments'
 import Family from './userFamily'
 import EditProfile from './editProfile'
+import Address from './userAddress'
+import AddressForm from './userAddress/add'
+
 import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
@@ -79,6 +82,20 @@ class UserProfileView extends React.Component {
                                 return <Section_Component>
                                     <Family  {...this.props} {...props} />
                                 </Section_Component>
+                            }} />
+
+                            <Route exact path={`${this.props.match.url}/address`} render={(props) => {
+                                return <Section_Component>
+                                    <Address  {...this.props} {...props} />
+                                </Section_Component>
+                            }} />
+
+                            <Route exact path={`${this.props.match.url}/address/add`} render={(props) => {
+                                return <AddressForm {...this.props} {...props} />
+                            }} />
+
+                            <Route exact path={`${this.props.match.url}/address/edit/:id`} render={(props) => {
+                                return <AddressForm {...this.props} {...props} edit={true}/>
                             }} />
 
                             <Route exact path={`${this.props.match.url}/edit/:id`} render={(props) => {

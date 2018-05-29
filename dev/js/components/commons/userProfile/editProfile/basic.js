@@ -11,7 +11,7 @@ class BasicDetails extends React.Component {
 
     render() {
 
-        let { name, email, gender, phone_number, profile_image } = this.props.profileData
+        let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
 
         return (
             <section className="wrap myProfile">
@@ -50,6 +50,12 @@ class BasicDetails extends React.Component {
                                 <input value={phone_number||""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" required />
                                 <label htmlFor="number">Mobile Number</label>
                             </div>
+
+                            <a href="" onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                this.props.manageAddress()
+                            }}>Manage My Address ---></a>
                         </form>
                     </div>
                 </div>

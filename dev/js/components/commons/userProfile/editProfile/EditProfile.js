@@ -13,10 +13,14 @@ class EditProfile extends React.Component {
         }
     }
 
+    manageAddress(){
+        this.props.history.push('/user/address')
+    }
+
     getComp() {
         switch (this.state.selectedTab) {
             case 0: {
-                return <BasicDetails profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} />
+                return <BasicDetails manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} />
             }
             case 1: {
                 return <MedialDetails />

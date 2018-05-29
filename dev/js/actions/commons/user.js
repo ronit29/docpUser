@@ -1,4 +1,4 @@
-import { APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -45,7 +45,32 @@ export const selectProfile = (profile_id, cb) => (dispatch) => {
 	})
 }
 
+export const getUserAddress = () => (dispatch) => {
+	API_GET(`/api/v1/diagnostic/address`).then(function (response) {
+		dispatch({
+			type: APPEND_ADDRESS,
+			payload: response
+		})
+	}).catch(function (error) {
 
+	})
+}
+
+export const addUserAddress = (postData, cb) => (dispatch) => {
+	API_POST('/api/v1/diagnostic/address/create', postData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const updateUserAddress = (postData, cb) => (dispatch) => {
+	API_POST(`/api/v1/diagnostic/address/${postData.id}/update`, postData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
 
 
 export const getUserProfileWithTests = () => (dispatch) => {

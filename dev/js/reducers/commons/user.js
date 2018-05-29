@@ -1,8 +1,9 @@
-import { APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 
 const defaultState = {
     profiles: {},
     appointments: {},
+    address: [],
     selectedProfile: null
 }
 
@@ -44,6 +45,12 @@ export default function (state = defaultState, action) {
 
             newState.selectedProfile = action.payload
 
+            return newState
+        }
+
+        case APPEND_ADDRESS: {
+            let newState = { ...state }
+            newState.address = action.payload
             return newState
         }
 
