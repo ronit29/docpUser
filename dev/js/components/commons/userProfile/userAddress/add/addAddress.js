@@ -47,17 +47,17 @@ class UserSignupView extends React.Component {
 
     submitForm() {
         // validate
-        let register = true
+        let validated = true
         Object.keys(this.refs).forEach((prp, i) => {
             if (this.refs[prp].value) {
                 this.refs[prp].style.border = ''
             } else {
                 this.refs[prp].style.border = '1px solid red'
-                register = false
+                validated = false
             }
         })
 
-        if (register) {
+        if (validated) {
             this.props.addUserAddress(this.state, (err, res) => {
                 // go back
                 this.props.history.go(-1)

@@ -136,4 +136,31 @@
     width: 120px;
     margin: 5px;
     margin-top: 75px;
+    padding: 10px;
+}
+
+.addresspickerDiv.selected{
+    border: 1px solid blue;
+}
+
+.addressText{
+    font-weight: bold;
+}
+
+.selectadd{
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: 16px;
+}
+
+.addnewadd{
+    position: absolute;
+    top: 5px;
+    right: 27px;
+    font-weight: bold;
+    color: blue;
+    font-size: 16px;
 }

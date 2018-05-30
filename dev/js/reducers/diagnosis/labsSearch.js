@@ -1,10 +1,11 @@
-import { SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH } from '../../constants/types';
+import { SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH } from '../../constants/types';
 
 const defaultState = {
     labList: [],
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: [] },
-    selectedAppointmentType: 'home'
+    selectedAppointmentType: 'home',
+    selectedAddress: null
 }
 
 export default function (state = defaultState, action) {
@@ -39,6 +40,12 @@ export default function (state = defaultState, action) {
         case SELECR_APPOINTMENT_TYPE_LAB: {
             let newState = { ...state }
             newState.selectedAppointmentType = action.payload
+            return newState
+        }
+
+        case SELECT_USER_ADDRESS: {
+            let newState = { ...state }
+            newState.selectedAddress = action.payload
             return newState
         }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, getUserProfile, selectLabAppointmentType, getUserAddress } from '../../actions/index.js'
+import { getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryView from '../../components/diagnosis/bookingSummary/index.js'
@@ -45,12 +45,12 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_LABS
     const { selectedProfile, profiles, address } = state.USER
     let LABS = state.LABS
-    let { selectedSlot, selectedAppointmentType } = state.LAB_SEARCH
+    let { selectedSlot, selectedAppointmentType, selectedAddress } = state.LAB_SEARCH
 
     return {
         selectedCriterias,
         LABS,
-        selectedProfile, profiles, selectedSlot, selectedAppointmentType, address
+        selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress
     }
 }
 
@@ -59,7 +59,8 @@ const mapDispatchToProps = (dispatch) => {
         getUserProfile: () => dispatch(getUserProfile()),
         getLabById: (labId) => dispatch(getLabById(labId)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        getUserAddress: () => dispatch(getUserAddress())
+        getUserAddress: () => dispatch(getUserAddress()),
+        selectPickupAddress: (address) => dispatch(selectPickupAddress(address))
     }
 }
 
