@@ -5,7 +5,7 @@ class LabProfileCard extends React.Component {
         super(props)
     }
 
-    openLab(id){
+    openLab(id) {
         this.props.history.push(`/lab/${id}`)
     }
 
@@ -14,7 +14,7 @@ class LabProfileCard extends React.Component {
         let { price, lab } = this.props.details
 
         return (
-            <div className="widget card" onClick={this.openLab.bind(this,this.props.details.lab.id)}>
+            <div className="widget card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
                         <span className="ct-img lab-icon"><img src="/assets/img/customer-icons/lab1.png" className="img-fluid" /></span>
@@ -29,13 +29,13 @@ class LabProfileCard extends React.Component {
                     </div>
                     <div className="book-card-content">
                         <h4 className="book-cart-title">{lab.name}</h4>
-                        <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI Sector 52 Gurgaon | <span className="text-primary fw-700">1.5 KM</span></p>
+                        <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI {lab.locality} {lab.city} | <span className="text-primary fw-700">1.5 KM</span></p>
                     </div>
                 </div>
                 <div className="widget-footer card-footer">
                     <div className="row">
                         <div className="col-6">
-                            <p className="lab-price">Total Rs {price}</p>
+                            <p className="lab-price">Total Rs {price || 0}</p>
                         </div>
                         <div className="col-6 text-right">
                             <button className="v-btn v-btn-primary btn-md">Book Lab</button>

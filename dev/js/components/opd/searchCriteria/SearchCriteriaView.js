@@ -29,6 +29,7 @@ class SearchCriteriaView extends React.Component {
                         <CommonlySearched
                             heading="Selected Criteria"
                             data={this.props.selectedCriterias}
+                            selectedPills={true}
                             selected={[]}
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />

@@ -24,6 +24,9 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
+
+		if(typeof lat === 'function') lat = lat()
+		if(typeof long === 'function') long = long()
 	}
 
 	let min_fees = filterCriteria.priceRange[0]

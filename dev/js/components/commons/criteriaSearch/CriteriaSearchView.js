@@ -60,7 +60,7 @@ class CriteriaSearchView extends React.Component {
 
         let location = "Gurgaon"
         if (this.props.selectedLocation) {
-            location = this.props.selectedLocation.formatted_address.slice(0, 5)
+            location = this.props.selectedLocation.formatted_address.slice(0, 25)
         }
 
         return (
@@ -92,7 +92,11 @@ class CriteriaSearchView extends React.Component {
                             <div className="col-12">
                                 <div className="search-row">
                                     <div className="adon-group">
-                                        <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} />
+                                        <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                            if(this.props.goBack){
+                                                this.props.history.go(-1)
+                                            }
+                                        }}/>
                                         <span className="ct-img ct-img-sm search-icon"><img src="/assets/img/customer-icons/search-icon.svg" /></span>
                                     </div>
                                 </div>

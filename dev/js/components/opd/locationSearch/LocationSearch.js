@@ -60,7 +60,7 @@ class LocationSearch extends React.Component {
     }
 
     detectLocation() {
-        setTimeout(() => {
+        let timeout = setTimeout(() => {
             if (this.state.detectLoading) {
                 this.setState({ detectLoading: false })
                 SnackBar.show({ pos: 'bottom-left', text: "Could not fetch location." });
@@ -77,6 +77,7 @@ class LocationSearch extends React.Component {
                 geocoder.geocode({ 'location': latlng }, (results, status) => {
                     if (results && results[0]) {
                         this.props.selectLocation(results[0])
+                        clearTimeout(timeout)
                         this.props.history.go(-1)
                     }
                 })

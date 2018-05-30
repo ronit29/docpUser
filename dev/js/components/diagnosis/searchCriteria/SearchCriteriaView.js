@@ -34,6 +34,7 @@ class SearchCriteriaView extends React.Component {
                             heading="Selected Criteria"
                             data={this.props.selectedCriterias}
                             selected={[]}
+                            selectedPills={true}
                             toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                         />
 

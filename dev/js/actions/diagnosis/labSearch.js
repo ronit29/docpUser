@@ -19,6 +19,10 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
+
+		if(typeof lat === 'function') lat = lat()
+		if(typeof long === 'function') long = long()
+		
 	}
 	let min_distance = filterCriteria.distanceRange[0]
 	let max_distance = filterCriteria.distanceRange[1]
@@ -26,7 +30,9 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	let max_price = filterCriteria.priceRange[1]
 	let order_by = filterCriteria.sortBy
 
-	let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
+	// let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
+
+	let url = `/api/v1/diagnostic/lablist?ids=${testIds}`
 
 	dispatch({
 		type: LAB_SEARCH_START,

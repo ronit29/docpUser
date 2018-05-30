@@ -25,6 +25,10 @@ class SearchResultsView extends React.Component {
     }
 
     getDcotors() {
+        let {
+            selectedLocation
+        } = this.props
+
         try {
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
@@ -34,6 +38,12 @@ class SearchResultsView extends React.Component {
                 filterCriteria = {}
             }
             searchState = JSON.parse(searchState)
+
+            // if location found in store , use that instead of the one in URL
+            if (selectedLocation) {
+                searchState.selectedLocation = selectedLocation
+            }
+
             this.getDoctorList(searchState, filterCriteria, true)
         } catch (e) {
             console.error(e)
@@ -60,7 +70,7 @@ class SearchResultsView extends React.Component {
     render() {
         return (
             <div>
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd">
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
                     <DoctorsList {...this.props} />
                 </CriteriaSearch>

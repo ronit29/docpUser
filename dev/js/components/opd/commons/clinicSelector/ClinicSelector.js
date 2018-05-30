@@ -39,7 +39,7 @@ class ClinicSelector extends React.Component {
                                                             <label className="fw-700 text-md text-primary">
                                                                 {timingKey}
                                                             </label>
-                                                            {hospital.timings[timingKey].join(', ')}
+                                                            {" " + hospital.timings[timingKey].join(', ')}
                                                         </p>
                                                     })
                                                 }

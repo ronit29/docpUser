@@ -13,7 +13,7 @@ class CommonlySearched extends React.Component {
 
     render() {
 
-        let rows = this.props.data.map((row,i) => {
+        let rows = this.props.data.map((row, i) => {
             if (this.props.type == 'lab') {
                 return <li key={i}>
                     <span
@@ -26,10 +26,21 @@ class CommonlySearched extends React.Component {
                     </span>
                     <p className="lab-name">SLR Dignostics</p>
                 </li>
+            } else if (this.props.selectedPills) {
+                return <li key={i}>
+                    <a
+                        className={"v-btn v-btn-primary tag-sm outline selectedpill"}
+                        onClick={() => {
+                            return this.props.toggle((this.props.type || row.type), row)
+                        }}
+                    >
+                        {row.name}
+                    </a>
+                </li>
             } else {
                 let selected = false
                 this.props.selected.map((curr) => {
-                    if(curr.id == row.id){
+                    if (curr.id == row.id) {
                         selected = true
                     }
                 })
@@ -56,7 +67,7 @@ class CommonlySearched extends React.Component {
         }
 
         return (
-            
+
             <div className="widget-panel">
                 <h4 className="panel-title">{this.props.heading}</h4>
                 <div className={divClass}>

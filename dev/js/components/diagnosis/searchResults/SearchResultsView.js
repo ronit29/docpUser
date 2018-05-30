@@ -18,9 +18,7 @@ class SearchResultsView extends React.Component {
 
     getLabs() {
         let {
-            selectedLocation,
-            selectedCriterias,
-            filterCriteria
+            selectedLocation
         } = this.props
 
         try {
@@ -32,6 +30,12 @@ class SearchResultsView extends React.Component {
                 filterCriteria = {}
             }
             searchState = JSON.parse(searchState)
+
+            // if location found in store , use that instead of the one in URL
+            if (selectedLocation) {
+                searchState.selectedLocation = selectedLocation
+            }
+
             this.getLabList(searchState, filterCriteria, true)
         } catch (e) {
             console.error(e)
@@ -65,7 +69,7 @@ class SearchResultsView extends React.Component {
 
         return (
             <div>
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs.">
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
                     <LabsList {...this.props} />
                 </CriteriaSearch>
