@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress } from '../../actions/index.js'
+import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
 
@@ -9,6 +10,9 @@ import UserProfileView from '../../components/commons/userProfile/index.js'
 class UserProfile extends React.Component {
     constructor(props) {
         super(props)
+        if (!STORAGE.checkAuth()) {
+            this.props.history.replace(`/login?callback=/user`)
+        }
     }
 
     static loadData(store) {
@@ -20,7 +24,11 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserProfile()
+        if (STORAGE.checkAuth()) {
+            this.props.getUserProfile()
+            this.props.getUserAddress()
+        }
+
     }
 
     render() {

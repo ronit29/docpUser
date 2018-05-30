@@ -9,7 +9,7 @@ class UserAddress extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserAddress()
+        // this.props.getUserAddress()
     }
 
     addAddress() {

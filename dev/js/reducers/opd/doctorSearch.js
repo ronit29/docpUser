@@ -21,7 +21,13 @@ export default function (state = defaultState, action) {
         case DOCTOR_SEARCH: {
             let newState = { ...state }
 
-            newState.doctorList = action.payload.map(doc => doc.id)
+            if (action.payload.page === 1) {
+                newState.doctorList = action.payload.doctors.map(doc => doc.id)
+            } else {
+                newState.doctorList = [].concat(newState.doctorList)
+                newState.doctorList = newState.doctorList.concat(action.payload.doctors)
+            }
+
             newState.LOADED_DOCTOR_SEARCH = true
 
             return newState

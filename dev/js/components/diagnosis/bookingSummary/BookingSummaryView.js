@@ -53,8 +53,8 @@ class BookingSummaryView extends React.Component {
             case "home": {
                 return <div>
                     <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                    <PickupAddress {...this.props} />
                     <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
-                    <PickupAddress />
                 </div>
             }
         }
@@ -110,13 +110,17 @@ class BookingSummaryView extends React.Component {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="widget mrt-10">
-                                                <div className="widget-header bdr-1 bottom light text-center">
+
+                                                {/* <div className="widget-header bdr-1 bottom light text-center">
                                                     <ul className="inline-list booking-type">
                                                         <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
                                                         <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
                                                     </ul>
-                                                </div>
+                                                </div> */}
+
                                                 <div className="widget-content">
+
+
                                                     <div className="lab-details">
                                                         <img src="/assets/img/customer-icons/lab1.png" className="img-fluid" />
                                                         <div className="lab-title">
@@ -125,13 +129,24 @@ class BookingSummaryView extends React.Component {
                                                         </div>
                                                     </div>
 
-                                                    {this.getSelectors()}
+                                                    <div className="lab-visit-time test-report">
+                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Appointment type </h4>
+                                                        <ul className="inline-list booking-type">
+                                                            <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
+                                                            <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
+                                                        </ul>
+
+                                                    </div>
 
                                                     <div className="lab-visit-time test-report">
                                                         <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Tests <span className="float-right"><a onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
                                                         {tests}
                                                     </div>
+
+                                                    {this.getSelectors()}
+
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>

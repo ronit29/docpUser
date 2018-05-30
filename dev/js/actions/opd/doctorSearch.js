@@ -2,7 +2,7 @@ import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARC
 import { API_GET } from '../../api/api.js';
 
 
-export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false) => (dispatch) => {
+export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1) => (dispatch) => {
 	let specialization_ids = searchState.selectedCriterias
 		.filter(x => x.type == 'speciality')
 		.reduce((finalStr, curr, i) => {
@@ -32,12 +32,14 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 	let is_available = filterCriteria.is_available
 	let is_female = filterCriteria.is_female
 
-	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${specialization_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}`
+	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${specialization_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
-	dispatch({
-		type: DOCTOR_SEARCH_START,
-		payload: null
-	})
+	if (page == 1) {
+		dispatch({
+			type: DOCTOR_SEARCH_START,
+			payload: null
+		})
+	}
 
 	return API_GET(url).then(function (response) {
 
@@ -48,7 +50,11 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 		dispatch({
 			type: DOCTOR_SEARCH,
-			payload: response
+			payload: {
+				page,
+				doctors: response
+			}
+
 		})
 
 		if (mergeState) {

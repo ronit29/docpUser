@@ -128,3 +128,12 @@
     left: 0;
     background-color: white;
 }
+
+.addresspickerDiv{
+    float: left;
+    border: 1px solid #929292;
+    height: 60%;
+    width: 120px;
+    margin: 5px;
+    margin-top: 75px;
+}

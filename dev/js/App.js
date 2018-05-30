@@ -11,6 +11,7 @@ require('../css/customer.css')
 require('../css/responsive.css')
 require('../css/more.css')
 import 'rc-slider/assets/index.css';
+import 'node-snackbar/dist/snackbar.min.css'
 
 class App extends React.Component {
     constructor(props) {

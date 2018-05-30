@@ -27,6 +27,20 @@ class UserSignupView extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props) {
+        if (this.state.edit) {
+            let editState = {}
+            if (props.USER.address) {
+                props.USER.address.map((add) => {
+                    if (add.id == props.match.params.id) {
+                        editState = add
+                    }
+                })
+            }
+            this.setState({ ...editState })
+        }
+    }
+
     inputHandler(e) {
         this.setState({ [e.target.name]: e.target.value })
     }

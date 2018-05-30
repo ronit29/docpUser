@@ -27,7 +27,13 @@ class PickupAddress extends React.Component {
                             e.preventDefault()
                             e.stopPropagation()
                         }}>
+                            {
+                                this.props.address.map((add,i) => {
+                                    return <div key={i} className="addresspickerDiv">
 
+                                        </div>
+                                })
+                            }
                         </div>
                     </div> : ""
                 }

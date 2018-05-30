@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState) => dispatch(getDoctors(searchState, filterCriteria, mergeState))
+        getDoctors: (searchState, filterCriteria, mergeState, page) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page))
     }
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+const queryString = require('query-string');
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -23,7 +24,13 @@ class UserLoginView extends React.Component {
                 if (exists) {
                     this.setState({ showOTP: true })
                 } else {
-                    this.props.history.replace('/signup')
+                    const parsed = queryString.parse(this.props.location.search)
+                    if (parsed.callback) {
+                        this.props.history.replace(`/signup?callback=${parsed.callback}`)
+                    } else {
+                        this.props.history.replace('/signup')
+                    }
+
                 }
             })
         } else {
@@ -35,8 +42,12 @@ class UserLoginView extends React.Component {
         if (this.state.phoneNumber.match(/^[789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
-                this.props.history.go(-1)
-                // this.props.history.replace('/signup')
+                const parsed = queryString.parse(this.props.location.search)
+                if (parsed.callback) {
+                    this.props.history.replace(parsed.callback)
+                } else {
+                    this.props.history.go(-1)
+                }
             })
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })

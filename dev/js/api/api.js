@@ -8,7 +8,6 @@ let axiosInstance = Axios.create({
 });
 
 function rejectHandler(response, callback) {
-    console.log(response)
     // if (response && response.response && response.response.status == 401) {
     //     STORAGE.deleteAuth().then(() => {
     //         // send to login page
@@ -41,11 +40,13 @@ export const API_GET = (url) => {
 export const API_POST = (url, data) => {
     return STORAGE.getAuthToken().then((token) => {
         return new Promise((resolve, reject) => {
+            let headers = {}
+            if (token) headers['Authorization'] = `Token ${token}`
             axiosInstance({
                 method: 'post',
                 url: url,
                 data: data,
-                headers: { 'Authorization': `Token ${token}` }
+                headers
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {
@@ -60,11 +61,13 @@ export const API_POST = (url, data) => {
 export const API_PUT = (url, data) => {
     return STORAGE.getAuthToken().then((token) => {
         return new Promise((resolve, reject) => {
+            let headers = {}
+            if (token) headers['Authorization'] = `Token ${token}`
             axiosInstance({
                 method: 'put',
                 url: url,
                 data: data,
-                headers: { 'Authorization': `Token ${token}` }
+                headers
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {
@@ -79,10 +82,12 @@ export const API_PUT = (url, data) => {
 export const API_DELETE = (url) => {
     return STORAGE.getAuthToken().then((token) => {
         return new Promise((resolve, reject) => {
+            let headers = {}
+            if (token) headers['Authorization'] = `Token ${token}`
             axiosInstance({
                 method: 'delete',
                 url: url,
-                headers: { 'Authorization': `Token ${token}` }
+                headers
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {

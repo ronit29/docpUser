@@ -9,6 +9,9 @@ import BookingSummaryView from '../../components/diagnosis/bookingSummary/index.
 class BookingSummary extends React.Component {
     constructor(props) {
         super(props)
+        if (!STORAGE.checkAuth()) {
+            this.props.history.replace(`/login?callback=${this.props.location.pathname}`)
+        }
     }
 
     static loadData(store, match) {
@@ -24,8 +27,6 @@ class BookingSummary extends React.Component {
             this.props.getLabById(this.props.match.params.id)
             this.props.getUserProfile()
             this.props.getUserAddress()
-        } else {
-            this.props.history.push('/login')
         }
     }
 
@@ -49,7 +50,7 @@ const mapStateToProps = (state) => {
     return {
         selectedCriterias,
         LABS,
-        selectedProfile, profiles, selectedSlot, selectedAppointmentType
+        selectedProfile, profiles, selectedSlot, selectedAppointmentType, address
     }
 }
 

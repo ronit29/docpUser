@@ -4,7 +4,7 @@ const defaultState = {
     labList: [],
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: [] },
-    selectedAppointmentType: 'lab'
+    selectedAppointmentType: 'home'
 }
 
 export default function (state = defaultState, action) {

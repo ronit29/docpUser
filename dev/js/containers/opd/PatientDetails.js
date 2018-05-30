@@ -9,6 +9,9 @@ import PatientDetailsView from '../../components/opd/patientDetails/index.js'
 class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
+        if (!STORAGE.checkAuth()) {
+            this.props.history.replace(`/login?callback=${this.props.location.pathname}`)
+        }
     }
 
     static loadData(store, match) {
@@ -23,8 +26,6 @@ class PatientDetails extends React.Component {
         if(STORAGE.checkAuth()){
             this.props.getDoctorById(this.props.match.params.id)
             this.props.getUserProfile()
-        } else {
-            this.props.history.push('/login')
         }
     }
 

@@ -17,13 +17,14 @@ class SearchResultsView extends React.Component {
         this.getDcotors()
     }
 
-    getDcotors() {
-        let {
-            selectedLocation,
-            selectedCriterias,
-            filterCriteria
-        } = this.props
+    getLocationParam(tag) {
+        // this API assumes the context of react-router-4
+        const paramString = this.props.location.search
+        const params = new URLSearchParams(paramString)
+        return params.get(tag)
+    }
 
+    getDcotors() {
         try {
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
@@ -52,15 +53,8 @@ class SearchResultsView extends React.Component {
         this.getDoctorList(searchState, filterState, true)
     }
 
-    getLocationParam(tag) {
-        // this API assumes the context of react-router-4
-        const paramString = this.props.location.search
-        const params = new URLSearchParams(paramString)
-        return params.get(tag)
-    }
-
     getDoctorList(searchState, filterCriteria, mergeState) {
-        this.props.getDoctors(searchState, filterCriteria, mergeState);
+        this.props.getDoctors(searchState, filterCriteria, mergeState, 1);
     }
 
     render() {

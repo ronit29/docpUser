@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios'
+import Loader from '../../commons/Loader'
+
+import SnackBar from 'node-snackbar'
 
 class LocationSearch extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             search: "",
-            searchResults: []
+            searchResults: [],
+            detectLoading: false
         }
     }
 
@@ -56,6 +60,15 @@ class LocationSearch extends React.Component {
     }
 
     detectLocation() {
+        setTimeout(() => {
+            if (this.state.detectLoading) {
+                this.setState({ detectLoading: false })
+                SnackBar.show({ pos: 'bottom-left', text: "Could not fetch location." });
+            }
+        }, 5000)
+
+        this.setState({ detectLoading: true })
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 var latlng = { lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) };
@@ -67,9 +80,16 @@ class LocationSearch extends React.Component {
                         this.props.history.go(-1)
                     }
                 })
+            }, (a, b, c) => {
+                this.setState({ detectLoading: false })
+                SnackBar.show({ pos: 'bottom-left', text: "Could not fetch location." });
+            }, (a, b, c) => {
+                this.setState({ detectLoading: false })
+                SnackBar.show({ pos: 'bottom-left', text: "Could not fetch location." });
             })
         }
         else {
+            this.setState({ detectLoading: false })
             // geolocation is not supported
         }
     }
@@ -98,7 +118,7 @@ class LocationSearch extends React.Component {
                             <div className="col-12">
                                 <div className="search-row">
                                     <div className="adon-group location-detect-field">
-                                        <input type="text" value={this.state.search} onChange={this.inputHandler.bind(this)} className="form-control input-md search-input no-shadow" placeholder="Select any city or locality" id="topLocationSearch" />
+                                        <input type="text" value={this.state.search} onChange={this.inputHandler.bind(this)} className="form-control input-md search-input no-shadow" placeholder="Select any city or locality" id="topLocationSearch" disabled={this.state.detectLoading} />
                                         <span className="ct-img ct-img-sm map-marker-blue"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>
                                     </div>
                                     <div className="detect-my-locaiton" onClick={this.detectLocation.bind(this)}>
@@ -109,6 +129,9 @@ class LocationSearch extends React.Component {
                         </div>
                     </div>
                 </header>
+                {
+                    this.state.detectLoading ? <div className="fullscreen"><Loader /></div> : ""
+                }
                 <section className="wrap locaton-detect-screen">
                     <div className="widget-panel">
                         <h4 className="panel-title">Search Result</h4>

@@ -23,7 +23,7 @@ class HomeView extends React.Component {
                             </div>
                             <div className="col-4">
                                 <ul className="inline-list float-right user-notification-action">
-                                    <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li onClick={this.navigateTo.bind(this,'/user')}><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
                                     <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
                                 </ul>
                             </div>

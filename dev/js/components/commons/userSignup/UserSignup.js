@@ -1,4 +1,6 @@
 import React from 'react';
+const queryString = require('query-string');
+
 
 const stepperStyle = {
     padding: 60,
@@ -46,6 +48,7 @@ class UserSignupView extends React.Component {
         })
 
         if (register) {
+            // if existing user create a new porifle , else register user
             if (this.state.existingUser) {
                 this.props.createProfile(this.state, (err, res) => {
                     if (!err) {
@@ -78,7 +81,12 @@ class UserSignupView extends React.Component {
                             <div className="col-2">
                                 {
                                     this.state.showMedical ? <div onClick={() => {
-                                        this.props.history.go(-1)
+                                        const parsed = queryString.parse(this.props.location.search)
+                                        if (parsed.callback) {
+                                            this.props.history.replace(parsed.callback)
+                                        } else {
+                                            this.props.history.go(-1)
+                                        }
                                     }} className="header-title fw-700 capitalize text-center text-primary">Skip</div> : ""
                                 }
                             </div>
