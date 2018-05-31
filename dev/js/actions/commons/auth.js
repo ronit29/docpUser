@@ -47,7 +47,9 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
             type: SUBMIT_OTP_SUCCESS,
             payload: { token: response.token }
         })
-        if (cb) cb();
+
+        if (cb) cb(response.user_exists);
+        
     }).catch(function (error) {
         dispatch({
             type: SUBMIT_OTP_FAIL,

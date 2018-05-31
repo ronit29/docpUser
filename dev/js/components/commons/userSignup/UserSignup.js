@@ -25,7 +25,6 @@ class UserSignupView extends React.Component {
             gender: 'm',
             email: '',
             phone_number: this.props.phoneNumber || '',
-            otp: '',
             existingUser,
             showMedical: false
         }
@@ -48,18 +47,11 @@ class UserSignupView extends React.Component {
         })
 
         if (register) {
-            // if existing user create a new porifle , else register user
-            if (this.state.existingUser) {
-                this.props.createProfile(this.state, (err, res) => {
-                    if (!err) {
-                        this.setState({ showMedical: true })
-                    }
-                })
-            } else {
-                this.props.registerUser(this.state, (err, res) => {
+            this.props.createProfile(this.state, (err, res) => {
+                if (!err) {
                     this.setState({ showMedical: true })
-                })
-            }
+                }
+            })
         }
     }
 
@@ -121,12 +113,6 @@ class UserSignupView extends React.Component {
                             <div className="widget no-round no-shadow">
                                 <div className="widget-content">
                                     <form className="go-bottom" >
-                                        {
-                                            this.state.existingUser ? "" : <div className="labelWrap">
-                                                <input id="otp" name="otp" type="text" value={this.state.otp} onChange={this.inputHandler.bind(this)} required ref="otp" />
-                                                <label htmlFor="otp">Enter OTP</label>
-                                            </div>
-                                        }
 
                                         <div className="labelWrap">
                                             <input id="number" name="phone_number" type="text" onChange={this.inputHandler.bind(this)} value={this.state.phone_number} required ref="phone_number" />

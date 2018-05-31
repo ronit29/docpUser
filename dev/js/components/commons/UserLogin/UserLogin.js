@@ -21,17 +21,7 @@ class UserLoginView extends React.Component {
         if (number.match(/^[789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (exists) => {
-                if (exists) {
-                    this.setState({ showOTP: true })
-                } else {
-                    const parsed = queryString.parse(this.props.location.search)
-                    if (parsed.callback) {
-                        this.props.history.replace(`/signup?callback=${parsed.callback}`)
-                    } else {
-                        this.props.history.replace('/signup')
-                    }
-
-                }
+                this.setState({ showOTP: true })
             })
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
@@ -43,10 +33,18 @@ class UserLoginView extends React.Component {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 const parsed = queryString.parse(this.props.location.search)
-                if (parsed.callback) {
-                    this.props.history.replace(parsed.callback)
+                if (exists) {
+                    if (parsed.callback) {
+                        this.props.history.replace(parsed.callback)
+                    } else {
+                        this.props.history.go(-1)
+                    }
                 } else {
-                    this.props.history.go(-1)
+                    if (parsed.callback) {
+                        this.props.history.replace(`/signup?callback=${parsed.callback}`)
+                    } else {
+                        this.props.history.replace('/signup')
+                    }
                 }
             })
         } else {

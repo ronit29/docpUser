@@ -30,7 +30,12 @@ export default function (state = defaultState, action) {
             if (action.payload.page === 1) {
                 newState.labList = action.payload.result.map(lab => lab.lab.id)
             } else {
-                newState.labList = newState.labList.concat(action.payload.result.map(lab => lab.lab.id))
+                let dedupe = {}
+                newState.labList = newState.labList
+                    .concat(action.payload.result.map(lab => lab.lab.id))
+                    .filter(function (item) {
+                        return dedupe.hasOwnProperty(item) ? false : (dedupe[item] = true)
+                    })
             }
 
             newState.count = action.payload.count
