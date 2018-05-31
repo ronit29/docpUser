@@ -2,7 +2,7 @@ import { SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT,
 import { API_GET } from '../../api/api.js';
 
 
-export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false) => (dispatch) => {
+export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
 
 	let testIds = searchState.selectedCriterias
 		.filter(x => x.type == 'test')
@@ -20,9 +20,9 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
 
-		if(typeof lat === 'function') lat = lat()
-		if(typeof long === 'function') long = long()
-		
+		if (typeof lat === 'function') lat = lat()
+		if (typeof long === 'function') long = long()
+
 	}
 	let min_distance = filterCriteria.distanceRange[0]
 	let max_distance = filterCriteria.distanceRange[1]
@@ -30,25 +30,28 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	let max_price = filterCriteria.priceRange[1]
 	let order_by = filterCriteria.sortBy
 
-	// let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}`
+	let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${1000000000000000}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&page=${page}`
 
-	let url = `/api/v1/diagnostic/lablist?ids=${testIds}`
-
-	dispatch({
-		type: LAB_SEARCH_START,
-		payload: null
-	})
+	if (page == 1) {
+		dispatch({
+			type: LAB_SEARCH_START,
+			payload: null
+		})
+	}
 
 	return API_GET(url).then(function (response) {
 
 		dispatch({
 			type: APPEND_LABS,
-			payload: response
+			payload: response.result
 		})
 
 		dispatch({
 			type: LAB_SEARCH,
-			payload: response
+			payload: {
+				page, ...response
+			}
+
 		})
 
 		if (mergeState) {
@@ -60,6 +63,14 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 				}
 			})
 		}
+
+		if(cb){
+			// TODO: DO not hardcode page length
+			if(response.result && response.result.length == 20){
+				cb(true)
+			}
+		}
+		cb(false)
 
 	}).catch(function (error) {
 

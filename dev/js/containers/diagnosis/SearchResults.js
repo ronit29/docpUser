@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LABS
-    const { labList, LOADED_LABS_SEARCH } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -42,14 +42,15 @@ const mapStateToProps = (state) => {
         filterCriteria,
         LOADED_SEARCH_CRITERIA_LAB,
         LABS,
-        labList, LOADED_LABS_SEARCH
+        labList, LOADED_LABS_SEARCH,
+        count
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getLabs: (searchState, filterCriteria, mergeState) => dispatch(getLabs(searchState, filterCriteria, mergeState)),
+        getLabs: (searchState, filterCriteria, mergeState, page, cb) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb)),
         toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback))
     }

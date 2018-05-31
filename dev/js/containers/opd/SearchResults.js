@@ -35,14 +35,15 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
-    let { doctorList, LOADED_DOCTOR_SEARCH } = state.DOCTOR_SEARCH
+    let { doctorList, LOADED_DOCTOR_SEARCH, count } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
         LOADED_SEARCH_CRITERIA_OPD,
         selectedCriterias,
         selectedLocation,
-        filterCriteria
+        filterCriteria,
+        count
     }
 }
 
@@ -50,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState, page) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page))
+        getDoctors: (searchState, filterCriteria, mergeState, page, cb) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb))
     }
 }
 

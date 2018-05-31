@@ -14,9 +14,9 @@ class PatientDetails extends React.Component {
         }
     }
 
-    static loadData(store, match) {
-        return Promise.all([store.dispatch(getDoctorById(match.params.id)), store.dispatch(getUserProfile())])
-    }
+    // static loadData(store, match) {
+    //     return Promise.all([store.dispatch(getDoctorById(match.params.id)), store.dispatch(getUserProfile())])
+    // }
 
     static contextTypes = {
         router: () => null

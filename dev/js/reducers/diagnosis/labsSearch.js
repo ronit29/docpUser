@@ -2,6 +2,7 @@ import { SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT,
 
 const defaultState = {
     labList: [],
+    count: 0,
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: [] },
     selectedAppointmentType: 'home',
@@ -21,9 +22,18 @@ export default function (state = defaultState, action) {
         }
 
         case LAB_SEARCH: {
-            let newState = { ...state }
+            let newState = {
+                ...state,
+                labList: [].concat(state.labList)
+            }
 
-            newState.labList = action.payload.map(lab => lab.lab.id)
+            if (action.payload.page === 1) {
+                newState.labList = action.payload.result.map(lab => lab.lab.id)
+            } else {
+                newState.labList = newState.labList.concat(action.payload.result.map(lab => lab.lab.id))
+            }
+
+            newState.count = action.payload.count
             newState.LOADED_LABS_SEARCH = true
 
             return newState

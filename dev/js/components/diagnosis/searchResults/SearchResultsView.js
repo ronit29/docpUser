@@ -3,6 +3,7 @@ import React from 'react';
 import LabsList from '../searchResults/labsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
+import NAVIGATE from '../../../helpers/navigate/index.js';
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -13,7 +14,9 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        this.getLabs()
+        if (NAVIGATE.refreshLabSearchResults(this.props)) {
+            this.getLabs()
+        }
     }
 
     getLabs() {
@@ -33,7 +36,14 @@ class SearchResultsView extends React.Component {
 
             // if location found in store , use that instead of the one in URL
             if (selectedLocation) {
-                searchState.selectedLocation = selectedLocation
+                // if location is changed then update url with new locatiobs
+                if (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id) {
+                    searchState.selectedLocation = selectedLocation
+                    let searchData = encodeURIComponent(JSON.stringify(searchState))
+                    let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
+                    this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
+                }
+
             }
 
             this.getLabList(searchState, filterCriteria, true)
@@ -62,7 +72,7 @@ class SearchResultsView extends React.Component {
         let filterData = encodeURIComponent(JSON.stringify(filterState))
         this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
 
-        this.getLabList(searchState, filterState, true)
+        this.getLabList(searchState, filterState, true, 1)
     }
 
     render() {

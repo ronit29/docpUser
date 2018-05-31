@@ -16,7 +16,7 @@ class ChoosePatient extends React.Component {
                     e.preventDefault()
                     e.stopPropagation()
                     this.props.navigateTo('patient')
-                }} className="text-primary fw-700 text-sm">Pick Patient</a></span></h4>
+                }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Pick Patient"}</a></span></h4>
                 <p className="date-time">{this.props.patient ? this.props.patient.name : "No Selected Patient"}</p>
             </div>
         );

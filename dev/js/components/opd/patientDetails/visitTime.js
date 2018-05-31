@@ -24,7 +24,7 @@ class VisitTime extends React.Component {
                     e.preventDefault()
                     e.stopPropagation()
                     this.props.navigateTo('time')
-                }} className="text-primary fw-700 text-sm">{time[1] ? "Change" : "Select"} Time</a></span></h4>
+                }} className="text-primary fw-700 text-sm">{time[1] ? "Change" : "Pick"} Time</a></span></h4>
                 <p className="date-time">{date || "No time selected"} {time[1] ? "|" : ""} {time[1]}</p>
             </div>
         );

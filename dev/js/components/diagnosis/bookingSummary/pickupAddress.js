@@ -26,7 +26,7 @@ class PickupAddress extends React.Component {
                     e.preventDefault()
                     e.stopPropagation()
                     this.setState({ selectorOpen: true })
-                }} className="text-primary fw-700 text-sm">Change Address</a></span></h4>
+                }} className="text-primary fw-700 text-sm">{addressStr ? "Change" : "Pick"} Address</a></span></h4>
                 <p className="date-time">{addressStr}</p>
 
                 {

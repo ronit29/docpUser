@@ -4,6 +4,7 @@ import DoctorsList from '../searchResults/doctorsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
 
+import NAVIGATE from '../../../helpers/navigate'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -14,7 +15,9 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        this.getDcotors()
+        if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
+            this.getDcotors()
+        }
     }
 
     getLocationParam(tag) {
@@ -41,7 +44,15 @@ class SearchResultsView extends React.Component {
 
             // if location found in store , use that instead of the one in URL
             if (selectedLocation) {
-                searchState.selectedLocation = selectedLocation
+                
+                // if location is changed then update url with new locatiobs
+                if (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id) {
+                    searchState.selectedLocation = selectedLocation
+                    let searchData = encodeURIComponent(JSON.stringify(searchState))
+                    let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
+                    this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}`)
+                }
+                
             }
 
             this.getDoctorList(searchState, filterCriteria, true)

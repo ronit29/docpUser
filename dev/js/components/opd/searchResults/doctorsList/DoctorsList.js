@@ -8,6 +8,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 class DoctorsList extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            hasMore: true
+        }
     }
 
     getLocationParam(tag) {
@@ -17,8 +20,11 @@ class DoctorsList extends React.Component {
         return params.get(tag)
     }
 
-    loadMore(page){
+    loadMore(page) {
+        this.setState({ hasMore: false })
+
         try {
+
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
             if (filterCriteria) {
@@ -27,8 +33,13 @@ class DoctorsList extends React.Component {
                 filterCriteria = {}
             }
             searchState = JSON.parse(searchState)
-            // debugger
-            // this.props.getDoctors(searchState, filterCriteria, false, page+1)
+            this.props.getDoctors(searchState, filterCriteria, false, page + 1, (hasMore) => {
+
+                setTimeout(() => {
+                    this.setState({ hasMore })
+                }, 1000)
+            })
+
         } catch (e) {
 
             console.error(e)
@@ -48,7 +59,7 @@ class DoctorsList extends React.Component {
                             <InfiniteScroll
                                 pageStart={0}
                                 loadMore={this.loadMore.bind(this)}
-                                hasMore={true}
+                                hasMore={this.state.hasMore}
                                 useWindow={true}
                             >
                                 {
@@ -57,11 +68,6 @@ class DoctorsList extends React.Component {
                                     })
                                 }
                             </InfiniteScroll>
-                            {/* {
-                                doctorList.map((docId, i) => {
-                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} />
-                                })
-                            } */}
                         </div>
                     </div>
                 </div>

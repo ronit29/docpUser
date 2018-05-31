@@ -2,7 +2,7 @@ import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARC
 import { API_GET } from '../../api/api.js';
 
 
-export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1) => (dispatch) => {
+export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
 	let specialization_ids = searchState.selectedCriterias
 		.filter(x => x.type == 'speciality')
 		.reduce((finalStr, curr, i) => {
@@ -25,8 +25,8 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
 
-		if(typeof lat === 'function') lat = lat()
-		if(typeof long === 'function') long = long()
+		if (typeof lat === 'function') lat = lat()
+		if (typeof long === 'function') long = long()
 	}
 
 	let min_fees = filterCriteria.priceRange[0]
@@ -48,14 +48,14 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 		dispatch({
 			type: APPEND_DOCTORS,
-			payload: response
+			payload: response.result || []
 		})
 
 		dispatch({
 			type: DOCTOR_SEARCH,
 			payload: {
 				page,
-				doctors: response
+				...response
 			}
 
 		})
@@ -69,6 +69,14 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 				}
 			})
 		}
+
+		if (cb) {
+			// TODO: DO not hardcode page length
+			if (response.result && response.result.length == 20) {
+				cb(true)
+			}
+		}
+		cb(false)
 
 	}).catch(function (error) {
 

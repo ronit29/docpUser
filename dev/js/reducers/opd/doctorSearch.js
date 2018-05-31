@@ -2,6 +2,7 @@ import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START } from '../../
 
 const defaultState = {
     doctorList: [],
+    count: 0,
     LOADED_DOCTOR_SEARCH: false,
     selectedSlot: { time: [] }
 }
@@ -19,15 +20,18 @@ export default function (state = defaultState, action) {
         }
 
         case DOCTOR_SEARCH: {
-            let newState = { ...state }
-
-            if (action.payload.page === 1) {
-                newState.doctorList = action.payload.doctors.map(doc => doc.id)
-            } else {
-                newState.doctorList = [].concat(newState.doctorList)
-                newState.doctorList = newState.doctorList.concat(action.payload.doctors)
+            let newState = {
+                ...state,
+                doctorList: [].concat(state.doctorList)
             }
 
+            if (action.payload.page === 1) {
+                newState.doctorList = action.payload.result.map(doc => doc.id)
+            } else {
+                newState.doctorList = newState.doctorList.concat(action.payload.result.map(doc => doc.id))
+            }
+
+            newState.count = action.payload.count
             newState.LOADED_DOCTOR_SEARCH = true
 
             return newState
