@@ -86,8 +86,12 @@ app.get('*', function (req, res) {
             )
             const css = sheetsRegistry.toString()
 
+            // res.render('./index.template.ejs', {
+            //     html, css, storeData
+            // })
+
             res.render('./index.template.ejs', {
-                html, css, storeData
+                html:"", css:"", storeData:"{}"
             })
         })
 

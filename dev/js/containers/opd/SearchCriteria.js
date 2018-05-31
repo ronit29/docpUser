@@ -9,9 +9,9 @@ class SearchCriteria extends React.Component {
         super(props)
     }
 
-    static loadData(store) {
-        return store.dispatch(loadOPDCommonCriteria())
-    }
+    // static loadData(store) {
+    //     return store.dispatch(loadOPDCommonCriteria())
+    // }
 
     componentDidMount() {
         this.props.loadOPDCommonCriteria()
