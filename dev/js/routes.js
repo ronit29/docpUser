@@ -15,7 +15,8 @@ import UserProfile from './containers/commons/UserProfile.js'
 import UserSignup from './containers/commons/UserSignup'
 
 import Payment from './containers/opd/Payment.js'
-import Booking from './containers/opd/Booking.js'
+import Booking_OPD from './containers/opd/Booking.js'
+import Booking_LAB from './containers/diagnosis/Booking.js'
 import CriteriaSearch from './containers/opd/CriteriaSearch.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
 import DX_SearchResults from './containers/diagnosis/SearchResults.js'
@@ -44,7 +45,11 @@ const routes = [
 
     { path: '/chat', exact: true, component: DoctorChat },
     { path: '/payment', exact: true, component: Payment },
-    { path: '/booking/:refId', exact: true, component: Booking },
+
+
+    { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
+    { path: '/lab/appointment/:refId', exact: true, component: Booking_LAB },
+
 
     { path: '/login', exact: true, component: UserLogin },
     { path: '/signup', exact: true, component: UserSignup },
@@ -58,7 +63,7 @@ const routes = [
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
 
 
-    
+
     { path: '/lab/booking/summary/:id', exact: true, component: DX_BookingSummary },
 
 ]
