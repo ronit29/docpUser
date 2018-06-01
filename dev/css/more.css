@@ -170,3 +170,9 @@
     background-color: black !important;
     color: white !important;
 }
+
+.loaderPagination{
+    position: fixed;
+    left: 43%;
+    bottom: 3%;
+}

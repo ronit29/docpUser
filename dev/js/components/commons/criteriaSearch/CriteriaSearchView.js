@@ -18,7 +18,8 @@ class CriteriaSearchView extends React.Component {
         super(props)
         this.state = {
             searchValue: '',
-            searchResults: []
+            searchResults: [],
+            loading: false
         }
     }
 
@@ -34,13 +35,15 @@ class CriteriaSearchView extends React.Component {
     }
 
     getSearchResults() {
+        this.setState({ loading: true })
+
         if (this.props.type == 'opd') {
 
         } else {
             this.props.getDiagnosisCriteriaResults(this.state.searchValue, (searchResults) => {
                 if (searchResults) {
                     let tests = searchResults.tests.map(x => { return { ...x, type: 'test' } })
-                    this.setState({ searchResults: [...tests] })
+                    this.setState({ searchResults: [...tests], loading: false })
                 }
             })
         }
@@ -93,10 +96,10 @@ class CriteriaSearchView extends React.Component {
                                 <div className="search-row">
                                     <div className="adon-group">
                                         <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
-                                            if(this.props.goBack){
+                                            if (this.props.goBack) {
                                                 this.props.history.go(-1)
                                             }
-                                        }}/>
+                                        }} />
                                         <span className="ct-img ct-img-sm search-icon"><img src="/assets/img/customer-icons/search-icon.svg" /></span>
                                     </div>
                                 </div>
@@ -112,6 +115,7 @@ class CriteriaSearchView extends React.Component {
                             <div className="widget-panel">
                                 <h4 className="panel-title">Search Result</h4>
                                 <div className="panel-content">
+
                                     <ul className="list search-result-list">
                                         {
                                             this.state.searchResults.map((curr, i) => {
@@ -119,6 +123,7 @@ class CriteriaSearchView extends React.Component {
                                             })
                                         }
                                     </ul>
+
                                 </div>
                             </div>
                         </section>

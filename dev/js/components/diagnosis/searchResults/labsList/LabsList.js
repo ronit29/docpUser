@@ -2,13 +2,14 @@ import React from 'react';
 
 import LabProfileCard from '../../commons/labProfileCard/index.js'
 import InfiniteScroll from 'react-infinite-scroller';
-
+import Loader from '../../../commons/Loader'
 
 class LabsList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            hasMore: true
+            hasMore: true,
+            loading: false
         }
     }
 
@@ -20,7 +21,7 @@ class LabsList extends React.Component {
     }
 
     loadMore(page) {
-        this.setState({ hasMore: false })
+        this.setState({ hasMore: false, loading: true })
 
         try {
             let searchState = this.getLocationParam('search')
@@ -33,14 +34,14 @@ class LabsList extends React.Component {
             searchState = JSON.parse(searchState)
 
             this.props.getLabs(searchState, filterCriteria, false, page + 1, (hasMore) => {
-
+                this.setState({ loading: false })
                 setTimeout(() => {
                     this.setState({ hasMore })
                 }, 1000)
             })
 
         } catch (e) {
-
+            this.setState({ loading: false })
             console.error(e)
         }
 
@@ -64,13 +65,18 @@ class LabsList extends React.Component {
                             >
                                 {
                                     labList.map((labId, i) => {
-                                        return <LabProfileCard {...this.props} details={LABS[labId]} key={i} />
+                                        if (LABS[labId]) {
+                                            return <LabProfileCard {...this.props} details={LABS[labId]} key={i} />
+                                        } else {
+                                            return ""
+                                        }
                                     })
                                 }
                             </InfiniteScroll>
                         </div>
                     </div>
                 </div>
+                {this.state.loading ? <Loader classType="loaderPagination" /> : ""}
             </section>
         );
     }

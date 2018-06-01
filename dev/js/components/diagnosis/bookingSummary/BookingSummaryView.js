@@ -5,6 +5,7 @@ import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
 import PickupAddress from './pickupAddress'
 import ChoosePatient from './choosePatient'
+import PaymentForm from '../../commons/paymentForm'
 
 class BookingSummaryView extends React.Component {
     constructor(props) {
@@ -58,6 +59,11 @@ class BookingSummaryView extends React.Component {
                 </div>
             }
         }
+    }
+
+    proceed() {
+        let form = document.getElementById('paymentForm')
+        form.submit()
     }
 
 
@@ -153,7 +159,9 @@ class BookingSummaryView extends React.Component {
                                 </div>
                             </section>
 
-                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Proceed to Pay Rs. {finalPrice}</button>
+                            <PaymentForm />
+
+                            <button onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Proceed to Pay Rs. {finalPrice}</button>
 
                         </div> : <Loader />
                 }

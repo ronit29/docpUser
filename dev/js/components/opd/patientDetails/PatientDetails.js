@@ -8,6 +8,7 @@ import DoctorProfileCard from '../commons/doctorProfileCard'
 
 import VisitTime from './visitTime'
 import ChoosePatient from './choosePatient'
+import PaymentForm from '../../commons/paymentForm'
 
 class PatientDetails extends React.Component {
     constructor(props) {
@@ -19,19 +20,20 @@ class PatientDetails extends React.Component {
     }
 
     proceed() {
-        // this.context.router.history.push('/payment')
+        let form = document.getElementById('paymentForm')
+        form.submit()
     }
 
     navigateTo(where, e) {
         switch (where) {
             case "time": {
                 this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book`)
-                return 
+                return
             }
 
             case "patient": {
                 this.props.history.push(`/user/family?pick=true`)
-                return 
+                return
             }
         }
     }
@@ -54,7 +56,7 @@ class PatientDetails extends React.Component {
             }
         }
 
-        if(this.props.selectedProfile){
+        if (this.props.selectedProfile) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
 
@@ -114,7 +116,9 @@ class PatientDetails extends React.Component {
                         </div> : ""
                 }
 
-                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg">Proceed to Pay Rs.{hospital.fees}</button>
+                <PaymentForm />
+
+                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg" onClick={this.proceed.bind(this)}>Proceed to Pay Rs.{hospital.fees}</button>
 
             </div>
         );
