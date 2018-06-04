@@ -16,12 +16,40 @@ class PatientDetails extends React.Component {
         this.state = {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
+            paymentData: {},
+            loading: false
         }
     }
 
     proceed() {
-        let form = document.getElementById('paymentForm')
-        form.submit()
+
+        this.setState({ loading: true })
+
+        let start_date = this.props.selectedSlot.date
+        let start_time = this.props.selectedSlot.time.value
+
+        let postData = {
+            doctor: this.state.selectedDoctor,
+            hospital: this.state.selectedClinic,
+            profile: this.props.selectedProfile,
+            start_date, start_time
+        }
+
+        this.props.createOPDAppointment(postData, (err, data) => {
+            if (!err) {
+                this.setState({
+                    paymentData: data.payment_details.pgdata
+                }, () => {
+                    setTimeout(() => {
+                        let form = document.getElementById('paymentForm')
+                        form.submit()
+                        this.setState({ loading: false })
+                    }, 500)
+                })
+            } else {
+                this.setState({ loading: false })
+            }
+        })
     }
 
     navigateTo(where, e) {
@@ -98,7 +126,7 @@ class PatientDetails extends React.Component {
                                                 <div className="widget-content">
 
                                                     <div className="lab-visit-time">
-                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {hospital.fees}</a></span></h4>
+                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</a></span></h4>
                                                         <p className="date-time">{hospital.address}</p>
                                                     </div>
 
@@ -116,9 +144,11 @@ class PatientDetails extends React.Component {
                         </div> : ""
                 }
 
-                <PaymentForm />
+                <PaymentForm paymentData={this.state.paymentData} />
 
-                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg" onClick={this.proceed.bind(this)}>Proceed to Pay Rs.{hospital.fees}</button>
+                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg" disabled={
+                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading
+                } onClick={this.proceed.bind(this)}>Proceed to Pay Rs.{(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</button>
 
             </div>
         );

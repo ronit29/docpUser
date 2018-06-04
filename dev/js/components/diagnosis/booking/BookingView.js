@@ -1,8 +1,17 @@
 import React from 'react';
 
+import TestDetail from './testDetail'
+
 class BookingView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            showTestDetail: false
+        }
+    }
+
+    toogleTestDetails() {
+        this.setState({ showTestDetail: !this.state.showTestDetail })
     }
 
     render() {
@@ -13,14 +22,14 @@ class BookingView extends React.Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-2">
-                                <span className="icon back-icon"><img src="/assets/img/customer-icons/back-white.png" className="img-fluid" /></span>
+                                <span className="icon back-icon" onClick={() => { this.props.history.go(-1) }}><img src="/assets/img/customer-icons/back-white.png" className="img-fluid" /></span>
                             </div>
                             <div className="col-6">
                                 <div className="header-title fw-700 capitalize text-white">Your Appointment</div>
                             </div>
                             <div className="col-4">
                                 <ul className="inline-list float-right user-notification-action">
-                                    <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li onClick={() => { this.props.history.push('/user') }}><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
                                     <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
                                 </ul>
                             </div>
@@ -87,7 +96,11 @@ class BookingView extends React.Component {
                                 <div className="widget mrt-10">
                                     <div className="widget-content">
                                         <div className="test-report">
-                                            <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Time <span className="float-right"><a href="#" className="text-primary fw-700 text-sm">Change Time</a></span></h4>
+                                            <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Time <span className="float-right"><a href="#" onClick={(e) => {
+                                                e.preventDefault()
+                                                e.stopPropagation()
+                                                this.toogleTestDetails()
+                                            }} className="text-primary fw-700 text-sm">View Details</a></span></h4>
                                             <p className="test-list fw-500">T3, T4, TSV </p>
                                             <p className="test-list fw-500">CBC Test</p>
                                             <p className="text-xs">Fasting shoudl be there for 5 hours before test</p>
@@ -108,6 +121,8 @@ class BookingView extends React.Component {
                         </div>
                     </div>
                 </section>
+
+                <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} />
 
             </div>
         );

@@ -11,7 +11,8 @@ class BookingSummaryView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedLab: this.props.match.params.id
+            selectedLab: this.props.match.params.id,
+            paymentData: {}
         }
     }
 
@@ -62,8 +63,34 @@ class BookingSummaryView extends React.Component {
     }
 
     proceed() {
-        let form = document.getElementById('paymentForm')
-        form.submit()
+
+        let start_date = this.props.selectedSlot.date
+        let start_time = this.props.selectedSlot.time.value
+
+        let postData = {
+            lab: this.state.selectedLab,
+            test_ids: this.props.selectedCriterias.filter(x => x.type == 'test').map(t => t.id),
+            profile: this.props.selectedProfile,
+            start_date, start_time
+        }
+        debugger
+        this.props.createLABAppointment(postData, (err, data) => {
+            if (!err) {
+                this.setState({
+                    paymentData: {
+                        name: "arun",
+                        custId: "11"
+                    }
+                }, () => {
+                    setTimeout(() => {
+                        let form = document.getElementById('paymentForm')
+                        form.submit()
+                    }, 500)
+                })
+            } else {
+
+            }
+        })
     }
 
 
@@ -72,6 +99,12 @@ class BookingSummaryView extends React.Component {
         let tests = []
         let finalPrice = 0
         let labDetail = {}
+
+        let patient = null
+        if (this.props.selectedProfile) {
+            patient = this.props.profiles[this.props.selectedProfile]
+        }
+
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
@@ -117,13 +150,6 @@ class BookingSummaryView extends React.Component {
                                         <div className="col-12">
                                             <div className="widget mrt-10">
 
-                                                {/* <div className="widget-header bdr-1 bottom light text-center">
-                                                    <ul className="inline-list booking-type">
-                                                        <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
-                                                        <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
-                                                    </ul>
-                                                </div> */}
-
                                                 <div className="widget-content">
 
 
@@ -159,9 +185,11 @@ class BookingSummaryView extends React.Component {
                                 </div>
                             </section>
 
-                            <PaymentForm />
+                            <PaymentForm paymentData={this.state.paymentData} />
 
-                            <button onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Proceed to Pay Rs. {finalPrice}</button>
+                            <button disabled={
+                                !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab'))
+                            } onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Proceed to Pay Rs. {finalPrice}</button>
 
                         </div> : <Loader />
                 }

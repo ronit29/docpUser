@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress } from '../../actions/index.js'
+import { getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryView from '../../components/diagnosis/bookingSummary/index.js'
@@ -60,7 +60,8 @@ const mapDispatchToProps = (dispatch) => {
         getLabById: (labId) => dispatch(getLabById(labId)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         getUserAddress: () => dispatch(getUserAddress()),
-        selectPickupAddress: (address) => dispatch(selectPickupAddress(address))
+        selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
+        createLABAppointment: (postData, callback) => dispatch(createLABAppointment(postData, callback))
     }
 }
 

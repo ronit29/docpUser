@@ -123,7 +123,13 @@ export const selectPickupAddress = (address) => (dispatch) => {
 	})
 }
 
-
+export const createLABAppointment = (postData, callback) => (dispatch) => {
+	return API_POST(`/api/v1/diagnostic/appointment/create`, postData).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
+	})
+}
 
 
 export const getLabBookingSummary = (bookingId, callback) => (dispatch) => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getTime, getDayName } from '../../../utils/dateTimeUtils.js'
 
-const DAYS_TO_SHOW = 20
+const DAYS_TO_SHOW = 40
 const WEEK_DAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 
@@ -60,10 +60,10 @@ class TimeSlotSelector extends React.Component {
     }
 
     render() {
-        let selectedSchedule = { 0: [], 1: [], 2: [] }
+        let selectedSchedule = []
         if (this.state.selectedDay && this.state.selectedDay.actualDate) {
             let weekDayNumber = this.state.selectedDay.actualDate.getDay()
-            selectedSchedule = this.props.timeSlots[weekDayNumber].timing
+            selectedSchedule = this.props.timeSlots[weekDayNumber]
         }
 
         // let monthNum = (new Date).getMonth()
@@ -102,39 +102,23 @@ class TimeSlotSelector extends React.Component {
                 </div>
                 <div className="widget">
                     <div className="widget-content">
-                        <h4 className="report-on mrb-10">Morning</h4>
-                        <ul className="inline-list time-items">
-                            {
-                                selectedSchedule[0].map((time, i) => {
-                                    return <li key={i} onClick={this.selectSlot.bind(this, {
-                                        slot: 0,
-                                        time: time
-                                    })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == 0 && this.props.selectedSlot.time[1] == time[1] ? "" : "outline")}>{time[1]} </a></li>
-                                })
-                            }
-                        </ul>
-                        <h4 className="report-on mrb-10">Afternoon</h4>
-                        <ul className="inline-list time-items">
-                            {
-                                selectedSchedule[1].map((time, i) => {
-                                    return <li key={i} onClick={this.selectSlot.bind(this, {
-                                        slot: 1,
-                                        time: time
-                                    })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == 1 && this.props.selectedSlot.time[1] == time[1] ? "" : "outline")}>{time[1]} </a></li>
-                                })
-                            }
-                        </ul>
-                        <h4 className="report-on mrb-10">Evening</h4>
-                        <ul className="inline-list time-items">
-                            {
-                                selectedSchedule[2].map((time, i) => {
-                                    return <li key={i} onClick={this.selectSlot.bind(this, {
-                                        slot: 2,
-                                        time: time
-                                    })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == 2 && this.props.selectedSlot.time[1] == time[1] ? "" : "outline")}>{time[1]} </a></li>
-                                })
-                            }
-                        </ul>
+                        {
+                            selectedSchedule.map((schedule, i) => {
+                                return <div key={i}>
+                                    <h4 className="report-on mrb-10">{schedule.title}</h4>
+                                    <ul className="inline-list time-items">
+                                        {
+                                            schedule.timing.map((time, i) => {
+                                                return <li key={i} onClick={this.selectSlot.bind(this, {
+                                                    slot: i,
+                                                    time: time
+                                                })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == i && this.props.selectedSlot.time.value == time.value ? "" : "outline")}>{time.text} </a></li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            })
+                        }
                     </div>
                 </div>
             </div>

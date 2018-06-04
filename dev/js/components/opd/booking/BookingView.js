@@ -13,14 +13,14 @@ class BookingView extends React.Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-2">
-                                <span className="icon back-icon"><img src="/assets/img/customer-icons/back-white.png" className="img-fluid" /></span>
+                                <span className="icon back-icon" onClick={() => { this.props.history.go(-1) }}><img src="/assets/img/customer-icons/back-white.png" className="img-fluid" /></span>
                             </div>
                             <div className="col-6">
                                 <div className="header-title fw-700 capitalize text-white">Your Appointment</div>
                             </div>
                             <div className="col-4">
                                 <ul className="inline-list float-right user-notification-action">
-                                    <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li onClick={() => { this.props.history.push('/user') }}><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
                                     <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
                                 </ul>
                             </div>

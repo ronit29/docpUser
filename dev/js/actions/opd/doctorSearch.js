@@ -1,5 +1,5 @@
 import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
-import { API_GET } from '../../api/api.js';
+import { API_GET, API_POST } from '../../api/api.js';
 
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
@@ -109,5 +109,13 @@ export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
 		callback(response)
 	}).catch(function (error) {
 
+	})
+}
+
+export const createOPDAppointment = (postData, callback) => (dispatch) => {
+	return API_POST(`/api/v1/doctor/appointment/create`, postData).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
 	})
 }

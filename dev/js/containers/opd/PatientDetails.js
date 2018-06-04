@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, getUserProfile } from '../../actions/index.js'
+import { getDoctorById, getUserProfile, createOPDAppointment } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -23,7 +23,7 @@ class PatientDetails extends React.Component {
     }
 
     componentDidMount() {
-        if(STORAGE.checkAuth()){
+        if (STORAGE.checkAuth()) {
             this.props.getDoctorById(this.props.match.params.id)
             this.props.getUserProfile()
         }
@@ -51,7 +51,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getUserProfile: () => dispatch(getUserProfile()),
-        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId))
+        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
+        createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback))
     }
 }
 
