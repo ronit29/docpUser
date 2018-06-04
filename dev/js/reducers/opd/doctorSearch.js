@@ -4,7 +4,7 @@ const defaultState = {
     doctorList: [],
     count: 0,
     LOADED_DOCTOR_SEARCH: false,
-    selectedSlot: { time: [] }
+    selectedSlot: { time: {} }
 }
 
 export default function (state = defaultState, action) {

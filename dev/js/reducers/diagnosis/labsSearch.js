@@ -4,7 +4,7 @@ const defaultState = {
     labList: [],
     count: 0,
     LOADED_LABS_SEARCH: false,
-    selectedSlot: { time: [] },
+    selectedSlot: { time: {} },
     selectedAppointmentType: 'home',
     selectedAddress: null
 }

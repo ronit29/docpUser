@@ -12,7 +12,9 @@ class BookingSummaryView extends React.Component {
         super(props)
         this.state = {
             selectedLab: this.props.match.params.id,
-            paymentData: {}
+            paymentData: {},
+            loading: false,
+            error: ""
         }
     }
 
@@ -63,6 +65,7 @@ class BookingSummaryView extends React.Component {
     }
 
     proceed() {
+        this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -73,22 +76,20 @@ class BookingSummaryView extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time
         }
-        debugger
+
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 this.setState({
-                    paymentData: {
-                        name: "arun",
-                        custId: "11"
-                    }
+                    paymentData: data.payment_details.pgdata
                 }, () => {
                     setTimeout(() => {
                         let form = document.getElementById('paymentForm')
                         form.submit()
+                        this.setState({ loading: false })
                     }, 500)
                 })
             } else {
-
+                this.setState({ loading: false, error: "Could not create appointment. Try again later !" })
             }
         })
     }
@@ -183,12 +184,13 @@ class BookingSummaryView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <span className="errorMessage">{this.state.error}</span>
                             </section>
 
                             <PaymentForm paymentData={this.state.paymentData} />
 
                             <button disabled={
-                                !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab'))
+                                ( !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab') ) || this.state.loading)
                             } onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Proceed to Pay Rs. {finalPrice}</button>
 
                         </div> : <Loader />

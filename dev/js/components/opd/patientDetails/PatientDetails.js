@@ -17,13 +17,14 @@ class PatientDetails extends React.Component {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
             paymentData: {},
-            loading: false
+            loading: false,
+            error: ""
         }
     }
 
     proceed() {
 
-        this.setState({ loading: true })
+        this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -47,7 +48,7 @@ class PatientDetails extends React.Component {
                     }, 500)
                 })
             } else {
-                this.setState({ loading: false })
+                this.setState({ loading: false, error: "Could not create appointment. Try again later !" })
             }
         })
     }
@@ -145,6 +146,8 @@ class PatientDetails extends React.Component {
                 }
 
                 <PaymentForm paymentData={this.state.paymentData} />
+
+                <span className="errorMessage">{this.state.error}</span>
 
                 <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg" disabled={
                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading

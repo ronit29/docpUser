@@ -45,11 +45,13 @@ class TimeSlotSelector extends React.Component {
 
     selectDay(day) {
         this.setState({ selectedDay: day })
+        this.props.selectTimeSlot({ time: {} })
     }
 
     selectMonth(month, e) {
         e.stopPropagation()
         this.setState({ selectedMonth: month })
+        this.props.selectTimeSlot({ time: {} })
     }
 
     selectSlot(slot, e) {

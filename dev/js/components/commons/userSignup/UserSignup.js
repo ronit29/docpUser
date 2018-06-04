@@ -38,7 +38,22 @@ class UserSignupView extends React.Component {
         // validate
         let register = true
         Object.keys(this.refs).forEach((prp, i) => {
-            if (this.refs[prp].value) {
+            let validated = false
+            switch (this.refs[prp].name) {
+                case "phone_number": {
+                    validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
+                    break
+                }
+                case "email": {
+                    validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
+                    break
+                }
+                default: {
+                    validated = true
+                    break
+                }
+            }
+            if (this.refs[prp].value && validated) {
                 this.refs[prp].style.border = ''
             } else {
                 this.refs[prp].style.border = '1px solid red'
@@ -124,7 +139,7 @@ class UserSignupView extends React.Component {
                                             <span className="text-xs text-light">(Appoinment valid only for the provided name)</span>
                                         </div>
                                         <div className="labelWrap">
-                                            <input id="age" name="age" type="text" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" />
+                                            <input id="age" name="age" type="number" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" />
                                             <label htmlFor="age">Age</label>
                                         </div>
                                         <div className="form-group input-group">
@@ -136,7 +151,7 @@ class UserSignupView extends React.Component {
                                             </div>
                                         </div>
                                         <div className="labelWrap">
-                                            <input id="email" name="email" type="text" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" />
+                                            <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" />
                                             <label htmlFor="email">Email</label>
                                         </div>
 
