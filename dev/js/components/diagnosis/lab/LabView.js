@@ -51,12 +51,14 @@ class LabView extends React.Component {
                 {
                     this.props.LABS[this.state.selectedLab] ?
                         <div>
-                            <div className="skin-primary empty-header ">
+                            <div className="skin-primary empty-header">
                             </div>
 
                             <LabDetails {...this.props} data={this.props.LABS[this.state.selectedLab]} />
 
-                            <button onClick={this.bookLab.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg"><span className="text-xs selected-option">({this.props.selectedCriterias.length} Selected) </span>Book
+                            <button disabled={
+                                this.props.selectedCriterias.length < 1
+                            } onClick={this.bookLab.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg"><span className="text-xs selected-option">({this.props.selectedCriterias.length} Selected) </span>Book
                             </button>
 
                         </div> : <Loader />

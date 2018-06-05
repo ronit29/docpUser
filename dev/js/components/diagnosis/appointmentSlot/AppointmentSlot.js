@@ -83,7 +83,7 @@ class AppointmentSlot extends React.Component {
                         </div> : ""
                 }
 
-                <button onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg">Select</button>
+                <button disabled={!this.props.selectedSlot.date} onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg">Select</button>
 
             </div>
         );

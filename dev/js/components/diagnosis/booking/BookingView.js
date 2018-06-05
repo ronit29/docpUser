@@ -1,8 +1,17 @@
 import React from 'react';
 
+import TestDetail from './testDetail'
+
 class BookingView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            showTestDetail: false
+        }
+    }
+
+    toogleTestDetails() {
+        this.setState({ showTestDetail: !this.state.showTestDetail })
     }
 
     render() {
@@ -66,14 +75,7 @@ class BookingView extends React.Component {
                                 </div>
                                 <div className="widget  mrb-10">
                                     <div className="widget-content pb-details pb-location">
-                                        <h4 className="wc-title text-md fw-700">Apollo Clinic</h4>
-                                        <div className="address-details">
-                                            <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
-                                            <p className="add-info fw-500">196, Huda Plot, Near, Devinder Vihar, Sector 56, Gurugram, Haryana 122011</p>
-                                        </div>
-                                    </div>
-                                    <div className="widget-content pb-details pb-location">
-                                        <h4 className="wc-title text-md fw-700">Apollo Clinic</h4>
+                                        <h4 className="wc-title text-md fw-700">SRL Diagnostics</h4>
                                         <div className="address-details">
                                             <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
                                             <p className="add-info fw-500">196, Huda Plot, Near, Devinder Vihar, Sector 56, Gurugram, Haryana 122011</p>
@@ -86,8 +88,22 @@ class BookingView extends React.Component {
                                 <div className="widget mrb-10">
                                     <div className="widget-content">
                                         <div>
-                                            <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Clinic Visit Time <span className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span></h4>
+                                            <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Lab Visit Time <span className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span></h4>
                                             <p className="date-time test-list fw-500">18th April | 3:30 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="widget mrt-10">
+                                    <div className="widget-content">
+                                        <div className="test-report">
+                                            <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Time <span className="float-right"><a href="#" onClick={(e) => {
+                                                e.preventDefault()
+                                                e.stopPropagation()
+                                                this.toogleTestDetails()
+                                            }} className="text-primary fw-700 text-sm">View Details</a></span></h4>
+                                            <p className="test-list fw-500">T3, T4, TSV </p>
+                                            <p className="test-list fw-500">CBC Test</p>
+                                            <p className="text-xs">Fasting shoudl be there for 5 hours before test</p>
                                         </div>
                                     </div>
                                 </div>
@@ -105,6 +121,8 @@ class BookingView extends React.Component {
                         </div>
                     </div>
                 </section>
+
+                <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} />
 
             </div>
         );

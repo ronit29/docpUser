@@ -26,7 +26,7 @@ app.use('/assets', Express.static(path.join(__dirname, 'assets')));
 app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 
-app.get('*', function (req, res) {
+app.all('*', function (req, res) {
 
     const context = {}
 

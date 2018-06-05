@@ -181,3 +181,9 @@
 
 } 
 
+.loaderPagination{
+    position: fixed;
+    left: 43%;
+    bottom: 3%;
+}
+
