@@ -29,7 +29,7 @@ class BookingView extends React.Component {
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
             let start_date = this.props.rescheduleSlot.date
             let start_time = this.props.rescheduleSlot.time.value
-            let appointmentData = { id: this.props.match.params.refId, start_date, start_time }
+            let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
 
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
@@ -228,7 +228,7 @@ class BookingView extends React.Component {
                         </section> : <Loader />
                 }
 
-                <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} />
+                <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                 <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
 
