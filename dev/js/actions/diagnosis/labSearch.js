@@ -64,9 +64,9 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 			})
 		}
 
-		if(cb){
+		if (cb) {
 			// TODO: DO not hardcode page length
-			if(response.result && response.result.length == 20){
+			if (response.result && response.result.length == 20) {
 				cb(true)
 			}
 		}
@@ -102,10 +102,13 @@ export const getLabTimeSlots = (labId, pickup, callback) => (dispatch) => {
 	})
 }
 
-export const selectLabTimeSLot = (slot) => (dispatch) => {
+export const selectLabTimeSLot = (slot, reschedule=false) => (dispatch) => {
 	dispatch({
 		type: SELECT_LAB_TIME_SLOT,
-		payload: slot
+		payload: {
+			reschedule,
+			slot
+		}
 	})
 }
 
@@ -124,7 +127,7 @@ export const selectPickupAddress = (address) => (dispatch) => {
 }
 
 export const createLABAppointment = (postData, callback) => (dispatch) => {
-	return API_POST(`/api/v1/diagnostic/appointment/create`, postData).then(function (response) {
+	return API_POST(`/api/v1/diagnostic/labappointment`, postData).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
 		callback(error, null)
@@ -132,12 +135,18 @@ export const createLABAppointment = (postData, callback) => (dispatch) => {
 }
 
 
-export const getLabBookingSummary = (bookingId, callback) => (dispatch) => {
-	API_GET('/lab_booking_summar.json').then(function (response) {
-
-		callback(response)
-
+export const getLabBookingSummary = (appointmentID, callback) => (dispatch) => {
+	API_GET(`/api/v1/user/appointment/${appointmentID}?type=lab`).then(function (response) {
+		callback(null, response)
 	}).catch(function (error) {
+		callback(error, null)
+	})
+}
 
+export const updateLabAppointment = (appointmentData, callback) => (dispatch) => {
+	API_POST(`/api/v1/user/appointment/${appointmentData.id}/update?type=lab`, appointmentData).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
 	})
 }

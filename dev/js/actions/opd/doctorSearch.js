@@ -97,10 +97,13 @@ export const getDoctorById = (doctorId) => (dispatch) => {
 	})
 }
 
-export const selectOpdTimeSLot = (slot) => (dispatch) => {
+export const selectOpdTimeSLot = (slot, reschedule=false) => (dispatch) => {
 	dispatch({
 		type: SELECT_OPD_TIME_SLOT,
-		payload: slot
+		payload: {
+			reschedule,
+			slot
+		}
 	})
 }
 
@@ -114,6 +117,22 @@ export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
 
 export const createOPDAppointment = (postData, callback) => (dispatch) => {
 	return API_POST(`/api/v1/doctor/appointment/create`, postData).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
+	})
+}
+
+export const getOPDBookingSummary = (appointmentID, callback) => (dispatch) => {
+	API_GET(`/api/v1/user/appointment/${appointmentID}?type=doctor`).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
+	})
+}
+
+export const updateOPDAppointment = (appointmentData, callback) => (dispatch) => {
+	API_POST(`/api/v1/user/appointment/${appointmentData.id}/update?type=doctor`, appointmentData).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
 		callback(error, null)

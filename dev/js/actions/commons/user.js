@@ -15,7 +15,7 @@ export const getUserProfile = () => (dispatch) => {
 }
 
 export const getProfileAppointments = (profile_id) => (dispatch) => {
-	API_GET(`/api/v1/doctor/appointment?profile_id=${profile_id}`).then(function (response) {
+	API_GET(`/api/v1/user/appointment?profile_id=${profile_id}`).then(function (response) {
 
 		dispatch({
 			type: APPEND_USER_APPOINTMENTS,

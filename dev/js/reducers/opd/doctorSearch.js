@@ -4,7 +4,8 @@ const defaultState = {
     doctorList: [],
     count: 0,
     LOADED_DOCTOR_SEARCH: false,
-    selectedSlot: { time: {} }
+    selectedSlot: { time: {} },
+    rescheduleSlot: { time: {} }
 }
 
 export default function (state = defaultState, action) {
@@ -44,8 +45,12 @@ export default function (state = defaultState, action) {
 
         case SELECT_OPD_TIME_SLOT: {
             let newState = { ...state }
-
-            newState.selectedSlot = action.payload
+            
+            if(action.payload.reschedule){
+                newState.rescheduleSlot = action.payload.slot
+            }
+            newState.selectedSlot = action.payload.slot
+            
 
             return newState
         }
