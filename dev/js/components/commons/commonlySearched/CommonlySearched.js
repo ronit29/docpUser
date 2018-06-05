@@ -30,11 +30,13 @@ class CommonlySearched extends React.Component {
                 return <li key={i}>
                     <a
                         className={"v-btn v-btn-primary tag-sm outline selectedpill"}
-                        onClick={() => {
-                            return this.props.toggle((this.props.type || row.type), row)
-                        }}
+                        
                     >
                         {row.name}
+                        <span className="close rounded" 
+                            onClick={() => {
+                            return this.props.toggle((this.props.type || row.type), row)
+                        }}></span> 
                     </a>
                 </li>
             } else {
