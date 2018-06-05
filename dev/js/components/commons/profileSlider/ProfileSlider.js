@@ -27,7 +27,7 @@ class ProfileSlider extends React.Component {
             <div className="widget profile-info hidden-md-up text-center mrt-10 clearfix">
                 {
                     Object.keys(profiles).map((id, key) => {
-                        return <div className="widget-content pull-left" key={key} onClick={() => {
+                        return <div className="widget-content profile-slider " key={key} onClick={() => {
                             this.props.selectProfile(id)
                         }}>
                             <div className="avtar avtar-md consumer-icon">
@@ -48,4 +48,7 @@ class ProfileSlider extends React.Component {
 }
 
 
+
 export default ProfileSlider
+
+

@@ -3,7 +3,7 @@ import STORAGE from '../helpers/storage'
 import NAVIGATE from '../helpers/navigate'
 
 let axiosInstance = Axios.create({
-    baseURL: 'https://qa.panaceatechno.com',
+    baseURL: 'http://localhost:8000',
     header: {}
 });
 

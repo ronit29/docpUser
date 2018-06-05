@@ -35,7 +35,7 @@
     left: 0;
     font-weight: bold;
     font-size: 14px;
-}   
+}
 
 .br{
     position: absolute;
@@ -170,3 +170,14 @@
     background-color: black !important;
     color: white !important;
 }
+
+
+ .profile-info{
+  width: 100%;
+  perspective: 300px;
+  perspective-origin: 50% 60%;
+  display: flex;
+    overflow: scroll;
+
+} 
+
