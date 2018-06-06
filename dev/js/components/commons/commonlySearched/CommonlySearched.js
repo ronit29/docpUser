@@ -33,7 +33,7 @@ class CommonlySearched extends React.Component {
                         
                     >
                         {row.name}
-                        <span className="close rounded" 
+                        <span className="cross rounded" 
                             onClick={() => {
                             return this.props.toggle((this.props.type || row.type), row)
                         }}></span> 

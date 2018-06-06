@@ -187,7 +187,7 @@
     padding-right: 8px;
 }
 
-.close {
+.cross {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -199,32 +199,28 @@
     height: 20px;
     border-radius: 17px;
 }
-.close::before, .close::after {
+.cross::before, .cross::after {
   content: '';
     position: absolute;
     height: 2px;
     width: 100%;
-    /* top: 50%; */
-    /* left: 0; */
-    /* margin-top: -1px; */
     background: #818181;
-    /* z-index: 1; */
     margin: 2px;
     width: 12px;
     margin-top: 8.5px;
     margin-left: 4px;
 }
-.close:active{
+.cross:active{
   background-color: #e4e4e4;
 }
-.close::before {
+.cross::before {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.close::after {
+.cross::after {
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
@@ -232,10 +228,85 @@
   transform: rotate(-45deg);
 }
 
-.close.rounded::before, .close.rounded::after {
+.cross.rounded::before, .cross.rounded::after {
   border-radius: 5px;
 }
 
 ul.inline-list li {
     margin-left: 3px;
 }
+.overlay.black {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.filter-item{
+  overflow: hidden;
+  height: 55px;
+  text-overflow: ellipsis;
+}
+.filterInput{
+  margin-right: 125px;
+  margin-top: 0px;
+}
+.filterLabel{
+  margin-top: 11px;
+}
+.filterRowShort{
+  height: 56px;
+}
+.filterSitsAt{
+  height: 80px;
+  margin-top: -7px;
+}
+.filterRowFemaleDoc{
+  border-bottom: hidden;
+  height: 45px;
+  margin-top: -10px;
+}
+.md-checkbox {
+  position: relative;
+  margin: 16px 0;
+  
+}
+
+/*.md-checkbox label {
+  cursor: pointer;
+}*/
+.md-checkbox label:before, .md-checkbox label:after {
+  content: "";
+  position: absolute;
+}
+.md-checkbox label:before {
+  width: 25px;
+    height: 25px;
+    background: #fff;
+    border: 2px solid rgba(0, 0, 0, 0.54);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background .3s;
+    margin-left: 125px;
+    margin-top: -17px;
+}
+.md-checkbox input[type="checkbox"] {
+  outline: 0;
+  margin-top: -17px;
+  visibility: hidden;
+}
+.md-checkbox input[type="checkbox"]:checked + label:before {
+  background: #337ab7;
+  border: none;
+}
+.md-checkbox input[type="checkbox"]:checked + label:after {
+  transform: rotate(-45deg);
+  top: 5px;
+  left: 4px;
+  width: 12px;
+  height: 6px;
+  border: 2px solid #fff;
+  border-top-style: none;
+  border-right-style: none;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
