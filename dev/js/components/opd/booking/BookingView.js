@@ -63,8 +63,7 @@ class BookingView extends React.Component {
     cancelAppointment() {
         this.setState({ loading: true })
 
-        let appointmentData = { ...this.state.data }
-        appointmentData.status = 6
+        let appointmentData = { id: this.state.data.id, status: 6 }
 
         this.props.updateOPDAppointment(appointmentData, (err, data) => {
             if (data) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress } from '../../actions/index.js'
+import { selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
@@ -54,7 +54,9 @@ const mapDispatchToProps = (dispatch) => {
         selectProfile: (profile_id) => dispatch(selectProfile(profile_id)),
         getUserAddress: () => dispatch(getUserAddress()),
         addUserAddress: (postData, cb) => dispatch(addUserAddress(postData, cb)),
-        updateUserAddress: (postData, cb) => dispatch(updateUserAddress(postData, cb))
+        updateUserAddress: (postData, cb) => dispatch(updateUserAddress(postData, cb)),
+        editUserProfile: (profileData, cb) => dispatch(editUserProfile(profileData, cb)),
+        selectPickupAddress: (address) => dispatch(selectPickupAddress(address))
     }
 }
 

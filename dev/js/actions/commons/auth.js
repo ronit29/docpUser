@@ -1,6 +1,7 @@
 import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
+import SnackBar from 'node-snackbar'
 
 export const sendOTP = (number, cb) => (dispatch) => {
     dispatch({
@@ -13,6 +14,7 @@ export const sendOTP = (number, cb) => (dispatch) => {
     API_POST('/api/v1/user/otp/generate', {
         "phone_number": number
     }).then(function (response) {
+        SnackBar.show({ pos: 'bottom-left', text: "OTP Sent Successfuly." });
         dispatch({
             type: SEND_OTP_SUCCESS,
             payload: {}

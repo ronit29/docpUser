@@ -176,3 +176,13 @@
     left: 43%;
     bottom: 3%;
 }
+
+.resendOtp{
+    color: #59afc3 !important;
+    font-weight: bold;
+    margin-top: 10px;
+    float: left;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+}

@@ -92,6 +92,8 @@ class UserLoginView extends React.Component {
                                     this.state.showOTP ? <div className="adon-group enter-mobile-number">
                                         <br /><br />
                                         <input type="text" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" />
+
+                                        <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)}>Resend ?</a>
                                     </div> : ""
                                 }
                             </div>
