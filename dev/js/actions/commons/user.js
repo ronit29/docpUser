@@ -15,7 +15,7 @@ export const getUserProfile = () => (dispatch) => {
 }
 
 export const getProfileAppointments = (profile_id) => (dispatch) => {
-	API_GET(`/api/v1/doctor/appointment?profile_id=${profile_id}`).then(function (response) {
+	API_GET(`/api/v1/user/appointment?profile_id=${profile_id}`).then(function (response) {
 
 		dispatch({
 			type: APPEND_USER_APPOINTMENTS,
@@ -45,6 +45,14 @@ export const selectProfile = (profile_id, cb) => (dispatch) => {
 	})
 }
 
+export const editUserProfile = (profileData, cb) => (dispatch) => {
+	API_POST(`/api/v1/user/userprofile/${profileData.id}/edit`, profileData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
 export const getUserAddress = () => (dispatch) => {
 	API_GET(`/api/v1/user/address`).then(function (response) {
 		dispatch({
@@ -71,7 +79,6 @@ export const updateUserAddress = (postData, cb) => (dispatch) => {
 		if (cb) cb(error, null);
 	})
 }
-
 
 export const getUserProfileWithTests = () => (dispatch) => {
 	API_GET('/user_profile_tests.json').then(function (response) {

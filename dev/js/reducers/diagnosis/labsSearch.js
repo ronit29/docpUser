@@ -5,6 +5,7 @@ const defaultState = {
     count: 0,
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: {} },
+    rescheduleSlot: { time: {} },
     selectedAppointmentType: 'home',
     selectedAddress: null
 }
@@ -47,7 +48,11 @@ export default function (state = defaultState, action) {
         case SELECT_LAB_TIME_SLOT: {
             let newState = { ...state }
 
-            newState.selectedSlot = action.payload
+            if (action.payload.reschedule) {
+                newState.rescheduleSlot = action.payload.slot
+            }
+            newState.selectedSlot = action.payload.slot
+            
 
             return newState
         }

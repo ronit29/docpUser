@@ -31,7 +31,7 @@ export default function (state = defaultState, action) {
             newState.otp_request_success = true
             newState.otp_request_fail = false
             newState.success_message = action.payload.success_message
-            
+            newState.error_message = ""
             return newState
         }
 
@@ -48,6 +48,7 @@ export default function (state = defaultState, action) {
         case SUBMIT_OTP_REQUEST: {
             let newState = { ...state }
             newState.submit_otp = true
+            newState.error_message = ""
             return newState
         }
 
@@ -57,6 +58,7 @@ export default function (state = defaultState, action) {
             newState.submit_otp_fail = false
             newState.submit_otp_success = true
             newState.token = action.payload.token
+            newState.error_message = ""
             return newState
         }
 

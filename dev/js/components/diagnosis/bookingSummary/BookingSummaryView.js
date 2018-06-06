@@ -74,7 +74,7 @@ class BookingSummaryView extends React.Component {
             lab: this.state.selectedLab,
             test_ids: this.props.selectedCriterias.filter(x => x.type == 'test').map(t => t.id),
             profile: this.props.selectedProfile,
-            start_date, start_time
+            start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home' , address: this.props.selectedAddress
         }
 
         this.props.createLABAppointment(postData, (err, data) => {
@@ -190,7 +190,7 @@ class BookingSummaryView extends React.Component {
                             <PaymentForm paymentData={this.state.paymentData} />
 
                             <button disabled={
-                                ( !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab') ) || this.state.loading)
+                                (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab')) || this.state.loading)
                             } onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Proceed to Pay Rs. {finalPrice}</button>
 
                         </div> : <Loader />

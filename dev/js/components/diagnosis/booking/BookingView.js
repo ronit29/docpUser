@@ -1,20 +1,98 @@
 import React from 'react';
 
 import TestDetail from './testDetail'
+import Loader from '../../commons/Loader'
+
+const STATUS_MAP = {
+    CREATED: 1,
+    BOOKED: 2,
+    RESCHEDULED_DOCTOR: 3,
+    RESCHEDULED_PATIENT: 4,
+    ACCEPTED: 5,
+    CANCELED: 6,
+    COMPLETED: 7,
+}
+
 
 class BookingView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            showTestDetail: false
+            showTestDetail: false,
+            data: null,
+            loading: true
         }
+    }
+
+    componentDidMount() {
+
+        if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
+            let start_date = this.props.rescheduleSlot.date
+            let start_time = this.props.rescheduleSlot.time.value
+            let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
+
+            this.props.updateLabAppointment(appointmentData, (err, data) => {
+                if (data) {
+                    this.setState({ data: data.data, loading: false })
+                } else {
+                    this.setState({ loading: false })
+                }
+
+                this.props.selectLabTimeSLot({ time: {} }, true)
+            })
+        } else {
+
+            this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
+                if (!err) {
+                    this.setState({ data: data[0], loading: false })
+                } else {
+                    this.setState({ data: null, loading: false })
+                }
+            })
+        }
+    }
+
+    cancelAppointment() {
+        this.setState({ loading: true })
+
+        let appointmentData = { id: this.state.data.id, status: 6 }
+
+        this.props.updateLabAppointment(appointmentData, (err, data) => {
+            if (data) {
+                this.setState({ data: data.data, loading: false })
+            } else {
+                this.setState({ loading: false })
+            }
+        })
     }
 
     toogleTestDetails() {
         this.setState({ showTestDetail: !this.state.showTestDetail })
     }
 
+    goToSlotSelector(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true`)
+    }
+
     render() {
+
+        let profile = {}
+        let lab_test = []
+        let lab = {}
+        let date = new Date()
+        let actions = []
+        let status = 1
+
+        if (this.state.data) {
+            lab = this.state.data.lab
+            lab_test = this.state.data.lab_test
+            profile = this.state.data.profile
+            date = this.state.data.time_slot_start ? new Date(this.state.data.time_slot_start) : new Date()
+            actions = this.state.data.allowed_action || []
+            status = this.state.data.status
+        }
 
         return (
             <div>
@@ -36,93 +114,122 @@ class BookingView extends React.Component {
                         </div>
                     </div>
                 </header>
+                {
+                    (!this.state.loading && this.state.data) ?
+                        <section className="wrap ">
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div className="app-timeline book-confirmed-timeline">
+                                            {
+                                                (status == 1 || status == 6) ? "" :
 
-                <section className="wrap ">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="app-timeline book-confirmed-timeline">
-                                    <ul className="inline-list">
-                                        <li>
-                                            <span className="dot">1</span>
-                                            <p className="text-sm fw-700 text-light">Appoinment Received</p>
-                                        </li>
-                                        <li>
-                                            <span className="dot">2</span>
-                                            <p className="text-sm fw-700 text-light">Appoinment Confirmed</p>
-                                        </li>
-                                        <li className="active">
-                                            <span className="dot">3</span>
-                                            <p className="text-sm fw-700 text-light">Appoinment Complete</p>
-                                        </li>
-                                    </ul>
+                                                    <ul className="inline-list">
+                                                        <li className={status < 5 ? "active" : ""}>
+                                                            <span className="dot">1</span>
+                                                            <p className="text-sm fw-700 text-light">Appoinment Received</p>
+                                                        </li>
+                                                        <li className={status == 5 ? "active" : ""}>
+                                                            <span className="dot">2</span>
+                                                            <p className="text-sm fw-700 text-light">Appoinment Confirmed</p>
+                                                        </li>
+                                                        <li className={status == 7 ? "active" : ""}>
+                                                            <span className="dot">3</span>
+                                                            <p className="text-sm fw-700 text-light">Appoinment {status == 6 ? "Completed" : "Cancelled"}</p>
+                                                        </li>
+                                                    </ul>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-12">
+                                        {
+                                            this.state.data.otp ? <div className="widget mrb-10">
+                                                <div className="widget-content">
+                                                    <p className="fw-500 text-md mrb-10">Unique Confirmation Code: <span className="fw-700 text-md">5453</span></p>
+                                                    <p className="text-xs text-light">Share this code with doctor at the time of your appointment</p>
+                                                </div>
+                                            </div> : ""
+                                        }
+
+                                        <div className="widget mrb-10">
+                                            <div className="widget-content">
+                                                <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
+                                                <p className="text-xs text-light">Details has been send to your email and mobile number</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="widget  mrb-10">
+                                            <div className="widget-content pb-details pb-location">
+                                                <h4 className="wc-title text-md fw-700">{lab.name}</h4>
+                                                <div className="address-details">
+                                                    <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
+                                                    <p className="add-info fw-500">{lab.address}</p>
+                                                </div>
+                                                <div className="pb-view text-left">
+                                                    <a href={`https://www.google.com/maps/search/?api=1&query=${lab.long},${lab.lat}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="widget mrb-10">
+                                            <div className="widget-content">
+                                                <div>
+                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Visit Time 
+                                                    
+                                                    {
+                                                        actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
+                                                    }
+                                                                                                        
+                                                    </h4>
+                                                    <p className="date-time test-list fw-500">{date.toDateString()} | {date.toLocaleTimeString()}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="widget mrt-10">
+                                            <div className="widget-content">
+                                                <div className="test-report">
+                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Tests <span className="float-right"><a href="#" onClick={(e) => {
+                                                        e.preventDefault()
+                                                        e.stopPropagation()
+                                                        this.toogleTestDetails()
+                                                    }} className="text-primary fw-700 text-sm">View Details</a></span></h4>
+
+                                                    {
+                                                        lab_test.map((test,i) => {
+                                                            return <p key={i} className="test-list fw-500">{test.test.name}</p>
+                                                        })
+                                                    }
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="widget mrt-10">
+                                            <div className="widget-content">
+                                                <div className="test-report">
+                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Patient Details</h4>
+                                                    <p className="test-list fw-500">{profile.name}</p>
+                                                    <p className="test-list fw-500">{profile.phone_number}</p>
+                                                    <p className="test-list fw-500">{profile.email}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="widget mrb-10">
-                                    <div className="widget-content">
-                                        <p className="fw-500 text-md mrb-10">Unique Confirmation Code: <span className="fw-700 text-md">5453</span></p>
-                                        <p className="text-xs text-light">Share this code with doctor at the time of your appointment</p>
-                                    </div>
-                                </div>
-                                <div className="widget mrb-10">
-                                    <div className="widget-content">
-                                        <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">1234BSDFD</span></p>
-                                        <p className="text-xs text-light">Details has been send to your email and mobile number</p>
-                                    </div>
-                                </div>
-                                <div className="widget  mrb-10">
-                                    <div className="widget-content pb-details pb-location">
-                                        <h4 className="wc-title text-md fw-700">SRL Diagnostics</h4>
-                                        <div className="address-details">
-                                            <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
-                                            <p className="add-info fw-500">196, Huda Plot, Near, Devinder Vihar, Sector 56, Gurugram, Haryana 122011</p>
-                                        </div>
-                                        <div className="pb-view text-left">
-                                            <a href="#" className="link-text text-md fw-700">View in Google Map</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="widget mrb-10">
-                                    <div className="widget-content">
-                                        <div>
-                                            <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Lab Visit Time <span className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span></h4>
-                                            <p className="date-time test-list fw-500">18th April | 3:30 PM</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="widget mrt-10">
-                                    <div className="widget-content">
-                                        <div className="test-report">
-                                            <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Time <span className="float-right"><a href="#" onClick={(e) => {
-                                                e.preventDefault()
-                                                e.stopPropagation()
-                                                this.toogleTestDetails()
-                                            }} className="text-primary fw-700 text-sm">View Details</a></span></h4>
-                                            <p className="test-list fw-500">T3, T4, TSV </p>
-                                            <p className="test-list fw-500">CBC Test</p>
-                                            <p className="text-xs">Fasting shoudl be there for 5 hours before test</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="widget mrt-10">
-                                    <div className="widget-content">
-                                        <div className="test-report">
-                                            <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Patient Details</h4>
-                                            <p className="test-list fw-500">Rishabh Mehrotra,  Age 25</p>
-                                            <p className="test-list fw-500">9560519761</p>
-                                            <p className="test-list fw-500">rishabh@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                        </section> : <Loader />
+                }
 
-                <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} />
+                <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
+
+                <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
 
             </div>
         );

@@ -47,18 +47,32 @@ class UserSignupView extends React.Component {
 
     submitForm() {
         // validate
-        let validated = true
+        let addAddress = true
         Object.keys(this.refs).forEach((prp, i) => {
-            if (this.refs[prp].value) {
+            let validated = false
+            switch (this.refs[prp].name) {
+                case "phone_number": {
+                    validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
+                    break
+                }
+                default: {
+                    validated = true
+                    break
+                }
+            }
+            if (this.refs[prp].value && validated) {
                 this.refs[prp].style.border = ''
             } else {
                 this.refs[prp].style.border = '1px solid red'
-                validated = false
+                addAddress = false
             }
         })
 
-        if (validated) {
+        if (addAddress) {
             this.props.addUserAddress(this.state, (err, res) => {
+                if(!err){
+                    this.props.selectPickupAddress(res.id)
+                }
                 // go back
                 this.props.history.go(-1)
             })

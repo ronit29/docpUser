@@ -180,6 +180,7 @@
     bottom: 3%;
 }
 
+
 .selectedpill{
     border-color: #ffffff !important;
     background-color: #818181 !important;
@@ -308,5 +309,15 @@ ul.inline-list li {
 
 *, *:before, *:after {
   box-sizing: border-box;
+}
+
+.resendOtp{
+    color: #59afc3 !important;
+    font-weight: bold;
+    margin-top: 10px;
+    float: left;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
 }
 

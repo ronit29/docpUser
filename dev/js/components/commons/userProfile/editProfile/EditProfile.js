@@ -2,6 +2,7 @@ import React from 'react';
 
 import BasicDetails from './basic'
 import MedialDetails from './medical'
+import Loader from '../../Loader'
 
 class EditProfile extends React.Component {
     constructor(props) {
@@ -9,15 +10,20 @@ class EditProfile extends React.Component {
         let { profiles } = this.props.USER
         this.state = {
             selectedTab: 0,
-            profileData: { ...profiles[this.props.match.params.id] }
+            profileData: { ...profiles[this.props.match.params.id] },
+            loading: false
         }
     }
 
-    manageAddress(){
+    manageAddress() {
         this.props.history.push('/user/address')
     }
 
     getComp() {
+        if (this.state.loading) {
+            return <Loader />
+        }
+
         switch (this.state.selectedTab) {
             case 0: {
                 return <BasicDetails manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} />
@@ -31,6 +37,17 @@ class EditProfile extends React.Component {
     updateProfile(key, value) {
         this.state.profileData[key] = value
         this.setState({ profileData: this.state.profileData })
+    }
+
+    proceedUpdate(e) {
+        e.stopPropagation()
+        e.preventDefault()
+
+        this.setState({ loading: true })
+        this.props.editUserProfile(this.state.profileData, (err, data) => {
+            this.setState({ loading: false })
+            this.props.history.go(-1)
+        })
     }
 
     render() {
@@ -52,7 +69,7 @@ class EditProfile extends React.Component {
 
                 {this.getComp()}
 
-                <a href="" className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center">Update Profile</a>
+                <a href="#" onClick={this.proceedUpdate.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center">Update Profile</a>
             </div>
         );
     }

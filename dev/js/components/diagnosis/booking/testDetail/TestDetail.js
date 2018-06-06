@@ -21,27 +21,19 @@ class TestDetail extends React.Component {
                                 <h4 className="widget-title text-md fw-700">Test Information</h4>
                                 <span className="close"><img src="/assets/img/customer-icons/close-black.svg" className="/assets/img-fluid" /></span>
                             </div>
-                            <div className="widget-content">
-                                <h3 className="text-lg fw-700 mrb-10">T3 T4 TSV <img src="/assets/img/customer-icons/polygon.svg" className="/assets/img-fluid" /></h3>
-                                <h4 className="fw-700 text-md mrb-10">About</h4>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. </p>
-                            </div>
-                            <div className="widget-content">
-                                <h4 className="fw-700 text-md mrb-10">Prepration</h4>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                            </div>
-                            <div className="widget-content">
-                                <h4 className="fw-700 text-md mrb-10">Procedure</h4>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                            </div>
-                            <div className="widget-content">
-                                <h3 className="text-lg fw-700 mrb-10 bdr-1 bottom light">CBC Test <img src="/assets/img/customer-icons/polygon-up.svg" className="/assets/img-fluid" /></h3>
-                            </div>
+
+                            {
+                                this.props.lab_test.map((test, i) => {
+                                    return <div className="widget-content" key={i}>
+                                        <h3 className="text-lg fw-700 mrb-10">{test.test.name} <img src="/assets/img/customer-icons/polygon.svg" className="/assets/img-fluid" /></h3>
+                                        
+                                        <h4 className="fw-700 text-md mrb-10">Description</h4>
+                                        <p className="text-sm">{test.test.why}</p>
+
+                                    </div>
+                                })
+                            }
+
                         </div>
                     </div> : ""
                 }

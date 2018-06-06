@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
-        selectOpdTimeSLot: (slot) => dispatch(selectOpdTimeSLot(slot))
+        selectOpdTimeSLot: (slot, reschedule) => dispatch(selectOpdTimeSLot(slot, reschedule))
     }
 }
 
