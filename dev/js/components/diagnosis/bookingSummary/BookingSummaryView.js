@@ -74,7 +74,7 @@ class BookingSummaryView extends React.Component {
             lab: this.state.selectedLab,
             test_ids: this.props.selectedCriterias.filter(x => x.type == 'test').map(t => t.id),
             profile: this.props.selectedProfile,
-            start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home' , address: this.props.selectedAddress
+            start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress
         }
 
         this.props.createLABAppointment(postData, (err, data) => {
@@ -85,8 +85,11 @@ class BookingSummaryView extends React.Component {
                     setTimeout(() => {
                         let form = document.getElementById('paymentForm')
                         form.submit()
-                        this.setState({ loading: false })
                     }, 500)
+
+                    setTimeout(() => {
+                        this.setState({ loading: false })
+                    }, 5000)
                 })
             } else {
                 this.setState({ loading: false, error: "Could not create appointment. Try again later !" })

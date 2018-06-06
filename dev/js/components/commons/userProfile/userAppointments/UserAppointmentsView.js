@@ -15,7 +15,7 @@ class UserAppointmentsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if(this.props.USER.selectedProfile != props.USER.selectedProfile){
+        if (this.props.USER.selectedProfile != props.USER.selectedProfile) {
             this.props.getProfileAppointments(props.USER.selectedProfile)
         }
     }
@@ -27,10 +27,10 @@ class UserAppointmentsView extends React.Component {
         return (
             <div className="widget-content">
                 {
-                    appointments[selectedProfile] ? <ul className="list online-consultant-list" style={{marginTop:5}}>
+                    appointments[selectedProfile] ? <ul className="list online-consultant-list" style={{ marginTop: 5 }}>
                         {
                             appointments[selectedProfile].map((app, i) => {
-                                return <AppointmentList key={i} data={app} />
+                                return <AppointmentList key={i} {...this.props} data={app} />
                             })
                         }
                     </ul> : ""

@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-// import DoctorProfileCard from '../commons/doctorProfileCard/index.js'
-// import DetailsForm from './detailsForm/index.js'
-
 import DoctorProfileCard from '../commons/doctorProfileCard'
 
 import VisitTime from './visitTime'
@@ -44,8 +41,11 @@ class PatientDetails extends React.Component {
                     setTimeout(() => {
                         let form = document.getElementById('paymentForm')
                         form.submit()
-                        this.setState({ loading: false })
                     }, 500)
+                    
+                    setTimeout(() => {
+                        this.setState({ loading: false })
+                    }, 5000)
                 })
             } else {
                 this.setState({ loading: false, error: "Could not create appointment. Try again later !" })

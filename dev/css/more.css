@@ -186,3 +186,11 @@
     width: 100%;
     cursor: pointer;
 }
+
+.imageReports{
+    width: 90%;
+    height: 400px;
+    float: left;
+    margin-left: 5%;
+    margin-top: 20px;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabBookingSummary, updateLabAppointment, selectLabTimeSLot } from '../../actions/index.js'
+import { getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB } from '../../actions/index.js'
 
 import BookingView from '../../components/diagnosis/booking/BookingView.js'
 
@@ -30,7 +30,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getLabBookingSummary: (appointmentID, callback) => dispatch(getLabBookingSummary(appointmentID, callback)),
         updateLabAppointment: (appointmentData, callback) => dispatch(updateLabAppointment(appointmentData, callback)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        retryPaymentLAB: (appointmentId, callback) => dispatch(retryPaymentLAB(appointmentId, callback))
     }
 }
 

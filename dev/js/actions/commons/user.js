@@ -92,3 +92,11 @@ export const getUserProfileWithTests = () => (dispatch) => {
 
 	})
 }
+
+export const getAppointmentReports = (appointmentId, type, cb) => (dispatch) => {
+	API_GET(`/api/v1/doctor/prescription-file?appointment=${appointmentId}`).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
