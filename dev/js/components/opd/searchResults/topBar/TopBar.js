@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Range from 'rc-slider/lib/Range';
+import Checkbox from 'material-ui/Checkbox';
+
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -131,21 +133,21 @@ class TopBar extends React.Component {
                             <div className="widget-content">
                                 <div className="filterRow filterRowShort">
                                     <span className="tl filterLabel">Available Today</span>
-                                    <div className="md-checkbox">
-                                       <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" id="i1" />
-                                        <label htmlFor="i1"></label>
+                                    <div className="filterInput">
+                                       <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
                                     </div>
-                                    
-
                                 </div>
                             </div>
                             <div className="widget-content">
                                 <div className="filterRow filterSitsAt">
                                     <span className="tl">Sits At</span>
-                                    <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                    <div className="checkFilter">
+                                        <Checkbox name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                    </div>
                                     <span className="checkFilterLabel">Clinic</span>
-
-                                    <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                    <div className="checkFilter">
+                                        <Checkbox name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                    </div>
                                     <span className="checkFilterLabel">Hospital</span>
 
                                 </div>
@@ -170,7 +172,9 @@ class TopBar extends React.Component {
                             <div className="widget-content">
                                 <div className="filterRow filterRowFemaleDoc">
                                     <span className="tl filterLabel">Female Doctor</span>
-                                    <input type="checkbox" name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                    <div className="filterInput">
+                                    <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                    </div>
 
                                 </div>
                             </div>

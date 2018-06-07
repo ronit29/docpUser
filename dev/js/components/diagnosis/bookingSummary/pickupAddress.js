@@ -49,7 +49,8 @@ class PickupAddress extends React.Component {
                                         this.props.selectPickupAddress(add.id)
                                         this.setState({ selectorOpen: false })
                                     }}>
-                                        <span className="addressText">{add.address}</span>
+                                        <span className="addressText">{add.address} <br/> {add.land_mark} <br/> {add.pincode}</span>
+                                        <span className="selectedText">Selected</span>
                                     </div>
                                 })
                             }

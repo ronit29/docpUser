@@ -1,4 +1,5 @@
 import React from 'react';
+import Radio from 'material-ui/Radio';
 
 class UserAddress extends React.Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class UserAddress extends React.Component {
                             return <li key={key}>
                                 <a>
                                     <span className="icon icon-lg member-icon" style={{ marginTop: -15 }}>
-                                        <input value={curr.id} type="radio" checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
+                                        <Radio value={curr.id}  checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
                                     </span>
                                     <div className="member-details">
                                         <ul className="list" style={{ overflow: 'hidden' }}>
