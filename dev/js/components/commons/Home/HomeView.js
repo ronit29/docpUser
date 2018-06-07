@@ -1,11 +1,13 @@
 import React from 'react';
 
+import ProfieCard from './ProfileCard'
+
 class HomeView extends React.Component {
     constructor(props) {
         super(props)
     }
 
-    navigateTo(where){
+    navigateTo(where) {
         this.props.history.push(where)
     }
 
@@ -23,7 +25,7 @@ class HomeView extends React.Component {
                             </div>
                             <div className="col-4">
                                 <ul className="inline-list float-right user-notification-action">
-                                    <li onClick={this.navigateTo.bind(this,'/user')}><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li onClick={this.navigateTo.bind(this, '/user')}><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
                                     <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
                                 </ul>
                             </div>
@@ -33,31 +35,12 @@ class HomeView extends React.Component {
                 <section className="wrap ct-home-screen">
                     <div className="container-fluid">
 
+                        {
+                            this.props.profiles[this.props.selectedProfile] ? <ProfieCard data={this.props.profiles[this.props.selectedProfile]} /> : ""
+                        }
 
                         <div className="row">
-                            <div className="col-12">
-                                <div className="widget mrt-10 ct-profile">
-                                    {/* <div className="widget-content ct-profile-info">
-                                        <div className="ct-img ct-img-md ct-profile-icon">
-                                            <img src="/assets/img/customer-icons/calander.svg" className="img-fluid" />
-                                        </div>
-                                        <div className="ct-content root-map-field">
-                                            <p className="fw-500 text-md">Appoinment for Arun Kumar </p>
-                                            <h4 className="widget-title rm-title">Rishabh Mehrotra</h4>
-                                            <p className="fw-500 text-md dr-with">With Dr. Angela Smith</p>
-                                            <div className="root-map">
-                                                <img src="/assets/img/customer-icons/map-root.svg" className="img-fluid" />
-                                                <span>Navigate</span>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div className="row">
-                            <div className="col-6" onClick={this.navigateTo.bind(this,'/opd')}>
+                            <div className="col-6" onClick={this.navigateTo.bind(this, '/opd')}>
                                 <div className="widget">
                                     <div className="widget-content text-center booked-dr">
                                         <div className="ct-img ct-img-lg stath-img">
@@ -67,7 +50,7 @@ class HomeView extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-6" onClick={this.navigateTo.bind(this,'/dx')}>
+                            <div className="col-6" onClick={this.navigateTo.bind(this, '/dx')}>
                                 <div className="widget">
                                     <div className="widget-content text-center booked-dr">
                                         <div className="ct-img ct-img-lg stath-img">
