@@ -7,6 +7,7 @@ import Family from './userFamily'
 import EditProfile from './editProfile'
 import Address from './userAddress'
 import AddressForm from './userAddress/add'
+import Reports from './userReports'
 
 import Loader from '../../commons/Loader'
 
@@ -100,6 +101,10 @@ class UserProfileView extends React.Component {
 
                             <Route exact path={`${this.props.match.url}/edit/:id`} render={(props) => {
                                 return <EditProfile {...this.props} {...props} />
+                            }} />
+
+                            <Route exact path={`${this.props.match.url}/:type/reports/:id`} render={(props) => {
+                                return <Reports {...this.props} {...props} />
                             }} />
 
                         </div> : ""

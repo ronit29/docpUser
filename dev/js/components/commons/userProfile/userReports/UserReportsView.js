@@ -1,61 +1,41 @@
 import React from 'react';
 
-import ProfileSlider from '../profileSlider/index.js'
+import Loader from '../../Loader'
 import ReportList from './reportList/index.js'
 
 class UserReportsView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            loading: true,
+            type: this.props.match.params.type,
+            id: this.props.match.params.id,
+            reports: []
         }
     }
 
     componentDidMount() {
-        this.props.getUserProfileWithTests()
-    }
-
-    static contextTypes = {
-        router: () => null
+        this.setState({ loading: true })
+        this.props.getAppointmentReports(this.state.id, this.state.type, (err, data) => {
+            if (!err) {
+                this.setState({ reports: data, loading: false })
+            } else {
+                this.setState({ loading: false })
+            }
+        })
     }
 
     render() {
 
-        let selectedUser = null
-        let userProfileId = this.props.match.params.id
-
-        if (this.props.USER.profiles[userProfileId]) {
-            selectedUser = this.props.USER.profiles[userProfileId]
-        } else {
-            // selecting default user
-            Object.keys(this.props.USER.profiles).map((profileId) => {
-                if (this.props.USER.profiles[profileId].isDefaultUser) {
-                    selectedUser = this.props.USER.profiles[profileId]
-                }
-            })
-        }
-
         return (
-            <div className="userProfile">
-                {
-                    (selectedUser && selectedUser.tests) ? <div>
-                        <ProfileSlider
-                            profiles={this.props.USER.profiles}
-                            subRoute="/reports"
-                        />
-                        <p className="upcomingapp">Reports</p>
-                        {
-                            selectedUser.tests.map((test, i) => {
-                                return <ReportList
-                                    data={test}
-                                    key={i}
-                                />
-                            })
-
-                        }
-                    </div> : ""
-                }
-
+            <div className="widget-content">
+            {
+                !this.state.loading ? (
+                    this.state.reports.map((report,i) => {
+                        return <img src={"https://crm.qa.panaceatechno.com" + report.file} key={i} className="imageReports"/>
+                    })
+                 ) : <Loader />
+            }
             </div>
         );
     }

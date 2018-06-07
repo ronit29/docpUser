@@ -134,6 +134,14 @@ export const createLABAppointment = (postData, callback) => (dispatch) => {
 	})
 }
 
+export const retryPaymentLAB = (appointmentId, callback) => (dispatch) => {
+	return API_GET(`/api/v1/diagnostic/appointment/payment/retry/${appointmentId}`).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
+	})
+}
+
 
 export const getLabBookingSummary = (appointmentID, callback) => (dispatch) => {
 	API_GET(`/api/v1/user/appointment/${appointmentID}?type=lab`).then(function (response) {

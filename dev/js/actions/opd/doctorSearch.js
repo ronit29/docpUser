@@ -123,6 +123,14 @@ export const createOPDAppointment = (postData, callback) => (dispatch) => {
 	})
 }
 
+export const retryPaymentOPD = (appointmentId, callback) => (dispatch) => {
+	return API_GET(`/api/v1/doctor/appointment/payment/retry/${appointmentId}`).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
+	})
+}
+
 export const getOPDBookingSummary = (appointmentID, callback) => (dispatch) => {
 	API_GET(`/api/v1/user/appointment/${appointmentID}?type=doctor`).then(function (response) {
 		callback(null, response)

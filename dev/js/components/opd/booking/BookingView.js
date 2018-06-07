@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
+import PaymentForm from '../../commons/paymentForm'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -17,7 +18,8 @@ class BookingView extends React.Component {
         super(props)
         this.state = {
             data: null,
-            loading: true
+            loading: true,
+            paymentData: {}
         }
     }
 
@@ -80,6 +82,27 @@ class BookingView extends React.Component {
         this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=true`)
     }
 
+    retryPayment() {
+
+        this.setState({ loading: true })
+
+        this.props.retryPaymentOPD(this.state.data.id, (err, data) => {
+            if (!err) {
+                this.setState({
+                    paymentData: data.pgdata
+                }, () => {
+                    setTimeout(() => {
+                        let form = document.getElementById('paymentForm')
+                        form.submit()
+                        this.setState({ loading: false })
+                    }, 500)
+                })
+            } else {
+                this.setState({ loading: false })
+            }
+        })
+    }
+
     render() {
 
         let doctor = {}
@@ -139,7 +162,7 @@ class BookingView extends React.Component {
                                                     </li>
                                                     <li className={status == 7 ? "active" : ""}>
                                                         <span className="dot">3</span>
-                                                        <p className="text-sm fw-700 text-light">Appoinment {status == 6 ? "Completed" : "Cancelled"}</p>
+                                                        <p className="text-sm fw-700 text-light">Appoinment {status == 6 ? "Completed" : "Completed"}</p>
                                                     </li>
                                                 </ul>
                                         }
@@ -213,8 +236,14 @@ class BookingView extends React.Component {
                         </div>
                     </section> : <Loader />
                 }
+                {
+                    status === 1 ? <button onClick={this.retryPayment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn">Pay Now Rs. {this.state.data ? this.state.data.fees : 0}</button> : <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
+                }
 
-                <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
+                {
+                    status === 1 ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                }
+
 
             </div>
         );

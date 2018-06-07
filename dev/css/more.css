@@ -283,6 +283,7 @@ ul.inline-list li {
     width: 100%;
     cursor: pointer;
 }
+
 .MuiCheckbox-checkedSecondary-15 {
     color: #00adc2!important;
 }
@@ -297,4 +298,12 @@ ul.inline-list li {
 }
 .family-list>li .member-details {
     padding-left: 36px;
+}
+
+.imageReports{
+    width: 90%;
+    height: 400px;
+    float: left;
+    margin-left: 5%;
+    margin-top: 20px;
 }

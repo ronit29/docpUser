@@ -2,6 +2,7 @@ import React from 'react';
 
 import TestDetail from './testDetail'
 import Loader from '../../commons/Loader'
+import PaymentForm from '../../commons/paymentForm'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -20,7 +21,8 @@ class BookingView extends React.Component {
         this.state = {
             showTestDetail: false,
             data: null,
-            loading: true
+            loading: true,
+            paymentData: {}
         }
     }
 
@@ -74,6 +76,27 @@ class BookingView extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true`)
+    }
+
+    retryPayment() {
+
+        this.setState({ loading: true })
+
+        this.props.retryPaymentLAB(this.state.data.id, (err, data) => {
+            if (!err) {
+                this.setState({
+                    paymentData: data.pgdata
+                }, () => {
+                    setTimeout(() => {
+                        let form = document.getElementById('paymentForm')
+                        form.submit()
+                        this.setState({ loading: false })
+                    }, 500)
+                })
+            } else {
+                this.setState({ loading: false })
+            }
+        })
     }
 
     render() {
@@ -135,7 +158,7 @@ class BookingView extends React.Component {
                                                         </li>
                                                         <li className={status == 7 ? "active" : ""}>
                                                             <span className="dot">3</span>
-                                                            <p className="text-sm fw-700 text-light">Appoinment {status == 6 ? "Completed" : "Cancelled"}</p>
+                                                            <p className="text-sm fw-700 text-light">Appoinment {status == 6 ? "Completed" : "Completed"}</p>
                                                         </li>
                                                     </ul>
                                             }
@@ -177,12 +200,12 @@ class BookingView extends React.Component {
                                         <div className="widget mrb-10">
                                             <div className="widget-content">
                                                 <div>
-                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Visit Time 
-                                                    
+                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Visit Time
+
                                                     {
-                                                        actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
-                                                    }
-                                                                                                        
+                                                            actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
+                                                        }
+
                                                     </h4>
                                                     <p className="date-time test-list fw-500">{date.toDateString()} | {date.toLocaleTimeString()}</p>
                                                 </div>
@@ -200,11 +223,11 @@ class BookingView extends React.Component {
                                                     }} className="text-primary fw-700 text-sm">View Details</a></span></h4>
 
                                                     {
-                                                        lab_test.map((test,i) => {
+                                                        lab_test.map((test, i) => {
                                                             return <p key={i} className="test-list fw-500">{test.test.name}</p>
                                                         })
                                                     }
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +252,13 @@ class BookingView extends React.Component {
 
                 <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
-                <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
+                {
+                    status === 1 ? <button onClick={this.retryPayment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn">Pay Now Rs. {this.state.data ? this.state.data.price : 0}</button> : <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
+                }
+
+                {
+                    status === 1 ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                }
 
             </div>
         );
