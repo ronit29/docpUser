@@ -194,3 +194,17 @@
     margin-left: 5%;
     margin-top: 20px;
 }
+
+.notification-alert {
+    background-color: #ff6326;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: -5px;
+    display: inline-block;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+}

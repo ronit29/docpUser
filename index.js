@@ -22,6 +22,9 @@ import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 
 
+app.get('/firebase-messaging-sw.js', function (req, res) {
+    res.sendFile(__dirname + '/assets/firebase-messaging-sw.js')
+});
 app.use('/assets', Express.static(path.join(__dirname, 'assets')));
 app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 

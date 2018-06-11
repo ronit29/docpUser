@@ -1,10 +1,12 @@
-import { APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 
 const defaultState = {
     profiles: {},
     appointments: {},
     address: [],
-    selectedProfile: null
+    selectedProfile: null,
+    notifications: [],
+    newNotification: false
 }
 
 export default function (state = defaultState, action) {
@@ -52,6 +54,31 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
             newState.address = action.payload
             return newState
+        }
+
+        case APPEND_NOTIFICATIONS: {
+    
+            let newState = {
+                ...state,
+                notifications: state.notifications ? [...state.notifications] : []
+            }
+    
+            newState.newNotification = false
+
+            if (action.payload.replace) {
+                newState.notifications = action.payload.notifications
+            } else {
+                newState.notifications = [...newState.notifications, ...action.payload.notifications]
+            }
+    
+            newState.notifications.map((not) => {
+                if (!not.viewed_at) {
+                    newState.newNotification = true
+                }
+            })
+
+            return newState
+
         }
 
     }

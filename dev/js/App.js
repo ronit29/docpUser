@@ -13,6 +13,8 @@ require('../css/more.css')
 import 'rc-slider/assets/index.css';
 import 'node-snackbar/dist/snackbar.min.css'
 
+import NotificationsBoot from './containers/commons/NotificationsBoot'
+
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -46,11 +48,14 @@ class App extends React.Component {
         })
 
         return (
-            <MuiThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <Routes />
-                </BrowserRouter>
-            </MuiThemeProvider>
+            <div>
+                <NotificationsBoot />
+                <MuiThemeProvider theme={theme}>
+                    <BrowserRouter>
+                        <Routes />
+                    </BrowserRouter>
+                </MuiThemeProvider>
+            </div>
         );
     }
 }

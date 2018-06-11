@@ -1,4 +1,4 @@
-import { APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -98,5 +98,28 @@ export const getAppointmentReports = (appointmentId, type, cb) => (dispatch) => 
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
+	})
+}
+
+export const fetchNotifications = (cb) => (dispatch) => {
+	API_GET(`/api/v1/notification/appnotifications`).then(function (response) {
+		dispatch({
+			type: APPEND_NOTIFICATIONS,
+			payload: {
+				replace: true, notifications: response
+			}
+		})
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const appendNotifications = (notifications, replace = true, cb) => (dispatch) => {
+	dispatch({
+		type: APPEND_NOTIFICATIONS,
+		payload: {
+			replace, notifications
+		}
 	})
 }
