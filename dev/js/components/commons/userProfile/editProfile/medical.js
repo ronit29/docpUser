@@ -34,7 +34,7 @@ class MedicalDetails extends React.Component {
                                     <td>Hypertension</td>
                                     <td><label className="radio-inline"><input type="radio" name="optradio" /> Yes</label></td>
                                     <td>
-                                        <select className="fc-input input-xs">
+                                        <select className="fc-input input-sm">
                                             <option>2 Years</option>
                                         </select>
                                     </td>
@@ -43,7 +43,7 @@ class MedicalDetails extends React.Component {
                                     <td>Asthma</td>
                                     <td><label className="radio-inline"><input type="radio" name="optradio" /> Yes</label></td>
                                     <td>
-                                        <select className="fc-input input-xs">
+                                        <select className="fc-input input-sm">
                                             <option>2 Years</option>
                                         </select>
                                     </td>
@@ -52,7 +52,7 @@ class MedicalDetails extends React.Component {
                                     <td>Heart</td>
                                     <td><label className="radio-inline"><input type="radio" name="optradio" /> Yes</label></td>
                                     <td>
-                                        <select className="fc-input input-xs">
+                                        <select className="fc-input input-sm">
                                             <option>2 Years</option>
                                         </select>
                                     </td>
@@ -61,7 +61,7 @@ class MedicalDetails extends React.Component {
                                     <td>Ailment</td>
                                     <td><label className="radio-inline"><input type="radio" name="optradio" /> Yes</label></td>
                                     <td>
-                                        <select className="fc-input input-xs">
+                                        <select className="fc-input input-sm">
                                             <option>2 Years</option>
                                         </select>
                                     </td>
@@ -70,7 +70,7 @@ class MedicalDetails extends React.Component {
                                     <td>Anaemia</td>
                                     <td><label className="radio-inline"><input type="radio" name="optradio" /> Yes</label></td>
                                     <td>
-                                        <select className="fc-input input-xs">
+                                        <select className="fc-input input-sm">
                                             <option>2 Years</option>
                                         </select>
                                     </td>
@@ -79,7 +79,7 @@ class MedicalDetails extends React.Component {
                                     <td>Depression</td>
                                     <td><label className="radio-inline"><input type="radio" name="optradio" /> Yes</label></td>
                                     <td>
-                                        <select className="fc-input input-xs">
+                                        <select className="fc-input input-sm">
                                             <option>2 Years</option>
                                         </select>
                                     </td>
@@ -88,7 +88,7 @@ class MedicalDetails extends React.Component {
                                     <td>Allergies</td>
                                     <td><label className="radio-inline"><input type="radio" name="optradio" /> Yes</label></td>
                                     <td>
-                                        <select className="fc-input input-xs">
+                                        <select className="fc-input input-sm">
                                             <option>2 Years</option>
                                         </select>
                                     </td>

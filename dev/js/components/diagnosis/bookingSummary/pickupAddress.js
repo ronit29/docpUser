@@ -2,9 +2,9 @@ import React from 'react';
 
 class PickupAddress extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            selectorOpen: false
+            selectorOpen: false,
         }
     }
 
@@ -19,6 +19,7 @@ class PickupAddress extends React.Component {
                 }
             })
         }
+
 
         return (
             <div className="lab-visit-time">
@@ -37,22 +38,26 @@ class PickupAddress extends React.Component {
                             e.preventDefault()
                             e.stopPropagation()
                         }}>
-                            <span className="selectadd">Select Address</span>
-                            <a className="addnewadd" href="" onClick={(e) => {
-                                e.preventDefault()
-                                e.stopPropagation()
-                                this.props.history.push('/user/address/add')
-                            }}>Add New Address</a>
-                            {
-                                this.props.address.map((add, i) => {
-                                    return <div key={i} className={add.id == this.props.selectedAddress ? "addresspickerDiv selected" : "addresspickerDiv"} onClick={() => {
-                                        this.props.selectPickupAddress(add.id)
-                                        this.setState({ selectorOpen: false })
-                                    }}>
-                                        <span className="addressText">{add.address}</span>
-                                    </div>
-                                })
-                            }
+                            <div className="inlineElements">
+                                <span className="selectadd">Select Address</span>
+                                <a className="addnewadd" href="" onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    this.props.history.push('/user/address/add')
+                                }}>Add New Address</a>
+                                {
+                                    this.props.address.map((add, i) => {
+                                        return <div key={i} ref={i} className={add.id == this.props.selectedAddress ? "addresspickerDiv selected" : "addresspickerDiv"} onClick={() => {
+                                            this.props.selectPickupAddress(add.id)
+                                            this.setState({ selectorOpen: false })
+                                            }}>
+                                            <span className="addressText">{add.address}</span>
+                                            <span className="selectedText">Selected</span>
+                                        </div>
+                                    })
+
+                                }
+                            </div>
                         </div>
                     </div> : ""
                 }
