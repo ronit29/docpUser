@@ -27,6 +27,7 @@ import DoctorChat from './containers/commons/Chat.js'
 import TestSelector from './containers/diagnosis/TestSelector'
 import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 import UserLogin from './containers/commons/UserLogin'
+import Notifications from './containers/commons/Notifications'
 
 import Home from './containers/commons/Home'
 
@@ -44,7 +45,7 @@ const routes = [
     { path: '/user', component: UserProfile },
 
     { path: '/chat', exact: true, component: DoctorChat },
-    { path: '/payment', exact: true, component: Payment },
+    { path: '/notifications', exact: true, component: Notifications },
 
 
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },

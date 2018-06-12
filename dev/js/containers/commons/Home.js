@@ -25,11 +25,11 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     let {
-        profiles, selectedProfile
+        profiles, selectedProfile, newNotification, notifications
     } = state.USER
 
     return {
-        profiles, selectedProfile
+        profiles, selectedProfile, newNotification, notifications
     }
 }
 
