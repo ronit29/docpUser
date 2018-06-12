@@ -40,7 +40,7 @@ class UserAddress extends React.Component {
                             return <li key={key}>
                                 <a>
                                     <span className="icon icon-lg member-icon" style={{ marginTop: -15 }}>
-                                        <Radio value={curr.id}  checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
+                                        <Radio value={curr.id.toString()}  checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
                                     </span>
                                     <div className="member-details">
                                         <ul className="list" style={{ overflow: 'hidden' }}>

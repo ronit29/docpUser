@@ -3,16 +3,17 @@ import STORAGE from '../helpers/storage'
 import NAVIGATE from '../helpers/navigate'
 
 let axiosInstance = Axios.create({
-    baseURL: 'https://qa.panaceatechno.com',
-    // baseURL: 'http://localhost:8080',
+    // baseURL: 'https://qa.panaceatechno.com',
+    baseURL: 'http://localhost:8080',
     header: {}
 });
 
 function rejectHandler(response, callback) {
-    if (response && response.response && ( response.response.status == 401 || response.response.status == 403) ){
+    if (response && response.response && (response.response.status == 401 || response.response.status == 403)) {
         STORAGE.deleteAuth().then(() => {
             // send to login page
-            // NAVIGATE.navigateTo('/')
+            NAVIGATE.navigateTo('/')
+            // clear entire store (initially peristed)
         })
     }
 

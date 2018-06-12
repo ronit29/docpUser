@@ -46,7 +46,7 @@ class NotificationsView extends React.Component {
                                         <a>
                                             <img src="/assets/img/icons/bell-md.png" className="img-fluid noti-icon" />
                                             <div className="noti-content">
-                                                <h4 className="noti-title">{note.content.title}<span className="updated-on">{note.viewed_at ? "a" : "New"}</span></h4>
+                                                <h4 className="noti-title">{note.content.title}<span className="updated-on">{note.viewed_at ? "" : "New"}</span></h4>
                                                 <p>{note.content.body}</p>
                                             </div>
                                         </a>

@@ -7,7 +7,9 @@ function getLocationParam(props, tag) {
 
 const NAVIGATE = {
     navigateTo: (where) => {
-        window.location.href = where
+        if (window) {
+            window.location.href = where
+        }
     },
 
     refreshLabSearchResults: (props) => {
