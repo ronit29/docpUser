@@ -3,32 +3,10 @@ import React from 'react';
 class PickupAddress extends React.Component {
     constructor(props) {
         super(props);
-        this.handleShow = this.handleShow.bind(this);
         this.state = {
             selectorOpen: false,
-            index: 0
         }
     }
-
-    handleShow(e, i){
-        e.preventDefault();
-        
-        let count = -1
-        let pos
-
-        if (i) {
-            this.props.address.map((add) => {
-                count++
-                if (add.id == i) {
-                    pos = count
-                }
-            })
-        }
-        console.log(pos);
-        // this.pos.focus();
-        
-      }
-
 
     render() {
 
@@ -47,7 +25,6 @@ class PickupAddress extends React.Component {
             <div className="lab-visit-time">
                 <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Pickup Address <span className="float-right"><a href="#" onClick={(e) => {
                     e.preventDefault()
-                    this.handleShow(e, this.props.selectedAddress)
                     e.stopPropagation()
                     this.setState({ selectorOpen: true })
                 }} className="text-primary fw-700 text-sm">{addressStr ? "Change" : "Pick"} Address</a></span></h4>

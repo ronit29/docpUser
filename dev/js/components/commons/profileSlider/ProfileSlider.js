@@ -25,7 +25,6 @@ class ProfileSlider extends React.Component {
 
         return (
             <div className="widget profile-info hidden-md-up text-center mrt-10 clearfix">
-                <div className="inlineElements profile-info-div">
                     {
                         Object.keys(profiles).map((id, key) => {
                             return <div className="widget-content profile-slider " key={key} onClick={() => {
@@ -42,7 +41,6 @@ class ProfileSlider extends React.Component {
                             </div>
                         })
                     }
-                </div>
             </div>
         );
     }

@@ -187,6 +187,7 @@
  .profile-info{
   width: 100%;
   overflow: scroll;
+  display: inline-flex;
 
 } 
 
