@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { appendNotifications } from '../../actions/index.js'
+
 import SOCKET from '../../helpers/socket'
 import FCM from '../../helpers/fcm'
+import STORAGE from '../../helpers/storage'
 
 class Notifications extends React.Component {
     constructor(props) {
@@ -16,14 +18,12 @@ class Notifications extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if(props.AUTH.token != this.props.AUTH.token){
-            this.initSocket(props)
-            this.initFCM(props)
-        }
+        this.initSocket(props)
+        this.initFCM(props)
     }
 
     initSocket(props) {
-        if (props.AUTH.token) {
+        if (STORAGE.checkAuth() && !SOCKET.getInstance()) {
             SOCKET.init(() => {
                 let _socket = SOCKET.getInstance()
                 if (_socket) {
@@ -36,7 +36,7 @@ class Notifications extends React.Component {
     }
 
     initFCM(props) {
-        if (props.AUTH.token) {
+        if (STORAGE.checkAuth() && !FCM.checkInit()) {
             FCM.init()
         }
     }

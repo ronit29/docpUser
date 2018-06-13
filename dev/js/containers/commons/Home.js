@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../../actions/index.js'
+import { getUserProfile } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
-
+import STORAGE from '../../helpers/storage'
 
 class Home extends React.Component {
     constructor(props) {
@@ -13,6 +13,12 @@ class Home extends React.Component {
 
     static contextTypes = {
         router: () => null
+    }
+
+    componentDidMount() {
+        if (STORAGE.checkAuth()) {
+            this.props.getUserProfile()
+        }
     }
 
     render() {
@@ -35,7 +41,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getUserProfile : () => dispatch(getUserProfile())
     }
 }
 

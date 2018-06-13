@@ -23,9 +23,11 @@ const FCM = (() => {
             messaging.requestPermission().then(function () {
                 messaging.getToken().then(function (currentToken) {
                     console.log("FCM TOKEN - ", currentToken)
-                    API_POST('/api/v1/user/notification/endpoint/save', {
-                        token: currentToken
-                    })
+                    if (!_initialized) {
+                        API_POST('/api/v1/user/notification/endpoint/save', {
+                            token: currentToken
+                        })
+                    }
 
                     // set init to true , to stop fetching token again
                     _initialized = true
@@ -44,7 +46,7 @@ const FCM = (() => {
                     API_POST('/api/v1/user/notification/endpoint/save', {
                         token: refreshedToken
                     })
-                    
+
                     // set init to true , to stop fetching token again
                     _initialized = true
                 }).catch(function (err) {
@@ -54,7 +56,11 @@ const FCM = (() => {
         }
     }
 
-    return { init }
+    const checkInit = () => {
+        return _initialized
+    }
+
+    return { init, checkInit: checkInit.bind(this) }
 
 })()
 

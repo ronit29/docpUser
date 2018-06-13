@@ -14,7 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['USER', 'SEARCH_CRITERIA_LABS', 'SEARCH_CRITERIA_OPD', 'LAB_SEARCH', 'DOCTOR_SEARCH']
+    whitelist: ['SEARCH_CRITERIA_LABS', 'SEARCH_CRITERIA_OPD', 'LAB_SEARCH', 'DOCTOR_SEARCH']
 }
 
 const persistedReducer = persistReducer(persistConfig, allReducers)
