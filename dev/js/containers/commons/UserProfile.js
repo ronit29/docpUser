@@ -55,7 +55,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserAddress: () => dispatch(getUserAddress()),
         addUserAddress: (postData, cb) => dispatch(addUserAddress(postData, cb)),
         updateUserAddress: (postData, cb) => dispatch(updateUserAddress(postData, cb)),
-        editUserProfile: (profileData, cb) => dispatch(editUserProfile(profileData, cb)),
+        editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
         getAppointmentReports: (appointmentId, type, cb) => dispatch(getAppointmentReports(appointmentId, type, cb))
     }

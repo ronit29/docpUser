@@ -26,7 +26,7 @@ class EditProfile extends React.Component {
 
         switch (this.state.selectedTab) {
             case 0: {
-                return <BasicDetails manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} />
+                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} />
             }
             case 1: {
                 return <MedialDetails />
@@ -44,7 +44,7 @@ class EditProfile extends React.Component {
         e.preventDefault()
 
         this.setState({ loading: true })
-        this.props.editUserProfile(this.state.profileData, (err, data) => {
+        this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
             this.setState({ loading: false })
             this.props.history.go(-1)
         })

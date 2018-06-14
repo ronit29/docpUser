@@ -5,8 +5,7 @@ class BasicDetails extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            dataUrl: null,
-            cropped: null
+            dataUrl: null
         }
     }
 
@@ -37,23 +36,39 @@ class BasicDetails extends React.Component {
     finishCrop(e) {
         e.stopPropagation()
         e.preventDefault()
+        let file_blob_data = this.dataURItoBlob(this.refs.cropper.getCroppedCanvas().toDataURL())
         this.setState({
-            dataUrl: null,
-            cropped: this.refs.cropper.getCroppedCanvas().toDataURL()
+            dataUrl: null
+        }, () => {
+            document.getElementById('imageFilePicker').value = ""
+            let form_data = new FormData()
+            form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
+            this.props.editUserProfile(form_data, this.props.profileData.id, (err, data) => {
+                this.props.history.go(-1)
+            })
         })
-        document.getElementById('imageFilePicker').value = ""
+    }
+
+    dataURItoBlob(dataURI) {
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
     }
 
     render() {
 
         let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
-        let image = this.state.cropped || "/assets/img/icons/drIcon.jpg"
+        profile_image = profile_image ? profile_image.replace("http://qa.panaceatechno.com/","http://localhost:8080/") : "/assets/img/icons/drIcon.jpg"
+
         return (
             <section className="wrap myProfile">
                 <div className="widget no-shadow no-radius">
                     <div className="widget-content">
                         <div className="profile-icon">
-                            <img src={image} className="img-fluid img-round" onClick={() => {
+                            <img src={profile_image} className="img-fluid img-round" onClick={() => {
                                 document.getElementById('imageFilePicker').click()
                                 document.getElementById('imageFilePicker').value = ""
                             }} />

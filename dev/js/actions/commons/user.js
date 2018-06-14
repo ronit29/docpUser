@@ -45,8 +45,12 @@ export const selectProfile = (profile_id, cb) => (dispatch) => {
 	})
 }
 
-export const editUserProfile = (profileData, cb) => (dispatch) => {
-	API_POST(`/api/v1/user/userprofile/${profileData.id}/edit`, profileData).then(function (response) {
+export const editUserProfile = (profileData, profileId, cb) => (dispatch) => {
+	API_POST(`/api/v1/user/userprofile/${profileId}/edit`, profileData).then(function (response) {
+		dispatch({
+			type: APPEND_USER_PROFILES,
+			payload: [response]
+		})
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
