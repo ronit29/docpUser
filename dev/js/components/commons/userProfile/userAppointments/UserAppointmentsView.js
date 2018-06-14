@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AppointmentList from './appointmentList/index.js'
+import Loader from '../../Loader'
 
 class UserAppointmentsView extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class UserAppointmentsView extends React.Component {
                                 return <AppointmentList key={i} {...this.props} data={app} />
                             })
                         }
-                    </ul> : ""
+                    </ul> : <Loader />
                 }
 
             </div>
