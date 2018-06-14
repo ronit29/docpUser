@@ -77,7 +77,7 @@ class AppointmentSlot extends React.Component {
                                                         timeSlots={this.state.timeSlots}
                                                         selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                         selectedSlot={this.props.selectedSlot}
-                                                    /> : ''
+                                                    /> : <Loader />
                                             }
 
                                         </div>
@@ -85,7 +85,7 @@ class AppointmentSlot extends React.Component {
                                 </div>
                             </section>
 
-                        </div> : ""
+                        </div> : <Loader />
                 }
 
                 <button disabled={!this.props.selectedSlot.date} onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg">Select</button>

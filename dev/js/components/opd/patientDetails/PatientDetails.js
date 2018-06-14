@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import DoctorProfileCard from '../commons/doctorProfileCard'
-
+import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
 import ChoosePatient from './choosePatient'
 import PaymentForm from '../../commons/paymentForm'
@@ -142,7 +142,7 @@ class PatientDetails extends React.Component {
                                 </div>
                             </section>
 
-                        </div> : ""
+                        </div> : <Loader />
                 }
 
                 <PaymentForm paymentData={this.state.paymentData} />

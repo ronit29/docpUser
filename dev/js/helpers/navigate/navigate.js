@@ -12,6 +12,9 @@ const NAVIGATE = {
         }
     },
 
+    /**
+     * Check if the component is required to fetch new data from server, or just use the exisitng one. 
+     */
     refreshLabSearchResults: (props) => {
         let searchState = getLocationParam(props, 'search')
         searchState = JSON.parse(searchState)
@@ -21,7 +24,7 @@ const NAVIGATE = {
             return true
         }
 
-        let noResulsFound = props.labList.length == 0
+        let noResulsFound = props.labList.filter(x => props.LABS[x]) < 10
 
         if (props.history.action === 'PUSH' || noResulsFound) {
             return true
@@ -30,6 +33,9 @@ const NAVIGATE = {
         return false
     },
 
+    /**
+     * Check if the component is required to fetch new data from server, or just use the exisitng one. 
+     */
     refreshDoctorSearchResults: (props) => {
         let searchState = getLocationParam(props, 'search')
         searchState = JSON.parse(searchState)
@@ -39,7 +45,7 @@ const NAVIGATE = {
             return true
         }
 
-        let noResulsFound = props.doctorList.length == 0
+        let noResulsFound = props.doctorList.filter(x => props.DOCTORS[x]) < 10
 
         if (props.history.action === 'PUSH' || noResulsFound) {
             return true

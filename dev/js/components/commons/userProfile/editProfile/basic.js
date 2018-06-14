@@ -125,7 +125,7 @@ class BasicDetails extends React.Component {
                             aspectRatio={1 / 1}
                             cropBoxResizable={false}
                         />
-                        <a style={{ zIndex: 9999999 }} href="#" onClick={this.finishCrop.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center">Done</a>
+                        <a style={{ zIndex: 9999999 }} href="#" onClick={this.finishCrop.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center">Update Profile Image</a>
                     </div> : ""
                 }
             </section>

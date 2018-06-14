@@ -65,6 +65,7 @@ class TimeSlotSelector extends React.Component {
         let selectedSchedule = []
         if (this.state.selectedDay && this.state.selectedDay.actualDate) {
             let weekDayNumber = this.state.selectedDay.actualDate.getDay()
+            weekDayNumber = weekDayNumber == 0 ? 6 : weekDayNumber - 1
             selectedSchedule = this.props.timeSlots[weekDayNumber]
         }
 

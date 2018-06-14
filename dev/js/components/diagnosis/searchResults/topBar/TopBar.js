@@ -40,7 +40,7 @@ class TopBar extends React.Component {
 
     handleClose(type) {
         this.setState({ anchorEl: null, sortBy: type }, () => {
-            if(type){
+            if (type || type === "") {
                 this.applyFilters()
             }
         })
@@ -99,8 +99,8 @@ class TopBar extends React.Component {
                     open={Boolean(this.state.anchorEl)}
                     onClose={this.handleClose.bind(this, null)}
                 >
-                    <MenuItem onClick={this.handleClose.bind(this, 'name')}>Relavance</MenuItem>
-                    <MenuItem onClick={this.handleClose.bind(this, 'price')}>Fee</MenuItem>
+                    <MenuItem onClick={this.handleClose.bind(this, "")}>Relavance</MenuItem>
+                    <MenuItem onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
                     <MenuItem onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
                 </Menu>
 
