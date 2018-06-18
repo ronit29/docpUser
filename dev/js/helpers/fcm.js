@@ -8,17 +8,21 @@ let config = {
     storageBucket: "panacea-ondoc.appspot.com",
     messagingSenderId: "553214005281"
 }
+var messaging = null
 
-firebase.initializeApp(config)
-const messaging = firebase.messaging()
-messaging.usePublicVapidKey("BLx7NZrgK8dSjbUjycqyv0_KQfgnHj5_e108RsX9aD45q_3EOPtYbV32u7S5WbBW2eDodGmzaX5QlNWLQStt7bE");
+if (window.firebase) {
+    firebase.initializeApp(config)
+    messaging = firebase.messaging()
+    messaging.usePublicVapidKey("BLx7NZrgK8dSjbUjycqyv0_KQfgnHj5_e108RsX9aD45q_3EOPtYbV32u7S5WbBW2eDodGmzaX5QlNWLQStt7bE");
+}
+
 
 const FCM = (() => {
 
     let _initialized = false
 
     const init = () => {
-        if (!_initialized) {
+        if (!_initialized && messaging) {
             console.log(' ======== INITIALIZING FCM FOR PUSH NOTIFICATIONS ==========')
             messaging.requestPermission().then(function () {
                 messaging.getToken().then(function (currentToken) {

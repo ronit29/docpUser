@@ -6,6 +6,11 @@ const SOCKET = (() => {
     let _instance = null
 
     const init = (cb) => {
+        // DO NOT RUN THIS ON SERVER, == CLIENT ONLY ==
+        if(!window.io){
+            return;
+        }
+
         if (!_initialized || !_instance) {
             console.log(' ======== INITIALIZING SOCKET FOR IN-APP NOTIFICATIONS ==========')
 
