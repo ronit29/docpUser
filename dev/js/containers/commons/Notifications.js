@@ -4,15 +4,20 @@ import { connect } from 'react-redux';
 import { fetchNotifications } from '../../actions/index.js'
 
 import NotificationsView from '../../components/commons/Notifications/index.js'
-
+import STORAGE from '../../helpers/storage'
 
 class Notifications extends React.Component {
     constructor(props) {
         super(props)
+        if (!STORAGE.checkAuth()) {
+            this.props.history.replace(`/login?callback=/user`)
+        }
     }
 
     componentDidMount() {
-        this.props.fetchNotifications()
+        if (STORAGE.checkAuth()) {
+            this.props.fetchNotifications()
+        }
     }
 
     static contextTypes = {
