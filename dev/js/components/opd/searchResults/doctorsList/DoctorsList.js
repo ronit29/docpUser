@@ -24,7 +24,10 @@ class DoctorsList extends React.Component {
             this.setState({ renderBlock: false })
             setTimeout(() => {
                 if (window) {
-                    window.scrollTo(0, window.OPD_SCROLL_POS || 0)
+                    let scroll_pos = window.OPD_SCROLL_POS ? (window.OPD_SCROLL_POS - 700) : 0
+                    // TODO: improve scroll back logic
+                    window.scrollTo(0, scroll_pos || 0)
+                    window.OPD_SCROLL_POS = 0
                 }
             }, 100)
         }, 100)
