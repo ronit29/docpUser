@@ -3,8 +3,8 @@ import STORAGE from '../helpers/storage'
 import NAVIGATE from '../helpers/navigate'
 
 let axiosInstance = Axios.create({
-    baseURL: 'https://qa.panaceatechno.com',
-    // baseURL: 'http://10.0.28.32:8080',
+    // baseURL: 'https://qa.panaceatechno.com',
+    baseURL: 'http://10.0.28.32:8080',
     // baseURL: 'http://localhost:8080',
     header: {}
 });

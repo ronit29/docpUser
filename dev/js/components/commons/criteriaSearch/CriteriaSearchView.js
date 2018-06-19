@@ -1,5 +1,4 @@
 import React from 'react';
-import { lightBaseTheme } from 'material-ui/styles';
 import Loader from '../../commons/Loader'
 
 const debouncer = (fn, delay) => {

@@ -69,20 +69,20 @@ class UserSignupView extends React.Component {
         })
 
         if (addAddress) {
-            this.props.addUserAddress(this.state, (err, res) => {
-                if(!err){
-                    this.props.selectPickupAddress(res.id)
-                }
-                // go back
-                this.props.history.go(-1)
-            })
+            if (this.state.edit) {
+                this.props.updateUserAddress(this.state, (err, data) => {
+                    this.props.history.go(-1)
+                })
+            } else {
+                this.props.addUserAddress(this.state, (err, res) => {
+                    if (!err) {
+                        this.props.selectPickupAddress(res.id)
+                    }
+                    // go back
+                    this.props.history.go(-1)
+                })
+            }
         }
-    }
-
-    updateForm() {
-        this.props.updateUserAddress(this.state, (err, data) => {
-            this.props.history.go(-1)
-        })
     }
 
     render() {
@@ -158,7 +158,7 @@ class UserSignupView extends React.Component {
 
                 </section>
                 {
-                    this.state.edit ? <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg" onClick={this.updateForm.bind(this)}>Edit</button>
+                    this.state.edit ? <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg" onClick={this.submitForm.bind(this)}>Edit</button>
                         :
                         <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg" onClick={this.submitForm.bind(this)}>Add</button>
                 }

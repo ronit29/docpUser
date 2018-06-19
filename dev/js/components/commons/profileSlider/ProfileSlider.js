@@ -1,5 +1,4 @@
 import React from 'react';
-import EmotiIcon from 'material-ui-icons/AccountCircle';
 
 const GENDER = {
     "m": "Male",
@@ -31,7 +30,7 @@ class ProfileSlider extends React.Component {
                                 this.props.selectProfile(id)
                             }}>
                                 <div className="avtar avtar-md consumer-icon">
-                                    <img src="/assets/img/icons/drIcon.jpg" className="img-fluid img-round " />
+                                    <img src={ profiles[id].profile_image || "/assets/img/icons/drIcon.jpg" } className="img-fluid img-round " />
                                 </div>
                                 <div>
                                     <h4 className="title">{profiles[id].name}</h4>
