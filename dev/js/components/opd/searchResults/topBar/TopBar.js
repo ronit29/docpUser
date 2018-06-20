@@ -48,7 +48,7 @@ class TopBar extends React.Component {
             is_available: this.state.is_available,
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital
-        }    
+        }
         this.props.applyFilters(filterState)
         this.setState({ openFilter: false })
     }
@@ -89,6 +89,32 @@ class TopBar extends React.Component {
         }
     }
 
+    isFilterApplied() {
+        const def = {
+            priceRange: [100, 1500],
+            sits_at_clinic: false,
+            sits_at_hospital: false,
+            is_female: false,
+            is_available: false
+        }
+        try {
+            for (let filter in def) {
+                if (filter == 'priceRange') {
+                    if (def[filter][0] != this.state[filter][0] || def[filter][1] != this.state[filter][1]) {
+                        return true
+                    }
+                } else {
+                    if (def[filter] != this.state[filter]) {
+                        return true
+                    }
+                }
+            }
+            return false
+        } catch (e) {
+            return false
+        }
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -102,7 +128,11 @@ class TopBar extends React.Component {
                                 <div className="action-filter">
                                     <ul className="inline-list">
                                         <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src="/assets/img/customer-icons/range.svg" className="img-fluid" /></span></li>
-                                        <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src="/assets/img/customer-icons/filter.svg" className="img-fluid" /></span><span className="applied-filter-noti" /></li>
+                                        <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src="/assets/img/customer-icons/filter.svg" className="img-fluid" /></span>
+                                            {
+                                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
+                                            }
+                                        </li>
                                     </ul>
                                 </div>
                                 <div className="filter-title">
@@ -134,7 +164,7 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterRowShort">
                                     <span className="tl filterLabel">Available Today</span>
                                     <div className="filterInput">
-                                       <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                        <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +203,7 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterRowFemaleDoc">
                                     <span className="tl filterLabel">Female Doctor</span>
                                     <div className="filterInput">
-                                    <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                        <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
                                     </div>
 
                                 </div>

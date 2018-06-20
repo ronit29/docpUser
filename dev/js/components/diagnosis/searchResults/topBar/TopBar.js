@@ -70,6 +70,23 @@ class TopBar extends React.Component {
         }
     }
 
+    isFilterApplied() {
+        const def = {
+            priceRange: [100, 1500],
+            distanceRange: [1, 35]
+        }
+        try {
+            for (let filter in def) {
+                if (def[filter][0] != this.state[filter][0] || def[filter][1] != this.state[filter][1]) {
+                    return true
+                }
+            }
+            return false
+        } catch (e) {
+            return false
+        }
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -83,7 +100,11 @@ class TopBar extends React.Component {
                                 <div className="action-filter">
                                     <ul className="inline-list">
                                         <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src="/assets/img/customer-icons/range.svg" className="img-fluid" /></span></li>
-                                        <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src="/assets/img/customer-icons/filter.svg" className="img-fluid" /></span><span className="applied-filter-noti" /></li>
+                                        <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src="/assets/img/customer-icons/filter.svg" className="img-fluid" /></span>
+                                            {
+                                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
+                                            }
+                                        </li>
                                     </ul>
                                 </div>
                                 <div className="filter-title">
