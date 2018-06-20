@@ -23,7 +23,7 @@ class PickupAddress extends React.Component {
 
         return (
             <div className="lab-visit-time">
-                <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Pickup Address <span className="float-right"><a href="#" onClick={(e) => {
+                <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon"/></span>Pickup Address <span className="float-right"><a href="#" onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     this.setState({ selectorOpen: true })

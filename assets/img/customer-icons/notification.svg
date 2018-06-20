@@ -1,44 +1,14 @@
-<svg id="_-e-Group_12" data-name="-e-Group 12" xmlns="http://www.w3.org/2000/svg" width="28.625" height="28" viewBox="0 0 28.625 28">
-  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
-<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21        ">
-   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-      <rdf:Description rdf:about=""/>
-   </rdf:RDF>
-</x:xmpmeta>
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                           
-<?xpacket end="w"?></metadata>
-<defs>
-    <style>
-      .cls-1 {
-        fill: #fff;
-      }
-
-      .cls-2 {
-        fill: #00acc1;
-        fill-rule: evenodd;
-      }
-    </style>
-  </defs>
-  <ellipse id="_-e-Ellipse_1_copy" data-name="-e-Ellipse 1 copy" class="cls-1" cx="14.313" cy="14" rx="14.313" ry="14"/>
-  <path id="_-e-Forma_1" data-name="-e-Forma 1" class="cls-2" d="M378.147,103.821L377.031,102a5.32,5.32,0,0,1-.789-2.783v-1.6a4.475,4.475,0,0,0-3.252-4.267V92.212a1.3,1.3,0,0,0-2.6,0v1.142a4.474,4.474,0,0,0-3.252,4.267v1.6a5.322,5.322,0,0,1-.788,2.782l-1.116,1.822a0.309,0.309,0,0,0,0,.32,0.324,0.324,0,0,0,.282.162h12.359a0.328,0.328,0,0,0,.283-0.161A0.313,0.313,0,0,0,378.147,103.821Zm-8.507,1.118a2.285,2.285,0,0,0,4.1,0h-4.1Z" transform="translate(-357.375 -85)"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="_-e-Group_12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 28.6 28" style="enable-background:new 0 0 28.6 28;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#F78631;}
+</style>
+<ellipse id="_-e-Ellipse_1_copy" class="st0" cx="14.3" cy="14" rx="14.3" ry="14"/>
+<path id="_-e-Forma_1" class="st1" d="M20.8,18.8L19.7,17c-0.5-0.8-0.8-1.8-0.8-2.8v-1.6c0-2-1.3-3.7-3.3-4.3V7.2
+	c0-0.7-0.6-1.3-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3l0,0v1.1c-1.9,0.5-3.2,2.3-3.3,4.3v1.6c0,1-0.3,1.9-0.8,2.8l-1.1,1.8
+	c-0.1,0.1-0.1,0.2,0,0.3c0.1,0.1,0.2,0.2,0.3,0.2h12.4c0.1,0,0.2-0.1,0.3-0.2C20.8,19,20.8,18.9,20.8,18.8z M12.3,19.9
+	c0.6,1.1,1.9,1.6,3.1,1c0.5-0.2,0.8-0.6,1-1H12.3z"/>
 </svg>

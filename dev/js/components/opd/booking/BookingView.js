@@ -210,7 +210,7 @@ class BookingView extends React.Component {
                                     <div className="widget mrb-10">
                                         <div className="widget-content">
                                             <div>
-                                                <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>Clinic Visit Time
+                                                <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/customer-icons/clock.svg" /></span>Clinic Visit Time
 
                                                     {
                                                         actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
@@ -224,7 +224,7 @@ class BookingView extends React.Component {
                                     <div className="widget mrt-10">
                                         <div className="widget-content">
                                             <div className="test-report">
-                                                <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Patient Details</h4>
+                                                <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/customer-icons/test.svg" /></span>Patient Details</h4>
                                                 <p className="test-list fw-500">{profile.name}</p>
                                                 <p className="test-list fw-500">{profile.phone_number}</p>
                                                 <p className="test-list fw-500">{profile.email}</p>

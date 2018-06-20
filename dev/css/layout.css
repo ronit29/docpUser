@@ -8,7 +8,7 @@
 */
 
 /*	Colors Swatch
-    primary : #00acc1;
+    primary : #f78631;
 */
 
 /*======================
@@ -107,7 +107,7 @@ footer{}
 	Skin Color
 =======================*/
 .skin-default{background-color: #f7f7f7}
-.skin-primary{background-color: #00acc1}
+.skin-primary{background-color: #f78631}
 .skin-secondary{background-color: #006f7e}
 .skin-warning{background-color: #ff9800}
 .skin-danger{background-color: #d8262d}
@@ -118,7 +118,7 @@ footer{}
 .skin-transparent{background-color: transparent}
 
 .text-default{color:#607d8b!important }
-.text-primary{color: #00acc1!important}
+.text-primary{color: #f78631!important}
 .text-secondary{color: #006f7e!important}
 .text-warning{color: #ff9800!important}
 .text-danger{color: #d8262d!important}
@@ -139,11 +139,11 @@ input::placeholder { color: rgba(0, 0, 0, 0.5); font-weight: 500; font-style: no
 .form-group{margin-bottom: 13px;}
 
 .fc-input{width: 100%; background-color: #fff; padding: 5px; height: 40px; font-weight: 500; font-size: 14px; border: solid 1px rgba(0, 0, 0, 0.2); border-radius: 5px; outline: none !important;}
-.fc-input:focus{border-color: #00acc1; border-radius: 5px;}
-.fc-input.error-outline{border-color:#ff3d00}
+.fc-input:focus{border-color: #f78631; border-radius: 5px;}
+.fc-input.error-outline{border:1px solid #ff3d00}
 
 .fc-input.input-line{border: 0; border-radius: 0; border-bottom: 1px solid rgba(0, 0, 0, 0.2);}
-.fc-input.input-xs{height: 20px;}
+.fc-input.input-xs{height: 20px; padding: 0;}
 
 .input-icon{width: 35px; height: 40px; padding: 10px 8px;}
 
@@ -199,14 +199,16 @@ input::placeholder { color: rgba(0, 0, 0, 0.5); font-weight: 500; font-style: no
 .v-btn-default.outline:hover{background-color: #ddd;  color: #666;}
 
 /*primary*/
-.v-btn-primary{background-color: #00adc2; color: #fff;}
+.v-btn-primary{background-color: #f78631; color: #fff;}
 .v-btn-primary.active,
 .v-btn-primary:focus,
-.v-btn-primary:hover{background-color: #00a5b9;  color: #fff;}
+.v-btn-primary:hover{background-color: #f78631;  color: #fff;}
 .v-btn-primary.disabled{background-color: #bbb;}
 
-.v-btn-primary.outline{background-color: transparent; color: #00a5b9; border-color:#00a5b9;}
-
+.v-btn-primary.outline{background-color: transparent; color: #f78631; border-color:#f78631;}
+.v-btn-primary.outline.active,
+.v-btn-primary.outline:focus,
+.v-btn-primary.outline:hover{background-color: #f78631;  color: #fff;}
 
 /*secondary*/
 .v-btn-secondary{background-color: #eee; color: #888;}
@@ -347,8 +349,8 @@ ul.inline-list li{ display: inline-block;}
 fonts & text
 =======================*/
 /*link*/
-.link-text{color: #00acc1; }
-.link-text:hover{color: #00acc1;}
+.link-text{color: #f78631; }
+.link-text:hover{color: #f78631;}
 
 /*text size*/
 .text-xs{font-size: 12px;}
@@ -599,7 +601,7 @@ form .labelWrap input:focus + label {
   box-shadow: 0 0 5px 0 white;
   width: auto;
   padding: 0 5px;
-  color: #00acc1;
+  color: #f78631;
 }
 form .labelWrap input:valid {
   color: #555;
@@ -617,7 +619,7 @@ form .labelWrap input:valid + label {
   box-shadow: 0 0 5px 0 white;
   width: auto;
   padding: 0 5px;
-  color: #00acc1;
+  color: #f78631;
   font-weight: bold;
 }
 
@@ -637,7 +639,7 @@ form .labelWrap input:valid + label {
 .checkmark.circle{border-radius: 50%;}
 
 .ck-bx:hover input ~ .checkmark { background-color: #ccc;}
-.ck-bx input:checked ~ .checkmark { background-color: #2196F3;}
+.ck-bx input:checked ~ .checkmark { background-color: #f78631;}
 
 .checkmark:after { content: ""; position: absolute; display: none;}
 .ck-bx input:checked ~ .checkmark:after { display: block;}

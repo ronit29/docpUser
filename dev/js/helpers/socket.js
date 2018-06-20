@@ -1,4 +1,6 @@
 import { API_GET } from '../api/api'
+import CONFIG from '../config'
+import io from 'socket.io-client';
 
 const SOCKET = (() => {
 
@@ -6,18 +8,14 @@ const SOCKET = (() => {
     let _instance = null
 
     const init = (cb) => {
-        // DO NOT RUN THIS ON SERVER, == CLIENT ONLY ==
-        if(!window.io){
-            return;
-        }
-
+        
         if (!_initialized || !_instance) {
             console.log(' ======== INITIALIZING SOCKET FOR IN-APP NOTIFICATIONS ==========')
 
             //Fetch userid with auth token to create a seperate room
             API_GET("/api/v1/user/userid").then((data) => {
-                const socket = io("https://qa.panaceatechno.com", {
-                    path: '/io',
+                const socket = io(CONFIG.SOCKET_BASE_URL, {
+                    path: CONFIG.SOCKET_BASE_PATH,
                     query: {
                         userId: data.user_id
                     }

@@ -4,12 +4,18 @@ import Routes from './routes.js'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
+
+require('../css/carousel.css')
 require('../css/normalize.css')
 require('../css/layout.css')
 require('../css/custom.css')
 require('../css/customer.css')
 require('../css/responsive.css')
+// require('../css/online-consultation.css')
+// require('../css/payment_screen.css')
+// require('../css/profile.css')
 require('../css/more.css')
+
 import 'rc-slider/assets/index.css';
 import 'node-snackbar/dist/snackbar.min.css'
 import 'cropperjs/dist/cropper.css';

@@ -1,11 +1,12 @@
 import Axios from 'axios'
 import STORAGE from '../helpers/storage'
 import NAVIGATE from '../helpers/navigate'
+import CONFIG from '../config'
+
+export const base_url = CONFIG.API_BASE_URL;
 
 let axiosInstance = Axios.create({
-    // baseURL: 'https://qa.docprime.com',
-    // baseURL: 'http://10.0.28.32:8080',
-    baseURL: 'http://localhost:8080',
+    baseURL: base_url,
     header: {}
 });
 

@@ -42,7 +42,7 @@ class PatientDetails extends React.Component {
                         let form = document.getElementById('paymentForm')
                         form.submit()
                     }, 500)
-                    
+
                     setTimeout(() => {
                         this.setState({ loading: false })
                     }, 5000)
@@ -127,7 +127,7 @@ class PatientDetails extends React.Component {
                                                 <div className="widget-content">
 
                                                     <div className="lab-visit-time">
-                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</a></span></h4>
+                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</a></span></h4>
                                                         <p className="date-time">{hospital.address}</p>
                                                     </div>
 

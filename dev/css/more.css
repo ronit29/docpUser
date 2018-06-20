@@ -1,5 +1,5 @@
 .v-btn.v-btn-primary.tag-sm.outline.selected{
-    background-color: #00a5b9;
+    background-color: #f78631;
     color: white;
 }
 
@@ -15,7 +15,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    color: #59afc3;
+    color: #f78631;
     font-weight: bold;
     font-size: 14px;
 }
@@ -24,7 +24,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    color: #59afc3;
+    color: #f78631;
     font-weight: bold;
     font-size: 14px;
 }
@@ -95,7 +95,7 @@
     height: 25px;
     width: 25px;
     background-color: white;
-    border: #59afc3;
+    border: #f78631;
     float: left;
 }
 
@@ -281,7 +281,7 @@ ul.inline-list li {
   margin-top: -10px;
 }
 .resendOtp{
-    color: #59afc3 !important;
+    color: #f78631 !important;
     font-weight: bold;
     margin-top: 10px;
     float: left;

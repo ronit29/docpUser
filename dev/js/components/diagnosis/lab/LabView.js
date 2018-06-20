@@ -34,7 +34,6 @@ class LabView extends React.Component {
                                                 <img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" />
                                             </span>
                                         </li>
-                                        <li><div className="screen-title">Results</div></li>
                                     </ul>
                                 </div>
                             </div>

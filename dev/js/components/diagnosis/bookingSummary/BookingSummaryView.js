@@ -166,7 +166,7 @@ class BookingSummaryView extends React.Component {
                                                     </div>
 
                                                     <div className="lab-visit-time test-report">
-                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Appointment type </h4>
+                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" class="visit-time-icon"/></span>Appointment type </h4>
                                                         <ul className="inline-list booking-type">
                                                             <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
                                                             <li><label className="radio-inline text-md fw-700 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
@@ -175,7 +175,7 @@ class BookingSummaryView extends React.Component {
                                                     </div>
 
                                                     <div className="lab-visit-time test-report">
-                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" /></span>Tests <span className="float-right"><a onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
+                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" class="visit-time-icon"/></span>Tests <span className="float-right"><a onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
                                                         {tests}
                                                     </div>
 
