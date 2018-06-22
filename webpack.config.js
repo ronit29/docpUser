@@ -6,19 +6,37 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const clientConfig = {
-    entry: {
-        'index': ['babel-polyfill', './dev/js/index.js']
-    },
+const client_dev = {
     mode: 'development',
     devtool: 'inline-source-map',
     plugins: [
-        // new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(['dist']),
         new MiniCssExtractPlugin({
             filename: "style.css",
-        })
-    ],
+        }),
+        new webpack.DefinePlugin({
+            "DOCPRIME_PRODUCTION": false
+        }),
+    ]
+}
+
+const client_prod = {
+    mode: 'production',
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new MiniCssExtractPlugin({
+            filename: "style.css",
+        }),
+        new webpack.DefinePlugin({
+            "DOCPRIME_PRODUCTION": true
+        }),
+    ]
+}
+
+const client_base = {
+    entry: {
+        'index': ['babel-polyfill', './dev/js/index.js']
+    },
 
     optimization: {
         splitChunks: {
@@ -114,4 +132,11 @@ const serverConfig = {
 
 
 
-module.exports = [serverConfig, clientConfig]
+module.exports = env => {
+    console.log(process.env.NODE_ENV)
+    let clientConfig = { ...client_base, ...client_dev }
+    if((env && env.production) || process.env.NODE_ENV == 'production'){
+        clientConfig = { ...client_base, ...client_prod }
+    }
+    return [serverConfig, clientConfig]
+}

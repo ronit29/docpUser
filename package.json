@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "client": "webpack --progress --watch",
-    "build-dev": "webpack --progress && node server.js"
+    "build-dev": "webpack --progress",
+    "build-prod": "webpack --env.production --progress"
   },
   "repository": {
     "type": "git",
