@@ -26,7 +26,8 @@ class UserSignupView extends React.Component {
             email: '',
             phone_number: this.props.phoneNumber || '',
             existingUser,
-            showMedical: false
+            showMedical: false,
+            err: ""
         }
     }
 
@@ -73,6 +74,8 @@ class UserSignupView extends React.Component {
             this.props.createProfile(this.state, (err, res) => {
                 if (!err) {
                     this.setState({ showMedical: true })
+                } else {
+                    this.setState({ err: "Error signing up user." })
                 }
             })
         }
@@ -170,8 +173,10 @@ class UserSignupView extends React.Component {
 
 
                 </section>
-
+                
+                <span className="errorMessage">{this.state.err}</span>
                 <span className="errorMessage">{this.props.error_message}</span>
+                
                 {
                     this.state.showMedical ?
                         <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Done</button>
