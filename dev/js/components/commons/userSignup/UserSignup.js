@@ -40,12 +40,20 @@ class UserSignupView extends React.Component {
         Object.keys(this.refs).forEach((prp, i) => {
             let validated = false
             switch (this.refs[prp].name) {
+                case "name": {
+                    validated = !/[^a-zA-Z0-9 ]/.test(this.refs[prp].value)
+                    break
+                }
                 case "phone_number": {
                     validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
                     break
                 }
                 case "email": {
                     validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
+                    break
+                }
+                case "age": {
+                    validated = this.refs[prp].value > 0
                     break
                 }
                 default: {
