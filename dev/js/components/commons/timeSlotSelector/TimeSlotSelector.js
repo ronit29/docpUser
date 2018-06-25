@@ -35,7 +35,6 @@ class TimeSlotSelector extends React.Component {
                 month: MONTHS[offsetDay.getMonth()]
             })
         }
-
         this.setState({
             timeSeries: days,
             selectedDay: days[0],
@@ -45,19 +44,27 @@ class TimeSlotSelector extends React.Component {
 
     selectDay(day) {
         this.setState({ selectedDay: day })
-        this.props.selectTimeSlot({ time: {} })
+        let slot = { time: {} }
+        slot.month = this.state.selectedMonth
+        this.props.selectTimeSlot(slot)
     }
 
     selectMonth(month, e) {
         e.stopPropagation()
-        this.setState({ selectedMonth: month })
-        this.props.selectTimeSlot({ time: {} })
+        this.setState({ selectedMonth: month }, () => {
+            let slot = { time: {} }
+            slot.month = this.state.selectedMonth
+            // debugger
+            this.props.selectTimeSlot(slot)
+        })
+
     }
 
     selectSlot(slot, e) {
         e.stopPropagation()
         e.preventDefault()
         slot.date = this.state.selectedDay.actualDate
+        slot.month = this.state.selectedMonth
         this.props.selectTimeSlot(slot)
     }
 
@@ -72,24 +79,29 @@ class TimeSlotSelector extends React.Component {
         // let monthNum = (new Date).getMonth()
         let thisMonth = MONTHS[(new Date).getMonth()]
         let nextMonth = MONTHS[(new Date).getMonth() + 1]
+        let selctedDate = this.props.selectedSlot.date || this.state.selectedDay.actualDate
+        selctedDate = selctedDate ? new Date(selctedDate).toDateString() : null
 
+        let selectedMonth = this.props.selectedSlot.month || this.state.selectedMonth
+        // debugger
         return (
             <div>
                 <div className="widget no-shadow no-round skin-transparent">
                     <div className="widget-content">
                         <div className="add-new-time mrb-10">
                             <h4 className="text-md fw-700 mrb-10">Select Date &amp; Time:
-                            <span onClick={this.selectMonth.bind(this, thisMonth)} className={"float-right text-md fw-700 text-" + (thisMonth === this.state.selectedMonth ? "primary" : "light")}>{thisMonth}
-                                    <span onClick={this.selectMonth.bind(this, nextMonth)} className={"text-" + (nextMonth === this.state.selectedMonth ? "primary" : "light")}>{nextMonth}</span></span></h4>
+                            <span onClick={this.selectMonth.bind(this, thisMonth)} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
+                                    <span onClick={this.selectMonth.bind(this, nextMonth)} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}>{nextMonth}</span></span></h4>
                             <div className="choose-time">
                                 <ul className="inline-list datetime-items">
 
                                     {
                                         this.state.timeSeries.filter((ts) => {
-                                            return ts.month === this.state.selectedMonth
+                                            return ts.month === selectedMonth
                                         }).map((ts, i) => {
+                                            let curr_date = new Date(ts.actualDate).toDateString()
                                             return <li
-                                                className={this.state.selectedDay == ts ? 'active' : ""}
+                                                className={selctedDate == curr_date ? 'active' : ""}
                                                 key={i}
                                                 onClick={this.selectDay.bind(this, ts)}
                                             >

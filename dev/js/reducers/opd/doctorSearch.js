@@ -44,14 +44,17 @@ export default function (state = defaultState, action) {
         }
 
         case SELECT_OPD_TIME_SLOT: {
-            let newState = { ...state }
-            
-            if(action.payload.reschedule){
-                newState.rescheduleSlot = action.payload.slot
+            let newState = {
+                ...state,
+                selectedSlot: { ...state.selectedSlot },
+                rescheduleSlot: { ...state.rescheduleSlot }
             }
-            newState.selectedSlot = action.payload.slot
-            
 
+            if (action.payload.reschedule) {
+                newState.rescheduleSlot = { ...action.payload.slot }
+            }
+            newState.selectedSlot = { ...action.payload.slot }
+            
             return newState
         }
 

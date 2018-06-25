@@ -95,6 +95,11 @@ const serverConfig = {
     entry: './index.js',
     mode: 'development',
     devtool: 'inline-source-map',
+    plugins: [
+        new webpack.DefinePlugin({
+            "DOCPRIME_PRODUCTION": process.env.NODE_ENV == 'production'
+        }),
+    ],
     output: {
         path: __dirname,
         filename: 'server.js',
@@ -135,7 +140,7 @@ const serverConfig = {
 module.exports = env => {
     console.log(process.env.NODE_ENV)
     let clientConfig = { ...client_base, ...client_dev }
-    if((env && env.production) || process.env.NODE_ENV == 'production'){
+    if ((env && env.production) || process.env.NODE_ENV == 'production') {
         clientConfig = { ...client_base, ...client_prod }
     }
     return [serverConfig, clientConfig]

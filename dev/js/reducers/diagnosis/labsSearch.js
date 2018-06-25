@@ -46,13 +46,17 @@ export default function (state = defaultState, action) {
         }
 
         case SELECT_LAB_TIME_SLOT: {
-            let newState = { ...state }
+            let newState = {
+                ...state,
+                selectedSlot: { ...state.selectedSlot },
+                rescheduleSlot: { ...state.rescheduleSlot }
+            }
 
             if (action.payload.reschedule) {
-                newState.rescheduleSlot = action.payload.slot
+                newState.rescheduleSlot = { ...action.payload.slot }
             }
-            newState.selectedSlot = action.payload.slot
-            
+            newState.selectedSlot = { ...action.payload.slot }
+
 
             return newState
         }
