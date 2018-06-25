@@ -1,7 +1,7 @@
 {
-    "short_name": "OnDocApp",
-    "name": "OnDoc Customer App",
+    "short_name": "DocPrime",
+    "name": "DocPrime Customer App",
     "display": "standalone",
-    "theme_color": "#58adc2",
+    "theme_color": "#f78631",
     "gcm_sender_id": "103953800507"
 }
