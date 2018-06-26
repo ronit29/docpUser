@@ -118,6 +118,9 @@ class TimeSlotSelector extends React.Component {
                 <div className="widget">
                     <div className="widget-content">
                         {
+                            selectedSchedule.length == 0 ? <p style={{textAlign:'center'}}>Not available on this day.</p> : ""
+                        }
+                        {
                             selectedSchedule.map((schedule, i) => {
                                 return <div key={i}>
                                     <h4 className="report-on mrb-10">{schedule.title}</h4>

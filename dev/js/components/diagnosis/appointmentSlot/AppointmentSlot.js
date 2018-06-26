@@ -10,7 +10,8 @@ class AppointmentSlot extends React.Component {
         this.state = {
             selectedLab: this.props.match.params.id,
             reschedule: this.props.location.search.includes('reschedule'),
-            timeSlots: null
+            timeSlots: null,
+            goback: this.props.location.search.includes('goback'),
         }
     }
 
@@ -19,10 +20,14 @@ class AppointmentSlot extends React.Component {
         e.stopPropagation()
         // in case of reschedule go back , else push
         if(this.state.reschedule){
-            this.props.history.go(-1)
+            return this.props.history.go(-1)
+        }
+        // go back for goback
+        if(this.state.goback){
+            return this.props.history.go(-1)
         }
         if (this.props.selectedSlot.date) {
-            this.props.history.push(`/lab/${this.state.selectedLab}/book`)
+            return this.props.history.push(`/lab/${this.state.selectedLab}/book`)
         }
     }
 
@@ -34,7 +39,7 @@ class AppointmentSlot extends React.Component {
         let selectedLab = this.props.match.params.id
 
         this.props.getLabTimeSlots(selectedLab, 1, (timeSlots) => {
-            this.setState({ timeSlots: timeSlots.timeslots })
+            this.setState({ timeSlots: timeSlots })
         })
 
     }

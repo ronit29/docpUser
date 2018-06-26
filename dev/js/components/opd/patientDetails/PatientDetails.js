@@ -56,7 +56,7 @@ class PatientDetails extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book`)
+                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true`)
                 return
             }
 

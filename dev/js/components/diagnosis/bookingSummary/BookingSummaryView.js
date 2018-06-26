@@ -29,7 +29,7 @@ class BookingSummaryView extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}`)
+                this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true`)
                 return
             }
 
@@ -119,7 +119,7 @@ class BookingSummaryView extends React.Component {
                         price = twp.mrp
                     }
                 })
-                finalPrice += price
+                finalPrice += parseFloat(price)
                 return <p key={i} className="test-list">{test.name}<span className="float-right fw-700">Rs. {price}</span></p>
             })
         }

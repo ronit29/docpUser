@@ -19,11 +19,11 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { name, experience_years, qualifications } = this.props.details
+        let { name, experience_years, qualifications, thumbnail } = this.props.details
 
         return (
             <div className="widget-header dr-qucik-info">
-                <img src="/assets/img/customer-icons/user.png" className="img-fluid" />
+                <img src={thumbnail} className="img-fluid" />
                 <div className="dr-profile">
                     <h4 className="dr-name">{name}</h4>
                     <p className="desg">{this.getQualificationStr(qualifications)}</p>
