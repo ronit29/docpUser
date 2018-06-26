@@ -11,7 +11,7 @@ class LabProfileCard extends React.Component {
 
     render() {
 
-        let { price, lab } = this.props.details
+        let { price, lab, distance, pickup_available } = this.props.details
 
         return (
             <div className="widget card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
@@ -25,11 +25,13 @@ class LabProfileCard extends React.Component {
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/half-star.svg" className="img-fluid" /></span></li>
                         </ul>
-                        <button className="v-btn v-btn-primary pickup-btn">Pickup Available</button>
+                        {
+                            pickup_available == 0 ? "" : <button className="v-btn v-btn-primary pickup-btn">Pickup Available</button>
+                        }
                     </div>
                     <div className="book-card-content">
                         <h4 className="book-cart-title">{lab.name}</h4>
-                        <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI {lab.locality} {lab.city} | <span className="text-primary fw-700">1.5 KM</span></p>
+                        <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI {lab.locality} {lab.city} | <span className="text-primary fw-700">{distance / 1000} KM</span></p>
                     </div>
                 </div>
                 <div className="widget-footer card-footer">
