@@ -90,7 +90,9 @@ class UserSignupView extends React.Component {
                         <div className="row">
                             <div className="col-2">
                                 <ul className="inline-list">
-                                    <li><span className="icon icon-sm text-middle back-icon-white"></span></li>
+                                    <li onClick={() => {
+                                        this.props.history.go(-1)
+                                    }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
                                 </ul>
                             </div>
                             <div className="col-8">
@@ -173,10 +175,10 @@ class UserSignupView extends React.Component {
 
 
                 </section>
-                
+
                 <span className="errorMessage">{this.state.err}</span>
                 <span className="errorMessage">{this.props.error_message}</span>
-                
+
                 {
                     this.state.showMedical ?
                         <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg">Done</button>
