@@ -12,17 +12,25 @@ class AboutDoctor extends React.Component {
     }
 
     componentDidMount() {
-        let { about } = this.props.details
+        this.renderAbout(this.props)
+    }
 
-        if (about && about.length > 100) {
+    componentWillReceiveProps(props) {
+        this.renderAbout(props)
+    }
+
+    renderAbout(props) {
+        let { about } = props.details
+        if (about) {
+            if (about.length > 100) {
+                this.setState({
+                    readMore: true
+                })
+            }
             this.setState({
-                readMore: true
+                lessAbout: about.slice(0, 100)
             })
         }
-
-        this.setState({
-            lessAbout: about.slice(0, 100)
-        })
     }
 
     render() {

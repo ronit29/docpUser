@@ -57,6 +57,14 @@ export const editUserProfile = (profileData, profileId, cb) => (dispatch) => {
 	})
 }
 
+export const editUserProfileImage = (profileData, profileId, cb) => (dispatch) => {
+	API_POST(`/api/v1/user/userprofile/${profileId}/upload`, profileData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
 export const getUserAddress = () => (dispatch) => {
 	API_GET(`/api/v1/user/address`).then(function (response) {
 		dispatch({

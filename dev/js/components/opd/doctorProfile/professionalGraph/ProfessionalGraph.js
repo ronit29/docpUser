@@ -61,7 +61,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            languages.length ? <Widget
+                            languages && languages.length ? <Widget
                                 heading={"Language"}
                                 contentList={[
                                     {
@@ -75,7 +75,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            awards.length ? <Widget
+                            awards && awards.length ? <Widget
                                 heading={"Awards"}
                                 contentList={
                                     awards.map((award) => {
@@ -86,7 +86,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            associations.length ? <Widget
+                            associations && associations.length ? <Widget
                                 heading={"Associate Membership"}
                                 contentList={
                                     associations.map((association) => {
@@ -97,7 +97,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            experiences.length ? <Widget
+                            experiences && experiences.length ? <Widget
                                 heading={"Experience"}
                                 contentList={
                                     experiences.map((experience) => {
@@ -108,7 +108,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            medical_services.length ? <Widget
+                            medical_services && medical_services.length ? <Widget
                                 heading={"Subscribed Services"}
                                 contentList={
                                     medical_services.map((service) => {

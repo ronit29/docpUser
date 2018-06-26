@@ -23,7 +23,7 @@ class CriteriaSearchView extends React.Component {
     }
 
     componentDidMount() {
-        this.getSearchResults = debouncer(this.getSearchResults.bind(this), 1000)
+        this.getSearchResults = debouncer(this.getSearchResults.bind(this), 500)
         let input = document.getElementById('topCriteriaSearch')
         // input.focus()
     }
@@ -37,7 +37,14 @@ class CriteriaSearchView extends React.Component {
         this.setState({ loading: true })
 
         if (this.props.type == 'opd') {
-
+            this.props.getOPDCriteriaResults(this.state.searchValue, (searchResults) => {
+                if (searchResults) {
+                    searchResults.conditions = searchResults.conditions.map(x => { return { ...x, type: 'condition' } })
+                    searchResults.specializations = searchResults.specializations.map(x => { return { ...x, type: 'speciality' } })
+                    let results = [...searchResults.conditions, ...searchResults.specializations]
+                    this.setState({ searchResults: [...results], loading: false })
+                }
+            })
         } else {
             this.props.getDiagnosisCriteriaResults(this.state.searchValue, (searchResults) => {
                 if (searchResults) {
@@ -50,7 +57,8 @@ class CriteriaSearchView extends React.Component {
 
     addCriteria(criteria) {
         if (this.props.type == 'opd') {
-
+            this.props.toggleOPDCriteria(criteria.type, criteria)
+            this.setState({ searchValue: "" })
         } else {
             this.props.toggleDiagnosisCriteria(criteria.type, criteria)
             this.setState({ searchValue: "" })

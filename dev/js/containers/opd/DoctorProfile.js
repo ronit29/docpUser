@@ -33,7 +33,7 @@ class DoctorProfile extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTORS
-
+    
     return {
         DOCTORS
     }

@@ -43,7 +43,7 @@ export const selectLocation = (location) => (dispatch) => {
 
 export const getOPDCriteriaResults = (searchString, callback) => (dispatch) => {
     
-    API_GET(`/api/v1/diagnostic/test?name=${searchString}`).then(function (response) {
+    API_GET(`/api/v1/doctor/searcheditems?name=${searchString}`).then(function (response) {
         callback(response)
     }).catch(function (error) {
         callback(null)

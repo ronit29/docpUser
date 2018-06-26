@@ -11,7 +11,7 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
 
             return action.payload.reduce((doctorMap, doctor) => {
-                doctorMap[doctor.id] = doctor
+                doctorMap[doctor.id] = { ...doctor }
                 return doctorMap
             },newState)
 

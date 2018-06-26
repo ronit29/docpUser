@@ -43,7 +43,7 @@ class BasicDetails extends React.Component {
             document.getElementById('imageFilePicker').value = ""
             let form_data = new FormData()
             form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
-            this.props.editUserProfile(form_data, this.props.profileData.id, (err, data) => {
+            this.props.editUserProfileImage(form_data, this.props.profileData.id, (err, data) => {
                 this.props.history.go(-1)
             })
         })
