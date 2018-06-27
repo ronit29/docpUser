@@ -36,6 +36,7 @@ class UserSignupView extends React.Component {
     }
 
     submitForm() {
+        this.setState({ err: "" })
         // validate
         let register = true
         Object.keys(this.refs).forEach((prp, i) => {
