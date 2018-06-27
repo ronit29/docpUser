@@ -16,6 +16,7 @@ import UserLogin from './containers/commons/UserLogin'
 import Notifications from './containers/commons/Notifications'
 import DoctorChat from './containers/commons/Chat.js'
 import Home from './containers/commons/Home'
+import Wallet from './containers/commons/Wallet'
 
 import Booking_LAB from './containers/diagnosis/Booking.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
@@ -24,8 +25,6 @@ import Lab from './containers/diagnosis/Lab.js'
 import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
 import TestSelector from './containers/diagnosis/TestSelector'
 import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
-
-
 
 
 const routes = [
@@ -38,7 +37,7 @@ const routes = [
     { path: '/login', exact: true, component: UserLogin },
     { path: '/signup', exact: true, component: UserSignup },
     { path: '/addprofile', exact: true, component: UserSignup },
-
+    { path: '/wallet', exact: true, component: Wallet },
 
     { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults },

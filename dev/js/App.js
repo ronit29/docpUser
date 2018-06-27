@@ -13,7 +13,8 @@ require('../css/customer.css')
 require('../css/responsive.css')
 // require('../css/online-consultation.css')
 // require('../css/payment_screen.css')
-// require('../css/profile.css')
+require('../css/profile.css')
+require('../css/wallet_refund.css')
 require('../css/more.css')
 
 import 'rc-slider/assets/index.css';
