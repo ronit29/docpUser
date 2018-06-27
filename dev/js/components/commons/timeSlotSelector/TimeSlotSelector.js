@@ -35,10 +35,16 @@ class TimeSlotSelector extends React.Component {
                 month: MONTHS[offsetDay.getMonth()]
             })
         }
+
+        let foundTs = this.getAvailableTS(days, null)
         this.setState({
             timeSeries: days,
-            selectedDay: days[0],
-            selectedMonth: days[0].month
+            selectedDay: foundTs,
+            selectedMonth: foundTs.month
+        }, () => {
+            let slot = { time: {} }
+            slot.month = foundTs.month
+            this.props.selectTimeSlot(slot)
         })
     }
 
@@ -51,10 +57,11 @@ class TimeSlotSelector extends React.Component {
 
     selectMonth(month, e) {
         e.stopPropagation()
-        this.setState({ selectedMonth: month }, () => {
+
+        let foundTs = this.getAvailableTS(this.state.timeSeries, month)
+        this.setState({ selectedMonth: month, selectedDay: foundTs }, () => {
             let slot = { time: {} }
             slot.month = this.state.selectedMonth
-            // debugger
             this.props.selectTimeSlot(slot)
         })
 
@@ -66,6 +73,24 @@ class TimeSlotSelector extends React.Component {
         slot.date = this.state.selectedDay.actualDate
         slot.month = this.state.selectedMonth
         this.props.selectTimeSlot(slot)
+    }
+
+    getAvailableTS(allSlots, month) {
+        let selectedSchedule = []
+        let foundTs = ""
+
+        for (let ts of allSlots) {
+            if (ts && ts.actualDate && (ts.month == month || month == null)) {
+                let weekDayNumber = ts.actualDate.getDay()
+                weekDayNumber = weekDayNumber == 0 ? 6 : weekDayNumber - 1
+                selectedSchedule = this.props.timeSlots[weekDayNumber]
+            }
+            if (selectedSchedule && selectedSchedule.length) {
+                foundTs = ts
+                break
+            }
+        }
+        return foundTs
     }
 
     render() {
@@ -118,7 +143,7 @@ class TimeSlotSelector extends React.Component {
                 <div className="widget">
                     <div className="widget-content">
                         {
-                            selectedSchedule.length == 0 ? <p style={{textAlign:'center'}}>Not available on this day.</p> : ""
+                            selectedSchedule.length == 0 ? <p style={{ textAlign: 'center' }}>Not available on this day.</p> : ""
                         }
                         {
                             selectedSchedule.map((schedule, i) => {
