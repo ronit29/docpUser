@@ -336,3 +336,11 @@ ul.inline-list li {
     font-size: 10px;
     font-weight: bold;
 }
+
+.selectedSymp{
+    background-color: #ea068c !important;
+}
+
+.selectedSympP{
+    color: white !important;
+}

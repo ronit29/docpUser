@@ -9,6 +9,12 @@ class SearchCriteriaView extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     searchProceed() {
         let searchData = {
             selectedCriterias: this.props.selectedCriterias,

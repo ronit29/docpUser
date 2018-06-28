@@ -24,7 +24,7 @@ class Home extends React.Component {
     render() {
 
         return (
-            <HomeView {...this.props} />
+            <HomeView {...this.props}/>
         );
     }
 }

@@ -21,8 +21,12 @@ class Booking extends React.Component {
 const mapStateToProps = (state) => {
     let { rescheduleSlot } = state.LAB_SEARCH
 
+    let {
+        newNotification, notifications
+    } = state.USER
+
     return {
-        rescheduleSlot
+        rescheduleSlot, newNotification, notifications
     }
 }
 

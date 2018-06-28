@@ -44,7 +44,7 @@ class SearchResultsView extends React.Component {
 
             // if location found in store , use that instead of the one in URL
             if (selectedLocation) {
-                
+
                 // if location is changed then update url with new locatiobs
                 if (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id) {
                     searchState.selectedLocation = selectedLocation
@@ -52,7 +52,7 @@ class SearchResultsView extends React.Component {
                     let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
                     this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}`)
                 }
-                
+
             }
 
             this.getDoctorList(searchState, filterCriteria, true)
@@ -72,6 +72,11 @@ class SearchResultsView extends React.Component {
         this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}`)
 
         this.getDoctorList(searchState, filterState, true)
+
+        if (window) {
+            window.scrollTo(0, 0)
+            window.OPD_SCROLL_POS = 0
+        }
     }
 
     getDoctorList(searchState, filterCriteria, mergeState) {

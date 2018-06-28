@@ -103,6 +103,12 @@ class BookingView extends React.Component {
         })
     }
 
+    navigateTo(where, e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.props.history.push(where)
+    }
+
     render() {
 
         let doctor = {}
@@ -135,7 +141,13 @@ class BookingView extends React.Component {
                             <div className="col-4">
                                 <ul className="inline-list float-right user-notification-action">
                                     <li onClick={() => { this.props.history.push('/user') }}><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
-                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li>
+                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" onClick={this.navigateTo.bind(this, '/notifications')} />
+                                        {
+                                            this.props.newNotification ? <span className="notification-alert">{this.props.notifications.length}</span> : ""
+                                        }
+                                    </span>
+
+                                    </li>
                                 </ul>
                             </div>
                         </div>

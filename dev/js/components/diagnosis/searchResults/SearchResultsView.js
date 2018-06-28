@@ -73,6 +73,11 @@ class SearchResultsView extends React.Component {
         this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
 
         this.getLabList(searchState, filterState, true, 1)
+
+        if (window) {
+            window.scrollTo(0, 0)
+            window.LAB_SCROLL_POS = 0
+        }
     }
 
     render() {
