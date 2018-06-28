@@ -1,6 +1,11 @@
 import React from 'react';
 import Loader from '../../commons/Loader'
 
+import LeftBar from '../LeftBar'
+import RightBar from '../RightBar'
+import ProfileHeader from '../DesktopProfileHeader'
+
+
 const debouncer = (fn, delay) => {
     let timer = null
     return function () {
@@ -74,69 +79,80 @@ class CriteriaSearchView extends React.Component {
         }
 
         return (
-            <div>
-                <header className="skin-primary fixed horizontal top ct-header">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="navigate-row">
-                                    <ul className="inline-list top-nav alpha-bx text-white"
-                                        onClick={() => {
-                                            this.props.history.go(-1)
-                                        }}
-                                    >
-                                        <li><span className="ct-img ct-img-sm arrow-img"><img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" /></span></li>
-                                        <li><div className="screen-title">Search</div></li>
-                                    </ul>
-                                    <ul className="inline-list top-nav beta-bx float-right text-right text-white"
-                                        onClick={() => {
-                                            this.props.history.push('/locationsearch')
-                                        }}
-                                    >
-                                        <li><div className="screen-title"><span className="ct-img ct-img-sm map-marker-img"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span> {location}</div></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="search-row">
-                                    <div className="adon-group">
-                                        <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
-                                            if (this.props.goBack) {
-                                                this.props.history.go(-1)
-                                            }
-                                        }} />
-                                        <span className="ct-img ct-img-sm search-icon"><img src="/assets/img/customer-icons/search-icon.svg" /></span>
+            <div className="profile-body-wrap">
+                <ProfileHeader />
+                <section className={ this.props.paddingTopClass ? "container parent-section condition-search-section" : "container parent-section" } >
+                    <div className="row main-row parent-section-row">
+                        <LeftBar />
+
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0">
+                            <header className="skin-primary fixed horizontal top search-book-header sticky-header">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div className="navigate-row">
+                                                <ul className="inline-list top-nav alpha-bx text-white"
+                                                    onClick={() => {
+                                                        this.props.history.go(-1)
+                                                    }}
+                                                >
+                                                    <li><span className="ct-img ct-img-sm arrow-img"><img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" /></span></li>
+                                                    <li><div className="screen-title">Search</div></li>
+                                                </ul>
+                                                <ul className="inline-list top-nav beta-bx float-right text-right text-white"
+                                                    onClick={() => {
+                                                        this.props.history.push('/locationsearch')
+                                                    }}
+                                                >
+                                                    <li><div className="screen-title"><span className="ct-img ct-img-sm map-marker-img"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span> {location}</div></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div className="search-row">
+                                                <div className="adon-group">
+                                                    <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        if (this.props.goBack) {
+                                                            this.props.history.go(-1)
+                                                        }
+                                                    }} />
+                                                    <span className="ct-img ct-img-sm search-icon"><img src="/assets/img/customer-icons/search-icon.svg" /></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </header>
+
+                            {
+                                this.state.searchValue ?
+
+                                    <section className="sticky-header-2">
+                                        <div className="widget-panel">
+                                            <h4 className="panel-title">Search Result</h4>
+                                            <div className="panel-content">
+
+                                                <ul className="list search-result-list">
+                                                    {
+                                                        this.state.searchResults.map((curr, i) => {
+                                                            return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a></li>
+                                                        })
+                                                    }
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                    : (this.props.checkForLoad ? this.props.children : <Loader />)
+
+                            }
                         </div>
+
+                        <RightBar />
                     </div>
-                </header>
-
-                {
-                    this.state.searchValue ?
-
-                        <section className="wrap wrap-100">
-                            <div className="widget-panel">
-                                <h4 className="panel-title">Search Result</h4>
-                                <div className="panel-content">
-
-                                    <ul className="list search-result-list">
-                                        {
-                                            this.state.searchResults.map((curr, i) => {
-                                                return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a></li>
-                                            })
-                                        }
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </section>
-                        : (this.props.checkForLoad ? this.props.children : <Loader />)
-
-                }
+                </section>
             </div>
         );
     }

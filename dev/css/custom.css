@@ -32,10 +32,22 @@
 .bdr-1.dark{border-color: #000}
 .bdr-1.light{border-color: #ddd;}
 
-@media(min-width: 993px){.sticky-header{position: sticky!important;top: 65px!important;margin-top: 130px;}
+.parent-section{margin-top: 141px;padding-top: 10px;}
+.parent-section-temp{margin-top: 0;padding-top: 0;}
+.parent-section-row{margin-top: 0!important;}
+.all-test-screen{padding-top: 10px!important;}
+.test-search-section{margin-top: 118px;}
+.condition-search-section{margin-top: 100px;}
+
+.sticky-div-temp{margin-top: 20px;}
+
+@media(min-width: 993px){.sticky-header{position: sticky!important;top: 65px!important;margin-top: 20px;}
 .sticky-header-2{position: sticky!important;top: 161px!important;margin-top: 2px!important;}
-.variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;}
+.variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
 .sticky-btn{position: sticky!important;bottom: 0!important;}
+.parent-section{margin-top: 65px;padding-top: 0px;}
+.parent-section-temp{margin-top: 65px;padding-top: 0;}
+.all-test-screen,.locaton-detect-screen {padding-top: 10px!important;}
 }
 
 /*appointment timeline*/
@@ -103,7 +115,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 /*===================
 	popup Screen3
 ====================*/
-.overlay {position: fixed; padding: 40px 20px 0px 20px; top: 0; bottom: 0; right: 0; left: 0; width: 100%; z-index: 11;overflow: hidden;}
+.overlay {position: fixed; padding: 40px 20px 0px 20px; top: 0; bottom: 0; right: 0; left: 0; width: 100%; z-index: 21;overflow: hidden;}
 .overlay.black{background-color: #000000b0;}
 
 .pending-appointments{height: 100%;}

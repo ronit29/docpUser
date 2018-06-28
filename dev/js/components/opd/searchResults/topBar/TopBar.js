@@ -120,7 +120,7 @@ class TopBar extends React.Component {
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
 
         return (
-            <section className="filter-row">
+            <section className="filter-row sticky-header-2">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">

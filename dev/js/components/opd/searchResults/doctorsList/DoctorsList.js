@@ -78,7 +78,7 @@ class DoctorsList extends React.Component {
         let { DOCTORS, doctorList } = this.props
 
         return (
-            <section className="wrap search-result-dr">
+            <section className="variable-content-section" style={{ paddingTop: 10 }}>
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">

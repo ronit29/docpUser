@@ -186,6 +186,7 @@ class BookingView extends React.Component {
                                         <div className="widget-content">
                                             <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                             <p className="text-xs text-light">Details has been send to your email and mobile number</p>
+                                            <a href="#" className="text-primary fw-700 text-sm">Cancel Booking</a>
                                         </div>
                                     </div>
                                     <div className="widget  mrb-10">

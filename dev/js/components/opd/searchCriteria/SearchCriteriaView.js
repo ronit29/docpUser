@@ -23,8 +23,8 @@ class SearchCriteriaView extends React.Component {
     render() {
         return (
             <div>
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search For Disease or Doctor." type="opd">
-                    <section className="wrap wrap-100">
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search For Disease or Doctor." type="opd" paddingTopClass={true}>
+                    <section className="">
 
                         <CommonlySearched
                             heading="Selected Criteria"

@@ -25,7 +25,7 @@
 .user-notification-action{padding-top: 10px;}
 
 .search-row{position: relative; padding:10px 0; padding-top: 0;}
-.search-input{padding-left: 40px;  box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);}
+.search-input{padding-left: 40px;  box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);border: none;}
 .search-icon{position: absolute; top: 0; left:0; padding:11px;}
 
 .map-marker-img,
@@ -95,9 +95,9 @@
 
 
 /*search book*/
-.search-book-result{padding-top: 160px}
+.search-book-result{padding-top: 0px;}
 .search-book-header{height: auto;}
-.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 10; background-color: #e8eff3 ;margin-top: -3px;}
+.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 10; background-color: #e8eff3 ;margin-top: -5px;}
 
 .filter-item{padding: 10px 0;}
 .filter-title{ font-size: 14px; font-weight: 500;}
@@ -126,7 +126,7 @@
 .lab-price{font-size: 16px; font-weight: 500;color: #263077; padding-top: 3px;}
 
 /*filter popup*/
-.filter-popup{margin-top: 100px;}
+.filter-popup{margin: 200px auto; width: 100%; max-width: 500px;}
 
 /*All test screen 13*/
 .all-test-list>li{position: relative; padding: 20px; border-bottom:1px solid #ddd; padding-right: 70px;}

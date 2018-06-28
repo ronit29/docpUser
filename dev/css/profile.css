@@ -1,4 +1,6 @@
 .profile-body-wrap{
+	min-height: calc(100vh - 65px);
+	height: 100%;
 	background-color: #f8f8f8;
 }
 
@@ -220,7 +222,7 @@
   	height: 18px;
   	background-color: #ff6326;
 	border-radius: 50%;
-	padding: 1px 6px;
+	padding: 1px 5.5px;
 	top: 15px;
 }
 
@@ -663,6 +665,7 @@
 		right: 50px;
 	}
 	.profile-header{
-		z-index: -1;
+		display: none;
+		z-index: 1;
 	}
 }
