@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, toggleDiagnosisCriteria } from '../../actions/index.js'
+import { getLabById, toggleDiagnosisCriteria, getLabTests} from '../../actions/index.js'
 
 import TestSelectorView from '../../components/diagnosis/testSelector'
 
@@ -42,7 +42,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
-        getLabById: (labId) => dispatch(getLabById(labId))
+        getLabById: (labId) => dispatch(getLabById(labId)),
+        getLabTests:(labid,search_string,callback)=>dispatch(getLabTests(labid,search_string,callback))
     }
 }
 
