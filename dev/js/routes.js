@@ -17,6 +17,7 @@ import Notifications from './containers/commons/Notifications'
 import DoctorChat from './containers/commons/Chat.js'
 import Home from './containers/commons/Home'
 import Wallet from './containers/commons/Wallet'
+import NotFound from './containers/commons/404'
 
 import Booking_LAB from './containers/diagnosis/Booking.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
@@ -54,6 +55,8 @@ const routes = [
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
     { path: '/lab/appointment/:refId', exact: true, component: Booking_LAB },
+
+    { path: '*', component: NotFound },
 ]
 
 class RouterConfig extends Component {
