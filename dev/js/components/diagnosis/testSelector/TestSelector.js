@@ -9,7 +9,9 @@ class TestSelectorView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedLab: this.props.match.params.id
+            selectedLab: this.props.match.params.id,
+            searchResults: [],
+            searchString: ''
         }
     }
 
@@ -20,9 +22,21 @@ class TestSelectorView extends React.Component {
     toggleTest(test) {
         this.props.toggleDiagnosisCriteria('test', test)
     }
+    
+    getSearchList(e) {
+        var search_string = e.target.value;
+        this.setState({ searchString: search_string });
+        if (search_string) {
+            this.props.getLabTests(this.state.selectedLab, search_string, (searchResults) => {
+                this.setState({ searchResults: searchResults });
+            });
+        } else {
+            this.setState({ searchResults: [] });
+        }
+    }
+
 
     render() {
-
         let labData = this.props.LABS[this.state.selectedLab]
         let tests = []
         let selectedTests = []
@@ -32,16 +46,36 @@ class TestSelectorView extends React.Component {
         }
 
         if (labData && labData.tests && labData.tests.length) {
-            tests = labData.tests.map((test, i) => {
-                return <li key={i}>
-                    <label className="ck-bx">
-                        {test.test.name}
-                        <input type="checkbox" checked={selectedTests.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test.test)} />
-                        <span className="checkmark" />
-                    </label>
-                    <span className="test-price text-md fw-500">{test.mrp}</span>
-                </li>
-            })
+
+            if (this.state.searchResults.length > 0) {
+                tests = this.state.searchResults.map((test, i) => {
+                    return <li key={i}>
+                        <label className="ck-bx">
+                            {test.test.name}
+                            <input type="checkbox" checked={selectedTests.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test.test)} />
+                            <span className="checkmark" />
+                        </label>
+                        <span className="test-price text-md fw-500">{test.mrp}</span>
+                    </li>
+                })
+            }
+            else if (this.state.searchString.length > 0) {
+                tests = <li>No Data Found</li>
+            }
+            else {
+                tests = labData.tests.map((test, i) => {
+                    if (selectedTests.indexOf(test.test.id) > -1) {
+                        return <li key={i}>
+                            <label className="ck-bx">
+                                {test.test.name}
+                                <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test.test)} />
+                                <span className="checkmark" />
+                            </label>
+                            <span className="test-price text-md fw-500">{test.mrp}</span>
+                        </li>
+                    }
+                })
+            }
         }
 
         return (
@@ -72,7 +106,7 @@ class TestSelectorView extends React.Component {
                                                     <div className="col-12">
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
-                                                                <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" />
+                                                                <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)}/>
                                                                 <span className="ct-img ct-img-sm map-marker-blue"><img src="/assets/img/customer-icons/search-icon.svg" className="img-fluid" /></span>
                                                             </div>
                                                             <div className="detect-my-locaiton">
