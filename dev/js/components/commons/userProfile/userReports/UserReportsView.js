@@ -32,7 +32,7 @@ class UserReportsView extends React.Component {
             {
                 !this.state.loading ? (
                     this.state.reports.map((report,i) => {
-                        return <img src={"https://crm.qa.panaceatechno.com" + report.file} key={i} className="imageReports"/>
+                        return <img src={report.file} key={i} className="imageReports"/>
                     })
                  ) : <Loader />
             }
