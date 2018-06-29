@@ -108,12 +108,12 @@
 	margin-top: 25px;
 	flex-direction: row;
 	padding: 10px 15px 50px;
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .mobile-profile-inside-row{
 	align-items: center;
-	margin-left: 0;
-	margin-right: 0;
 }
 
 .profile-icon-div{
@@ -796,5 +796,12 @@
 	}
 	.appointment-widget{
 		display: block;
+	}
+	.scroll-arrow-div-lt, .scroll-arrow-div-rt{
+		display: none;
+	}
+	.center-column{
+		padding-left: 0;
+		padding-right: 0;
 	}
 }

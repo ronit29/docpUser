@@ -110,7 +110,7 @@ class LocationSearch extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0">
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
                             <header className="skin-white fixed horizontal top location-detect-header sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
