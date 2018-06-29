@@ -134,7 +134,7 @@ class HomeView extends React.Component {
 
                         <div className="col-md-1 d-none d-md-block d-lg-none"></div>
 
-                        <div className="col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section center-column">
+                        <div className="col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section">
                             {/* only for mobile */}
 
                             {/* <div className="book-widget appointment-widget">
