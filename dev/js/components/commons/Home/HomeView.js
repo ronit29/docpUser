@@ -213,7 +213,7 @@ class HomeView extends React.Component {
                                             <img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" />
                                         </div>
                                     </li></a>
-                                    <a href="javascript:;" onClick={this.navigateTo.bind(this, '/opd')}><li className="book-list-last-item">
+                                    <a href="javascript:;" onClick={this.navigateTo.bind(this, '/dx')}><li className="book-list-last-item">
                                         <div className="book-list-img-div">
                                             <img src="/assets/img/customer-icons/medical-test.svg" className="book-list-img" />
                                         </div>
