@@ -31,74 +31,78 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 app.all('*', function (req, res) {
 
-    const context = {}
-
-    const store = createStore(
-        allReducers, applyMiddleware(thunk)
-    );
-
-    const sheetsRegistry = new SheetsRegistry();
-    const theme = createMuiTheme({
-        palette: {
-            primary: {
-                main: '#00b7b0'
-            },
-            secondary: {
-                main: '#00b7b0'
-            },
-        },
-        status: {
-            danger: 'orange',
-        },
+    res.render('./index.template.ejs', {
+        html: "", css: "", storeData: "{}"
     })
-    const generateClassName = createGenerateClassName();
 
-    if (context.url) {
-        res.writeHead(301, {
-            Location: context.url
-        })
-        res.end()
-    } else {
+    // const context = {}
 
-        // inside a request
-        const promises = []
+    // const store = createStore(
+    //     allReducers, applyMiddleware(thunk)
+    // );
 
-        Routes.ROUTES.some(route => {
-            // use `matchPath` here
-            const match = matchPath(req.path, route)
-            if (match && route.component.loadData)
-                promises.push(route.component.loadData(store, match))
-            return match
-        })
+    // const sheetsRegistry = new SheetsRegistry();
+    // const theme = createMuiTheme({
+    //     palette: {
+    //         primary: {
+    //             main: '#00b7b0'
+    //         },
+    //         secondary: {
+    //             main: '#00b7b0'
+    //         },
+    //     },
+    //     status: {
+    //         danger: 'orange',
+    //     },
+    // })
+    // const generateClassName = createGenerateClassName();
 
-        Promise.all(promises).then(data => {
-            const storeData = JSON.stringify(store.getState())
-            const html = ReactDOMServer.renderToString(
-                <Provider store={store}>
-                    <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-                        <MuiThemeProvider theme={theme}>
-                            <StaticRouter
-                                location={req.url}
-                                context={context}
-                            >
-                                <Routes />
-                            </StaticRouter>
-                        </MuiThemeProvider>
-                    </JssProvider>
-                </Provider>
-            )
-            const css = sheetsRegistry.toString()
+    // if (context.url) {
+    //     res.writeHead(301, {
+    //         Location: context.url
+    //     })
+    //     res.end()
+    // } else {
 
-            // res.render('./index.template.ejs', {
-            //     html, css, storeData
-            // })
+    //     // inside a request
+    //     const promises = []
 
-            res.render('./index.template.ejs', {
-                html:"", css:"", storeData:"{}"
-            })
-        })
+    //     Routes.ROUTES.some(route => {
+    //         // use `matchPath` here
+    //         const match = matchPath(req.path, route)
+    //         if (match && route.component.loadData)
+    //             promises.push(route.component.loadData(store, match))
+    //         return match
+    //     })
 
-    }
+    //     Promise.all(promises).then(data => {
+    //         const storeData = JSON.stringify(store.getState())
+    //         const html = ReactDOMServer.renderToString(
+    //             <Provider store={store}>
+    //                 <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+    //                     <MuiThemeProvider theme={theme}>
+    //                         <StaticRouter
+    //                             location={req.url}
+    //                             context={context}
+    //                         >
+    //                             <Routes />
+    //                         </StaticRouter>
+    //                     </MuiThemeProvider>
+    //                 </JssProvider>
+    //             </Provider>
+    //         )
+    //         const css = sheetsRegistry.toString()
+
+    //         // res.render('./index.template.ejs', {
+    //         //     html, css, storeData
+    //         // })
+
+    //         res.render('./index.template.ejs', {
+    //             html:"", css:"", storeData:"{}"
+    //         })
+    //     })
+
+    // }
 
 });
 
