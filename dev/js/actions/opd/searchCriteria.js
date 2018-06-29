@@ -4,7 +4,7 @@ import { API_GET } from '../../api/api.js';
 
 export const loadOPDCommonCriteria = () => (dispatch) => {
 
-    return API_GET('/api/v1/doctor/searcheditems').then(function (response) {
+    return API_GET('/api/v1/doctor/commonconditions').then(function (response) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_OPD,
             payload: response

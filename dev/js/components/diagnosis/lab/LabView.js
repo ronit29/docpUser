@@ -11,6 +11,12 @@ class LabView extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     bookLab() {
         this.props.history.push(`/lab/${this.state.selectedLab}/book`)
     }

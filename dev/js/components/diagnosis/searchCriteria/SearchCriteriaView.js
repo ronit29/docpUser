@@ -54,17 +54,17 @@ class SearchCriteriaView extends React.Component {
 
                         <CommonlySearched
                             heading="Common Conditions"
-                            type="lab"
+                            type="condition"
                             data={this.props.common_conditions}
-                            selected={this.props.selectedCriterias.filter(x => x.type == 'lab')}
+                            selected={this.props.selectedCriterias.filter(x => x.type == 'condition')}
                             toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                         />
 
-                        <CommonlySearched
+                        {/* <CommonlySearched
                             heading="Common Labs"
                             type="lab"
                             data={this.props.preferred_labs}
-                        />
+                        /> */}
                     </section>
                 </CriteriaSearch>
 

@@ -15,6 +15,12 @@ class DoctorProfileView extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     render() {
 
         return (
