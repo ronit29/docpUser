@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults } from '../../actions/index.js'
+import { resetFilters, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/diagnosis/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -9,12 +9,13 @@ class SearchCriteria extends React.Component {
         super(props)
     }
 
-    static loadData(store){
-        return store.dispatch(loadLabCommonCriterias())
-    }
+    // static loadData(store) {
+    //     return store.dispatch(loadLabCommonCriterias())
+    // }
 
     componentDidMount() {
         this.props.loadLabCommonCriterias()
+        this.props.resetFilters()
     }
 
     static contextTypes = {
@@ -55,7 +56,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
         toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
-        getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback))
+        getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
+        resetFilters: () => dispatch(resetFilters())
     }
 }
 

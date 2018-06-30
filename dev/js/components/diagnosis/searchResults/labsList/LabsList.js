@@ -23,18 +23,24 @@ class LabsList extends React.Component {
             this.setState({ renderBlock: false })
             setTimeout(() => {
                 if (window) {
-                    let scroll_pos = window.LAB_SCROLL_POS ? (window.LAB_SCROLL_POS - 700) : 0
+                    let scroll_pos = window.LAB_SCROLL_POS ? (window.LAB_SCROLL_POS) : 0
                     // TODO: improve scroll back logic
                     window.scrollTo(0, scroll_pos || 0)
                     window.LAB_SCROLL_POS = 0
                 }
             }, 100)
         }, 100)
+
+        setTimeout(() => {
+            window.onscroll = function () {
+                window.LAB_SCROLL_POS = window.pageYOffset
+            }
+        }, 1000)
     }
 
     componentWillUnmount() {
         if (window) {
-            window.LAB_SCROLL_POS = window.pageYOffset
+            window.onscroll = null
         }
     }
 

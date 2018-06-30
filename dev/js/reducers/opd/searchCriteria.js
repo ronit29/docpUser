@@ -1,4 +1,13 @@
-import { SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
+import { RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
+
+const DEFAULT_FILTER_STATE = {
+    priceRange: [100, 1500],
+    sort_on: null,
+    sits_at_clinic: false,
+    sits_at_hospital: false,
+    is_female: false,
+    is_available: false
+}
 
 const defaultState = {
     LOADED_SEARCH_CRITERIA_OPD: false,
@@ -6,14 +15,7 @@ const defaultState = {
     conditions: [],
     selectedCriterias: [],
     selectedLocation: null,
-    filterCriteria: {
-        priceRange: [100, 1500],
-        sort_on: null,
-        sits_at_clinic: false,
-        sits_at_hospital: false,
-        is_female: false,
-        is_available: false
-    }
+    filterCriteria: DEFAULT_FILTER_STATE
 }
 
 export default function (state = defaultState, action) {
@@ -63,6 +65,12 @@ export default function (state = defaultState, action) {
         case MERGE_SEARCH_STATE_OPD: {
             let newState = { ...state, ...action.payload.searchState, filterCriteria: action.payload.filterCriteria }
 
+            return newState
+        }
+
+        case RESET_FILTER_STATE: {
+            let newState = { ...state }
+            newState.filterCriteria = DEFAULT_FILTER_STATE
             return newState
         }
 
