@@ -24,6 +24,12 @@ class HomeView extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     toggleSymptom(name) {
         if (this.state.selectedSymptoms.indexOf(name) > -1) {
             this.state.selectedSymptoms.splice(this.state.selectedSymptoms.indexOf(name), 1)
@@ -193,7 +199,9 @@ class HomeView extends React.Component {
                                 </div>
                                 <div className="input-symptom-div">
                                     <div className="send-btn">
-                                        <img src="/assets/img/icons/send-orange.svg" />
+                                        {
+                                            selectedSympsStr ? <img src="/assets/img/icons/send-orange.svg" /> : ""
+                                        }
                                     </div>
 
                                     <input type="text" className="input-symptom" placeholder={selectedSympsStr ? selectedSympsStr : "Eg : I am suffering from Headache"} />

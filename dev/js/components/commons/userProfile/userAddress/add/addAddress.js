@@ -148,12 +148,6 @@ class UserSignupView extends React.Component {
                                         <label className="radio-inline"><input value={'other'} onChange={this.inputHandler.bind(this)} checked={this.state.type == 'other'} type="radio" name="type" />Other</label>
                                     </div>
                                 </div>
-                                <div className="labelWrap">
-                                    <input id="interested" name="lname" type="text" required />
-                                    <label htmlFor="interested">If other interested</label>
-                                </div>
-
-
 
                             </form>
                         </div>

@@ -7,6 +7,10 @@ import VisitTime from './visitTime'
 import ChoosePatient from './choosePatient'
 import PaymentForm from '../../commons/paymentForm'
 
+import LeftBar from '../../commons/LeftBar'
+import RightBar from '../../commons/RightBar'
+import ProfileHeader from '../../commons/DesktopProfileHeader'
+
 class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
@@ -16,6 +20,12 @@ class PatientDetails extends React.Component {
             paymentData: {},
             loading: false,
             error: ""
+        }
+    }
+
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
         }
     }
 
@@ -48,7 +58,11 @@ class PatientDetails extends React.Component {
                     }, 5000)
                 })
             } else {
-                this.setState({ loading: false, error: "Could not create appointment. Try again later !" })
+                let message = "Could not create appointment. Try again later !"
+                if (err.message) {
+                    message = err.message
+                }
+                this.setState({ loading: false, error: message })
             }
         })
     }
@@ -90,69 +104,80 @@ class PatientDetails extends React.Component {
         }
 
         return (
-            <div>
+            <div className="profile-body-wrap">
+                <ProfileHeader />
+                <section className="container parent-section book-appointment-section">
+                    <div className="row main-row parent-section-row">
+                        <LeftBar />
 
-                <header className="skin-white fixed horizontal top bdr-1 bottom light">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-2">
-                                <ul className="inline-list">
-                                    <li onClick={() => {
-                                        this.props.history.go(-1)
-                                    }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
-                                </ul>
-                            </div>
-                            <div className="col-8">
-                                <div className="header-title fw-700 capitalize text-center">Booking Confirmation</div>
-                            </div>
-                            <div className="col-2">
-                            </div>
-                        </div>
-                    </div>
-                </header>
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                {
-                    this.props.DOCTORS[this.state.selectedDoctor] ?
-                        <div>
-
-                            <section className="wrap dr-profile-screen booking-confirm-screen">
+                            <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
                                 <div className="container-fluid">
-
                                     <div className="row">
-                                        <div className="col-12">
-                                            <div className="widget mrt-10 ct-profile skin-white">
-                                                <DoctorProfileCard
-                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                />
-                                                <div className="widget-content">
-
-                                                    <div className="lab-visit-time">
-                                                        <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</a></span></h4>
-                                                        <p className="date-time">{hospital.address}</p>
-                                                    </div>
-
-                                                    <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
-
-                                                    <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
-
-                                                </div>
-                                            </div>
+                                        <div className="col-2">
+                                            <ul className="inline-list">
+                                                <li onClick={() => {
+                                                    this.props.history.go(-1)
+                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
+                                            </ul>
+                                        </div>
+                                        <div className="col-8">
+                                            <div className="header-title fw-700 capitalize text-center">Booking Confirmation</div>
+                                        </div>
+                                        <div className="col-2">
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </header>
 
-                        </div> : <Loader />
-                }
+                            {
+                                this.props.DOCTORS[this.state.selectedDoctor] ?
+                                    <div>
 
-                <PaymentForm paymentData={this.state.paymentData} />
+                                        <section className="dr-profile-screen booking-confirm-screen">
+                                            <div className="container-fluid">
 
-                <span className="errorMessage">{this.state.error}</span>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <div className="widget mrt-10 ct-profile skin-white">
+                                                            <DoctorProfileCard
+                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                            />
+                                                            <div className="widget-content">
 
-                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg" disabled={
-                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading
-                } onClick={this.proceed.bind(this)}>Proceed to Pay Rs.{(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</button>
+                                                                <div className="lab-visit-time">
+                                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</a></span></h4>
+                                                                    <p className="date-time">{hospital.address}</p>
+                                                                </div>
 
+                                                                <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+
+                                                                <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                    </div> : <Loader />
+                            }
+
+                            <PaymentForm paymentData={this.state.paymentData} />
+
+                            <span className="errorMessage">{this.state.error}</span>
+
+                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" disabled={
+                                !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading
+                            } onClick={this.proceed.bind(this)}>Proceed to Pay Rs.{(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</button>
+
+                        </div>
+
+                        <RightBar />
+                    </div>
+                </section>
             </div>
         );
     }

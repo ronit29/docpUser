@@ -18,6 +18,9 @@ class TimeSlotSelector extends React.Component {
 
     componentDidMount() {
         this.generateDays()
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     generateDays() {
@@ -70,9 +73,11 @@ class TimeSlotSelector extends React.Component {
     selectSlot(slot, e) {
         e.stopPropagation()
         e.preventDefault()
-        slot.date = this.state.selectedDay.actualDate
-        slot.month = this.state.selectedMonth
-        this.props.selectTimeSlot(slot)
+        if (slot.time.is_available) {
+            slot.date = this.state.selectedDay.actualDate
+            slot.month = this.state.selectedMonth
+            this.props.selectTimeSlot(slot)
+        }
     }
 
     getAvailableTS(allSlots, month) {
@@ -155,7 +160,7 @@ class TimeSlotSelector extends React.Component {
                                                 return <li key={i} onClick={this.selectSlot.bind(this, {
                                                     slot: i,
                                                     time: time
-                                                })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == i && this.props.selectedSlot.time.value == time.value ? "" : "outline")}>{time.text} </a></li>
+                                                })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == i && this.props.selectedSlot.time.value == time.value ? "" : "outline ") + (time.is_available ? "" : "diabledtspill")}>{time.text} </a></li>
                                             })
                                         }
                                     </ul>

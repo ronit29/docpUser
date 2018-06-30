@@ -8,6 +8,12 @@ class NotificationsView extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     openAppointment(data){
         this.props.history.push(data.content.url)
     }

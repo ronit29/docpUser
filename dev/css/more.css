@@ -344,3 +344,8 @@ ul.inline-list li {
 .selectedSympP{
     color: white !important;
 }
+
+.diabledtspill{
+    color: gray !important;
+    border-color: gray !important;
+}

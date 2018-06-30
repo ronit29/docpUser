@@ -5,12 +5,12 @@ class ProfileData extends React.Component {
         super(props)
     }
 
-    gotTo(where){
+    gotTo(where) {
         this.props.history.push(`/user/${where}`)
     }
 
     render() {
-        
+
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav">
                 <div className="widget-content">
@@ -35,13 +35,15 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        <li onClick={this.gotTo.bind(this,'appointments')}>
+                        <li onClick={this.gotTo.bind(this, 'appointments')}>
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
-                                    <h4 className="title app-title">OPD Visit<span className="float-right badge badge-warning">1</span></h4>
+                                    <h4 className="title app-title">OPD Visit
+                                        {/* <span className="float-right badge badge-warning">1</span> */}
+                                    </h4>
                                 </div>
                             </a>
                         </li>
@@ -51,7 +53,9 @@ class ProfileData extends React.Component {
                                     <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
-                                    <h4 className="title app-title">Medical History<span className="float-right badge badge-warning">2</span></h4>
+                                    <h4 className="title app-title">Medical History
+                                        {/* <span className="float-right badge badge-warning">2</span> */}
+                                    </h4>
                                 </div>
                             </a>
                         </li>
@@ -65,7 +69,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={this.gotTo.bind(this,'family')}>
+                        <li onClick={this.gotTo.bind(this, 'family')}>
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />

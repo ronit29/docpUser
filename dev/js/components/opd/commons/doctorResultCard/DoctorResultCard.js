@@ -29,7 +29,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, fees, discounted_fees } = this.props.details
 
         let hospital = hospitals[0]
         let expStr = ""
@@ -63,7 +63,7 @@ class DoctorProfileCard extends React.Component {
                     <div className="beta other-info text-right">
                         <button className="v-btn v-btn-primary btn-sm">Book Now</button>
                         <div className="pricing">
-                            <p className="text-primary fw-700 new-price">Rs {hospital.discounted_fees} <span className="old-price">Rs {hospital.fees}</span></p>
+                            <p className="text-primary fw-700 new-price">Rs {discounted_fees} <span className="old-price">Rs {fees}</span></p>
                         </div>
                     </div>
                     <div className="alpha dr-exp-details">

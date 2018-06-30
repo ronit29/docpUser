@@ -13,7 +13,7 @@ class TestDetail extends React.Component {
                     this.props.show ? <div className="overlay black" onClick={(e) => {
                         this.props.toggle()
                     }}>
-                        <div className="widget  scroll-y ht-500" onClick={(e) => {
+                        <div className="widget filter-popup scroll-y ht-500 info-popup" onClick={(e) => {
                             e.preventDefault()
                             e.stopPropagation()
                         }}>

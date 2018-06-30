@@ -19,7 +19,17 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { name, experience_years, qualifications, thumbnail } = this.props.details
+        let { name, experience_years, qualifications, thumbnail, experiences } = this.props.details
+
+        let expStr = ""
+
+        if (experiences && experiences.length) {
+            expStr += "Ex - "
+            experiences.map((exp) => {
+                expStr += exp.hospital
+                expStr += ', '
+            })
+        }
 
         return (
             <div className="widget-header dr-qucik-info">
@@ -28,7 +38,7 @@ class DoctorProfileCard extends React.Component {
                     <h4 className="dr-name">{name}</h4>
                     <p className="desg">{this.getQualificationStr(qualifications)}</p>
                     <p className="add-details">{experience_years} Years of Experince</p>
-                    <p className="add-details">Ex - AIIMS, Ex- Fortis</p>
+                    <p className="add-details">{expStr}</p>
                 </div>
             </div>
         );

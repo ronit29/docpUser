@@ -11,9 +11,13 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
 
             return action.payload.reduce((doctorMap, doctor) => {
-                doctorMap[doctor.id] = { ...doctor }
+                if (doctorMap[doctor.id]) {
+                    doctorMap[doctor.id] = Object.assign({}, doctor, doctorMap[doctor.id])
+                } else {
+                    doctorMap[doctor.id] = { ...doctor }
+                }
                 return doctorMap
-            },newState)
+            }, newState)
 
         }
 

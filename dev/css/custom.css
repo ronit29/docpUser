@@ -38,16 +38,23 @@
 .all-test-screen{padding-top: 10px!important;}
 .test-search-section{margin-top: 118px;}
 .condition-search-section{margin-top: 100px;}
+.book-appointment-section{margin-top: 40px;}
 
+.time-picker-section{margin-top: 50px;}
 .sticky-div-temp{margin-top: 20px;}
+.select-time-slot{padding-top: 130px;padding-bottom: 20px;}
+.appointment-form-container{padding-bottom: 42px;}
+.someone-else-labelwrap{display: none;}
 
 @media(min-width: 993px){.sticky-header{position: sticky!important;top: 65px!important;margin-top: 20px;}
 .sticky-header-2{position: sticky!important;top: 161px!important;margin-top: 2px!important;}
+.sticky-header-3{position: sticky!important;top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
 .sticky-btn{position: sticky!important;bottom: 0!important;}
 .parent-section{margin-top: 65px;padding-top: 0px;}
 .parent-section-temp{margin-top: 65px;padding-top: 0;}
 .all-test-screen,.locaton-detect-screen {padding-top: 10px!important;}
+.select-time-slot{padding-top: 20px;}
 }
 
 /*appointment timeline*/

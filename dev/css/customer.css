@@ -79,7 +79,7 @@
 .all-test-screen,
 .locaton-detect-screen{padding-top: 120px}
 .select-location-row{position: relative; padding: 10px;}
-.select-location-row .close{position: absolute; top: 0; left: 0;     padding: 5px; width: 24px;}
+.select-location-row .close{position: absolute; top: 0; left: 0; padding: 5px; width: 24px;}
 .detect-my-locaiton{padding: 4px 0; text-align: right; font-size: 16px; font-weight: 500; color: #f78631;}
 .location-detect-field .map-marker-blue{width: 20px;height: 20px;}
 .location-detect-field .search-input{box-shadow: none;}
@@ -127,6 +127,7 @@
 
 /*filter popup*/
 .filter-popup{margin: 200px auto; width: 100%; max-width: 500px;}
+.info-popup{margin-top: 20px;}
 
 /*All test screen 13*/
 .all-test-list>li{position: relative; padding: 20px; border-bottom:1px solid #ddd; padding-right: 70px;}
@@ -177,8 +178,7 @@
 .booking-type>li .radio-inline{font-size: 18px;}
 
 /*booking confirm*/
-.booking-confirm-screen{}
-.booking-confirm-screen{}
+.booking-confirm-screen{padding-bottom: 50px;}
 .booking-confirm-screen .lab-details{margin-bottom: 20px;}
 .booking-confirm-screen .lab-details .lab-title{padding-right: 100px;}
 .booking-confirm-screen .lab-details>img{width: 70px; border:1px solid #ddd; padding: 3px ; float: right;}
