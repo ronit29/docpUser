@@ -46,7 +46,16 @@ class CriteriaSearchView extends React.Component {
                 if (searchResults) {
                     searchResults.conditions = searchResults.conditions.map(x => { return { ...x, type: 'condition' } })
                     searchResults.specializations = searchResults.specializations.map(x => { return { ...x, type: 'speciality' } })
-                    let results = [...searchResults.conditions, ...searchResults.specializations]
+                    let results = [
+                        {
+                            title: 'Conditions',
+                            values: searchResults.conditions
+                        },
+                        {
+                            title: 'Specializations',
+                            values: searchResults.specializations
+                        }
+                    ]
                     this.setState({ searchResults: [...results], loading: false })
                 }
             })
@@ -54,7 +63,13 @@ class CriteriaSearchView extends React.Component {
             this.props.getDiagnosisCriteriaResults(this.state.searchValue, (searchResults) => {
                 if (searchResults) {
                     let tests = searchResults.tests.map(x => { return { ...x, type: 'test' } })
-                    this.setState({ searchResults: [...tests], loading: false })
+                    let results = [
+                        {
+                            title: 'Tests',
+                            values: tests
+                        }
+                    ]
+                    this.setState({ searchResults: results, loading: false })
                 }
             })
         }
@@ -81,7 +96,7 @@ class CriteriaSearchView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className={ this.props.paddingTopClass ? "container parent-section condition-search-section" : "container parent-section" } >
+                <section className={this.props.paddingTopClass ? "container parent-section condition-search-section" : "container parent-section"} >
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -130,23 +145,27 @@ class CriteriaSearchView extends React.Component {
                                 this.state.searchValue ?
 
                                     <section className="sticky-header-2">
-                                        <div className="widget-panel">
-                                            <h4 className="panel-title">Search Result</h4>
-                                            <div className="panel-content">
-
-                                                <ul className="list search-result-list">
-                                                    {
-                                                        this.state.searchResults.map((curr, i) => {
-                                                            return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a></li>
-                                                        })
-                                                    }
-                                                </ul>
-
-                                            </div>
-                                        </div>
+                                        {
+                                            this.state.searchResults.map((cat, j) => {
+                                                return <div className="widget-panel" key={j}>
+                                                    <h4 className="panel-title">{cat.title}</h4>
+                                                    <div className="panel-content">
+                                                        <ul className="list search-result-list">
+                                                            {
+                                                                cat.values.length < 1 ? <li><a>No Results Found ...</a></li> : ""
+                                                            }
+                                                            {
+                                                                cat.values.map((curr, i) => {
+                                                                    return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a></li>
+                                                                })
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
                                     </section>
                                     : (this.props.checkForLoad ? this.props.children : <Loader />)
-
                             }
                         </div>
 

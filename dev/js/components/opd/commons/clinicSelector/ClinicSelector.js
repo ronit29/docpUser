@@ -29,7 +29,7 @@ class ClinicSelector extends React.Component {
                                         </div>
                                         <div className="widget-content">
                                             <div className="location-details">
-                                                <img src="/assets/img/customer-icons/map-marker-blue.png" className="img-fluid" />
+                                                <img src={hospital.hospital_thumbnail} className="img-fluid" />
                                                 <p className="address">{hospital.address}</p>
                                             </div>
                                             <div className="timing-details">

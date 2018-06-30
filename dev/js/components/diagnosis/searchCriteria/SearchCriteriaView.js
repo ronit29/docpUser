@@ -35,13 +35,16 @@ class SearchCriteriaView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for Test and Labs." paddingTopClass={true}>
                     <section>
 
-                        <CommonlySearched
-                            heading="Selected Criteria"
-                            data={this.props.selectedCriterias}
-                            selected={[]}
-                            selectedPills={true}
-                            toggle={this.props.toggleDiagnosisCriteria.bind(this)}
-                        />
+                        {
+                            (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
+                                heading="Selected Criteria"
+                                data={this.props.selectedCriterias}
+                                selected={[]}
+                                selectedPills={true}
+                                toggle={this.props.toggleDiagnosisCriteria.bind(this)}
+                            /> : ""
+                        }
+
 
                         <CommonlySearched
                             heading="Common Test"

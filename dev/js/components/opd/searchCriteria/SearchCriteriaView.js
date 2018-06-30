@@ -31,14 +31,15 @@ class SearchCriteriaView extends React.Component {
             <div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search For Disease or Doctor." type="opd" paddingTopClass={true}>
                     <section className="">
-
-                        <CommonlySearched
-                            heading="Selected Criteria"
-                            data={this.props.selectedCriterias}
-                            selectedPills={true}
-                            selected={[]}
-                            toggle={this.props.toggleOPDCriteria.bind(this)}
-                        />
+                        {
+                            (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
+                                heading="Selected Criteria"
+                                data={this.props.selectedCriterias}
+                                selectedPills={true}
+                                selected={[]}
+                                toggle={this.props.toggleOPDCriteria.bind(this)}
+                            /> : ""
+                        }
 
                         <CommonlySearched
                             heading="Common Conditions"
