@@ -136,7 +136,7 @@ class TopBar extends React.Component {
                                     </ul>
                                 </div>
                                 <div className="filter-title">
-                                    {this.props.count} Results found for <span className="fw-700"> {criteriaStr}</span>
+                                    {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
                                 </div>
                             </div>
                         </div>

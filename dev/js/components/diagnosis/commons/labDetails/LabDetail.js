@@ -14,7 +14,7 @@ class LabDetails extends React.Component {
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality } = this.props.data.lab
 
         return (
-            <section className="wrap profile-book-screen">
+            <section className="profile-book-screen">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
@@ -24,18 +24,18 @@ class LabDetails extends React.Component {
                                         <img src="/assets/img/customer-icons/lab1.png" className="img-fluid" />
                                     </div>
                                     <h4 className="widget-title pb-title">{name}</h4>
-                                    <p className="location">{locality} {city} | <span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span>1.5KM</p>
+                                    <p className="location">{locality} {city}<span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span></p>
                                     <ul className="list time-contact">
                                         <li>
                                             <span className="fw-700 text-sm">Timing: -</span>
                                             {this.props.data.lab_timing}
                                             <span className="open-close">{" Open Today"}</span>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <span className="fw-700 text-sm">Contact: -</span>
                                             {primary_mobile}
                                             <span className="open-close">{" Call Now"}</span>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>
 

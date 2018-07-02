@@ -56,9 +56,13 @@ class HomeView extends React.Component {
 
         let profileData = this.props.profiles[this.props.selectedProfile]
         let selectedSympsStr = this.state.selectedSymptoms.reduce((final, x) => {
-            final += x + ','
+            final += x + ', '
             return final
         }, "")
+
+        if (selectedSympsStr) {
+            selectedSympsStr = selectedSympsStr.slice(0, -2)
+        }
 
         return (
             <div class="profile-body-wrap">

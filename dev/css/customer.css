@@ -245,7 +245,7 @@
 
 
 /*doctor profile screen*/
-.dr-profile-screen{}
+.dr-profile-screen{padding-bottom: 50px;}
 .dr-profile-screen .dr-qucik-info>img{float: left; width: 80px;}
 .dr-qucik-info .dr-profile {padding-left: 120px;}
 .dr-qucik-info .dr-profile .dr-name{font-size: 18px; font-weight: bold; margin-top:10px; margin-bottom: 5px;}

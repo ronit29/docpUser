@@ -7,6 +7,10 @@ import AboutDoctor from '../doctorProfile/aboutDoctor/index.js'
 import ProfessionalGraph from '../doctorProfile/professionalGraph/index.js'
 import ClinicSelector from '../commons/clinicSelector/index.js'
 
+import LeftBar from '../../commons/LeftBar'
+import RightBar from '../../commons/RightBar'
+import ProfileHeader from '../../commons/DesktopProfileHeader'
+
 class DoctorProfileView extends React.Component {
     constructor(props) {
         super(props)
@@ -24,71 +28,80 @@ class DoctorProfileView extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className="profile-body-wrap">
+                <ProfileHeader />
+                <section className="container parent-section book-appointment-section">
+                    <div className="row main-row parent-section-row">
+                        <LeftBar />
 
-                <header className="skin-primary fixed horizontal top">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="header-title fw-700 capitalize text-white">
-                                    <ul className="inline-list top-nav alpha-bx text-white"
-                                        onClick={() => {
-                                            this.props.history.go(-1)
-                                        }}
-                                    >
-                                        <li>
-                                            <span className="ct-img ct-img-sm arrow-img">
-                                                <img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" />
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                            </div>
-                            <div className="col-4">
-                                <ul className="inline-list float-right user-notification-action">
-                                    {/* <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
-                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li> */}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </header>
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                {
-                    this.props.DOCTORS[this.state.selectedDoctor] ?
-                        <div>
-                            <section className="wrap dr-profile-screen">
+                            <header className="skin-primary fixed horizontal top sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
-                                        <div className="col-12">
-                                            <div className="widget mrt-10 ct-profile skin-white">
-                                                <DoctorProfileCard
-                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                />
-                                                <div className="widge-content pd-0">
-                                                    <AboutDoctor
-                                                        details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                    />
-
-                                                    <ClinicSelector
-                                                        details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                        {...this.props}
-                                                    />
-
-                                                    <ProfessionalGraph
-                                                        details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                    />
-                                                </div>
+                                        <div className="col-4">
+                                            <div className="header-title fw-700 capitalize text-white">
+                                                <ul className="inline-list top-nav alpha-bx text-white"
+                                                    onClick={() => {
+                                                        this.props.history.go(-1)
+                                                    }}
+                                                >
+                                                    <li>
+                                                        <span className="ct-img ct-img-sm arrow-img">
+                                                            <img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" />
+                                                        </span>
+                                                    </li>
+                                                </ul>
                                             </div>
+                                        </div>
+                                        <div className="col-4">
+                                        </div>
+                                        <div className="col-4">
+                                            <ul className="inline-list float-right user-notification-action">
+                                                {/* <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
+                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li> */}
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </header>
 
-                        </div> : <Loader />
-                }
+                            {
+                                this.props.DOCTORS[this.state.selectedDoctor] ?
+
+                                    <section className="dr-profile-screen">
+                                        <div className="container-fluid">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <div className="widget mrt-10 ct-profile skin-white">
+                                                        <DoctorProfileCard
+                                                            details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                        />
+                                                        <div className="widge-content pd-0">
+                                                            <AboutDoctor
+                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                            />
+
+                                                            <ClinicSelector
+                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                {...this.props}
+                                                            />
+
+                                                            <ProfessionalGraph
+                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section> : <Loader />
+                            }
+                        </div>
+
+                        <RightBar />
+                    </div>
+                </section>
             </div>
         );
     }
