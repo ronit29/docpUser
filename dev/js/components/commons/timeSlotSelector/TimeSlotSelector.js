@@ -121,7 +121,7 @@ class TimeSlotSelector extends React.Component {
                         <div className="add-new-time mrb-10">
                             <h4 className="text-md fw-700 mrb-10">Select Date &amp; Time:
                             <span onClick={this.selectMonth.bind(this, thisMonth)} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
-                                    <span onClick={this.selectMonth.bind(this, nextMonth)} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}>{nextMonth}</span></span></h4>
+                                    <span onClick={this.selectMonth.bind(this, nextMonth)} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}> {nextMonth}</span></span></h4>
                             <div className="choose-time">
                                 <ul className="inline-list datetime-items">
 

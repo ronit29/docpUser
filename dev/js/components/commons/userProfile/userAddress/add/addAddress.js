@@ -52,7 +52,13 @@ class UserSignupView extends React.Component {
             let validated = false
             switch (this.refs[prp].name) {
                 case "phone_number": {
-                    validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
+                    if (this.refs[prp].value == "") {
+                        validated = true
+                        this.refs[prp].style.border = ''
+                        return
+                    } else {
+                        validated = this.refs[prp].value.match(/^[6789]{1}[0-9]{9}$/)
+                    }
                     break
                 }
                 case "pincode": {

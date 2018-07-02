@@ -83,7 +83,7 @@ class LabsList extends React.Component {
         let { LABS, labList } = this.props
 
         return (
-            <section className="wrap search-book-result variable-content-section">
+            <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }}>
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">

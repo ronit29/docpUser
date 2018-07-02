@@ -17,7 +17,7 @@ class LabProfileCard extends React.Component {
             <div className="widget card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
-                        <span className="ct-img lab-icon"><img src="/assets/img/customer-icons/lab1.png" className="img-fluid" /></span>
+                        <span className="ct-img lab-icon"><img src={lab.lab_thumbnail} className="img-fluid" /></span>
                         <ul className="inline-list ratting">
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
@@ -31,7 +31,7 @@ class LabProfileCard extends React.Component {
                     </div>
                     <div className="book-card-content">
                         <h4 className="book-cart-title">{lab.name}</h4>
-                        <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI {lab.locality} {lab.city} | <span className="text-primary fw-700">{distance / 1000} KM</span></p>
+                        <p className="desc">Blood Test, Pathology Ultrasound, MRI, CTI <br/> {lab.locality} {lab.city} | <span className="text-primary fw-700">{distance / 1000} KM</span></p>
                     </div>
                 </div>
                 <div className="widget-footer card-footer">

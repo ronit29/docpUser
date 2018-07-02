@@ -17,9 +17,9 @@ require('../css/profile.css')
 require('../css/wallet_refund.css')
 require('../css/more.css')
 
-import 'rc-slider/assets/index.css';
-import 'node-snackbar/dist/snackbar.min.css'
-import 'cropperjs/dist/cropper.css';
+require('rc-slider/assets/index.css')
+require('node-snackbar/dist/snackbar.min.css')
+require('cropperjs/dist/cropper.css')
 
 import NotificationsBoot from './containers/commons/NotificationsBoot'
 

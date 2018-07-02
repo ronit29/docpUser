@@ -11,7 +11,7 @@ class LabDetails extends React.Component {
 
     render() {
 
-        let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality } = this.props.data.lab
+        let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
 
         return (
             <section className="profile-book-screen">
@@ -21,10 +21,14 @@ class LabDetails extends React.Component {
                             <div className="widget profile-book">
                                 <div className="widget-header pb-header text-center">
                                     <div className="pb-logo">
-                                        <img src="/assets/img/customer-icons/lab1.png" className="img-fluid" />
+                                        <img src={lab_thumbnail} className="img-fluid" />
                                     </div>
                                     <h4 className="widget-title pb-title">{name}</h4>
-                                    <p className="location">{locality} {city}<span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span></p>
+                                    <p className="location">{locality} {city}
+                                    {/* <span className="ct-img ct-img-xs">
+                                        <img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" />
+                                    </span> */}
+                                    </p>
                                     <ul className="list time-contact">
                                         <li>
                                             <span className="fw-700 text-sm">Timing: -</span>

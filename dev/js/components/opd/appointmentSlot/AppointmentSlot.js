@@ -85,7 +85,7 @@ class AppointmentSlot extends React.Component {
 
                             {
                                 this.props.DOCTORS[this.state.selectedDoctor] ?
-                                    <section className="wrap dr-profile-screen">
+                                    <section className="dr-profile-screen">
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
