@@ -108,9 +108,9 @@ class LabsList extends React.Component {
                                     </InfiniteScroll>
                                 </div>
                             </div>
+                            {this.state.loading ? <Loader classType="loaderPagination" /> : ""}
                         </div>
                 }
-                {this.state.loading ? <Loader classType="loaderPagination" /> : ""}
             </section>
         );
     }

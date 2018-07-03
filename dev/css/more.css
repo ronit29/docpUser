@@ -192,9 +192,8 @@
 } 
 
 .loaderPagination{
-    position: fixed;
-    left: 43%;
-    bottom: 3%;
+    text-align: center;
+    margin: 20px 0;
 }
 
 
