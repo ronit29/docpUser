@@ -97,7 +97,7 @@
 /*search book*/
 .search-book-result{padding-top: 0px;}
 .search-book-header{height: auto;}
-.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 10; background-color: #e8eff3 ;margin-top: -5px;}
+.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 9; background-color: #e8eff3 ;margin-top: -5px;}
 
 .filter-item{padding: 10px 0;}
 .filter-title{ font-size: 14px; font-weight: 500;}
@@ -170,7 +170,7 @@
 	book-time
 =================*/
 .book-time-screeen{padding-top: 165px;}
-.date-time-calander{position: fixed; left: 0; right: 0;top: 50px; z-index: 10; background-color: #e8eff3}
+.date-time-calander{position: fixed; left: 0; right: 0;top: 50px; z-index: 9; background-color: #e8eff3}
 .add-new-time{padding: 10px 0;}
 
 
@@ -298,9 +298,9 @@
 
 
 /*consumer profile*/
-.consumer-profile-update{left: 0; position: fixed; top: 50px;right: 0; z-index: 10}
+.consumer-profile-update{left: 0; position: fixed; top: 50px;right: 0; z-index: 9}
 
-.verify-number{position: absolute; top: 2px; right: 10px; width: 40px; color: #f78631; z-index: 10; font-weight: bold;padding: 10px 0;}
+.verify-number{position: absolute; top: 2px; right: 10px; width: 40px; color: #f78631; z-index: 9; font-weight: bold;padding: 10px 0;}
 
 /*clock and test svgs css*/
 .visit-time-icon{width: 20px;vertical-align: -7px}

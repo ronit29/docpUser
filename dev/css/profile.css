@@ -805,3 +805,144 @@
 		padding-right: 0;
 	}
 }
+
+/*carousel css*/
+
+.fixed-carousel{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 126px;
+}
+
+.carousel-indicators{
+	bottom: 24px;
+}
+
+.carousel-wrap{
+	padding-top: 110px;
+	padding-bottom: 60px;
+}
+
+.carousel-item>img{
+	width: 100%;
+}
+
+.modal-carousel-body{
+	padding: 0;
+}
+
+.modal-carousel-img{
+	width: 100%;
+	height: 100%;
+}
+
+#clinic-img-modal {
+    padding-top: 100px;
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* Modal Content (Image) */
+#modal-carousel {
+    margin: auto;
+    display: block;
+    width: 100%;
+    max-width: 700px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*online consultation*/
+
+.disease-name-consult{
+	color: #3f3f3f;
+	font-weight: 600;
+}
+
+.online-consultant-list-item{
+	position: relative;
+}
+
+.forward-arrow-consult{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 15px;
+}
+
+.profile-info-container-consult{
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	margin: 15px auto 0;
+	border-radius: 10px;
+	height: 120px;
+	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
+	z-index: 1;
+	background-color: #ffffff;
+	text-align: center;
+}
+
+.profile-info-div-consult{
+	position: absolute;
+	white-space: nowrap;
+	left: 0px;
+	width: 100%;
+	top: 0px;
+	font-size: 0;
+	padding: 8px 0;
+	bottom: 0px;
+  	background-color: transparent;
+}
+
+.profile-pic-consult{
+	display: inline-block;
+	word-wrap: break-word;
+	vertical-align: middle;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-align: center;
+}
+
+.round-profile-img-consult{
+	width: 45px;
+}
+
+.profile-pic-selected-consult>img{
+	width: 75px;
+	height: 75px;
+}
+
+.profile-pic-selected-consult>p{
+	display: none;
+}
+
+.profile-name-consult{
+	font-size: 10px;
+}
+
+.profile-name-selected-consult{
+	font-size: 16px;
+    position: absolute;
+    display: block;
+    font-weight: 600;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 8px;
+}

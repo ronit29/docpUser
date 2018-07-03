@@ -44,6 +44,7 @@
 .sticky-div-temp{margin-top: 20px;}
 .select-time-slot{padding-top: 130px;padding-bottom: 20px;}
 .appointment-form-container{padding-bottom: 42px;}
+.profile-details{padding-top: 40px !important;}
 .someone-else-labelwrap{display: none;}
 
 @media(min-width: 993px){.sticky-header{position: sticky!important;top: 65px!important;margin-top: 20px;}
@@ -56,6 +57,8 @@
 .all-test-screen,.locaton-detect-screen {padding-top: 10px!important;}
 .select-time-slot{padding-top: 20px;}
 .d-pd-0{padding-top: 0;}
+.profile-details{padding-top: 0 !important; padding-bottom: 10px;}
+.carousel-wrap{padding-top: 30px !important;}
 }
 
 /*appointment timeline*/
@@ -68,7 +71,7 @@
 .app-timeline li.active:before{background-color:  #f78631}
 
 .title{font-size: 16px; font-weight: bold; margin-bottom: 5px;}
-
+.title-div>h4{color: black;}
 /*side  panel*/
 .side-panel{width: 260px; left: 108px; top: 0; bottom: 0; position: fixed; background-color: #f7f7f7; padding-top: 50px; z-index: 8}
 .side-panel:hover{  overflow-y:auto;}

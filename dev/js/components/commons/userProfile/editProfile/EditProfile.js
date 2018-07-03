@@ -54,7 +54,7 @@ class EditProfile extends React.Component {
 
         return (
             <div>
-                <section className="consumer-profile-update">
+                <section className="consumer-profile-update sticky-header-3">
                     <div className="nav-tab">
                         <ul className="inline-list tab-items">
                             <li onClick={() => {
@@ -69,7 +69,7 @@ class EditProfile extends React.Component {
 
                 {this.getComp()}
 
-                <a href="#" onClick={this.proceedUpdate.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center">Update Profile</a>
+                <a href="#" onClick={this.proceedUpdate.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile</a>
             </div>
         );
     }
