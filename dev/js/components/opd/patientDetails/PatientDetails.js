@@ -40,13 +40,14 @@ class PatientDetails extends React.Component {
             doctor: this.state.selectedDoctor,
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
-            start_date, start_time
+            start_date, start_time,
+            payment_type: 1 // TODO : Select payment type
         }
 
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
                 this.setState({
-                    paymentData: data.payment_details.pgdata
+                    paymentData: data.pg_details.pgdata
                 }, () => {
                     setTimeout(() => {
                         let form = document.getElementById('paymentForm')

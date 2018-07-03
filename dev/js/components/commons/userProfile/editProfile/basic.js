@@ -61,10 +61,10 @@ class BasicDetails extends React.Component {
     render() {
 
         let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
-        profile_image = profile_image ? profile_image.replace("http://qa.panaceatechno.com/","http://localhost:8080/") : "/assets/img/icons/drIcon.jpg"
+        profile_image = profile_image ? profile_image.replace("http://qa.panaceatechno.com/", "http://localhost:8080/") : "/assets/img/icons/drIcon.jpg"
 
         return (
-            <section className="wrap myProfile">
+            <section className="myProfile profile-details">
                 <div className="widget no-shadow no-radius">
                     <div className="widget-content">
                         <div className="profile-icon">
@@ -121,11 +121,13 @@ class BasicDetails extends React.Component {
                         <Cropper
                             ref='cropper'
                             src={this.state.dataUrl}
-                            style={{ height: '100vh', width: '100vw', position: 'fixed', left: 0, top: 0, zIndex: 999999 }}
+                            style={{ "height": "100%", "width": "100%", "maxWidth": "500px", "position": "fixed", "left": "50%", "top": "50%", "zIndex": "999999", "transform": "translate(-50%, -50%)" }}
                             aspectRatio={1 / 1}
                             cropBoxResizable={false}
+                            viewMode={1}
+                            dragMode={'move'}
                         />
-                        <a style={{ zIndex: 9999999 }} href="#" onClick={this.finishCrop.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center">Update Profile Image</a>
+                        <a style={{ zIndex: 9999999 }} href="#" onClick={this.finishCrop.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile Image</a>
                     </div> : ""
                 }
             </section>

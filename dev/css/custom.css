@@ -59,6 +59,7 @@
 .d-pd-0{padding-top: 0;}
 .profile-details{padding-top: 0 !important; padding-bottom: 10px;}
 .carousel-wrap{padding-top: 30px !important;}
+.add-more-members-btn{position: sticky !important;bottom: 8px !important;float: right;}
 }
 
 /*appointment timeline*/
