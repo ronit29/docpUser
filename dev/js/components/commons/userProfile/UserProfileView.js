@@ -17,16 +17,38 @@ import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
 
-const Section_Component = ({ children }) => {
-    return <section className="consumer-profile-screen">
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-8 offset-md-3">
-                    {children}
+const Section_Component = ({ children, title, history }) => {
+    return <div>
+        <header className="skin-primary fixed horizontal top sticky-header">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-2">
+                        <div className="back-icon" onClick={() => {
+                            history.go(-1)
+                        }}>
+                            <a>
+                                <img src="/assets/img/icons/back.png" className="img-fluid" />
+                            </a>
+                        </div>
+                    </div>
+                    <div className="col-8">
+                        <div className="header-title fw-700 capitalize text-center text-white">{title || "My Profile"}</div>
+                    </div>
+                    <div className="col-2">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </header>
+        <section className="consumer-profile-screen">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-12">
+                        {children}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 }
 
 class UserProfileView extends React.Component {
@@ -50,53 +72,32 @@ class UserProfileView extends React.Component {
 
                         <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                            <header className="skin-primary fixed horizontal top sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <div className="back-icon" onClick={() => {
-                                                this.props.history.go(-1)
-                                            }}>
-                                                <a>
-                                                    <img src="/assets/img/icons/back.png" className="img-fluid" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center text-white">My Profile</div>
-                                        </div>
-                                        <div className="col-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </header>
-
                             {
                                 profiles[selectedProfile] ?
                                     <div>
 
                                         <Route exact path={`${this.props.match.url}/`} render={(props) => {
-                                            return <Section_Component>
+                                            return <Section_Component {...this.props}>
                                                 <ProfileSlider {...this.props} />
                                                 <ProfileData  {...this.props} {...props} />
                                             </Section_Component>
                                         }} />
 
                                         <Route exact path={`${this.props.match.url}/appointments`} render={(props) => {
-                                            return <Section_Component>
+                                            return <Section_Component {...this.props}>
                                                 <ProfileSlider {...this.props} />
                                                 <Appointments  {...this.props} {...props} />
                                             </Section_Component>
                                         }} />
 
                                         <Route exact path={`${this.props.match.url}/family`} render={(props) => {
-                                            return <Section_Component>
+                                            return <Section_Component {...this.props}>
                                                 <Family  {...this.props} {...props} />
                                             </Section_Component>
                                         }} />
 
                                         <Route exact path={`${this.props.match.url}/address`} render={(props) => {
-                                            return <Section_Component>
+                                            return <Section_Component {...this.props}>
                                                 <Address  {...this.props} {...props} />
                                             </Section_Component>
                                         }} />
@@ -114,7 +115,9 @@ class UserProfileView extends React.Component {
                                         }} />
 
                                         <Route exact path={`${this.props.match.url}/:type/reports/:id`} render={(props) => {
-                                            return <Reports {...this.props} {...props} />
+                                            return <Section_Component {...this.props}>
+                                                <Reports {...this.props} {...props} />
+                                            </Section_Component>
                                         }} />
 
                                     </div> : ""

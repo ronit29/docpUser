@@ -54,6 +54,26 @@ class EditProfile extends React.Component {
 
         return (
             <div>
+
+                <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-2">
+                                <ul className="inline-list">
+                                    <li onClick={() => {
+                                        this.props.history.go(-1)
+                                    }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
+                                </ul>
+                            </div>
+                            <div className="col-8">
+                                <div className="header-title fw-700 capitalize text-center">Edit Profile</div>
+                            </div>
+                            <div className="col-2">
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
                 <section className="consumer-profile-update sticky-header-3">
                     <div className="nav-tab">
                         <ul className="inline-list tab-items">

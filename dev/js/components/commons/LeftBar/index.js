@@ -2,15 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { } from '../../../actions/index.js'
 
+import { withRouter } from 'react-router'
+
 import LeftBarView from './LeftBar'
 
 class LeftBar extends React.Component {
     constructor(props) {
         super(props)
-    }
-
-    static contextTypes = {
-        router: () => null
     }
 
     render() {
@@ -22,9 +20,9 @@ class LeftBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profile } = state.USER
+    let { profiles, selectedProfile } = state.USER
     return {
-
+        profiles, selectedProfile
     }
 }
 
@@ -34,4 +32,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LeftBar))

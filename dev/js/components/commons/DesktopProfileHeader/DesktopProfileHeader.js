@@ -15,7 +15,9 @@ class DesktopProfileHeader extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row header-row">
-                        <div className="col-3 logo-icon-div">
+                        <div className="col-3 logo-icon-div" onClick={() => {
+                            this.props.history.push('/')
+                        }}>
                             <a href="javascript:;"><img src="/assets/img/doc-prime-logo.png" className="logo-icon" /></a>
                         </div>
                         {/* for Desktop Only */}

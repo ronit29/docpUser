@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { } from '../../../actions/index.js'
 
+import { withRouter } from 'react-router'
+
 import DesktopProfileHeaderView from './DesktopProfileHeader'
 
 class DesktopProfileHeader extends React.Component {
@@ -22,7 +24,7 @@ class DesktopProfileHeader extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profile } = state.USER
+    
     return {
 
     }
@@ -34,4 +36,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DesktopProfileHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DesktopProfileHeader))
