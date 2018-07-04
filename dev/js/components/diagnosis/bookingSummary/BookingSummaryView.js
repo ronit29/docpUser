@@ -112,7 +112,6 @@ class BookingSummaryView extends React.Component {
         })
     }
 
-
     render() {
 
         let tests = []

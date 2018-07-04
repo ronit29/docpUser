@@ -15,6 +15,7 @@ require('../css/responsive.css')
 // require('../css/payment_screen.css')
 require('../css/profile.css')
 require('../css/wallet_refund.css')
+require('../css/error.css')
 require('../css/more.css')
 
 require('../css/slider.css')

@@ -30,7 +30,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	let max_price = filterCriteria.priceRange[1]
 	let order_by = filterCriteria.sortBy
 
-	let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${1000000000000000}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&page=${page}`
+	let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${lat}&lat=${long}&min_distance=${min_distance}&max_distance=${1000000000}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&page=${page}`
 
 	if (page == 1) {
 		dispatch({

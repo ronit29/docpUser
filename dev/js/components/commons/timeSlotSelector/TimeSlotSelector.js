@@ -151,7 +151,7 @@ class TimeSlotSelector extends React.Component {
                             selectedSchedule.length == 0 ? <p style={{ textAlign: 'center' }}>Not available on this day.</p> : ""
                         }
                         {
-                            selectedSchedule.map((schedule, i) => {
+                            selectedSchedule.filter(schedule => schedule.timing && schedule.timing.length).map((schedule, i) => {
                                 return <div key={i}>
                                     <h4 className="report-on mrb-10">{schedule.title}</h4>
                                     <ul className="inline-list time-items">
