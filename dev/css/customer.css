@@ -97,7 +97,7 @@
 /*search book*/
 .search-book-result{padding-top: 0px;}
 .search-book-header{height: auto;}
-.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 10; background-color: #e8eff3 ;margin-top: -5px;}
+.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 9; background-color: #e8eff3 ;margin-top: -5px;}
 
 .filter-item{padding: 10px 0;}
 .filter-title{ font-size: 14px; font-weight: 500;}
@@ -126,7 +126,7 @@
 .lab-price{font-size: 16px; font-weight: 500;color: #263077; padding-top: 3px;}
 
 /*filter popup*/
-.filter-popup{margin: 200px auto; width: 100%; max-width: 500px;}
+.filter-popup{margin: 100px auto; width: 100%; max-width: 500px;}
 .info-popup{margin-top: 20px;}
 
 /*All test screen 13*/
@@ -170,7 +170,7 @@
 	book-time
 =================*/
 .book-time-screeen{padding-top: 165px;}
-.date-time-calander{position: fixed; left: 0; right: 0;top: 50px; z-index: 10; background-color: #e8eff3}
+.date-time-calander{position: fixed; left: 0; right: 0;top: 50px; z-index: 8; background-color: #e8eff3}
 .add-new-time{padding: 10px 0;}
 
 
@@ -186,7 +186,7 @@
 
 .booking-confirm-screen .lab-visit-time{margin-bottom: 30px;}
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
-.booking-confirm-screen .lab-visit-time>p{padding-left: 20px; font-weight: 700;margin-bottom: 4px;}
+.booking-confirm-screen .lab-visit-time>p{padding-left: 20px; font-weight: 700;margin-bottom: 4px; width: 70%; word-wrap: break-word;}
 
 .payment-method>li{padding: 10px; vertical-align: middle;}
 .payment-method>li>label{font-size: 14px; font-weight: bold;}
@@ -298,9 +298,9 @@
 
 
 /*consumer profile*/
-.consumer-profile-update{left: 0; position: fixed; top: 50px;right: 0; z-index: 10}
+.consumer-profile-update{left: 0; position: fixed; top: 50px;right: 0; z-index: 9}
 
-.verify-number{position: absolute; top: 2px; right: 10px; width: 40px; color: #f78631; z-index: 10; font-weight: bold;padding: 10px 0;}
+.verify-number{position: absolute; top: 2px; right: 10px; width: 40px; color: #f78631; z-index: 9; font-weight: bold;padding: 10px 0;}
 
 /*clock and test svgs css*/
 .visit-time-icon{width: 20px;vertical-align: -7px}

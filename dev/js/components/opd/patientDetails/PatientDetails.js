@@ -40,23 +40,28 @@ class PatientDetails extends React.Component {
             doctor: this.state.selectedDoctor,
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
-            start_date, start_time
+            start_date, start_time,
+            payment_type: 1 // TODO : Select payment type
         }
 
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
-                this.setState({
-                    paymentData: data.payment_details.pgdata
-                }, () => {
-                    setTimeout(() => {
-                        let form = document.getElementById('paymentForm')
-                        form.submit()
-                    }, 500)
+                if (data.payment_required) {
+                    this.setState({
+                        paymentData: data.data
+                    }, () => {
+                        setTimeout(() => {
+                            let form = document.getElementById('paymentForm')
+                            form.submit()
+                        }, 500)
 
-                    setTimeout(() => {
-                        this.setState({ loading: false })
-                    }, 5000)
-                })
+                        setTimeout(() => {
+                            this.setState({ loading: false })
+                        }, 5000)
+                    })
+                } else {
+
+                }
             } else {
                 let message = "Could not create appointment. Try again later !"
                 if (err.message) {

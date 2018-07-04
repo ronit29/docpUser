@@ -12,7 +12,7 @@ export default function (state = defaultState, action) {
 
             return action.payload.reduce((doctorMap, doctor) => {
                 if (doctorMap[doctor.id]) {
-                    doctorMap[doctor.id] = Object.assign({}, doctor, doctorMap[doctor.id])
+                    doctorMap[doctor.id] = Object.assign({}, doctorMap[doctor.id], doctor)
                 } else {
                     doctorMap[doctor.id] = { ...doctor }
                 }

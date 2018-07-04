@@ -1,7 +1,7 @@
 /*===================
 	common
 ====================*/
-.fixed{position: fixed; z-index: 10; width: 100%;}
+.fixed{position: fixed; z-index: 8; width: 100%;}
 .fixed.horizontal{left: 0; right: 0;}
 .fixed.vertical{top: 0; bottom: 0;}
 .fixed.top{top: 0;}
@@ -44,9 +44,10 @@
 .sticky-div-temp{margin-top: 20px;}
 .select-time-slot{padding-top: 130px;padding-bottom: 20px;}
 .appointment-form-container{padding-bottom: 42px;}
+.profile-details{padding-top: 40px !important;}
 .someone-else-labelwrap{display: none;}
 
-@media(min-width: 993px){.sticky-header{position: sticky!important;top: 65px!important;margin-top: 20px;}
+@media(min-width: 993px){.sticky-header{position: sticky!important;top: 65px!important;margin-top: 20px;z-index: 9;}
 .sticky-header-2{position: sticky!important;top: 161px!important;margin-top: 2px!important;}
 .sticky-header-3{position: sticky!important;top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
@@ -56,19 +57,22 @@
 .all-test-screen,.locaton-detect-screen {padding-top: 10px!important;}
 .select-time-slot{padding-top: 20px;}
 .d-pd-0{padding-top: 0;}
+.profile-details{padding-top: 0 !important; padding-bottom: 10px;}
+.carousel-wrap{padding-top: 30px !important;}
+.add-more-members-btn{position: sticky !important;bottom: 8px !important;float: right;}
 }
 
 /*appointment timeline*/
 .app-timeline{margin-bottom: 20px;}
 .app-timeline>ul{width: 100%;}
 .app-timeline li{position: relative; width: 33%; margin-right: -3px; text-align: center;}
-.app-timeline li:before{width: 100%; height: 1px; background-color: #b1b1b1; position: absolute; top:10px; right:0; left: 0; content: ''; z-index: -1}
-.app-timeline li .dot{width: 20px; background-color: #555; height: 20px; color: #fff; display: inline-block; border-radius: 50%; font-weight: 700;margin-bottom: 5px;}
+.app-timeline li:before{width: 100%; height: 1px; background-color: #b1b1b1; position: absolute; top:10px; right:0; left: 0; content: '';}
+.app-timeline li .dot{position: relative; width: 20px; background-color: #555; height: 20px; color: #fff; display: inline-block; border-radius: 50%; font-weight: 700;margin-bottom: 5px;}
 .app-timeline li.active .dot{ color: #fff; background-color: #f78631}
 .app-timeline li.active:before{background-color:  #f78631}
 
 .title{font-size: 16px; font-weight: bold; margin-bottom: 5px;}
-
+.title-div>h4{color: black;}
 /*side  panel*/
 .side-panel{width: 260px; left: 108px; top: 0; bottom: 0; position: fixed; background-color: #f7f7f7; padding-top: 50px; z-index: 8}
 .side-panel:hover{  overflow-y:auto;}

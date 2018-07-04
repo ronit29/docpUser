@@ -8,7 +8,7 @@ class MedicalDetails extends React.Component {
     render() {
 
         return (
-            <section className="wrap myProfile">
+            <section className="myProfile profile-details">
                 <div className="widget-panel">
                     <h4 className="panel-title">Medical History</h4>
                     <div className="panel-content pd-0">

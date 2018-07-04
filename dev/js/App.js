@@ -15,11 +15,13 @@ require('../css/responsive.css')
 // require('../css/payment_screen.css')
 require('../css/profile.css')
 require('../css/wallet_refund.css')
+require('../css/error.css')
 require('../css/more.css')
 
-require('rc-slider/assets/index.css')
-require('node-snackbar/dist/snackbar.min.css')
-require('cropperjs/dist/cropper.css')
+require('../css/slider.css')
+require('../css/snackbar.css')
+require('../css/cropper.css')
+
 
 import NotificationsBoot from './containers/commons/NotificationsBoot'
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
-import PaymentForm from '../../commons/paymentForm'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -22,8 +21,7 @@ class BookingView extends React.Component {
         super(props)
         this.state = {
             data: null,
-            loading: true,
-            paymentData: {}
+            loading: true
         }
     }
 
@@ -88,27 +86,6 @@ class BookingView extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=true`)
-    }
-
-    retryPayment() {
-
-        this.setState({ loading: true })
-
-        this.props.retryPaymentOPD(this.state.data.id, (err, data) => {
-            if (!err) {
-                this.setState({
-                    paymentData: data.pgdata
-                }, () => {
-                    setTimeout(() => {
-                        let form = document.getElementById('paymentForm')
-                        form.submit()
-                        this.setState({ loading: false })
-                    }, 500)
-                })
-            } else {
-                this.setState({ loading: false })
-            }
-        })
     }
 
     navigateTo(where, e) {
@@ -238,7 +215,7 @@ class BookingView extends React.Component {
                                                     <div className="widget-content">
                                                         <div>
                                                             <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/customer-icons/clock.svg" /></span>Clinic Visit Time
-            
+
                                                     {
                                                                     actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                 }
@@ -263,14 +240,8 @@ class BookingView extends React.Component {
                                     </div>
                                 </section> : <Loader />
                             }
-                            {
-                                status === 1 ? <button onClick={this.retryPayment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn sticky-btn">Pay Now Rs. {this.state.data ? this.state.data.fees : 0}</button> : <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn sticky-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
-                            }
 
-                            {
-                                status === 1 ? <PaymentForm paymentData={this.state.paymentData} /> : ""
-                            }
-
+                            <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn sticky-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
 
                         </div>
 

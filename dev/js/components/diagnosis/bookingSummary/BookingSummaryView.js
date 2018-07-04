@@ -84,13 +84,14 @@ class BookingSummaryView extends React.Component {
             lab: this.state.selectedLab,
             test_ids: this.props.selectedCriterias.filter(x => x.type == 'test').map(t => t.id),
             profile: this.props.selectedProfile,
-            start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress
+            start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
+            payment_type: 1 // TODO : Select payment type
         }
 
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 this.setState({
-                    paymentData: data.payment_details.pgdata
+                    paymentData: data.pg_details.pgdata
                 }, () => {
                     setTimeout(() => {
                         let form = document.getElementById('paymentForm')
@@ -110,7 +111,6 @@ class BookingSummaryView extends React.Component {
             }
         })
     }
-
 
     render() {
 
@@ -178,7 +178,7 @@ class BookingSummaryView extends React.Component {
 
 
                                                                 <div className="lab-details">
-                                                                    <img src="/assets/img/customer-icons/lab1.png" className="img-fluid" />
+                                                                    <img src={labDetail.lab_thumbnail} className="img-fluid" />
                                                                     <div className="lab-title">
                                                                         <h4 className="fw-700 text-md title">{labDetail.name}</h4>
                                                                         <p className="fw-500 text-sm text-light">{labDetail.address}</p>
