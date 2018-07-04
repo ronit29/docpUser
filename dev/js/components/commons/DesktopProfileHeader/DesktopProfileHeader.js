@@ -25,11 +25,11 @@ class DesktopProfileHeader extends React.Component {
                         {/* for Desktop Only */}
                         {
                             profileData ? <div className="col-lg-4 d-none d-lg-block header-items-rt">
-                                <div className="header-item">
+                                {/* <div className="header-item">
                                     <img src="/assets/img/customer-icons/bell-white.svg" className="header-icons bell-web-icon" />
                                     <span className="header-item-label">Notifications</span>
                                     <img src="/assets/img/customer-icons/down-filled.svg" className="header-icons down-web-icon" />
-                                </div>
+                                </div> */}
                                 <div className="header-item logout-item">
                                     <img src="/assets/img/customer-icons/logout.svg" className="header-icons logout-web-icon" />
                                     <span className="header-item-label">Logout</span>
