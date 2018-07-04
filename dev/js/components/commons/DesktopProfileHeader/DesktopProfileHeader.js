@@ -8,6 +8,8 @@ class DesktopProfileHeader extends React.Component {
 
     render() {
 
+        let profileData = this.props.profiles[this.props.selectedProfile]
+
         return (
             <header className="profile-header">
                 <div className="smiley-img-div">
@@ -21,17 +23,20 @@ class DesktopProfileHeader extends React.Component {
                             <a href="javascript:;"><img src="/assets/img/doc-prime-logo.png" className="logo-icon" /></a>
                         </div>
                         {/* for Desktop Only */}
-                        <div className="col-lg-4 d-none d-lg-block header-items-rt">
-                            <div className="header-item">
-                                <img src="/assets/img/customer-icons/bell-white.svg" className="header-icons bell-web-icon" />
-                                <span className="header-item-label">Notifications</span>
-                                <img src="/assets/img/customer-icons/down-filled.svg" className="header-icons down-web-icon" />
-                            </div>
-                            <div className="header-item logout-item">
-                                <img src="/assets/img/customer-icons/logout.svg" className="header-icons logout-web-icon" />
-                                <span className="header-item-label">Logout</span>
-                            </div>
-                        </div>
+                        {
+                            profileData ? <div className="col-lg-4 d-none d-lg-block header-items-rt">
+                                <div className="header-item">
+                                    <img src="/assets/img/customer-icons/bell-white.svg" className="header-icons bell-web-icon" />
+                                    <span className="header-item-label">Notifications</span>
+                                    <img src="/assets/img/customer-icons/down-filled.svg" className="header-icons down-web-icon" />
+                                </div>
+                                <div className="header-item logout-item">
+                                    <img src="/assets/img/customer-icons/logout.svg" className="header-icons logout-web-icon" />
+                                    <span className="header-item-label">Logout</span>
+                                </div>
+                            </div> : ""
+                        }
+
                         {/* for Desktop Only Ends*/}
                         {/* for mobile only */}
                         <div className="col-3 d-lg-none bell-icon-div">

@@ -2,11 +2,11 @@ import React from 'react';
 
 import TestDetail from './testDetail'
 import Loader from '../../commons/Loader'
-import PaymentForm from '../../commons/paymentForm'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import CancelPopup from './cancelPopup.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -26,7 +26,7 @@ class BookingView extends React.Component {
             showTestDetail: false,
             data: null,
             loading: true,
-            paymentData: {}
+            showCancel: false
         }
     }
 
@@ -76,6 +76,12 @@ class BookingView extends React.Component {
         })
     }
 
+    toggleCancel(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.setState({ showCancel: !this.state.showCancel })
+    }
+
     toogleTestDetails() {
         this.setState({ showTestDetail: !this.state.showTestDetail })
     }
@@ -84,27 +90,6 @@ class BookingView extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true`)
-    }
-
-    retryPayment() {
-
-        this.setState({ loading: true })
-
-        this.props.retryPaymentLAB(this.state.data.id, (err, data) => {
-            if (!err) {
-                this.setState({
-                    paymentData: data.pgdata
-                }, () => {
-                    setTimeout(() => {
-                        let form = document.getElementById('paymentForm')
-                        form.submit()
-                        this.setState({ loading: false })
-                    }, 500)
-                })
-            } else {
-                this.setState({ loading: false })
-            }
-        })
     }
 
     navigateTo(where, e) {
@@ -204,6 +189,10 @@ class BookingView extends React.Component {
                                                         <div className="widget-content">
                                                             <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                                             <p className="text-xs text-light">Details has been send to your email and mobile number</p>
+                                                            {
+                                                                actions.indexOf(6) > -1 ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
+                                                            }
+
                                                         </div>
                                                     </div>
 
@@ -225,7 +214,7 @@ class BookingView extends React.Component {
                                                         <div className="widget-content">
                                                             <div>
                                                                 <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>Visit Time
-            
+
                                                     {
                                                                         actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                     }
@@ -277,11 +266,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                status === 1 ? <button onClick={this.retryPayment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn sticky-btn">Pay Now Rs. {this.state.data ? this.state.data.price : 0}</button> : <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn sticky-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
-                            }
-
-                            {
-                                status === 1 ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} /> : ""
                             }
 
                         </div>

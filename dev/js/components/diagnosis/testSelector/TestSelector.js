@@ -129,7 +129,7 @@ class TestSelectorView extends React.Component {
                                             </div>
                                         </section>
 
-                                        <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg" onClick={() => {
+                                        <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => {
                                             this.props.history.go(-1)
                                         }}>Done</button>
                                     </div> : <Loader />

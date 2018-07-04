@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { } from '../../../actions/index.js'
 
+import { withRouter } from 'react-router'
+
 import RightBarView from './RightBar'
 
 class RightBar extends React.Component {
@@ -22,8 +24,9 @@ class RightBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    let { profiles, selectedProfile } = state.USER
     return {
-
+        profiles, selectedProfile
     }
 }
 
@@ -33,4 +36,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RightBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RightBar))

@@ -30,7 +30,9 @@ class LeftBar extends React.Component {
             <div className="col-lg-3 profile-section d-none d-lg-block">
                 {
                     profileData ? <div className="sticky-div sticky-div-temp">
-                        <div className="profile-img-section">
+                        <div className="profile-img-section" onClick={() => {
+                            this.props.history.push('/user')
+                        }}>
                             <img src={profileData.profile_image || "/assets/img/profile-img.png"} className="profile-icon" />
                         </div>
                         <div className="profile-name-section">
@@ -116,7 +118,32 @@ class LeftBar extends React.Component {
                             </li> */}
                             </ul>
                         </div>
-                    </div> : ""
+                    </div> : <div className="sticky-div loggedOut-div">
+                            <div className="dummy-img-section">
+                                <img src="/assets/img/icons/dummy-profile.svg" className="dummy-icon" />
+                            </div>
+                            <div className="login-btn-section">
+                                <button className="login-btn-web" onClick={() => {
+                                    this.props.history.push('/user')
+                                }}>Login</button>
+                            </div>
+                            <div className="register-div">
+                                <p className="register-text fw-500">Register/Login and manage</p>
+                                <ul className="login-feature-list">
+                                    <li className="login-feature-list-item">Your Profile</li>
+                                    <li className="login-feature-list-item">Your Appoinments</li>
+                                    <li className="login-feature-list-item">Your Medical Records</li>
+                                    <li className="login-feature-list-item">Your Medical History</li>
+                                    <li className="login-feature-list-item">Your Family Members</li>
+                                    <li className="login-feature-list-item">Your OPD Insurance</li>
+                                </ul>
+                                <hr />
+                                <ul className="login-feature-list">
+                                    <a href="javascript:;"><li className="login-feature-list-item">Book Genral Physicians in Delhi</li></a>
+                                    <a href="javascript:;"><li className="login-feature-list-item">Book Dentist in Delhi</li></a>
+                                </ul>
+                            </div>
+                        </div>
                 }
 
 

@@ -11,7 +11,7 @@
 	right: 0;
 	background-color: rgba(247, 134, 49, 1);
 	padding: 10px 0;
-	z-index: 10;
+	z-index: 9;
 	height: auto;
 }
 
@@ -178,12 +178,63 @@
 	z-index: 1;
 }
 
-.profile-img-section{
+.profile-img-section, .dummy-img-section{
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
 	border: solid 5px #ffffff;
 	margin: auto;
+}
+
+.dummy-img-section{
+	text-align: center;
+    background-color: #e4e4e4;
+    padding-top: 20px;
+}
+
+.dummy-icon{
+	width: 70px;
+}
+
+.login-btn-section{
+	margin-top: 16px;
+	text-align: center;
+}
+
+.login-btn-web{
+	text-align: center;
+	color: #f78631;
+	border-radius: 20px;
+	border: 1px solid #f78631;
+	background-color: transparent;
+	padding: 8px 16px;
+	cursor: pointer;
+	width: 60%;
+	font-size: 16px;
+}
+
+.register-div{
+	margin-top: 24px;
+	text-align: left;
+}
+
+.register-text{
+	font-size: 16px;
+	color: #161616;
+}
+
+.login-feature-list{
+	padding: 0;
+	display: block;
+	margin-top: 10px;
+	text-align: left;
+}
+
+.login-feature-list-item{
+	padding: 4px 0;
+	color: #6c6c6c;
+	font-size: 14px;
+	font-weight: 500;
 }
 
 .profile-name-section{
@@ -945,4 +996,65 @@
     left: 50%;
     transform: translateX(-50%);
     bottom: 8px;
+}
+
+.cancel-overlay{
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.6);
+	z-index: 99;
+}
+
+.cancel-appointment-div{
+	position: fixed;
+	bottom: unset;
+	top: 50%;
+	left: 50%;
+	right: unset;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	padding: 8px;
+	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cancel-appointment-head{
+	font-size: 16px;
+}
+
+.cancel-content-div{
+	position: relative;
+	padding-right: 30px;
+}
+
+.cancel-content{
+	margin-top: 4px;
+	font-size: 12px;
+	color: #757575;
+}
+
+.cancel-right-arrow{
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 10px;
+}
+
+.cancel-right-arrow>img{
+	vertical-align: middle;
+	width: 100%;
+}
+
+@media(max-width: 992px){
+	.cancel-appointment-div{
+		position: fixed;
+		top: unset;
+		bottom: -8px;
+		left: 10px;
+		right: 10px;
+		transform: unset;		
+	}
 }

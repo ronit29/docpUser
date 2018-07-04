@@ -21,7 +21,7 @@ class SelectedClinic extends React.Component {
 
     render() {
 
-        let { name, qualifications, hospitals } = this.props.selectedDoctor
+        let { name, qualifications, hospitals, thumbnail } = this.props.selectedDoctor
         let hospitalName = ""
 
         if (hospitals && hospitals.length) {
@@ -35,7 +35,7 @@ class SelectedClinic extends React.Component {
         return (
             <div className="widget mrt-10 ct-profile skin-white">
                 <div className="widget-header dr-qucik-info">
-                    <img src="/assets/img/customer-icons/user.png" className="img-fluid" />
+                    <img src={thumbnail} className="img-fluid" />
                     <div className="dr-profile">
                         <h4 className="dr-name">{name}</h4>
                         <p className="desg">{this.getQualificationStr(qualifications)}</p>
