@@ -184,9 +184,9 @@
 .booking-confirm-screen .lab-details>img{width: 70px; border:1px solid #ddd; padding: 3px ; float: right;}
 .booking-confirm-screen .lab-details .lab-title .title{margin-bottom: 5px;}
 
-.booking-confirm-screen .lab-visit-time{margin-bottom: 30px;}
+.booking-confirm-screen .lab-visit-time{margin-bottom: 40px;}
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
-.booking-confirm-screen .lab-visit-time>p{padding-left: 20px; font-weight: 700;margin-bottom: 4px; width: 70%; word-wrap: break-word;}
+.booking-confirm-screen .lab-visit-time>p{padding-left: 20px; margin-bottom: 4px; width: 70%; word-wrap: break-word;}
 
 .payment-method>li{padding: 10px; vertical-align: middle;}
 .payment-method>li>label{font-size: 14px; font-weight: bold;}

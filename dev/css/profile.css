@@ -1083,10 +1083,6 @@
 	font-size: 14px;
 }
 
-.booking-confirm-screen .lab-visit-time .title>span{
-	margin-left: 8px;
-}
-
 .booking-confirm-screen .lab-visit-time .title>span>img{
 	vertical-align: middle;
 }
@@ -1110,4 +1106,30 @@
 		transform: unset;
 		width: auto;	
 	}
+}
+
+.lab-appointment-div{
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.lab-appointment-div>h4,.lab-appointment-div>ul{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.lab-appointment-label{
+	font-size: 15px !important;
+}
+
+.inline-list.booking-type.col-12{
+	padding-left: 20px;
+}
+
+.test-list-label{
+	width: 100% !important;
+}
+
+.info-icon-img{
+	margin-left: 8px;
 }
