@@ -11,6 +11,9 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 
+import CancelationPolicy from './cancellation.js'
+import PaymentSummary from './paymentSummary.js'
+
 class BookingSummaryView extends React.Component {
     constructor(props) {
         super(props)
@@ -18,8 +21,14 @@ class BookingSummaryView extends React.Component {
             selectedLab: this.props.match.params.id,
             paymentData: {},
             loading: false,
-            error: ""
+            error: "",
+            openCancellation: false,
+            openPaymentSummary: false
         }
+    }
+
+    toggle(which) {
+        this.setState({ [which]: !this.state[which] })
     }
 
     componentDidMount() {
@@ -90,18 +99,22 @@ class BookingSummaryView extends React.Component {
 
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
-                this.setState({
-                    paymentData: data.pg_details.pgdata
-                }, () => {
-                    setTimeout(() => {
-                        let form = document.getElementById('paymentForm')
-                        form.submit()
-                    }, 500)
+                if (data.payment_required) {
+                    this.setState({
+                        paymentData: data.data
+                    }, () => {
+                        setTimeout(() => {
+                            let form = document.getElementById('paymentForm')
+                            form.submit()
+                        }, 500)
 
-                    setTimeout(() => {
-                        this.setState({ loading: false })
-                    }, 5000)
-                })
+                        setTimeout(() => {
+                            this.setState({ loading: false })
+                        }, 5000)
+                    })
+                } else {
+
+                }
             } else {
                 let message = "Could not create appointment. Try again later !"
                 if (err.message) {
@@ -171,6 +184,7 @@ class BookingSummaryView extends React.Component {
                                         <section className="booking-confirm-screen">
                                             <div className="container-fluid">
                                                 <div className="row">
+
                                                     <div className="col-12">
                                                         <div className="widget mrt-10">
 
@@ -201,10 +215,22 @@ class BookingSummaryView extends React.Component {
 
                                                                 {this.getSelectors()}
 
+                                                                <div className="lab-visit-time test-report">
+                                                                    <h4 className="title payment-amt-label">Total Payble Amount<span><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                    <h5 className="payment-amt-value">Rs. {finalPrice}</h5>
+                                                                </div>
+
                                                             </div>
 
                                                         </div>
                                                     </div>
+
+                                                    <div className="col-12">
+                                                        <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                                            <h4 className="title payment-amt-label">Money back guarantee<span><img src="/assets/img/icons/info.svg" /></span></h4>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <span className="errorMessage">{this.state.error}</span>
@@ -212,8 +238,16 @@ class BookingSummaryView extends React.Component {
 
                                         <PaymentForm paymentData={this.state.paymentData} />
 
+                                        {
+                                            this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                        }
+
+                                        {
+                                            this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} /> : ""
+                                        }
+
                                         <button disabled={
-                                            (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab')) || this.state.loading)
+                                            (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
                                         } onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed to Pay Rs. {finalPrice}</button>
 
                                     </div> : <Loader />

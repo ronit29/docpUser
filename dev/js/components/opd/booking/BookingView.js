@@ -5,6 +5,7 @@ import Loader from '../../commons/Loader'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import CancelPopup from './cancelPopup.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -21,7 +22,8 @@ class BookingView extends React.Component {
         super(props)
         this.state = {
             data: null,
-            loading: true
+            loading: true,
+            showCancel: false
         }
     }
 
@@ -80,6 +82,12 @@ class BookingView extends React.Component {
                 this.setState({ loading: false })
             }
         })
+    }
+
+    toggleCancel(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.setState({ showCancel: !this.state.showCancel })
     }
 
     goToSlotSelector(e) {
@@ -189,7 +197,9 @@ class BookingView extends React.Component {
                                                     <div className="widget-content">
                                                         <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                                         <p className="text-xs text-light">Details has been send to your email and mobile number</p>
-                                                        <a href="#" className="text-primary fw-700 text-sm">Cancel Booking</a>
+                                                        {
+                                                            actions.indexOf(6) > -1 ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="widget  mrb-10">
@@ -216,7 +226,7 @@ class BookingView extends React.Component {
                                                         <div>
                                                             <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/customer-icons/clock.svg" /></span>Clinic Visit Time
 
-                                                    {
+                                                                {
                                                                     actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                 }
 
@@ -241,7 +251,9 @@ class BookingView extends React.Component {
                                 </section> : <Loader />
                             }
 
-                            <button onClick={this.cancelAppointment.bind(this)} className="v-btn v-btn-default btn-lg fixed horizontal bottom no-round text-lg cancel-booking-btn sticky-btn" disabled={actions.indexOf(6) === -1}>Cancel Booking</button>
+                            {
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} /> : ""
+                            }
 
                         </div>
 

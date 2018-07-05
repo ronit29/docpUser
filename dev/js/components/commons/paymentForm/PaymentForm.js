@@ -12,10 +12,16 @@ class PaymentForm extends React.Component {
 
     render() {
 
-        let data = { "paymentMode": "CC", "responseCode": "227", "bankTxId": "", "txDate": "Jun 4, 2018 12:10:23 PM", "bankName": "SBI", "statusMsg": "Oops an error occurred. We will get back to you!", "currency": "INR", "statusCode": 1, "pgGatewayName": "MOCK", "responseMessage": "Your payment has been declined by your bank. Please contact your bank for any queries. If money has been deducted from your account, your bank will inform us within 48 hrs and we will refund the same", "txStatus": "TXN_FAILURE", "customerId": 51, "orderNo": 126, "statusShortMsg": "Others", "pgTxId": "70000926367", "email": "dummy_appointment@policybazaar.com", "pbGatewayName": "paytm", "mobile": "9999999997", appointmentId: this.props.paymentData['appointmentId'], productId: this.props.paymentData['productId'] }
+        let data = { "paymentMode": "CC", "responseCode": "227", "bankTxId": "", "txDate": "Jun 4, 2018 12:10:23 PM", "bankName": "SBI", "statusMsg": "Oops an error occurred. We will get back to you!", "currency": "INR", "statusCode": 1, "pgGatewayName": "MOCK", "responseMessage": "Your payment has been declined by your bank. Please contact your bank for any queries. If money has been deducted from your account, your bank will inform us within 48 hrs and we will refund the same", "txStatus": "TXN_FAILURE", "customerId": 51, "orderNo": this.props.paymentData['orderId'], "statusShortMsg": "Others", "email": "dummy_appointment@policybazaar.com", "pbGatewayName": "paytm", "mobile": "9999999997", productId: this.props.paymentData['productId'] }
+
+        if (this.props.paymentData['referenceId']) {
+            data['referenceId'] = this.props.paymentData['referenceId']
+        }
+
+        data['pgTxId'] = this.props.paymentData['orderId']
 
         data = btoa(JSON.stringify(data))
-        
+
         return (
             <div>
 
@@ -32,7 +38,7 @@ class PaymentForm extends React.Component {
                 </form> */}
 
 
-                <form id="paymentForm" ref="paymentForm" method="post" action={ `${CONFIG.API_BASE_URL}/api/v1/user/transaction/save` } style={{ visibility: 'hidden' }}>
+                <form id="paymentForm" ref="paymentForm" method="post" action={`${CONFIG.API_BASE_URL}/api/v1/user/transaction/save`} style={{ visibility: 'hidden' }}>
                     <input type="text" name="response" value={data} />
                 </form>
 

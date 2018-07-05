@@ -1,5 +1,10 @@
 import React from 'react';
 
+import LeftBar from '../../commons/LeftBar'
+import RightBar from '../../commons/RightBar'
+import ProfileHeader from '../../commons/DesktopProfileHeader'
+
+
 class NotificationsView extends React.Component {
     constructor(props) {
         super(props)
@@ -14,55 +19,66 @@ class NotificationsView extends React.Component {
         }
     }
 
-    openAppointment(data){
+    openAppointment(data) {
         this.props.history.push(data.content.url)
     }
 
     render() {
 
         return (
-            <div>
-                <header className="skin-primary fixed horizontal top">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-2">
-                                <div className="back-icon" onClick={() => {
-                                    this.props.history.go(-1)
-                                }}>
-                                    <a>
-                                        <img src="/assets/img/icons/back.png" className="img-fluid" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-8">
-                                <div className="header-title fw-700 capitalize text-center text-white">Notifications</div>
-                            </div>
-                            <div className="col-2">
-                            </div>
-                        </div>
-                    </div>
-                </header>
+            <div className="profile-body-wrap">
+                <ProfileHeader />
+                <section className="container parent-section book-appointment-section">
+                    <div className="row main-row parent-section-row">
+                        <LeftBar />
 
-                <section className="wrap notification-page skin-white">
-                    <div className="notificatons">
-                        <ul className="list notificaton-list">
-                            {
-                                this.props.notifications.map((note, i) => {
-                                    return <li key={i} onClick={this.openAppointment.bind(this,note)}>
-                                        <a>
-                                            <img src="/assets/img/icons/bell-md.png" className="img-fluid noti-icon" />
-                                            <div className="noti-content">
-                                                <h4 className="noti-title">{note.content.title}<span className="updated-on">{note.viewed_at ? "" : "New"}</span></h4>
-                                                <p>{note.content.body}</p>
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
+                            <header className="skin-primary fixed horizontal top sticky-header">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-2">
+                                            <div className="back-icon" onClick={() => {
+                                                this.props.history.go(-1)
+                                            }}>
+                                                <a>
+                                                    <img src="/assets/img/icons/back.png" className="img-fluid" />
+                                                </a>
                                             </div>
-                                        </a>
-                                    </li>
-                                })
-                            }
-                        </ul>
+                                        </div>
+                                        <div className="col-8">
+                                            <div className="header-title fw-700 capitalize text-center text-white">Notifications</div>
+                                        </div>
+                                        <div className="col-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <section className="notification-page skin-white">
+                                <div className="notificatons">
+                                    <ul className="list notificaton-list">
+                                        {
+                                            this.props.notifications.map((note, i) => {
+                                                return <li key={i} onClick={this.openAppointment.bind(this, note)}>
+                                                    <a>
+                                                        <img src="/assets/img/icons/bell-md.png" className="img-fluid noti-icon" />
+                                                        <div className="noti-content">
+                                                            <h4 className="noti-title">{note.content.title}<span className="updated-on">{note.viewed_at ? "" : "New"}</span></h4>
+                                                            <p>{note.content.body}</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </section>
+
+                        </div>
+
+                        <RightBar />
                     </div>
                 </section>
-
             </div>
         );
     }
