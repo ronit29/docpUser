@@ -1,4 +1,4 @@
-import { APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 
 const defaultState = {
     profiles: {},
@@ -6,7 +6,8 @@ const defaultState = {
     address: [],
     selectedProfile: null,
     notifications: [],
-    newNotification: false
+    newNotification: false,
+    userUpcomingAppointments: []
 }
 
 export default function (state = defaultState, action) {
@@ -40,6 +41,17 @@ export default function (state = defaultState, action) {
             return newState
         }
 
+        case APPEND_UPCOMING_APPOINTMENTS: {
+            let newState = {
+                ...state,
+                userUpcomingAppointments: [].concat(state.userUpcomingAppointments)
+            }
+
+            newState.userUpcomingAppointments = action.payload.appointments
+
+            return newState
+        }
+
         case SELECT_USER_PROFILE: {
             let newState = {
                 ...state
@@ -57,12 +69,12 @@ export default function (state = defaultState, action) {
         }
 
         case APPEND_NOTIFICATIONS: {
-    
+
             let newState = {
                 ...state,
                 notifications: state.notifications ? [...state.notifications] : []
             }
-    
+
             newState.newNotification = false
 
             if (action.payload.replace) {
@@ -70,7 +82,7 @@ export default function (state = defaultState, action) {
             } else {
                 newState.notifications = [...newState.notifications, ...action.payload.notifications]
             }
-    
+
             newState.notifications.map((not) => {
                 if (!not.viewed_at) {
                     newState.newNotification = true

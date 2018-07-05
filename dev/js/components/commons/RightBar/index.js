@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { } from '../../../actions/index.js'
+import { getUpcomingAppointments } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
+import STORAGE from '../../../helpers/storage'
 
 import RightBarView from './RightBar'
 
@@ -15,6 +16,12 @@ class RightBar extends React.Component {
         router: () => null
     }
 
+    componentDidMount() {
+        if (STORAGE.checkAuth()) {
+            this.props.getUpcomingAppointments()
+        }
+    }
+
     render() {
 
         return (
@@ -24,15 +31,15 @@ class RightBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profiles, selectedProfile } = state.USER
+    let { profiles, selectedProfile, userUpcomingAppointments } = state.USER
     return {
-        profiles, selectedProfile
+        profiles, selectedProfile, userUpcomingAppointments
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getUpcomingAppointments: () => dispatch(getUpcomingAppointments())
     }
 }
 

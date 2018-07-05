@@ -1,4 +1,4 @@
-import { APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -21,6 +21,21 @@ export const getProfileAppointments = (profile_id) => (dispatch) => {
 			type: APPEND_USER_APPOINTMENTS,
 			payload: {
 				profile_id, appointments: response
+			}
+		})
+
+	}).catch(function (error) {
+
+	})
+}
+
+export const getUpcomingAppointments = () => (dispatch) => {
+	API_GET(`/api/v1/user/appointment?range=upcoming`).then(function (response) {
+
+		dispatch({
+			type: APPEND_UPCOMING_APPOINTMENTS,
+			payload: {
+				appointments: response
 			}
 		})
 

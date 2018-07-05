@@ -27,7 +27,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, time_slot_end, time_slot_start, status, type, id, lab_name, thumbnail } = this.props.data
+        let { doctor_name, time_slot_end, time_slot_start, status, type, id, lab_name, thumbnail, lab_thumbnail } = this.props.data
 
         let date = new Date(time_slot_start)
 
@@ -35,7 +35,7 @@ class AppointmentList extends React.Component {
             <li onClick={this.openAppointment.bind(this, type, id)}>
                 <a>
                     <span className="icon icon-md consultant-dp">
-                        <img src={thumbnail} className="img-fluid" />
+                        <img src={thumbnail || lab_thumbnail} className="img-fluid" />
                     </span>
                     <div className="consultant-details">
                         <h4 className="title app-title">{doctor_name || lab_name}</h4>
