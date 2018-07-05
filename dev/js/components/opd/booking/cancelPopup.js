@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default () => {
+export default ({ toggle }) => {
     return <div>
-        <div className="cancel-overlay" onClick={this.props.toggle}></div>
+        <div className="cancel-overlay" onClick={toggle}></div>
         <div className="widget cancel-appointment-div">
             <div className="widget-header text-center">
                 <p className="fw-500 cancel-appointment-head">Cancel Appoinment</p>
