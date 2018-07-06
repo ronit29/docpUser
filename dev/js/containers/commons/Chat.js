@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { } from '../../actions/index.js'
 
 import ChatView from '../../components/commons/chat/index.js'
-
+import STORAGE from '../../helpers/storage'
 
 class Chat extends React.Component {
     constructor(props) {
         super(props)
+        if (!STORAGE.checkAuth()) {
+            this.props.history.replace(`/login?callback=/chat`)
+        }
     }
 
     render() {

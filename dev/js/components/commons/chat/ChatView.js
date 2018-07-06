@@ -1,4 +1,5 @@
 import React from 'react';
+import STORAGE from '../../../helpers/storage'
 
 const IframStyle = {
     width: '100%',
@@ -10,8 +11,14 @@ class ChatView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            token: null
         }
+    }
+
+    componentDidMount() {
+        STORAGE.getAuthToken().then((token) => {
+            this.setState({ token })
+        })
     }
 
     static contextTypes = {
@@ -22,7 +29,10 @@ class ChatView extends React.Component {
 
         return (
             <div className="locationSelector">
-                <iframe src="http://chatbot.policybazaar.com/livechat" style={IframStyle}></iframe>
+                {
+                    this.state.token ? <iframe src={`http://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}`} style={IframStyle}></iframe> : ""
+                }
+
             </div>
         );
     }
