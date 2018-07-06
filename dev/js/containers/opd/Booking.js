@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getOPDBookingSummary: (appointmentID, callback) => dispatch(getOPDBookingSummary(appointmentID, callback)),
         updateOPDAppointment: (appointmentData, callback) => dispatch(updateOPDAppointment(appointmentData, callback)),
-        selectOpdTimeSLot: (slot, reschedule) => dispatch(selectOpdTimeSLot(slot, reschedule)),
+        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         retryPaymentOPD: (appointmentId, callback) => dispatch(retryPaymentOPD(appointmentId, callback))
     }
 }

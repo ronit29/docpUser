@@ -58,7 +58,7 @@ class WalletView extends React.Component {
                                         <p>You can refund manually else your money will be automatically refunded to your bank account in 24 hours</p>
                                     </div>
                                 </div>
-                                <div className="row">
+                                {/* <div className="row">
                                     <div className="col-12 transactions-head-col">
                                         <p className="transactions-head fw-500">Transactions</p>
                                     </div>
@@ -68,7 +68,7 @@ class WalletView extends React.Component {
                                 <Transactions />
                                 <Transactions />
                                 <Transactions />
-                                <Transactions />
+                                <Transactions /> */}
 
                             </div>
 

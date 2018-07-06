@@ -19,7 +19,6 @@ class PaymentForm extends React.Component {
         }
 
         data['pgTxId'] = this.props.paymentData['orderId']
-        
         data = btoa(JSON.stringify(data))
 
         return (

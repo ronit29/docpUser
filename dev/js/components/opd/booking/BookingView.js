@@ -28,31 +28,18 @@ class BookingView extends React.Component {
     }
 
     componentDidMount() {
-
+        // reset reschedule data
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
-            let start_date = this.props.rescheduleSlot.date
-            let start_time = this.props.rescheduleSlot.time.value
-            let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
-
-            this.props.updateOPDAppointment(appointmentData, (err, data) => {
-                if (data) {
-                    this.setState({ data: data.data, loading: false })
-                } else {
-                    this.setState({ loading: false })
-                }
-
-                this.props.selectOpdTimeSLot({ time: {} }, true)
-            })
-        } else {
-
-            this.props.getOPDBookingSummary(this.props.match.params.refId, (err, data) => {
-                if (!err) {
-                    this.setState({ data: data[0], loading: false })
-                } else {
-                    this.setState({ data: null, loading: false })
-                }
-            })
+            this.props.selectOpdTimeSLot({ time: {} }, true, null)
         }
+
+        this.props.getOPDBookingSummary(this.props.match.params.refId, (err, data) => {
+            if (!err) {
+                this.setState({ data: data[0], loading: false })
+            } else {
+                this.setState({ data: null, loading: false })
+            }
+        })
 
         if (window) {
             window.scrollTo(0, 0)
@@ -70,16 +57,16 @@ class BookingView extends React.Component {
         }, "")
     }
 
-    cancelAppointment() {
+    cancelAppointment(type) {
         this.setState({ loading: true })
 
-        let appointmentData = { id: this.state.data.id, status: 6 }
+        let appointmentData = { id: this.state.data.id, status: 6, refund: type }
 
         this.props.updateOPDAppointment(appointmentData, (err, data) => {
             if (data) {
-                this.setState({ data: data.data, loading: false })
+                this.setState({ data: data, loading: false, showCancel: false })
             } else {
-                this.setState({ loading: false })
+                this.setState({ loading: false, showCancel: false })
             }
         })
     }
@@ -93,7 +80,7 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
-        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=true`)
+        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=${this.props.match.params.refId}`)
     }
 
     navigateTo(where, e) {

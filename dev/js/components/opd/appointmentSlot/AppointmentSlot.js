@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+const queryString = require('query-string');
 
 import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
 import SelectedClinic from '../commons/selectedClinic/index.js'
@@ -25,9 +26,10 @@ class AppointmentSlot extends React.Component {
     proceed(e) {
         e.preventDefault()
         e.stopPropagation()
-        // in case of reschedule go back , else push
+        // in case of reschedule go to reschedule page , else push
         if (this.state.reschedule) {
-            return this.props.history.go(-1)
+            const parsed = queryString.parse(this.props.location.search)
+            return this.props.history.replace(`/opd/reschedule/${parsed.reschedule}`)
         }
         // go back for goback
         if (this.state.goback) {
@@ -39,7 +41,8 @@ class AppointmentSlot extends React.Component {
     }
 
     selectTimeSlot(slot) {
-        this.props.selectOpdTimeSLot(slot, this.state.reschedule)
+        const parsed = queryString.parse(this.props.location.search)
+        this.props.selectOpdTimeSLot(slot, this.state.reschedule, parsed.reschedule)
     }
 
     componentDidMount() {

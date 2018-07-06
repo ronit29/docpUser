@@ -14,9 +14,9 @@ class BookingSummary extends React.Component {
         }
     }
 
-    static loadData(store, match) {
-        return Promise.all([store.dispatch(getLabById(match.params.id)), store.dispatch(getUserProfile())])
-    }
+    // static loadData(store, match) {
+    //     return Promise.all([store.dispatch(getLabById(match.params.id)), store.dispatch(getUserProfile())])
+    // }
 
     static contextTypes = {
         router: () => null
@@ -24,7 +24,8 @@ class BookingSummary extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.getLabById(this.props.match.params.id)
+            let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
+            this.props.getLabById(this.props.match.params.id, tests)
             this.props.getUserProfile()
             this.props.getUserAddress()
         }
@@ -57,7 +58,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getUserProfile: () => dispatch(getUserProfile()),
-        getLabById: (labId) => dispatch(getLabById(labId)),
+        getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         getUserAddress: () => dispatch(getUserAddress()),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),

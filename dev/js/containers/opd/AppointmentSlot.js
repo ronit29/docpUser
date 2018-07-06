@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
     let DOCTORS = state.DOCTORS
 
     let { selectedSlot } = state.DOCTOR_SEARCH
-    
+
     return {
         DOCTORS, selectedSlot
     }
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
-        selectOpdTimeSLot: (slot, reschedule) => dispatch(selectOpdTimeSLot(slot, reschedule))
+        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId))
     }
 }
 

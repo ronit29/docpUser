@@ -10,16 +10,17 @@ class Lab extends React.Component {
         super(props)
     }
 
-    static loadData(store, match){
-        return store.dispatch(getLabById(match.params.id))
-    }
+    // static loadData(store, match){
+    //     return store.dispatch(getLabById(match.params.id))
+    // }
 
     static contextTypes = {
         router: () => null
     }
 
     componentDidMount() {
-        this.props.getLabById(this.props.match.params.id)
+        let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
+        this.props.getLabById(this.props.match.params.id, tests)
     }
 
     render() {
@@ -49,7 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getLabById: (labId) => dispatch(getLabById(labId))
+        getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds))
     }
 }
 

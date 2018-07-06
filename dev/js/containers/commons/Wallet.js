@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUserProfile } from '../../actions/index.js'
+import { getUserProfile, fetchTransactions } from '../../actions/index.js'
 
 import WalletView from '../../components/commons/wallet'
 import STORAGE from '../../helpers/storage'
@@ -21,6 +21,9 @@ class Home extends React.Component {
     componentDidMount() {
         if (STORAGE.checkAuth()) {
             // this.props.getUserProfile()
+            this.props.fetchTransactions(() => {
+                
+            })
         }
     }
 
@@ -44,7 +47,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    
+        fetchTransactions: (cb) => dispatch(fetchTransactions(cb)),
+        getUserProfile: () => dispatch(getUserProfile())
     }
 }
 

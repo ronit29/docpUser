@@ -1,4 +1,4 @@
-import { APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 
 const defaultState = {
     profiles: {},
@@ -7,7 +7,8 @@ const defaultState = {
     selectedProfile: null,
     notifications: [],
     newNotification: false,
-    userUpcomingAppointments: []
+    userUpcomingAppointments: [],
+    userTransactions: []
 }
 
 export default function (state = defaultState, action) {
@@ -88,6 +89,19 @@ export default function (state = defaultState, action) {
                     newState.newNotification = true
                 }
             })
+
+            return newState
+
+        }
+
+        case APPEND_USER_TRANSACTIONS: {
+
+            let newState = {
+                ...state,
+                userTransactions: state.userTransactions ? [].concat(state.userTransactions) : []
+            }
+
+            newState.userTransactions = action.payload
 
             return newState
 

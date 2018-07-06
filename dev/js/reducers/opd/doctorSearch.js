@@ -5,7 +5,8 @@ const defaultState = {
     count: 0,
     LOADED_DOCTOR_SEARCH: false,
     selectedSlot: { time: {} },
-    rescheduleSlot: { time: {} }
+    rescheduleSlot: { time: {} },
+    appointmentId: null
 }
 
 export default function (state = defaultState, action) {
@@ -52,9 +53,11 @@ export default function (state = defaultState, action) {
 
             if (action.payload.reschedule) {
                 newState.rescheduleSlot = { ...action.payload.slot }
+                newState.appointmentId = action.payload.appointmentId
             }
+
             newState.selectedSlot = { ...action.payload.slot }
-            
+
             return newState
         }
 

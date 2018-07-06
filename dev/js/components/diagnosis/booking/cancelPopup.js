@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ toggle }) => {
+export default ({ toggle, cancelAppointment }) => {
     return <div>
         <div className="cancel-overlay" onClick={toggle}></div>
         <div className="widget cancel-appointment-div">
@@ -9,7 +9,9 @@ export default ({ toggle }) => {
                 <hr />
             </div>
             <a href="javascript:;">
-                <div className="widget-content cancel-content-div">
+                <div className="widget-content cancel-content-div" onClick={() => {
+                    cancelAppointment(0)
+                }}>
                     <p className="fw-500 cancel-appointment-head">Cancel and Rebook</p>
                     <p className="fw-500 cancel-content">Cancel the current appoinement and book a new appoinment with other doctor</p>
                     <div className="cancel-right-arrow">
@@ -19,7 +21,9 @@ export default ({ toggle }) => {
             </a>
             <hr />
             <a href="javascript:;">
-                <div className="widget-content cancel-content-div">
+                <div className="widget-content cancel-content-div" onClick={() => {
+                    cancelAppointment(1)
+                }}>
                     <p className="fw-500 cancel-appointment-head">Cancel and Refund</p>
                     <p className="fw-500 cancel-content">Cancel the appoiment and get refund within 24 hours</p>
                     <div className="cancel-right-arrow">

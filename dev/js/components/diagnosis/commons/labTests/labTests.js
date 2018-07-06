@@ -23,7 +23,7 @@ class LabTests extends React.Component {
                 let price = 0
                 this.props.data.tests.map((twp) => {
                     if (twp.test_id == test.id) {
-                        price = twp.mrp
+                        price = twp.deal_price
                     }
                 })
                 return <li key={i}>{test.name} <span className="test-price">Rs {price}</span></li>
@@ -32,7 +32,7 @@ class LabTests extends React.Component {
 
         if (this.props.data.tests && this.props.data.tests.length) {
             tests = this.props.data.tests.map((test, i) => {
-                return <li key={i}>{test.test.name} <span className="test-price">Rs {test.mrp}</span></li>
+                return <li key={i}>{test.test.name} <span className="test-price">Rs {test.deal_price}</span></li>
             })
         }
 
@@ -44,12 +44,12 @@ class LabTests extends React.Component {
 
         return (
             <div className="widget-content pb-details pb-test">
-                <h4 className="wc-title text-md fw-700">Tests ({tests.length})</h4>
+                <h4 className="wc-title text-md fw-700">Tests ({tests.length} Selected)</h4>
                 <ul className="list pb-list pb-test-list">
                     {testsToshow}
                 </ul>
                 <div className="pb-view text-right">
-                    <a className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View All</a>
+                    <a className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>Add/Remove Tests</a>
                 </div>
             </div>
         );

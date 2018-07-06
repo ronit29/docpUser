@@ -77,8 +77,8 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	})
 }
 
-export const getLabById = (labId) => (dispatch) => {
-	let url = `/api/v1/diagnostic/lablist/${labId}`
+export const getLabById = (labId, testIds = []) => (dispatch) => {
+	let url = `/api/v1/diagnostic/lablist/${labId}?test_ids=${testIds.join(',')}`
 
 	return API_GET(url).then(function (response) {
 
@@ -101,7 +101,7 @@ export const getLabTimeSlots = (labId, pickup, callback) => (dispatch) => {
 	})
 }
 
-export const selectLabTimeSLot = (slot, reschedule=false) => (dispatch) => {
+export const selectLabTimeSLot = (slot, reschedule = false) => (dispatch) => {
 	dispatch({
 		type: SELECT_LAB_TIME_SLOT,
 		payload: {

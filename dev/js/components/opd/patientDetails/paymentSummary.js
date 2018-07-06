@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ toggle }) => {
+export default ({ toggle, deal_price, mrp, payable_amount }) => {
     return <div>
         <div className="cancel-overlay" onClick={toggle}></div>
         <div className="widget cancel-appointment-div">
@@ -10,23 +10,23 @@ export default ({ toggle }) => {
             </div>
             <div className="payment-content-div">
                 <p className="payment-content">Doctor Fees</p>
-                <p className="payment-content fw-500">Rs 500</p>
+                <p className="payment-content fw-500">Rs {mrp}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content">Docprime Discount</p>
-                <p className="payment-content fw-500">Rs 200</p>
+                <p className="payment-content fw-500">Rs {mrp - deal_price}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content fw-500">Subtotal</p>
-                <p className="payment-content fw-500">Rs 200</p>
+                <p className="payment-content fw-500">Rs {deal_price}</p>
             </div>
-            <div className="payment-content-div">
+            {/* <div className="payment-content-div">
                 <p className="payment-content fw-500">Promocode Discount</p>
                 <p className="payment-content fw-500">Rs 200</p>
-            </div>
+            </div> */}
             <div className="payment-content-div">
                 <p className="payment-content fw-500">Amount Payable</p>
-                <p className="payment-content fw-500">Rs 200</p>
+                <p className="payment-content fw-500">Rs {payable_amount}</p>
             </div>
             <div className="payment-content-btn text-center">
                 <button className="fw-500" onClick={toggle}>Done</button>

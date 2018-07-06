@@ -97,12 +97,13 @@ export const getDoctorById = (doctorId) => (dispatch) => {
 	})
 }
 
-export const selectOpdTimeSLot = (slot, reschedule=false) => (dispatch) => {
+export const selectOpdTimeSLot = (slot, reschedule = false, appointmentId = null) => (dispatch) => {
 	dispatch({
 		type: SELECT_OPD_TIME_SLOT,
 		payload: {
 			reschedule,
-			slot
+			slot,
+			appointmentId
 		}
 	})
 }

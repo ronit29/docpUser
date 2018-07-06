@@ -14,14 +14,14 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 
-class PatientDetails extends React.Component {
+class AppointmentReschedule extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedDoctor: this.props.match.params.id,
-            selectedClinic: this.props.match.params.clinicId,
             paymentData: {},
-            loading: false,
+            data: null,
+            loading: true,
+            showCancel: false,
             error: "",
             openCancellation: false,
             openPaymentSummary: false
@@ -33,6 +33,15 @@ class PatientDetails extends React.Component {
     }
 
     componentDidMount() {
+
+        this.props.getOPDBookingSummary(this.props.match.params.refId, (err, data) => {
+            if (!err) {
+                this.setState({ data: data[0], loading: false })
+            } else {
+                this.setState({ data: null, loading: false })
+            }
+        })
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -42,20 +51,13 @@ class PatientDetails extends React.Component {
 
         this.setState({ loading: true, error: "" })
 
-        let start_date = this.props.selectedSlot.date
-        let start_time = this.props.selectedSlot.time.value
+        let start_date = this.props.rescheduleSlot.date
+        let start_time = this.props.rescheduleSlot.time.value
+        let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
 
-        let postData = {
-            doctor: this.state.selectedDoctor,
-            hospital: this.state.selectedClinic,
-            profile: this.props.selectedProfile,
-            start_date, start_time,
-            payment_type: 1 // TODO : Select payment type
-        }
-
-        this.props.createOPDAppointment(postData, (err, data) => {
+        this.props.updateOPDAppointment(appointmentData, (err, data) => {
             if (!err) {
-                if (data.payment_required) {
+                if (data.required_payment) {
                     this.setState({
                         paymentData: data.data
                     }, () => {
@@ -70,27 +72,24 @@ class PatientDetails extends React.Component {
                     })
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/opd/appointment/${data.data.id}`)
+                    this.props.history.replace(`/opd/appointment/${this.props.match.params.refId}`)
                 }
             } else {
-                let message = "Could not create appointment. Try again later !"
+                let message = "Could not reschedule appointment. Try again later !"
                 if (err.message) {
                     message = err.message
                 }
                 this.setState({ loading: false, error: message })
             }
         })
+
     }
 
     navigateTo(where, e) {
         switch (where) {
             case "time": {
+                debugger
                 this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true`)
-                return
-            }
-
-            case "patient": {
-                this.props.history.push(`/user/family?pick=true`)
                 return
             }
         }
@@ -98,30 +97,28 @@ class PatientDetails extends React.Component {
 
     render() {
 
-        let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
+        let doctor = {}
+        let profile = {}
         let hospital = {}
-        let patient = null
+        let date = new Date()
+        let actions = []
+        let status = 1
         let priceData = {}
 
-        if (doctorDetails) {
-            let { name, qualifications, hospitals } = doctorDetails
+        if (this.state.data) {
+            doctor = this.state.data.doctor
+            hospital = this.state.data.hospital
+            profile = this.state.data.profile
+            date = this.state.data.time_slot_start ? new Date(this.state.data.time_slot_start) : new Date()
+            actions = this.state.data.allowed_action || []
+            status = this.state.data.status
+            doctor.thumbnail = this.state.data.thumbnail
 
-            if (hospitals && hospitals.length) {
-                hospitals.map((hsptl) => {
-                    if (hsptl.hospital_id == this.state.selectedClinic) {
-                        hospital = hsptl
-                    }
-                })
+            if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
+                priceData = { ...this.props.rescheduleSlot.time }
+                priceData.old_deal_price = this.state.data.deal_price
+                priceData.payable_amount = priceData.deal_price - priceData.old_deal_price
             }
-        }
-
-        if (this.props.selectedProfile) {
-            patient = this.props.profiles[this.props.selectedProfile]
-        }
-
-        if (this.props.selectedSlot && this.props.selectedSlot.date) {
-            priceData = { ...this.props.selectedSlot.time }
-            priceData.payable_amount = priceData.mrp - priceData.deal_price
         }
 
         return (
@@ -144,7 +141,7 @@ class PatientDetails extends React.Component {
                                             </ul>
                                         </div>
                                         <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Booking Confirmation</div>
+                                            <div className="header-title fw-700 capitalize text-center">Reschedule Appointment</div>
                                         </div>
                                         <div className="col-2">
                                         </div>
@@ -153,7 +150,7 @@ class PatientDetails extends React.Component {
                             </header>
 
                             {
-                                this.props.DOCTORS[this.state.selectedDoctor] ?
+                                this.state.data ?
                                     <div>
 
                                         <section className="dr-profile-screen booking-confirm-screen">
@@ -163,25 +160,23 @@ class PatientDetails extends React.Component {
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
                                                             <DoctorProfileCard
-                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                details={doctor}
                                                             />
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</a></span></h4>
+                                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.name} </h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 
-                                                                <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                                                                <VisitTime navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.rescheduleSlot} />
 
-                                                                <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
-                                                                {
-                                                                    !!priceData.payable_amount ? <div className="lab-visit-time test-report">
-                                                                        <h4 className="title payment-amt-label">Total Payble Amount<span><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                        <h5 className="payment-amt-value">Rs. {priceData.payable_amount}</h5>
-                                                                    </div> : ""
-                                                                }
+                                                                <ChoosePatient patient={profile} />
 
+                                                                <div className="lab-visit-time test-report">
+                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                    <h5 className="payment-amt-value">Rs. {priceData.payable_amount}</h5>
+                                                                </div>
 
                                                             </div>
                                                         </div>
@@ -199,19 +194,18 @@ class PatientDetails extends React.Component {
                             }
 
                             <PaymentForm paymentData={this.state.paymentData} />
+
                             {
                                 this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                             }
 
                             {
-                                this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} {...priceData} /> : ""
+                                (this.state.openPaymentSummary && !!priceData.payable_amount) ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} {...priceData} /> : ""
                             }
 
                             <span className="errorMessage">{this.state.error}</span>
 
-                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" disabled={
-                                !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading
-                            } onClick={this.proceed.bind(this)}>Proceed</button>
+                            <button disabled={this.state.loading} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.proceed.bind(this)}>Reschedule</button>
 
                         </div>
 
@@ -224,4 +218,4 @@ class PatientDetails extends React.Component {
 }
 
 
-export default PatientDetails
+export default AppointmentReschedule

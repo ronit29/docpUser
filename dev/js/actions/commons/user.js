@@ -1,4 +1,4 @@
-import { APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -148,5 +148,17 @@ export const appendNotifications = (notifications, replace = true, cb) => (dispa
 		payload: {
 			replace, notifications
 		}
+	})
+}
+
+export const fetchTransactions = (cb) => (dispatch) => {
+	API_GET(`/api/v1/user/transaction/detail`).then(function (response) {
+		dispatch({
+			type: APPEND_USER_TRANSACTIONS,
+			payload: response
+		})
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
 	})
 }

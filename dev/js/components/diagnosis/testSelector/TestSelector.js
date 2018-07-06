@@ -16,13 +16,14 @@ class TestSelectorView extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getLabById(this.state.selectedLab)
+        let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
+        this.props.getLabById(this.state.selectedLab, tests)
     }
 
     toggleTest(test) {
         this.props.toggleDiagnosisCriteria('test', test)
     }
-    
+
     getSearchList(e) {
         var search_string = e.target.value;
         this.setState({ searchString: search_string });
@@ -45,7 +46,7 @@ class TestSelectorView extends React.Component {
             selectedTests = this.props.selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         }
 
-        if (labData && labData.tests && labData.tests.length) {
+        if (labData) {
 
             if (this.state.searchResults.length > 0) {
                 tests = this.state.searchResults.map((test, i) => {
@@ -55,7 +56,7 @@ class TestSelectorView extends React.Component {
                             <input type="checkbox" checked={selectedTests.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test.test)} />
                             <span className="checkmark" />
                         </label>
-                        <span className="test-price text-md fw-500">{test.mrp}</span>
+                        <span className="test-price text-md fw-500">{test.deal_price}</span>
                     </li>
                 })
             }
@@ -71,7 +72,7 @@ class TestSelectorView extends React.Component {
                                 <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test.test)} />
                                 <span className="checkmark" />
                             </label>
-                            <span className="test-price text-md fw-500">{test.mrp}</span>
+                            <span className="test-price text-md fw-500">{test.deal_price}</span>
                         </li>
                     }
                 })
@@ -106,7 +107,7 @@ class TestSelectorView extends React.Component {
                                                     <div className="col-12">
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
-                                                                <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)}/>
+                                                                <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)} />
                                                                 <span className="ct-img ct-img-sm map-marker-blue"><img src="/assets/img/customer-icons/search-icon.svg" className="img-fluid" /></span>
                                                             </div>
                                                             <div className="detect-my-locaiton">

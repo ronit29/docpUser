@@ -9,6 +9,7 @@ import DoctorProfile from './containers/opd/DoctorProfile.js'
 import AppointmentSlot from './containers/opd/AppointmentSlot.js'
 import PatientDetails from './containers/opd/PatientDetails.js'
 import Booking_OPD from './containers/opd/Booking.js'
+import AppointmentReschedule from './containers/opd/AppointmentReschedule.js'
 
 import UserProfile from './containers/commons/UserProfile.js'
 import UserSignup from './containers/commons/UserSignup'
@@ -46,7 +47,7 @@ const routes = [
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
     { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, private: true, component: PatientDetails },
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
-
+    { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 
     { path: '/dx', exact: true, component: DX_SearchCriteria },
     { path: '/dx/searchresults', exact: true, component: DX_SearchResults },
