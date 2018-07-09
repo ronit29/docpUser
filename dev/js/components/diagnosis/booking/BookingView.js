@@ -106,6 +106,7 @@ class BookingView extends React.Component {
         let date = new Date()
         let actions = []
         let status = 1
+        let lab_thumbnail = ""
 
         if (this.state.data) {
             lab = this.state.data.lab
@@ -114,6 +115,7 @@ class BookingView extends React.Component {
             date = this.state.data.time_slot_start ? new Date(this.state.data.time_slot_start) : new Date()
             actions = this.state.data.allowed_action || []
             status = this.state.data.status
+            lab_thumbnail = this.state.data.lab_thumbnail
         }
 
         return (
@@ -200,7 +202,7 @@ class BookingView extends React.Component {
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
                                                             <div className="address-details">
-                                                                <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
+                                                                <img style={{ width: 70 }} src={lab_thumbnail} className="img-fluid add-map" />
                                                                 <p className="add-info fw-500">{lab.address}</p>
                                                             </div>
                                                             <div className="pb-view text-left">
@@ -215,7 +217,7 @@ class BookingView extends React.Component {
                                                             <div>
                                                                 <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>Visit Time
 
-                                                    {
+                                                                    {
                                                                         actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                     }
 

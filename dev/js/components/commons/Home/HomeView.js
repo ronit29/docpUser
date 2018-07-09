@@ -42,12 +42,14 @@ class HomeView extends React.Component {
         } else {
             this.state.selectedSymptoms.push(name)
         }
-        if(this.state.selectedSymptoms.length>0){
-            clearInterval(interval)
-        }else{
-            this.textAnimationAdd();
-        }
-        this.setState(this.state)
+
+        this.setState(this.state, () => {
+            if (this.state.selectedSymptoms.length > 0) {
+                clearInterval(interval)
+            } else {
+                this.textAnimationAdd();
+            }
+        })
     }
 
     navigateTo(where, e) {

@@ -121,7 +121,7 @@ class PatientDetails extends React.Component {
 
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
-            priceData.payable_amount = priceData.mrp - priceData.deal_price
+            priceData.payable_amount = priceData.deal_price
         }
 
         return (
@@ -168,7 +168,7 @@ class PatientDetails extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.price : ""}</a></span></h4>
+                                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.deal_price : ""}</a></span></h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 
@@ -191,6 +191,7 @@ class PatientDetails extends React.Component {
                                                             <h4 className="title payment-amt-label">Money back guarantee<span style={{ marginLeft: 5 }}><img src="/assets/img/icons/info.svg" /></span></h4>
                                                         </div>
                                                     </div>
+                                                    <span className="errorMessage">{this.state.error}</span>
                                                 </div>
                                             </div>
                                         </section>
@@ -207,7 +208,7 @@ class PatientDetails extends React.Component {
                                 this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} {...priceData} /> : ""
                             }
 
-                            <span className="errorMessage">{this.state.error}</span>
+                            
 
                             <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" disabled={
                                 !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading

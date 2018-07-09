@@ -97,6 +97,7 @@ class BookingView extends React.Component {
         let date = new Date()
         let actions = []
         let status = 1
+        let doctor_thumbnail = ""
 
         if (this.state.data) {
             doctor = this.state.data.doctor
@@ -105,6 +106,7 @@ class BookingView extends React.Component {
             date = this.state.data.time_slot_start ? new Date(this.state.data.time_slot_start) : new Date()
             actions = this.state.data.allowed_action || []
             status = this.state.data.status
+            doctor_thumbnail = this.state.data.doctor_thumbnail
         }
 
         return (
@@ -193,7 +195,7 @@ class BookingView extends React.Component {
                                                     <div className="widget-content pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700">{doctor.name}</h4>
                                                         <div className="address-details">
-                                                            <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
+                                                            <img src={doctor_thumbnail} style={{ width: 20 }} className="img-fluid add-map" />
                                                             <p className="add-info fw-500">{this.getQualificationStr(doctor.qualifications)}</p>
                                                         </div>
                                                     </div>
