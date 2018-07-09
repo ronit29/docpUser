@@ -133,6 +133,7 @@ class BookingSummaryView extends React.Component {
         let finalMrp = 0
         let labDetail = {}
         let patient = null
+        let is_home_pickup_available = true
 
         if (this.props.selectedProfile) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -147,12 +148,24 @@ class BookingSummaryView extends React.Component {
                     if (twp.test_id == test.id) {
                         price = twp.deal_price
                         mrp = twp.mrp
+                        // check if any of the selected test does not allow home_pickup_available
+                        if (!twp.is_home_pickup_available) {
+                            is_home_pickup_available = false
+                        }
                     }
                 })
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
                 return <p key={i} className="test-list test-list-label">{test.name}<span className="float-right fw-700">Rs. {price}</span></p>
+            })
+        }
+
+        // if home pickup not available but selected type is home , then change in next iteration
+        if (!is_home_pickup_available && this.props.selectedAppointmentType == 'home') {
+            // using timeout to skip this render iteration
+            setTimeout(() => {
+                this.props.selectLabAppointmentType('lab')
             })
         }
 
@@ -204,14 +217,17 @@ class BookingSummaryView extends React.Component {
                                                                         <p className="fw-500 text-sm text-light">{labDetail.address}</p>
                                                                     </div>
                                                                 </div>
+                                                                {
+                                                                    is_home_pickup_available ?
+                                                                        <div className="lab-visit-time test-report lab-appointment-div row">
+                                                                            <h4 className="title col-12"><span><img src="/assets/img/customer-icons/test.svg" className="visit-time-icon" /></span>Appointment type </h4>
+                                                                            <ul className="inline-list booking-type col-12">
+                                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
+                                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
+                                                                            </ul>
+                                                                        </div> : ""
+                                                                }
 
-                                                                <div className="lab-visit-time test-report lab-appointment-div row">
-                                                                    <h4 className="title col-12"><span><img src="/assets/img/customer-icons/test.svg" className="visit-time-icon" /></span>Appointment type </h4>
-                                                                    <ul className="inline-list booking-type col-12">
-                                                                        <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
-                                                                        <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
-                                                                    </ul>
-                                                                </div>
 
                                                                 <div className="lab-visit-time test-report">
                                                                     <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" className="visit-time-icon" /></span>Tests <span className="float-right"><a onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>

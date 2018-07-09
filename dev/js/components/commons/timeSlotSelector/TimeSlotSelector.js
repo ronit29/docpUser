@@ -70,9 +70,7 @@ class TimeSlotSelector extends React.Component {
 
     }
 
-    selectSlot(slot, e) {
-        e.stopPropagation()
-        e.preventDefault()
+    selectSlot(slot) {
         if (slot.time.is_available) {
             slot.date = this.state.selectedDay.actualDate
             slot.month = this.state.selectedMonth
@@ -97,6 +95,18 @@ class TimeSlotSelector extends React.Component {
         }
         return foundTs
     }
+
+    isTimeSlotAvailable(ts, selectedDate) {
+        if (!ts.is_available) {
+            return false
+        }
+        let today = new Date()
+        if (today.toDateString() == selectedDate) {
+            return ts.value > today.getHours()
+        }
+        return true
+    }
+
 
     render() {
         let selectedSchedule = []
@@ -157,10 +167,16 @@ class TimeSlotSelector extends React.Component {
                                     <ul className="inline-list time-items">
                                         {
                                             schedule.timing.map((time, i) => {
-                                                return <li key={i} onClick={this.selectSlot.bind(this, {
-                                                    slot: i,
-                                                    time: time
-                                                })}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == i && this.props.selectedSlot.time.value == time.value ? "" : "outline ") + (time.is_available ? "" : "diabledtspill")}>{time.text} </a></li>
+                                                return <li key={i} onClick={(e) => {
+                                                    e.stopPropagation()
+                                                    e.preventDefault()
+                                                    if (this.isTimeSlotAvailable(time, selctedDate)) {
+                                                        this.selectSlot.call(this, {
+                                                            slot: i,
+                                                            time: time
+                                                        })
+                                                    }
+                                                }}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == i && this.props.selectedSlot.time.value == time.value ? "" : "outline ") + (this.isTimeSlotAvailable(time, selctedDate) ? "" : "diabledtspill")}>{time.text} </a></li>
                                             })
                                         }
                                     </ul>

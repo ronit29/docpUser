@@ -261,7 +261,7 @@ class HomeView extends React.Component {
                                     </div>
 
                                     {
-                                        selectedSympsStr ? <input type="text" disabled className="input-symptom" placeholder={selectedSympsStr} /> : <input type="text" disabled id="animation-input" className="input-symptom" placeholder="" />
+                                        selectedSympsStr ? <input type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input type="text" id="animation-input" className="input-symptom" placeholder="" />
                                     }
 
                                 </div>

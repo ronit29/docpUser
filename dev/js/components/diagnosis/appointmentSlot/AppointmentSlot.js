@@ -79,7 +79,7 @@ class AppointmentSlot extends React.Component {
 
                             {
                                 this.props.LABS[this.state.selectedLab] ?
-                                    <section className="date-time-calander sticky-header-3">
+                                    <section className="dr-profile-screen">
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
