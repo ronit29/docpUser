@@ -9,6 +9,10 @@ class RightBar extends React.Component {
         super(props)
     }
 
+    openAppointment(type, id) {
+        this.props.history.push(`/${type}/appointment/${id}`)
+    }
+
     render() {
 
         let profileData = this.props.profiles[this.props.selectedProfile]
@@ -18,7 +22,7 @@ class RightBar extends React.Component {
                 <div className="sticky-div sticky-div-temp">
                     {
                         profileData ? this.props.userUpcomingAppointments.map((app, i) => {
-                            return <Upcoming key={i} {...app} />
+                            return <Upcoming key={i} {...app} openAppointment={this.openAppointment.bind(this)}/>
                         }) : ""
                     }
 

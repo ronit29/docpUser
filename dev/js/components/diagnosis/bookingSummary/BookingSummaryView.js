@@ -237,7 +237,7 @@ class BookingSummaryView extends React.Component {
                                                                 {this.getSelectors()}
 
                                                                 <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Total Payble Amount<span><img className="info-icon-img" src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                     <h5 className="payment-amt-value fw-500">Rs. {finalPrice}</h5>
                                                                 </div>
 

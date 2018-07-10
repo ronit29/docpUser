@@ -11,11 +11,6 @@ const GENDER = {
     "o": "Other"
 }
 
-let counter = 0;
-let txtString = 'I am suffering from Headache';
-let speed = 80;
-let interval;
-
 class HomeView extends React.Component {
     constructor(props) {
         super(props);
@@ -33,7 +28,7 @@ class HomeView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.textAnimationAdd();
+        this.txtAnimation();
     }
 
     toggleSymptom(name) {
@@ -43,13 +38,7 @@ class HomeView extends React.Component {
             this.state.selectedSymptoms.push(name)
         }
 
-        this.setState(this.state, () => {
-            if (this.state.selectedSymptoms.length > 0) {
-                clearInterval(interval)
-            } else {
-                this.textAnimationAdd();
-            }
-        })
+        this.setState(this.state)
     }
 
     navigateTo(where, e) {
@@ -65,39 +54,30 @@ class HomeView extends React.Component {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
-    textAnimationAdd() {
-        if (counter <= txtString.length) {
-            if (document.getElementById('animation-input')) {
-                document.getElementById('animation-input').placeholder += txtString.charAt(counter);
-                counter++;
-                setTimeout(this.textAnimationAdd.bind(this), speed);
-            }
-        }
-        else {
-            this.getInterval();
-        }
+    delay() {
+        return new Promise((resolve) => {
+            setTimeout(resolve, 100)
+        })
     }
 
-    getInterval() {
-        interval = setInterval(this.textAnimationDel.bind(this), speed);
-    }
-
-    textAnimationDel() {
-        if (!document.getElementById('animation-input')) {
-            clearInterval(interval);
-        }
-        else {
-            if (txtString.length > 0) {
-                document.getElementById('animation-input').placeholder = txtString;
-                txtString = txtString.substring(0, txtString.length - 1);
+    async txtAnimation() {
+        while (true) {
+            let txt = 'I am suffering from Headache.'
+            for (let chr of txt) {
+                await this.delay()
+                if (document.getElementById('animation-input')) {
+                    document.getElementById('animation-input').placeholder += chr
+                }
             }
-            else {
-                clearInterval(interval);
-                txtString = 'I am suffering from Cold';
-                counter = 0;
-                document.getElementById('animation-input').placeholder = '';
-                this.textAnimationAdd();
+            await this.delay()
+            for (let chr of txt) {
+                await this.delay()
+                txt = txt.substring(0, txt.length - 1)
+                if (document.getElementById('animation-input')) {
+                    document.getElementById('animation-input').placeholder = txt
+                }
             }
+            await this.delay()
         }
     }
 
@@ -261,7 +241,7 @@ class HomeView extends React.Component {
                                     </div>
 
                                     {
-                                        selectedSympsStr ? <input type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input type="text" id="animation-input" className="input-symptom" placeholder="" />
+                                        selectedSympsStr ? <input disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
                                     }
 
                                 </div>
