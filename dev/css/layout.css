@@ -184,7 +184,7 @@ input::placeholder { color: rgba(0, 0, 0, 0.5); font-weight: 500; font-style: no
 
 /*dissabled*/
 .v-btn.disabled, 
-.v-btn:disabled{opacity: .35; touch-action: manipulation;cursor: default;}
+.v-btn:disabled{background-color: #a5a5a5; touch-action: manipulation;cursor: default;}
 
 /*default*/
 .v-btn-default{background-color: #eee; color: #888;}

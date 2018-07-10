@@ -12,7 +12,7 @@ class ChoosePatient extends React.Component {
 
         return (
             <div className="lab-visit-time">
-                <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon"/></span>Patient Details <span className="float-right"><a href="#" onClick={(e) => {
+                <h4 className="title"><span><img src="/assets/img/icons/user.svg" style={{width: 18}} className="visit-time-icon"/></span>Patient Details <span className="float-right"><a href="#" onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     this.props.navigateTo('patient')
