@@ -56,7 +56,7 @@ class DoctorProfileCard extends React.Component {
                         <p><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                     <div className="alpha dr-name">
-                        <img src={thumbnail} className="img-fluid" style={{ height: 65 }} /> {name}
+                        <img src={thumbnail} className="img-fluid img-round" style={{ height: 65 }} /> {name}
                     </div>
                 </div>
                 <div className="widget-content">

@@ -25,7 +25,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li>
+                        <li className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/message.svg" className="img-fluid" />
@@ -35,7 +35,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        <li onClick={this.gotTo.bind(this, 'appointments')}>
+                        <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
@@ -47,7 +47,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        <li>
+                        <li className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
@@ -69,7 +69,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={this.gotTo.bind(this, 'family')}>
+                        <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />

@@ -58,7 +58,7 @@ class LeftBar extends React.Component {
                             </li> */}
                                 <li>
                                     <div className="list-inline-div list-img-div">
-                                        <img src="/assets/img/customer-icons/consultation.svg" className="profile-list-icons" />
+                                        <img src="/assets/img/customer-icons/message.svg" className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">Online Consultation</p>

@@ -186,6 +186,10 @@
 	margin: auto;
 }
 
+.profile-img-section{
+	cursor: pointer;
+}
+
 .dummy-img-section{
 	text-align: center;
     background-color: #e4e4e4;

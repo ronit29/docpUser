@@ -47,7 +47,7 @@ class UserFamily extends React.Component {
                             return <li key={key} onClick={this.editProfile.bind(this,id)}>
                                 <a>
                                     <span className="icon icon-lg member-icon">
-                                        <img src={profiles[id].profile_image} className="img-fluid" />
+                                        <img src={profiles[id].profile_image} className="img-fluid img-round" />
                                     </span>
                                     <div className="member-details">
                                         <h4 className="title app-title">{profiles[id].name}</h4>

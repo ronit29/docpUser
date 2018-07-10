@@ -293,16 +293,9 @@ ul.inline-list li {
     color: #00adc2!important;
 }
 
-.family-list>li .member-icon {
-    width: 0px;
-}
-
 .arrow-forward-right {
     color: #00adc2;
     font-weight: 500;
-}
-.family-list>li .member-details {
-    padding-left: 36px;
 }
 
 .imageReports{
