@@ -24,7 +24,7 @@
 
 .circle-btn{border-radius: 50%; display: inline-block; cursor:pointer ;  background-color: #007381; box-shadow: 0px 2px 3px 0 rgba(0, 0, 0, 0.25);}
 
-.back-icon{width: 40px; padding: 17px 10px; text-align: center; height: 50px;}
+.back-icon{width: 40px; padding: 17px 10px; text-align: center; height: 50px; cursor: pointer}
 
 .no-opacity{opacity: 1}
 
@@ -148,7 +148,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .profile-nav .nav-items>li .nav-content{padding-left: 50px; padding-right: 30px;}
 .profile-nav .nav-items>li .nav-content .app-title{color: #5d5d5d}
 .profile-nav .nav-items>li .forward-icon{ position: absolute; top: 40px; right: 20px; width: 18px; height: 20px; opacity: .4; }
-
+.my-profile-item{cursor: pointer;}
 
 /*===================
 	my appointments
@@ -158,7 +158,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .myAppointments{padding-top: 150px;}
 
 .nav-tab>.tab-items{width: 100%;}
-.nav-tab>.tab-items>li{padding: 4px; line-height: 30px; text-align: center; background-color:#f5f5f5;  font-weight: 500; width: 50%; margin-right: -4px; border-bottom: 2px solid transparent}
+.nav-tab>.tab-items>li{padding: 4px; line-height: 30px; text-align: center; background-color:#f5f5f5;  font-weight: 500; width: 50%; margin-right: -4px; border-bottom: 2px solid transparent;cursor: pointer}
 .nav-tab>.tab-items>li a{color: #707070; display: block;}
 .nav-tab>.tab-items>li.active a{color:#f78631;  }
 .nav-tab>.tab-items>li.active{border-color: #f78631; }
@@ -254,7 +254,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 	update appointemtn
 ====================*/
 .choose-time{width: 100%; overflow-x: scroll;white-space: nowrap;}
-.datetime-items>li{color: #f78631; width: 34px; font-weight: 700; text-align: center; font-size: 18px;}
+.datetime-items>li{color: #f78631; width: 34px; font-weight: 700; text-align: center; font-size: 18px;cursor: pointer}
 .datetime-items>li.active{background-color: #f78631; color: #fff; border-radius: 10px;  }
 .datetime-items>li>span{font-size: 15px; display: block; margin-top: 10px;}
 .time-items{margin: 10px 0;}
@@ -310,7 +310,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .input-group{position: relative;margin-bottom: 30px;}
 .input-group>.input-label{position: absolute; background-color: #fff; color: #f78631;font-weight: bold; padding: 0px 10px; background-color: #fff; top: -10px; left: 10px; font-size: 12px;}
 .choose-gender{padding: 10px 5px; padding-bottom: 0}
-.choose-gender> label{margin-right: 10px; font-weight: 500; font-size: 14px;}
+.choose-gender> label{margin-right: 10px; font-weight: 500; font-size: 14px;cursor: pointer}
 .choose-gender> label>input{height: 11px;}
 
 

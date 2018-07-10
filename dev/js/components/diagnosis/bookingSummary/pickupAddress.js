@@ -19,10 +19,10 @@ class PickupAddress extends React.Component {
                 }
             })
         }
-        
+
         return (
             <div className="lab-visit-time">
-                <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon"/></span>Pickup Address <span className="float-right"><a href="#" onClick={(e) => {
+                <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" /></span>Pickup Address <span className="float-right"><a href="#" onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     this.setState({ selectorOpen: true })
@@ -33,29 +33,37 @@ class PickupAddress extends React.Component {
                     this.state.selectorOpen ? <div className="fullscreen" onClick={() => {
                         this.setState({ selectorOpen: false })
                     }}>
-                        <div className="addresspicker" onClick={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                        }}>
-                            <div className="inlineElements">
-                                <span className="selectadd">Select Address</span>
-                                <a className="addnewadd" href="" onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    this.props.history.push('/user/address/add')
-                                }}>Add New Address</a>
-                                {
-                                    this.props.address.map((add, i) => {
-                                        return <div key={i} ref={i} className={add.id == this.props.selectedAddress ? "addresspickerDiv selected" : "addresspickerDiv"} onClick={() => {
-                                            this.props.selectPickupAddress(add.id)
-                                            this.setState({ selectorOpen: false })
-                                            }}>
-                                            <span className="addressText">{add.address}</span>
-                                            <span className="selectedText">Selected</span>
-                                        </div>
-                                    })
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-12 col-md-6 offset-md-3">
+                                    <div className="addresspicker" onClick={(e) => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                    }}>
 
-                                }
+                                        <div className="inlineElements">
+                                            <span className="selectadd">Select Address</span>
+                                            <a className="addnewadd" href="" onClick={(e) => {
+                                                e.preventDefault()
+                                                e.stopPropagation()
+                                                this.props.history.push('/user/address/add')
+                                            }}>Add New Address</a>
+                                            {
+                                                this.props.address.map((add, i) => {
+                                                    return <div key={i} ref={i} className={add.id == this.props.selectedAddress ? "addresspickerDiv selected" : "addresspickerDiv"} onClick={() => {
+                                                        this.props.selectPickupAddress(add.id)
+                                                        this.setState({ selectorOpen: false })
+                                                    }}>
+                                                        <span className="addressText">{add.address}</span>
+                                                        <span className="selectedText">Selected</span>
+                                                    </div>
+                                                })
+
+                                            }
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div> : ""

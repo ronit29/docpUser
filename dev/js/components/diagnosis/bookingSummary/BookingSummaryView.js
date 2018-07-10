@@ -237,7 +237,7 @@ class BookingSummaryView extends React.Component {
                                                                 {this.getSelectors()}
 
                                                                 <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src="/assets/img/icons/info.svg" style={{cursor:'pointer'}} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                     <h5 className="payment-amt-value fw-500">Rs. {finalPrice}</h5>
                                                                 </div>
 
@@ -247,7 +247,7 @@ class BookingSummaryView extends React.Component {
                                                     </div>
 
                                                     <div className="col-12">
-                                                        <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                                        <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10, cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label">Money back guarantee<span><img className="info-icon-img" src="/assets/img/icons/info.svg" /></span></h4>
                                                         </div>
                                                     </div>
