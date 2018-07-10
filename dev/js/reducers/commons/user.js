@@ -28,6 +28,10 @@ export default function (state = defaultState, action) {
                 return profileMap
             }, newState.profiles)
 
+            if (!newState.selectedProfile && action.payload.length) {
+                newState.selectedProfile = action.payload[0].id
+            }
+
             return newState
         }
 
