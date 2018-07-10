@@ -21,6 +21,7 @@ class TestSelectorView extends React.Component {
     }
 
     toggleTest(test) {
+        test.extra_test = true
         this.props.toggleDiagnosisCriteria('test', test)
     }
 

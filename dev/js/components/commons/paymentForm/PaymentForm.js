@@ -24,7 +24,7 @@ class PaymentForm extends React.Component {
         return (
             <div>
 
-                {/* <form id="paymentForm" ref="paymentForm" method="post" action="https://pgdev.policybazaar.com/dp/pay/init" style={{ visibility: 'hidden' }}>
+                <form id="paymentForm" ref="paymentForm" method="post" action="https://pgdev.policybazaar.com/dp/pay/init" style={{ visibility: 'hidden' }}>
                     <input type="text" name="name" value={this.props.paymentData['name']} />
                     <input type="text" name="custId" value={this.props.paymentData['custId']} />
                     <input type="text" name="mobile" value={this.props.paymentData['mobile']} />
@@ -32,14 +32,15 @@ class PaymentForm extends React.Component {
                     <input type="text" name="productId" value={this.props.paymentData['productId']} />
                     <input type="text" name="surl" value={this.props.paymentData['surl']} />
                     <input type="text" name="furl" value={this.props.paymentData['furl']} />
-                    <input type="text" name="appointmentId" value={this.props.paymentData['appointmentId']} />
+                    <input type="text" name="referenceId" value={this.props.paymentData['referenceId']} />
                     <input type="text" name="txAmount" value={this.props.paymentData['txAmount']} />
-                </form> */}
-
-
-                <form id="paymentForm" ref="paymentForm" method="post" action={`${CONFIG.API_BASE_URL}/api/v1/user/transaction/save`} style={{ visibility: 'hidden' }}>
-                    <input type="text" name="response" value={data} />
+                    <input type="text" name="orderId" value={this.props.paymentData['orderId']} />
                 </form>
+
+
+                {/* <form id="paymentForm" ref="paymentForm" method="post" action={`${CONFIG.API_BASE_URL}/api/v1/user/transaction/save`} style={{ visibility: 'hidden' }}>
+                    <input type="text" name="response" value={data} />
+                </form> */}
 
             </div>
         );

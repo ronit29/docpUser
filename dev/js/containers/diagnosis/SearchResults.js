@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults } from '../../actions/index.js'
+import { getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests } from '../../actions/index.js'
 
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 
@@ -11,6 +11,10 @@ class SearchResults extends React.Component {
         this.state = {
 
         }
+    }
+
+    componentDidMount() {
+        this.props.clearExtraTests()
     }
 
     static contextTypes = {
@@ -52,7 +56,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getLabs: (searchState, filterCriteria, mergeState, page, cb) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb)),
         toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
-        getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback))
+        getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
+        clearExtraTests: () => dispatch(clearExtraTests())
     }
 }
 

@@ -21,7 +21,9 @@ class DoctorsList extends React.Component {
          * renderBlock = true (by default) will block render until the page transition is completed, and once its done, it will then render and set scroll position accordingly
          */
         setTimeout(() => {
-            this.setState({ renderBlock: false })
+            if (this.refs.checkIfExists) {
+                this.setState({ renderBlock: false })
+            }
             setTimeout(() => {
                 if (window) {
                     let scroll_pos = window.OPD_SCROLL_POS ? (window.OPD_SCROLL_POS) : 0
@@ -84,7 +86,7 @@ class DoctorsList extends React.Component {
         let { DOCTORS, doctorList } = this.props
 
         return (
-            <section className="variable-content-section" style={{ paddingTop: 10 }}>
+            <section className="variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">

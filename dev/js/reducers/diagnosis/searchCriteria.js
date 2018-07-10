@@ -1,4 +1,4 @@
-import { RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [100, 5000],
@@ -69,6 +69,19 @@ export default function (state = defaultState, action) {
         case RESET_FILTER_STATE: {
             let newState = { ...state }
             newState.filterCriteria = DEFAULT_FILTER_STATE
+            return newState
+        }
+
+        case CLEAR_EXTRA_TESTS: {
+            let newState = {
+                ...state,
+                selectedCriterias: [].concat(state.selectedCriterias)
+            }
+
+            newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
+                return !curr.extra_test
+            })
+
             return newState
         }
 
