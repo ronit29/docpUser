@@ -15,21 +15,21 @@ class SearchCriteriaView extends React.Component {
         }
     }
 
-    searchProceed() {
+    searchProceed(doctor_name, hospital_name) {
         let searchData = {
             selectedCriterias: this.props.selectedCriterias,
             selectedLocation: this.props.selectedLocation,
         }
         searchData = encodeURIComponent(JSON.stringify(searchData))
         let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria))
-        this.props.history.push(`/opd/searchresults?search=${searchData}&filter=${filterData}`)
+        this.props.history.push(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}`)
     }
 
 
     render() {
         return (
             <div>
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search For Disease or Doctor." type="opd" paddingTopClass={true}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search For Disease or Doctor." type="opd" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)}>
                     <section className="">
                         {
                             (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
@@ -57,7 +57,7 @@ class SearchCriteriaView extends React.Component {
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
 
-                        <button onClick={this.searchProceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                        <button onClick={this.searchProceed.bind(this, "", "")} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                     </section>
                 </CriteriaSearch>

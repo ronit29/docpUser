@@ -44,10 +44,6 @@ class TimeSlotSelector extends React.Component {
             timeSeries: days,
             selectedDay: foundTs,
             selectedMonth: foundTs.month
-        }, () => {
-            let slot = { time: {} }
-            slot.month = foundTs.month
-            this.props.selectTimeSlot(slot)
         })
     }
 

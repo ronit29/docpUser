@@ -61,11 +61,18 @@ class DoctorsList extends React.Component {
 
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
+            let doctor_name = this.getLocationParam('doctor_name')
+
             if (filterCriteria) {
                 filterCriteria = JSON.parse(filterCriteria)
             } else {
                 filterCriteria = {}
             }
+
+            if (doctor_name) {
+                filterCriteria.doctor_name = doctor_name
+            }
+            
             searchState = JSON.parse(searchState)
             this.props.getDoctors(searchState, filterCriteria, false, page + 1, (hasMore) => {
                 this.setState({ loading: false })
