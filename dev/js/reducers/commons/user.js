@@ -8,7 +8,8 @@ const defaultState = {
     notifications: [],
     newNotification: false,
     userUpcomingAppointments: [],
-    userTransactions: []
+    userTransactions: [],
+    userWalletBalance: 0
 }
 
 export default function (state = defaultState, action) {
@@ -102,11 +103,12 @@ export default function (state = defaultState, action) {
 
             let newState = {
                 ...state,
-                userTransactions: state.userTransactions ? [].concat(state.userTransactions) : []
+                userTransactions: state.userTransactions ? [].concat(state.userTransactions) : [],
             }
 
-            newState.userTransactions = action.payload
-
+            newState.userTransactions = action.payload.transactions
+            newState.userWalletBalance = action.payload.balance
+            
             return newState
 
         }
