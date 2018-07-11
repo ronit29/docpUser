@@ -11,13 +11,14 @@ class ChatView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            token: null,
+            token: "",
             symptoms: []
         }
     }
 
     componentDidMount() {
         STORAGE.getAuthToken().then((token) => {
+            token = token || ""
             if (this.props.location.state && this.props.location.state.symptoms) {
                 this.setState({ token, symptoms: (this.props.location.state.symptoms || []) })
             } else {
@@ -37,16 +38,13 @@ class ChatView extends React.Component {
             return str
         }, "")
 
-        if(symptoms_uri){
+        if (symptoms_uri) {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
         return (
             <div className="locationSelector">
-                {
-                    this.state.token ? <iframe src={`http://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`} style={IframStyle}></iframe> : ""
-                }
-
+                <iframe src={`http://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`} style={IframStyle}></iframe> : ""
             </div>
         );
     }
