@@ -17,7 +17,19 @@ class HomeView extends React.Component {
         super(props);
         this.state = {
             symptoms: [
-                'Headache', 'Cold & Cough', 'Hairfall', 'Abdominal Pain'
+                "Fever",
+                "Cough",
+                "Headache",
+                "Vomiting",
+                "Diarrhoea",
+                "Breathlessness",
+                "Pain/Burning during urination",
+                "Chest Pain",
+                "Limb Numbness",
+                "Ear Infection",
+                "Eye Infection",
+                "Sore Throat",
+                "Acne"
             ],
             selectedSymptoms: [
 
@@ -50,7 +62,13 @@ class HomeView extends React.Component {
     navigateTo(where, e) {
         e.preventDefault()
         e.stopPropagation()
-        this.props.history.push(where)
+        if (where == '/chat') {
+            this.props.history.push(where, {
+                symptoms: this.state.selectedSymptoms
+            })
+        } else {
+            this.props.history.push(where)
+        }
     }
 
     getAge(birthday) {
