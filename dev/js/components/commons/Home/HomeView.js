@@ -28,7 +28,12 @@ class HomeView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+        this._ismounted = true
         this.txtAnimation();
+    }
+
+    componentWillUnmount() {
+        this._ismounted = false;
     }
 
     toggleSymptom(name) {
@@ -64,21 +69,29 @@ class HomeView extends React.Component {
         while (true) {
             let txt = 'I am suffering from Headache.'
             for (let chr of txt) {
+                if (!this._ismounted) {
+                    break
+                }
                 await this.delay()
                 if (document.getElementById('animation-input')) {
                     document.getElementById('animation-input').placeholder += chr
                 }
             }
-            await this.delay()
             for (let chr of txt) {
+                if (!this._ismounted) {
+                    break
+                }
                 await this.delay()
                 txt = txt.substring(0, txt.length - 1)
                 if (document.getElementById('animation-input')) {
                     document.getElementById('animation-input').placeholder = txt
                 }
             }
-            await this.delay()
+            if (!this._ismounted) {
+                break
+            }
         }
+        return
     }
 
     render() {
