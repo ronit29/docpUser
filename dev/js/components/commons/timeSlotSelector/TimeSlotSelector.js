@@ -98,7 +98,7 @@ class TimeSlotSelector extends React.Component {
         }
         let today = new Date()
         if (today.toDateString() == selectedDate) {
-            return ts.value > today.getHours()
+            return ts.value > (today.getHours() + 1)
         }
         return true
     }
