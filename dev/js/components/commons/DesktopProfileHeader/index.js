@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { } from '../../../actions/index.js'
+import { logout } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
 
@@ -24,15 +24,15 @@ class DesktopProfileHeader extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profiles, selectedProfile } = state.USER
+    let { profiles, selectedProfile, newNotification, notifications } = state.USER
     return {
-        profiles, selectedProfile
+        profiles, selectedProfile, newNotification, notifications
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        logout: () => dispatch(logout())
     }
 }
 

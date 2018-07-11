@@ -61,7 +61,7 @@ class BasicDetails extends React.Component {
     render() {
 
         let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
-        profile_image = profile_image ? profile_image.replace("http://qa.panaceatechno.com/", "http://localhost:8080/") : "/assets/img/icons/drIcon.jpg"
+        profile_image = profile_image || "/assets/img/icons/drIcon.jpg"
 
         return (
             <section className="myProfile profile-details">
@@ -83,7 +83,7 @@ class BasicDetails extends React.Component {
                     <div className="widget-content">
                         <form className="go-bottom">
                             <div className="labelWrap">
-                                <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input error-outline" name="fname" type="text" required />
+                                <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input" name="fname" type="text" required />
                                 <label htmlFor="fname">Name</label>
                             </div>
                             <div className="form-group input-group">
@@ -107,11 +107,11 @@ class BasicDetails extends React.Component {
                                 <label htmlFor="number">Mobile Number</label>
                             </div>
 
-                            <a href="" onClick={(e) => {
+                            <a href="javascript:;" style={{color: '#f78361'}} onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.manageAddress()
-                            }}>Manage My Address ---></a>
+                            }}>Manage My Address<span><img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" style={{marginLeft: 8, width: 7}}></img></span></a>
                         </form>
                     </div>
                 </div>

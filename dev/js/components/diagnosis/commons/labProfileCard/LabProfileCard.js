@@ -14,7 +14,7 @@ class LabProfileCard extends React.Component {
         let { price, lab, distance, pickup_available } = this.props.details
 
         return (
-            <div className="widget card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
+            <div className="widget card lab-rslt-card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
                         <span className="ct-img lab-icon"><img src={lab.lab_thumbnail} className="img-fluid" /></span>

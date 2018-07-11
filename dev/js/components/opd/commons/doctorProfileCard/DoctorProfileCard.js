@@ -33,7 +33,7 @@ class DoctorProfileCard extends React.Component {
 
         return (
             <div className="widget-header dr-qucik-info">
-                <img src={thumbnail} className="img-fluid" />
+                <img src={thumbnail} className="img-fluid img-round" />
                 <div className="dr-profile">
                     <h4 className="dr-name">{name}</h4>
                     <p className="desg">{this.getQualificationStr(qualifications)}</p>

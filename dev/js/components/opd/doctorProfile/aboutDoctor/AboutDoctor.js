@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ActionTrendingUp } from 'material-ui';
 
 class AboutDoctor extends React.Component {
 
@@ -7,6 +8,7 @@ class AboutDoctor extends React.Component {
         super(props)
         this.state = {
             lessAbout: "",
+            requiredReadMore: false,
             readMore: false
         }
     }
@@ -24,7 +26,8 @@ class AboutDoctor extends React.Component {
         if (about) {
             if (about.length > 100) {
                 this.setState({
-                    readMore: true
+                    readMore: true,
+                    requiredReadMore: true
                 })
             }
             this.setState({
@@ -36,17 +39,26 @@ class AboutDoctor extends React.Component {
     render() {
 
         let { about, name } = this.props.details
+        let button = ""
+
+        if (this.state.requiredReadMore) {
+            button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
+                this.setState({ readMore: false, lessAbout: about })
+            }}>READ MORE</a>
+
+            if (!this.state.readMore) {
+                button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
+                    this.setState({ readMore: true, lessAbout: about.slice(0, 100) })
+                }}>SHOW LESS</a>
+            }
+        }
 
         return (
             <div className="widget-panel">
                 <h4 className="panel-title">About {name}</h4>
                 <div className="panel-content">
-                    <p className="fw-500 text-md">{this.state.lessAbout}
-                        {
-                            this.state.readMore ? <a className="fw-700 text-primary" onClick={() => {
-                                this.setState({ readMore: false, lessAbout: about })
-                            }}>READ MORE</a> : ""
-                        }
+                    <p className="fw-10000 text-md">{this.state.lessAbout}
+                        {button}
                     </p>
                 </div>
             </div>

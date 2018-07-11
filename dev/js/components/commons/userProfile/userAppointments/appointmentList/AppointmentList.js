@@ -35,7 +35,7 @@ class AppointmentList extends React.Component {
             <li onClick={this.openAppointment.bind(this, type, id)}>
                 <a>
                     <span className="icon icon-md consultant-dp">
-                        <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid" />
+                        <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid img-round" />
                     </span>
                     <div className="consultant-details">
                         <h4 className="title app-title">{doctor_name || lab_name}</h4>

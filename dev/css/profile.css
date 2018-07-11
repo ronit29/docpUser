@@ -186,6 +186,10 @@
 	margin: auto;
 }
 
+.profile-img-section{
+	cursor: pointer;
+}
+
 .dummy-img-section{
 	text-align: center;
     background-color: #e4e4e4;
@@ -232,9 +236,13 @@
 
 .login-feature-list-item{
 	padding: 4px 0;
-	color: #6c6c6c;
+	color: #a7a7a7;
 	font-size: 14px;
 	font-weight: 500;
+}
+
+.login-feature-list>a>li{
+	color: #6c6c6c !important;
 }
 
 .profile-name-section{
@@ -1085,6 +1093,7 @@
 
 .booking-confirm-screen .lab-visit-time .title>span>img{
 	vertical-align: middle;
+	margin-right: 4px;
 }
 
 .payment-amt-value, .payment-amt-label{

@@ -195,7 +195,7 @@ class BookingView extends React.Component {
                                                     <div className="widget-content pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700">{doctor.name}</h4>
                                                         <div className="address-details">
-                                                            <img src={doctor_thumbnail} style={{ width: 20 }} className="img-fluid add-map" />
+                                                            <img src={doctor_thumbnail} style={{ width: 50, marginTop: -28 }} className="img-fluid add-map img-round" />
                                                             <p className="add-info fw-500">{this.getQualificationStr(doctor.qualifications)}</p>
                                                         </div>
                                                     </div>

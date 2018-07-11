@@ -57,7 +57,7 @@ class AppointmentReschedule extends React.Component {
 
         this.props.updateOPDAppointment(appointmentData, (err, data) => {
             if (!err) {
-                if (data.required_payment) {
+                if (data.payment_required) {
                     this.setState({
                         paymentData: data.data
                     }, () => {

@@ -43,8 +43,8 @@ class UserAddress extends React.Component {
                                         <Radio value={curr.id.toString()}  checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
                                     </span>
                                     <div className="member-details">
-                                        <ul className="list" style={{ overflow: 'hidden' }}>
-                                            <li className="fw-500 text-sm"><span className="ct-img ct-img-xs"></span>{curr.address}</li>
+                                        <ul className="list">
+                                            <li className="fw-500 text-sm" style={{width: '80%', wordWrap: 'break-word'}}>{curr.address}</li>
                                         </ul>
                                     </div>
                                     <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 9 }} className="ct-img ct-img-sm arrow-forward-right">Edit</span>
