@@ -39,12 +39,34 @@ class TimeSlotSelector extends React.Component {
             })
         }
 
-        let foundTs = this.getAvailableTS(days, null)
-        this.setState({
-            timeSeries: days,
-            selectedDay: foundTs,
-            selectedMonth: foundTs.month
-        })
+        let selctedDate = this.props.selectedSlot.date
+        let ts_selected = null
+        if (selctedDate) {
+            selctedDate = new Date(selctedDate).toDateString()
+            for (let ts of days) {
+                let curr_date = new Date(ts.actualDate).toDateString()
+                if (curr_date == selctedDate) {
+                    ts_selected = ts
+                    break
+                }
+            }
+        }
+
+        if (ts_selected) {
+            this.setState({
+                timeSeries: days,
+                selectedDay: ts_selected,
+                selectedMonth: ts_selected.month
+            })
+        } else {
+            let foundTs = this.getAvailableTS(days, null)
+            this.setState({
+                timeSeries: days,
+                selectedDay: foundTs,
+                selectedMonth: foundTs.month
+            })
+        }
+
     }
 
     selectDay(day) {
@@ -115,10 +137,12 @@ class TimeSlotSelector extends React.Component {
         // let monthNum = (new Date).getMonth()
         let thisMonth = MONTHS[(new Date).getMonth()]
         let nextMonth = MONTHS[(new Date).getMonth() + 1]
-        let selctedDate = this.props.selectedSlot.date || this.state.selectedDay.actualDate
+        // let selctedDate = this.props.selectedSlot.date || this.state.selectedDay.actualDate
+        let selctedDate = this.state.selectedDay.actualDate
         selctedDate = selctedDate ? new Date(selctedDate).toDateString() : null
 
-        let selectedMonth = this.props.selectedSlot.month || this.state.selectedMonth
+        // let selectedMonth = this.props.selectedSlot.month || this.state.selectedMonth
+        let selectedMonth = this.state.selectedMonth
         // debugger
         return (
             <div>
