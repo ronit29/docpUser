@@ -80,13 +80,18 @@ class HomeView extends React.Component {
 
     delay() {
         return new Promise((resolve) => {
-            setTimeout(resolve, 100)
+            setTimeout(resolve, 200)
         })
     }
 
     async txtAnimation() {
         while (true) {
-            let txt = 'I am suffering from Headache.'
+            let sentence = "I am suffering from "
+            if (document.getElementById('animation-input')) {
+                document.getElementById('animation-input').placeholder = sentence
+            }
+
+            let txt = this.state.symptoms[Math.floor(Math.random() * this.state.symptoms.length)]
             for (let chr of txt) {
                 if (!this._ismounted) {
                     break
@@ -103,7 +108,7 @@ class HomeView extends React.Component {
                 await this.delay()
                 txt = txt.substring(0, txt.length - 1)
                 if (document.getElementById('animation-input')) {
-                    document.getElementById('animation-input').placeholder = txt
+                    document.getElementById('animation-input').placeholder = sentence + txt
                 }
             }
             if (!this._ismounted) {
