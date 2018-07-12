@@ -17,7 +17,11 @@ class UserLoginView extends React.Component {
     }
 
     inputHandler(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        if (this.state.showOTP) {
+            this.setState({ [e.target.name]: e.target.value, validationError: "", showOTP: false, otp: "" })
+        } else {
+            this.setState({ [e.target.name]: e.target.value })
+        }
     }
 
     submitOTPRequest(number) {
