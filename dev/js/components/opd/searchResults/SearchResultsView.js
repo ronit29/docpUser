@@ -36,6 +36,7 @@ class SearchResultsView extends React.Component {
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
             let doctor_name = this.getLocationParam('doctor_name')
+            let hospital_name = this.getLocationParam('hospital_name')
 
             if (filterCriteria) {
                 filterCriteria = JSON.parse(filterCriteria)
@@ -45,6 +46,10 @@ class SearchResultsView extends React.Component {
 
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
+            }
+
+            if (hospital_name) {
+                filterCriteria.hospital_name = hospital_name
             }
 
             searchState = JSON.parse(searchState)
@@ -57,7 +62,7 @@ class SearchResultsView extends React.Component {
                     searchState.selectedLocation = selectedLocation
                     let searchData = encodeURIComponent(JSON.stringify(searchState))
                     let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
-                    this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${filterCriteria.doctor_name}`)
+                    this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${filterCriteria.doctor_name}&hospital_name=${filterCriteria.hospital_name}`)
                 }
 
             }
@@ -80,9 +85,14 @@ class SearchResultsView extends React.Component {
             filterState.doctor_name = doctor_name
         }
 
+        let hospital_name = this.getLocationParam('hospital_name')
+        if (hospital_name) {
+            filterState.hospital_name = hospital_name
+        }
+
         let searchData = encodeURIComponent(JSON.stringify(searchState))
         let filterData = encodeURIComponent(JSON.stringify(filterState))
-        this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}`)
+        this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}&hospital_name=${hospital_name}`)
         
         this.getDoctorList(searchState, filterState, true)
 

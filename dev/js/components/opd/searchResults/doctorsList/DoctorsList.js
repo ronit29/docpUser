@@ -61,6 +61,7 @@ class DoctorsList extends React.Component {
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
             let doctor_name = this.getLocationParam('doctor_name')
+            let hospital_name = this.getLocationParam('hospital_name')
 
             if (filterCriteria) {
                 filterCriteria = JSON.parse(filterCriteria)
@@ -70,6 +71,10 @@ class DoctorsList extends React.Component {
 
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
+            }
+
+            if (hospital_name) {
+                filterCriteria.hospital_name = hospital_name
             }
 
             searchState = JSON.parse(searchState)
