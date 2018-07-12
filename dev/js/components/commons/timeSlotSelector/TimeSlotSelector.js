@@ -126,8 +126,8 @@ class TimeSlotSelector extends React.Component {
                     <div className="widget-content">
                         <div className="add-new-time mrb-10">
                             <h4 className="text-md fw-700 mrb-10">Select Date &amp; Time:
-                            <span onClick={this.selectMonth.bind(this, thisMonth)} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
-                                    <span onClick={this.selectMonth.bind(this, nextMonth)} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}> {nextMonth}</span></span></h4>
+                            <span onClick={this.selectMonth.bind(this, thisMonth)} style={{cursor: 'pointer'}} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
+                                    <span onClick={this.selectMonth.bind(this, nextMonth)} style={{marginLeft: 4}} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}> {nextMonth}</span></span></h4>
                             <div className="choose-time">
                                 <ul className="inline-list datetime-items">
 
@@ -172,7 +172,7 @@ class TimeSlotSelector extends React.Component {
                                                             time: time
                                                         })
                                                     }
-                                                }}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == i && this.props.selectedSlot.time.value == time.value ? "" : "outline ") + (this.isTimeSlotAvailable(time, selctedDate) ? "" : "diabledtspill")}>{time.text} </a></li>
+                                                }}><a href="" className={"v-btn v-btn-primary btn-sm " + (this.props.selectedSlot.slot == i && this.props.selectedSlot.time.value == time.value ? "" : "outline ") + (this.isTimeSlotAvailable(time, selctedDate) ? "time-slot-btn" : "diabledtspill")}>{time.text} </a></li>
                                             })
                                         }
                                     </ul>

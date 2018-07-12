@@ -209,7 +209,6 @@ class BookingSummaryView extends React.Component {
 
                                                             <div className="widget-content">
 
-
                                                                 <div className="lab-details">
                                                                     <img src={labDetail.lab_thumbnail} className="img-fluid" />
                                                                     <div className="lab-title">

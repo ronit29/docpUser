@@ -48,6 +48,7 @@ class LabDetails extends React.Component {
                                 <div className="widget-content pb-details pb-location">
                                     <h4 className="wc-title text-md fw-700">Location</h4>
                                     <div className="address-details">
+                                        <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
                                         <p className="add-info">{address}</p>
                                     </div>
                                     <div className="pb-view text-left">
