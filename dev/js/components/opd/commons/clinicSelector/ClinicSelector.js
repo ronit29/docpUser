@@ -18,10 +18,10 @@ class ClinicSelector extends React.Component {
         return (
             <div className="widget-panel">
                 <h4 className="panel-title">Dr. {name} Available at</h4>
-                <div className="panel-content scroll-x">
+                <div className="panel-content clinic-info-panel">
                     <ul className="inline-list Clinic-card-list">
                         {
-                            hospitals.map((hospital, i) => {
+                            [...hospitals, ...hospitals, ...hospitals, ...hospitals].map((hospital, i) => {
                                 return <li key={i}>
                                     <div className="widget no-shadow">
                                         <div className="widget-header">

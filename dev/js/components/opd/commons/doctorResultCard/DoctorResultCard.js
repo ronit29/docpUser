@@ -46,13 +46,6 @@ class DoctorProfileCard extends React.Component {
             <div className="widget card search-dr-list" onClick={this.cardClick.bind(this, id)}>
                 <div className="widget-header dr-info">
                     <div className="rating-address beta">
-                        <ul className="inline-list ratting">
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/half-star.svg" className="img-fluid" /></span></li>
-                        </ul>
                         <p><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                     <div className="alpha dr-name">

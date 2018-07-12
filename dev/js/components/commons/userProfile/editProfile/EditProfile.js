@@ -123,10 +123,10 @@ class EditProfile extends React.Component {
                 <section className="consumer-profile-update sticky-header-3">
                     <div className="nav-tab">
                         <ul className="inline-list tab-items">
-                            <li onClick={() => {
+                            <li style={{marginLeft: 0, marginRight: 0}} onClick={() => {
                                 this.setState({ selectedTab: 0 })
                             }} className={this.state.selectedTab === 0 ? "active" : ""}><a className="link-text text-xs uppercase">Basic Profile</a></li>
-                            <li onClick={() => {
+                            <li style={{marginLeft: 0, marginRight: 0}} onClick={() => {
                                 this.setState({ selectedTab: 1 })
                             }} className={this.state.selectedTab === 1 ? "active" : ""}><a className="link-text text-xs uppercase">Medical</a></li>
                         </ul>

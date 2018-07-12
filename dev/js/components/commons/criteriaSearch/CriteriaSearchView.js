@@ -144,7 +144,7 @@ class CriteriaSearchView extends React.Component {
                             {
                                 this.state.searchValue ?
 
-                                    <section className="sticky-header-2">
+                                    <section>
                                         {
                                             this.state.searchResults.map((cat, j) => {
                                                 return <div className="widget-panel" key={j}>
@@ -156,7 +156,9 @@ class CriteriaSearchView extends React.Component {
                                                             }
                                                             {
                                                                 cat.values.map((curr, i) => {
-                                                                    return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a></li>
+                                                                    return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a>
+                                                                        { i < cat.values.length - 1 ? <hr className="search-list-hr" /> : "" }
+                                                                    </li>
                                                                 })
                                                             }
                                                         </ul>

@@ -72,7 +72,7 @@ class ProfileData extends React.Component {
                         <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
+                                    <img src="/assets/img/customer-icons/family.svg" className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Family</h4>

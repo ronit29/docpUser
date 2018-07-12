@@ -168,7 +168,7 @@ class PatientDetails extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">{(this.props.selectedSlot && this.props.selectedSlot.date) ? ("Rs. " + this.props.selectedSlot.time.deal_price) : "Time slot not selected"}</a></span></h4>
+                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{ width: 17, marginRight: 6 }} /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">{(this.props.selectedSlot && this.props.selectedSlot.date) ? ("Rs. " + this.props.selectedSlot.time.deal_price) : "Time slot not selected"}</a></span></h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 

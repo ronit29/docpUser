@@ -38,7 +38,7 @@ class LabView extends React.Component {
                             <header className="skin-primary fixed horizontal top sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
-                                        <div className="col-4">
+                                        <div className="col-2">
                                             <div className="header-title fw-700 capitalize text-white">
                                                 <ul className="inline-list top-nav alpha-bx text-white"
                                                     onClick={() => {
@@ -53,11 +53,8 @@ class LabView extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="col-4">
-                                        </div>
-                                        <div className="col-4">
-                                            <ul className="inline-list float-right user-notification-action">
-                                            </ul>
+                                        <div className="col-8">
+                                            <div class="header-title fw-700 capitalize text-white text-center">Lab Details</div>
                                         </div>
                                     </div>
                                 </div>

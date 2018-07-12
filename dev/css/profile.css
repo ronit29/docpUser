@@ -631,6 +631,7 @@
 
 .appointment-head-div>img{
 	width: 18px;
+	margin-right: 8px;
 	vertical-align: middle;
 }
 
@@ -639,7 +640,7 @@
 }
 
 .appointment-head{
-	margin-left: 4px;
+	padding: 0 4px 4px;
 	font-weight: 500;
 	font-size: 15px;
 	border-bottom: 1px solid rgba(0,0,0,0.2);
@@ -667,7 +668,7 @@
 }
 
 .tip-desc-div{
-	margin-top: 20px;
+	margin-top: 12px;
 }
 
 .tip-desc{
@@ -1085,6 +1086,13 @@
 
 .action-screen-header{
 	position: relative;
+}
+
+.close-modal{
+	position: absolute;
+    right: 12px;
+	top: 12px;
+	cursor: pointer;
 }
 
 .cancel-policy-text>p{

@@ -191,7 +191,7 @@ class BookingView extends React.Component {
                                                         }
                                                     </div>
                                                 </div>
-                                                <div className="widget  mrb-10">
+                                                <div className="widget mrb-10">
                                                     <div className="widget-content pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700">{doctor.name}</h4>
                                                         <div className="address-details">

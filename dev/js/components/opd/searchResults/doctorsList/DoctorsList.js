@@ -97,7 +97,7 @@ class DoctorsList extends React.Component {
         let { DOCTORS, doctorList } = this.props
 
         return (
-            <section className="variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
+            <section style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">

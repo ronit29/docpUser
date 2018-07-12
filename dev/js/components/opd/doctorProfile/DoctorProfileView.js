@@ -39,7 +39,7 @@ class DoctorProfileView extends React.Component {
                             <header className="skin-primary fixed horizontal top sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
-                                        <div className="col-4">
+                                        <div className="col-2">
                                             <div className="header-title fw-700 capitalize text-white">
                                                 <ul className="inline-list top-nav alpha-bx text-white"
                                                     onClick={() => {
@@ -54,9 +54,10 @@ class DoctorProfileView extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="col-4">
+                                        <div className='col-8'>
+                                            <div class="header-title fw-700 capitalize text-white text-center">Doctor Details</div>
                                         </div>
-                                        <div className="col-4">
+                                        <div className="col-2">
                                             <ul className="inline-list float-right user-notification-action">
                                                 {/* <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
                                     <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li> */}

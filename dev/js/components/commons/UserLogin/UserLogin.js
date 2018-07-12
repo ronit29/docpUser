@@ -79,7 +79,7 @@ class UserLoginView extends React.Component {
                                             </ul>
                                         </div>
                                         <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Registration/Login</div>
+                                            <div className="header-title fw-700 capitalize text-center">Login/Registration</div>
                                         </div>
                                         <div className="col-2">
                                         </div>

@@ -255,11 +255,12 @@ header .header-title{font-size: 16px; line-height: 50px;}
 ====================*/
 .choose-time{width: 100%; overflow-x: scroll;white-space: nowrap;}
 .datetime-items>li{color: #f78631; width: 34px; font-weight: 700; text-align: center; font-size: 18px;cursor: pointer}
-.datetime-items>li.active{background-color: #f78631; color: #fff; border-radius: 10px;  }
+.datetime-items>li.active{background-color: #f78631; color: #fff; border-radius: 10px}
+.datetime-items>li:hover{border: 1px solid #f78631; border-radius: 10px}
 .datetime-items>li>span{font-size: 15px; display: block; margin-top: 10px;}
 .time-items{margin: 10px 0;}
-.time-items>li{margin-bottom: 10px;}
-.time-items>li>a{padding:2px 5px;}
+.time-items>li{margin: 0 16px 10px 0 !important; outline: none !important; text-align: center}
+.time-items>li>a{padding:2px 5px; width: 80px}
 
 .ua-header{border-bottom: 1px solid #ddd;}
 
@@ -327,7 +328,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 	notification
 ====================*/
 .notification-page .noti-title{ color: #363636;  font-size: 16px; font-weight: bold; margin-bottom: 5px}
-.notificaton-list>li{border-bottom: 1px solid #ddd;padding: 15px;}
+.notificaton-list>li{border-bottom: 1px solid #ddd;padding: 15px;cursor: pointer;}
 .noti-icon{width: 50px; height: 50px; object-fit: contain; float: left;}
 .notificaton-list .noti-content{padding-left: 60px;}
 
