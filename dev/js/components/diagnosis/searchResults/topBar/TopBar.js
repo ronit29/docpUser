@@ -136,7 +136,7 @@ class TopBar extends React.Component {
                                     <span className="tl">Price</span>
                                     <span className="tr">Rs {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
                                     <span className="bl">Rs 100</span>
-                                    <span className="br">Rs 2000</span>
+                                    <span className="br">Rs 20000</span>
 
                                     <Range
                                         min={100}

@@ -17,7 +17,7 @@ class UserLoginView extends React.Component {
     }
 
     inputHandler(e) {
-        if (this.state.showOTP) {
+        if (this.state.showOTP && e.target.name == 'number') {
             this.setState({ [e.target.name]: e.target.value, validationError: "", showOTP: false, otp: "" })
         } else {
             this.setState({ [e.target.name]: e.target.value })

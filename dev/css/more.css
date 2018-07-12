@@ -380,3 +380,7 @@ ul.inline-list li {
     padding: 20px;
     font-weight: bold;
 }
+
+.errorColorBorder{
+    border: 1px solid red !important;
+}
