@@ -371,3 +371,12 @@ ul.inline-list li {
     color: gray !important;
     border-color: gray !important;
 }
+
+.noappointmentfound{
+    text-align: center;
+    margin-top: 60px;
+    font-size: 15px;
+    background-color: white;
+    padding: 20px;
+    font-weight: bold;
+}

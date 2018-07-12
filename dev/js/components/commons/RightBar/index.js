@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUpcomingAppointments } from '../../../actions/index.js'
+import { getUpcomingAppointments, fetchHeatlhTip } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
 import STORAGE from '../../../helpers/storage'
@@ -17,6 +17,7 @@ class RightBar extends React.Component {
     }
 
     componentDidMount() {
+        this.props.fetchHeatlhTip()
         if (STORAGE.checkAuth()) {
             this.props.getUpcomingAppointments()
         }
@@ -31,15 +32,16 @@ class RightBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profiles, selectedProfile, userUpcomingAppointments } = state.USER
+    let { profiles, selectedProfile, userUpcomingAppointments, healthTips } = state.USER
     return {
-        profiles, selectedProfile, userUpcomingAppointments
+        profiles, selectedProfile, userUpcomingAppointments, healthTips
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUpcomingAppointments: () => dispatch(getUpcomingAppointments())
+        getUpcomingAppointments: () => dispatch(getUpcomingAppointments()),
+        fetchHeatlhTip: () => dispatch(fetchHeatlhTip())
     }
 }
 
