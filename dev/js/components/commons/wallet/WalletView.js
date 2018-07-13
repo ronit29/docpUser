@@ -50,7 +50,7 @@ class WalletView extends React.Component {
                                         <p className="current-balance fw-500">{userWalletBalance}</p>
                                     </div>
                                     <div className="col-12 credit-tip text-center">
-                                        <p>You could use this credit to book appoinments with Doctors or Diagnostic Centers</p>
+                                        <p>You could use this credit to book Appointments with Doctors or Diagnostic Centers</p>
                                         <p>1 credit = 1 Rupee</p>
                                     </div>
                                     <div className="refund-btn-div">

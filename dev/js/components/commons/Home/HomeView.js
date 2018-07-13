@@ -156,7 +156,7 @@ class HomeView extends React.Component {
                                         <img src="/assets/img/icons/dummy-profile.svg" className="profile-icon-dummy" />
                                     </div>
                                     <div className="profile-info-div">
-                                        <p className="logout-text fw-500">After login your details will be visible here. You can consult with the doctor, book appoinments and your medical tests</p>
+                                        <p className="logout-text fw-500">After login your details will be visible here. You can consult with the doctor, book Appointments and your medical tests</p>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@ class HomeView extends React.Component {
                                         <img src="/assets/img/customer-icons/mobile-appointment.svg" />
                                     </div>
                                     <div className="col-6 col-sm-8 appointment-content-col">
-                                        <p className="fw-500">Appoinment for Arun Kumar</p>
+                                        <p className="fw-500">Appointment for Arun Kumar</p>
                                         <p className="appointment-date">On 29th April 2017</p>
                                         <p className="appointment-doc">With Dr. Angela Smith</p>
                                     </div>

@@ -154,15 +154,15 @@ class BookingView extends React.Component {
                                                             <ul className="inline-list">
                                                                 <li className={status < 5 ? "active" : ""}>
                                                                     <span className="dot">1</span>
-                                                                    <p className="text-sm fw-700 text-light">Appoinment Received</p>
+                                                                    <p className="text-sm fw-700 text-light">Appointment Received</p>
                                                                 </li>
                                                                 <li className={status == 5 ? "active" : ""}>
                                                                     <span className="dot">2</span>
-                                                                    <p className="text-sm fw-700 text-light">Appoinment Confirmed</p>
+                                                                    <p className="text-sm fw-700 text-light">Appointment Confirmed</p>
                                                                 </li>
                                                                 <li className={status == 7 ? "active" : ""}>
                                                                     <span className="dot">3</span>
-                                                                    <p className="text-sm fw-700 text-light">Appoinment {status == 6 ? "Completed" : "Completed"}</p>
+                                                                    <p className="text-sm fw-700 text-light">Appointment {status == 6 ? "Completed" : "Completed"}</p>
                                                                 </li>
                                                             </ul>
                                                     }
