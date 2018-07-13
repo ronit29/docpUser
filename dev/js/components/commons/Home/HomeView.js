@@ -5,6 +5,7 @@ import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import Footer from './footer'
+import Articles from './articles'
 
 const GENDER = {
     "m": "Male",
@@ -266,138 +267,113 @@ class HomeView extends React.Component {
                                     </li></a>
                                 </ul>
                             </div>
-                            <div className="horizontal-widget">
-                                <div className="view-all-div">
-                                    <a href="javascript:;"><p className="view-all-text">View All</p></a>
-                                </div>
-                                <div className="scroll-arrow-div-rt">
-                                    <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
-                                </div>
-                                <div className="scroll-arrow-div-lt">
-                                    <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
-                                </div>
-                                <div className="hr-widget-head-div">
-                                    <p className="hr-widget-head">Know about Diseases</p>
-                                </div>
-                                <div className="select-item-div">
-                                    <ul className="select-item-list">
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/malaria.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Malaria</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Typhoid</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Hepatitis</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/malaria.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Malaria</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Typhoid</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Hepatitis</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="horizontal-widget">
-                                <div className="view-all-div">
-                                    <a href="javascript:;"><p className="view-all-text">View All</p></a>
-                                </div>
-                                <div className="scroll-arrow-div-rt">
-                                    <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
-                                </div>
-                                <div className="scroll-arrow-div-lt">
-                                    <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
-                                </div>
-                                <div className="hr-widget-head-div">
-                                    <p className="hr-widget-head">Know about Medicines</p>
-                                </div>
-                                <div className="select-item-div">
-                                    <ul className="select-item-list">
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/malaria.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Malaria</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Typhoid</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Hepatitis</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/malaria.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Malaria</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Typhoid</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="item-img">
-                                                <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                            </div>
-                                            <div className="item-name">
-                                                <p>Hepatitis</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+
+                            <Articles title={"Know about Diseases"}>
+                                <ul className="select-item-list">
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/malaria.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Malaria</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Typhoid</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Hepatitis</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/malaria.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Malaria</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Typhoid</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Hepatitis</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </Articles>
+
+                            <Articles title={"Know about Medicines"}>
+                                <ul className="select-item-list">
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/malaria.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Malaria</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Typhoid</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Hepatitis</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/malaria.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Malaria</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Typhoid</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Hepatitis</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </Articles>
+
                         </div>
 
                         <RightBar />
@@ -406,7 +382,7 @@ class HomeView extends React.Component {
 
                 <Footer />
 
-            </div>
+            </div >
         );
     }
 }

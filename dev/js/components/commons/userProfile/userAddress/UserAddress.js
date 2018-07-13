@@ -36,7 +36,7 @@ class UserAddress extends React.Component {
             <div className="widget-content">
                 <ul className="list family-list">
                     {
-                        !(address && address.length) ? address.map((curr, key) => {
+                        (address && address.length) ? address.map((curr, key) => {
                             return <li key={key}>
                                 <a>
                                     <span className="icon icon-lg member-icon" style={{ marginTop: -15 }}>

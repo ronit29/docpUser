@@ -16,9 +16,7 @@ class NotFound extends React.Component {
                     <div className="container">
                         <div className="row header-row">
                             <div className="col-12 text-center logo-icon-div">
-                                <a href="javascript:;" onClick={() => {
-                                    this.props.history.push('/')
-                                }}><img src="/assets/img/doc-prime-logo.png" className="logo-icon" /></a>
+                                <a href="javascript:;"><img src="/assets/img/doc-prime-logo.png" className="logo-icon" /></a>
                             </div>
                         </div>
                     </div>
@@ -28,12 +26,12 @@ class NotFound extends React.Component {
                     <div className="row">
                         <div className="col-12 col-md-10 offset-md-1">
                             <div className="error-widget text-center">
-                                <div className="error-server-div">
-                                    <img src="/assets/img/icons/error-2.png" />
-                                    <p className="error-text fw-500">Its look like something is not right !</p>
-                                    <p className="error-text fw-500">We are diagnosing the problem</p>
-                                    <p className="error-text-2 fw-500">Please try again after sometime</p>
-                                </div>
+                                <p className="error-head fw-500">404</p>
+                                <img src="/assets/img/icons/error.png" />
+                                <p className="error-text fw-500">Page not found !</p>
+                                <p className="error-link">Go to <a href="javascript:;" onClick={() => {
+                                    this.props.history.push('/')
+                                }}>docprime homepage</a></p>
                             </div>
                         </div>
                     </div>

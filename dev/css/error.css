@@ -13,7 +13,7 @@
 }
 
 .error-text{
-	font-size: 28px;
+	font-size: 30px;
 	color: #414141;
 	margin: 10px 0;
 }
@@ -26,10 +26,4 @@
 
 .error-link>a{
 	color: #f78631;
-}
-
-.error-text-2{
-	font-size: 22px;
-	color: #757575;
-	margin: 10px 0;
 }

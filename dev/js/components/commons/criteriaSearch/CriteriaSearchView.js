@@ -30,7 +30,10 @@ class CriteriaSearchView extends React.Component {
     componentDidMount() {
         this.getSearchResults = debouncer(this.getSearchResults.bind(this), 500)
         let input = document.getElementById('topCriteriaSearch')
-        // input.focus()
+        // if coming back or refresh focus on search bar
+        if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
+            input.focus()
+        }
     }
 
     inputHandler(e) {
@@ -157,7 +160,7 @@ class CriteriaSearchView extends React.Component {
                                                             {
                                                                 cat.values.map((curr, i) => {
                                                                     return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a>
-                                                                        { i < cat.values.length - 1 ? <hr className="search-list-hr" /> : "" }
+                                                                        {i < cat.values.length - 1 ? <hr className="search-list-hr" /> : ""}
                                                                     </li>
                                                                 })
                                                             }

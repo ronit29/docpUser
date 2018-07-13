@@ -78,17 +78,17 @@ class LeftBar extends React.Component {
                                     <p className="list-no">8</p>
                                 </div> */}
                                 </li>
-                                <li>
+                                {/* <li>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/medical.svg" className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">Medical History</p>
                                     </div>
-                                    {/* <div className="last-list-div list-no-div">
-                                    <p className="list-no">8</p>
-                                </div> */}
-                                </li>
+                                    <div className="last-list-div list-no-div">
+                                        <p className="list-no">8</p>
+                                    </div>
+                                </li> */}
                                 {/* <li>
                                 <div className="list-inline-div list-img-div">
                                     <img src="/assets/img/customer-icons/test-report.svg" className="profile-list-icons" />

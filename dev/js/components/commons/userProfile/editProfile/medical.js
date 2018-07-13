@@ -12,7 +12,7 @@ class MedicalDetails extends React.Component {
                 <div className="widget-panel">
                     <h4 className="panel-title">Medical History</h4>
                     <div className="panel-content pd-0">
-                        <table className="table">
+                        {/* <table className="table">
                             <thead>
                                 <tr>
                                     <th>Disease</th>
@@ -94,7 +94,7 @@ class MedicalDetails extends React.Component {
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                 </div>
             </section>

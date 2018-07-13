@@ -47,18 +47,18 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        <li className="my-profile-item">
+                        {/* <li className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Medical History
-                                        {/* <span className="float-right badge badge-warning">2</span> */}
+                                        <span className="float-right badge badge-warning">2</span>
                                     </h4>
                                 </div>
                             </a>
-                        </li>
+                        </li> */}
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
