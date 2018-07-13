@@ -19,6 +19,10 @@ class TestSelectorView extends React.Component {
         let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
         this.props.getLabById(this.state.selectedLab, tests)
         this.getSearchList({ target: { value: "" } })
+
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     toggleTest(test) {
@@ -60,7 +64,7 @@ class TestSelectorView extends React.Component {
 
             let selected_tests = labData.tests.map((test, i) => {
                 if (selectedTests.indexOf(test.test.id) > -1) {
-                    return <li key={i+"st"}>
+                    return <li key={i + "st"}>
                         <label className="ck-bx">
                             {test.test.name}
                             <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test.test)} />
@@ -81,7 +85,7 @@ class TestSelectorView extends React.Component {
                 }
                 return not_found
             }).map((test, i) => {
-                return <li key={i+"srt"}>
+                return <li key={i + "srt"}>
                     <label className="ck-bx">
                         {test.test.name}
                         <input type="checkbox" checked={selectedTests.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test.test)} />
