@@ -59,6 +59,12 @@ class UserProfileView extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     render() {
 
         let { profiles, selectedProfile } = this.props.USER

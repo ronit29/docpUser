@@ -6,6 +6,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import Footer from './footer'
 import Articles from './articles'
+import ChatSymptoms from './chatSymptom.js'
 
 const GENDER = {
     "m": "Male",
@@ -42,27 +43,13 @@ class HomeView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        this._ismounted = true
-        this.txtAnimation();
-    }
-
-    componentWillUnmount() {
-        this._ismounted = false;
-    }
-
-    toggleSymptom(name) {
-        if (this.state.selectedSymptoms.indexOf(name) > -1) {
-            this.state.selectedSymptoms.splice(this.state.selectedSymptoms.indexOf(name), 1)
-        } else {
-            this.state.selectedSymptoms.push(name)
-        }
-
-        this.setState(this.state)
     }
 
     navigateTo(where, e) {
-        e.preventDefault()
-        e.stopPropagation()
+        if (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
         if (where == '/chat') {
             this.props.history.push(where, {
                 symptoms: this.state.selectedSymptoms
@@ -77,46 +64,6 @@ class HomeView extends React.Component {
         var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
-    }
-
-    delay() {
-        return new Promise((resolve) => {
-            setTimeout(resolve, 200)
-        })
-    }
-
-    async txtAnimation() {
-        while (true) {
-            let sentence = "I am suffering from "
-            if (document.getElementById('animation-input')) {
-                document.getElementById('animation-input').placeholder = sentence
-            }
-
-            let txt = this.state.symptoms[Math.floor(Math.random() * this.state.symptoms.length)]
-            for (let chr of txt) {
-                if (!this._ismounted) {
-                    break
-                }
-                await this.delay()
-                if (document.getElementById('animation-input')) {
-                    document.getElementById('animation-input').placeholder += chr
-                }
-            }
-            for (let chr of txt) {
-                if (!this._ismounted) {
-                    break
-                }
-                await this.delay()
-                txt = txt.substring(0, txt.length - 1)
-                if (document.getElementById('animation-input')) {
-                    document.getElementById('animation-input').placeholder = sentence + txt
-                }
-            }
-            if (!this._ismounted) {
-                break
-            }
-        }
-        return
     }
 
     render() {
@@ -172,75 +119,9 @@ class HomeView extends React.Component {
                         <div className="col-md-1 d-none d-md-block d-lg-none"></div>
 
                         <div className="col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section">
-                            {/* only for mobile */}
 
-                            {/* <div className="book-widget appointment-widget">
-                                <div className="row">
-                                    <div className="col-3 col-sm-2 appointment-img-col">
-                                        <img src="/assets/img/customer-icons/mobile-appointment.svg" />
-                                    </div>
-                                    <div className="col-6 col-sm-8 appointment-content-col">
-                                        <p className="fw-500">Appointment for Arun Kumar</p>
-                                        <p className="appointment-date">On 29th April 2017</p>
-                                        <p className="appointment-doc">With Dr. Angela Smith</p>
-                                    </div>
-                                    <div className="col-3 col-sm-2">
-                                        <div className="navigate-img">
-                                            <img src="/assets/img/customer-icons/navigate.svg" />
-                                        </div>
-                                        <p className="navigate-text">Navigate</p>
-                                    </div>
-                                </div>
-                            </div> */}
+                            <ChatSymptoms navigateTo={this.navigateTo.bind(this)} />
 
-                            {/* only for mobile ends */}
-                            <div className="book-widget">
-                                <ul className="book-list">
-                                    <a href="javascript:;"><li className="book-list-last-item">
-                                        <div className="book-list-img-div">
-                                            <img src="/assets/img/customer-icons/consultation.svg" className="book-list-img" />
-                                        </div>
-                                        <div className="book-list-label-div">
-                                            <p className="book-list-label">Get instant Consultation right now for <span>FREE</span></p>
-                                        </div>
-                                        <div className="book-list-arrow">
-                                            <img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" />
-                                        </div>
-                                    </li></a>
-                                </ul>
-                                <div className="symptoms-div">
-                                    <div className="scroll-arrow-div-rt symptoms-rt">
-                                        <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
-                                    </div>
-                                    <div className="scroll-arrow-div-lt symptoms-lt">
-                                        <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
-                                    </div>
-                                    <p className="symptoms-label">Select Symptom</p>
-                                    <div className="symptoms-list-div">
-                                        <ul className="symptoms-list">
-                                            {
-                                                this.state.symptoms.map((symp, i) => {
-                                                    return <li className={this.state.selectedSymptoms.indexOf(symp) > -1 ? "selectedSymp" : ""} key={i} onClick={this.toggleSymptom.bind(this, symp)}>
-                                                        <p className={this.state.selectedSymptoms.indexOf(symp) > -1 ? "selectedSympP symptoms-list-item" : "symptoms-list-item"}>{symp}</p>
-                                                    </li>
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="input-symptom-div" onClick={this.navigateTo.bind(this, '/chat')}>
-                                    <div className="send-btn">
-                                        {
-                                            selectedSympsStr ? <img src="/assets/img/icons/send-orange.svg" /> : ""
-                                        }
-                                    </div>
-
-                                    {
-                                        selectedSympsStr ? <input style={{ backgroundColor: 'white' }} disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input style={{ backgroundColor: 'white' }} disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
-                                    }
-
-                                </div>
-                            </div>
                             <div className="book-widget book-widget-2">
                                 <ul className="book-list">
                                     <a href="javascript:;" onClick={this.navigateTo.bind(this, '/opd')}><li>
