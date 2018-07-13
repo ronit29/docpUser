@@ -36,7 +36,7 @@ class UserAddress extends React.Component {
             <div className="widget-content">
                 <ul className="list family-list">
                     {
-                        address.map((curr, key) => {
+                        !(address && address.length) ? address.map((curr, key) => {
                             return <li key={key}>
                                 <a>
                                     <span className="icon icon-lg member-icon" style={{ marginTop: -15 }}>
@@ -50,7 +50,7 @@ class UserAddress extends React.Component {
                                     <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 9 }} className="ct-img ct-img-sm arrow-forward-right">Edit</span>
                                 </a>
                             </li>
-                        })
+                        }) : <p className="noappointmentfound">No Adress added</p>
                     }
                 </ul>
                 <button onClick={this.addAddress.bind(this)} className="v-btn v-btn-primary btn-lg add-more-members-btn">+</button>

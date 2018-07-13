@@ -73,7 +73,10 @@ class BasicDetails extends React.Component {
                                 document.getElementById('imageFilePicker').value = ""
                             }} />
                             <span className="cam-icon">
-                                <img src="/assets/img/icons/cam-md.png" className="img-fluid cam-icon-img" />
+                                <img src="/assets/img/icons/cam-md.png" className="img-fluid cam-icon-img" onClick={() => {
+                                    document.getElementById('imageFilePicker').click()
+                                    document.getElementById('imageFilePicker').value = ""
+                                }} />
                                 <input type="file" style={{ visibility: 'hidden' }} id="imageFilePicker" onChange={this.pickFile.bind(this)} />
                             </span>
                         </div>
@@ -99,19 +102,19 @@ class BasicDetails extends React.Component {
                                 <label htmlFor="age">Age</label>
                             </div> */}
                             <div className="labelWrap">
-                                <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" required />
+                                <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required />
                                 <label htmlFor="email">Email</label>
                             </div>
                             <div className="labelWrap">
-                                <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" required />
+                                <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required />
                                 <label htmlFor="number">Mobile Number</label>
                             </div>
 
-                            <a href="javascript:;" style={{color: '#f78361'}} onClick={(e) => {
+                            <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.manageAddress()
-                            }}>Manage My Address<span><img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" style={{marginLeft: 8, width: 7}}></img></span></a>
+                            }}>Manage My Address<span><img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a>
                         </form>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
-import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
+import { RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
+import NAVIGATE from '../../helpers/navigate'
 import SnackBar from 'node-snackbar'
 
 export const sendOTP = (number, cb) => (dispatch) => {
@@ -51,7 +52,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         })
 
         if (cb) cb(response.user_exists);
-        
+
     }).catch(function (error) {
         dispatch({
             type: SUBMIT_OTP_FAIL,
@@ -87,3 +88,17 @@ export const registerUser = (postData, cb) => (dispatch) => {
     })
 }
 
+export const logout = (postData, cb) => (dispatch) => {
+    STORAGE.deleteAuth().then(() => {
+        // send to login page
+        NAVIGATE.navigateTo('/')
+        // clear entire store (initially peristed)
+    })
+}
+
+export const resetAuth = (postData, cb) => (dispatch) => {
+    dispatch({
+        type: RESET_AUTH,
+        payload: {}
+    })
+}

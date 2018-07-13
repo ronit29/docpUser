@@ -131,7 +131,7 @@ class LeftBar extends React.Component {
                                 <p className="register-text fw-500">Register/Login and manage</p>
                                 <ul className="login-feature-list">
                                     <li className="login-feature-list-item">Your Profile</li>
-                                    <li className="login-feature-list-item">Your Appoinments</li>
+                                    <li className="login-feature-list-item">Your Appointments</li>
                                     <li className="login-feature-list-item">Your Medical Records</li>
                                     <li className="login-feature-list-item">Your Medical History</li>
                                     <li className="login-feature-list-item">Your Family Members</li>

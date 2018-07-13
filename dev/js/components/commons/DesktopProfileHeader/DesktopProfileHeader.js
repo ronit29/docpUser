@@ -6,12 +6,21 @@ class DesktopProfileHeader extends React.Component {
         super(props)
     }
 
+    navigateTo(where, e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.props.history.push(where)
+    }
+
     render() {
 
         let profileData = this.props.profiles[this.props.selectedProfile]
-
+        let styles = {}
+        if (this.props.homePage) {
+            styles = { display: 'block' }
+        }
         return (
-            <header className="profile-header">
+            <header className="profile-header" style={styles}>
                 <div className="smiley-img-div">
                     <img src="/assets/img/customer-icons/smiley.png" />
                 </div>
@@ -25,12 +34,15 @@ class DesktopProfileHeader extends React.Component {
                         {/* for Desktop Only */}
                         {
                             profileData ? <div className="col-lg-4 d-none d-lg-block header-items-rt">
-                                {/* <div className="header-item">
+                                <div className="header-item" onClick={this.navigateTo.bind(this, '/notifications')}>
                                     <img src="/assets/img/customer-icons/bell-white.svg" className="header-icons bell-web-icon" />
                                     <span className="header-item-label">Notifications</span>
+                                    {/* <span className="notification-alert">{5}</span> */}
                                     <img src="/assets/img/customer-icons/down-filled.svg" className="header-icons down-web-icon" />
-                                </div> */}
-                                <div className="header-item logout-item">
+                                </div>
+                                <div className="header-item logout-item" onClick={() => {
+                                    this.props.logout()
+                                }}>
                                     <img src="/assets/img/customer-icons/logout.svg" className="header-icons logout-web-icon" />
                                     <span className="header-item-label">Logout</span>
                                 </div>
@@ -39,23 +51,23 @@ class DesktopProfileHeader extends React.Component {
 
                         {/* for Desktop Only Ends*/}
                         {/* for mobile only */}
-                        <div className="col-3 d-lg-none bell-icon-div">
-                            <img src="/assets/img/customer-icons/bell-white.svg" className="bell-mobile-icon" />
+                        {/* this section will only visible when the user is logged out */}
+                        <div className="col-3 d-lg-none login-btn-div">
+                            {
+                                this.props.profiles[this.props.selectedProfile] ? "" : <button className="login-btn fw-500" onClick={this.navigateTo.bind(this, '/user')}>Login</button>
+                            }
+
+                        </div>
+                        {/*  logged out section ends */}
+                        <div className="col-3 col-sm-1 d-lg-none bell-icon-div">
+                            <img src="/assets/img/customer-icons/bell-white.svg" className="bell-mobile-icon" onClick={this.navigateTo.bind(this, '/notifications')} />
+                            {
+                                this.props.newNotification ? <span className="notification-alert">{this.props.notifications.length}</span> : ""
+                            }
                         </div>
                         {/* for mobile only ends */}
                     </div>
-                    {/* for mobile only */}
-                    <div className="row mobile-profile-row d-lg-none">
-                        <div className="profile-icon-div">
-                            <img src="/assets/img/profile-img.png" className="profile-icon" />
-                        </div>
-                        <div className="profile-info-div">
-                            <p className="profile-info">Welcome</p>
-                            <p className="profile-info profile-name">Rishabh Mehrotra</p>
-                            <p className="profile-info">Male, 33 Years</p>
-                        </div>
-                    </div>
-                    {/* for mobile only ends */}
+
                 </div>
             </header>
         );

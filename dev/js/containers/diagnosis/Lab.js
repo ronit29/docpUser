@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById } from '../../actions/index.js'
+import { getLabById, selectLabTimeSLot } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -21,6 +21,10 @@ class Lab extends React.Component {
     componentDidMount() {
         let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
         this.props.getLabById(this.props.match.params.id, tests)
+
+        //always clear selected time at lab profile
+        let slot = { time: {} }
+        this.props.selectLabTimeSLot(slot, false)
     }
 
     render() {
@@ -50,7 +54,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds))
+        getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
     }
 }
 

@@ -1,4 +1,4 @@
-import { APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE } from '../../constants/types';
+import { APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -155,6 +155,30 @@ export const fetchTransactions = (cb) => (dispatch) => {
 	API_GET(`/api/v1/user/transaction/detail`).then(function (response) {
 		dispatch({
 			type: APPEND_USER_TRANSACTIONS,
+			payload: response
+		})
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const fetchHeatlhTip = (cb) => (dispatch) => {
+	API_GET(`/api/v1/doctor/healthtips`).then(function (response) {
+		dispatch({
+			type: APPEND_HEALTH_TIP,
+			payload: response
+		})
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const fetchOrderHistory = (cb) => (dispatch) => {
+	API_GET(`/api/v1/user/orderhistory`).then(function (response) {
+		dispatch({
+			type: APPEND_ORDER_HISTORY,
 			payload: response
 		})
 		if (cb) cb(null, response);

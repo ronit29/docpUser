@@ -39,12 +39,38 @@ class TimeSlotSelector extends React.Component {
             })
         }
 
-        let foundTs = this.getAvailableTS(days, null)
-        this.setState({
-            timeSeries: days,
-            selectedDay: foundTs,
-            selectedMonth: foundTs.month
-        })
+        let selctedDate = this.props.selectedSlot.date
+        let ts_selected = null
+        if (selctedDate) {
+            selctedDate = new Date(selctedDate).toDateString()
+            for (let ts of days) {
+                let curr_date = new Date(ts.actualDate).toDateString()
+                if (curr_date == selctedDate) {
+                    ts_selected = ts
+                    break
+                }
+            }
+        }
+        
+        if (ts_selected && this.isTimeSlotAvailable(this.props.selectedSlot.time, selctedDate)) {
+            this.setState({
+                timeSeries: days,
+                selectedDay: ts_selected,
+                selectedMonth: ts_selected.month
+            })
+        } else {
+            let foundTs = this.getAvailableTS(days, null)
+            this.setState({
+                timeSeries: days,
+                selectedDay: foundTs,
+                selectedMonth: foundTs.month
+            }, () => {
+                let slot = { time: {} }
+                slot.month = this.state.selectedMonth
+                this.props.selectTimeSlot(slot)
+            })
+        }
+
     }
 
     selectDay(day) {
@@ -93,12 +119,12 @@ class TimeSlotSelector extends React.Component {
     }
 
     isTimeSlotAvailable(ts, selectedDate) {
-        if (!ts.is_available) {
+        if (ts.is_available === false) {
             return false
         }
         let today = new Date()
         if (today.toDateString() == selectedDate) {
-            return ts.value > today.getHours()
+            return ts.value > (today.getHours() + 1)
         }
         return true
     }
@@ -115,10 +141,12 @@ class TimeSlotSelector extends React.Component {
         // let monthNum = (new Date).getMonth()
         let thisMonth = MONTHS[(new Date).getMonth()]
         let nextMonth = MONTHS[(new Date).getMonth() + 1]
-        let selctedDate = this.props.selectedSlot.date || this.state.selectedDay.actualDate
+        // let selctedDate = this.props.selectedSlot.date || this.state.selectedDay.actualDate
+        let selctedDate = this.state.selectedDay.actualDate
         selctedDate = selctedDate ? new Date(selctedDate).toDateString() : null
 
-        let selectedMonth = this.props.selectedSlot.month || this.state.selectedMonth
+        // let selectedMonth = this.props.selectedSlot.month || this.state.selectedMonth
+        let selectedMonth = this.state.selectedMonth
         // debugger
         return (
             <div>
@@ -126,8 +154,8 @@ class TimeSlotSelector extends React.Component {
                     <div className="widget-content">
                         <div className="add-new-time mrb-10">
                             <h4 className="text-md fw-700 mrb-10">Select Date &amp; Time:
-                            <span onClick={this.selectMonth.bind(this, thisMonth)} style={{cursor: 'pointer'}} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
-                                    <span onClick={this.selectMonth.bind(this, nextMonth)} style={{marginLeft: 4}} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}> {nextMonth}</span></span></h4>
+                            <span onClick={this.selectMonth.bind(this, thisMonth)} style={{ cursor: 'pointer' }} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
+                                    <span onClick={this.selectMonth.bind(this, nextMonth)} style={{ marginLeft: 4 }} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}> {nextMonth}</span></span></h4>
                             <div className="choose-time">
                                 <ul className="inline-list datetime-items">
 

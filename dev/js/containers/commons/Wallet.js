@@ -21,27 +21,27 @@ class Home extends React.Component {
     componentDidMount() {
         if (STORAGE.checkAuth()) {
             // this.props.getUserProfile()
-            this.props.fetchTransactions(() => {
-                
-            })
+            this.props.fetchTransactions()
         }
     }
 
     render() {
 
         return (
-            <WalletView {...this.props} />
+            <WalletView {...this.props} {...this.state} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
     let {
-
+        userTransactions,
+        userWalletBalance
     } = state.USER
 
     return {
-
+        userTransactions,
+        userWalletBalance
     }
 }
 

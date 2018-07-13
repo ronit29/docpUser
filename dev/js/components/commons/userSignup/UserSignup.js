@@ -159,7 +159,7 @@ class UserSignupView extends React.Component {
                                                     <div className="labelWrap">
                                                         <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" />
                                                         <label htmlFor="fname">Patient Name</label>
-                                                        <span className="text-xs text-light">(Appoinment valid only for the provided name)</span>
+                                                        <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
                                                     </div>
                                                     <div className="labelWrap">
                                                         <input id="age" name="age" type="number" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" />

@@ -30,13 +30,13 @@ class UserAppointmentsView extends React.Component {
                 {
                     appointments[selectedProfile] ? <ul className="list online-consultant-list" style={{ marginTop: 5 }}>
                         {
-                            appointments[selectedProfile].map((app, i) => {
-                                return <AppointmentList key={i} {...this.props} data={app} />
-                            })
+                            (appointments[selectedProfile] && appointments[selectedProfile].length) ?
+                                appointments[selectedProfile].map((app, i) => {
+                                    return <AppointmentList key={i} {...this.props} data={app} />
+                                }) : <p className="noappointmentfound">No appointments found</p>
                         }
                     </ul> : <Loader />
                 }
-
             </div>
         );
     }

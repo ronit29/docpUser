@@ -10,7 +10,7 @@ export default ({ }) => {
                         <img src="/assets/img/customer-icons/calander.svg" className="img-fluid" />
                     </div>
                     <div className="ct-content root-map-field">
-                        <p className="fw-500 text-md">Appoinment for Arun Kumar </p>
+                        <p className="fw-500 text-md">Appointment for Arun Kumar </p>
                         <h4 className="widget-title rm-title">Rishabh Mehrotra</h4>
                         <p className="fw-500 text-md dr-with">With Dr. Angela Smith</p>
                         <div className="root-map">

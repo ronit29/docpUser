@@ -16,7 +16,7 @@ export default ({ id, type, patient_name, doctor_name, time_slot_start, lab_name
                 <span className="appointment-head">Upcoming Appointment</span>
             </div>
             <div className="appointment-details-div">
-                <p>Appoinment for {patient_name}</p>
+                <p>Appointment for {patient_name}</p>
                 <p className="appointment-date">On {app_time.toString()}</p>
                 <p className="appointment-doc">With {name}</p>
             </div>

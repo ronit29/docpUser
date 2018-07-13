@@ -18,6 +18,7 @@ class TestSelectorView extends React.Component {
     componentDidMount() {
         let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
         this.props.getLabById(this.state.selectedLab, tests)
+        this.getSearchList({ target: { value: "" } })
     }
 
     toggleTest(test) {
@@ -28,13 +29,9 @@ class TestSelectorView extends React.Component {
     getSearchList(e) {
         var search_string = e.target.value;
         this.setState({ searchString: search_string });
-        if (search_string) {
-            this.props.getLabTests(this.state.selectedLab, search_string, (searchResults) => {
-                this.setState({ searchResults: searchResults });
-            });
-        } else {
-            this.setState({ searchResults: [] });
-        }
+        this.props.getLabTests(this.state.selectedLab, search_string, (searchResults) => {
+            this.setState({ searchResults: searchResults });
+        })
     }
 
 
@@ -49,7 +46,20 @@ class TestSelectorView extends React.Component {
 
         if (labData) {
 
-            if (this.state.searchResults.length > 0) {
+            this.props.selectedCriterias.map((criteria) => {
+                let found = false
+                for (let test of labData.tests) {
+                    if (test.test.id == criteria.id) {
+                        found = true
+                    }
+                }
+                if (!found) {
+                    labData.tests.push({ ...criteria, test: criteria })
+                }
+            })
+
+
+            if (this.state.searchString.length > 0) {
                 tests = this.state.searchResults.map((test, i) => {
                     return <li key={i}>
                         <label className="ck-bx">
@@ -60,11 +70,7 @@ class TestSelectorView extends React.Component {
                         <span className="test-price text-md fw-500">{test.deal_price}</span>
                     </li>
                 })
-            }
-            else if (this.state.searchString.length > 0) {
-                tests = <li>No Data Found</li>
-            }
-            else {
+            } else if (selectedTests && selectedTests.length) {
                 tests = labData.tests.map((test, i) => {
                     if (selectedTests.indexOf(test.test.id) > -1) {
                         return <li key={i}>
@@ -77,6 +83,19 @@ class TestSelectorView extends React.Component {
                         </li>
                     }
                 })
+            } else if (this.state.searchResults.length > 0) {
+                tests = this.state.searchResults.map((test, i) => {
+                    return <li key={i}>
+                        <label className="ck-bx">
+                            {test.test.name}
+                            <input type="checkbox" checked={selectedTests.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test.test)} />
+                            <span className="checkmark" />
+                        </label>
+                        <span className="test-price text-md fw-500">{test.deal_price}</span>
+                    </li>
+                })
+            } else {
+                tests = <li>No Data Found</li>
             }
         }
 

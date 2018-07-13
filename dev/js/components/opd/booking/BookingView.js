@@ -154,15 +154,15 @@ class BookingView extends React.Component {
                                                             <ul className="inline-list">
                                                                 <li className={status < 5 ? "active" : ""}>
                                                                     <span className="dot">1</span>
-                                                                    <p className="text-sm fw-700 text-light">Appoinment Received</p>
+                                                                    <p className="text-sm fw-700 text-light">Appointment Received</p>
                                                                 </li>
                                                                 <li className={status == 5 ? "active" : ""}>
                                                                     <span className="dot">2</span>
-                                                                    <p className="text-sm fw-700 text-light">Appoinment Confirmed</p>
+                                                                    <p className="text-sm fw-700 text-light">Appointment Confirmed</p>
                                                                 </li>
                                                                 <li className={status == 7 ? "active" : ""}>
                                                                     <span className="dot">3</span>
-                                                                    <p className="text-sm fw-700 text-light">Appoinment {status == 6 ? "Completed" : "Completed"}</p>
+                                                                    <p className="text-sm fw-700 text-light">Appointment {status == 6 ? "Completed" : "Completed"}</p>
                                                                 </li>
                                                             </ul>
                                                     }
@@ -174,7 +174,7 @@ class BookingView extends React.Component {
                                         <div className="row">
                                             <div className="col-12">
                                                 {
-                                                    this.state.data.otp ? <div className="widget mrb-10">
+                                                    (this.state.data.otp && status > 2 && status < 6) ? <div className="widget mrb-10">
                                                         <div className="widget-content">
                                                             <p className="fw-500 text-md mrb-10">Unique Confirmation Code: <span className="fw-700 text-md">{this.state.data.otp}</span></p>
                                                             <p className="text-xs text-light">Share this code with doctor at the time of your appointment</p>

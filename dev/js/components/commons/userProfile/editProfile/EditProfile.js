@@ -11,7 +11,10 @@ class EditProfile extends React.Component {
         this.state = {
             selectedTab: 0,
             profileData: { ...profiles[this.props.match.params.id] },
-            loading: false
+            loading: false,
+            errors: {
+
+            }
         }
     }
 
@@ -26,7 +29,7 @@ class EditProfile extends React.Component {
 
         switch (this.state.selectedTab) {
             case 0: {
-                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} />
+                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} errors={this.state.errors} />
             }
             case 1: {
                 return <MedialDetails />
@@ -43,11 +46,54 @@ class EditProfile extends React.Component {
         e.stopPropagation()
         e.preventDefault()
 
-        this.setState({ loading: true })
-        this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
-            this.setState({ loading: false })
-            this.props.history.go(-1)
+        let errors = {}
+        let vals = ['email', 'phone_number']
+        vals.map((field) => {
+            let validated = true
+            switch (field) {
+                case "phone_number": {
+                    if (!this.state.profileData[field]) {
+                        validated = true
+                        return
+                    } else {
+                        validated = this.state.profileData[field].toString().match(/^[6789]{1}[0-9]{9}$/)
+                    }
+                    break
+                }
+                case "email": {
+                    if (!this.state.profileData[field]) {
+                        validated = true
+                        return
+                    } else {
+                        validated = this.state.profileData[field].match(/\S+@\S+\.\S+/)
+                        break
+                    }
+                    break
+                }
+                default: {
+                    validated = true
+                    break
+                }
+            }
+            errors[field] = !validated
         })
+
+        this.setState({ errors }, () => {
+            let validated = true
+            for (let key in this.state.errors) {
+                if (this.state.errors[key]) {
+                    validated = false
+                }
+            }
+            if (validated) {
+                this.setState({ loading: true })
+                this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
+                    this.setState({ loading: false })
+                    this.props.history.go(-1)
+                })
+            }
+        })
+
     }
 
     render() {

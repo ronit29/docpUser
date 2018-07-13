@@ -5,7 +5,7 @@ export default ({ toggle, cancelAppointment }) => {
         <div className="cancel-overlay" onClick={toggle}></div>
         <div className="widget cancel-appointment-div">
             <div className="widget-header text-center">
-                <p className="fw-500 cancel-appointment-head">Cancel Appoinment</p>
+                <p className="fw-500 cancel-appointment-head">Cancel Appointment</p>
                 <hr />
             </div>
             <a href="javascript:;">
@@ -13,7 +13,7 @@ export default ({ toggle, cancelAppointment }) => {
                     cancelAppointment(0)
                 }}>
                     <p className="fw-500 cancel-appointment-head">Cancel and Rebook</p>
-                    <p className="fw-500 cancel-content">Cancel the current appoinement and book a new appoinment with other doctor</p>
+                    <p className="fw-500 cancel-content">Cancel the current appoinement and book a new Appointment with other doctor</p>
                     <div className="cancel-right-arrow">
                         <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
                     </div>

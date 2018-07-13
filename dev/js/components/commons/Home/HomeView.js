@@ -4,6 +4,7 @@ import ProfieCard from './ProfileCard'
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
+import Footer from './footer'
 
 const GENDER = {
     "m": "Male",
@@ -16,7 +17,19 @@ class HomeView extends React.Component {
         super(props);
         this.state = {
             symptoms: [
-                'Headache', 'Cold & Cough', 'Hairfall', 'Abdominal Pain'
+                "Fever",
+                "Cough",
+                "Headache",
+                "Vomiting",
+                "Diarrhoea",
+                "Breathlessness",
+                "Pain/Burning during urination",
+                "Chest Pain",
+                "Limb Numbness",
+                "Ear Infection",
+                "Eye Infection",
+                "Sore Throat",
+                "Acne"
             ],
             selectedSymptoms: [
 
@@ -49,7 +62,13 @@ class HomeView extends React.Component {
     navigateTo(where, e) {
         e.preventDefault()
         e.stopPropagation()
-        this.props.history.push(where)
+        if (where == '/chat') {
+            this.props.history.push(where, {
+                symptoms: this.state.selectedSymptoms
+            })
+        } else {
+            this.props.history.push(where)
+        }
     }
 
     getAge(birthday) {
@@ -61,13 +80,18 @@ class HomeView extends React.Component {
 
     delay() {
         return new Promise((resolve) => {
-            setTimeout(resolve, 100)
+            setTimeout(resolve, 200)
         })
     }
 
     async txtAnimation() {
         while (true) {
-            let txt = 'I am suffering from Headache.'
+            let sentence = "I am suffering from "
+            if (document.getElementById('animation-input')) {
+                document.getElementById('animation-input').placeholder = sentence
+            }
+
+            let txt = this.state.symptoms[Math.floor(Math.random() * this.state.symptoms.length)]
             for (let chr of txt) {
                 if (!this._ismounted) {
                     break
@@ -84,7 +108,7 @@ class HomeView extends React.Component {
                 await this.delay()
                 txt = txt.substring(0, txt.length - 1)
                 if (document.getElementById('animation-input')) {
-                    document.getElementById('animation-input').placeholder = txt
+                    document.getElementById('animation-input').placeholder = sentence + txt
                 }
             }
             if (!this._ismounted) {
@@ -108,51 +132,8 @@ class HomeView extends React.Component {
 
         return (
             <div className="profile-body-wrap">
-                <header className="profile-header" style={{ display: 'block' }}>
-                    <div className="smiley-img-div">
-                        <img src="/assets/img/customer-icons/smiley.png" />
-                    </div>
-                    <div className="container">
-                        <div className="row header-row">
-                            <div className="col-3 logo-icon-div">
-                                <a href="javascript:;"><img src="/assets/img/doc-prime-logo.png" className="logo-icon" /></a>
-                            </div>
-                            {/* for Desktop Only */}
-                            {
-                                profileData ? <div className="col-lg-4 d-none d-lg-block header-items-rt">
-                                    <div className="header-item" onClick={this.navigateTo.bind(this, '/notifications')}>
-                                        <img src="/assets/img/customer-icons/bell-white.svg" className="header-icons bell-web-icon" />
-                                        <span className="header-item-label">Notifications</span>
-                                        <img src="/assets/img/customer-icons/down-filled.svg" className="header-icons down-web-icon" />
-                                    </div>
-                                    <div className="header-item logout-item">
-                                        <img src="/assets/img/customer-icons/logout.svg" className="header-icons logout-web-icon" />
-                                        <span className="header-item-label">Logout</span>
-                                    </div>
-                                </div> : ""
-                            }
 
-                            {/* for Desktop Only Ends*/}
-                            {/* for mobile only */}
-                            {/* this section will only visible when the user is logged out */}
-                            <div className="col-3 d-lg-none login-btn-div">
-                                {
-                                    this.props.profiles[this.props.selectedProfile] ? "" : <button className="login-btn fw-500" onClick={this.navigateTo.bind(this, '/user')}>Login</button>
-                                }
-
-                            </div>
-                            {/*  logged out section ends */}
-                            <div className="col-3 col-sm-1 d-lg-none bell-icon-div">
-                                <img src="/assets/img/customer-icons/bell-white.svg" className="bell-mobile-icon" onClick={this.navigateTo.bind(this, '/notifications')} />
-                                {
-                                    this.props.newNotification ? <span className="notification-alert">{this.props.notifications.length}</span> : ""
-                                }
-                            </div>
-                            {/* for mobile only ends */}
-                        </div>
-                        {/* for mobile only */}
-                    </div>
-                </header>
+                <ProfileHeader homePage={true} />
 
                 {
                     profileData ? <div className="row mobile-profile-row d-lg-none" onClick={this.navigateTo.bind(this, '/user')}>
@@ -175,7 +156,7 @@ class HomeView extends React.Component {
                                         <img src="/assets/img/icons/dummy-profile.svg" className="profile-icon-dummy" />
                                     </div>
                                     <div className="profile-info-div">
-                                        <p className="logout-text fw-500">After login your details will be visible here. You can consult with the doctor, book appoinments and your medical tests</p>
+                                        <p className="logout-text fw-500">After login your details will be visible here. You can consult with the doctor, book Appointments and your medical tests</p>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +179,7 @@ class HomeView extends React.Component {
                                         <img src="/assets/img/customer-icons/mobile-appointment.svg" />
                                     </div>
                                     <div className="col-6 col-sm-8 appointment-content-col">
-                                        <p className="fw-500">Appoinment for Arun Kumar</p>
+                                        <p className="fw-500">Appointment for Arun Kumar</p>
                                         <p className="appointment-date">On 29th April 2017</p>
                                         <p className="appointment-doc">With Dr. Angela Smith</p>
                                     </div>
@@ -246,7 +227,7 @@ class HomeView extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="input-symptom-div">
+                                <div className="input-symptom-div" onClick={this.navigateTo.bind(this, '/chat')}>
                                     <div className="send-btn">
                                         {
                                             selectedSympsStr ? <img src="/assets/img/icons/send-orange.svg" /> : ""
@@ -254,7 +235,7 @@ class HomeView extends React.Component {
                                     </div>
 
                                     {
-                                        selectedSympsStr ? <input disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
+                                        selectedSympsStr ? <input style={{ backgroundColor: 'white' }} disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input style={{ backgroundColor: 'white' }} disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
                                     }
 
                                 </div>
@@ -422,6 +403,8 @@ class HomeView extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+
+                <Footer />
 
             </div>
         );

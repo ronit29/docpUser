@@ -18,13 +18,13 @@ class LabProfileCard extends React.Component {
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
                         <span className="ct-img lab-icon"><img src={lab.lab_thumbnail} className="img-fluid" /></span>
-                        <ul className="inline-list ratting">
+                        {/* <ul className="inline-list ratting">
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/half-star.svg" className="img-fluid" /></span></li>
-                        </ul>
+                        </ul> */}
                         {
                             pickup_available == 0 ? "" : <button className="v-btn v-btn-primary pickup-btn">Pickup Available</button>
                         }

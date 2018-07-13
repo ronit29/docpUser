@@ -6,7 +6,7 @@ export default ({ toggle }) => {
         <div className="widget cancel-appointment-div">
             <div className="widget-header text-center action-screen-header" style={{position: 'relative'}} >
                 <p className="fw-500 cancel-appointment-head">Cancellation Policy</p>
-                <img src="/assets/img/icons/close.png" className= "close-modal" />
+                <img src="/assets/img/icons/close.png" className= "close-modal" onClick={toggle}/>
                 <hr />
             </div>
             <div className="cancel-policy-text">

@@ -21,7 +21,7 @@ class ClinicSelector extends React.Component {
                 <div className="panel-content clinic-info-panel">
                     <ul className="inline-list Clinic-card-list">
                         {
-                            [...hospitals, ...hospitals, ...hospitals, ...hospitals].map((hospital, i) => {
+                            hospitals.map((hospital, i) => {
                                 return <li key={i}>
                                     <div className="widget no-shadow">
                                         <div className="widget-header">

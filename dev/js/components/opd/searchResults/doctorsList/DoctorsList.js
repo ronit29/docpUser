@@ -30,15 +30,14 @@ class DoctorsList extends React.Component {
                     // TODO: improve scroll back logic
                     window.scrollTo(0, scroll_pos || 0)
                     window.OPD_SCROLL_POS = 0
+
+                    window.onscroll = function () {
+                        window.OPD_SCROLL_POS = window.pageYOffset
+                    }
                 }
             }, 100)
         }, 100)
 
-        setTimeout(() => {
-            window.onscroll = function () {
-                window.OPD_SCROLL_POS = window.pageYOffset
-            }
-        }, 1000)
     }
 
     componentWillUnmount() {
@@ -62,6 +61,7 @@ class DoctorsList extends React.Component {
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
             let doctor_name = this.getLocationParam('doctor_name')
+            let hospital_name = this.getLocationParam('hospital_name')
 
             if (filterCriteria) {
                 filterCriteria = JSON.parse(filterCriteria)
@@ -72,7 +72,11 @@ class DoctorsList extends React.Component {
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
             }
-            
+
+            if (hospital_name) {
+                filterCriteria.hospital_name = hospital_name
+            }
+
             searchState = JSON.parse(searchState)
             this.props.getDoctors(searchState, filterCriteria, false, page + 1, (hasMore) => {
                 this.setState({ loading: false })

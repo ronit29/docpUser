@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import SnackBar from 'node-snackbar'
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
@@ -38,7 +38,15 @@ class PatientDetails extends React.Component {
         }
     }
 
-    proceed() {
+    proceed(datePicked, e) {
+
+        if (!datePicked) {
+            SnackBar.show({ pos: 'bottom-left', text: "Please pick a time slot." });
+            return
+        }
+        if (e.target.dataset.disabled == true) {
+            return
+        }
 
         this.setState({ loading: true, error: "" })
 
@@ -168,7 +176,7 @@ class PatientDetails extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{width: 17, marginRight: 6}} /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">Rs. {(this.props.selectedSlot && this.props.selectedSlot.date) ? this.props.selectedSlot.time.deal_price : ""}</a></span></h4>
+                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{ width: 17, marginRight: 6 }} /></span>{hospital.hospital_name} <span className="float-right"><a className="text-primary fw-700 text-md">{(this.props.selectedSlot && this.props.selectedSlot.date) ? ("Rs. " + this.props.selectedSlot.time.deal_price) : "Time slot not selected"}</a></span></h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 
@@ -177,7 +185,7 @@ class PatientDetails extends React.Component {
                                                                 <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                                 {
                                                                     !!priceData.payable_amount ? <div className="lab-visit-time test-report">
-                                                                        <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer'}}><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                        <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                         <h5 className="payment-amt-value">Rs. {priceData.payable_amount}</h5>
                                                                     </div> : ""
                                                                 }
@@ -208,11 +216,11 @@ class PatientDetails extends React.Component {
                                 this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} {...priceData} /> : ""
                             }
 
-                            
 
-                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" disabled={
+
+                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                 !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading
-                            } onClick={this.proceed.bind(this)}>Proceed</button>
+                            } disabled={this.state.loading} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
 
                         </div>
 

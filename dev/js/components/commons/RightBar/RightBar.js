@@ -22,11 +22,11 @@ class RightBar extends React.Component {
                 <div className="sticky-div sticky-div-temp">
                     {
                         profileData ? this.props.userUpcomingAppointments.map((app, i) => {
-                            return <Upcoming key={i} {...app} openAppointment={this.openAppointment.bind(this)}/>
+                            return <Upcoming key={i} {...app} openAppointment={this.openAppointment.bind(this)} />
                         }) : ""
                     }
 
-                    <HealthTip />
+                    <HealthTip healthTips={this.props.healthTips} />
 
                     {/* {
                         profileData ? <ContinueBooking /> : ""
