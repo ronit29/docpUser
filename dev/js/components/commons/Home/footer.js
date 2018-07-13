@@ -10,7 +10,9 @@ class Footer extends React.Component {
 
         return (
             <footer className="profile-footer d-none d-lg-block">
-                <div className="container footer-1">
+
+
+                {/* <div className="container footer-1">
                     <div className="row">
                         <div className="col-4 footer-1-col">
                             <div className="footer-1-head">
@@ -106,7 +108,9 @@ class Footer extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
+
+
                 <div className="container-fluid footer-2">
                     <div className="container">
                         <div className="row">
