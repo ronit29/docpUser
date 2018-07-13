@@ -165,7 +165,7 @@ class AppointmentReschedule extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>{hospital.name} </h4>
+                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{ width: 17, marginRight: 6 }} /></span>{hospital.name} </h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 
