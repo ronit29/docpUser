@@ -318,6 +318,54 @@ class HomeView extends React.Component {
                                             <p>Hepatitis</p>
                                         </div>
                                     </li>
+                                                                        <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/malaria.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Malaria</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Typhoid</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Hepatitis</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/malaria.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Malaria</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Typhoid</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="item-img">
+                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
+                                        </div>
+                                        <div className="item-name">
+                                            <p>Hepatitis</p>
+                                        </div>
+                                    </li>
                                 </ul>
                             </Articles>
 
