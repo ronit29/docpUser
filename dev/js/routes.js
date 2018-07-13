@@ -19,6 +19,7 @@ import DoctorChat from './containers/commons/Chat.js'
 import Home from './containers/commons/Home'
 import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
+import Article from './containers/commons/article'
 
 import Booking_LAB from './containers/diagnosis/Booking.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
@@ -40,6 +41,7 @@ const routes = [
     { path: '/signup', exact: true, component: UserSignup },
     { path: '/addprofile', exact: true, component: UserSignup },
     { path: '/wallet', exact: true, component: Wallet },
+    { path: '/article/:id', exact: true, component: Article },
 
     { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults },
