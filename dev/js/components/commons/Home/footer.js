@@ -111,12 +111,12 @@ class Footer extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-3">
-                                <a href="javascript:;">
+                                {/* <a href="javascript:;">
                                     <div className="logo-img-div">
                                         <img src="/assets/img/logo-sm.png" className="footer-logo-icon" />
                                         <p className="footer-logo-text">A Policybazaar Group Company</p>
                                     </div>
-                                </a>
+                                </a> */}
                                 <div className="copyright-info">
                                     <p>Copyright © 2018 Docprime.</p>
                                     <p>All rights reserved.</p>

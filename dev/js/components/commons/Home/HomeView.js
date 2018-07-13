@@ -235,7 +235,7 @@ class HomeView extends React.Component {
                                     </div>
 
                                     {
-                                        selectedSympsStr ? <input disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
+                                        selectedSympsStr ? <input style={{ backgroundColor: 'white' }} disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input style={{ backgroundColor: 'white' }} disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
                                     }
 
                                 </div>
