@@ -348,3 +348,20 @@ ul.inline-list li {
 .search-list-hr{
     margin: 20px -25px 0;
 }
+
+.selected-content-list-item{
+    display: flex;
+    padding: 12px 15px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-bottom:1px solid rgba(211, 211, 211, 0.6);
+}
+
+.selected-content-list-item:last-child{
+    border: none;
+}
+
+.selected-content-list-item>img{
+    cursor: pointer;
+}
