@@ -365,3 +365,54 @@ ul.inline-list li {
 .selected-content-list-item>img{
     cursor: pointer;
 }
+
+.MuiPaper-elevation1-14{
+    box-shadow: none !important;
+}
+
+.MuiExpansionPanelSummary-root-38{
+    padding: 0 5px !important;
+}
+
+.MuiExpansionPanelSummary-content-42{
+    margin: 0 !important;
+}
+
+.expansion-panel-list-item{
+    padding: 4px 10px !important;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.expansion-panel-list-item:last-child{
+    border: none;
+}
+
+.expansion-content{
+    border-radius: 10px;
+}
+
+.MuiExpansionPanelDetails-root-72{
+    padding: 0 15px !important;
+}
+
+.expansion-label-div{
+    margin-left: 8px;
+    display: inline-block;
+}
+
+.expansion-label-div:first-child{
+    margin-left: 0;
+}
+
+.expansion-label-div>label>span{
+    margin-left: 8px;
+}
+
+.expansion-label-div>p{
+    margin-top: 10px;
+    padding-left: 0 !important;
+}
+
+.expansion-label-div>p>span{
+    margin-left: 8px;
+}
