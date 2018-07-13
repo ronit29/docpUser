@@ -35,13 +35,18 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 	let is_available = filterCriteria.is_available
 	let is_female = filterCriteria.is_female
 
+	// do not check specialization_ids if doctor_name || hospital_name search
+	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
+		specialization_ids = ""
+	}
+
 	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${specialization_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
-	if (filterCriteria.doctor_name) {
+	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`
 	}
 
-	if (filterCriteria.hospital_name) {
+	if (!!filterCriteria.hospital_name) {
 		url += `&hospital_name=${filterCriteria.hospital_name}`
 	}
 
