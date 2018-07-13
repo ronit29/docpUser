@@ -1,9 +1,11 @@
 import React from 'react';
+import { Motion, spring, presets } from "react-motion";
 
 class ChatSymptoms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            scrollLeft:0,
             symptoms: [
                 "Fever",
                 "Cough",
@@ -32,6 +34,47 @@ class ChatSymptoms extends React.Component {
 
     componentWillUnmount() {
         this._ismounted = false;
+    }
+
+        slideLeft() {
+        this.slide("left");
+    }
+
+    slideRight() {
+        this.slide("right");
+    }
+
+    slide(direction) {
+        let containerWidth = this.refs.container.offsetWidth;
+        let currentScroll = this.refs.container.scrollLeft;
+        let scrollLeft =
+            direction == "left"
+                ? currentScroll + containerWidth
+                : currentScroll - containerWidth;
+
+        let scrollWidth = this.refs.container.getElementsByClassName(
+            "symptoms-list"
+        )[0].scrollWidth;
+
+        scrollLeft = Math.max(0, scrollLeft);
+        scrollLeft = Math.min(scrollLeft, scrollWidth - containerWidth);
+
+        this.setState({ scrollLeft: scrollLeft });
+    }
+
+    getAnimation() {
+        let scrollLeft = this.state.scrollLeft;
+        let animation = (
+            <Motion ref="motion" style={{ scrollLeft: spring(scrollLeft) }}>
+                {({ scrollLeft }) => (
+                    <Scroller
+                        element={this.refs.container}
+                        scrollLeft={scrollLeft}
+                    />
+                )}
+            </Motion>
+        );
+        return animation;
     }
 
     delay() {
@@ -111,14 +154,18 @@ class ChatSymptoms extends React.Component {
                     </li></a>
                 </ul>
                 <div className="symptoms-div">
-                    <div className="scroll-arrow-div-rt symptoms-rt">
+                    <div className="scroll-arrow-div-rt symptoms-rt" onClick={() => {
+                        this.slideLeft();
+                    }}>
                         <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
                     </div>
-                    <div className="scroll-arrow-div-lt symptoms-lt">
+                    <div className="scroll-arrow-div-lt symptoms-lt" onClick={() => {
+                        this.slideRight();
+                    }}>
                         <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
                     </div>
                     <p className="symptoms-label">Select Symptom</p>
-                    <div className="symptoms-list-div">
+                    <div ref="container" className="symptoms-list-div">
                         <ul className="symptoms-list">
                             {
                                 this.state.symptoms.map((symp, i) => {
@@ -128,6 +175,7 @@ class ChatSymptoms extends React.Component {
                                 })
                             }
                         </ul>
+                        {this.getAnimation()}
                     </div>
                 </div>
                 <div className="input-symptom-div" onClick={() => {
@@ -149,5 +197,12 @@ class ChatSymptoms extends React.Component {
     }
 }
 
+class Scroller extends React.Component {
+    render() {
+        if (this.props.element)
+            this.props.element.scrollLeft = this.props.scrollLeft;
+        return null;
+    }
+}
 
 export default ChatSymptoms
