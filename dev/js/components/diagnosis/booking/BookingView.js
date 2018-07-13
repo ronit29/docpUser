@@ -45,6 +45,7 @@ class BookingView extends React.Component {
                 }
 
                 this.props.selectLabTimeSLot({ time: {} }, true)
+                this.props.getUpcomingAppointments()
             })
         } else {
 

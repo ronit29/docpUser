@@ -1,4 +1,4 @@
-import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
+import { RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
 
 const defaultState = {
     token: null,
@@ -8,9 +8,9 @@ const defaultState = {
     otp_request_success: false,
     otp_request_fail: false,
     phoneNumber: "",
-    submit_otp:false,
-    submit_otp_success:false,
-    submit_otp_fail:false
+    submit_otp: false,
+    submit_otp_success: false,
+    submit_otp_fail: false
 }
 
 export default function (state = defaultState, action) {
@@ -21,7 +21,7 @@ export default function (state = defaultState, action) {
 
             newState.otp_request_sent = true
             newState.phoneNumber = action.payload.phoneNumber
-            
+
             return newState
         }
 
@@ -41,7 +41,7 @@ export default function (state = defaultState, action) {
             newState.otp_request_fail = true
             newState.otp_request_success = false
             newState.error_message = action.payload.error_message
-            
+
             return newState
         }
 
@@ -69,6 +69,10 @@ export default function (state = defaultState, action) {
             newState.submit_otp_success = false
             newState.error_message = action.payload.error_message
             return newState
+        }
+
+        case RESET_AUTH: {
+            return defaultState
         }
 
     }

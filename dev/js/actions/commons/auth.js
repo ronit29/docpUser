@@ -1,4 +1,4 @@
-import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
+import { RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -93,5 +93,12 @@ export const logout = (postData, cb) => (dispatch) => {
         // send to login page
         NAVIGATE.navigateTo('/')
         // clear entire store (initially peristed)
+    })
+}
+
+export const resetAuth = (postData, cb) => (dispatch) => {
+    dispatch({
+        type: RESET_AUTH,
+        payload: {}
     })
 }

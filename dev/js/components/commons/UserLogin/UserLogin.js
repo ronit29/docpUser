@@ -16,6 +16,10 @@ class UserLoginView extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.props.resetAuth()
+    }
+
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
             this.setState({ [e.target.name]: e.target.value, validationError: "", showOTP: false, otp: "" })
@@ -37,6 +41,10 @@ class UserLoginView extends React.Component {
     }
 
     verifyOTP() {
+        if (!this.state.otp) {
+            this.setState({ validationError: "Please enter OTP" })
+            return
+        }
         if (this.state.phoneNumber.match(/^[789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
