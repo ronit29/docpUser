@@ -27,17 +27,11 @@ class CommonlySearched extends React.Component {
                     <p className="lab-name">SLR Dignostics</p>
                 </li>
             } else if (this.props.selectedPills) {
-                return <li key={i}>
-                    <a
-                        className={"v-btn v-btn-primary tag-sm outline selectedpill"}
-                        
-                    >
-                        {row.name}
-                        <span className="cross rounded" 
-                            onClick={() => {
-                            return this.props.toggle((this.props.type || row.type), row)
-                        }}></span> 
-                    </a>
+                return <li key={i} className="selected-content-list-item">
+                    <p className="fw-500">{row.name}</p>
+                    <img src="/assets/img/icons/close-circle.png" onClick={() => {
+                        return this.props.toggle((this.props.type || row.type), row)
+                    }} />
                 </li>
             } else {
                 let selected = false
@@ -66,6 +60,11 @@ class CommonlySearched extends React.Component {
         if (this.props.type == 'lab') {
             divClass = `panel-content total-labs`
             ulClass = `inline-list lab-items`
+        }
+
+        if (this.props.selectedPills) {
+            divClass = ""
+            ulClass = "selected-content-list"
         }
 
         return (

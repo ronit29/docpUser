@@ -33,7 +33,7 @@ class SearchCriteriaView extends React.Component {
                     <section className="">
                         {
                             (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
-                                heading="Selected Criteria"
+                                heading={`View Selected (${this.props.selectedCriterias.length})`}
                                 data={this.props.selectedCriterias}
                                 selectedPills={true}
                                 selected={[]}
