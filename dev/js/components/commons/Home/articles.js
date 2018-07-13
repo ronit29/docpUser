@@ -13,7 +13,7 @@ class Article extends React.Component {
         return (
             <div className="horizontal-widget">
                 <div className="view-all-div">
-                    <a href="javascript:;"><p className="view-all-text">View All</p></a>
+                    {/* <a href="javascript:;"><p className="view-all-text">View All</p></a> */}
                 </div>
                 <div className="scroll-arrow-div-rt">
                     <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />

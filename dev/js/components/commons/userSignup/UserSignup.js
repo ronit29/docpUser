@@ -77,7 +77,13 @@ class UserSignupView extends React.Component {
         if (register) {
             this.props.createProfile(this.state, (err, res) => {
                 if (!err) {
-                    this.setState({ showMedical: true })
+                    // this.setState({ showMedical: true })
+                    const parsed = queryString.parse(this.props.location.search)
+                    if (parsed.callback) {
+                        this.props.history.replace(parsed.callback)
+                    } else {
+                        this.props.history.go(-1)
+                    }
                 } else {
                     this.setState({ err: "Error signing up user." })
                 }
