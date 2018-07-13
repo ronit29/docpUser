@@ -25,7 +25,7 @@ class TestDetail extends React.Component {
                             {
                                 this.props.lab_test.map((test, i) => {
                                     return <div className="widget-content" key={i}>
-                                        <h3 className="text-lg fw-700 mrb-10">{test.test.name} <img src="/assets/img/customer-icons/polygon.svg" className="/assets/img-fluid" /></h3>
+                                        <h3 className="text-lg fw-700 mrb-10">{test.test.name}</h3>
                                         
                                         <h4 className="fw-700 text-md mrb-10">Description</h4>
                                         <p className="text-sm">{test.test.why}</p>

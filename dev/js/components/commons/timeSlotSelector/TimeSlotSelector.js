@@ -51,8 +51,8 @@ class TimeSlotSelector extends React.Component {
                 }
             }
         }
-
-        if (ts_selected) {
+        
+        if (ts_selected && this.isTimeSlotAvailable(this.props.selectedSlot.time, selctedDate)) {
             this.setState({
                 timeSeries: days,
                 selectedDay: ts_selected,
@@ -64,6 +64,10 @@ class TimeSlotSelector extends React.Component {
                 timeSeries: days,
                 selectedDay: foundTs,
                 selectedMonth: foundTs.month
+            }, () => {
+                let slot = { time: {} }
+                slot.month = this.state.selectedMonth
+                this.props.selectTimeSlot(slot)
             })
         }
 
@@ -115,7 +119,7 @@ class TimeSlotSelector extends React.Component {
     }
 
     isTimeSlotAvailable(ts, selectedDate) {
-        if (!ts.is_available) {
+        if (ts.is_available === false) {
             return false
         }
         let today = new Date()
@@ -150,8 +154,8 @@ class TimeSlotSelector extends React.Component {
                     <div className="widget-content">
                         <div className="add-new-time mrb-10">
                             <h4 className="text-md fw-700 mrb-10">Select Date &amp; Time:
-                            <span onClick={this.selectMonth.bind(this, thisMonth)} style={{cursor: 'pointer'}} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
-                                    <span onClick={this.selectMonth.bind(this, nextMonth)} style={{marginLeft: 4}} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}> {nextMonth}</span></span></h4>
+                            <span onClick={this.selectMonth.bind(this, thisMonth)} style={{ cursor: 'pointer' }} className={"float-right text-md fw-700 text-" + (thisMonth === selectedMonth ? "primary" : "light")}>{thisMonth}
+                                    <span onClick={this.selectMonth.bind(this, nextMonth)} style={{ marginLeft: 4 }} className={"text-" + (nextMonth === selectedMonth ? "primary" : "light")}> {nextMonth}</span></span></h4>
                             <div className="choose-time">
                                 <ul className="inline-list datetime-items">
 
