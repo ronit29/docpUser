@@ -112,7 +112,7 @@ class AppointmentReschedule extends React.Component {
             date = this.state.data.time_slot_start ? new Date(this.state.data.time_slot_start) : new Date()
             actions = this.state.data.allowed_action || []
             status = this.state.data.status
-            doctor.thumbnail = this.state.data.thumbnail
+            doctor.thumbnail = this.state.data.doctor_thumbnail
 
             if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
                 priceData = { ...this.props.rescheduleSlot.time }
