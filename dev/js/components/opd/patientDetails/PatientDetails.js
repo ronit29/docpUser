@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import SnackBar from 'node-snackbar'
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
@@ -38,7 +38,15 @@ class PatientDetails extends React.Component {
         }
     }
 
-    proceed() {
+    proceed(datePicked, e) {
+
+        if (!datePicked) {
+            SnackBar.show({ pos: 'bottom-left', text: "Please pick a time slot." });
+            return
+        }
+        if (e.target.dataset.disabled == true) {
+            return
+        }
 
         this.setState({ loading: true, error: "" })
 
@@ -210,9 +218,9 @@ class PatientDetails extends React.Component {
 
 
 
-                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" disabled={
+                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                 !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading
-                            } onClick={this.proceed.bind(this)}>Proceed</button>
+                            } disabled={this.state.loading} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
 
                         </div>
 

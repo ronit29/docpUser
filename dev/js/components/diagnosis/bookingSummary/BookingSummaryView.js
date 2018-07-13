@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-
+import SnackBar from 'node-snackbar'
 import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
 import PickupAddress from './pickupAddress'
@@ -83,7 +83,24 @@ class BookingSummaryView extends React.Component {
         }
     }
 
-    proceed() {
+    proceed(testPicked, addressPicked, datePicked, e) {
+
+        if(!testPicked){
+            SnackBar.show({ pos: 'bottom-left', text: "Please select some tests." });
+            return
+        }
+        if(!addressPicked){
+            SnackBar.show({ pos: 'bottom-left', text: "Please pick an address." });
+            return
+        }
+        if(!datePicked){
+            SnackBar.show({ pos: 'bottom-left', text: "Please pick a time slot." });
+            return
+        }        
+        if (e.target.dataset.disabled == true) {
+            return
+        }
+        
         this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
@@ -236,7 +253,7 @@ class BookingSummaryView extends React.Component {
                                                                 {this.getSelectors()}
 
                                                                 <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src="/assets/img/icons/info.svg" style={{cursor:'pointer'}} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src="/assets/img/icons/info.svg" style={{ cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                     <h5 className="payment-amt-value fw-500">Rs. {finalPrice}</h5>
                                                                 </div>
 
@@ -266,9 +283,9 @@ class BookingSummaryView extends React.Component {
                                             this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} /> : ""
                                         }
 
-                                        <button disabled={
+                                        <button data-disabled={
                                             (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
-                                        } onClick={this.proceed.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
+                                        } disabled={this.state.loading} onClick={this.proceed.bind(this, tests.length, (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
 
                                     </div> : <Loader />
                             }
