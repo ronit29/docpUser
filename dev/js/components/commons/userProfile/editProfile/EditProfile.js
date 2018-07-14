@@ -12,10 +12,15 @@ class EditProfile extends React.Component {
             selectedTab: 0,
             profileData: { ...profiles[this.props.match.params.id] },
             loading: false,
+            openCrop: false,
             errors: {
 
             }
         }
+    }
+
+    toggleOpenCrop() {
+        this.setState({ openCrop: !this.state.openCrop })
     }
 
     manageAddress() {
@@ -29,7 +34,7 @@ class EditProfile extends React.Component {
 
         switch (this.state.selectedTab) {
             case 0: {
-                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} errors={this.state.errors} />
+                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)} />
             }
             case 1: {
                 return <MedialDetails />
@@ -123,19 +128,21 @@ class EditProfile extends React.Component {
                 <section className="consumer-profile-update sticky-header-3">
                     <div className="nav-tab">
                         <ul className="inline-list tab-items">
-                            <li style={{marginLeft: 0, marginRight: 0}} onClick={() => {
+                            <li style={{ marginLeft: 0, marginRight: 0 }} onClick={() => {
                                 this.setState({ selectedTab: 0 })
                             }} className={this.state.selectedTab === 0 ? "active" : ""}><a className="link-text text-xs uppercase">Basic Profile</a></li>
-                            <li style={{marginLeft: 0, marginRight: 0}} onClick={() => {
+                            {/* <li style={{marginLeft: 0, marginRight: 0}} onClick={() => {
                                 this.setState({ selectedTab: 1 })
-                            }} className={this.state.selectedTab === 1 ? "active" : ""}><a className="link-text text-xs uppercase">Medical</a></li>
+                            }} className={this.state.selectedTab === 1 ? "active" : ""}><a className="link-text text-xs uppercase">Medical</a></li> */}
                         </ul>
                     </div>
                 </section>
 
                 {this.getComp()}
+                {
+                    this.state.openCrop ? "" : <a href="#" onClick={this.proceedUpdate.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile</a>
+                }
 
-                <a href="#" onClick={this.proceedUpdate.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile</a>
             </div>
         );
     }

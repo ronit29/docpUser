@@ -150,23 +150,27 @@ class CriteriaSearchView extends React.Component {
                                     <section>
                                         {
                                             this.state.searchResults.map((cat, j) => {
-                                                return <div className="widget-panel" key={j}>
-                                                    <h4 className="panel-title">{cat.title}</h4>
-                                                    <div className="panel-content">
-                                                        <ul className="list search-result-list">
-                                                            {
-                                                                cat.values.length < 1 ? <li><a>No Results Found ...</a></li> : ""
-                                                            }
-                                                            {
-                                                                cat.values.map((curr, i) => {
-                                                                    return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a>
-                                                                        {i < cat.values.length - 1 ? <hr className="search-list-hr" /> : ""}
-                                                                    </li>
-                                                                })
-                                                            }
-                                                        </ul>
+                                                if (cat.values && cat.values.length) {
+                                                    return <div className="widget-panel" key={j}>
+                                                        <h4 className="panel-title">{cat.title}</h4>
+                                                        <div className="panel-content">
+                                                            <ul className="list search-result-list">
+                                                                {
+                                                                    cat.values.length < 1 ? <li><a>No Results Found ...</a></li> : ""
+                                                                }
+                                                                {
+                                                                    cat.values.map((curr, i) => {
+                                                                        return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a>
+                                                                            {i < cat.values.length - 1 ? <hr className="search-list-hr" /> : ""}
+                                                                        </li>
+                                                                    })
+                                                                }
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                } else {
+                                                    return ""
+                                                }
                                             })
                                         }
                                         {

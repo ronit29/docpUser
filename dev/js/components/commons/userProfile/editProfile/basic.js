@@ -1,5 +1,6 @@
 import React from 'react';
 import Cropper from 'react-cropper';
+const Compress = require('compress.js')
 
 class BasicDetails extends React.Component {
     constructor(props) {
@@ -15,10 +16,23 @@ class BasicDetails extends React.Component {
 
     pickFile(e) {
         if (e.target.files && e.target.files[0]) {
+            const compress = new Compress()
             let file = e.target.files[0]
-            this.getBase64(file, (dataUrl) => {
-                this.setState({ dataUrl })
+            compress.compress([file], {
+                quality: 1,
+                maxWidth: 1000,
+                maxHeight: 1000,
+            }).then((results) => {
+                const img1 = results[0]
+                const base64str = img1.data
+                const imgExt = img1.ext
+                const file = Compress.convertBase64ToFile(base64str, imgExt)
+                this.getBase64(file, (dataUrl) => {
+                    this.props.toggleOpenCrop()
+                    this.setState({ dataUrl })
+                })
             })
+
         }
     }
 
@@ -40,6 +54,7 @@ class BasicDetails extends React.Component {
         this.setState({
             dataUrl: null
         }, () => {
+            this.props.toggleOpenCrop()
             document.getElementById('imageFilePicker').value = ""
             let form_data = new FormData()
             form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
@@ -82,6 +97,8 @@ class BasicDetails extends React.Component {
                         </div>
                     </div>
                 </div>
+
+
                 <div className="widget no-shadow no-radius">
                     <div className="widget-content">
                         <form className="go-bottom">
@@ -119,16 +136,20 @@ class BasicDetails extends React.Component {
                     </div>
                 </div>
 
+
                 {
                     this.state.dataUrl ? <div>
                         <Cropper
                             ref='cropper'
                             src={this.state.dataUrl}
-                            style={{ "height": "100%", "width": "100%", "maxWidth": "500px", "position": "fixed", "left": "50%", "top": "50%", "zIndex": "999999", "transform": "translate(-50%, -50%)" }}
+                            style={{ "height": "100%", "width": "100%", "maxWidth": "600px", "position": "fixed", "left": "50%", "top": "50%", "zIndex": "999999", "transform": "translate(-50%, -50%)" }}
                             aspectRatio={1 / 1}
                             cropBoxResizable={false}
-                            viewMode={1}
+                            viewMode={2}
                             dragMode={'move'}
+                            modal={true}
+                            guides={true}
+                            background={false}
                         />
                         <a style={{ zIndex: 9999999 }} href="#" onClick={this.finishCrop.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile Image</a>
                     </div> : ""
