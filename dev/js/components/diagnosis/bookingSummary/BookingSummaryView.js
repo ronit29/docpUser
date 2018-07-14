@@ -276,11 +276,11 @@ class BookingSummaryView extends React.Component {
                                         <PaymentForm paymentData={this.state.paymentData} />
 
                                         {
-                                            this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                            this.state.openCancellation ? <CancelationPolicy className="cancel-popup" toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                                         }
 
                                         {
-                                            this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} /> : ""
+                                            this.state.openPaymentSummary ? <PaymentSummary className="payment-popup" toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} /> : ""
                                         }
 
                                         <button data-disabled={

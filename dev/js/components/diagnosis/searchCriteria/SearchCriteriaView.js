@@ -33,7 +33,7 @@ class SearchCriteriaView extends React.Component {
         return (
             <div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for Tests." paddingTopClass={true}>
-                    <section>
+                    <section className="opd-search-section">
 
                         {
                             (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched

@@ -1015,10 +1015,14 @@
 	bottom: 0;
 	background-color: rgba(0,0,0,0.6);
 	z-index: 99;
+	-webkit-animation: FadeIn 0.5s;
+    -moz-animation: FadeIn 0.5s;
+    -ms-animation: FadeIn 0.5s;
+    -o-animation: FadeIn 0.5s;
+    animation: FadeIn 0.5s;
 }
 
 .cancel-appointment-div{
-	max-height: 90vh;
 	overflow-y: auto;
 	position: fixed;
 	bottom: unset;
@@ -1117,11 +1121,16 @@
 	.cancel-appointment-div{
 		position: fixed;
 		top: unset;
-		bottom: -8px;
+		bottom: 0;
 		left: 10px;
 		right: 10px;
-		transform: unset;
-		width: auto;	
+		width: auto;
+		transform: translateY(8px);
+		-webkit-animation: SlideUp 0.5s;
+    	-moz-animation: SlideUp 0.5s;
+    	-ms-animation: SlideUp 0.5s;
+    	-o-animation: SlideUp 0.5s;
+    	animation: SlideUp 0.5s;
 	}
 }
 
@@ -1149,4 +1158,34 @@
 
 .info-icon-img{
 	margin-left: 8px;
+}
+
+@keyframes FadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes FadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes FadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes SlideUp {
+    from { max-height: 0; transform: translateY(16px);}
+    to   { max-height: 100%; transform: translateY(8px);}
+}
+
+@-moz-keyframes SlideUp {
+    from { max-height: 0; transform: translateY(16px);}
+    to   { max-height: 100%; transform: translateY(8px);}
+}
+
+@-webkit-keyframes SlideUp {
+    from { max-height: 0; transform: translateY(16px);}
+    to   { max-height: 100%; transform: translateY(8px);}
 }
