@@ -78,6 +78,8 @@ class HomeView extends React.Component {
             selectedSympsStr = selectedSympsStr.slice(0, -2)
         }
 
+        let articles = this.props.articles || []
+
         return (
             <div className="profile-body-wrap">
 
@@ -149,159 +151,26 @@ class HomeView extends React.Component {
                                 </ul>
                             </div>
 
-                            <Articles title={"Know about Diseases"}>
-                                <ul className="select-item-list">
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/malaria.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Malaria</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Typhoid</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Hepatitis</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/malaria.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Malaria</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Typhoid</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Hepatitis</p>
-                                        </div>
-                                    </li>
-                                                                        <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/malaria.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Malaria</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Typhoid</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Hepatitis</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/malaria.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Malaria</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Typhoid</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Hepatitis</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </Articles>
-
-                            <Articles title={"Know about Medicines"}>
-                                <ul className="select-item-list">
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/malaria.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Malaria</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Typhoid</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Hepatitis</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/malaria.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Malaria</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/typhoid.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Typhoid</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="item-img">
-                                            <img src="/assets/img/customer-icons/hepatitis.jpg" />
-                                        </div>
-                                        <div className="item-name">
-                                            <p>Hepatitis</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </Articles>
+                            {
+                                articles.map((article, i) => {
+                                    return <Articles title={`Know about ${article.title}`} key={i}>
+                                        <ul className="select-item-list">
+                                            {
+                                                article.data.map((curr, j) => {
+                                                    return <li key={i} onClick={this.navigateTo.bind(this, `/article/${curr.id}`)}>
+                                                        <div className="item-img">
+                                                            <img src={curr.icon} style={{ width: 50 }} />
+                                                        </div>
+                                                        <div className="item-name">
+                                                            <p>{curr.title}</p>
+                                                        </div>
+                                                    </li>
+                                                })
+                                            }
+                                        </ul>
+                                    </Articles>
+                                })
+                            }
 
                         </div>
 

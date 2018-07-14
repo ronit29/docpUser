@@ -5,7 +5,7 @@ class ChatSymptoms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            scrollLeft:0,
+            scrollLeft: 0,
             symptoms: [
                 "Fever",
                 "Cough",
@@ -36,7 +36,7 @@ class ChatSymptoms extends React.Component {
         this._ismounted = false;
     }
 
-        slideLeft() {
+    slideLeft() {
         this.slide("left");
     }
 

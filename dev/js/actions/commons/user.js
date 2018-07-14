@@ -1,4 +1,4 @@
-import { APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
+import { APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -186,6 +186,19 @@ export const fetchOrderHistory = (cb) => (dispatch) => {
 		if (cb) cb(error, null);
 	})
 }
+
+export const fetchArticles = (cb) => (dispatch) => {
+	API_GET(`/api/v1/article/list`).then(function (response) {
+		dispatch({
+			type: APPEND_ARTICLES,
+			payload: response
+		})
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
 
 export const fetchArticle = (id, cb) => (dispatch) => {
 	API_GET(`/api/v1/article/detail/${id}`).then(function (response) {
