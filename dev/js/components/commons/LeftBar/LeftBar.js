@@ -1,4 +1,5 @@
 import React from 'react';
+import InitialsPicture from '../initialsPicture'
 
 const GENDER = {
     "m": "Male",
@@ -33,6 +34,7 @@ class LeftBar extends React.Component {
                         <div className="profile-img-section" onClick={() => {
                             this.props.history.push('/user')
                         }}>
+                            {/* <InitialsPicture name={profileData.name} /> */}
                             <img src={profileData.profile_image} className="profile-icon" />
                         </div>
                         <div className="profile-name-section">
@@ -145,7 +147,6 @@ class LeftBar extends React.Component {
                             </div>
                         </div>
                 }
-
 
             </div>
         );
