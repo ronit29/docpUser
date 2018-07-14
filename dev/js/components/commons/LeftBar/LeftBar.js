@@ -24,7 +24,7 @@ class LeftBar extends React.Component {
 
     render() {
 
-        let profileData = this.props.profiles[this.props.selectedProfile]
+        let profileData = this.props.profiles[this.props.defaultProfile]
 
         return (
             <div className="col-lg-3 profile-section d-none d-lg-block">

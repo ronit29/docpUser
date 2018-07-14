@@ -4,6 +4,7 @@ const defaultState = {
     profiles: {},
     appointments: {},
     address: [],
+    defaultProfile: null,
     selectedProfile: null,
     notifications: [],
     newNotification: false,
@@ -35,6 +36,8 @@ export default function (state = defaultState, action) {
             if (!newState.selectedProfile && action.payload.length) {
                 newState.selectedProfile = action.payload[0].id
             }
+
+            newState.defaultProfile = newState.selectedProfile
 
             return newState
         }

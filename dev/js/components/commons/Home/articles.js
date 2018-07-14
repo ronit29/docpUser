@@ -55,7 +55,7 @@ class Article extends React.Component {
             <div className="horizontal-widget">
                 <div className="view-all-div">
                     <a href="javascript:;">
-                        <p className="view-all-text">View All</p>
+                        {/* <p className="view-all-text">View All</p> */}
                     </a>
                 </div>
                 <div

@@ -37,7 +37,9 @@ class DesktopProfileHeader extends React.Component {
                                 <div className="header-item" onClick={this.navigateTo.bind(this, '/notifications')}>
                                     <img src="/assets/img/customer-icons/bell-white.svg" className="header-icons bell-web-icon" />
                                     <span className="header-item-label">Notifications</span>
-                                    {/* <span className="notification-alert">{5}</span> */}
+                                    {
+                                        this.props.newNotification ? <span className="notification-alert">{this.props.notifications.length}</span> : ""
+                                    }
                                     <img src="/assets/img/customer-icons/down-filled.svg" className="header-icons down-web-icon" />
                                 </div>
                                 <div className="header-item logout-item" onClick={() => {

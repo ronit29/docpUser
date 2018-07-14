@@ -30,9 +30,9 @@ class LeftBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profiles, selectedProfile } = state.USER
+    let { profiles, selectedProfile, defaultProfile } = state.USER
     return {
-        profiles, selectedProfile
+        profiles, selectedProfile, defaultProfile
     }
 }
 

@@ -65,7 +65,7 @@ class ProfileSlider extends React.Component {
 
         return (
 
-            <div ref='profileTop' className="widget profile-info hidden-md-up text-center mrt-10 clearfix">
+            <div ref='profileTop' className="widget profile-info text-center mrt-10 clearfix">
                 {
                     Object.keys(profiles).map((id, key) => {
 
@@ -77,8 +77,8 @@ class ProfileSlider extends React.Component {
                                 <img src={profiles[id].profile_image || "/assets/img/icons/drIcon.jpg"} className="img-fluid img-round " />
                             </div>
                             <div style={{ width: 85 }}>
-                                <h4 className="title">{profiles[id].name}</h4>
-                                <p className="fw-500 text-light mrb-5">{this.getAge(profiles[id].dob)} Years | {GENDER[profiles[id].gender]}</p>
+                                {/* <h4 className="title">{profiles[id].name}</h4>
+                                <p className="fw-500 text-light mrb-5">{this.getAge(profiles[id].dob)} Years | {GENDER[profiles[id].gender]}</p> */}
                                 <p className="fw-500 text-light">{profiles[id].name}</p>
                             </div>
                         </div>
