@@ -51,7 +51,7 @@ class TimeSlotSelector extends React.Component {
                 }
             }
         }
-        
+
         if (ts_selected && this.isTimeSlotAvailable(this.props.selectedSlot.time, selctedDate)) {
             this.setState({
                 timeSeries: days,
@@ -73,11 +73,13 @@ class TimeSlotSelector extends React.Component {
 
     }
 
-    selectDay(day) {
-        this.setState({ selectedDay: day })
-        let slot = { time: {} }
-        slot.month = this.state.selectedMonth
-        this.props.selectTimeSlot(slot)
+    selectDay(day, is_available) {
+        if (is_available) {
+            this.setState({ selectedDay: day })
+            let slot = { time: {} }
+            slot.month = this.state.selectedMonth
+            this.props.selectTimeSlot(slot)
+        }
     }
 
     selectMonth(month, e) {
@@ -163,11 +165,18 @@ class TimeSlotSelector extends React.Component {
                                         this.state.timeSeries.filter((ts) => {
                                             return ts.month === selectedMonth
                                         }).map((ts, i) => {
+                                            let is_available = false
+                                            let weekDayNumber = ts.actualDate.getDay()
+                                            weekDayNumber = weekDayNumber == 0 ? 6 : weekDayNumber - 1
+                                            let currSchedule = this.props.timeSlots[weekDayNumber]
+                                            if (currSchedule && currSchedule.length) {
+                                                is_available = true
+                                            }
                                             let curr_date = new Date(ts.actualDate).toDateString()
                                             return <li
-                                                className={selctedDate == curr_date ? 'active' : ""}
+                                                className={(selctedDate == curr_date ? 'active' : "") + (is_available ? "" : " disableddaypill")}
                                                 key={i}
-                                                onClick={this.selectDay.bind(this, ts)}
+                                                onClick={this.selectDay.bind(this, ts, is_available)}
                                             >
                                                 {ts.dateNumber} <span>{ts.tag}</span>
                                             </li>

@@ -407,3 +407,7 @@ ul.inline-list li {
 .selected-content-list-item>img{
     cursor: pointer;
 }
+
+.disableddaypill{
+    color: gray !important;
+}
