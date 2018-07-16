@@ -1126,11 +1126,21 @@
 		right: 10px;
 		width: auto;
 		transform: translateY(8px);
-		-webkit-animation: SlideUp 0.5s;
-    	-moz-animation: SlideUp 0.5s;
-    	-ms-animation: SlideUp 0.5s;
-    	-o-animation: SlideUp 0.5s;
-    	animation: SlideUp 0.5s;
+	}
+	.payment-popup{
+		-webkit-animation: SlideUp1 0.5s;
+    	-moz-animation: SlideUp1 0.5s;
+    	-ms-animation: SlideUp1 0.5s;
+    	-o-animation: SlideUp1 0.5s;
+    	animation: SlideUp1 0.5s;
+	}
+	.cancel-popup{
+		max-height: 90vh;
+		-webkit-animation: SlideUp2 0.5s;
+    	-moz-animation: SlideUp2 0.5s;
+    	-ms-animation: SlideUp2 0.5s;
+    	-o-animation: SlideUp2 0.5s;
+    	animation: SlideUp2 0.5s;
 	}
 }
 
@@ -1162,30 +1172,45 @@
 
 @keyframes FadeIn {
     from { opacity: 0; }
-    to   { opacity: 1; }
+    to { opacity: 1; }
 }
 
 @-moz-keyframes FadeIn {
     from { opacity: 0; }
-    to   { opacity: 1; }
+    to { opacity: 1; }
 }
 
 @-webkit-keyframes FadeIn {
     from { opacity: 0; }
-    to   { opacity: 1; }
+    to { opacity: 1; }
 }
 
-@keyframes SlideUp {
+@keyframes SlideUp1 {
     from { max-height: 0; transform: translateY(16px);}
-    to   { max-height: 100%; transform: translateY(8px);}
+    to { max-height: 100%; transform: translateY(8px);}
 }
 
-@-moz-keyframes SlideUp {
+@-moz-keyframes SlideUp1 {
     from { max-height: 0; transform: translateY(16px);}
-    to   { max-height: 100%; transform: translateY(8px);}
+    to { max-height: 100%; transform: translateY(8px);}
 }
 
-@-webkit-keyframes SlideUp {
+@-webkit-keyframes SlideUp1 {
     from { max-height: 0; transform: translateY(16px);}
-    to   { max-height: 100%; transform: translateY(8px);}
+    to { max-height: 100%; transform: translateY(8px);}
+}
+
+@keyframes SlideUp2 {
+    from { max-height: 0; transform: translateY(16px);}
+    to { max-height: 90vh; transform: translateY(8px);}
+}
+
+@-moz-keyframes SlideUp2 {
+    from { max-height: 0; transform: translateY(16px);}
+    to { max-height: 90vh; transform: translateY(8px);}
+}
+
+@-webkit-keyframes SlideUp2 {
+    from { max-height: 0; transform: translateY(16px);}
+    to { max-height: 90vh; transform: translateY(8px);}
 }
