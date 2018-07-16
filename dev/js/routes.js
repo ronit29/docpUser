@@ -77,7 +77,7 @@ class RouterConfig extends Component {
                                     <CSSTransition
                                         key={location.pathname}
                                         classNames="fade"
-                                        timeout={{ enter: 300, exit: 0 }}
+                                        timeout={{ enter: 250, exit: 0 }}
                                         exit={false}
                                     >
                                         <Switch location={location}>

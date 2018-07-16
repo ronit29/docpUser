@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUpcomingAppointments, fetchHeatlhTip, fetchOrderHistory } from '../../../actions/index.js'
+import { getUpcomingAppointments, fetchHeatlhTip, fetchOrderHistory, toggleDiagnosisCriteria, selectProfile } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
 import STORAGE from '../../../helpers/storage'
@@ -10,10 +10,6 @@ import RightBarView from './RightBar'
 class RightBar extends React.Component {
     constructor(props) {
         super(props)
-    }
-
-    static contextTypes = {
-        router: () => null
     }
 
     componentDidMount() {
@@ -33,9 +29,9 @@ class RightBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profiles, selectedProfile, userUpcomingAppointments, healthTips } = state.USER
+    let { profiles, selectedProfile, userUpcomingAppointments, healthTips, orderHistory } = state.USER
     return {
-        profiles, selectedProfile, userUpcomingAppointments, healthTips
+        profiles, selectedProfile, userUpcomingAppointments, healthTips, orderHistory
     }
 }
 
@@ -43,7 +39,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getUpcomingAppointments: () => dispatch(getUpcomingAppointments()),
         fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
-        fetchOrderHistory: () => dispatch(fetchOrderHistory())
+        fetchOrderHistory: () => dispatch(fetchOrderHistory()),
+        selectProfile: (profile_id) => dispatch(selectProfile(profile_id)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd))
     }
 }
 

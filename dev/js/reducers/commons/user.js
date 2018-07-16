@@ -69,7 +69,9 @@ export default function (state = defaultState, action) {
                 ...state
             }
 
-            newState.selectedProfile = action.payload
+            if (state.profiles[action.payload]) {
+                newState.selectedProfile = action.payload
+            }
 
             return newState
         }

@@ -43,7 +43,7 @@ export default function (state = defaultState, action) {
                 return true
             })
 
-            if (!found) {
+            if (!found || action.payload.forceAdd) {
                 newState.selectedCriterias.push({
                     ...action.payload.criteria,
                     type: action.payload.type

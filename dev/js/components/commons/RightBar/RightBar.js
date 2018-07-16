@@ -13,6 +13,21 @@ class RightBar extends React.Component {
         this.props.history.push(`/${type}/appointment/${id}`)
     }
 
+    openBookingSummary(data, e) {
+        this.props.selectProfile(data.profile)
+        if (data.type == 'lab' || data.lab) {
+            for (let curr_test of data.test_ids) {
+                curr_test.extra_test = true
+                this.props.toggleDiagnosisCriteria('test', curr_test, true)
+            }
+            setTimeout(() => {
+                this.props.history.push(`/lab/${data.lab}/book`)
+            }, 1000)
+        } else {
+            this.props.history.push(`/opd/doctor/${data.doctor}/${data.hospital}/bookdetails`)
+        }
+    }
+
     render() {
 
         let profileData = this.props.profiles[this.props.selectedProfile]
@@ -26,11 +41,13 @@ class RightBar extends React.Component {
                         }) : ""
                     }
 
-                    <HealthTip healthTips={this.props.healthTips} />
+                    {
+                        profileData ? this.props.orderHistory.map((odHistory, i) => {
+                            return <ContinueBooking key={i} {...odHistory} openBookingSummary={this.openBookingSummary.bind(this, odHistory)} />
+                        }) : ""
+                    }
 
-                    {/* {
-                        profileData ? <ContinueBooking /> : ""
-                    } */}
+                    <HealthTip healthTips={this.props.healthTips} />
 
                 </div>
             </div>

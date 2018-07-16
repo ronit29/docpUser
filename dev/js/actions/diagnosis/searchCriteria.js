@@ -17,11 +17,11 @@ export const loadLabCommonCriterias = () => (dispatch) => {
 
 }
 
-export const toggleDiagnosisCriteria = (type, criteria) => (dispatch) => {
+export const toggleDiagnosisCriteria = (type, criteria, forceAdd = false) => (dispatch) => {
     dispatch({
         type: TOGGLE_DIAGNOSIS_CRITERIA,
         payload: {
-            type, criteria
+            type, criteria, forceAdd
         }
     })
 

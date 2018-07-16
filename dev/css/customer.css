@@ -180,7 +180,7 @@
 .booking-confirm-screen{padding-bottom: 50px;}
 .booking-confirm-screen .lab-details{margin-bottom: 20px;}
 .booking-confirm-screen .lab-details .lab-title{padding-right: 100px;}
-.booking-confirm-screen .lab-details>img{width: 70px; border:1px solid #ddd; padding: 3px ; float: right;}
+.booking-confirm-screen .lab-details img{width: 70px; border:1px solid #ddd; padding: 3px ; float: right;}
 .booking-confirm-screen .lab-details .lab-title .title{margin-bottom: 5px;}
 
 .booking-confirm-screen .lab-visit-time{margin-bottom: 40px;}
@@ -189,7 +189,7 @@
 
 .payment-method>li{padding: 10px; vertical-align: middle;}
 .payment-method>li>label{font-size: 14px; font-weight: bold;}
-.payment-method>li>label>img{width: 40px; margin-right: 20px; vertical-align: middle;}
+.payment-method>li>label img{width: 40px; margin-right: 20px; vertical-align: middle;}
 .payment-method .radio-inline{width: 20px; height: 20px; margin-top: 6px;}
 
 .quick-payment>li img{width: 20px!important;}
