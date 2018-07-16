@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ toggle, deal_price, mrp, payable_amount }) => {
     return <div>
         <div className="cancel-overlay" onClick={toggle}></div>
-        <div className="widget cancel-appointment-div">
+        <div className="widget cancel-appointment-div payment-popup">
             <div className="widget-header text-center action-screen-header">
                 <p className="fw-500 cancel-appointment-head">Payment Summary</p>
                 <hr />

@@ -157,7 +157,7 @@ class HomeView extends React.Component {
                                         <ul className="select-item-list">
                                             {
                                                 article.data.map((curr, j) => {
-                                                    return <li key={i} onClick={this.navigateTo.bind(this, `/article/${curr.id}`)}>
+                                                    return <li key={j} onClick={this.navigateTo.bind(this, `/article/${curr.id}`)}>
                                                         <div className="item-img">
                                                             <img src={curr.icon} style={{ width: 50 }} />
                                                         </div>
