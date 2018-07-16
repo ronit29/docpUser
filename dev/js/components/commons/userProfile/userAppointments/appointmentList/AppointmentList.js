@@ -40,7 +40,7 @@ class AppointmentList extends React.Component {
                     <div className="consultant-details">
                         <h4 className="title app-title">{doctor_name || lab_name}</h4>
                         <ul className="list">
-                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/calander.svg" className="img-fluid" /></span>{date.toDateString()} </li>
+                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/icons/calendar.svg" className="img-fluid" /></span>{date.toDateString()} </li>
                             <li><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/clock.svg" className="img-fluid" /></span>{this.getTime(time_slot_start)} to {this.getTime(time_slot_end)}</li>
                         </ul>
                         <div className="view-chat text-right">

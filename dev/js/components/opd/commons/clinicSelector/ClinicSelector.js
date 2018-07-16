@@ -45,7 +45,7 @@ class ClinicSelector extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="widget-footer text-center">
+                                        <div className="text-center" style={{marginTop: 25}}>
                                             <button className="v-btn v-btn-primary outline" onClick={this.selectClinic.bind(this, hospital.hospital_id)}>Book Now</button>
                                         </div>
                                     </div>

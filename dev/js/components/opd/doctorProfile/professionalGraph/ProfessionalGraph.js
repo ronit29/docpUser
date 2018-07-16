@@ -8,20 +8,28 @@ import ExpansionPanel, {
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
 const Widget = ({ heading, contentList }) => {
-    return <li>
+    return <li className="expansion-panel-list-item" >
         <ExpansionPanel>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <div className="title">
-                    {heading} <span className="float-right"></span>
+                    {heading}
                 </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <div className="more-content">
                     {
                         contentList.map((cont, i) => {
-                            return <div className="form-group" key={i}>
-                                <label className="fw-700 text-sm text-primary">{cont.heading}</label>
-                                <p className="fw-700 text-md text-light">{cont.content}</p>
+                            return <div className="form-group expansion-label-div" key={i}>
+                                <label className="fw-700 text-sm text-primary">{cont.heading}
+                                    <span>
+                                        {i < contentList.length - 1 ? "|" : ""}
+                                    </span>
+                                </label>
+                                <p className="fw-700 text-md text-light">{cont.content}
+                                    <span>
+                                        {i < contentList.length - 1 ? "|" : ""}
+                                    </span>
+                                </p>
                             </div>
                         })
                     }
@@ -47,7 +55,7 @@ class ProfessionalGraph extends React.Component {
         return (
             <div className="widget-panel">
                 <h4 className="panel-title">Professional Graph</h4>
-                <div className="panel-content pd-0">
+                <div className="panel-content expansion-content pd-0">
                     <ul className="list drop-down-list">
                         {
                             qualifications ? <Widget

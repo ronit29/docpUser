@@ -30,7 +30,7 @@ class SearchCriteriaView extends React.Component {
         return (
             <div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search For Disease or Doctor." type="opd" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)}>
-                    <section className="">
+                    <section className="opd-search-section">
                         {
                             (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
                                 heading={`View Selected (${this.props.selectedCriterias.length})`}

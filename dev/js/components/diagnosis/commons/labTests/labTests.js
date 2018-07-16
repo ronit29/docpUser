@@ -49,7 +49,7 @@ class LabTests extends React.Component {
                     {testsToshow}
                 </ul>
                 <div className="pb-view text-right">
-                    <a className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>Add/Remove Tests</a>
+                    <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>Add/Remove Tests</a>
                 </div>
             </div>
         );

@@ -5,12 +5,6 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 
-const IframStyle = {
-    width: '100%',
-    height: 'calc(100vh - 60px)'
-}
-
-
 class ChatView extends React.Component {
     constructor(props) {
         super(props)
@@ -52,24 +46,36 @@ class ChatView extends React.Component {
                 <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column transaction-column">
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                            <header className="wallet-header sticky-header">
+                            <header className="wallet-header sticky-header chat-header">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
-                                        <div className="col-2">
-                                            <img src="/assets/img/icons/back-orange.svg" className="back-icon-orange" onClick={() => {
+                                        <div className="col-2 col-sm-1">
+                                            <img src="/assets/img/customer-icons/back-white.png" className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
-                                        <div className="col-8 logo-col">
-                                            <p className="wallet-title fw-500">Chat</p>
+                                        <div className="col-6 col-sm-7 chat-header-profile">
+                                            <div className="chat-profile-icon">
+                                                <img src="/assets/img/customer-icons/dummy-profile-sq.jpg" />
+                                            </div>
+                                            <div className="chat-profile-desc-div">
+                                                <p className="chat-profile-name fw-500">Stephny Ray</p>
+                                                <p className="chat-profile-desc">Health Assistant</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-2 chat-icons chat-call-icon">
+                                            <img src="/assets/img/customer-icons/call-white.svg" />
+                                        </div>
+                                        <div className="col-2 chat-icons">
+                                            <img src="/assets/img/customer-icons/close-white.svg" />
                                         </div>
                                     </div>
                                 </div>
                             </header>
-                            <div className="container-fluid">
-                                <iframe src={`https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`} style={IframStyle}></iframe>
+                            <div className="container-fluid chat-container">
+                                <iframe className="chat-iframe" src={`https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`}></iframe>
                             </div>
                         </div>
                         <RightBar />
