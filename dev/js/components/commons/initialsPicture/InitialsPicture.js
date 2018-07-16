@@ -49,9 +49,7 @@ class InitialsPicture extends React.Component {
             }
         }
         if (this.props.has_image) {
-            return <div>
-                {this.props.children}
-            </div>
+            return <div>{this.props.children}</div>
         } else {
             return (
                 <div className={this.props.className} style={style}>

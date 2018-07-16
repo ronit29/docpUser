@@ -114,7 +114,7 @@
 .ratting{display: block;}
 .pickup-btn{padding: 5px; color: #000; background-color: #fad688; font-size: 12px; font-weight: 500;}
 .card-content .logo-ratting  .lab-icon{display: block; text-align: right;}
-.card-content .logo-ratting  .lab-icon>img{width: 65px}
+.card-content .logo-ratting  .lab-icon img{width: 65px}
 .ratting>li{margin-right: -4px;}
 .card .card-footer{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;}
 .logo-ratting{}
@@ -247,7 +247,7 @@
 /*doctor profile screen*/
 .dr-profile-screen{padding-bottom: 50px;}
 .dr-qucik-info{display: flex; height: 110px; align-items: center}
-.dr-profile-screen .dr-qucik-info>img{height: 80px; width: 80px;}
+.dr-profile-screen .dr-qucik-info img{height: 80px; width: 80px;}
 .dr-qucik-info .dr-profile {padding-left: 20px;}
 .dr-qucik-info .dr-profile .dr-name{font-size: 18px; font-weight: bold; margin: 6px 0;}
 .dr-qucik-info .dr-profile .desg{font-size: 14px; font-weight: 500; margin: 6px 0;}
@@ -260,7 +260,7 @@
 /*clinic list*/
 .Clinic-card-list{ width: 100%;}
 .Clinic-card-list>li{ border: solid 1px rgba(0, 0, 0, 0.3); border-radius: 8px}
-.Clinic-card-list>li .location-details>img{float: right; width: 50px;}
+.Clinic-card-list>li .location-details img{float: right; width: 50px;}
 .Clinic-card-list>li .location-details .address{padding-right: 60px; font-size: 14px;font-weight: bold;color: #757575; margin-bottom: 10px;}
 
 .drop-down-list .more-content p{padding-left: 10px}
