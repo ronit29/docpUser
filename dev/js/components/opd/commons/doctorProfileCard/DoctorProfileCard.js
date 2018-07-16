@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import InitialsPicture from '../../../commons/initialsPicture'
 
 class DoctorProfileCard extends React.Component {
     constructor(props) {
@@ -33,7 +34,10 @@ class DoctorProfileCard extends React.Component {
 
         return (
             <div className="widget-header dr-qucik-info">
-                <img src={thumbnail} className="img-fluid img-round" />
+                <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
+                    <img src={thumbnail} className="img-fluid img-round" />
+                </InitialsPicture>
+
                 <div className="dr-profile">
                     <h4 className="dr-name">{name}</h4>
                     <p className="desg">{this.getQualificationStr(qualifications)}</p>

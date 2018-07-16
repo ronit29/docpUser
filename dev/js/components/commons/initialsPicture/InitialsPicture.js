@@ -29,10 +29,15 @@ const COLOR_CODES = [
 class InitialsPicture extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            bgColor: COLOR_CODES[Math.floor(Math.random() * COLOR_CODES.length)]
+        }
     }
 
     render() {
-        let initial = "US"
+        let style = this.props.style || {}
+        style['backgroundColor'] = this.state.bgColor
+        let initial = "U"
         let name = this.props.name
         if (name && name.length) {
             name = name.split(' ')
@@ -43,11 +48,17 @@ class InitialsPicture extends React.Component {
                 initial += name[1][0]
             }
         }
-        return (
-            <div className="initialsPicture" style={{ backgroundColor: COLOR_CODES[Math.floor(Math.random() * COLOR_CODES.length)] }}>
-                <span>{initial.toUpperCase()}</span>
+        if (false && this.props.has_image) {
+            return <div>
+                {this.props.children}
             </div>
-        );
+        } else {
+            return (
+                <div className={this.props.className} style={style}>
+                    <span>{initial.toUpperCase()}</span>
+                </div>
+            )
+        }
     }
 }
 

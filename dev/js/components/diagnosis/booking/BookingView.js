@@ -1,4 +1,5 @@
 import React from 'react';
+import InitialsPicture from '../../commons/initialsPicture'
 
 import TestDetail from './testDetail'
 import Loader from '../../commons/Loader'
@@ -203,7 +204,10 @@ class BookingView extends React.Component {
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
                                                             <div className="address-details">
-                                                                <img style={{ width: 70 }} src={lab_thumbnail} className="img-fluid add-map" />
+                                                                <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-lb">
+                                                                    <img style={{ width: 50, height: 50 }} src={lab_thumbnail} className="img-fluid add-map" />
+                                                                </InitialsPicture>
+
                                                                 <p className="add-info fw-500">{lab.address}</p>
                                                             </div>
                                                             <div className="pb-view text-left">
@@ -252,7 +256,9 @@ class BookingView extends React.Component {
                                                     <div className="widget mrt-10">
                                                         <div className="widget-content">
                                                             <div className="test-report">
-                                                                <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" className="visit-time-icon" /></span>Patient Details</h4>
+                                                                <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/icons/user.svg" style={{
+                                                                    width: 14, marginRight: 5, verticalAlign: -3
+                                                                }} /></span>Patient Details</h4>
                                                                 <p className="test-list fw-500">{profile.name}</p>
                                                                 <p className="test-list fw-500">{profile.phone_number}</p>
                                                                 <p className="test-list fw-500">{profile.email}</p>

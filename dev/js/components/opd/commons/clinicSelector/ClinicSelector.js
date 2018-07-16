@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import InitialsPicture from '../../../commons/initialsPicture'
 
 class ClinicSelector extends React.Component {
     constructor(props) {
@@ -29,7 +30,10 @@ class ClinicSelector extends React.Component {
                                         </div>
                                         <div className="widget-content">
                                             <div className="location-details">
-                                                <img src={hospital.hospital_thumbnail} className="img-fluid" />
+                                                <InitialsPicture name={hospital.hospital_name} has_image={!!hospital.hospital_thumbnail} className="initialsPicture-dpl">
+                                                    <img src={hospital.hospital_thumbnail} className="img-fluid" />
+                                                </InitialsPicture>
+
                                                 <p className="address">{hospital.address}</p>
                                             </div>
                                             <div className="timing-details">
@@ -45,7 +49,7 @@ class ClinicSelector extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="text-center" style={{marginTop: 25}}>
+                                        <div className="text-center" style={{ marginTop: 25 }}>
                                             <button className="v-btn v-btn-primary outline" onClick={this.selectClinic.bind(this, hospital.hospital_id)}>Book Now</button>
                                         </div>
                                     </div>

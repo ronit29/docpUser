@@ -1,4 +1,5 @@
 import React from 'react';
+import InitialsPicture from '../../../commons/initialsPicture'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -17,7 +18,11 @@ class LabProfileCard extends React.Component {
             <div className="widget card lab-rslt-card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
-                        <span className="ct-img lab-icon"><img src={lab.lab_thumbnail} className="img-fluid" /></span>
+                        <span className="ct-img lab-icon">
+                            <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
+                                <img src={lab.lab_thumbnail} className="img-fluid" />
+                            </InitialsPicture>
+                        </span>
                         {/* <ul className="inline-list ratting">
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
                             <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>

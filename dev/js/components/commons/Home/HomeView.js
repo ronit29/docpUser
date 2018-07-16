@@ -7,6 +7,7 @@ import ProfileHeader from '../DesktopProfileHeader'
 import Footer from './footer'
 import Articles from './articles'
 import ChatSymptoms from './chatSymptom.js'
+import InitialsPicture from '../initialsPicture'
 
 const GENDER = {
     "m": "Male",
@@ -90,7 +91,9 @@ class HomeView extends React.Component {
                         <div className="container">
                             <div className="row mobile-profile-inside-row">
                                 <div className="profile-icon-div">
-                                    <img src={profileData.profile_image || "/assets/img/icons/drIcon.jpg"} className="profile-icon" />
+                                    <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture">
+                                        <img src={profileData.profile_image || "/assets/img/icons/drIcon.jpg"} className="profile-icon" />
+                                    </InitialsPicture>
                                 </div>
                                 <div className="profile-info-div">
                                     <p className="profile-info">Welcome</p>

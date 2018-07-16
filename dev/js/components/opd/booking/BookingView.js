@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
+import InitialsPicture from '../../commons/initialsPicture'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -195,7 +196,10 @@ class BookingView extends React.Component {
                                                     <div className="widget-content pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700">{doctor.name}</h4>
                                                         <div className="address-details">
-                                                            <img src={doctor_thumbnail} style={{ width: 50, marginTop: -28 }} className="img-fluid add-map img-round" />
+                                                            <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd">
+                                                                <img src={doctor_thumbnail} style={{ width: 50, marginTop: -28 }} className="img-fluid add-map img-round" />
+                                                            </InitialsPicture>
+
                                                             <p className="add-info fw-500">{this.getQualificationStr(doctor.qualifications)}</p>
                                                         </div>
                                                     </div>
@@ -227,7 +231,9 @@ class BookingView extends React.Component {
                                                 <div className="widget mrt-10">
                                                     <div className="widget-content">
                                                         <div className="test-report">
-                                                            <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/customer-icons/test.svg" /></span>Patient Details</h4>
+                                                            <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/icons/user.svg" style={{
+                                                                width: 14, marginRight: 5, verticalAlign: -3
+                                                            }} /></span>Patient Details</h4>
                                                             <p className="test-list fw-500">{profile.name}</p>
                                                             <p className="test-list fw-500">{profile.phone_number}</p>
                                                             <p className="test-list fw-500">{profile.email}</p>

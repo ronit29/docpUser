@@ -1,4 +1,5 @@
 import React from 'react';
+import InitialsPicture from '../../../commons/initialsPicture'
 
 class SelectedClinic extends React.Component {
     constructor(props) {
@@ -35,7 +36,10 @@ class SelectedClinic extends React.Component {
         return (
             <div className="widget mrt-10 ct-profile skin-white">
                 <div className="widget-header dr-qucik-info">
-                    <img src={thumbnail} className="img-fluid img-round" />
+                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
+                        <img src={thumbnail} className="img-fluid img-round" />
+                    </InitialsPicture>
+
                     <div className="dr-profile">
                         <h4 className="dr-name">{name}</h4>
                         <p className="desg">{this.getQualificationStr(qualifications)}</p>

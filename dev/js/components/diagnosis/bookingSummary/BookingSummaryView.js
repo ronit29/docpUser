@@ -6,6 +6,7 @@ import VisitTime from './visitTime'
 import PickupAddress from './pickupAddress'
 import ChoosePatient from './choosePatient'
 import PaymentForm from '../../commons/paymentForm'
+import InitialsPicture from '../../commons/initialsPicture'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -85,22 +86,22 @@ class BookingSummaryView extends React.Component {
 
     proceed(testPicked, addressPicked, datePicked, e) {
 
-        if(!testPicked){
+        if (!testPicked) {
             SnackBar.show({ pos: 'bottom-left', text: "Please select some tests." });
             return
         }
-        if(!addressPicked){
+        if (!addressPicked) {
             SnackBar.show({ pos: 'bottom-left', text: "Please pick an address." });
             return
         }
-        if(!datePicked){
+        if (!datePicked) {
             SnackBar.show({ pos: 'bottom-left', text: "Please pick a time slot." });
             return
-        }        
+        }
         if (e.target.dataset.disabled == true) {
             return
         }
-        
+
         this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
@@ -227,7 +228,10 @@ class BookingSummaryView extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-details">
-                                                                    <img src={labDetail.lab_thumbnail} className="img-fluid" />
+                                                                    <InitialsPicture name={labDetail.name} has_image={!!labDetail.lab_thumbnail} className="initialsPicture-lb">
+                                                                        <img src={labDetail.lab_thumbnail} className="img-fluid" style={{ width: 50, height: 50 }} />
+                                                                    </InitialsPicture>
+
                                                                     <div className="lab-title">
                                                                         <h4 className="fw-700 text-md title">{labDetail.name}</h4>
                                                                         <p className="fw-500 text-sm text-light">{labDetail.address}</p>

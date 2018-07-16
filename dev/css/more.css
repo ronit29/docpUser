@@ -413,16 +413,16 @@ ul.inline-list li {
     color: gray !important;
 }
 
-.MuiPaper-elevation1-14{
-    box-shadow: none !important;
-}
-
-.MuiExpansionPanelSummary-root-38{
+.expansion-panel-list-item > div > div{
     padding: 0 5px !important;
 }
 
-.MuiExpansionPanelSummary-content-42{
+.expansion-panel-list-item > div > div > div{
     margin: 0 !important;
+}
+
+.expansion-panel-list-item > div{
+    box-shadow: none !important;
 }
 
 .expansion-panel-list-item{
@@ -542,4 +542,132 @@ ul.inline-list li {
     .chat-iframe{
         height: calc(100vh - 50px);
     }
+}
+
+.initialsPicture {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5em;
+    color: #fff;
+}
+
+.initialsPicture-appointment{
+    height: 78px;
+    width: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    color: #fff;
+}
+
+.initialsPicture-family{
+    height: 71px;
+    width: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.initialsPicture-ds{
+    height: 65px;
+    margin-right: 4px;
+    width: 65px;
+    border-radius: 50%;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #fff;
+}
+
+.initialsPicture-ls{
+    height: 65px;
+    margin-right: 4px;
+    width: 65px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #fff;
+}
+
+.initialsPicture-dp{
+    height: 80px;
+    margin-right: 4px;
+    width: 80px;
+    border-radius: 50%;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    color: #fff;
+}
+
+.initialsPicture-dpl{
+    height: 50px;
+    margin-right: 4px;
+    width: 50px;
+    display: inline-flex;
+    float: right;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8em;
+    color: #fff;
+}
+
+.initialsPicture-lp{
+    height: 78px;
+    margin-right: 4px;
+    width: 78px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #fff;
+}
+
+.initialsPicture-lb{
+    height: 50px;
+    float: right;
+    margin-right: 4px;
+    width: 50px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #fff;
+}
+
+.initialsPicture-dbd{
+    height: 50px;
+    float: right;
+    margin-right: 4px;
+    width: 50px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #fff;
+    border-radius: 50%;
+    margin-top: -28px;
+}
+
+.disableddaypill:hover{
+    border: none !important;
 }

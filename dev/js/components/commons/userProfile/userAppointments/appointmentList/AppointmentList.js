@@ -1,4 +1,5 @@
 import React from 'react';
+import InitialsPicture from '../../../initialsPicture'
 
 class AppointmentList extends React.Component {
     constructor(props) {
@@ -35,7 +36,9 @@ class AppointmentList extends React.Component {
             <li onClick={this.openAppointment.bind(this, type, id)}>
                 <a>
                     <span className="icon icon-md consultant-dp">
-                        <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid img-round" />
+                        <InitialsPicture name={(doctor_name || lab_name)} has_image={!!(doctor_thumbnail || lab_thumbnail)} className="initialsPicture-appointment">
+                            <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid img-round" />
+                        </InitialsPicture>
                     </span>
                     <div className="consultant-details">
                         <h4 className="title app-title">{doctor_name || lab_name}</h4>

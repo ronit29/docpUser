@@ -34,8 +34,10 @@ class LeftBar extends React.Component {
                         <div className="profile-img-section" onClick={() => {
                             this.props.history.push('/user')
                         }}>
-                            {/* <InitialsPicture name={profileData.name} /> */}
-                            <img src={profileData.profile_image} className="profile-icon" />
+                            <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture">
+                                <img src={profileData.profile_image} className="profile-icon" />
+                            </InitialsPicture>
+
                         </div>
                         <div className="profile-name-section">
                             <p className="profile-name">{profileData.name}</p>

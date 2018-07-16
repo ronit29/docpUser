@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import InitialsPicture from '../../../commons/initialsPicture'
 
 import LabTests from '../labTests'
 
@@ -21,11 +22,14 @@ class LabDetails extends React.Component {
                             <div className="widget profile-book">
                                 <div className="widget-header pb-header text-center">
                                     <div className="pb-logo">
+                                        <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-lp">
                                         <img src={lab_thumbnail} className="img-fluid" />
+                                        </InitialsPicture>
+                                        
                                     </div>
                                     <h4 className="widget-title pb-title">{name}</h4>
                                     <p className="location">{locality} {city}
-                                    {/* <span className="ct-img ct-img-xs">
+                                        {/* <span className="ct-img ct-img-xs">
                                         <img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" />
                                     </span> */}
                                     </p>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import InitialsPicture from '../../../commons/initialsPicture'
 
 class DoctorProfileCard extends React.Component {
     constructor(props) {
@@ -49,7 +50,10 @@ class DoctorProfileCard extends React.Component {
                         <p><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                     <div className="alpha dr-name">
-                        <img src={thumbnail} className="img-fluid img-round" style={{ height: 65 }} /> {name}
+                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds">
+                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65 }} />
+                        </InitialsPicture>
+                        {name}
                     </div>
                 </div>
                 <div className="widget-content">
