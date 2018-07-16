@@ -38,7 +38,7 @@ class DesktopProfileHeader extends React.Component {
                                     <img src="/assets/img/customer-icons/bell-white.svg" className="header-icons bell-web-icon" />
                                     <span className="header-item-label">Notifications</span>
                                     {
-                                        this.props.newNotification ? <span className="notification-alert">{this.props.notifications.length}</span> : ""
+                                        this.props.newNotification ? <span className="notification-alert-desktop">{this.props.notifications.length}</span> : ""
                                     }
                                     <img src="/assets/img/customer-icons/down-filled.svg" className="header-icons down-web-icon" />
                                 </div>
@@ -64,7 +64,7 @@ class DesktopProfileHeader extends React.Component {
                         <div className="col-3 col-sm-1 d-lg-none bell-icon-div">
                             <img src="/assets/img/customer-icons/bell-white.svg" className="bell-mobile-icon" onClick={this.navigateTo.bind(this, '/notifications')} />
                             {
-                                this.props.newNotification ? <span className="notification-alert">{this.props.notifications.length}</span> : ""
+                                this.props.newNotification ? <span className="notification-alert-mobile">{this.props.notifications.length}</span> : ""
                             }
                         </div>
                         {/* for mobile only ends */}

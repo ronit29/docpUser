@@ -671,3 +671,37 @@ ul.inline-list li {
 .disableddaypill:hover{
     border: none !important;
 }
+
+.notification-alert-desktop{
+    background-color: #ff4800;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    left: 9px;
+    border: 1px solid #fff;
+    top: -8px;
+    padding-bottom: 1px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.notification-alert-mobile{
+    background-color: #ff4800;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    right: 6px;
+    border: 1px solid #fff;
+    top: -8px;
+    padding-bottom: 1px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+}
