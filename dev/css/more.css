@@ -716,3 +716,31 @@ ul.inline-list li {
     font-size: 1em;
     color: #fff;
 }
+
+.circleIndicators{
+    float: right;
+    width: 80%;
+    margin-right: 10%;
+    height: 10px;
+    margin-top: -20px;
+    text-align: center;
+}
+
+.ci{
+    height: 9px;
+    width: 9px;
+    border: 1px solid #ea8431;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.ciselected{
+    height: 9px;
+    width: 9px;
+    background-color: #ea8431 !important;
+    border: 1px solid #ea8431;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: inline-block;
+}
