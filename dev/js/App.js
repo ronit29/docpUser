@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Routes from './routes.js'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-
+import CONFIG from './config'
+const Raven = require('raven-js')
 
 require('../css/carousel.css')
 require('../css/normalize.css')
@@ -39,6 +40,11 @@ class App extends React.Component {
         if (jssStyles && jssStyles.parentNode) {
             jssStyles.parentNode.removeChild(jssStyles);
         }
+        // boot Raven(Sentry logger)
+        if (CONFIG.RAVEN_DSN_KEY) {
+            Raven.config(CONFIG.RAVEN_DSN_KEY).install()
+        }
+
     }
 
     render() {

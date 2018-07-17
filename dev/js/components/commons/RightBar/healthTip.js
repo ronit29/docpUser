@@ -28,7 +28,7 @@ class HealthTip extends React.Component {
                     <span className="appointment-head">Health Tip for the Day</span>
                 </div>
                 <div className="tip-desc-div" style={{ height: 200, overflow: 'hidden' }}>
-                    <p className="tip-desc">{healthTips && healthTips[selected] ? healthTips[selected].text : ""}</p>
+                    <p className="tip-desc">{(healthTips && healthTips[selected]) ? healthTips[selected].text : ""}</p>
                 </div>
                 <div className="tip-desc-div" style={{ marginBottom: -10, marginTop: 20 }}>
                     <img onClick={this.changeTip.bind(this, true)} src="/assets/img/icons/forma-1-copy-3.svg" style={{ cursor: 'pointer', padding: 10 }} />
