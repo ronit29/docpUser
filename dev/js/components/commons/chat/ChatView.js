@@ -29,6 +29,12 @@ class ChatView extends React.Component {
         router: () => null
     }
 
+    dispatchCustomEvent(eventName) {
+        let event = new Event(eventName)
+        let iframe = this.refs.chat_frame
+        iframe.dispatchEvent(event)
+    }
+
     render() {
 
         let symptoms_uri = this.state.symptoms.reduce((str, curr) => {
@@ -65,17 +71,21 @@ class ChatView extends React.Component {
                                                 <p className="chat-profile-desc">Health Assistant</p>
                                             </div>
                                         </div>
-                                        <div className="col-2 chat-icons chat-call-icon">
+                                        <div className="col-2 chat-icons chat-call-icon" onClick={() => {
+                                            this.dispatchCustomEvent.call(this, 'call')
+                                        }}>
                                             <img src="/assets/img/customer-icons/call-white.svg" />
                                         </div>
-                                        <div className="col-2 chat-icons">
+                                        <div className="col-2 chat-icons" onClick={() => {
+                                            this.dispatchCustomEvent.call(this, 'close_frame')
+                                        }}>
                                             <img src="/assets/img/customer-icons/close-white.svg" />
                                         </div>
                                     </div>
                                 </div>
                             </header>
                             <div className="container-fluid chat-container">
-                                <iframe className="chat-iframe" src={`https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`}></iframe>
+                                <iframe className="chat-iframe" src={`https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`} ref="chat_frame"></iframe>
                             </div>
                         </div>
                         <RightBar />
