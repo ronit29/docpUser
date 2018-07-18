@@ -26,7 +26,7 @@ class ClinicSelector extends React.Component {
                                 return <li key={i}>
                                     <div className="widget no-shadow">
                                         <div className="widget-header">
-                                            <h4 className="widget-title text-md fw-700">{hospital.hospital_name} <span className="float-right">Rs {hospital.fees}</span></h4>
+                                            <h4 className="widget-title text-md fw-700">{hospital.hospital_name} <span className="float-right">Rs {hospital.deal_price}</span></h4>
                                         </div>
                                         <div className="widget-content">
                                             <div className="location-details">

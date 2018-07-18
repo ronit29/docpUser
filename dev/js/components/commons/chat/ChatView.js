@@ -4,11 +4,13 @@ import STORAGE from '../../../helpers/storage'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import InitialsPicture from '../../commons/initialsPicture'
 
 class ChatView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            selectedDoctor: null,
             token: "",
             symptoms: []
         }
@@ -23,19 +25,69 @@ class ChatView extends React.Component {
                 this.setState({ token })
             }
         })
-    }
 
-    static contextTypes = {
-        router: () => null
+        if (window) {
+            // handling events sent by iframe
+            window.addEventListener('message', function ({ data }) {
+                if (data) {
+                    switch (data.event) {
+                        case "doctor_id": {
+                            this.setState({ selectedDoctor: data.data })
+                            this.props.getDoctorById(data.data)
+                            break
+                        }
+
+                        case "doctor_search": {
+                            let searchData = {
+                                selectedCriterias: this.props.doctor_search_data.selectedCriterias,
+                                selectedLocation: this.props.doctor_search_data.selectedLocation,
+                            }
+                            searchData = encodeURIComponent(JSON.stringify(searchData))
+                            let filterData = encodeURIComponent(JSON.stringify(this.props.doctor_search_data.filterCriteria))
+                            this.props.history.push(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${""}&hospital_name=${""}`)
+                        }
+
+                        case "lab_search": {
+                            let searchData = {
+                                selectedCriterias: this.props.lab_search_data.selectedCriterias,
+                                selectedLocation: this.props.lab_search_data.selectedLocation,
+                            }
+                            searchData = encodeURIComponent(JSON.stringify(searchData))
+                            let filterData = encodeURIComponent(JSON.stringify(this.props.lab_search_data.filterCriteria))
+                            this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
+                        }
+                    }
+                }
+            }.bind(this))
+        }
     }
 
     dispatchCustomEvent(eventName) {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
         iframe.dispatchEvent(event)
+        iframe.contentWindow.postMessage({ 'event': eventName }, '*')
     }
 
+    openDoctorProfile(doctor_id) {
+        this.props.history.push(`/opd/doctor/${doctor_id}`)
+    }
+
+    getLocation(latitude, longitude, cb) {
+        var latlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) }
+
+        let geocoder = new google.maps.Geocoder
+        geocoder.geocode({ 'location': latlng }, (results, status) => {
+            if (results && results[0]) {
+                this.props.selectLocation(results[0])
+                if (cb) cb()
+            }
+        })
+    }
+
+
     render() {
+        let doctorData = this.props.DOCTORS[this.state.selectedDoctor]
 
         let symptoms_uri = this.state.symptoms.reduce((str, curr) => {
             str += `${curr},`
@@ -62,20 +114,37 @@ class ChatView extends React.Component {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
-                                        <div className="col-6 col-sm-7 chat-header-profile">
-                                            <div className="chat-profile-icon">
-                                                <img src="/assets/img/customer-icons/dummy-profile-sq.jpg" />
-                                            </div>
-                                            <div className="chat-profile-desc-div">
-                                                <p className="chat-profile-name fw-500">Stephny Ray</p>
-                                                <p className="chat-profile-desc">Health Assistant</p>
-                                            </div>
+
+                                        <div className="col-6 col-sm-7 chat-header-profile" onClick={() => {
+                                            if (doctorData) {
+                                                this.openDoctorProfile(this.state.selectedDoctor)
+                                            }
+                                        }} style={{ cursor: 'pointer' }}>
+                                            {
+                                                doctorData ?
+                                                    <div className="chat-profile-icon">
+                                                        <InitialsPicture name={doctorData.name} has_image={!!doctorData.thumbnail} className="chat-profile-icon initialsPicture-cs">
+                                                            <img src={doctorData.thumbnail} />
+                                                        </InitialsPicture>
+
+                                                    </div> : ""
+                                            }
+                                            {
+                                                doctorData ?
+                                                    <div className="chat-profile-desc-div">
+                                                        <p className="chat-profile-name fw-500">{doctorData.name}</p>
+                                                        <p className="chat-profile-desc">Health Assistant</p>
+                                                    </div> : ""
+                                            }
+
                                         </div>
+
                                         <div className="col-2 chat-icons chat-call-icon" onClick={() => {
                                             this.dispatchCustomEvent.call(this, 'call')
                                         }}>
                                             <img src="/assets/img/customer-icons/call-white.svg" />
                                         </div>
+
                                         <div className="col-2 chat-icons" onClick={() => {
                                             this.dispatchCustomEvent.call(this, 'close_frame')
                                         }}>
@@ -90,8 +159,8 @@ class ChatView extends React.Component {
                         </div>
                         <RightBar />
                     </div>
-                </section>
-            </div>
+                </section >
+            </div >
         );
     }
 }

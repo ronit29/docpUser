@@ -22,7 +22,7 @@ class HealthTip extends React.Component {
         let { healthTips } = this.props
 
         return (
-            <div className="right-div-widget health-widget" style={{ paddingBottom: 10 }}>
+            <div className="right-div-widget health-widget" style={{ marginBottom: 10 }}>
                 <div className="appointment-head-div">
                     <img src="/assets/img/customer-icons/health-tip.jpg" />
                     <span className="appointment-head">Health Tip for the Day</span>
