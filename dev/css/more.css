@@ -757,3 +757,22 @@ ul.inline-list li {
     right: 8px;
     font-weight: bold;
 }
+
+.titlearrow{
+    position: absolute;
+    right: 16px;
+    top: 10px;
+}
+
+.titlearrow{
+    position: absolute;
+    right: 16px;
+    top: 10px;
+}
+
+.titlearrow-up{
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    transform: rotate(180deg);
+}

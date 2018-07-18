@@ -1,44 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ExpansionPanel, {
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-} from 'material-ui/ExpansionPanel';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-
-const Widget = ({ heading, contentList }) => {
-    return <li className="expansion-panel-list-item" >
-        <ExpansionPanel>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <div className="title">
-                    {heading}
-                </div>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-                <div className="more-content">
-                    {
-                        contentList.map((cont, i) => {
-                            return <div className="form-group expansion-label-div" key={i}>
-                                <label className="fw-700 text-sm text-primary">{cont.heading}
-                                    <span>
-                                        {i < contentList.length - 1 ? "|" : ""}
-                                    </span>
-                                </label>
-                                <p className="fw-700 text-md text-light">{cont.content}
-                                    <span>
-                                        {i < contentList.length - 1 ? "|" : ""}
-                                    </span>
-                                </p>
-                            </div>
-                        })
-                    }
-                </div>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
-    </li>
-}
-
+import ExpansionPanel from './ExpansionPanel';
 
 class ProfessionalGraph extends React.Component {
 
@@ -58,7 +21,7 @@ class ProfessionalGraph extends React.Component {
                 <div className="panel-content expansion-content pd-0">
                     <ul className="list drop-down-list">
                         {
-                            qualifications ? <Widget
+                            qualifications ? <ExpansionPanel
                                 heading={"Qualification"}
                                 contentList={[
                                     { heading: "Qualification", content: qualifications.qualification },
@@ -69,7 +32,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            languages && languages.length ? <Widget
+                            languages && languages.length ? <ExpansionPanel
                                 heading={"Language"}
                                 contentList={[
                                     {
@@ -83,7 +46,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            awards && awards.length ? <Widget
+                            awards && awards.length ? <ExpansionPanel
                                 heading={"Awards"}
                                 contentList={
                                     awards.map((award) => {
@@ -94,7 +57,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            associations && associations.length ? <Widget
+                            associations && associations.length ? <ExpansionPanel
                                 heading={"Associate Membership"}
                                 contentList={
                                     associations.map((association) => {
@@ -105,7 +68,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            experiences && experiences.length ? <Widget
+                            experiences && experiences.length ? <ExpansionPanel
                                 heading={"Experience"}
                                 contentList={
                                     experiences.map((experience) => {
@@ -116,7 +79,7 @@ class ProfessionalGraph extends React.Component {
                         }
 
                         {
-                            medical_services && medical_services.length ? <Widget
+                            medical_services && medical_services.length ? <ExpansionPanel
                                 heading={"Subscribed Services"}
                                 contentList={
                                     medical_services.map((service) => {
