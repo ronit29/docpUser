@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById } from '../../actions/index.js'
+import { getDoctorById, selectOpdTimeSLot } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 
@@ -20,6 +20,10 @@ class DoctorProfile extends React.Component {
 
     componentDidMount() {
         this.props.getDoctorById(this.props.match.params.id)
+
+        //always clear selected time at doctor profile
+        let slot = { time: {} }
+        this.props.selectOpdTimeSLot(slot, false)
     }
 
     render() {
@@ -33,7 +37,7 @@ class DoctorProfile extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTORS
-    
+
     return {
         DOCTORS
     }
@@ -41,7 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId))
+        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
+        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId))
     }
 }
 

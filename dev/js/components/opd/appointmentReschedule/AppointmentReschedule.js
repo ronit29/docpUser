@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import SnackBar from 'node-snackbar'
 
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import Loader from '../../commons/Loader'
@@ -71,6 +72,7 @@ class AppointmentReschedule extends React.Component {
                         }, 5000)
                     })
                 } else {
+                    SnackBar.show({ pos: 'bottom-left', text: "Appointment Reschduled." })
                     // send back to appointment page
                     this.props.history.replace(`/opd/appointment/${this.props.match.params.refId}`)
                 }

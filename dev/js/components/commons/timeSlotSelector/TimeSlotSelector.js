@@ -52,7 +52,7 @@ class TimeSlotSelector extends React.Component {
             }
         }
 
-        if (ts_selected && this.isTimeSlotAvailable(this.props.selectedSlot.time, selctedDate)) {
+        if (ts_selected && this.isTimeSlotAvailable(this.props.selectedSlot.time, selctedDate, true, ts_selected)) {
             this.setState({
                 timeSeries: days,
                 selectedDay: ts_selected,
@@ -120,10 +120,32 @@ class TimeSlotSelector extends React.Component {
         return foundTs
     }
 
-    isTimeSlotAvailable(ts, selectedDate) {
+    isTimeSlotAvailable(ts, selectedDate, checkInTimslots = false, ts_selected) {
         if (ts.is_available === false) {
             return false
         }
+
+        if (checkInTimslots) {
+            let weekDayNumber = ts_selected.actualDate.getDay()
+            weekDayNumber = weekDayNumber == 0 ? 6 : weekDayNumber - 1
+            let selectedSchedule = this.props.timeSlots[weekDayNumber]
+
+            let found = false
+            if (selectedSchedule && selectedSchedule.length) {
+                selectedSchedule.map((sch, i) => {
+                    sch.timing.map((t, j) => {
+                        if (this.props.selectedSlot.slot == j && this.props.selectedSlot.time.value == t.value) {
+                            found = true
+                        }
+                    })
+                })
+            }
+
+            if (!found) {
+                return false
+            }
+        }
+
         let today = new Date()
         if (today.toDateString() == selectedDate) {
             return ts.value > (today.getHours() + 1)

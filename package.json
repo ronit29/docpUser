@@ -31,6 +31,7 @@
     "node-snackbar": "^0.1.10",
     "passport-linkedin": "^1.0.0",
     "query-string": "^6.1.0",
+    "raven-js": "^3.26.3",
     "rc-slider": "^8.6.1",
     "react": "^16.2.0",
     "react-cropper": "^1.0.1",

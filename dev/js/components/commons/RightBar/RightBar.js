@@ -35,6 +35,7 @@ class RightBar extends React.Component {
         return (
             <div className="col-lg-3 right-section d-none d-lg-block">
                 <div className="sticky-div sticky-div-temp">
+                    <HealthTip healthTips={this.props.healthTips} />
                     {
                         profileData ? this.props.userUpcomingAppointments.map((app, i) => {
                             return <Upcoming key={i} {...app} openAppointment={this.openAppointment.bind(this)} />
@@ -46,9 +47,6 @@ class RightBar extends React.Component {
                             return <ContinueBooking key={i} {...odHistory} openBookingSummary={this.openBookingSummary.bind(this, odHistory)} />
                         }) : ""
                     }
-
-                    <HealthTip healthTips={this.props.healthTips} />
-
                 </div>
             </div>
         );

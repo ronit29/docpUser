@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../commons/initialsPicture'
+import SnackBar from 'node-snackbar'
 
 import TestDetail from './testDetail'
 import Loader from '../../commons/Loader'
@@ -41,6 +42,7 @@ class BookingView extends React.Component {
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
                     this.setState({ data: data.data, loading: false })
+                    SnackBar.show({ pos: 'bottom-left', text: "Appointment reschedule success." });
                 } else {
                     this.setState({ loading: false })
                 }
@@ -91,7 +93,7 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
-        this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true`)
+        this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data == 'is_home_pickup' ? 'home' : 'lab'}`)
     }
 
     navigateTo(where, e) {

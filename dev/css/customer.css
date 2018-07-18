@@ -255,7 +255,7 @@
 .add-details{margin-top: 8px;}
 
 .drop-down-list>li{font-size: 16px; font-weight: 500; padding: 10px; border-bottom:1px solid #ddd;}
-.drop-down-list>li .title{font-size: 16px; font-weight: 500;}
+.drop-down-list>li .title{font-size: 16px; font-weight: 500;position: relative;}
 .drop-down-list>li .title span{margin-top: 10px;}
 
 /*clinic list*/

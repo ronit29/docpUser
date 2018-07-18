@@ -111,7 +111,7 @@ app.use(function (req, res) {
     res.sendFile('index.html', { root: './dist/' })
 })
 
-server.listen(3000, (err) => {
+server.listen(process.env.PORT || 3000, (err) => {
     if (err) {
         return console.error(err);
     }
