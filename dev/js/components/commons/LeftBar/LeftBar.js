@@ -30,7 +30,7 @@ class LeftBar extends React.Component {
         return (
             <div className="col-lg-3 profile-section d-none d-lg-block">
                 {
-                    profileData ? <div className="sticky-div sticky-div-temp">
+                    profileData ? <div className={"sticky-div" + (!this.props.hideStickyTemp ? " sticky-div-temp" : "")}>
                         <div className="profile-img-section" onClick={() => {
                             this.props.history.push('/user')
                         }}>

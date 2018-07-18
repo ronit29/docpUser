@@ -665,7 +665,7 @@
 }
 
 .health-widget{
-	margin-top: 20px;
+	/* margin-top: 20px; */
 }
 
 .tip-desc-div{
@@ -718,7 +718,7 @@
 }
 
 .profile-footer{
-	width: 100vw;
+	width: 100%;
 	background-color: #ffffff;
 	margin-top: 40px;
 }

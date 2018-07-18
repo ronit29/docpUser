@@ -106,7 +106,7 @@ class EditProfile extends React.Component {
         return (
             <div>
 
-                <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
+                <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header" style={{ zIndex: 8 }}>
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-2">
@@ -125,7 +125,7 @@ class EditProfile extends React.Component {
                     </div>
                 </header>
 
-                <section className="consumer-profile-update sticky-header-3">
+                <section className="consumer-profile-update sticky-header-3" style={{ zIndex: 8 }}>
                     <div className="nav-tab">
                         <ul className="inline-list tab-items">
                             <li style={{ marginLeft: 0, marginRight: 0 }} onClick={() => {

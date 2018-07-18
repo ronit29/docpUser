@@ -5,7 +5,7 @@ export default ({ doctor_name, lab_name, hospital_name, openBookingSummary, doct
     return <a href="javascript:;">
         <div className="right-div-widget health-widget" onClick={() => {
             openBookingSummary()
-        }}>
+        }} style={{ marginBottom: 10 }}>
             <div className="appointment-head-div">
                 <span className="appointment-head">Continue Booking {lab_name ? "Lab" : "Doctor"}</span>
             </div>

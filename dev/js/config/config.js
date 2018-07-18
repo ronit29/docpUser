@@ -18,10 +18,11 @@ const PROD_CONFIG = {
 }
 
 const DEV_CONFIG = {
-    API_BASE_URL: 'http://10.0.28.32:8080',
-    // API_BASE_URL: 'http://localhost:8080',
+    // API_BASE_URL: 'http://10.0.28.32:8080',
+    API_BASE_URL: 'http://localhost:8080',
     // API_BASE_URL: "https://qa.docprime.com",
-    SOCKET_BASE_URL: "http://10.0.28.32:4444",
+    // SOCKET_BASE_URL: "http://10.0.28.32:4444",
+    SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io"
 }
 
