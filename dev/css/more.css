@@ -744,3 +744,16 @@ ul.inline-list li {
     margin-left: 10px;
     display: inline-block;
 }
+.arrow-custom-right{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+.appointment-status{
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    font-weight: bold;
+}

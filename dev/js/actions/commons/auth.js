@@ -90,8 +90,10 @@ export const registerUser = (postData, cb) => (dispatch) => {
 
 export const logout = (postData, cb) => (dispatch) => {
     STORAGE.deleteAuth().then(() => {
-        // send to login page
-        NAVIGATE.navigateTo('/')
+        setTimeout(() => {
+            // send to login page
+            NAVIGATE.navigateTo('/')
+        }, 100)
         // clear entire store (initially peristed)
     })
 }
