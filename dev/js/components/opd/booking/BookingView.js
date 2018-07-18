@@ -150,7 +150,7 @@ class BookingView extends React.Component {
                                             <div className="col-12">
                                                 <div className="app-timeline book-confirmed-timeline">
                                                     {
-                                                        (status == 1 || status == 6) ? "" :
+                                                        (status == 1 || status == 6) ? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4> :
 
                                                             <ul className="inline-list">
                                                                 <li className={status < 5 ? "active" : ""}>
