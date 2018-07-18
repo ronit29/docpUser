@@ -26,15 +26,17 @@ class ClinicSelector extends React.Component {
                                 return <li key={i}>
                                     <div className="widget no-shadow">
                                         <div className="widget-header">
-                                            <h4 className="widget-title text-md fw-700">{hospital.hospital_name} <span className="float-right">Rs {hospital.fees}</span></h4>
+                                            <h4 className="widget-title text-md fw-700 clinic-selector-name">{hospital.hospital_name}</h4>
+                                            <span className="float-right text-md fw-700">Rs {hospital.fees}</span>
+                                            <div style={{clear: 'both'}}></div>
                                         </div>
                                         <div className="widget-content">
                                             <div className="location-details">
-                                                <InitialsPicture name={hospital.hospital_name} has_image={!!hospital.hospital_thumbnail} className="initialsPicture-dpl">
-                                                    <img src={hospital.hospital_thumbnail} className="img-fluid" />
-                                                </InitialsPicture>
-
                                                 <p className="address">{hospital.address}</p>
+                                                <div style={{float: 'right'}} >
+                                                    <img src="/assets/img/customer-icons/map-icon.png" />
+                                                </div>
+                                                <div style={{clear: 'both'}}></div>
                                             </div>
                                             <div className="timing-details">
                                                 {
@@ -49,7 +51,7 @@ class ClinicSelector extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="text-center" style={{ marginTop: 25 }}>
+                                        <div className="text-center" style={{ marginTop: 12 }}>
                                             <button className="v-btn v-btn-primary outline" onClick={this.selectClinic.bind(this, hospital.hospital_id)}>Book Now</button>
                                         </div>
                                     </div>

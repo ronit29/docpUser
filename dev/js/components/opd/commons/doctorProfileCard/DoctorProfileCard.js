@@ -40,6 +40,8 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h4 className="dr-name">{name}</h4>
+                </div>
+                <div style={{display: 'block', width: '100%', marginTop: 10}}>
                     <p className="desg">{this.getQualificationStr(qualifications)}</p>
                     <p className="add-details">{experience_years} Years of Experince</p>
                     <p className="add-details">{expStr}</p>
