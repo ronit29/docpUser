@@ -41,7 +41,7 @@ class ProfileData extends React.Component {
                                     <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
-                                    <h4 className="title app-title">OPD Visit
+                                    <h4 className="title app-title">My Appointments
                                         {/* <span className="float-right badge badge-warning">1</span> */}
                                     </h4>
                                 </div>
@@ -89,6 +89,18 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        <li onClick={() => {
+                            this.props.history.push('/wallet')
+                        }} className="my-profile-item">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/transaction.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">My Transactions</h4>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
