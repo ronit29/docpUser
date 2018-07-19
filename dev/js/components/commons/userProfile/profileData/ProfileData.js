@@ -101,6 +101,18 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
+                        <li onClick={() => {
+                            this.props.history.push('/user/address')
+                        }} className="my-profile-item">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src="/assets/img/customer-icons/address.svg" className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">Manage Address</h4>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

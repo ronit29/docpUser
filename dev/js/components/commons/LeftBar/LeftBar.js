@@ -130,6 +130,16 @@ class LeftBar extends React.Component {
                                         <p className="profile-feature-name">My Transactions</p>
                                     </div>
                                 </li>
+                                <li onClick={() => {
+                                    this.props.history.push('/user/address')
+                                }}>
+                                    <div className="list-inline-div list-img-div">
+                                        <img src="/assets/img/customer-icons/address.svg" className="profile-list-icons" />
+                                    </div>
+                                    <div className="list-inline-div">
+                                        <p className="profile-feature-name">Manage Address</p>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div> : <div className="sticky-div loggedOut-div">

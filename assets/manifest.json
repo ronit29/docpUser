@@ -6,9 +6,14 @@
     "gcm_sender_id": "103953800507",
     "icons": [
         {
-            "src": "/assets/appicon_consumer.png",
+            "src": "/assets/logo-v-1@3x.png",
             "type": "image/png",
             "sizes": "192x192"
+        },
+        {
+            "src": "/assets/appicon_consumer.png",
+            "type": "image/png",
+            "sizes": "128x128"
         }
     ]
 }
