@@ -54,35 +54,38 @@ class DoctorProfileCard extends React.Component {
                             <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, marginRight: 4 }} />
                             {name}
                         </InitialsPicture>
-                        {!!!thumbnail ? name : ""}
-
+                        {!!!thumbnail ? <p style={{ display: 'inline-block', width: '60%', verticalAlign: 'middle' }} >{name}</p> : ""}
                     </div>
                 </div>
                 <div className="widget-content">
-                    <div className="beta other-info text-right">
+                    <div className="alpha dr-exp-details">
+                        <p className="dr-desg text-md">{this.getQualificationStr(qualifications)}</p>
+                        <p className="text-sm fw-500 text-light">{experience_years} Years of Experince</p>
+                        <p className="text-light dr-desg">{expStr}</p>
+                    </div>
+                    <div className="dr-card-book text-right">
                         <button className="v-btn v-btn-primary btn-sm">Book Now</button>
                         <div className="pricing">
                             <p className="text-primary fw-700 new-price">Rs {deal_price} <span className="old-price">Rs {mrp}</span></p>
                         </div>
                     </div>
-                    <div className="alpha dr-exp-details">
-                        <p className="dr-desg text-md">{this.getQualificationStr(qualifications)}</p>
-                        <p className="text-sm fw-500 text-light">{experience_years} Years of Experince</p>
-                        <p className="text-sm fw-500 text-light">{expStr}</p>
-                    </div>
                 </div>
                 <div className="widget-footer card-footer">
-                    <div className="row">
+                    <div className="row dr-result-card-row">
                         <div className="col-6">
-                            <p><img src="/assets/img/customer-icons/home.svg" className="img-fluid" /><span className="Clinc-name">{hospital.hospital_name} <br />
+                            <img src="/assets/img/customer-icons/home.svg" className="img-fluid" />
+                            <p className="Clinc-name">{hospital.hospital_name}
                                 {
                                     hospital_count > 1 ?
                                         <span> &amp; {hospital_count - 1} More </span> : ''
                                 }
-                            </span></p>
+                            </p>
                         </div>
                         <div className="col-6">
-                            <p><img src="/assets/img/customer-icons/clock-black.svg" className="img-fluid" /><span className="time-availability">{Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}</span></p>
+                            <img src="/assets/img/customer-icons/clock-black.svg" className="img-fluid" />
+                            <p className="time-availability">
+                                {Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,7 @@ class ExpansionPanel extends React.Component {
         return (
             <li className="expansion-panel-list-item" >
                 <div>
-                    <div className="title" onClick={this.toggleOpen.bind(this)}>
+                    <div className="title" onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0 }} >
                         {heading}
                         {
                             this.state.open ? <img className="titlearrow-up" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img className="titlearrow" src="/assets/img/customer-icons/dropdown-arrow.svg" />
@@ -31,17 +31,37 @@ class ExpansionPanel extends React.Component {
                     {
                         this.state.open ? <div className="more-content">
                             {
-                                contentList.map((cont, i) => {
-                                    return <div className="form-group expansion-label-div" key={i}>
-                                        <label className="fw-700 text-sm text-primary">{cont.heading}
-                                            <span>
-                                                {i < contentList.length - 1 ? "|" : ""}
-                                            </span>
+                                this.props.qulification ? contentList.map((cont, i) => {
+                                    return <div className="form-group expansion-label-div" key={i} style={{marginTop: 10}} >
+                                        <label className="fw-700 text-sm text-primary">Qualification
+                                            <span>| &nbsp;</span>
                                         </label>
-                                        <p className="fw-700 text-md text-light">{cont.content}
-                                            <span>
+                                        <label className="fw-700 text-sm text-primary">Specialization
+                                            <span>| &nbsp;</span>
+                                        </label>
+                                        <label className="fw-700 text-sm text-primary">College
+                                        </label>
+
+                                        <p className="fw-700 text-md text-light" style={{display: 'inline-block'}}>{cont.qualification}</p>
+                                        <span className="fw-700 text-md text-light" style={{verticalAlign: -5}}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                        <p className="fw-700 text-md text-light" style={{display: 'inline-block'}}>{cont.specialization}</p>
+                                        <span className="fw-700 text-md text-light" style={{verticalAlign: -5}}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                        <p className="fw-700 text-md text-light" style={{display: 'inline-block'}}>{cont.college}</p>
+                                    </div>
+                                }) : contentList.map((cont, i) => {
+                                    return <div className="expansion-label-div" key={i}>
+                                        {
+                                            cont.heading ? <label className="fw-700 text-sm text-primary">{cont.heading}
+                                                {/* <span>
+                                            {i < contentList.length - 1 ? "|" : ""}
+                                        </span> */}
+                                            </label> : ""
+                                        }
+
+                                        <p className="fw-700 text-md text-light" style={{ lineHeight: '20px' }} >{cont.content}
+                                            {/* <span>
                                                 {i < contentList.length - 1 ? "|" : ""}
-                                            </span>
+                                            </span> */}
                                         </p>
                                     </div>
                                 })

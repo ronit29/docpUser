@@ -23,11 +23,12 @@ class ProfessionalGraph extends React.Component {
                         {
                             qualifications ? <ExpansionPanel
                                 heading={"Qualification"}
-                                contentList={[
-                                    { heading: "Qualification", content: qualifications.qualification },
-                                    { heading: "Specialization", content: qualifications.specialization },
-                                    { heading: "College", content: qualifications.college }
+                                contentList={[ qualifications, qualifications
+                                    // { heading: "Qualification", content: qualifications.qualification },
+                                    // { heading: "Specialization", content: qualifications.specialization },
+                                    // { heading: "College", content: qualifications.college }
                                 ]}
+                                qulification={true}
                             /> : ""
                         }
 
@@ -36,7 +37,7 @@ class ProfessionalGraph extends React.Component {
                                 heading={"Language"}
                                 contentList={[
                                     {
-                                        heading: "Known Language", content: languages.reduce((final, curr) => {
+                                        heading: "", content: languages.reduce((final, curr) => {
                                             final += `${curr.language} | `
                                             return final
                                         }, "")

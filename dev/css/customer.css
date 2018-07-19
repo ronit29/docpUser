@@ -230,25 +230,27 @@
 .search-dr-list .dr-name{ font-size: 16px; font-weight: bold;}
 
 .search-dr-list .dr-info{padding-bottom: 0;}
+.dr-card-book{margin-top: 16px;}
 
-.search-dr-list .beta.other-info{}
-.search-dr-list .alpha.dr-exp-details{padding-right: 130px;}
-.search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.search-dr-list .alpha.dr-exp-details{padding-right: 0px;}
+.search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; height: 36px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+.dr-result-card-row{align-items: center; margin-left: 0; margin-right: 0}
+.dr-result-card-row .col-6{padding-left: 0; padding-right: 0;}
 
 .pricing{padding-top: 10px;}
 .pricing .new-price{ font-size: 16px; font-weight: 500;color: #f78631;}
 .pricing .old-price{color: #757575; font-weight: 400; font-size: 12px; text-decoration: line-through;vertical-align: 2px;}
 
 .search-dr-list .time-availability,
-.search-dr-list .Clinc-name{padding-left: 7px; display: inline-block; font-size: 12px; font-weight: bold;}
+.search-dr-list .Clinc-name{padding-left: 4px; display: inline-block; font-size: 12px; font-weight: bold; vertical-align: middle; width: 85%}
 .time-availability, .Clinc-name{vertical-align: bottom}
 .search-dr-list{cursor: pointer}
 
 /*doctor profile screen*/
 .dr-profile-screen{padding-bottom: 50px;}
-.dr-qucik-info{display: flex; flex-wrap: wrap;}
+.dr-qucik-info{display: flex; flex-wrap: wrap}
 .dr-profile-screen .dr-qucik-info img{height: 80px; width: 80px;}
-.dr-qucik-info .dr-profile {padding-left: 12px; width: 69%;}
+.dr-qucik-info .dr-profile {padding-left: 12px; width: 65%;}
 .dr-qucik-info .dr-profile .dr-name{font-size: 18px; font-weight: bold; margin: 6px 0;}
 .dr-qucik-info .dr-profile .desg{font-size: 14px; font-weight: 500; margin: 6px 0;}
 .dr-qucik-info .dr-profile .add-details{font-size: 12px; font-weight: 500; color: #757575; margin: 6px 0;}

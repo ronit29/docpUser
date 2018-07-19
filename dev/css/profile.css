@@ -1116,6 +1116,7 @@
 
 .payment-amt-value{
 	float: right;
+	font-weight: 500;
 }
 
 @media(max-width: 992px){
