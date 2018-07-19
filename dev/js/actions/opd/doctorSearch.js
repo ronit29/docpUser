@@ -3,13 +3,30 @@ import { API_GET, API_POST } from '../../api/api.js';
 
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
+	let dedupe_ids = {}
 	let specialization_ids = searchState.selectedCriterias
-		.filter(x => x.type == 'speciality')
+		.reduce((final, x) => {
+			final = final || []
+			if (x.specialization && x.type == "condition") {
+				final = [...final, ...x.specialization]
+			} else if (x.type == "speciality") {
+				final.push(x.id)
+			}
+			return final
+		}, [])
+		.filter((x) => {
+			if (dedupe_ids[x]) {
+				return false
+			} else {
+				dedupe_ids[x] = true
+				return true
+			}
+		})
 		.reduce((finalStr, curr, i) => {
 			if (i != 0) {
 				finalStr += ','
 			}
-			finalStr += `${curr.id}`
+			finalStr += `${curr}`
 			return finalStr
 		}, "")
 

@@ -32,20 +32,22 @@ class LeftBar extends React.Component {
                 {
                     profileData ? <div className={"sticky-div" + (!this.props.hideStickyTemp ? " sticky-div-temp" : "")}>
                         <div className="profile-img-section" onClick={() => {
-                            this.props.history.push('/user')
+                            this.props.history.push(`/user/edit/${this.props.defaultProfile}`)
                         }}>
                             <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture">
                                 <img src={profileData.profile_image} className="profile-icon" />
                             </InitialsPicture>
 
                         </div>
-                        <div className="profile-name-section">
-                            <p className="profile-name">{profileData.name}</p>
-                            <div className="profile-info-section">
-                                <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" />
-                                <span className="profile-info-web">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)}</span>
-                            </div>
-                        </div>
+                        {
+                            !profileData.isDummyUser ? <div className="profile-name-section">
+                                <p className="profile-name">{profileData.name}</p>
+                                <div className="profile-info-section">
+                                    <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" />
+                                    <span className="profile-info-web">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)}</span>
+                                </div>
+                            </div> : ""
+                        }
                         <div className="profile-feature-list-section">
                             <ul className="profile-feature-list">
                                 {/* <li>
@@ -76,7 +78,7 @@ class LeftBar extends React.Component {
                                         <img src="/assets/img/customer-icons/opd-visit.svg" className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
-                                        <p className="profile-feature-name">OPD Visits</p>
+                                        <p className="profile-feature-name">My Appointments</p>
                                     </div>
                                     {/* <div className="last-list-div list-no-div">
                                     <p className="list-no">8</p>
@@ -120,6 +122,26 @@ class LeftBar extends React.Component {
                                     <p className="profile-feature-name">Lifestyle</p>
                                 </div>
                             </li> */}
+                                <li onClick={() => {
+                                    this.props.history.push('/wallet')
+                                }}>
+                                    <div className="list-inline-div list-img-div">
+                                        <img src="/assets/img/customer-icons/transaction.svg" className="profile-list-icons" />
+                                    </div>
+                                    <div className="list-inline-div">
+                                        <p className="profile-feature-name">My Transactions</p>
+                                    </div>
+                                </li>
+                                <li onClick={() => {
+                                    this.props.history.push('/user/address')
+                                }}>
+                                    <div className="list-inline-div list-img-div">
+                                        <img src="/assets/img/customer-icons/address.svg" className="profile-list-icons" />
+                                    </div>
+                                    <div className="list-inline-div">
+                                        <p className="profile-feature-name">Manage Address</p>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div> : <div className="sticky-div loggedOut-div">

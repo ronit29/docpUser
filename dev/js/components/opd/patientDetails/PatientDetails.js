@@ -123,7 +123,7 @@ class PatientDetails extends React.Component {
             }
         }
 
-        if (this.props.selectedProfile) {
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
 
@@ -218,8 +218,8 @@ class PatientDetails extends React.Component {
 
 
                             <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
-                                !(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile) || this.state.loading
-                            } disabled={this.state.loading} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
+                                !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                            } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
 
                         </div>
 

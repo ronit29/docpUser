@@ -44,7 +44,7 @@ class UserFamily extends React.Component {
             <div className="widget-content">
                 <ul className="list family-list">
                     {
-                        Object.keys(profiles).map((id, key) => {
+                        Object.keys(profiles).filter(x => !profiles[x].isDummyUser).map((id, key) => {
                             return <li key={key} onClick={this.editProfile.bind(this, id)}>
                                 <a>
                                     <span className="icon icon-lg member-icon">

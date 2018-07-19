@@ -85,6 +85,10 @@ class ChatView extends React.Component {
         })
     }
 
+    closeChat() {
+        this.props.history.go(-1)
+    }
+
 
     render() {
         let doctorData = this.props.DOCTORS[this.state.selectedDoctor]
@@ -147,6 +151,7 @@ class ChatView extends React.Component {
 
                                         <div className="col-2 chat-icons" onClick={() => {
                                             this.dispatchCustomEvent.call(this, 'close_frame')
+                                            this.closeChat()
                                         }}>
                                             <img src="/assets/img/customer-icons/close-white.svg" />
                                         </div>
