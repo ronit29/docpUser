@@ -132,7 +132,7 @@ class UserSignupView extends React.Component {
 
                             <section className="validation-book-screen">
 
-                                <div style={stepperStyle}>
+                                {/* <div style={stepperStyle}>
                                     <div className="col-12">
                                         <div className="app-timeline book-confirmed-timeline">
                                             <ul className="inline-list">
@@ -150,7 +150,7 @@ class UserSignupView extends React.Component {
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {
                                     !this.state.showMedical ?

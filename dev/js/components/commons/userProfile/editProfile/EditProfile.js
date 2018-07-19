@@ -125,18 +125,18 @@ class EditProfile extends React.Component {
                     </div>
                 </header>
 
-                <section className="consumer-profile-update sticky-header-3" style={{ zIndex: 8 }}>
+                {/* <section className="consumer-profile-update sticky-header-3" style={{ zIndex: 8 }}>
                     <div className="nav-tab">
                         <ul className="inline-list tab-items">
                             <li style={{ marginLeft: 0, marginRight: 0 }} onClick={() => {
                                 this.setState({ selectedTab: 0 })
                             }} className={this.state.selectedTab === 0 ? "active" : ""}><a className="link-text text-xs uppercase">Basic Profile</a></li>
-                            {/* <li style={{marginLeft: 0, marginRight: 0}} onClick={() => {
+                            <li style={{marginLeft: 0, marginRight: 0}} onClick={() => {
                                 this.setState({ selectedTab: 1 })
-                            }} className={this.state.selectedTab === 1 ? "active" : ""}><a className="link-text text-xs uppercase">Medical</a></li> */}
+                            }} className={this.state.selectedTab === 1 ? "active" : ""}><a className="link-text text-xs uppercase">Medical</a></li>
                         </ul>
                     </div>
-                </section>
+                </section> */}
 
                 {this.getComp()}
                 {
