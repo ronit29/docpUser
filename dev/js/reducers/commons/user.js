@@ -1,5 +1,14 @@
 import { APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
 
+const DUMMY_PROFILE = {
+    gender: "m",
+    id: 999999,
+    is_default_user: true,
+    name: "User",
+    dob: new Date(),
+    isDummyUser: true
+}
+
 const defaultState = {
     profiles: {},
     appointments: {},
@@ -23,6 +32,17 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 profiles: { ...state.profiles }
+            }
+
+            // add a dummy profile to keep system in working state
+            // TODO: do this better way
+            if (action.payload && action.payload.length == 0) {
+                action.payload.push(DUMMY_PROFILE)
+            } else {
+                if (newState.profiles[DUMMY_PROFILE.id]) {
+                    delete newState.profiles[DUMMY_PROFILE.id]
+                    newState.selectedProfile = null
+                }
             }
 
             newState.profiles = action.payload.reduce((profileMap, profile) => {

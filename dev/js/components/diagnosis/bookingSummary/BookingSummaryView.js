@@ -62,7 +62,7 @@ class BookingSummaryView extends React.Component {
 
     getSelectors() {
         let patient = null
-        if (this.props.selectedProfile) {
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
 
@@ -153,7 +153,7 @@ class BookingSummaryView extends React.Component {
         let patient = null
         let is_home_pickup_available = true
 
-        if (this.props.selectedProfile) {
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
 
@@ -288,8 +288,8 @@ class BookingSummaryView extends React.Component {
                                         }
 
                                         <button data-disabled={
-                                            (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedProfile && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
-                                        } disabled={this.state.loading} onClick={this.proceed.bind(this, tests.length, (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
+                                            (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
+                                        } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
 
                                     </div> : <Loader />
                             }

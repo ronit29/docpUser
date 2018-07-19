@@ -39,13 +39,15 @@ class LeftBar extends React.Component {
                             </InitialsPicture>
 
                         </div>
-                        <div className="profile-name-section">
-                            <p className="profile-name">{profileData.name}</p>
-                            <div className="profile-info-section">
-                                <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" />
-                                <span className="profile-info-web">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)}</span>
-                            </div>
-                        </div>
+                        {
+                            !profileData.isDummyUser ? <div className="profile-name-section">
+                                <p className="profile-name">{profileData.name}</p>
+                                <div className="profile-info-section">
+                                    <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" />
+                                    <span className="profile-info-web">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)}</span>
+                                </div>
+                            </div> : ""
+                        }
                         <div className="profile-feature-list-section">
                             <ul className="profile-feature-list">
                                 {/* <li>
