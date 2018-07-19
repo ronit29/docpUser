@@ -34,7 +34,7 @@ class RightBar extends React.Component {
 
         return (
             <div className="col-lg-3 right-section d-none d-lg-block">
-                <div className="sticky-div sticky-div-temp">
+                <div className={"sticky-div" + (!this.props.hideStickyTemp ? " sticky-div-temp" : "")}>
                     <HealthTip healthTips={this.props.healthTips} />
                     {
                         profileData ? this.props.userUpcomingAppointments.map((app, i) => {

@@ -64,7 +64,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail } = this.props.data
+        let { doctor_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name } = this.props.data
 
         let date = new Date(time_slot_start)
 
@@ -80,8 +80,8 @@ class AppointmentList extends React.Component {
                         <h4 className="title app-title">{doctor_name || lab_name}</h4>
                         <ul className="list">
                             <li><span className="ct-img ct-img-xs"><img src="/assets/img/icons/calendar.svg" className="img-fluid" /></span>{date.toDateString()} </li>
-                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/clock.svg" className="img-fluid" /></span>{this.getTime(time_slot_start)} to {this.getTime(time_slot_end)}</li>
-                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/icons/user.svg" className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>Patient Name</li>
+                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/clock.svg" className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
+                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/icons/user.svg" className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
                         </ul>
                         <div className="view-chat text-right">
                             {

@@ -103,6 +103,7 @@
     flex-direction: column;
     text-align: center;
     height: 100vh;
+    width: 100%;
 }
 
 .loaderactual{
@@ -787,4 +788,17 @@ ul.inline-list li {
     right: 16px;
     top: 10px;
     transform: rotate(180deg);
+}
+
+.initialsPicture-cs{
+    height: 40px;
+    margin-right: 4px;
+    width: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #fff;
 }

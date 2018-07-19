@@ -119,7 +119,7 @@ class HomeView extends React.Component {
                 <div className="subheader d-none d-lg-block"></div>
                 <section className="container">
                     <div className="row main-row">
-                        <LeftBar />
+                        <LeftBar hideStickyTemp={true} />
 
                         <div className="col-md-1 d-none d-md-block d-lg-none"></div>
 
@@ -177,7 +177,7 @@ class HomeView extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar hideStickyTemp={true} />
                     </div>
                 </section>
 
