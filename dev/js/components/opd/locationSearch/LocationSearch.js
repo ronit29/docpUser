@@ -43,7 +43,7 @@ class LocationSearch extends React.Component {
 
     selectLocation(location) {
         let map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: -33.867, lng: 151.195 },
+            center: { lat: 28, lng: 77 },
             zoom: 15
         })
         let service = new google.maps.places.PlacesService(map);
