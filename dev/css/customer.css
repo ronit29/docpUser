@@ -233,7 +233,7 @@
 .dr-card-book{margin-top: 16px;}
 
 .search-dr-list .alpha.dr-exp-details{padding-right: 0px;}
-.search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; height: 36px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+.search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; height: auto; max-height: 36px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 .dr-result-card-row{align-items: center; margin-left: 0; margin-right: 0}
 .dr-result-card-row .col-6{padding-left: 0; padding-right: 0;}
 

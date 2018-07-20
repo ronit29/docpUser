@@ -36,9 +36,10 @@ class LabProfileCard extends React.Component {
                     </div>
                     <div className="book-card-content">
                         <h4 className="book-cart-title">{lab.name}</h4>
-                        <p className="desc">
+                        <p className="fw-500" style={{color: '#343434', fontSize: 13, marginBottom: 4}} >Radiology | Pathology</p>
+                        <p style={{color: '#626262', fontSize: 13, marginBottom: 4}}>
                             {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
-                            <br /> {lab.locality} {lab.city} | <span className="text-primary fw-700">{distance / 1000} KM</span>
+                            {lab.locality} {lab.city} | <span><img src="/assets/img/icons/location-orange.svg" /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
                         </p>
                     </div>
                 </div>
