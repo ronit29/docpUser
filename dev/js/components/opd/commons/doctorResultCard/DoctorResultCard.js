@@ -51,7 +51,7 @@ class DoctorProfileCard extends React.Component {
                     </div>
                     <div className="alpha dr-name">
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds">
-                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, marginRight: 4 }} />
+                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 4 }} />
                             {name}
                         </InitialsPicture>
                         {!!!thumbnail ? <p style={{ display: 'inline-block', width: '60%', verticalAlign: 'middle' }} >{name}</p> : ""}
@@ -72,7 +72,7 @@ class DoctorProfileCard extends React.Component {
                 </div>
                 <div className="widget-footer card-footer">
                     <div className="row dr-result-card-row">
-                        <div className="col-6">
+                        <div className="col-6 col-sm-7">
                             <img src="/assets/img/customer-icons/home.svg" className="img-fluid" />
                             <p className="Clinc-name">{hospital.hospital_name}
                                 {
@@ -81,7 +81,7 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </p>
                         </div>
-                        <div className="col-6">
+                        <div className="col-6 col-sm-5 time-availability-div">
                             <img src="/assets/img/customer-icons/clock-black.svg" className="img-fluid" />
                             <p className="time-availability">
                                 {Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}

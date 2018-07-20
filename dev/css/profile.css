@@ -149,8 +149,8 @@
 .profile-info{
 	color: #fff;
 	font-size: 16px;
-	margin-top: 8px;
-	margin-bottom: 8px;
+	margin-top: 4px;
+	margin-bottom: 4px;
 }
 
 .profile-name{
@@ -683,7 +683,7 @@
 }
 
 .doc-img-div{
-	margin-right: 8px;
+	margin-right: 4px;
 	display: inline-block;
 }
 

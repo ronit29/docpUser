@@ -16,7 +16,7 @@ export default ({ doctor_name, lab_name, hospital_name, openBookingSummary, doct
                     </InitialsPicture>
 
                 </div>
-                <div className="doc-img-div">
+                <div className="doc-img-div" style={{marginRight: 0, width: '82%'}}>
                     <p className="doc-name">{doctor_name || lab_name}</p>
                     {
                         hospital_name ? <p className="hospital-name">{hospital_name}</p> : ""

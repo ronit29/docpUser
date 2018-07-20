@@ -415,7 +415,7 @@ ul.inline-list li {
 }
 
 .expansion-panel-list-item{
-    padding: 12px !important;
+    padding: 15px 10px !important;
 }
 
 .expansion-panel-list-item:last-child{
@@ -538,7 +538,7 @@ ul.inline-list li {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4em;
+    font-size: 3em;
     color: #fff;
 }
 
@@ -787,4 +787,14 @@ ul.inline-list li {
     justify-content: center;
     font-size: 1.5em;
     color: #fff;
+}
+
+@media(min-width: 576px){
+    .time-availability-div{
+        text-align: right;
+    }
+
+    .time-availability-div>p{
+        width: auto !important;
+    }
 }

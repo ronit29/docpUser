@@ -110,17 +110,19 @@
 
 /*book card*/
 .card{margin-bottom: 10px;}
-.card-content .logo-ratting{  float: right; width: 105px; text-align: right;}
+.card-content .logo-ratting{  float: right; width: 100px; text-align: center;}
 .ratting{display: block;}
 .pickup-btn{padding: 5px; color: #000; background-color: #fad688; font-size: 12px; font-weight: 500;}
-.card-content .logo-ratting  .lab-icon{display: block; text-align: right;}
+.card-content .logo-ratting  .lab-icon{display: block; text-align: center;}
 .card-content .logo-ratting  .lab-icon img{width: 65px}
 .ratting>li{margin-right: -4px;}
 .card .card-footer{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;}
 .logo-ratting{}
 
-.book-card-content{padding-right: 110px;}
-.book-cart-title{font-size: 17px; font-weight: bold;color: #263077; margin-bottom: 5px;}
+.lab-locality{color: '#626262'; font-size: 13px; margin-bottom: 4; height: auto; max-height: 34px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+
+.book-card-content{padding-right: 100px;}
+.book-cart-title{font-size: 17px; font-weight: bold;color: #263077; margin-bottom: 5px; height: auto; max-height: 44px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 
 .lab-price{font-size: 16px; font-weight: 500;color: #263077; padding-top: 3px;}
 
@@ -233,7 +235,7 @@
 .dr-card-book{margin-top: 16px;}
 
 .search-dr-list .alpha.dr-exp-details{padding-right: 0px;}
-.search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; height: 36px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+.search-dr-list .dr-exp-details .dr-desg{font-size: 14px; font-weight: 500; margin-bottom: 4px; height: auto; max-height: 36px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 .dr-result-card-row{align-items: center; margin-left: 0; margin-right: 0}
 .dr-result-card-row .col-6{padding-left: 0; padding-right: 0;}
 
@@ -265,8 +267,6 @@
 .Clinic-card-list>li{ border: solid 1px rgba(0, 0, 0, 0.3); border-radius: 8px}
 .Clinic-card-list>li .location-details img{width: 40px;}
 .Clinic-card-list>li .location-details .address{float: left; font-size: 14px; font-weight: bold; color: #757575; margin-top: 3px; width: 70%; height: 44px; white-space: normal; text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
-
-.drop-down-list .more-content p{padding-left: 10px}
 
 .timing-details{margin-top: 25px;}
 .timing-details>p{margin-bottom: 10px;width: 100%; white-space: normal;}
