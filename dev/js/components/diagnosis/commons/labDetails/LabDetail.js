@@ -56,7 +56,7 @@ class LabDetails extends React.Component {
                                         <p className="add-info">{address}</p>
                                     </div>
                                     <div className="pb-view text-left">
-                                        <a href={`https://www.google.com/maps/search/?api=1&query=${long},${lat}`} className="link-text text-md fw-700" target="_blank">View in Google Map</a>
+                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700" target="_blank">View in Google Map</a>
                                     </div>
                                 </div>
                                 {/* <div className="widget-content pb-details pb-facility">
