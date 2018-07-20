@@ -46,15 +46,15 @@ class DoctorProfileCard extends React.Component {
         return (
             <div className="widget card search-dr-list" onClick={this.cardClick.bind(this, id)}>
                 <div className="widget-header dr-info">
+                    <div className="alpha dr-name">
+                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds" style={{display: 'flex', flex: 1, flexWrap: 'wrap', alignItems: 'center'}}>
+                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 4}} />
+                            <p style={{flex: 1}} >{name}</p>
+                        </InitialsPicture>
+                        {!!!thumbnail ? <p>{name}</p> : ""}
+                    </div>
                     <div className="rating-address beta">
                         <p><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>{hospital.address}</p>
-                    </div>
-                    <div className="alpha dr-name">
-                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds">
-                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 4 }} />
-                            {name}
-                        </InitialsPicture>
-                        {!!!thumbnail ? <p style={{ display: 'inline-block', width: '60%', verticalAlign: 'middle' }} >{name}</p> : ""}
                     </div>
                 </div>
                 <div className="widget-content">

@@ -36,7 +36,7 @@ class InitialsPicture extends React.Component {
 
     render() {
         let style = this.props.style || {}
-        style['backgroundColor'] = this.state.bgColor
+
         let initial = "U"
         let name = this.props.name
         if (name && name.length) {
@@ -49,8 +49,9 @@ class InitialsPicture extends React.Component {
             }
         }
         if (this.props.has_image) {
-            return <div>{this.props.children}</div>
+            return <div style={style} >{this.props.children}</div>
         } else {
+            style['backgroundColor'] = this.state.bgColor
             return (
                 <div className={this.props.className} style={style}>
                     <span>{initial.toUpperCase()}</span>

@@ -219,19 +219,18 @@
 .search-Dr-Screen .drList>li{padding: 6px  0;}
 .search-Dr-Screen .drList>li>a{font-size: 14px; font-weight: 500;}
 
-
-
 /*doctor search result*/
 .search-result-dr{padding-top: 160px;}
 
 .search-dr-list{}
 .search-dr-list .dr-header{}
 
-.search-dr-list .beta{float: right;}
-.search-dr-list .alpha{padding-right: 83px;}
+.search-dr-list .alpha{flex: 1;}
 .search-dr-list .dr-name{ font-size: 16px; font-weight: bold;}
 
-.search-dr-list .dr-info{padding-bottom: 0;}
+.search-dr-list .beta{position: absolute; right: 10px;top: 8px;}
+
+.search-dr-list .dr-info{padding-bottom: 0;position: relative;display: flex;padding-top: 20px;}
 .dr-card-book{margin-top: 16px;}
 
 .search-dr-list .alpha.dr-exp-details{padding-right: 0px;}
