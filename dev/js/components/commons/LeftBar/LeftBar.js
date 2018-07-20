@@ -62,7 +62,9 @@ class LeftBar extends React.Component {
                                     <p className="last-list-div-text">Active</p>
                                 </div>
                             </li> */}
-                                <li>
+                                <li onClick={() => {
+                                    this.props.history.push('/chat')
+                                }}>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/message.svg" className="profile-list-icons" />
                                     </div>

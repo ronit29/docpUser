@@ -25,7 +25,9 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li className="my-profile-item">
+                        <li className="my-profile-item" onClick={() => {
+                            this.props.history.push('/chat')
+                        }}>
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src="/assets/img/customer-icons/message.svg" className="img-fluid" />
