@@ -69,7 +69,7 @@ class AppointmentList extends React.Component {
         let date = new Date(time_slot_start)
 
         return (
-            <li onClick={this.openAppointment.bind(this, type, id)} style={{ position: 'relative', paddingTop: 20 }}>
+            <li onClick={this.openAppointment.bind(this, type, id)} style={{ position: 'relative', paddingTop: 25 }}>
                 <a>
                     <span className="icon icon-md consultant-dp">
                         <InitialsPicture name={(doctor_name || lab_name)} has_image={!!(doctor_thumbnail || lab_thumbnail)} className="initialsPicture-appointment">
@@ -79,9 +79,9 @@ class AppointmentList extends React.Component {
                     <div className="consultant-details">
                         <h4 className="title app-title">{doctor_name || lab_name}</h4>
                         <ul className="list">
-                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/icons/calendar.svg" className="img-fluid" /></span>{date.toDateString()} </li>
-                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/clock.svg" className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
-                            <li><span className="ct-img ct-img-xs"><img src="/assets/img/icons/user.svg" className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
+                            <li style={{marginBottom: 2}} ><span className="ct-img ct-img-xs"><img src="/assets/img/icons/calendar.svg" className="img-fluid" /></span>{date.toDateString()} </li>
+                            <li style={{marginBottom: 2}} ><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/clock.svg" className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
+                            <li style={{marginBottom: 2}} ><span className="ct-img ct-img-xs"><img src="/assets/img/icons/user.svg" className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
                         </ul>
                         <div className="view-chat text-right">
                             {

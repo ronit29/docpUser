@@ -415,7 +415,7 @@ ul.inline-list li {
 }
 
 .expansion-panel-list-item{
-    padding: 12px !important;
+    padding: 15px 10px !important;
 }
 
 .expansion-panel-list-item:last-child{
