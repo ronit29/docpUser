@@ -678,13 +678,19 @@
 	font-weight: 500;
 }
 
-.booking-details-div{
-	margin-top: 20px;
+.booking-details-div {
+    margin-top: 20px;
+    display: flex;
 }
 
 .doc-img-div{
-	margin-right: 4px;
-	display: inline-block;
+	width: 30px;
+    height: 30px;
+}
+
+.doc-desc-div{
+	flex: 1;
+    margin-left: 8px;
 }
 
 .doc-img{

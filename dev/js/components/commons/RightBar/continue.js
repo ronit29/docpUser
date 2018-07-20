@@ -14,9 +14,8 @@ export default ({ doctor_name, lab_name, hospital_name, openBookingSummary, doct
                     <InitialsPicture name={(lab_name || doctor_name)} has_image={!!(doctor_thumbnail || lab_thumbanail)} className="initialsPicture-cb">
                         <img src="/assets/img/customer-icons/doc-profile.jpg" style={{ width: 30, height: 30 }} className="doc-img" />
                     </InitialsPicture>
-
                 </div>
-                <div className="doc-img-div" style={{marginRight: 0, width: '82%'}}>
+                <div className="doc-desc-div">
                     <p className="doc-name">{doctor_name || lab_name}</p>
                     {
                         hospital_name ? <p className="hospital-name">{hospital_name}</p> : ""
