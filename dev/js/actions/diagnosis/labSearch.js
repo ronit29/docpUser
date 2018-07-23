@@ -4,13 +4,31 @@ import { API_GET, API_POST } from '../../api/api.js';
 
 export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
 
+	let dedupe_ids = {}
 	let testIds = searchState.selectedCriterias
-		.filter(x => x.type == 'test')
+		.reduce((final, x) => {
+			final = final || []
+			if (x.test && x.type == "condition") {
+				let test_ids = x.test.map(x => x.id) || []
+				final = [...final, ...test_ids]
+			} else if (x.type == "test") {
+				final.push(x.id)
+			}
+			return final
+		}, [])
+		.filter((x) => {
+			if (dedupe_ids[x]) {
+				return false
+			} else {
+				dedupe_ids[x] = true
+				return true
+			}
+		})
 		.reduce((finalStr, curr, i) => {
 			if (i != 0) {
 				finalStr += ','
 			}
-			finalStr += `${curr.id}`
+			finalStr += `${curr}`
 			return finalStr
 		}, "")
 

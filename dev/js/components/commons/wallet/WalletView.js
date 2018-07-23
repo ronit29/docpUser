@@ -16,7 +16,7 @@ class WalletView extends React.Component {
 
     render() {
 
-        let { userWalletBalance, userTransactions } = this.props
+        let { user_wallet_balance, user_transactions } = this.props
 
         return (
             <div className="profile-body-wrap">
@@ -47,7 +47,7 @@ class WalletView extends React.Component {
                                         <p className="transactions-head">Total Credits</p>
                                     </div>
                                     <div className="col-12 balance-info-col">
-                                        <p className="current-balance fw-500">{userWalletBalance}</p>
+                                        <p className="current-balance fw-500">{user_wallet_balance}</p>
                                     </div>
                                     <div className="col-12 credit-tip text-center">
                                         <p>You could use this credit to book Appointments with Doctors or Diagnostic Centers</p>

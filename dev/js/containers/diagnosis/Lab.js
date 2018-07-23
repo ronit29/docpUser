@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, selectLabTimeSLot } from '../../actions/index.js'
+import { getLabById, selectLabTimeSLot, toggleDiagnosisCriteria } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -19,8 +19,31 @@ class Lab extends React.Component {
     }
 
     componentDidMount() {
-        let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
-        this.props.getLabById(this.props.match.params.id, tests)
+        let dedupe_ids = {}
+        let testIds = this.props.selectedCriterias
+            .reduce((final, x) => {
+                final = final || []
+                if (x.test && x.type == "condition") {
+                    let test_ids = x.test.map((x) => {
+                        x.extra_test = true
+                        this.props.toggleDiagnosisCriteria('test', x, true)
+                        return x.id
+                    }) || []
+                    final = [...final, ...test_ids]
+                } else if (x.type == "test") {
+                    final.push(x.id)
+                }
+                return final
+            }, [])
+            .filter((x) => {
+                if (dedupe_ids[x]) {
+                    return false
+                } else {
+                    dedupe_ids[x] = true
+                    return true
+                }
+            })
+        this.props.getLabById(this.props.match.params.id, testIds)
 
         //always clear selected time at lab profile
         let slot = { time: {} }
@@ -55,7 +78,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd))
     }
 }
 
