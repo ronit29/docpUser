@@ -149,6 +149,7 @@
 
 .pb-details,
 .pb-header{border-bottom:1px solid #ddd;}
+.pb-details:last-child{border: none}
 
 .pb-header .location{color: #f78631; font-size: 14px; font-weight: 500; margin-bottom: 10px;}
 .profile-book .time-contact{}
@@ -228,7 +229,8 @@
 .search-dr-list .alpha{flex: 1;}
 .search-dr-list .dr-name{ font-size: 16px; font-weight: bold;}
 
-.search-dr-list .beta{position: absolute; right: 10px;top: 8px;}
+.search-dr-list .beta{position: absolute; right: 10px;top: 8px;width: 50%;text-align: right;}
+.search-dr-list .beta>p{width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis}
 
 .search-dr-list .dr-info{padding-bottom: 0;position: relative;display: flex;padding-top: 20px;}
 .dr-card-book{margin-top: 16px;}

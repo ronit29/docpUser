@@ -49,7 +49,7 @@ class DoctorProfileCard extends React.Component {
                     <div className="alpha dr-name">
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds" style={{display: 'flex', flex: 1, flexWrap: 'wrap', alignItems: 'center'}}>
                             <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 4}} />
-                            <p style={{flex: 1}} >{name}</p>
+                            <p style={{flex: 1}}>{name}</p>
                         </InitialsPicture>
                         {!!!thumbnail ? <p>{name}</p> : ""}
                     </div>
