@@ -49,11 +49,11 @@ class InitialsPicture extends React.Component {
             }
         }
         if (this.props.has_image) {
-            return <div style={style} >{this.props.children}</div>
+            return <div style={style} onClick={this.props.onClick || (() => { })}>{this.props.children}</div>
         } else {
             style['backgroundColor'] = this.state.bgColor
             return (
-                <div className={this.props.className} style={style}>
+                <div className={this.props.className} style={style} onClick={this.props.onClick || (() => { })}>
                     <span>{initial.toUpperCase()}</span>
                 </div>
             )

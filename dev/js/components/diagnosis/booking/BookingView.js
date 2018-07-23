@@ -206,7 +206,7 @@ class BookingView extends React.Component {
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
                                                             <div className="address-details">
-                                                                <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-lb">
+                                                                <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-lb" onClick={this.navigateTo.bind(this, `/lab/${lab.id}`)}>
                                                                     <img style={{ width: 50, height: 50 }} src={lab_thumbnail} className="img-fluid add-map" />
                                                                 </InitialsPicture>
 
