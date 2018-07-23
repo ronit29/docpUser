@@ -47,18 +47,17 @@ class DoctorProfileCard extends React.Component {
             <div className="widget card search-dr-list" onClick={this.cardClick.bind(this, id)}>
                 <div className="widget-header dr-info">
                     <div className="alpha dr-name">
-                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds" style={{display: 'flex', flex: 1, flexWrap: 'wrap', alignItems: 'center'}}>
-                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 4}} />
-                            <p style={{flex: 1}}>{name}</p>
+                        <InitialsPicture name={name} has_image={false && !!thumbnail} className="initialsPicture-ds">
+                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 8}} />
                         </InitialsPicture>
-                        {!!!thumbnail ? <p>{name}</p> : ""}
+                        <p style={{flex: 1}}>{name}</p>
                     </div>
                     <div className="rating-address beta">
                         <p><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                 </div>
                 <div className="widget-content">
-                    <div className="alpha dr-exp-details">
+                    <div className="dr-exp-details">
                         <p className="dr-desg text-md">{this.getQualificationStr(qualifications)}</p>
                         <p className="text-sm fw-500 text-light">{experience_years} Years of Experince</p>
                         <p className="text-light dr-desg">{expStr}</p>
