@@ -47,7 +47,7 @@ class DoctorProfileCard extends React.Component {
             <div className="widget card search-dr-list" onClick={this.cardClick.bind(this, id)}>
                 <div className="widget-header dr-info">
                     <div className="alpha dr-name">
-                        <InitialsPicture name={name} has_image={false && !!thumbnail} className="initialsPicture-ds">
+                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds">
                             <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 8}} />
                         </InitialsPicture>
                         <p style={{flex: 1}}>{name}</p>
