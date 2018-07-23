@@ -32,7 +32,11 @@ class LeftBar extends React.Component {
                 {
                     profileData ? <div className={"sticky-div" + (!this.props.hideStickyTemp ? " sticky-div-temp" : "")}>
                         <div className="profile-img-section" onClick={() => {
-                            this.props.history.push(`/user/edit/${this.props.defaultProfile}`)
+                            if (profileData.isDummyUser) {
+                                this.props.history.push(`/addprofile?existing=true`)
+                            } else {
+                                this.props.history.push(`/user/edit/${this.props.defaultProfile}`)
+                            }
                         }}>
                             <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture">
                                 <img src={profileData.profile_image} className="profile-icon" />

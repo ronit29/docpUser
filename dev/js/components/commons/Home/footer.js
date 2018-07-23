@@ -223,6 +223,8 @@ class Footer extends React.Component {
                             <a href="javascript:;"><li className="list-inline-item">CONTACT US</li></a>
                             <li className="list-inline-item">|</li>
                             <a href="javascript:;"><li className="list-inline-item">TERMS OF USE</li></a>
+                            <li className="list-inline-item">|</li>
+                            <a href="javascript:;"><li className="list-inline-item">MEDIA</li></a>
                         </ul>
                     </div>
                 </div>

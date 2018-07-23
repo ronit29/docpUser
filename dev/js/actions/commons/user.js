@@ -199,9 +199,16 @@ export const fetchArticles = (cb) => (dispatch) => {
 	})
 }
 
-
 export const fetchArticle = (id, cb) => (dispatch) => {
 	API_GET(`/api/v1/article/detail/${id}`).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const fetchPgData = (id, cb) => (dispatch) => {
+	API_GET(`/api/v1/user/pgdata/${id}`).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);

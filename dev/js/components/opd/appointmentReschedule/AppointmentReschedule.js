@@ -6,7 +6,6 @@ import DoctorProfileCard from '../commons/doctorProfileCard'
 import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
 import ChoosePatient from './choosePatient'
-import PaymentForm from '../../commons/paymentForm'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -59,18 +58,21 @@ class AppointmentReschedule extends React.Component {
         this.props.updateOPDAppointment(appointmentData, (err, data) => {
             if (!err) {
                 if (data.payment_required) {
-                    this.setState({
-                        paymentData: data.data
-                    }, () => {
-                        setTimeout(() => {
-                            let form = document.getElementById('paymentForm')
-                            form.submit()
-                        }, 500)
+                    // send to payment selection page
+                    this.props.history.push(`/payment/${data.data.orderId}`)
+                    
+                    // this.setState({
+                    //     paymentData: data.data
+                    // }, () => {
+                    //     setTimeout(() => {
+                    //         let form = document.getElementById('paymentForm')
+                    //         form.submit()
+                    //     }, 500)
 
-                        setTimeout(() => {
-                            this.setState({ loading: false })
-                        }, 5000)
-                    })
+                    //     setTimeout(() => {
+                    //         this.setState({ loading: false })
+                    //     }, 5000)
+                    // })
                 } else {
                     SnackBar.show({ pos: 'bottom-left', text: "Appointment Reschduled." })
                     // send back to appointment page
@@ -194,8 +196,6 @@ class AppointmentReschedule extends React.Component {
 
                                     </div> : <Loader />
                             }
-
-                            <PaymentForm paymentData={this.state.paymentData} />
 
                             {
                                 this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""

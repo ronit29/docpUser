@@ -5,37 +5,6 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 
 
-const DUMMY_HTML = `
-<div class="profile-body-wrap">
-		<header class="profile-header" style="display: block;">
-			<div class="smiley-img-div">
-				<img src="img/customer-icons/smiley.png">
-			</div>
-			<div class="container">
-				<div class="row header-row">
-					<div class="col-12 text-center logo-icon-div">
-						<a href="javascript:;"><img src="img/doc-prime-logo.png" class="logo-icon"></a>
-					</div>
-				</div>
-			</div>
-		</header>
-		<div class="subheader"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-md-10 offset-md-1">
-					<div class="error-widget text-center">
-						<p class="error-head fw-500">404</p>
-						<img src="img/icons/error.png">
-						<p class="error-text fw-500">Page not found !</p>
-						<p class="error-link">Go to <a href="javascript:;">docprime homepage</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-`
-
-
 class Article extends React.Component {
     constructor(props) {
         super(props)
