@@ -11,10 +11,7 @@ class SelectedClinic extends React.Component {
 
     getQualificationStr(qualificationSpecialization) {
         return qualificationSpecialization.reduce((str, curr, i) => {
-            str += `${curr.qualification}`
-            if (curr.specialization) {
-                str += ` - ${curr.specialization}`
-            }
+            str += `${curr.name}`
             if (i < qualificationSpecialization.length - 1) str += `, `;
             return str
         }, "")
@@ -22,7 +19,7 @@ class SelectedClinic extends React.Component {
 
     render() {
 
-        let { name, qualifications, hospitals, thumbnail } = this.props.selectedDoctor
+        let { name, qualifications, hospitals, thumbnail, general_specialization } = this.props.selectedDoctor
         let hospitalName = ""
 
         if (hospitals && hospitals.length) {
@@ -42,7 +39,7 @@ class SelectedClinic extends React.Component {
 
                     <div className="dr-profile">
                         <h4 className="dr-name">{name}</h4>
-                        <p className="desg">{this.getQualificationStr(qualifications)}</p>
+                        <p className="desg">{this.getQualificationStr(general_specialization) || []}</p>
                         <h4 className="dr-name clinic-name mrt-10 text-sm">{hospitalName}</h4>
                     </div>
                 </div>

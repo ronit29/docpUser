@@ -9,10 +9,7 @@ class DoctorProfileCard extends React.Component {
 
     getQualificationStr(qualificationSpecialization) {
         return qualificationSpecialization.reduce((str, curr, i) => {
-            str += `${curr.qualification}`
-            if (curr.specialization) {
-                str += ` - ${curr.specialization}`
-            }
+            str += `${curr.name}`
             if (i < qualificationSpecialization.length - 1) str += `, `;
             return str
         }, "")
@@ -20,7 +17,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { name, experience_years, qualifications, thumbnail, experiences } = this.props.details
+        let { name, experience_years, qualifications, thumbnail, experiences, general_specialization } = this.props.details
 
         let expStr = ""
 
@@ -41,9 +38,11 @@ class DoctorProfileCard extends React.Component {
                 <div className="dr-profile">
                     <h4 className="dr-name">{name}</h4>
                 </div>
-                <div style={{display: 'block', width: '100%', marginTop: 10}}>
-                    <p className="desg">{this.getQualificationStr(qualifications)}</p>
-                    <p className="add-details">{experience_years} Years of Experince</p>
+                <div style={{ display: 'block', width: '100%', marginTop: 10 }}>
+                    <p className="desg">{this.getQualificationStr(general_specialization || [])}</p>
+                    {
+                        experience_years ? <p className="add-details">{experience_years} Years of Experince</p> : ""
+                    }
                     <p className="add-details">{expStr}</p>
                 </div>
             </div>

@@ -49,10 +49,7 @@ class BookingView extends React.Component {
 
     getQualificationStr(qualificationSpecialization) {
         return qualificationSpecialization.reduce((str, curr, i) => {
-            str += `${curr.qualification}`
-            if (curr.specialization) {
-                str += ` - ${curr.specialization}`
-            }
+            str += `${curr.name}`
             if (i < qualificationSpecialization.length - 1) str += `, `;
             return str
         }, "")
@@ -200,7 +197,7 @@ class BookingView extends React.Component {
                                                                 <img src={doctor_thumbnail} style={{ width: 50, marginTop: -28 }} className="img-fluid add-map img-round" />
                                                             </InitialsPicture>
 
-                                                            <p className="add-info fw-500">{this.getQualificationStr(doctor.qualifications)}</p>
+                                                            <p className="add-info fw-500">{this.getQualificationStr(doctor.general_specialization || [])}</p>
                                                         </div>
                                                     </div>
                                                     <div className="widget-content pb-details pb-location">

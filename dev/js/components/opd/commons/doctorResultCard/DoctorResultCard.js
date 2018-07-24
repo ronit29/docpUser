@@ -18,10 +18,7 @@ class DoctorProfileCard extends React.Component {
 
     getQualificationStr(qualificationSpecialization) {
         return qualificationSpecialization.reduce((str, curr, i) => {
-            str += `${curr.qualification}`
-            if (curr.specialization) {
-                str += ` - ${curr.specialization}`
-            }
+            str += `${curr.name}`
             if (i < qualificationSpecialization.length - 1) str += `, `;
             return str
         }, "")
@@ -30,7 +27,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization } = this.props.details
 
         let hospital = hospitals[0]
         let expStr = ""
@@ -48,9 +45,9 @@ class DoctorProfileCard extends React.Component {
                 <div className="widget-header dr-info">
                     <div className="alpha dr-name">
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds">
-                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 8}} />
+                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 8 }} />
                         </InitialsPicture>
-                        <p style={{flex: 1}}>{name}</p>
+                        <p style={{ flex: 1 }}>{name}</p>
                     </div>
                     <div className="rating-address beta">
                         <p><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>{hospital.address}</p>
@@ -58,8 +55,10 @@ class DoctorProfileCard extends React.Component {
                 </div>
                 <div className="widget-content">
                     <div className="dr-exp-details">
-                        <p className="dr-desg text-md">{this.getQualificationStr(qualifications)}</p>
-                        <p className="text-sm fw-500 text-light">{experience_years} Years of Experince</p>
+                        <p className="dr-desg text-md">{this.getQualificationStr(general_specialization || [])}</p>
+                        {
+                            experience_years ? <p className="text-sm fw-500 text-light">{experience_years} Years of Experince</p> : ""
+                        }
                         <p className="text-light dr-desg">{expStr}</p>
                     </div>
                     <div className="dr-card-book text-right">
