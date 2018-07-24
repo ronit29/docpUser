@@ -137,7 +137,7 @@ class TestSelectorView extends React.Component {
                                                             <div className="detect-my-locaiton">
                                                                 <span className="ct-img ct-img-xs" />
                                                                 {selectedTests.length} Selected Item
-                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -219,17 +219,14 @@
 }
 
  .profile-info{
-  width: 100%;
-  overflow: scroll;
-  display: inline-flex;
-
+    width: 100%;
+    display: inline-flex;
 } 
 
 .loaderPagination{
     text-align: center;
     margin: 20px 0;
 }
-
 
 .selectedpill{
     border-color: #ffffff !important;
@@ -416,6 +413,7 @@ ul.inline-list li {
 
 .expansion-panel-list-item{
     padding: 15px 10px !important;
+    cursor: pointer;
 }
 
 .expansion-panel-list-item:last-child{
@@ -797,4 +795,41 @@ ul.inline-list li {
     .time-availability-div>p{
         width: auto !important;
     }
+}
+
+.mobile-home-icon-div{
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    cursor: pointer;
+}
+
+.mobile-home-icon{
+    width: 100%;
+}
+
+@media(min-width: 500px){
+    .mobile-home-icon-div{
+        right: 0;
+    }
+}
+
+@media(min-width: 992px){
+    .mobile-home-icon-div, .mobile-logout-text{
+        display: none;
+    }
+}
+
+figure>img{
+    width: 100%;
+}
+
+.mobile-logout-text{
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: -15px;
+    line-height: 50px;
 }

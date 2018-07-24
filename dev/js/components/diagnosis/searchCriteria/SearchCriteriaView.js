@@ -45,7 +45,6 @@ class SearchCriteriaView extends React.Component {
                             /> : ""
                         }
 
-
                         <CommonlySearched
                             heading="Common Test"
                             type="test"
