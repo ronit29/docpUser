@@ -150,7 +150,7 @@ class LeftBar extends React.Component {
                                 </li>
                             </ul>
                         </div>
-                    </div> : <div className="sticky-div loggedOut-div sticky-div-temp">
+                    </div> : <div className={"sticky-div loggedOut-div" + (!this.props.hideStickyTemp ? " sticky-div-temp" : "")}>
                             <div className="dummy-img-section">
                                 <img src="/assets/img/icons/dummy-profile.svg" className="dummy-icon" />
                             </div>
