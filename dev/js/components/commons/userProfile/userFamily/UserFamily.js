@@ -55,7 +55,13 @@ class UserFamily extends React.Component {
                                     <div className="member-details">
                                         <h4 className="title app-title">{profiles[id].name}</h4>
                                         <ul className="list">
-                                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/man.svg" className="img-fluid" /></span>{GENDER[profiles[id].gender]}, {this.getAge(profiles[id].dob)}</li>
+                                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                                                <span className="ct-img ct-img-xs">
+                                                    {
+                                                        profiles[id].gender == 'm' ?
+                                                            <img src="/assets/img/customer-icons/man.svg" className="img-fluid" /> : <img src="/assets/img/customer-icons/man.svg" style={{ transform: 'rotate(135deg)' }} className="img-fluid" />
+                                                    }
+                                                </span>{GENDER[profiles[id].gender]}, {this.getAge(profiles[id].dob)}</li>
                                             <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
                                         </ul>
                                     </div>

@@ -139,8 +139,8 @@ export default function (state = defaultState, action) {
                 userTransactions: state.userTransactions ? [].concat(state.userTransactions) : [],
             }
 
-            newState.userTransactions = action.payload.transactions
-            newState.userWalletBalance = action.payload.balance
+            newState.userTransactions = action.payload.user_transactions
+            newState.userWalletBalance = action.payload.user_wallet_balance
 
             return newState
 

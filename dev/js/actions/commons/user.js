@@ -163,6 +163,14 @@ export const fetchTransactions = (cb) => (dispatch) => {
 	})
 }
 
+export const refundWallet = (cb) => (dispatch) => {
+	API_POST(`/api/v1/user/refund`, {}).then(function (response) {
+		fetchTransactions(cb)(dispatch)
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
 export const fetchHeatlhTip = (cb) => (dispatch) => {
 	API_GET(`/api/v1/doctor/healthtips`).then(function (response) {
 		dispatch({

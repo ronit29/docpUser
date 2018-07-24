@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Transactions from './transactions'
-
+import Loader from '../Loader'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -10,13 +10,20 @@ class WalletView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            loading: false
         }
+    }
+
+    refund() {
+        this.setState({ loading: true })
+        this.props.refundWallet((err, data) => {
+            this.setState({ loading: false })
+        })
     }
 
     render() {
 
-        let { user_wallet_balance, user_transactions } = this.props
+        let { userWalletBalance, userTransactions } = this.props
 
         return (
             <div className="profile-body-wrap">
@@ -41,26 +48,29 @@ class WalletView extends React.Component {
                                 </div>
                             </header>
 
-                            <div className="container-fluid">
-                                <div className="row refund-info-row">
-                                    <div className="col-12 transactions-head-col text-center">
-                                        <p className="transactions-head">Total Credits</p>
+                            {
+                                this.state.loading ? <Loader /> : <div className="container-fluid">
+                                    <div className="row refund-info-row">
+                                        <div className="col-12 transactions-head-col text-center">
+                                            <p className="transactions-head">Total Credits</p>
+                                        </div>
+                                        <div className="col-12 balance-info-col">
+                                            <p className="current-balance fw-500">{userWalletBalance}</p>
+                                        </div>
+                                        <div className="col-12 credit-tip text-center">
+                                            <p>You could use this credit to book Appointments with Doctors or Diagnostic Centers</p>
+                                            <p>1 credit = 1 Rupee</p>
+                                        </div>
+                                        {
+                                            (userWalletBalance > 0) ? <div className="refund-btn-div">
+                                                <button className="refund-btn" onClick={this.refund.bind(this)}>Refund</button>
+                                            </div> : ""
+                                        }
+                                        <div className="col-12 credit-tip text-center">
+                                            <p>You can refund manually else your money will be automatically refunded to your bank account in 24 hours</p>
+                                        </div>
                                     </div>
-                                    <div className="col-12 balance-info-col">
-                                        <p className="current-balance fw-500">{user_wallet_balance}</p>
-                                    </div>
-                                    <div className="col-12 credit-tip text-center">
-                                        <p>You could use this credit to book Appointments with Doctors or Diagnostic Centers</p>
-                                        <p>1 credit = 1 Rupee</p>
-                                    </div>
-                                    <div className="refund-btn-div">
-                                        <button className="refund-btn">Refund</button>
-                                    </div>
-                                    <div className="col-12 credit-tip text-center">
-                                        <p>You can refund manually else your money will be automatically refunded to your bank account in 24 hours</p>
-                                    </div>
-                                </div>
-                                {/* <div className="row">
+                                    {/* <div className="row">
                                     <div className="col-12 transactions-head-col">
                                         <p className="transactions-head fw-500">Transactions</p>
                                     </div>
@@ -72,13 +82,14 @@ class WalletView extends React.Component {
                                 <Transactions />
                                 <Transactions /> */}
 
-                            </div>
+                                </div>
+                            }
 
                         </div>
                         <RightBar />
                     </div>
                 </section>
-            </div>
+            </div >
         );
     }
 }
