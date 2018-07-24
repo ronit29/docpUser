@@ -11,7 +11,7 @@ let axiosInstance = Axios.create({
 });
 
 function rejectHandler(response, callback) {
-    if (response && response.response && (response.response.status == 401 || response.response.status == 403)) {
+    if (response && response.response && (response.response.status == 401)) {
         STORAGE.deleteAuth().then(() => {
             // send to login page
             NAVIGATE.navigateTo('/')
@@ -19,7 +19,7 @@ function rejectHandler(response, callback) {
         })
     }
 
-    if(response.response && response.response.data && response.response.data.request_errors){
+    if (response.response && response.response.data && response.response.data.request_errors) {
         response = response.response.data.request_errors
     }
 
