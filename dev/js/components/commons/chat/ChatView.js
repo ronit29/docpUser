@@ -5,6 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import InitialsPicture from '../../commons/initialsPicture'
+import CancelPopup from './cancelPopup'
 
 class ChatView extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class ChatView extends React.Component {
         this.state = {
             selectedDoctor: null,
             token: "",
-            symptoms: []
+            symptoms: [],
+            showCancel: false
         }
     }
 
@@ -29,6 +31,7 @@ class ChatView extends React.Component {
         if (window) {
             // handling events sent by iframe
             window.addEventListener('message', function ({ data }) {
+                console.log("MESSAGE RECEIVED AT CLIENT SIDE - ", data)
                 if (data) {
                     switch (data.event) {
                         case "doctor_id": {
@@ -45,6 +48,7 @@ class ChatView extends React.Component {
                             searchData = encodeURIComponent(JSON.stringify(searchData))
                             let filterData = encodeURIComponent(JSON.stringify(this.props.doctor_search_data.filterCriteria))
                             this.props.history.push(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${""}&hospital_name=${""}`)
+                            break
                         }
 
                         case "lab_search": {
@@ -55,6 +59,7 @@ class ChatView extends React.Component {
                             searchData = encodeURIComponent(JSON.stringify(searchData))
                             let filterData = encodeURIComponent(JSON.stringify(this.props.lab_search_data.filterCriteria))
                             this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
+                            break
                         }
                     }
                 }
@@ -86,7 +91,14 @@ class ChatView extends React.Component {
     }
 
     closeChat() {
+        this.dispatchCustomEvent.call(this, 'close_frame')
         this.props.history.go(-1)
+    }
+
+    toggleCancel(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.setState({ showCancel: !this.state.showCancel })
     }
 
 
@@ -149,10 +161,7 @@ class ChatView extends React.Component {
                                             <img src="/assets/img/customer-icons/call-white.svg" />
                                         </div>
 
-                                        <div className="col-2 chat-icons" onClick={() => {
-                                            this.dispatchCustomEvent.call(this, 'close_frame')
-                                            this.closeChat()
-                                        }}>
+                                        <div className="col-2 chat-icons" onClick={this.toggleCancel.bind(this)}>
                                             <img src="/assets/img/customer-icons/close-white.svg" />
                                         </div>
                                     </div>
@@ -161,6 +170,9 @@ class ChatView extends React.Component {
                             <div className="container-fluid chat-container">
                                 <iframe className="chat-iframe" src={`https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`} ref="chat_frame"></iframe>
                             </div>
+                            {
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
+                            }
                         </div>
                         <RightBar />
                     </div>

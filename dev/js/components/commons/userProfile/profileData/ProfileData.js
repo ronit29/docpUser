@@ -33,7 +33,7 @@ class ProfileData extends React.Component {
                                     <img src="/assets/img/customer-icons/message.svg" className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
-                                    <h4 className="title app-title">Online Consultant</h4>
+                                    <h4 className="title app-title">Online Consultation</h4>
                                 </div>
                             </a>
                         </li>

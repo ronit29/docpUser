@@ -46,17 +46,21 @@ class UserSignupView extends React.Component {
             let validated = false
             switch (this.refs[prp].name) {
                 case "name": {
-                    validated = !/[^a-zA-Z0-9 ]/.test(this.refs[prp].value)
+                    if (!this.refs[prp].value) {
+                        validated = false
+                    } else {
+                        validated = !/[^a-zA-Z0-9 ]/.test(this.refs[prp].value)
+                    }
                     break
                 }
-                case "phone_number": {
-                    validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
-                    break
-                }
-                case "email": {
-                    validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
-                    break
-                }
+                // case "phone_number": {
+                //     validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
+                //     break
+                // }
+                // case "email": {
+                //     validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
+                //     break
+                // }
                 case "age": {
                     validated = this.refs[prp].value > 0 && this.refs[prp].value < 100
                     break
@@ -66,7 +70,7 @@ class UserSignupView extends React.Component {
                     break
                 }
             }
-            if (this.refs[prp].value && validated) {
+            if (validated) {
                 this.refs[prp].style.border = ''
             } else {
                 this.refs[prp].style.border = '1px solid red'

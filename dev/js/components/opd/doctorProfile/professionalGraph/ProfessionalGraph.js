@@ -13,7 +13,7 @@ class ProfessionalGraph extends React.Component {
 
         let { name, profile_img, qualifications, phone_number, email, practicing_since, gender, languages, license, mobiles, awards, associations, medical_services, experiences } = this.props.details
 
-        qualifications = qualifications[0]
+        qualifications = qualifications || []
 
         return (
             <div className="widget-panel">
@@ -23,11 +23,7 @@ class ProfessionalGraph extends React.Component {
                         {
                             qualifications ? <ExpansionPanel
                                 heading={"Qualification"}
-                                contentList={[ qualifications, qualifications
-                                    // { heading: "Qualification", content: qualifications.qualification },
-                                    // { heading: "Specialization", content: qualifications.specialization },
-                                    // { heading: "College", content: qualifications.college }
-                                ]}
+                                contentList={qualifications}
                                 qulification={true}
                             /> : ""
                         }
