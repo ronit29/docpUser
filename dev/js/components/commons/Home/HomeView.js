@@ -88,7 +88,7 @@ class HomeView extends React.Component {
 
                 {
                     profileData ? <div className="row mobile-profile-row d-lg-none" onClick={this.navigateTo.bind(this, '/user')}>
-                        <div className="container">
+                        <div className="container mobile-profile-row-container">
                             <div className="row mobile-profile-inside-row">
                                 <div className="profile-icon-div">
                                     <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture">
@@ -120,8 +120,6 @@ class HomeView extends React.Component {
                 <section className="container">
                     <div className="row main-row">
                         <LeftBar hideStickyTemp={true} />
-
-                        <div className="col-md-1 d-none d-md-block d-lg-none"></div>
 
                         <div className="col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section">
 

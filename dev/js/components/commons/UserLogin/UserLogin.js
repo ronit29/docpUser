@@ -78,7 +78,7 @@ class UserLoginView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
-                            <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
+                            <header className="skin-white fixed horizontal top bdr-1 light sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
@@ -137,6 +137,5 @@ class UserLoginView extends React.Component {
         );
     }
 }
-
 
 export default UserLoginView

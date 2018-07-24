@@ -113,6 +113,12 @@
 	margin-right: 0;
 }
 
+@media(max-width: 575px){
+	.mobile-profile-row-container{
+		flex: 1;
+	}
+}
+
 .mobile-profile-inside-row{
 	align-items: center;
 }
@@ -143,7 +149,7 @@
 
 .profile-info-div{
 	margin-left: 8px;
-	width: 62%;
+	flex: 1;
 }
 
 .profile-info{
@@ -604,6 +610,7 @@
 	position: relative;
 	border-right: 1px solid rgba(0,0,0,0.1);
 	cursor: pointer;
+	width: 150px;
 }
 
 .select-item-list>li:last-child{
@@ -617,6 +624,10 @@
 .item-name>p{
 	margin-top: 10px;
 	font-weight: 500;
+	width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .right-div-widget{

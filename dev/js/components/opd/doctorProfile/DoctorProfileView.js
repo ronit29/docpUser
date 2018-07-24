@@ -53,6 +53,9 @@ class DoctorProfileView extends React.Component {
                                                     </li>
                                                 </ul>
                                             </div>
+                                            <div className="mobile-home-icon-div">
+                                                <img src="/assets/img/doc-prime-logo.png" className="mobile-home-icon" />
+                                            </div>
                                         </div>
                                         <div className='col-8'>
                                             <div class="header-title fw-700 capitalize text-white text-center">Doctor Details</div>

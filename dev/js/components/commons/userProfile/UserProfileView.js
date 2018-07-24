@@ -35,6 +35,7 @@ const Section_Component = ({ children, title, history }) => {
                         <div className="header-title fw-700 capitalize text-center text-white">{title || "My Profile"}</div>
                     </div>
                     <div className="col-2">
+                        <p className="fw-500 mobile-logout-text">Logout</p>
                     </div>
                 </div>
             </div>
