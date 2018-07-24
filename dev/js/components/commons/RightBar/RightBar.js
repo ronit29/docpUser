@@ -20,10 +20,16 @@ class RightBar extends React.Component {
                 curr_test.extra_test = true
                 this.props.toggleDiagnosisCriteria('test', curr_test, true)
             }
+            //always clear selected time at lab profile
+            let slot = { time: {} }
+            this.props.selectLabTimeSLot(slot, false)
             setTimeout(() => {
                 this.props.history.push(`/lab/${data.lab}/book`)
             }, 1000)
         } else {
+            //always clear selected time at doctor profile
+            let slot = { time: {} }
+            this.props.selectOpdTimeSLot(slot, false)
             this.props.history.push(`/opd/doctor/${data.doctor}/${data.hospital}/bookdetails`)
         }
     }

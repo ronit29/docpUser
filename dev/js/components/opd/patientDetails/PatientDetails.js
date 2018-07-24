@@ -65,7 +65,7 @@ class PatientDetails extends React.Component {
                 if (data.payment_required) {
                     // send to payment selection page
                     this.props.history.push(`/payment/${data.data.orderId}`)
-                    
+
                     // this.setState({
                     //     paymentData: data.data
                     // }, () => {
@@ -78,7 +78,7 @@ class PatientDetails extends React.Component {
                     //         this.setState({ loading: false })
                     //     }, 5000)
                     // })
-                    
+
                 } else {
                     // send back to appointment page
                     this.props.history.replace(`/opd/appointment/${data.data.id}`)
@@ -133,7 +133,14 @@ class PatientDetails extends React.Component {
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
             priceData.payable_amount = priceData.deal_price
+
+            // reset time slot if doctor/hospital changes
+            if (this.props.selectedSlot.selectedClinic != this.state.selectedClinic || this.props.selectedSlot.selectedDoctor != this.state.selectedDoctor) {
+                let slot = { time: {} }
+                this.props.selectOpdTimeSLot(slot, false)
+            }
         }
+
 
         return (
             <div className="profile-body-wrap">
@@ -179,7 +186,7 @@ class PatientDetails extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{ width: 17, marginRight: 4}} /></span><span style={{display: 'inline-block', width: '70%'}} >{hospital.hospital_name} </span> <span className="float-right text-primary fw-700 text-md">{(this.props.selectedSlot && this.props.selectedSlot.date) ? ("Rs. " + this.props.selectedSlot.time.deal_price) : "Time slot not selected"}</span></h4>
+                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{ width: 17, marginRight: 4 }} /></span><span style={{ display: 'inline-block', width: '70%' }} >{hospital.hospital_name} </span> <span className="float-right text-primary fw-700 text-md">{(this.props.selectedSlot && this.props.selectedSlot.date) ? ("Rs. " + this.props.selectedSlot.time.deal_price) : "Time slot not selected"}</span></h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 

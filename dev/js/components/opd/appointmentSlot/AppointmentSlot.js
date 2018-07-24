@@ -42,6 +42,8 @@ class AppointmentSlot extends React.Component {
 
     selectTimeSlot(slot) {
         const parsed = queryString.parse(this.props.location.search)
+        slot.selectedDoctor = this.state.selectedDoctor
+        slot.selectedClinic = this.state.selectedClinic
         this.props.selectOpdTimeSLot(slot, this.state.reschedule, parsed.reschedule)
     }
 
