@@ -50,7 +50,7 @@ class Article extends React.Component {
                             </header>
                             {
                                 this.state.articleData ? <div className="container-fluid">
-                                    <div dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
+                                    <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""
                             }
