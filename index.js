@@ -21,7 +21,7 @@ import { createLogger } from 'redux-logger'
 import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 
-
+app.set('views', path.join(__dirname, '/dist'));
 app.get('/firebase-messaging-sw.js', function (req, res) {
     res.sendFile(__dirname + '/assets/firebase-messaging-sw.js')
 });
@@ -31,7 +31,7 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 app.all('*', function (req, res) {
 
-    res.render('./index.template.ejs', {
+    res.render('index.ejs', {
         html: "", css: "", storeData: "{}"
     })
 
@@ -93,11 +93,11 @@ app.all('*', function (req, res) {
     //         )
     //         const css = sheetsRegistry.toString()
 
-    //         // res.render('./index.template.ejs', {
+    //         // res.render('index.ejs', {
     //         //     html, css, storeData
     //         // })
 
-    //         res.render('./index.template.ejs', {
+    //         res.render('index.ejs', {
     //             html:"", css:"", storeData:"{}"
     //         })
     //     })

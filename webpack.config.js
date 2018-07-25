@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
@@ -9,6 +9,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const client_dev = {
     mode: 'development',
     devtool: 'inline-source-map',
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist'
+    },
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new MiniCssExtractPlugin({
@@ -17,19 +22,32 @@ const client_dev = {
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": false
         }),
+        new HtmlWebpackPlugin({
+            filename: 'index.ejs',
+            template: '!!raw-loader!./views/index.template.ejs'
+        })
     ]
 }
 
 const client_prod = {
     mode: 'production',
+    output: {
+        filename: '[name].[chunkhash].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist'
+    },
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new MiniCssExtractPlugin({
-            filename: "style.css",
+            filename: "[name].[hash].css",
         }),
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": true
         }),
+        new HtmlWebpackPlugin({
+            filename: 'index.ejs',
+            template: '!!raw-loader!./views/index.template.ejs'
+        })
     ]
 }
 
@@ -48,12 +66,6 @@ const client_base = {
                 }
             }
         }
-    },
-
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist'
     },
 
     module: {
