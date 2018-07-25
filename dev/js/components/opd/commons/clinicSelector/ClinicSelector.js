@@ -17,7 +17,7 @@ class ClinicSelector extends React.Component {
         let { name, hospitals } = this.props.details
         let style = {}
         if (hospitals && hospitals.length == 1) {
-            style['width'] = '100%'
+            style['width'] = '98%'
         }
 
         return (

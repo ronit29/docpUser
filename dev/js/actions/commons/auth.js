@@ -20,7 +20,7 @@ export const sendOTP = (number, cb) => (dispatch) => {
             type: SEND_OTP_SUCCESS,
             payload: {}
         })
-        if (cb) cb(response.exists);
+        if (cb) cb();
     }).catch(function (error) {
         let message = "Cannot generate OTP."
         dispatch({
@@ -29,6 +29,7 @@ export const sendOTP = (number, cb) => (dispatch) => {
                 error_message: message
             }
         })
+        if (cb) cb(message);
     })
 
 }

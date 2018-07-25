@@ -16,7 +16,7 @@ class UserLoginView extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.resetAuth()
     }
 
@@ -32,8 +32,12 @@ class UserLoginView extends React.Component {
 
         if (number.match(/^[789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number, (exists) => {
-                this.setState({ showOTP: true })
+            this.props.sendOTP(number, (error) => {
+                if (error) {
+                    this.setState({ validationError: "Could not generate OTP." })
+                } else {
+                    this.setState({ showOTP: true })
+                }
             })
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
