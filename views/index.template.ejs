@@ -19,8 +19,8 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
 
     <!-- custom css-->
-    <link rel="stylesheet" href="/dist/style.css">
-    <link rel="stylesheet" href="/dist/vendor.style.css">
+    <link rel="stylesheet" type="text/css" href="/dist/style.css">
+    <link rel="stylesheet" type="text/css" href="/dist/vendor.style.css">
 </head>
 
 <body>
@@ -28,10 +28,25 @@
     <style id="jss-server-side"><%-css%></style>
 
     <script type="text/javascript">window.__INITIAL_STATE__ = <%-storeData%></script>
-    <script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-pgh4txgxAWWUy0480Ezo-UKiZP-kP4o&libraries=places"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
-    <script defer type="text/javascript" src="/dist/vendor.bundle.js"></script>
-    <script defer type="text/javascript" src="/dist/index.bundle.js"></script>
+    <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-pgh4txgxAWWUy0480Ezo-UKiZP-kP4o&libraries=places"></script>
+    <script type="text/javascript">
+        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        if(isSafari){
+            console.log("PUSH NOTIFICATIONS NOT SUPPORTED ON SAFARI")
+        }
+        else {
+            // DOM: Create the script element
+            var jsElm = document.createElement("script");
+            // set the type attribute
+            jsElm.type = "application/javascript";
+            // make the script element load file
+            jsElm.src = 'https://www.gstatic.com/firebasejs/5.0.1/firebase.js';
+            // finally insert the element to the body element in order to load the script
+            document.body.appendChild(jsElm);
+        }
+    </script>
+    <script async type="text/javascript" src="/dist/vendor.bundle.js"></script>
+    <script async type="text/javascript" src="/dist/index.bundle.js"></script>
 </body>
 
 </html>

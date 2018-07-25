@@ -12,7 +12,7 @@ class LabProfileCard extends React.Component {
 
     render() {
 
-        let { price, lab, distance, pickup_available } = this.props.details
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data } = this.props.details
 
         return (
             <div className="widget card lab-rslt-card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
@@ -44,7 +44,7 @@ class LabProfileCard extends React.Component {
                             {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
                             {lab.locality} {lab.city} | <span><img src="/assets/img/icons/location-orange.svg" style={{ marginRight: 4 }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
                         </p>
-                        <p style={{ color: '#f78316', fontSize: 12 }} >02:00 AM to 02:00 PM | <span style={{ color: '#d82907' }} >Now Closed</span></p>
+                        <p style={{ color: '#f78316', fontSize: 12 }} >{lab_timing} | <span style={{ color: '#d82907' }} >Now Closed</span></p>
                     </div>
                 </div>
                 <div className="widget-footer card-footer">
