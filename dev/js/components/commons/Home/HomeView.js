@@ -19,24 +19,7 @@ class HomeView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            symptoms: [
-                "Fever",
-                "Cough",
-                "Headache",
-                "Vomiting",
-                "Diarrhoea",
-                "Breathlessness",
-                "Pain/Burning during urination",
-                "Chest Pain",
-                "Limb Numbness",
-                "Ear Infection",
-                "Eye Infection",
-                "Sore Throat",
-                "Acne"
-            ],
-            selectedSymptoms: [
 
-            ]
         }
     }
 
@@ -46,15 +29,13 @@ class HomeView extends React.Component {
         }
     }
 
-    navigateTo(where, e) {
+    navigateTo(where, data, e) {
         if (e) {
             e.preventDefault()
             e.stopPropagation()
         }
         if (where == '/chat') {
-            this.props.history.push(where, {
-                symptoms: this.state.selectedSymptoms
-            })
+            this.props.history.push(where, data)
         } else {
             this.props.history.push(where)
         }
@@ -70,14 +51,6 @@ class HomeView extends React.Component {
     render() {
 
         let profileData = this.props.profiles[this.props.selectedProfile]
-        let selectedSympsStr = this.state.selectedSymptoms.reduce((final, x) => {
-            final += x + ', '
-            return final
-        }, "")
-
-        if (selectedSympsStr) {
-            selectedSympsStr = selectedSympsStr.slice(0, -2)
-        }
 
         let articles = this.props.articles || []
 

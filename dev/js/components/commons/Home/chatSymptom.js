@@ -179,7 +179,9 @@ class ChatSymptoms extends React.Component {
                     </div>
                 </div>
                 <div className="input-symptom-div" onClick={() => {
-                    this.props.navigateTo('/chat')
+                    this.props.navigateTo('/chat', {
+                        symptoms: this.state.selectedSymptoms
+                    })
                 }}>
                     <div className="send-btn">
                         {
