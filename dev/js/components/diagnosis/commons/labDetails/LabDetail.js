@@ -10,6 +10,17 @@ class LabDetails extends React.Component {
         super(props)
     }
 
+    isOpenToday(lab_timing_data = []) {
+        let is_open = false
+        let time_now = new Date().getHours()
+        for (let ltd of lab_timing_data) {
+            if (time_now <= ltd.end && time_now >= ltd.start) {
+                is_open = true
+            }
+        }
+        return is_open
+    }
+
     render() {
 
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
@@ -23,9 +34,9 @@ class LabDetails extends React.Component {
                                 <div className="widget-header pb-header text-center">
                                     <div className="pb-logo">
                                         <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-lp">
-                                        <img src={lab_thumbnail} className="img-fluid" />
+                                            <img src={lab_thumbnail} className="img-fluid" />
                                         </InitialsPicture>
-                                        
+
                                     </div>
                                     <h4 className="widget-title pb-title">{name}</h4>
                                     <p className="location">{locality} {city}
@@ -37,7 +48,10 @@ class LabDetails extends React.Component {
                                         <li>
                                             <span className="fw-700 text-sm">Timing: -</span>
                                             {this.props.data.lab_timing}
-                                            <span className="open-close">{" Open Today"}</span>
+                                            {
+                                                this.isOpenToday(this.props.data.lab_timing_data) ? <span className="open-close">{" Open Today"}</span> : <span className="open-close">{" Closed Today"}</span>
+                                            }
+
                                         </li>
                                         {/* <li>
                                             <span className="fw-700 text-sm">Contact: -</span>

@@ -10,6 +10,17 @@ class LabProfileCard extends React.Component {
         this.props.history.push(`/lab/${id}`)
     }
 
+    isOpenToday(lab_timing_data = []) {
+        let is_open = false
+        let time_now = new Date().getHours()
+        for (let ltd of lab_timing_data) {
+            if (time_now <= ltd.end && time_now >= ltd.start) {
+                is_open = true
+            }
+        }
+        return is_open
+    }
+
     render() {
 
         let { price, lab, distance, pickup_available, lab_timing, lab_timing_data } = this.props.details
@@ -44,7 +55,11 @@ class LabProfileCard extends React.Component {
                             {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
                             {lab.locality} {lab.city} | <span><img src="/assets/img/icons/location-orange.svg" style={{ marginRight: 4 }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
                         </p>
-                        <p style={{ color: '#f78316', fontSize: 12 }} >{lab_timing} | <span style={{ color: '#d82907' }} >Now Closed</span></p>
+                        <p style={{ color: '#f78316', fontSize: 12 }} >{lab_timing} | 
+                            {
+                                this.isOpenToday(lab_timing_data) ? <span style={{ color: 'green' }}> Open Today</span> : <span style={{ color: '#d82907' }} > Now Closed</span>
+                            }
+                        </p>
                     </div>
                 </div>
                 <div className="widget-footer card-footer">
