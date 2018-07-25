@@ -47,6 +47,7 @@ class ProfessionalGraph extends React.Component {
                                 heading={"Awards"}
                                 contentList={
                                     awards.map((award) => {
+                                        award.year = award.year || ""
                                         return { heading: "", content: `${award.name}, ${award.year}` }
                                     })
                                 }

@@ -42,7 +42,7 @@ class BookingView extends React.Component {
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
                     this.setState({ data: data.data, loading: false })
-                    SnackBar.show({ pos: 'bottom-left', text: "Appointment reschedule success." });
+                    SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule success." });
                 } else {
                     this.setState({ loading: false })
                 }

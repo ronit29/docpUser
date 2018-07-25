@@ -19,9 +19,13 @@ class Article extends React.Component {
             if (!err) {
                 this.setState({ articleData: data })
             } else {
-                
+
             }
         })
+
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     render() {

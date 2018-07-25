@@ -40,7 +40,7 @@ class PatientDetails extends React.Component {
     proceed(datePicked, e) {
 
         if (!datePicked) {
-            SnackBar.show({ pos: 'bottom-left', text: "Please pick a time slot." });
+            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
         }
         if (e.target.dataset.disabled == true) {

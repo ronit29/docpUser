@@ -86,15 +86,15 @@ class BookingSummaryView extends React.Component {
     proceed(testPicked, addressPicked, datePicked, e) {
 
         if (!testPicked) {
-            SnackBar.show({ pos: 'bottom-left', text: "Please select some tests." });
+            SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
             return
         }
         if (!addressPicked) {
-            SnackBar.show({ pos: 'bottom-left', text: "Please pick an address." });
+            SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
             return
         }
         if (!datePicked) {
-            SnackBar.show({ pos: 'bottom-left', text: "Please pick a time slot." });
+            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
         }
         if (e.target.dataset.disabled == true) {

@@ -15,6 +15,10 @@ class ClinicSelector extends React.Component {
     render() {
 
         let { name, hospitals } = this.props.details
+        let style = {}
+        if (hospitals && hospitals.length == 1) {
+            style['width'] = '100%'
+        }
 
         return (
             <div className="widget-panel">
@@ -23,7 +27,7 @@ class ClinicSelector extends React.Component {
                     <ul className="inline-list Clinic-card-list">
                         {
                             hospitals.map((hospital, i) => {
-                                return <li key={i}>
+                                return <li key={i} style={style}>
                                     <div className="widget no-shadow">
                                         <div className="widget-header clearfix">
                                             <h4 className="widget-title text-md fw-700 clinic-selector-name">{hospital.hospital_name}</h4>
@@ -32,7 +36,7 @@ class ClinicSelector extends React.Component {
                                         <div className="widget-content">
                                             <div className="location-details clearfix">
                                                 <p className="address">{hospital.address}</p>
-                                                <div style={{float: 'right'}} >
+                                                <div style={{ float: 'right' }} >
                                                     <img src="/assets/img/customer-icons/map-icon.png" />
                                                 </div>
                                             </div>

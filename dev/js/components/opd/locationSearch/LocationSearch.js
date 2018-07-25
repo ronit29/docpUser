@@ -65,7 +65,7 @@ class LocationSearch extends React.Component {
         let timeout = setTimeout(() => {
             if (this.state.detectLoading) {
                 this.setState({ detectLoading: false })
-                SnackBar.show({ pos: 'bottom-left', text: "Could not fetch location." });
+                SnackBar.show({ pos: 'bottom-center', text: "Could not fetch location." });
             }
         }, 5000)
 
@@ -85,10 +85,10 @@ class LocationSearch extends React.Component {
                 })
             }, (a, b, c) => {
                 this.setState({ detectLoading: false })
-                SnackBar.show({ pos: 'bottom-left', text: "Could not fetch location." });
+                SnackBar.show({ pos: 'bottom-center', text: "Could not fetch location." });
             }, (a, b, c) => {
                 this.setState({ detectLoading: false })
-                SnackBar.show({ pos: 'bottom-left', text: "Could not fetch location." });
+                SnackBar.show({ pos: 'bottom-center', text: "Could not fetch location." });
             })
         }
         else {

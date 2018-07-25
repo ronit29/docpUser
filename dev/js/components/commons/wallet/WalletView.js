@@ -14,6 +14,12 @@ class WalletView extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     refund() {
         this.setState({ loading: true })
         this.props.refundWallet((err, data) => {

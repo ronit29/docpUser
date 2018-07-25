@@ -74,7 +74,7 @@ class AppointmentReschedule extends React.Component {
                     //     }, 5000)
                     // })
                 } else {
-                    SnackBar.show({ pos: 'bottom-left', text: "Appointment Reschduled." })
+                    SnackBar.show({ pos: 'bottom-center', text: "Appointment Reschduled." })
                     // send back to appointment page
                     this.props.history.replace(`/opd/appointment/${this.props.match.params.refId}`)
                 }

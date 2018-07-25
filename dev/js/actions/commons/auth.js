@@ -15,7 +15,7 @@ export const sendOTP = (number, cb) => (dispatch) => {
     API_POST('/api/v1/user/otp/generate', {
         "phone_number": number
     }).then(function (response) {
-        SnackBar.show({ pos: 'bottom-left', text: "OTP Sent Successfuly." });
+        SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });
         dispatch({
             type: SEND_OTP_SUCCESS,
             payload: {}
