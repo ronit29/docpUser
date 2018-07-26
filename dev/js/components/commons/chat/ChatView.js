@@ -34,9 +34,9 @@ class ChatView extends React.Component {
                 console.log("MESSAGE RECEIVED AT CLIENT SIDE - ", data)
                 if (data) {
                     switch (data.event) {
-                        case "doctor_id": {
-                            this.setState({ selectedDoctor: data.data })
-                            this.props.getDoctorById(data.data)
+                        case "RoomAgent": {
+                            this.setState({ selectedDoctor: data.data.employeeId })
+                            this.props.getDoctorById(data.data.employeeId)
                             break
                         }
 

@@ -119,7 +119,7 @@ class BookingSummaryView extends React.Component {
                 if (data.payment_required) {
                     // send to payment selection page
                     this.props.history.push(`/payment/${data.data.orderId}`)
-                    
+
                     // this.setState({
                     //     paymentData: data.data
                     // }, () => {
@@ -161,24 +161,20 @@ class BookingSummaryView extends React.Component {
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
-            tests = this.props.selectedCriterias.filter(x => x.type == 'test').map((test, i) => {
-                let price = 0
-                let mrp = 0
-                this.props.LABS[this.state.selectedLab].tests.map((twp) => {
-                    if (twp.test_id == test.id) {
-                        price = twp.deal_price
-                        mrp = twp.mrp
-                        // check if any of the selected test does not allow home_pickup_available
-                        if (!twp.is_home_pickup_available) {
-                            is_home_pickup_available = false
-                        }
-                    }
-                })
+
+            tests = this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
+                let price = twp.deal_price
+                let mrp = twp.mrp
+                // check if any of the selected test does not allow home_pickup_available
+                if (!twp.is_home_pickup_available) {
+                    is_home_pickup_available = false
+                }
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label">{test.name}<span className="float-right fw-700">Rs. {price}</span></p>
+                return <p key={i} className="test-list test-list-label">{twp.test.name}<span className="float-right fw-700">Rs. {price}</span></p>
             })
+
         }
 
         // if home pickup not available but selected type is home , then change in next iteration

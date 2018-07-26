@@ -19,30 +19,9 @@ class Lab extends React.Component {
     }
 
     componentDidMount() {
-        let dedupe_ids = {}
-        let testIds = this.props.selectedCriterias
-            .reduce((final, x) => {
-                final = final || []
-                if (x.test && x.type == "condition") {
-                    let test_ids = x.test.map((x) => {
-                        x.extra_test = true
-                        this.props.toggleDiagnosisCriteria('test', x, true)
-                        return x.id
-                    }) || []
-                    final = [...final, ...test_ids]
-                } else if (x.type == "test") {
-                    final.push(x.id)
-                }
-                return final
-            }, [])
-            .filter((x) => {
-                if (dedupe_ids[x]) {
-                    return false
-                } else {
-                    dedupe_ids[x] = true
-                    return true
-                }
-            })
+        let testIds = this.props.lab_test_data[this.props.match.params.id] || []
+        testIds = testIds.map(x => x.id)
+
         this.props.getLabById(this.props.match.params.id, testIds)
 
         //always clear selected time at lab profile
@@ -61,6 +40,7 @@ class Lab extends React.Component {
 const mapStateToProps = (state) => {
 
     const {
+        lab_test_data,
         selectedLocation,
         selectedCriterias,
         filterCriteria,
@@ -70,6 +50,7 @@ const mapStateToProps = (state) => {
     let LABS = state.LABS
 
     return {
+        lab_test_data,
         selectedCriterias,
         LABS
     }

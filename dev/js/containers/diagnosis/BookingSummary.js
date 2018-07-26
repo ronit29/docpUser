@@ -24,8 +24,11 @@ class BookingSummary extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
-            this.props.getLabById(this.props.match.params.id, tests)
+
+            let testIds = this.props.lab_test_data[this.props.match.params.id] || []
+            testIds = testIds.map(x => x.id)
+
+            this.props.getLabById(this.props.match.params.id, testIds)
             this.props.getUserProfile()
             this.props.getUserAddress()
         }
@@ -43,6 +46,7 @@ const mapStateToProps = (state) => {
 
     const {
         selectedCriterias,
+        lab_test_data
     } = state.SEARCH_CRITERIA_LABS
     const { selectedProfile, profiles, address } = state.USER
     let LABS = state.LABS
@@ -50,6 +54,7 @@ const mapStateToProps = (state) => {
 
     return {
         selectedCriterias,
+        lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress
     }

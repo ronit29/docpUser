@@ -48,7 +48,9 @@ class LeftBar extends React.Component {
                             !profileData.isDummyUser ? <div className="profile-name-section">
                                 <p className="profile-name">{profileData.name}</p>
                                 <div className="profile-info-section">
-                                    <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" />
+                                    {
+                                        profileData.gender == 'm' ? <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" /> : <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" style={{ transform: 'rotate(135deg)' }} />
+                                    }
                                     <span className="profile-info-web">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)}</span>
                                 </div>
                             </div> : ""

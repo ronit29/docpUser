@@ -25,6 +25,7 @@ class TestSelector extends React.Component {
 const mapStateToProps = (state) => {
 
     const {
+        lab_test_data,
         selectedLocation,
         selectedCriterias,
         filterCriteria,
@@ -34,6 +35,7 @@ const mapStateToProps = (state) => {
     let LABS = state.LABS
 
     return {
+        lab_test_data,
         selectedCriterias,
         LABS
     }

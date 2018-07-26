@@ -16,8 +16,10 @@ class RightBar extends React.Component {
     openBookingSummary(data, e) {
         this.props.selectProfile(data.profile)
         if (data.type == 'lab' || data.lab) {
+            this.props.clearAllTests()
             for (let curr_test of data.test_ids) {
                 curr_test.extra_test = true
+                curr_test.lab_id = data.lab
                 this.props.toggleDiagnosisCriteria('test', curr_test, true)
             }
             //always clear selected time at lab profile
@@ -25,7 +27,7 @@ class RightBar extends React.Component {
             this.props.selectLabTimeSLot(slot, false)
             setTimeout(() => {
                 this.props.history.push(`/lab/${data.lab}/book`)
-            }, 1000)
+            }, 100)
         } else {
             //always clear selected time at doctor profile
             let slot = { time: {} }

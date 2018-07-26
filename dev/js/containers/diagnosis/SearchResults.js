@@ -14,7 +14,7 @@ class SearchResults extends React.Component {
     }
 
     componentDidMount() {
-        this.props.clearExtraTests()
+        // this.props.clearExtraTests()
     }
 
     static contextTypes = {
@@ -55,7 +55,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getLabs: (searchState, filterCriteria, mergeState, page, cb) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb)),
-        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests())
     }

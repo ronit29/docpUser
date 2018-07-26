@@ -7,6 +7,30 @@ class LabProfileCard extends React.Component {
     }
 
     openLab(id) {
+        let dedupe_ids = {}
+        let testIds = this.props.selectedCriterias
+            .reduce((final, x) => {
+                final = final || []
+                if (x.test && x.type == "condition") {
+                    x.test = x.test || []
+                    final = [...final, ...x.test]
+                } else if (x.type == "test") {
+                    final.push(x)
+                }
+                return final
+            }, [])
+            .filter((x) => {
+                if (dedupe_ids[x.id]) {
+                    return false
+                } else {
+                    dedupe_ids[x.id] = true
+                    return true
+                }
+            }).map((test) => {
+                test.extra_test = true
+                test.lab_id = id
+                this.props.toggleDiagnosisCriteria('test', test, true)
+            })
         this.props.history.push(`/lab/${id}`)
     }
 
@@ -55,7 +79,7 @@ class LabProfileCard extends React.Component {
                             {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
                             {lab.locality} {lab.city} | <span><img src="/assets/img/icons/location-orange.svg" style={{ marginRight: 4 }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
                         </p>
-                        <p style={{ color: '#f78316', fontSize: 12 }} >{lab_timing} | 
+                        <p style={{ color: '#f78316', fontSize: 12 }} >{lab_timing} |
                             {
                                 this.isOpenToday(lab_timing_data) ? <span style={{ color: 'green' }}> Open Today</span> : <span style={{ color: '#d82907' }} > Now Closed</span>
                             }

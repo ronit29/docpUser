@@ -16,8 +16,10 @@ class TestSelectorView extends React.Component {
     }
 
     componentDidMount() {
-        let tests = this.props.selectedCriterias.filter(x => x.type == "test").map(x => x.id)
-        this.props.getLabById(this.state.selectedLab, tests)
+        let testIds = this.props.lab_test_data[this.state.selectedLab] || []
+        testIds = testIds.map(x => x.id)
+
+        this.props.getLabById(this.state.selectedLab, testIds)
         this.getSearchList({ target: { value: "" } })
 
         if (window) {
@@ -25,8 +27,12 @@ class TestSelectorView extends React.Component {
         }
     }
 
-    toggleTest(test) {
+    toggleTest(test_to_toggle) {
+        let test = test_to_toggle.test
+        test.mrp = test_to_toggle.mrp
+        test.deal_price = test_to_toggle.deal_price
         test.extra_test = true
+        test.lab_id = this.state.selectedLab
         this.props.toggleDiagnosisCriteria('test', test)
     }
 
@@ -41,16 +47,13 @@ class TestSelectorView extends React.Component {
 
     render() {
         let labData = this.props.LABS[this.state.selectedLab]
+        let selectedTests = this.props.lab_test_data[this.state.selectedLab] || []
+        let selectedTestIds = selectedTests.map(x => x.id)
         let tests = []
-        let selectedTests = []
-
-        if (this.props.selectedCriterias && this.props.selectedCriterias.length) {
-            selectedTests = this.props.selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
-        }
 
         if (labData) {
 
-            this.props.selectedCriterias.map((criteria) => {
+            selectedTests.map((criteria) => {
                 let found = false
                 for (let test of labData.tests) {
                     if (test.test.id == criteria.id) {
@@ -63,11 +66,11 @@ class TestSelectorView extends React.Component {
             })
 
             let selected_tests = labData.tests.map((test, i) => {
-                if (selectedTests.indexOf(test.test.id) > -1) {
+                if (selectedTestIds.indexOf(test.test.id) > -1) {
                     return <li key={i + "st"}>
                         <label className="ck-bx">
                             {test.test.name}
-                            <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test.test)} />
+                            <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
                             <span className="checkmark" />
                         </label>
                         <span className="test-price text-md fw-500">{test.deal_price}</span>
@@ -77,7 +80,7 @@ class TestSelectorView extends React.Component {
 
             let searched_tests = this.state.searchResults.filter((test) => {
                 let not_found = true
-                for (let criteria of this.props.selectedCriterias) {
+                for (let criteria of selectedTests) {
                     if (test.test.id == criteria.id) {
                         not_found = false
                         break
@@ -88,7 +91,7 @@ class TestSelectorView extends React.Component {
                 return <li key={i + "srt"}>
                     <label className="ck-bx">
                         {test.test.name}
-                        <input type="checkbox" checked={selectedTests.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test.test)} />
+                        <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                         <span className="checkmark" />
                     </label>
                     <span className="test-price text-md fw-500">{test.deal_price}</span>
@@ -136,7 +139,7 @@ class TestSelectorView extends React.Component {
                                                             </div>
                                                             <div className="detect-my-locaiton">
                                                                 <span className="ct-img ct-img-xs" />
-                                                                {selectedTests.length} Selected Item
+                                                                {selectedTestIds.length} Selected Item
                                                             </div>
                                                         </div>
                                                     </div>

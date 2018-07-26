@@ -1,4 +1,4 @@
-import { CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [100, 20000],
@@ -13,7 +13,8 @@ const defaultState = {
     preferred_labs: [],
     selectedCriterias: [],
     selectedLocation: null,
-    filterCriteria: DEFAULT_FILTER_STATE
+    filterCriteria: DEFAULT_FILTER_STATE,
+    lab_test_data: {}
 }
 
 export default function (state = defaultState, action) {
@@ -31,23 +32,45 @@ export default function (state = defaultState, action) {
         case TOGGLE_DIAGNOSIS_CRITERIA: {
             let newState = {
                 ...state,
-                selectedCriterias: [].concat(state.selectedCriterias)
+                selectedCriterias: [].concat(state.selectedCriterias),
+                lab_test_data: { ...state.lab_test_data }
             }
 
-            let found = false
-            newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
-                if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
-                    found = true
-                    return false
-                }
-                return true
-            })
+            if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
+                newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
 
-            if (!found || action.payload.forceAdd) {
-                newState.selectedCriterias.push({
-                    ...action.payload.criteria,
-                    type: action.payload.type
+                let found = false
+                newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id].filter((curr) => {
+                    if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
+                        found = true
+                        return false
+                    }
+                    return true
                 })
+
+                if (!found || action.payload.forceAdd) {
+                    newState.lab_test_data[action.payload.criteria.lab_id].push({
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    })
+                }
+
+            } else {
+                let found = false
+                newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
+                    if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
+                        found = true
+                        return false
+                    }
+                    return true
+                })
+
+                if (!found || action.payload.forceAdd) {
+                    newState.selectedCriterias.push({
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    })
+                }
             }
 
             return newState
@@ -61,8 +84,15 @@ export default function (state = defaultState, action) {
         }
 
         case MERGE_SEARCH_STATE_LAB: {
-            let newState = { ...state, ...action.payload.searchState, filterCriteria: action.payload.filterCriteria }
+            let newState = {
+                ...state,
+                ...action.payload.searchState,
+                filterCriteria: action.payload.filterCriteria
+            }
 
+            let extra_tests = state.selectedCriterias.filter(x => x.extra_test) || []
+            newState.selectedCriterias = newState.selectedCriterias || []
+            newState.selectedCriterias = newState.selectedCriterias.concat(extra_tests)
             return newState
         }
 
@@ -75,12 +105,22 @@ export default function (state = defaultState, action) {
         case CLEAR_EXTRA_TESTS: {
             let newState = {
                 ...state,
-                selectedCriterias: [].concat(state.selectedCriterias)
+                selectedCriterias: [].concat(state.selectedCriterias),
+                lab_test_data: {}
             }
 
-            newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
-                return !curr.extra_test
+            newState.selectedCriterias = newState.selectedCriterias.filter((x) => {
+                return !x.extra_test
             })
+            return newState
+        }
+
+        case CLEAR_ALL_TESTS: {
+            let newState = {
+                ...state,
+                selectedCriterias: [],
+                lab_test_data: {}
+            }
 
             return newState
         }
