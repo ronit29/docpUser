@@ -1,4 +1,4 @@
-import { APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
+import { APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -220,5 +220,23 @@ export const fetchPgData = (id, cb) => (dispatch) => {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
+	})
+}
+
+export const getChatDoctorById = (doctorId, cb) => (dispatch) => {
+	return API_GET(`/api/v1/chat/doctor/profile/${doctorId}`).then(function (response) {
+
+		dispatch({
+			type: APPEND_CHAT_DOCTOR,
+			payload: {
+				data: response,
+				doctorId
+			}
+		})
+
+		if (cb) cb(response)
+
+	}).catch(function (error) {
+
 	})
 }

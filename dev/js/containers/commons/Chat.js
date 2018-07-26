@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, resetFilters, clearExtraTests, selectLocation } from '../../actions/index.js'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation } from '../../actions/index.js'
 
 import ChatView from '../../components/commons/chat/index.js'
 import STORAGE from '../../helpers/storage'
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
+        getChatDoctorById: (doctorId, cb) => dispatch(getChatDoctorById(doctorId, cb)),
         resetFilters: () => dispatch(resetFilters()),
         clearExtraTests: () => dispatch(clearExtraTests()),
         selectLocation: (location) => dispatch(selectLocation(location))

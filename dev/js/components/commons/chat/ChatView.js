@@ -36,7 +36,11 @@ class ChatView extends React.Component {
                     switch (data.event) {
                         case "RoomAgent": {
                             this.setState({ selectedDoctor: data.data.employeeId })
-                            this.props.getDoctorById(data.data.employeeId)
+                            this.props.getChatDoctorById(data.data.employeeId, (data) => {
+                                this.dispatchCustomEvent('profile_assigned', {
+                                    profileId: data.id
+                                })
+                            })
                             break
                         }
 
@@ -67,11 +71,11 @@ class ChatView extends React.Component {
         }
     }
 
-    dispatchCustomEvent(eventName) {
+    dispatchCustomEvent(eventName, data = {}) {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
         iframe.dispatchEvent(event)
-        iframe.contentWindow.postMessage({ 'event': eventName }, '*')
+        iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
     }
 
     openDoctorProfile(doctor_id) {
@@ -103,7 +107,7 @@ class ChatView extends React.Component {
 
 
     render() {
-        let doctorData = this.props.DOCTORS[this.state.selectedDoctor]
+        let doctorData = this.props.USER.chatDoctors[this.state.selectedDoctor]
 
         let symptoms_uri = this.state.symptoms.reduce((str, curr) => {
             str += `${curr},`
