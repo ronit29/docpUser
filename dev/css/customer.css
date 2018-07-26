@@ -79,12 +79,12 @@
 .locaton-detect-screen{padding-top: 120px}
 .select-location-row{position: relative; padding: 10px;}
 .select-location-row .close{position: absolute; top: 0; left: 0; padding: 5px; width: 24px;}
-.detect-my-locaiton{padding: 4px 0; text-align: right; font-size: 16px; font-weight: 500; color: #f78631;}
+.detect-my-locaiton{padding: 4px 0; text-align: right; font-size: 16px; font-weight: 500; color: #f78631;cursor: pointer}
 .location-detect-field .map-marker-blue{width: 20px;height: 20px;}
 .location-detect-field .search-input{box-shadow: none;}
 .map-marker-blue{position:  absolute;top: 8px; left: 10px;}
 
-.locaton-detect-screen .city-list>li{padding: 12px; border-bottom: 1px solid #ddd; background-color: #fff;}
+.locaton-detect-screen .city-list>li{padding: 12px; border-bottom: 1px solid #ddd; background-color: #fff;cursor: pointer}
 .locaton-detect-screen .city-list>li>a{font-size: 16px; font-weight: bold;}
 
 /*search with city locality*/

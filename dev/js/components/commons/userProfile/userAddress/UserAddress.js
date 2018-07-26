@@ -40,17 +40,20 @@ class UserAddress extends React.Component {
                             return <li key={key}>
                                 <a>
                                     <span className="icon icon-lg member-icon" style={{ marginTop: -15 }}>
-                                        <Radio value={curr.id.toString()}  checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
+                                        <Radio value={curr.id.toString()} checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
                                     </span>
                                     <div className="member-details">
                                         <ul className="list">
-                                            <li className="fw-500 text-sm" style={{width: '80%', wordWrap: 'break-word'}}>{curr.address}</li>
+                                            <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.address}</li>
                                         </ul>
                                     </div>
                                     <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 9 }} className="ct-img ct-img-sm arrow-forward-right">Edit</span>
                                 </a>
                             </li>
-                        }) : <p className="noappointmentfound">No Adress added</p>
+                        }) : <div className="text-center pd-20">
+                                <img src="/assets/img/customer-icons/no-address.png" />
+                                <p className="fw-500 text-lg mrt-20">No Address !!</p>
+                            </div>
                     }
                 </ul>
                 <button onClick={this.addAddress.bind(this)} className="v-btn v-btn-primary btn-lg add-more-members-btn">+</button>
