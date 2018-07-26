@@ -105,10 +105,12 @@ class BookingSummaryView extends React.Component {
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
+        let testIds = this.props.lab_test_data[this.state.selectedLab] || []
+        testIds = testIds.map(x => x.id)
 
         let postData = {
             lab: this.state.selectedLab,
-            test_ids: this.props.selectedCriterias.filter(x => x.type == 'test').map(t => t.id),
+            test_ids: testIds,
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
             payment_type: 1 // TODO : Select payment type
