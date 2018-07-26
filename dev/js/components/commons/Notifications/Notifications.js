@@ -56,6 +56,12 @@ class NotificationsView extends React.Component {
 
                             <section className="notification-page skin-white">
                                 <div className="notificatons">
+                                {
+                                    (this.props.notifications && this.props.notifications.length == 0) ? <div className="text-center pd-20">
+                                        <img src="/assets/img/customer-icons/no-notification.png" />
+                                        <p className="fw-500 text-lg mrt-20">No Notifications !!</p>
+                                    </div> : ""
+                                }
                                     <ul className="list notificaton-list">
                                         {
                                             this.props.notifications.map((note, i) => {

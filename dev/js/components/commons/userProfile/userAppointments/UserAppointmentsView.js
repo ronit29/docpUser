@@ -33,7 +33,10 @@ class UserAppointmentsView extends React.Component {
                             (appointments[selectedProfile] && appointments[selectedProfile].length) ?
                                 appointments[selectedProfile].map((app, i) => {
                                     return <AppointmentList key={i} {...this.props} data={app} />
-                                }) : <p className="noappointmentfound">No appointments found</p>
+                                }) : <div className="text-center pd-20">
+                                        <img src="/assets/img/customer-icons/no-appointment.png" />
+                                        <p className="fw-500 text-lg mrt-20">No Appointments !!</p>
+                                    </div>
                         }
                     </ul> : <Loader />
                 }

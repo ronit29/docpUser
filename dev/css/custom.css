@@ -46,6 +46,7 @@
 .appointment-form-container{padding-bottom: 42px;}
 .profile-details{padding-top: 40px !important;}
 .someone-else-labelwrap{display: none;}
+.sticky-btn{padding-bottom: env(safe-area-inset-bottom);}
 
 @media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 65px!important;margin-top: 20px;z-index: 9;}
 .sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 161px!important;margin-top: 2px!important;}

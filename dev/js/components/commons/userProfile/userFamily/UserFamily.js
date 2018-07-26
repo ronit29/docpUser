@@ -71,6 +71,13 @@ class UserFamily extends React.Component {
                         })
                     }
                 </ul>
+                {
+                    Object.keys(profiles).filter(x => !profiles[x].isDummyUser).length == 0 ?
+                        <div className="text-center pd-20">
+                            <img src="/assets/img/customer-icons/no-family.png" />
+                            <p className="fw-500 text-lg mrt-20">No Family Member Added !!</p>
+                        </div> : ""
+                }
                 <button onClick={this.addProfile.bind(this)} className="v-btn v-btn-primary btn-lg add-more-members-btn">+</button>
             </div>
         );
