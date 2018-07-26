@@ -26,6 +26,7 @@ class LeftBar extends React.Component {
     render() {
 
         let profileData = this.props.profiles[this.props.defaultProfile]
+        let { pathname } = this.props.location
 
         return (
             <div className="col-lg-3 profile-section d-none d-lg-block">
@@ -68,7 +69,7 @@ class LeftBar extends React.Component {
                             </li> */}
                                 <li onClick={() => {
                                     this.props.history.push('/chat')
-                                }}>
+                                }} className={pathname.includes('/chat') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/message.svg" className="profile-list-icons" />
                                     </div>
@@ -79,7 +80,7 @@ class LeftBar extends React.Component {
                                     <p className="list-no">8</p>
                                 </div> */}
                                 </li>
-                                <li onClick={this.gotTo.bind(this, 'appointments')}>
+                                <li onClick={this.gotTo.bind(this, 'appointments')} className={pathname.includes('/appointments') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/opd-visit.svg" className="profile-list-icons" />
                                     </div>
@@ -112,7 +113,7 @@ class LeftBar extends React.Component {
                                     <p className="list-no">8</p>
                                 </div>
                             </li> */}
-                                <li onClick={this.gotTo.bind(this, 'family')}>
+                                <li onClick={this.gotTo.bind(this, 'family')} className={pathname.includes('/family') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/family.svg" className="profile-list-icons" />
                                     </div>
@@ -130,7 +131,7 @@ class LeftBar extends React.Component {
                             </li> */}
                                 <li onClick={() => {
                                     this.props.history.push('/wallet')
-                                }}>
+                                }} className={pathname.includes('/wallet') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/transaction.svg" className="profile-list-icons" />
                                     </div>
@@ -140,7 +141,7 @@ class LeftBar extends React.Component {
                                 </li>
                                 <li onClick={() => {
                                     this.props.history.push('/user/address')
-                                }}>
+                                }} className={pathname.includes('/user/address') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/address.svg" className="profile-list-icons" />
                                     </div>

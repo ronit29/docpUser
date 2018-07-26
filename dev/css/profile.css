@@ -292,9 +292,14 @@
 }
 
 .profile-feature-list>li, .multiple-profile-list>li{
-	padding: 10px 0 20px;
+	padding: 15px 0 15px 10px;
 	position: relative;
 	cursor: pointer;
+}
+
+.selectedtabpill{
+	border-right: 2px solid #f78316;
+	background-color: rgba(247, 131, 22, 0.1);
 }
 
 .list-inline-div{

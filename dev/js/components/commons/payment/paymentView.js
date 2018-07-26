@@ -58,7 +58,7 @@ class PaymentView extends React.Component {
                                             </ul>
                                         </div>
                                         <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Select Payment Meathod</div>
+                                            <div className="header-title fw-700 capitalize text-center">Select Payment Method</div>
                                         </div>
                                     </div>
                                 </div>

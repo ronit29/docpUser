@@ -65,7 +65,6 @@ class WalletView extends React.Component {
                                         </div>
                                         <div className="col-12 credit-tip text-center">
                                             <p>You could use this credit to book Appointments with Doctors or Diagnostic Centers</p>
-                                            <p>1 credit = 1 Rupee</p>
                                         </div>
                                         {
                                             (userWalletBalance > 0) ? <div className="refund-btn-div">
@@ -76,6 +75,12 @@ class WalletView extends React.Component {
                                             <p>You can refund manually else your money will be automatically refunded to your bank account in 24 hours</p>
                                         </div>
                                     </div>
+                                    <p style={{
+                                        position: 'absolute',
+                                        bottom: -20,
+                                        right: 10,
+                                        fontSize: 12
+                                    }}>1 credit = 1 Rupee</p>
                                     {/* <div className="row">
                                     <div className="col-12 transactions-head-col">
                                         <p className="transactions-head fw-500">Transactions</p>
