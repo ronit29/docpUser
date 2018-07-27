@@ -3,12 +3,19 @@ import React from 'react';
 class UserSignupView extends React.Component {
     constructor(props) {
         super(props)
+
+        let { profiles, selectedProfile, defaultProfile } = this.props.USER
+        let def_profile = null
+        if (profiles && profiles[defaultProfile]) {
+            def_profile = profiles[defaultProfile]
+        }
+
         this.state = {
             address: '',
             land_mark: '',
             pincode: '',
             type: 'home',
-            phone_number: '',
+            phone_number: def_profile ? def_profile.phone_number : "",
             edit: !!this.props.match.params.id
         }
     }

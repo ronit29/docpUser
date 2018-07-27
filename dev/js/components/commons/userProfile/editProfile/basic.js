@@ -76,14 +76,14 @@ class BasicDetails extends React.Component {
     render() {
 
         let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
-        profile_image = profile_image || "/assets/img/icons/drIcon.jpg"
+        profile_image = profile_image || "/assets/img/customer-icons/user.png"
 
         return (
             <section className="myProfile profile-details">
                 <div className="widget no-shadow no-radius">
                     <div className="widget-content">
                         <div className="profile-icon">
-                            <img src={profile_image} className="img-fluid img-round" onClick={() => {
+                            <img src={profile_image} style={{ width: '100%' }} className="img-fluid img-round" onClick={() => {
                                 document.getElementById('imageFilePicker').click()
                                 document.getElementById('imageFilePicker').value = ""
                             }} />
