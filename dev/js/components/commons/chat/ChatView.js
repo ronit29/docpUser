@@ -144,7 +144,7 @@ class ChatView extends React.Component {
                                                 doctorData ?
                                                     <div className="chat-profile-icon">
                                                         <InitialsPicture name={doctorData.name} has_image={!!doctorData.thumbnail} className="chat-profile-icon initialsPicture-cs">
-                                                            <img src={doctorData.thumbnail} />
+                                                            <img src={doctorData.thumbnail} className="chat-profile-icon initialsPicture-cs" />
                                                         </InitialsPicture>
 
                                                     </div> : ""

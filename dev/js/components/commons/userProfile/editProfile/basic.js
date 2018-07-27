@@ -127,11 +127,11 @@ class BasicDetails extends React.Component {
                                 <label htmlFor="number">Mobile Number</label>
                             </div>
 
-                            <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
+                            {/* <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.manageAddress()
-                            }}>Manage My Address<span><img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a>
+                            }}>Manage My Address<span><img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                         </form>
                     </div>
                 </div>

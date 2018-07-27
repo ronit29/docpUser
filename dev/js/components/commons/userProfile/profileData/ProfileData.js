@@ -26,7 +26,7 @@ class ProfileData extends React.Component {
                             </a>
                         </li> */}
                         <li className="my-profile-item" onClick={() => {
-                            this.props.history.push('/chat')
+                            this.props.history.push('/chathistory')
                         }}>
                             <a>
                                 <span className="icon icon-md nav-icon">

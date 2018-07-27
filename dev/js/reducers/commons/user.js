@@ -1,4 +1,4 @@
-import { APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
+import { APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -23,7 +23,8 @@ const defaultState = {
     healthTips: [],
     orderHistory: [],
     articles: [],
-    chatDoctors: {}
+    chatDoctors: {},
+    chatHistory: []
 }
 
 export default function (state = defaultState, action) {
@@ -181,6 +182,15 @@ export default function (state = defaultState, action) {
             }
 
             newState.chatDoctors[action.payload.doctorId] = action.payload.data
+            return newState
+        }
+
+        case APPEND_CHAT_HISTORY: {
+            let newState = {
+                ...state,
+                chatHistory: [],
+            }
+            newState.chatHistory = action.payload
             return newState
         }
 

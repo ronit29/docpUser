@@ -70,7 +70,7 @@ class LeftBar extends React.Component {
                                 </div>
                             </li> */}
                                 <li onClick={() => {
-                                    this.props.history.push('/chat')
+                                    this.props.history.push('/chathistory')
                                 }} className={pathname.includes('/chat') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
                                         <img src="/assets/img/customer-icons/message.svg" className="profile-list-icons" />

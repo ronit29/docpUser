@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUserProfile, fetchArticles } from '../../actions/index.js'
+import { getUserProfile, fetchArticles, fetchHeatlhTip } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -19,6 +19,7 @@ class Home extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
         }
+        // this.props.fetchHeatlhTip()
         this.props.fetchArticles()
     }
 
@@ -32,17 +33,18 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     let {
-        profiles, selectedProfile, newNotification, notifications, articles
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips
     } = state.USER
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getUserProfile: () => dispatch(getUserProfile()),
+        fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
         fetchArticles: () => dispatch(fetchArticles())
     }
 }

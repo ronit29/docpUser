@@ -8,6 +8,7 @@ import Footer from './footer'
 import Articles from './articles'
 import ChatSymptoms from './chatSymptom.js'
 import InitialsPicture from '../initialsPicture'
+import HealthTips from './healthTipMobile.js'
 
 const GENDER = {
     "m": "Male",
@@ -145,6 +146,8 @@ class HomeView extends React.Component {
                                     </Articles>
                                 })
                             }
+
+                            <HealthTips {...this.props} />
 
                         </div>
 

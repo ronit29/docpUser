@@ -21,6 +21,7 @@ import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
 import Article from './containers/commons/article'
 import Payment from './containers/commons/Payment'
+import ChatHistory from './containers/commons/chatHistory'
 
 import Booking_LAB from './containers/diagnosis/Booking.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
@@ -37,6 +38,7 @@ const routes = [
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
     { path: '/chat', exact: true, component: DoctorChat },
+    { path: '/chathistory', exact: true, component: ChatHistory },
     { path: '/notifications', exact: true, component: Notifications },
     { path: '/login', exact: true, component: UserLogin },
     { path: '/signup', exact: true, component: UserSignup },

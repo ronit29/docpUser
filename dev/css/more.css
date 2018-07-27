@@ -844,3 +844,52 @@ figure>img{
     margin-bottom: 15px;
     border-bottom: 1px solid #d3d3d3;
 }
+
+.chat-history-list>li{
+	padding: 16px 10px;
+	cursor: pointer;
+	position: relative;
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+}
+
+.chat-history-list>li:last-child{
+	border: none;
+}
+
+.chat-history-list-label{
+	color: #757575;
+	margin-bottom: 10px;
+	font-size: 16px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.chat-history-list-label>span{
+	color: #000000;
+}
+
+.chat-history-symptom{
+	color: #3f3f3f;
+	font-size: 14px;
+	margin-bottom: 12px;
+	height: 36px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.chat-history-date>img{
+    float: left;
+    width: 20px;
+}
+
+.chat-history-date>p{
+	padding-left: 28px;
+	color: #3f3f3f;
+	font-size: 14px;
+}
