@@ -1,3 +1,6 @@
+// set env vars
+require('dotenv').config()
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -20,7 +23,8 @@ const client_dev = {
             filename: "style.css",
         }),
         new webpack.DefinePlugin({
-            "DOCPRIME_PRODUCTION": false
+            "DOCPRIME_PRODUCTION": false,
+            "ASSETS_BASE_URL": "/assets/"
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
@@ -34,7 +38,7 @@ const client_prod = {
     output: {
         filename: '[name].[chunkhash].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist'
+        publicPath: process.env.CDN_BASE_URL + 'dist'
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
@@ -42,7 +46,8 @@ const client_prod = {
             filename: "[name].[hash].css",
         }),
         new webpack.DefinePlugin({
-            "DOCPRIME_PRODUCTION": true
+            "DOCPRIME_PRODUCTION": true,
+            "ASSETS_BASE_URL": JSON.stringify(process.env.CDN_BASE_URL + "assets")
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
@@ -146,7 +151,6 @@ const serverConfig = {
     },
     externals: nodeExternals(),
 }
-
 
 
 module.exports = env => {

@@ -147,13 +147,13 @@ class ChatSymptoms extends React.Component {
                         })
                     }}><li className="book-list-last-item">
                             <div className="book-list-img-div">
-                                <img src="/assets/img/customer-icons/consultation.svg" className="book-list-img" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/consultation.svg"} className="book-list-img" />
                             </div>
                             <div className="book-list-label-div">
                                 <p className="book-list-label">Get instant Consultation right now for <span>FREE</span></p>
                             </div>
                             <div className="book-list-arrow">
-                                <img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" />
                             </div>
                         </li></a>
                 </ul>
@@ -161,12 +161,12 @@ class ChatSymptoms extends React.Component {
                     <div className="scroll-arrow-div-rt symptoms-rt" onClick={() => {
                         this.slideLeft();
                     }}>
-                        <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="scroll-arrow" />
                     </div>
                     <div className="scroll-arrow-div-lt symptoms-lt" onClick={() => {
                         this.slideRight();
                     }}>
-                        <img src="/assets/img/customer-icons/right-arrow.svg" className="scroll-arrow" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="scroll-arrow" />
                     </div>
                     <p className="symptoms-label">Select Symptom</p>
                     <div ref="container" className="symptoms-list-div">
@@ -189,7 +189,7 @@ class ChatSymptoms extends React.Component {
                 }}>
                     <div className="send-btn">
                         {
-                            selectedSympsStr ? <img src="/assets/img/icons/send-orange.svg" /> : ""
+                            selectedSympsStr ? <img src={ASSETS_BASE_URL + "/img/icons/send-orange.svg"} /> : ""
                         }
                     </div>
 

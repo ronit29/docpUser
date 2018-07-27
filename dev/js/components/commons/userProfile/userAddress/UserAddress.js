@@ -51,7 +51,7 @@ class UserAddress extends React.Component {
                                 </a>
                             </li>
                         }) : <div className="text-center pd-20">
-                                <img src="/assets/img/customer-icons/no-address.png" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/no-address.png"} />
                                 <p className="fw-500 text-lg mrt-20">No Address !!</p>
                             </div>
                     }

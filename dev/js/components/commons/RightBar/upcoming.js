@@ -12,7 +12,7 @@ export default ({ id, type, patient_name, doctor_name, time_slot_start, lab_name
             openAppointment(app_type, id)
         }}>
             <div className="appointment-head-div">
-                <img src="/assets/img/customer-icons/appointment.svg" className="appointment-img" />
+                <img src={ASSETS_BASE_URL + "/img/customer-icons/appointment.svg"} className="appointment-img" />
                 <span className="appointment-head">Upcoming Appointment</span>
             </div>
             <div className="appointment-details-div">

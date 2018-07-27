@@ -119,15 +119,15 @@ class BookingView extends React.Component {
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
-                                            <span className="icon back-icon" onClick={() => { this.props.history.go(-1) }}><img src="/assets/img/customer-icons/back-white.png" className="img-fluid" /></span>
+                                            <span className="icon back-icon" onClick={() => { this.props.history.go(-1) }}><img src={ASSETS_BASE_URL + "/img/customer-icons/back-white.png"} className="img-fluid" /></span>
                                         </div>
                                         <div className="col-6">
                                             <div className="header-title fw-700 capitalize text-white">Your Appointment</div>
                                         </div>
                                         <div className="col-4">
                                             <ul className="inline-list float-right user-notification-action">
-                                                <li onClick={() => { this.props.history.push('/user') }}><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" style={{ cursor: 'pointer' }} className="img-fluid" /></span></li>
-                                                <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" style={{ cursor: 'pointer' }} className="img-fluid" onClick={this.navigateTo.bind(this, '/notifications')} />
+                                                <li onClick={() => { this.props.history.push('/user') }}><span className="icon icon-md text-middle"><img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} style={{ cursor: 'pointer' }} className="img-fluid" /></span></li>
+                                                <li><span className="icon icon-md text-middle notification-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/notification.svg"} style={{ cursor: 'pointer' }} className="img-fluid" onClick={this.navigateTo.bind(this, '/notifications')} />
                                                     {
                                                         this.props.newNotification ? <span className="notification-alert">{this.props.notifications.length}</span> : ""
                                                     }
@@ -203,7 +203,7 @@ class BookingView extends React.Component {
                                                     <div className="widget-content pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700">{hospital.name}</h4>
                                                         <div className="address-details">
-                                                            <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
                                                             <p className="add-info fw-500">{hospital.address}</p>
                                                         </div>
                                                         <div className="pb-view text-left">
@@ -214,7 +214,7 @@ class BookingView extends React.Component {
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
                                                         <div>
-                                                            <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/customer-icons/clock.svg" /></span>Clinic Visit Time
+                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} /></span>Clinic Visit Time
 
                                                                 {
                                                                     actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
@@ -228,7 +228,7 @@ class BookingView extends React.Component {
                                                 <div className="widget mrt-10">
                                                     <div className="widget-content">
                                                         <div className="test-report">
-                                                            <h4 className="title"><span><img className="visit-time-icon" src="/assets/img/icons/user.svg" style={{
+                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
                                                                 width: 14, marginRight: 5, verticalAlign: -3
                                                             }} /></span>Patient Details</h4>
                                                             <p className="test-list fw-500">{profile.name}</p>

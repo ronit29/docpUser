@@ -65,7 +65,7 @@ class Article extends React.Component {
                     }}
                 >
                     <img
-                        src="/assets/img/customer-icons/right-arrow.svg"
+                        src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}
                         className="scroll-arrow"
                     />
                 </div>
@@ -76,7 +76,7 @@ class Article extends React.Component {
                     }}
                 >
                     <img
-                        src="/assets/img/customer-icons/right-arrow.svg"
+                        src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}
                         className="scroll-arrow"
                     />
                 </div>

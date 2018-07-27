@@ -31,7 +31,7 @@ class ChatView extends React.Component {
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
-                                            <img src="/assets/img/icons/back-orange.svg" className="back-icon-orange" onClick={() => {
+                                            <img src={ASSETS_BASE_URL + "/img/icons/back-orange.svg"} className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
@@ -50,14 +50,14 @@ class ChatView extends React.Component {
                                                 <p className="chat-history-list-label fw-500">For : <span>Arun Kumar</span></p>
                                                 <p className="chat-history-symptom fw-500">Cold and Cough | Fever | Headache | Pain/Burning during urination</p>
                                                 <div className="chat-history-date clearfix mrb-5">
-                                                    <img src="/assets/img/icons/calendar.svg" />
+                                                    <img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} />
                                                     <p className="fw-500">Saturday 21 April 2018</p>
                                                 </div>
                                                 <div className="chat-history-date clearfix mrb-5">
-                                                    <img src="/assets/img/customer-icons/stethoscope.svg" />
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} />
                                                     <p className="fw-500">Dr. William Smith</p>
                                                 </div>
-                                                <span className="arrow-custom-right"><img src="/assets/img/customer-icons/arrow-forward-right.svg" /></span>
+                                                <span className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                             </li>
                                         })
                                     }

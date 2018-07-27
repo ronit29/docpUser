@@ -49,7 +49,7 @@ class LeftBar extends React.Component {
                                 <p className="profile-name">{profileData.name}</p>
                                 <div className="profile-info-section">
                                     {
-                                        profileData.gender == 'm' ? <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" /> : <img src="/assets/img/customer-icons/gender.svg" className="gender-icon" style={{ transform: 'rotate(135deg)' }} />
+                                        profileData.gender == 'm' ? <img src={ASSETS_BASE_URL + "/img/customer-icons/gender.svg"} className="gender-icon" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/gender.svg"} className="gender-icon" style={{ transform: 'rotate(135deg)' }} />
                                     }
                                     <span className="profile-info-web">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)}</span>
                                 </div>
@@ -59,7 +59,7 @@ class LeftBar extends React.Component {
                             <ul className="profile-feature-list">
                                 {/* <li>
                                 <div className="list-inline-div list-img-div">
-                                    <img src="/assets/img/customer-icons/insurance.svg" className="profile-list-icons" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/insurance.svg"} className="profile-list-icons" />
                                 </div>
                                 <div className="list-inline-div">
                                     <p className="profile-feature-name">OPD Insurance</p>
@@ -73,7 +73,7 @@ class LeftBar extends React.Component {
                                     this.props.history.push('/chathistory')
                                 }} className={pathname.includes('/chat') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
-                                        <img src="/assets/img/customer-icons/message.svg" className="profile-list-icons" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/message.svg"} className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">Online Consultation</p>
@@ -84,7 +84,7 @@ class LeftBar extends React.Component {
                                 </li>
                                 <li onClick={this.gotTo.bind(this, 'appointments')} className={pathname.includes('/appointments') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
-                                        <img src="/assets/img/customer-icons/opd-visit.svg" className="profile-list-icons" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/opd-visit.svg"} className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">My Appointments</p>
@@ -95,7 +95,7 @@ class LeftBar extends React.Component {
                                 </li>
                                 {/* <li>
                                     <div className="list-inline-div list-img-div">
-                                        <img src="/assets/img/customer-icons/medical.svg" className="profile-list-icons" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/medical.svg"} className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">Medical History</p>
@@ -106,7 +106,7 @@ class LeftBar extends React.Component {
                                 </li> */}
                                 {/* <li>
                                 <div className="list-inline-div list-img-div">
-                                    <img src="/assets/img/customer-icons/test-report.svg" className="profile-list-icons" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/test-report.svg"} className="profile-list-icons" />
                                 </div>
                                 <div className="list-inline-div">
                                     <p className="profile-feature-name">Test Reports</p>
@@ -117,7 +117,7 @@ class LeftBar extends React.Component {
                             </li> */}
                                 <li onClick={this.gotTo.bind(this, 'family')} className={pathname.includes('/family') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
-                                        <img src="/assets/img/customer-icons/family.svg" className="profile-list-icons" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/family.svg"} className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">My Family</p>
@@ -125,7 +125,7 @@ class LeftBar extends React.Component {
                                 </li>
                                 {/* <li>
                                 <div className="list-inline-div list-img-div">
-                                    <img src="/assets/img/customer-icons/lifestyle.svg" className="profile-list-icons" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/lifestyle.svg"} className="profile-list-icons" />
                                 </div>
                                 <div className="list-inline-div">
                                     <p className="profile-feature-name">Lifestyle</p>
@@ -135,7 +135,7 @@ class LeftBar extends React.Component {
                                     this.props.history.push('/wallet')
                                 }} className={pathname.includes('/wallet') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
-                                        <img src="/assets/img/customer-icons/transaction.svg" className="profile-list-icons" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/transaction.svg"} className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">My Transactions</p>
@@ -145,7 +145,7 @@ class LeftBar extends React.Component {
                                     this.props.history.push('/user/address')
                                 }} className={pathname.includes('/user/address') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
-                                        <img src="/assets/img/customer-icons/address.svg" className="profile-list-icons" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/address.svg"} className="profile-list-icons" />
                                     </div>
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">Manage Address</p>
@@ -155,7 +155,7 @@ class LeftBar extends React.Component {
                         </div>
                     </div> : <div className={"sticky-div loggedOut-div" + (!this.props.hideStickyTemp ? " sticky-div-temp" : "")}>
                             <div className="dummy-img-section">
-                                <img src="/assets/img/icons/dummy-profile.svg" className="dummy-icon" />
+                                <img src={ASSETS_BASE_URL + "/img/icons/dummy-profile.svg"} className="dummy-icon" />
                             </div>
                             <div className="login-btn-section">
                                 <button className="login-btn-web" onClick={() => {

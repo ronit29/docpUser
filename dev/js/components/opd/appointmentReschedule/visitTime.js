@@ -20,7 +20,7 @@ class VisitTime extends React.Component {
 
         return (
             <div className="lab-visit-time">
-                <h4 className="title"><span><img src="/assets/img/customer-icons/clock.svg" className="visit-time-icon" /></span>New Visit time
+                <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="visit-time-icon" /></span>New Visit time
                 {/* <span className="float-right">
                         <a href="" onClick={(e) => {
                             e.preventDefault()

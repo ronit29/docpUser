@@ -7,7 +7,7 @@ export default ({ data }) => {
                 <div className="widget-content ct-profile-info">
 
                     <div className="ct-img ct-img-md ct-profile-icon">
-                        <img src="/assets/img/customer-icons/user.svg" className="img-fluid" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} className="img-fluid" />
                     </div>
                     <div className="ct-content root-map-field">
                         <p className="fw-500 text-md">Welcome ! </p>

@@ -19,7 +19,7 @@ class HealthTip extends React.Component {
                     healthTips.map((ht, i) => {
                         return <div className={"tip-card" + (i == (healthTips.length - 2) ? " rotate-card" : "")} id={"tip-card-" + (i + 1)} key={i + 1} style={{ zIndex: (i + 1) }}>
                             <div className="tip-card-header">
-                                <img src="/assets/img/customer-icons/tip-card-icon.png" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/tip-card-icon.png"} />
                                 <p className="fw-500">Health Tips of the Day</p>
                             </div>
                             <div className="tip-card-content">
@@ -30,7 +30,7 @@ class HealthTip extends React.Component {
                 }
                 {/* <div className="tip-card" id="tip-card-1">
                     <div className="tip-card-header">
-                        <img src="/assets/img/customer-icons/tip-card-icon.png" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/tip-card-icon.png" } />
                         <p className="fw-500">Health Tips of the Day</p>
                     </div>
                     <div className="tip-card-content">
@@ -39,7 +39,7 @@ class HealthTip extends React.Component {
                 </div>
                 <div className="tip-card" id="tip-card-2">
                     <div className="tip-card-header">
-                        <img src="/assets/img/customer-icons/tip-card-icon.png" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/tip-card-icon.png" } />
                         <p className="fw-500">Health Tips of the Day</p>
                     </div>
                     <div className="tip-card-content">
@@ -48,7 +48,7 @@ class HealthTip extends React.Component {
                 </div>
                 <div className="tip-card" id="tip-card-3">
                     <div className="tip-card-header">
-                        <img src="/assets/img/customer-icons/tip-card-icon.png" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/tip-card-icon.png" } />
                         <p className="fw-500">Health Tips of the Day</p>
                     </div>
                     <div className="tip-card-content">
@@ -57,7 +57,7 @@ class HealthTip extends React.Component {
                 </div>
                 <div className="tip-card rotate-card" id="tip-card-4">
                     <div className="tip-card-header">
-                        <img src="/assets/img/customer-icons/tip-card-icon.png" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/tip-card-icon.png" } />
                         <p className="fw-500">Health Tips of the Day</p>
                     </div>
                     <div className="tip-card-content">
@@ -66,7 +66,7 @@ class HealthTip extends React.Component {
                 </div>
                 <div className="tip-card" id="tip-card-5">
                     <div className="tip-card-header">
-                        <img src="/assets/img/customer-icons/tip-card-icon.png" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/tip-card-icon.png" } />
                         <p className="fw-500">Health Tips of the Day</p>
                     </div>
                     <div className="tip-card-content">

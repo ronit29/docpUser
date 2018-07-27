@@ -43,7 +43,7 @@ class WalletView extends React.Component {
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
-                                            <img src="/assets/img/icons/back-orange.svg" className="back-icon-orange" onClick={() => {
+                                            <img src={ASSETS_BASE_URL + "/img/icons/back-orange.svg"} className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>

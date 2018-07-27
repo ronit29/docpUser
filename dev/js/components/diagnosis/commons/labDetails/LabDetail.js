@@ -41,7 +41,7 @@ class LabDetails extends React.Component {
                                     <h4 className="widget-title pb-title">{name}</h4>
                                     <p className="location">{locality} {city}
                                         {/* <span className="ct-img ct-img-xs">
-                                        <img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" />
                                     </span> */}
                                     </p>
                                     <ul className="list time-contact">
@@ -66,7 +66,7 @@ class LabDetails extends React.Component {
                                 <div className="widget-content pb-details pb-location">
                                     <h4 className="wc-title text-md fw-700">Location</h4>
                                     <div className="address-details">
-                                        <img src="/assets/img/customer-icons/map-icon.png" className="img-fluid add-map" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
                                         <p className="add-info">{address}</p>
                                     </div>
                                     <div className="pb-view text-left">

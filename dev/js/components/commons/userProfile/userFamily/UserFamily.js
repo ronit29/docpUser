@@ -59,13 +59,13 @@ class UserFamily extends React.Component {
                                                 <span className="ct-img ct-img-xs">
                                                     {
                                                         profiles[id].gender == 'm' ?
-                                                            <img src="/assets/img/customer-icons/man.svg" className="img-fluid" /> : <img src="/assets/img/customer-icons/man.svg" style={{ transform: 'rotate(135deg)' }} className="img-fluid" />
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} style={{ transform: 'rotate(135deg)' }} className="img-fluid" />
                                                     }
                                                 </span>{GENDER[profiles[id].gender]}, {this.getAge(profiles[id].dob)}</li>
                                             <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
                                         </ul>
                                     </div>
-                                    <span className="ct-img ct-img-sm arrow-forward-right"><img src="/assets/img/customer-icons/arrow-forward-right.svg" /></span>
+                                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                 </a>
                             </li>
                         })
@@ -74,7 +74,7 @@ class UserFamily extends React.Component {
                 {
                     Object.keys(profiles).filter(x => !profiles[x].isDummyUser).length == 0 ?
                         <div className="text-center pd-20">
-                            <img src="/assets/img/customer-icons/no-family.png" />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/no-family.png"} />
                             <p className="fw-500 text-lg mrt-20">No Family Member Added !!</p>
                         </div> : ""
                 }

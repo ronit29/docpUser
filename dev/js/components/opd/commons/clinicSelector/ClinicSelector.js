@@ -37,7 +37,7 @@ class ClinicSelector extends React.Component {
                                             <div className="location-details clearfix">
                                                 <p className="address">{hospital.address}</p>
                                                 <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
-                                                    <img src="/assets/img/customer-icons/map-icon.png" />
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} />
                                                 </a>
                                                 {/* <div style={{ float: 'right', cursor: 'pointer' }} >
 

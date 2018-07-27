@@ -20,7 +20,7 @@ class Transactions extends React.Component {
                 </div>
                 <div className="row transactions-row">
                     <div className="col-3 col-sm-2">
-                        <img src="/assets/img/icons/transaction-left.svg" className="transaction-icon transaction-icon-right" />
+                        <img src={ASSETS_BASE_URL + "/img/icons/transaction-left.svg"} className="transaction-icon transaction-icon-right" />
                     </div>
                     <div className="col-6 col-sm-8 transaction-item-col">
                         <p className="transaction-item-head fw-500">Amount Refunded</p>

@@ -125,7 +125,7 @@ class TestSelectorView extends React.Component {
                                                         <div className="select-location-row text-center">
                                                             <span onClick={() => {
                                                                 this.props.history.go(-1)
-                                                            }} className="ct-img ct-img-md close"><img src="/assets/img/customer-icons/close-black.svg" className="img-fluid" /></span>
+                                                            }} className="ct-img ct-img-md close"><img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" /></span>
                                                             <h4 className="fw-700 text-md">All Test</h4>
                                                         </div>
                                                     </div>
@@ -135,7 +135,7 @@ class TestSelectorView extends React.Component {
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
                                                                 <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)} />
-                                                                <span className="ct-img ct-img-sm map-marker-blue"><img src="/assets/img/customer-icons/search-icon.svg" className="img-fluid" /></span>
+                                                                <span className="ct-img ct-img-sm map-marker-blue"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} className="img-fluid" /></span>
                                                             </div>
                                                             <div className="detect-my-locaiton">
                                                                 <span className="ct-img ct-img-xs" />

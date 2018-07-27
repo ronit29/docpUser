@@ -18,7 +18,7 @@ class ProfileData extends React.Component {
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/consultant.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/consultant.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">OPD Insurance</h4>
@@ -30,7 +30,7 @@ class ProfileData extends React.Component {
                         }}>
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/message.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/message.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Online Consultation</h4>
@@ -40,7 +40,7 @@ class ProfileData extends React.Component {
                         <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/opd-visit.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Appointments
@@ -52,7 +52,7 @@ class ProfileData extends React.Component {
                         {/* <li className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/medical-history.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/medical-history.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Medical History
@@ -64,7 +64,7 @@ class ProfileData extends React.Component {
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/opd-visit.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Test Report <span className="float-right badge badge-warning">5</span></h4>
@@ -74,7 +74,7 @@ class ProfileData extends React.Component {
                         <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/family.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/family.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Family</h4>
@@ -84,7 +84,7 @@ class ProfileData extends React.Component {
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/opd-visit.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/opd-visit.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Life Style</h4>
@@ -96,7 +96,7 @@ class ProfileData extends React.Component {
                         }} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/transaction.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/transaction.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Transactions</h4>
@@ -108,7 +108,7 @@ class ProfileData extends React.Component {
                         }} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src="/assets/img/customer-icons/address.svg" className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/address.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Manage Address</h4>

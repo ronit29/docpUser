@@ -77,7 +77,7 @@ class AppointmentSlot extends React.Component {
                                         <div className="col-2">
                                             <span className="icon back-icon" onClick={() => {
                                                 this.props.history.go(-1)
-                                            }}><img src="/assets/img/customer-icons/back-white.png" className="img-fluid" /></span>
+                                            }}><img src={ASSETS_BASE_URL + "/img/customer-icons/back-white.png"} className="img-fluid" /></span>
                                         </div>
                                         <div className="col-8">
                                             <div className="header-title fw-700 capitalize text-white text-center">Select Date and Time</div>

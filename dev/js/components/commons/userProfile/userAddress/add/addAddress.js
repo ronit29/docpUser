@@ -113,7 +113,7 @@ class UserSignupView extends React.Component {
                                 <ul className="inline-list">
                                     <li onClick={() => {
                                         this.props.history.go(-1)
-                                    }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
+                                    }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
                                 </ul>
                             </div>
                             <div className="col-8">

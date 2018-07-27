@@ -130,7 +130,7 @@ class ChatView extends React.Component {
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2 col-sm-1">
-                                            <img src="/assets/img/customer-icons/back-white.png" className="back-icon-orange" onClick={() => {
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/back-white.png"} className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
@@ -162,11 +162,11 @@ class ChatView extends React.Component {
                                         <div className="col-2 chat-icons chat-call-icon" onClick={() => {
                                             this.dispatchCustomEvent.call(this, 'call')
                                         }}>
-                                            <img src="/assets/img/customer-icons/call-white.svg" />
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/call-white.svg"} />
                                         </div>
 
                                         <div className="col-2 chat-icons" onClick={this.toggleCancel.bind(this)}>
-                                            <img src="/assets/img/customer-icons/close-white.svg" />
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} />
                                         </div>
                                     </div>
                                 </div>

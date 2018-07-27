@@ -74,7 +74,7 @@ class ProfileSlider extends React.Component {
 
                         }}>
                             <div className="avtar avtar-md consumer-icon">
-                                <img src={profiles[id].profile_image || "/assets/img/icons/drIcon.jpg"} className="img-fluid img-round " />
+                                <img src={profiles[id].profile_image || (ASSETS_BASE_URL + "/img/icons/drIcon.jpg")} className="img-fluid img-round " />
                             </div>
                             <div style={{ width: 85 }}>
                                 {/* <h4 className="title">{profiles[id].name}</h4>

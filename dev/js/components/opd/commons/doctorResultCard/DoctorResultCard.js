@@ -50,7 +50,7 @@ class DoctorProfileCard extends React.Component {
                         <p style={{ flex: 1 }}>{name}</p>
                     </div>
                     <div className="rating-address beta">
-                        <p><span className="ct-img ct-img-xs"><img src="/assets/img/customer-icons/map-marker-blue.svg" className="img-fluid" /></span>{hospital.address}</p>
+                        <p><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                 </div>
                 <div className="widget-content">
@@ -71,7 +71,7 @@ class DoctorProfileCard extends React.Component {
                 <div className="widget-footer card-footer">
                     <div className="row dr-result-card-row">
                         <div className="col-6 col-sm-7">
-                            <img src="/assets/img/customer-icons/home.svg" className="img-fluid" />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} className="img-fluid" />
                             <p className="Clinc-name">{hospital.hospital_name}
                                 {
                                     hospital_count > 1 ?
@@ -80,7 +80,7 @@ class DoctorProfileCard extends React.Component {
                             </p>
                         </div>
                         <div className="col-6 col-sm-5 time-availability-div">
-                            <img src="/assets/img/customer-icons/clock-black.svg" className="img-fluid" />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} className="img-fluid" />
                             <p className="time-availability">
                                 {Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}
                             </p>

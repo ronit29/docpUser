@@ -76,7 +76,7 @@ class BasicDetails extends React.Component {
     render() {
 
         let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
-        profile_image = profile_image || "/assets/img/customer-icons/user.png"
+        profile_image = profile_image || (ASSETS_BASE_URL + "/img/customer-icons/user.png")
 
         return (
             <section className="myProfile profile-details">
@@ -88,7 +88,7 @@ class BasicDetails extends React.Component {
                                 document.getElementById('imageFilePicker').value = ""
                             }} />
                             <span className="cam-icon">
-                                <img src="/assets/img/icons/cam-md.png" className="img-fluid cam-icon-img" onClick={() => {
+                                <img src={ASSETS_BASE_URL + "/img/icons/cam-md.png"} className="img-fluid cam-icon-img" onClick={() => {
                                     document.getElementById('imageFilePicker').click()
                                     document.getElementById('imageFilePicker').value = ""
                                 }} />
@@ -131,7 +131,7 @@ class BasicDetails extends React.Component {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.manageAddress()
-                            }}>Manage My Address<span><img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
+                            }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                         </form>
                     </div>
                 </div>
