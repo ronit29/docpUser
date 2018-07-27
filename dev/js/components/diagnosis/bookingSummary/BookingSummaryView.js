@@ -203,7 +203,7 @@ class BookingSummaryView extends React.Component {
                                             <ul className="inline-list">
                                                 <li onClick={() => {
                                                     this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
+                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
                                             </ul>
                                         </div>
                                         <div className="col-8">
@@ -240,7 +240,7 @@ class BookingSummaryView extends React.Component {
                                                                 {
                                                                     is_home_pickup_available ?
                                                                         <div className="lab-visit-time test-report lab-appointment-div row">
-                                                                            <h4 className="title col-12"><span><img src="/assets/img/customer-icons/test.svg" className="visit-time-icon" /></span>Appointment type </h4>
+                                                                            <h4 className="title col-12"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Appointment type </h4>
                                                                             <ul className="inline-list booking-type col-12">
                                                                                 <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
                                                                                 <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
@@ -250,14 +250,14 @@ class BookingSummaryView extends React.Component {
 
 
                                                                 <div className="lab-visit-time test-report">
-                                                                    <h4 className="title"><span><img src="/assets/img/customer-icons/test.svg" className="visit-time-icon" /></span>Tests <span className="float-right"><a onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
+                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
                                                                     {tests}
                                                                 </div>
 
                                                                 {this.getSelectors()}
 
                                                                 <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src="/assets/img/icons/info.svg" style={{ cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} style={{ cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                     <h5 className="payment-amt-value fw-500">Rs. {finalPrice}</h5>
                                                                 </div>
 
@@ -268,7 +268,7 @@ class BookingSummaryView extends React.Component {
 
                                                     <div className="col-12">
                                                         <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10, cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Money back guarantee<span><img className="info-icon-img" src="/assets/img/icons/info.svg" /></span></h4>
+                                                            <h4 className="title payment-amt-label">Money back guarantee<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
                                                     </div>
 

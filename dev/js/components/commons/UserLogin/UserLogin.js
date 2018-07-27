@@ -87,7 +87,7 @@ class UserLoginView extends React.Component {
                                     <div className="row">
                                         <div className="col-2">
                                             <ul className="inline-list">
-                                                <li onClick={() => { this.props.history.go(-1) }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
+                                                <li onClick={() => { this.props.history.go(-1) }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
                                             </ul>
                                         </div>
                                         <div className="col-8">
@@ -106,7 +106,7 @@ class UserLoginView extends React.Component {
                                     <div className="widget-content text-center">
                                         <div className="mobile-verification">
                                             <div className="verifi-mob-iocn text-center">
-                                                <img src="/assets/img/customer-icons/mob.svg" className="img-fluid" />
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
                                             </div>
                                         </div>
                                         <div className="form-group mobile-field">

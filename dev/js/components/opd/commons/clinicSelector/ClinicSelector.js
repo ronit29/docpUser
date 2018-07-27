@@ -37,7 +37,7 @@ class ClinicSelector extends React.Component {
                                             <div className="location-details clearfix">
                                                 <p className="address">{hospital.address}</p>
                                                 <div style={{ float: 'right' }} >
-                                                    <img src="/assets/img/customer-icons/map-icon.png" />
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} />
                                                 </div>
                                             </div>
                                             <div className="timing-details">

@@ -24,7 +24,7 @@ class ExpansionPanel extends React.Component {
                     <div className="title" onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0 }} >
                         {heading}
                         {
-                            this.state.open ? <img className="titlearrow-up" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img className="titlearrow" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                            this.state.open ? <img className="titlearrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /> : <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                         }
                     </div>
                     {

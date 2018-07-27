@@ -7,7 +7,8 @@
     "start": "node server.js",
     "client": "webpack --progress --watch",
     "build-dev": "webpack --progress",
-    "build-prod": "webpack --env.production --progress"
+    "build-prod": "webpack --env.production --progress && npm run upload",
+    "upload": "node upload.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "license": "ISC",
   "homepage": "",
   "dependencies": {
+    "aws-sdk": "^2.281.1",
     "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -28,6 +30,7 @@
     "compress.js": "^1.1.2",
     "material-ui": "^1.0.0-beta.40",
     "material-ui-icons": "^1.0.0-beta.36",
+    "mime": "^2.3.1",
     "node-snackbar": "^0.1.10",
     "passport-linkedin": "^1.0.0",
     "query-string": "^6.1.0",
@@ -56,6 +59,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
+    "dotenv": "^6.0.0",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.0",

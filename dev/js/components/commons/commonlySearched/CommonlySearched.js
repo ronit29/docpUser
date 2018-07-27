@@ -22,14 +22,14 @@ class CommonlySearched extends React.Component {
 
                         }}
                     >
-                        <img src="/assets/img/customer-icons/lab1.png" className="img-fluid" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/lab1.png"} className="img-fluid" />
                     </span>
                     <p className="lab-name">SLR Dignostics</p>
                 </li>
             } else if (this.props.selectedPills) {
                 return <li key={i} className="selected-content-list-item">
                     <p className="fw-500">{row.name}</p>
-                    <img src="/assets/img/icons/close-circle.png" onClick={() => {
+                    <img src={ASSETS_BASE_URL + "/img/icons/close-circle.png"} onClick={() => {
                         return this.props.toggle((this.props.type || row.type), row)
                     }} />
                 </li>

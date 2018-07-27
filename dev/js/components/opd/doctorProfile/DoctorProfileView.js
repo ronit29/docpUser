@@ -48,7 +48,7 @@ class DoctorProfileView extends React.Component {
                                                 >
                                                     <li>
                                                         <span className="ct-img ct-img-sm arrow-img">
-                                                            <img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" />
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" />
                                                         </span>
                                                     </li>
                                                 </ul>
@@ -56,7 +56,7 @@ class DoctorProfileView extends React.Component {
                                             <div className="mobile-home-icon-div" >
                                                 <img onClick={() => {
                                                     this.props.history.go('/')
-                                                }} src="/assets/img/doc-prime-logo.png" className="mobile-home-icon" />
+                                                }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
                                             </div>
                                         </div>
                                         <div className='col-8'>
@@ -64,8 +64,8 @@ class DoctorProfileView extends React.Component {
                                         </div>
                                         <div className="col-2">
                                             <ul className="inline-list float-right user-notification-action">
-                                                {/* <li><span className="icon icon-md text-middle"><img src="/assets/img/customer-icons/user.svg" className="img-fluid" /></span></li>
-                                    <li><span className="icon icon-md text-middle notification-icon"><img src="/assets/img/customer-icons/notification.svg" className="img-fluid" /> <span className="notification-alert" /></span></li> */}
+                                                {/* <li><span className="icon icon-md text-middle"><img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} className="img-fluid" /></span></li>
+                                    <li><span className="icon icon-md text-middle notification-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/notification.svg"} className="img-fluid" /> <span className="notification-alert" /></span></li> */}
                                             </ul>
                                         </div>
                                     </div>

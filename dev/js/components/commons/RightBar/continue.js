@@ -31,7 +31,7 @@ export default ({ doctor_name, lab_name, hospital_name, openBookingSummary, doct
             </div>
             <div className="continue-div">
                 <span className="continue-text">Continue</span>
-                <img src="/assets/img/customer-icons/right-arrow.svg" className="rt-arrow-icon" />
+                <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="rt-arrow-icon" />
             </div>
         </div>
     </a>

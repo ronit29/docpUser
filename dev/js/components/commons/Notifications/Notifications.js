@@ -41,7 +41,7 @@ class NotificationsView extends React.Component {
                                                 this.props.history.go(-1)
                                             }}>
                                                 <a>
-                                                    <img src="/assets/img/icons/back.png" className="img-fluid" />
+                                                    <img src={ASSETS_BASE_URL + "/img/icons/back.png"} className="img-fluid" />
                                                 </a>
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@ class NotificationsView extends React.Component {
                                 <div className="notificatons">
                                 {
                                     (this.props.notifications && this.props.notifications.length == 0) ? <div className="text-center pd-20">
-                                        <img src="/assets/img/customer-icons/no-notification.png" />
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/no-notification.png"} />
                                         <p className="fw-500 text-lg mrt-20">No Notifications !!</p>
                                     </div> : ""
                                 }
@@ -67,7 +67,7 @@ class NotificationsView extends React.Component {
                                             this.props.notifications.map((note, i) => {
                                                 return <li key={i} onClick={this.openAppointment.bind(this, note)}>
                                                     <a>
-                                                        <img src="/assets/img/icons/bell-md.png" className="img-fluid noti-icon" />
+                                                        <img src={ASSETS_BASE_URL + "/img/icons/bell-md.png"} className="img-fluid noti-icon" />
                                                         <div className="noti-content">
                                                             <h4 className="noti-title">{note.content.title}<span className="updated-on">{note.viewed_at ? "" : "New"}</span></h4>
                                                             <p>{note.content.body}</p>

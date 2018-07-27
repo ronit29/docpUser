@@ -47,7 +47,7 @@ class LabView extends React.Component {
                                                 >
                                                     <li>
                                                         <span className="ct-img ct-img-sm arrow-img">
-                                                            <img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" />
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" />
                                                         </span>
                                                     </li>
                                                 </ul>

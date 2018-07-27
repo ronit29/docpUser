@@ -27,7 +27,7 @@ const Section_Component = ({ children, title, history }) => {
                             history.go(-1)
                         }}>
                             <a>
-                                <img src="/assets/img/icons/back.png" className="img-fluid" />
+                                <img src={ASSETS_BASE_URL + "/img/icons/back.png"} className="img-fluid" />
                             </a>
                         </div>
                     </div>

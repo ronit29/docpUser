@@ -141,7 +141,7 @@ class AppointmentReschedule extends React.Component {
                                             <ul className="inline-list">
                                                 <li onClick={() => {
                                                     this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
+                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
                                             </ul>
                                         </div>
                                         <div className="col-8">
@@ -169,7 +169,7 @@ class AppointmentReschedule extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{ width: 17, marginRight: 6 }} /></span>{hospital.name} </h4>
+                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 6 }} /></span>{hospital.name} </h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 
@@ -178,7 +178,7 @@ class AppointmentReschedule extends React.Component {
                                                                 <ChoosePatient patient={profile} />
 
                                                                 <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                     <h5 className="payment-amt-value">Rs. {priceData.payable_amount}</h5>
                                                                 </div>
 
@@ -187,7 +187,7 @@ class AppointmentReschedule extends React.Component {
                                                     </div>
                                                     <div className="col-12" style={{ marginTop: 10 }}>
                                                         <div className="lab-visit-time test-report" style={{ textAlign: 'right' }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Money back guarantee<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src="/assets/img/icons/info.svg" /></span></h4>
+                                                            <h4 className="title payment-amt-label">Money back guarantee<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -65,7 +65,7 @@ class HomeView extends React.Component {
                             <div className="row mobile-profile-inside-row">
                                 <div className="profile-icon-div">
                                     <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture">
-                                        <img src={profileData.profile_image || "/assets/img/icons/drIcon.jpg"} className="profile-icon" />
+                                        <img src={profileData.profile_image || (ASSETS_BASE_URL + "/img/icons/drIcon.jpg")} className="profile-icon" />
                                     </InitialsPicture>
                                 </div>
                                 <div className="profile-info-div">
@@ -79,7 +79,7 @@ class HomeView extends React.Component {
                             <div className="container">
                                 <div className="row mobile-profile-inside-row">
                                     <div className="profile-icon-div">
-                                        <img src="/assets/img/icons/dummy-profile.svg" className="profile-icon-dummy" />
+                                        <img src={ASSETS_BASE_URL + "/img/icons/dummy-profile.svg"} className="profile-icon-dummy" />
                                     </div>
                                     <div className="profile-info-div">
                                         <p className="logout-text fw-500">After login your details will be visible here. You can consult with the doctor, book Appointments and your medical tests</p>
@@ -102,24 +102,24 @@ class HomeView extends React.Component {
                                 <ul className="book-list">
                                     <a href="javascript:;" onClick={this.navigateTo.bind(this, '/opd')}><li>
                                         <div className="book-list-img-div">
-                                            <img src="/assets/img/customer-icons/book-doctor.svg" className="book-list-img" />
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="book-list-img" />
                                         </div>
                                         <div className="book-list-label-div">
                                             <p className="book-list-label">Book to Visit a Doctor</p>
                                         </div>
                                         <div className="book-list-arrow">
-                                            <img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" />
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" />
                                         </div>
                                     </li></a>
                                     <a href="javascript:;" onClick={this.navigateTo.bind(this, '/dx')}><li className="book-list-last-item">
                                         <div className="book-list-img-div">
-                                            <img src="/assets/img/customer-icons/medical-test.svg" className="book-list-img" />
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/medical-test.svg"} className="book-list-img" />
                                         </div>
                                         <div className="book-list-label-div">
                                             <p className="book-list-label">Book Medical Test</p>
                                         </div>
                                         <div className="book-list-arrow">
-                                            <img src="/assets/img/customer-icons/right-arrow.svg" className="list-arrow-rt" />
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" />
                                         </div>
                                     </li></a>
                                 </ul>

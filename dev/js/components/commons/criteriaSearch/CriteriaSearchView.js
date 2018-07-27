@@ -114,7 +114,7 @@ class CriteriaSearchView extends React.Component {
                                                         this.props.history.go(-1)
                                                     }}
                                                 >
-                                                    <li><span className="ct-img ct-img-sm arrow-img"><img src="/assets/img/customer-icons/left-arrow.svg" className="img-fluid" /></span></li>
+                                                    <li><span className="ct-img ct-img-sm arrow-img"><img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" /></span></li>
                                                     <li><div className="screen-title">Search</div></li>
                                                 </ul>
                                                 <ul className="inline-list top-nav beta-bx float-right text-right text-white"
@@ -122,7 +122,7 @@ class CriteriaSearchView extends React.Component {
                                                         this.props.history.push('/locationsearch')
                                                     }}
                                                 >
-                                                    <li><div className="screen-title"><span className="ct-img ct-img-sm map-marker-img"><img src="/assets/img/customer-icons/map-marker.svg" className="img-fluid" /></span> {location}</div></li>
+                                                    <li><div className="screen-title"><span className="ct-img ct-img-sm map-marker-img"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" /></span> {location}</div></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@ class CriteriaSearchView extends React.Component {
                                                             this.props.history.go(-1)
                                                         }
                                                     }} />
-                                                    <span className="ct-img ct-img-sm search-icon"><img src="/assets/img/customer-icons/search-icon.svg" /></span>
+                                                    <span className="ct-img ct-img-sm search-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} /></span>
                                                 </div>
                                             </div>
                                         </div>

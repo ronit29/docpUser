@@ -127,8 +127,8 @@ class TopBar extends React.Component {
                             <div className="filter-item">
                                 <div className="action-filter">
                                     <ul className="inline-list">
-                                        <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src="/assets/img/customer-icons/range.svg" className="img-fluid" /></span></li>
-                                        <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src="/assets/img/customer-icons/filter.svg" className="img-fluid" /></span>
+                                        <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                        <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                             {
                                                 this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                             }

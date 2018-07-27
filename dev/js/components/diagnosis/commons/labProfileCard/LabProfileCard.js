@@ -64,11 +64,11 @@ class LabProfileCard extends React.Component {
                         }
 
                         {/* <ul className="inline-list ratting">
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/star.svg" className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src="/assets/img/customer-icons/half-star.svg" className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
+                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/half-star.svg"} className="img-fluid" /></span></li>
                         </ul> */}
 
                     </div>
@@ -77,7 +77,7 @@ class LabProfileCard extends React.Component {
                         <p className="fw-500" style={{ color: '#343434', fontSize: 13, marginBottom: 4 }} >Radiology | Pathology</p>
                         <p className="lab-locality">
                             {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
-                            {lab.locality} {lab.city} | <span><img src="/assets/img/icons/location-orange.svg" style={{ marginRight: 4 }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
+                            {lab.locality} {lab.city} | <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4 }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
                         </p>
                         <p style={{ color: '#f78316', fontSize: 12 }} >{lab_timing} |
                             {

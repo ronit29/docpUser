@@ -158,7 +158,7 @@ class PatientDetails extends React.Component {
                                             <ul className="inline-list">
                                                 <li onClick={() => {
                                                     this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src="/assets/img/customer-icons/back-icon.png" className="img-fluid" /></span></li>
+                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
                                             </ul>
                                         </div>
                                         <div className="col-8">
@@ -186,7 +186,7 @@ class PatientDetails extends React.Component {
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src="/assets/img/icons/home-orange.svg" className="visit-time-icon" style={{ width: 17, marginRight: 4 }} /></span><span style={{ display: 'inline-block', width: '70%' }} >{hospital.hospital_name} </span> <span className="float-right text-primary fw-700 text-md">{(this.props.selectedSlot && this.props.selectedSlot.date) ? ("Rs. " + this.props.selectedSlot.time.deal_price) : "Time slot not selected"}</span></h4>
+                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 4 }} /></span><span style={{ display: 'inline-block', width: '70%' }} >{hospital.hospital_name} </span> <span className="float-right text-primary fw-700 text-md">{(this.props.selectedSlot && this.props.selectedSlot.date) ? ("Rs. " + this.props.selectedSlot.time.deal_price) : "Time slot not selected"}</span></h4>
                                                                     <p className="date-time">{hospital.address}</p>
                                                                 </div>
 
@@ -195,7 +195,7 @@ class PatientDetails extends React.Component {
                                                                 <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                                 {
                                                                     !!priceData.payable_amount ? <div className="lab-visit-time test-report">
-                                                                        <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                        <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                         <h5 className="payment-amt-value">Rs. {priceData.payable_amount}</h5>
                                                                     </div> : ""
                                                                 }
@@ -205,7 +205,7 @@ class PatientDetails extends React.Component {
                                                     </div>
                                                     <div className="col-12" style={{ marginTop: 10 }}>
                                                         <div className="lab-visit-time test-report" style={{ textAlign: 'right', cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Money back guarantee<span style={{ marginLeft: 5 }}><img src="/assets/img/icons/info.svg" /></span></h4>
+                                                            <h4 className="title payment-amt-label">Money back guarantee<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
                                                     </div>
                                                     <span className="errorMessage">{this.state.error}</span>
