@@ -53,7 +53,7 @@ function uploadFolder(folderPath, folderName) {
                 // upload file to S3
                 s3.putObject({
                     Bucket: config.s3BucketName,
-                    Key: `consumerapp/${folderName}/${fileName}`,
+                    Key: `cp/${folderName}/${fileName}`,
                     Body: fileContent,
                     ContentType: content_type
                 }, (res) => {
