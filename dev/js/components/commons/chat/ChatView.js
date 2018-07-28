@@ -14,6 +14,7 @@ class ChatView extends React.Component {
             selectedDoctor: null,
             token: "",
             symptoms: [],
+            roomId: "",
             showCancel: false
         }
     }
@@ -21,8 +22,8 @@ class ChatView extends React.Component {
     componentDidMount() {
         STORAGE.getAuthToken().then((token) => {
             token = token || ""
-            if (this.props.location.state && this.props.location.state.symptoms) {
-                this.setState({ token, symptoms: (this.props.location.state.symptoms || []) })
+            if (this.props.location.state) {
+                this.setState({ token, symptoms: (this.props.location.state.symptoms || []), roomId: (this.props.location.state.roomId || "") })
             } else {
                 this.setState({ token })
             }
@@ -108,7 +109,6 @@ class ChatView extends React.Component {
 
     render() {
         let doctorData = this.props.USER.chatDoctors[this.state.selectedDoctor]
-
         let symptoms_uri = this.state.symptoms.reduce((str, curr) => {
             str += `${curr},`
             return str
@@ -117,6 +117,10 @@ class ChatView extends React.Component {
         if (symptoms_uri) {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
+
+        let iframe_url = `https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&roomId=${this.state.roomId}`
+
+
 
         return (
             <div className="profile-body-wrap">
@@ -172,7 +176,7 @@ class ChatView extends React.Component {
                                 </div>
                             </header>
                             <div className="container-fluid chat-container">
-                                <iframe className="chat-iframe" src={`https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}`} ref="chat_frame"></iframe>
+                                <iframe className="chat-iframe" src={iframe_url} ref="chat_frame"></iframe>
                             </div>
                             {
                                 this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""

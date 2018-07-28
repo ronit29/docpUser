@@ -14,6 +14,12 @@ class ChatView extends React.Component {
         }
     }
 
+    openChat(roomId = "") {
+        this.props.history.push('/chat', {
+            roomId: roomId
+        })
+    }
+
     render() {
 
         let { chatHistory } = this.props
@@ -46,16 +52,17 @@ class ChatView extends React.Component {
                                 <ul className="list chat-history-list">
                                     {
                                         chatHistory.map((chat, i) => {
-                                            return <li key={i}>
-                                                <p className="chat-history-list-label fw-500">For : <span>Arun Kumar</span></p>
-                                                <p className="chat-history-symptom fw-500">Cold and Cough | Fever | Headache | Pain/Burning during urination</p>
+                                            let date_f = new Date(chat.date || 0).toDateString()
+                                            return <li key={i} onClick={this.openChat.bind(this, chat.room_id)}>
+                                                <p className="chat-history-list-label fw-500">For : <span>{chat.user_name}</span></p>
+                                                <p className="chat-history-symptom fw-500">{chat.symptoms}</p>
                                                 <div className="chat-history-date clearfix mrb-5">
                                                     <img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} />
-                                                    <p className="fw-500">Saturday 21 April 2018</p>
+                                                    <p className="fw-500">{date_f}</p>
                                                 </div>
                                                 <div className="chat-history-date clearfix mrb-5">
                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} />
-                                                    <p className="fw-500">Dr. William Smith</p>
+                                                    <p className="fw-500">{chat.doctor_name}</p>
                                                 </div>
                                                 <span className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                             </li>

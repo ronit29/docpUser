@@ -242,7 +242,7 @@ export const getChatDoctorById = (doctorId, cb) => (dispatch) => {
 }
 
 export const fetchChatHistory = (cb) => (dispatch) => {
-	API_GET(`/api/v1/user/chathistory`).then(function (response) {
+	API_GET(`api/v1/chat/user/profile`).then(function (response) {
 		dispatch({
 			type: APPEND_CHAT_HISTORY,
 			payload: response

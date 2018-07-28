@@ -9,6 +9,15 @@ import STORAGE from '../../helpers/storage'
 class ChatHistory extends React.Component {
     constructor(props) {
         super(props)
+        if (!STORAGE.checkAuth()) {
+            this.props.history.replace(`/login?callback=/chathistory`)
+        }
+    }
+
+    componentDidMount() {
+        if (STORAGE.checkAuth()) {
+            this.props.fetchChatHistory()
+        }
     }
 
     static contextTypes = {
