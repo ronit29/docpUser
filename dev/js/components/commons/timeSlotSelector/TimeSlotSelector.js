@@ -146,6 +146,27 @@ class TimeSlotSelector extends React.Component {
             }
         }
 
+        if (this.props.doctor_leaves && this.props.doctor_leaves.length) {
+            let blocked = false
+            this.props.doctor_leaves.map((leave) => {
+                let start_date = new Date(leave.start_date)
+                start_date = start_date.setHours(0, 0, 0, 0)
+                let end_date = new Date(leave.end_date)
+                end_date = end_date.setHours(0, 0, 0, 0)
+                let curr_date = new Date(selectedDate)
+                curr_date = curr_date.setHours(0, 0, 0, 0)
+                if (curr_date >= start_date && curr_date <= end_date) {
+                    if (ts.value >= leave.leave_start_time && ts.value <= leave.leave_end_time) {
+                        blocked = true
+                    }
+                }
+            })
+
+            if (blocked) {
+                return false
+            }
+        }
+
         let today = new Date()
         if (today.toDateString() == selectedDate) {
             return ts.value > (today.getHours() + 1)

@@ -19,7 +19,8 @@ class AppointmentSlot extends React.Component {
             selectedClinic: this.props.match.params.clinicId,
             reschedule: this.props.location.search.includes('reschedule'),
             goback: this.props.location.search.includes('goback'),
-            timeSlots: null
+            timeSlots: null,
+            doctor_leaves: []
         }
     }
 
@@ -52,7 +53,7 @@ class AppointmentSlot extends React.Component {
         let doctorId = this.props.match.params.id
 
         this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
-            this.setState({ timeSlots: timeSlots.timeslots })
+            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves })
         })
 
         if (window) {
@@ -105,6 +106,7 @@ class AppointmentSlot extends React.Component {
                                                                 timeSlots={this.state.timeSlots}
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 selectedSlot={this.props.selectedSlot}
+                                                                doctor_leaves={this.state.doctor_leaves || []}
                                                             /> : <Loader />
                                                     }
 
