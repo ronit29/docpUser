@@ -37,25 +37,25 @@ class WalletView extends React.Component {
                 <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column transaction-column">
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                            <header className="wallet-header sticky-header">
+                            <header className="wallet-header sticky-header skin-primary">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
-                                            <img src={ASSETS_BASE_URL + "/img/icons/back-orange.svg"} className="back-icon-orange" onClick={() => {
+                                            <img src={ASSETS_BASE_URL + "/img/icons/back.png"} style={{ width: 20, marginTop: 4, cursor: 'pointer' }} className="img-fluid" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
                                         <div className="col-8 logo-col">
-                                            <p className="wallet-title fw-500">Transaction Summary</p>
+                                            <p className="header-title fw-700 capitalize text-center text-white">My Transactions</p>
                                         </div>
                                     </div>
                                 </div>
                             </header>
 
                             {
-                                this.state.loading ? <Loader /> : <div className="container-fluid">
+                                this.state.loading ? <Loader /> : <div className="container-fluid transaction-column">
                                     <div className="row refund-info-row">
                                         <div className="col-12 transactions-head-col text-center">
                                             <p className="transactions-head">Total Credits</p>

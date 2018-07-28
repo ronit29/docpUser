@@ -174,7 +174,7 @@ class BookingSummaryView extends React.Component {
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label">{twp.test.name}<span className="float-right fw-700">Rs. {price}</span></p>
+                return <p key={i} className="test-list test-list-label clearfix"><span className="test-name-item">{twp.test.name}</span><span className="float-right fw-700">&#8377; {price}</span></p>
             })
 
         }
@@ -258,7 +258,7 @@ class BookingSummaryView extends React.Component {
 
                                                                 <div className="lab-visit-time test-report">
                                                                     <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} style={{ cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                    <h5 className="payment-amt-value fw-500">Rs. {finalPrice}</h5>
+                                                                    <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice}</h5>
                                                                 </div>
 
                                                             </div>

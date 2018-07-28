@@ -104,7 +104,7 @@ class UserProfileView extends React.Component {
                                         }} />
 
                                         <Route exact path={`${this.props.match.url}/address`} render={(props) => {
-                                            return <Section_Component {...this.props} title="My Address">
+                                            return <Section_Component {...this.props} title="Manage Address">
                                                 <Address  {...this.props} {...props} />
                                             </Section_Component>
                                         }} />

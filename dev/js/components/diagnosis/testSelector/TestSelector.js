@@ -73,7 +73,7 @@ class TestSelectorView extends React.Component {
                             <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
                             <span className="checkmark" />
                         </label>
-                        <span className="test-price text-md fw-500">{test.deal_price}</span>
+                        <span className="test-price text-md fw-500">&#8377; {test.deal_price}</span>
                     </li>
                 }
             })
@@ -94,7 +94,7 @@ class TestSelectorView extends React.Component {
                         <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                         <span className="checkmark" />
                     </label>
-                    <span className="test-price text-md fw-500">{test.deal_price}</span>
+                    <span className="test-price text-md fw-500">&#8377; {test.deal_price}</span>
                 </li>
             })
 

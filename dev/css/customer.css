@@ -119,10 +119,10 @@
 .card .card-footer{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;}
 .logo-ratting{}
 
-.lab-locality{color: '#626262'; font-size: 13px; margin-bottom: 4; height: auto; max-height: 34px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+.lab-locality{color: #626262; font-size: 14px; margin-bottom: 8px; height: auto; max-height: 34px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 
 .book-card-content{padding-right: 100px;}
-.book-cart-title{font-size: 17px; font-weight: bold;color: #263077; margin-bottom: 5px; height: auto; max-height: 44px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+.book-cart-title{font-size: 17px; font-weight: bold;color: #263077; margin-bottom: 6px; height: auto; max-height: 44px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 
 .lab-price{font-size: 16px; font-weight: 500;color: #263077; padding-top: 3px;}
 
@@ -157,8 +157,9 @@
 .profile-book .time-contact>li .open-close{font-size: 14px; font-weight: 500; color: #f78631;}
 
 .pb-view{ padding: 4px 0; }
-.pb-list>li{padding: 4px 0; font-size: 14px; font-weight: 500; color: #000}
+.pb-list>li{padding: 8px 0; font-size: 14px; font-weight: 500; color: #000}
 .pb-list .test-price{float: right;}
+.test-name-item{float: left; width: calc(100% - 42px)}
 
 .pb-location .address-details .add-map{float: right;width: 50px;cursor: pointer; margin-top: 10px}
 .pb-location .address-details .add-info{padding-right: 90px;}
@@ -188,7 +189,7 @@
 
 .booking-confirm-screen .lab-visit-time{margin-bottom: 40px;}
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
-.booking-confirm-screen .lab-visit-time>p{padding-left: 20px; margin-bottom: 4px; width: 70%; word-wrap: break-word;}
+.booking-confirm-screen .lab-visit-time>p{margin-bottom: 10px; margin-top: 5px; word-wrap: break-word;}
 
 .payment-method>li{padding: 10px; vertical-align: middle;}
 .payment-method>li>label{font-size: 14px; font-weight: bold;}

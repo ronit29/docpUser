@@ -10,23 +10,23 @@ export default ({ toggle, old_deal_price, deal_price, mrp, payable_amount }) => 
             </div>
             <div className="payment-content-div">
                 <p className="payment-content">Doctor Fees</p>
-                <p className="payment-content fw-500">Rs {mrp}</p>
+                <p className="payment-content fw-500">&#8377; {mrp}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content">Docprime Discount</p>
-                <p className="payment-content fw-500">Rs {mrp - deal_price}</p>
+                <p className="payment-content fw-500">&#8377; {mrp - deal_price}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content fw-500">Subtotal</p>
-                <p className="payment-content fw-500">Rs {deal_price}</p>
+                <p className="payment-content fw-500">&#8377; {deal_price}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content fw-500">Previous Adjustments</p>
-                <p className="payment-content fw-500">Rs {old_deal_price}</p>
+                <p className="payment-content fw-500">&#8377; {old_deal_price}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content fw-500">Amount Payable</p>
-                <p className="payment-content fw-500">Rs {payable_amount}</p>
+                <p className="payment-content fw-500">&#8377; {payable_amount}</p>
             </div>
             <div className="payment-content-btn text-center">
                 <button className="fw-500" onClick={toggle}>Done</button>

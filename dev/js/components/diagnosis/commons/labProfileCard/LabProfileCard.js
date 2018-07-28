@@ -74,12 +74,12 @@ class LabProfileCard extends React.Component {
                     </div>
                     <div className="book-card-content">
                         <h4 className="book-cart-title">{lab.name}</h4>
-                        <p className="fw-500" style={{ color: '#343434', fontSize: 13, marginBottom: 4 }} >Radiology | Pathology</p>
+                        <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8}} >Radiology | Pathology</p>
                         <p className="lab-locality">
                             {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
                             {lab.locality} {lab.city} | <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4 }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
                         </p>
-                        <p style={{ color: '#f78316', fontSize: 12 }} >{lab_timing} |
+                        <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} |
                             {
                                 this.isOpenToday(lab_timing_data) ? <span style={{ color: 'green' }}> Open Today</span> : <span style={{ color: '#d82907' }} > Now Closed</span>
                             }
@@ -89,7 +89,11 @@ class LabProfileCard extends React.Component {
                 <div className="widget-footer card-footer">
                     <div className="row">
                         <div className="col-6">
-                            <p className="lab-price">{price ? `Total Rs ${price}` : ""}</p>
+                            <p className="lab-price">
+                                {
+                                    price ? <span>Total &#8377; {price}</span> : ""
+                                }
+                            </p>
                         </div>
                         <div className="col-6 text-right">
                             <button className="v-btn v-btn-primary btn-md">Book Lab</button>
