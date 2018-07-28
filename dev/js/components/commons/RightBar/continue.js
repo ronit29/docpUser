@@ -1,7 +1,7 @@
 import React from 'react';
 import InitialsPicture from '../initialsPicture'
 
-export default ({ doctor_name, lab_name, hospital_name, openBookingSummary, doctor_thumbnail, lab_thumbanail, test_ids }) => {
+export default ({ doctor_name, lab_name, hospital_name, openBookingSummary, doctor_thumbnail, lab_thumbnail, test_ids }) => {
     return <a href="javascript:;">
         <div className="right-div-widget health-widget" onClick={() => {
             openBookingSummary()
@@ -11,8 +11,8 @@ export default ({ doctor_name, lab_name, hospital_name, openBookingSummary, doct
             </div>
             <div className="booking-details-div">
                 <div className="doc-img-div">
-                    <InitialsPicture name={(lab_name || doctor_name)} has_image={!!(doctor_thumbnail || lab_thumbanail)} className="initialsPicture-cb">
-                        <img src={doctor_thumbnail || lab_thumbanail} style={{ width: 30, height: 30, borderRadius: '100%' }} className="doc-img" />
+                    <InitialsPicture name={(lab_name || doctor_name)} has_image={!!(doctor_thumbnail || lab_thumbnail)} className="initialsPicture-cb">
+                        <img src={doctor_thumbnail || lab_thumbnail} style={{ width: 30, height: 30, borderRadius: '100%' }} className="doc-img" />
                     </InitialsPicture>
                 </div>
                 <div className="doc-desc-div">
