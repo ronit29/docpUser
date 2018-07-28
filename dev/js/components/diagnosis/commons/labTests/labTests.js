@@ -17,7 +17,7 @@ class LabTests extends React.Component {
 
         if (this.props.data.tests && this.props.data.tests.length) {
             tests = this.props.data.tests.map((test, i) => {
-                return <li key={i}>{test.test.name} <span className="test-price">Rs {test.deal_price}</span></li>
+                return <li className="clearfix" key={i}> <span className="test-name-item">{test.test.name}</span> <span className="test-price">&#8377; {test.deal_price}</span></li>
             })
         }
 

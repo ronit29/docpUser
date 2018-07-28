@@ -28,7 +28,7 @@ class Transactions extends React.Component {
                         <p className="transaction-item">Refund in process</p>
                     </div>
                     <div className="col-3 col-sm-2 transaction-amt-col">
-                        <p className="transaction-amt fw-500"><span className="plus-text">+</span> Rs 200</p>
+                        <p className="transaction-amt fw-500"><span className="plus-text">+</span> &#8377; 200</p>
                     </div>
                 </div>
             </div>

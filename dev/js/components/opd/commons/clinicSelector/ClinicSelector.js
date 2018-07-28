@@ -31,7 +31,7 @@ class ClinicSelector extends React.Component {
                                     <div className="widget no-shadow">
                                         <div className="widget-header clearfix">
                                             <h4 className="widget-title text-md fw-700 clinic-selector-name">{hospital.hospital_name}</h4>
-                                            <span className="float-right text-md fw-700">Rs {hospital.deal_price}</span>
+                                            <span className="float-right text-md fw-700">&#8377; {hospital.deal_price}</span>
                                         </div>
                                         <div className="widget-content">
                                             <div className="location-details clearfix">

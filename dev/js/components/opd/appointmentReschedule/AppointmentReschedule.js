@@ -179,7 +179,7 @@ class AppointmentReschedule extends React.Component {
 
                                                                 <div className="lab-visit-time test-report">
                                                                     <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src="/assets/img/icons/info.svg" onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                    <h5 className="payment-amt-value">Rs. {priceData.payable_amount}</h5>
+                                                                    <h5 className="payment-amt-value">&#8377;  {priceData.payable_amount}</h5>
                                                                 </div>
 
                                                             </div>

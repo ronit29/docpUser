@@ -185,9 +185,9 @@ class TopBar extends React.Component {
                             <div className="widget-content">
                                 <div className="filterRow">
                                     <span className="tl">Fees</span>
-                                    <span className="tr">Rs {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
-                                    <span className="bl">Rs 100</span>
-                                    <span className="br">Rs 2000</span>
+                                    <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
+                                    <span className="bl">&#8377; 100</span>
+                                    <span className="br">&#8377; 2000</span>
 
                                     <Range
                                         min={100}

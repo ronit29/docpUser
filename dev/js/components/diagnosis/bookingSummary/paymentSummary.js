@@ -10,23 +10,23 @@ export default ({ toggle, finalPrice, finalMrp }) => {
             </div>
             <div className="payment-content-div">
                 <p className="payment-content">Lab Fees</p>
-                <p className="payment-content fw-500">Rs {finalMrp}</p>
+                <p className="payment-content fw-500">&#8377; {finalMrp}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content">Docprime Discount</p>
-                <p className="payment-content fw-500">Rs {finalMrp - finalPrice}</p>
+                <p className="payment-content fw-500">&#8377; {finalMrp - finalPrice}</p>
             </div>
             <div className="payment-content-div">
                 <p className="payment-content fw-500">Subtotal</p>
-                <p className="payment-content fw-500">Rs {finalPrice}</p>
+                <p className="payment-content fw-500">&#8377; {finalPrice}</p>
             </div>
             {/* <div className="payment-content-div">
                 <p className="payment-content fw-500">Promocode Discount</p>
-                <p className="payment-content fw-500">Rs 200</p>
+                <p className="payment-content fw-500">&#8377; 200</p>
             </div> */}
             <div className="payment-content-div">
                 <p className="payment-content fw-500">Amount Payable</p>
-                <p className="payment-content fw-500">Rs {finalPrice}</p>
+                <p className="payment-content fw-500">&#8377; {finalPrice}</p>
             </div>
             <div className="payment-content-btn text-center">
                 <button className="fw-500" onClick={toggle}>Done</button>
