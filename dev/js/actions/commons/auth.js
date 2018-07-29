@@ -94,7 +94,7 @@ export const logout = (postData, cb) => (dispatch) => {
         setTimeout(() => {
             // send to login page
             NAVIGATE.navigateTo('/')
-        }, 100)
+        }, 300)
         // clear entire store (initially peristed)
     })
 }

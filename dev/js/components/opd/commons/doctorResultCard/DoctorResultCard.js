@@ -34,9 +34,9 @@ class DoctorProfileCard extends React.Component {
 
         if (experiences && experiences.length) {
             expStr += "Ex - "
-            experiences.map((exp) => {
+            experiences.map((exp, i) => {
                 expStr += exp.hospital
-                expStr += ', '
+                if (i < experiences.length - 1) expStr += ', ';
             })
         }
 
