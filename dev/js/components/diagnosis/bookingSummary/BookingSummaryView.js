@@ -163,7 +163,7 @@ class BookingSummaryView extends React.Component {
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
-
+            
             tests = this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
                 let price = twp.deal_price
                 let mrp = twp.mrp
@@ -282,7 +282,7 @@ class BookingSummaryView extends React.Component {
                                         }
 
                                         {
-                                            this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} /> : ""
+                                            this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} home_pickup_charges={labDetail.home_pickup_charges} is_home_pickup_available={this.props.selectedAppointmentType == 'home'} /> : ""
                                         }
 
                                         <button data-disabled={

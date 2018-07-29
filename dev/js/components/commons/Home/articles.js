@@ -32,7 +32,7 @@ class Article extends React.Component {
         scrollLeft = Math.max(0, scrollLeft);
         scrollLeft = Math.min(scrollLeft, scrollWidth - containerWidth);
 
-        this.setState({ scrollLeft: scrollLeft });
+        this.setState({ scrollLeft: scrollLeft/2 });
     }
 
     getAnimation() {

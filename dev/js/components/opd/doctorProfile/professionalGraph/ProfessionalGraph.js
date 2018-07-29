@@ -49,7 +49,11 @@ class ProfessionalGraph extends React.Component {
                                 contentList={
                                     awards.map((award) => {
                                         award.year = award.year || ""
-                                        return { heading: "", content: `${award.name}, ${award.year}` }
+                                        if (award.year) {
+                                            return { heading: "", content: `${award.name}, ${award.year}` }
+                                        } else {
+                                            return { heading: "", content: `${award.name}` }
+                                        }
                                     })
                                 }
                             /> : ""
