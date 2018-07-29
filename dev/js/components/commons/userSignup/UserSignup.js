@@ -89,7 +89,11 @@ class UserSignupView extends React.Component {
                         this.props.history.go(-1)
                     }
                 } else {
-                    this.setState({ err: "Error signing up user." })
+                    let message = "Error signing up user."
+                    if (err.message) {
+                        message = err.message
+                    }
+                    this.setState({ err: message })
                 }
             })
         }
