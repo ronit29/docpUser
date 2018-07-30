@@ -1,12 +1,15 @@
 import React from 'react';
 import Cropper from 'react-cropper';
 const Compress = require('compress.js')
+import SnackBar from 'node-snackbar'
+import Loader from '../../Loader'
 
 class BasicDetails extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            dataUrl: null
+            dataUrl: null,
+            loading: false
         }
     }
 
@@ -31,6 +34,8 @@ class BasicDetails extends React.Component {
                     this.props.toggleOpenCrop()
                     this.setState({ dataUrl })
                 })
+            }).catch((e) => {
+                SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
             })
 
         }
@@ -52,13 +57,15 @@ class BasicDetails extends React.Component {
         e.preventDefault()
         let file_blob_data = this.dataURItoBlob(this.refs.cropper.getCroppedCanvas().toDataURL())
         this.setState({
-            dataUrl: null
+            dataUrl: null,
+            loading: true
         }, () => {
             this.props.toggleOpenCrop()
-            document.getElementById('imageFilePicker').value = ""
+            // document.getElementById('imageFilePicker').value = ""
             let form_data = new FormData()
             form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
             this.props.editUserProfileImage(form_data, this.props.profileData.id, (err, data) => {
+                this.setState({ loading: false })
                 this.props.history.go(-1)
             })
         })
@@ -80,61 +87,65 @@ class BasicDetails extends React.Component {
 
         return (
             <section className="myProfile profile-details">
-                <div className="widget no-shadow no-radius">
-                    <div className="widget-content">
-                        <div className="profile-icon">
-                            <img src={profile_image} style={{ width: '100%' }} className="img-fluid img-round" onClick={() => {
-                                document.getElementById('imageFilePicker').click()
-                                document.getElementById('imageFilePicker').value = ""
-                            }} />
-                            <span className="cam-icon">
-                                <img src={ASSETS_BASE_URL + "/img/icons/cam-md.png"} className="img-fluid cam-icon-img" onClick={() => {
+                {
+                    this.state.loading ? "" : <div className="widget no-shadow no-radius">
+                        <div className="widget-content">
+                            <div className="profile-icon">
+                                <img src={profile_image} style={{ width: '100%' }} className="img-fluid img-round" onClick={() => {
                                     document.getElementById('imageFilePicker').click()
                                     document.getElementById('imageFilePicker').value = ""
                                 }} />
-                                <input type="file" style={{ visibility: 'hidden' }} id="imageFilePicker" onChange={this.pickFile.bind(this)} />
-                            </span>
+                                <span className="cam-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/icons/cam-md.png"} className="img-fluid cam-icon-img" onClick={() => {
+                                        document.getElementById('imageFilePicker').click()
+                                        document.getElementById('imageFilePicker').value = ""
+                                    }} />
+                                    <input type="file" style={{ visibility: 'hidden' }} id="imageFilePicker" onChange={this.pickFile.bind(this)} />
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
 
-                <div className="widget no-shadow no-radius">
-                    <div className="widget-content">
-                        <form className="go-bottom">
-                            <div className="labelWrap">
-                                <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input" name="fname" type="text" required />
-                                <label htmlFor="fname">Name</label>
-                            </div>
-                            <div className="form-group input-group">
-                                <label className="inline input-label">Gender</label>
-                                <div className="choose-gender">
-                                    <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "m"} value={'m'} onChange={this.handleChange.bind(this, 'gender')} />Male</label>
-                                    <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "f"} value={'f'} onChange={this.handleChange.bind(this, 'gender')} />Female</label>
-                                    <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "o"} value={'o'} onChange={this.handleChange.bind(this, 'gender')} />Other</label>
+                {
+                    this.state.loading ? <Loader /> : <div className="widget no-shadow no-radius">
+                        <div className="widget-content">
+                            <form className="go-bottom">
+                                <div className="labelWrap">
+                                    <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input" name="fname" type="text" required />
+                                    <label htmlFor="fname">Name</label>
                                 </div>
-                            </div>
-                            {/* <div className="labelWrap">
+                                <div className="form-group input-group">
+                                    <label className="inline input-label">Gender</label>
+                                    <div className="choose-gender">
+                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "m"} value={'m'} onChange={this.handleChange.bind(this, 'gender')} />Male</label>
+                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "f"} value={'f'} onChange={this.handleChange.bind(this, 'gender')} />Female</label>
+                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "o"} value={'o'} onChange={this.handleChange.bind(this, 'gender')} />Other</label>
+                                    </div>
+                                </div>
+                                {/* <div className="labelWrap">
                                 <input value={name} onChange={this.handleChange.bind(this, 'name')} id="age" name="lname" type="text" required />
                                 <label htmlFor="age">Age</label>
                             </div> */}
-                            <div className="labelWrap">
-                                <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required />
-                                <label htmlFor="email">Email</label>
-                            </div>
-                            <div className="labelWrap">
-                                <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required />
-                                <label htmlFor="number">Mobile Number</label>
-                            </div>
+                                <div className="labelWrap">
+                                    <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required />
+                                    <label htmlFor="email">Email</label>
+                                </div>
+                                <div className="labelWrap">
+                                    <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required />
+                                    <label htmlFor="number">Mobile Number</label>
+                                </div>
 
-                            {/* <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
+                                {/* <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.manageAddress()
                             }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                }
 
 
                 {
