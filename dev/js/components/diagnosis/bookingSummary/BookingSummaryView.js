@@ -35,6 +35,13 @@ class BookingSummaryView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        if (this.props.location.search.includes("error_code")) {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Could not complete payment, Try again!" })
+            }, 500)
+            this.props.history.replace(this.props.location.pathname)
+        }
     }
 
     openTests() {
@@ -163,7 +170,7 @@ class BookingSummaryView extends React.Component {
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
-            
+
             tests = this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
                 let price = twp.deal_price
                 let mrp = twp.mrp

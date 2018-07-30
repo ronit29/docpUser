@@ -223,14 +223,15 @@ export const fetchPgData = (id, cb) => (dispatch) => {
 	})
 }
 
-export const getChatDoctorById = (doctorId, cb) => (dispatch) => {
+export const getChatDoctorById = (doctorId, roomId, cb) => (dispatch) => {
 	return API_GET(`/api/v1/chat/doctor/profile/${doctorId}`).then(function (response) {
 
 		dispatch({
 			type: APPEND_CHAT_DOCTOR,
 			payload: {
 				data: response,
-				doctorId
+				doctorId,
+				roomId
 			}
 		})
 

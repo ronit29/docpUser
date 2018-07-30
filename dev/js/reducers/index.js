@@ -23,6 +23,12 @@ const LAB_LIST_PRESIST = {
     whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress']
 }
 
+const USER_PERSIST = {
+    key: 'USER',
+    storage: storage,
+    whitelist: ['chatDoctors', 'chatRoomIds']
+}
+
 const allReducers = combineReducers({
     SEARCH_CRITERIA_OPD,
     SEARCH_CRITERIA_LABS,

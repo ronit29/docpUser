@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getChatDoctorById: (doctorId, cb) => dispatch(getChatDoctorById(doctorId, cb)),
+        getChatDoctorById: (doctorId, roomId, cb) => dispatch(getChatDoctorById(doctorId, roomId, cb)),
         resetFilters: () => dispatch(resetFilters()),
         clearExtraTests: () => dispatch(clearExtraTests()),
         selectLocation: (location) => dispatch(selectLocation(location))

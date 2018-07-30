@@ -11,7 +11,7 @@ class ChatView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedDoctor: null,
+            selectedRoom: null,
             token: "",
             symptoms: [],
             roomId: "",
@@ -36,8 +36,8 @@ class ChatView extends React.Component {
                 if (data) {
                     switch (data.event) {
                         case "RoomAgent": {
-                            this.setState({ selectedDoctor: data.data.employeeId })
-                            this.props.getChatDoctorById(data.data.employeeId, (data) => {
+                            this.setState({ selectedRoom: data.data.rid })
+                            this.props.getChatDoctorById(data.data.employeeId, data.data.rid, (data) => {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
                                 })
@@ -108,7 +108,12 @@ class ChatView extends React.Component {
 
 
     render() {
-        let doctorData = this.props.USER.chatDoctors[this.state.selectedDoctor]
+        let doctorData = null
+        if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
+            if (this.props.USER.chatDoctors[this.props.USER.chatRoomIds[this.state.selectedRoom]]) {
+                doctorData = this.props.USER.chatDoctors[this.props.USER.chatRoomIds[this.state.selectedRoom]]
+            }
+        }
         let symptoms_uri = this.state.symptoms.reduce((str, curr) => {
             str += `${curr},`
             return str
@@ -141,7 +146,7 @@ class ChatView extends React.Component {
 
                                         <div className="col-6 col-sm-7 chat-header-profile" onClick={() => {
                                             if (doctorData) {
-                                                this.openDoctorProfile(this.state.selectedDoctor)
+                                                this.openDoctorProfile(doctorData.id)
                                             }
                                         }} style={{ cursor: 'pointer' }}>
                                             {

@@ -24,7 +24,8 @@ const defaultState = {
     orderHistory: [],
     articles: [],
     chatDoctors: {},
-    chatHistory: []
+    chatHistory: [],
+    chatRoomIds: {}
 }
 
 export default function (state = defaultState, action) {
@@ -178,10 +179,12 @@ export default function (state = defaultState, action) {
         case APPEND_CHAT_DOCTOR: {
             let newState = {
                 ...state,
-                chatDoctors: { ...state.chatDoctors }
+                chatDoctors: { ...state.chatDoctors },
+                chatRoomIds: { ...state.chatRoomIds },
             }
 
             newState.chatDoctors[action.payload.doctorId] = action.payload.data
+            newState.chatRoomIds[action.payload.roomId] = action.payload.doctorId
             return newState
         }
 
