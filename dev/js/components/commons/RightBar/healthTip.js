@@ -27,7 +27,7 @@ class HealthTip extends React.Component {
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/health-tip.jpg"} />
                     <span className="appointment-head">Health Tip for the Day</span>
                 </div>
-                <div className="tip-desc-div" style={{ height: 200, overflow: 'hidden' }}>
+                <div className="tip-desc-div" style={{ height: 170, overflow: 'hidden' }}>
                     <p className="tip-desc">{(healthTips && healthTips[selected]) ? healthTips[selected].text : ""}</p>
                 </div>
                 <div className="tip-desc-div" style={{ marginBottom: -10, marginTop: 20 }}>

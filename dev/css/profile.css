@@ -522,8 +522,19 @@
 .input-symptom{
 	width: 90%;
 	border: none;
+	padding: 2px 0;
 	outline: none;
 	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.input-symptom>p{
+	width: 100%;
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.input-symptom>p::-webkit-scrollbar{
+	display: none;
 }
 
 .book-widget-2{
@@ -616,7 +627,7 @@
 	position: relative;
 	border-right: 1px solid rgba(0,0,0,0.1);
 	cursor: pointer;
-	width: 150px;
+	width: 140px;
 }
 
 .select-item-list>li:last-child{
@@ -1242,9 +1253,21 @@
 }
 
 .tip-card-div{
-	height: 230px;
+	height: 250px;
 	position: relative;
 	margin: 30px 0;
+}
+
+@media(min-width: 359px){
+	.tip-card-div{
+		height: 230px;
+	}
+}
+
+@media(min-width: 415px){
+	.tip-card-div{
+		height: 220px;
+	}
 }
 
 .tip-card{

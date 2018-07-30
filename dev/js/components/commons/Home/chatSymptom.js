@@ -95,9 +95,9 @@ class ChatSymptoms extends React.Component {
 
     async txtAnimation() {
         while (true) {
-            let sentence = "I am suffering from "
-            if (document.getElementById('animation-input')) {
-                document.getElementById('animation-input').placeholder = sentence
+            let sentence = "I am suffering from"
+            if (document.getElementById('input-symptom-para')) {
+                document.getElementById('input-symptom-para').innerHTML = sentence
             }
 
             let txt = this.state.symptoms[Math.floor(Math.random() * this.state.symptoms.length)]
@@ -106,8 +106,8 @@ class ChatSymptoms extends React.Component {
                     break
                 }
                 await this.delay()
-                if (document.getElementById('animation-input')) {
-                    document.getElementById('animation-input').placeholder += chr
+                if (document.getElementById('input-symptom-para')) {
+                    document.getElementById('input-symptom-para').innerHTML += chr
                 }
             }
             for (let chr of txt) {
@@ -116,8 +116,8 @@ class ChatSymptoms extends React.Component {
                 }
                 await this.delay()
                 txt = txt.substring(0, txt.length - 1)
-                if (document.getElementById('animation-input')) {
-                    document.getElementById('animation-input').placeholder = sentence + txt
+                if (document.getElementById('input-symptom-para')) {
+                    document.getElementById('input-symptom-para').innerHTML = sentence + txt
                 }
             }
             if (!this._ismounted) {
@@ -194,7 +194,11 @@ class ChatSymptoms extends React.Component {
                     </div>
 
                     {
-                        selectedSympsStr ? <input style={{ backgroundColor: 'white' }} disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input style={{ backgroundColor: 'white' }} disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
+                        // selectedSympsStr ? <input style={{ backgroundColor: 'white' }} disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input style={{ backgroundColor: 'white' }} disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
+
+                        selectedSympsStr ? <div className="input-symptom">
+                            <p> {selectedSympsStr} </p> </div> : <div className="input-symptom">
+                            <p id="input-symptom-para">  </p> </div>
                     }
 
                 </div>

@@ -317,3 +317,5 @@
 .time-slot-btn:hover, .time-slot-btn:focus{background-color: #f78631; color: #fff;}
 
 .clinic-info-panel{min-width: 100%; width: auto; overflow-x: auto; white-space: nowrap}
+
+.select-location-div{width: 180px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
