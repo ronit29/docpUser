@@ -33,7 +33,7 @@ class ProfessionalGraph extends React.Component {
                                 heading={"Language"}
                                 contentList={[
                                     {
-                                        heading: "", content: languages.reduce((final, curr) => {
+                                        heading: "", content: languages.reduce((final, curr, i) => {
                                             final += `${curr.language}`;
                                             if (i < languages.length - 1) final += " | ";
                                             return final
