@@ -792,6 +792,21 @@
 	cursor: pointer;
 }
 
+.footer-link-div>a{
+	color: #757575;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.foot-head{
+	color: #161616;
+	font-family: quicksand;
+	font-weight: 500;
+	font-size: 16px;
+	margin-top: 25px;
+	margin-bottom: 8px;
+}
+
 .footer-2{
 	background-color: #f8f8f8;
 	padding-top: 20px;
@@ -858,7 +873,7 @@
 }
 
 .footer-3-list, .footer-3-list>a>li{
-	font-size: 14px;
+	font-size: 12px;
 	color: #f78631;
 	font-weight: 500;
 }
@@ -1312,25 +1327,25 @@
 
 #tip-card-1{
 	z-index: 1;
-	background: linear-gradient(to right, #ffafbd , #ffc3a0);
+	background: linear-gradient(#de6262 , #ffb88c);
 }
 
 #tip-card-2{
 	z-index: 2;
-	background: linear-gradient(to right, #2193b0 , #6dd5ed);
+	background: linear-gradient(#2193b0 , #6dd5ed);
 }
 
 #tip-card-3{
 	z-index: 3;
-	background: linear-gradient(to right, #cc2b5e , #753a88);
+	background: linear-gradient(#56ab2f , #a8e063);
 }
 
 #tip-card-4{
 	z-index: 4;
-	background: linear-gradient(to right, #48b1bf , #06beb6);
+	background: linear-gradient(#48b1bf , #06beb6);
 }
 
 #tip-card-5{
 	z-index: 5;
-	background: linear-gradient(to right, #42275a , #734b6d);
+	background: linear-gradient(#4568dc , #b06ab3);
 }

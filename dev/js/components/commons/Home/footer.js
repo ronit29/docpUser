@@ -11,119 +11,162 @@ class Footer extends React.Component {
         return (
             <footer className="profile-footer d-none d-lg-block">
 
-
-                {/* <div className="container footer-1">
+                <div className="container footer-1">
                     <div className="row">
-                        <div className="col-4 footer-1-col">
-                            <div className="footer-1-head">
-                                <p>DELHI</p>
+                        <div className="col-12">
+                            <div className="foot-head">
+                                DELHI
+						    </div>
+                            <div className="footer-link-div">
+                                <a href="javascript:;">Anaesthesiology in Delhi | </a>
+                                <a href="javascript:;">Andrologist in Delhi | </a>
+                                <a href="javascript:;">Anesthesiologist in Delhi | </a>
+                                <a href="javascript:;">Cardiac Anaesthesia in Delhi | </a>
+                                <a href="javascript:;">Cardio Thoracic Surgery in Delhi | </a>
+                                <a href="javascript:;">Cardiologist in Delhi | </a>
+                                <a href="javascript:;">Cardiology in Delhi | </a>
+                                <a href="javascript:;">Cosmetologist in Delhi | </a>
+                                <a href="javascript:;">Dentist in Delhi | </a>
+                                <a href="javascript:;">Dermatologist in Delhi | </a>
+                                <a href="javascript:;">Dietitian Nutritionist in Delhi | </a>
+                                <a href="javascript:;">Ear-Nose-Throat (ENT) Specialist in Delhi | </a>
+                                <a href="javascript:;">Endocrinologist in Delhi | </a>
+                                <a href="javascript:;">Endocrinology in Delhi | </a>
+                                <a href="javascript:;">Gastroenterologist in Delhi | </a>
+                                <a href="javascript:;">Gastroenterology in Delhi | </a>
+                                <a href="javascript:;">General Physician in Delhi | </a>
+                                <a href="javascript:;">General surgeon in Delhi |</a>
+                                <a href="javascript:;">Gynecologist in Delhi | </a>
+                                <a href="javascript:;">Hematology Specialist in Delhi | </a>
+                                <a href="javascript:;">Homoeopath in Delhi | </a>
+                                <a href="javascript:;">Medical Genetics in Delhi | </a>
+                                <a href="javascript:;">Neonatology in Delhi | </a>
+                                <a href="javascript:;">Nephrologist in Delhi | </a>
+                                <a href="javascript:;">Nephrology in Delhi | </a>
+                                <a href="javascript:;">Neuro Surgery in Delhi | </a>
+                                <a href="javascript:;">Neurologist in Delhi | </a>
+                                <a href="javascript:;">Neurology in Delhi | </a>
+                                <a href="javascript:;">Ophthalmologyin Delhi | </a>
+                                <a href="javascript:;">Opthalmologist in Delhi | </a>
+                                <a href="javascript:;">Orthopedist in Delhi | </a>
+                                <a href="javascript:;">Paediatrics in Delhi | </a>
+                                <a href="javascript:;">Pathologist in Delhi | </a>
+                                <a href="javascript:;">Pediatrician in Delhi | </a>
+                                <a href="javascript:;">Physiotherapist in Delhi | </a>
+                                <a href="javascript:;">Psychiatrist in Delhi | </a>
+                                <a href="javascript:;">Pulmonologist in Delhi | </a>
+                                <a href="javascript:;">Radiologist in Delhi | </a>
+                                <a href="javascript:;">Rheumatology in Delhi | </a>
+                                <a href="javascript:;">Urology Nutritionist Surgery in Delhi</a>
                             </div>
-                            <div className="footer-1-content">
-                                <ul className="footer-1-list">
-                                    <li>Andrologist in Delhi</li>
-                                    <li>Anesthesiologist in Delhi</li>
-                                    <li>Cardiologist in Delhi</li>
-                                    <li>Cosmetologist in Delhi</li>
-                                    <li>Dentist in Delhi</li>
-                                    <li>Dermatologist in Delhi</li>
-                                    <li>Dietitian/Nutritionist in Delhi</li>
-                                    <li>Ear-Nose-Throat (ENT) Specialist in Delhi</li>
-                                    <li>Gastroenterologist in Delhi</li>
-                                    <li>General Physician in Delhi</li>
-                                    <li>Gynecologist in Delhi</li>
-                                    <li>Homoeopath in Delhi</li>
-                                    <li>Endocrinologist in Delhi</li>
-                                    <li>Nephrologist in Delhi</li>
-                                    <li>Orthopedist in Delhi</li>
-                                    <li>Opthalmologist in Delhi</li>
-                                    <li>Pathologist in Delhi</li>
-                                    <li>Pediatrician in Delhi</li>
-                                    <li>Physiotherapist in Delhi</li>
-                                    <li>Psychiatrist in Delhi</li>
-                                    <li>Pulmonologist in Delhi</li>
-                                    <li>Radiologist in Delhi</li>
-                                </ul>
+                            <div className="foot-head">
+                                BANGLORE
+						    </div>
+                            <div className="footer-link-div">
+                                <a href="javascript:;">Anaesthesiology in Banglore | </a>
+                                <a href="javascript:;">Andrologist in Banglore | </a>
+                                <a href="javascript:;">Anesthesiologist in Banglore | </a>
+                                <a href="javascript:;">Cardiac Anaesthesia in Banglore | </a>
+                                <a href="javascript:;">Cardio Thoracic Surgery in Banglore | </a>
+                                <a href="javascript:;">Cardiologist in Banglore | </a>
+                                <a href="javascript:;">Cardiology in Banglore | </a>
+                                <a href="javascript:;">Cosmetologist in Banglore | </a>
+                                <a href="javascript:;">Dentist in Banglore | </a>
+                                <a href="javascript:;">Dermatologist in Banglore | </a>
+                                <a href="javascript:;">Dietitian Nutritionist in Banglore | </a>
+                                <a href="javascript:;">Ear-Nose-Throat (ENT) Specialist in Banglore | </a>
+                                <a href="javascript:;">Endocrinologist in Banglore | </a>
+                                <a href="javascript:;">Endocrinology in Banglore | </a>
+                                <a href="javascript:;">Gastroenterologist in Banglore | </a>
+                                <a href="javascript:;">Gastroenterology in Banglore | </a>
+                                <a href="javascript:;">General Physician in Banglore | </a>
+                                <a href="javascript:;">General surgeon in Banglore | </a>
+                                <a href="javascript:;">Gynecologist in Banglore | </a>
+                                <a href="javascript:;">Hematology Specialist in Banglore | </a>
+                                <a href="javascript:;">Homoeopath in Banglore | </a>
+                                <a href="javascript:;">Medical Genetics in Banglore | </a>
+                                <a href="javascript:;">Neonatology in Banglore | </a>
+                                <a href="javascript:;">Nephrologist in Banglore | </a>
+                                <a href="javascript:;">Nephrology in Banglore | </a>
+                                <a href="javascript:;">Neuro Surgery in Banglore | </a>
+                                <a href="javascript:;">Neurologist in Banglore | </a>
+                                <a href="javascript:;">Neurology in Banglore | </a>
+                                <a href="javascript:;">Ophthalmologyin Banglore | </a>
+                                <a href="javascript:;">Opthalmologist in Banglore | </a>
+                                <a href="javascript:;">Orthopedist in Banglore | </a>
+                                <a href="javascript:;">Paediatrics in Banglore |</a>
+                                <a href="javascript:;">Pathologist in Banglore | </a>
+                                <a href="javascript:;">Pediatrician in Banglore | </a>
+                                <a href="javascript:;">Physiotherapist in Banglore | </a>
+                                <a href="javascript:;">Psychiatrist in Banglore | </a>
+                                <a href="javascript:;">Pulmonologist in Banglore | </a>
+                                <a href="javascript:;">Radiologist in Banglore | </a>
+                                <a href="javascript:;">Rheumatology in Banglore | </a>
+                                <a href="javascript:;">Urology Nutritionist Surgery in Banglore</a>
                             </div>
-                        </div>
-                        <div className="col-4 footer-1-col">
-                            <div className="footer-1-head">
-                                <p>BANGALORE</p>
-                            </div>
-                            <div className="footer-1-content">
-                                <ul className="footer-1-list">
-                                    <li>Andrologist in Bangalore</li>
-                                    <li>Anesthesiologist in Bangalore</li>
-                                    <li>Cardiologist in Bangalore</li>
-                                    <li>Cosmetologist in Bangalore</li>
-                                    <li>Dentist in Bangalore</li>
-                                    <li>Dermatologist in Bangalore</li>
-                                    <li>Dietitian/Nutritionist in Bangalore</li>
-                                    <li>Ear-Nose-Throat (ENT) Specialist in Bangalore</li>
-                                    <li>Gastroenterologist in Bangalore</li>
-                                    <li>General Physician in Bangalore</li>
-                                    <li>Gynecologist in Bangalore</li>
-                                    <li>Homoeopath in Bangalore</li>
-                                    <li>Endocrinologist in Bangalore</li>
-                                    <li>Nephrologist in Bangalore</li>
-                                    <li>Orthopedist in Bangalore</li>
-                                    <li>Opthalmologist in Bangalore</li>
-                                    <li>Pathologist in Bangalore</li>
-                                    <li>Pediatrician in Bangalore</li>
-                                    <li>Physiotherapist in Bangalore</li>
-                                    <li>Psychiatrist in Bangalore</li>
-                                    <li>Pulmonologist in Bangalore</li>
-                                    <li>Radiologist in Bangalore</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-4 footer-1-col">
-                            <div className="footer-1-head">
-                                <p>MUMBAI</p>
-                            </div>
-                            <div className="footer-1-content">
-                                <ul className="footer-1-list">
-                                    <li>Andrologist in Mumbai</li>
-                                    <li>Anesthesiologist in Mumbai</li>
-                                    <li>Cardiologist in Mumbai</li>
-                                    <li>Cosmetologist in Mumbai</li>
-                                    <li>Dentist in Mumbai</li>
-                                    <li>Dermatologist in Mumbai</li>
-                                    <li>Dietitian/Nutritionist in Mumbai</li>
-                                    <li>Ear-Nose-Throat (ENT) Specialist in Mumbai</li>
-                                    <li>Gastroenterologist in Mumbai</li>
-                                    <li>General Physician in Mumbai</li>
-                                    <li>Gynecologist in Mumbai</li>
-                                    <li>Homoeopath in Mumbai</li>
-                                    <li>Endocrinologist in Mumbai</li>
-                                    <li>Nephrologist in Mumbai</li>
-                                    <li>Orthopedist in Mumbai</li>
-                                    <li>Opthalmologist in Mumbai</li>
-                                    <li>Pathologist in Mumbai</li>
-                                    <li>Pediatrician in Mumbai</li>
-                                    <li>Physiotherapist in Mumbai</li>
-                                    <li>Psychiatrist in Mumbai</li>
-                                    <li>Pulmonologist in Mumbai</li>
-                                    <li>Radiologist in Mumbai</li>
-                                </ul>
+                            <div className="foot-head">
+                                MUMBAI
+						    </div>
+                            <div className="footer-link-div">
+                                <a href="javascript:;">Anaesthesiology in Mumbai | </a>
+                                <a href="javascript:;">Andrologist in Mumbai | </a>
+                                <a href="javascript:;">Anesthesiologist in Mumbai | </a>
+                                <a href="javascript:;">Cardiac Anaesthesia in Mumbai | </a>
+                                <a href="javascript:;">Cardio Thoracic Surgery in Mumbai | </a>
+                                <a href="javascript:;">Cardiologist in Mumbai | </a>
+                                <a href="javascript:;">Cardiology in Mumbai | </a>
+                                <a href="javascript:;">Cosmetologist in Mumbai | </a>
+                                <a href="javascript:;">Dentist in Mumbai | </a>
+                                <a href="javascript:;">Dermatologist in Mumbai | </a>
+                                <a href="javascript:;">Dietitian Nutritionist in Mumbai | </a>
+                                <a href="javascript:;">Ear-Nose-Throat (ENT) Specialist in DMumbai | </a>
+                                <a href="javascript:;">Endocrinologist in Mumbai | </a>
+                                <a href="javascript:;">Endocrinology in Mumbai | </a>
+                                <a href="javascript:;">Gastroenterologist in Mumbai | </a>
+                                <a href="javascript:;">Gastroenterology in Mumbai | </a>
+                                <a href="javascript:;">General Physician in Mumbai | </a>
+                                <a href="javascript:;">General surgeon in Mumbai | </a>
+                                <a href="javascript:;">Gynecologist in Mumbai | </a>
+                                <a href="javascript:;">Hematology Specialist in Mumbai | </a>
+                                <a href="javascript:;">Homoeopath in Mumbai | </a>
+                                <a href="javascript:;">Medical Genetics in Mumbai | </a>
+                                <a href="javascript:;">Neonatology in Mumbai | </a>
+                                <a href="javascript:;">Nephrologist in Mumbai | </a>
+                                <a href="javascript:;">Nephrology in Mumbai | </a>
+                                <a href="javascript:;">Neuro Surgery in Mumbai | </a>
+                                <a href="javascript:;">Neurologist in Mumbai | </a>
+                                <a href="javascript:;">Neurology in Mumbai | </a>
+                                <a href="javascript:;">Ophthalmologyin Mumbai | </a>
+                                <a href="javascript:;">Opthalmologist in Mumbai | </a>
+                                <a href="javascript:;">Orthopedist in Mumbai | </a>
+                                <a href="javascript:;">Paediatrics in Mumbai | </a>
+                                <a href="javascript:;">Pathologist in Mumbai | </a>
+                                <a href="javascript:;">Pediatrician in Mumbai | </a>
+                                <a href="javascript:;">Physiotherapist in Mumbai | </a>
+                                <a href="javascript:;">Psychiatrist in Mumbai | </a>
+                                <a href="javascript:;">Pulmonologist in Mumbai | </a>
+                                <a href="javascript:;">Radiologist in Mumbai | </a>
+                                <a href="javascript:;">Rheumatology in Mumbai | </a>
+                                <a href="javascript:;">Urology Nutritionist Surgery in Mumbai</a>
                             </div>
                         </div>
                     </div>
-                </div> */}
-
+                </div>
 
                 <div className="container-fluid footer-2">
                     <div className="container">
                         <div className="row">
                             <div className="col-3">
-                                {/* <a href="javascript:;">
+                                <a href="javascript:;">
                                     <div className="logo-img-div">
                                         <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
-                                        <p className="footer-logo-text">A Policybazaar Group Company</p>
                                     </div>
-                                </a> */}
-                                <div className="copyright-info">
-                                    <p>Copyright © 2018 Docprime.</p>
+                                </a>
+                                <div class="copyright-info">
+                                    <p>Docprime.com Copyright &copy; 2018.</p>
                                     <p>All rights reserved.</p>
+                                    <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
+                                    <p>CIN : U74999HR2016PTC064312</p>
                                 </div>
                                 <div className="row social-icons-row">
                                     <div className="social-icon">
@@ -223,6 +266,10 @@ class Footer extends React.Component {
                             <a href="javascript:;"><li className="list-inline-item">CONTACT US</li></a>
                             <li className="list-inline-item">|</li>
                             <a href="javascript:;"><li className="list-inline-item">TERMS OF USE</li></a>
+                            <li className="list-inline-item">|</li>
+                            <a href="javascript:;"><li className="list-inline-item">PRIVACY POLICY</li></a>
+                            <li className="list-inline-item">|</li>
+                            <a href="javascript:;"><li className="list-inline-item">DISCLAIMER</li></a>
                             <li className="list-inline-item">|</li>
                             <a href="javascript:;"><li className="list-inline-item">MEDIA</li></a>
                         </ul>
