@@ -53,20 +53,20 @@ class DoctorProfileView extends React.Component {
                                                     </li>
                                                 </ul>
                                             </div>
+                                        </div>
+                                        <div className='col-8'>
+                                            <div className="header-title fw-700 capitalize text-white text-center">Doctor Details</div>
+                                        </div>
+                                        <div className="col-2" style={{paddingLeft: 0}} >
                                             <div className="mobile-home-icon-div" >
                                                 <img onClick={() => {
                                                     this.props.history.go('/')
                                                 }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
                                             </div>
-                                        </div>
-                                        <div className='col-8'>
-                                            <div class="header-title fw-700 capitalize text-white text-center">Doctor Details</div>
-                                        </div>
-                                        <div className="col-2">
-                                            <ul className="inline-list float-right user-notification-action">
-                                                {/* <li><span className="icon icon-md text-middle"><img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} className="img-fluid" /></span></li>
-                                    <li><span className="icon icon-md text-middle notification-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/notification.svg"} className="img-fluid" /> <span className="notification-alert" /></span></li> */}
-                                            </ul>
+                                            {/* <ul className="inline-list float-right user-notification-action">
+                                                <li><span className="icon icon-md text-middle"><img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} className="img-fluid" /></span></li>
+                                    <li><span className="icon icon-md text-middle notification-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/notification.svg"} className="img-fluid" /> <span className="notification-alert" /></span></li> 
+                                            </ul> */}
                                         </div>
                                     </div>
                                 </div>

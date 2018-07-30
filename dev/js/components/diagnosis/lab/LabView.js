@@ -54,7 +54,14 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         <div className="col-8">
-                                            <div class="header-title fw-700 capitalize text-white text-center">Lab Details</div>
+                                            <div className="header-title fw-700 capitalize text-white text-center">Lab Details</div>
+                                        </div>
+                                        <div className="col-2" style={{ paddingLeft: 0 }} >
+                                            <div className="mobile-home-icon-div" >
+                                                <img onClick={() => {
+                                                    this.props.history.go('/')
+                                                }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

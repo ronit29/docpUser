@@ -799,12 +799,9 @@ ul.inline-list li {
 }
 
 .mobile-home-icon-div{
-    position: absolute;
-    right: -30px;
-    top: 50%;
-    transform: translateY(-50%);
     width: 40px;
     cursor: pointer;
+    margin-top: 14px;
 }
 
 .mobile-home-icon{

@@ -151,20 +151,31 @@ class PatientDetails extends React.Component {
 
                         <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                            <header className="skin-white fixed horizontal top bdr-1 light sticky-header">
+                            <header className="skin-primary fixed horizontal top bdr-1 light sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
-                                            <ul className="inline-list">
-                                                <li onClick={() => {
+                                            <ul className="inline-list top-nav alpha-bx text-white"
+                                                onClick={() => {
                                                     this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
+                                                }}
+                                            >
+                                                <li>
+                                                    <span className="ct-img ct-img-sm arrow-img">
+                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" />
+                                                    </span>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Booking Confirmation</div>
+                                            <div className="header-title fw-700 capitalize text-white text-center">Booking Confirmation</div>
                                         </div>
-                                        <div className="col-2">
+                                        <div className="col-2" style={{ paddingLeft: 0 }} >
+                                            <div className="mobile-home-icon-div" >
+                                                <img onClick={() => {
+                                                    this.props.history.go('/')
+                                                }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

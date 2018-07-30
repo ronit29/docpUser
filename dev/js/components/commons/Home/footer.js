@@ -94,7 +94,7 @@ class Footer extends React.Component {
                                 <a href="javascript:;">Ophthalmologyin Banglore | </a>
                                 <a href="javascript:;">Opthalmologist in Banglore | </a>
                                 <a href="javascript:;">Orthopedist in Banglore | </a>
-                                <a href="javascript:;">Paediatrics in Banglore |</a>
+                                <a href="javascript:;">Paediatrics in Banglore | </a>
                                 <a href="javascript:;">Pathologist in Banglore | </a>
                                 <a href="javascript:;">Pediatrician in Banglore | </a>
                                 <a href="javascript:;">Physiotherapist in Banglore | </a>
@@ -162,7 +162,7 @@ class Footer extends React.Component {
                                         <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
                                     </div>
                                 </a>
-                                <div class="copyright-info">
+                                <div className="copyright-info">
                                     <p>Docprime.com Copyright &copy; 2018.</p>
                                     <p>All rights reserved.</p>
                                     <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
