@@ -95,7 +95,7 @@ class ChatSymptoms extends React.Component {
 
     async txtAnimation() {
         while (true) {
-            let sentence = "I am suffering from"
+            let sentence = "I am suffering from "
             if (document.getElementById('input-symptom-para')) {
                 document.getElementById('input-symptom-para').innerHTML = sentence
             }

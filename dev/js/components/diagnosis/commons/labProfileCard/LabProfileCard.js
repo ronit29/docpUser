@@ -36,7 +36,7 @@ class LabProfileCard extends React.Component {
 
     isOpenToday(lab_timing_data = []) {
         let is_open = false
-        let time_now = new Date().getHours()
+        let time_now = new Date().getHours() - 0.5
         for (let ltd of lab_timing_data) {
             if (time_now <= ltd.end && time_now >= ltd.start) {
                 is_open = true

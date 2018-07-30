@@ -51,8 +51,9 @@ class LocationSearch extends React.Component {
             reference: location.reference
         }, function (place, status) {
             this.props.selectLocation(place)
-            this.props.history.go(-1)
-
+            setTimeout(() => {
+                this.props.history.go(-1)
+            }, 100)
         }.bind(this))
     }
 
@@ -80,7 +81,9 @@ class LocationSearch extends React.Component {
                     if (results && results[0]) {
                         this.props.selectLocation(results[0])
                         clearTimeout(timeout)
-                        this.props.history.go(-1)
+                        setTimeout(() => {
+                            this.props.history.go(-1)
+                        }, 100)
                     }
                 })
             }, (a, b, c) => {
