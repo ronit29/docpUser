@@ -25,7 +25,8 @@ const FCM = (() => {
                     if (!_initialized) {
                         API_POST('/api/v1/user/notification/endpoint/save', {
                             token: currentToken,
-                            platform: 'web'
+                            platform: 'web',
+                            app_name: "doc_prime"
                         })
                     }
 
@@ -46,7 +47,8 @@ const FCM = (() => {
 
                     API_POST('/api/v1/user/notification/endpoint/save', {
                         token: refreshedToken,
-                        platform: 'web'
+                        platform: 'web',
+                        app_name: "doc_prime"
                     })
 
                     // set init to true , to stop fetching token again
