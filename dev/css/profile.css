@@ -299,7 +299,7 @@
 }
 
 .selectedtabpill{
-	border-right: 2px solid #f78316;
+	border-left: 2px solid #f78316;
 	background-color: rgba(247, 131, 22, 0.1);
 }
 
