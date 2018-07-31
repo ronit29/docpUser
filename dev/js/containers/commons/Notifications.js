@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchNotifications } from '../../actions/index.js'
+import { markNotificationsAsViewed, markNotificationsAsRead } from '../../actions/index.js'
 
 import NotificationsView from '../../components/commons/Notifications/index.js'
 import STORAGE from '../../helpers/storage'
@@ -16,7 +16,7 @@ class Notifications extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.fetchNotifications()
+            this.props.markNotificationsAsViewed()
         }
     }
 
@@ -41,7 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchNotifications: () => dispatch(fetchNotifications())
+        markNotificationsAsViewed: () => dispatch(markNotificationsAsViewed()),
+        markNotificationsAsRead: (notificationid, cb) => dispatch(markNotificationsAsRead(notificationid, cb))
     }
 }
 

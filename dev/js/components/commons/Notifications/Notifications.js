@@ -20,6 +20,9 @@ class NotificationsView extends React.Component {
     }
 
     openAppointment(data) {
+        this.props.markNotificationsAsRead(notificationid, () => {
+
+        })
         this.props.history.push(data.content.url)
     }
 
@@ -56,12 +59,12 @@ class NotificationsView extends React.Component {
 
                             <section className="notification-page skin-white">
                                 <div className="notificatons">
-                                {
-                                    (this.props.notifications && this.props.notifications.length == 0) ? <div className="text-center pd-20">
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/no-notification.png"} />
-                                        <p className="fw-500 text-lg mrt-20">No Notifications !!</p>
-                                    </div> : ""
-                                }
+                                    {
+                                        (this.props.notifications && this.props.notifications.length == 0) ? <div className="text-center pd-20">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/no-notification.png"} />
+                                            <p className="fw-500 text-lg mrt-20">No Notifications !!</p>
+                                        </div> : ""
+                                    }
                                     <ul className="list notificaton-list">
                                         {
                                             this.props.notifications.map((note, i) => {
@@ -69,8 +72,8 @@ class NotificationsView extends React.Component {
                                                     <a>
                                                         <img src={ASSETS_BASE_URL + "/img/icons/bell-md.png"} className="img-fluid noti-icon" />
                                                         <div className="noti-content">
-                                                            <h4 className="noti-title">{note.content.title}<span className="updated-on">{note.viewed_at ? "" : "New"}</span></h4>
-                                                            <p>{note.content.body}</p>
+                                                            <h4 className={note.read_at ? "noti-title" : "noti-title"}>{note.content.title}<span className="updated-on">{note.viewed_at ? "" : "New"}</span></h4>
+                                                            <p className={note.read_at ? "" : "newappointment"}>{note.content.body}</p>
                                                         </div>
                                                     </a>
                                                 </li>

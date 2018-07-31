@@ -16,7 +16,7 @@ const defaultState = {
     defaultProfile: null,
     selectedProfile: null,
     notifications: [],
-    newNotification: false,
+    newNotification: 0,
     userUpcomingAppointments: [],
     userTransactions: [],
     userWalletBalance: 0,
@@ -117,7 +117,7 @@ export default function (state = defaultState, action) {
                 notifications: state.notifications ? [...state.notifications] : []
             }
 
-            newState.newNotification = false
+            newState.newNotification = 0
 
             if (action.payload.replace) {
                 newState.notifications = action.payload.notifications
@@ -127,7 +127,7 @@ export default function (state = defaultState, action) {
 
             newState.notifications.map((not) => {
                 if (!not.viewed_at) {
-                    newState.newNotification = true
+                    newState.newNotification += 1
                 }
             })
 

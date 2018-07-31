@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { appendNotifications } from '../../actions/index.js'
+import { fetchNotifications } from '../../actions/index.js'
 
 import SOCKET from '../../helpers/socket'
 import FCM from '../../helpers/fcm'
@@ -28,7 +28,7 @@ class Notifications extends React.Component {
                 let _socket = SOCKET.getInstance()
                 if (_socket) {
                     _socket.on('notification', (data) => {
-                        this.props.appendNotifications([data], false)
+                        this.props.fetchNotifications()
                     })
                 }
             })
@@ -60,7 +60,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        appendNotifications: (notifications, replace, cb) => dispatch(appendNotifications(notifications, replace, cb))
+        fetchNotifications: (cb) => dispatch(fetchNotifications(cb))
     }
 }
 

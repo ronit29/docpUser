@@ -133,7 +133,7 @@ export const fetchNotifications = (cb) => (dispatch) => {
 		dispatch({
 			type: APPEND_NOTIFICATIONS,
 			payload: {
-				replace: true, notifications: response
+				replace: true, notifications: response.data
 			}
 		})
 		if (cb) cb(null, response);
@@ -142,12 +142,31 @@ export const fetchNotifications = (cb) => (dispatch) => {
 	})
 }
 
-export const appendNotifications = (notifications, replace = true, cb) => (dispatch) => {
-	dispatch({
-		type: APPEND_NOTIFICATIONS,
-		payload: {
-			replace, notifications
-		}
+export const markNotificationsAsViewed = (cb) => (dispatch) => {
+	API_POST(`/api/v1/notification/marknotificationsasviewed`, {}).then(function (response) {
+		dispatch({
+			type: APPEND_NOTIFICATIONS,
+			payload: {
+				replace: true, notifications: response.data
+			}
+		})
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const markNotificationsAsRead = (notificationid = "", cb) => (dispatch) => {
+	API_POST(`/api/v1/notification/marknotificationsasread`, { notificationids: notificationid.toString() }).then(function (response) {
+		dispatch({
+			type: APPEND_NOTIFICATIONS,
+			payload: {
+				replace: true, notifications: response.data
+			}
+		})
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
 	})
 }
 
