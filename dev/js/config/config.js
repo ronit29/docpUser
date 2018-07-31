@@ -1,13 +1,13 @@
 const BASE_CONFIG = {
     FCM_CONFIG: {
-        apiKey: "AIzaSyBJ1VRIJd33At0MVcs8jr7guREZ8ARi2-I",
-        authDomain: "panacea-ondoc.firebaseapp.com",
-        databaseURL: "https://panacea-ondoc.firebaseio.com",
-        projectId: "panacea-ondoc",
-        storageBucket: "panacea-ondoc.appspot.com",
-        messagingSenderId: "553214005281"
+        apiKey: "AIzaSyAAwnvfm-CXnO8s_WWz-yxEzX1---QzoL0",
+        authDomain: "docprime-5c123.firebaseapp.com",
+        databaseURL: "https://docprime-5c123.firebaseio.com",
+        projectId: "docprime-5c123",
+        storageBucket: "docprime-5c123.appspot.com",
+        messagingSenderId: "247429343742"
     },
-    FCM_PUBLIC_VAPID_KEYL: "BLx7NZrgK8dSjbUjycqyv0_KQfgnHj5_e108RsX9aD45q_3EOPtYbV32u7S5WbBW2eDodGmzaX5QlNWLQStt7bE"
+    FCM_PUBLIC_VAPID_KEYL: "BORw457Re6DHFlxAKSxxTziilo7sQZZT5lL305Ccqbl1U-YLfU_HyIcaXNRRHo85hNOPGBmVF64IlCfSISuP5pU"
 }
 
 const PROD_CONFIG = {

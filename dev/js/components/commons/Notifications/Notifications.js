@@ -20,7 +20,7 @@ class NotificationsView extends React.Component {
     }
 
     openAppointment(data) {
-        this.props.markNotificationsAsRead(notificationid, () => {
+        this.props.markNotificationsAsRead(data.id, () => {
 
         })
         this.props.history.push(data.content.url)
