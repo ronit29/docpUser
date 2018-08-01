@@ -278,7 +278,7 @@ class BookingSummaryView extends React.Component {
 
                                                     <div className="col-12">
                                                         <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10, cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Money back guarantee<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                            <h4 className="title payment-amt-label">Cancellation Policy<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
                                                     </div>
 
