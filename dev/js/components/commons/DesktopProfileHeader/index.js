@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../../../actions/index.js'
+import { logout, fetchNotifications } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
 
@@ -13,6 +13,10 @@ class DesktopProfileHeader extends React.Component {
 
     static contextTypes = {
         router: () => null
+    }
+
+    componentDidMount() {
+        this.props.fetchNotifications()
     }
 
     render() {
@@ -32,7 +36,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logout()),
+        fetchNotifications: (cb) => dispatch(fetchNotifications(cb))
     }
 }
 

@@ -36,9 +36,9 @@ class Article extends React.Component {
                 <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column transaction-column">
+                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                            <header className="wallet-header sticky-header">
+                            <header className="wallet-header article-header sticky-header">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
@@ -53,7 +53,7 @@ class Article extends React.Component {
                                 </div>
                             </header>
                             {
-                                this.state.articleData ? <div className="container-fluid">
+                                this.state.articleData ? <div className="container-fluid transaction-column" style={{paddingTop: 20}} >
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""
