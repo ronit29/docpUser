@@ -22,6 +22,7 @@ import NotFound from './containers/commons/404'
 import Article from './containers/commons/article'
 import Payment from './containers/commons/Payment'
 import ChatHistory from './containers/commons/chatHistory'
+import StaticPages from './containers/commons/StaticPages'
 
 import Booking_LAB from './containers/diagnosis/Booking.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
@@ -62,6 +63,8 @@ const routes = [
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
     { path: '/lab/appointment/:refId', exact: true, component: Booking_LAB },
+
+    { path: '/', exact: false, component: StaticPages },
 
     { path: '*', component: NotFound },
 ]

@@ -18,6 +18,7 @@ require('../css/profile.css')
 require('../css/transaction.css')
 require('../css/error.css')
 require('../css/more.css')
+require('../css/static.css')
 
 require('../css/slider.css')
 require('../css/snackbar.css')
