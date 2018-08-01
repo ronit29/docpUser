@@ -123,7 +123,7 @@ class ChatView extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `https://chatqa.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&roomId=${this.state.roomId}`
+        let iframe_url = `https://telemed.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&roomId=${this.state.roomId}`
 
 
 
