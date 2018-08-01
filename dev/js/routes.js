@@ -64,7 +64,12 @@ const routes = [
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
     { path: '/lab/appointment/:refId', exact: true, component: Booking_LAB },
 
-    { path: '/', exact: false, component: StaticPages },
+    { path: '/about', exact: true, component: StaticPages },
+    { path: '/howitworks', exact: true, component: StaticPages },
+    { path: '/privacy', exact: true, component: StaticPages },
+    { path: '/disclaimer', exact: true, component: StaticPages },
+    { path: '/contact', exact: true, component: StaticPages },
+    { path: '/terms', exact: true, component: StaticPages },
 
     { path: '*', component: NotFound },
 ]
