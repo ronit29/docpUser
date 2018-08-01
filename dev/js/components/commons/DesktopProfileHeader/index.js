@@ -34,9 +34,9 @@ class DesktopProfileHeader extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profiles, selectedProfile, defaultProfile } = state.USER
+    let { profiles, selectedProfile, defaultProfile, notifications, newNotification } = state.USER
     return {
-        profiles, selectedProfile, defaultProfile
+        profiles, selectedProfile, defaultProfile, notifications, newNotification
     }
 }
 
