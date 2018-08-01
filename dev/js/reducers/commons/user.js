@@ -16,7 +16,7 @@ const defaultState = {
     defaultProfile: null,
     selectedProfile: null,
     notifications: [],
-    newNotification: false,
+    newNotification: 0,
     userUpcomingAppointments: [],
     userTransactions: [],
     userWalletBalance: 0,
@@ -24,7 +24,8 @@ const defaultState = {
     orderHistory: [],
     articles: [],
     chatDoctors: {},
-    chatHistory: []
+    chatHistory: [],
+    chatRoomIds: {}
 }
 
 export default function (state = defaultState, action) {
@@ -116,7 +117,7 @@ export default function (state = defaultState, action) {
                 notifications: state.notifications ? [...state.notifications] : []
             }
 
-            newState.newNotification = false
+            newState.newNotification = 0
 
             if (action.payload.replace) {
                 newState.notifications = action.payload.notifications
@@ -126,7 +127,7 @@ export default function (state = defaultState, action) {
 
             newState.notifications.map((not) => {
                 if (!not.viewed_at) {
-                    newState.newNotification = true
+                    newState.newNotification += 1
                 }
             })
 
@@ -178,10 +179,12 @@ export default function (state = defaultState, action) {
         case APPEND_CHAT_DOCTOR: {
             let newState = {
                 ...state,
-                chatDoctors: { ...state.chatDoctors }
+                chatDoctors: { ...state.chatDoctors },
+                chatRoomIds: { ...state.chatRoomIds },
             }
 
             newState.chatDoctors[action.payload.doctorId] = action.payload.data
+            newState.chatRoomIds[action.payload.roomId] = action.payload.doctorId
             return newState
         }
 
