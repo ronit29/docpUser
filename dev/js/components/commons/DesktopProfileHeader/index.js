@@ -16,7 +16,7 @@ class DesktopProfileHeader extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchNotifications()
+        // this.props.fetchNotifications()
     }
 
     render() {

@@ -141,12 +141,12 @@ class BookingView extends React.Component {
                                         </div>
                                         <div className="col-4">
                                             <ul className="inline-list float-right user-notification-action">
-                                                <li onClick={() => { this.props.history.push('/user') }}><span className="icon icon-md text-middle"><img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} className="img-fluid" /></span></li>
+                                                {/* <li onClick={() => { this.props.history.push('/user') }}><span className="icon icon-md text-middle"><img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} className="img-fluid" /></span></li>
                                                 <li><span className="icon icon-md text-middle notification-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/notification.svg"} className="img-fluid" onClick={this.navigateTo.bind(this, '/notifications')} />
-                                                    {/* {
+                                                    {
                                                         this.props.newNotification > 0 ? <span className="notification-alert">{this.props.newNotification}</span> : ""
-                                                    } */}
-                                                </span></li>
+                                                    }
+                                                </span></li> */}
                                             </ul>
                                         </div>
                                     </div>
