@@ -17,7 +17,7 @@ import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
 
-const Section_Component = ({ children, title, history }) => {
+const Section_Component = ({ children, title, history, logout }) => {
     return <div>
         <header className="skin-primary fixed horizontal top sticky-header">
             <div className="container-fluid">
@@ -34,7 +34,9 @@ const Section_Component = ({ children, title, history }) => {
                     <div className="col-8">
                         <div className="header-title fw-700 capitalize text-center text-white">{title || "My Profile"}</div>
                     </div>
-                    <div className="col-2">
+                    <div className="col-2" onClick={() => {
+                        logout()
+                    }} style={{ cursor: 'pointer' }}>
                         <p className="fw-500 mobile-logout-text">Logout</p>
                     </div>
                 </div>

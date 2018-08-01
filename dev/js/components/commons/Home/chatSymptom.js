@@ -196,9 +196,9 @@ class ChatSymptoms extends React.Component {
                     {
                         // selectedSympsStr ? <input style={{ backgroundColor: 'white' }} disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input style={{ backgroundColor: 'white' }} disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
 
-                        selectedSympsStr ? <div className="input-symptom">
-                            <p> {selectedSympsStr} </p> </div> : <div className="input-symptom">
-                            <p id="input-symptom-para">  </p> </div>
+                        selectedSympsStr ? <div className="input-symptom" style={{ height: 29, border: 'none' }}>
+                            <p > {selectedSympsStr} </p> </div> : <div className="input-symptom" style={{ height: 29, border: 'none' }}>
+                                <p id="input-symptom-para">  </p> </div>
                     }
 
                 </div>
