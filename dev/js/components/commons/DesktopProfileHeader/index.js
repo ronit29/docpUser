@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout, fetchNotifications } from '../../../actions/index.js'
+import { logout, fetchNotifications, getUserProfile } from '../../../actions/index.js'
 import STORAGE from '../../../helpers/storage'
 import { withRouter } from 'react-router'
 
@@ -18,6 +18,10 @@ class DesktopProfileHeader extends React.Component {
     componentDidMount() {
         if (STORAGE.checkAuth()) {
             this.props.fetchNotifications()
+            /* Fectch user profile if logged in and user profile is not loaded i.e(public pages) */
+            if (!this.props.profiles[this.props.selectedProfile]) {
+                this.props.getUserProfile()
+            }
         }
     }
 
@@ -30,16 +34,17 @@ class DesktopProfileHeader extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { profiles, selectedProfile, newNotification, notifications } = state.USER
+    let { profiles, selectedProfile, defaultProfile } = state.USER
     return {
-        profiles, selectedProfile, newNotification, notifications
+        profiles, selectedProfile, defaultProfile
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         logout: () => dispatch(logout()),
-        fetchNotifications: (cb) => dispatch(fetchNotifications(cb))
+        fetchNotifications: (cb) => dispatch(fetchNotifications(cb)),
+        getUserProfile: () => dispatch(getUserProfile())
     }
 }
 
