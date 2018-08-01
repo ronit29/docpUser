@@ -8,7 +8,15 @@ function getLocationParam(props, tag) {
 const NAVIGATE = {
     navigateTo: (where) => {
         if (window) {
-            window.location.href = where
+            let no_reload = getLocationParam(window, 'ref')
+            if (where == '/') {
+                if (!no_reload) {
+                    // add nr to check and stop recursive reloads
+                    window.location.href = where + "?ref=nr"
+                }
+            } else {
+                window.location.href = where
+            }
         }
     },
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { logout, fetchNotifications } from '../../../actions/index.js'
-
+import STORAGE from '../../../helpers/storage'
 import { withRouter } from 'react-router'
 
 import DesktopProfileHeaderView from './DesktopProfileHeader'
@@ -16,7 +16,9 @@ class DesktopProfileHeader extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.fetchNotifications()
+        if (STORAGE.checkAuth()) {
+            this.props.fetchNotifications()
+        }
     }
 
     render() {
