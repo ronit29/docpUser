@@ -49,6 +49,9 @@ class BookingSummaryView extends React.Component {
     }
 
     handlePickupType(e) {
+        //always clear selected time at lab profile
+        let slot = { time: {} }
+        this.props.selectLabTimeSLot(slot, false)
         this.props.selectLabAppointmentType(e.target.value)
     }
 
