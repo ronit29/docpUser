@@ -1,4 +1,4 @@
-ROM node:8
+FROM node:8
 RUN apt-get update
 
 RUN mkdir /usr/src/app
