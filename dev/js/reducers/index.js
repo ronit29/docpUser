@@ -36,7 +36,7 @@ const allReducers = combineReducers({
     DOCTOR_SEARCH: persistReducer(DOCTOR_LIST_PRESIST, DOCTOR_SEARCH),
     LABS,
     LAB_SEARCH: persistReducer(LAB_LIST_PRESIST, LAB_SEARCH),
-    USER,
+    USER: persistReducer(USER_PERSIST, USER),
     AUTH
 });
 

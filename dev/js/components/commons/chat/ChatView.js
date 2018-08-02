@@ -66,6 +66,13 @@ class ChatView extends React.Component {
                             this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
                             break
                         }
+
+                        case "chat_loaded": {
+                            if (data.data.rid) {
+                                this.setState({ selectedRoom: data.data.rid })
+                            }
+                            break
+                        }
                     }
                 }
             }.bind(this))

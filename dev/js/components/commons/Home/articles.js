@@ -32,11 +32,11 @@ class Article extends React.Component {
         scrollLeft = Math.max(0, scrollLeft);
         scrollLeft = Math.min(scrollLeft, scrollWidth - containerWidth);
 
-        this.setState({ scrollLeft: scrollLeft/2 });
+        this.setState({ scrollLeft: scrollLeft });
     }
 
     getAnimation() {
-        let scrollLeft = this.state.scrollLeft;
+        let scrollLeft = this.state.scrollLeft / 2
         let animation = (
             <Motion ref="motion" style={{ scrollLeft: spring(scrollLeft) }}>
                 {({ scrollLeft }) => (
