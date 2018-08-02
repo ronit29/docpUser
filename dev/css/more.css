@@ -906,3 +906,7 @@ figure>img{
     color: black !important;
     font-weight: bold !important;
 }
+
+.view-in-map:hover, .view-in-map:focus{
+    color: #f78631 !important;
+}

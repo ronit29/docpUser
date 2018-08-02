@@ -119,6 +119,7 @@ footer{}
 
 .text-default{color:#607d8b!important }
 .text-primary{color: #f78631!important}
+a.text-primary:focus, a.text-primary:hover {color: #f78631!important;}
 .text-secondary{color: #006f7e!important}
 .text-warning{color: #ff9800!important}
 .text-danger{color: #d8262d!important}
