@@ -31,8 +31,9 @@ class UserFamily extends React.Component {
             // pick paitent and go back, else go on to edit.
             this.props.selectProfile(id)
             this.props.history.go(-1)
+        } else {
+            this.props.history.push(`/user/edit/${id}`)
         }
-        this.props.history.push(`/user/edit/${id}`)
     }
 
 

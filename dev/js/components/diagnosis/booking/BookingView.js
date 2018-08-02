@@ -142,7 +142,7 @@ class BookingView extends React.Component {
                                         <div className="col-2" style={{ paddingLeft: 0 }}>
                                             <div className="mobile-home-icon-div" >
                                                 <img onClick={() => {
-                                                    this.props.history.go('/')
+                                                    this.props.history.push('/')
                                                 }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
                                             </div>
                                             {/* <ul className="inline-list float-right user-notification-action">
