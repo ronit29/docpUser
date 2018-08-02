@@ -49,7 +49,7 @@ class LabDetails extends React.Component {
                                             <span className="fw-700 text-sm">Timing: -</span>
                                             {this.props.data.lab_timing}
                                             {
-                                                this.isOpenToday(this.props.data.lab_timing_data) ? <span className="open-close">{" Open Today"}</span> : <span className="open-close">{" Closed Today"}</span>
+                                                this.isOpenToday(this.props.data.lab_timing_data) ? <span className="open-close">{" Open Today"}</span> : <span className="open-close">{" Now Closed"}</span>
                                             }
 
                                         </li>
