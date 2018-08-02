@@ -37,7 +37,7 @@ class HowitWorks extends React.Component {
                         </div>
                     </div>
                     <div className="col-lg-4 d-none d-lg-block">
-                        <img className="consultation-image" src="/assets/img/doctorConslutation.png" />
+                        <img className="consultation-image" src={ASSETS_BASE_URL + "/img/doctorConslutation.png"} />
                     </div>
                 </div>
                 <div className="row working-row lab">
@@ -57,7 +57,7 @@ class HowitWorks extends React.Component {
                         </div>
                     </div>
                     <div className="col-lg-4 d-none d-lg-block">
-                        <img className="lab-image" src="/assets/img/phone.png" />
+                        <img className="lab-image" src={ASSETS_BASE_URL + "/img/phone.png"} />
                     </div>
                 </div>
                 <div className="row working-row lab">
@@ -77,7 +77,7 @@ class HowitWorks extends React.Component {
                         </div>
                     </div>
                     <div className="col-lg-4 d-none d-lg-block">
-                        <img className="consultation-image" src="/assets/img/stayinghealthy.png" />
+                        <img className="consultation-image" src={ASSETS_BASE_URL + "/img/stayinghealthy.png"} />
                     </div>
                 </div>
             </div>

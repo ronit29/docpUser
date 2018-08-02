@@ -21,7 +21,7 @@ class AboutUs extends React.Component {
                     </div>
                     <div className="col-12 col-md-4 feature-col">
                         <div className="feature-img-div text-center">
-                            <img src="/assets/img/customer-icons/about-1.png" className="feature-img" />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/about-1.png"} className="feature-img" />
                         </div>
                         <div className="feature-div text-center">
                             <p className="fw-500 feature-heading">Affordable</p>
@@ -30,7 +30,7 @@ class AboutUs extends React.Component {
                     </div>
                     <div className="col-12 col-md-4 feature-col">
                         <div className="feature-img-div text-center">
-                            <img src="/assets/img/customer-icons/about-2.png" className="feature-img" />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/about-2.png"} className="feature-img" />
                         </div>
                         <div className="feature-div text-center">
                             <p className="fw-500 feature-heading">Safe</p>
@@ -39,7 +39,7 @@ class AboutUs extends React.Component {
                     </div>
                     <div className="col-12 col-md-4 feature-col">
                         <div className="feature-img-div text-center">
-                            <img src="/assets/img/customer-icons/about-3.png" className="feature-img" />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/about-3.png"} className="feature-img" />
                         </div>
                         <div className="feature-div text-center">
                             <p className="fw-500 feature-heading">Straight Forward</p>
@@ -55,7 +55,7 @@ class AboutUs extends React.Component {
                     <div className="col-12 col-md-4 about-steps-div">
                         <div className="about-steps">
                             <div className="step-icon-div">
-                                <img src="/assets/img/customer-icons/step-calendar.svg" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/step-calendar.svg"} />
                             </div>
                             <div className="step-heading-div text-center">
                                 <p className="fw-500 step-heading">Book Appoinments</p>
@@ -87,7 +87,7 @@ class AboutUs extends React.Component {
                     <div className="col-12 col-md-4 about-steps-div">
                         <div className="about-steps">
                             <div className="step-icon-div">
-                                <img src="/assets/img/customer-icons/step-chat.svg" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/step-chat.svg"} />
                             </div>
                             <div className="step-heading-div text-center">
                                 <p className="fw-500 step-heading">Online Chat Consultation</p>
@@ -119,7 +119,7 @@ class AboutUs extends React.Component {
                     <div className="col-12 col-md-4 about-steps-div">
                         <div className="about-steps">
                             <div className="step-icon-div">
-                                <img src="/assets/img/customer-icons/step-partner.svg" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/step-partner.svg"} />
                             </div>
                             <div className="step-heading-div text-center">
                                 <p className="fw-500 step-heading">Become a Partner with docprime</p>

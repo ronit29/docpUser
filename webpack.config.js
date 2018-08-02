@@ -24,7 +24,7 @@ const client_dev = {
         }),
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": false,
-            "ASSETS_BASE_URL": "/assets/"
+            "ASSETS_BASE_URL": JSON.stringify("/assets")
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',

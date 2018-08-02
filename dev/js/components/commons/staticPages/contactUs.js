@@ -30,7 +30,7 @@ class ContactUs extends React.Component {
                             <div className="arrow-down">
                             </div>
                             <div className="image-location">
-                                <img src="/assets/img/customer-icons/location.png" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location.png"} />
                             </div>
                         </div>
                     </div>
