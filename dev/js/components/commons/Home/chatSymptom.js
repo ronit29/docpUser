@@ -182,7 +182,7 @@ class ChatSymptoms extends React.Component {
                         {this.getAnimation()}
                     </div>
                 </div>
-                <div className="input-symptom-div" onClick={() => {
+                <div className="input-symptom-div" style={{height: 39}} onClick={() => {
                     this.props.navigateTo('/chat', {
                         symptoms: this.state.selectedSymptoms
                     })
@@ -196,7 +196,7 @@ class ChatSymptoms extends React.Component {
                     {
                         // selectedSympsStr ? <input style={{ backgroundColor: 'white' }} disabled type="text" className="input-symptom" placeholder={selectedSympsStr} /> : <input style={{ backgroundColor: 'white' }} disabled type="text" id="animation-input" className="input-symptom" placeholder="" />
 
-                        selectedSympsStr ? <div className="input-symptom" style={{ height: 29, border: 'none' }}>
+                        selectedSympsStr ? <div className="input-symptom" style={{ border: 'none' }}>
                             <p > {selectedSympsStr} </p> </div> : <div className="input-symptom" style={{ height: 29, border: 'none' }}>
                                 <p id="input-symptom-para">  </p> </div>
                     }

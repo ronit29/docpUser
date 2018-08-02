@@ -66,11 +66,13 @@ class LabDetails extends React.Component {
                                 <div className="widget-content pb-details pb-location">
                                     <h4 className="wc-title text-md fw-700">Location</h4>
                                     <div className="address-details">
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
+                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700" target="_blank">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
+                                        </a>
                                         <p className="add-info">{address}</p>
                                     </div>
                                     <div className="pb-view text-left">
-                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700" target="_blank">View in Google Map</a>
+                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700 view-in-map" target="_blank">View in Google Map</a>
                                     </div>
                                 </div>
                                 {/* <div className="widget-content pb-details pb-facility">
