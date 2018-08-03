@@ -37,7 +37,7 @@
 .ct-profile .ct-profile-icon{float:left;}
 .ct-profile .ct-content{padding-left: 60px;}
 .ct-title{font-size: 16px; font-weight: bold; margin-bottom: 2px;}
-.ct-profile p{color: #757575;   font-size: 14px; font-weight: 500; line-height: 14px;}
+.ct-profile p{color: #757575; font-size: 14px; font-weight: 500;}
 
 .welcome{ font-size: 14px; font-weight: 500;}
 .notification-icon{position: relative;}
@@ -119,7 +119,7 @@
 .card .card-footer{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;}
 .logo-ratting{}
 
-.lab-locality{color: #626262; font-size: 14px; margin-bottom: 8px; height: auto; max-height: 34px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+.lab-locality{color: #626262; font-size: 14px; margin-bottom: 8px; height: auto; max-height: 36px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; max-width: 80%;}
 
 .book-card-content{padding-right: 100px;}
 .book-cart-title{font-size: 17px; font-weight: bold;color: #263077; margin-bottom: 6px; height: auto; max-height: 44px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
@@ -268,7 +268,7 @@
 .Clinic-card-list{ width: 100%;}
 .Clinic-card-list>li{ border: solid 1px rgba(0, 0, 0, 0.3); border-radius: 8px}
 .Clinic-card-list>li .location-details img{width: 40px;}
-.Clinic-card-list>li .location-details .address{float: left; font-size: 14px; font-weight: bold; color: #757575; margin-top: 3px; width: 70%; height: 44px; white-space: normal; text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
+.Clinic-card-list>li .location-details .address{float: left; font-size: 14px; font-weight: bold; color: #757575; margin-top: 3px; width: 70%; height: 56px; white-space: normal; text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
 
 .timing-details{margin-top: 25px;}
 .timing-details>p{margin-bottom: 10px;width: 100%; white-space: normal;}

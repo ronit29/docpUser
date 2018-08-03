@@ -210,15 +210,18 @@ class BookingView extends React.Component {
                                                     <div className="widget  mrb-10">
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
-                                                            <div className="address-details">
+                                                            <div className="address-details clearfix">
                                                                 <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-lb" onClick={this.navigateTo.bind(this, `/lab/${lab.id}`)}>
-                                                                    <img style={{ width: 50, height: 50 }} src={lab_thumbnail} className="img-fluid add-map" />
+                                                                    <img style={{ maxWidth: 90, maxHeight: 60, float: 'right', marginTop: '-4px', cursor: 'pointer' }} src={lab_thumbnail} />
                                                                 </InitialsPicture>
 
                                                                 <p className="add-info fw-500">{lab.address}</p>
                                                             </div>
-                                                            <div className="pb-view text-left">
-                                                                <a href={`https://www.google.com/maps/search/?api=1&query=${lab.lat},${lab.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
+                                                            <div className="pb-view text-left clearfix mrt-10">
+                                                                <a href={`https://www.google.com/maps/search/?api=1&query=${lab.lat},${lab.long}`} target="_blank" className="link-text text-md fw-700 mrt-10" style={{float: 'left'}} >View in Google Map</a>
+                                                                <a href={`https://www.google.com/maps/search/?api=1&query=${lab.lat},${lab.long}`} className="link-text text-md fw-700" target="_blank" style={{width: 50, height: 50, float: 'right', marginRight: 20}} >
+                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} style={{width: '100%'}} />
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>

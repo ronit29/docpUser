@@ -20,19 +20,18 @@ class HealthTip extends React.Component {
 
         let { selected } = this.state
         let { healthTips } = this.props
-
+        
         return (
-            <div className="right-div-widget health-widget" style={{ marginBottom: 10 }}>
+            <div className={`right-div-widget health-widget mrb-10 ${this.props.customClass}`}>
                 <div className="appointment-head-div">
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/health-tip.jpg"} />
                     <span className="appointment-head">Health Tip for the Day</span>
                 </div>
-                <div className="tip-desc-div" style={{ height: 170, overflow: 'hidden' }}>
+                <div className="tip-desc-div tip-desc-height">
                     <p className="tip-desc">{(healthTips && healthTips[selected]) ? healthTips[selected].text : ""}</p>
                 </div>
-                <div className="tip-desc-div" style={{ marginBottom: -10, marginTop: 20 }}>
-                    <img onClick={this.changeTip.bind(this, true)} src={ASSETS_BASE_URL + "/img/icons/forma-1-copy-3.svg"} style={{ cursor: 'pointer', padding: 10 }} />
-                    <img onClick={this.changeTip.bind(this, false)} src={ASSETS_BASE_URL + "/img/icons/forma-1-copy-7.svg"} style={{ float: 'right', cursor: 'pointer', padding: 10 }} />
+                <div className="tip-indicators-div mrt-20">
+                    <img onClick={this.changeTip.bind(this, true)} src={ASSETS_BASE_URL + "/img/icons/forma-1-copy-3.svg"} />
                     <div className="circleIndicators">
                         {
                             this.props.healthTips.map((ht, i) => {
@@ -40,6 +39,7 @@ class HealthTip extends React.Component {
                             })
                         }
                     </div>
+                    <img onClick={this.changeTip.bind(this, false)} src={ASSETS_BASE_URL + "/img/icons/forma-1-copy-7.svg"} />
                 </div>
             </div>
         );
