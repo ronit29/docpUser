@@ -74,11 +74,16 @@ class LabProfileCard extends React.Component {
                     </div>
                     <div className="book-card-content">
                         <h4 className="book-cart-title">{lab.name}</h4>
-                        <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8}} >Radiology | Pathology</p>
-                        <p className="lab-locality">
-                            {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
-                            {lab.locality} {lab.city} | <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4 }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
-                        </p>
+                        <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8 }} >Radiology | Pathology</p>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', minWidth: 0 }} >
+                            <p className="lab-locality">
+                                {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
+                                {lab.locality} {lab.city}&nbsp;|
+                            </p>
+                            <div style={{width: 75, marginLeft: 4, marginBottom: 8, alignSelf: 'center'}}>
+                                <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
+                            </div>
+                        </div>
                         <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} |
                             {
                                 this.isOpenToday(lab_timing_data) ? <span style={{ color: 'green' }}> Open Today</span> : <span style={{ color: '#d82907' }} > Now Closed</span>

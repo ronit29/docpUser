@@ -693,11 +693,34 @@
 }
 
 .health-widget{
-	/* margin-top: 20px; */
+	margin-top: 0px;
 }
 
 .tip-desc-div{
 	margin-top: 12px;
+}
+
+.tip-indicators-div{
+	display: flex;
+    padding: 0 10px;
+    align-items: center;
+}
+
+.tip-indicators-div>img{
+	width: 6px;
+	height: 9px;
+	cursor: pointer;
+}
+
+.tip-desc-height{
+	height: 170px;
+	overflow: hidden;
+}
+
+.circleIndicators {
+    flex: 1;
+    height: 9px;
+    text-align: center;
 }
 
 .tip-desc{
@@ -893,6 +916,15 @@
 }
 
 @media(max-width: 992px){
+	.health-widget{
+		margin-top: 20px;
+	}
+	.tip-desc-height{
+		height: 140px;
+	}
+	.appointment-head-div{
+		text-align: left;
+	}
 	.profile-main-section{
 		margin-top: 240px;
 		position: relative;

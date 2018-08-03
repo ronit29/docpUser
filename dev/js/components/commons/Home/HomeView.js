@@ -8,7 +8,9 @@ import Footer from './footer'
 import Articles from './articles'
 import ChatSymptoms from './chatSymptom.js'
 import InitialsPicture from '../initialsPicture'
-import HealthTips from './healthTipMobile.js'
+// import HealthTips from './healthTipMobile.js'
+import HealthTip from '../RightBar/healthTip.js'
+
 
 const GENDER = {
     "m": "Male",
@@ -147,7 +149,7 @@ class HomeView extends React.Component {
                                 })
                             }
 
-                            <HealthTips {...this.props} />
+                            <HealthTip healthTips={this.props.healthTips} customClass="d-lg-none" />
 
                         </div>
 
