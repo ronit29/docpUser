@@ -33,16 +33,16 @@ class ChatView extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                            <header className="wallet-header sticky-header">
+                            <header className="wallet-header sticky-header chat-header">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
-                                            <img src={ASSETS_BASE_URL + "/img/icons/back-orange.svg"} className="back-icon-orange" onClick={() => {
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
                                         <div className="col-8 logo-col">
-                                            <p className="wallet-title fw-500">Chat History</p>
+                                            <p className="header-title fw-700 capitalize text-white text-center">Chat History</p>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@ class ChatView extends React.Component {
                                             let date_f = new Date(chat.date || 0).toDateString()
                                             return <li key={i} onClick={this.openChat.bind(this, chat.room_id)}>
                                                 <p className="chat-history-list-label fw-500">Patient Name : <span>{chat.user_name}</span></p>
-                                                <p className="chat-history-symptom fw-500">Symptom : {chat.symptoms}</p>
+                                                <p className="chat-history-symptom fw-500">Symptom : {(chat.symptoms && chat.symptoms.length > 1) ? chat.symptoms.join(" | ") : chat.symptoms}</p>
                                                 <div className="chat-history-date clearfix mrb-5">
                                                     <img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} />
                                                     <p className="fw-500">Date : {date_f}</p>
@@ -70,10 +70,13 @@ class ChatView extends React.Component {
                                     }
                                 </ul>
                             </div>
-
+                            <button onClick={() => {
+                                this.props.history.push('/chat')
+                            }} className="v-btn v-btn-primary btn-lg add-more-members-btn">+</button>
                         </div>
                         <RightBar />
                     </div>
+
                 </section >
             </div >
         );

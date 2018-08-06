@@ -31,7 +31,7 @@ export default ({ toggle, closeChat }) => {
                     </div>
                 </div>
             </a>
-            <hr />
+            <hr style={{ visibility: 'hidden' }} />
         </div>
     </div>
 }

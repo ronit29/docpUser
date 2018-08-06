@@ -190,17 +190,17 @@ class ChatView extends React.Component {
                             <header className="wallet-header sticky-header chat-header">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
-                                        <div className="col-2 col-sm-1">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/back-white.png"} className="back-icon-orange" onClick={() => {
+                                        <div className="col-1 col-sm-1">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
 
-                                        <div className="col-6 col-sm-7 chat-header-profile" onClick={() => {
+                                        <div className="col-8 col-sm-8 chat-header-profile" onClick={() => {
                                             if (doctorData) {
                                                 this.openDoctorProfile(doctorData.id)
                                             }
-                                        }} style={{ cursor: 'pointer' }}>
+                                        }} style={{ cursor: 'pointer', paddingLeft: 8 }}>
                                             {
                                                 doctorData ?
                                                     <div className="chat-profile-icon">
@@ -213,14 +213,14 @@ class ChatView extends React.Component {
                                             {
                                                 doctorData ?
                                                     <div className="chat-profile-desc-div">
-                                                        <p className="chat-profile-name fw-500">Dr. {doctorData.name}</p>
-                                                        <p className="chat-profile-desc">{this.getDoctorSpecialization(doctorData)}</p>
+                                                        <p className="chat-profile-name fw-500" style={{ lineHeight: '12px' }}>Dr. {doctorData.name}</p>
+                                                        <p className="chat-profile-desc" style={{ lineHeight: '13px' }}>{this.getDoctorSpecialization(doctorData)}</p>
                                                     </div> : ""
                                             }
 
                                         </div>
 
-                                        <div className="col-2 chat-icons chat-call-icon" onClick={() => {
+                                        <div className="col-1 chat-icons chat-call-icon" onClick={() => {
                                             this.dispatchCustomEvent.call(this, 'call')
                                         }}>
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/call-white.svg"} />

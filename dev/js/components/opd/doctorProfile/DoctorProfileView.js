@@ -90,10 +90,12 @@ class DoctorProfileView extends React.Component {
                                                                 /> : ""
                                                             }
 
-                                                            <ClinicSelector
-                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                                {...this.props}
-                                                            />
+                                                            {
+                                                                (this.props.DOCTORS[this.state.selectedDoctor].hospitals && this.props.DOCTORS[this.state.selectedDoctor].hospitals.length) ? <ClinicSelector
+                                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                    {...this.props}
+                                                                /> : ""
+                                                            }
 
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[this.state.selectedDoctor]}

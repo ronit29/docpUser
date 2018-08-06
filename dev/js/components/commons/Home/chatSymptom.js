@@ -150,7 +150,7 @@ class ChatSymptoms extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/consultation.svg"} className="book-list-img" />
                             </div>
                             <div className="book-list-label-div">
-                                <p className="book-list-label">Get instant Consultation right now for <span>FREE</span></p>
+                                <p className="book-list-label">Get Instant Doctor Consultation for <span>FREE</span></p>
                             </div>
                             <div className="book-list-arrow">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" />
