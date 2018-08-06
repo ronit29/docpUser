@@ -84,9 +84,11 @@ class DoctorProfileView extends React.Component {
                                                             details={this.props.DOCTORS[this.state.selectedDoctor]}
                                                         />
                                                         <div className="widge-content pd-0">
-                                                            <AboutDoctor
-                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                            />
+                                                            {
+                                                                this.props.DOCTORS[this.state.selectedDoctor].about ? <AboutDoctor
+                                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                /> : ""
+                                                            }
 
                                                             <ClinicSelector
                                                                 details={this.props.DOCTORS[this.state.selectedDoctor]}
