@@ -49,7 +49,7 @@ class LabProfileCard extends React.Component {
 
         let { price, lab, distance, pickup_available, lab_timing, lab_timing_data } = this.props.details
 
-        distance = Math.ceil(distance/1000)
+        distance = Math.ceil(distance / 1000)
 
         return (
             <div className="widget card lab-rslt-card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
@@ -82,8 +82,8 @@ class LabProfileCard extends React.Component {
                                 {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
                                 {lab.locality} {lab.city}&nbsp;|
                             </p>
-                            <div style={{width: 75, marginLeft: 4, marginBottom: 8, alignSelf: 'center'}}>
-                                <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance / 1000} KM</span>
+                            <div style={{ width: 75, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
+                                <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance} KM</span>
                             </div>
                         </div>
                         <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} |
