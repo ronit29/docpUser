@@ -54,15 +54,15 @@ class ChatView extends React.Component {
                                         chatHistory.map((chat, i) => {
                                             let date_f = new Date(chat.date || 0).toDateString()
                                             return <li key={i} onClick={this.openChat.bind(this, chat.room_id)}>
-                                                <p className="chat-history-list-label fw-500">For : <span>{chat.user_name}</span></p>
-                                                <p className="chat-history-symptom fw-500">{chat.symptoms}</p>
+                                                <p className="chat-history-list-label fw-500">Patient Name : <span>{chat.user_name}</span></p>
+                                                <p className="chat-history-symptom fw-500">Symptom : {chat.symptoms}</p>
                                                 <div className="chat-history-date clearfix mrb-5">
                                                     <img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} />
-                                                    <p className="fw-500">{date_f}</p>
+                                                    <p className="fw-500">Date : {date_f}</p>
                                                 </div>
                                                 <div className="chat-history-date clearfix mrb-5">
                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} />
-                                                    <p className="fw-500">{chat.doctor_name}</p>
+                                                    <p className="fw-500">Doctor Name : Dr. {chat.doctor_name}</p>
                                                 </div>
                                                 <span className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                             </li>

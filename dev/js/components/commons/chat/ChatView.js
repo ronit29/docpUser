@@ -80,6 +80,11 @@ class ChatView extends React.Component {
                             }
                             break
                         }
+
+                        case "Chat_Close": {
+                            this.props.history.go(-1)
+                            break
+                        }
                     }
                 }
             }.bind(this))
@@ -120,6 +125,39 @@ class ChatView extends React.Component {
         this.setState({ showCancel: !this.state.showCancel })
     }
 
+    getDoctorSpecialization(doctor_data) {
+        let final_str = ""
+        let qualification_str = null
+        let { qualifications, general_specialization, practicing_since } = doctor_data
+        if (qualifications && qualifications.length) {
+            for (let qual of qualifications) {
+                let curr_qual = qual.qualification.toString().trim().toLowerCase()
+                if (curr_qual == 'mbbs') {
+                    qualification_str = 'MBBS | '
+                }
+            }
+        }
+
+        if (qualification_str) {
+            final_str = qualification_str
+        }
+
+        if (general_specialization && general_specialization.length) {
+            final_str += `${general_specialization[0].name}`
+        }
+
+        if (practicing_since) {
+            let curr_year = (new Date()).getFullYear()
+            let expYears = curr_year - parseInt(practicing_since)
+            if (expYears >= 5) {
+                final_str += ` | ${expYears} Yr. Experience`
+            }
+        }
+
+        return final_str
+
+    }
+
 
     render() {
         let doctorData = null
@@ -137,7 +175,7 @@ class ChatView extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `https://telemed.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&roomId=${this.state.roomId}`
+        let iframe_url = `https://telemed.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
 
 
 
@@ -175,8 +213,8 @@ class ChatView extends React.Component {
                                             {
                                                 doctorData ?
                                                     <div className="chat-profile-desc-div">
-                                                        <p className="chat-profile-name fw-500">{doctorData.name}</p>
-                                                        <p className="chat-profile-desc">Health Assistant</p>
+                                                        <p className="chat-profile-name fw-500">Dr. {doctorData.name}</p>
+                                                        <p className="chat-profile-desc">{this.getDoctorSpecialization(doctorData)}</p>
                                                     </div> : ""
                                             }
 

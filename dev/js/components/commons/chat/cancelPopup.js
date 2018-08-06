@@ -13,7 +13,9 @@ export default ({ toggle, closeChat }) => {
                     closeChat()
                 }}>
                     <p className="fw-500 cancel-appointment-head">Yes</p>
-                    <p className="fw-500 cancel-content">(Your chat will be saved is chat history)</p>
+                    <p className="fw-500 cancel-content">
+                        {/* (Your chat will be saved is chat history) */}
+                    </p>
                     <div className="cancel-right-arrow">
                         <img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
                     </div>
