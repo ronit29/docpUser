@@ -16,7 +16,9 @@ class NotFound extends React.Component {
                     <div className="container">
                         <div className="row header-row">
                             <div className="col-12 text-center logo-icon-div">
-                                <a href="javascript:;"><img src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="logo-icon" /></a>
+                                <a href="javascript:;" onClick={() => {
+                                    this.props.history.push('/')
+                                }}><img src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="logo-icon" /></a>
                             </div>
                         </div>
                     </div>

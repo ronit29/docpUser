@@ -909,4 +909,9 @@ figure>img{
     margin-top: 15px;
     height: 40px;
     width: 160px;
+    background-color: #ea8431;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
 }
