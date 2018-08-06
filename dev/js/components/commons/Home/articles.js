@@ -36,7 +36,7 @@ class Article extends React.Component {
     }
 
     getAnimation() {
-        let scrollLeft = this.state.scrollLeft / 2
+        let scrollLeft = this.state.scrollLeft
         let animation = (
             <Motion ref="motion" style={{ scrollLeft: spring(scrollLeft) }}>
                 {({ scrollLeft }) => (
