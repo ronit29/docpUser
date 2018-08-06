@@ -902,3 +902,11 @@ figure>img{
 .view-in-map:hover, .view-in-map:focus{
     color: #f78631 !important;
 }
+
+.viewpresbtn{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 15px;
+    height: 40px;
+    width: 160px;
+}

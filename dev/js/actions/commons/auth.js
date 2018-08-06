@@ -1,4 +1,4 @@
-import { RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
+import { APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -103,5 +103,18 @@ export const resetAuth = (postData, cb) => (dispatch) => {
     dispatch({
         type: RESET_AUTH,
         payload: {}
+    })
+}
+
+export const loginViaChat = (token) => (dispatch) => {
+    STORAGE.setAuthToken(token)
+    return API_GET('/api/v1/user/userprofile').then(function (response) {
+        dispatch({
+            type: APPEND_USER_PROFILES,
+            payload: response
+        })
+
+    }).catch(function (error) {
+
     })
 }

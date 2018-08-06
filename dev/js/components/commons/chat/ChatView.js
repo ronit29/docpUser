@@ -73,6 +73,13 @@ class ChatView extends React.Component {
                             }
                             break
                         }
+
+                        case "Login": {
+                            if (data.data["params.token"]) {
+                                this.props.loginViaChat(data.data["params.token"])
+                            }
+                            break
+                        }
                     }
                 }
             }.bind(this))

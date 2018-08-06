@@ -2,7 +2,7 @@ const BASE_CONFIG = {
     FCM_CONFIG: {
         apiKey: "AIzaSyAAwnvfm-CXnO8s_WWz-yxEzX1---QzoL0",
         authDomain: "docprime-5c123.firebaseapp.com",
-        databaseURL: "https://docprime-5c123.firebaseio.com",
+        databaseURL: "https:/s/docprime-5c123.firebaseio.com",
         projectId: "docprime-5c123",
         storageBucket: "docprime-5c123.appspot.com",
         messagingSenderId: "247429343742"
@@ -18,11 +18,11 @@ const PROD_CONFIG = {
 }
 
 const DEV_CONFIG = {
-    API_BASE_URL: 'http://10.0.28.32:8080',
+    // API_BASE_URL: 'http://10.0.28.32:8080',
     // API_BASE_URL: 'http://localhost:8080',
-    // API_BASE_URL: "https://liveqa.docprime.com",
-    SOCKET_BASE_URL: "http://10.0.28.32:4444",
-    // SOCKET_BASE_URL: "https://liveqa.docprime.com",
+    API_BASE_URL: "https://liveqa.docprime.com",
+    // SOCKET_BASE_URL: "http://10.0.28.32:4444",
+    SOCKET_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io"
 }
