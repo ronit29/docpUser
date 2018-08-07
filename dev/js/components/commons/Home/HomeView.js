@@ -72,7 +72,6 @@ class HomeView extends React.Component {
                                     </InitialsPicture>
                                 </div>
                                 <div className="profile-info-div">
-                                    <p className="profile-info">Welcome</p>
                                     <p className="profile-info profile-name">{profileData.name}</p>
                                     <p className="profile-info">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)} Years</p>
                                 </div>
@@ -101,7 +100,22 @@ class HomeView extends React.Component {
 
                             <ChatSymptoms navigateTo={this.navigateTo.bind(this)} />
 
-                            <div className="book-widget book-widget-2">
+                            <div className="row mrt-20 row-eq-height" style={{height: 140}} >
+                                <div className="col-6 bk-widget-col-left">
+                                    <div className="bk-widget text-center">
+                                        <img src= {ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="book-list-img" />
+                                        <p className="fw-500 mrt-10">Book and Visit a Doctor</p>
+                                    </div>
+                                </div>
+                                <div className="col-6 bk-widget-col-right">
+                                    <div className="bk-widget text-center">
+                                        <img src= {ASSETS_BASE_URL + "/img/customer-icons/medical-test.svg"} className="book-list-img" />
+                                        <p className="fw-500 mrt-10">Book Medical Test</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* <div className="book-widget book-widget-2">
                                 <ul className="book-list">
                                     <a href="javascript:;" onClick={this.navigateTo.bind(this, '/opd')}><li>
                                         <div className="book-list-img-div">
@@ -126,7 +140,7 @@ class HomeView extends React.Component {
                                         </div>
                                     </li></a>
                                 </ul>
-                            </div>
+                            </div> */}
 
                             {
                                 articles.map((article, i) => {
