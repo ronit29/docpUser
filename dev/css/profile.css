@@ -439,6 +439,7 @@
 
 .book-list-arrow{
 	width: 20px;
+	margin-left: 4px;
 }
 
 .list-arrow-rt{
@@ -499,6 +500,7 @@
 }
 
 .input-symptom-div{
+	cursor: pointer;
 	position: relative;
 	padding: 10px 16px 6px;
 	margin-top: 25px;
@@ -945,6 +947,12 @@
 	.center-column{
 		padding-left: 0;
 		padding-right: 0;
+	}
+	.profile-footer{
+		margin-top: 20px;
+	}
+	.footer-3-list{
+		padding: 0 10px;
 	}
 }
 

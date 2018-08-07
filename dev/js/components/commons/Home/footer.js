@@ -9,9 +9,8 @@ class Footer extends React.Component {
     render() {
 
         return (
-            <footer className="profile-footer d-none d-lg-block">
-
-                <div className="container footer-1">
+            <footer className="profile-footer">
+                <div className="container footer-1 d-none d-md-block">
                     <div className="row">
                         <div className="col-12">
                             <div className="foot-head">
@@ -156,7 +155,7 @@ class Footer extends React.Component {
                 <div className="container-fluid footer-2">
                     <div className="container">
                         <div className="row">
-                            <div className="col-3">
+                            <div className="col-12 col-md-3">
                                 <a href="javascript:;">
                                     <div className="logo-img-div">
                                         <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
@@ -186,7 +185,7 @@ class Footer extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-9">
+                            <div className="col-md-9 d-none d-md-block">
                                 <div className="row">
                                     <div className="col-3">
                                         <div className="footer-2-head">
@@ -256,7 +255,7 @@ class Footer extends React.Component {
                 </div>
                 <div className="container footer-3">
                     <div className="row footer-3-row">
-                        <ul className="list-inline footer-3-list">
+                        <ul className="list-inline footer-3-list text-center">
                             <a href="/about"><li className="list-inline-item">ABOUT US</li></a>
                             <li className="list-inline-item">|</li>
                             <a href="/howitworks"><li className="list-inline-item">HOW IT WORKS</li></a>
