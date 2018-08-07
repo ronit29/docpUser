@@ -91,6 +91,10 @@ export const registerUser = (postData, cb) => (dispatch) => {
 
 export const logout = (postData, cb) => (dispatch) => {
     STORAGE.deleteAuth().then(() => {
+        dispatch({
+            type: RESET_AUTH,
+            payload: {}
+        })
         setTimeout(() => {
             // send to login page
             NAVIGATE.navigateTo('/')

@@ -24,8 +24,8 @@ const STORAGE = {
         return !!cookies.get('token')
     },
     deleteAuth: () => {
+        cookies.remove('token')
         deleteAllCookies()
-        // return Promise.resolve(cookies.remove('token'))
         return Promise.resolve()
     }
 }
