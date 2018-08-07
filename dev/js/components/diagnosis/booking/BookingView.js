@@ -170,15 +170,15 @@ class BookingView extends React.Component {
                                                                 <ul className="inline-list">
                                                                     <li className={(status <= 5 || status == 7) ? "active" : ""}>
                                                                         <span className="dot">1</span>
-                                                                        <p className="text-sm fw-700 text-light">Appointment Received</p>
+                                                                        <p className="text-sm fw-700 text-light">Received</p>
                                                                     </li>
                                                                     <li className={(status == 5 || status == 7) ? "active" : ""}>
                                                                         <span className="dot">2</span>
-                                                                        <p className="text-sm fw-700 text-light">Appointment Confirmed</p>
+                                                                        <p className="text-sm fw-700 text-light">Confirmed</p>
                                                                     </li>
                                                                     <li className={status == 7 ? "active" : ""}>
                                                                         <span className="dot">3</span>
-                                                                        <p className="text-sm fw-700 text-light">Appointment {status == 6 ? "Completed" : "Completed"}</p>
+                                                                        <p className="text-sm fw-700 text-light">{status == 6 ? "Completed" : "Completed"}</p>
                                                                     </li>
                                                                 </ul>
                                                         }
