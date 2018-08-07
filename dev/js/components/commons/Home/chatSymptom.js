@@ -29,7 +29,7 @@ class ChatSymptoms extends React.Component {
 
     componentDidMount() {
         this._ismounted = true
-        this.txtAnimation();
+        // this.txtAnimation();
     }
 
     componentWillUnmount() {
@@ -184,9 +184,16 @@ class ChatSymptoms extends React.Component {
                 </div>
 
                 <div className="start-consult-div">
-                    <p className="fw-500">2 Symptoms Selected</p>
+                    {
+                        (this.state.selectedSymptoms && this.state.selectedSymptoms.length) ? <p className="fw-500">{this.state.selectedSymptoms.length} Symptoms Selected</p> : ""
+                    }
+
                     <img className="start-consult-icon" src={ASSETS_BASE_URL + "/img/customer-icons/start-consult.png"} />
-                    <button className="text-center">Start Online Consultation</button>
+                    <button className="text-center" onClick={() => {
+                        this.props.navigateTo('/chat', {
+                            symptoms: this.state.selectedSymptoms
+                        })
+                    }}>Start Online Consultation</button>
                 </div>
 
                 {/* <div className="input-symptom-div" style={{height: 39}} onClick={() => {
