@@ -115,7 +115,11 @@ class CriteriaSearchView extends React.Component {
                                                     }}
                                                 >
                                                     <li><span className="ct-img ct-img-sm arrow-img"><img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" /></span></li>
-                                                    <li><div className="screen-title">Search</div></li>
+                                                    <li>
+                                                        <div className="screen-title">
+                                                            {this.props.goBack ? "Search" : ""}
+                                                        </div>
+                                                    </li>
                                                 </ul>
                                                 <ul className="inline-list top-nav beta-bx float-right text-right text-white"
                                                     onClick={() => {
@@ -127,20 +131,24 @@ class CriteriaSearchView extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="search-row">
-                                                <div className="adon-group">
-                                                    <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
-                                                        if (this.props.goBack) {
-                                                            this.props.history.go(-1)
-                                                        }
-                                                    }} />
-                                                    <span className="ct-img ct-img-sm search-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} /></span>
+                                    {
+                                        // goback decides if search bar will be shown
+                                        this.props.goBack ? "" : <div className="row">
+                                            <div className="col-12">
+                                                <div className="search-row">
+                                                    <div className="adon-group">
+                                                        <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                            if (this.props.goBack) {
+                                                                this.props.history.go(-1)
+                                                            }
+                                                        }} />
+                                                        <span className="ct-img ct-img-sm search-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} /></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
+
                                 </div>
                             </header>
 
