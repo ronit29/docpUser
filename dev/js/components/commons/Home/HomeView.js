@@ -78,16 +78,6 @@ class HomeView extends React.Component {
                             </div>
                         </div>
                     </div> : <div className="row mobile-profile-row d-lg-none">
-                            <div className="container">
-                                {/* <div className="row mobile-profile-inside-row">
-                                    <div className="profile-icon-div">
-                                        <img src={ASSETS_BASE_URL + "/img/icons/dummy-profile.svg"} className="profile-icon-dummy" />
-                                    </div>
-                                    <div className="profile-info-div">
-                                        <p className="logout-text fw-500">After login your details will be visible here. You can consult with the doctor, book Appointments and your medical tests</p>
-                                    </div>
-                                </div> */}
-                            </div>
                         </div>
                 }
 
@@ -96,7 +86,7 @@ class HomeView extends React.Component {
                     <div className="row main-row">
                         <LeftBar hideStickyTemp={true} />
 
-                        <div className="col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section">
+                        <div className={"col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section"+(profileData ? "" : " profile-main-section-logout")}>
 
                             <ChatSymptoms navigateTo={this.navigateTo.bind(this)} />
 

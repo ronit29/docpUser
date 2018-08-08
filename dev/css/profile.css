@@ -997,6 +997,9 @@
 		position: relative;
 		z-index: 5;
 	}
+	.profile-main-section-logout{
+		margin-top: 120px;
+	}
 	.smiley-img-div{
 		right: 50px;
 	}
