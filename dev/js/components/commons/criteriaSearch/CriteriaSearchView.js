@@ -99,7 +99,7 @@ class CriteriaSearchView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className={this.props.paddingTopClass ? "container parent-section condition-search-section" : "container parent-section"} >
+                <section className="container parent-section condition-search-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 

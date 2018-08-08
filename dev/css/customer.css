@@ -90,13 +90,13 @@
 /*search with city locality*/
 .city-list>li>a{display: block; position: relative; padding-right: 100px;}
 .city-list>li>a .state{font-size: 14px; font-weight: 500; color: #757575;}
-.city-list>li>a .city-loc{position: absolute; top: 5px; right: 14px;   font-size: 14px; font-weight: normal;}
+.city-list>li>a .city-loc{position: absolute; top: 5px; right: 14px; font-size: 14px; font-weight: normal;}
 
 
 /*search book*/
 .search-book-result{padding-top: 0px;}
 .search-book-header{height: auto;}
-.filter-row{position: fixed; left: 0; right: 0; top: 100px;z-index: 9; background-color: #e8eff3 ;margin-top: -5px;}
+.filter-row{position: fixed; left: 0; right: 0; top: 50px;z-index: 9; background-color: #e8eff3;}
 
 .filter-item{padding: 10px 0;}
 .filter-title{ font-size: 14px; font-weight: 500;}

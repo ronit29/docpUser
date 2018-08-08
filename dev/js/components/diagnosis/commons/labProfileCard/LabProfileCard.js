@@ -82,7 +82,7 @@ class LabProfileCard extends React.Component {
                                 {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
                                 {lab.locality} {lab.city}&nbsp;|
                             </p>
-                            <div style={{ width: 75, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
+                            <div style={{ width: 60, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
                                 <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance} KM</span>
                             </div>
                         </div>
