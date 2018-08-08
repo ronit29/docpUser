@@ -533,6 +533,7 @@
     border-radius: 5px;
 	top: 10px;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .input-symptom-div{
@@ -596,7 +597,7 @@
     justify-content: center;
 	border-radius: 10px;
 	background-color: #ffffff;
-	box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding: 15px;
 	height: 100%;
 	cursor: pointer;

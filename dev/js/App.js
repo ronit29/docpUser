@@ -23,7 +23,7 @@ require('../css/static.css')
 require('../css/slider.css')
 require('../css/snackbar.css')
 require('../css/cropper.css')
-
+require('./helpers/lightbox/style.css')
 
 import NotificationsBoot from './containers/commons/NotificationsBoot'
 

@@ -67,7 +67,7 @@ class HomeView extends React.Component {
                         <div className="container mobile-profile-row-container">
                             <div className="row mobile-profile-inside-row">
                                 <div className="profile-icon-div">
-                                    <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture">
+                                    <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture" style={{ fontSize: 24 }}>
                                         <img src={profileData.profile_image || (ASSETS_BASE_URL + "/img/icons/drIcon.jpg")} className="profile-icon" />
                                     </InitialsPicture>
                                 </div>
@@ -79,14 +79,14 @@ class HomeView extends React.Component {
                         </div>
                     </div> : <div className="row mobile-profile-row d-lg-none">
                             <div className="container">
-                                <div className="row mobile-profile-inside-row">
+                                {/* <div className="row mobile-profile-inside-row">
                                     <div className="profile-icon-div">
                                         <img src={ASSETS_BASE_URL + "/img/icons/dummy-profile.svg"} className="profile-icon-dummy" />
                                     </div>
                                     <div className="profile-info-div">
                                         <p className="logout-text fw-500">After login your details will be visible here. You can consult with the doctor, book Appointments and your medical tests</p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                 }
@@ -100,16 +100,16 @@ class HomeView extends React.Component {
 
                             <ChatSymptoms navigateTo={this.navigateTo.bind(this)} />
 
-                            <div className="row mrt-20 row-eq-height" style={{height: 140}} >
+                            <div className="row mrt-20 row-eq-height" style={{ height: 140 }} >
                                 <div className="col-6 bk-widget-col-left">
-                                    <div className="bk-widget text-center">
-                                        <img src= {ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="book-list-img" />
+                                    <div className="bk-widget text-center" onClick={this.navigateTo.bind(this, '/opd')}>
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="book-list-img" />
                                         <p className="fw-500 mrt-10">Book and Visit a Doctor</p>
                                     </div>
                                 </div>
                                 <div className="col-6 bk-widget-col-right">
-                                    <div className="bk-widget text-center">
-                                        <img src= {ASSETS_BASE_URL + "/img/customer-icons/medical-test.svg"} className="book-list-img" />
+                                    <div className="bk-widget text-center" onClick={this.navigateTo.bind(this, '/dx')}>
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/medical-test.svg"} className="book-list-img" />
                                         <p className="fw-500 mrt-10">Book Medical Test</p>
                                     </div>
                                 </div>
