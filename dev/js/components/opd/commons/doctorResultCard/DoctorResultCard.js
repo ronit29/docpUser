@@ -27,7 +27,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live } = this.props.details
 
         let hospital = hospitals[0]
         let expStr = ""
@@ -62,7 +62,10 @@ class DoctorProfileCard extends React.Component {
                         <p className="text-light dr-desg">{expStr}</p>
                     </div>
                     <div className="dr-card-book text-right">
-                        <button className="v-btn v-btn-primary btn-sm">Book Now</button>
+                        {
+                            !!is_live ? <button className="v-btn v-btn-primary btn-sm">Book Now</button> : ""
+                        }
+
                         <div className="pricing">
                             <p className="text-primary fw-700 new-price">&#8377; {deal_price} <span className="old-price">&#8377; {mrp}</span></p>
                         </div>

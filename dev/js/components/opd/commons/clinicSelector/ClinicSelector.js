@@ -7,14 +7,17 @@ class ClinicSelector extends React.Component {
         super(props)
     }
 
-    selectClinic(clinicId) {
-        let doctorId = this.props.match.params.id
-        this.props.history.push(`/opd/doctor/${doctorId}/${clinicId}/book`)
+    selectClinic(clinicId, is_live) {
+        if (is_live) {
+            let doctorId = this.props.match.params.id
+            this.props.history.push(`/opd/doctor/${doctorId}/${clinicId}/book`)
+        }
     }
 
     render() {
 
-        let { name, hospitals } = this.props.details
+        let { name, hospitals, is_live } = this.props.details
+        
         let style = {}
         if (hospitals && hospitals.length == 1) {
             style['width'] = '98%'
@@ -57,7 +60,8 @@ class ClinicSelector extends React.Component {
                                             </div>
                                         </div>
                                         <div className="text-center" style={{ marginTop: 12 }}>
-                                            <button className="v-btn v-btn-primary outline" onClick={this.selectClinic.bind(this, hospital.hospital_id)}>Book Now</button>
+                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary outline" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live)}>Book Now</button>
+
                                         </div>
                                     </div>
                                 </li>
