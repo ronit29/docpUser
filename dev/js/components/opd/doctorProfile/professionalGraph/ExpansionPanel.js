@@ -6,7 +6,7 @@ class ExpansionPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: false
+            open: true
         }
     }
 
@@ -40,11 +40,11 @@ class ExpansionPanel extends React.Component {
                                         </label>
                                         <label className="fw-700 text-sm text-primary">College</label>
                                         <div>
-                                            <p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign:'middle' }}>{cont.qualification}</p>
+                                            <p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.qualification}</p>
                                             <span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                                            <p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign:'middle' }}>{cont.specialization}</p>
+                                            <p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.specialization}</p>
                                             <span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                                            <p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign:'middle' }}>{cont.college}</p>
+                                            <p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.college}</p>
                                         </div>
                                     </div>
                                 }) : contentList.map((cont, i) => {
