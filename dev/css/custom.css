@@ -49,7 +49,7 @@
 .sticky-btn{padding-bottom: env(safe-area-inset-bottom);}
 
 @media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 65px!important;margin-top: 20px;z-index: 9;}
-.sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 161px!important;margin-top: 2px!important;}
+.sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 114px!important;margin-top: 2px!important;}
 .sticky-header-3{position: sticky!important; position: -webkit-sticky!important; top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
 .sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}

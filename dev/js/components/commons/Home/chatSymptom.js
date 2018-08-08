@@ -168,7 +168,7 @@ class ChatSymptoms extends React.Component {
                     }}>
                         <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="scroll-arrow" />
                     </div>
-                    <p className="symptoms-label">Select Symptom</p>
+                    <p className="symptoms-label">Select From Common Symptoms</p>
                     <div ref="container" className="symptoms-list-div">
                         <ul className="symptoms-list">
                             {
