@@ -2,7 +2,7 @@ const BASE_CONFIG = {
     FCM_CONFIG: {
         apiKey: "AIzaSyAAwnvfm-CXnO8s_WWz-yxEzX1---QzoL0",
         authDomain: "docprime-5c123.firebaseapp.com",
-        databaseURL: "https:/s/docprime-5c123.firebaseio.com",
+        databaseURL: "https://docprime-5c123.firebaseio.com",
         projectId: "docprime-5c123",
         storageBucket: "docprime-5c123.appspot.com",
         messagingSenderId: "247429343742"
