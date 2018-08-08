@@ -957,6 +957,8 @@
 .footer-3-row{
 	justify-content: center;
 	align-items: center;
+	line-height: 2.5;
+    letter-spacing: 1px;
 }
 
 .footer-3-list, .footer-3-list>a>li{
