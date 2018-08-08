@@ -37,7 +37,7 @@ class ChatView extends React.Component {
                     switch (data.event) {
                         case "RoomAgent": {
                             this.setState({ selectedRoom: data.data.rid })
-                            this.props.getChatDoctorById(data.data.employeeId, data.data.rid, (data) => {
+                            this.props.getChatDoctorById(data.data.manager, data.data.rid, (data) => {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
                                 })
