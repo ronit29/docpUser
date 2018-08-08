@@ -190,44 +190,37 @@ class ChatView extends React.Component {
                             <header className="wallet-header sticky-header chat-header">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
-                                        <div className="col-2 col-sm-1">
+                                        <div className="col-2 col-sm-1" style={{maxWidth: 55}} >
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
                                         </div>
 
-                                        <div className="col-6 col-sm-8 chat-header-profile" onClick={() => {
+                                        <div className="col-7 col-sm-8 chat-header-profile" onClick={() => {
                                             if (doctorData) {
                                                 this.openDoctorProfile(doctorData.id)
                                             }
-                                        }} style={{ cursor: 'pointer', paddingLeft: 8 }}>
+                                        }}>
                                             {
                                                 doctorData ?
                                                     <div className="chat-profile-icon">
                                                         <InitialsPicture name={doctorData.name} has_image={!!doctorData.thumbnail} className="chat-profile-icon initialsPicture-cs">
                                                             <img src={doctorData.thumbnail} className="chat-profile-icon initialsPicture-cs" />
                                                         </InitialsPicture>
-
                                                     </div> : ""
                                             }
                                             {
                                                 doctorData ?
                                                     <div className="chat-profile-desc-div">
-                                                        <p className="chat-profile-name fw-500" style={{ lineHeight: '12px' }}>Dr. {doctorData.name}</p>
-                                                        <p className="chat-profile-desc" style={{ lineHeight: '13px' }}>{this.getDoctorSpecialization(doctorData)}</p>
+                                                        <p className="chat-profile-name fw-500">Dr. {doctorData.name}</p>
+                                                        <p className="chat-profile-desc">{this.getDoctorSpecialization(doctorData)}</p>
                                                     </div> : ""
                                             }
-
                                         </div>
 
-                                        <div className="col-2 col-sm-1 chat-icons chat-call-icon" onClick={() => {
-                                            this.dispatchCustomEvent.call(this, 'call')
-                                        }}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/call-white.svg"} />
-                                        </div>
-
-                                        <div className="col-2 chat-icons" onClick={this.toggleCancel.bind(this)}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} />
+                                        <div className="col-3 col-sm-3 chat-icons">
+                                            <img onClick={() => {this.dispatchCustomEvent.call(this, 'call')}} src={ASSETS_BASE_URL + "/img/customer-icons/call-white.svg"} />
+                                            <img onClick={this.toggleCancel.bind(this)} src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} />
                                         </div>
                                     </div>
                                 </div>

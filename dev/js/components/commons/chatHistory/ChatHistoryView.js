@@ -33,7 +33,7 @@ class ChatView extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
 
-                            <header className="wallet-header sticky-header chat-header">
+                            <header className="wallet-header sticky-header chat-header" style={{height: 50}} >
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
