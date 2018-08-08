@@ -456,13 +456,20 @@ ul.inline-list li {
 
 .chat-header{
     background-color: #f78631 !important;
+    height: auto;
+    padding: 8px 0;
 }
 
 .chat-header-profile{
-    padding-right: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
+    flex: 1;
+    max-width: unset;
+    min-width: 0;
+    cursor: pointer;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .chat-profile-icon{
@@ -476,25 +483,35 @@ ul.inline-list li {
 
 .chat-profile-desc-div{
     margin-left: 8px;
+    min-width: 0;
+    flex: 1;
 }
 
 .chat-profile-name{
     color: #fff;
     font-size: 16px;
+    width: 98%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .chat-profile-desc{
     color: #fff;
     font-size: 13px;
     margin-top: 2px;
+    width: 98%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .chat-icons{
-    text-align: right;
-}
-
-.chat-call-icon{
-    padding-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 107px;
+    margin-left: auto;
 }
 
 .chat-icons>img{
@@ -737,7 +754,7 @@ ul.inline-list li {
 .arrow-custom-right{
     position: absolute;
     top: 50%;
-    right: 20px;
+    right: 15px;
     transform: translateY(-50%);
 }
 

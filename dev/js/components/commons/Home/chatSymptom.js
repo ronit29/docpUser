@@ -185,7 +185,7 @@ class ChatSymptoms extends React.Component {
 
                 <div className="start-consult-div">
                     {
-                        (this.state.selectedSymptoms && this.state.selectedSymptoms.length) ? <p className="fw-500">{this.state.selectedSymptoms.length} Symptoms Selected</p> : ""
+                        (this.state.selectedSymptoms && this.state.selectedSymptoms.length) ? <p className="fw-500">{this.state.selectedSymptoms.length} Symptoms Selected, click below</p> : <p className="fw-500">or simply click below to start</p>
                     }
 
                     <img className="start-consult-icon" src={ASSETS_BASE_URL + "/img/customer-icons/start-consult.png"} />
