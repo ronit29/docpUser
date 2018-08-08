@@ -25,7 +25,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li className="my-profile-item" onClick={() => {
+                        {/* <li className="my-profile-item" onClick={() => {
                             this.props.history.push('/chathistory')
                         }}>
                             <a>
@@ -36,7 +36,7 @@ class ProfileData extends React.Component {
                                     <h4 className="title app-title">Online Consultation</h4>
                                 </div>
                             </a>
-                        </li>
+                        </li> */}
                         <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">

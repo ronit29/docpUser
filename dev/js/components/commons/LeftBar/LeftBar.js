@@ -69,7 +69,7 @@ class LeftBar extends React.Component {
                                     <p className="last-list-div-text">Active</p>
                                 </div>
                             </li> */}
-                                <li onClick={() => {
+                                {/* <li onClick={() => {
                                     this.props.history.push('/chathistory')
                                 }} className={pathname.includes('/chathistory') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
@@ -78,10 +78,8 @@ class LeftBar extends React.Component {
                                     <div className="list-inline-div">
                                         <p className="profile-feature-name">Online Consultation</p>
                                     </div>
-                                    {/* <div className="last-list-div list-no-div">
-                                    <p className="list-no">8</p>
-                                </div> */}
-                                </li>
+                                    
+                                </li> */}
                                 <li onClick={this.gotTo.bind(this, 'appointments')} className={pathname.includes('/appointments') ? "selectedtabpill" : ""}>
                                     <div className="list-inline-div list-img-div">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/opd-visit.svg"} className="profile-list-icons" />
