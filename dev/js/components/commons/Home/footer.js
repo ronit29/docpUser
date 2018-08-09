@@ -10,7 +10,7 @@ class Footer extends React.Component {
 
         return (
             <footer className="profile-footer">
-                <div className="container footer-1 d-none d-md-block">
+                {/* <div className="container footer-1 d-none d-md-block">
                     <div className="row">
                         <div className="col-12">
                             <div className="foot-head">
@@ -150,12 +150,12 @@ class Footer extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="container-fluid footer-2">
                     <div className="container">
                         <div className="row">
-                            <div className="col-12 col-md-3">
+                            <div className="col-12 col-md-4 offset-md-4">
                                 <a href="javascript:;">
                                     <div className="logo-img-div">
                                         <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
@@ -185,7 +185,7 @@ class Footer extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-9 d-none d-md-block">
+                            {/* <div className="col-md-9 d-none d-md-block">
                                 <div className="row">
                                     <div className="col-3">
                                         <div className="footer-2-head">
@@ -249,7 +249,7 @@ class Footer extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
