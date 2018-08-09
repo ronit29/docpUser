@@ -1,9 +1,13 @@
 import React from 'react';
-
+import { withRouter } from 'react-router'
 
 class Footer extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    navigateTo(where) {
+        this.props.history.push(where)
     }
 
     render() {
@@ -256,21 +260,37 @@ class Footer extends React.Component {
                 <div className="container footer-3">
                     <div className="row footer-3-row">
                         <ul className="list-inline footer-3-list text-center">
-                            <a href="/about"><li className="list-inline-item">ABOUT US</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/about")
+                            }}><li className="list-inline-item">ABOUT US</li></a>
                             <li className="list-inline-item">|</li>
-                            <a href="/howitworks"><li className="list-inline-item">HOW IT WORKS</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/howitworks")
+                            }}><li className="list-inline-item">HOW IT WORKS</li></a>
                             <li className="list-inline-item">|</li>
-                            <a href="/careers"><li className="list-inline-item">CAREERS</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/careers")
+                            }}><li className="list-inline-item">CAREERS</li></a>
                             <li className="list-inline-item">|</li>
-                            <a href="/contact"><li className="list-inline-item">CONTACT US</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/contact")
+                            }}><li className="list-inline-item">CONTACT US</li></a>
                             <li className="list-inline-item">|</li>
-                            <a href="/terms"><li className="list-inline-item">TERMS OF USE</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/terms")
+                            }}><li className="list-inline-item">TERMS OF USE</li></a>
                             <li className="list-inline-item">|</li>
-                            <a href="/privacy"><li className="list-inline-item">PRIVACY POLICY</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/privacy")
+                            }}><li className="list-inline-item">PRIVACY POLICY</li></a>
                             <li className="list-inline-item">|</li>
-                            <a href="/disclaimer"><li className="list-inline-item">DISCLAIMER</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/disclaimer")
+                            }}><li className="list-inline-item">DISCLAIMER</li></a>
                             <li className="list-inline-item">|</li>
-                            <a href="/media"><li className="list-inline-item">MEDIA</li></a>
+                            <a onClick={() => {
+                                this.navigateTo("/media")
+                            }}><li className="list-inline-item">MEDIA</li></a>
                         </ul>
                     </div>
                 </div>
@@ -279,4 +299,4 @@ class Footer extends React.Component {
     }
 }
 
-export default Footer
+export default withRouter(Footer)

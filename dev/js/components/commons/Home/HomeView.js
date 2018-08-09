@@ -109,26 +109,30 @@ class HomeView extends React.Component {
 
                             {
                                 articles.map((article, i) => {
-                                    return <Articles title={`Know about ${article.title}`} key={i}>
-                                        <ul className="select-item-list">
-                                            {
-                                                article.data.map((curr, j) => {
-                                                    return <li key={j} onClick={this.navigateTo.bind(this, `/article/${curr.id}`)}>
-                                                        <div className="item-img">
-                                                            <img src={curr.icon} style={{ width: 50 }} />
-                                                        </div>
-                                                        <div className="item-name">
-                                                            <p>{curr.title}</p>
-                                                        </div>
-                                                    </li>
-                                                })
-                                            }
-                                        </ul>
-                                    </Articles>
+                                    if (article.data && article.data.length) {
+                                        return <Articles title={`Know about ${article.title}`} key={i}>
+                                            <ul className="select-item-list">
+                                                {
+                                                    article.data.map((curr, j) => {
+                                                        return <li key={j} onClick={this.navigateTo.bind(this, `/article/${curr.id}`)}>
+                                                            <div className="item-img">
+                                                                <img src={curr.icon} style={{ width: 50 }} />
+                                                            </div>
+                                                            <div className="item-name">
+                                                                <p>{curr.title}</p>
+                                                            </div>
+                                                        </li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </Articles>
+                                    } else {
+                                        return ""
+                                    }
                                 })
                             }
 
-                            <HealthTip healthTips={this.props.healthTips} customClass="d-lg-none" />
+                            {/* <HealthTip healthTips={this.props.healthTips} customClass="d-lg-none" /> */}
 
                         </div>
 
@@ -136,7 +140,7 @@ class HomeView extends React.Component {
                     </div>
                 </section>
 
-                <Footer />
+                <Footer/>
 
             </div >
         );
