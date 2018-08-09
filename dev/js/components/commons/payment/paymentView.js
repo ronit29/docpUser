@@ -80,7 +80,7 @@ class PaymentView extends React.Component {
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="click"/></span>
                                                         </li> */}
                                                         <li>
-                                                            <label htmlFor="bk"> <img src={ASSETS_BASE_URL + "/img/customer-icons/layer-1.jpg"} className="img-fluid" /> Internet Banking</label>
+                                                            <label htmlFor="bk"> <img src={ASSETS_BASE_URL + "/img/customer-icons/i-banking.png"} className="img-fluid" /> Internet Banking</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'NB'} value="NB" className="radio-inline" name="gender" id="bk" /></span>
                                                         </li>
                                                         <li>

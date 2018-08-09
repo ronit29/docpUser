@@ -261,7 +261,13 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .datetime-items>li>span{font-size: 15px; display: block; margin-top: 10px;}
 .time-items{margin: 10px 0;}
 .time-items>li{margin: 0 16px 10px 0 !important; outline: none !important; text-align: center}
-.time-items>li>a{padding:2px 5px; width: 80px}
+.time-items>li>a{
+	text-align: center;
+	border-radius: 20px;
+    padding: 7px 12px 5px;
+    width: 86px;
+    text-align: center;
+}
 
 .ua-header{border-bottom: 1px solid #ddd;}
 
