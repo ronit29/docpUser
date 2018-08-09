@@ -132,7 +132,7 @@ class HomeView extends React.Component {
                                 })
                             }
 
-                            {/* <HealthTip healthTips={this.props.healthTips} customClass="d-lg-none" /> */}
+                            <HealthTip healthTips={this.props.healthTips} customClass="d-lg-none" />
 
                         </div>
 
