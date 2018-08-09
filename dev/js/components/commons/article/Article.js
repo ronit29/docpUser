@@ -15,7 +15,7 @@ class Article extends React.Component {
 
     componentDidMount() {
         let articleId = this.props.match.params.id
-        this.props.fetchArticle(articleId, (err, data) => {
+        this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
             if (!err) {
                 this.setState({ articleData: data })
             } else {
@@ -53,7 +53,7 @@ class Article extends React.Component {
                                 </div>
                             </header>
                             {
-                                this.state.articleData ? <div className="container-fluid transaction-column" style={{paddingTop: 20}} >
+                                this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""

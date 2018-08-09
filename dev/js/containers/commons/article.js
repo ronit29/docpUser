@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchArticle: (id, cb) => dispatch(fetchArticle(id, cb))
+        fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb))
     }
 }
 
