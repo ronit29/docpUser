@@ -99,7 +99,7 @@ class ChatView extends React.Component {
     }
 
     openDoctorProfile(doctor_id) {
-        this.props.history.push(`/opd/doctor/${doctor_id}`)
+        // this.props.history.push(`/opd/doctor/${doctor_id}`)
     }
 
     getLocation(latitude, longitude, cb) {
