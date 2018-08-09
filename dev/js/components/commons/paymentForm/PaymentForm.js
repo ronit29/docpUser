@@ -24,7 +24,7 @@ class PaymentForm extends React.Component {
         return (
             <div>
 
-                <form id="paymentForm" ref="paymentForm" method="post" action="https://pgdev.policybazaar.com/dp/pay/init" style={{ visibility: 'hidden' }}>
+                <form id="paymentForm" ref="paymentForm" method="post" action={CONFIG.PG_URL} style={{ visibility: 'hidden' }}>
                     <input type="text" name="name" value={this.props.paymentData['name']} />
                     <input type="text" name="custId" value={this.props.paymentData['custId']} />
                     <input type="text" name="mobile" value={this.props.paymentData['mobile']} />

@@ -14,17 +14,18 @@ function deleteAllCookies() {
 
 const STORAGE = {
     setAuthToken: (token) => {
-        cookies.set('token', token)
+        cookies.set('tokenauth', token, { path: '/' })
         return Promise.resolve(true)
     },
     getAuthToken: () => {
-        return Promise.resolve(cookies.get('token'))
+        return Promise.resolve(cookies.get('tokenauth'))
     },
     checkAuth: () => {
-        return !!cookies.get('token')
+        return !!cookies.get('tokenauth')
     },
     deleteAuth: () => {
-        cookies.remove('token')
+        cookies.remove('tokenauth', { path: '/' })
+        cookies.remove('tokenauth')
         deleteAllCookies()
         return Promise.resolve()
     }

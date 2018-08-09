@@ -14,17 +14,19 @@ const PROD_CONFIG = {
     API_BASE_URL: "https://qa.docprime.com",
     SOCKET_BASE_URL: "https://qa.docprime.com",
     SOCKET_BASE_PATH: "/io",
-    RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528"
+    RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
+    PG_URL: "https://pay.docprime.com/dp/pay/init"
 }
 
 const DEV_CONFIG = {
-    API_BASE_URL: 'http://10.0.28.32:8080',
-    // API_BASE_URL: 'http://localhost:8080',
+    // API_BASE_URL: 'http://10.0.28.32:8080',
+    API_BASE_URL: 'http://localhost:8080',
     // API_BASE_URL: "https://liveqa.docprime.com",
-    SOCKET_BASE_URL: "http://10.0.28.32:4444",
+    // SOCKET_BASE_URL: "http://10.0.28.32:4444",
     // SOCKET_BASE_URL: "https://liveqa.docprime.com",
-    // SOCKET_BASE_URL: "http://localhost:4444",
-    SOCKET_BASE_PATH: "/io"
+    SOCKET_BASE_URL: "http://localhost:4444",
+    SOCKET_BASE_PATH: "/io",
+    PG_URL: "https://pgdev.policybazaar.com/dp/pay/init"
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }

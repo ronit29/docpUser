@@ -73,7 +73,9 @@ class HomeView extends React.Component {
                                 </div>
                                 <div className="profile-info-div">
                                     <p className="profile-info profile-name">{profileData.name}</p>
-                                    <p className="profile-info">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)} Years</p>
+                                    {
+                                        !profileData.isDummyUser ? <p className="profile-info">{GENDER[profileData.gender]}, {this.getAge(profileData.dob)} Years</p> : ""
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -86,7 +88,7 @@ class HomeView extends React.Component {
                     <div className="row main-row">
                         <LeftBar hideStickyTemp={true} />
 
-                        <div className={"col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section"+(profileData ? "" : " profile-main-section-logout")}>
+                        <div className={"col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section" + (profileData ? "" : " profile-main-section-logout")}>
 
                             <ChatSymptoms navigateTo={this.navigateTo.bind(this)} />
 
@@ -104,33 +106,6 @@ class HomeView extends React.Component {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* <div className="book-widget book-widget-2">
-                                <ul className="book-list">
-                                    <a href="javascript:;" onClick={this.navigateTo.bind(this, '/opd')}><li>
-                                        <div className="book-list-img-div">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="book-list-img" />
-                                        </div>
-                                        <div className="book-list-label-div">
-                                            <p className="book-list-label">Book to Visit a Doctor</p>
-                                        </div>
-                                        <div className="book-list-arrow">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" />
-                                        </div>
-                                    </li></a>
-                                    <a href="javascript:;" onClick={this.navigateTo.bind(this, '/dx')}><li className="book-list-last-item">
-                                        <div className="book-list-img-div">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/medical-test.svg"} className="book-list-img" />
-                                        </div>
-                                        <div className="book-list-label-div">
-                                            <p className="book-list-label">Book Medical Test</p>
-                                        </div>
-                                        <div className="book-list-arrow">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" />
-                                        </div>
-                                    </li></a>
-                                </ul>
-                            </div> */}
 
                             {
                                 articles.map((article, i) => {
