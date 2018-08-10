@@ -18,17 +18,17 @@ class Terms extends React.Component {
             <div className="container about-container">
                 <div className="row">
                     <div className="col-12 text-center">
-                        <p className="fw-500 about-heading" style={{ marginBottom: 20 }}>Terms of Use</p>
+                        <p className="fw-500 about-heading" style={{ marginBottom: 20 }}>Terms &amp; Conditions</p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
                         <div className="privacy-tab-div">
                             <div className={"privacy-tab" + (this.state.selected == 0 ? " privacy-tab-active" : "")} onClick={this.setTab.bind(this, 0)}>
-                                <p className="fw-500">CUSTOMER</p>
+                                <p className="fw-500">End User Agreement</p>
                             </div>
                             <div className={"privacy-tab" + (this.state.selected == 1 ? " privacy-tab-active" : "")} onClick={this.setTab.bind(this, 1)}>
-                                <p className="fw-500">EMPANELMENT</p>
+                                <p className="fw-500">Provider Terms and Conditions</p>
                             </div>
                         </div>
                     </div>

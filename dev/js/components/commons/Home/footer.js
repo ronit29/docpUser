@@ -189,6 +189,9 @@ class Footer extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            <div className="col-12 text-center">
+                                <p className="fw-500 mrt-20" style={{color: '#8a8a8a', fontSize: 12}} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
+                            </div>
                             {/* <div className="col-md-9 d-none d-md-block">
                                 <div className="row">
                                     <div className="col-3">
@@ -278,7 +281,7 @@ class Footer extends React.Component {
                             <li className="list-inline-item">|</li>
                             <a onClick={() => {
                                 this.navigateTo("/terms")
-                            }}><li className="list-inline-item">TERMS OF USE</li></a>
+                            }}><li className="list-inline-item">TERMS &amp; CONDITIONS</li></a>
                             <li className="list-inline-item">|</li>
                             <a onClick={() => {
                                 this.navigateTo("/privacy")
