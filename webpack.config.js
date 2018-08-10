@@ -26,6 +26,7 @@ const client_dev = {
         }),
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": false,
+            "DOCPRIME_STAGING": false,
             "ASSETS_BASE_URL": JSON.stringify("/assets")
         }),
         new HtmlWebpackPlugin({
@@ -49,6 +50,31 @@ const client_prod = {
         }),
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": true,
+            "DOCPRIME_STAGING": false,
+            "ASSETS_BASE_URL": JSON.stringify(process.env.CDN_BASE_URL + "assets")
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.ejs',
+            template: '!!raw-loader!./views/index.template.ejs'
+        })
+    ]
+}
+
+const client_staging = {
+    mode: 'production',
+    output: {
+        filename: '[name].[chunkhash].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: process.env.CDN_BASE_URL + 'dist'
+    },
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+        }),
+        new webpack.DefinePlugin({
+            "DOCPRIME_STAGING": true,
+            "DOCPRIME_PRODUCTION": false,
             "ASSETS_BASE_URL": JSON.stringify(process.env.CDN_BASE_URL + "assets")
         }),
         new HtmlWebpackPlugin({
@@ -125,7 +151,8 @@ const serverConfig = {
     devtool: 'inline-source-map',
     plugins: [
         new webpack.DefinePlugin({
-            "DOCPRIME_PRODUCTION": process.env.NODE_ENV == 'production'
+            "DOCPRIME_PRODUCTION": process.env.NODE_ENV == 'production',
+            "DOCPRIME_STAGING": process.env.NODE_ENV == 'staging'
         }),
     ],
     output: {
@@ -165,10 +192,17 @@ const serverConfig = {
 
 
 module.exports = env => {
-    console.log(process.env.NODE_ENV)
     let clientConfig = { ...client_base, ...client_dev }
+
+    if ((env && env.staging) || process.env.NODE_ENV == 'staging') {
+        console.log("STAGING ENV")
+        clientConfig = { ...client_base, ...client_staging }
+    }
+
     if ((env && env.production) || process.env.NODE_ENV == 'production') {
+        console.log("PRODUCTION ENV")
         clientConfig = { ...client_base, ...client_prod }
     }
+
     return [serverConfig, clientConfig]
 }
