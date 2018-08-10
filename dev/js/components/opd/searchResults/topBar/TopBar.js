@@ -12,7 +12,7 @@ class TopBar extends React.Component {
         this.state = {
             anchorEl: null,
             openFilter: false,
-            priceRange: [100, 1500],
+            priceRange: [0, 1500],
             sort_on: null,
             sits_at_clinic: false,
             sits_at_hospital: false,
@@ -91,7 +91,7 @@ class TopBar extends React.Component {
 
     isFilterApplied() {
         const def = {
-            priceRange: [100, 1500],
+            priceRange: [0, 1500],
             sits_at_clinic: false,
             sits_at_hospital: false,
             is_female: false,
@@ -186,11 +186,11 @@ class TopBar extends React.Component {
                                 <div className="filterRow">
                                     <span className="tl">Fees</span>
                                     <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
-                                    <span className="bl">&#8377; 100</span>
+                                    <span className="bl">&#8377; 0</span>
                                     <span className="br">&#8377; 2000</span>
 
                                     <Range
-                                        min={100}
+                                        min={0}
                                         max={2000}
                                         value={this.state.priceRange}
                                         step={100}

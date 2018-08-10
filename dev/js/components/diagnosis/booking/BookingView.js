@@ -44,7 +44,14 @@ class BookingView extends React.Component {
                     this.setState({ data: data.data, loading: false })
                     SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule success." });
                 } else {
-                    this.setState({ loading: false })
+                    this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
+                        if (!err) {
+                            this.setState({ data: data[0], loading: false })
+                        } else {
+                            this.setState({ data: null, loading: false })
+                        }
+                        SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule failed." });
+                    })
                 }
 
                 this.props.selectLabTimeSLot({ time: {} }, true)

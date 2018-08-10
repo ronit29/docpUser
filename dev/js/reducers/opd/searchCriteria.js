@@ -1,7 +1,7 @@
 import { RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
-    priceRange: [100, 1500],
+    priceRange: [0, 1500],
     sort_on: null,
     sits_at_clinic: false,
     sits_at_hospital: false,
