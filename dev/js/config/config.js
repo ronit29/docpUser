@@ -15,7 +15,8 @@ const PROD_CONFIG = {
     SOCKET_BASE_URL: "https://beta.docprime.com",
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
-    PG_URL: "https://pay.docprime.com/dp/pay/init"
+    PG_URL: "https://pay.docprime.com/dp/pay/init",
+    CHAT_URL: "https://telemed.docprime.com/livechat"
 }
 
 const STAGING_CONFIG = {
@@ -23,7 +24,8 @@ const STAGING_CONFIG = {
     SOCKET_BASE_URL: "https://liveqa.docprime.com",
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
-    PG_URL: "https://pgdev.policybazaar.com/dp/pay/init"
+    PG_URL: "https://pgdev.policybazaar.com/dp/pay/init",
+    CHAT_URL: "https://chatqa.docprime.com/livechat"
 }
 
 const DEV_CONFIG = {
@@ -34,7 +36,8 @@ const DEV_CONFIG = {
     SOCKET_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io",
-    PG_URL: "https://pgdev.policybazaar.com/dp/pay/init"
+    PG_URL: "https://pgdev.policybazaar.com/dp/pay/init",
+    CHAT_URL: "https://chatqa.docprime.com/livechat"
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }
