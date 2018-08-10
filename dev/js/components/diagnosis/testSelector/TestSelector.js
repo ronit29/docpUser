@@ -40,7 +40,9 @@ class TestSelectorView extends React.Component {
         var search_string = e.target.value;
         this.setState({ searchString: search_string });
         this.props.getLabTests(this.state.selectedLab, search_string, (searchResults) => {
-            this.setState({ searchResults: searchResults });
+            if (searchResults) {
+                this.setState({ searchResults: searchResults })
+            }
         })
     }
 
