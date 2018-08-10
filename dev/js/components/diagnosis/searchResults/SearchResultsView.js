@@ -27,11 +27,19 @@ class SearchResultsView extends React.Component {
         try {
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
+            let lab_name = this.getLocationParam('lab_name')
+            lab_name = lab_name || ""
+
             if (filterCriteria) {
                 filterCriteria = JSON.parse(filterCriteria)
             } else {
                 filterCriteria = {}
             }
+
+            if (lab_name) {
+                filterCriteria.lab_name = lab_name
+            }
+
             searchState = JSON.parse(searchState)
 
             // if location found in store , use that instead of the one in URL
@@ -41,7 +49,7 @@ class SearchResultsView extends React.Component {
                     searchState.selectedLocation = selectedLocation
                     let searchData = encodeURIComponent(JSON.stringify(searchState))
                     let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
-                    this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
+                    this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
                 }
 
             }
@@ -68,9 +76,16 @@ class SearchResultsView extends React.Component {
             selectedCriterias: this.props.selectedCriterias,
             selectedLocation: this.props.selectedLocation,
         }
+
+        let lab_name = this.getLocationParam('lab_name')
+        lab_name = lab_name || ""
+        if (lab_name) {
+            filterState.lab_name = lab_name
+        }
+
         let searchData = encodeURIComponent(JSON.stringify(searchState))
         let filterData = encodeURIComponent(JSON.stringify(filterState))
-        this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
+        this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
 
         this.getLabList(searchState, filterState, true, 1)
 
