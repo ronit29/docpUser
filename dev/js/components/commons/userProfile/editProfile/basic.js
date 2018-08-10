@@ -91,7 +91,7 @@ class BasicDetails extends React.Component {
                     this.state.loading ? "" : <div className="widget no-shadow no-radius">
                         <div className="widget-content">
                             <div className="profile-icon">
-                                <img src={profile_image} style={{ width: '100%' }} className="img-fluid img-round" onClick={() => {
+                                <img src={profile_image} style={{ width: '100%', cursor: 'pointer' }} className="img-fluid img-round" onClick={() => {
                                     document.getElementById('imageFilePicker').click()
                                     document.getElementById('imageFilePicker').value = ""
                                 }} />
