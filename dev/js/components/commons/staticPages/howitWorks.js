@@ -27,13 +27,13 @@ class HowitWorks extends React.Component {
                                 <p className="fw-500">1</p>
                             </div>
                             <div className="consultation-text">
-                                <p className="fw-500">Doctor Conslutation</p>
+                                <p className="fw-500">Doctor Consultation</p>
                             </div>
                         </div>
                         <div className="doctext">
                             <p className="fw-500">
                                 Our flawless platform helps user get answers to their queries and offers one-on-one interaction with experienced doctors at a nominal fee. Users can anonymously, or otherwise, communicate with doctors with various areas of expertise directly from their smartphones.
-              </p>
+                            </p>
                         </div>
                     </div>
                     <div className="col-lg-4 d-none d-lg-block">
@@ -53,7 +53,7 @@ class HowitWorks extends React.Component {
                         <div className="doctext">
                             <p className="fw-500">
                                 Detailed information about procedures of the tests, prices, and relevant preparations are easily accessible on our platform. This is to ensure that in the need of the hour, a disease can be diagnosed without having to leave the house.
-              </p>
+                            </p>
                         </div>
                     </div>
                     <div className="col-lg-4 d-none d-lg-block">
@@ -73,7 +73,7 @@ class HowitWorks extends React.Component {
                         <div className="doctext">
                             <p className="fw-500">
                                 The feed on the website is created with the aim of keeping people updated of the latest development in the healthcare industry. This feed is curated by healthcare experts and is filled with information that can help users make an informed decision about their health.
-              </p>
+                            </p>
                         </div>
                     </div>
                     <div className="col-lg-4 d-none d-lg-block">
