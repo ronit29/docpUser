@@ -35,6 +35,23 @@ class StaticPagesView extends React.Component {
                 <ProfileHeader />
                 <div className="subheader d-none d-lg-block" />
 
+                <div className="d-lg-none">
+                    <header className="wallet-header sticky-header chat-header" style={{ height: 50 }} >
+                        <div className="container-fluid header-container">
+                            <div className="row header-row">
+                                <div className="col-2">
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="back-icon-orange" onClick={() => {
+                                        this.props.history.go(-1)
+                                    }} />
+                                </div>
+                                <div className="col-8 logo-col">
+                                    <p className="header-title fw-700 capitalize text-white text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+
                 <Route exact path={'/about'} render={(props) => {
                     return <AboutUs {...this.props} {...props} />
                 }} />
