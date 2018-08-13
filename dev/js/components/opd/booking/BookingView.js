@@ -202,7 +202,7 @@ class BookingView extends React.Component {
                                                             <p className="add-info fw-500">{hospital.address}</p>
                                                         </div>
                                                         <div className="pb-view text-left">
-                                                            <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lng},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
+                                                            <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
                                                         </div>
                                                     </div>
                                                 </div>
