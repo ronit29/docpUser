@@ -25,7 +25,9 @@ class SearchCriteriaView extends React.Component {
         }
         searchData = encodeURIComponent(JSON.stringify(searchData))
         let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria))
-        this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
+        this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`, {
+            scrollTop: true
+        })
     }
 
     render() {

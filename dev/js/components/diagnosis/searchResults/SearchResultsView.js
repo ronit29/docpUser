@@ -17,6 +17,15 @@ class SearchResultsView extends React.Component {
         if (NAVIGATE.refreshLabSearchResults(this.props)) {
             this.getLabs()
         }
+
+        if (this.props.location.state && this.props.location.state.scrollTop) {
+            setTimeout(() => {
+                if (window) {
+                    window.scrollTo(0, 0)
+                    window.LAB_SCROLL_POS = 0
+                }
+            }, 100)
+        }
     }
 
     getLabs() {

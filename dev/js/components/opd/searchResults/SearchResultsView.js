@@ -18,6 +18,15 @@ class SearchResultsView extends React.Component {
         if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
             this.getDcotors()
         }
+        
+        if (this.props.location.state && this.props.location.state.scrollTop) {
+            setTimeout(() => {
+                if (window) {
+                    window.scrollTo(0, 0)
+                    window.OPD_SCROLL_POS = 0
+                }
+            }, 100)
+        }
     }
 
     getLocationParam(tag) {
