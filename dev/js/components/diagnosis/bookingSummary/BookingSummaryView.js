@@ -239,7 +239,7 @@ class BookingSummaryView extends React.Component {
 
                                                                 <div className="lab-details">
                                                                     <InitialsPicture name={labDetail.name} has_image={!!labDetail.lab_thumbnail} className="initialsPicture-lb">
-                                                                        <img src={labDetail.lab_thumbnail} className="img-fluid" style={{ width: 50, height: 50 }} />
+                                                                        <img src={labDetail.lab_thumbnail} className="img-fluid" />
                                                                     </InitialsPicture>
 
                                                                     <div className="lab-title">

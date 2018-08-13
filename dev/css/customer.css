@@ -110,11 +110,10 @@
 
 /*book card*/
 .card{margin-bottom: 10px;}
-.card-content .logo-ratting{  float: right; width: 100px; text-align: center;}
+.card-content .logo-ratting{ float: right; text-align: right;}
 .ratting{display: block;}
 .pickup-btn{padding: 5px; color: #000; background-color: #fad688; font-size: 12px; font-weight: 500;}
 .card-content .logo-ratting  .lab-icon{display: block; text-align: center;}
-.card-content .logo-ratting  .lab-icon img{width: 65px}
 .ratting>li{margin-right: -4px;}
 .card .card-footer{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;}
 .logo-ratting{}
@@ -142,7 +141,7 @@
 	profile-book-screen
 =========================*/
 .empty-header {position: fixed; top: 50px; left: 0; right: 0; height: 40px;}
-.profile-book .pb-logo{width: 90px; border: 1px solid #ddd; padding: 5px; border-radius: 4px; text-align: center; margin: 10px auto;}
+.profile-book .pb-logo{width: 100px; border: 1px solid #ddd; padding: 5px; border-radius: 4px; text-align: center; margin: 10px auto;}
 
 .pb-title{font-size: 20px; font-weight: bold; color: #263077; margin-bottom: 5px;}
 .wc-title{margin-bottom: 5px;}
@@ -184,7 +183,7 @@
 .booking-confirm-screen{padding-bottom: 50px;}
 .booking-confirm-screen .lab-details{margin-bottom: 20px;}
 .booking-confirm-screen .lab-details .lab-title{padding-right: 100px;}
-.booking-confirm-screen .lab-details img{width: 70px; border:1px solid #ddd; padding: 3px ; float: right;}
+.booking-confirm-screen .lab-details img{max-width: 90px; max-height: 60px; border:1px solid #ddd; padding: 3px ; float: right;}
 .booking-confirm-screen .lab-details .lab-title .title{margin-bottom: 5px;}
 
 .booking-confirm-screen .lab-visit-time{margin-bottom: 40px;}

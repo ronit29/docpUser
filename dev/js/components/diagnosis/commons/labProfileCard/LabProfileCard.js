@@ -56,8 +56,8 @@ class LabProfileCard extends React.Component {
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
                         <span className="ct-img lab-icon">
-                            <InitialsPicture style={{ 'marginRight': 0, 'width': 90, 'height': 60 }} name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-                                <img src={lab.lab_thumbnail} className="img-fluid" />
+                            <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
+                                <img src={lab.lab_thumbnail} className="img-fluid" style={{ maxWidth: 90, maxHeight: 60 }} />
                             </InitialsPicture>
                         </span>
 
