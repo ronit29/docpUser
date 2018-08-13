@@ -165,7 +165,7 @@ class BookingSummaryView extends React.Component {
         let finalMrp = 0
         let labDetail = {}
         let patient = null
-        let is_home_pickup_available = true
+        let is_home_collection_enabled = true
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -178,8 +178,8 @@ class BookingSummaryView extends React.Component {
                 let price = twp.deal_price
                 let mrp = twp.mrp
                 // check if any of the selected test does not allow home_pickup_available
-                if (!twp.is_home_pickup_available) {
-                    is_home_pickup_available = false
+                if (!twp.is_home_collection_enabled) {
+                    is_home_collection_enabled = false
                 }
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
@@ -190,7 +190,7 @@ class BookingSummaryView extends React.Component {
         }
 
         // if home pickup not available but selected type is home , then change in next iteration
-        if (!is_home_pickup_available && this.props.selectedAppointmentType == 'home') {
+        if (!is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
             // using timeout to skip this render iteration
             setTimeout(() => {
                 this.props.selectLabAppointmentType('lab')
@@ -248,7 +248,7 @@ class BookingSummaryView extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 {
-                                                                    is_home_pickup_available ?
+                                                                    is_home_collection_enabled ?
                                                                         <div className="lab-visit-time test-report lab-appointment-div row">
                                                                             <h4 className="title col-12"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Appointment type </h4>
                                                                             <ul className="inline-list booking-type col-12">
@@ -295,7 +295,7 @@ class BookingSummaryView extends React.Component {
                                         }
 
                                         {
-                                            this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} home_pickup_charges={labDetail.home_pickup_charges} is_home_pickup_available={this.props.selectedAppointmentType == 'home'} /> : ""
+                                            this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} home_pickup_charges={labDetail.home_pickup_charges} is_home_collection_enabled={this.props.selectedAppointmentType == 'home'} /> : ""
                                         }
 
                                         <button data-disabled={
