@@ -170,11 +170,11 @@ class LeftBar extends React.Component {
                                     <li className="login-feature-list-item">Your Family Members</li>
                                     <li className="login-feature-list-item">Your OPD Insurance</li>
                                 </ul>
-                                <hr />
-                                <ul className="login-feature-list">
+                                {/* <hr /> */}
+                                {/* <ul className="login-feature-list">
                                     <a href="javascript:;"><li className="login-feature-list-item">Book Genral Physicians in Delhi</li></a>
                                     <a href="javascript:;"><li className="login-feature-list-item">Book Dentist in Delhi</li></a>
-                                </ul>
+                                </ul> */}
                             </div>
                         </div>
                 }

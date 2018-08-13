@@ -8,6 +8,7 @@
     "client": "webpack --progress --watch",
     "build-dev": "webpack --progress",
     "build-prod": "webpack --env.production --progress && npm run upload",
+    "build-staging": "webpack --env.staging --progress && npm run upload",
     "upload": "node upload.js"
   },
   "repository": {

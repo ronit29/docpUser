@@ -44,7 +44,14 @@ class BookingView extends React.Component {
                     this.setState({ data: data.data, loading: false })
                     SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule success." });
                 } else {
-                    this.setState({ loading: false })
+                    this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
+                        if (!err) {
+                            this.setState({ data: data[0], loading: false })
+                        } else {
+                            this.setState({ data: null, loading: false })
+                        }
+                        SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule failed." });
+                    })
                 }
 
                 this.props.selectLabTimeSLot({ time: {} }, true)
@@ -226,6 +233,18 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div>
 
+                                                    {
+                                                        this.state.data.is_home_pickup ? <div className="widget mrt-10">
+                                                            <div className="widget-content mrb-10">
+                                                                <div className="test-report">
+                                                                    <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} style={{
+                                                                        width: 18, marginRight: 5, verticalAlign: -3
+                                                                    }} /></span>Sample Pickup Address</h4>
+                                                                    <p className="test-list fw-500" style={{ width: '100%', wordWrap: 'break-word' }}>{this.state.data.address}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div> : ""
+                                                    }
 
                                                     <div className="widget mrb-10">
                                                         <div className="widget-content">
@@ -241,7 +260,6 @@ class BookingView extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-
 
                                                     <div className="widget mrt-10">
                                                         <div className="widget-content">
@@ -261,7 +279,6 @@ class BookingView extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-
 
                                                     <div className="widget mrt-10">
                                                         <div className="widget-content">

@@ -1,5 +1,6 @@
 import React from 'react';
 import STORAGE from '../../../helpers/storage'
+import CONFIG from '../../../config'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -175,7 +176,7 @@ class ChatView extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `https://telemed.docprime.com/livechat?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
+        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
 
 
 
@@ -190,7 +191,7 @@ class ChatView extends React.Component {
                             <header className="wallet-header sticky-header chat-header">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
-                                        <div className="col-2 col-sm-1" style={{maxWidth: 55}} >
+                                        <div className="col-2 col-sm-1" style={{ maxWidth: 55 }} >
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="back-icon-orange" onClick={() => {
                                                 this.props.history.go(-1)
                                             }} />
@@ -219,7 +220,7 @@ class ChatView extends React.Component {
                                         </div>
 
                                         <div className="col-3 col-sm-3 chat-icons">
-                                            <img onClick={() => {this.dispatchCustomEvent.call(this, 'call')}} src={ASSETS_BASE_URL + "/img/customer-icons/call-white.svg"} />
+                                            <img onClick={() => { this.dispatchCustomEvent.call(this, 'call') }} src={ASSETS_BASE_URL + "/img/customer-icons/call-white.svg"} />
                                             <img onClick={this.toggleCancel.bind(this)} src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} />
                                         </div>
                                     </div>

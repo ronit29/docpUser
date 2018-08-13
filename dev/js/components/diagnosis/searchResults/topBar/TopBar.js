@@ -10,8 +10,8 @@ class TopBar extends React.Component {
         this.state = {
             anchorEl: null,
             openFilter: false,
-            priceRange: [100, 20000],
-            distanceRange: [1, 35],
+            priceRange: [0, 20000],
+            distanceRange: [0, 35],
             sortBy: null
         }
     }
@@ -72,8 +72,8 @@ class TopBar extends React.Component {
 
     isFilterApplied() {
         const def = {
-            priceRange: [100, 20000],
-            distanceRange: [1, 35]
+            priceRange: [0, 20000],
+            distanceRange: [0, 35]
         }
         try {
             for (let filter in def) {
@@ -135,11 +135,11 @@ class TopBar extends React.Component {
                                 <div className="filterRow">
                                     <span className="tl">Price</span>
                                     <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
-                                    <span className="bl">&#8377; 100</span>
+                                    <span className="bl">&#8377; 0</span>
                                     <span className="br">&#8377; 20000</span>
 
                                     <Range
-                                        min={100}
+                                        min={0}
                                         max={20000}
                                         value={this.state.priceRange}
                                         step={100}
@@ -150,11 +150,11 @@ class TopBar extends React.Component {
                                 <div className="filterRow">
                                     <span className="tl">Distance</span>
                                     <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
-                                    <span className="bl">1 > KM</span>
+                                    <span className="bl">0 > KM</span>
                                     <span className="br">50 KM</span>
 
                                     <Range
-                                        min={1}
+                                        min={0}
                                         max={50}
                                         value={this.state.distanceRange}
                                         step={1}

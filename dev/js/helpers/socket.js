@@ -1,6 +1,7 @@
 import { API_GET } from '../api/api'
 import CONFIG from '../config'
 import io from 'socket.io-client';
+import STORAGE from '../helpers/storage'
 
 const SOCKET = (() => {
 
@@ -8,26 +9,32 @@ const SOCKET = (() => {
     let _instance = null
 
     const init = (cb) => {
-        
+
         if (!_initialized || !_instance) {
             console.log(' ======== INITIALIZING SOCKET FOR IN-APP NOTIFICATIONS ==========')
 
             //Fetch userid with auth token to create a seperate room
-            API_GET("/api/v1/user/userid").then((data) => {
-                const socket = io(CONFIG.SOCKET_BASE_URL, {
-                    path: CONFIG.SOCKET_BASE_PATH,
-                    query: {
-                        userId: data.user_id
-                    }
-                });
+            STORAGE.getAuthToken().then((token) => {
+                if (token) {
+                    const socket = io(CONFIG.SOCKET_BASE_URL, {
+                        path: CONFIG.SOCKET_BASE_PATH,
+                        query: {
+                            token: token
+                        }
+                    });
 
-                _initialized = true
-                _instance = socket
-                cb()
-            }, (err) => {
+                    _initialized = true
+                    _instance = socket
+                    cb()
+                } else {
+                    _initialized = false
+                    _instance = null
+                }
+            }).catch((e) => {
                 _initialized = false
                 _instance = null
             })
+
         }
     }
 

@@ -53,14 +53,22 @@ class UserSignupView extends React.Component {
                     }
                     break
                 }
-                // case "phone_number": {
-                //     validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
-                //     break
-                // }
-                // case "email": {
-                //     validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
-                //     break
-                // }
+                case "phone_number": {
+                    if (!!this.refs[prp].value) {
+                        validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
+                    } else {
+                        validated = true
+                    }
+                    break
+                }
+                case "email": {
+                    if (!!this.refs[prp].value) {
+                        validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
+                    } else {
+                        validated = true
+                    }
+                    break
+                }
                 case "age": {
                     validated = this.refs[prp].value > 0 && this.refs[prp].value < 100
                     break

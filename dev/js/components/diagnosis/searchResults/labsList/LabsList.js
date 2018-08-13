@@ -58,11 +58,18 @@ class LabsList extends React.Component {
         try {
             let searchState = this.getLocationParam('search')
             let filterCriteria = this.getLocationParam('filter')
+            let lab_name = this.getLocationParam('lab_name')
+
             if (filterCriteria) {
                 filterCriteria = JSON.parse(filterCriteria)
             } else {
                 filterCriteria = {}
             }
+
+            if (lab_name) {
+                filterCriteria.lab_name = lab_name
+            }
+
             searchState = JSON.parse(searchState)
 
             this.props.getLabs(searchState, filterCriteria, false, page + 1, (hasMore) => {

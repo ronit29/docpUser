@@ -198,7 +198,16 @@ class CriteriaSearchView extends React.Component {
                                                         }}><a>Search Hospitals with name {this.state.searchValue}</a></li>
                                                     </ul>
                                                 </div>
-                                            </div> : ""
+                                            </div> : <div className="widget-panel">
+                                                    <h4 className="panel-title">Name Search</h4>
+                                                    <div className="panel-content">
+                                                        <ul className="list search-result-list">
+                                                            <li onClick={() => {
+                                                                this.props.searchProceed(this.state.searchValue)
+                                                            }}><a>Search Labs with name {this.state.searchValue}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                         }
                                     </section>
                                     : (this.props.checkForLoad ? this.props.children : <Loader />)
