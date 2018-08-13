@@ -260,7 +260,7 @@ class BookingSummaryView extends React.Component {
 
 
                                                                 <div className="lab-visit-time test-report">
-                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
+                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
                                                                     {tests}
                                                                 </div>
 
@@ -268,7 +268,10 @@ class BookingSummaryView extends React.Component {
 
                                                                 <div className="lab-visit-time test-report">
                                                                     <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} style={{ cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                    <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice}</h5>
+                                                                    {
+                                                                        this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice}</h5>
+                                                                    }
+
                                                                 </div>
 
                                                             </div>
