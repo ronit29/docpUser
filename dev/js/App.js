@@ -54,7 +54,10 @@ class App extends React.Component {
         }
         // boot Raven(Sentry logger)
         if (CONFIG.RAVEN_DSN_KEY) {
-            Raven.config(CONFIG.RAVEN_DSN_KEY).install()
+
+            Raven.config(CONFIG.RAVEN_DSN_KEY, {
+                environment: CONFIG.env
+            }).install()
         }
 
     }
