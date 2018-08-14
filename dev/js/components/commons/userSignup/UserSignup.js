@@ -49,7 +49,7 @@ class UserSignupView extends React.Component {
                     if (!this.refs[prp].value) {
                         validated = false
                     } else {
-                        validated = !/[^a-zA-Z0-9 ]/.test(this.refs[prp].value)
+                        validated = !/[^a-zA-Z ]/.test(this.refs[prp].value)
                     }
                     break
                 }
