@@ -24,7 +24,7 @@ export default ({ toggle, deal_price, mrp, payable_amount }) => {
                 <p className="payment-content fw-500">Promocode Discount</p>
                 <p className="payment-content fw-500">&#8377;  200</p>
             </div> */}
-            <div className="payment-content-div">
+            <div className="payment-content-div mrt-20">
                 <p className="payment-content fw-500">Amount Payable</p>
                 <p className="payment-content fw-500">&#8377;  {payable_amount}</p>
             </div>

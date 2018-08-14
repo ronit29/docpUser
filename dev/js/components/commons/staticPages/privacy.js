@@ -189,7 +189,7 @@ class Privacy extends React.Component {
                                 individually.
               </li>
                             <li className="privacy-order-item">
-                                Access to your account information and any other personal identifiably information is
+                                Access to your account information and any other personal identifiable information is
                                 strictly restricted and used only in accordance with specific internal procedures, in order
                                 to operate, develop or improve our Services. We may use third party service providers to
                                 enable you to provide with our services and we require such third parties to maintain the
@@ -255,7 +255,7 @@ class Privacy extends React.Component {
                           through the use of a pixel tag, which is industry standard technology used by most major
               Websites. No personally identifiable information is collected or used in this process.</p>
                         <p className="privacy-desc-subheading">10.&nbsp;&nbsp;&nbsp;LINKS TO OTHER WEBSITES</p>
-                        <p className="privacy-desc">There might be affiliates or other sites linked tothe Website. Personal information that
+                        <p className="privacy-desc">There might be affiliates or other sites linked to the Website. Personal information that
                           you provide to those sites are not our property. These affiliated sites may have different
                           privacy practices and we encourage you to read their privacy policies of these websites,
               when you visit them.</p>

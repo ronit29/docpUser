@@ -40,7 +40,7 @@ class SelectedClinic extends React.Component {
                     <div className="dr-profile">
                         <h4 className="dr-name">{name}</h4>
                         <p className="desg">{this.getQualificationStr(general_specialization) || []}</p>
-                        <h4 className="dr-name clinic-name mrt-10 text-sm">{hospitalName}</h4>
+                        <h4 className="clinic-name mrt-10 text-sm">{hospitalName}</h4>
                     </div>
                 </div>
             </div>

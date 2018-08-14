@@ -41,7 +41,7 @@ class DoctorProfileCard extends React.Component {
                 <div style={{ display: 'block', width: '100%', marginTop: 10 }}>
                     <p className="desg">{this.getQualificationStr(general_specialization || [])}</p>
                     {
-                        experience_years ? <p className="add-details">{experience_years} Years of Experince</p> : ""
+                        experience_years ? <p className="add-details">{experience_years} Years of Experience</p> : ""
                     }
                     <p className="add-details">{expStr}</p>
                 </div>

@@ -11,7 +11,7 @@ class ChatSymptoms extends React.Component {
                 "Cough",
                 "Headache",
                 "Vomiting",
-                "Diarrhoea",
+                "Diarrhea",
                 "Breathlessness",
                 "Pain/Burning during urination",
                 "Chest Pain",

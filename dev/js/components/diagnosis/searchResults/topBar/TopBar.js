@@ -120,9 +120,9 @@ class TopBar extends React.Component {
                     open={Boolean(this.state.anchorEl)}
                     onClose={this.handleClose.bind(this, null)}
                 >
-                    <MenuItem onClick={this.handleClose.bind(this, "")}>Relavance</MenuItem>
-                    <MenuItem onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
-                    <MenuItem onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
+                    <MenuItem selected={!!!this.state.sortBy} onClick={this.handleClose.bind(this, "")}>Relavance</MenuItem>
+                    <MenuItem selected={'fees' == this.state.sortBy} onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
+                    <MenuItem selected={'distance' == this.state.sortBy} onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
                 </Menu>
 
                 {
