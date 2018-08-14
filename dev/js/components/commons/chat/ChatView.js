@@ -217,6 +217,7 @@ class ChatView extends React.Component {
                                                         <p className="chat-profile-desc">{this.getDoctorSpecialization(doctorData)}</p>
                                                     </div> : ""
                                             }
+                                            <p style={{ color: 'white' }}>{this.state.selectedRoom}</p>
                                         </div>
 
                                         <div className="col-3 col-sm-3 chat-icons">
