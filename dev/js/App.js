@@ -5,6 +5,17 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import CONFIG from './config'
 const Raven = require('raven-js')
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-123886528-1');
+
+
+const logPageView = () => {
+    if (DOCPRIME_PRODUCTION) {
+        ReactGA.set({ page: window.location.pathname })
+        ReactGA.pageview(window.location.pathname)
+    }
+    return null;
+};
 
 require('../css/carousel.css')
 require('../css/normalize.css')
@@ -69,7 +80,10 @@ class App extends React.Component {
                 <NotificationsBoot />
                 <MuiThemeProvider theme={theme}>
                     <BrowserRouter>
-                        <Routes />
+                        <div>
+                            <Route path="/" component={logPageView} />
+                            <Routes />
+                        </div>
                     </BrowserRouter>
                 </MuiThemeProvider>
             </div>
