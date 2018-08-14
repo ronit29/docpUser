@@ -67,10 +67,10 @@ class App extends React.Component {
         const theme = createMuiTheme({
             palette: {
                 primary: {
-                    main: '#00b7b0'
+                    main: '#f78361'
                 },
                 secondary: {
-                    main: '#00b7b0'
+                    main: '#f78361'
                 },
             },
             status: {

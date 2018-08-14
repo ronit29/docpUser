@@ -25,7 +25,7 @@ class HealthTip extends React.Component {
             <div className={`right-div-widget health-widget mrb-10 ${this.props.customClass}`}>
                 <div className="appointment-head-div">
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/health-tip.jpg"} />
-                    <span className="appointment-head">Health Tip for the Day</span>
+                    <span className="appointment-head">Health Tip of the Day</span>
                 </div>
                 <div className="tip-desc-div tip-desc-height">
                     <p className="tip-desc">{(healthTips && healthTips[selected]) ? healthTips[selected].text : ""}</p>

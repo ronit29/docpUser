@@ -53,11 +53,11 @@ class DoctorProfileCard extends React.Component {
                         <p><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                 </div>
-                <div className="widget-content">
+                <div className="widget-content" style={{marginBottom: 8}} >
                     <div className="dr-exp-details">
                         <p className="dr-desg text-md">{this.getQualificationStr(general_specialization || [])}</p>
                         {
-                            experience_years ? <p className="text-sm fw-500 text-light">{experience_years} Years of Experince</p> : ""
+                            experience_years ? <p className="text-sm fw-500 text-light">{experience_years} Years of Experience</p> : ""
                         }
                         <p className="text-light dr-desg">{expStr}</p>
                     </div>
@@ -71,7 +71,7 @@ class DoctorProfileCard extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="widget-footer card-footer">
+                <div className="widget-footer card-footer" style={{borderRadius: 0}} >
                     <div className="row dr-result-card-row">
                         <div className="col-6 col-sm-7">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} className="img-fluid" />

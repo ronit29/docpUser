@@ -7,6 +7,10 @@ class AboutUs extends React.Component {
 
         }
     }
+    
+    navigateTo(where) {
+        this.props.history.push(where)
+    }
 
     render() {
 
@@ -58,7 +62,7 @@ class AboutUs extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/step-calendar.svg"} />
                             </div>
                             <div className="step-heading-div text-center">
-                                <p className="fw-500 step-heading">Book Appoinments</p>
+                                <p className="fw-500 step-heading">Book Appointments</p>
                             </div>
                             <div className="step-content-div">
                                 <div className="step-content">
@@ -149,12 +153,12 @@ class AboutUs extends React.Component {
                         </div>
                     </div>
                     <div className="col-12 about-content-div">
-                        <p className="fw-500 about-content">DocPrime ensures that you get the right solution and treatment, and that is why we have hired country’s best and most experienced doctors who are knowledgeable, skilled and the best in their areas of expertise. They are available to solve your heath related queries and provide on-demand healthcare solutions, 24X7X365.</p>
+                        <p className="fw-500 about-content">DocPrime ensures that you get the right solution and treatment, and that is why we have hired country’s best and most experienced doctors who are knowledgeable, skilled and the best in their areas of expertise. They are available to solve your health related queries and provide on-demand healthcare solutions, 24X7X365.</p>
                         <p className="fw-500 about-content">At DocPrime, we understand the value of your time and that’s why we want to offer you the best healthcare right from the comfort of your home. We provide doctors, physiotherapists and nurses for home visits to ensure that you don’t need to step out when the need arises.</p>
                         <p className="fw-500 about-content">We aim to tap the latest technology to find solutions to various issues in order to disrupt the global healthcare delivery system. Our innovative healthcare solutions are a step towards bridging the gap between healthcare experts and the patients.</p>
                     </div>
                     <div className="col-12">
-                        <button className="contact-btn">Contact Us</button>
+                        <button onClick={() => {this.navigateTo("/contact")}} className="contact-btn">Contact Us</button>
                     </div>
                 </div>
             </div>

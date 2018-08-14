@@ -21,12 +21,12 @@ class ContactUs extends React.Component {
                     <div className="col-md-6 col-12 contact-background">
                         <div className="contact-text">
                             Feel like contacting us? Submit your queries here and we will try to get back you as soon as possible
-            </div>
+                        </div>
                         <div className="gps">
                             <div className="contact-location">
                                 Plot No. 119, Sector-44, Gurugram
                                 - 122001, Haryana (India)
-              </div>
+                            </div>
                             <div className="arrow-down">
                             </div>
                             <div className="image-location">

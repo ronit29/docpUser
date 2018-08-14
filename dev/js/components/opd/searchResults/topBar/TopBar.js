@@ -148,10 +148,10 @@ class TopBar extends React.Component {
                     open={Boolean(this.state.anchorEl)}
                     onClose={this.handleClose.bind(this, null)}
                 >
-                    <MenuItem onClick={this.handleClose.bind(this, "")}>Relavance</MenuItem>
-                    <MenuItem onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
-                    <MenuItem onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
-                    <MenuItem onClick={this.handleClose.bind(this, 'experience')}>Experience</MenuItem>
+                    <MenuItem selected={!!!this.state.sort_on} onClick={this.handleClose.bind(this, "")}>Relevance</MenuItem>
+                    <MenuItem selected={'fees' == this.state.sort_on} onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
+                    <MenuItem selected={'distance' == this.state.sort_on} onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
+                    <MenuItem selected={'experience' == this.state.sort_on} onClick={this.handleClose.bind(this, 'experience')}>Experience</MenuItem>
                 </Menu>
 
                 {
@@ -179,7 +179,6 @@ class TopBar extends React.Component {
                                         <Checkbox name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" />
                                     </div>
                                     <span className="checkFilterLabel">Hospital</span>
-
                                 </div>
                             </div>
                             <div className="widget-content">
