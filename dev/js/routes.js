@@ -70,6 +70,8 @@ const routes = [
     { path: '/disclaimer', exact: true, component: StaticPages },
     { path: '/contact', exact: true, component: StaticPages },
     { path: '/terms', exact: true, component: StaticPages },
+    { path: '/careers', exact: true, component: StaticPages },
+    { path: '/media', exact: true, component: StaticPages },
 
     { path: '*', component: NotFound },
 ]

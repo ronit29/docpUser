@@ -124,7 +124,7 @@ class UserProfileView extends React.Component {
                                         }} />
 
                                         <Route exact path={`${this.props.match.url}/:type/reports/:id`} render={(props) => {
-                                            return <Section_Component {...this.props} title="Prescriptions">
+                                            return <Section_Component {...this.props} title={props.match.params.type == 'opd' ? "Prescriptions" : "Lab Reports"}>
                                                 <Reports {...this.props} {...props} />
                                             </Section_Component>
                                         }} />

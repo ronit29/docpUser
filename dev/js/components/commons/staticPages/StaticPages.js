@@ -6,6 +6,8 @@ import Privacy from './privacy'
 import HowitWorks from './howitWorks'
 import Disclaimer from './disclaimer'
 import Terms from './terms'
+import Careers from './careers'
+import Media from './media'
 
 import Footer from '../../commons/Home/footer'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -44,8 +46,10 @@ class StaticPagesView extends React.Component {
                                         this.props.history.go(-1)
                                     }} />
                                 </div>
-                                <div className="col-8 logo-col">
-                                    <p className="header-title fw-700 capitalize text-white text-center"></p>
+                                <div className="col-8 logo-col text-center">
+                                    <img src="/assets/img/doc-prime-logo.png" style={{ width: 60 }} onClick={() => {
+                                        this.props.history.push('/')
+                                    }} />
                                 </div>
                             </div>
                         </div>
@@ -74,6 +78,14 @@ class StaticPagesView extends React.Component {
 
                 <Route exact path={'/terms'} render={(props) => {
                     return <Terms {...this.props} {...props} />
+                }} />
+
+                <Route exact path={'/careers'} render={(props) => {
+                    return <Careers {...this.props} {...props} />
+                }} />
+
+                <Route exact path={'/media'} render={(props) => {
+                    return <Media {...this.props} {...props} />
                 }} />
 
                 <Footer />
