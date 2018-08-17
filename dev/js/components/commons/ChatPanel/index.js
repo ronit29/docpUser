@@ -1,29 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getUserProfile } from '../../../actions/index.js'
 
-import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat } from '../../actions/index.js'
+import { withRouter } from 'react-router'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat } from '../../../actions/index.js'
 
-import ChatView from '../../components/commons/chat/index.js'
-import STORAGE from '../../helpers/storage'
+import ChatPanelView from './ChatPanel'
 
-class Chat extends React.Component {
+class ChatPanel extends React.Component {
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        // this.props.resetFilters()
-        // this.props.clearExtraTests()
-    }
-
-    static contextTypes = {
-        router: () => null
+        
     }
 
     render() {
 
         return (
-            <ChatView {...this.props} />
+            <ChatPanelView {...this.props} />
         );
     }
 }
@@ -58,4 +54,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChatPanel))

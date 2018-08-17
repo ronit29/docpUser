@@ -1,16 +1,16 @@
 import React from 'react';
 
 import ProfieCard from './ProfileCard'
-import LeftBar from '../LeftBar'
-import RightBar from '../RightBar'
+// import LeftBar from '../LeftBar'
+// import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import Footer from './footer'
-import Articles from './articles'
-import ChatSymptoms from './chatSymptom.js'
+// import Articles from './articles'
+// import ChatSymptoms from './chatSymptom.js'
 import InitialsPicture from '../initialsPicture'
 // import HealthTips from './healthTipMobile.js'
 import HealthTip from '../RightBar/healthTip.js'
-
+import ChatPanel from '../ChatPanel'
 
 const GENDER = {
     "m": "Male",
@@ -51,6 +51,33 @@ class HomeView extends React.Component {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
+    searchLab(test) {
+        test.type = 'test'
+        let searchData = {
+            selectedCriterias: [test],
+            selectedLocation: this.props.selectedLocation,
+        }
+
+        searchData = encodeURIComponent(JSON.stringify(searchData))
+        let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria_lab))
+        this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=`, {
+            scrollTop: true
+        })
+    }
+
+    searchDoctor(speciality) {
+        speciality.type = 'speciality'
+        let searchData = {
+            selectedCriterias: [speciality],
+            selectedLocation: this.props.selectedLocation,
+        }
+        searchData = encodeURIComponent(JSON.stringify(searchData))
+        let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria_opd))
+        this.props.history.push(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=&hospital_name=`, {
+            scrollTop: true
+        })
+    }
+
     render() {
 
         let profileData = this.props.profiles[this.props.selectedProfile]
@@ -62,7 +89,7 @@ class HomeView extends React.Component {
 
                 <ProfileHeader homePage={true} />
 
-                {
+                {/* {
                     profileData ? <div className="row mobile-profile-row d-lg-none" onClick={this.navigateTo.bind(this, '/user')}>
                         <div className="container mobile-profile-row-container">
                             <div className="row mobile-profile-inside-row">
@@ -81,12 +108,120 @@ class HomeView extends React.Component {
                         </div>
                     </div> : <div className="row mobile-profile-row d-lg-none">
                         </div>
-                }
+                } */}
 
-                <div className="subheader d-none d-lg-block"></div>
-                <section className="container">
+                <div className="subheader"></div>
+
+                <div className="chat-main-container">
+                    <div className="container">
+                        <div className="row">
+
+                            <ChatPanel />
+
+                            <div className="col-md-5">
+                                <div className="right-card-container">
+
+
+                                    {/* <div className="card cstm-card mb-3">
+                                        <div className="card-header">
+                                            Get a Deal
+                                            <a href="javascript:void(0);">View all</a>
+                                        </div>
+                                        <div className="card-body pt-0 pb-0">
+                                            <div className="deal-listing">
+                                                <ul className="deal-ul">
+                                                    <li><a href="javascript:void(0);">Book CBC Test Starting just   <span>₹ 250 only</span></a></li>
+                                                    <li><a href="javascript:void(0);"><span>Get 40%</span>    OFF on ENT Specialists</a></li>
+                                                    <li><a href="javascript:void(0);"><span>Get upto 70%</span>    OFF on full body checkup</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> */}
+
+
+
+                                    {/* Find a doctor */}
+                                    <div className="card cstm-card mb-3">
+                                        <div className="card-header">
+                                            Find a Doctor
+                                        </div>
+                                        <div className="card-body">
+                                            <div className="row mb-2">
+
+                                                {
+                                                    this.props.specializations.map((sp, i) => {
+                                                        return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
+                                                            <div className="grid-img-cnt brdr-btm brdr-btm">
+                                                                <a href="javascript:void(0);">
+                                                                    <img className="img-fluid" src={sp.icon} />
+                                                                    <span>{sp.name}</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    })
+                                                }
+
+                                                <div className="col-4">
+                                                    <div className="grid-img-cnt brdr-btm">
+                                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/opd')}>
+                                                            <img className="img-fluid" src="/assets/images/vall.png" />
+                                                            <span>View All Specializations</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    {/* Book a test */}
+                                    <div className="card cstm-card mb-3">
+                                        <div className="card-header">
+                                            Book a Test
+                                        </div>
+                                        <div className="card-body">
+                                            <div className="row mb-2">
+
+                                                {
+                                                    this.props.common_tests.map((ct, i) => {
+                                                        return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                            <div className="grid-img-cnt brdr-btm">
+                                                                <a href="javascript:void(0);">
+                                                                    <img className="img-fluid" src={ct.icon} />
+                                                                    <span> {ct.name} </span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    })
+                                                }
+
+                                                <div className="col-4">
+                                                    <div className="grid-img-cnt brdr-btm">
+                                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/dx')}>
+                                                            <img className="img-fluid" src="/assets/images/vall.png" />
+                                                            <span>View All Tests</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* <section className="container">
                     <div className="row main-row">
-                        <LeftBar hideStickyTemp={true} />
 
                         <div className={"col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section" + (profileData ? "" : " profile-main-section-logout")}>
 
@@ -107,40 +242,15 @@ class HomeView extends React.Component {
                                 </div>
                             </div>
 
-                            {
-                                articles.map((article, i) => {
-                                    if (article.data && article.data.length) {
-                                        return <Articles title={`Know about ${article.title}`} key={i}>
-                                            <ul className="select-item-list">
-                                                {
-                                                    article.data.map((curr, j) => {
-                                                        return <li key={j} onClick={this.navigateTo.bind(this, `/article/${curr.id}`)}>
-                                                            <div className="item-img">
-                                                                <img src={curr.icon} style={{ width: 50 }} />
-                                                            </div>
-                                                            <div className="item-name">
-                                                                <p>{curr.title}</p>
-                                                            </div>
-                                                        </li>
-                                                    })
-                                                }
-                                            </ul>
-                                        </Articles>
-                                    } else {
-                                        return ""
-                                    }
-                                })
-                            }
-
                             <HealthTip healthTips={this.props.healthTips} customClass="d-lg-none" />
 
                         </div>
 
-                        <RightBar hideStickyTemp={true} />
                     </div>
-                </section>
+                </section> */}
 
-                <Footer/>
+
+                <Footer />
 
             </div >
         );

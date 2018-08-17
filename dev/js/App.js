@@ -36,6 +36,8 @@ require('../css/snackbar.css')
 require('../css/cropper.css')
 require('./helpers/lightbox/style.css')
 
+require('../css/style.css')
+
 import NotificationsBoot from './containers/commons/NotificationsBoot'
 
 class App extends React.Component {
