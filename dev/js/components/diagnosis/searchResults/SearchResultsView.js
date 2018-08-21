@@ -19,12 +19,12 @@ class SearchResultsView extends React.Component {
         }
 
         if (this.props.location.state && this.props.location.state.scrollTop) {
-            setTimeout(() => {
-                if (window) {
-                    window.scrollTo(0, 0)
-                    window.LAB_SCROLL_POS = 0
-                }
-            }, 100)
+            // setTimeout(() => {
+            //     if (window) {
+            //         window.scrollTo(0, 0)
+            //         window.LAB_SCROLL_POS = 0
+            //     }
+            // }, 100)
         }
     }
 
