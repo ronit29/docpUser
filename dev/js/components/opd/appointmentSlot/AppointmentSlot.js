@@ -105,7 +105,7 @@ class AppointmentSlot extends React.Component {
                                                             <TimeSlotSelector
                                                                 timeSlots={this.state.timeSlots}
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
-                                                                selectedSlot={this.props.selectedSlot}
+                                                                selectedSlot={this.state.reschedule ? this.props.rescheduleSlot : this.props.selectedSlot}
                                                                 doctor_leaves={this.state.doctor_leaves || []}
                                                             /> : <Loader />
                                                     }
