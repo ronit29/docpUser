@@ -1,5 +1,6 @@
 .transaction-column{
 	background-color: #ffffff;
+	position: relative;
 }
 
 .wallet-header{
