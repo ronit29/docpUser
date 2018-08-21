@@ -132,7 +132,7 @@ class AppointmentReschedule extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0 center-column">
+                        <div className="col-12 col-md-7 col-lg-7 center-column">
 
                             <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
                                 <div className="container-fluid">

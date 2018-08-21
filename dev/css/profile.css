@@ -13,6 +13,7 @@
 	padding: 10px 0;
 	z-index: 9;
 	height: auto;
+	overflow: hidden;
 }
 
 .smiley-img-div{
@@ -1466,4 +1467,8 @@
 #tip-card-5{
 	z-index: 5;
 	background: linear-gradient(#4568dc , #b06ab3);
+}
+
+.mt-20{
+	margin-top: 20px;
 }

@@ -116,7 +116,7 @@ class HomeView extends React.Component {
                     <div className="container">
                         <div className="row">
 
-                            <ChatPanel />
+                            <ChatPanel homePage={true} />
 
                             <div className="col-md-5">
                                 <div className="right-card-container">

@@ -6,6 +6,7 @@ import { withRouter } from 'react-router'
 import STORAGE from '../../../helpers/storage'
 
 import RightBarView from './RightBar'
+import ChatPanel from '../ChatPanel'
 
 class RightBar extends React.Component {
     constructor(props) {
@@ -13,17 +14,18 @@ class RightBar extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchHeatlhTip()
-        if (STORAGE.checkAuth()) {
-            this.props.getUpcomingAppointments()
-            this.props.fetchOrderHistory()
-        }
+        // this.props.fetchHeatlhTip()
+        // if (STORAGE.checkAuth()) {
+        //     this.props.getUpcomingAppointments()
+        //     this.props.fetchOrderHistory()
+        // }
     }
 
     render() {
 
         return (
-            <RightBarView {...this.props} />
+            <ChatPanel />
+            // <RightBarView {...this.props} />
         );
     }
 }
@@ -48,4 +50,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RightBar))
+// export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RightBar))
+export default RightBar

@@ -14,17 +14,18 @@ class LeftBar extends React.Component {
 
     componentDidMount() {
         /* Fectch user profile if logged in and user profile is not loaded i.e(public pages) */
-        if (STORAGE.checkAuth()) {
-            if (!this.props.profiles[this.props.selectedProfile]) {
-                this.props.getUserProfile()
-            }
-        }
+        // if (STORAGE.checkAuth()) {
+        //     if (!this.props.profiles[this.props.selectedProfile]) {
+        //         this.props.getUserProfile()
+        //     }
+        // }
     }
 
     render() {
 
         return (
-            <LeftBarView {...this.props} />
+            ""
+            // <LeftBarView {...this.props} />
         );
     }
 }

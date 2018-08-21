@@ -534,7 +534,7 @@ ul.inline-list li {
 
 .chat-iframe{
     width: 100%;
-    height: calc(100vh - 135px);
+    height: calc(100vh - 245px);
 }
 
 @media(max-width: 576px){
