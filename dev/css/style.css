@@ -201,8 +201,28 @@ background: black;
 }*/
 /*side bar cards style sheet*/
 
+@media screen and (max-width: 380px) {
+    .wrng-mssg span {
+     font-size: 12px ;
+  
+  }
+
+  .hd-chat{
+      font-size:14px;
+  }
+  .chat-usr-img{
+display: none;
+  }
+  .chat-call-btn{
+	  font-size:12px;
+	  min-width: 112px;
+  }
+  .cht-stts{
+	  font-size: 17px;
+  }
 
 
+}
 
 
 

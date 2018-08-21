@@ -549,9 +549,11 @@ ul.inline-list li {
         padding-bottom: 42px;
     }
     .chat-iframe{
-        height: calc(100vh - 50px);
+        height: calc(100vh - 318px);
     }
 }
+
+
 
 .initialsPicture {
     height: 100%;
