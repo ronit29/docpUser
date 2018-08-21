@@ -166,6 +166,7 @@ class BookingSummaryView extends React.Component {
         let labDetail = {}
         let patient = null
         let is_home_collection_enabled = true
+        let address_picked_verified = false
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -195,6 +196,17 @@ class BookingSummaryView extends React.Component {
             setTimeout(() => {
                 this.props.selectLabAppointmentType('lab')
             })
+        }
+
+        // check if the picked address is correct or not
+        if (this.props.selectedAppointmentType == 'home') {
+            if (this.props.address && this.props.address.length && this.props.selectedAddress) {
+                this.props.address.map((add) => {
+                    if (add.id == this.props.selectedAddress) {
+                        address_picked_verified = true
+                    }
+                })
+            }
         }
 
 
@@ -307,8 +319,8 @@ class BookingSummaryView extends React.Component {
                                         }
 
                                         <button data-disabled={
-                                            (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
-                                        } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (this.props.selectedAddress || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
+                                            (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (address_picked_verified || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
+                                        } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
 
                                     </div> : <Loader />
                             }

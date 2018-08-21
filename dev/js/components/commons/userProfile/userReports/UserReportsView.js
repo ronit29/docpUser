@@ -48,6 +48,13 @@ class UserReportsView extends React.Component {
                         <div>
 
                             {
+                                this.state.reports.length == 0 ? <div className="text-center pd-20">
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/no-address.png"} />
+                                    <p className="fw-500 text-lg mrt-20">No Files Uploaded !!</p>
+                                </div> : ""
+                            }
+
+                            {
                                 this.state.reports.map((report, i) => {
                                     return <img src={report.name} key={i} className="imageReports" onClick={this.toggleLightBox.bind(this, true, i)} />
                                 })
