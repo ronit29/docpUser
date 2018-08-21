@@ -178,8 +178,8 @@ class ChatPanel extends React.Component {
 
         return (
 
-            <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4 mt-20"}>
-                <div className="chatbox-right">
+            <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
+                <div className={this.props.homePage ? "chatbox-right" : "chatbox-right sticky-header"}>
                     {/* chat header */}
                     <div className="chat-head">
                         <div className="hd-chat" onClick={() => {
