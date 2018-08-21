@@ -68,7 +68,7 @@ class CriteriaSelector extends React.Component {
         return (
             <div className="criteriaSelector">
                 <input onClick={() => {
-                    this.context.router.history.push('/dx/criteriasearch')
+                    this.context.router.history.push('/lab/criteriasearch')
                 }} placeholder={this.props.heading || "Search for tests, labs, packages ..etc"} />
                 {locationPill}
                 {pills}

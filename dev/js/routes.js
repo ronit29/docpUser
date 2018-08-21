@@ -56,8 +56,8 @@ const routes = [
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 
-    { path: '/dx', exact: true, component: DX_SearchCriteria },
-    { path: '/dx/searchresults', exact: true, component: DX_SearchResults },
+    { path: '/lab', exact: true, component: DX_SearchCriteria },
+    { path: '/lab/searchresults', exact: true, component: DX_SearchResults },
     { path: '/lab/:id', exact: true, component: Lab },
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
