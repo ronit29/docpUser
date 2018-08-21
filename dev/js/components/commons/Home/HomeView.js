@@ -235,7 +235,7 @@ class HomeView extends React.Component {
                                     </div>
                                 </div>
                                 <div className="col-6 bk-widget-col-right">
-                                    <div className="bk-widget text-center" onClick={this.navigateTo.bind(this, '/dx')}>
+                                    <div className="bk-widget text-center" onClick={this.navigateTo.bind(this, '/lab')}>
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/medical-test.svg"} className="book-list-img" />
                                         <p className="fw-500 mrt-10">Book Medical Test</p>
                                     </div>

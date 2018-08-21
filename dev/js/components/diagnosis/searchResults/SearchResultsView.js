@@ -58,7 +58,7 @@ class SearchResultsView extends React.Component {
                     searchState.selectedLocation = selectedLocation
                     let searchData = encodeURIComponent(JSON.stringify(searchState))
                     let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
-                    this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
+                    this.props.history.replace(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
                 }
 
             }
@@ -94,7 +94,7 @@ class SearchResultsView extends React.Component {
 
         let searchData = encodeURIComponent(JSON.stringify(searchState))
         let filterData = encodeURIComponent(JSON.stringify(filterState))
-        this.props.history.replace(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
+        this.props.history.replace(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
 
         this.getLabList(searchState, filterState, true, 1)
 
