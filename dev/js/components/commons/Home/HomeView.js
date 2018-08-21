@@ -60,7 +60,7 @@ class HomeView extends React.Component {
 
         searchData = encodeURIComponent(JSON.stringify(searchData))
         let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria_lab))
-        this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}&lab_name=`, {
+        this.props.history.push(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=`, {
             scrollTop: true
         })
     }
@@ -199,7 +199,7 @@ class HomeView extends React.Component {
 
                                                 <div className="col-4">
                                                     <div className="grid-img-cnt brdr-btm">
-                                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/dx')}>
+                                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
                                                             <img className="img-fluid" src="/assets/images/vall.png" />
                                                             <span>View All Tests</span>
                                                         </a>

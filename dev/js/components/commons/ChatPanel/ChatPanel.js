@@ -61,7 +61,7 @@ class ChatPanel extends React.Component {
                             }
                             searchData = encodeURIComponent(JSON.stringify(searchData))
                             let filterData = encodeURIComponent(JSON.stringify(this.props.lab_search_data.filterCriteria))
-                            this.props.history.push(`/dx/searchresults?search=${searchData}&filter=${filterData}`)
+                            this.props.history.push(`/lab/searchresults?search=${searchData}&filter=${filterData}`)
                             break
                         }
 
