@@ -53,7 +53,7 @@ class DoctorProfileCard extends React.Component {
                         <p><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                 </div>
-                <div className="widget-content" style={{marginBottom: 8}} >
+                <div className="widget-content" style={{ marginBottom: 8 }} >
                     <div className="dr-exp-details">
                         <p className="dr-desg text-md">{this.getQualificationStr(general_specialization || [])}</p>
                         {
@@ -62,16 +62,15 @@ class DoctorProfileCard extends React.Component {
                         <p className="text-light dr-desg">{expStr}</p>
                     </div>
                     <div className="dr-card-book text-right">
-                        {
-                            !!is_live ? <button className="v-btn v-btn-primary btn-sm">Book Now</button> : ""
-                        }
-
                         <div className="pricing">
-                            <p className="text-primary fw-700 new-price">&#8377; {deal_price} <span className="old-price">&#8377; {mrp}</span></p>
+                            <p className="text-primary fw-700 new-price"><span className="old-price">&#8377; {mrp}</span> &#8377; {deal_price}</p>
                         </div>
+                        {
+                            !!is_live ? <button className="v-btn v-btn-primary btn-sm mrt-10">Book Now</button> : ""
+                        }
                     </div>
                 </div>
-                <div className="widget-footer card-footer" style={{borderRadius: 0}} >
+                <div className="widget-footer card-footer" style={{ borderRadius: 0 }} >
                     <div className="row dr-result-card-row">
                         <div className="col-6 col-sm-7">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} className="img-fluid" />

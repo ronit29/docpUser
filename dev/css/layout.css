@@ -170,7 +170,7 @@ input::placeholder { color: rgba(0, 0, 0, 0.5); font-weight: 500; font-style: no
      color: #888; 
      display: inline-block;
      background-color: #eee;
-     border-radius: 4px;
+     border-radius: 5px;
  }
 
 .tag{border-radius: 18px;}
