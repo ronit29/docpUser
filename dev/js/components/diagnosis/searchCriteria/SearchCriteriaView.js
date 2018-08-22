@@ -34,7 +34,7 @@ class SearchCriteriaView extends React.Component {
 
         return (
             <div>
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for Tests or Lab." paddingTopClass={true} searchProceed={this.searchProceed.bind(this)}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for tests or lab." paddingTopClass={true} searchProceed={this.searchProceed.bind(this)}>
                     <section className="opd-search-section">
 
                         {

@@ -60,8 +60,7 @@ class ClinicSelector extends React.Component {
                                             </div>
                                         </div>
                                         <div className="text-center" style={{ marginTop: 12 }}>
-                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary outline" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live)}>Book Now</button>
-
+                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live)}>Book Now</button>
                                         </div>
                                     </div>
                                 </li>

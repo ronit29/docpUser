@@ -126,7 +126,7 @@ class CriteriaSearchView extends React.Component {
                                                         this.props.history.push('/locationsearch')
                                                     }}
                                                 >
-                                                    <li><div className="screen-title select-location-div"><span className="ct-img ct-img-sm map-marker-img"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" /></span> {location}</div></li>
+                                                    <li><div className="screen-title select-location-div"><span className="ct-img ct-img-sm map-marker-img"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" /></span> {location} <span><img src={ASSETS_BASE_URL + "/img/customer-icons/edit-loc.svg"} className="img-fluid" style={{width: 14, verticalAlign: '-2px', marginLeft: 4}} /></span></div></li>
                                                 </ul>
                                             </div>
                                         </div>
