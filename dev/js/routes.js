@@ -32,6 +32,8 @@ import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
 import TestSelector from './containers/diagnosis/TestSelector'
 import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 
+import AgentLogin from './containers/commons/agentLogin.js'
+import DirectBooking from './containers/commons/directBooking.js'
 
 const routes = [
 
@@ -72,6 +74,9 @@ const routes = [
     { path: '/terms', exact: true, component: StaticPages },
     { path: '/careers', exact: true, component: StaticPages },
     { path: '/media', exact: true, component: StaticPages },
+
+    { path: '/agent/login', exact: true, component: AgentLogin },
+    { path: '/agent/booking', exact: true, component: DirectBooking },
 
     { path: '*', component: NotFound },
 ]
