@@ -1,8 +1,9 @@
-import { APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
+import { AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
 import SnackBar from 'node-snackbar'
+import Axios from 'axios';
 
 export const sendOTP = (number, cb) => (dispatch) => {
     dispatch({
@@ -120,5 +121,42 @@ export const loginViaChat = (token) => (dispatch) => {
 
     }).catch(function (error) {
 
+    })
+}
+
+export const agentLogin = (token, cb) => (dispatch) => {
+
+    STORAGE.deleteAuth().then(() => {
+        dispatch({
+            type: RESET_AUTH,
+            payload: {}
+        })
+        STORAGE.setAuthToken(token)
+        cb()
+    })
+}
+
+export const OTTLogin = (ott) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        API_GET('ott_url').then((access_token) => {
+            STORAGE.deleteAuth().then(() => {
+                dispatch({
+                    type: RESET_AUTH,
+                    payload: {}
+                })
+                STORAGE.setAuthToken(access_token)
+                API_GET('/api/v1/user/userprofile').then(function (response) {
+                    dispatch({
+                        type: APPEND_USER_PROFILES,
+                        payload: response
+                    })
+                    resolve()
+                }).catch(function (error) {
+                    reject(err)
+                })
+            })
+        }, (err) => {
+            reject(err)
+        })
     })
 }

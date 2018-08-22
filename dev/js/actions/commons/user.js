@@ -276,3 +276,7 @@ export const fetchChatHistory = (cb) => (dispatch) => {
 		if (cb) cb(error, null);
 	})
 }
+
+export const fetchOrderById = (orderId) => (dispatch) => {
+	return API_GET(`/api/v1/user/orderhistory`)
+}
