@@ -1008,6 +1008,9 @@
 	.profile-header{
 		display: none;
 	}
+	.chat-hide-mobile{
+		display: none !important;
+	}
 	.appointment-widget{
 		display: block;
 	}

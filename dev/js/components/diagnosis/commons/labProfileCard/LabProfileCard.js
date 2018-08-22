@@ -27,9 +27,10 @@ class LabProfileCard extends React.Component {
                     return true
                 }
             }).map((test) => {
-                test.extra_test = true
-                test.lab_id = id
-                this.props.toggleDiagnosisCriteria('test', test, true)
+                let new_test = Object.assign({}, test)
+                new_test.extra_test = true
+                new_test.lab_id = id
+                this.props.toggleDiagnosisCriteria('test', new_test, true)
             })
         this.props.history.push(`/lab/${id}`)
     }

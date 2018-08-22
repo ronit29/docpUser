@@ -110,7 +110,7 @@ class HomeView extends React.Component {
                         </div>
                 } */}
 
-                <div className="subheader"></div>
+                <div className="sub-header"></div>
 
                 <div className="chat-main-container">
                     <div className="container">

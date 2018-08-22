@@ -28,7 +28,7 @@ class TestSelectorView extends React.Component {
     }
 
     toggleTest(test_to_toggle) {
-        let test = test_to_toggle.test
+        let test = Object.assign({}, test_to_toggle.test)
         test.mrp = test_to_toggle.mrp
         test.deal_price = test_to_toggle.deal_price
         test.extra_test = true

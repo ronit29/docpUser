@@ -225,6 +225,66 @@ display: none;
 }
 
 
+/*header styling*/
+.sub-header{
+    background-image: linear-gradient(to left, #f78631, #ff6d00);
+        width: 100%;
+    margin-top: 65px;
+    height: 65px;
+}
+.doc-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(to left, #f78631, #ff6d00);
+    padding: 10px 0;
+    z-index: 9;
+    height: auto;
+}
+.smiley-img-div {
+    position: absolute;
+    right: 100px;
+    top: 0;
+    height: 130px;
+}
+
+.location-item{
+        color: white;
+}
+.location-item span{
+    margin:0px 8px;
+}
+.location-item i.fa{
+    font-size: 18px;
+}
+.head-links{
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+     color: white;
+	margin-left: 25px;
+	position: relative;
+}
+.head-links img{
+    margin-right: 8px;
+}
+.hed-usr-img {
+    width: 23px;
+    border-radius: 50px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.head-links:first-child {
+    margin-left: 0px;
+}
+@media screen and (max-width: 380px) {
+    .head-links{
+        margin-left: 12px;
+    }
+}
+/*header styling*/
+
+
 
 
 

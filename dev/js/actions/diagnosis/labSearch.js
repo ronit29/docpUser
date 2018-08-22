@@ -153,7 +153,7 @@ export const selectPickupAddress = (address) => (dispatch) => {
 }
 
 export const createLABAppointment = (postData, callback) => (dispatch) => {
-	return API_POST(`/api/v1/diagnostic/labappointment`, postData).then(function (response) {
+	return API_POST(`/api/v1/diagnostic/labappointment/create`, postData).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
 		callback(error, null)

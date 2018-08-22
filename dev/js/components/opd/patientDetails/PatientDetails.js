@@ -5,6 +5,7 @@ import DoctorProfileCard from '../commons/doctorProfileCard'
 import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
 import ChoosePatient from './choosePatient'
+const queryString = require('query-string');
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -16,6 +17,7 @@ import PaymentSummary from './paymentSummary.js'
 class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
@@ -23,7 +25,8 @@ class PatientDetails extends React.Component {
             loading: false,
             error: "",
             openCancellation: false,
-            openPaymentSummary: false
+            openPaymentSummary: false,
+            booking_id: !!parsed.order_id
         }
     }
 

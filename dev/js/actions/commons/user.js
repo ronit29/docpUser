@@ -278,5 +278,5 @@ export const fetchChatHistory = (cb) => (dispatch) => {
 }
 
 export const fetchOrderById = (orderId) => (dispatch) => {
-	return API_GET(`/api/v1/user/orderhistory`)
+	return API_GET(`/api/v1/user/extract_order_details?order_id=${orderId}`)
 }

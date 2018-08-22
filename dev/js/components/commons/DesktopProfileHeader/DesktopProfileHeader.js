@@ -1,5 +1,5 @@
 import React from 'react';
-
+import InitialsPicture from '../initialsPicture'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
@@ -16,60 +16,104 @@ class DesktopProfileHeader extends React.Component {
 
         let profileData = this.props.profiles[this.props.selectedProfile]
         let styles = {}
-        if (this.props.homePage) {
-            styles = { display: 'block' }
+        // if (this.props.homePage) {
+        //     styles = { display: 'block' }
+        // }
+
+        let location = "Gurgaon"
+        if (this.props.selectedLocation) {
+            location = this.props.selectedLocation.formatted_address.slice(0, 10)
         }
+
         return (
-            <header className="profile-header" style={styles}>
+            <header className="doc-header" style={styles}>
                 <div className="smiley-img-div">
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/smiley.png"} />
                 </div>
                 <div className="container">
-                    <div className="row header-row">
-                        <div className="col-3 logo-icon-div" onClick={() => {
+                    <div className="row align-items-center">
+                        <div className="col-3 " onClick={() => {
                             this.props.history.push('/')
                         }}>
-                            <a href="javascript:;"><img src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="logo-icon" /></a>
+                            <a href="javascript:void(0);">
+                                <img src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} width={70} />
+                            </a>
                         </div>
-                        {/* for Desktop Only */}
-                        {
-                            profileData ? <div className="col-lg-4 d-none d-lg-block header-items-rt">
-                                <div className="header-item" onClick={this.navigateTo.bind(this, '/notifications')}>
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} className="header-icons bell-web-icon" />
-                                    <span className="header-item-label">Notifications</span>
-                                    {
-                                        this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
-                                    }
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/down-filled.svg"} className="header-icons down-web-icon" />
-                                </div>
-                                <div className="header-item logout-item" onClick={() => {
-                                    this.props.logout()
+                        <div className="col-lg-9 d-none d-lg-block ml-auto text-right">
+                            <div className="head-links" onClick={() => {
+                                this.props.history.push('/opd')
+                            }}>
+                                <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
+                                <span>Book to Visit a Doctor</span>
+                            </div>
+                            <div className="head-links" onClick={() => {
+                                this.props.history.push('/lab')
+                            }}>
+                                <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
+                                <span>Book Medical Test</span>
+                            </div>
+
+                            {
+                                profileData ? <div className="head-links">
+                                    <div className="head-links" onClick={() => {
+                                        this.props.history.push('/user')
+                                    }}>
+                                        <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img mr-2" style={{ fontSize: 14 }}>
+                                            <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
+                                        </InitialsPicture>
+                                        <span className>{profileData.name}</span>
+                                    </div>
+                                    <div className="head-links" onClick={() => {
+                                        this.props.history.push('/notifications')
+                                    }}>
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} /><span className>Notifications</span>
+                                        {
+                                            this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
+                                        }
+                                    </div>
+                                </div> : <div className="head-links" onClick={() => {
+                                    this.props.history.push('/user')
                                 }}>
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/logout.svg"} className="header-icons logout-web-icon" />
-                                    <span className="header-item-label">Logout</span>
-                                </div>
-                            </div> : ""
-                        }
-
-                        {/* for Desktop Only Ends*/}
-                        {/* for mobile only */}
-                        {/* this section will only visible when the user is logged out */}
-                        <div className="col-3 d-lg-none login-btn-div">
-                            {
-                                this.props.profiles[this.props.selectedProfile] ? "" : <button className="login-btn fw-500" onClick={this.navigateTo.bind(this, '/user')}>Login</button>
+                                        <img src={ASSETS_BASE_URL + "/images/usr.svg"} />
+                                        <span>Login</span>
+                                    </div>
                             }
 
+                            <div className="head-links location-item" onClick={() => {
+                                this.props.history.push('/locationsearch')
+                            }}>
+                                <i className="fa fa-map-marker" aria-hidden="true" />
+                                <span>{location}</span>
+                                <i className="fa fa-pencil" aria-hidden="true" />
+                            </div>
                         </div>
-                        {/*  logged out section ends */}
-                        <div className="col-3 col-sm-1 d-lg-none bell-icon-div">
-                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} className="bell-mobile-icon" onClick={this.navigateTo.bind(this, '/notifications')} />
+                        <div className="col-9 ml-auto text-right col-sm-1 d-lg-none ">
+                            <div className="head-links">
+                                <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
+                            </div>
                             {
-                                this.props.newNotification > 0 ? <span className="notification-alert-mobile">{this.props.newNotification}</span> : ""
+                                profileData ? <div className="head-links" onClick={() => {
+                                    this.props.history.push('/user')
+                                }}>
+                                    <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14 }}>
+                                        <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
+                                    </InitialsPicture>
+                                </div> : <div className="head-links" onClick={() => {
+                                    this.props.history.push('/user')
+                                }}>
+                                        <img src={ASSETS_BASE_URL + "/images/usr.svg"} />
+                                    </div>
+
                             }
+                            <div className="head-links location-item" onClick={() => {
+                                this.props.history.push('/locationsearch')
+                            }}>
+                                <i className="fa fa-map-marker" aria-hidden="true" />
+                                <span>{location}</span>
+                                <i className="fa fa-pencil" aria-hidden="true" />
+                            </div>
                         </div>
-                        {/* for mobile only ends */}
                     </div>
-
                 </div>
             </header>
         );
