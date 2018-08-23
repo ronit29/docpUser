@@ -231,7 +231,7 @@ class ChatPanel extends React.Component {
                         </div> */}
                         <div className="wrng-mssg">
                             <img src="/assets/images/warning-icon.png" />
-                            <span>Not for emergencies! In the case of emergency please visit a hospital. </span>
+                            <span>Not for emergencies! In the case of emergency please visit a hospital.</span>
                         </div>
                     </div>
 

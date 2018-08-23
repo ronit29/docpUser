@@ -14,7 +14,7 @@ class ProfileData extends React.Component {
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav">
                 <div className="widget-content">
-                    <ul className="list nav-items">
+                    <ul className="list nav-items dp-user-list">
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
