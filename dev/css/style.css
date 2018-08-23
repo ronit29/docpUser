@@ -242,6 +242,9 @@ display: none;
     z-index: 9;
     height: auto;
 }
+.header-overflow{
+	overflow: hidden;
+}
 .smiley-img-div {
     position: absolute;
     right: 100px;

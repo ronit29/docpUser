@@ -33,7 +33,7 @@ class DesktopProfileHeader extends React.Component {
         }
 
         return (
-            <header className="doc-header" style={styles}>
+            <header className={this.props.homePage ? "doc-header" : "doc-header header-overflow"} style={styles}>
                 <div className="smiley-img-div">
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/smiley.png"} />
                 </div>
