@@ -14,6 +14,7 @@ const COLOR_CODES = [
     '#a5d6a7',
     '#c5e1a5',
     '#e6ee9c',
+    '#fff59d',
     '#ffe082',
     '#ffcc80',
     '#ffab91',
@@ -24,10 +25,17 @@ class InitialsPicture extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            bgColor: COLOR_CODES[Math.floor(Math.random() * COLOR_CODES.length)]
+            bgColor: COLOR_CODES[this.sumChars(this.props.name)% COLOR_CODES.length]
         }
     }
-
+     sumChars(str) {
+        let sum = 0;
+        for (let i = 0; i < str.length; i++) {
+          sum += str.charCodeAt(i);
+        }
+      
+        return sum;
+      }
     render() {
         let style = this.props.style || {}
 
