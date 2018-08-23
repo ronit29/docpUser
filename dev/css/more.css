@@ -538,6 +538,7 @@ ul.inline-list li {
 }
 
 .chat-iframe-inner{
+    width: 100%;
     height: calc(100vh - 428px);
 }
 
