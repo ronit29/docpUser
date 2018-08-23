@@ -4,10 +4,11 @@ import Routes from './routes.js'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import CONFIG from './config'
+import STORAGE from './helpers/storage'
 const Raven = require('raven-js')
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-123886528-1');
-
+import { API_POST } from './api/api.js';
 
 const logPageView = () => {
     if (DOCPRIME_PRODUCTION) {
@@ -54,6 +55,19 @@ class App extends React.Component {
         if (jssStyles && jssStyles.parentNode) {
             jssStyles.parentNode.removeChild(jssStyles);
         }
+
+        if (STORAGE.checkAuth()) {
+            STORAGE.getAuthToken().then((token) => {
+                if (token) {
+                    API_POST('/api/v1/user/api-token-refresh', {
+                        token: token
+                    }).then((data) => {
+                        // STORAGE.setAuthToken(data.token)
+                    })
+                }
+            })
+        }
+
         // boot Raven(Sentry logger)
         if (CONFIG.RAVEN_DSN_KEY) {
 
