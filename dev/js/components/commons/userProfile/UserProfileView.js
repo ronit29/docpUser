@@ -19,7 +19,7 @@ import { Route } from 'react-router-dom'
 
 const Section_Component = ({ children, title, history, logout }) => {
     return <div>
-        <header className="skin-primary fixed horizontal top sticky-header">
+        {/* <header className="skin-primary fixed horizontal top sticky-header">
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-2">
@@ -41,7 +41,7 @@ const Section_Component = ({ children, title, history, logout }) => {
                     </div>
                 </div>
             </div>
-        </header>
+        </header> */}
         <section className="consumer-profile-screen">
             <div className="container-fluid">
                 <div className="row">

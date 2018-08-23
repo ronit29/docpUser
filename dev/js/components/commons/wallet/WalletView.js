@@ -39,7 +39,7 @@ class WalletView extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
-                            <header className="wallet-header sticky-header skin-primary">
+                            {/* <header className="wallet-header sticky-header skin-primary">
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
@@ -52,7 +52,7 @@ class WalletView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </header>
+                            </header> */}
 
                             {
                                 this.state.loading ? <Loader /> : <div className="container-fluid transaction-column">

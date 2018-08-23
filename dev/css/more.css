@@ -945,3 +945,7 @@ figure>img{
 .form-control:focus{
     box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
 }
+
+.col-12.col-md-7.col-lg-7{
+    padding-top: 10px
+}

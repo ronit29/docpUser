@@ -36,7 +36,7 @@ class DoctorProfileView extends React.Component {
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
-                            <header className="skin-primary fixed horizontal top sticky-header">
+                            {/* <header className="skin-primary fixed horizontal top sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
@@ -63,14 +63,10 @@ class DoctorProfileView extends React.Component {
                                             <div className="mobile-home-icon-div" >
                                                 <img src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
                                             </div>
-                                            {/* <ul className="inline-list float-right user-notification-action">
-                                                <li><span className="icon icon-md text-middle"><img src={ASSETS_BASE_URL + "/img/customer-icons/user.svg"} className="img-fluid" /></span></li>
-                                                <li><span className="icon icon-md text-middle notification-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/notification.svg"} className="img-fluid" /> <span className="notification-alert" /></span></li> 
-                                            </ul> */}
                                         </div>
                                     </div>
                                 </div>
-                            </header>
+                            </header> */}
 
                             {
                                 this.props.DOCTORS[this.state.selectedDoctor] ?

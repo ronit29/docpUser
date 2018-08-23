@@ -122,7 +122,7 @@ class TestSelectorView extends React.Component {
                                     <div>
                                         <header className="skin-white fixed horizontal top location-detect-header sticky-header">
                                             <div className="container-fluid">
-                                                <div className="row">
+                                                {/* <div className="row">
                                                     <div className="col-12">
                                                         <div className="select-location-row text-center">
                                                             <span onClick={() => {
@@ -131,7 +131,7 @@ class TestSelectorView extends React.Component {
                                                             <h4 className="fw-700 text-md">All Test</h4>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                                 <div className="row">
                                                     <div className="col-12">
                                                         <div className="search-row">

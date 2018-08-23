@@ -117,7 +117,7 @@ class UserSignupView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
+                            {/* <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
@@ -144,7 +144,7 @@ class UserSignupView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </header>
+                            </header> */}
 
                             <section className="validation-book-screen">
 
