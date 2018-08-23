@@ -72,13 +72,13 @@ class UserSignupView extends React.Component {
     inputHandler(e) {
         this.setState({ [e.target.name]: e.target.value })
 
-        if (e.target.name == 'land_mark') {
-            this.getLocation(e.target.value, 'land_mark_results')
-        }
+        // if (e.target.name == 'land_mark') {
+        //     this.getLocation(e.target.value, 'land_mark_results')
+        // }
 
-        if (e.target.name == 'locality') {
-            this.getLocation(e.target.value, 'locality_results')
-        }
+        // if (e.target.name == 'locality') {
+        //     this.getLocation(e.target.value, 'locality_results')
+        // }
     }
 
     submitForm() {
