@@ -39,14 +39,14 @@ class DesktopProfileHeader extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row align-items-center">
-                        <div className="col-3 " onClick={() => {
+                        <div className="col-1 " onClick={() => {
                             this.props.history.push('/')
                         }}>
                             <a href="javascript:void(0);">
                                 <img src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} width={70} />
                             </a>
                         </div>
-                        <div className="col-lg-9 d-none d-lg-block ml-auto text-right">
+                        <div className="col-10 d-none d-lg-block ml-auto text-right">
                             <div className="head-links" onClick={() => {
                                 this.props.history.push('/opd')
                             }}>
@@ -94,7 +94,7 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/images/edit.svg"} />
                             </div>
                         </div>
-                        <div className="col-9 ml-auto text-right col-sm-1 d-lg-none ">
+                        <div className="col-10 ml-auto text-right  d-lg-none ">
                             <div className="head-links" onClick={this.toggleHeaderButtons.bind(this)}>
                                 <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
                             </div>

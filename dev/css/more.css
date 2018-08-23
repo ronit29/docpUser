@@ -977,3 +977,8 @@ figure>img{
         margin-top: 20px;
     }
 }
+
+.cht-head-rqst-btn span{
+cursor: pointer;
+}
+
