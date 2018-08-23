@@ -143,7 +143,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .profile-info .pf-content{padding-left:100px;}
 
 /*navigation list item*/
-.profile-nav{margin-top: -10px;}
+.profile-nav{margin-top: 0px;}
 .profile-nav .nav-items>li{background-color: #fff; position: relative; border-bottom: 1px solid #ddd; padding: 22px;}
 .profile-nav .nav-items>li .nav-icon{float: left;}
 .profile-nav .nav-items>li .nav-content{padding-left: 50px; padding-right: 30px;}

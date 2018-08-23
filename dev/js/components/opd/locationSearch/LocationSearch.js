@@ -114,7 +114,7 @@ class LocationSearch extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <header className="skin-white fixed horizontal top location-detect-header sticky-header">
+                            <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{top: 65}}>
                                 <div className="container-fluid">
                                     {/* <div className="row">
                                         <div className="col-12">
@@ -127,7 +127,7 @@ class LocationSearch extends React.Component {
                                         </div>
                                     </div> */}
                                     <div className="row">
-                                        <div className="col-12">
+                                        <div className="col-12" style={{paddingTop: 10}}>
                                             <div className="search-row">
                                                 <div className="adon-group location-detect-field">
                                                     <input type="text" value={this.state.search} onChange={this.inputHandler.bind(this)} className="form-control input-md search-input no-shadow" placeholder="Select any city or locality" id="topLocationSearch" disabled={this.state.detectLoading} />
