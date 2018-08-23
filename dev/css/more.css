@@ -955,3 +955,7 @@ figure>img{
     transform: translateX(-50%);
     margin-bottom: 100px;
 }
+
+.col-12.col-md-7.col-lg-7{
+    padding-top: 10px
+}

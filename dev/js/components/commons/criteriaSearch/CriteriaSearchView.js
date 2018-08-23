@@ -103,10 +103,10 @@ class CriteriaSearchView extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12 col-md-7 col-lg-7 center-column" style={{ paddingTop: 0 }}>
                             <header className="skin-primary fixed horizontal top search-book-header sticky-header">
                                 <div className="container-fluid">
-                                    <div className="row">
+                                    {/* <div className="row">
                                         <div className="col-12">
                                             <div className="navigate-row">
                                                 <ul className="inline-list top-nav alpha-bx text-white"
@@ -130,10 +130,10 @@ class CriteriaSearchView extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     {
                                         // goback decides if search bar will be shown
-                                        this.props.goBack ? "" : <div className="row">
+                                        this.props.goBack ? "" : <div className="row" style={{ paddingTop: 10 }}>
                                             <div className="col-12">
                                                 <div className="search-row">
                                                     <div className="adon-group">

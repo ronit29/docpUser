@@ -167,7 +167,7 @@ class PatientDetails extends React.Component {
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
-                            <header className="skin-primary fixed horizontal top bdr-1 light sticky-header">
+                            {/* <header className="skin-primary fixed horizontal top bdr-1 light sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
@@ -187,15 +187,10 @@ class PatientDetails extends React.Component {
                                             <div className="header-title fw-700 capitalize text-white text-center">Booking Confirmation</div>
                                         </div>
                                         <div className="col-2" style={{ paddingLeft: 0 }} >
-                                            {/* <div className="mobile-home-icon-div" >
-                                                <img onClick={() => {
-                                                    this.props.history.push('/')
-                                                }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
-                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
-                            </header>
+                            </header> */}
 
                             {
                                 this.props.DOCTORS[this.state.selectedDoctor] ?

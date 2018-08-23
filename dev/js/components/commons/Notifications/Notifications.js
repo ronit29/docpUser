@@ -36,7 +36,7 @@ class NotificationsView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <header className="skin-primary fixed horizontal top sticky-header">
+                            {/* <header className="skin-primary fixed horizontal top sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
@@ -55,7 +55,7 @@ class NotificationsView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </header>
+                            </header> */}
 
                             <section className="notification-page skin-white">
                                 <div className="notificatons">

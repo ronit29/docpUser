@@ -33,7 +33,7 @@ class ChatView extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
-                            <header className="wallet-header sticky-header chat-header" style={{height: 50}} >
+                            {/* <header className="wallet-header sticky-header chat-header" style={{height: 50}} >
                                 <div className="container-fluid header-container">
                                     <div className="row header-row">
                                         <div className="col-2">
@@ -46,7 +46,7 @@ class ChatView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </header>
+                            </header> */}
 
                             <div className="widget">
                                 <ul className="list chat-history-list">
