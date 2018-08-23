@@ -73,7 +73,7 @@ class DesktopProfileHeader extends React.Component {
                                     <div className="head-links" onClick={() => {
                                         this.props.history.push('/notifications')
                                     }}>
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} /><span className>Notifications</span>
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span className>Notifications</span>
                                         {
                                             this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
                                         }
@@ -81,7 +81,7 @@ class DesktopProfileHeader extends React.Component {
                                 </div> : <div className="head-links" onClick={() => {
                                     this.props.history.push('/user')
                                 }}>
-                                        <img src={ASSETS_BASE_URL + "/images/usr.svg"} />
+                                        <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                         <span>Login</span>
                                     </div>
                             }
@@ -91,7 +91,7 @@ class DesktopProfileHeader extends React.Component {
                             }}>
                                 <i className="fa fa-map-marker" aria-hidden="true" />
                                 <span>{location}</span>
-                                <i className="fa fa-pencil" aria-hidden="true" />
+                                <img src={ASSETS_BASE_URL + "/images/edit.svg"} />
                             </div>
                         </div>
                         <div className="col-9 ml-auto text-right col-sm-1 d-lg-none ">
@@ -108,7 +108,7 @@ class DesktopProfileHeader extends React.Component {
                                 </div> : <div className="head-links" onClick={() => {
                                     this.props.history.push('/user')
                                 }}>
-                                        <img src={ASSETS_BASE_URL + "/images/usr.svg"} />
+                                        <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                     </div>
 
                             }
@@ -117,7 +117,7 @@ class DesktopProfileHeader extends React.Component {
                             }}>
                                 <i className="fa fa-map-marker" aria-hidden="true" />
                                 <span>{location}</span>
-                                <i className="fa fa-pencil" aria-hidden="true" />
+                                <img src={ASSETS_BASE_URL + "/images/edit.svg"} />
                             </div>
                         </div>
                     </div>
