@@ -25,17 +25,18 @@ class InitialsPicture extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            bgColor: COLOR_CODES[this.sumChars(this.props.name)% COLOR_CODES.length]
+            bgColor: COLOR_CODES[this.sumChars(this.props.name) % COLOR_CODES.length]
         }
     }
-     sumChars(str) {
+    sumChars(str) {
         let sum = 0;
         for (let i = 0; i < str.length; i++) {
-          sum += str.charCodeAt(i);
+            sum += str.charCodeAt(i);
         }
-      
+
         return sum;
-      }
+    }
+    
     render() {
         let style = this.props.style || {}
 
