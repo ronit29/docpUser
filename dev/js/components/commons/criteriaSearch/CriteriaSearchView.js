@@ -103,7 +103,7 @@ class CriteriaSearchView extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column" style={{ paddingTop: 0 }}>
+                        <div className="col-12 col-md-7 col-lg-7 center-column criteria-search-header">
                             <header className="skin-primary fixed horizontal top search-book-header sticky-header">
                                 <div className="container-fluid">
                                     {/* <div className="row">

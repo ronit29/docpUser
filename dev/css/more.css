@@ -545,7 +545,7 @@ ul.inline-list li {
 
 @media(max-width: 992px){
     .opd-search-section{
-        margin-top: -14px;
+        margin-top: 0;
         padding-bottom: 42px;
     }
     .chat-iframe{
@@ -948,4 +948,14 @@ figure>img{
 
 .col-12.col-md-7.col-lg-7{
     padding-top: 10px
+}
+
+.col-12.col-md-7.col-lg-7.criteria-search-header{
+    padding-top: 0;
+}
+
+@media(max-width: 992px){
+    .col-12.col-md-7.col-lg-7.criteria-search-header{
+        padding-top: 10px;
+    }
 }
