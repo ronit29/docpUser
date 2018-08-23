@@ -203,8 +203,12 @@ class ChatPanel extends React.Component {
 
                         </div>
                         <div className="cht-head-rqst-btn d-flex">
-                            <button onClick={() => { this.dispatchCustomEvent.call(this, 'call') }} src={ASSETS_BASE_URL + "/img/customer-icons/call-white.svg"} className="chat-call-btn"><i className="fa fa-phone" aria-hidden="true" /> <span>Request Call</span></button>
-                            <button onClick={this.toggleCancel.bind(this)} src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} className=" cht-stts">×</button>
+                            <span className="mr-4" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
+                                <img style={{width:20}} src="/assets/img/customer-icons/call-orange.svg" />
+                            </span>
+                            <span className="mr-2" onClick={this.toggleCancel.bind(this)}>
+                                <img style={{width:20}} src="/assets/img/customer-icons/refresh.svg" />
+                            </span>
                         </div>
                     </div>
                     {/* chat header */}
