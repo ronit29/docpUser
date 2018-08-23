@@ -120,7 +120,7 @@ class TestSelectorView extends React.Component {
                                 labData ?
 
                                     <div>
-                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header">
+                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{top: 65}}>
                                             <div className="container-fluid">
                                                 {/* <div className="row">
                                                     <div className="col-12">
@@ -133,7 +133,7 @@ class TestSelectorView extends React.Component {
                                                     </div>
                                                 </div> */}
                                                 <div className="row">
-                                                    <div className="col-12">
+                                                    <div className="col-12" style={{paddingTop: 10}}>
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
                                                                 <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)} />
@@ -149,7 +149,7 @@ class TestSelectorView extends React.Component {
                                             </div>
                                         </header>
 
-                                        <section className="wrap all-test-screen ">
+                                        <section className="wrap all-test-screen">
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
                                                     <ul className="list all-test-list">
