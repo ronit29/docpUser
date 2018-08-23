@@ -537,6 +537,10 @@ ul.inline-list li {
     height: calc(100vh - 245px);
 }
 
+.chat-iframe-inner{
+    height: calc(100vh - 428px);
+}
+
 @media(max-width: 576px){
     .chat-header-profile{
         padding-left: 0;
@@ -944,4 +948,10 @@ figure>img{
 
 .form-control:focus{
     box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
+}
+
+.sendemailsms{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 100px;
 }

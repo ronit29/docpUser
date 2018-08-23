@@ -6,6 +6,7 @@ import VisitTime from './visitTime'
 import PickupAddress from './pickupAddress'
 import ChoosePatient from './choosePatient'
 import InitialsPicture from '../../commons/initialsPicture'
+// const queryString = require('query-string');
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -17,13 +18,16 @@ import PaymentSummary from './paymentSummary.js'
 class BookingSummaryView extends React.Component {
     constructor(props) {
         super(props)
+        // const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedLab: this.props.match.params.id,
             paymentData: {},
             loading: false,
             error: "",
             openCancellation: false,
-            openPaymentSummary: false
+            openPaymentSummary: false,
+            // order_id: !!parsed.order_id,
+            order_id: false
         }
     }
 
@@ -128,6 +132,11 @@ class BookingSummaryView extends React.Component {
 
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
+                if (data.data.is_agent) {
+                    // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
+                    this.setState({ order_id: data.data.orderId })
+                    return
+                }
                 if (data.payment_required) {
                     // send to payment selection page
                     this.props.history.push(`/payment/${data.data.orderId}`)
@@ -308,6 +317,8 @@ class BookingSummaryView extends React.Component {
                                                 </div>
                                             </div>
                                             <span className="errorMessage">{this.state.error}</span>
+
+
                                         </section>
 
                                         {
@@ -318,9 +329,15 @@ class BookingSummaryView extends React.Component {
                                             this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} home_pickup_charges={labDetail.home_pickup_charges} is_home_collection_enabled={this.props.selectedAppointmentType == 'home'} /> : ""
                                         }
 
-                                        <button data-disabled={
-                                            (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (address_picked_verified || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
-                                        } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
+                                        {
+                                            this.state.order_id ? <button onClick={() => {
+                                                this.props.sendAgentBookingURL(this.state.order_id, 'sms')
+                                            }} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Send SMS EMAIL</button> : <button data-disabled={
+                                                (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (address_picked_verified || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
+                                            } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
+                                        }
+
+
 
                                     </div> : <Loader />
                             }

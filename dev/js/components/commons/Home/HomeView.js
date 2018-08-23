@@ -165,7 +165,7 @@ class HomeView extends React.Component {
                                                     <div className="grid-img-cnt brdr-btm">
                                                         <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/opd')}>
                                                             <img className="img-fluid" src="/assets/images/vall.png" />
-                                                            <span>View All Specializations</span>
+                                                            <span>Search more specializations</span>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -201,7 +201,7 @@ class HomeView extends React.Component {
                                                     <div className="grid-img-cnt brdr-btm">
                                                         <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
                                                             <img className="img-fluid" src="/assets/images/vall.png" />
-                                                            <span>View All Tests</span>
+                                                            <span>Search more tests</span>
                                                         </a>
                                                     </div>
                                                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot } from '../../actions/index.js'
+import { getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -53,7 +53,8 @@ const mapDispatchToProps = (dispatch) => {
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         getUserProfile: () => dispatch(getUserProfile()),
         getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
-        createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback))
+        createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
+        sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb))
     }
 }
 

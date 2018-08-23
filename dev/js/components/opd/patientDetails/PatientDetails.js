@@ -17,7 +17,7 @@ import PaymentSummary from './paymentSummary.js'
 class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
-        const parsed = queryString.parse(this.props.location.search)
+        // const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
@@ -26,7 +26,8 @@ class PatientDetails extends React.Component {
             error: "",
             openCancellation: false,
             openPaymentSummary: false,
-            booking_id: !!parsed.order_id
+            order_id: false
+            // order_id: !!parsed.order_id
         }
     }
 
@@ -72,6 +73,11 @@ class PatientDetails extends React.Component {
 
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
+                if (data.data.is_agent) {
+                    // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
+                    this.setState({ order_id: data.data.orderId })
+                    return
+                }
                 if (data.payment_required) {
                     // send to payment selection page
                     this.props.history.push(`/payment/${data.data.orderId}`)
@@ -244,6 +250,7 @@ class PatientDetails extends React.Component {
                                                         </a>
                                                     </div>
                                                     <span className="errorMessage">{this.state.error}</span>
+
                                                 </div>
                                             </div>
                                         </section>
@@ -260,10 +267,14 @@ class PatientDetails extends React.Component {
                             }
 
 
+                            {
+                                this.state.order_id ? <button onClick={() => {
+                                    this.props.sendAgentBookingURL(this.state.order_id, 'sms')
+                                }} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
+                            }
 
-                            <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
-                                !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                            } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
 
                         </div>
 

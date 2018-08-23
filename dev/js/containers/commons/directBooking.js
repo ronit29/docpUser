@@ -20,7 +20,10 @@ class DirectBooking extends React.Component {
         let order_id = parsed.order_id
 
         if (OTT && order_id) {
-            this.props.fetchOrderById(order_id).then((data) => {
+
+            this.props.OTTLogin(OTT).then(() => {
+                return this.props.fetchOrderById(order_id)
+            }).then((data) => {
                 if (data) {
                     if (data.product_id == 1) {
                         this.setOpdBooking(data)
@@ -28,14 +31,10 @@ class DirectBooking extends React.Component {
                         this.setLabBooking(data)
                     }
                 }
+            }).catch(() => {
+                debugger
             })
-            // this.props.OTTLogin(OTT).then(() => {
-            //     return this.props.fetchOrderById(order_id)
-            // }).then(({ order_data }) => {
-            //     debugger
-            // }).catch(() => {
-            //     debugger
-            // })
+
         } else {
             this.props.history.push('/')
         }
@@ -51,7 +50,7 @@ class DirectBooking extends React.Component {
 
         return timeObject
     }
-    
+
 
     buildLabTimeSlot(data) {
         let timeObject = {}

@@ -30,7 +30,7 @@ width: 92%;
 .send-chat-text{border-radius: 10px;background-color: #fbc298;box-shadow: 0.4px 0.9px 2px 0 rgba(0, 0, 0, 0.12);float: right;padding: 10px;font-size: 16px;font-weight: 500;}
 .send-chat-time{display: block;text-align: right;color: rgba(0, 0, 0, 0.5);font-weight: 500;position: relative;top: 5px;font-size: 12px;font-weight: 500;}
 .profile-body-wrap{
-background: white!important
+background: #f8f8f8;
 }
 .cht-btn-cont{display: block;margin-top: 15px;}
 .in-chat-btn{
@@ -166,7 +166,7 @@ border-bottom: 1px solid #dfdfdf;
 .grid-img-cnt a span{
 	display: block;
 	text-align: center;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: 500;
 	line-height: 1;
 	margin-top: 10px;
@@ -282,7 +282,32 @@ display: none;
         margin-left: 12px;
     }
 }
+
+.search-show{
+	text-align: center;
+	margin: 0px;
+	margin-top: 20px;
+	border-radius: 10px;
+	background-color: #f99652;
+	border: solid 1px #f5e3e3;
+	position: relative;
+ }
+ .search-show .head-links{
+	position: relative;
+	padding: 14px 2px;
+ }
+ 
+ .search-show .head-links:first-child:after{
+ content: '';
+	position: absolute;
+	border-right: 1px solid #f5e3e3;
+	height: 100%;
+	right: -13px;
+ } 
+ 
 /*header styling*/
+
+
 
 
 

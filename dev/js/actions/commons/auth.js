@@ -138,13 +138,13 @@ export const agentLogin = (token, cb) => (dispatch) => {
 
 export const OTTLogin = (ott) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        API_GET('ott_url').then((access_token) => {
+        API_GET(`/api/v1/user/create_user_token?token=${ott}`).then((data) => {
             STORAGE.deleteAuth().then(() => {
                 dispatch({
                     type: RESET_AUTH,
                     payload: {}
                 })
-                STORAGE.setAuthToken(access_token)
+                STORAGE.setAuthToken(data.token)
                 API_GET('/api/v1/user/userprofile').then(function (response) {
                     dispatch({
                         type: APPEND_USER_PROFILES,

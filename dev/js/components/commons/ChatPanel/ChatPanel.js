@@ -210,7 +210,7 @@ class ChatPanel extends React.Component {
                     {/* chat header */}
                     {/* chat Body */}
                     <div className="chat-body">
-                        {/* <iframe className="chat-iframe" src={iframe_url} ref="chat_frame"></iframe> */}
+                        <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner"} src={iframe_url} ref="chat_frame"></iframe>
                     </div>
                     {/* chat Body */}
                     <div className="chat-footer">
@@ -227,7 +227,7 @@ class ChatPanel extends React.Component {
                         </div> */}
                         <div className="wrng-mssg">
                             <img src="/assets/images/warning-icon.png" />
-                            <span>Not for emergencies! In the case of emergency please visit a hospital near you. </span>
+                            <span>Not for emergencies! In the case of emergency please visit a hospital. </span>
                         </div>
                     </div>
 

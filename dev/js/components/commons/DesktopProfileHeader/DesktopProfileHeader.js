@@ -4,12 +4,19 @@ import InitialsPicture from '../initialsPicture'
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            headerButtonsState: false
+        }
     }
 
     navigateTo(where, e) {
         e.preventDefault()
         e.stopPropagation()
         this.props.history.push(where)
+    }
+
+    toggleHeaderButtons() {
+        this.setState({ headerButtonsState: !this.state.headerButtonsState })
     }
 
     render() {
@@ -88,7 +95,7 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         </div>
                         <div className="col-9 ml-auto text-right col-sm-1 d-lg-none ">
-                            <div className="head-links">
+                            <div className="head-links" onClick={this.toggleHeaderButtons.bind(this)}>
                                 <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
                             </div>
                             {
@@ -114,6 +121,23 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         </div>
                     </div>
+                    {
+                        this.state.headerButtonsState ? <div className="search-show d-lg-none">
+                            <div className="head-links" onClick={() => {
+                                this.props.history.push('/opd')
+                            }}>
+                                <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
+                                <span>Book to Visit a Doctor</span>
+                            </div>
+                            <div className="head-links" onClick={() => {
+                                this.props.history.push('/lab')
+                            }}>
+                                <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
+                                <span>Book Medical Test</span>
+                            </div>
+                        </div> : ""
+                    }
+
                 </div>
             </header>
         );

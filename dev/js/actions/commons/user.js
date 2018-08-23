@@ -280,3 +280,7 @@ export const fetchChatHistory = (cb) => (dispatch) => {
 export const fetchOrderById = (orderId) => (dispatch) => {
 	return API_GET(`/api/v1/user/extract_order_details?order_id=${orderId}`)
 }
+
+export const sendAgentBookingURL = (orderId, type, cb) => (dispatch) => {
+	return API_POST(`/api/v1/user/sendbookingurl`, { order_id: orderId, type })
+}
