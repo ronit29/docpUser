@@ -12,9 +12,19 @@ class UserSignupView extends React.Component {
 
         this.state = {
             address: '',
+
             land_mark: '',
+            landmark_place_id: '',
+            landmark_location_lat: '',
+            landmark_location_long: '',
+
             pincode: '',
+
             locality: '',
+            locality_place_id: '',
+            locality_location_lat: '',
+            locality_location_long: '',
+
             type: 'home',
             phone_number: def_profile ? def_profile.phone_number : "",
             edit: !!this.props.match.params.id,
@@ -72,13 +82,13 @@ class UserSignupView extends React.Component {
     inputHandler(e) {
         this.setState({ [e.target.name]: e.target.value })
 
-        // if (e.target.name == 'land_mark') {
-        //     this.getLocation(e.target.value, 'land_mark_results')
-        // }
+        if (e.target.name == 'land_mark') {
+            this.getLocation(e.target.value, 'land_mark_results')
+        }
 
-        // if (e.target.name == 'locality') {
-        //     this.getLocation(e.target.value, 'locality_results')
-        // }
+        if (e.target.name == 'locality') {
+            this.getLocation(e.target.value, 'locality_results')
+        }
     }
 
     submitForm() {
@@ -131,6 +141,54 @@ class UserSignupView extends React.Component {
         }
     }
 
+    selectLocation(location, type) {
+        let map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 28, lng: 77 },
+            zoom: 15
+        })
+        let service = new google.maps.places.PlacesService(map);
+        service.getDetails({
+            reference: location.reference
+        }, function (place, status) {
+            let { place_id, formatted_address, geometry } = place
+            let lat = geometry.location.lat()
+            let long = geometry.location.lng()
+            
+            if (type == 'land_mark') {
+                this.setState({
+                    land_mark: formatted_address,
+                    landmark_place_id: place_id,
+                    landmark_location_lat: lat,
+                    landmark_location_long: long,
+                    land_mark_results: [],
+                    locality_results: []
+                })
+            }
+
+            if (type == 'locality') {
+                this.setState({
+                    locality: formatted_address,
+                    locality_place_id: place_id,
+                    locality_location_lat: lat,
+                    locality_location_long: long,
+                    land_mark_results: [],
+                    locality_results: []
+                })
+            }
+
+        }.bind(this))
+    }
+
+    closeResults(e) {
+        if (this.state.land_mark_results.length) {
+            this.setState({ land_mark_results: [] })
+        }
+
+        if (this.state.locality_results.length) {
+            this.setState({ locality_results: [] })
+        }
+    }
+
     render() {
 
         return (
@@ -154,8 +212,8 @@ class UserSignupView extends React.Component {
                     </div>
                 </header> */}
 
-                <section className="validation-book-screen">
-
+                <section className="validation-book-screen" onClick={this.closeResults.bind(this)}>
+                    <div id="map" style={{ display: 'none' }}></div>
                     <div className="widget no-round no-shadow">
                         <div className="widget-content">
                             <form className="go-bottom">
@@ -171,11 +229,11 @@ class UserSignupView extends React.Component {
                                     <label htmlFor="locality">Select Locality</label>
 
                                     {
-                                        this.state.locality_results.length ? <div className="panel-content pd-0">
+                                        this.state.locality_results.length ? <div className="panel-content pd-0 searchlocationresults">
                                             <ul className="list city-list">
                                                 {
                                                     this.state.locality_results.map((result, i) => {
-                                                        return <li key={i}>
+                                                        return <li key={i} onClick={this.selectLocation.bind(this, result, 'locality')}>
                                                             <a>{result.description}
                                                                 <span className="city-loc">City</span>
                                                             </a>
@@ -197,11 +255,11 @@ class UserSignupView extends React.Component {
                                     <label htmlFor="land_mark">Land Mark</label>
 
                                     {
-                                        this.state.land_mark_results.length ? <div className="panel-content pd-0">
+                                        this.state.land_mark_results.length ? <div className="panel-content pd-0 searchlocationresults">
                                             <ul className="list city-list">
                                                 {
                                                     this.state.land_mark_results.map((result, i) => {
-                                                        return <li key={i}>
+                                                        return <li key={i} onClick={this.selectLocation.bind(this, result, 'land_mark')}>
                                                             <a>{result.description}
                                                                 <span className="city-loc">City</span>
                                                             </a>
