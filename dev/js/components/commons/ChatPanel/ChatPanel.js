@@ -204,17 +204,19 @@ class ChatPanel extends React.Component {
                         </div>
                         <div className="cht-head-rqst-btn d-flex">
                             <span className="mr-4" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
-                                <img style={{width:20}} src="/assets/img/customer-icons/call-orange.svg" />
+                                <img style={{ width: 20 }} src="/assets/img/customer-icons/call-orange.svg" />
                             </span>
                             <span className="mr-2" onClick={this.toggleCancel.bind(this)}>
-                                <img style={{width:20}} src="/assets/img/customer-icons/refresh.svg" />
+                                <img style={{ width: 20 }} src="/assets/img/customer-icons/refresh.svg" />
                             </span>
                         </div>
                     </div>
                     {/* chat header */}
                     {/* chat Body */}
                     <div className="chat-body">
-                        <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner"} src={iframe_url} ref="chat_frame"></iframe>
+                        {
+                            STORAGE.isAgent() ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner"} src={iframe_url} ref="chat_frame"></iframe>
+                        }
                     </div>
                     {/* chat Body */}
                     <div className="chat-footer">

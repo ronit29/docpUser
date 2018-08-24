@@ -282,9 +282,9 @@ export const fetchChatHistory = (cb) => (dispatch) => {
 }
 
 export const fetchOrderById = (orderId) => (dispatch) => {
-	return API_GET(`/api/v1/user/extract_order_details?order_id=${orderId}`)
+	return API_GET(`/api/v1/user/order/${orderId}`)
 }
 
 export const sendAgentBookingURL = (orderId, type, cb) => (dispatch) => {
-	return API_POST(`/api/v1/user/sendbookingurl`, { order_id: orderId, type })
+	return API_POST(`/api/v1/user/order/${orderId}/send`, { order_id: orderId, type })
 }
