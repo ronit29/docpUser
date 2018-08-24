@@ -235,7 +235,7 @@ class UserSignupView extends React.Component {
                                                     this.state.locality_results.map((result, i) => {
                                                         return <li key={i} onClick={this.selectLocation.bind(this, result, 'locality')}>
                                                             <a>{result.description}
-                                                                <span className="city-loc">City</span>
+                                                                <span className="city-loc"></span>
                                                             </a>
                                                         </li>
                                                     })
@@ -261,7 +261,7 @@ class UserSignupView extends React.Component {
                                                     this.state.land_mark_results.map((result, i) => {
                                                         return <li key={i} onClick={this.selectLocation.bind(this, result, 'land_mark')}>
                                                             <a>{result.description}
-                                                                <span className="city-loc">City</span>
+                                                                <span className="city-loc"></span>
                                                             </a>
                                                         </li>
                                                     })
