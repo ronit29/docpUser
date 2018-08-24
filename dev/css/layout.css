@@ -30,7 +30,7 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; }
 table {border-collapse: collapse; border-spacing: 0; }
 
 html, body{height: auto; position: relative; min-height: 100vh;}
-body{min-height: calc(100vh - 65px); background-color: #e8eff3; color: #222;  font:400 100%/1.5  'Quicksand', sans-serif; font-size: 14px;}
+body{min-height: calc(100vh - 65px); background-color: #f8f8f8; color: #222;  font:400 100%/1.5  'Quicksand', sans-serif; font-size: 14px;}
 
 
 /*======================

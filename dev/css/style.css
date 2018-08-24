@@ -156,9 +156,6 @@ border-bottom: 1px solid #dfdfdf;
 .deal-ul li:last-child{border-bottom: 0px;}
 .deal-ul li a span{border-radius: 15px;background-color: #f7c399;border: solid 1px #f78631;padding: 5px 10px;}
 
-.grid-img-cnt{
-
-}
 .grid-img-cnt a{padding: 10px 0px;display: block;}
 .grid-img-cnt a img{
 	height: 35px;

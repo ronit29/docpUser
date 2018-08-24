@@ -120,7 +120,7 @@ class ProfileData extends React.Component {
                         }} className="my-profile-item">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img style={{height:25}} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/notificagtion.svg"} className="img-fluid" />
+                                    <img style={{ height: 25 }} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/notificagtion.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Notifications</h4>
@@ -129,10 +129,10 @@ class ProfileData extends React.Component {
                         </li>
                         <li onClick={() => {
                             this.props.logout()
-                        }} className="my-profile-item">
+                        }} className="my-profile-item d-none d-md-block">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img style={{height:25}} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/logout_orange.svg"} className="img-fluid" />
+                                    <img style={{ height: 25 }} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/logout_orange.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Logout</h4>
@@ -140,6 +140,9 @@ class ProfileData extends React.Component {
                             </a>
                         </li>
                     </ul>
+                </div>
+                <div className="logout-div d-md-none" onClick={() => { this.props.logout() }}>
+                    <p className="fw-500">Logout</p>
                 </div>
             </div>
         );
