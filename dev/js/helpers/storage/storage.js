@@ -8,6 +8,7 @@ function deleteAllCookies() {
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
 }
+
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -17,6 +18,7 @@ function setCookie(name, value, days) {
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
+
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -27,9 +29,16 @@ function getCookie(name) {
     }
     return null;
 }
+
 function eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
 }
+
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    return JSON.parse(window.atob(base64));
+};
 
 const STORAGE = {
     setAuthToken: (token) => {
@@ -46,6 +55,14 @@ const STORAGE = {
         eraseCookie('tokenauth')
         deleteAllCookies()
         return Promise.resolve()
+    },
+    isAgent: () => {
+        let token = getCookie('tokenauth')
+        if (token) {
+            let jwtData = parseJwt(token)
+            return !!jwtData.agent_id
+        }
+
     }
 }
 

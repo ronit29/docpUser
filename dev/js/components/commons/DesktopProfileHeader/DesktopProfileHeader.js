@@ -21,7 +21,7 @@ class DesktopProfileHeader extends React.Component {
 
     render() {
 
-        let profileData = this.props.profiles[this.props.selectedProfile]
+        let profileData = this.props.profiles[this.props.defaultProfile]
         let styles = {}
         // if (this.props.homePage) {
         //     styles = { display: 'block' }
@@ -33,7 +33,7 @@ class DesktopProfileHeader extends React.Component {
         }
 
         return (
-            <header className={this.props.homePage ? "doc-header" : "doc-header header-overflow"} style={styles}>
+            <header className={this.props.homePage ? "doc-header header-relative" : "doc-header header-overflow"} style={styles}>
                 <div className="smiley-img-div">
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/smiley.png"} />
                 </div>

@@ -24,7 +24,8 @@ class BookingView extends React.Component {
         this.state = {
             data: null,
             loading: true,
-            showCancel: false
+            showCancel: false,
+            payment_success: this.props.location.search.includes('payment_success')
         }
     }
 
@@ -174,6 +175,16 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div> : ""
                                                 }
+
+                                                {
+                                                    this.state.payment_success ? <div className="widget mrb-10">
+                                                        <div className="widget-content">
+                                                            <p className="fw-500 text-md mrb-10"><span className="fw-700 text-md">Appointment Received</span></p>
+                                                            <p className="text-xs text-light">Thank you for booking, we are waiting for the confirmation from the doctor</p>
+                                                        </div>
+                                                    </div> : ""
+                                                }
+
 
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">

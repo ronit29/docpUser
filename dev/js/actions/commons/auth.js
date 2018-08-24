@@ -138,7 +138,7 @@ export const agentLogin = (token, cb) => (dispatch) => {
 
 export const OTTLogin = (ott) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        API_GET(`/api/v1/user/create_user_token?token=${ott}`).then((data) => {
+        API_GET(`/api/v1/user/token/exchange?token=${ott}`).then((data) => {
             STORAGE.deleteAuth().then(() => {
                 dispatch({
                     type: RESET_AUTH,

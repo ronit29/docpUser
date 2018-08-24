@@ -121,7 +121,11 @@ export const getUserProfileWithTests = () => (dispatch) => {
 }
 
 export const getAppointmentReports = (appointmentId, type, cb) => (dispatch) => {
-	API_GET(`/api/v1/doctor/prescription-file?appointment=${appointmentId}`).then(function (response) {
+	let url = `/api/v1/diagnostic/lab-report-file?labappointment=${appointmentId}`
+	if (type == 'opd') {
+		url = `/api/v1/doctor/prescription-file?appointment=${appointmentId}`
+	}
+	API_GET(url).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
@@ -278,9 +282,9 @@ export const fetchChatHistory = (cb) => (dispatch) => {
 }
 
 export const fetchOrderById = (orderId) => (dispatch) => {
-	return API_GET(`/api/v1/user/extract_order_details?order_id=${orderId}`)
+	return API_GET(`/api/v1/user/order/${orderId}`)
 }
 
 export const sendAgentBookingURL = (orderId, type, cb) => (dispatch) => {
-	return API_POST(`/api/v1/user/sendbookingurl`, { order_id: orderId, type })
+	return API_POST(`/api/v1/user/order/${orderId}/send`, { order_id: orderId, type })
 }

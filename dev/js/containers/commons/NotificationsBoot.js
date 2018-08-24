@@ -23,7 +23,7 @@ class Notifications extends React.Component {
     }
 
     initSocket(props) {
-        if (STORAGE.checkAuth() && !SOCKET.getInstance()) {
+        if (STORAGE.checkAuth() && !SOCKET.getInstance() && !STORAGE.isAgent()) {
             SOCKET.init(() => {
                 let _socket = SOCKET.getInstance()
                 if (_socket) {
@@ -36,7 +36,7 @@ class Notifications extends React.Component {
     }
 
     initFCM(props) {
-        if (STORAGE.checkAuth() && !FCM.checkInit()) {
+        if (STORAGE.checkAuth() && !FCM.checkInit() && !STORAGE.isAgent()) {
             FCM.init()
         }
     }

@@ -60,7 +60,7 @@ class AppointmentReschedule extends React.Component {
                 if (data.payment_required) {
                     // send to payment selection page
                     this.props.history.push(`/payment/${data.data.orderId}`)
-                    
+
                     // this.setState({
                     //     paymentData: data.data
                     // }, () => {
@@ -188,6 +188,7 @@ class AppointmentReschedule extends React.Component {
                                                     <div className="col-12" style={{ marginTop: 10 }}>
                                                         <div className="lab-visit-time test-report" style={{ textAlign: 'right' }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label">Cancellation Policy<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                            <span className="errorMessage">{this.state.error}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,7 +206,6 @@ class AppointmentReschedule extends React.Component {
                                 (this.state.openPaymentSummary && !!priceData.payable_amount) ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} {...priceData} /> : ""
                             }
 
-                            <span className="errorMessage">{this.state.error}</span>
 
                             <button disabled={this.state.loading} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.proceed.bind(this)}>Reschedule</button>
 
