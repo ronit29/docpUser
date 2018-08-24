@@ -19,8 +19,9 @@ class SearchCriteriaView extends React.Component {
     }
 
     searchProceed(lab_name = "") {
+        let selectedCriterias = (lab_name && lab_name.length > 0) ? [] : this.props.selectedCriterias
         let searchData = {
-            selectedCriterias: this.props.selectedCriterias,
+            selectedCriterias: selectedCriterias,
             selectedLocation: this.props.selectedLocation,
         }
         searchData = encodeURIComponent(JSON.stringify(searchData))
