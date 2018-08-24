@@ -177,7 +177,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 /*accept & update buttons*/
 .action.happend,
 .action.accept{background-color: #f78631}
-.action.accepted{background-color: #e8eff3;}
+.action.accepted{background-color: #f8f8f8;}
 .action.update{background-color: #00c13b;;}
 .action.update.disabled{background-color:#c1c1c1;}
 .action.reschedule{background-color:#989898;}

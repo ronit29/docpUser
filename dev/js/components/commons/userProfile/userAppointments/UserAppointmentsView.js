@@ -28,7 +28,7 @@ class UserAppointmentsView extends React.Component {
         return (
             <div className="widget-content">
                 {
-                    appointments[selectedProfile] ? <ul className="list online-consultant-list dp-user-list" style={{ marginTop: 5 }}>
+                    appointments[selectedProfile] ? <ul className="list online-consultant-list dp-user-list" style={{ marginTop: 15 }}>
                         {
                             (appointments[selectedProfile] && appointments[selectedProfile].length) ?
                                 appointments[selectedProfile].map((app, i) => {
