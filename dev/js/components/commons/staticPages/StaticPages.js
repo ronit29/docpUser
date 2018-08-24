@@ -34,8 +34,8 @@ class StaticPagesView extends React.Component {
 
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader />
-                <div className="subheader d-none d-lg-block" />
+                <ProfileHeader homePage={true} />
+                <div className="sub-header d-none d-lg-block" />
 
                 <div className="d-lg-none">
                     <header className="wallet-header sticky-header chat-header" style={{ height: 50 }} >
