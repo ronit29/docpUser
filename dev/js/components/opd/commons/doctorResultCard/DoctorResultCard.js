@@ -45,22 +45,29 @@ class DoctorProfileCard extends React.Component {
                 <div className="widget-header dr-info">
                     <div className="alpha dr-name">
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds">
-                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 8 }} />
+                            <img src={thumbnail} className="img-fluid img-round" style={{ height: 65, width: 65, marginRight: 12 }} />
                         </InitialsPicture>
-                        <p style={{ flex: 1 }}>{name}</p>
+                        <div className="dr-exp-details" style={{ flex: 1 }}>
+                            <p className="fw-500">{name}</p>
+                            <p className="dr-desg text-md">{this.getQualificationStr(general_specialization || [])}</p>
+                            {
+                                experience_years ? <p className="text-sm fw-500 text-light">{experience_years} Years of Experience</p> : ""
+                            }
+                            <p className="text-light dr-desg">{expStr}</p>
+                        </div>
                     </div>
                     <div className="rating-address beta">
                         <p><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="img-fluid" /></span>{hospital.address}</p>
                     </div>
                 </div>
                 <div className="widget-content" style={{ marginBottom: 8 }} >
-                    <div className="dr-exp-details">
+                    {/* <div className="dr-exp-details">
                         <p className="dr-desg text-md">{this.getQualificationStr(general_specialization || [])}</p>
                         {
                             experience_years ? <p className="text-sm fw-500 text-light">{experience_years} Years of Experience</p> : ""
                         }
                         <p className="text-light dr-desg">{expStr}</p>
-                    </div>
+                    </div> */}
                     <div className="dr-card-book text-right">
                         <div className="pricing">
                             <p className="text-primary fw-700 new-price"><span className="old-price">&#8377; {mrp}</span> &#8377; {deal_price}</p>

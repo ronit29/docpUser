@@ -34,7 +34,7 @@ class UserAddress extends React.Component {
 
         return (
             <div className="widget-content">
-                <ul className="list family-list">
+                <ul className="list family-list dp-user-list">
                     {
                         (address && address.length) ? address.map((curr, key) => {
                             return <li key={key}>

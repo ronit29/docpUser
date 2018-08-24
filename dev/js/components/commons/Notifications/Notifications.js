@@ -65,7 +65,7 @@ class NotificationsView extends React.Component {
                                             <p className="fw-500 text-lg mrt-20">No Notifications !!</p>
                                         </div> : ""
                                     }
-                                    <ul className="list notificaton-list">
+                                    <ul className="list notificaton-list dp-user-list">
                                         {
                                             this.props.notifications.map((note, i) => {
                                                 return <li key={i} onClick={this.openAppointment.bind(this, note)}>

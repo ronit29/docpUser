@@ -150,7 +150,7 @@ class TopBar extends React.Component {
                                 <div className="filterRow">
                                     <span className="tl">Distance</span>
                                     <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
-                                    <span className="bl">0 > KM</span>
+                                    <span className="bl">0 KM</span>
                                     <span className="br">50 KM</span>
 
                                     <Range
