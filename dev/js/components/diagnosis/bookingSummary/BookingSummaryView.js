@@ -271,7 +271,7 @@ class BookingSummaryView extends React.Component {
                                                                 {
                                                                     is_home_collection_enabled ?
                                                                         <div className="lab-visit-time test-report lab-appointment-div row">
-                                                                            <h4 className="title col-12"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Appointment type </h4>
+                                                                            <h4 className="title col-12"><span style={{ display: 'none' }}><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Appointment type </h4>
                                                                             <ul className="inline-list booking-type col-12">
                                                                                 <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
                                                                                 <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>

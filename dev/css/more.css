@@ -378,6 +378,11 @@ ul.inline-list li {
 .diabledtspill{
     color: gray !important;
     border-color: gray !important;
+    text-decoration: line-through;
+}
+
+.diabledtspill:hover, .diabledtspill:focus{
+    text-decoration: line-through !important;
 }
 
 .noappointmentfound{

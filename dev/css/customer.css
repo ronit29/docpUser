@@ -245,7 +245,7 @@
 .pricing .old-price{color: #757575; font-weight: 400; font-size: 12px; text-decoration: line-through;vertical-align: 2px;}
 
 .search-dr-list .time-availability,
-.search-dr-list .Clinc-name{padding-left: 4px; display: inline-block; font-size: 12px; font-weight: bold; vertical-align: middle; width: 85%}
+.search-dr-list .Clinc-name{padding-left: 4px; display: inline-block; font-size: 12px; font-weight: bold; vertical-align: middle;}
 .time-availability, .Clinc-name{vertical-align: bottom}
 .search-dr-list{cursor: pointer}
 
@@ -318,3 +318,118 @@
 .clinic-info-panel{min-width: 100%; width: auto; overflow-x: auto; white-space: nowrap}
 
 .select-location-div{width: 180px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+
+.dp-dr-search-card{
+	background-color: #fff;
+    border-radius: 10px;
+	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
+	position: relative;
+	padding: 40px 0 0;
+}
+
+.dp-dr-search-card-div{
+	padding: 0 8px;
+}
+
+.dp-dr-search-card-address{
+	position: absolute;
+    right: 10px;
+    top: 8px;
+    width: 50%;
+    text-align: right;
+}
+
+.dp-dr-search-loc-icon{
+	width: 18px;
+	height: 18px;
+	float: left;
+}
+
+.dp-dr-search-card-address>p{
+	margin-left: 18px;
+	width: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dp-dr-search-card-img{
+	float: left;
+	width: 65px;
+	height: 65px;
+	border-radius: 50%;
+}
+
+.dp-dr-search-card-details{
+	margin-left: 70px;
+	display: block;
+}
+
+.dp-dr-exp-details-1{
+	margin: 0 0 2px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dp-dr-exp-details-2{
+	color: #757575;
+	font-size: 12px;
+	height: auto;
+	width: auto;
+    max-height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.dp-dr-new-price{
+	color: #f78631;
+	font-size: 16px;
+	float: right;
+}
+
+.dp-dr-old-price{
+	text-decoration: line-through;
+	font-size: 12px;
+	color: #757575;
+	font-weight: 500;
+}
+
+.dp-dr-card-btn{
+	float: right;
+	color: #fff;
+	background-color: #f78631;
+	box-shadow: none;
+	outline: none;
+	border: none;
+	width: 120px;
+	padding: 8px;
+	border-radius: 5px;
+	margin-top: 4px;
+}
+
+.dp-dr-search-card-footer{
+	background-color: rgba(0,0,0,.08);
+	padding: 10px 0;
+	border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.dp-dr-card-footer-div{
+	width: 50%;
+	display: inline-block;
+	padding: 0 8px;
+}
+
+.dp-dr-card-footer-div-img{
+	width: 18px;
+	margin-right: 4px;
+}
+
+.dp-dr-card-footer-div-text{
+	font-size: 12px;
+}
