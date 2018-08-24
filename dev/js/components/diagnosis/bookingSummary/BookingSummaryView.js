@@ -310,13 +310,13 @@ class BookingSummaryView extends React.Component {
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                                <span className="errorMessage">{this.state.error}</span>
                                                             </div>
                                                         </a>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <span className="errorMessage">{this.state.error}</span>
 
 
                                         </section>

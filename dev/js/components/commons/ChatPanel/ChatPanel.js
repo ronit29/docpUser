@@ -84,6 +84,13 @@ class ChatPanel extends React.Component {
                             break
                         }
                     }
+
+                    if (data.message && data.message == 'focus') {
+                        let iframe = this.refs.chat_frame
+                        iframe.scrollTop = iframe.scrollHeight
+                        // window.scrollTo(0, iframe.scrollHeight)
+                        // debugger
+                    }
                 }
             }.bind(this))
         }

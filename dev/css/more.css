@@ -560,23 +560,6 @@ ul.inline-list li {
     }
 }
 
-@media(max-width: 412px){
-    
-    .chat-iframe{
-        height: 438px;
-        
-    }
-}
-@media(max-width: 380px){
-    
-    .chat-iframe{
-        height: 301px;
-        
-    }
-}
-
-
-
 
 .initialsPicture {
     height: 100%;
