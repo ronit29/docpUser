@@ -926,7 +926,7 @@
 }
 
 .social-icons-row{
-	justify-content: space-evenly;
+	justify-content: space-around;
 }
 
 .footer-2-head>p{

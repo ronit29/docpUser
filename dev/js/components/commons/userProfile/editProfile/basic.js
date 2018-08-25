@@ -100,7 +100,7 @@ class BasicDetails extends React.Component {
                                         document.getElementById('imageFilePicker').click()
                                         document.getElementById('imageFilePicker').value = ""
                                     }} />
-                                    <input type="file" style={{ visibility: 'hidden' }} id="imageFilePicker" onChange={this.pickFile.bind(this)} />
+                                    <input type="file" style={{ display: 'none' }} id="imageFilePicker" onChange={this.pickFile.bind(this)} />
                                 </span>
                             </div>
                         </div>
