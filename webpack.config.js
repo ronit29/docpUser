@@ -20,7 +20,11 @@ const client_dev = {
         publicPath: '/dist'
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist'], {
+            verbose: true,
+            dry: false,
+            exclude: ['index.ejs']
+        }),
         new MiniCssExtractPlugin({
             filename: "style.css",
         }),
@@ -44,7 +48,11 @@ const client_prod = {
         publicPath: process.env.CDN_BASE_URL + 'dist'
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist'], {
+            verbose: true,
+            dry: false,
+            exclude: ['index.ejs']
+        }),
         new MiniCssExtractPlugin({
             filename: "[name].[hash].css",
         }),
@@ -68,7 +76,11 @@ const client_staging = {
         publicPath: process.env.CDN_BASE_URL + 'dist'
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist'], {
+            verbose: true,
+            dry: false,
+            exclude: ['index.ejs']
+        }),
         new MiniCssExtractPlugin({
             filename: "[name].[hash].css",
         }),
