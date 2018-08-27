@@ -57,6 +57,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name}`
+		delete filterCriteria.lab_name
 	}
 
 	if (page == 1) {

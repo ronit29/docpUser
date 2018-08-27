@@ -61,10 +61,12 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`
+		delete filterCriteria.doctor_name
 	}
 
 	if (!!filterCriteria.hospital_name) {
 		url += `&hospital_name=${filterCriteria.hospital_name}`
+		delete filterCriteria.hospital_name
 	}
 
 	if (page == 1) {
