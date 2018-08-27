@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias } from '../../actions/index.js'
+import { resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -23,6 +23,7 @@ class Home extends React.Component {
         // this.props.fetchArticles()
         this.props.loadOPDCommonCriteria()
         this.props.loadLabCommonCriterias()
+        this.props.resetFilters()
     }
 
     render() {
@@ -62,7 +63,8 @@ const mapDispatchToProps = (dispatch) => {
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         getUserProfile: () => dispatch(getUserProfile()),
         fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
-        fetchArticles: () => dispatch(fetchArticles())
+        fetchArticles: () => dispatch(fetchArticles()),
+        resetFilters: () => dispatch(resetFilters()),
     }
 }
 
