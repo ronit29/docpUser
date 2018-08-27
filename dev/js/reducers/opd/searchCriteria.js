@@ -45,6 +45,19 @@ export default function (state = defaultState, action) {
                 return true
             })
 
+            /**
+             * QUICK HACK TO MAKE CONDITIONS AND SPECIALIZATIONS MUTUALLY EXCLUSIVE 
+             * TO BE CHANGED IN FUTURE 
+            **/
+            if (action.payload.type == 'condition') {
+                newState.selectedCriterias = []
+                found = false
+            } else {
+                newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
+                    return curr.type != 'condition'
+                })
+            }
+
             if (!found) {
                 newState.selectedCriterias.push({
                     ...action.payload.criteria,

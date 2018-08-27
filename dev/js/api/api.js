@@ -21,6 +21,8 @@ function rejectHandler(response, callback) {
 
     if (response.response && response.response.data && response.response.data.request_errors) {
         response = response.response.data.request_errors
+    } else if (response.response && response.response.data) {
+        response = response.response.data
     }
 
     callback(response)
