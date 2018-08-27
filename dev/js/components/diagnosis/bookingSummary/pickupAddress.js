@@ -8,6 +8,18 @@ class PickupAddress extends React.Component {
         }
     }
 
+    getAddressStr(address) {
+        let addressStr = ""
+        addressStr = address.address
+        if (address.land_mark) {
+            addressStr += ", " + address.land_mark
+        }
+        if (address.locality) {
+            addressStr += ", " + address.locality
+        }
+        return addressStr
+    }
+
     render() {
 
         let addressStr = ""
@@ -16,6 +28,12 @@ class PickupAddress extends React.Component {
             this.props.address.map((add) => {
                 if (add.id == this.props.selectedAddress) {
                     addressStr = add.address
+                    if (add.land_mark) {
+                        addressStr += ", " + add.land_mark
+                    }
+                    if (add.locality) {
+                        addressStr += ", " + add.locality
+                    }
                 }
             })
         }
@@ -54,7 +72,7 @@ class PickupAddress extends React.Component {
                                                         this.props.selectPickupAddress(add.id)
                                                         this.setState({ selectorOpen: false })
                                                     }}>
-                                                        <span className="addressText">{add.address}</span>
+                                                        <span className="addressText">{this.getAddressStr(add)}</span>
                                                         <span className="selectedText">Selected</span>
                                                     </div>
                                                 })
