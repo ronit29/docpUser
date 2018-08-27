@@ -256,7 +256,7 @@ class UserSignupView extends React.Component {
                                     <span className="text-xs"> (will be used at the time of sample pickup)</span>
                                 </div>
                                 <div className="labelWrap">
-                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} ref="locality" required autocomplete="off" />
+                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} ref="locality" required autoComplete="off" />
                                     <label htmlFor="locality">Select Locality</label>
 
                                     {
@@ -282,7 +282,7 @@ class UserSignupView extends React.Component {
                                     <label htmlFor="address">House Address</label>
                                 </div>
                                 <div className="labelWrap">
-                                    <input id="land_mark" name="land_mark" type="text" onChange={this.inputHandler.bind(this)} value={this.state.land_mark} required ref="land_mark" autocomplete="off" />
+                                    <input id="land_mark" name="land_mark" type="text" onChange={this.inputHandler.bind(this)} value={this.state.land_mark} required ref="land_mark" autoComplete="off" />
                                     <label htmlFor="land_mark">Land Mark</label>
 
                                     {
