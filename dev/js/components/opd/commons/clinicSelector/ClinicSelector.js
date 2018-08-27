@@ -50,7 +50,7 @@ class ClinicSelector extends React.Component {
                                                 {
                                                     Object.keys(hospital.timings).map((timingKey, key) => {
                                                         return <p className="fw-700" key={key}>
-                                                            <label className="fw-700 text-md text-primary">
+                                                            <label className="fw-700 text-md text-primary" style={{verticalAlign: 'initial'}} >
                                                                 {timingKey}
                                                             </label>
                                                             {" " + hospital.timings[timingKey].join(', ')}
