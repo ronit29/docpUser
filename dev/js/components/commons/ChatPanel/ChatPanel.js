@@ -146,17 +146,17 @@ class ChatPanel extends React.Component {
 
         if (qualification_str) {
             final_str = qualification_str
-        }
 
-        if (general_specialization && general_specialization.length) {
-            final_str += `${general_specialization[0].name}`
-        }
+            if (general_specialization && general_specialization.length) {
+                final_str += `${general_specialization[0].name}`
+            }
 
-        if (practicing_since) {
-            let curr_year = (new Date()).getFullYear()
-            let expYears = curr_year - parseInt(practicing_since)
-            if (expYears >= 5) {
-                final_str += ` | ${expYears} Yr. Experience`
+            if (practicing_since) {
+                let curr_year = (new Date()).getFullYear()
+                let expYears = curr_year - parseInt(practicing_since)
+                if (expYears >= 5) {
+                    final_str += ` | ${expYears} Yr. Experience`
+                }
             }
         }
 
