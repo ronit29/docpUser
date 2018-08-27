@@ -1,4 +1,5 @@
 import React from 'react';
+import SnackBar from 'node-snackbar'
 
 class UserSignupView extends React.Component {
     constructor(props) {
@@ -111,6 +112,22 @@ class UserSignupView extends React.Component {
                     validated = this.refs[prp].value.match(/^[1-9][0-9]{5}$/)
                     break
                 }
+                case "locality": {
+                    if (this.state.locality && this.state.locality_place_id) {
+                        validated = true
+                    } else {
+                        this.refs[prp].value = ""
+                    }
+                    break
+                }
+                case "land_mark": {
+                    if (this.state.land_mark && this.state.landmark_place_id) {
+                        validated = true
+                    } else {
+                        this.refs[prp].value = ""
+                    }
+                    break
+                }
                 default: {
                     validated = true
                     break
@@ -127,12 +144,17 @@ class UserSignupView extends React.Component {
         if (addAddress) {
             if (this.state.edit) {
                 this.props.updateUserAddress(this.state, (err, data) => {
+                    if (err) {
+                        SnackBar.show({ pos: 'bottom-center', text: "Could not update address." });
+                    }
                     this.props.history.go(-1)
                 })
             } else {
                 this.props.addUserAddress(this.state, (err, res) => {
                     if (!err) {
                         this.props.selectPickupAddress(res.id)
+                    } else {
+                        SnackBar.show({ pos: 'bottom-center', text: "Could not add address." });
                     }
                     // go back
                     this.props.history.go(-1)
@@ -153,7 +175,7 @@ class UserSignupView extends React.Component {
             let { place_id, formatted_address, geometry } = place
             let lat = geometry.location.lat()
             let long = geometry.location.lng()
-            
+
             if (type == 'land_mark') {
                 this.setState({
                     land_mark: formatted_address,
@@ -225,7 +247,7 @@ class UserSignupView extends React.Component {
                                     <span className="text-xs"> (will be used at the time of sample pickup)</span>
                                 </div>
                                 <div className="labelWrap">
-                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} required />
+                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} ref="locality" required />
                                     <label htmlFor="locality">Select Locality</label>
 
                                     {
