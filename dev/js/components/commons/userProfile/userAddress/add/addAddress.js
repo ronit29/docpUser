@@ -39,9 +39,18 @@ class UserSignupView extends React.Component {
 
         var request = {
             input: location,
-            types: ['(regions)'],
+            types: ['establishment'],
             componentRestrictions: { country: 'in' }
         };
+
+        if (resultField == 'locality_results') {
+            request = {
+                input: location,
+                types: ['(regions)'],
+                componentRestrictions: { country: 'in' }
+            };
+        }
+
         if (location) {
             auto.getPlacePredictions(request, function (results, status) {
                 results = results || []
@@ -172,13 +181,13 @@ class UserSignupView extends React.Component {
         service.getDetails({
             reference: location.reference
         }, function (place, status) {
-            let { place_id, formatted_address, geometry } = place
+            let { place_id, formatted_address, geometry, name } = place
             let lat = geometry.location.lat()
             let long = geometry.location.lng()
 
             if (type == 'land_mark') {
                 this.setState({
-                    land_mark: formatted_address,
+                    land_mark: name,
                     landmark_place_id: place_id,
                     landmark_location_lat: lat,
                     landmark_location_long: long,
@@ -247,7 +256,7 @@ class UserSignupView extends React.Component {
                                     <span className="text-xs"> (will be used at the time of sample pickup)</span>
                                 </div>
                                 <div className="labelWrap">
-                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} ref="locality" required />
+                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} ref="locality" required autocomplete="off" />
                                     <label htmlFor="locality">Select Locality</label>
 
                                     {
@@ -273,7 +282,7 @@ class UserSignupView extends React.Component {
                                     <label htmlFor="address">House Address</label>
                                 </div>
                                 <div className="labelWrap">
-                                    <input id="land_mark" name="land_mark" type="text" onChange={this.inputHandler.bind(this)} value={this.state.land_mark} required ref="land_mark" />
+                                    <input id="land_mark" name="land_mark" type="text" onChange={this.inputHandler.bind(this)} value={this.state.land_mark} required ref="land_mark" autocomplete="off" />
                                     <label htmlFor="land_mark">Land Mark</label>
 
                                     {
