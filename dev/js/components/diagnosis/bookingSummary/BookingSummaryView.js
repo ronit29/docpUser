@@ -167,6 +167,16 @@ class BookingSummaryView extends React.Component {
         })
     }
 
+    sendAgentBookingURL() {
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms', (err, res) => {
+            if (err) {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+            } else {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+            }
+        })
+    }
+
     render() {
 
         let tests = []
@@ -330,9 +340,7 @@ class BookingSummaryView extends React.Component {
                                         }
 
                                         {
-                                            this.state.order_id ? <button onClick={() => {
-                                                this.props.sendAgentBookingURL(this.state.order_id, 'sms')
-                                            }} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Send SMS EMAIL</button> : <button data-disabled={
+                                            this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Send SMS EMAIL</button> : <button data-disabled={
                                                 (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (address_picked_verified || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
                                             } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
                                         }

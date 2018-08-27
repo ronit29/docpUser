@@ -17,11 +17,10 @@ class DirectBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
         let OTT = parsed.token
-        let order_id = parsed.order_id
+        // let order_id = parsed.order_id
 
-        if (OTT && order_id) {
-
-            this.props.OTTLogin(OTT).then(() => {
+        if (OTT) {
+            this.props.OTTLogin(OTT).then((order_id) => {
                 return this.props.fetchOrderById(order_id)
             }).then((data) => {
                 if (data) {

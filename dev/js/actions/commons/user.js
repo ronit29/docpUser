@@ -286,5 +286,9 @@ export const fetchOrderById = (orderId) => (dispatch) => {
 }
 
 export const sendAgentBookingURL = (orderId, type, cb) => (dispatch) => {
-	return API_POST(`/api/v1/user/order/${orderId}/send`, { order_id: orderId, type })
+	API_POST(`/api/v1/user/order/${orderId}/send`, { order_id: orderId, type }).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
 }

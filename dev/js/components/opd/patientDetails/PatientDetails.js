@@ -123,6 +123,16 @@ class PatientDetails extends React.Component {
         }
     }
 
+    sendAgentBookingURL() {
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms', (err, res) => {
+            if (err) {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+            } else {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+            }
+        })
+    }
+
     render() {
 
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
@@ -263,9 +273,7 @@ class PatientDetails extends React.Component {
 
 
                             {
-                                this.state.order_id ? <button onClick={() => {
-                                    this.props.sendAgentBookingURL(this.state.order_id, 'sms')
-                                }} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
+                                this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
                             }
