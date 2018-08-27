@@ -1022,3 +1022,11 @@ cursor: pointer;
     font-size: 18px;
     color: #f78631;
 }
+
+@media(min-width: 993px){
+    .update-profile-img-btn{
+        left: 50% !important;
+        transform: translateX(-50%);
+        width: 600px;
+    }
+}

@@ -162,7 +162,7 @@ class BasicDetails extends React.Component {
                             guides={true}
                             background={false}
                         />
-                        <a style={{ zIndex: 9999999 }} href="#" onClick={this.finishCrop.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile Image</a>
+                        <a style={{ zIndex: 9999999 }} href="#" onClick={this.finishCrop.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center update-profile-img-btn">Update Profile Image</a>
                     </div> : ""
                 }
             </section>
