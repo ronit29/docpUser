@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 const queryString = require('query-string');
+import SnackBar from 'node-snackbar'
 
 import { OTTLogin, fetchOrderById, getUpcomingAppointments, fetchHeatlhTip, fetchOrderHistory, toggleDiagnosisCriteria, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, clearAllTests, selectPickupAddress, selectLabAppointmentType } from '../../actions/index.js'
 import Loader from '../../components/commons/Loader'
@@ -31,7 +32,8 @@ class DirectBooking extends React.Component {
                     }
                 }
             }).catch(() => {
-                debugger
+                SnackBar.show({ pos: 'bottom-center', text: "Token Expired." });
+                this.props.history.push('/')
             })
 
         } else {
