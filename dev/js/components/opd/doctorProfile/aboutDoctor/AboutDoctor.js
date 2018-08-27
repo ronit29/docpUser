@@ -31,7 +31,7 @@ class AboutDoctor extends React.Component {
                 })
             }
             this.setState({
-                lessAbout: about.slice(0, 100)
+                lessAbout: about.slice(0, 100) + "..."
             })
         }
     }
@@ -44,12 +44,12 @@ class AboutDoctor extends React.Component {
         if (this.state.requiredReadMore) {
             button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
                 this.setState({ readMore: false, lessAbout: about })
-            }}>READ MORE</a>
+            }}> READ MORE &#9660;</a>
 
             if (!this.state.readMore) {
                 button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
-                    this.setState({ readMore: true, lessAbout: about.slice(0, 100) })
-                }}>SHOW LESS</a>
+                    this.setState({ readMore: true, lessAbout: about.slice(0, 100) + "..." })
+                }}> SHOW LESS &#9650;</a>
             }
         }
 
