@@ -1030,3 +1030,9 @@ cursor: pointer;
         width: 600px;
     }
 }
+
+.fiftyoff{
+    font-size: 14px;
+    color: #ea832e;
+    font-weight: bold;
+}
