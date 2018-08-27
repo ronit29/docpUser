@@ -36,8 +36,8 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 	// if(sits_at.length == 0) sits_at = ['clinic','hospital'];
 	sits_at = sits_at.join(',')
 
-	let lat = 28.4595
-	let long = 77.0226
+	let lat = 28.644800
+	let long = 77.216721
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
