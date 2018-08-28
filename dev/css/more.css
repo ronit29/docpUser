@@ -1054,7 +1054,6 @@ cursor: pointer;
 
 .ofr-ribbon{
     background: #fc092b;
-    border: 0 solid rgba(0,0,0,0.2);
     color: #fff;
     font-size: 13px;
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.13);
@@ -1063,7 +1062,6 @@ cursor: pointer;
 
 span.ofr-ribbon{
     border-width: 1px 1px 2px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.33);
     margin: 0;
     padding: 4px 10px;
     position: absolute;
@@ -1074,8 +1072,8 @@ span.ofr-ribbon:after {
     border-width: 6px;
     border-style: solid;
     border-color: #73818800 #ed3f3a00 #bd2b26 #bd2b26;
-    top: -13px;
+    top: -12px;
     content: "";
     position: absolute;
-    right: -1px;
+    right: 0px;
 }
