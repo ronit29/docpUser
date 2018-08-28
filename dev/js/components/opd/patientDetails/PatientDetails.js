@@ -97,7 +97,7 @@ class PatientDetails extends React.Component {
 
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/opd/appointment/${data.data.id}`)
+                    this.props.history.replace(`/opd/appointment/${data.data.id}?payment_success=true`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
