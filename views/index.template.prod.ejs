@@ -47,7 +47,8 @@
     <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-pgh4txgxAWWUy0480Ezo-UKiZP-kP4o&libraries=places,geometry"></script>
     <script type="text/javascript">
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        if(isSafari){
+        var msie = ua.indexOf("MSIE ");
+        if(isSafari || msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)){
             console.log("PUSH NOTIFICATIONS NOT SUPPORTED ON SAFARI")
         }
         else {
