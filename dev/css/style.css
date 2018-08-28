@@ -165,7 +165,7 @@ border-bottom: 1px solid #dfdfdf;
 .grid-img-cnt a span{
 	display: block;
 	text-align: center;
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: 500;
 	line-height: 1;
 	margin-top: 10px;
@@ -200,6 +200,9 @@ background: black;
 }*/
 /*side bar cards style sheet*/
 
+.mt-21{
+	margin-top: 21px;
+}
 @media screen and (max-width: 380px) {
     .wrng-mssg span {
      font-size: 12px ;
