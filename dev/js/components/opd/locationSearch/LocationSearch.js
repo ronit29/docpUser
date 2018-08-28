@@ -50,7 +50,15 @@ class LocationSearch extends React.Component {
         service.getDetails({
             reference: location.reference
         }, function (place, status) {
-            this.props.selectLocation(place)
+
+            let location_object = {
+                formatted_address: place.formatted_address,
+                name: place.name,
+                place_id: place.place_id,
+                geometry: place.geometry
+            }
+
+            this.props.selectLocation(location_object)
             setTimeout(() => {
                 this.props.history.go(-1)
             }, 100)
@@ -79,7 +87,13 @@ class LocationSearch extends React.Component {
                 let geocoder = new google.maps.Geocoder
                 geocoder.geocode({ 'location': latlng }, (results, status) => {
                     if (results && results[0]) {
-                        this.props.selectLocation(results[0])
+                        let location_object = {
+                            formatted_address: results[0].formatted_address,
+                            name: results[0].name,
+                            place_id: results[0].place_id,
+                            geometry: results[0].geometry
+                        }
+                        this.props.selectLocation(location_object)
                         clearTimeout(timeout)
                         setTimeout(() => {
                             this.props.history.go(-1)
@@ -114,7 +128,7 @@ class LocationSearch extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{top: 65}}>
+                            <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 65 }}>
                                 <div className="container-fluid">
                                     {/* <div className="row">
                                         <div className="col-12">
@@ -127,7 +141,7 @@ class LocationSearch extends React.Component {
                                         </div>
                                     </div> */}
                                     <div className="row">
-                                        <div className="col-12" style={{paddingTop: 10}}>
+                                        <div className="col-12" style={{ paddingTop: 10 }}>
                                             <div className="search-row">
                                                 <div className="adon-group location-detect-field">
                                                     <input type="text" value={this.state.search} onChange={this.inputHandler.bind(this)} className="form-control input-md search-input no-shadow" placeholder="Select any city or locality" id="topLocationSearch" disabled={this.state.detectLoading} />
