@@ -32,8 +32,8 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 			return finalStr
 		}, "")
 
-	let lat = 28.4595
-	let long = 77.0226
+	let lat = 28.644800
+	let long = 77.216721
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
@@ -57,6 +57,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name}`
+		delete filterCriteria.lab_name
 	}
 
 	if (page == 1) {

@@ -51,7 +51,6 @@ export default function (state = defaultState, action) {
             **/
             if (action.payload.type == 'condition') {
                 newState.selectedCriterias = []
-                found = false
             } else {
                 newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
                     return curr.type != 'condition'

@@ -27,7 +27,7 @@ class DesktopProfileHeader extends React.Component {
         //     styles = { display: 'block' }
         // }
 
-        let location = "Gurgaon"
+        let location = "Delhi"
         if (this.props.selectedLocation) {
             location = this.props.selectedLocation.formatted_address.slice(0, 10)
         }

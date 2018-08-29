@@ -63,7 +63,7 @@ const client_prod = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
-            template: '!!raw-loader!./views/index.template.ejs'
+            template: '!!raw-loader!./views/index.template.prod.ejs'
         })
     ]
 }

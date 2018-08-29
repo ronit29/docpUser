@@ -104,13 +104,46 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    isSelectedLocationNearDelhi() {
+        try {
+            if (this.props.selectedLocation) {
+                let { geometry } = this.props.selectedLocation
+
+                var latitude1 = 28.644800;
+                var longitude1 = 77.216721;
+                var latitude2 = geometry.location.lat;
+                if (typeof geometry.location.lat == 'function') {
+                    latitude2 = geometry.location.lat()
+                }
+                var longitude2 = geometry.location.lng;
+                if (typeof geometry.location.lng == 'function') {
+                    longitude2 = geometry.location.lng()
+                }
+                var distance = 0
+
+                if (google) {
+                    var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
+                }
+
+                return (distance / 1000) < 50
+            }
+            return true
+        } catch (e) {
+            return true
+        }
+    }
+
     render() {
 
         return (
             <div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
-                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
-                    <LabsList {...this.props} />
+                    {
+                        this.isSelectedLocationNearDelhi() ? <div>
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
+                            <LabsList {...this.props} />
+                        </div> : <div className="noopDiv"><img src={ASSETS_BASE_URL + "/images/nonop.png"} className="noop" /></div>
+                    }
                 </CriteriaSearch>
             </div>
         );

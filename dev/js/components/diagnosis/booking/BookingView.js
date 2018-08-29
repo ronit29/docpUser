@@ -207,8 +207,8 @@ class BookingView extends React.Component {
                                                     {
                                                         this.state.payment_success ? <div className="widget mrb-10">
                                                             <div className="widget-content">
-                                                                <p className="fw-500 text-md mrb-10"><span className="fw-700 text-md">Appointment Received</span></p>
-                                                                <p className="text-xs text-light">Thank you for booking, we are waiting for the confirmation from the lab.</p>
+                                                                <p className="fw-500 text-md mrb-10"><span className="fw-700 text-md">Thanks! Appointment Received</span></p>
+                                                                <p className="text-xs text-light">We are waiting for the confirmation from the lab and we will get back to you shortly.</p>
                                                             </div>
                                                         </div> : ""
                                                     }
@@ -216,7 +216,7 @@ class BookingView extends React.Component {
                                                     <div className="widget mrb-10">
                                                         <div className="widget-content">
                                                             <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
-                                                            <p className="text-xs text-light">Details has been send to your email and mobile number</p>
+                                                            <p className="text-xs text-light">Details have been sent to your email-id and mobile number.</p>
                                                             {
                                                                 actions.indexOf(6) > -1 ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                             }
@@ -274,11 +274,13 @@ class BookingView extends React.Component {
                                                     <div className="widget mrt-10">
                                                         <div className="widget-content">
                                                             <div className="test-report">
-                                                                <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a href="#" onClick={(e) => {
-                                                                    e.preventDefault()
-                                                                    e.stopPropagation()
-                                                                    this.toogleTestDetails()
-                                                                }} className="text-primary fw-700 text-sm">View Details</a></span></h4>
+                                                                <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right">
+                                                                    {/* <a href="#" onClick={(e) => {
+                                                                        e.preventDefault()
+                                                                        e.stopPropagation()
+                                                                        this.toogleTestDetails()
+                                                                    }} className="text-primary fw-700 text-sm">View Details</a> */}
+                                                                </span></h4>
 
                                                                 {
                                                                     lab_test.map((test, i) => {

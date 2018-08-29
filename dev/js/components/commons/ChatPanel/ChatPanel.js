@@ -146,17 +146,17 @@ class ChatPanel extends React.Component {
 
         if (qualification_str) {
             final_str = qualification_str
-        }
 
-        if (general_specialization && general_specialization.length) {
-            final_str += `${general_specialization[0].name}`
-        }
+            if (general_specialization && general_specialization.length) {
+                final_str += `${general_specialization[0].name}`
+            }
 
-        if (practicing_since) {
-            let curr_year = (new Date()).getFullYear()
-            let expYears = curr_year - parseInt(practicing_since)
-            if (expYears >= 5) {
-                final_str += ` | ${expYears} Yr. Experience`
+            if (practicing_since) {
+                let curr_year = (new Date()).getFullYear()
+                let expYears = curr_year - parseInt(practicing_since)
+                if (expYears >= 5) {
+                    final_str += ` | ${expYears} Yr. Experience`
+                }
             }
         }
 
@@ -186,7 +186,7 @@ class ChatPanel extends React.Component {
         return (
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4 chat-hide-mobile"}>
-                <div className={this.props.homePage ? "chatbox-right" : "chatbox-right mt-4"}>
+                <div className={this.props.homePage ? "chatbox-right" : "chatbox-right mt-21"}>
                     {/* chat header */}
                     <div className="chat-head">
                         <div className="hd-chat" onClick={() => {
@@ -240,7 +240,8 @@ class ChatPanel extends React.Component {
                         </div> */}
                         <div className="wrng-mssg">
                             <img src="/assets/images/warning-icon.png" />
-                            <span>Not for emergencies! In the case of emergency please visit a hospital.</span>
+                            <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
+</span>
                         </div>
                     </div>
 
