@@ -7,6 +7,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
+import GTM from '../../../helpers/gtm.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -45,6 +46,10 @@ class BookingView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
+        }
+
+        if (this.state.payment_success) {
+            GTM.sendEvent({ event: 'appointment-booked-opd', data: "" })
         }
     }
 

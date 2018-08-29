@@ -4,6 +4,7 @@ const queryString = require('query-string');
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import GTM from '../../../helpers/gtm.js'
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -60,6 +61,8 @@ class UserLoginView extends React.Component {
                         this.props.history.go(-1)
                     }
                 } else {
+                    // gtm event
+                    GTM.sendEvent({ event: 'user-registered', data: "" })
                     if (parsed.callback) {
                         this.props.history.replace(`/signup?callback=${parsed.callback}`)
                     } else {

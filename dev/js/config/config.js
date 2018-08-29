@@ -39,7 +39,7 @@ const DEV_CONFIG = {
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io",
     PG_URL: "https://pgdev.policybazaar.com/dp/pay/init",
-    CHAT_URL: "https://chatqa.docprime.com/livechat",
+    CHAT_URL: "https://telemed.docprime.com/livechat",
     env: "dev"
 }
 
