@@ -299,3 +299,19 @@ export const setChatRoomId = (roomId) => (dispatch) => {
 		payload: roomId || null
 	})
 }
+
+export const submitCareerProfile = (postCareerData, cb) => (dispatch) => {
+	API_POST('/api/v1/user/careers/upload', postCareerData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const submitContactMessage = (postContactData, cb) => (dispatch) => {
+	API_POST('/api/v1/user/contactus', postContactData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}

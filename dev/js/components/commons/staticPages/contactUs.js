@@ -1,11 +1,34 @@
 import React from 'react';
+import SnackBar from 'node-snackbar'
 
 class ContactUs extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            name: "",
+            mobile: "",
+            email: "",
+            message: ""
         }
+    }
+
+    changeHandler = (event, key) => {
+        this.setState({
+            [key]: event.target.value
+        });
+    }
+
+    onSubmitData(e) {
+        e.preventDefault();
+        this.props.submitContactMessage(this.state, (error, res) => {
+            this.setState({
+                name: "",
+                mobile: "",
+                email: "",
+                message: ""
+            });
+            SnackBar.show({ pos: 'bottom-center', text: "Contact Request taken successfully." });
+        });
     }
 
     render() {
@@ -37,18 +60,18 @@ class ContactUs extends React.Component {
                     <div className="col-md-6 col-12">
                         <div className="shadow">
                             <div className="form-title mrt-10">Send Us a Message</div>
-                            <form>
+                            <form onSubmit={this.onSubmitData.bind(this)}>
                                 <div className="contact-fields">
-                                    <input type="text" className="form-control" placeholder="Name" required />
+                                    <input type="text" className="form-control" placeholder="Name" value={this.state.name} onChange={(e) => { this.changeHandler(e, 'name') }} required />
                                 </div>
                                 <div className="contact-fields">
-                                    <input type="email" className="form-control" placeholder="Email" required />
+                                    <input type="email" className="form-control" placeholder="Email" value={this.state.email} onChange={(e) => { this.changeHandler(e, 'email') }} required />
                                 </div>
                                 <div className="contact-fields">
-                                    <input type="number" className="form-control" placeholder="Mobile Number" max={9999999999} min={7000000000} required />
+                                    <input type="number" className="form-control" placeholder="Mobile Number" max={9999999999} min={7000000000} value={this.state.mobile} onChange={(e) => { this.changeHandler(e, 'mobile') }} required />
                                 </div>
                                 <div className="contact-fields">
-                                    <textarea className="form-control" placeholder="Message" rows={3} required defaultValue={""} />
+                                    <textarea className="form-control" placeholder="Message" rows={3} value={this.state.message} onChange={(e) => { this.changeHandler(e, 'message') }} required />
                                 </div>
                                 <div className="submit">
                                     <button type="submit" className="btn submit-btn">Submit</button>
