@@ -8,6 +8,7 @@ import Disclaimer from './disclaimer'
 import Terms from './terms'
 import Careers from './careers'
 import Media from './media'
+import Doctorsignup from './doctorsignup'
 
 import Footer from '../../commons/Home/footer'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -86,6 +87,10 @@ class StaticPagesView extends React.Component {
 
                 <Route exact path={'/media'} render={(props) => {
                     return <Media {...this.props} {...props} />
+                }} />
+
+                <Route exact path={'/doctorsignup'} render={(props) => {
+                    return <Doctorsignup {...this.props} {...props} />
                 }} />
 
                 <Footer />

@@ -762,3 +762,122 @@ input[type=number]::-webkit-outer-spin-button {
 .facebook-feed::-webkit-scrollbar{ 
 	display: none;
 }
+
+.dsp-logo-icon-div{
+	margin-top: 10px;
+}
+
+.dsp-logo-text{
+	color: #ffffff;	
+	font-size: 18px;
+	margin-bottom: 0;
+}
+
+.dsp-logo-icon{
+	width: 150px;
+	margin-left: 14px;
+}
+
+.dsp-main-info-div{
+	text-align: center;
+}
+
+.dsp-phone-img-div{
+	display: inline-block;
+	position: relative;
+	z-index: 2;
+	vertical-align: middle;
+}
+
+.dsp-img-info-div{
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	max-width: 550px;
+	text-align: center;
+	padding: 16px 36px;
+	padding-left: 56px;
+	margin-left: -50px;
+	margin-top: -12px;
+	border-radius: 30px;
+	background-color: #ffffff;
+	box-shadow: 0px 6px 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+.dsp-detail-text{
+	font-size: 24px;
+	color: #f68a32;
+}
+
+.dsp-signup-label{
+	text-align: left;
+	font-size: 19px;
+	color: #757575;
+	margin-bottom: 4px;
+}
+
+.dsp-send-btn, .dsp-send-btn:hover{
+	border-radius: 12px;
+	border: none;
+	padding: 8px 30px;
+  	background-color: #f78631;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0; 
+}
+
+@media(max-width: 412px){
+	.dsp-container{
+		padding-top: 10px;
+	}
+}
+
+@media(max-width: 992px){
+	.dsp-phone-img-div{
+		display: none;
+	}
+	.dsp-img-info-div{
+		margin: 0;
+	}
+}
+
+@media(max-width: 575px){
+	.dsp-body-wrapper{
+		padding-bottom: 120px;
+	}
+	.dsp-main-info-div{
+		margin-top: 20px;
+	}
+	.dsp-img-info-div{
+		padding: 16px;
+		margin: 0;
+	}
+	.dsp-logo{
+		width: 100%;
+	}
+	.dsp-detail-text{
+		font-size: 20px;
+	}
+	.dsp-signup-label{
+		font-size: 16px;
+	}
+}
+
+.dsp-city-mobile-div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#dsp-city{
+    margin-left: 8px;
+}
+
+#dsp-mobile, #dsp-city{
+    flex: 1;
+}
