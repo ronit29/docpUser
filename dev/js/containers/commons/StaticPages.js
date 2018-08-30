@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { submitCareerProfile, submitContactMessage } from '../../actions/index.js'
+import { submitCareerProfile, submitContactMessage, signupDoctor } from '../../actions/index.js'
 
 import StaticPagesView from '../../components/commons/staticPages'
 
@@ -35,7 +35,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         submitCareerProfile: (postCareerData, cb) => dispatch(submitCareerProfile(postCareerData, cb)),
-        submitContactMessage: (postContactData, cb) => dispatch(submitContactMessage(postContactData, cb))
+        submitContactMessage: (postContactData, cb) => dispatch(submitContactMessage(postContactData, cb)),
+        signupDoctor: (signupDoctorData, cb) => dispatch(signupDoctor(signupDoctorData, cb))
     }
 }
 

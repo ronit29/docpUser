@@ -74,6 +74,7 @@ const routes = [
     { path: '/terms', exact: true, component: StaticPages },
     { path: '/careers', exact: true, component: StaticPages },
     { path: '/media', exact: true, component: StaticPages },
+    { path: '/doctorsignup', exact: true, component: StaticPages },
 
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },

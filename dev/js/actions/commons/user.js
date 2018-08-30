@@ -308,3 +308,11 @@ export const submitContactMessage = (postContactData, cb) => (dispatch) => {
 		if (cb) cb(error, null);
 	})
 }
+
+export const signupDoctor = (signupDoctorData, cb) => (dispatch) => {
+	API_POST('/api/v1/user/onlinelead/create', signupDoctorData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
