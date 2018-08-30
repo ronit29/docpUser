@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserProfile } from '../../../actions/index.js'
+import { getUserProfile, setChatRoomId } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
 import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat } from '../../../actions/index.js'
@@ -13,7 +13,7 @@ class ChatPanel extends React.Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     render() {
@@ -49,7 +49,8 @@ const mapDispatchToProps = (dispatch) => {
         resetFilters: () => dispatch(resetFilters()),
         clearExtraTests: () => dispatch(clearExtraTests()),
         selectLocation: (location) => dispatch(selectLocation(location)),
-        loginViaChat: (token) => dispatch(loginViaChat(token))
+        loginViaChat: (token) => dispatch(loginViaChat(token)),
+        setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId))
     }
 }
 

@@ -67,6 +67,8 @@ class ChatPanel extends React.Component {
 
                         case "chat_loaded": {
                             if (data.data.rid) {
+                                // save current room
+                                this.props.setChatRoomId(data.data.rid)
                                 this.setState({ selectedRoom: data.data.rid })
                             }
                             break
@@ -94,6 +96,15 @@ class ChatPanel extends React.Component {
                 }
             }.bind(this))
         }
+
+        // setTimeout(() => {
+        //     debugger
+        //     // Default export is a4 paper, portrait, using milimeters for units
+        //     var doc = new jsPDF()
+        //     doc.fromHTML(`<h1>Hello world!</h1>`, 10, 10)
+        //     doc.save('a4.pdf')
+
+        // }, 3000)
     }
 
     dispatchCustomEvent(eventName, data = {}) {
@@ -240,8 +251,9 @@ class ChatPanel extends React.Component {
                         </div> */}
                         <div className="wrng-mssg">
                             <img src="/assets/images/warning-icon.png" />
-                            <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
-</span>
+                            <span>
+                                Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
+                            </span>
                         </div>
                     </div>
 
