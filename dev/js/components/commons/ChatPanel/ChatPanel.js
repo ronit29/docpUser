@@ -4,6 +4,7 @@ import CONFIG from '../../../config'
 
 import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
+import GTM from '../../../helpers/gtm.js'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -30,7 +31,6 @@ class ChatPanel extends React.Component {
         if (window) {
             // handling events sent by iframe
             window.addEventListener('message', function ({ data }) {
-                console.log("MESSAGE RECEIVED AT CLIENT SIDE - ", data)
                 if (data) {
                     switch (data.event) {
                         case "RoomAgent": {
@@ -39,6 +39,10 @@ class ChatPanel extends React.Component {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
                                 })
+                                let analyticData = {
+                                    'Category':'Chat','Action':'ForwardtoDoctor','CustomerID':'<pass value here>','leadid':0,'Type':'<pass value here>','event':'Forward-to-Doctor'
+                                }
+                                GTM.sendEvent({ data: analyticData })
                             })
                             break
                         }
