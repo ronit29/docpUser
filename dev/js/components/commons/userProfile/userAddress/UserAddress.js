@@ -1,5 +1,4 @@
-import React from 'react';
-import Radio from 'material-ui/Radio';
+import React from 'react'
 
 class UserAddress extends React.Component {
     constructor(props) {
@@ -40,7 +39,7 @@ class UserAddress extends React.Component {
                             return <li key={key}>
                                 <a>
                                     <span className="icon icon-lg member-icon" style={{ marginTop: -15 }}>
-                                        <Radio value={curr.id.toString()} checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
+                                        <input type="radio" value={curr.id.toString()} checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
                                     </span>
                                     <div className="member-details">
                                         <ul className="list">
