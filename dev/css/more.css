@@ -337,8 +337,7 @@ ul.inline-list li {
 }
 
 .imageReports{
-    width: 90%;
-    height: 400px;
+    max-width: 90%;    
     float: left;
     margin-left: 5%;
     margin-top: 20px;
