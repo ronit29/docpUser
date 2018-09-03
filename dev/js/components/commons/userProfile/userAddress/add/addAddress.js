@@ -308,7 +308,7 @@ class UserSignupView extends React.Component {
                                     <label htmlFor="pincode">Pin Code</label>
                                 </div>
                                 <div className="form-group input-group">
-                                    <label className="inline input-label">Price Label</label>
+                                    <label className="inline input-label">Place Type</label>
                                     <div className="choose-gender">
                                         <label className="radio-inline"><input value={'home'} onChange={this.inputHandler.bind(this)} checked={this.state.type == 'home'} type="radio" name="type" />Home</label>
                                         <label className="radio-inline"><input value={'office'} onChange={this.inputHandler.bind(this)} checked={this.state.type == 'office'} type="radio" name="type" />Office</label>
