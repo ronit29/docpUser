@@ -1,21 +1,20 @@
 import { API_POST } from '../api/api'
 import CONFIG from '../config'
 
-let config = CONFIG.FCM_CONFIG
-
 var messaging = null
-
-if (window.firebase) {
-    firebase.initializeApp(config)
-    messaging = firebase.messaging()
-    messaging.usePublicVapidKey(CONFIG.FCM_PUBLIC_VAPID_KEYL);
-}
 
 const FCM = (() => {
 
     let _initialized = false
 
     const init = () => {
+
+        if (window.firebase && messaging == null) {
+            firebase.initializeApp(CONFIG.FCM_CONFIG)
+            messaging = firebase.messaging()
+            messaging.usePublicVapidKey(CONFIG.FCM_PUBLIC_VAPID_KEYL);
+        }
+
         if (!_initialized && messaging) {
             console.log(' ======== INITIALIZING FCM FOR PUSH NOTIFICATIONS ==========')
             messaging.requestPermission().then(function () {
