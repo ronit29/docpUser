@@ -47,6 +47,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
     }).then(function (response) {
         // set cookie token explicitly, csrf token is set by default
         STORAGE.setAuthToken(response.token)
+        STORAGE.setUserId(response.user_id)
 
         dispatch({
             type: SUBMIT_OTP_SUCCESS,

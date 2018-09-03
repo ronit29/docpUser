@@ -67,6 +67,13 @@ const STORAGE = {
             return !!jwtData.agent_id
         }
 
+    },
+    setUserId:(userId) => {
+        setCookie('user_id',userId,10)
+        return Promise.resolve(true)
+    },
+    getUserId:() => {
+        return getCookie('user_id')
     }
 }
 

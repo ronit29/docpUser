@@ -14,6 +14,8 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
+import GTM from '../../../helpers/gtm.js'
+
 
 class BookingSummaryView extends React.Component {
     constructor(props) {
@@ -139,6 +141,10 @@ class BookingSummaryView extends React.Component {
                 }
                 if (data.payment_required) {
                     // send to payment selection page
+                    let analyticData = {
+                        'Category':'Chat','Action':'LabOrderCreated','CustomerID':'','leadid':0,'event':'lab_order_created'
+                    }
+                    GTM.sendEvent({ data: analyticData })
                     this.props.history.push(`/payment/${data.data.orderId}`)
 
                     // this.setState({

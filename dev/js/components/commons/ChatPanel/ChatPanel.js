@@ -40,7 +40,7 @@ class ChatPanel extends React.Component {
                                     profileId: data.id
                                 })
                                 let analyticData = {
-                                    'Category':'Chat','Action':'ForwardtoDoctor','CustomerID':'<pass value here>','leadid':0,'Type':'<pass value here>','event':'Forward-to-Doctor'
+                                    'Category':'Chat','Action':'DoctorAssigned','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor-assigned'
                                 }
                                 GTM.sendEvent({ data: analyticData })
                             })
@@ -80,6 +80,10 @@ class ChatPanel extends React.Component {
 
                         case "Login": {
                             if (data.data["params.token"]) {
+                                let analyticData = {
+                                    'Category':'Chat','Action':'UserRegisteredviaChat','CustomerID':'','leadid':0,'event':'user-registered-via-chat'
+                                }
+                                GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
                             }
                             break
@@ -88,6 +92,13 @@ class ChatPanel extends React.Component {
                         case "Chat_Close": {
                             this.props.history.go(-1)
                             break
+                        }
+
+                        case "prescription_report": {
+                            let analyticData = {
+                                'Category':'Chat','Action':'PrescriptionGenerated','CustomerID':'','leadid':0,'event':'prescription-generated'
+                            }
+                            GTM.sendEvent({ data: analyticData })
                         }
                     }
 

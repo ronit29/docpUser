@@ -77,7 +77,7 @@ class BookingView extends React.Component {
         if (this.state.payment_success) {
             let appointmentId = this.state.data.id
             let data = {
-                'Category':'ConsumerApp','Action':'AppointmentBooked','CustomerID':'<pass value here>','leadid':appointmentId,'event':'appointment-booked'
+                'Category':'ConsumerApp','Action':'LabAppointmentBooked','CustomerID':GTM.getUserId(),'leadid':appointmentId,'event':'lab-appointment-booked'
             }
             GTM.sendEvent({ data: data })
         }

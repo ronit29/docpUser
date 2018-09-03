@@ -1,4 +1,5 @@
 import CONFIG from '../config'
+import STORAGE from './storage/storage'
 
 const GTM = {
     sendEvent: ({ data }) => {
@@ -9,11 +10,17 @@ const GTM = {
             if (dataLayer) {
                 data.UAID=CONFIG.UAID
                 data.Tracker=CONFIG.Tracker
-                console.log(data)
+                dataLayer.push(data)
             }
         } catch (e) {
             //
         }
+    },
+
+    getUserId:() => {
+        let user_id = STORAGE.getUserId() || ''
+        return user_id
+
     }
 }
 

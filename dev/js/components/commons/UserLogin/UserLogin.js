@@ -62,9 +62,12 @@ class UserLoginView extends React.Component {
                     }
                 } else {
                     // gtm event
+
+
                     let data = {
-                    'Category':'ConsumerApp','Action':'UserRegistered','CustomerID':'<pass value here>','leadid':0,'event':'user-registered'}
+                    'Category':'ConsumerApp','Action':'UserRegistered','CustomerID':GTM.getUserId(),'leadid':0,'event':'user-registered'}
                     GTM.sendEvent({ data: data })
+                    
                     if (parsed.callback) {
                         this.props.history.replace(`/signup?callback=${parsed.callback}`)
                     } else {
