@@ -1076,3 +1076,12 @@ span.ofr-ribbon:after {
     position: absolute;
     right: 0px;
 }
+
+.dwnloadbtnpres{
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 19px;
+    cursor: pointer;
+    margin-right: 10px;
+}
