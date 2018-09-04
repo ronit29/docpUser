@@ -47,7 +47,7 @@ const routes = [
     { path: '/signup', exact: true, component: UserSignup },
     { path: '/addprofile', exact: true, component: UserSignup },
     { path: '/wallet', exact: true, component: Wallet },
-    { path: '/article/:id', exact: true, component: Article },
+    { path: `/*-dsdp`, component: Article },
     { path: '/payment/:id', exact: true, component: Payment },
 
     { path: '/opd', exact: true, component: SearchCriteria },

@@ -231,7 +231,7 @@ export const fetchArticles = (cb) => (dispatch) => {
 }
 
 export const fetchArticle = (id, preview = null, cb) => (dispatch) => {
-	let url = `/api/v1/article/detail/${id}`
+	let url = `/api/v1/article/detail?url=${id}`
 	if (preview) {
 		url += `?preview=1`
 	}
