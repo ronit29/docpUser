@@ -214,7 +214,7 @@ class ChatPanel extends React.Component {
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
             {
-                this.props.homePage?'':
+                this.props.homePage||true?'':
                 <div className="chat-float-btn" onClick={()=>this.setState({showChatBlock:true})}><img src="/assets/chat.png"/></div>
             }
             
