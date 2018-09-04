@@ -17,7 +17,8 @@ class TopBar extends React.Component {
             sits_at_clinic: false,
             sits_at_hospital: false,
             is_female: false,
-            is_available: false
+            is_available: false,
+            dropdown_visible: false
         }
     }
 
@@ -54,7 +55,16 @@ class TopBar extends React.Component {
     }
 
     handleOpen(event) {
-        this.setState({ anchorEl: event.currentTarget })
+        // this.setState({ anchorEl: event.currentTarget })
+        this.setState({
+            dropdown_visible: true
+        });
+    }
+
+    hideSortDiv() {
+        this.setState({
+            dropdown_visible: false
+        });
     }
 
     handleClose(type) {
@@ -127,7 +137,9 @@ class TopBar extends React.Component {
                             <div className="filter-item">
                                 <div className="action-filter">
                                     <ul className="inline-list">
-                                        <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                        <li onClick={this.handleOpen.bind(this)}>
+                                            <span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span>
+                                        </li>
                                         <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                             {
                                                 this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
@@ -139,10 +151,24 @@ class TopBar extends React.Component {
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
                                 </div>
                             </div>
+                            {
+                                this.state.dropdown_visible ?
+                                    <div>
+                                        <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
+                                        <div className="sort-dropdown-div">
+                                            <ul className="sort-dropdown-list">
+                                                <li className="sort-dropdown-list-item sort-item-selected">Relevance</li>
+                                                <li className="sort-dropdown-list-item">Fee</li>
+                                                <li className="sort-dropdown-list-item">Distance</li>
+                                                <li className="sort-dropdown-list-item">Experience</li>
+                                            </ul>
+                                        </div>
+                                    </div> : ""
+                            }
                         </div>
                     </div>
                 </div>
-                <Menu
+                {/* <Menu
                     id="sort-menu"
                     anchorEl={this.state.anchorEl}
                     open={Boolean(this.state.anchorEl)}
@@ -152,7 +178,7 @@ class TopBar extends React.Component {
                     <MenuItem selected={'fees' == this.state.sort_on} onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
                     <MenuItem selected={'distance' == this.state.sort_on} onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
                     <MenuItem selected={'experience' == this.state.sort_on} onClick={this.handleClose.bind(this, 'experience')}>Experience</MenuItem>
-                </Menu>
+                </Menu> */}
 
                 {
                     this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="overlay black">
