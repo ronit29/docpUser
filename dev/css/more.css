@@ -539,7 +539,7 @@ ul.inline-list li {
 
 .chat-iframe{
     width: 100%;
-    height: calc(100vh - 245px);
+    height: 100%;
 }
 
 .chat-iframe-inner{
@@ -559,8 +559,8 @@ ul.inline-list li {
         padding-bottom: 42px;
     }
     .chat-iframe{
-        height: calc(100vh - 344px);
-        height: 301px;
+        /*height: calc(100vh - 344px);
+        height: 301px;*/
         /* height: calc(100vh - 318px); */
     }
 }
