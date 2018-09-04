@@ -35,7 +35,7 @@ class UserLoginView extends React.Component {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (error) => {
                 if (error) {
-                    this.setState({ validationError: "Could not generate OTP." })
+                   // this.setState({ validationError: "Could not generate OTP." })
                 } else {
                     this.setState({ showOTP: true })
                 }

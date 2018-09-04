@@ -13,7 +13,8 @@ class ChatPanel extends React.Component {
             token: "",
             symptoms: [],
             roomId: "",
-            showCancel: false
+            showCancel: false,
+            showChatBlock:false
         }
     }
 
@@ -197,10 +198,14 @@ class ChatPanel extends React.Component {
         return (
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
-            <div className="chat-float-btn"><img src="assets/chat.png"/></div>
+            {
+                this.props.homePage?'':
+                <div className="chat-float-btn" onClick={()=>this.setState({showChatBlock:true})}><img src="/assets/chat.png"/></div>
+            }
+            
            
             
-                <div className={this.props.homePage ? "chatbox-right" : "chatbox-right floating-chat"}>
+                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage? 'chatbox-right':'chatbox-right d-none d-lg-flex mt-21'}` }>
 
                 
                     {/* chat header */}
@@ -229,7 +234,12 @@ class ChatPanel extends React.Component {
                         </div>
 
                         */}
-                        <div className="close-screen-chat">&#10006;</div>
+                        {
+                            this.state.showChatBlock
+                            ?<div className="close-screen-chat" onClick={()=>this.setState({showChatBlock:false}) }>&#10006;</div>
+                            :''
+                        }
+                        
                         <div className="cht-head-rqst-btn">
                             <span className="mr-4" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
                                 <img style={{ width: 20 }} src="/assets/img/customer-icons/call-orange.svg" />
