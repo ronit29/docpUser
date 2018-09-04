@@ -471,10 +471,17 @@ background: black;
 	border-radius: 10px;
 }
 .searchlocationresults ul.list li {
-	padding: 5px 0px;
-	cursor: pointer;
-	border-bottom: 1px solid #f7f5f5;
-}
+    width: 100%;
+    z-index: 9;
+    background: white;
+    padding: 14px !important;
+    border: 1px solid #e6e6e6;
+	border-radius: 10px;
+	max-height: 165px;
+	overflow-x: auto;
+ }
+
+
 /*header styling*/
 
 @media(max-width: 412px) {
@@ -580,6 +587,6 @@ background: black;
 }
 @media (max-height: 355px){
 .livechat-room .footer {
-    display: block !important !important;
+    display: block !important;
 }
 }

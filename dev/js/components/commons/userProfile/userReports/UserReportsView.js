@@ -31,6 +31,12 @@ class UserReportsView extends React.Component {
         this.setState({ lightboxIsOpen: type, imageIndex: imageIndex })
     }
 
+    downloadImage(src) {
+        if (window) {
+            window.open(src, '_blank')
+        }
+    }
+
     render() {
 
         let images = []
@@ -61,6 +67,7 @@ class UserReportsView extends React.Component {
                             }
                             {
                                 this.state.lightboxIsOpen ? <Lightbox
+                                    toolbarButtons={[<p className="dwnloadbtnpres" onClick={this.downloadImage.bind(this, images[imageIndex])}>DOWNLOAD</p>]}
                                     mainSrc={images[imageIndex]}
                                     nextSrc={images[(imageIndex + 1) % images.length]}
                                     prevSrc={images[(imageIndex + images.length - 1) % images.length]}

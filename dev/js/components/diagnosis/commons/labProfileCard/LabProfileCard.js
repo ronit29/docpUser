@@ -48,7 +48,7 @@ class LabProfileCard extends React.Component {
 
     render() {
 
-        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data } = this.props.details
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp } = this.props.details
 
         distance = Math.ceil(distance / 1000)
 
@@ -98,8 +98,9 @@ class LabProfileCard extends React.Component {
                     <div className="row">
                         <div className="col-6">
                             <p className="lab-price">
+
                                 {
-                                    price ? <span>Total &#8377; {price}</span> : ""
+                                    price ? <span>Total <span className="dp-dr-old-price" style={{ display: 'inline-block', marginTop: 3 }}>&#8377; {mrp}</span> &#8377; {price}</span> : ""
                                 }
                             </p>
                         </div>

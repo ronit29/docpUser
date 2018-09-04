@@ -161,7 +161,7 @@
 .test-name-item{float: left; width: calc(100% - 42px)}
 
 .pb-location .address-details .add-map{float: right;width: 50px;cursor: pointer; margin-top: 10px}
-.pb-location .address-details .add-info{padding-right: 90px;}
+.pb-location .address-details .add-info{padding-right: 92px;}
 
 .pb-about>p{margin-bottom: 10px;}
 

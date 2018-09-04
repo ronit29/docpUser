@@ -13,7 +13,7 @@ export default ({ toggle, cancelAppointment }) => {
                     cancelAppointment(0)
                 }}>
                     <p className="fw-500 cancel-appointment-head">Cancel and Rebook</p>
-                    <p className="fw-500 cancel-content">Cancel the current appoinement and book a new Appointment with other doctor</p>
+                    <p className="fw-500 cancel-content">Cancel the current appointment and book a new Appointment with other doctor</p>
                     <div className="cancel-right-arrow">
                         <img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
                     </div>
@@ -25,7 +25,7 @@ export default ({ toggle, cancelAppointment }) => {
                     cancelAppointment(1)
                 }}>
                     <p className="fw-500 cancel-appointment-head">Cancel and Refund</p>
-                    <p className="fw-500 cancel-content">Cancel the appoiment and get refund within 24 hours</p>
+                    <p className="fw-500 cancel-content">Cancel the appointment and get refund within 24 hours</p>
                     <div className="cancel-right-arrow">
                         <img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
                     </div>

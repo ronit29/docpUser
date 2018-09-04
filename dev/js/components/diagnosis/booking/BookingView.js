@@ -75,7 +75,11 @@ class BookingView extends React.Component {
         }
 
         if (this.state.payment_success) {
-            GTM.sendEvent({ event: 'appointment-booked-lab', data: "" })
+            let appointmentId = this.state.data.id
+            let data = {
+                'Category':'ConsumerApp','Action':'LabAppointmentBooked','CustomerID':GTM.getUserId(),'leadid':appointmentId,'event':'lab-appointment-booked'
+            }
+            GTM.sendEvent({ data: data })
         }
     }
 
@@ -234,7 +238,7 @@ class BookingView extends React.Component {
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
                                                             <div className="address-details clearfix">
                                                                 <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-lb" onClick={this.navigateTo.bind(this, `/lab/${lab.id}`)}>
-                                                                    <img style={{ maxWidth: 90, maxHeight: 60, float: 'right', marginTop: '-10px', cursor: 'pointer' }} src={lab_thumbnail} />
+                                                                    <img style={{ maxWidth: 90, maxHeight: 60, float: 'right', cursor: 'pointer' }} src={lab_thumbnail} />
                                                                 </InitialsPicture>
 
                                                                 <p className="add-info fw-500">{lab.address}</p>

@@ -337,8 +337,7 @@ ul.inline-list li {
 }
 
 .imageReports{
-    width: 90%;
-    height: 400px;
+    max-width: 90%;    
     float: left;
     margin-left: 5%;
     margin-top: 20px;
@@ -1076,4 +1075,13 @@ span.ofr-ribbon:after {
     content: "";
     position: absolute;
     right: 0px;
+}
+
+.dwnloadbtnpres{
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 19px;
+    cursor: pointer;
+    margin-right: 10px;
 }

@@ -4,6 +4,7 @@ import CONFIG from '../../../config'
 
 import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
+import GTM from '../../../helpers/gtm.js'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -30,7 +31,6 @@ class ChatPanel extends React.Component {
         if (window) {
             // handling events sent by iframe
             window.addEventListener('message', function ({ data }) {
-                console.log("MESSAGE RECEIVED AT CLIENT SIDE - ", data)
                 if (data) {
                     switch (data.event) {
                         case "RoomAgent": {
@@ -39,6 +39,10 @@ class ChatPanel extends React.Component {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
                                 })
+                                let analyticData = {
+                                    'Category':'Chat','Action':'DoctorAssigned','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor-assigned'
+                                }
+                                GTM.sendEvent({ data: analyticData })
                             })
                             break
                         }
@@ -76,6 +80,10 @@ class ChatPanel extends React.Component {
 
                         case "Login": {
                             if (data.data["params.token"]) {
+                                let analyticData = {
+                                    'Category':'Chat','Action':'UserRegisteredviaChat','CustomerID':'','leadid':0,'event':'user-registered-via-chat'
+                                }
+                                GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
                             }
                             break
@@ -84,6 +92,13 @@ class ChatPanel extends React.Component {
                         case "Chat_Close": {
                             this.props.history.go(-1)
                             break
+                        }
+
+                        case "prescription_report": {
+                            let analyticData = {
+                                'Category':'Chat','Action':'PrescriptionGenerated','CustomerID':'','leadid':0,'event':'prescription-generated'
+                            }
+                            GTM.sendEvent({ data: analyticData })
                         }
                     }
 
