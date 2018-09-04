@@ -337,11 +337,8 @@ ul.inline-list li {
 }
 
 .imageReports{
-    width: 90%;
-    height: 400px;
-    float: left;
-    margin-left: 5%;
-    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .filter-title{
@@ -1076,4 +1073,20 @@ span.ofr-ribbon:after {
     content: "";
     position: absolute;
     right: 0px;
+}
+
+.pdf-report-div{
+    width: 100%;
+    position: relative;
+    height: 230px;
+    margin: 0px 0 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.pdf-report-div>img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

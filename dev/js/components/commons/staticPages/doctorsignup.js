@@ -9,7 +9,7 @@ class Doctorsignup extends React.Component {
 			mobile: "",
 			email: "",
 			city: "",
-			profile_type: ""
+			profile_type: "",
 		}
 	}
 
@@ -70,8 +70,22 @@ class Doctorsignup extends React.Component {
 									<input type="text" name="name" placeholder="Name" maxLength={255} className="form-control" required id="dsp-name" value={this.state.name} onChange={(event) => this.changeHandler(event, 'name')} />
 								</div>
 								<div className="form-group dsp-city-mobile-div">
-									<input type="number" name="mobile" max={9999999999} id="dsp-mobile" placeholder="Mobile Number" className="form-control" required min={7000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
-									<input type="text" name="city" placeholder="City" maxLength={255} className="form-control" required id="dsp-city" value={this.state.city} onChange={(event) => this.changeHandler(event, 'city')} />
+									<div className="dsp-mobile-div">
+										<input type="number" name="mobile" max={9999999999} id="dsp-mobile" placeholder="Mobile Number" className="form-control" required min={7000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
+									</div>
+									<div className="dsp-city-div">
+										<input type="text" name="city_name" placeholder="City" maxLength={255} className="form-control" required id="dsp-city" value={this.state.city} onChange={(event) => this.changeHandler(event, 'city')} />
+										{
+											<div className="dsp-city-dropdown">
+												<ul className="dsp-city-list">
+													<li className="dsp-city-list-item">Delhi</li>
+													<li className="dsp-city-list-item">Mumbai</li>
+													<li className="dsp-city-list-item">Kolkata</li>
+													<li className="dsp-city-list-item">Chennai</li>
+												</ul>
+											</div>
+										}
+									</div>
 								</div>
 								<div className="form-group">
 									<input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Enter a Valid Email Address')" placeholder="Email" value={this.state.email} className="form-control" required maxLength={254} id="dsp-email" onChange={(event) => this.changeHandler(event, 'email')} />
