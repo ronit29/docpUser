@@ -51,7 +51,7 @@ class BookingView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
+s
         if (this.state.payment_success) {
             
             let data = {

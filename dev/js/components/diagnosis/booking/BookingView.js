@@ -36,11 +36,11 @@ class BookingView extends React.Component {
 
     componentDidMount() {
 
+        let appointmentId;
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
             let start_date = this.props.rescheduleSlot.date
             let start_time = this.props.rescheduleSlot.time.value
             let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
-            let appointmentId;
 
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
