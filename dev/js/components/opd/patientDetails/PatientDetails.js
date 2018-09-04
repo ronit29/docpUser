@@ -83,7 +83,7 @@ class PatientDetails extends React.Component {
                 if (data.payment_required) {
                     // send to payment selection page
                     let analyticData = {
-                        'Category':'Chat','Action':'DoctorOrderCreated','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor_order_created'
+                        'Category':'ConsumerApp','Action':'DoctorOrderCreated','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
                     this.props.history.push(`/payment/${data.data.orderId}`)

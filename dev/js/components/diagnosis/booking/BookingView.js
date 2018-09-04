@@ -40,10 +40,15 @@ class BookingView extends React.Component {
             let start_date = this.props.rescheduleSlot.date
             let start_time = this.props.rescheduleSlot.time.value
             let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
+            let appointmentId;
 
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
                     this.setState({ data: data.data, loading: false })
+                    if(data.data.id){
+                        appointmentId = data.data.id
+                    }
+                    
                     SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule success." });
                 } else {
                     this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
@@ -64,6 +69,9 @@ class BookingView extends React.Component {
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
+                    if(data[0].id){
+                        appointmentId = data[0].id
+                    }
                 } else {
                     this.setState({ data: null, loading: false })
                 }
@@ -75,7 +83,6 @@ class BookingView extends React.Component {
         }
 
         if (this.state.payment_success) {
-            let appointmentId = this.state.data.id
             let data = {
                 'Category':'ConsumerApp','Action':'LabAppointmentBooked','CustomerID':GTM.getUserId(),'leadid':appointmentId,'event':'lab-appointment-booked'
             }

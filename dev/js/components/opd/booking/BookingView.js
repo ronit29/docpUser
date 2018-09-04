@@ -36,8 +36,12 @@ class BookingView extends React.Component {
             this.props.selectOpdTimeSLot({ time: {} }, true, null)
         }
 
+        let appointmentId = '';
         this.props.getOPDBookingSummary(this.props.match.params.refId, (err, data) => {
             if (!err) {
+                if(data[0].id){
+                    appointmentId = data[0].id
+                }
                 this.setState({ data: data[0], loading: false })
             } else {
                 this.setState({ data: null, loading: false })
@@ -49,7 +53,7 @@ class BookingView extends React.Component {
         }
 
         if (this.state.payment_success) {
-            let appointmentId = this.state.data.id
+            
             let data = {
                 'Category':'ConsumerApp','Action':'DoctorAppointmentBooked','CustomerID':GTM.getUserId(),'leadid':appointmentId,'event':'doctor-appointment-booked'
             }
