@@ -74,7 +74,12 @@ const STORAGE = {
     },
     getUserId:() => {
         return getCookie('user_id')
+    },
+    deleteUserId:() => {
+        eraseCookie('user_id')
+        return Promise.resolve(true)
     }
+
 }
 
 export default STORAGE

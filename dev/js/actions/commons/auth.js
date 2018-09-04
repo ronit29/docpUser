@@ -103,6 +103,7 @@ export const logout = (postData, cb) => (dispatch) => {
         }, 300)
         // clear entire store (initially peristed)
     })
+    STORAGE.deleteUserId()
 }
 
 export const resetAuth = (postData, cb) => (dispatch) => {
