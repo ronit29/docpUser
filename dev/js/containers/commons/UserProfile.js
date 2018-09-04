@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => dispatch(logout()),
+        logout: (roomId) => dispatch(logout(roomId)),
         getUserProfile: () => dispatch(getUserProfile()),
         getProfileAppointments: (profile_id) => dispatch(getProfileAppointments(profile_id)),
         selectProfile: (profile_id) => dispatch(selectProfile(profile_id)),

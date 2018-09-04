@@ -4,6 +4,7 @@ import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
 import SnackBar from 'node-snackbar'
 import Axios from 'axios';
+import CONFIG from '../../config/config.js'
 
 export const sendOTP = (number, cb) => (dispatch) => {
     dispatch({
@@ -91,7 +92,9 @@ export const registerUser = (postData, cb) => (dispatch) => {
     })
 }
 
-export const logout = (postData, cb) => (dispatch) => {
+export const logout = (roomId) => (dispatch) => {
+    // delete chat of current opened room
+    Axios.get(`${CONFIG.CHAT_API_URL}/livechat/healthservices/closeChat/${roomId}`)
     STORAGE.deleteAuth().then(() => {
         dispatch({
             type: RESET_AUTH,
