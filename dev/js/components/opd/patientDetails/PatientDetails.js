@@ -13,6 +13,8 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
+import GTM from '../../../helpers/gtm.js'
+
 
 class PatientDetails extends React.Component {
     constructor(props) {
@@ -80,6 +82,10 @@ class PatientDetails extends React.Component {
                 }
                 if (data.payment_required) {
                     // send to payment selection page
+                    let analyticData = {
+                        'Category':'Chat','Action':'DoctorOrderCreated','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor_order_created'
+                    }
+                    GTM.sendEvent({ data: analyticData })
                     this.props.history.push(`/payment/${data.data.orderId}`)
 
                     // this.setState({
