@@ -30,7 +30,9 @@ const STAGING_CONFIG = {
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
     PG_URL: "https://pgdev.policybazaar.com/dp/pay/init",
     CHAT_URL: "https://chatqa.docprime.com/livechat",
-    env: "staging"
+    env: "staging",
+    UAID:'UA-124740649-2',
+    Tracker:'docqa'
 }
 
 const DEV_CONFIG = {
