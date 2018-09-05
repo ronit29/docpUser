@@ -11,6 +11,12 @@ import LAB_SEARCH from './diagnosis/labsSearch.js'
 import USER from './commons/user.js'
 import AUTH from './commons/auth.js'
 
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['SEARCH_CRITERIA_LABS', 'SEARCH_CRITERIA_OPD']
+}
+
 const DOCTOR_LIST_PRESIST = {
     key: 'DOCTOR_SEARCH',
     storage: storage,
@@ -40,4 +46,6 @@ const allReducers = combineReducers({
     AUTH
 });
 
-export default allReducers
+const persistedReducer = persistReducer(persistConfig, allReducers)
+
+export default persistedReducer
