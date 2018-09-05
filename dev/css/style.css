@@ -13,7 +13,7 @@
 }
 .chat-head {
 	background: #f3e9e0;
-	height: 45px;
+	min-height: 45px;
 	padding: 10px;
 	/*display: flex;*/
 	align-items: center;
@@ -42,6 +42,10 @@
 .chat-call-btn span {
 	padding-left: 8px;
 }
+.chat-action-btn img{
+	position: relative;
+	margin: 2px 5px 0px 0px;
+}
 .hd-chat {
 	font-size: 18px;
 	color: #060606;
@@ -64,7 +68,7 @@
 	padding: 0 6px;
 }
 .chat-body {
-	background: #f4f4f4 url(../../assets/images/pattern-1.png);
+	background: #f4f4f4 url(/dist8f8cea8b032be29b75383cd65dfb63f9.png);
 	position: relative;
 	flex: 1;
 	height:-webkit-fill-available;
@@ -74,7 +78,7 @@
 .chat-mssgs {
 	min-height: 445px;
 	max-height: 445px;
-	background: #f4f4f4 url(../../assets/images/pattern-1.png);
+	background: #f4f4f4 url(/dist8f8cea8b032be29b75383cd65dfb63f9.png);
 	padding: 15px;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -280,7 +284,7 @@ textarea.form-control.chat-text-area {
 	position: relative;
 }
 .deal-ul li a:after {
-	content: "\f105";
+	content: "\F105";
 	font-family: FontAwesome;
 	position: absolute;
 	top: 0px;
@@ -497,25 +501,12 @@ background: black;
 	}
 }
 .chat-float-btn{
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    background: linear-gradient(to left, #f78631, #ff6d00);
-    height: 70px;
-    border: 2px solid white;
-    width: 70px;
-    border-radius: 50px;
-    font-size: 17px;
-    text-align: center;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    box-shadow: 1px 4px 14px 1px dimgrey;
+      position: fixed;
+    bottom: 10px;
+    right: 10px;
     cursor: pointer;
-    font-weight:600;
     z-index: 9;
+    transition: all .2s ease-in-out;
 
 }
 .close-screen-chat{
@@ -531,7 +522,15 @@ background: black;
     box-shadow: 0px 1px 3px 1px #bda894;
 }
 .chat-float-btn:hover{
-	    box-shadow: 0 0 8px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.28);
+	    transform: scale(1.1);
+}
+.chat-action-btn{
+	    display: inline-block;
+    border-radius: 8px;
+    background-color: #f78631;
+    color: white;
+    padding: 4px 13px;
+    font-size: 15px;
 }
 .floating-chat{
 	position: fixed;
@@ -540,7 +539,7 @@ background: black;
     right: 0px;
     z-index: 9;
     border-radius: 0px;
-    display: none; 
+    /*display: none;*/ 
     background: #d2d2d2;
     background-image: initial;
     bottom: 0px;
@@ -567,6 +566,15 @@ background: black;
 .floating-chat .chat-footer{
 	height: 100px;
 }
+@media (max-width: 355px){
+.chat-action-btn img{
+	    width: 15px !important;
+}
+.chat-action-btn{
+	    padding: 4px 7px;
+    font-size: 13px;
+}
+}
 
 @media (max-height: 355px){
 .float-chat-height {
@@ -583,3 +591,9 @@ background: black;
     display: block !important !important;
 }
 }
+@media (max-height: 370px){
+.livechat-room .footer {
+    display: block !important !important;
+}
+}
+
