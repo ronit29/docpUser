@@ -11,9 +11,9 @@ class Loader extends React.Component {
 
         return (
             <div className={this.props.classType || "loaderCircular"} >
-                <CircularProgress className={"loaderactual"} size={50} thickness={3} />
+                {/* <CircularProgress className={"loaderactual"} size={50} thickness={3} /> */}
+                <div className="dp-loader"></div>
             </div>
-
         );
     }
 }

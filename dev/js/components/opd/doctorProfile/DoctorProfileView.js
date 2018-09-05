@@ -71,37 +71,7 @@ class DoctorProfileView extends React.Component {
                             {
                                 this.props.DOCTORS[this.state.selectedDoctor] ?
 
-                                    <section className="dr-profile-screen">
-                                        <div className="container-fluid">
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <div className="widget mrt-10 ct-profile skin-white">
-                                                        <DoctorProfileCard
-                                                            details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                        />
-                                                        <div className="widge-content pd-0">
-                                                            {
-                                                                this.props.DOCTORS[this.state.selectedDoctor].about ? <AboutDoctor
-                                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                                /> : ""
-                                                            }
-
-                                                            {
-                                                                (this.props.DOCTORS[this.state.selectedDoctor].hospitals && this.props.DOCTORS[this.state.selectedDoctor].hospitals.length) ? <ClinicSelector
-                                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                                    {...this.props}
-                                                                /> : ""
-                                                            }
-
-                                                            <ProfessionalGraph
-                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section> : <Loader />
+                                <Loader /> : <Loader />
                             }
                         </div>
 
