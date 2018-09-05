@@ -1085,3 +1085,140 @@ span.ofr-ribbon:after {
     cursor: pointer;
     margin-right: 10px;
 }
+
+.sort-dropdown-div{
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    width: 110px;
+    background-color: #fff;
+    z-index: 2;
+    text-align: left;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.sort-dropdown-overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.sort-dropdown-list{
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+
+.sort-dropdown-list-item{
+    display: block;
+    padding: 8px 12px;
+    font-size: 17px;
+    cursor: pointer;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.sort-item-selected{
+    background-color: #efefef;
+}
+
+.sort-dropdown-list-item:last-child{
+    border-bottom: none;
+}
+
+.sort-dropdown-list-item:hover{
+    background-color: #efefef;
+}
+
+.user-address-hidden-radio{
+    position: absolute;
+    visibility: hidden;
+    cursor: pointer;
+    top: 17px;
+}
+
+.user-address-radio{
+    position: absolute;
+    top: 17px;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 2px solid #f78361;
+}
+
+.user-address-hidden-radio:checked ~ .user-address-radio {
+    background-color: #fff;
+}
+
+.user-address-radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.user-address-hidden-radio:checked ~ .user-address-radio:after {
+    display: block;
+}
+
+.user-address-radio:after {
+    top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 10px;
+   height: 10px;
+   border-radius: 50%;
+   background: #f78361;
+}
+
+.opd-filter-hidden-checkbox{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 19px;
+    width: 19px;
+    top: 12px;
+    right: 100px;
+    z-index: 1;
+}
+
+.opd-filter-checkbox{
+    position: absolute;
+    height: 19px;
+    width: 19px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid rgba(0,0,0,0.5);
+    border-radius: 2px;
+    top: 12px;
+    right: 100px;
+}
+
+.opd-filter-hidden-checkbox:checked ~ .opd-filter-checkbox {
+    background-color: #f78361;
+    border: 2px solid #f78361;
+}
+
+.opd-filter-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.opd-filter-hidden-checkbox:checked ~ .opd-filter-checkbox:after {
+    display: block;
+}
+
+.opd-filter-checkbox:after {
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

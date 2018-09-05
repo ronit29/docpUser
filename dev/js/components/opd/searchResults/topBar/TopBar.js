@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Menu, { MenuItem } from 'material-ui/Menu';
 import Range from 'rc-slider/lib/Range';
-import Checkbox from 'material-ui/Checkbox';
 
 
 class TopBar extends React.Component {
@@ -17,7 +15,8 @@ class TopBar extends React.Component {
             sits_at_clinic: false,
             sits_at_hospital: false,
             is_female: false,
-            is_available: false
+            is_available: false,
+            dropdown_visible: false
         }
     }
 
@@ -54,7 +53,16 @@ class TopBar extends React.Component {
     }
 
     handleOpen(event) {
-        this.setState({ anchorEl: event.currentTarget })
+        // this.setState({ anchorEl: event.currentTarget })
+        this.setState({
+            dropdown_visible: true
+        });
+    }
+
+    hideSortDiv() {
+        this.setState({
+            dropdown_visible: false
+        });
     }
 
     handleClose(type) {
@@ -127,7 +135,9 @@ class TopBar extends React.Component {
                             <div className="filter-item">
                                 <div className="action-filter">
                                     <ul className="inline-list">
-                                        <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                        <li onClick={this.handleOpen.bind(this)}>
+                                            <span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span>
+                                        </li>
                                         <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                             {
                                                 this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
@@ -139,20 +149,24 @@ class TopBar extends React.Component {
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
                                 </div>
                             </div>
+                            {
+                                this.state.dropdown_visible ?
+                                    <div>
+                                        <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
+                                        <div className="sort-dropdown-div">
+                                            <ul className="sort-dropdown-list">
+                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,"")}>Relevance</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on=='fees'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'fees')}>Fee</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on=='distance'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'distance')}>Distance</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on=='experience'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'experience')}>Experience</li>
+                                            </ul>
+                                        </div>
+                                    </div> : ""
+                            }
                         </div>
                     </div>
                 </div>
-                <Menu
-                    id="sort-menu"
-                    anchorEl={this.state.anchorEl}
-                    open={Boolean(this.state.anchorEl)}
-                    onClose={this.handleClose.bind(this, null)}
-                >
-                    <MenuItem selected={!!!this.state.sort_on} onClick={this.handleClose.bind(this, "")}>Relevance</MenuItem>
-                    <MenuItem selected={'fees' == this.state.sort_on} onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
-                    <MenuItem selected={'distance' == this.state.sort_on} onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
-                    <MenuItem selected={'experience' == this.state.sort_on} onClick={this.handleClose.bind(this, 'experience')}>Experience</MenuItem>
-                </Menu>
+                
 
                 {
                     this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="overlay black">
@@ -164,7 +178,9 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterRowShort">
                                     <span className="tl filterLabel">Available Today</span>
                                     <div className="filterInput">
-                                        <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                        {/* <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
+                                        <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                        <span className="opd-filter-checkbox"></span>
                                     </div>
                                 </div>
                             </div>
@@ -172,11 +188,15 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterSitsAt">
                                     <span className="tl">Sits At</span>
                                     <div className="checkFilter">
-                                        <Checkbox name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                        {/* <Checkbox name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="checkFilter" /> */}
+                                        <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 20}} />
+                                        <span className="opd-filter-checkbox" style={{top: 39, left: 20}}></span>
                                     </div>
                                     <span className="checkFilterLabel">Clinic</span>
                                     <div className="checkFilter">
-                                        <Checkbox name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                        {/* <Checkbox name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" /> */}
+                                        <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 128}} />
+                                        <span className="opd-filter-checkbox" style={{top: 39, left: 128}}></span>
                                     </div>
                                     <span className="checkFilterLabel">Hospital</span>
                                 </div>
@@ -202,7 +222,9 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterRowFemaleDoc">
                                     <span className="tl filterLabel">Female Doctor</span>
                                     <div className="filterInput">
-                                        <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                        {/* <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
+                                        <input type="checkbox" name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                        <span className="opd-filter-checkbox"></span>
                                     </div>
 
                                 </div>
