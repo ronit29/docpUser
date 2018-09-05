@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctors, getOPDCriteriaResults, toggleOPDCriteria } from '../../actions/index.js'
+import { urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria } from '../../actions/index.js'
 
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -49,6 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
         getDoctors: (searchState, filterCriteria, mergeState, page, cb) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb))
