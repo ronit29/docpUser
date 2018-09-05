@@ -36,7 +36,8 @@ class BookingView extends React.Component {
 
     componentDidMount() {
 
-        let appointmentId;
+        let appointmentId = this.props.match.params.refId
+
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
             let start_date = this.props.rescheduleSlot.date
             let start_time = this.props.rescheduleSlot.time.value
@@ -45,10 +46,7 @@ class BookingView extends React.Component {
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
                     this.setState({ data: data.data, loading: false })
-                    if(data.data.id){
-                        appointmentId = data.data.id
-                    }
-                    
+
                     SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule success." });
                 } else {
                     this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
@@ -69,9 +67,6 @@ class BookingView extends React.Component {
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
-                    if(data[0].id){
-                        appointmentId = data[0].id
-                    }
                 } else {
                     this.setState({ data: null, loading: false })
                 }
@@ -84,7 +79,7 @@ class BookingView extends React.Component {
 
         if (this.state.payment_success) {
             let data = {
-                'Category':'ConsumerApp','Action':'LabAppointmentBooked','CustomerID':GTM.getUserId(),'leadid':appointmentId,'event':'lab-appointment-booked'
+                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
             }
             GTM.sendEvent({ data: data })
         }

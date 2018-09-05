@@ -36,12 +36,9 @@ class BookingView extends React.Component {
             this.props.selectOpdTimeSLot({ time: {} }, true, null)
         }
 
-        let appointmentId = '';
-        this.props.getOPDBookingSummary(this.props.match.params.refId, (err, data) => {
+        let appointmentId = this.props.match.params.refId;
+        this.props.getOPDBookingSummary(appointmentId, (err, data) => {
             if (!err) {
-                if(data[0].id){
-                    appointmentId = data[0].id
-                }
                 this.setState({ data: data[0], loading: false })
             } else {
                 this.setState({ data: null, loading: false })
@@ -51,7 +48,7 @@ class BookingView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-s
+
         if (this.state.payment_success) {
             
             let data = {
