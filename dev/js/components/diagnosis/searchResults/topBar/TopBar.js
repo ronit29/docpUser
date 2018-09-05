@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Range from 'rc-slider/lib/Range';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SnackBar from 'node-snackbar'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -12,7 +14,8 @@ class TopBar extends React.Component {
             openFilter: false,
             priceRange: [0, 20000],
             distanceRange: [0, 35],
-            sortBy: null
+            sortBy: null,
+            shortURL: ""
         }
     }
 
@@ -22,6 +25,7 @@ class TopBar extends React.Component {
 
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
+        this.shortenUrl()
     }
 
     applyFilters() {
@@ -87,6 +91,17 @@ class TopBar extends React.Component {
         }
     }
 
+    shortenUrl() {
+        if (window) {
+            let url = window.location.href
+            this.props.urlShortner(url, (err, data) => {
+                if (!err) {
+                    this.setState({ shortURL: data.tiny_url })
+                }
+            })
+        }
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -109,6 +124,12 @@ class TopBar extends React.Component {
                                 </div>
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
+
+                                    <CopyToClipboard text={this.state.shortURL}
+                                        onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
+                                        <button>URL SHORT</button>
+                                    </CopyToClipboard>
+
                                 </div>
                             </div>
                         </div>
