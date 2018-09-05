@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Range from 'rc-slider/lib/Range';
-import Checkbox from 'material-ui/Checkbox';
 
 
 class TopBar extends React.Component {
