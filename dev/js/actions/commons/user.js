@@ -1,4 +1,4 @@
-import { APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
+import { APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_CITIES } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -314,5 +314,16 @@ export const signupDoctor = (signupDoctorData, cb) => (dispatch) => {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
+	})
+}
+
+export const getCities = (filterText) => (dispatch) => {
+	API_GET(`/api/v1/common/cities/list?filter=${filterText}`).then(function (response) {
+		dispatch({
+			type: APPEND_CITIES,
+			payload: response
+		})
+	}).catch(function (error) {
+
 	})
 }

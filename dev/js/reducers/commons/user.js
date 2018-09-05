@@ -1,4 +1,4 @@
-import { RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
+import { RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_CITIES } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -25,7 +25,8 @@ const defaultState = {
     articles: [],
     chatDoctors: {},
     chatHistory: [],
-    chatRoomIds: {}
+    chatRoomIds: {},
+    citiesName: []
 }
 
 export default function (state = defaultState, action) {
@@ -199,6 +200,14 @@ export default function (state = defaultState, action) {
 
         case RESET_AUTH: {
             return defaultState
+        }
+
+        case APPEND_CITIES: {
+            let newState = {
+                ...state,
+            }
+            newState.citiesName = action.payload
+            return newState
         }
 
     }
