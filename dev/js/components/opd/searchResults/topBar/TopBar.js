@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Menu, { MenuItem } from 'material-ui/Menu';
 import Range from 'rc-slider/lib/Range';
 import Checkbox from 'material-ui/Checkbox';
 
@@ -157,10 +156,10 @@ class TopBar extends React.Component {
                                         <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
                                         <div className="sort-dropdown-div">
                                             <ul className="sort-dropdown-list">
-                                                <li className="sort-dropdown-list-item sort-item-selected">Relevance</li>
-                                                <li className="sort-dropdown-list-item">Fee</li>
-                                                <li className="sort-dropdown-list-item">Distance</li>
-                                                <li className="sort-dropdown-list-item">Experience</li>
+                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,"")}>Relevance</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on=='fees'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'fees')}>Fee</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on=='distance'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'distance')}>Distance</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on=='experience'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'experience')}>Experience</li>
                                             </ul>
                                         </div>
                                     </div> : ""
@@ -168,17 +167,7 @@ class TopBar extends React.Component {
                         </div>
                     </div>
                 </div>
-                {/* <Menu
-                    id="sort-menu"
-                    anchorEl={this.state.anchorEl}
-                    open={Boolean(this.state.anchorEl)}
-                    onClose={this.handleClose.bind(this, null)}
-                >
-                    <MenuItem selected={!!!this.state.sort_on} onClick={this.handleClose.bind(this, "")}>Relevance</MenuItem>
-                    <MenuItem selected={'fees' == this.state.sort_on} onClick={this.handleClose.bind(this, 'fees')}>Fee</MenuItem>
-                    <MenuItem selected={'distance' == this.state.sort_on} onClick={this.handleClose.bind(this, 'distance')}>Distance</MenuItem>
-                    <MenuItem selected={'experience' == this.state.sort_on} onClick={this.handleClose.bind(this, 'experience')}>Experience</MenuItem>
-                </Menu> */}
+                
 
                 {
                     this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="overlay black">
