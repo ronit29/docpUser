@@ -574,6 +574,9 @@ background: black;
 	    padding: 4px 7px;
     font-size: 13px;
 }
+.close-chat{
+	width: 26px !important;
+}
 }
 
 @media (max-height: 355px){

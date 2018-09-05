@@ -247,7 +247,7 @@ class ChatPanel extends React.Component {
                             </span>
                             {
                             this.state.showChatBlock
-                            ?<span onClick={()=>this.setState({showChatBlock:false}) }><img style={{ width: 30 }} src="/assets/img/customer-icons/cht-cls.svg"/></span>
+                            ?<span onClick={()=>this.setState({showChatBlock:false}) }><img className="close-chat" style={{ width: 30 }} src="/assets/img/customer-icons/cht-cls.svg"/></span>
                             :''
                             }
                         </div>
