@@ -1164,3 +1164,53 @@ span.ofr-ribbon:after {
    border-radius: 50%;
    background: #f78361;
 }
+
+.opd-filter-hidden-checkbox{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 19px;
+    width: 19px;
+    top: 12px;
+    right: 100px;
+    z-index: 1;
+}
+
+.opd-filter-checkbox{
+    position: absolute;
+    height: 19px;
+    width: 19px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid rgba(0,0,0,0.5);
+    border-radius: 2px;
+    top: 12px;
+    right: 100px;
+}
+
+.opd-filter-hidden-checkbox:checked ~ .opd-filter-checkbox {
+    background-color: #f78361;
+    border: 2px solid #f78361;
+}
+
+.opd-filter-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.opd-filter-hidden-checkbox:checked ~ .opd-filter-checkbox:after {
+    display: block;
+}
+
+.opd-filter-checkbox:after {
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

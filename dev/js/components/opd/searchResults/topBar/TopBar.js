@@ -190,7 +190,9 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterRowShort">
                                     <span className="tl filterLabel">Available Today</span>
                                     <div className="filterInput">
-                                        <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                        {/* <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
+                                        <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                        <span className="opd-filter-checkbox"></span>
                                     </div>
                                 </div>
                             </div>
@@ -198,11 +200,15 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterSitsAt">
                                     <span className="tl">Sits At</span>
                                     <div className="checkFilter">
-                                        <Checkbox name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                        {/* <Checkbox name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="checkFilter" /> */}
+                                        <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 20}} />
+                                        <span className="opd-filter-checkbox" style={{top: 39, left: 20}}></span>
                                     </div>
                                     <span className="checkFilterLabel">Clinic</span>
                                     <div className="checkFilter">
-                                        <Checkbox name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" />
+                                        {/* <Checkbox name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" /> */}
+                                        <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 128}} />
+                                        <span className="opd-filter-checkbox" style={{top: 39, left: 128}}></span>
                                     </div>
                                     <span className="checkFilterLabel">Hospital</span>
                                 </div>
@@ -228,7 +234,9 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterRowFemaleDoc">
                                     <span className="tl filterLabel">Female Doctor</span>
                                     <div className="filterInput">
-                                        <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" />
+                                        {/* <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
+                                        <input type="checkbox" name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                        <span className="opd-filter-checkbox"></span>
                                     </div>
 
                                 </div>
