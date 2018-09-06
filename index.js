@@ -72,12 +72,14 @@ app.all('*', function (req, res) {
             const storeData = JSON.stringify(store.getState())
             const html = ReactDOMServer.renderToString(
                 <Provider store={store}>
-                    <StaticRouter
-                        location={req.url}
-                        context={{}}
-                    >
-                        <Routes />
-                    </StaticRouter>
+                    <div>
+                        <StaticRouter
+                            location={req.url}
+                            context={{}}
+                        >
+                            <Routes />
+                        </StaticRouter>
+                    </div>
                 </Provider>
             )
 

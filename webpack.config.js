@@ -115,8 +115,7 @@ const client_base = {
             new UglifyJsPlugin({
                 uglifyOptions: {
                     output: {
-                        comments: false,
-                        sourceMap: true // set to true if you want JS source maps
+                        comments: false
                     }
                 }
             })

@@ -18,13 +18,18 @@ const store = createStore(
     window.__INITIAL_STATE__,
     applyMiddleware(thunk, logger)
 );
-let persistor = persistStore(store)
 
-ReactDOM.hydrate(
-    <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+/**
+ * Wait for persisStore to finish rehydrating, before trying to hydrate client side DOM.
+ * This will only re-render nodes which are changed after merging persisted store on the
+ * client side.
+ */
+let persistor = persistStore(store, null, () => {
+    ReactDOM.hydrate(
+        <Provider store={store}>
             <App />
-        </PersistGate>
-    </Provider>,
-    document.getElementById('root')
-);
+        </Provider>,
+        document.getElementById('root')
+    );
+})
+
