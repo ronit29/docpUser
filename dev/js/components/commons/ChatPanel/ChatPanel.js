@@ -14,7 +14,8 @@ class ChatPanel extends React.Component {
             symptoms: [],
             roomId: "",
             showCancel: false,
-            showChatBlock:false
+            showChatBlock:false,
+            additionClasses:' chat-load-mobile'
         }
     }
 
@@ -200,12 +201,12 @@ class ChatPanel extends React.Component {
             <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
             {
                 this.props.homePage?'':
-                <div className="chat-float-btn d-lg-none d-md-none" onClick={()=>this.setState({showChatBlock:true})}><img width="80" src="/assets/img/customer-icons/floatingicon.png"/></div>
+                <div className="chat-float-btn d-lg-none d-md-none" onClick={()=>this.setState({showChatBlock:true,additionClasses:""})}><img width="80" src="/assets/img/customer-icons/floatingicon.png"/></div>
             }
             
            
             
-                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage? 'chatbox-right':'chatbox-right d-none d-lg-flex mt-21'}` }>
+                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage? 'chatbox-right':'chatbox-right chat-slide-down d-lg-flex mt-21'} ${ this.props.homePage ? '' : this.state.additionClasses }` }>
 
                 
                     {/* chat header */}
