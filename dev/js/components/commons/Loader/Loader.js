@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { CircularProgress } from 'material-ui/Progress';
-
 class Loader extends React.Component {
     constructor(props) {
         super(props)
@@ -11,7 +9,6 @@ class Loader extends React.Component {
 
         return (
             <div className={this.props.classType || "loaderCircular"} >
-                {/* <CircularProgress className={"loaderactual"} size={50} thickness={3} /> */}
                 <div className="dp-loader"></div>
             </div>
         );
