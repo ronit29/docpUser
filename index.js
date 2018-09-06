@@ -29,82 +29,71 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 
 app.all('*', function (req, res) {
-
-    const context = {}
-
+    /**
+     * Initialized store with persisted reducer and all middlewares
+     * TODO: use persisted data for inital render
+     */
     const store = createStore(
         allReducers, applyMiddleware(thunk)
     );
-
-
-    if (context.url) {
-        res.writeHead(301, {
-            Location: context.url
-        })
-        res.end()
-    } else {
-
-        // inside a request
-        const promises = []
-
-        /** 
-         * Check if a route is enabled for SSR , RENDER_ON_SERVER == true,
-         * if enabled, check if it needs any data(async API) before rendering, if so
-         * then wait for that data to resolve then render with proper data.
-         */
-        Routes.ROUTES.some(route => {
-            // use `matchPath` here
-            const match = matchPath(req.path, route)
-            if (match && route.RENDER_ON_SERVER) {
-                if (route.component.loadData) {
-                    promises.push(route.component.loadData(store, match))
-                } else {
-                    promises.push(Promise.resolve({}))
-                }
+    /** 
+     * Check if a route is enabled for SSR , RENDER_ON_SERVER == true,
+     * if enabled, check if it needs any data(async API) before rendering, if so
+     * then wait for that data to resolve then render with proper data.
+     */
+    const promises = []
+    Routes.ROUTES.some(route => {
+        // use `matchPath` here
+        const match = matchPath(req.path, route)
+        if (match && route.RENDER_ON_SERVER) {
+            if (route.component.loadData) {
+                promises.push(route.component.loadData(store, match))
+            } else {
+                promises.push(Promise.resolve({}))
             }
-            return match
-        })
-
-        /** 
-         * Only when a route matches all criteria for SSR, we do SSR
-         */
-        if (promises && promises.length) {
-
-            Promise.all(promises).then(data => {
-
-                // set a timeout to check if SSR is talking too long, if it does , just render the normal page.
-                let SSR_TIMER = setTimeout(() => {
-                    res.render('index.ejs', {
-                        html: "", css: "", storeData: "{}"
-                    })
-                }, 2000)
-
-                const storeData = JSON.stringify(store.getState())
-                const html = ReactDOMServer.renderToString(
-                    <Provider store={store}>
-                        <StaticRouter
-                            location={req.url}
-                            context={context}
-                        >
-                            <Routes />
-                        </StaticRouter>
-                    </Provider>
-                )
-
-                // clear timer to mark success in SSR
-                clearTimeout(SSR_TIMER)
-                res.render('index.ejs', {
-                    html, storeData
-                })
-
-            })
-        } else {
-            res.render('index.ejs', {
-                html: "", storeData: "{}"
-            })
         }
+        return match
+    })
 
+    /** 
+     * Only when a route matches all criteria for SSR, we do SSR
+     */
+    if (promises && promises.length) {
+
+        Promise.all(promises).then(data => {
+
+            // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
+            let SSR_TIMER = setTimeout(() => {
+                res.render('index.ejs', {
+                    html: "", css: "", storeData: "{}"
+                })
+            }, 2000)
+
+            const storeData = JSON.stringify(store.getState())
+            const html = ReactDOMServer.renderToString(
+                <Provider store={store}>
+                    <StaticRouter
+                        location={req.url}
+                        context={{}}
+                    >
+                        <Routes />
+                    </StaticRouter>
+                </Provider>
+            )
+
+            // clear timer to mark success in SSR
+            clearTimeout(SSR_TIMER)
+            res.render('index.ejs', {
+                html, storeData
+            })
+
+        })
+    } else {
+        res.render('index.ejs', {
+            html: "", storeData: "{}"
+        })
     }
+
 
 });
 
