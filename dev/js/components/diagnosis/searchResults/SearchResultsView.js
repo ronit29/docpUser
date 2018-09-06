@@ -55,7 +55,7 @@ class SearchResultsView extends React.Component {
             // if location found in store , use that instead of the one in URL
             if (selectedLocation) {
                 // if location is changed then update url with new locatiobs
-                if (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id) {
+                if (!!!searchState.selectedLocation || (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id)) {
                     // skip location pick from store if force location from url is set
                     if (!force_location_fromUrl) {
                         searchState.selectedLocation = selectedLocation

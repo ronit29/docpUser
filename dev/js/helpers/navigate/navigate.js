@@ -28,6 +28,10 @@ const NAVIGATE = {
         searchState = JSON.parse(searchState)
         let oldLocation = searchState.selectedLocation
 
+        if (!!!oldLocation) {
+            return true
+        }
+
         if (oldLocation && oldLocation.place_id && props.selectedLocation && oldLocation.place_id != props.selectedLocation.place_id) {
             return true
         }
@@ -48,6 +52,10 @@ const NAVIGATE = {
         let searchState = getLocationParam(props, 'search')
         searchState = JSON.parse(searchState)
         let oldLocation = searchState.selectedLocation
+
+        if (!!!oldLocation) {
+            return true
+        }
 
         if (oldLocation && oldLocation.place_id && props.selectedLocation && oldLocation.place_id != props.selectedLocation.place_id) {
             return true

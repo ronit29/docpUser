@@ -20,6 +20,10 @@ class SearchCriteriaView extends React.Component {
 
     searchProceed(lab_name = "") {
         let selectedCriterias = (lab_name && lab_name.length > 0) ? [] : this.props.selectedCriterias
+        selectedCriterias = selectedCriterias.map((x) => {
+            delete x.icon
+            return x
+        })
         let searchData = {
             selectedCriterias: selectedCriterias,
             selectedLocation: this.props.selectedLocation,

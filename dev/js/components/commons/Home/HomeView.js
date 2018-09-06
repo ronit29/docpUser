@@ -53,6 +53,7 @@ class HomeView extends React.Component {
 
     searchLab(test) {
         test.type = 'test'
+        delete test.icon
         let searchData = {
             selectedCriterias: [test],
             selectedLocation: this.props.selectedLocation,
@@ -67,6 +68,7 @@ class HomeView extends React.Component {
 
     searchDoctor(speciality) {
         speciality.type = 'speciality'
+        delete speciality.icon
         let searchData = {
             selectedCriterias: [speciality],
             selectedLocation: this.props.selectedLocation,
