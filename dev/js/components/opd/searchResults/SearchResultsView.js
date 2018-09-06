@@ -70,13 +70,13 @@ class SearchResultsView extends React.Component {
 
                 // if location is changed then update url with new locations
                 if (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id) {
-                    // skip if force location from url is set
+                    // skip location pick from store if force location from url is set
                     if (!force_location_fromUrl) {
                         searchState.selectedLocation = selectedLocation
-                        let searchData = encodeURIComponent(JSON.stringify(searchState))
-                        let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
-                        this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}&hospital_name=${hospital_name}`)
                     }
+                    let searchData = encodeURIComponent(JSON.stringify(searchState))
+                    let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
+                    this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}&hospital_name=${hospital_name}`)
                 }
 
             }
