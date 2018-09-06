@@ -4,6 +4,7 @@ import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
 import SnackBar from 'node-snackbar'
 import Axios from 'axios';
+import CONFIG from '../../config/config.js'
 
 export const sendOTP = (number, cb) => (dispatch) => {
     dispatch({
@@ -47,6 +48,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
     }).then(function (response) {
         // set cookie token explicitly, csrf token is set by default
         STORAGE.setAuthToken(response.token)
+        STORAGE.setUserId(response.user_id)
 
         dispatch({
             type: SUBMIT_OTP_SUCCESS,
@@ -90,7 +92,9 @@ export const registerUser = (postData, cb) => (dispatch) => {
     })
 }
 
-export const logout = (postData, cb) => (dispatch) => {
+export const logout = (roomId) => (dispatch) => {
+    // delete chat of current opened room
+    Axios.get(`${CONFIG.CHAT_API_URL}/livechat/healthservices/closeChat/${roomId}`)
     STORAGE.deleteAuth().then(() => {
         dispatch({
             type: RESET_AUTH,
@@ -102,6 +106,7 @@ export const logout = (postData, cb) => (dispatch) => {
         }, 300)
         // clear entire store (initially peristed)
     })
+    STORAGE.deleteUserId()
 }
 
 export const resetAuth = (postData, cb) => (dispatch) => {

@@ -4,6 +4,7 @@ import CONFIG from '../../../config'
 
 import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
+import GTM from '../../../helpers/gtm.js'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class ChatPanel extends React.Component {
             token: "",
             symptoms: [],
             roomId: "",
-            showCancel: false
+            showCancel: false,
+            showChatBlock:false
         }
     }
 
@@ -30,7 +32,6 @@ class ChatPanel extends React.Component {
         if (window) {
             // handling events sent by iframe
             window.addEventListener('message', function ({ data }) {
-                console.log("MESSAGE RECEIVED AT CLIENT SIDE - ", data)
                 if (data) {
                     switch (data.event) {
                         case "RoomAgent": {
@@ -39,6 +40,10 @@ class ChatPanel extends React.Component {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
                                 })
+                                let analyticData = {
+                                    'Category':'Chat','Action':'DoctorAssigned','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor-assigned'
+                                }
+                                GTM.sendEvent({ data: analyticData })
                             })
                             break
                         }
@@ -67,6 +72,8 @@ class ChatPanel extends React.Component {
 
                         case "chat_loaded": {
                             if (data.data.rid) {
+                                // save current room
+                                this.props.setChatRoomId(data.data.rid)
                                 this.setState({ selectedRoom: data.data.rid })
                             }
                             break
@@ -74,6 +81,10 @@ class ChatPanel extends React.Component {
 
                         case "Login": {
                             if (data.data["params.token"]) {
+                                let analyticData = {
+                                    'Category':'Chat','Action':'UserRegisteredviaChat','CustomerID':'','leadid':0,'event':'user-registered-via-chat'
+                                }
+                                GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
                             }
                             break
@@ -82,6 +93,13 @@ class ChatPanel extends React.Component {
                         case "Chat_Close": {
                             this.props.history.go(-1)
                             break
+                        }
+
+                        case "prescription_report": {
+                            let analyticData = {
+                                'Category':'Chat','Action':'PrescriptionGenerated','CustomerID':'','leadid':0,'event':'prescription-generated'
+                            }
+                            GTM.sendEvent({ data: analyticData })
                         }
                     }
 
@@ -94,6 +112,15 @@ class ChatPanel extends React.Component {
                 }
             }.bind(this))
         }
+
+        // setTimeout(() => {
+        //     debugger
+        //     // Default export is a4 paper, portrait, using milimeters for units
+        //     var doc = new jsPDF()
+        //     doc.fromHTML(`<h1>Hello world!</h1>`, 10, 10)
+        //     doc.save('a4.pdf')
+
+        // }, 3000)
     }
 
     dispatchCustomEvent(eventName, data = {}) {
@@ -185,11 +212,21 @@ class ChatPanel extends React.Component {
 
         return (
 
-            <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4 chat-hide-mobile"}>
-                <div className={this.props.homePage ? "chatbox-right" : "chatbox-right mt-21"}>
+            <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
+            {
+                this.props.homePage||true?'':
+                <div className="chat-float-btn" onClick={()=>this.setState({showChatBlock:true})}><img src="/assets/chat.png"/></div>
+            }
+            
+           
+            
+                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage? 'chatbox-right':'chatbox-right d-none d-lg-flex mt-21'}` }>
+
+                
                     {/* chat header */}
                     <div className="chat-head">
-                        <div className="hd-chat" onClick={() => {
+
+                        { /*<div className="hd-chat" onClick={() => {
                             if (doctorData) {
                                 this.openDoctorProfile(doctorData.id)
                             }
@@ -207,9 +244,18 @@ class ChatPanel extends React.Component {
                                         <span className="hed-txt-lt">{this.getDoctorSpecialization(doctorData)}</span>
                                     </p> : ""
                             }
+                        
 
                         </div>
-                        <div className="cht-head-rqst-btn d-flex">
+
+                        */}
+                        {
+                            this.state.showChatBlock
+                            ?<div className="close-screen-chat" onClick={()=>this.setState({showChatBlock:false}) }>&#10006;</div>
+                            :''
+                        }
+                        
+                        <div className="cht-head-rqst-btn">
                             <span className="mr-4" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
                                 <img style={{ width: 20 }} src="/assets/img/customer-icons/call-orange.svg" />
                             </span>
@@ -222,7 +268,7 @@ class ChatPanel extends React.Component {
                     {/* chat Body */}
                     <div className="chat-body">
                         {
-                            STORAGE.isAgent() ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner"} src={iframe_url} ref="chat_frame"></iframe>
+                            STORAGE.isAgent() ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
                         }
                     </div>
                     {/* chat Body */}
@@ -240,8 +286,9 @@ class ChatPanel extends React.Component {
                         </div> */}
                         <div className="wrng-mssg">
                             <img src="/assets/images/warning-icon.png" />
-                            <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
-</span>
+                            <span>
+                                Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
+                            </span>
                         </div>
                     </div>
 

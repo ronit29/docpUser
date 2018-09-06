@@ -9,6 +9,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
+import GTM from '../../../helpers/gtm.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -35,6 +36,8 @@ class BookingView extends React.Component {
 
     componentDidMount() {
 
+        let appointmentId = this.props.match.params.refId
+
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
             let start_date = this.props.rescheduleSlot.date
             let start_time = this.props.rescheduleSlot.time.value
@@ -43,6 +46,7 @@ class BookingView extends React.Component {
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
                     this.setState({ data: data.data, loading: false })
+
                     SnackBar.show({ pos: 'bottom-center', text: "Appointment reschedule success." });
                 } else {
                     this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
@@ -71,6 +75,13 @@ class BookingView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
+        }
+
+        if (this.state.payment_success) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
+            }
+            GTM.sendEvent({ data: data })
         }
     }
 

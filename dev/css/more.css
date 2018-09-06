@@ -536,7 +536,7 @@ ul.inline-list li {
 
 .chat-iframe{
     width: 100%;
-    height: calc(100vh - 245px);
+    height: 100%;
 }
 
 .chat-iframe-inner{
@@ -556,8 +556,8 @@ ul.inline-list li {
         padding-bottom: 42px;
     }
     .chat-iframe{
-        height: calc(100vh - 344px);
-        height: 301px;
+        /*height: calc(100vh - 344px);
+        height: 301px;*/
         /* height: calc(100vh - 318px); */
     }
 }
@@ -1089,4 +1089,13 @@ span.ofr-ribbon:after {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.dwnloadbtnpres{
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 19px;
+    cursor: pointer;
+    margin-right: 10px;
 }

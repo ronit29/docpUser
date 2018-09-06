@@ -1,4 +1,4 @@
-import { SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
+import { SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -89,6 +89,16 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 					searchState,
 					filterCriteria
 				}
+			})
+
+			dispatch({
+				type: SELECT_LOCATION_DIAGNOSIS,
+				payload: searchState.selectedLocation
+			})
+
+			dispatch({
+				type: SELECT_LOCATION_OPD,
+				payload: searchState.selectedLocation
 			})
 		}
 

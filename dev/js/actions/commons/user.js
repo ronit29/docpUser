@@ -1,4 +1,4 @@
-import { APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_CITIES } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -231,7 +231,7 @@ export const fetchArticles = (cb) => (dispatch) => {
 }
 
 export const fetchArticle = (id, preview = null, cb) => (dispatch) => {
-	let url = `/api/v1/article/detail/${id}`
+	let url = `/api/v1/article/detail?url=${id}`
 	if (preview) {
 		url += `?preview=1`
 	}
@@ -290,6 +290,13 @@ export const sendAgentBookingURL = (orderId, type, cb) => (dispatch) => {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
+	})
+}
+
+export const setChatRoomId = (roomId) => (dispatch) => {
+	dispatch({
+		type: SET_CHATROOM_ID,
+		payload: roomId || null
 	})
 }
 

@@ -4,6 +4,7 @@ const queryString = require('query-string');
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import GTM from '../../../helpers/gtm.js'
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class UserLoginView extends React.Component {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (error) => {
                 if (error) {
-                    this.setState({ validationError: "Could not generate OTP." })
+                   // this.setState({ validationError: "Could not generate OTP." })
                 } else {
                     this.setState({ showOTP: true })
                 }
@@ -60,6 +61,13 @@ class UserLoginView extends React.Component {
                         this.props.history.go(-1)
                     }
                 } else {
+                    // gtm event
+
+
+                    let data = {
+                    'Category':'ConsumerApp','Action':'UserRegistered','CustomerID':GTM.getUserId(),'leadid':0,'event':'user-registered'}
+                    GTM.sendEvent({ data: data })
+                    
                     if (parsed.callback) {
                         this.props.history.replace(`/signup?callback=${parsed.callback}`)
                     } else {

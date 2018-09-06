@@ -17,7 +17,11 @@ const PROD_CONFIG = {
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
     PG_URL: "https://pay.docprime.com/dp/pay/init",
     CHAT_URL: "https://telemed.docprime.com/livechat",
-    env: "production"
+    CHAT_API_URL: "https://telemed.docprime.com/api/v1",
+    env: "production",
+    UAID:'UA-124740649-1',
+    Tracker:'docobj'
+
 }
 
 const STAGING_CONFIG = {
@@ -27,20 +31,25 @@ const STAGING_CONFIG = {
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
     PG_URL: "https://pgdev.policybazaar.com/dp/pay/init",
     CHAT_URL: "https://chatqa.docprime.com/livechat",
-    env: "staging"
+    CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
+    env: "staging",
+    UAID:'UA-124740649-2',
+    Tracker:'docqa'
 }
 
 const DEV_CONFIG = {
-    // API_BASE_URL: 'http://10.0.28.67:8080',
-    // API_BASE_URL: 'http://localhost:8080',
+    
     API_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io",
     PG_URL: "https://pgdev.policybazaar.com/dp/pay/init",
-    CHAT_URL: "https://chatqa.docprime.com/livechat",
-    env: "dev"
+    CHAT_URL: "https://telemed.docprime.com/livechat",
+    CHAT_API_URL: "https://telemed.docprime.com/api/v1",
+    env: "dev",
+    UAID:'UA-124740649-2',
+    Tracker:'docqa'
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }

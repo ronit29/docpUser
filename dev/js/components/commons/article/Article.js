@@ -14,14 +14,18 @@ class Article extends React.Component {
     }
 
     componentDidMount() {
-        let articleId = this.props.match.params.id
-        this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
-            if (!err) {
-                this.setState({ articleData: data })
-            } else {
+        let articleId = this.props.match.url
+        if(articleId){
+            articleId = articleId.substring(1,articleId.length)
+            this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
+                if (!err) {
+                    this.setState({ articleData: data })
+                } else {
 
-            }
-        })
+                }
+            })
+
+        }
 
         if (window) {
             window.scrollTo(0, 0)
@@ -54,6 +58,7 @@ class Article extends React.Component {
                             </header> */}
                             {
                                 this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
+                                    <div><img style={{width:'100%',paddingBottom:'4px'}} src={this.state.articleData.header_image} /></div>
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""

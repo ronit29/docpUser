@@ -7,6 +7,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
+import GTM from '../../../helpers/gtm.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -35,7 +36,8 @@ class BookingView extends React.Component {
             this.props.selectOpdTimeSLot({ time: {} }, true, null)
         }
 
-        this.props.getOPDBookingSummary(this.props.match.params.refId, (err, data) => {
+        let appointmentId = this.props.match.params.refId;
+        this.props.getOPDBookingSummary(appointmentId, (err, data) => {
             if (!err) {
                 this.setState({ data: data[0], loading: false })
             } else {
@@ -45,6 +47,14 @@ class BookingView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
+        }
+
+        if (this.state.payment_success) {
+            
+            let data = {
+                'Category':'ConsumerApp','Action':'DoctorAppointmentBooked','CustomerID':GTM.getUserId(),'leadid':appointmentId,'event':'doctor-appointment-booked'
+            }
+            GTM.sendEvent({ data: data })
         }
     }
 

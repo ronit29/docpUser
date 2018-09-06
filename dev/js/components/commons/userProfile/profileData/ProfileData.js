@@ -11,6 +11,8 @@ class ProfileData extends React.Component {
 
     render() {
 
+        let currentRoomId = this.props.USER.currentRoomId
+
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav">
                 <div className="widget-content">
@@ -128,7 +130,7 @@ class ProfileData extends React.Component {
                             </a>
                         </li>
                         <li onClick={() => {
-                            this.props.logout()
+                            this.props.logout(currentRoomId)
                         }} className="my-profile-item d-none d-md-block">
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -141,7 +143,7 @@ class ProfileData extends React.Component {
                         </li>
                     </ul>
                 </div>
-                <div className="logout-div d-md-none" onClick={() => { this.props.logout() }}>
+                <div className="logout-div d-md-none" onClick={() => { this.props.logout(currentRoomId) }}>
                     <p className="fw-500">Logout</p>
                 </div>
             </div>
