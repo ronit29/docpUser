@@ -36,21 +36,6 @@ app.all('*', function (req, res) {
         allReducers, applyMiddleware(thunk)
     );
 
-    const sheetsRegistry = new SheetsRegistry();
-    const theme = createMuiTheme({
-        palette: {
-            primary: {
-                main: '#f78361'
-            },
-            secondary: {
-                main: '#f78361'
-            },
-        },
-        status: {
-            danger: 'orange',
-        },
-    })
-    const generateClassName = createGenerateClassName();
 
     if (context.url) {
         res.writeHead(301, {
@@ -97,31 +82,25 @@ app.all('*', function (req, res) {
                 const storeData = JSON.stringify(store.getState())
                 const html = ReactDOMServer.renderToString(
                     <Provider store={store}>
-                        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-                            <MuiThemeProvider theme={theme}>
-                                <StaticRouter
-                                    location={req.url}
-                                    context={context}
-                                >
-                                    <Routes />
-                                </StaticRouter>
-                            </MuiThemeProvider>
-                        </JssProvider>
+                        <StaticRouter
+                            location={req.url}
+                            context={context}
+                        >
+                            <Routes />
+                        </StaticRouter>
                     </Provider>
                 )
-
-                const css = sheetsRegistry.toString()
 
                 // clear timer to mark success in SSR
                 clearTimeout(SSR_TIMER)
                 res.render('index.ejs', {
-                    html, css, storeData
+                    html, storeData
                 })
 
             })
         } else {
             res.render('index.ejs', {
-                html: "", css: "", storeData: "{}"
+                html: "", storeData: "{}"
             })
         }
 
