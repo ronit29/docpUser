@@ -58,7 +58,12 @@ class Article extends React.Component {
                             </header> */}
                             {
                                 this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
-                                    <div><img style={{width:'100%',paddingBottom:'4px'}} src={this.state.articleData.header_image} /></div>
+
+                                    {
+                                    this.state.articleData.header_image?<div><img style={{width:'100%',paddingBottom:'4px'}} src={this.state.articleData.header_image} /></div>
+                                        :''    
+                                    }
+                                    
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""
