@@ -11,6 +11,10 @@ class Home extends React.Component {
         super(props)
     }
 
+    static loadData(store, match) {
+        return Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())])
+    }
+
     static contextTypes = {
         router: () => null
     }
