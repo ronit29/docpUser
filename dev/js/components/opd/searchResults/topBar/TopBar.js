@@ -141,6 +141,14 @@ class TopBar extends React.Component {
                             <div className="filter-item">
                                 <div className="action-filter">
                                     <ul className="inline-list">
+                                        <li className="d-none d-md-inline-block">
+                                            <CopyToClipboard text={this.state.shortURL}
+                                                onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
+                                                <span style={{cursor: 'pointer'}}>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                                </span>
+                                            </CopyToClipboard>
+                                        </li>
                                         <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
                                         <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                             {
@@ -151,12 +159,6 @@ class TopBar extends React.Component {
                                 </div>
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
-
-                                    <CopyToClipboard text={this.state.shortURL}
-                                        onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
-                                        <button>URL SHORT</button>
-                                    </CopyToClipboard>
-
                                 </div>
                             </div>
                         </div>
