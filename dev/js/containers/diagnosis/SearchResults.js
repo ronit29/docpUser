@@ -13,8 +13,31 @@ class SearchResults extends React.Component {
         }
     }
 
-    componentDidMount() {
-        // this.props.clearExtraTests()
+    static loadData(store, match, queryParams = {}) {
+        try {
+            let searchState = queryParams['search']
+            let filterCriteria = queryParams['filter']
+            let lab_name = queryParams['lab_name']
+            lab_name = lab_name || ""
+
+            if (filterCriteria) {
+                filterCriteria = JSON.parse(filterCriteria)
+            } else {
+                filterCriteria = {}
+            }
+
+            if (lab_name) {
+                filterCriteria.lab_name = lab_name
+            }
+
+            searchState = JSON.parse(searchState)
+
+            return store.dispatch(getLabs(searchState, filterCriteria, false))
+
+        } catch (e) {
+            console.error(e)
+        }
+
     }
 
     static contextTypes = {

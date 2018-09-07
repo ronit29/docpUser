@@ -10,7 +10,7 @@ class LabsList extends React.Component {
         this.state = {
             hasMore: true,
             loading: false,
-            renderBlock: true
+            renderBlock: false
         }
     }
 
@@ -19,30 +19,30 @@ class LabsList extends React.Component {
          * Below code ensures smooth back page transitions in case of huge data sets, and maintains scroll position.
          * renderBlock = true (by default) will block render until the page transition is completed, and once its done, it will then render and set scroll position accordingly
          */
-        setTimeout(() => {
-            if (this.refs.checkIfExists) {
-                this.setState({ renderBlock: false })
-            }
-            setTimeout(() => {
-                if (window) {
-                    let scroll_pos = window.LAB_SCROLL_POS ? (window.LAB_SCROLL_POS) : 0
-                    // TODO: improve scroll back logic
-                    window.scrollTo(0, scroll_pos || 0)
-                    window.LAB_SCROLL_POS = 0
+        // setTimeout(() => {
+        //     if (this.refs.checkIfExists) {
+        //         this.setState({ renderBlock: false })
+        //     }
+        //     setTimeout(() => {
+        //         if (window) {
+        //             let scroll_pos = window.LAB_SCROLL_POS ? (window.LAB_SCROLL_POS) : 0
+        //             // TODO: improve scroll back logic
+        //             window.scrollTo(0, scroll_pos || 0)
+        //             window.LAB_SCROLL_POS = 0
 
-                    window.onscroll = function () {
-                        window.LAB_SCROLL_POS = window.pageYOffset
-                    }
-                }
-            }, 100)
-        }, 100)
+        //             window.onscroll = function () {
+        //                 window.LAB_SCROLL_POS = window.pageYOffset
+        //             }
+        //         }
+        //     }, 100)
+        // }, 100)
 
     }
 
     componentWillUnmount() {
-        if (window) {
-            window.onscroll = null
-        }
+        // if (window) {
+        //     window.onscroll = null
+        // }
     }
 
     getLocationParam(tag) {

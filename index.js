@@ -47,7 +47,7 @@ app.all('*', function (req, res) {
         const match = matchPath(req.path, route)
         if (match && route.RENDER_ON_SERVER) {
             if (route.component.loadData) {
-                promises.push(route.component.loadData(store, match))
+                promises.push(route.component.loadData(store, match, req.query))
             } else {
                 promises.push(Promise.resolve({}))
             }
