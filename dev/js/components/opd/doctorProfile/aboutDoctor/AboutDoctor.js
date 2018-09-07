@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ActionTrendingUp } from 'material-ui';
 
 class AboutDoctor extends React.Component {
 

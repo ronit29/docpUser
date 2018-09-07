@@ -1,5 +1,4 @@
-import React from 'react';
-import Radio from 'material-ui/Radio';
+import React from 'react'
 
 class UserAddress extends React.Component {
     constructor(props) {
@@ -22,7 +21,7 @@ class UserAddress extends React.Component {
     }
 
     updateAddress(addressData, e) {
-        addressData.is_default = e.target.checked
+        addressData.is_default = true
         this.props.updateUserAddress(addressData, (err, data) => {
             this.props.getUserAddress()
         })
@@ -37,18 +36,17 @@ class UserAddress extends React.Component {
                 <ul className="list family-list dp-user-list">
                     {
                         (address && address.length) ? address.map((curr, key) => {
-                            return <li key={key}>
-                                <a>
-                                    <span className="icon icon-lg member-icon" style={{ marginTop: -15 }}>
-                                        <Radio value={curr.id.toString()} checked={curr.is_default} onChange={this.updateAddress.bind(this, curr)} />
-                                    </span>
-                                    <div className="member-details">
-                                        <ul className="list">
-                                            <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.address}</li>
-                                        </ul>
-                                    </div>
-                                    <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 9 }} className="ct-img ct-img-sm arrow-forward-right">Edit</span>
-                                </a>
+                            return <li key={key} style={{cursor: 'unset'}}>
+                                <span className="icon icon-lg member-icon" onClick={this.updateAddress.bind(this, curr)} style={{ marginTop: -17, position: 'relative', cursor: 'pointer' }}>
+                                    <input type="radio" value={curr.id.toString()} checked={curr.is_default} className="user-address-hidden-radio" />
+                                    <span className="user-address-radio"></span>
+                                </span>
+                                <div className="member-details">
+                                    <ul className="list">
+                                        <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.address}</li>
+                                    </ul>
+                                </div>
+                                <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 10 }} className="ct-img ct-img-sm arrow-forward-right">Edit</span>
                             </li>
                         }) : <div className="text-center pd-20">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/no-address.png"} />

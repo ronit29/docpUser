@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Routes from './routes.js'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import CONFIG from './config'
 import STORAGE from './helpers/storage'
 const Raven = require('raven-js')
@@ -40,11 +39,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        // remove SSR css for material-ui
-        const jssStyles = document.getElementById('jss-server-side');
-        if (jssStyles && jssStyles.parentNode) {
-            jssStyles.parentNode.removeChild(jssStyles);
-        }
 
         if (STORAGE.checkAuth()) {
             STORAGE.getAuthToken().then((token) => {
@@ -70,28 +64,12 @@ class App extends React.Component {
 
     render() {
 
-        const theme = createMuiTheme({
-            palette: {
-                primary: {
-                    main: '#f78361'
-                },
-                secondary: {
-                    main: '#f78361'
-                },
-            },
-            status: {
-                danger: 'orange',
-            },
-        })
-
         return (
             <div>
                 <NotificationsBoot />
-                <MuiThemeProvider theme={theme}>
-                    <BrowserRouter>
-                        <Routes />
-                    </BrowserRouter>
-                </MuiThemeProvider>
+                <BrowserRouter>
+                    <Routes />
+                </BrowserRouter>
             </div>
         );
     }
