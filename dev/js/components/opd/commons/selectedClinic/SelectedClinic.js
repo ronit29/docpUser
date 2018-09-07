@@ -19,7 +19,7 @@ class SelectedClinic extends React.Component {
 
     render() {
 
-        let { name, qualifications, hospitals, thumbnail, general_specialization } = this.props.selectedDoctor
+        let { name, qualifications, hospitals, thumbnail, general_specialization, display_name } = this.props.selectedDoctor
         let hospitalName = ""
 
         if (hospitals && hospitals.length) {
@@ -38,7 +38,7 @@ class SelectedClinic extends React.Component {
                     </InitialsPicture>
 
                     <div className="dr-profile">
-                        <h4 className="dr-name">{name}</h4>
+                        <h4 className="dr-name">{display_name}</h4>
                         <p className="desg">{this.getQualificationStr(general_specialization) || []}</p>
                         <h4 className="clinic-name mrt-10 text-sm">{hospitalName}</h4>
                     </div>
