@@ -165,3 +165,12 @@ export const OTTLogin = (ott) => (dispatch) => {
         })
     })
 }
+
+export function setGTMSession(data){
+    API_POST('api/v1/tracking/event/save',data).then((data)=>{
+        
+    }).catch(function(e){
+        
+    })
+    
+}

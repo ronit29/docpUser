@@ -1,5 +1,6 @@
 import CONFIG from '../config'
 import STORAGE from './storage/storage'
+import { setGTMSession } from '../actions/commons/auth.js'
 
 const GTM = {
     sendEvent: ({ data }) => {
@@ -10,8 +11,9 @@ const GTM = {
             if (dataLayer) {
                 data.UAID=CONFIG.UAID
                 data.Tracker=CONFIG.Tracker
-                dataLayer.push(data)
+                dataLayer.push(data)                
             }
+            setGTMSession(data);
         } catch (e) {
             //
         }
