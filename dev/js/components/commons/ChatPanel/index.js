@@ -24,7 +24,7 @@ class ChatPanel extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps = {}) => {
     const USER = state.USER
     let DOCTORS = state.DOCTORS
     let doctor_search_data = {}
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
     lab_search_data.filterCriteria = state.SEARCH_CRITERIA_LABS.filterCriteria
 
     return {
-        USER, DOCTORS, doctor_search_data, lab_search_data
+        USER, DOCTORS, doctor_search_data, lab_search_data, ...passedProps
     }
 }
 

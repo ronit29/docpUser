@@ -15,8 +15,8 @@ class ChatPanel extends React.Component {
             symptoms: [],
             roomId: "",
             showCancel: false,
-            showChatBlock:false,
-            additionClasses:' chat-load-mobile'
+            showChatBlock: false,
+            additionClasses: ' chat-load-mobile'
         }
     }
 
@@ -42,7 +42,7 @@ class ChatPanel extends React.Component {
                                     profileId: data.id
                                 })
                                 let analyticData = {
-                                    'Category':'Chat','Action':'DoctorAssigned','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor-assigned'
+                                    'Category': 'Chat', 'Action': 'DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor-assigned'
                                 }
                                 GTM.sendEvent({ data: analyticData })
                             })
@@ -83,7 +83,7 @@ class ChatPanel extends React.Component {
                         case "Login": {
                             if (data.data["params.token"]) {
                                 let analyticData = {
-                                    'Category':'Chat','Action':'UserRegisteredviaChat','CustomerID':'','leadid':0,'event':'user-registered-via-chat'
+                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat'
                                 }
                                 GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
@@ -98,7 +98,7 @@ class ChatPanel extends React.Component {
 
                         case "prescription_report": {
                             let analyticData = {
-                                'Category':'Chat','Action':'PrescriptionGenerated','CustomerID':'','leadid':0,'event':'prescription-generated'
+                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated'
                             }
                             GTM.sendEvent({ data: analyticData })
                         }
@@ -214,16 +214,16 @@ class ChatPanel extends React.Component {
         return (
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
-            {
-                this.props.homePage?'':
-                <div className="chat-float-btn d-lg-none d-md-none" onClick={()=>this.setState({showChatBlock:true,additionClasses:""})}><img width="80" src="/assets/img/customer-icons/floatingicon.png"/></div>
-            }
-            
-           
-            
-                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage? 'chatbox-right':'chatbox-right chat-slide-down d-lg-flex mt-21'} ${ this.props.homePage ? '' : this.state.additionClasses }` }>
+                {
+                    this.props.homePage ? '' :
+                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass||"")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src="/assets/img/customer-icons/floatingicon.png" /></div>
+                }
 
-                
+
+
+                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
+
+
                     {/* chat header */}
                     <div className="chat-head">
 
@@ -250,8 +250,8 @@ class ChatPanel extends React.Component {
                         </div>
 
                         */}
-                        
-                        
+
+
                         <div className="cht-head-rqst-btn">
                             <span className="mr-2 chat-action-btn" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
                                 <img style={{ width: 18 }} src="/assets/img/customer-icons/wt-call.svg" />
@@ -262,9 +262,9 @@ class ChatPanel extends React.Component {
                                 Restart Chat
                             </span>
                             {
-                            this.state.showChatBlock
-                            ?<span onClick={()=>this.setState({showChatBlock:false}) }><img className="close-chat" style={{ width: 30 }} src="/assets/img/customer-icons/cht-cls.svg"/></span>
-                            :''
+                                this.state.showChatBlock
+                                    ? <span onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 30 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                    : ''
                             }
                         </div>
                     </div>

@@ -544,14 +544,23 @@ background: black;
 	}
 }
 .chat-float-btn{
-      position: fixed;
+    position: fixed;
     bottom: 10px;
     right: 10px;
     cursor: pointer;
     z-index: 9;
     transition: all .2s ease-in-out;
-
 }
+
+.chat-float-btn.chat-float-btn-2{
+	bottom: 50px;
+}
+
+.chat-float-btn.chat-float-btn-3{
+	bottom: 90px;
+	right: 20px;
+}
+
 .close-screen-chat{
 	position: absolute;
     color: white;

@@ -215,7 +215,7 @@ class PatientDetails extends React.Component {
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
 
-                                                <div className="row">
+                                                <div className="row mrb-20">
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
                                                             <DoctorProfileCard
@@ -287,7 +287,7 @@ class PatientDetails extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
             </div>

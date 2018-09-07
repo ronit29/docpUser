@@ -335,6 +335,10 @@
 	cursor: pointer;
 }
 
+.dp-dr-search-card:last-child{
+	margin-bottom: 120px;
+}
+
 .dp-dr-search-card-div{
 	padding: 0 8px;
 }
@@ -441,4 +445,8 @@
 
 .dp-dr-card-footer-div-text{
 	font-size: 12px;
+}
+
+.widget.card.lab-rslt-card:last-child{
+	margin-bottom: 80px;
 }

@@ -22,18 +22,17 @@ class RightBar extends React.Component {
     }
 
     render() {
-
         return (
-            <ChatPanel />
+            <ChatPanel {...this.props} />
             // <RightBarView {...this.props} />
         );
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps = {}) => {
     let { profiles, selectedProfile, userUpcomingAppointments, healthTips, orderHistory } = state.USER
     return {
-        profiles, selectedProfile, userUpcomingAppointments, healthTips, orderHistory
+        profiles, selectedProfile, userUpcomingAppointments, healthTips, orderHistory, passedProps
     }
 }
 

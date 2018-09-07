@@ -34,16 +34,17 @@ class UserReportsView extends React.Component {
     checkExtension(report, i) {
         let extensionArr = report.name.split('.');
         let extension = extensionArr[extensionArr.length - 1];
-        if (extension === 'pdf') {
-            return <div className="pdf-report-div" key={i}><img src={ASSETS_BASE_URL + "/img/customer-icons/pdf-icon.svg"} /></div>
+        if (extension == 'pdf') {
+            return <div onClick={this.downloadImage.bind(this, report.name)} className="pdf-report-div" key={i}><img src={ASSETS_BASE_URL + "/img/customer-icons/pdf-icon.svg"} /></div>
         }
-        else if (extension === 'txt') {
-            return <div className="pdf-report-div" key={i}><img src={ASSETS_BASE_URL + "/img/customer-icons/text-icon.svg"} /></div>
+        else if (extension == 'txt') {
+            return <div onClick={this.downloadImage.bind(this, report.name)} className="pdf-report-div" key={i}><img src={ASSETS_BASE_URL + "/img/customer-icons/text-icon.svg"} /></div>
         }
         else {
             return <img src={report.name} key={i} className="imageReports" onClick={this.toggleLightBox.bind(this, true, i)} />
         }
     }
+
     downloadImage(src) {
         if (window) {
             window.open(src, '_blank')

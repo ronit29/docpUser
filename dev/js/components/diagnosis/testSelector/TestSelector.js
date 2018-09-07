@@ -167,7 +167,7 @@ class TestSelectorView extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
             </div>

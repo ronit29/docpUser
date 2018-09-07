@@ -71,7 +71,6 @@ class UserProfileView extends React.Component {
     render() {
 
         let { profiles, selectedProfile } = this.props.USER
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -138,7 +137,7 @@ class UserProfileView extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar extraClass={(this.props.location.pathname.includes('/family') || this.props.location.pathname.includes('/address')) ? " chat-float-btn-3" : (this.props.location.pathname.includes('/edit') ? " chat-float-btn-2" : "")} />
                     </div>
                 </section>
             </div>
