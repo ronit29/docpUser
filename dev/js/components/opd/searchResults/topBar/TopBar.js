@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import Range from 'rc-slider/lib/Range';
-
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SnackBar from 'node-snackbar'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -16,7 +16,8 @@ class TopBar extends React.Component {
             sits_at_hospital: false,
             is_female: false,
             is_available: false,
-            dropdown_visible: false
+            dropdown_visible: false,
+            shortURL: ""
         }
     }
 
@@ -26,6 +27,7 @@ class TopBar extends React.Component {
 
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
+        this.shortenUrl()
     }
 
     handleInput(e) {
@@ -123,6 +125,17 @@ class TopBar extends React.Component {
         }
     }
 
+    shortenUrl() {
+        if (window) {
+            let url = window.location.href + '&force_location=true'
+            this.props.urlShortner(url, (err, data) => {
+                if (!err) {
+                    this.setState({ shortURL: data.tiny_url })
+                }
+            })
+        }
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -135,9 +148,15 @@ class TopBar extends React.Component {
                             <div className="filter-item">
                                 <div className="action-filter">
                                     <ul className="inline-list">
-                                        <li onClick={this.handleOpen.bind(this)}>
-                                            <span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span>
+                                        <li className="d-none d-md-inline-block">
+                                            <CopyToClipboard text={this.state.shortURL}
+                                                onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
+                                                <span style={{cursor: 'pointer'}}>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                                </span>
+                                            </CopyToClipboard>
                                         </li>
+                                        <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
                                         <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                             {
                                                 this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
@@ -178,7 +197,6 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterRowShort">
                                     <span className="tl filterLabel">Available Today</span>
                                     <div className="filterInput">
-                                        {/* <Checkbox name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
                                         <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
                                         <span className="opd-filter-checkbox"></span>
                                     </div>
@@ -188,13 +206,11 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterSitsAt">
                                     <span className="tl">Sits At</span>
                                     <div className="checkFilter">
-                                        {/* <Checkbox name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="checkFilter" /> */}
                                         <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 20}} />
                                         <span className="opd-filter-checkbox" style={{top: 39, left: 20}}></span>
                                     </div>
                                     <span className="checkFilterLabel">Clinic</span>
                                     <div className="checkFilter">
-                                        {/* <Checkbox name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="checkFilter" /> */}
                                         <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 128}} />
                                         <span className="opd-filter-checkbox" style={{top: 39, left: 128}}></span>
                                     </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import Range from 'rc-slider/lib/Range';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SnackBar from 'node-snackbar'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class TopBar extends React.Component {
             priceRange: [0, 20000],
             distanceRange: [0, 35],
             sortBy: null,
-            dropdown_visible: false
+            dropdown_visible: false,
+            shortURL: ""
         }
     }
 
@@ -22,6 +24,7 @@ class TopBar extends React.Component {
 
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
+        this.shortenUrl()
     }
 
     applyFilters() {
@@ -96,6 +99,17 @@ class TopBar extends React.Component {
         }
     }
 
+    shortenUrl() {
+        if (window) {
+            let url = window.location.href + '&force_location=true'
+            this.props.urlShortner(url, (err, data) => {
+                if (!err) {
+                    this.setState({ shortURL: data.tiny_url })
+                }
+            })
+        }
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -108,6 +122,14 @@ class TopBar extends React.Component {
                             <div className="filter-item">
                                 <div className="action-filter">
                                     <ul className="inline-list">
+                                        <li className="d-none d-md-inline-block">
+                                            <CopyToClipboard text={this.state.shortURL}
+                                                onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
+                                                <span style={{ cursor: 'pointer' }}>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                                </span>
+                                            </CopyToClipboard>
+                                        </li>
                                         <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
                                         <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                             {
@@ -126,9 +148,9 @@ class TopBar extends React.Component {
                                         <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
                                         <div className="sort-dropdown-div">
                                             <ul className="sort-dropdown-list">
-                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sortBy?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,"")}>Relevance</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sortBy=='fees'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'fees')}>Fee</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sortBy=='distance'?'sort-item-selected':''} `} onClick={this.handleClose.bind(this,'distance')}>Distance</li>
+                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sortBy ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sortBy == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sortBy == 'distance' ? 'sort-item-selected' : ''} `} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
                                             </ul>
                                         </div>
                                     </div> : ""

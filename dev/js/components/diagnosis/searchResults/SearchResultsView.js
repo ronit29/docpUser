@@ -38,6 +38,7 @@ class SearchResultsView extends React.Component {
             let filterCriteria = this.getLocationParam('filter')
             let lab_name = this.getLocationParam('lab_name')
             lab_name = lab_name || ""
+            let force_location_fromUrl = !!this.getLocationParam('force_location')
 
             if (filterCriteria) {
                 filterCriteria = JSON.parse(filterCriteria)
@@ -54,8 +55,11 @@ class SearchResultsView extends React.Component {
             // if location found in store , use that instead of the one in URL
             if (selectedLocation) {
                 // if location is changed then update url with new locatiobs
-                if (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id) {
-                    searchState.selectedLocation = selectedLocation
+                if (!!!searchState.selectedLocation || (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id)) {
+                    // skip location pick from store if force location from url is set
+                    if (!force_location_fromUrl) {
+                        searchState.selectedLocation = selectedLocation
+                    }
                     let searchData = encodeURIComponent(JSON.stringify(searchState))
                     let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
                     this.props.history.replace(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
@@ -141,8 +145,8 @@ class SearchResultsView extends React.Component {
                     {
                         this.isSelectedLocationNearDelhi() ? <div>
                             <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
-                            <div style={{ width: '100%', padding: '10px 30px' }}>
-                                <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} style={{ width: '100%' }} />
+                            <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
+                                <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
                             </div>
                             <LabsList {...this.props} />
                         </div> : <div className="noopDiv"><img src={ASSETS_BASE_URL + "/images/nonop.png"} className="noop" /></div>

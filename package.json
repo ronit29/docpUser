@@ -9,6 +9,7 @@
     "build-dev": "webpack --progress",
     "build-prod": "webpack --env.production --progress && npm run upload",
     "build-staging": "webpack --env.staging --progress && npm run upload",
+    "build": "webpack --progress && npm run upload",
     "upload": "node upload.js"
   },
   "repository": {
@@ -36,7 +37,8 @@
     "query-string": "^5.1.1",
     "raven-js": "^3.26.3",
     "rc-slider": "^8.6.1",
-    "react": "^16.2.0",
+    "react": "^16.4.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-cropper": "^1.0.1",
     "react-dom": "^16.2.0",
     "react-ga": "^2.5.3",

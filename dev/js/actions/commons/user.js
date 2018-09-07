@@ -323,3 +323,11 @@ export const signupDoctor = (signupDoctorData, cb) => (dispatch) => {
 		if (cb) cb(error, null);
 	})
 }
+
+export const urlShortner = (url, cb) => (dispatch) => {
+	API_POST('api/v1/web/createurl', { url: url }).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
