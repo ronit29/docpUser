@@ -15,7 +15,8 @@ class ChatPanel extends React.Component {
             symptoms: [],
             roomId: "",
             showCancel: false,
-            showChatBlock:false
+            showChatBlock:false,
+            additionClasses:' chat-load-mobile'
         }
     }
 
@@ -214,13 +215,13 @@ class ChatPanel extends React.Component {
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
             {
-                this.props.homePage||true?'':
-                <div className="chat-float-btn" onClick={()=>this.setState({showChatBlock:true})}><img src="/assets/chat.png"/></div>
+                this.props.homePage?'':
+                <div className="chat-float-btn d-lg-none d-md-none" onClick={()=>this.setState({showChatBlock:true,additionClasses:""})}><img width="80" src="/assets/img/customer-icons/floatingicon.png"/></div>
             }
             
            
             
-                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage? 'chatbox-right':'chatbox-right d-none d-lg-flex mt-21'}` }>
+                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage? 'chatbox-right':'chatbox-right chat-slide-down d-lg-flex mt-21'} ${ this.props.homePage ? '' : this.state.additionClasses }` }>
 
                 
                     {/* chat header */}
@@ -249,19 +250,22 @@ class ChatPanel extends React.Component {
                         </div>
 
                         */}
-                        {
-                            this.state.showChatBlock
-                            ?<div className="close-screen-chat" onClick={()=>this.setState({showChatBlock:false}) }>&#10006;</div>
-                            :''
-                        }
+                        
                         
                         <div className="cht-head-rqst-btn">
-                            <span className="mr-4" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
-                                <img style={{ width: 20 }} src="/assets/img/customer-icons/call-orange.svg" />
+                            <span className="mr-2 chat-action-btn" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
+                                <img style={{ width: 18 }} src="/assets/img/customer-icons/wt-call.svg" />
+                                Request Call
                             </span>
-                            <span className="mr-2" onClick={this.toggleCancel.bind(this)}>
-                                <img style={{ width: 20 }} src="/assets/img/customer-icons/refresh.svg" />
+                            <span className="mr-2 chat-action-btn" onClick={this.toggleCancel.bind(this)}>
+                                <img style={{ width: 18 }} src="/assets/img/customer-icons/wt-rst.svg" />
+                                Restart Chat
                             </span>
+                            {
+                            this.state.showChatBlock
+                            ?<span onClick={()=>this.setState({showChatBlock:false}) }><img className="close-chat" style={{ width: 30 }} src="/assets/img/customer-icons/cht-cls.svg"/></span>
+                            :''
+                            }
                         </div>
                     </div>
                     {/* chat header */}
