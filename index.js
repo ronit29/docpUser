@@ -61,6 +61,13 @@ app.all('*', function (req, res) {
     if (promises && promises.length) {
 
         Promise.all(promises).then(data => {
+            /**
+             * Context for async data loading -> mimic componentDidMount actions.
+             */
+            let context = {}
+            if (data && data[0]) {
+                context.data = data[0]
+            }
 
             // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
             let SSR_TIMER = setTimeout(() => {
@@ -75,7 +82,7 @@ app.all('*', function (req, res) {
                     <div>
                         <StaticRouter
                             location={req.url}
-                            context={{}}
+                            context={context}
                         >
                             <Routes />
                         </StaticRouter>

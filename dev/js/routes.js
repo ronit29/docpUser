@@ -51,7 +51,7 @@ const routes = [
     { path: '/signup', exact: true, component: UserSignup },
     { path: '/addprofile', exact: true, component: UserSignup },
     { path: '/wallet', exact: true, component: Wallet },
-    { path: `/*(-dsdp|-mddp)`, component: Article },
+    { path: `/*(-dsdp|-mddp)`, component: Article, RENDER_ON_SERVER: true },
     { path: '/payment/:id', exact: true, component: Payment },
 
     { path: '/opd', exact: true, component: SearchCriteria },
