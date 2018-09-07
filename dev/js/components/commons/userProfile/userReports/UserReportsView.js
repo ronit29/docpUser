@@ -31,6 +31,19 @@ class UserReportsView extends React.Component {
         this.setState({ lightboxIsOpen: type, imageIndex: imageIndex })
     }
 
+    checkExtension(report, i) {
+        let extensionArr = report.name.split('.');
+        let extension = extensionArr[extensionArr.length - 1];
+        if (extension === 'pdf') {
+            return <div className="pdf-report-div" key={i}><img src={ASSETS_BASE_URL + "/img/customer-icons/pdf-icon.svg"} /></div>
+        }
+        else if (extension === 'txt') {
+            return <div className="pdf-report-div" key={i}><img src={ASSETS_BASE_URL + "/img/customer-icons/text-icon.svg"} /></div>
+        }
+        else {
+            return <img src={report.name} key={i} className="imageReports" onClick={this.toggleLightBox.bind(this, true, i)} />
+        }
+    }
     downloadImage(src) {
         if (window) {
             window.open(src, '_blank')
@@ -38,7 +51,6 @@ class UserReportsView extends React.Component {
     }
 
     render() {
-
         let images = []
         let { lightboxIsOpen, imageIndex } = this.state
         if (this.state.reports && this.state.reports.length) {
@@ -62,7 +74,7 @@ class UserReportsView extends React.Component {
 
                             {
                                 this.state.reports.map((report, i) => {
-                                    return <img src={report.name} key={i} className="imageReports" onClick={this.toggleLightBox.bind(this, true, i)} />
+                                    return this.checkExtension(report, i);
                                 })
                             }
                             {

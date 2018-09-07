@@ -871,13 +871,49 @@ input[type=number]::-webkit-outer-spin-button {
 .dsp-city-mobile-div{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+	justify-content: space-between;
+	position: relative;
 }
 
-#dsp-city{
+.dsp-city-div{
+	position: relative;
     margin-left: 8px;
 }
 
-#dsp-mobile, #dsp-city{
+.dsp-mobile-div, .dsp-city-div{
     flex: 1;
+}
+
+.dsp-city-dropdown{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 38px;
+	max-height: 140px;
+	background-color: #fff;
+	z-index: 1;
+	border: 1px solid #d8d8d8;
+	overflow-y: auto;
+	text-align: left;
+}
+
+.dsp-city-list{
+	width: 100%;
+	padding: 0;
+	list-style: none;
+}
+
+.dsp-city-list-item{
+	padding: 8px 12px;
+	font-size: 14px;
+	border-bottom: 1px solid #d8d8d8;
+	cursor: pointer;
+}
+
+.dsp-city-list-item:hover{
+	background-color: #efefef;
+}
+
+.dsp-city-list-item:last-child{
+	border-bottom: none;
 }

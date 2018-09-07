@@ -9,13 +9,31 @@ class Doctorsignup extends React.Component {
 			mobile: "",
 			email: "",
 			city: "",
-			profile_type: ""
+			profile_type: "",
+			cityDropdownVisible: false
 		}
 	}
 
 	changeHandler = (event, key) => {
 		this.setState({
 			[key]: event.target.value
+		});
+
+		if (key === 'city') {
+			if (event.target.value === "") {
+				this.setState({ cityDropdownVisible: false });
+			}
+			else {
+				this.setState({ cityDropdownVisible: true });
+				this.props.getCities(event.target.value);
+			}
+		}
+	}
+
+	setCity = (cityName) => {
+		this.setState({
+			city: cityName,
+			cityDropdownVisible: false
 		});
 	}
 
@@ -57,7 +75,7 @@ class Doctorsignup extends React.Component {
 							<div className="dsp-signup-div mrt-20">
 								<p className="dsp-signup-label">SignUp as</p>
 							</div>
-							<form onSubmit={(e) => this.onSubmitData(e)}>
+							<form onSubmit={(e) => this.onSubmitData(e)} autoComplete="off" autoCorrect="off" spellCheck="off">
 								<div className="form-group">
 									<select name="member_type" className="form-control" value={this.state.profile_type} required id="dsp-select-profession" onChange={(event) => this.changeHandler(event, 'profile_type')}>
 										<option value="">Select</option>
@@ -70,11 +88,27 @@ class Doctorsignup extends React.Component {
 									<input type="text" name="name" placeholder="Name" maxLength={255} className="form-control" required id="dsp-name" value={this.state.name} onChange={(event) => this.changeHandler(event, 'name')} />
 								</div>
 								<div className="form-group dsp-city-mobile-div">
-									<input type="number" name="mobile" max={9999999999} id="dsp-mobile" placeholder="Mobile Number" className="form-control" required min={7000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
-									<input type="text" name="city" placeholder="City" maxLength={255} className="form-control" required id="dsp-city" value={this.state.city} onChange={(event) => this.changeHandler(event, 'city')} />
+									<div className="dsp-mobile-div">
+										<input type="number" name="mobile" max={9999999999} id="dsp-mobile" placeholder="Mobile Number" className="form-control" required min={7000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
+									</div>
+									<div className="dsp-city-div">
+										<input type="text" name="city_name" placeholder="City" maxLength={255} className="form-control" required id="dsp-city" value={this.state.city} onChange={(event) => this.changeHandler(event, 'city')} />
+										{
+											this.state.cityDropdownVisible ?
+												<div className="dsp-city-dropdown">
+													<ul className="dsp-city-list">
+														{
+															this.props.citiesName.map(city => {
+																return <li onClick={() => this.setCity(city.name)} className="dsp-city-list-item" key={city.value}>{city.name}</li>
+															})
+														}
+													</ul>
+												</div> : ""
+										}
+									</div>
 								</div>
 								<div className="form-group">
-									<input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Enter a Valid Email Address')" placeholder="Email" value={this.state.email} className="form-control" required maxLength={254} id="dsp-email" onChange={(event) => this.changeHandler(event, 'email')} />
+									<input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Email" value={this.state.email} className="form-control" required maxLength={254} id="dsp-email" onChange={(event) => this.changeHandler(event, 'email')} />
 								</div>
 								<button type="submit" className="btn btn-primary dsp-send-btn">Submit</button>
 							</form>
