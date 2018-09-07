@@ -64,7 +64,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name } = this.props.data
+        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name } = this.props.data
 
         let date = new Date(time_slot_start)
 
@@ -78,7 +78,7 @@ class AppointmentList extends React.Component {
                         {type == 'doctor' ? <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} className="appointment-icon" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/beaker.svg"} className="appointment-icon" />}
                     </span>
                     <div className="consultant-details">
-                        <h4 className="title app-title" style={{marginBottom: 8}} >{doctor_name || lab_name}</h4>
+                        <h4 className="title app-title" style={{marginBottom: 8}} >{display_name || lab_name}</h4>
                         <ul className="list">
                             <li style={{marginBottom: 8}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{date.toDateString()} </li>
                             <li style={{marginBottom: 8}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>

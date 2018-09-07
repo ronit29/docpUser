@@ -17,7 +17,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { name, experience_years, qualifications, thumbnail, experiences, general_specialization } = this.props.details
+        let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name } = this.props.details
 
         let expStr = ""
 
@@ -36,7 +36,7 @@ class DoctorProfileCard extends React.Component {
                 </InitialsPicture>
 
                 <div className="dr-profile">
-                    <h4 className="dr-name">{name}</h4>
+                    <h4 className="dr-name">{display_name}</h4>
                     <p className="desg">{this.getQualificationStr(general_specialization || [])}</p>
                     {
                         experience_years ? <p className="add-details">{experience_years} Years of Experience</p> : ""
