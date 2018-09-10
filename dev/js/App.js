@@ -6,6 +6,7 @@ import CONFIG from './config'
 import STORAGE from './helpers/storage'
 const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
+import GTM from './helpers/gtm'
 
 require('../css/carousel.css')
 require('../css/normalize.css')
@@ -25,8 +26,17 @@ require('../css/slider.css')
 require('../css/snackbar.css')
 require('../css/cropper.css')
 require('./helpers/lightbox/style.css')
-
+,
 require('../css/style.css')
+
+const logPageView = () => {
+    // window.location.pathname -> changed route
+    let data = {
+        'Category': 'ConsumerApp', 'Action': 'RouteChange', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'route-changed', url: window.location.pathname
+    }
+    GTM.sendEvent({ data: data })
+    return null;
+};
 
 import NotificationsBoot from './containers/commons/NotificationsBoot'
 
@@ -68,7 +78,10 @@ class App extends React.Component {
             <div>
                 <NotificationsBoot />
                 <BrowserRouter>
-                    <Routes />
+                    <div>
+                        <Route path="/" component={logPageView} />
+                        <Routes />
+                    </div>
                 </BrowserRouter>
             </div>
         );
