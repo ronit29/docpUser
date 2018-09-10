@@ -4,6 +4,7 @@ import Loader from '../../commons/Loader'
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
+import GTM from '../../../helpers/gtm.js'
 
 
 const debouncer = (fn, delay) => {
@@ -78,11 +79,27 @@ class CriteriaSearchView extends React.Component {
         }
     }
 
-    addCriteria(criteria) {
+    addCriteria(criteria,docType) {
+        
         if (this.props.type == 'opd') {
+
+            if(docType=='Conditions'){
+                let data = {
+                'Category':'ConsumerApp','Action':'CommonConditionSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'common-condition-searched' ,'selected':criteria.name}
+                GTM.sendEvent({ data: data })
+            }else if(docType == 'Specializations'){
+                let data = {
+                'Category':'ConsumerApp','Action':'CommonSpecializationsSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'common-specializations-searched' ,'selected':criteria.name}
+                GTM.sendEvent({ data: data })
+            }
             this.props.toggleOPDCriteria(criteria.type, criteria)
             this.setState({ searchValue: "" })
         } else {
+            if(docType=='Tests'){
+                let data = {
+                'Category':'ConsumerApp','Action':'TestSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'test-searched' ,'selected':criteria.name}
+                GTM.sendEvent({ data: data })
+            }            
             this.props.toggleDiagnosisCriteria(criteria.type, criteria)
             this.setState({ searchValue: "" })
         }
@@ -168,7 +185,7 @@ class CriteriaSearchView extends React.Component {
                                                                 }
                                                                 {
                                                                     cat.values.map((curr, i) => {
-                                                                        return <li onClick={this.addCriteria.bind(this, curr)} key={i}><a>{curr.name}</a>
+                                                                        return <li onClick={this.addCriteria.bind(this, curr,cat.title)} key={i}><a>{curr.name}</a>
                                                                             {i < cat.values.length - 1 ? <hr className="search-list-hr" /> : ""}
                                                                         </li>
                                                                     })
@@ -187,6 +204,11 @@ class CriteriaSearchView extends React.Component {
                                                 <div className="panel-content">
                                                     <ul className="list search-result-list">
                                                         <li onClick={() => {
+
+                                                            let data = {
+                                                            'Category':'ConsumerApp','Action':'DoctorNameSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor-name-searched' ,'selected':this.state.searchValue}
+                                                            GTM.sendEvent({ data: data })
+
                                                             this.props.searchProceed(this.state.searchValue, "")
                                                         }}><a>Search Doctors with name {this.state.searchValue}</a></li>
                                                     </ul>
@@ -194,6 +216,11 @@ class CriteriaSearchView extends React.Component {
                                                 <div className="panel-content">
                                                     <ul className="list search-result-list">
                                                         <li onClick={() => {
+                                                            
+                                                            let data = {
+                                                            'Category':'ConsumerApp','Action':'HospitalNameSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'hospital-name-searched', 'selected':this.state.searchValue}
+                                                            GTM.sendEvent({ data: data })
+
                                                             this.props.searchProceed("", this.state.searchValue)
                                                         }}><a>Search Hospitals with name {this.state.searchValue}</a></li>
                                                     </ul>
@@ -203,6 +230,11 @@ class CriteriaSearchView extends React.Component {
                                                     <div className="panel-content">
                                                         <ul className="list search-result-list">
                                                             <li onClick={() => {
+
+                                                                let data = {
+                                                                'Category':'ConsumerApp','Action':'LabNameSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'lab-name-searched', 'selected':this.state.searchValue}
+                                                                GTM.sendEvent({ data: data })
+
                                                                 this.props.searchProceed(this.state.searchValue)
                                                             }}><a>Search Labs with name {this.state.searchValue}</a></li>
                                                         </ul>
