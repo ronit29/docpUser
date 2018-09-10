@@ -9,6 +9,7 @@ const Express = require('express');
 const app = new Express();
 const server = new http.Server(app);
 
+import { Helmet } from "react-helmet";
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
@@ -89,6 +90,7 @@ app.all('*', function (req, res) {
                     </div>
                 </Provider>
             )
+            const helmet = Helmet.renderStatic()
 
             // clear timer to mark success in SSR
             clearTimeout(SSR_TIMER)
