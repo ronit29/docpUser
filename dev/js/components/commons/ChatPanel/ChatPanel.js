@@ -254,18 +254,18 @@ class ChatPanel extends React.Component {
                         <div className="hd-chat float-left">
                         <p className="text-left header-text-chat"> 
                             <span className="hed-txt-lt">Get a </span>
-                                     Free Doctor Consult Now
+                                     Free Doctor Consult, <span className="hed-txt-lt"> Now</span>
                                     </p>
                         </div>
 
 
                         <div className="cht-head-rqst-btn float-right">
                             <span className="mr-3" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
-                                <img style={{ width: 32 }} src="/assets/img/customer-icons/chat-call.svg" />
+                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
                                 
                             </span>
                             <span className="mr-2" onClick={this.toggleCancel.bind(this)}>
-                                <img style={{ width: 32 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
+                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
                                 
                             </span>
                             {

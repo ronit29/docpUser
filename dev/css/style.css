@@ -24,10 +24,12 @@
 }
 .hed-txt-lt {
 	font-weight: 400;
+	color:black;
 }
 .header-text-chat{
 	font-size:16px;
 	font-weight: 600;
+	color: #ef5350;
 }
 .chat-call-btn {
 	color: white;
