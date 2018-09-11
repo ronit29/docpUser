@@ -254,7 +254,7 @@ class ChatPanel extends React.Component {
                         <div className="hd-chat float-left">
                         <p className="text-left header-text-chat"> 
                             <span className="hed-txt-lt">Get a </span>
-                                     Free Doctor Consult, <span className="hed-txt-lt"> Now</span>
+                                     Free Doctor Consult, <span className="hed-txt-lt"> Now!</span>
                                     </p>
                         </div>
 
