@@ -15,8 +15,8 @@ class Article extends React.Component {
 
     componentDidMount() {
         let articleId = this.props.match.url
-        if(articleId){
-            articleId = articleId.substring(1,articleId.length)
+        if (articleId) {
+            articleId = articleId.substring(1, articleId.length)
             this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
                 if (!err) {
                     this.setState({ articleData: data })
@@ -33,7 +33,6 @@ class Article extends React.Component {
     }
 
     render() {
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -58,7 +57,20 @@ class Article extends React.Component {
                             </header> */}
                             {
                                 this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
-                                    <div><img style={{width:'100%',paddingBottom:'4px'}} src={this.state.articleData.header_image} /></div>
+
+                                    <div itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="mrb-20" style={{wordBreak: 'break-word'}}>
+                                        <a href="/" itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a>
+                                        <span className="breadcrumb-arrow">&gt;</span>
+                                        <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
+                                            <a href={`/${this.state.articleData.category.url}`} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span></a>
+                                        </div>
+                                        <span className="breadcrumb-arrow">&gt;</span>
+                                        <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
+                                            <a href="https://docprime.com/enzoflam-tablet-mddp" itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title">Enzoflam Tablet</span></a>
+                                        </div>
+                                    </div>
+
+                                    <div><img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} /></div>
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""

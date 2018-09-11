@@ -979,3 +979,21 @@ input[type=number]::-webkit-outer-spin-button {
 	color: rgba(0, 0, 0, 0.6);
 	font-size: 14px;
 }
+
+.breadcrumb-link-div{
+	display: inline;
+}
+
+.breadcrumb-arrow{
+	margin: 0 8px;
+	font-size: 18px;
+	line-height: 18px;
+}
+
+.breadcrumb-title{
+	font-size: 14px;
+}
+
+.breadcrumb-colored-title{
+	color: #f78631;
+}
