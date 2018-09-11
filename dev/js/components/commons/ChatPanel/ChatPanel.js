@@ -251,15 +251,22 @@ class ChatPanel extends React.Component {
 
                         */}
 
+                        <div className="hd-chat float-left">
+                        <p className="text-left header-text-chat"> 
+                            <span className="hed-txt-lt">Get a </span>
+                                     Free Doctor Consult Now
+                                    </p>
+                        </div>
 
-                        <div className="cht-head-rqst-btn">
-                            <span className="mr-2 chat-action-btn" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
-                                <img style={{ width: 18 }} src="/assets/img/customer-icons/wt-call.svg" />
-                                Request Call
+
+                        <div className="cht-head-rqst-btn float-right">
+                            <span className="mr-3" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
+                                <img style={{ width: 32 }} src="/assets/img/customer-icons/chat-call.svg" />
+                                
                             </span>
-                            <span className="mr-2 chat-action-btn" onClick={this.toggleCancel.bind(this)}>
-                                <img style={{ width: 18 }} src="/assets/img/customer-icons/wt-rst.svg" />
-                                Restart Chat
+                            <span className="mr-2" onClick={this.toggleCancel.bind(this)}>
+                                <img style={{ width: 32 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
+                                
                             </span>
                             {
                                 this.state.showChatBlock
@@ -289,7 +296,7 @@ class ChatPanel extends React.Component {
                             </button>
                         </div> */}
                         <div className="wrng-mssg">
-                            <img src="/assets/images/warning-icon.png" />
+                            <img style={{height: 24, width:24}} sth src="/assets/images/warning-icon.png" />
                             <span>
                                 Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
                             </span>
