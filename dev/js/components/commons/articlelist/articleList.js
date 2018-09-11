@@ -53,7 +53,7 @@ class ArticleList extends React.Component {
 																	<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
 																		<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} />
 																		<p className="disease-list-name fw-500">{property.title}</p>
-																		{/* <p className="disease-list-content fw-500">The genetic cause is unknown, but it is autosomal recessively inherited and the gene is located to chromosome 15q1,2</p> */}
+																		<p className="disease-list-content fw-500">{property.articleTeaser}</p>
 																	</div>
 																</div>
 															}) : ""
