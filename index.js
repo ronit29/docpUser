@@ -73,7 +73,7 @@ app.all('*', function (req, res) {
             // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
             let SSR_TIMER = setTimeout(() => {
                 res.render('index.ejs', {
-                    html: "", css: "", storeData: "{}"
+                    html: "", storeData: "{}", helmet: null
                 })
             }, 2000)
 
@@ -91,17 +91,16 @@ app.all('*', function (req, res) {
                 </Provider>
             )
             const helmet = Helmet.renderStatic()
-
             // clear timer to mark success in SSR
             clearTimeout(SSR_TIMER)
             res.render('index.ejs', {
-                html, storeData
+                html, storeData, helmet
             })
 
         })
     } else {
         res.render('index.ejs', {
-            html: "", storeData: "{}"
+            html: "", storeData: "{}", helmet: null
         })
     }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import HelmetTags from './components/commons/HelmetTags'
 
 import SearchCriteria from './containers/opd/SearchCriteria.js'
 import LocationSearch from './containers/opd/LocationSearch.js'
@@ -93,6 +94,7 @@ class RouterConfig extends Component {
     render() {
         return (
             <div>
+                <HelmetTags />
                 <Route
                     render={
                         ({ location }) => {
