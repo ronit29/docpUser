@@ -13,6 +13,38 @@ class SearchResults extends React.Component {
         }
     }
 
+    static loadData(store, match, queryParams = {}) {
+        try {
+            let searchState = queryParams['search']
+            let filterCriteria = queryParams['filter']
+            let doctor_name = queryParams['doctor_name']
+            doctor_name = doctor_name || ""
+            let hospital_name = queryParams['hospital_name']
+            hospital_name = hospital_name || ""
+
+            if (filterCriteria) {
+                filterCriteria = JSON.parse(filterCriteria)
+            } else {
+                filterCriteria = {}
+            }
+
+            if (doctor_name) {
+                filterCriteria.doctor_name = doctor_name
+            }
+
+            if (hospital_name) {
+                filterCriteria.hospital_name = hospital_name
+            }
+
+            searchState = JSON.parse(searchState)
+
+            return store.dispatch(getDoctors(searchState, filterCriteria, false))
+        } catch (e) {
+            console.error(e)
+        }
+
+    }
+
     static contextTypes = {
         router: () => null
     }

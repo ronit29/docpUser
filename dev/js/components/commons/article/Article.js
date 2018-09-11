@@ -9,16 +9,16 @@ class Article extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            articleData: null
+            articleData: props.initialServerData
         }
     }
 
     componentDidMount() {
         let articleId = this.props.match.url
-        if(articleId){
-            articleId = articleId.substring(1,articleId.length)
+        if (articleId) {
+            articleId = articleId.substring(1, articleId.length)
             this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
-                if (!err) {
+                if (!err && !this.state.articleData) {
                     this.setState({ articleData: data })
                 } else {
 
@@ -60,10 +60,10 @@ class Article extends React.Component {
                                 this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
 
                                     {
-                                    this.state.articleData.header_image?<div><img style={{width:'100%',paddingBottom:'4px'}} src={this.state.articleData.header_image} /></div>
-                                        :''    
+                                        this.state.articleData.header_image ? <div><img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} /></div>
+                                            : ''
                                     }
-                                    
+
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
@@ -149,9 +148,9 @@ class TopBar extends React.Component {
                                         <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
                                         <div className="sort-dropdown-div">
                                             <ul className="sort-dropdown-list">
-                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sortBy?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,"")}>Relevance</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sortBy=='fees'?'sort-item-selected':''}`} onClick={this.handleClose.bind(this,'fees')}>Fee</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sortBy=='distance'?'sort-item-selected':''} `} onClick={this.handleClose.bind(this,'distance')}>Distance</li>
+                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sortBy ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sortBy == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sortBy == 'distance' ? 'sort-item-selected' : ''} `} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
                                             </ul>
                                         </div>
                                     </div> : ""

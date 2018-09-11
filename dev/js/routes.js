@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import HelmetTags from './components/commons/HelmetTags'
 
 import SearchCriteria from './containers/opd/SearchCriteria.js'
 import LocationSearch from './containers/opd/LocationSearch.js'
@@ -35,9 +36,13 @@ import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 import AgentLogin from './containers/commons/agentLogin.js'
 import DirectBooking from './containers/commons/directBooking.js'
 
+/**
+ * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
+ */
+
 const routes = [
 
-    { path: '/', exact: true, component: Home },
+    { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
     { path: '/chat', exact: true, component: DoctorChat },
@@ -47,34 +52,34 @@ const routes = [
     { path: '/signup', exact: true, component: UserSignup },
     { path: '/addprofile', exact: true, component: UserSignup },
     { path: '/wallet', exact: true, component: Wallet },
-    { path: `/*(-dsdp|-mddp)`, component: Article },
+    { path: `/*(-dsdp|-mddp)`, component: Article, RENDER_ON_SERVER: true },
     { path: '/payment/:id', exact: true, component: Payment },
 
     { path: '/opd', exact: true, component: SearchCriteria },
-    { path: '/opd/searchresults', exact: true, component: SearchResults },
-    { path: '/opd/doctor/:id', exact: true, component: DoctorProfile },
+    { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
+    { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
     { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, private: true, component: PatientDetails },
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 
     { path: '/lab', exact: true, component: DX_SearchCriteria },
-    { path: '/lab/searchresults', exact: true, component: DX_SearchResults },
-    { path: '/lab/:id', exact: true, component: Lab },
+    { path: '/lab/searchresults', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
+    { path: '/lab/:id', exact: true, component: Lab, RENDER_ON_SERVER: true },
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
     { path: '/lab/appointment/:refId', exact: true, component: Booking_LAB },
 
-    { path: '/about', exact: true, component: StaticPages },
-    { path: '/howitworks', exact: true, component: StaticPages },
-    { path: '/privacy', exact: true, component: StaticPages },
-    { path: '/disclaimer', exact: true, component: StaticPages },
-    { path: '/contact', exact: true, component: StaticPages },
-    { path: '/terms', exact: true, component: StaticPages },
-    { path: '/careers', exact: true, component: StaticPages },
-    { path: '/media', exact: true, component: StaticPages },
-    { path: '/doctorsignup', exact: true, component: StaticPages },
+    { path: '/about', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/howitworks', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/privacy', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/disclaimer', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/contact', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/terms', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/careers', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/media', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/doctorsignup', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
 
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },
@@ -89,6 +94,7 @@ class RouterConfig extends Component {
     render() {
         return (
             <div>
+                <HelmetTags />
                 <Route
                     render={
                         ({ location }) => {

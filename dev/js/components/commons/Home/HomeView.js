@@ -11,6 +11,7 @@ import InitialsPicture from '../initialsPicture'
 // import HealthTips from './healthTipMobile.js'
 import HealthTip from '../RightBar/healthTip.js'
 import ChatPanel from '../ChatPanel'
+import HelmetTags from '../HelmetTags'
 
 const GENDER = {
     "m": "Male",
@@ -88,6 +89,8 @@ class HomeView extends React.Component {
 
         return (
             <div className="profile-body-wrap">
+
+                <HelmetTags tagsData={{}} />
 
                 <ProfileHeader homePage={true} />
 

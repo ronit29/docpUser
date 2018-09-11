@@ -10,12 +10,27 @@ class Article extends React.Component {
         super(props)
     }
 
-    static contextTypes = {
-        router: () => null
+    static loadData(store, match) {
+        let articleId = match.url
+        if (articleId) {
+            return new Promise((resolve, reject) => {
+                articleId = articleId.substring(1, articleId.length)
+                fetchArticle(articleId, false, (err, data) => {
+                    if (!err) {
+                        resolve(data)
+                    } else {
+                        resolve(null)
+                    }
+                })(null)
+            })
+
+        } else {
+            return Promise.resolve(null)
+        }
     }
 
-    componentDidMount() {
-
+    static contextTypes = {
+        router: () => null
     }
 
     render() {
@@ -26,9 +41,17 @@ class Article extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps) => {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    let initialServerData = null
+    let { staticContext } = passedProps
+    if (staticContext && staticContext.data) {
+        initialServerData = staticContext.data
+    }
     return {
-
+        initialServerData
     }
 }
 

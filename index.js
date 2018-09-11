@@ -1,4 +1,7 @@
+// set env vars
+require('dotenv').config()
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+global.document = null
 
 const path = require('path');
 const http = require('http');
@@ -6,6 +9,7 @@ const Express = require('express');
 const app = new Express();
 const server = new http.Server(app);
 
+import { Helmet } from "react-helmet";
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
@@ -26,79 +30,82 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 
 app.all('*', function (req, res) {
-
-    res.render('index.ejs', {
-        html: "", css: "", storeData: "{}"
+    /**
+     * Initialized store with persisted reducer and all middlewares
+     * TODO: use persisted data for inital render
+     */
+    const store = createStore(
+        allReducers, applyMiddleware(thunk)
+    );
+    /** 
+     * Check if a route is enabled for SSR , RENDER_ON_SERVER == true,
+     * if enabled, check if it needs any data(async API) before rendering, if so
+     * then wait for that data to resolve then render with proper data.
+     */
+    const promises = []
+    Routes.ROUTES.some(route => {
+        // use `matchPath` here
+        const match = matchPath(req.path, route)
+        if (match && route.RENDER_ON_SERVER) {
+            if (route.component.loadData) {
+                promises.push(route.component.loadData(store, match, req.query))
+            } else {
+                promises.push(Promise.resolve({}))
+            }
+        }
+        return match
     })
 
-    // const context = {}
+    /** 
+     * Only when a route matches all criteria for SSR, we do SSR
+     */
+    if (promises && promises.length) {
 
-    // const store = createStore(
-    //     allReducers, applyMiddleware(thunk)
-    // );
+        Promise.all(promises).then(data => {
+            /**
+             * Context for async data loading -> mimic componentDidMount actions.
+             */
+            let context = {}
+            if (data && data[0]) {
+                context.data = data[0]
+            }
 
-    // const sheetsRegistry = new SheetsRegistry();
-    // const theme = createMuiTheme({
-    //     palette: {
-    //         primary: {
-    //             main: '#f78361'
-    //         },
-    //         secondary: {
-    //             main: '#f78361'
-    //         },
-    //     },
-    //     status: {
-    //         danger: 'orange',
-    //     },
-    // })
-    // const generateClassName = createGenerateClassName();
+            // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
+            let SSR_TIMER = setTimeout(() => {
+                res.render('index.ejs', {
+                    html: "", storeData: "{}", helmet: null
+                })
+            }, 2000)
 
-    // if (context.url) {
-    //     res.writeHead(301, {
-    //         Location: context.url
-    //     })
-    //     res.end()
-    // } else {
+            const storeData = JSON.stringify(store.getState())
+            const html = ReactDOMServer.renderToString(
+                <Provider store={store}>
+                    <div>
+                        <StaticRouter
+                            location={req.url}
+                            context={context}
+                        >
+                            <div>
+                                <Routes />
+                            </div>
+                        </StaticRouter>
+                    </div>
+                </Provider>
+            )
+            const helmet = Helmet.renderStatic()
+            // clear timer to mark success in SSR
+            clearTimeout(SSR_TIMER)
+            res.render('index.ejs', {
+                html, storeData, helmet
+            })
 
-    //     // inside a request
-    //     const promises = []
+        })
+    } else {
+        res.render('index.ejs', {
+            html: "", storeData: "{}", helmet: null
+        })
+    }
 
-    //     Routes.ROUTES.some(route => {
-    //         // use `matchPath` here
-    //         const match = matchPath(req.path, route)
-    //         if (match && route.component.loadData)
-    //             promises.push(route.component.loadData(store, match))
-    //         return match
-    //     })
-
-    //     Promise.all(promises).then(data => {
-    //         const storeData = JSON.stringify(store.getState())
-    //         const html = ReactDOMServer.renderToString(
-    //             <Provider store={store}>
-    //                 <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-    //                     <MuiThemeProvider theme={theme}>
-    //                         <StaticRouter
-    //                             location={req.url}
-    //                             context={context}
-    //                         >
-    //                             <Routes />
-    //                         </StaticRouter>
-    //                     </MuiThemeProvider>
-    //                 </JssProvider>
-    //             </Provider>
-    //         )
-    //         const css = sheetsRegistry.toString()
-
-    //         // res.render('index.ejs', {
-    //         //     html, css, storeData
-    //         // })
-
-    //         res.render('index.ejs', {
-    //             html:"", css:"", storeData:"{}"
-    //         })
-    //     })
-
-    // }
 
 });
 
@@ -111,5 +118,5 @@ server.listen(process.env.PORT || 3000, (err) => {
     if (err) {
         return console.error(err);
     }
-    console.info('Server running on http://localhost:3000');
+    console.info(`Server running on http://localhost:${process.env.PORT || 3000}`);
 });
