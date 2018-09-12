@@ -15,7 +15,7 @@
 	background: #f3e9e0;
 	min-height: 45px;
 	padding: 10px;
-	/*display: flex;*/
+	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	text-align: right;
@@ -358,12 +358,16 @@ background: black;
 .mt-21 {
 	margin-top: 21px;
 }
+
 @media screen and (max-width: 380px) {
 	.wrng-mssg span {
 		font-size: 12px;
 	}
 	.hd-chat {
 		font-size: 14px;
+	}
+	.header-text-chat{
+		font-size: 12px;
 	}
 	.chat-usr-img {
 		display: none;

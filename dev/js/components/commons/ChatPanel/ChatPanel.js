@@ -246,7 +246,7 @@ class ChatPanel extends React.Component {
                         <div className="hd-chat float-left">
                         <p className="text-left header-text-chat"> 
                             <span className="hed-txt-lt">Get a </span>
-                                     Free Doctor Consult, <span className="hed-txt-lt"> Now!</span>
+                                    Free Online Doctor Consult
                                     </p>
                         </div>
 
@@ -262,7 +262,7 @@ class ChatPanel extends React.Component {
                             </span>
                             {
                                 this.state.showChatBlock
-                                    ? <span onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 30 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                    ? <span className="ml-1" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
                                     : ''
                             }
                         </div>
