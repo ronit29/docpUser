@@ -367,7 +367,7 @@ background: black;
 		font-size: 14px;
 	}
 	.header-text-chat{
-		font-size: 12px;
+		font-size: 14px;
 	}
 	.chat-usr-img {
 		display: none;
@@ -470,6 +470,9 @@ background: black;
 	.search-show .head-links img {
 		margin-right: 0px;
 		margin-left: 6px;
+	}
+	.header-text-chat{
+		font-size: 12px;
 	}
 }
 .searchlocationresults {
