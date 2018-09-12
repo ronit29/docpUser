@@ -10,6 +10,7 @@ import ClinicSelector from '../commons/clinicSelector/index.js'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import HelmetTags from '../../commons/HelmetTags'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -23,6 +24,10 @@ class DoctorProfileView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+    }
+
+    getMetaTitle(doctorData) {
+        return `${doctorData.display_name} - Consult Online`
     }
 
     render() {
@@ -72,6 +77,11 @@ class DoctorProfileView extends React.Component {
                                 this.props.DOCTORS[this.state.selectedDoctor] ?
 
                                     <section className="dr-profile-screen">
+
+                                        <HelmetTags tagsData={{
+                                            title: this.getMetaTitle(this.props.DOCTORS[this.state.selectedDoctor])
+                                        }} />
+
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">

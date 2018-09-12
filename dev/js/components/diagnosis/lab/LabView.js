@@ -6,6 +6,7 @@ import Loader from '../../commons/Loader'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import HelmetTags from '../../commons/HelmetTags'
 
 class LabView extends React.Component {
     constructor(props) {
@@ -23,6 +24,10 @@ class LabView extends React.Component {
 
     bookLab() {
         this.props.history.push(`/lab/${this.state.selectedLab}/book`)
+    }
+
+    getMetaTitle(labData) {
+        return `${labData.lab.name} - Diagnostic Centre in ${labData.lab.city} |DocPrime`
     }
 
     render() {
@@ -70,6 +75,10 @@ class LabView extends React.Component {
                             {
                                 (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) ?
                                     <div>
+
+                                        <HelmetTags tagsData={{
+                                            title: this.getMetaTitle(this.props.LABS[this.state.selectedLab])
+                                        }} />
 
                                         <LabDetails {...this.props} data={this.props.LABS[this.state.selectedLab]} />
 
