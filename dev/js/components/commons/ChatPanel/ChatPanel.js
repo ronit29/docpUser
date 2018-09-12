@@ -256,13 +256,13 @@ class ChatPanel extends React.Component {
                                 <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
                                 
                             </span>
-                            <span className="mr-2" onClick={this.toggleCancel.bind(this)}>
+                            <span onClick={this.toggleCancel.bind(this)}>
                                 <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
                                 
                             </span>
                             {
                                 this.state.showChatBlock
-                                    ? <span className="ml-1" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                    ? <span className="ml-3" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
                                     : ''
                             }
                         </div>

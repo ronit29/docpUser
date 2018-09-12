@@ -19,6 +19,7 @@ class HelmetTags extends React.Component {
             <div>
                 <Helmet>
                     <title>{title}</title>
+                    <meta name="title" content={title} />
                     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="mobile-web-app-capable" content="yes" />
