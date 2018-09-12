@@ -54,6 +54,7 @@ const routes = [
     { path: '/addprofile', exact: true, component: UserSignup },
     { path: '/wallet', exact: true, component: Wallet },
     { path: `/*-dsdp`, component: Article, RENDER_ON_SERVER: true },
+    { path: `/*-mddp`, component: Article, RENDER_ON_SERVER: true },
     { path: `/all-diseases`, component: ArticleList },
     { path: `/all-medicines`, component: ArticleList },
     { path: '/payment/:id', exact: true, component: Payment },
