@@ -5,14 +5,21 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../commons/Loader'
+const queryString = require('query-string');
+
 
 
 class ArticleList extends React.Component {
 	constructor(props) {
 		super(props)
+		let page=0;
+		const parsed = queryString.parse(this.props.location.search)
+		if(parsed){
+            page = parseInt(parsed.page)
+        }
 		this.state = {
 			hasMore: true,
-			page: 1
+			page: page || 1
 		}
 	}
 
@@ -53,7 +60,7 @@ class ArticleList extends React.Component {
 																	<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
 																		<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} />
 																		<p className="disease-list-name fw-500">{property.title}</p>
-																		<p className="disease-list-content fw-500">{property.articleTeaser}</p>
+																		<p className="disease-list-content fw-500" dangerouslySetInnerHTML={{__html:property.articleTeaser }} ></p>
 																	</div>
 																</div>
 															}) : ""
