@@ -917,3 +917,89 @@ input[type=number]::-webkit-outer-spin-button {
 .dsp-city-list-item:last-child{
 	border-bottom: none;
 }
+
+.art-searchbar-col{
+	padding-top: 55px;
+	padding-bottom: 20px;
+}
+
+@media(max-width: 992px){
+	.art-searchbar-col{
+		padding-top: 70px;
+	}
+}
+
+.art-searchbar{
+	font-size: 16px;
+	width: 100%;
+	padding: 16px 24px 16px 50px;
+	border: none;
+	outline: none;
+	border-radius: 20px;
+	background-color: #ffffff !important;
+	box-shadow: 0px 4px 10px 0 rgba(0, 0, 0, 0.12);
+	background: url('/assets/img/customer-icons/search-orange.svg');
+	background-repeat: no-repeat;
+	background-position: 16px;
+    background-size: 20px;
+}
+
+.disease-widget{
+	padding: 10px;
+	padding-bottom: 30px;
+	position: relative;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.disease-list-img{
+	width: 100%;
+}
+
+.common-disease-label{
+	color: #757575;
+	font-size: 16px;
+}
+
+.disease-list-name{
+	color: #000000;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.disease-list-content{
+	font-size: 16px;
+	height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.posted-text{
+	position: absolute;
+	right: 10px;
+	bottom: 4px;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+}
+
+.breadcrumb-link-div{
+	display: inline;
+}
+
+.breadcrumb-arrow{
+	margin: 0 8px;
+	font-size: 18px;
+	line-height: 18px;
+}
+
+.breadcrumb-title{
+	font-size: 14px;
+}
+
+.breadcrumb-colored-title{
+	color: #f78631;
+}

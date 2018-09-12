@@ -21,6 +21,7 @@ import Home from './containers/commons/Home'
 import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
 import Article from './containers/commons/article'
+import ArticleList from './containers/commons/articleList'
 import Payment from './containers/commons/Payment'
 import ChatHistory from './containers/commons/chatHistory'
 import StaticPages from './containers/commons/StaticPages'
@@ -52,7 +53,9 @@ const routes = [
     { path: '/signup', exact: true, component: UserSignup },
     { path: '/addprofile', exact: true, component: UserSignup },
     { path: '/wallet', exact: true, component: Wallet },
-    { path: `/*(-dsdp|-mddp)`, component: Article, RENDER_ON_SERVER: true },
+    { path: `/*-dsdp`, component: Article, RENDER_ON_SERVER: true },
+    { path: `/all-diseases`, component: ArticleList },
+    { path: `/all-medicines`, component: ArticleList },
     { path: '/payment/:id', exact: true, component: Payment },
 
     { path: '/opd', exact: true, component: SearchCriteria },

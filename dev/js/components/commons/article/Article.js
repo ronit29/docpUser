@@ -3,7 +3,7 @@ import React from 'react';
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
-
+import HelmetTags from '../../commons/HelmetTags'
 
 class Article extends React.Component {
     constructor(props) {
@@ -33,7 +33,6 @@ class Article extends React.Component {
     }
 
     render() {
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -59,11 +58,25 @@ class Article extends React.Component {
                             {
                                 this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
 
-                                    {
-                                        this.state.articleData.header_image ? <div><img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} /></div>
-                                            : ''
-                                    }
+                                    <HelmetTags tagsData={{
+                                        title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
+                                        description: (this.state.articleData.seo ? this.state.articleData.seo.description : ""),
+                                        keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : "")
+                                    }} />
 
+                                    <div itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="mrb-20" style={{ wordBreak: 'break-word' }}>
+                                        <a href="/" itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a>
+                                        <span className="breadcrumb-arrow">&gt;</span>
+                                        <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
+                                            <a href={`/${this.state.articleData.category.url}`} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span></a>
+                                        </div>
+                                        <span className="breadcrumb-arrow">&gt;</span>
+                                        <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
+                                            <a href="https://docprime.com/enzoflam-tablet-mddp" itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title">Enzoflam Tablet</span></a>
+                                        </div>
+                                    </div>
+
+                                    <div><img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} /></div>
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""
