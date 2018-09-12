@@ -61,7 +61,7 @@ class HomeView extends React.Component {
         }
 
         let data = {
-        'Category':'ConsumerApp','Action':'SelectedBookTest','CustomerID':GTM.getUserId(),'leadid':0,'event':'selected-book-test','selected':test.name,'selectedId':test.id}
+        'Category':'ConsumerApp','Action':'SelectedBookTest','CustomerID':GTM.getUserId()||'','leadid':0,'event':'selected-book-test','selected':test.name||'','selectedId':test.id||''}
         GTM.sendEvent({ data: data })
 
         searchData = encodeURIComponent(JSON.stringify(searchData))
@@ -74,7 +74,7 @@ class HomeView extends React.Component {
     searchDoctor(speciality) {
         speciality.type = 'speciality'
         let data = {
-        'Category':'ConsumerApp','Action':'SelectedDoctorSpecializations','CustomerID':GTM.getUserId(),'leadid':0,'event':'selected-doctor-specializations','selected':speciality.name,'selectedId':speciality.id}
+        'Category':'ConsumerApp','Action':'SelectedDoctorSpecializations','CustomerID':GTM.getUserId()||'','leadid':0,'event':'selected-doctor-specializations','selected':speciality.name||'','selectedId':speciality.id||''}
         GTM.sendEvent({ data: data })
         delete speciality.icon
         let searchData = {

@@ -85,11 +85,11 @@ class CriteriaSearchView extends React.Component {
 
             if(docType=='Conditions'){
                 let data = {
-                'Category':'ConsumerApp','Action':'CommonConditionSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'common-condition-searched' ,'selected':criteria.name}
+                'Category':'ConsumerApp','Action':'CommonConditionSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'common-condition-searched' ,'selected':criteria.name||''}
                 GTM.sendEvent({ data: data })
             }else if(docType == 'Specializations'){
                 let data = {
-                'Category':'ConsumerApp','Action':'CommonSpecializationsSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'common-specializations-searched' ,'selected':criteria.name}
+                'Category':'ConsumerApp','Action':'CommonSpecializationsSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'common-specializations-searched' ,'selected':criteria.name||''}
                 GTM.sendEvent({ data: data })
             }
             this.props.toggleOPDCriteria(criteria.type, criteria)
@@ -97,7 +97,7 @@ class CriteriaSearchView extends React.Component {
         } else {
             if(docType=='Tests'){
                 let data = {
-                'Category':'ConsumerApp','Action':'TestSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'test-searched' ,'selected':criteria.name}
+                'Category':'ConsumerApp','Action':'TestSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'test-searched' ,'selected':criteria.name||''}
                 GTM.sendEvent({ data: data })
             }            
             this.props.toggleDiagnosisCriteria(criteria.type, criteria)
@@ -206,7 +206,7 @@ class CriteriaSearchView extends React.Component {
                                                         <li onClick={() => {
 
                                                             let data = {
-                                                            'Category':'ConsumerApp','Action':'DoctorNameSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor-name-searched' ,'selected':this.state.searchValue}
+                                                            'Category':'ConsumerApp','Action':'DoctorNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-name-searched' ,'selected':this.state.searchValue||''}
                                                             GTM.sendEvent({ data: data })
 
                                                             this.props.searchProceed(this.state.searchValue, "")
@@ -218,7 +218,7 @@ class CriteriaSearchView extends React.Component {
                                                         <li onClick={() => {
                                                             
                                                             let data = {
-                                                            'Category':'ConsumerApp','Action':'HospitalNameSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'hospital-name-searched', 'selected':this.state.searchValue}
+                                                            'Category':'ConsumerApp','Action':'HospitalNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'hospital-name-searched', 'selected':this.state.searchValue||''}
                                                             GTM.sendEvent({ data: data })
 
                                                             this.props.searchProceed("", this.state.searchValue)
@@ -232,7 +232,7 @@ class CriteriaSearchView extends React.Component {
                                                             <li onClick={() => {
 
                                                                 let data = {
-                                                                'Category':'ConsumerApp','Action':'LabNameSearched','CustomerID':GTM.getUserId(),'leadid':0,'event':'lab-name-searched', 'selected':this.state.searchValue}
+                                                                'Category':'ConsumerApp','Action':'LabNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-name-searched', 'selected':this.state.searchValue||''}
                                                                 GTM.sendEvent({ data: data })
 
                                                                 this.props.searchProceed(this.state.searchValue)
