@@ -59,7 +59,7 @@ class ArticleList extends React.Component {
 																return <div className="col-12" key={index}>
 																	<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
 																		<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} />
-																		<p className="disease-list-name fw-500">{property.title}</p>
+																		<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><p className="disease-list-name fw-500">{property.title}</p></a>
 																		<p className="disease-list-content fw-500" dangerouslySetInnerHTML={{__html:property.articleTeaser }} ></p>
 																	</div>
 																</div>

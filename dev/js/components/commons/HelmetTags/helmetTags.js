@@ -11,8 +11,8 @@ class HelmetTags extends React.Component {
 
     render() {
         let { tagsData } = this.props
-        let title = (tagsData && tagsData.title) ? tagsData.title : "Online Doctor Consultation | Ask a Doctor for Assistance | DocPrime"
-        let description = (tagsData && tagsData.description) ? tagsData.description : "Chat with doctors online or book appointment online instantly with best doctors, hospitals & clinics nearby you. Get diagnostic lab assistance and more."
+        let title = (tagsData && tagsData.title) ? tagsData.title : ""
+        let description = (tagsData && tagsData.description) ? tagsData.description : ""
         let keywords = (tagsData && tagsData.keywords) ? tagsData.keywords : ""
 
         return (
