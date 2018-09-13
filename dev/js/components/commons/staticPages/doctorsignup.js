@@ -9,8 +9,9 @@ class Doctorsignup extends React.Component {
 			mobile: "",
 			email: "",
 			city: "",
-			profile_type: "",
-			cityDropdownVisible: false
+			member_type: "",
+			cityDropdownVisible: false,
+			city_name:""
 		}
 	}
 
@@ -30,9 +31,10 @@ class Doctorsignup extends React.Component {
 		}
 	}
 
-	setCity = (cityName) => {
+	setCity = (cityName,cityId) => {
 		this.setState({
 			city: cityName,
+			city_name:cityId,
 			cityDropdownVisible: false
 		});
 	}
@@ -45,7 +47,8 @@ class Doctorsignup extends React.Component {
 				mobile: "",
 				email: "",
 				city: "",
-				profile_type: ""
+				member_type: "",
+				city_name:""
 			});
 			SnackBar.show({ pos: 'bottom-center', text: "Sign Up was successful." });
 		});
@@ -77,7 +80,7 @@ class Doctorsignup extends React.Component {
 							</div>
 							<form onSubmit={(e) => this.onSubmitData(e)} autoComplete="off" autoCorrect="off" spellCheck="off">
 								<div className="form-group">
-									<select name="member_type" className="form-control" value={this.state.profile_type} required id="dsp-select-profession" onChange={(event) => this.changeHandler(event, 'profile_type')}>
+									<select name="member_type" className="form-control" value={this.state.member_type} required id="dsp-select-profession" onChange={(event) => this.changeHandler(event, 'member_type')}>
 										<option value="">Select</option>
 										<option value={1}>Doctor</option>
 										<option value={2}>Diagnostic Center</option>
@@ -99,7 +102,7 @@ class Doctorsignup extends React.Component {
 													<ul className="dsp-city-list">
 														{
 															this.props.citiesName.map(city => {
-																return <li onClick={() => this.setCity(city.name)} className="dsp-city-list-item" key={city.value}>{city.name}</li>
+																return <li onClick={() => this.setCity(city.name,city.value)} className="dsp-city-list-item" key={city.value}>{city.name}</li>
 															})
 														}
 													</ul>
