@@ -50,9 +50,9 @@ class BookingView extends React.Component {
         }
 
         if (this.state.payment_success) {
-            
+
             let data = {
-                'Category':'ConsumerApp','Action':'DoctorAppointmentBooked','CustomerID':GTM.getUserId(),'leadid':appointmentId,'event':'doctor-appointment-booked'
+                'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
             }
             GTM.sendEvent({ data: data })
         }
@@ -67,7 +67,7 @@ class BookingView extends React.Component {
     }
 
     cancelAppointment(type) {
-        this.setState({ loading: true })
+        this.setState({ loading: true, showCancel: false })
 
         let appointmentData = { id: this.state.data.id, status: 6, refund: type }
 
