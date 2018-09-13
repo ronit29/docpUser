@@ -32,7 +32,7 @@ require('../css/style.css')
 const logPageView = () => {
     // window.location.pathname -> changed route
     let data = {
-        'Category': 'ConsumerApp', 'Action': 'RouteChange', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'route-changed', url: window.location.pathname
+        'Category': 'ConsumerApp', 'Action': 'RouteChange', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'route-changed', url: window.location.pathname,'addToGA':false
     }
     GTM.sendEvent({ data: data })
     return null;
