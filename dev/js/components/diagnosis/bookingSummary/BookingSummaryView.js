@@ -132,6 +132,10 @@ class BookingSummaryView extends React.Component {
             payment_type: 1 // TODO : Select payment type
         }
 
+        let data = {
+        'Category':'ConsumerApp','Action':'LabProceedClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-proceed-clicked'}
+        GTM.sendEvent({ data: data })
+
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 if (data.is_agent) {

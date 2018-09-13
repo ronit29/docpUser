@@ -4,6 +4,7 @@ import Loader from '../../commons/Loader'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import GTM from '../../../helpers/gtm.js'
 
 class TestSelectorView extends React.Component {
     constructor(props) {
@@ -160,6 +161,9 @@ class TestSelectorView extends React.Component {
                                         </section>
 
                                         <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => {
+                                            let data = {
+                                            'Category':'ConsumerApp','Action':'DoneClickedOnAddTestPage','CustomerID':GTM.getUserId()||'','leadid':0,'event':'done-clicked-add-test-page'}
+                                            GTM.sendEvent({ data: data })
                                             this.props.history.go(-1)
                                         }}>Done</button>
                                     </div> : <Loader />

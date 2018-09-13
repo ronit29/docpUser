@@ -73,6 +73,11 @@ class PatientDetails extends React.Component {
             payment_type: 1 // TODO : Select payment type
         }
 
+        let analyticData = {
+            'Category':'ConsumerApp','Action':'OpdProceedButtonClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'opd-proceed-button-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
                 if (data.is_agent) {

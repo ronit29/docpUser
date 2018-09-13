@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import GTM from '../../../../helpers/gtm.js'
 
 class LabTests extends React.Component {
 
@@ -8,6 +9,10 @@ class LabTests extends React.Component {
     }
 
     openTests() {
+        let data = {
+        'Category':'ConsumerApp','Action':'UserSelectingAddRemoveLabTests','CustomerID':GTM.getUserId()||'','leadid':0,'event':'user-selecting-add-remove-lab-tests'}
+        GTM.sendEvent({ data: data })
+
         this.props.history.push(`/lab/${this.props.data.lab.id}/tests`)
     }
 

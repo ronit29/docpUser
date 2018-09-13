@@ -10,11 +10,11 @@ class DoctorProfileCard extends React.Component {
 
     cardClick(id, e) {
         let data = {
-        'Category':'ConsumerApp','Action':'DoctorSelected','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-selected' ,'selectedId':id||''}
+        'Category':'ConsumerApp','Action':'DoctorSelected','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-selected' ,'selectedId':id}
         GTM.sendEvent({ data: data })
 
         data = {
-        'Category':'ConsumerApp','Action':'DoctorRankInSearch','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-rank-in-search' ,'selectedId':this.props.rank||''}
+        'Category':'ConsumerApp','Action':'DoctorRankInSearch','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-rank-in-search' ,'Rank':this.props.rank}
         GTM.sendEvent({ data: data })
         
         this.props.history.push(`/opd/doctor/${id}`)
