@@ -3,6 +3,7 @@ import React from 'react';
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 
 class Article extends React.Component {
@@ -66,7 +67,8 @@ class Article extends React.Component {
                                     <HelmetTags tagsData={{
                                         title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
                                         description: (this.state.articleData.seo ? this.state.articleData.seo.description : ""),
-                                        keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : "")
+                                        keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : ""),
+                                        canonicalUrl:`${CONFIG.API_BASE_URL}${this.props.match.url}`
                                     }} />
 
                                     <div itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="mrb-20" style={{ wordBreak: 'break-word' }}>

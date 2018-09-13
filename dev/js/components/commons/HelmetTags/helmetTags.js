@@ -14,7 +14,8 @@ class HelmetTags extends React.Component {
         let title = (tagsData && tagsData.title) ? tagsData.title : ""
         let description = (tagsData && tagsData.description) ? tagsData.description : ""
         let keywords = (tagsData && tagsData.keywords) ? tagsData.keywords : ""
-
+        let canonicalUrl = (tagsData && tagsData.canonicalUrl) ? tagsData.canonicalUrl:""
+        
         return (
             <div>
                 <Helmet>
@@ -27,6 +28,11 @@ class HelmetTags extends React.Component {
                     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no" />
                     <meta name="description" content={description} />
                     <meta name="keywords" content={keywords} />
+                    {
+                        canonicalUrl?
+                        <link rel="canonical" href={tagsData.canonicalUrl} />
+                        :''
+                    }
                 </Helmet>
             </div>
         )
