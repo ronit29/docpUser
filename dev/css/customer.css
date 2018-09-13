@@ -76,7 +76,7 @@
 /*location-detect*/
 .location-detect-header{height: auto;}
 .all-test-screen,
-.locaton-detect-screen{padding-top: 145px}
+.locaton-detect-screen{padding-top: 180px}
 .select-location-row{position: relative; padding: 10px;}
 .select-location-row .close{position: absolute; top: 0; left: 0; padding: 5px; width: 24px;}
 .detect-my-locaiton{padding: 4px 0; text-align: right; font-size: 16px; font-weight: 500; color: #f78631;cursor: pointer}
@@ -95,8 +95,8 @@
 
 /*search book*/
 .search-book-result{padding-top: 0px;}
-.search-book-header{height: auto;top: 65px !important;}
-.filter-row{position: fixed; left: 0; right: 0; top: 65px; z-index: 8; background-color: #f8f8f8;}
+.search-book-header{height: auto;top: 100px !important;}
+.filter-row{position: fixed; left: 0; right: 0; top: 100px; z-index: 8; background-color: #f8f8f8;}
 
 .filter-item{padding: 10px 0;}
 .filter-title{ font-size: 14px; font-weight: 500;}

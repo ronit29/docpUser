@@ -84,7 +84,7 @@ class LabView extends React.Component {
 
                                         <button disabled={
                                             this.props.LABS[this.state.selectedLab].tests.length < 1
-                                        } onClick={this.bookLab.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn"><span className="text-xs selected-option sticky-btn" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.LABS[this.state.selectedLab].tests.length} Selected) </span>Book
+                                        } onClick={this.bookLab.bind(this)} className="p-2 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn"><span className="text-xs selected-option sticky-btn" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.LABS[this.state.selectedLab].tests.length} Selected) </span>Book
                                         </button>
 
                                     </div> : <Loader />
