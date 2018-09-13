@@ -12,10 +12,8 @@ const GTM = {
             if (dataLayer) {
                 data.UAID=CONFIG.UAID
                 data.Tracker=CONFIG.Tracker
-                if(data.addToGA==undefined){
-                    dataLayer.push(data)    
-                }
-                                
+                dataLayer.push(data)
+                
             }
             setGTMSession(data);
         } catch (e) {
