@@ -6,6 +6,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../commons/Loader'
 const queryString = require('query-string');
+import CONFIG from '../../../config'
 
 
 
@@ -50,7 +51,7 @@ class ArticleList extends React.Component {
 	}
 
 	render() {
-		let url = window.location.href + `?page=${this.state.page}`
+		
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -94,7 +95,7 @@ class ArticleList extends React.Component {
 												{
 													this.state.hasMore ?
 														<div>
-															<a href={url} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
+															<a href={`${CONFIG.API_BASE_URL}${this.props.match.url}?page=${this.state.page}`} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
 														</div>
 														: ''
 												}
