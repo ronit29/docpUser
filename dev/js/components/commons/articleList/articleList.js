@@ -66,6 +66,12 @@ class ArticleList extends React.Component {
 			}
 		});
 	}
+	
+	handleKeyUp(e){
+		if(e.key === 'Enter'){
+			this.searchArticle();
+		}
+	}
 
 	render() {
 		let url = window.location.href + `?page=${this.state.page}`
@@ -79,7 +85,7 @@ class ArticleList extends React.Component {
 							<div className="container-fluid main-container">
 								<div className="row art-search-row">
 									<div className="col-12">
-										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder="Search any Disease" onChange={(e) => this.changeVal(e)} />
+										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder="Search any Disease" onChange={(e) => this.changeVal(e)} onKeyUp={(e) => this.handleKeyUp(e)} />
 										<button className="art-search-btn" onClick={() => this.searchArticle()}>
 											<img src={ASSETS_BASE_URL + "/images/search.svg"} />
 										</button>
