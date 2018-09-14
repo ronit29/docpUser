@@ -95,7 +95,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		if (page ==1) {
 
 			let data = {
-                'Category':'ConsumerApp','Action':'DoctorSearchCount','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-search-count' ,'selected':response.count||''}
+                'Category':'ConsumerApp','Action':'DoctorSearchCount','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-search-count' ,'DoctorSearchCount':response.count||0}
             GTM.sendEvent({ data: data })
 
 		}
