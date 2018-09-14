@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import CommonlySearched from '../../commons/commonlySearched/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
+import GTM from '../../../helpers/gtm.js'
 
 class SearchCriteriaView extends React.Component {
     constructor(props) {
@@ -28,6 +29,9 @@ class SearchCriteriaView extends React.Component {
             selectedCriterias: selectedCriterias,
             selectedLocation: this.props.selectedLocation,
         }
+        let data = {
+        'Category':'ConsumerApp','Action':'ShowLabsClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'show-labs-clicked'}
+        GTM.sendEvent({ data: data })
         searchData = encodeURIComponent(JSON.stringify(searchData))
         let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria))
         this.props.history.push(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`, {

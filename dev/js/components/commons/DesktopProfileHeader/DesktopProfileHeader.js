@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../initialsPicture'
+import GTM from '../../../helpers/gtm'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
@@ -58,12 +59,18 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                         <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
                             <div className="head-links" onClick={() => {
+                                let data = {
+                                'Category':'ConsumerApp','Action':'BookDoctorVisitClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-doctor-visit-clicked'}
+                                GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
                                 <span>Book to Visit a Doctor</span>
                             </div>
                             <div className="head-links" onClick={() => {
+                                let data = {
+                                'Category':'ConsumerApp','Action':'BookMedicalTestClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-medical-test-clicked'}
+                                GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
@@ -134,12 +141,18 @@ class DesktopProfileHeader extends React.Component {
                     {
                         this.state.headerButtonsState ? <div className="search-show d-lg-none">
                             <div className="head-links" onClick={() => {
+                                let data = {
+                                'Category':'ConsumerApp','Action':'BookDoctorVisitClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-doctor-visit-clicked'}
+                                GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
                                 <span>Book to Visit a Doctor</span>
                             </div>
                             <div className="head-links" onClick={() => {
+                                let data = {
+                                'Category':'ConsumerApp','Action':'BookMedicalTestClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-medical-test-clicked'}
+                                GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />

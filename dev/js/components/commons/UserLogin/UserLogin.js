@@ -55,6 +55,9 @@ class UserLoginView extends React.Component {
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 const parsed = queryString.parse(this.props.location.search)
                 if (exists) {
+                    let data = {
+                    'Category':'ConsumerApp','Action':'LoginSuccess','CustomerID':GTM.getUserId(),'leadid':0,'event':'login-success'}
+                    GTM.sendEvent({ data: data })
                     if (parsed.callback) {
                         this.props.history.replace(parsed.callback)
                     } else {

@@ -7,6 +7,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
+import GTM from '../../../helpers/gtm.js'
 
 class LabView extends React.Component {
     constructor(props) {
@@ -23,6 +24,10 @@ class LabView extends React.Component {
     }
 
     bookLab() {
+        let data = {
+        'Category':'ConsumerApp','Action':'LabBookingClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-booking-clicked'}
+        GTM.sendEvent({ data: data })
+
         this.props.history.push(`/lab/${this.state.selectedLab}/book`)
     }
 

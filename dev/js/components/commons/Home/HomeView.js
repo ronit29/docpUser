@@ -12,6 +12,7 @@ import InitialsPicture from '../initialsPicture'
 import HealthTip from '../RightBar/healthTip.js'
 import ChatPanel from '../ChatPanel'
 import HelmetTags from '../HelmetTags'
+import GTM from '../../../helpers/gtm.js'
 
 const GENDER = {
     "m": "Male",
@@ -60,6 +61,10 @@ class HomeView extends React.Component {
             selectedLocation: this.props.selectedLocation,
         }
 
+        let data = {
+        'Category':'ConsumerApp','Action':'SelectedBookTest','CustomerID':GTM.getUserId()||'','leadid':0,'event':'selected-book-test','selected':test.name||'','selectedId':test.id||''}
+        GTM.sendEvent({ data: data })
+
         searchData = encodeURIComponent(JSON.stringify(searchData))
         let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria_lab))
         this.props.history.push(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=`, {
@@ -69,6 +74,9 @@ class HomeView extends React.Component {
 
     searchDoctor(speciality) {
         speciality.type = 'speciality'
+        let data = {
+        'Category':'ConsumerApp','Action':'SelectedDoctorSpecializations','CustomerID':GTM.getUserId()||'','leadid':0,'event':'selected-doctor-specializations','selected':speciality.name||'','selectedId':speciality.id||''}
+        GTM.sendEvent({ data: data })
         delete speciality.icon
         let searchData = {
             selectedCriterias: [speciality],

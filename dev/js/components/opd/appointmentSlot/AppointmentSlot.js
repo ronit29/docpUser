@@ -9,6 +9,7 @@ import Loader from '../../commons/Loader'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import GTM from '../../../helpers/gtm.js'
 
 
 class AppointmentSlot extends React.Component {
@@ -27,6 +28,12 @@ class AppointmentSlot extends React.Component {
     proceed(e) {
         e.preventDefault()
         e.stopPropagation()
+
+        let data = {
+            'Category':'ConsumerApp','Action':'UserCickedSelectedButton','CustomerID':GTM.getUserId()||'','leadid':0,'event':'user-clicked-select-button'}
+        GTM.sendEvent({ data: data })
+
+
         // in case of reschedule go to reschedule page , else push
         if (this.state.reschedule) {
             const parsed = queryString.parse(this.props.location.search)
@@ -37,6 +44,10 @@ class AppointmentSlot extends React.Component {
             return this.props.history.go(-1)
         }
         if (this.props.selectedSlot.date) {
+            let data = {
+            'Category':'ConsumerApp','Action':'OpdAppointmentDate','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-appointment-date','appointmentTime':this.props.selectedSlot.date}
+            GTM.sendEvent({ data: data })
+
             return this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/bookdetails`)
         }
     }
