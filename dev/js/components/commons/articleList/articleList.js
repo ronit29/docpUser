@@ -20,7 +20,8 @@ class ArticleList extends React.Component {
 		this.state = {
 			hasMore: true,
 			page: page || 1,
-			searchVal: ''
+			searchVal: '',
+			noArticleFound: false
 		}
 	}
 
@@ -31,7 +32,9 @@ class ArticleList extends React.Component {
 		title = title.substring(1, title.length)
 		this.props.getArticleList(title, page, this.state.searchVal, (resp) => {
 			if (resp.length) {
-				this.setState({ hasMore: true });
+				this.setState({
+					hasMore: true,
+				});
 			}
 		});
 	}
@@ -46,7 +49,22 @@ class ArticleList extends React.Component {
 		let title = this.props.match.url
 		title = title.substring(1, title.length);
 		this.setState({ page: 1, hasMore: true })
-		this.props.getArticleList(title, 1, this.state.searchVal);
+		this.props.getArticleList(title, 1, this.state.searchVal, (resp) => {
+			if (resp.length == 0) {
+				console.log("resp length : " + resp.length);
+				this.setState({
+					hasMore: false,
+					noArticleFound: true
+				});
+				console.log("noarticleFound state : " + this.state.noArticleFound);
+			}
+			else {
+				this.setState({
+					hasMore: true,
+					noArticleFound: false
+				});
+			}
+		});
 	}
 
 	render() {
@@ -70,13 +88,13 @@ class ArticleList extends React.Component {
 								<div className="row mrt-20">
 									{
 										this.props.ARTICLE_LOADED ?
-											<div>
+											<div style={{ width: '100%' }}>
 												<InfiniteScroll
 													loadMore={this.loadMore.bind(this)}
 													hasMore={this.state.hasMore}
 												>
 													{
-														this.props.articleList ?
+														this.props.articleList && !this.state.noArticleFound ?
 															this.props.articleList.map((property, index) => {
 																return <div className="col-12" key={index}>
 																	<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
@@ -85,10 +103,10 @@ class ArticleList extends React.Component {
 																				<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} /> : ''
 																		}
 																		<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><p className="disease-list-name fw-500">{property.title}</p></a>
-																		<p className="disease-list-content fw-500" dangerouslySetInnerHTML={{ __html: property.articleTeaser }} ></p>
+																		<p className="disease-list-content fw-500" dangerouslySetInnerHTML={{ __html: property.articleTeaser }}></p>
 																	</div>
 																</div>
-															}) : ""
+															}) : <p className="fw-500 text-center" style={{ fontSize: 20 }} >No Article Found !!</p>
 													}
 												</InfiniteScroll>
 												{
