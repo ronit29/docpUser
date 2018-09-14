@@ -11,7 +11,7 @@ class Doctorsignup extends React.Component {
 			city: "",
 			member_type: "",
 			cityDropdownVisible: false,
-			city_name:""
+			city_name: ""
 		}
 	}
 
@@ -31,10 +31,10 @@ class Doctorsignup extends React.Component {
 		}
 	}
 
-	setCity = (cityName,cityId) => {
+	setCity = (cityName, cityId) => {
 		this.setState({
 			city: cityName,
-			city_name:cityId,
+			city_name: cityId,
 			cityDropdownVisible: false
 		});
 	}
@@ -48,7 +48,7 @@ class Doctorsignup extends React.Component {
 				email: "",
 				city: "",
 				member_type: "",
-				city_name:""
+				city_name: ""
 			});
 			SnackBar.show({ pos: 'bottom-center', text: "Sign Up was successful." });
 		});
@@ -102,7 +102,7 @@ class Doctorsignup extends React.Component {
 													<ul className="dsp-city-list">
 														{
 															this.props.citiesName.map(city => {
-																return <li onClick={() => this.setCity(city.name,city.value)} className="dsp-city-list-item" key={city.value}>{city.name}</li>
+																return <li onClick={() => this.setCity(city.name, city.value)} className="dsp-city-list-item" key={city.value}>{city.name}</li>
 															})
 														}
 													</ul>
