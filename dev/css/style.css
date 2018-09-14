@@ -420,6 +420,7 @@ background: black;
 .top-head-text{
 	color: white;
 	margin-right: 3px;
+	font-weight: 400;
 }
 .pb-mbl{
     display: none;
