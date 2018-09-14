@@ -421,6 +421,9 @@ background: black;
 	color: white;
 	margin-right: 3px;
 }
+.pb-mbl{
+    display: none;
+}
 @media screen and (max-width: 438px) {
 	.head-links{
 		margin-left: 12px !important;
@@ -428,6 +431,12 @@ background: black;
 	.logo-size {
 		width: 155px;
 	}	
+	.pb-window{
+        display: none;
+    }
+    .pb-mbl{
+        display: inline-block !important;
+    }
 }
 .header-overflow {
 	overflow: hidden;
