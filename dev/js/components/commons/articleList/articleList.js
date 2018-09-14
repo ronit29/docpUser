@@ -7,8 +7,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../commons/Loader'
 const queryString = require('query-string');
 
-
-
 class ArticleList extends React.Component {
 	constructor(props) {
 		super(props)
@@ -33,7 +31,7 @@ class ArticleList extends React.Component {
 		this.props.getArticleList(title, page, this.state.searchVal, (resp) => {
 			if (resp.length) {
 				this.setState({
-					hasMore: true,
+					hasMore: true
 				});
 			}
 		});
