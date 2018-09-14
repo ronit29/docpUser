@@ -17,14 +17,14 @@ class ArticleList extends React.Component {
 
     componentDidMount() {
         let title = this.props.match.url
-        title = title.substring(1,title.length)
+        title = title.substring(1, title.length)
         const parsed = queryString.parse(this.props.location.search)
-        if(parsed){
-            this.props.getArticleList(title,parsed.page)
-        }else{
+        if (parsed) {
+            this.props.getArticleList(title, parsed.page)
+        } else {
             this.props.getArticleList(title)
         }
-        
+
     }
 
     render() {
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, callback) => dispatch(getArticleList(title, page, callback))
+        getArticleList: (title, page, searchString, callback) => dispatch(getArticleList(title, page, searchString, callback))
     }
 }
 

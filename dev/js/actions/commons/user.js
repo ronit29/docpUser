@@ -343,9 +343,12 @@ export const getCities = (filterText) => (dispatch) => {
 	})
 }
 
-export const getArticleList = (title, page=1, callback) => (dispatch) => {
-	API_GET(`/api/v1/article/list?categoryUrl=${title}&page=${page}`).then(function (response) {
-		
+export const getArticleList = (title, page = 1, searchString = '', callback) => (dispatch) => {
+	let url = `/api/v1/article/list?categoryUrl=${title}&page=${page}`;
+	if (searchString) {
+		url = url + `&contains=${searchString}`
+	}
+	API_GET(url).then(function (response) {
 		dispatch({
 			type: APPEND_ARTICLE_LIST,
 			payload: response,
