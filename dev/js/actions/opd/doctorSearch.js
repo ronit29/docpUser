@@ -211,7 +211,7 @@ function _getlocationFromLatLong(lat, long, cb) {
 					formatted_address: _getNameFromLocation(results[0], location_type),
 					name: _getNameFromLocation(results[0], location_type),
 					place_id: results[0].place_id,
-					geometry: results[0].geometry
+					geometry: { location: { lat, lng: long } }
 				}
 				cb(location_object)
 			}
