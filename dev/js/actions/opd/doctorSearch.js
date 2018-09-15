@@ -79,10 +79,20 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		}
 
 		if (mergeState) {
+
+			let specialization_criterias = response.specializations.map((x) => {
+				x.type = 'speciality'
+				return x
+			})
+			let condition_criterias = response.conditions.map((x) => {
+				x.type = 'condition'
+				return x
+			})
+
 			if (place_id) {
 				_getLocationFromPlaceId(place_id, (locationData) => {
 					searchState.selectedLocation = locationData
-					searchState.selectedCriterias = []
+					searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
 
 					dispatch({
 						type: MERGE_SEARCH_STATE_OPD,
@@ -193,9 +203,13 @@ function _getlocationFromLatLong(lat, long, cb) {
 		let geocoder = new google.maps.Geocoder
 		geocoder.geocode({ 'location': latlng }, (results, status) => {
 			if (results && results[0]) {
+				let location_type = "sublocality"
+				if (lat == "28.6448") {
+					location_type = 'locality'
+				}
 				let location_object = {
-					formatted_address: results[0].formatted_address,
-					name: results[0].name,
+					formatted_address: _getNameFromLocation(results[0], location_type),
+					name: _getNameFromLocation(results[0], location_type),
 					place_id: results[0].place_id,
 					geometry: results[0].geometry
 				}
@@ -226,4 +240,20 @@ function _getLocationFromPlaceId(placeId, cb) {
 
 		}.bind(this))
 	}
+}
+
+function _getNameFromLocation(result, type) {
+	let name = result.formatted_address
+	if (result.address_components && result.address_components.length) {
+		for (let i = result.address_components.length - 1; i >= 0; i--) {
+			if (result.address_components[i].types) {
+				for (let x of result.address_components[i].types) {
+					if (x == type) {
+						name = result.address_components[i].long_name
+					}
+				}
+			}
+		}
+	}
+	return name
 }

@@ -120,13 +120,13 @@ class SearchResultsView extends React.Component {
     }
 
     applyFilters(filterState) {
-        let specializations = this.getLocationParam('specializations')
-        let conditions = this.getLocationParam('conditions')
+        let specializations_ids = this.getLocationParam('specializations')
+        let condition_ids = this.getLocationParam('conditions')
         let lat = this.getLocationParam('lat')
         let long = this.getLocationParam('long')
 
         let searchState = {
-            specializations, conditions
+            specializations_ids, condition_ids
         }
         searchState.selectedLocation = {
             geometry: { location: { lat, lng: long } }
