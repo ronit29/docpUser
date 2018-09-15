@@ -348,7 +348,7 @@ export const getArticleList = (title, page = 1, searchString = '', callback) => 
 	if (searchString) {
 		url = url + `&contains=${searchString}`
 	}
-	API_GET(url).then(function (response) {
+	return API_GET(url).then(function (response) {
 		dispatch({
 			type: APPEND_ARTICLE_LIST,
 			payload: response,
