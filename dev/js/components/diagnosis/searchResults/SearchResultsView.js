@@ -87,7 +87,7 @@ class SearchResultsView extends React.Component {
                             id: x,
                             name: ""
                         }
-                    }) : ""
+                    }) : []
 
                     let url = this.buildURI([...sel_cri], searchState.selectedLocation, filterCriteria, lab_name)
                     this.props.history.replace(url)
