@@ -24,15 +24,28 @@ const NAVIGATE = {
      * Check if the component is required to fetch new data from server, or just use the exisitng one. 
      */
     refreshLabSearchResults: (props) => {
-        let searchState = getLocationParam(props, 'search')
-        searchState = JSON.parse(searchState)
-        let oldLocation = searchState.selectedLocation
+        let lat = getLocationParam(props, 'lat') || null
+        let long = getLocationParam(props, 'long') || null
+        let place_id = getLocationParam(props, 'place_id') || ""
+
+        let oldLocation = null
+        if (lat || place_id) {
+            oldLocation = {
+                lat, long, place_id
+            }
+        }
 
         if (!!!oldLocation) {
             return true
         }
 
-        if (oldLocation && oldLocation.place_id && props.selectedLocation && oldLocation.place_id != props.selectedLocation.place_id) {
+        let new_lat = null
+        if (props.selectedLocation && props.selectedLocation.geometry) {
+            new_lat = props.selectedLocation.geometry.location.lat
+            if (typeof new_lat === 'function') new_lat = new_lat()
+        }
+
+        if (oldLocation && oldLocation.lat && new_lat && oldLocation.lat != new_lat) {
             return true
         }
 
@@ -49,15 +62,28 @@ const NAVIGATE = {
      * Check if the component is required to fetch new data from server, or just use the exisitng one. 
      */
     refreshDoctorSearchResults: (props) => {
-        let searchState = getLocationParam(props, 'search')
-        searchState = JSON.parse(searchState)
-        let oldLocation = searchState.selectedLocation
+        let lat = getLocationParam(props, 'lat') || null
+        let long = getLocationParam(props, 'long') || null
+        let place_id = getLocationParam(props, 'place_id') || ""
+
+        let oldLocation = null
+        if (lat || place_id) {
+            oldLocation = {
+                lat, long, place_id
+            }
+        }
 
         if (!!!oldLocation) {
             return true
         }
 
-        if (oldLocation && oldLocation.place_id && props.selectedLocation && oldLocation.place_id != props.selectedLocation.place_id) {
+        let new_lat = null
+        if (props.selectedLocation && props.selectedLocation.geometry) {
+            new_lat = props.selectedLocation.geometry.location.lat
+            if (typeof new_lat === 'function') new_lat = new_lat()
+        }
+
+        if (oldLocation && oldLocation.lat && new_lat && oldLocation.lat != new_lat) {
             return true
         }
 

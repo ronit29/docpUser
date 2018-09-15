@@ -1,6 +1,7 @@
 import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
+import { debug } from 'util';
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
 	let sits_at = []
@@ -29,10 +30,11 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
-		searchState.specializations = ""
+		searchState.specializations_ids = ""
+		searchState.condition_ids = ""
 	}
 
-	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations_ids}&condition_ids=${searchState.condition_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`
@@ -67,31 +69,38 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 		})
 
-		if (page ==1) {
+		if (page == 1) {
 
 			let data = {
-                'Category':'ConsumerApp','Action':'DoctorSearchCount','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-search-count' ,'DoctorSearchCount':response.count||0}
-            GTM.sendEvent({ data: data })
+				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0
+			}
+			GTM.sendEvent({ data: data })
 
 		}
 
 		if (mergeState) {
 			if (place_id) {
 				_getLocationFromPlaceId(place_id, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = []
+
 					dispatch({
 						type: MERGE_SEARCH_STATE_OPD,
 						payload: {
-							// searchState,
+							searchState,
 							filterCriteria
 						}
 					})
 				})
 			} else {
 				_getlocationFromLatLong(lat, long, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = []
+
 					dispatch({
 						type: MERGE_SEARCH_STATE_OPD,
 						payload: {
-							// searchState,
+							searchState,
 							filterCriteria
 						}
 					})
@@ -206,7 +215,6 @@ function _getLocationFromPlaceId(placeId, cb) {
 		service.getDetails({
 			reference: placeId
 		}, function (place, status) {
-
 			let location_object = {
 				formatted_address: place.formatted_address,
 				name: place.name,

@@ -64,10 +64,13 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 
 			if (place_id) {
 				_getLocationFromPlaceId(place_id, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = []
+
 					dispatch({
 						type: MERGE_SEARCH_STATE_LAB,
 						payload: {
-							// searchState,
+							searchState,
 							filterCriteria
 						}
 					})
@@ -86,10 +89,13 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 			} else {
 
 				_getlocationFromLatLong(lat, long, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = []
+
 					dispatch({
 						type: MERGE_SEARCH_STATE_LAB,
 						payload: {
-							// searchState,
+							searchState,
 							filterCriteria
 						}
 					})

@@ -14,11 +14,11 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        // if (NAVIGATE.refreshLabSearchResults(this.props)) {
-        //     this.getLabs()
-        // }
+        if (NAVIGATE.refreshLabSearchResults(this.props)) {
+            this.getLabs()
+        }
 
-        this.getLabs()
+        // this.getLabs()
 
         if (this.props.location.state && this.props.location.state.scrollTop) {
             // setTimeout(() => {
@@ -37,16 +37,16 @@ class SearchResultsView extends React.Component {
 
         try {
 
-            let test_ids = this.getLocationParam('test_ids')
+            let test_ids = this.getLocationParam('test_ids') || ""
             let lat = this.getLocationParam('lat')
             let long = this.getLocationParam('long')
             let place_id = this.getLocationParam('place_id') || ""
-            let min_distance = parseInt(this.getLocationParam('min_distance'))
-            let max_distance = parseInt(this.getLocationParam('max_distance'))
-            let min_price = parseInt(this.getLocationParam('min_price'))
-            let max_price = parseInt(this.getLocationParam('max_price'))
-            let order_by = this.getLocationParam('order_by')
-            let lab_name = this.getLocationParam('lab_name')
+            let min_distance = parseInt(this.getLocationParam('min_distance')) || 0
+            let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
+            let min_price = parseInt(this.getLocationParam('min_price')) || 0
+            let max_price = parseInt(this.getLocationParam('max_price')) || 20000
+            let order_by = this.getLocationParam('order_by') || null
+            let lab_name = this.getLocationParam('lab_name') || ""
             lab_name = lab_name || ""
             let force_location_fromUrl = !!this.getLocationParam('force_location')
 
@@ -206,6 +206,7 @@ class SearchResultsView extends React.Component {
 
         return (
             <div>
+                <div id="map" style={{ display: 'none' }}></div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     {
                         this.isSelectedLocationNearDelhi() ? <div>

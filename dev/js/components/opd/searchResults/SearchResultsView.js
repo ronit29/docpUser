@@ -15,11 +15,11 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        // if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
-        //     this.getDcotors()
-        // }
+        if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
+            this.getDcotors()
+        }
 
-        this.getDcotors()
+        // this.getDcotors()
 
         if (this.props.location.state && this.props.location.state.scrollTop) {
             // setTimeout(() => {
@@ -44,14 +44,14 @@ class SearchResultsView extends React.Component {
         } = this.props
 
         try {
-            let specializations = this.getLocationParam('specializations')
-            let conditions = this.getLocationParam('conditions')
+            let specializations_ids = this.getLocationParam('specializations') || ""
+            let condition_ids = this.getLocationParam('conditions') || ""
             let lat = this.getLocationParam('lat')
             let long = this.getLocationParam('long')
             let place_id = this.getLocationParam('place_id') || ""
-            let min_fees = parseInt(this.getLocationParam('min_fees'))
-            let max_fees = parseInt(this.getLocationParam('max_fees'))
-            let sort_on = this.getLocationParam('sort_on')
+            let min_fees = parseInt(this.getLocationParam('min_fees')) || 0
+            let max_fees = parseInt(this.getLocationParam('max_fees')) || 1500
+            let sort_on = this.getLocationParam('sort_on') || ""
             let is_available = this.getLocationParam('is_available') === "true"
             let is_female = this.getLocationParam('is_female') === "true"
             let doctor_name = this.getLocationParam('doctor_name')
@@ -61,7 +61,7 @@ class SearchResultsView extends React.Component {
             let force_location_fromUrl = !!this.getLocationParam('force_location')
 
             let searchState = {
-                specializations, conditions
+                specializations_ids, condition_ids
             }
             searchState.selectedLocation = {
                 geometry: { location: { lat, lng: long } }, place_id
@@ -76,7 +76,7 @@ class SearchResultsView extends React.Component {
                 filterCriteria.hospital_name = hospital_name
             }
 
-            filterCriteria.priceRange = [0, 15000]
+            filterCriteria.priceRange = [0, 1500]
             filterCriteria.priceRange[0] = filterCriteria.min_fees
             filterCriteria.priceRange[1] = filterCriteria.max_fees
 
@@ -90,7 +90,7 @@ class SearchResultsView extends React.Component {
                         searchState.selectedLocation = selectedLocation
                     }
 
-                    let sel_cri_s = specializations ? specializations.split(',').map((x) => {
+                    let sel_cri_s = specializations_ids ? specializations_ids.split(',').map((x) => {
                         return {
                             type: 'speciality',
                             id: x,
@@ -98,7 +98,7 @@ class SearchResultsView extends React.Component {
                         }
                     }) : ""
 
-                    let sel_cri_c = conditions ? conditions.split(',').map((x) => {
+                    let sel_cri_c = condition_ids ? condition_ids.split(',').map((x) => {
                         return {
                             type: 'condition',
                             id: x,
@@ -228,6 +228,7 @@ class SearchResultsView extends React.Component {
     render() {
         return (
             <div>
+                <div id="map" style={{ display: 'none' }}></div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     {
                         this.isSelectedLocationNearDelhi() ? <div>
