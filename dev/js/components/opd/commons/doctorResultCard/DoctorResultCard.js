@@ -10,13 +10,15 @@ class DoctorProfileCard extends React.Component {
 
     cardClick(id, e) {
         let data = {
-        'Category':'ConsumerApp','Action':'DoctorSelected','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-selected' ,'selectedId':id}
+            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
+        }
         GTM.sendEvent({ data: data })
 
         data = {
-        'Category':'ConsumerApp','Action':'DoctorRankInSearch','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-rank-in-search' ,'Rank':this.props.rank}
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank
+        }
         GTM.sendEvent({ data: data })
-        
+
         this.props.history.push(`/opd/doctor/${id}`)
     }
 
@@ -36,7 +38,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name } = this.props.details
 
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
@@ -55,7 +57,7 @@ class DoctorProfileCard extends React.Component {
                     <div className="dp-dr-search-card-div">
                         <div className="dp-dr-search-card-address clearfix">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="dp-dr-search-loc-icon" />
-                            <p>{hospital.address}</p>
+                            <p>{hospital.locality}</p>
                         </div>
                         <div className="dp-dr-search-card-content clearfix">
 
@@ -64,7 +66,7 @@ class DoctorProfileCard extends React.Component {
                             </div>
 
                             <div className="dp-dr-search-card-details">
-                                <p className="fw-500 dp-dr-exp-details-1" style={{ fontSize: 16 }}>{hospital.display_name}</p>
+                                <p className="fw-500 dp-dr-exp-details-1" style={{ fontSize: 16 }}>{display_name}</p>
                                 <p className="dp-dr-exp-details-1">{this.getQualificationStr(general_specialization || [])}</p>
                                 {
                                     experience_years ? <p className="fw-500 dp-dr-exp-details-2">{experience_years} Years of Experience</p> : ""
