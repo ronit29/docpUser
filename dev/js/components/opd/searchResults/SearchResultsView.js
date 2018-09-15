@@ -96,7 +96,7 @@ class SearchResultsView extends React.Component {
                             id: x,
                             name: ""
                         }
-                    }) : ""
+                    }) : []
 
                     let sel_cri_c = condition_ids ? condition_ids.split(',').map((x) => {
                         return {
