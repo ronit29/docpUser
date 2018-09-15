@@ -1,6 +1,6 @@
 import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
-
+import GTM from '../../helpers/gtm.js'
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
 	let sits_at = []
@@ -66,6 +66,14 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 			}
 
 		})
+
+		if (page ==1) {
+
+			let data = {
+                'Category':'ConsumerApp','Action':'DoctorSearchCount','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-search-count' ,'DoctorSearchCount':response.count||0}
+            GTM.sendEvent({ data: data })
+
+		}
 
 		if (mergeState) {
 			if (place_id) {

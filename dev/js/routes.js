@@ -55,8 +55,8 @@ const routes = [
     { path: '/wallet', exact: true, component: Wallet },
     { path: `/*-dsdp`, component: Article, RENDER_ON_SERVER: true },
     { path: `/*-mddp`, component: Article, RENDER_ON_SERVER: true },
-    { path: `/all-diseases`, component: ArticleList },
-    { path: `/all-medicines`, component: ArticleList },
+    { path: `/all-diseases`, component: ArticleList, RENDER_ON_SERVER: true},
+    { path: `/all-medicines`, component: ArticleList, RENDER_ON_SERVER: true},
     { path: '/payment/:id', exact: true, component: Payment },
 
     { path: '/opd', exact: true, component: SearchCriteria },

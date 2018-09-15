@@ -1,15 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
+import GTM from '../../../../helpers/gtm.js'
 
 class ClinicSelector extends React.Component {
     constructor(props) {
         super(props)
     }
 
-    selectClinic(clinicId, is_live) {
+    selectClinic(clinicId, is_live,rank) {
         if (is_live) {
             let doctorId = this.props.match.params.id
+            
+            let data = {
+                'Category':'ConsumerApp','Action':'OpdBookNowClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-book-now-clicked' ,'selectedId':clinicId||''}
+                GTM.sendEvent({ data: data })
+
+            data = {
+                'Category':'ConsumerApp','Action':'OpdBookNowRank','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-book-now-rank' ,'rank':rank}
+                GTM.sendEvent({ data: data })
+
             this.props.history.push(`/opd/doctor/${doctorId}/${clinicId}/book`)
         }
     }
@@ -60,7 +70,7 @@ class ClinicSelector extends React.Component {
                                             </div>
                                         </div>
                                         <div className="text-center" style={{ marginTop: 12 }}>
-                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live)}>Book Now</button>
+                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live,i)}>Book Now</button>
                                         </div>
                                     </div>
                                 </li>

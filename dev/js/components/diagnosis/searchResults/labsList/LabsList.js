@@ -123,7 +123,7 @@ class LabsList extends React.Component {
                                         {
                                             labList.map((labId, i) => {
                                                 if (LABS[labId]) {
-                                                    return <LabProfileCard {...this.props} details={LABS[labId]} key={i} />
+                                                    return <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i}/>
                                                 } else {
                                                     return ""
                                                 }

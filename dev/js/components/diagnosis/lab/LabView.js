@@ -7,6 +7,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
+import GTM from '../../../helpers/gtm.js'
 
 class LabView extends React.Component {
     constructor(props) {
@@ -23,6 +24,10 @@ class LabView extends React.Component {
     }
 
     bookLab() {
+        let data = {
+        'Category':'ConsumerApp','Action':'LabBookingClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-booking-clicked'}
+        GTM.sendEvent({ data: data })
+
         this.props.history.push(`/lab/${this.state.selectedLab}/book`)
     }
 
@@ -84,7 +89,7 @@ class LabView extends React.Component {
 
                                         <button disabled={
                                             this.props.LABS[this.state.selectedLab].tests.length < 1
-                                        } onClick={this.bookLab.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn"><span className="text-xs selected-option sticky-btn" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.LABS[this.state.selectedLab].tests.length} Selected) </span>Book
+                                        } onClick={this.bookLab.bind(this)} className="p-2 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn"><span className="text-xs selected-option sticky-btn" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.LABS[this.state.selectedLab].tests.length} Selected) </span>Book
                                         </button>
 
                                     </div> : <Loader />

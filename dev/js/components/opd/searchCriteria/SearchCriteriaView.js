@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import CommonlySearched from '../../commons/commonlySearched/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
+import GTM from '../../../helpers/gtm.js'
 
 class SearchCriteriaView extends React.Component {
     constructor(props) {
@@ -21,6 +22,11 @@ class SearchCriteriaView extends React.Component {
             delete x.icon
             return x
         })
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShowDoctorsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-doctors-clicked'
+        }
+        GTM.sendEvent({ data: data })
+
         let url = this.buildURI(selectedCriterias, this.props.selectedLocation, this.props.filterCriteria, doctor_name, hospital_name)
         this.props.history.push(url)
     }
@@ -95,7 +101,7 @@ class SearchCriteriaView extends React.Component {
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
 
-                        <button onClick={this.searchProceed.bind(this, "", "")} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                        <button onClick={this.searchProceed.bind(this, "", "")} className="p-2 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                     </section>
                 </CriteriaSearch>

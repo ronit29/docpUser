@@ -33,6 +33,7 @@ class ChatPanel extends React.Component {
         if (window) {
             // handling events sent by iframe
             window.addEventListener('message', function ({ data }) {
+                let eventData = data;
                 if (data) {
                     switch (data.event) {
                         case "RoomAgent": {
@@ -41,10 +42,31 @@ class ChatPanel extends React.Component {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
                                 })
-                                let analyticData = {
-                                    'Category': 'Chat', 'Action': 'DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor-assigned'
+                                let analyticData;
+
+                                if(eventData.data.agentType == 'Type 1'){
+                                    
+                                    analyticData = {
+                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned','RoomId':eventData.data.rid
+                                    }
+                                    GTM.sendEvent({ data: analyticData })
+
+                                }else if(eventData.data.agentType == 'Type 2'){
+
+                                    analyticData = {
+                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned','RoomId':eventData.data.rid
+                                    }
+                                    GTM.sendEvent({ data: analyticData })
+                                
+                                }else if(eventData.data.agentType == 'Type 3'){
+
+                                    analyticData = {
+                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned','RoomId':eventData.data.rid
+                                    }
+                                    GTM.sendEvent({ data: analyticData })
+
                                 }
-                                GTM.sendEvent({ data: analyticData })
+                                
                             })
                             break
                         }
@@ -83,7 +105,7 @@ class ChatPanel extends React.Component {
                         case "Login": {
                             if (data.data["params.token"]) {
                                 let analyticData = {
-                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat'
+                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat','RoomId':eventData.data.rid||''
                                 }
                                 GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
@@ -98,7 +120,7 @@ class ChatPanel extends React.Component {
 
                         case "prescription_report": {
                             let analyticData = {
-                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated'
+                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated','RoomId':eventData.data.rid||''
                             }
                             GTM.sendEvent({ data: analyticData })
                         }

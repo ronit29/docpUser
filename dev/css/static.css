@@ -918,35 +918,47 @@ input[type=number]::-webkit-outer-spin-button {
 	border-bottom: none;
 }
 
-.art-searchbar-col{
-	padding-top: 55px;
-	padding-bottom: 20px;
+.art-search-row{
+	margin-top: 10px;
 }
 
-@media(max-width: 992px){
-	.art-searchbar-col{
-		padding-top: 70px;
+@media(max-width: 767px){
+	.art-search-row{
+		margin-top: 0px;
 	}
 }
 
 .art-searchbar{
 	font-size: 16px;
 	width: 100%;
-	padding: 16px 24px 16px 50px;
+	padding: 16px 68px 16px 20px;
 	border: none;
 	outline: none;
-	border-radius: 20px;
+	border-radius: 10px;
 	background-color: #ffffff !important;
 	box-shadow: 0px 4px 10px 0 rgba(0, 0, 0, 0.12);
-	background: url('/assets/img/customer-icons/search-orange.svg');
-	background-repeat: no-repeat;
-	background-position: 16px;
-    background-size: 20px;
+}
+
+.art-search-btn{
+	position: absolute;
+	right: 15px;
+	height: 50px;
+	cursor: pointer;
+	background-color: #f78631;
+	border: none;
+	box-shadow: none;
+	outline: none;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	width: 60px;
+}
+
+.art-search-btn>img{
+	width: 20px;
 }
 
 .disease-widget{
-	padding: 10px;
-	padding-bottom: 30px;
+	padding: 20px;
 	position: relative;
 	margin-bottom: 20px;
 	cursor: pointer;
@@ -954,6 +966,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .disease-list-img{
 	width: 100%;
+	margin-bottom: 10px;
 }
 
 .common-disease-label{
@@ -964,7 +977,6 @@ input[type=number]::-webkit-outer-spin-button {
 .disease-list-name{
 	color: #000000;
 	font-size: 20px;
-	margin-top: 10px;
 	margin-bottom: 10px;
 }
 

@@ -252,7 +252,8 @@
 } 
 
 .loaderPagination{
-    text-align: center;
+    display: flex;
+    justify-content: center;
     margin: 20px 0;
 }
 
@@ -884,6 +885,7 @@ ul.inline-list li {
 
 figure>img{
     width: 100%;
+    margin-bottom: 30px;
 }
 
 .article-header{
@@ -896,9 +898,14 @@ figure>img{
     margin-bottom: 10px;
 }
 
-.docprime-article h3{
+.docprime-article h1, h2, h3, h4, h5, h6{
     margin-bottom: 15px;
-    border-bottom: 1px solid #d3d3d3;
+}
+
+.docprime-article h3{
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .chat-history-list>li{

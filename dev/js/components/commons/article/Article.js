@@ -3,6 +3,7 @@ import React from 'react';
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 
 class Article extends React.Component {
@@ -30,6 +31,11 @@ class Article extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+    }
+
+    onHomeClick(event, link) {
+        event.preventDefault();
+        this.props.history.push(link);
     }
 
     render() {
@@ -61,18 +67,19 @@ class Article extends React.Component {
                                     <HelmetTags tagsData={{
                                         title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
                                         description: (this.state.articleData.seo ? this.state.articleData.seo.description : ""),
-                                        keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : "")
+                                        keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : ""),
+                                        canonicalUrl:`${CONFIG.API_BASE_URL}${this.props.match.url}`
                                     }} />
 
                                     <div itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="mrb-20" style={{ wordBreak: 'break-word' }}>
-                                        <a href="/" itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a>
+                                        <a href="/" onClick={(e)=>this.onHomeClick(e, "/")} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a>
                                         <span className="breadcrumb-arrow">&gt;</span>
                                         <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
-                                            <a href={`/${this.state.articleData.category.url}`} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span></a>
+                                            <a href={`/${this.state.articleData.category.url}`} onClick={(e)=>this.onHomeClick(e, `/${this.state.articleData.category.url}`)} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span></a>
                                         </div>
                                         <span className="breadcrumb-arrow">&gt;</span>
                                         <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
-                                            <a href="https://docprime.com/enzoflam-tablet-mddp" itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title">Enzoflam Tablet</span></a>
+                                            <span itemProp="title" className="fw-500 breadcrumb-title">{this.state.articleData.title}</span>
                                         </div>
                                     </div>
 

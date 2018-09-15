@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../../commons/initialsPicture'
+import GTM from '../../../../helpers/gtm.js'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -32,6 +33,14 @@ class LabProfileCard extends React.Component {
                 new_test.lab_id = id
                 this.props.toggleDiagnosisCriteria('test', new_test, true)
             })
+        let data = {
+        'Category':'ConsumerApp','Action':'RankOfLabClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'rank-lab-clicked','Rank':this.props.rank}
+        GTM.sendEvent({ data: data })
+
+        data = {
+        'Category':'ConsumerApp','Action':'LabSelectedByUser','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-selected-by-user','LabId':id}
+        GTM.sendEvent({ data: data })
+
         this.props.history.push(`/lab/${id}`)
     }
 

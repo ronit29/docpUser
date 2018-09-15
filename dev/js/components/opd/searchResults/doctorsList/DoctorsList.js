@@ -127,7 +127,7 @@ class DoctorsList extends React.Component {
                                         {
                                             doctorList.map((docId, i) => {
                                                 if (DOCTORS[docId]) {
-                                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} />
+                                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank ={i} />
                                                 } else {
                                                     return ""
                                                 }
