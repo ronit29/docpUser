@@ -57,7 +57,7 @@ class DoctorProfileCard extends React.Component {
                     <div className="dp-dr-search-card-div">
                         <div className="dp-dr-search-card-address clearfix">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="dp-dr-search-loc-icon" />
-                            <p>{hospital.locality}</p>
+                            <p>{hospital.short_address}</p>
                         </div>
                         <div className="dp-dr-search-card-content clearfix">
 
