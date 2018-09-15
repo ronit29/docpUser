@@ -3,33 +3,6 @@ import { API_GET, API_POST } from '../../api/api.js';
 
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
-	let dedupe_ids = {}
-	let specialization_ids = searchState.selectedCriterias
-		.reduce((final, x) => {
-			final = final || []
-			if (x.specialization && x.type == "condition") {
-				final = [...final, ...x.specialization]
-			} else if (x.type == "speciality") {
-				final.push(x.id)
-			}
-			return final
-		}, [])
-		.filter((x) => {
-			if (dedupe_ids[x]) {
-				return false
-			} else {
-				dedupe_ids[x] = true
-				return true
-			}
-		})
-		.reduce((finalStr, curr, i) => {
-			if (i != 0) {
-				finalStr += ','
-			}
-			finalStr += `${curr}`
-			return finalStr
-		}, "")
-
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
 	// if(filterCriteria.sits_at_hospital) sits_at.push('hospital');
@@ -38,10 +11,12 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 	let lat = 28.644800
 	let long = 77.216721
+	let place_id = ""
+
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
-
+		place_id = searchState.selectedLocation.place_id || ""
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
 	}
@@ -54,10 +29,10 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
-		specialization_ids = ""
+		searchState.specializations = ""
 	}
 
-	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${specialization_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`
@@ -93,13 +68,27 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		})
 
 		if (mergeState) {
-			dispatch({
-				type: MERGE_SEARCH_STATE_OPD,
-				payload: {
-					searchState,
-					filterCriteria
-				}
-			})
+			if (place_id) {
+				_getLocationFromPlaceId(place_id, (locationData) => {
+					dispatch({
+						type: MERGE_SEARCH_STATE_OPD,
+						payload: {
+							// searchState,
+							filterCriteria
+						}
+					})
+				})
+			} else {
+				_getlocationFromLatLong(lat, long, (locationData) => {
+					dispatch({
+						type: MERGE_SEARCH_STATE_OPD,
+						payload: {
+							// searchState,
+							filterCriteria
+						}
+					})
+				})
+			}
 		}
 
 		if (cb) {
@@ -178,4 +167,47 @@ export const updateOPDAppointment = (appointmentData, callback) => (dispatch) =>
 	}).catch(function (error) {
 		callback(error, null)
 	})
+}
+
+function _getlocationFromLatLong(lat, long, cb) {
+	if (google) {
+		var latlng = { lat: parseFloat(parseFloat(lat).toFixed(6)), lng: parseFloat(parseFloat(long).toFixed(6)) };
+
+		let geocoder = new google.maps.Geocoder
+		geocoder.geocode({ 'location': latlng }, (results, status) => {
+			if (results && results[0]) {
+				let location_object = {
+					formatted_address: results[0].formatted_address,
+					name: results[0].name,
+					place_id: results[0].place_id,
+					geometry: results[0].geometry
+				}
+				cb(location_object)
+			}
+		})
+	}
+}
+
+function _getLocationFromPlaceId(placeId, cb) {
+	if (google) {
+		let map = new google.maps.Map(document.getElementById('map'), {
+			center: { lat: 28, lng: 77 },
+			zoom: 15
+		})
+		let service = new google.maps.places.PlacesService(map);
+		service.getDetails({
+			reference: placeId
+		}, function (place, status) {
+
+			let location_object = {
+				formatted_address: place.formatted_address,
+				name: place.name,
+				place_id: place.place_id,
+				geometry: place.geometry
+			}
+
+			cb(location_object)
+
+		}.bind(this))
+	}
 }

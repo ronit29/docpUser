@@ -21,17 +21,48 @@ class SearchCriteriaView extends React.Component {
             delete x.icon
             return x
         })
-        let searchData = {
-            selectedCriterias: selectedCriterias,
-            selectedLocation: this.props.selectedLocation,
-        }
-        searchData = encodeURIComponent(JSON.stringify(searchData))
-        let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria))
-        this.props.history.push(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}&hospital_name=${hospital_name}`, {
-            scrollTop: true
-        })
+        let url = this.buildURI(selectedCriterias, this.props.selectedLocation, this.props.filterCriteria, doctor_name, hospital_name)
+        this.props.history.push(url)
     }
 
+    buildURI(selectedCriterias, selectedLocation, filterCriteria, doctor_name, hospital_name) {
+        let specialization_ids = selectedCriterias
+            .filter((x) => {
+                return x.type == "speciality"
+            }).map((x) => {
+                return x.id
+            }).join(',')
+
+        let condition_ids = selectedCriterias
+            .filter((x) => {
+                return x.type == "condition"
+            }).map((x) => {
+                return x.id
+            }).join(',')
+
+
+        let lat = 28.644800
+        let long = 77.216721
+        let place_id = ""
+
+        if (selectedLocation) {
+            place_id = selectedLocation.place_id
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        let min_fees = filterCriteria.priceRange[0]
+        let max_fees = filterCriteria.priceRange[1]
+        let sort_on = filterCriteria.sort_on || ""
+        let is_available = filterCriteria.is_available
+        let is_female = filterCriteria.is_female
+
+        let url = `/opd/searchresults?specializations=${specialization_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name}&hospital_name=${hospital_name}&place_id=${place_id}`
+
+        return url
+    }
 
     render() {
         return (

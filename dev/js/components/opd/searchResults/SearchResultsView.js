@@ -15,9 +15,11 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
-            this.getDcotors()
-        }
+        // if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
+        //     this.getDcotors()
+        // }
+
+        this.getDcotors()
 
         if (this.props.location.state && this.props.location.state.scrollTop) {
             // setTimeout(() => {
@@ -42,41 +44,70 @@ class SearchResultsView extends React.Component {
         } = this.props
 
         try {
-            let searchState = this.getLocationParam('search')
-            let filterCriteria = this.getLocationParam('filter')
+            let specializations = this.getLocationParam('specializations')
+            let conditions = this.getLocationParam('conditions')
+            let lat = this.getLocationParam('lat')
+            let long = this.getLocationParam('long')
+            let place_id = this.getLocationParam('place_id') || ""
+            let min_fees = parseInt(this.getLocationParam('min_fees'))
+            let max_fees = parseInt(this.getLocationParam('max_fees'))
+            let sort_on = this.getLocationParam('sort_on')
+            let is_available = this.getLocationParam('is_available') === "true"
+            let is_female = this.getLocationParam('is_female') === "true"
             let doctor_name = this.getLocationParam('doctor_name')
             doctor_name = doctor_name || ""
             let hospital_name = this.getLocationParam('hospital_name')
             hospital_name = hospital_name || ""
             let force_location_fromUrl = !!this.getLocationParam('force_location')
 
-            if (filterCriteria) {
-                filterCriteria = JSON.parse(filterCriteria)
-            } else {
-                filterCriteria = {}
+            let searchState = {
+                specializations, conditions
             }
-
+            searchState.selectedLocation = {
+                geometry: { location: { lat, lng: long } }, place_id
+            }
+            let filterCriteria = {
+                min_fees, max_fees, sort_on, is_available, is_female
+            }
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
             }
-
             if (hospital_name) {
                 filterCriteria.hospital_name = hospital_name
             }
 
-            searchState = JSON.parse(searchState)
+            filterCriteria.priceRange = [0, 15000]
+            filterCriteria.priceRange[0] = filterCriteria.min_fees
+            filterCriteria.priceRange[1] = filterCriteria.max_fees
+
             // if location found in store , use that instead of the one in URL
-            if (selectedLocation) {
+            if (selectedLocation && selectedLocation.geometry) {
 
                 // if location is changed then update url with new locations
-                if (!!!searchState.selectedLocation || (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id)) {
+                if (!!!searchState.selectedLocation || (searchState.selectedLocation && searchState.selectedLocation.geometry && selectedLocation.geometry.location.lat != searchState.selectedLocation.geometry.location.lat)) {
                     // skip location pick from store if force location from url is set
                     if (!force_location_fromUrl) {
                         searchState.selectedLocation = selectedLocation
                     }
-                    let searchData = encodeURIComponent(JSON.stringify(searchState))
-                    let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
-                    this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}&hospital_name=${hospital_name}`)
+
+                    let sel_cri_s = specializations ? specializations.split(',').map((x) => {
+                        return {
+                            type: 'speciality',
+                            id: x,
+                            name: ""
+                        }
+                    }) : ""
+
+                    let sel_cri_c = conditions ? conditions.split(',').map((x) => {
+                        return {
+                            type: 'condition',
+                            id: x,
+                            name: ""
+                        }
+                    }) : []
+
+                    let url = this.buildURI([...sel_cri_s, ...sel_cri_c], searchState.selectedLocation, filterCriteria, doctor_name, hospital_name)
+                    this.props.history.replace(url)
                 }
 
             }
@@ -89,9 +120,16 @@ class SearchResultsView extends React.Component {
     }
 
     applyFilters(filterState) {
+        let specializations = this.getLocationParam('specializations')
+        let conditions = this.getLocationParam('conditions')
+        let lat = this.getLocationParam('lat')
+        let long = this.getLocationParam('long')
+
         let searchState = {
-            selectedCriterias: this.props.selectedCriterias,
-            selectedLocation: this.props.selectedLocation,
+            specializations, conditions
+        }
+        searchState.selectedLocation = {
+            geometry: { location: { lat, lng: long } }
         }
 
         let doctor_name = this.getLocationParam('doctor_name')
@@ -106,16 +144,52 @@ class SearchResultsView extends React.Component {
             filterState.hospital_name = hospital_name
         }
 
-        let searchData = encodeURIComponent(JSON.stringify(searchState))
-        let filterData = encodeURIComponent(JSON.stringify(filterState))
-        this.props.history.replace(`/opd/searchresults?search=${searchData}&filter=${filterData}&doctor_name=${doctor_name}&hospital_name=${hospital_name}`)
-
+        let url = this.buildURI(this.props.selectedCriterias, this.props.selectedLocation, filterState, doctor_name, hospital_name)
+        this.props.history.replace(url)
         this.getDoctorList(searchState, filterState, true)
 
         if (window) {
             window.scrollTo(0, 0)
             window.OPD_SCROLL_POS = 0
         }
+    }
+
+    buildURI(selectedCriterias, selectedLocation, filterCriteria, doctor_name, hospital_name) {
+        let specialization_ids = selectedCriterias
+            .filter((x) => {
+                return x.type == "speciality"
+            }).map((x) => {
+                return x.id
+            }).join(',')
+
+        let condition_ids = selectedCriterias
+            .filter((x) => {
+                return x.type == "condition"
+            }).map((x) => {
+                return x.id
+            }).join(',')
+
+
+        let lat = 28.644800
+        let long = 77.216721
+        let place_id = ""
+
+        if (selectedLocation) {
+            place_id = selectedLocation.place_id || ""
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        let min_fees = filterCriteria.priceRange[0]
+        let max_fees = filterCriteria.priceRange[1]
+        let sort_on = filterCriteria.sort_on || ""
+        let is_available = filterCriteria.is_available
+        let is_female = filterCriteria.is_female
+
+        let url = `/opd/searchresults?specializations=${specialization_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name}&hospital_name=${hospital_name}&place_id=${place_id}`
+        return url
     }
 
     getDoctorList(searchState, filterCriteria, mergeState) {

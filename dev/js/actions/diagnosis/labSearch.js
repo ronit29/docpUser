@@ -6,37 +6,15 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 
 	let dedupe_ids = {}
 	let testIds = searchState.selectedCriterias
-		.reduce((final, x) => {
-			final = final || []
-			if (x.test && x.type == "condition") {
-				let test_ids = x.test.map(x => x.id) || []
-				final = [...final, ...test_ids]
-			} else if (x.type == "test") {
-				final.push(x.id)
-			}
-			return final
-		}, [])
-		.filter((x) => {
-			if (dedupe_ids[x]) {
-				return false
-			} else {
-				dedupe_ids[x] = true
-				return true
-			}
-		})
-		.reduce((finalStr, curr, i) => {
-			if (i != 0) {
-				finalStr += ','
-			}
-			finalStr += `${curr}`
-			return finalStr
-		}, "")
 
 	let lat = 28.644800
 	let long = 77.216721
+	let place_id = ""
+
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
+		place_id = searchState.selectedLocation.place_id || ""
 
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
@@ -83,23 +61,51 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		})
 
 		if (mergeState) {
-			dispatch({
-				type: MERGE_SEARCH_STATE_LAB,
-				payload: {
-					searchState,
-					filterCriteria
-				}
-			})
 
-			dispatch({
-				type: SELECT_LOCATION_DIAGNOSIS,
-				payload: searchState.selectedLocation
-			})
+			if (place_id) {
+				_getLocationFromPlaceId(place_id, (locationData) => {
+					dispatch({
+						type: MERGE_SEARCH_STATE_LAB,
+						payload: {
+							// searchState,
+							filterCriteria
+						}
+					})
 
-			dispatch({
-				type: SELECT_LOCATION_OPD,
-				payload: searchState.selectedLocation
-			})
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_OPD,
+						payload: locationData
+					})
+
+				})
+			} else {
+
+				_getlocationFromLatLong(lat, long, (locationData) => {
+					dispatch({
+						type: MERGE_SEARCH_STATE_LAB,
+						payload: {
+							// searchState,
+							filterCriteria
+						}
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_OPD,
+						payload: locationData
+					})
+				})
+			}
+
 		}
 
 		if (cb) {
@@ -194,4 +200,47 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 	}).catch(function (error) {
 		callback(error, null)
 	})
+}
+
+function _getlocationFromLatLong(lat, long, cb) {
+	if (google) {
+		var latlng = { lat: parseFloat(parseFloat(lat).toFixed(6)), lng: parseFloat(parseFloat(long).toFixed(6)) };
+
+		let geocoder = new google.maps.Geocoder
+		geocoder.geocode({ 'location': latlng }, (results, status) => {
+			if (results && results[0]) {
+				let location_object = {
+					formatted_address: results[0].formatted_address,
+					name: results[0].name,
+					place_id: results[0].place_id,
+					geometry: results[0].geometry
+				}
+				cb(location_object)
+			}
+		})
+	}
+}
+
+function _getLocationFromPlaceId(placeId, cb) {
+	if (google) {
+		let map = new google.maps.Map(document.getElementById('map'), {
+			center: { lat: 28, lng: 77 },
+			zoom: 15
+		})
+		let service = new google.maps.places.PlacesService(map);
+		service.getDetails({
+			reference: placeId
+		}, function (place, status) {
+
+			let location_object = {
+				formatted_address: place.formatted_address,
+				name: place.name,
+				place_id: place.place_id,
+				geometry: place.geometry
+			}
+
+			cb(location_object)
+
+		}.bind(this))
+	}
 }

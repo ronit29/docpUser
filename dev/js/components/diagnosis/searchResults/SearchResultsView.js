@@ -14,9 +14,11 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        if (NAVIGATE.refreshLabSearchResults(this.props)) {
-            this.getLabs()
-        }
+        // if (NAVIGATE.refreshLabSearchResults(this.props)) {
+        //     this.getLabs()
+        // }
+
+        this.getLabs()
 
         if (this.props.location.state && this.props.location.state.scrollTop) {
             // setTimeout(() => {
@@ -34,35 +36,61 @@ class SearchResultsView extends React.Component {
         } = this.props
 
         try {
-            let searchState = this.getLocationParam('search')
-            let filterCriteria = this.getLocationParam('filter')
+
+            let test_ids = this.getLocationParam('test_ids')
+            let lat = this.getLocationParam('lat')
+            let long = this.getLocationParam('long')
+            let place_id = this.getLocationParam('place_id') || ""
+            let min_distance = parseInt(this.getLocationParam('min_distance'))
+            let max_distance = parseInt(this.getLocationParam('max_distance'))
+            let min_price = parseInt(this.getLocationParam('min_price'))
+            let max_price = parseInt(this.getLocationParam('max_price'))
+            let order_by = this.getLocationParam('order_by')
             let lab_name = this.getLocationParam('lab_name')
             lab_name = lab_name || ""
             let force_location_fromUrl = !!this.getLocationParam('force_location')
 
-            if (filterCriteria) {
-                filterCriteria = JSON.parse(filterCriteria)
-            } else {
-                filterCriteria = {}
+            let searchState = {
+                selectedCriterias: test_ids
             }
-
+            searchState.selectedLocation = {
+                geometry: { location: { lat, lng: long } }, place_id
+            }
+            let filterCriteria = {
+                min_price, max_price, min_distance, max_distance, order_by
+            }
             if (lab_name) {
                 filterCriteria.lab_name = lab_name
             }
 
-            searchState = JSON.parse(searchState)
+            filterCriteria.priceRange = [0, 20000]
+            filterCriteria.priceRange[0] = filterCriteria.min_price
+            filterCriteria.priceRange[1] = filterCriteria.max_price
+
+            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange[0] = filterCriteria.min_distance
+            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             // if location found in store , use that instead of the one in URL
-            if (selectedLocation) {
-                // if location is changed then update url with new locatiobs
-                if (!!!searchState.selectedLocation || (searchState.selectedLocation && searchState.selectedLocation.place_id && selectedLocation.place_id != searchState.selectedLocation.place_id)) {
+            if (selectedLocation && selectedLocation.geometry) {
+
+                // if location is changed then update url with new locations
+                if (!!!searchState.selectedLocation || (searchState.selectedLocation && searchState.selectedLocation.geometry && selectedLocation.geometry.location.lat != searchState.selectedLocation.geometry.location.lat)) {
                     // skip location pick from store if force location from url is set
                     if (!force_location_fromUrl) {
                         searchState.selectedLocation = selectedLocation
                     }
-                    let searchData = encodeURIComponent(JSON.stringify(searchState))
-                    let filterData = encodeURIComponent(JSON.stringify(filterCriteria))
-                    this.props.history.replace(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
+
+                    let sel_cri = test_ids ? test_ids.split(',').map((x) => {
+                        return {
+                            type: 'test',
+                            id: x,
+                            name: ""
+                        }
+                    }) : ""
+
+                    let url = this.buildURI([...sel_cri], searchState.selectedLocation, filterCriteria, lab_name)
+                    this.props.history.replace(url)
                 }
 
             }
@@ -85,9 +113,16 @@ class SearchResultsView extends React.Component {
     }
 
     applyFilters(filterState) {
+
+        let test_ids = this.getLocationParam('test_ids')
+        let lat = this.getLocationParam('lat')
+        let long = this.getLocationParam('long')
+
         let searchState = {
-            selectedCriterias: this.props.selectedCriterias,
-            selectedLocation: this.props.selectedLocation,
+            selectedCriterias: test_ids
+        }
+        searchState.selectedLocation = {
+            geometry: { location: { lat, lng: long } }
         }
 
         let lab_name = this.getLocationParam('lab_name')
@@ -96,16 +131,46 @@ class SearchResultsView extends React.Component {
             filterState.lab_name = lab_name
         }
 
-        let searchData = encodeURIComponent(JSON.stringify(searchState))
-        let filterData = encodeURIComponent(JSON.stringify(filterState))
-        this.props.history.replace(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`)
-
-        this.getLabList(searchState, filterState, true, 1)
+        let url = this.buildURI(this.props.selectedCriterias, this.props.selectedLocation, filterState, lab_name)
+        this.props.history.replace(url)
+        this.getLabList(searchState, filterState, true)
 
         if (window) {
             window.scrollTo(0, 0)
             window.LAB_SCROLL_POS = 0
         }
+    }
+
+    buildURI(selectedCriterias, selectedLocation, filterCriteria, lab_name) {
+        let specialization_ids = selectedCriterias
+            .filter((x) => {
+                return x.type == "test"
+            })
+            .map((x) => {
+                return x.id
+            }).join(',')
+
+        let lat = 28.644800
+        let long = 77.216721
+        let place_id = ""
+
+        if (selectedLocation) {
+            place_id = selectedLocation.place_id || ""
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        let min_distance = filterCriteria.distanceRange[0]
+        let max_distance = filterCriteria.distanceRange[1]
+        let min_price = filterCriteria.priceRange[0]
+        let max_price = filterCriteria.priceRange[1]
+        let order_by = filterCriteria.sortBy
+
+        let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
+
+        return url
     }
 
     isSelectedLocationNearDelhi() {

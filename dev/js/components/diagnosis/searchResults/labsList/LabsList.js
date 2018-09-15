@@ -56,21 +56,37 @@ class LabsList extends React.Component {
         this.setState({ hasMore: false, loading: true })
 
         try {
-            let searchState = this.getLocationParam('search')
-            let filterCriteria = this.getLocationParam('filter')
+            let test_ids = this.getLocationParam('test_ids')
+            let lat = this.getLocationParam('lat')
+            let long = this.getLocationParam('long')
+            let min_distance = parseInt(this.getLocationParam('min_distance'))
+            let max_distance = parseInt(this.getLocationParam('max_distance'))
+            let min_price = parseInt(this.getLocationParam('min_price'))
+            let max_price = parseInt(this.getLocationParam('max_price'))
+            let order_by = this.getLocationParam('order_by')
             let lab_name = this.getLocationParam('lab_name')
+            lab_name = lab_name || ""
 
-            if (filterCriteria) {
-                filterCriteria = JSON.parse(filterCriteria)
-            } else {
-                filterCriteria = {}
+            let searchState = {
+                selectedCriterias: test_ids
             }
-
+            searchState.selectedLocation = {
+                geometry: { location: { lat, lng: long } }
+            }
+            let filterCriteria = {
+                min_price, max_price, min_distance, max_distance, order_by
+            }
             if (lab_name) {
                 filterCriteria.lab_name = lab_name
             }
 
-            searchState = JSON.parse(searchState)
+            filterCriteria.priceRange = [0, 20000]
+            filterCriteria.priceRange[0] = filterCriteria.min_price
+            filterCriteria.priceRange[1] = filterCriteria.max_price
+
+            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange[0] = filterCriteria.min_distance
+            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             this.props.getLabs(searchState, filterCriteria, false, page + 1, (hasMore) => {
                 this.setState({ loading: false })
