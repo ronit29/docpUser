@@ -34,7 +34,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		searchState.condition_ids = ""
 	}
 
-	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations_ids}&condition_ids=${searchState.condition_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations_ids || ""}&condition_ids=${searchState.condition_ids || ""}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`
