@@ -1,4 +1,4 @@
-import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
+import { SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { debug } from 'util';
@@ -101,6 +101,11 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 							filterCriteria
 						}
 					})
+
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
 				})
 			} else {
 				_getlocationFromLatLong(lat, long, (locationData) => {
@@ -113,6 +118,11 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 							searchState,
 							filterCriteria
 						}
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
 					})
 				})
 			}
