@@ -7,6 +7,7 @@ import STORAGE from './helpers/storage'
 const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
+const queryString = require('query-string');
 
 require('../css/carousel.css')
 require('../css/normalize.css')
@@ -50,6 +51,7 @@ class App extends React.Component {
 
     componentDidMount() {
 
+
         if (STORAGE.checkAuth()) {
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
@@ -60,6 +62,81 @@ class App extends React.Component {
                     })
                 }
             })
+        }
+
+        let isMobile = false
+        let device = 'desktop'
+        if(navigator){
+
+            if(/mobile/i.test(navigator.userAgent)){
+                isMobile = true
+                device = 'mobile'
+            }
+
+            if(navigator.userAgent.match(/iPad/i)){
+                device = 'ipad'
+            }
+
+            if(navigator.userAgent.match(/iPhone/i)){
+                device = 'iphone' 
+            }
+
+
+            if(navigator.userAgent.match(/Android/i)){
+                device = 'Android' 
+            }
+
+            if(navigator.userAgent.match(/BlackBerry/i)){
+                device = 'BlackBerry'
+            }
+
+/*
+            if(navigator.userAgent.match(/webOS/i)){
+                 device = 'desktop'
+            }*/
+
+            let data = {
+                'Category':'ConsumerApp','Action':'VisitorInfo','CustomerID':GTM.getUserId()||'','leadid':0,'event':'visitor-info','Device':device,'Mobile':isMobile,'platform':navigator.platform||'','addToGA':false}
+
+            GTM.sendEvent({ data: data })
+
+        }
+
+        const parsed = queryString.parse(window.location.search)
+        if (parsed) {
+
+             if(parsed.utm_source){
+
+                let data = {
+                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_source':parsed.utm_source,'addToGA':false}
+
+                GTM.sendEvent({ data: data })
+
+             }
+             if(parsed.utm_medium){
+
+                let data = {
+                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_medium':parsed.utm_medium,'addToGA':false}
+
+                GTM.sendEvent({ data: data })
+
+             }
+             if(parsed.utm_term){
+
+                let data = {
+                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_term':parsed.utm_term,'addToGA':false}
+
+                GTM.sendEvent({ data: data })
+
+             }
+             if(parsed.utm_campaign){
+
+                let data = {
+                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_campaign':parsed.utm_campaign,'addToGA':false}
+
+                GTM.sendEvent({ data: data })
+
+             }
         }
 
         // boot Raven(Sentry logger)

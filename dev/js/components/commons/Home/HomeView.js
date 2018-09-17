@@ -90,7 +90,6 @@ class HomeView extends React.Component {
     }
 
     render() {
-
         let profileData = this.props.profiles[this.props.selectedProfile]
 
         let articles = this.props.articles || []

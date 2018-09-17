@@ -17,7 +17,7 @@ class ClinicSelector extends React.Component {
                 GTM.sendEvent({ data: data })
 
             data = {
-                'Category':'ConsumerApp','Action':'OpdBookNowRank','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-book-now-rank' ,'rank':rank}
+                'Category':'ConsumerApp','Action':'OpdBookNowRank','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-book-now-rank' ,'rank':rank+1}
                 GTM.sendEvent({ data: data })
 
             this.props.history.push(`/opd/doctor/${doctorId}/${clinicId}/book`)

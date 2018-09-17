@@ -4,6 +4,7 @@ import PaymentForm from '../../commons/paymentForm'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import GTM from '../../../helpers/gtm.js'
 
 class PaymentView extends React.Component {
     constructor(props) {
@@ -32,6 +33,12 @@ class PaymentView extends React.Component {
     }
 
     proceed() {
+
+        let data = {
+            'Category':'ConsumerApp','Action':'ContinueClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
+
+        GTM.sendEvent({ data: data })
+
         let form = document.getElementById('paymentForm')
         form.submit()
     }

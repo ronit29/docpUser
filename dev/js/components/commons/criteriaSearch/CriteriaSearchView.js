@@ -206,7 +206,7 @@ class CriteriaSearchView extends React.Component {
                                                         <li onClick={() => {
 
                                                             let data = {
-                                                            'Category':'ConsumerApp','Action':'DoctorNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-name-searched' ,'selected':this.state.searchValue||''}
+                                                            'Category':'ConsumerApp','Action':'DoctorNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-name-searched' ,'DoctorNameSearched':this.state.searchValue||''}
                                                             GTM.sendEvent({ data: data })
 
                                                             this.props.searchProceed(this.state.searchValue, "")
@@ -218,7 +218,7 @@ class CriteriaSearchView extends React.Component {
                                                         <li onClick={() => {
                                                             
                                                             let data = {
-                                                            'Category':'ConsumerApp','Action':'HospitalNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'hospital-name-searched', 'selected':this.state.searchValue||''}
+                                                            'Category':'ConsumerApp','Action':'HospitalNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'hospital-name-searched', 'HospitalNameSearched':this.state.searchValue||''}
                                                             GTM.sendEvent({ data: data })
 
                                                             this.props.searchProceed("", this.state.searchValue)
@@ -232,7 +232,7 @@ class CriteriaSearchView extends React.Component {
                                                             <li onClick={() => {
 
                                                                 let data = {
-                                                                'Category':'ConsumerApp','Action':'LabNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-name-searched', 'selected':this.state.searchValue||''}
+                                                                'Category':'ConsumerApp','Action':'LabNameSearched','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-name-searched', 'SearchString':this.state.searchValue||''}
                                                                 GTM.sendEvent({ data: data })
 
                                                                 this.props.searchProceed(this.state.searchValue)

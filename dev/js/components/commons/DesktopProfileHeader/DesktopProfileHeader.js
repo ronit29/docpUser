@@ -17,6 +17,9 @@ class DesktopProfileHeader extends React.Component {
     }
 
     toggleHeaderButtons() {
+        let data = {
+        'Category':'ConsumerApp','Action':'SearchButtonClickedMobile','CustomerID':GTM.getUserId(),'leadid':0,'event':'search-button-clicked-mobile'}
+        GTM.sendEvent({ data: data })
         this.setState({ headerButtonsState: !this.state.headerButtonsState })
     }
 
