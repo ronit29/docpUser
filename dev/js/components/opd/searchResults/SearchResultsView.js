@@ -124,12 +124,13 @@ class SearchResultsView extends React.Component {
         let condition_ids = this.getLocationParam('conditions')
         let lat = this.getLocationParam('lat')
         let long = this.getLocationParam('long')
+        let place_id = this.getLocationParam('place_id') || ""
 
         let searchState = {
             specializations_ids, condition_ids, selectedCriterias: this.props.selectedCriterias
         }
         searchState.selectedLocation = {
-            geometry: { location: { lat, lng: long } }
+            geometry: { location: { lat, lng: long } }, place_id
         }
 
         let doctor_name = this.getLocationParam('doctor_name')
@@ -180,6 +181,9 @@ class SearchResultsView extends React.Component {
             long = selectedLocation.geometry.location.lng
             if (typeof lat === 'function') lat = lat()
             if (typeof long === 'function') long = long()
+
+            lat = parseFloat(parseFloat(lat).toFixed(6))
+            long = parseFloat(parseFloat(long).toFixed(6))
         }
 
         let min_fees = filterCriteria.priceRange[0]

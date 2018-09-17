@@ -62,6 +62,7 @@ class DoctorsList extends React.Component {
             let condition_ids = this.getLocationParam('conditions')
             let lat = this.getLocationParam('lat')
             let long = this.getLocationParam('long')
+            let place_id = this.getLocationParam('place_id') || ""
             let min_fees = parseInt(this.getLocationParam('min_fees'))
             let max_fees = parseInt(this.getLocationParam('max_fees'))
             let sort_on = this.getLocationParam('sort_on')
@@ -77,7 +78,7 @@ class DoctorsList extends React.Component {
                 specializations_ids, condition_ids
             }
             searchState.selectedLocation = {
-                geometry: { location: { lat, lng: long } }
+                geometry: { location: { lat, lng: long } }, place_id
             }
             let filterCriteria = {
                 min_fees, max_fees, sort_on, is_available, is_female
@@ -127,7 +128,7 @@ class DoctorsList extends React.Component {
                                         {
                                             doctorList.map((docId, i) => {
                                                 if (DOCTORS[docId]) {
-                                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank ={i} />
+                                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
                                                 } else {
                                                     return ""
                                                 }

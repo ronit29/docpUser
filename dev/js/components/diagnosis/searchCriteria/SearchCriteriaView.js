@@ -49,13 +49,16 @@ class SearchCriteriaView extends React.Component {
             long = selectedLocation.geometry.location.lng
             if (typeof lat === 'function') lat = lat()
             if (typeof long === 'function') long = long()
+
+            lat = parseFloat(parseFloat(lat).toFixed(6))
+            long = parseFloat(parseFloat(long).toFixed(6))
         }
 
         let min_distance = filterCriteria.distanceRange[0]
         let max_distance = filterCriteria.distanceRange[1]
         let min_price = filterCriteria.priceRange[0]
         let max_price = filterCriteria.priceRange[1]
-        let sort_on = filterCriteria.sortBy
+        let sort_on = filterCriteria.sort_on || ""
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'ShowLabsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-labs-clicked'

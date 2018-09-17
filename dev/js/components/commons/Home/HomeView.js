@@ -106,6 +106,9 @@ class HomeView extends React.Component {
             long = selectedLocation.geometry.location.lng
             if (typeof lat === 'function') lat = lat()
             if (typeof long === 'function') long = long()
+
+            lat = parseFloat(parseFloat(lat).toFixed(6))
+            long = parseFloat(parseFloat(long).toFixed(6))
         }
 
         let min_fees = filterCriteria.priceRange[0]
@@ -138,13 +141,16 @@ class HomeView extends React.Component {
             long = selectedLocation.geometry.location.lng
             if (typeof lat === 'function') lat = lat()
             if (typeof long === 'function') long = long()
+
+            lat = parseFloat(parseFloat(lat).toFixed(6))
+            long = parseFloat(parseFloat(long).toFixed(6))
         }
 
         let min_distance = filterCriteria.distanceRange[0]
         let max_distance = filterCriteria.distanceRange[1]
         let min_price = filterCriteria.priceRange[0]
         let max_price = filterCriteria.priceRange[1]
-        let sort_on = filterCriteria.sortBy
+        let sort_on = filterCriteria.sort_on || ""
 
         let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
 

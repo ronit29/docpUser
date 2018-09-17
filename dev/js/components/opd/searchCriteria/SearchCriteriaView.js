@@ -57,6 +57,9 @@ class SearchCriteriaView extends React.Component {
             long = selectedLocation.geometry.location.lng
             if (typeof lat === 'function') lat = lat()
             if (typeof long === 'function') long = long()
+
+            lat = parseFloat(parseFloat(lat).toFixed(6))
+            long = parseFloat(parseFloat(long).toFixed(6))
         }
 
         let min_fees = filterCriteria.priceRange[0]

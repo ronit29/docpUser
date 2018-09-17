@@ -12,7 +12,7 @@ class TopBar extends React.Component {
             openFilter: false,
             priceRange: [0, 20000],
             distanceRange: [0, 35],
-            sortBy: null,
+            sort_on: null,
             shortURL: "",
             dropdown_visible: false
         }
@@ -31,7 +31,7 @@ class TopBar extends React.Component {
         let filterState = {
             priceRange: this.state.priceRange,
             distanceRange: this.state.distanceRange,
-            sortBy: this.state.sortBy
+            sort_on: this.state.sort_on
         }
         this.props.applyFilters(filterState)
         this.setState({ openFilter: false })
@@ -51,7 +51,7 @@ class TopBar extends React.Component {
     }
 
     handleClose(type) {
-        this.setState({ anchorEl: null, sortBy: type }, () => {
+        this.setState({ anchorEl: null, sort_on: type }, () => {
             if (type || type === "") {
                 this.applyFilters()
             }
@@ -148,9 +148,9 @@ class TopBar extends React.Component {
                                         <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
                                         <div className="sort-dropdown-div">
                                             <ul className="sort-dropdown-list">
-                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sortBy ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sortBy == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sortBy == 'distance' ? 'sort-item-selected' : ''} `} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
+                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
+                                                <li className={`sort-dropdown-list-item ${this.state.sort_on == 'distance' ? 'sort-item-selected' : ''} `} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
                                             </ul>
                                         </div>
                                     </div> : ""

@@ -1,7 +1,7 @@
 import { SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
-import { debug } from 'util';
+import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
 	let sits_at = []
@@ -204,66 +204,4 @@ export const updateOPDAppointment = (appointmentData, callback) => (dispatch) =>
 	}).catch(function (error) {
 		callback(error, null)
 	})
-}
-
-function _getlocationFromLatLong(lat, long, cb) {
-	if (google) {
-		var latlng = { lat: parseFloat(parseFloat(lat).toFixed(6)), lng: parseFloat(parseFloat(long).toFixed(6)) };
-
-		let geocoder = new google.maps.Geocoder
-		geocoder.geocode({ 'location': latlng }, (results, status) => {
-			if (results && results[0]) {
-				let location_type = "sublocality"
-				if (lat == "28.6448") {
-					location_type = 'locality'
-				}
-				let location_object = {
-					formatted_address: _getNameFromLocation(results[0], location_type),
-					name: _getNameFromLocation(results[0], location_type),
-					place_id: results[0].place_id,
-					geometry: { location: { lat, lng: long } }
-				}
-				cb(location_object)
-			}
-		})
-	}
-}
-
-function _getLocationFromPlaceId(placeId, cb) {
-	if (google) {
-		let map = new google.maps.Map(document.getElementById('map'), {
-			center: { lat: 28, lng: 77 },
-			zoom: 15
-		})
-		let service = new google.maps.places.PlacesService(map);
-		service.getDetails({
-			reference: placeId
-		}, function (place, status) {
-			let location_object = {
-				formatted_address: place.formatted_address,
-				name: place.name,
-				place_id: place.place_id,
-				geometry: place.geometry
-			}
-
-			cb(location_object)
-
-		}.bind(this))
-	}
-}
-
-function _getNameFromLocation(result, type) {
-	let name = result.formatted_address
-	if (result.address_components && result.address_components.length) {
-		for (let i = result.address_components.length - 1; i >= 0; i--) {
-			if (result.address_components[i].types) {
-				for (let x of result.address_components[i].types) {
-					if (x == type) {
-						name = result.address_components[i].long_name
-					}
-				}
-			}
-		}
-	}
-	return name
 }

@@ -43,6 +43,7 @@ const NAVIGATE = {
         if (props.selectedLocation && props.selectedLocation.geometry) {
             new_lat = props.selectedLocation.geometry.location.lat
             if (typeof new_lat === 'function') new_lat = new_lat()
+            new_lat = parseFloat(parseFloat(new_lat).toFixed(6))
         }
 
         if (oldLocation && oldLocation.lat && new_lat && oldLocation.lat != new_lat) {
@@ -81,6 +82,7 @@ const NAVIGATE = {
         if (props.selectedLocation && props.selectedLocation.geometry) {
             new_lat = props.selectedLocation.geometry.location.lat
             if (typeof new_lat === 'function') new_lat = new_lat()
+            new_lat = parseFloat(parseFloat(new_lat).toFixed(6))
         }
 
         if (oldLocation && oldLocation.lat && new_lat && oldLocation.lat != new_lat) {

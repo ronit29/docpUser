@@ -59,6 +59,7 @@ class LabsList extends React.Component {
             let test_ids = this.getLocationParam('test_ids')
             let lat = this.getLocationParam('lat')
             let long = this.getLocationParam('long')
+            let place_id = this.getLocationParam('place_id') || ""
             let min_distance = parseInt(this.getLocationParam('min_distance'))
             let max_distance = parseInt(this.getLocationParam('max_distance'))
             let min_price = parseInt(this.getLocationParam('min_price'))
@@ -71,7 +72,7 @@ class LabsList extends React.Component {
                 selectedCriterias: test_ids
             }
             searchState.selectedLocation = {
-                geometry: { location: { lat, lng: long } }
+                geometry: { location: { lat, lng: long } }, place_id
             }
             let filterCriteria = {
                 min_price, max_price, min_distance, max_distance, sort_on
@@ -123,7 +124,7 @@ class LabsList extends React.Component {
                                         {
                                             labList.map((labId, i) => {
                                                 if (LABS[labId]) {
-                                                    return <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i}/>
+                                                    return <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                 } else {
                                                     return ""
                                                 }
