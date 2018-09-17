@@ -68,7 +68,7 @@ class BookingView extends React.Component {
 
     cancelAppointment(type) {
         this.setState({ loading: true, showCancel: false })
-
+        let data;
         if(type){
 
             data = {
