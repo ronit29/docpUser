@@ -160,7 +160,7 @@ class HomeView extends React.Component {
         return (
             <div className="profile-body-wrap">
 
-                <HelmetTags tagsData={{}} />
+                <HelmetTags tagsData={{}} setDefault={true} />
 
                 <ProfileHeader homePage={true} />
 
