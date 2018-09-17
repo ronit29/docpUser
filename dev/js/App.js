@@ -64,75 +64,13 @@ class App extends React.Component {
             })
         }
 
-        let isMobile = false
-        let device = 'desktop'
-        if(navigator){
-
-            if(/mobile/i.test(navigator.userAgent)){
-                isMobile = true
-                device = 'mobile'
-            }
-
-            if(navigator.userAgent.match(/iPad/i)){
-                device = 'ipad'
-            }
-
-            if(navigator.userAgent.match(/iPhone/i)){
-                device = 'iphone' 
-            }
-
-
-            if(navigator.userAgent.match(/Android/i)){
-                device = 'Android' 
-            }
-
-            if(navigator.userAgent.match(/BlackBerry/i)){
-                device = 'BlackBerry'
-            }
-
-/*
-            if(navigator.userAgent.match(/webOS/i)){
-                 device = 'desktop'
-            }*/
-
-            let data = {
-                'Category':'ConsumerApp','Action':'VisitorInfo','CustomerID':GTM.getUserId()||'','leadid':0,'event':'visitor-info','Device':device,'Mobile':isMobile,'platform':navigator.platform||'','addToGA':false}
-
-            GTM.sendEvent({ data: data })
-
-        }
-
         const parsed = queryString.parse(window.location.search)
         if (parsed) {
 
-             if(parsed.utm_source){
+             if(parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign){
 
                 let data = {
-                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_source':parsed.utm_source,'addToGA':false}
-
-                GTM.sendEvent({ data: data })
-
-             }
-             if(parsed.utm_medium){
-
-                let data = {
-                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_medium':parsed.utm_medium,'addToGA':false}
-
-                GTM.sendEvent({ data: data })
-
-             }
-             if(parsed.utm_term){
-
-                let data = {
-                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_term':parsed.utm_term,'addToGA':false}
-
-                GTM.sendEvent({ data: data })
-
-             }
-             if(parsed.utm_campaign){
-
-                let data = {
-                    'Category':'ConsumerApp','Action':'UTMevents','CustomerID':GTM.getUserId()||'','leadid':0,'event':'utm-events','utm_campaign':parsed.utm_campaign,'addToGA':false}
+                    'Category':'ConsumerApp','Action':'UTMevents','event':'utm-events','utm_source':parsed.utm_source||'','utm_medium':parsed.utm_medium||'','utm_term':parsed.utm_term||'','utm_campaign':parsed.utm_campaign||'','addToGA':false}
 
                 GTM.sendEvent({ data: data })
 
