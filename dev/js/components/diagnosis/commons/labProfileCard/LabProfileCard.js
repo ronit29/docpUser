@@ -7,7 +7,8 @@ class LabProfileCard extends React.Component {
         super(props)
     }
 
-    openLab(id) {
+    openLab(id, e) {
+        e.preventDefault();
         let dedupe_ids = {}
         let testIds = this.props.selectedCriterias
             .reduce((final, x) => {
@@ -62,7 +63,8 @@ class LabProfileCard extends React.Component {
         distance = Math.ceil(distance / 1000)
 
         return (
-            <div className="widget card lab-rslt-card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
+            <a href={`/lab/${lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
+            <div className="widget card lab-rslt-card">
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
                         <span className="ct-img lab-icon">
@@ -119,6 +121,7 @@ class LabProfileCard extends React.Component {
                     </div>
                 </div>
             </div>
+            </a>
         );
     }
 }
