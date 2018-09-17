@@ -55,14 +55,14 @@ class SearchCriteriaView extends React.Component {
         let max_distance = filterCriteria.distanceRange[1]
         let min_price = filterCriteria.priceRange[0]
         let max_price = filterCriteria.priceRange[1]
-        let order_by = filterCriteria.sortBy
+        let sort_on = filterCriteria.sortBy
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'ShowLabsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-labs-clicked'
         }
         GTM.sendEvent({ data: data })
 
-        let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
+        let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
 
         return url
     }

@@ -63,7 +63,7 @@ class LabsList extends React.Component {
             let max_distance = parseInt(this.getLocationParam('max_distance'))
             let min_price = parseInt(this.getLocationParam('min_price'))
             let max_price = parseInt(this.getLocationParam('max_price'))
-            let order_by = this.getLocationParam('order_by')
+            let sort_on = this.getLocationParam('sort_on')
             let lab_name = this.getLocationParam('lab_name')
             lab_name = lab_name || ""
 
@@ -74,7 +74,7 @@ class LabsList extends React.Component {
                 geometry: { location: { lat, lng: long } }
             }
             let filterCriteria = {
-                min_price, max_price, min_distance, max_distance, order_by
+                min_price, max_price, min_distance, max_distance, sort_on
             }
             if (lab_name) {
                 filterCriteria.lab_name = lab_name

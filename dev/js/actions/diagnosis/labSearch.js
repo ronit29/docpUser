@@ -24,14 +24,14 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	let max_distance = filterCriteria.distanceRange[1]
 	let min_price = filterCriteria.priceRange[0]
 	let max_price = filterCriteria.priceRange[1]
-	let order_by = filterCriteria.sortBy
+	let sort_on = filterCriteria.sortBy
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.lab_name) {
 		testIds = ""
 	}
 
-	let url = `/api/v1/diagnostic/lablist?ids=${testIds || ""}&long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&page=${page}`
+	let url = `/api/v1/diagnostic/lablist?ids=${testIds || ""}&long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name}`

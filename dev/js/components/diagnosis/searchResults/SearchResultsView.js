@@ -45,7 +45,7 @@ class SearchResultsView extends React.Component {
             let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
             let min_price = parseInt(this.getLocationParam('min_price')) || 0
             let max_price = parseInt(this.getLocationParam('max_price')) || 20000
-            let order_by = this.getLocationParam('order_by') || null
+            let sort_on = this.getLocationParam('sort_on') || null
             let lab_name = this.getLocationParam('lab_name') || ""
             lab_name = lab_name || ""
             let force_location_fromUrl = !!this.getLocationParam('force_location')
@@ -57,7 +57,7 @@ class SearchResultsView extends React.Component {
                 geometry: { location: { lat, lng: long } }, place_id
             }
             let filterCriteria = {
-                min_price, max_price, min_distance, max_distance, order_by
+                min_price, max_price, min_distance, max_distance, sort_on
             }
             if (lab_name) {
                 filterCriteria.lab_name = lab_name
@@ -166,9 +166,9 @@ class SearchResultsView extends React.Component {
         let max_distance = filterCriteria.distanceRange[1]
         let min_price = filterCriteria.priceRange[0]
         let max_price = filterCriteria.priceRange[1]
-        let order_by = filterCriteria.sortBy
+        let sort_on = filterCriteria.sortBy
 
-        let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
+        let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
 
         return url
     }
