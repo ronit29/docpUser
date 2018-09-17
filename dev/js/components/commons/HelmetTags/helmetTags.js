@@ -10,12 +10,17 @@ class HelmetTags extends React.Component {
     }
 
     render() {
-        let { tagsData } = this.props
+        let { tagsData, setDefault } = this.props
         let title = (tagsData && tagsData.title) ? tagsData.title : ""
         let description = (tagsData && tagsData.description) ? tagsData.description : ""
         let keywords = (tagsData && tagsData.keywords) ? tagsData.keywords : ""
-        let canonicalUrl = (tagsData && tagsData.canonicalUrl) ? tagsData.canonicalUrl:""
-        
+        let canonicalUrl = (tagsData && tagsData.canonicalUrl) ? tagsData.canonicalUrl : ""
+
+        if (setDefault) {
+            title = "Online Doctor Consultation | Ask a Doctor for Assistance | DocPrime"
+            description = "Chat with doctors online or book appointment online instantly with best doctors, hospitals & clinics nearby you. Get diagnostic lab assistance and more."
+        }
+
         return (
             <div>
                 <Helmet>
@@ -29,9 +34,9 @@ class HelmetTags extends React.Component {
                     <meta name="description" content={description} />
                     <meta name="keywords" content={keywords} />
                     {
-                        canonicalUrl?
-                        <link rel="canonical" href={tagsData.canonicalUrl} />
-                        :''
+                        canonicalUrl ?
+                            <link rel="canonical" href={tagsData.canonicalUrl} />
+                            : ''
                     }
                 </Helmet>
             </div>

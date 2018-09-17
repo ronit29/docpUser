@@ -1,42 +1,20 @@
 import { SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
-
+import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
 export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
 
 	let dedupe_ids = {}
 	let testIds = searchState.selectedCriterias
-		.reduce((final, x) => {
-			final = final || []
-			if (x.test && x.type == "condition") {
-				let test_ids = x.test.map(x => x.id) || []
-				final = [...final, ...test_ids]
-			} else if (x.type == "test") {
-				final.push(x.id)
-			}
-			return final
-		}, [])
-		.filter((x) => {
-			if (dedupe_ids[x]) {
-				return false
-			} else {
-				dedupe_ids[x] = true
-				return true
-			}
-		})
-		.reduce((finalStr, curr, i) => {
-			if (i != 0) {
-				finalStr += ','
-			}
-			finalStr += `${curr}`
-			return finalStr
-		}, "")
 
 	let lat = 28.644800
 	let long = 77.216721
+	let place_id = ""
+
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
+		place_id = searchState.selectedLocation.place_id || ""
 
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
@@ -46,14 +24,14 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	let max_distance = filterCriteria.distanceRange[1]
 	let min_price = filterCriteria.priceRange[0]
 	let max_price = filterCriteria.priceRange[1]
-	let order_by = filterCriteria.sortBy
+	let sort_on = filterCriteria.sort_on || ""
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.lab_name) {
 		testIds = ""
 	}
 
-	let url = `/api/v1/diagnostic/lablist?ids=${testIds}&long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&order_by=${order_by}&page=${page}`
+	let url = `/api/v1/diagnostic/lablist?ids=${testIds || ""}&long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name}`
@@ -83,23 +61,64 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		})
 
 		if (mergeState) {
-			dispatch({
-				type: MERGE_SEARCH_STATE_LAB,
-				payload: {
-					searchState,
-					filterCriteria
-				}
-			})
+			let tests_criteria = []
+			if (response.tests && response.tests.length) {
+				tests_criteria = response.tests.map((x) => {
+					x.type = 'test'
+					return x
+				})
+			}
 
-			dispatch({
-				type: SELECT_LOCATION_DIAGNOSIS,
-				payload: searchState.selectedLocation
-			})
+			if (place_id) {
+				_getLocationFromPlaceId(place_id, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = tests_criteria
 
-			dispatch({
-				type: SELECT_LOCATION_OPD,
-				payload: searchState.selectedLocation
-			})
+					dispatch({
+						type: MERGE_SEARCH_STATE_LAB,
+						payload: {
+							searchState,
+							filterCriteria
+						}
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_OPD,
+						payload: locationData
+					})
+
+				})
+			} else {
+
+				_getlocationFromLatLong(lat, long, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = tests_criteria
+
+					dispatch({
+						type: MERGE_SEARCH_STATE_LAB,
+						payload: {
+							searchState,
+							filterCriteria
+						}
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_OPD,
+						payload: locationData
+					})
+				})
+			}
+
 		}
 
 		if (cb) {

@@ -33,7 +33,7 @@ class CriteriaSearchView extends React.Component {
         let input = document.getElementById('topCriteriaSearch')
         // if coming back or refresh focus on search bar
         if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
-            input.focus()
+            // input.focus()
         }
     }
 

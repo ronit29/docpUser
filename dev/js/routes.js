@@ -60,7 +60,7 @@ const routes = [
     { path: '/payment/:id', exact: true, component: Payment },
 
     { path: '/opd', exact: true, component: SearchCriteria },
-    { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
+    { path: '/opd/searchresults', exact: true, component: SearchResults },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
     { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, private: true, component: PatientDetails },
@@ -68,7 +68,7 @@ const routes = [
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 
     { path: '/lab', exact: true, component: DX_SearchCriteria },
-    { path: '/lab/searchresults', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
+    { path: '/lab/searchresults', exact: true, component: DX_SearchResults },
     { path: '/lab/:id', exact: true, component: Lab, RENDER_ON_SERVER: true },
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },

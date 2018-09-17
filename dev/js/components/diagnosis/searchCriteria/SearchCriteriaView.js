@@ -25,18 +25,49 @@ class SearchCriteriaView extends React.Component {
             delete x.icon
             return x
         })
-        let searchData = {
-            selectedCriterias: selectedCriterias,
-            selectedLocation: this.props.selectedLocation,
+
+        let url = this.buildURI(selectedCriterias, this.props.selectedLocation, this.props.filterCriteria, lab_name)
+        this.props.history.push(url)
+    }
+
+    buildURI(selectedCriterias, selectedLocation, filterCriteria, lab_name) {
+        let specialization_ids = selectedCriterias
+            .filter((x) => {
+                return x.type == "test"
+            })
+            .map((x) => {
+                return x.id
+            }).join(',')
+
+        let lat = 28.644800
+        let long = 77.216721
+        let place_id = ""
+
+        if (selectedLocation) {
+            place_id = selectedLocation.place_id
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+
+            lat = parseFloat(parseFloat(lat).toFixed(6))
+            long = parseFloat(parseFloat(long).toFixed(6))
         }
+
+        let min_distance = filterCriteria.distanceRange[0]
+        let max_distance = filterCriteria.distanceRange[1]
+        let min_price = filterCriteria.priceRange[0]
+        let max_price = filterCriteria.priceRange[1]
+        let sort_on = filterCriteria.sort_on || ""
+
         let data = {
-        'Category':'ConsumerApp','Action':'ShowLabsClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'show-labs-clicked'}
+            'Category': 'ConsumerApp', 'Action': 'ShowLabsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-labs-clicked'
+        }
         GTM.sendEvent({ data: data })
-        searchData = encodeURIComponent(JSON.stringify(searchData))
-        let filterData = encodeURIComponent(JSON.stringify(this.props.filterCriteria))
-        this.props.history.push(`/lab/searchresults?search=${searchData}&filter=${filterData}&lab_name=${lab_name}`, {
-            scrollTop: true
-        })
+
+        let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
+
+        return url
     }
 
     render() {

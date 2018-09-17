@@ -3,7 +3,7 @@ import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
     distanceRange: [0, 35],
-    sortBy: null
+    sort_on: null
 }
 
 const defaultState = {

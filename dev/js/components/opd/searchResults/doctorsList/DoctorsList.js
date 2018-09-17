@@ -58,26 +58,42 @@ class DoctorsList extends React.Component {
 
         try {
 
-            let searchState = this.getLocationParam('search')
-            let filterCriteria = this.getLocationParam('filter')
+            let specializations_ids = this.getLocationParam('specializations')
+            let condition_ids = this.getLocationParam('conditions')
+            let lat = this.getLocationParam('lat')
+            let long = this.getLocationParam('long')
+            let place_id = this.getLocationParam('place_id') || ""
+            let min_fees = parseInt(this.getLocationParam('min_fees'))
+            let max_fees = parseInt(this.getLocationParam('max_fees'))
+            let sort_on = this.getLocationParam('sort_on')
+            let is_available = this.getLocationParam('is_available') === "true"
+            let is_female = this.getLocationParam('is_female') === "true"
             let doctor_name = this.getLocationParam('doctor_name')
+            doctor_name = doctor_name || ""
             let hospital_name = this.getLocationParam('hospital_name')
+            hospital_name = hospital_name || ""
+            let force_location_fromUrl = !!this.getLocationParam('force_location')
 
-            if (filterCriteria) {
-                filterCriteria = JSON.parse(filterCriteria)
-            } else {
-                filterCriteria = {}
+            let searchState = {
+                specializations_ids, condition_ids
             }
-
+            searchState.selectedLocation = {
+                geometry: { location: { lat, lng: long } }, place_id
+            }
+            let filterCriteria = {
+                min_fees, max_fees, sort_on, is_available, is_female
+            }
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
             }
-
             if (hospital_name) {
                 filterCriteria.hospital_name = hospital_name
             }
 
-            searchState = JSON.parse(searchState)
+            filterCriteria.priceRange = {}
+            filterCriteria.priceRange[0] = filterCriteria.min_fees
+            filterCriteria.priceRange[1] = filterCriteria.max_fees
+
             this.props.getDoctors(searchState, filterCriteria, false, page + 1, (hasMore) => {
                 this.setState({ loading: false })
                 setTimeout(() => {
@@ -112,7 +128,7 @@ class DoctorsList extends React.Component {
                                         {
                                             doctorList.map((docId, i) => {
                                                 if (DOCTORS[docId]) {
-                                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank ={i} />
+                                                    return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
                                                 } else {
                                                     return ""
                                                 }

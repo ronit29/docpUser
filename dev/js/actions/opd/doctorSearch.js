@@ -1,35 +1,9 @@
-import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
+import { SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
+import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
 export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
-	let dedupe_ids = {}
-	let specialization_ids = searchState.selectedCriterias
-		.reduce((final, x) => {
-			final = final || []
-			if (x.specialization && x.type == "condition") {
-				final = [...final, ...x.specialization]
-			} else if (x.type == "speciality") {
-				final.push(x.id)
-			}
-			return final
-		}, [])
-		.filter((x) => {
-			if (dedupe_ids[x]) {
-				return false
-			} else {
-				dedupe_ids[x] = true
-				return true
-			}
-		})
-		.reduce((finalStr, curr, i) => {
-			if (i != 0) {
-				finalStr += ','
-			}
-			finalStr += `${curr}`
-			return finalStr
-		}, "")
-
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
 	// if(filterCriteria.sits_at_hospital) sits_at.push('hospital');
@@ -38,10 +12,12 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 	let lat = 28.644800
 	let long = 77.216721
+	let place_id = ""
+
 	if (searchState.selectedLocation) {
 		lat = searchState.selectedLocation.geometry.location.lat
 		long = searchState.selectedLocation.geometry.location.lng
-
+		place_id = searchState.selectedLocation.place_id || ""
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
 	}
@@ -54,10 +30,11 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
-		specialization_ids = ""
+		searchState.specializations_ids = ""
+		searchState.condition_ids = ""
 	}
 
-	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${specialization_ids}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations_ids || ""}&condition_ids=${searchState.condition_ids || ""}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`
@@ -92,22 +69,63 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 		})
 
-		if (page ==1) {
+		if (page == 1) {
 
 			let data = {
-                'Category':'ConsumerApp','Action':'DoctorSearchCount','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-search-count' ,'DoctorSearchCount':response.count||0}
-            GTM.sendEvent({ data: data })
+				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0
+			}
+			GTM.sendEvent({ data: data })
 
 		}
 
 		if (mergeState) {
-			dispatch({
-				type: MERGE_SEARCH_STATE_OPD,
-				payload: {
-					searchState,
-					filterCriteria
-				}
+
+			let specialization_criterias = response.specializations.map((x) => {
+				x.type = 'speciality'
+				return x
 			})
+			let condition_criterias = response.conditions.map((x) => {
+				x.type = 'condition'
+				return x
+			})
+
+			if (place_id) {
+				_getLocationFromPlaceId(place_id, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
+
+					dispatch({
+						type: MERGE_SEARCH_STATE_OPD,
+						payload: {
+							searchState,
+							filterCriteria
+						}
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
+				})
+			} else {
+				_getlocationFromLatLong(lat, long, (locationData) => {
+					searchState.selectedLocation = locationData
+					searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
+
+					dispatch({
+						type: MERGE_SEARCH_STATE_OPD,
+						payload: {
+							searchState,
+							filterCriteria
+						}
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
+				})
+			}
 		}
 
 		if (cb) {
