@@ -126,7 +126,7 @@ class SearchResultsView extends React.Component {
         let long = this.getLocationParam('long')
 
         let searchState = {
-            specializations_ids, condition_ids
+            specializations_ids, condition_ids, selectedCriterias: this.props.selectedCriterias
         }
         searchState.selectedLocation = {
             geometry: { location: { lat, lng: long } }

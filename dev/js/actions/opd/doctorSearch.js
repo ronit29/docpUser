@@ -110,7 +110,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 			} else {
 				_getlocationFromLatLong(lat, long, (locationData) => {
 					searchState.selectedLocation = locationData
-					searchState.selectedCriterias = []
+					searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
 
 					dispatch({
 						type: MERGE_SEARCH_STATE_OPD,
