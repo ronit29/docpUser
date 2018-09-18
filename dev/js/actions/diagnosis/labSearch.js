@@ -149,6 +149,20 @@ export const getLabById = (labId, testIds = []) => (dispatch) => {
 	})
 }
 
+export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
+	let url = `/api/v1/diagnostic/lablistbyurl?url=${lab_url}&test_ids=${testIds.join(',')}`
+
+	return API_GET(url).then(function (response) {
+		dispatch({
+			type: APPEND_LABS,
+			payload: [response]
+		})
+		cb((response.lab ? response.lab.id : null))
+	}).catch(function (error) {
+		cb(null)
+	})
+}
+
 export const getLabTimeSlots = (labId, pickup, callback) => (dispatch) => {
 	let url = `/api/v1/diagnostic/labtiming?lab=${labId}&pickup=${pickup}`
 	return API_GET(url).then(function (response) {

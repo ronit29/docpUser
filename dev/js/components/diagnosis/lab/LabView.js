@@ -12,9 +12,6 @@ import GTM from '../../../helpers/gtm.js'
 class LabView extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            selectedLab: this.props.match.params.id
-        }
     }
 
     componentDidMount() {
@@ -25,10 +22,11 @@ class LabView extends React.Component {
 
     bookLab() {
         let data = {
-        'Category':'ConsumerApp','Action':'LabBookingClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-booking-clicked'}
+            'Category': 'ConsumerApp', 'Action': 'LabBookingClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-booking-clicked'
+        }
         GTM.sendEvent({ data: data })
 
-        this.props.history.push(`/lab/${this.state.selectedLab}/book`)
+        this.props.history.push(`/lab/${this.props.selectedLab}/book`)
     }
 
     getMetaTitle(labData) {
@@ -36,6 +34,8 @@ class LabView extends React.Component {
     }
 
     render() {
+
+        let lab_id = this.props.initialServerData || this.props.selectedLab
 
         return (
             <div className="profile-body-wrap">
@@ -78,18 +78,18 @@ class LabView extends React.Component {
                             </header> */}
 
                             {
-                                (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) ?
+                                (this.props.LABS[lab_id] && this.props.LABS[lab_id].tests) ?
                                     <div>
 
                                         <HelmetTags tagsData={{
-                                            title: this.getMetaTitle(this.props.LABS[this.state.selectedLab])
+                                            title: this.getMetaTitle(this.props.LABS[lab_id])
                                         }} />
 
-                                        <LabDetails {...this.props} data={this.props.LABS[this.state.selectedLab]} />
+                                        <LabDetails {...this.props} data={this.props.LABS[lab_id]} />
 
                                         <button disabled={
-                                            this.props.LABS[this.state.selectedLab].tests.length < 1
-                                        } onClick={this.bookLab.bind(this)} className="p-2 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn"><span className="text-xs selected-option sticky-btn" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.LABS[this.state.selectedLab].tests.length} Selected) </span>Book
+                                            this.props.LABS[lab_id].tests.length < 1
+                                        } onClick={this.bookLab.bind(this)} className="p-2 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn"><span className="text-xs selected-option sticky-btn" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.LABS[lab_id].tests.length} Selected) </span>Book
                                         </button>
 
                                     </div> : <Loader />

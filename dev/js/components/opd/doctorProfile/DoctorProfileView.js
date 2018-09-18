@@ -15,9 +15,6 @@ import HelmetTags from '../../commons/HelmetTags'
 class DoctorProfileView extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            selectedDoctor: this.props.match.params.id
-        }
     }
 
     componentDidMount() {
@@ -32,6 +29,7 @@ class DoctorProfileView extends React.Component {
 
     render() {
 
+        let doctor_id = this.props.initialServerData || this.props.selectedDoctor
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -74,12 +72,12 @@ class DoctorProfileView extends React.Component {
                             </header> */}
 
                             {
-                                this.props.DOCTORS[this.state.selectedDoctor] ?
+                                this.props.DOCTORS[doctor_id] ?
 
                                     <section className="dr-profile-screen">
 
                                         <HelmetTags tagsData={{
-                                            title: this.getMetaTitle(this.props.DOCTORS[this.state.selectedDoctor])
+                                            title: this.getMetaTitle(this.props.DOCTORS[doctor_id])
                                         }} />
 
                                         <div className="container-fluid">
@@ -87,24 +85,24 @@ class DoctorProfileView extends React.Component {
                                                 <div className="col-12">
                                                     <div className="widget mrt-10 ct-profile skin-white">
                                                         <DoctorProfileCard
-                                                            details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                            details={this.props.DOCTORS[doctor_id]}
                                                         />
                                                         <div className="widge-content pd-0">
                                                             {
-                                                                this.props.DOCTORS[this.state.selectedDoctor].about ? <AboutDoctor
-                                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                this.props.DOCTORS[doctor_id].about ? <AboutDoctor
+                                                                    details={this.props.DOCTORS[doctor_id]}
                                                                 /> : ""
                                                             }
 
                                                             {
-                                                                (this.props.DOCTORS[this.state.selectedDoctor].hospitals && this.props.DOCTORS[this.state.selectedDoctor].hospitals.length) ? <ClinicSelector
-                                                                    details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                (this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) ? <ClinicSelector
+                                                                    details={this.props.DOCTORS[doctor_id]}
                                                                     {...this.props}
                                                                 /> : ""
                                                             }
 
                                                             <ProfessionalGraph
-                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                details={this.props.DOCTORS[doctor_id]}
                                                             />
                                                         </div>
                                                     </div>

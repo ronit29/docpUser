@@ -155,6 +155,19 @@ export const getDoctorById = (doctorId) => (dispatch) => {
 	})
 }
 
+export const getDoctorByUrl = (doctor_url, cb) => (dispatch) => {
+
+	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}`).then(function (response) {
+		dispatch({
+			type: APPEND_DOCTORS,
+			payload: [response]
+		})
+		cb((response.id ? response.id : null))
+	}).catch(function (error) {
+		cb(null)
+	})
+}
+
 export const selectOpdTimeSLot = (slot, reschedule = false, appointmentId = null) => (dispatch) => {
 	dispatch({
 		type: SELECT_OPD_TIME_SLOT,
