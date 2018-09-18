@@ -274,7 +274,12 @@ class ChatPanel extends React.Component {
 
 
                         <div className="cht-head-rqst-btn float-right">
-                            <span className="mr-3" onClick={() => { this.dispatchCustomEvent.call(this, 'call') }}>
+                            <span className="mr-3" onClick={() => { 
+                                let data = {
+                                'Category':'Chat','Action':'CallBackRequested','CustomerID':GTM.getUserId()||'','leadid':0,'event':'callback-requested','RoomId':this.state.selectedRoom}
+                                GTM.sendEvent({ data: data })
+
+                                this.dispatchCustomEvent.call(this, 'call') }}>
                                 <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
                                 
                             </span>

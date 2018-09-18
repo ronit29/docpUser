@@ -6,6 +6,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
+import GTM from '../../../helpers/gtm.js'
 
 class LocationSearch extends React.Component {
     constructor(props) {
@@ -57,6 +58,10 @@ class LocationSearch extends React.Component {
                 place_id: place.place_id,
                 geometry: place.geometry
             }
+
+            let data = {
+            'Category':'ConsumerApp','Action':'UserLocation','CustomerID':GTM.getUserId(),'leadid':0,'event':'user-location','location':place.name||'','place_id':place.place_id||'','formatted_address':place.formatted_address||''}
+            GTM.sendEvent({ data: data })
 
             this.props.selectLocation(location_object)
             setTimeout(() => {
