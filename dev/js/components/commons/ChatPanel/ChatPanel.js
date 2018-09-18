@@ -120,7 +120,7 @@ class ChatPanel extends React.Component {
 
                         case "prescription_report": {
                             let analyticData = {
-                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated','RoomId':eventData.data.rid||''
+                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated','RoomId':eventData.rid||''
                             }
                             GTM.sendEvent({ data: analyticData })
                         }
