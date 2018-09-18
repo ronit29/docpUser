@@ -67,7 +67,7 @@ class LabProfileCard extends React.Component {
         return (
             <a href={`/lab/${lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
                 <div className="widget card lab-rslt-card">
-                    <div className="widget-content card-content book-card">
+                    <div className="widget-content card-content book-card" style={{paddingBottom: 0}} >
                         <div className="logo-ratting">
                             <span className="ct-img lab-icon">
                                 <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
@@ -107,15 +107,12 @@ class LabProfileCard extends React.Component {
                             </p>
                         </div>
                     </div>
-                    <div className="widget-footer card-footer">
+                    <div className="widget-footer card-footer lab-search-card-footer">
                         <div className="row">
                             <div className="col-12 text-right">
-                                <p className="lab-price mrb-10">
-
-                                    {
-                                        price ? <span>Total <span className="dp-dr-old-price" style={{ display: 'inline-block', marginTop: 3 }}>&#8377; {mrp}</span> &#8377; {price}</span> : ""
-                                    }
-                                </p>
+                                {
+                                    price ? <p className="lab-price mrb-10"><span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span> &#8377; {price}</p> : ""
+                                }
                                 <button className="v-btn v-btn-primary btn-md">Book Lab</button>
                             </div>
                         </div>

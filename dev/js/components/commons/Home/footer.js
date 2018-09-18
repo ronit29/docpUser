@@ -190,7 +190,12 @@ class Footer extends React.Component {
                                 </div>
                             </div>
                             <div className="col-12 text-center">
-                                <p className="fw-500 mrt-20" style={{color: '#8a8a8a', fontSize: 12}} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
+                                <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
+                                <p className="fw-500 mrt-10 d-md-none">
+                                    <span className="top-head-link" style={{color: '#f78361'}} onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic or hospital</span>
+                                    <span className="top-head-link-divider" style={{color: '#f78361'}}>|</span>
+                                    <span className="top-head-link" style={{color: '#f78361'}} onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
+                                </p>
                             </div>
                             {/* <div className="col-md-9 d-none d-md-block">
                                 <div className="row">

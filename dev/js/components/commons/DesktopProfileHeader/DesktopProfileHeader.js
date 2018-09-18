@@ -39,7 +39,7 @@ class DesktopProfileHeader extends React.Component {
                     <div className="container">
                         <div className="d-flex justify-content-between">
                             <div className="d-none d-md-block">
-                                <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic / hospital</span>
+                                <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic or hospital</span>
                                 <span className="top-head-link-divider">|</span>
                                 <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
                             </div>
