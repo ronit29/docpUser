@@ -1035,13 +1035,6 @@ cursor: pointer;
     border-bottom-right-radius: 10px;
 }
 
-@media(max-width: 767px){
-    .dp-user-list>li:nth-last-child(2){
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-}
-
 .logout-div{
     position: fixed;
     bottom: 8px;
