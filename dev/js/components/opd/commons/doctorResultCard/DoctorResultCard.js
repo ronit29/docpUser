@@ -18,7 +18,7 @@ class DoctorProfileCard extends React.Component {
         'Category':'ConsumerApp','Action':'DoctorRankInSearch','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-rank-in-search' ,'Rank':this.props.rank+1}
         GTM.sendEvent({ data: data })
         if (url) {
-            this.props.history.push(`${url}`)
+            this.props.history.push(`/${url}`)
         } else {
             this.props.history.push(`/opd/doctor/${id}`)
         }
