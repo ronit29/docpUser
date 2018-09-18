@@ -97,7 +97,7 @@ class DoctorProfileView extends React.Component {
                                                             {
                                                                 (this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) ? <ClinicSelector
                                                                     details={this.props.DOCTORS[doctor_id]}
-                                                                    {...this.props}
+                                                                    {...this.props} doctorId={doctor_id}
                                                                 /> : ""
                                                             }
 

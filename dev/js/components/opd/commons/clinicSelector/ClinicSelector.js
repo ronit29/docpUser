@@ -8,17 +8,19 @@ class ClinicSelector extends React.Component {
         super(props)
     }
 
-    selectClinic(clinicId, is_live,rank) {
+    selectClinic(clinicId, is_live, rank) {
         if (is_live) {
-            let doctorId = this.props.match.params.id
-            
+            let doctorId = this.props.doctorId
+
             let data = {
-                'Category':'ConsumerApp','Action':'OpdBookNowClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-book-now-clicked' ,'selectedId':clinicId||''}
-                GTM.sendEvent({ data: data })
+                'Category': 'ConsumerApp', 'Action': 'OpdBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': clinicId || ''
+            }
+            GTM.sendEvent({ data: data })
 
             data = {
-                'Category':'ConsumerApp','Action':'OpdBookNowRank','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-book-now-rank' ,'rank':rank+1}
-                GTM.sendEvent({ data: data })
+                'Category': 'ConsumerApp', 'Action': 'OpdBookNowRank', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-rank', 'rank': rank + 1
+            }
+            GTM.sendEvent({ data: data })
 
             this.props.history.push(`/opd/doctor/${doctorId}/${clinicId}/book`)
         }
@@ -27,7 +29,7 @@ class ClinicSelector extends React.Component {
     render() {
 
         let { name, hospitals, is_live } = this.props.details
-        
+
         let style = {}
         if (hospitals && hospitals.length == 1) {
             style['width'] = '98%'
@@ -60,7 +62,7 @@ class ClinicSelector extends React.Component {
                                                 {
                                                     Object.keys(hospital.timings).map((timingKey, key) => {
                                                         return <p className="fw-700" key={key}>
-                                                            <label className="fw-700 text-md text-primary" style={{verticalAlign: 'initial'}} >
+                                                            <label className="fw-700 text-md text-primary" style={{ verticalAlign: 'initial' }} >
                                                                 {timingKey}
                                                             </label>
                                                             {" " + hospital.timings[timingKey].join(', ')}
@@ -70,7 +72,7 @@ class ClinicSelector extends React.Component {
                                             </div>
                                         </div>
                                         <div className="text-center" style={{ marginTop: 12 }}>
-                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live,i)}>Book Now</button>
+                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live, i)}>Book Now</button>
                                         </div>
                                     </div>
                                 </li>
