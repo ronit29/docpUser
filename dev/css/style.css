@@ -411,11 +411,18 @@ background: black;
 }
 .ofr-top-header{
 	background-color: #e46608;
-    text-align: right;
     padding: 7px 0px;
 }
 .pb-img-size{
 	width: 118px;
+}
+.top-head-link{
+	color: #fff;
+	cursor: pointer;
+}
+.top-head-link-divider{
+	color: #fff;
+	margin: 0px 8px;
 }
 .top-head-text{
 	color: white;

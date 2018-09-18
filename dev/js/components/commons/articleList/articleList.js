@@ -50,12 +50,10 @@ class ArticleList extends React.Component {
 		this.setState({ page: 1, hasMore: true })
 		this.props.getArticleList(title, 1, this.state.searchVal, (resp) => {
 			if (resp.length == 0) {
-				console.log("resp length : " + resp.length);
 				this.setState({
 					hasMore: false,
 					noArticleFound: true
 				});
-				console.log("noarticleFound state : " + this.state.noArticleFound);
 			}
 			else {
 				this.setState({
