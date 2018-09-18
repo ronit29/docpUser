@@ -7,7 +7,7 @@ class LabProfileCard extends React.Component {
         super(props)
     }
 
-    openLab(id) {
+    openLab(id, url) {
         let dedupe_ids = {}
         let testIds = this.props.selectedCriterias
             .reduce((final, x) => {
@@ -38,10 +38,14 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
 
         data = {
-        'Category':'ConsumerApp','Action':'LabSelectedByUser','CustomerID':GTM.getUserId()||'','leadid':0,'event':'lab-selected-by-user','LabId':id}
+            'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
+        }
         GTM.sendEvent({ data: data })
-
-        this.props.history.push(`/lab/${id}`)
+        if (url) {
+            this.props.history.push(`/${url}`)
+        } else {
+            this.props.history.push(`/lab/${id}`)
+        }
     }
 
     isOpenToday(lab_timing_data = []) {
@@ -62,7 +66,7 @@ class LabProfileCard extends React.Component {
         distance = Math.ceil(distance / 1000)
 
         return (
-            <div className="widget card lab-rslt-card" onClick={this.openLab.bind(this, this.props.details.lab.id)}>
+            <div className="widget card lab-rslt-card" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                 <div className="widget-content card-content book-card">
                     <div className="logo-ratting">
                         <span className="ct-img lab-icon">

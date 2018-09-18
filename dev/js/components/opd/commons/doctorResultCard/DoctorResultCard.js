@@ -8,7 +8,7 @@ class DoctorProfileCard extends React.Component {
         super(props)
     }
 
-    cardClick(id, e) {
+    cardClick(id, url, e) {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
         }
@@ -17,8 +17,11 @@ class DoctorProfileCard extends React.Component {
         data = {
         'Category':'ConsumerApp','Action':'DoctorRankInSearch','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-rank-in-search' ,'Rank':this.props.rank+1}
         GTM.sendEvent({ data: data })
-
-        this.props.history.push(`/opd/doctor/${id}`)
+        if (url) {
+            this.props.history.push(`/${url}`)
+        } else {
+            this.props.history.push(`/opd/doctor/${id}`)
+        }
     }
 
     bookNow(id, e) {
@@ -37,7 +40,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url } = this.props.details
 
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
@@ -52,7 +55,7 @@ class DoctorProfileCard extends React.Component {
 
         if (hospitals && hospitals.length) {
             return (
-                <div className="dp-dr-search-card mrb-10" onClick={this.cardClick.bind(this, id)}>
+                <div className="dp-dr-search-card mrb-10" onClick={this.cardClick.bind(this, id, url)}>
                     <div className="dp-dr-search-card-div">
                         <div className="dp-dr-search-card-address clearfix">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="dp-dr-search-loc-icon" />
