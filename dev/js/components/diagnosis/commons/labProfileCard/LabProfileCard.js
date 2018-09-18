@@ -34,8 +34,7 @@ class LabProfileCard extends React.Component {
                 this.props.toggleDiagnosisCriteria('test', new_test, true)
             })
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank
-        }
+        'Category':'ConsumerApp','Action':'RankOfLabClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'rank-lab-clicked','Rank':this.props.rank+1}
         GTM.sendEvent({ data: data })
 
         data = {

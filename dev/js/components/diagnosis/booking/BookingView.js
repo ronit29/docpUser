@@ -87,6 +87,21 @@ class BookingView extends React.Component {
 
     cancelAppointment(type) {
         this.setState({ loading: true, showCancel: false })
+        let data;
+        if(type){
+
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Refund','appointmentId':this.state.data.id
+            }
+        }else{
+
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndBookNew', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Book-New','appointmentId':this.state.data.id
+            }
+        }
+    
+        GTM.sendEvent({ data: data })
+
 
         let appointmentData = { id: this.state.data.id, status: 6, refund: type }
 

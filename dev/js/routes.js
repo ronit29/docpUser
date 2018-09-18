@@ -36,6 +36,8 @@ import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 
 import AgentLogin from './containers/commons/agentLogin.js'
 import DirectBooking from './containers/commons/directBooking.js'
+import GTM from './helpers/gtm.js'
+
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -96,6 +98,7 @@ const routes = [
 class RouterConfig extends Component {
 
     static ROUTES = routes
+
 
     render() {
         return (
