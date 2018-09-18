@@ -35,14 +35,22 @@ class DesktopProfileHeader extends React.Component {
 
         return (
             <header className={this.props.homePage ? "doc-header header-relative" : "doc-header header-overflow"} style={styles}>
-            <div className="ofr-top-header">
-            <div className="container">
+                <div className="ofr-top-header">
+                    <div className="container">
+                        <div className="d-flex justify-content-between">
+                            <div className="d-none d-md-block">
+                                <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic / hospital</span>
+                                <span className="top-head-link-divider">|</span>
+                                <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
+                            </div>
+                            <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
                                 <img className="pb-img-sized pb-window" src={ASSETS_BASE_URL + "/img/pb-logo-window.png"} />
                                 <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} />
-
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
                 <div className="smiley-img-div">
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/smiley.png"} />
                 </div>
@@ -53,14 +61,14 @@ class DesktopProfileHeader extends React.Component {
                         }}>
                             <a className="logo-ancher" href="javascript:void(0);">
                                 <img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.png"} />
-                                
                             </a>
                             {/* <p className="d-none d-md-inline-block d-lg-inline-block lgo-text">Family Doctor <span>for Life</span></p> */}
                         </div>
                         <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
                             <div className="head-links" onClick={() => {
                                 let data = {
-                                'Category':'ConsumerApp','Action':'BookDoctorVisitClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-doctor-visit-clicked'}
+                                    'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
+                                }
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
@@ -69,7 +77,8 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             <div className="head-links" onClick={() => {
                                 let data = {
-                                'Category':'ConsumerApp','Action':'BookMedicalTestClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-medical-test-clicked'}
+                                    'Category': 'ConsumerApp', 'Action': 'BookMedicalTestClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-medical-test-clicked'
+                                }
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
@@ -127,7 +136,6 @@ class DesktopProfileHeader extends React.Component {
                                 }}>
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                     </div>
-
                             }
                             <div className="head-links location-item" onClick={() => {
                                 this.props.history.push('/locationsearch')
@@ -142,7 +150,8 @@ class DesktopProfileHeader extends React.Component {
                         this.state.headerButtonsState ? <div className="search-show d-lg-none">
                             <div className="head-links" onClick={() => {
                                 let data = {
-                                'Category':'ConsumerApp','Action':'BookDoctorVisitClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-doctor-visit-clicked'}
+                                    'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
+                                }
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
@@ -151,7 +160,8 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             <div className="head-links" onClick={() => {
                                 let data = {
-                                'Category':'ConsumerApp','Action':'BookMedicalTestClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'book-medical-test-clicked'}
+                                    'Category': 'ConsumerApp', 'Action': 'BookMedicalTestClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-medical-test-clicked'
+                                }
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
@@ -160,7 +170,6 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         </div> : ""
                     }
-
                 </div>
             </header>
         );

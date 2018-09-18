@@ -56,7 +56,7 @@ class Doctorsignup extends React.Component {
 
 	render() {
 		return (
-			<div className="container about-container dsp-container">
+			<div className="container about-container">
 				<div className="row">
 					<div className="col-12 text-center">
 						<p className="fw-500 about-heading">Sign Up</p>
