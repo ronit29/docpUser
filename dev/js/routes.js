@@ -97,48 +97,6 @@ class RouterConfig extends Component {
 
     static ROUTES = routes
 
-    componentDidMount(){
-
-        let isMobile = false
-        let device = 'desktop'
-        if(navigator){
-
-            if(/mobile/i.test(navigator.userAgent)){
-                isMobile = true
-                device = 'mobile'
-            }
-
-            if(navigator.userAgent.match(/iPad/i)){
-                device = 'ipad'
-            }
-
-            if(navigator.userAgent.match(/iPhone/i)){
-                device = 'iphone' 
-            }
-
-
-            if(navigator.userAgent.match(/Android/i)){
-                device = 'Android' 
-            }
-
-            if(navigator.userAgent.match(/BlackBerry/i)){
-                device = 'BlackBerry'
-            }
-
-/*
-            if(navigator.userAgent.match(/webOS/i)){
-                 device = 'desktop'
-            }*/
-
-            let data = {
-                'Category':'ConsumerApp','Action':'VisitorInfo','event':'visitor-info','Device':device,'Mobile':isMobile,'platform':navigator.platform||'','addToGA':false}
-
-            GTM.sendEvent({ data: data })
-
-        }
-
-
-    }
 
     render() {
         return (
