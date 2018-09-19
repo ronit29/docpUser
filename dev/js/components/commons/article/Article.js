@@ -79,7 +79,7 @@ class Article extends React.Component {
                                         </div>
                                         <span className="breadcrumb-arrow">&gt;</span>
                                         <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
-                                            <span itemProp="title" className="fw-500 breadcrumb-title">{this.state.articleData.title.substr(0, this.state.articleData.title.indexOf('|'))}</span>
+                                            <span itemProp="title" className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</span>
                                         </div>
                                     </div>
 
