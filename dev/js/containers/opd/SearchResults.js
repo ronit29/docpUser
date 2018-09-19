@@ -15,30 +15,45 @@ class SearchResults extends React.Component {
 
     static loadData(store, match, queryParams = {}) {
         try {
-            let searchState = queryParams['search']
-            let filterCriteria = queryParams['filter']
+
+            let specializations_ids = queryParams['specializations'] || ""
+            let condition_ids = queryParams['conditions'] || ""
+            let lat = queryParams['lat']
+            let long = queryParams['long']
+            let place_id = queryParams['place_id'] || ""
+            let min_fees = parseInt(queryParams['min_fees']) || 0
+            let max_fees = parseInt(queryParams['max_fees']) || 1500
+            let sort_on = queryParams['sort_on'] || ""
+            let is_available = queryParams['is_available'] === "true"
+            let is_female = queryParams['is_female'] === "true"
             let doctor_name = queryParams['doctor_name']
             doctor_name = doctor_name || ""
             let hospital_name = queryParams['hospital_name']
             hospital_name = hospital_name || ""
+            let force_location_fromUrl = !!queryParams['force_location']
 
-            if (filterCriteria) {
-                filterCriteria = JSON.parse(filterCriteria)
-            } else {
-                filterCriteria = {}
+            let searchState = {
+                specializations_ids, condition_ids
             }
-
+            searchState.selectedLocation = {
+                geometry: { location: { lat, lng: long } }, place_id
+            }
+            let filterCriteria = {
+                min_fees, max_fees, sort_on, is_available, is_female
+            }
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
             }
-
             if (hospital_name) {
                 filterCriteria.hospital_name = hospital_name
             }
 
-            searchState = JSON.parse(searchState)
+            filterCriteria.priceRange = [0, 1500]
+            filterCriteria.priceRange[0] = filterCriteria.min_fees
+            filterCriteria.priceRange[1] = filterCriteria.max_fees
 
             return store.dispatch(getDoctors(searchState, filterCriteria, false))
+
         } catch (e) {
             console.error(e)
         }
