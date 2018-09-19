@@ -21,6 +21,8 @@ class SearchResults extends React.Component {
             let lat = queryParams['lat']
             let long = queryParams['long']
             let place_id = queryParams['place_id'] || ""
+            let min_distance = parseInt(queryParams['min_distance']) || 0
+            let max_distance = parseInt(queryParams['max_distance']) || 35
             let min_fees = parseInt(queryParams['min_fees']) || 0
             let max_fees = parseInt(queryParams['max_fees']) || 1500
             let sort_on = queryParams['sort_on'] || ""
@@ -39,7 +41,7 @@ class SearchResults extends React.Component {
                 geometry: { location: { lat, lng: long } }, place_id
             }
             let filterCriteria = {
-                min_fees, max_fees, sort_on, is_available, is_female
+                min_fees, max_fees, sort_on, is_available, is_female, min_distance, max_distance
             }
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
@@ -51,6 +53,10 @@ class SearchResults extends React.Component {
             filterCriteria.priceRange = [0, 1500]
             filterCriteria.priceRange[0] = filterCriteria.min_fees
             filterCriteria.priceRange[1] = filterCriteria.max_fees
+
+            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange[0] = filterCriteria.min_distance
+            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             return store.dispatch(getDoctors(searchState, filterCriteria, false))
 

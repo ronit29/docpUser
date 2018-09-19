@@ -49,6 +49,8 @@ class SearchResultsView extends React.Component {
             let lat = this.getLocationParam('lat')
             let long = this.getLocationParam('long')
             let place_id = this.getLocationParam('place_id') || ""
+            let min_distance = parseInt(this.getLocationParam('min_distance')) || 0
+            let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
             let min_fees = parseInt(this.getLocationParam('min_fees')) || 0
             let max_fees = parseInt(this.getLocationParam('max_fees')) || 1500
             let sort_on = this.getLocationParam('sort_on') || ""
@@ -67,7 +69,7 @@ class SearchResultsView extends React.Component {
                 geometry: { location: { lat, lng: long } }, place_id
             }
             let filterCriteria = {
-                min_fees, max_fees, sort_on, is_available, is_female
+                min_fees, max_fees, sort_on, is_available, is_female, min_distance, max_distance
             }
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
@@ -79,6 +81,10 @@ class SearchResultsView extends React.Component {
             filterCriteria.priceRange = [0, 1500]
             filterCriteria.priceRange[0] = filterCriteria.min_fees
             filterCriteria.priceRange[1] = filterCriteria.max_fees
+
+            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange[0] = filterCriteria.min_distance
+            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             // if location found in store , use that instead of the one in URL
             if (selectedLocation && selectedLocation.geometry) {
@@ -188,11 +194,14 @@ class SearchResultsView extends React.Component {
 
         let min_fees = filterCriteria.priceRange[0]
         let max_fees = filterCriteria.priceRange[1]
+        let min_distance = filterCriteria.distanceRange[0]
+        let max_distance = filterCriteria.distanceRange[1]
         let sort_on = filterCriteria.sort_on || ""
         let is_available = filterCriteria.is_available
         let is_female = filterCriteria.is_female
 
-        let url = `/opd/searchresults?specializations=${specialization_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name}&hospital_name=${hospital_name}&place_id=${place_id}`
+        let url = `/opd/searchresults?specializations=${specialization_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name}&hospital_name=${hospital_name}&place_id=${place_id}`
+
         return url
     }
 

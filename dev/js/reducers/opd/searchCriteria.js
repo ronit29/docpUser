@@ -2,6 +2,7 @@ import { RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
+    distanceRange: [0, 35],
     sort_on: null,
     sits_at_clinic: false,
     sits_at_hospital: false,
