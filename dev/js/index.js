@@ -11,12 +11,19 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
 
+const middlewares = [thunk]
+/**
+ * Only log in DEV MODE.
+ */
+if (!DOCPRIME_PRODUCTION && !DOCPRIME_STAGING) {
+    const logger = createLogger();
+    middlewares.push(logger)
+}
 
-const logger = createLogger();
 const store = createStore(
     persistedReducer,
     window.__INITIAL_STATE__,
-    applyMiddleware(thunk, logger)
+    applyMiddleware(...middlewares)
 );
 
 /**
