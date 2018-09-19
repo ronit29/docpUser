@@ -38,34 +38,36 @@ class ChatPanel extends React.Component {
                     switch (data.event) {
                         case "RoomAgent": {
                             this.setState({ selectedRoom: data.data.rid })
+
+                            let analyticData;
+
+                            if(eventData.data.agentType == 'Type 1'){
+                                
+                                analyticData = {
+                                'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                }
+                                GTM.sendEvent({ data: analyticData })
+
+                            }else if(eventData.data.agentType == 'Type 2'){
+
+                                analyticData = {
+                                'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                }
+                                GTM.sendEvent({ data: analyticData })
+                            
+                            }else if(eventData.data.agentType == 'Type 3'){
+
+                                analyticData = {
+                                'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                }
+                                GTM.sendEvent({ data: analyticData })
+
+                            }
+
                             this.props.getChatDoctorById(data.data.manager, data.data.rid, (data) => {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
-                                })
-                                let analyticData;
-
-                                if(eventData.data.agentType == 'Type 1'){
-                                    
-                                    analyticData = {
-                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned','RoomId':eventData.data.rid
-                                    }
-                                    GTM.sendEvent({ data: analyticData })
-
-                                }else if(eventData.data.agentType == 'Type 2'){
-
-                                    analyticData = {
-                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned','RoomId':eventData.data.rid
-                                    }
-                                    GTM.sendEvent({ data: analyticData })
-                                
-                                }else if(eventData.data.agentType == 'Type 3'){
-
-                                    analyticData = {
-                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned','RoomId':eventData.data.rid
-                                    }
-                                    GTM.sendEvent({ data: analyticData })
-
-                                }
+                                }) 
                                 
                             })
                             break
