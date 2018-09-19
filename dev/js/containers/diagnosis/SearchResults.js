@@ -15,22 +15,39 @@ class SearchResults extends React.Component {
 
     static loadData(store, match, queryParams = {}) {
         try {
-            let searchState = queryParams['search']
-            let filterCriteria = queryParams['filter']
-            let lab_name = queryParams['lab_name']
+            let test_ids = queryParams['test_ids'] || ""
+            let lat = queryParams['lat']
+            let long = queryParams['long']
+            let place_id = queryParams['place_id'] || ""
+            let min_distance = parseInt(queryParams['min_distance']) || 0
+            let max_distance = parseInt(queryParams['max_distance']) || 35
+            let min_price = parseInt(queryParams['min_price']) || 0
+            let max_price = parseInt(queryParams['max_price']) || 20000
+            let sort_on = queryParams['sort_on'] || null
+            let lab_name = queryParams['lab_name'] || ""
             lab_name = lab_name || ""
+            let force_location_fromUrl = !!queryParams['force_location']
 
-            if (filterCriteria) {
-                filterCriteria = JSON.parse(filterCriteria)
-            } else {
-                filterCriteria = {}
+            let searchState = {
+                selectedCriterias: test_ids
             }
-
+            searchState.selectedLocation = {
+                geometry: { location: { lat, lng: long } }, place_id
+            }
+            let filterCriteria = {
+                min_price, max_price, min_distance, max_distance, sort_on
+            }
             if (lab_name) {
                 filterCriteria.lab_name = lab_name
             }
 
-            searchState = JSON.parse(searchState)
+            filterCriteria.priceRange = [0, 20000]
+            filterCriteria.priceRange[0] = filterCriteria.min_price
+            filterCriteria.priceRange[1] = filterCriteria.max_price
+
+            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange[0] = filterCriteria.min_distance
+            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             return store.dispatch(getLabs(searchState, filterCriteria, false))
 
