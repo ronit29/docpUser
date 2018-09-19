@@ -72,14 +72,14 @@ class Article extends React.Component {
                                     }} />
 
                                     <div itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="mrb-20" style={{ wordBreak: 'break-word' }}>
-                                        <a href="/" onClick={(e)=>this.onHomeClick(e, "/")} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a>
+                                        <a href="/" onClick={(e)=>this.onHomeClick(e, "/")} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span></a>
                                         <span className="breadcrumb-arrow">&gt;</span>
                                         <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
                                             <a href={`/${this.state.articleData.category.url}`} onClick={(e)=>this.onHomeClick(e, `/${this.state.articleData.category.url}`)} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span></a>
                                         </div>
                                         <span className="breadcrumb-arrow">&gt;</span>
                                         <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
-                                            <span itemProp="title" className="fw-500 breadcrumb-title">{this.state.articleData.title}</span>
+                                            <span itemProp="title" className="fw-500 breadcrumb-title">{this.state.articleData.title.substr(0, this.state.articleData.title.indexOf('|'))}</span>
                                         </div>
                                     </div>
 

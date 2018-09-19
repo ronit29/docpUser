@@ -8,6 +8,8 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
+import { setUTMTags } from './actions/index.js'
+
 
 require('../css/carousel.css')
 require('../css/normalize.css')
@@ -74,6 +76,14 @@ class App extends React.Component {
 
                 GTM.sendEvent({ data: data })
 
+                let utm_tags = {
+                    utm_source : parsed.utm_source || '',
+                    utm_medium : parsed.utm_medium || '',
+                    utm_term : parsed.utm_term || '',
+                    utm_campaign : parsed.utm_campaign || ''
+                }
+
+                this.props.setUTMTags(utm_tags)
              }
         }
 
@@ -142,5 +152,18 @@ class App extends React.Component {
     }
 }
 
+const mapStateToProps =(state)=>{
 
-export default App
+    return{
+        
+    }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+    
+    return{
+        setUTMTags : (utmTags) => dispatch(setUTMTags(utmTags))
+    }
+    
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App)

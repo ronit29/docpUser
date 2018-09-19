@@ -9,18 +9,27 @@ class DoctorProfileCard extends React.Component {
     }
 
     cardClick(id, url, e) {
+        
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
         }
         GTM.sendEvent({ data: data })
 
         data = {
-        'Category':'ConsumerApp','Action':'DoctorRankInSearch','CustomerID':GTM.getUserId()||'','leadid':0,'event':'doctor-rank-in-search' ,'Rank':this.props.rank+1}
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1
+        }
         GTM.sendEvent({ data: data })
-        if (url) {
-            this.props.history.push(`/${url}`)
-        } else {
-            this.props.history.push(`/opd/doctor/${id}`)
+
+        if(e.ctrlKey){
+
+        }else{
+            e.preventDefault();
+
+            if (url) {
+                this.props.history.push(`/${url}`)
+            } else {
+                this.props.history.push(`/opd/doctor/${id}`)
+            }
         }
     }
 
@@ -55,54 +64,56 @@ class DoctorProfileCard extends React.Component {
 
         if (hospitals && hospitals.length) {
             return (
-                <div className="dp-dr-search-card mrb-10" onClick={this.cardClick.bind(this, id, url)}>
-                    <div className="dp-dr-search-card-div">
-                        <div className="dp-dr-search-card-address clearfix">
-                            <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="dp-dr-search-loc-icon" />
-                            <p>{hospital.short_address}</p>
-                        </div>
-                        <div className="dp-dr-search-card-content clearfix">
-
-                            <div className="dp-dr-search-card-img">
-                                <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds"><img className="img-fluid img-round" src={thumbnail} /></InitialsPicture>
+                <a href={url?`/${url}`:`/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
+                    <div className="dp-dr-search-card">
+                        <div className="dp-dr-search-card-div">
+                            <div className="dp-dr-search-card-address clearfix">
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="dp-dr-search-loc-icon" />
+                                <p>{hospital.short_address}</p>
                             </div>
+                            <div className="dp-dr-search-card-content clearfix">
 
-                            <div className="dp-dr-search-card-details">
-                                <p className="fw-500 dp-dr-exp-details-1" style={{ fontSize: 16 }}>{display_name}</p>
-                                <p className="dp-dr-exp-details-1">{this.getQualificationStr(general_specialization || [])}</p>
-                                {
-                                    experience_years ? <p className="fw-500 dp-dr-exp-details-2">{experience_years} Years of Experience</p> : ""
-                                }
-                                <p className="fw-500 dp-dr-exp-details-2">{expStr}</p>
-                            </div>
-                        </div>
-                        <div className="dp-dr-search-card-content-2 clearfix mrt-20">
-                            <p className="fw-700 dp-dr-new-price"><span className="dp-dr-old-price">&#8377; {mrp}</span> &#8377; {deal_price}</p>
-                        </div>
-                        <div className="dp-dr-search-card-content-3 clearfix">
-                            <button className="dp-dr-card-btn text-center fw-500">Book Now</button>
-                        </div>
-                    </div>
-                    <div className="dp-dr-search-card-footer mrt-20">
-                        <div className="dp-dr-card-footer-div clearfix">
-                            <div className="text-left clearfix" style={{ float: 'left' }}>
-                                <img className="dp-dr-card-footer-div-img" style={{ float: 'left' }} src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} />
-                                <p className="fw-500 dp-dr-card-footer-div-text" style={{ marginLeft: 22 }} >{hospital.hospital_name}
+                                <div className="dp-dr-search-card-img">
+                                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds"><img className="img-fluid img-round" src={thumbnail} /></InitialsPicture>
+                                </div>
+
+                                <div className="dp-dr-search-card-details">
+                                    <p className="fw-500 dp-dr-exp-details-1" style={{ fontSize: 16 }}>{display_name}</p>
+                                    <p className="dp-dr-exp-details-1">{this.getQualificationStr(general_specialization || [])}</p>
                                     {
-                                        hospital_count > 1 ?
-                                            <span> &amp; {hospital_count - 1} More </span> : ''
+                                        experience_years ? <p className="fw-500 dp-dr-exp-details-2">{experience_years} Years of Experience</p> : ""
                                     }
-                                </p>
+                                    <p className="fw-500 dp-dr-exp-details-2">{expStr}</p>
+                                </div>
+                            </div>
+                            <div className="dp-dr-search-card-content-2 clearfix mrt-20">
+                                <p className="fw-700 dp-dr-new-price"><span className="dp-dr-old-price">&#8377; {mrp}</span> &#8377; {deal_price}</p>
+                            </div>
+                            <div className="dp-dr-search-card-content-3 clearfix">
+                                <button className="dp-dr-card-btn text-center fw-500">Book Now</button>
                             </div>
                         </div>
-                        <div className="dp-dr-card-footer-div clearfix">
-                            <div className="text-left clearfix" style={{ float: 'right' }}>
-                                <img className="dp-dr-card-footer-div-img" style={{ float: 'left' }} src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />
-                                <p className="fw-500 dp-dr-card-footer-div-text" style={{ marginLeft: 22 }} >{Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}</p>
+                        <div className="dp-dr-search-card-footer mrt-20">
+                            <div className="dp-dr-card-footer-div clearfix">
+                                <div className="text-left clearfix" style={{ float: 'left' }}>
+                                    <img className="dp-dr-card-footer-div-img" style={{ float: 'left' }} src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} />
+                                    <p className="fw-500 dp-dr-card-footer-div-text" style={{ marginLeft: 22 }} >{hospital.hospital_name}
+                                        {
+                                            hospital_count > 1 ?
+                                                <span> &amp; {hospital_count - 1} More </span> : ''
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="dp-dr-card-footer-div clearfix">
+                                <div className="text-left clearfix" style={{ float: 'right' }}>
+                                    <img className="dp-dr-card-footer-div-img" style={{ float: 'left' }} src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />
+                                    <p className="fw-500 dp-dr-card-footer-div-text" style={{ marginLeft: 22 }} >{Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             );
         } else {
             return ""

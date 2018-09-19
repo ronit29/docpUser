@@ -32,13 +32,12 @@ class StaticPagesView extends React.Component {
     }
 
     render() {
-
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader homePage={true} />
+                <ProfileHeader />
                 <div className="sub-header d-none d-lg-block" />
 
-                <div className="d-lg-none">
+                {/* <div className="d-lg-none">
                     <header className="wallet-header sticky-header chat-header" style={{ height: 50 }} >
                         <div className="container-fluid header-container">
                             <div className="row header-row">
@@ -55,7 +54,7 @@ class StaticPagesView extends React.Component {
                             </div>
                         </div>
                     </header>
-                </div>
+                </div> */}
 
                 <Route exact path={'/about'} render={(props) => {
                     return <AboutUs {...this.props} {...props} />
