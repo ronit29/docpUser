@@ -9,7 +9,7 @@ class DoctorProfileCard extends React.Component {
     }
 
     cardClick(id, url, e) {
-        e.preventDefault();
+        
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
         }
@@ -19,10 +19,17 @@ class DoctorProfileCard extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1
         }
         GTM.sendEvent({ data: data })
-        if (url) {
-            this.props.history.push(`/${url}`)
-        } else {
-            this.props.history.push(`/opd/doctor/${id}`)
+
+        if(e.ctrlKey){
+
+        }else{
+            e.preventDefault();
+
+            if (url) {
+                this.props.history.push(`/${url}`)
+            } else {
+                this.props.history.push(`/opd/doctor/${id}`)
+            }
         }
     }
 
@@ -57,7 +64,7 @@ class DoctorProfileCard extends React.Component {
 
         if (hospitals && hospitals.length) {
             return (
-                <a href={`/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
+                <a href={url?`/${url}`:`/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
                     <div className="dp-dr-search-card">
                         <div className="dp-dr-search-card-div">
                             <div className="dp-dr-search-card-address clearfix">
