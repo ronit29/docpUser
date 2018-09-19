@@ -23,8 +23,14 @@ class DoctorProfileView extends React.Component {
         }
     }
 
-    getMetaTitle(doctorData) {
-        return `${doctorData.display_name} - Consult Online`
+    getMetaTagsData(seoData) {
+        let title = ""
+        let description = ""
+        if (seoData) {
+            title = seoData.title || ""
+            description = seoData.description || ""
+        }
+        return { title, description }
     }
 
     render() {
@@ -77,7 +83,8 @@ class DoctorProfileView extends React.Component {
                                     <section className="dr-profile-screen">
 
                                         <HelmetTags tagsData={{
-                                            title: this.getMetaTitle(this.props.DOCTORS[doctor_id])
+                                            title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
+                                            description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description
                                         }} />
 
                                         <div className="container-fluid">
