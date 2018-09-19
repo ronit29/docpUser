@@ -288,18 +288,7 @@ textarea.form-control.chat-text-area {
 	font-weight: 500;
 	position: relative;
 }
-.deal-ul li a:after {
-	content: "\F105";
-	font-family: FontAwesome;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	margin: auto;
-	display: flex;
-	align-items: center;
-	right: 0px;
-	color: #a2a2a2;
-}
+
 .deal-ul li:last-child {
 	border-bottom: 0px;
 }
@@ -461,9 +450,7 @@ background: black;
 .location-item span {
 	margin: 0px 8px;
 }
-.location-item i.fa {
-	font-size: 18px;
-}
+
 .head-links {
 	display: inline-flex;
 	align-items: center;
