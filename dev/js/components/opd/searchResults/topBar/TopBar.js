@@ -11,6 +11,7 @@ class TopBar extends React.Component {
             anchorEl: null,
             openFilter: false,
             priceRange: [0, 1500],
+            distanceRange: [0, 35],
             sort_on: null,
             sits_at_clinic: false,
             sits_at_hospital: false,
@@ -43,6 +44,7 @@ class TopBar extends React.Component {
     applyFilters() {
         let filterState = {
             priceRange: this.state.priceRange,
+            distanceRange: this.state.distanceRange,
             sits_at: this.state.sits_at,
             sort_on: this.state.sort_on,
             is_female: this.state.is_female,
@@ -102,6 +104,7 @@ class TopBar extends React.Component {
     isFilterApplied() {
         const def = {
             priceRange: [0, 1500],
+            distanceRange: [0, 35],
             sits_at_clinic: false,
             sits_at_hospital: false,
             is_female: false,
@@ -109,7 +112,7 @@ class TopBar extends React.Component {
         }
         try {
             for (let filter in def) {
-                if (filter == 'priceRange') {
+                if (filter == 'priceRange' || filter == 'distanceRange') {
                     if (def[filter][0] != this.state[filter][0] || def[filter][1] != this.state[filter][1]) {
                         return true
                     }
@@ -206,13 +209,13 @@ class TopBar extends React.Component {
                                 <div className="filterRow filterSitsAt">
                                     <span className="tl">Sits At</span>
                                     <div className="checkFilter">
-                                        <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 20}} />
-                                        <span className="opd-filter-checkbox" style={{top: 39, left: 20}}></span>
+                                        <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 20 }} />
+                                        <span className="opd-filter-checkbox" style={{ top: 39, left: 20 }}></span>
                                     </div>
                                     <span className="checkFilterLabel">Clinic</span>
                                     <div className="checkFilter">
-                                        <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{top: 39, left: 128}} />
-                                        <span className="opd-filter-checkbox" style={{top: 39, left: 128}}></span>
+                                        <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 128 }} />
+                                        <span className="opd-filter-checkbox" style={{ top: 39, left: 128 }}></span>
                                     </div>
                                     <span className="checkFilterLabel">Hospital</span>
                                 </div>
@@ -231,6 +234,21 @@ class TopBar extends React.Component {
                                         step={100}
                                         className="range"
                                         onChange={this.handleRange.bind(this, 'priceRange')}
+                                    />
+                                </div>
+                                <div className="filterRow">
+                                    <span className="tl">Distance</span>
+                                    <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
+                                    <span className="bl">0 KM</span>
+                                    <span className="br">50 KM</span>
+
+                                    <Range
+                                        min={0}
+                                        max={50}
+                                        value={this.state.distanceRange}
+                                        step={1}
+                                        className="range"
+                                        onChange={this.handleRange.bind(this, 'distanceRange')}
                                     />
                                 </div>
                             </div>

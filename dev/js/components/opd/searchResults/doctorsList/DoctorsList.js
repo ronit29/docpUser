@@ -65,6 +65,8 @@ class DoctorsList extends React.Component {
             let place_id = this.getLocationParam('place_id') || ""
             let min_fees = parseInt(this.getLocationParam('min_fees'))
             let max_fees = parseInt(this.getLocationParam('max_fees'))
+            let min_distance = parseInt(this.getLocationParam('min_distance'))
+            let max_distance = parseInt(this.getLocationParam('max_distance'))
             let sort_on = this.getLocationParam('sort_on')
             let is_available = this.getLocationParam('is_available') === "true"
             let is_female = this.getLocationParam('is_female') === "true"
@@ -81,7 +83,7 @@ class DoctorsList extends React.Component {
                 geometry: { location: { lat, lng: long } }, place_id
             }
             let filterCriteria = {
-                min_fees, max_fees, sort_on, is_available, is_female
+                min_fees, max_fees, min_distance, max_distance, sort_on, is_available, is_female
             }
             if (doctor_name) {
                 filterCriteria.doctor_name = doctor_name
@@ -93,6 +95,10 @@ class DoctorsList extends React.Component {
             filterCriteria.priceRange = {}
             filterCriteria.priceRange[0] = filterCriteria.min_fees
             filterCriteria.priceRange[1] = filterCriteria.max_fees
+
+            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange[0] = filterCriteria.min_distance
+            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             this.props.getDoctors(searchState, filterCriteria, false, page + 1, (hasMore) => {
                 this.setState({ loading: false })

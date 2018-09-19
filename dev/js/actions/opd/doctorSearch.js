@@ -22,6 +22,8 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		if (typeof long === 'function') long = long()
 	}
 
+	let min_distance = filterCriteria.distanceRange[0]
+	let max_distance = filterCriteria.distanceRange[1]
 	let min_fees = filterCriteria.priceRange[0]
 	let max_fees = filterCriteria.priceRange[1]
 	let sort_on = filterCriteria.sort_on || ""
@@ -34,7 +36,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		searchState.condition_ids = ""
 	}
 
-	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations_ids || ""}&condition_ids=${searchState.condition_ids || ""}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations_ids || ""}&condition_ids=${searchState.condition_ids || ""}&sits_at=${sits_at}&latitude=${lat}&longitude=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`

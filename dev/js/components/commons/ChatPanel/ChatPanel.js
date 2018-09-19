@@ -38,34 +38,36 @@ class ChatPanel extends React.Component {
                     switch (data.event) {
                         case "RoomAgent": {
                             this.setState({ selectedRoom: data.data.rid })
+
+                            let analyticData;
+
+                            if(eventData.data.agentType == 'Type 1'){
+                                
+                                analyticData = {
+                                'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                }
+                                GTM.sendEvent({ data: analyticData })
+
+                            }else if(eventData.data.agentType == 'Type 2'){
+
+                                analyticData = {
+                                'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                }
+                                GTM.sendEvent({ data: analyticData })
+                            
+                            }else if(eventData.data.agentType == 'Type 3'){
+
+                                analyticData = {
+                                'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                }
+                                GTM.sendEvent({ data: analyticData })
+
+                            }
+
                             this.props.getChatDoctorById(data.data.manager, data.data.rid, (data) => {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
-                                })
-                                let analyticData;
-
-                                if(eventData.data.agentType == 'Type 1'){
-                                    
-                                    analyticData = {
-                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned','RoomId':eventData.data.rid
-                                    }
-                                    GTM.sendEvent({ data: analyticData })
-
-                                }else if(eventData.data.agentType == 'Type 2'){
-
-                                    analyticData = {
-                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned','RoomId':eventData.data.rid
-                                    }
-                                    GTM.sendEvent({ data: analyticData })
-                                
-                                }else if(eventData.data.agentType == 'Type 3'){
-
-                                    analyticData = {
-                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned','RoomId':eventData.data.rid
-                                    }
-                                    GTM.sendEvent({ data: analyticData })
-
-                                }
+                                }) 
                                 
                             })
                             break
@@ -227,7 +229,7 @@ class ChatPanel extends React.Component {
 
         return (
 
-            <div className={this.props.homePage ? "col-md-7 mb-4" : "col-md-5 mb-4"}>
+            <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
                 {
                     this.props.homePage ? '' :
                         <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass||"")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src="/assets/img/customer-icons/floatingicon.png" /></div>

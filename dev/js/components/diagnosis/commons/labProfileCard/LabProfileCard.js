@@ -8,7 +8,6 @@ class LabProfileCard extends React.Component {
     }
 
     openLab(id, url, e) {
-        e.preventDefault();
         let dedupe_ids = {}
         let testIds = this.props.selectedCriterias
             .reduce((final, x) => {
@@ -35,17 +34,25 @@ class LabProfileCard extends React.Component {
                 this.props.toggleDiagnosisCriteria('test', new_test, true)
             })
         let data = {
-        'Category':'ConsumerApp','Action':'RankOfLabClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'rank-lab-clicked','Rank':this.props.rank+1}
+            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
+        }
         GTM.sendEvent({ data: data })
 
         data = {
             'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
         }
         GTM.sendEvent({ data: data })
-        if (url) {
-            this.props.history.push(`/${url}`)
+
+        if (e.ctrlKey || e.metaKey) {
+
         } else {
-            this.props.history.push(`/lab/${id}`)
+            e.preventDefault();
+
+            if (url) {
+                this.props.history.push(`/${url}`)
+            } else {
+                this.props.history.push(`/lab/${id}`)
+            }
         }
     }
 
@@ -67,9 +74,9 @@ class LabProfileCard extends React.Component {
         distance = Math.ceil(distance / 1000)
 
         return (
-            <a href={`/lab/${lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
+            <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                 <div className="widget card lab-rslt-card">
-                    <div className="widget-content card-content book-card" style={{paddingBottom: 0}} >
+                    <div className="widget-content card-content book-card" style={{ paddingBottom: 0 }} >
                         <div className="logo-ratting">
                             <span className="ct-img lab-icon">
                                 <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
