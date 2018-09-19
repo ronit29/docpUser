@@ -9,7 +9,7 @@ class DoctorProfileCard extends React.Component {
     }
 
     cardClick(id, url, e) {
-        
+
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
         }
@@ -20,9 +20,9 @@ class DoctorProfileCard extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
-        if(e.ctrlKey){
+        if (e.ctrlKey || e.metaKey) {
 
-        }else{
+        } else {
             e.preventDefault();
 
             if (url) {
@@ -64,7 +64,7 @@ class DoctorProfileCard extends React.Component {
 
         if (hospitals && hospitals.length) {
             return (
-                <a href={url?`/${url}`:`/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
+                <a href={url ? `/${url}` : `/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
                     <div className="dp-dr-search-card">
                         <div className="dp-dr-search-card-div">
                             <div className="dp-dr-search-card-address clearfix">
