@@ -98,7 +98,8 @@ class Media extends React.Component {
 					<div className="col-lg-3 col-12">
 						<div className="media-sticky-div">
 							<div className="twitter-feed">
-								<a className="twitter-timeline" href="https://twitter.com/DocPrimeindia?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a>
+								
+						<a class="twitter-timeline" href="https://twitter.com/DocPrimeIndia?ref_src=twsrc%5Etfw">Tweets by DocPrimeIndia</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 							</div>
 							<div className="facebook-feed">
 								<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FDocPrimeIndia&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId" width={340} height={500} style={{ border: 'none', overflow: 'hidden' }} scrolling="no" frameBorder={0} allowTransparency="true" allow="encrypted-media" />
