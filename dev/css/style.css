@@ -475,6 +475,15 @@ background: black;
 		margin-left: 12px;
 	}
 }
+
+.header-loc-text{
+	width: 70px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 6px !important;
+}
+
 .search-show {
 	text-align: center;
 	margin: 0px;
