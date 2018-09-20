@@ -11,6 +11,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
+import CONFIG from '../../../config'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -84,7 +85,8 @@ class DoctorProfileView extends React.Component {
 
                                         <HelmetTags tagsData={{
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
-                                            description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description
+                                            description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description,
+                                            canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                                         }} />
 
                                         <div className="container-fluid">

@@ -154,12 +154,19 @@ class CriteriaSearchView extends React.Component {
                                             <div className="col-12">
                                                 <div className="search-row">
                                                     <div className="adon-group">
-                                                        <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input type="text" className="form-control inp-with-loc input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
                                                         }} />
                                                         <span className="ct-img ct-img-sm search-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} /></span>
+                                                        <div className="head-links location-item inner-location" onClick={() => {
+                                                            this.props.history.push('/locationsearch')
+                                                        }}>
+                                                            <img width="10px" className="m-0" src={ASSETS_BASE_URL + "/images/srch-loc.svg"} />
+                                                            <span className="loc-text-search mr-0">{location}</span>
+                                                            <img width="15px" src={ASSETS_BASE_URL + "/images/location.svg"} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

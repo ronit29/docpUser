@@ -4,6 +4,8 @@ import LabsList from '../searchResults/labsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
 import NAVIGATE from '../../../helpers/navigate/index.js';
+import CONFIG from '../../../config'
+import HelmetTags from '../../commons/HelmetTags'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -211,6 +213,9 @@ class SearchResultsView extends React.Component {
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
+                <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
+                }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     {
                         this.isSelectedLocationNearDelhi() ? <div>
