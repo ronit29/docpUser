@@ -3,7 +3,8 @@ import React from 'react';
 import DoctorsList from '../searchResults/doctorsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
-
+import CONFIG from '../../../config'
+import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 
 class SearchResultsView extends React.Component {
@@ -242,6 +243,9 @@ class SearchResultsView extends React.Component {
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
+                <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
+                }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     {
                         this.isSelectedLocationNearDelhi() ? <div>
