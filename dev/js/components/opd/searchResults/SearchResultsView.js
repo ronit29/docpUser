@@ -245,7 +245,7 @@ class SearchResultsView extends React.Component {
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
-                }} />
+                }} setDefault={true} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     {
                         this.isSelectedLocationNearDelhi() ? <div>
