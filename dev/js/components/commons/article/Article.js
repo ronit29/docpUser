@@ -45,7 +45,7 @@ class Article extends React.Component {
                 <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12 col-md-7 col-lg-8 center-column" style={{paddingTop: 10}} >
 
                             {/* <header className="wallet-header article-header sticky-header">
                                 <div className="container-fluid header-container">
@@ -89,7 +89,7 @@ class Article extends React.Component {
                                 </div> : ""
                             }
                         </div>
-                        <RightBar />
+                        <RightBar colClass="col-lg-4" />
                     </div>
                 </section>
             </div>

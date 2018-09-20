@@ -299,10 +299,10 @@ class Footer extends React.Component {
                             <a onClick={() => {
                                 this.navigateTo("/media")
                             }}><li className="list-inline-item">MEDIA</li></a>
-                            <li className="list-inline-item">|</li>
+                            {/* <li className="list-inline-item">|</li>
                             <a onClick={() => {
                                 this.navigateTo("/doctorsignup")
-                            }}><li className="list-inline-item">DOCTOR SIGNUP</li></a>
+                            }}><li className="list-inline-item">DOCTOR SIGNUP</li></a> */}
                         </ul>
                     </div>
                 </div>
