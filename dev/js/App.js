@@ -10,7 +10,7 @@ import GTM from './helpers/gtm'
 const queryString = require('query-string');
 import { setUTMTags } from './actions/index.js'
 
-
+require('../css/custom-bootstrap.css')
 require('../css/carousel.css')
 require('../css/normalize.css')
 require('../css/layout.css')
