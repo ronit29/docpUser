@@ -16,6 +16,12 @@ class Doctorsignup extends React.Component {
 		}
 	}
 
+	componentWillReceiveProps(props){
+		if(this.state.utm_params != props.utm_tags){
+			this.setState({utm_params:props.utm_tags})
+		}
+	}
+
 	changeHandler = (event, key) => {
 		this.setState({
 			[key]: event.target.value
