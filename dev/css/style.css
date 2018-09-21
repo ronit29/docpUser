@@ -266,6 +266,13 @@ textarea.form-control.chat-text-area {
 	color: #000000;
 	border-radius: inherit;
 }
+
+.card.cstm-card .card-header>h2{
+	font-size: 18px;
+	font-weight: 500;
+	margin-bottom: 0;
+}
+
 .card.cstm-card .card-body {
 	padding: 15px;
 	padding-top: 0px;

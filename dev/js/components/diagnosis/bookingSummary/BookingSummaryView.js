@@ -325,14 +325,14 @@ class BookingSummaryView extends React.Component {
                                                     </div>
 
                                                     <div className="col-12">
-                                                        <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label">Cancellation Policy<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
                                                     </div>
 
                                                     <div className="col-12">
                                                         <a href="/terms" target="_blank">
-                                                            <div className="lab-visit-time test-report" style={{ textAlign: 'right', marginTop: 10 }}>
+                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                                 <span className="errorMessage">{this.state.error}</span>
                                                             </div>
