@@ -100,7 +100,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 				})
 			} else {
 
-				_getlocationFromLatLong(lat, long, (locationData) => {
+				_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
 					searchState.selectedLocation = locationData
 					searchState.selectedCriterias = tests_criteria
 

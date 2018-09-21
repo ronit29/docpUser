@@ -1,18 +1,17 @@
-export function _getlocationFromLatLong(lat, long, cb) {
+export function _getlocationFromLatLong(lat, long, location_type = 'locality', cb) {
     if (google) {
         var latlng = { lat: parseFloat(parseFloat(lat).toFixed(6)), lng: parseFloat(parseFloat(long).toFixed(6)) };
 
         let geocoder = new google.maps.Geocoder
         geocoder.geocode({ 'location': latlng }, (results, status) => {
             if (results && results[0]) {
-                let location_type = "sublocality"
-                if (lat == "28.6448") {
-                    location_type = 'locality'
+                if (false) {
+                    location_type = "sublocality"
                 }
                 let location_object = {
                     formatted_address: _getNameFromLocation(results[0], location_type),
                     name: _getNameFromLocation(results[0], location_type),
-                    place_id: results[0].place_id,
+                    place_id: "",
                     geometry: { location: { lat, lng: long } }
                 }
                 cb(location_object)
