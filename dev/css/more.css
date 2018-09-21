@@ -1090,14 +1090,14 @@ span.ofr-ribbon{
     margin: 0;
     padding: 4px 10px;
     position: absolute;
-    right: -12px;
+    right: -8px;
     top: 19px;
 }
 span.ofr-ribbon:after {
-    border-width: 6px;
+    border-width: 4px;
     border-style: solid;
     border-color: #73818800 #ed3f3a00 #bd2b26 #bd2b26;
-    top: -12px;
+    top: -8px;
     content: "";
     position: absolute;
     right: 0px;

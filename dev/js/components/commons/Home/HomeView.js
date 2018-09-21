@@ -287,6 +287,9 @@ class HomeView extends React.Component {
 
                                                 </div>
                                             </div>
+                                            <p className="fw-500 doc-lap-link d-md-none">
+                                            <span className="top-head-link card-lab-link"  onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic or hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"}  />  </span>
+                                        </p>
                                         </div> : ""
                                     }
 
@@ -326,6 +329,9 @@ class HomeView extends React.Component {
 
                                                 </div>
                                             </div>
+                                            <p className="fw-500 doc-lap-link d-md-none">
+                                            <span className="top-head-link card-lab-link"  onClick={() => this.props.history.push('/doctorsignup')}>Add your lab <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"}  /> </span>
+                                        </p>
                                         </div> : ""
                                     }
 
