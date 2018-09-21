@@ -44,21 +44,32 @@ const GTM = {
                                 
             }
             let visitor_info = STORAGE.getVisitorInfo()
+
             if(visitor_info){
-                data.visitor_info = visitor_info
-                setGTMSession(data);    
+                visitor_info = JSON.parse(visitor_info)
+                let last_visit_difference = new Date().getTime() - visitor_info.last_visit_time;
+        
+                if(last_visit_difference > 1800000){
+                    visitor_info.visit_id = getVisitId()   
+                }
+                visitor_info.last_visit_time = new Date().getTime()
+
             }else{
+
                 let visitor_id = getVisitorId();
                 let visit_id = getVisitId();
-                let visitor_info = {
+                visitor_info = {
                     visit_id:visit_id,
-                    visitor_id:visitor_id
+                    visitor_id:visitor_id,
+                    last_visit_time:new Date().getTime()
                 }
-                visitor_info = JSON.stringify(visitor_info)
-                STORAGE.setVisitorId(visitor_info)
-                data.visitor_info = STORAGE.getVisitorInfo() || ''
-                setGTMSession(data)
             }
+
+            let updated_cookie_val = JSON.stringify(visitor_info)
+            STORAGE.setVisitorInfo(updated_cookie_val)
+            data.visitor_info = visitor_info
+            setGTMSession(data);    
+            
             
         } catch (e) {
             //

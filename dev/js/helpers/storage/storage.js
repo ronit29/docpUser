@@ -92,8 +92,7 @@ const STORAGE = {
         return Promise.resolve(true)
     },
     getVisitorInfo: () => {
-        let visitor_info =  getCookie('visitor_info')
-        return JSON.parse(visitor_info)
+        return getCookie('visitor_info') || ''
     },
     deleteVisitorInfo: () => {
         eraseCookie('visitor_info')
