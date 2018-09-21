@@ -768,3 +768,21 @@ background: black;
 
 }
 /* search location box */
+
+/* lab doc link */
+.doc-lap-link{
+	position: relative;
+    background-image: linear-gradient(to left, #f78631, #ff6d00);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: white;
+    padding: 8px 10px;
+    text-align: right;
+}
+
+.card-lab-link img{
+	margin-top:2px;
+	margin-left:10px;
+}
+
+/* lab doc link */
