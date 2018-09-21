@@ -327,21 +327,22 @@ class HomeView extends React.Component {
                                                 </div>
 
                                             </div>
-                                            <p className="fw-500 doc-lap-link d-md-none">
-                                                <span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your lab <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} /> </span>
-                                            </p>
                                         </div>
-
-
+                                        <p className="fw-500 doc-lap-link d-md-none">
+                                            <span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your lab <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} /> </span>
+                                        </p>
                                     </div>
-                                </div>
 
+
+                                </div>
                             </div>
+
                         </div>
                     </div>
+                </div>
 
 
-                    {/* <section className="container">
+                {/* <section className="container">
                     <div className="row main-row">
 
                         <div className={"col-12 col-md-10 offset-md-1 offset-lg-0 col-lg-6 profile-main-section" + (profileData ? "" : " profile-main-section-logout")}>
@@ -371,11 +372,11 @@ class HomeView extends React.Component {
                 </section> */}
 
 
-                    <Footer />
+                <Footer />
 
-                </div >
-                );
-            }
-        }
-        
-        export default HomeView
+            </div >
+        );
+    }
+}
+
+export default HomeView
