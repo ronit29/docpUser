@@ -228,7 +228,7 @@ class HomeView extends React.Component {
                                     {/* Find a doctor */}
                                     <div className="card cstm-card mb-3">
                                         <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                            Find a Doctor <span className="ofr-ribbon">Upto 50% Off</span>
+                                            <h2>Find a Doctor</h2> <span className="ofr-ribbon">Upto 50% Off</span>
                                         </div>
                                         <div className="card-body">
                                             <div className="row mb-2">
@@ -264,7 +264,7 @@ class HomeView extends React.Component {
                                     {/* Book a test */}
                                     <div className="card cstm-card mb-3">
                                         <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                            Book a Test <span className="ofr-ribbon">Upto 50% Off</span>
+                                            <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
                                         </div>
                                         <div className="card-body">
                                             <div className="row mb-2">

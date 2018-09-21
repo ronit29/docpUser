@@ -72,9 +72,10 @@ class LocationSearch extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
-            this.props.selectLocation(location_object)
-            this.props.history.go(-1)
-            this.setState({ detectLoading: false })
+            this.props.selectLocation(location_object).then(() => {
+                this.props.history.go(-1)
+                this.setState({ detectLoading: false })
+            })
 
         }.bind(this))
     }
@@ -107,10 +108,13 @@ class LocationSearch extends React.Component {
                             place_id: results[0].place_id,
                             geometry: results[0].geometry
                         }
-                        this.props.selectLocation(location_object)
-                        clearTimeout(timeout)
-                        this.props.history.go(-1)
-                        this.setState({ detectLoading: false })
+
+                        this.props.selectLocation(location_object).then(() => {
+                            clearTimeout(timeout)
+                            this.props.history.go(-1)
+                            this.setState({ detectLoading: false })
+                        })
+
                     }
                 })
             }, (a, b, c) => {

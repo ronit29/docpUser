@@ -1,4 +1,4 @@
-import { SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH } from '../../constants/types';
+import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -7,7 +7,8 @@ const defaultState = {
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
     selectedAppointmentType: 'lab',
-    selectedAddress: null
+    selectedAddress: null,
+    SET_FROM_SERVER: false
 }
 
 export default function (state = defaultState, action) {
@@ -70,6 +71,12 @@ export default function (state = defaultState, action) {
         case SELECT_USER_ADDRESS: {
             let newState = { ...state }
             newState.selectedAddress = action.payload
+            return newState
+        }
+
+        case SET_SERVER_RENDER_LAB: {
+            let newState = { ...state }
+            newState.SET_FROM_SERVER = action.payload
             return newState
         }
 

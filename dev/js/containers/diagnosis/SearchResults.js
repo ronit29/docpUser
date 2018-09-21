@@ -49,7 +49,7 @@ class SearchResults extends React.Component {
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
-            return store.dispatch(getLabs(searchState, filterCriteria, false))
+            return store.dispatch(getLabs(searchState, filterCriteria, false, 1, null, true))
 
         } catch (e) {
             console.error(e)
@@ -78,7 +78,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LABS
-    const { labList, LOADED_LABS_SEARCH, count } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -87,7 +87,8 @@ const mapStateToProps = (state) => {
         LOADED_SEARCH_CRITERIA_LAB,
         LABS,
         labList, LOADED_LABS_SEARCH,
-        count
+        count,
+        SET_FROM_SERVER
     }
 
 }
@@ -95,7 +96,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (searchState, filterCriteria, mergeState, page, cb) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb)),
+        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests())
