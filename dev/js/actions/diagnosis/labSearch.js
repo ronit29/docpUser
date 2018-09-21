@@ -36,7 +36,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		testIds = ""
 	}
 
-	let url = `/api/v1/diagnostic/lablist?ids=${testIds || ""}&long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
+	let url = `/api/v1/diagnostic/lablist?ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name}`
