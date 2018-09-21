@@ -119,8 +119,8 @@ class DesktopProfileHeader extends React.Component {
                                 this.props.history.push('/locationsearch')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{marginRight: 0, width: 12}} />
-                                <span>{location}</span>
-                                <img src={ASSETS_BASE_URL + "/images/edit.svg"} />
+                                <span className="header-loc-text">{location}</span>
+                                {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
                         </div>
                         <div className="col-lg-9 col-md-8 col-8 ml-auto text-right  d-lg-none pl-0">
@@ -144,8 +144,8 @@ class DesktopProfileHeader extends React.Component {
                                 this.props.history.push('/locationsearch')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{marginRight: 0, width: 12}} />
-                                <span>{location}</span>
-                                <img src={ASSETS_BASE_URL + "/images/edit.svg"} />
+                                <span className="header-loc-text">{location}</span>
+                                {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
                         </div>
                     </div>
