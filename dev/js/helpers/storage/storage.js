@@ -88,14 +88,14 @@ const STORAGE = {
         return Promise.resolve(true)
     },
     setVisitorInfo: (visitorId) => {
-        setCookie('visit', visitorId, 10)
+        setCookie('visitinfo', visitorId, 10)
         return Promise.resolve(true)
     },
     getVisitorInfo: () => {
-        return getCookie('visit') || ''
+        return getCookie('visitinfo') || ''
     },
     deleteVisitorInfo: () => {
-        eraseCookie('visit')
+        eraseCookie('visitinfo')
         return Promise.resolve(true)
     }
 
