@@ -1,9 +1,15 @@
-import { SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb) => (dispatch) => {
+export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false) => (dispatch) => {
+
+	dispatch({
+		type: SET_SERVER_RENDER_OPD,
+		payload: from_server
+	})
+
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
 	// if(filterCriteria.sits_at_hospital) sits_at.push('hospital');

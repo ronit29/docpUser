@@ -58,7 +58,7 @@ class SearchResults extends React.Component {
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
-            return store.dispatch(getDoctors(searchState, filterCriteria, false))
+            return store.dispatch(getDoctors(searchState, filterCriteria, false, 1, null, true))
 
         } catch (e) {
             console.error(e)
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
-    let { doctorList, LOADED_DOCTOR_SEARCH, count } = state.DOCTOR_SEARCH
+    let { doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -96,7 +96,8 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         selectedLocation,
         filterCriteria,
-        count
+        count,
+        SET_FROM_SERVER
     }
 }
 
@@ -105,7 +106,7 @@ const mapDispatchToProps = (dispatch) => {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState, page, cb) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb))
+        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server))
     }
 }
 
