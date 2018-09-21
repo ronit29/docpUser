@@ -41,24 +41,24 @@ class ChatPanel extends React.Component {
 
                             let analyticData;
 
-                            if(eventData.data.agentType == 'Type 1'){
-                                
+                            if (eventData.data.agentType == 'Type 1') {
+
                                 analyticData = {
-                                'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
-                            }else if(eventData.data.agentType == 'Type 2'){
+                            } else if (eventData.data.agentType == 'Type 2') {
 
                                 analyticData = {
-                                'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
                                 }
                                 GTM.sendEvent({ data: analyticData })
-                            
-                            }else if(eventData.data.agentType == 'Type 3'){
+
+                            } else if (eventData.data.agentType == 'Type 3') {
 
                                 analyticData = {
-                                'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned','RoomId':eventData.data.rid,'DoctorId':eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
@@ -67,8 +67,8 @@ class ChatPanel extends React.Component {
                             this.props.getChatDoctorById(data.data.manager, data.data.rid, (data) => {
                                 this.dispatchCustomEvent('profile_assigned', {
                                     profileId: data.id
-                                }) 
-                                
+                                })
+
                             })
                             break
                         }
@@ -107,7 +107,7 @@ class ChatPanel extends React.Component {
                         case "Login": {
                             if (data.data["params.token"]) {
                                 let analyticData = {
-                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat','RoomId':eventData.data.rid||''
+                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat', 'RoomId': eventData.data.rid || ''
                                 }
                                 GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
@@ -122,7 +122,7 @@ class ChatPanel extends React.Component {
 
                         case "prescription_report": {
                             let analyticData = {
-                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated','RoomId':eventData.rid||''
+                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated', 'RoomId': eventData.rid || ''
                             }
                             GTM.sendEvent({ data: analyticData })
                         }
@@ -232,7 +232,7 @@ class ChatPanel extends React.Component {
             <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
                 {
                     this.props.homePage ? '' :
-                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass||"")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src="/assets/img/customer-icons/floatingicon.png" /></div>
+                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src="/assets/img/customer-icons/floatingicon.png" /></div>
                 }
 
 
@@ -268,26 +268,28 @@ class ChatPanel extends React.Component {
                         */}
 
                         <div className="hd-chat float-left">
-                        <p className="text-left header-text-chat"> 
-                            <span className="hed-txt-lt">Get a </span>
-                                    Free Online Doctor Consult!
-                                    </p>
+                            <h1 className="text-left header-text-chat">
+                                <span className="hed-txt-lt">Get a </span>
+                                Free Online Doctor Consult!
+                            </h1>
                         </div>
 
 
                         <div className="cht-head-rqst-btn float-right">
-                            <span className="mr-3" onClick={() => { 
+                            <span className="mr-3" onClick={() => {
                                 let data = {
-                                'Category':'Chat','Action':'CallBackRequested','CustomerID':GTM.getUserId()||'','leadid':0,'event':'callback-requested','RoomId':this.state.selectedRoom}
+                                    'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
+                                }
                                 GTM.sendEvent({ data: data })
 
-                                this.dispatchCustomEvent.call(this, 'call') }}>
+                                this.dispatchCustomEvent.call(this, 'call')
+                            }}>
                                 <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
-                                
+
                             </span>
                             <span onClick={this.toggleCancel.bind(this)}>
                                 <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
-                                
+
                             </span>
                             {
                                 this.state.showChatBlock
@@ -317,7 +319,7 @@ class ChatPanel extends React.Component {
                             </button>
                         </div> */}
                         <div className="wrng-mssg">
-                            <img style={{height: 24, width:24}} sth src="/assets/images/warning-icon.png" />
+                            <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
                             <span>
                                 Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
                             </span>
