@@ -5,12 +5,18 @@ export function _getlocationFromLatLong(lat, long, location_type = 'locality', c
         let geocoder = new google.maps.Geocoder
         geocoder.geocode({ 'location': latlng }, (results, status) => {
             if (results && results[0]) {
+                let results_to_pick = results[0]
+                results.map((x) => {
+                    if (x.address_components && x.address_components.length > results_to_pick.address_components.length) {
+                        results_to_pick = x
+                    }
+                })
                 if (false) {
                     location_type = "sublocality"
                 }
                 let location_object = {
-                    formatted_address: _getNameFromLocation(results[0], location_type),
-                    name: _getNameFromLocation(results[0], location_type),
+                    formatted_address: _getNameFromLocation(results_to_pick, location_type),
+                    name: _getNameFromLocation(results_to_pick, location_type),
                     place_id: "",
                     geometry: { location: { lat, lng: long } }
                 }
