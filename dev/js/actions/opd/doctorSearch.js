@@ -116,7 +116,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 					})
 				})
 			} else {
-				_getlocationFromLatLong(lat, long, (locationData) => {
+				_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
 					searchState.selectedLocation = locationData
 					searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
 

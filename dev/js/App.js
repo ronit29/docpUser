@@ -8,7 +8,8 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { setUTMTags } from './actions/index.js'
+import { setUTMTags, selectLocation, getGeoIpLocation } from './actions/index.js'
+import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 
 
 require('../css/carousel.css')
@@ -29,13 +30,13 @@ require('../css/slider.css')
 require('../css/snackbar.css')
 require('../css/cropper.css')
 require('./helpers/lightbox/style.css')
-,
+
 require('../css/style.css')
 
 const logPageView = () => {
     // window.location.pathname -> changed route
     let data = {
-        'Category': 'ConsumerApp', 'Action': 'RouteChange', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'route-changed', url: window.location.pathname,'addToGA':false
+        'Category': 'ConsumerApp', 'Action': 'RouteChange', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'route-changed', url: window.location.pathname, 'addToGA': false
     }
     GTM.sendEvent({ data: data })
     return null;
@@ -67,59 +68,79 @@ class App extends React.Component {
         }
 
         const parsed = queryString.parse(window.location.search)
+
+        /** 
+         * Select a default location, if no location is selected and lat,long are not provided in url
+         */
+        if (!this.props.selectedLocation && parsed && !parsed.lat) {
+            this.props.getGeoIpLocation().then((data) => {
+                let { latitude, longitude } = data
+                if (latitude && longitude) {
+                    _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
+                        if (locationData) {
+                            this.props.selectLocation(locationData)
+                        }
+                    })
+                }
+            })
+        }
+
+
         if (parsed) {
 
-             if(parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign){
+            if (parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign) {
 
                 let data = {
-                    'Category':'ConsumerApp','Action':'UTMevents','event':'utm-events','utm_source':parsed.utm_source||'','utm_medium':parsed.utm_medium||'','utm_term':parsed.utm_term||'','utm_campaign':parsed.utm_campaign||'','addToGA':false}
+                    'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': parsed.utm_source || '', 'utm_medium': parsed.utm_medium || '', 'utm_term': parsed.utm_term || '', 'utm_campaign': parsed.utm_campaign || '', 'addToGA': false
+                }
 
                 GTM.sendEvent({ data: data })
 
                 let utm_tags = {
-                    utm_source : parsed.utm_source || '',
-                    utm_medium : parsed.utm_medium || '',
-                    utm_term : parsed.utm_term || '',
-                    utm_campaign : parsed.utm_campaign || ''
+                    utm_source: parsed.utm_source || '',
+                    utm_medium: parsed.utm_medium || '',
+                    utm_term: parsed.utm_term || '',
+                    utm_campaign: parsed.utm_campaign || ''
                 }
 
                 this.props.setUTMTags(utm_tags)
-             }
+            }
         }
 
         let isMobile = false
         let device = 'desktop'
-        if(navigator){
+        if (navigator) {
 
-            if(/mobile/i.test(navigator.userAgent)){
+            if (/mobile/i.test(navigator.userAgent)) {
                 isMobile = true
                 device = 'mobile'
             }
 
-            if(navigator.userAgent.match(/iPad/i)){
+            if (navigator.userAgent.match(/iPad/i)) {
                 device = 'ipad'
             }
 
-            if(navigator.userAgent.match(/iPhone/i)){
-                device = 'iphone' 
+            if (navigator.userAgent.match(/iPhone/i)) {
+                device = 'iphone'
             }
 
 
-            if(navigator.userAgent.match(/Android/i)){
-                device = 'Android' 
+            if (navigator.userAgent.match(/Android/i)) {
+                device = 'Android'
             }
 
-            if(navigator.userAgent.match(/BlackBerry/i)){
+            if (navigator.userAgent.match(/BlackBerry/i)) {
                 device = 'BlackBerry'
             }
 
-/*
+            /*
             if(navigator.userAgent.match(/webOS/i)){
-                 device = 'desktop'
+                    device = 'desktop'
             }*/
 
             let data = {
-                'Category':'ConsumerApp','Action':'VisitorInfo','event':'visitor-info','Device':device,'Mobile':isMobile,'platform':navigator.platform||'','addToGA':false}
+                'Category': 'ConsumerApp', 'Action': 'VisitorInfo', 'event': 'visitor-info', 'Device': device, 'Mobile': isMobile, 'platform': navigator.platform || '', 'addToGA': false
+            }
 
             GTM.sendEvent({ data: data })
 
@@ -152,18 +173,24 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps =(state)=>{
+const mapStateToProps = (state) => {
 
-    return{
-        
+    const {
+        selectedLocation
+    } = state.SEARCH_CRITERIA_OPD
+
+    return {
+        selectedLocation
     }
 }
 
-const mapDispatchToProps = (dispatch)=>{
-    
-    return{
-        setUTMTags : (utmTags) => dispatch(setUTMTags(utmTags))
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        setUTMTags: (utmTags) => dispatch(setUTMTags(utmTags)),
+        selectLocation: (location) => dispatch(selectLocation(location)),
+        getGeoIpLocation: () => dispatch(getGeoIpLocation())
     }
-    
+
 }
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

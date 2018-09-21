@@ -160,6 +160,35 @@ class HomeView extends React.Component {
         return url
     }
 
+    isSelectedLocationNearDelhi(selectedLocation) {
+        try {
+            if (selectedLocation) {
+                let { geometry } = selectedLocation
+
+                var latitude1 = 28.644800;
+                var longitude1 = 77.216721;
+                var latitude2 = geometry.location.lat;
+                if (typeof geometry.location.lat == 'function') {
+                    latitude2 = geometry.location.lat()
+                }
+                var longitude2 = geometry.location.lng;
+                if (typeof geometry.location.lng == 'function') {
+                    longitude2 = geometry.location.lng()
+                }
+                var distance = 0
+
+                if (google) {
+                    var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
+                }
+
+                return (distance / 1000) < 50
+            }
+            return false
+        } catch (e) {
+            return true
+        }
+    }
+
     render() {
         let profileData = this.props.profiles[this.props.selectedProfile]
 
@@ -226,74 +255,79 @@ class HomeView extends React.Component {
 
 
                                     {/* Find a doctor */}
-                                    <div className="card cstm-card mb-3">
-                                        <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                            <h2>Find a Doctor</h2> <span className="ofr-ribbon">Upto 50% Off</span>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="row mb-2">
-
-                                                {
-                                                    this.props.specializations.map((sp, i) => {
-                                                        return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
-                                                            <div className="grid-img-cnt brdr-btm brdr-btm">
-                                                                <a href="javascript:void(0);">
-                                                                    <img className="img-fluid" src={sp.icon} />
-                                                                    <span>{sp.name}</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    })
-                                                }
-
-                                                <div className="col-4">
-                                                    <div className="grid-img-cnt brdr-btm">
-                                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/opd')}>
-                                                            <img className="img-fluid" src="/assets/images/vall.png" />
-                                                            <span>Search more specializations</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
+                                    {
+                                        this.isSelectedLocationNearDelhi(this.props.selectedLocation) ? <div className="card cstm-card mb-3">
+                                            <div className="card-header" style={{ justifyContent: 'normal' }}>
+                                                <h2>Find a Doctor</h2> <span className="ofr-ribbon">Upto 50% Off</span>
                                             </div>
-                                        </div>
-                                    </div>
+                                            <div className="card-body">
+                                                <div className="row mb-2">
+
+                                                    {
+                                                        this.props.specializations.map((sp, i) => {
+                                                            return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
+                                                                <div className="grid-img-cnt brdr-btm brdr-btm">
+                                                                    <a href="javascript:void(0);">
+                                                                        <img className="img-fluid" src={sp.icon} />
+                                                                        <span>{sp.name}</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        })
+                                                    }
+
+                                                    <div className="col-4">
+                                                        <div className="grid-img-cnt brdr-btm">
+                                                            <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/opd')}>
+                                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                <span>Search more specializations</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div> : ""
+                                    }
+
 
 
 
                                     {/* Book a test */}
-                                    <div className="card cstm-card mb-3">
-                                        <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                            <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="row mb-2">
-
-                                                {
-                                                    this.props.common_tests.map((ct, i) => {
-                                                        return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
-                                                            <div className="grid-img-cnt brdr-btm">
-                                                                <a href="javascript:void(0);">
-                                                                    <img className="img-fluid" src={ct.icon} />
-                                                                    <span> {ct.name} </span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    })
-                                                }
-
-                                                <div className="col-4">
-                                                    <div className="grid-img-cnt brdr-btm">
-                                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
-                                                            <img className="img-fluid" src="/assets/images/vall.png" />
-                                                            <span>Search more tests</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
+                                    {
+                                        this.isSelectedLocationNearDelhi(this.props.selectedLocation) ? <div className="card cstm-card mb-3">
+                                            <div className="card-header" style={{ justifyContent: 'normal' }}>
+                                                <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
                                             </div>
-                                        </div>
-                                    </div>
+                                            <div className="card-body">
+                                                <div className="row mb-2">
+
+                                                    {
+                                                        this.props.common_tests.map((ct, i) => {
+                                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                                <div className="grid-img-cnt brdr-btm">
+                                                                    <a href="javascript:void(0);">
+                                                                        <img className="img-fluid" src={ct.icon} />
+                                                                        <span> {ct.name} </span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        })
+                                                    }
+
+                                                    <div className="col-4">
+                                                        <div className="grid-img-cnt brdr-btm">
+                                                            <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
+                                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                <span>Search more tests</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div> : ""
+                                    }
 
 
 

@@ -86,6 +86,17 @@ const STORAGE = {
     deleteUserId: () => {
         eraseCookie('user_id')
         return Promise.resolve(true)
+    },
+    setVisitorInfo: (visitorId) => {
+        setCookie('visitor_info', visitorId, 10)
+        return Promise.resolve(true)
+    },
+    getVisitorInfo: () => {
+        return getCookie('visitor_info') || ''
+    },
+    deleteVisitorInfo: () => {
+        eraseCookie('visitor_info')
+        return Promise.resolve(true)
     }
 
 }
