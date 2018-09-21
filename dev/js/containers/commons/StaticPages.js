@@ -29,10 +29,12 @@ class StaticPages extends React.Component {
 const mapStateToProps = (state) => {
 
     let {
-        citiesName
+        citiesName,
+        utm_tags
     } = state.USER
     return {
-        citiesName
+        citiesName,
+        utm_tags
     }
 }
 

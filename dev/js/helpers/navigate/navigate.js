@@ -52,7 +52,7 @@ const NAVIGATE = {
 
         let noResulsFound = props.labList.filter(x => props.LABS[x]) < 10
 
-        if (props.history.action === 'PUSH' || noResulsFound) {
+        if (props.history.action === 'PUSH' || noResulsFound || props.SET_FROM_SERVER) {
             return true
         }
 
@@ -91,7 +91,7 @@ const NAVIGATE = {
 
         let noResulsFound = props.doctorList.filter(x => props.DOCTORS[x]) < 10
 
-        if (props.history.action === 'PUSH' || noResulsFound) {
+        if (props.history.action === 'PUSH' || noResulsFound || props.SET_FROM_SERVER) {
             return true
         }
 

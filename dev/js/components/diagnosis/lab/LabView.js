@@ -8,6 +8,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import GTM from '../../../helpers/gtm.js'
+import CONFIG from '../../../config'
 
 class LabView extends React.Component {
     constructor(props) {
@@ -29,8 +30,14 @@ class LabView extends React.Component {
         this.props.history.push(`/lab/${this.props.selectedLab}/book`)
     }
 
-    getMetaTitle(labData) {
-        return `${labData.lab.name} - Diagnostic Centre in ${labData.lab.city} |DocPrime`
+    getMetaTagsData(seoData) {
+        let title = ""
+        let description = ""
+        if (seoData) {
+            title = seoData.title || ""
+            description = seoData.description || ""
+        }
+        return { title, description }
     }
 
     render() {
@@ -82,7 +89,9 @@ class LabView extends React.Component {
                                     <div>
 
                                         <HelmetTags tagsData={{
-                                            title: this.getMetaTitle(this.props.LABS[lab_id])
+                                            title: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).title,
+                                            description: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).description,
+                                            canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                                         }} />
 
                                         <LabDetails {...this.props} data={this.props.LABS[lab_id]} />

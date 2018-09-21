@@ -43,6 +43,14 @@ class LocationSearch extends React.Component {
     }
 
     selectLocation(location) {
+        let timeout = setTimeout(() => {
+            if (this.state.detectLoading) {
+                this.setState({ detectLoading: false })
+                SnackBar.show({ pos: 'bottom-center', text: "Could not select location." });
+            }
+        }, 5000)
+        this.setState({ detectLoading: true })
+
         let map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 28, lng: 77 },
             zoom: 15
@@ -60,13 +68,15 @@ class LocationSearch extends React.Component {
             }
 
             let data = {
-            'Category':'ConsumerApp','Action':'UserLocation','CustomerID':GTM.getUserId(),'leadid':0,'event':'user-location','location':place.name||'','place_id':place.place_id||'','formatted_address':place.formatted_address||''}
+                'Category': 'ConsumerApp', 'Action': 'UserLocation', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-location', 'location': place.name || '', 'place_id': place.place_id || '', 'formatted_address': place.formatted_address || ''
+            }
             GTM.sendEvent({ data: data })
 
-            this.props.selectLocation(location_object)
-            setTimeout(() => {
+            this.props.selectLocation(location_object).then(() => {
                 this.props.history.go(-1)
-            }, 100)
+                this.setState({ detectLoading: false })
+            })
+
         }.bind(this))
     }
 
@@ -98,11 +108,13 @@ class LocationSearch extends React.Component {
                             place_id: results[0].place_id,
                             geometry: results[0].geometry
                         }
-                        this.props.selectLocation(location_object)
-                        clearTimeout(timeout)
-                        setTimeout(() => {
+
+                        this.props.selectLocation(location_object).then(() => {
+                            clearTimeout(timeout)
                             this.props.history.go(-1)
-                        }, 100)
+                            this.setState({ detectLoading: false })
+                        })
+
                     }
                 })
             }, (a, b, c) => {
@@ -135,16 +147,6 @@ class LocationSearch extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 100 }}>
                                 <div className="container-fluid">
-                                    {/* <div className="row">
-                                        <div className="col-12">
-                                            <div className="select-location-row text-center">
-                                                <span onClick={() => {
-                                                    this.props.history.go(-1)
-                                                }} className="ct-img ct-img-md close"><img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" /></span>
-                                                <h4 className="fw-700 text-md">Select Location</h4>
-                                            </div>
-                                        </div>
-                                    </div> */}
                                     <div className="row">
                                         <div className="col-12" style={{ paddingTop: 10 }}>
                                             <div className="search-row">

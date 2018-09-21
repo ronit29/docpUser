@@ -29,16 +29,17 @@ export const toggleOPDCriteria = (type, criteria) => (dispatch) => {
 }
 
 export const selectLocation = (location) => (dispatch) => {
+    return Promise.all([
     dispatch({
         type: SELECT_LOCATION_OPD,
         payload: location
-    })
-
+        }),
     dispatch({
         type: SELECT_LOCATION_DIAGNOSIS,
         payload: location
     })
 
+    ])
 }
 
 export const getOPDCriteriaResults = (searchString, callback) => (dispatch) => {

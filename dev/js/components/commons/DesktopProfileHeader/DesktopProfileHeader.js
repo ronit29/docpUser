@@ -118,7 +118,7 @@ class DesktopProfileHeader extends React.Component {
                             <div className="head-links location-item" onClick={() => {
                                 this.props.history.push('/locationsearch')
                             }}>
-                                <i className="fa fa-map-marker" aria-hidden="true" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{marginRight: 0, width: 12}} />
                                 <span>{location}</span>
                                 <img src={ASSETS_BASE_URL + "/images/edit.svg"} />
                             </div>
@@ -143,7 +143,7 @@ class DesktopProfileHeader extends React.Component {
                             <div className="head-links location-item" onClick={() => {
                                 this.props.history.push('/locationsearch')
                             }}>
-                                <i className="fa fa-map-marker" aria-hidden="true" />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{marginRight: 0, width: 12}} />
                                 <span>{location}</span>
                                 <img src={ASSETS_BASE_URL + "/images/edit.svg"} />
                             </div>

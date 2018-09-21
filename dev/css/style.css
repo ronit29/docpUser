@@ -295,18 +295,7 @@ textarea.form-control.chat-text-area {
 	font-weight: 500;
 	position: relative;
 }
-.deal-ul li a:after {
-	content: "\F105";
-	font-family: FontAwesome;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	margin: auto;
-	display: flex;
-	align-items: center;
-	right: 0px;
-	color: #a2a2a2;
-}
+
 .deal-ul li:last-child {
 	border-bottom: 0px;
 }
@@ -468,9 +457,7 @@ background: black;
 .location-item span {
 	margin: 0px 8px;
 }
-.location-item i.fa {
-	font-size: 18px;
-}
+
 .head-links {
 	display: inline-flex;
 	align-items: center;
@@ -718,6 +705,15 @@ background: black;
 	width: 26px !important;
 }
 }
+@media(max-width: 992px){
+
+ .inner-location{
+     display: none;
+ }
+ .inp-with-loc{
+	 padding-right: 12px !important;
+ }
+}
 
 @media (max-height: 355px){
 .float-chat-height {
@@ -743,3 +739,32 @@ background: black;
 }
 }
 
+/* search location box */
+.inp-with-loc{
+	padding-right: 165px;
+}
+.inner-location{
+	background: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #4a5056;
+    height: 100%;
+}
+.loc-text-search{
+	width: 115px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.inner-location::before{
+	content: '';
+    position: absolute;
+    height: 80%;
+    width: 2px;
+    background: #e6e3e3;
+    left: -8px;
+    border-radius: 4px;
+
+}
+/* search location box */

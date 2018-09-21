@@ -1,4 +1,4 @@
-import { SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -6,7 +6,8 @@ const defaultState = {
     LOADED_DOCTOR_SEARCH: false,
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
-    appointmentId: null
+    appointmentId: null,
+    SET_FROM_SERVER: false
 }
 
 export default function (state = defaultState, action) {
@@ -58,6 +59,12 @@ export default function (state = defaultState, action) {
 
             newState.selectedSlot = { ...action.payload.slot }
 
+            return newState
+        }
+
+        case SET_SERVER_RENDER_OPD: {
+            let newState = { ...state }
+            newState.SET_FROM_SERVER = action.payload
             return newState
         }
 

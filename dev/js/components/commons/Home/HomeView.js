@@ -13,6 +13,7 @@ import HealthTip from '../RightBar/healthTip.js'
 import ChatPanel from '../ChatPanel'
 import HelmetTags from '../HelmetTags'
 import GTM from '../../../helpers/gtm.js'
+import CONFIG from '../../../config'
 
 const GENDER = {
     "m": "Male",
@@ -167,7 +168,9 @@ class HomeView extends React.Component {
         return (
             <div className="profile-body-wrap">
 
-                <HelmetTags tagsData={{}} setDefault={true} />
+                <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
+                }} setDefault={true} />
 
                 <ProfileHeader homePage={true} />
 
