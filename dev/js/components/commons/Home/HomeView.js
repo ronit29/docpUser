@@ -25,7 +25,7 @@ class HomeView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLabVisible: false
+
         }
     }
 
@@ -33,7 +33,6 @@ class HomeView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.setState({ isLabVisible: true })
     }
 
     navigateTo(where, data, e) {
@@ -266,7 +265,7 @@ class HomeView extends React.Component {
 
                                                     {
                                                         this.props.specializations.map((sp, i) => {
-                                                            return <div className="col-4" key={'doctor' + i} onClick={this.searchDoctor.bind(this, sp)}>
+                                                            return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
                                                                 <div className="grid-img-cnt brdr-btm brdr-btm">
                                                                     <a href="javascript:void(0);">
                                                                         <img className="img-fluid" src={sp.icon} />
@@ -289,53 +288,50 @@ class HomeView extends React.Component {
                                                 </div>
                                             </div>
                                             <p className="fw-500 doc-lap-link d-md-none">
-                                                <span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} />  </span>
+                                                <span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or Hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} />  </span>
                                             </p>
-                                        </div> : ""
+                                        </div> : <div className="card cstm-card mb-3"></div>
                                     }
 
 
 
 
                                     {/* Book a test */}
-                                    {
-                                        this.state.isLabVisible ? <div className="card cstm-card mb-3">
-                                            <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                                <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="row mb-2">
+                                    <div className="card cstm-card mb-3">
+                                        <div className="card-header" style={{ justifyContent: 'normal' }}>
+                                            <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                                        </div>
+                                        <div className="card-body">
+                                            <div className="row mb-2">
 
-                                                    {
-                                                        this.props.common_tests.map((ct, i) => {
-                                                            return <div className="col-4" key={'lab' + i} onClick={this.searchLab.bind(this, ct)}>
-                                                                <div className="grid-img-cnt brdr-btm">
-                                                                    <a href="javascript:void(0);">
-                                                                        <img className="img-fluid" src={ct.icon} />
-                                                                        <span> {ct.name} </span>
-                                                                    </a>
-                                                                </div>
+                                                {
+                                                    this.props.common_tests.map((ct, i) => {
+                                                        return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                            <div className="grid-img-cnt brdr-btm">
+                                                                <a href="javascript:void(0);">
+                                                                    <img className="img-fluid" src={ct.icon} />
+                                                                    <span> {ct.name} </span>
+                                                                </a>
                                                             </div>
-                                                        })
-                                                    }
-
-                                                    <div className="col-4">
-                                                        <div className="grid-img-cnt brdr-btm">
-                                                            <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
-                                                                <img className="img-fluid" src="/assets/images/vall.png" />
-                                                                <span>Search more tests</span>
-                                                            </a>
                                                         </div>
+                                                    })
+                                                }
+
+                                                <div className="col-4">
+                                                    <div className="grid-img-cnt brdr-btm">
+                                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
+                                                            <img className="img-fluid" src="/assets/images/vall.png" />
+                                                            <span>Search more tests</span>
+                                                        </a>
                                                     </div>
-
                                                 </div>
-                                            </div>
-                                            <p className="fw-500 doc-lap-link d-md-none">
-                                                <span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your lab <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} /> </span>
-                                            </p>
-                                        </div> : ""
-                                    }
 
+                                            </div>
+                                        </div>
+                                        <p className="fw-500 doc-lap-link d-md-none">
+                                            <span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your lab <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} /> </span>
+                                        </p>
+                                    </div>
 
 
                                 </div>
