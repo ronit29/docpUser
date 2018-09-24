@@ -162,9 +162,9 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 			type: APPEND_LABS,
 			payload: [response]
 		})
-		cb((response.lab ? response.lab.id : null))
+		cb((response.lab ? response.lab.id : null), null)
 	}).catch(function (error) {
-		cb(null)
+		cb(null, error.url)
 	})
 }
 

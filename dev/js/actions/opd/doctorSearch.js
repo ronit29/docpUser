@@ -170,9 +170,9 @@ export const getDoctorByUrl = (doctor_url, cb) => (dispatch) => {
 			type: APPEND_DOCTORS,
 			payload: [response]
 		})
-		cb((response.id ? response.id : null))
+		cb((response.id ? response.id : null), null)
 	}).catch(function (error) {
-		cb(null)
+		cb(null, error.url)
 	})
 }
 

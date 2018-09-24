@@ -22,8 +22,14 @@ class Lab extends React.Component {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getLabByUrl(url, [], (labId) => {
-                    resolve(labId)
+                store.dispatch(getLabByUrl(url, [], (labId, url) => {
+                    if (labId) {
+                        resolve(labId)
+                    } else {
+                        reject({
+                            url: url
+                        })
+                    }
                 }))
             })
         }
