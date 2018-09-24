@@ -49,7 +49,12 @@ class SearchResults extends React.Component {
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
-            return store.dispatch(getLabs(searchState, filterCriteria, false, 1, null, true))
+            let searchUrl = null
+            if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
+                searchUrl = match.url
+            }
+
+            return store.dispatch(getLabs(searchState, filterCriteria, false, 1, null, true, searchUrl))
 
         } catch (e) {
             console.error(e)
@@ -96,7 +101,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server)),
+        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests())

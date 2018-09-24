@@ -99,6 +99,13 @@ app.all('*', function (req, res) {
                 html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL
             })
 
+        }).catch((error) => {
+            /** 
+             * If a new url is sent via any API call, then redirect client.
+             */
+            if (error && error.url) {
+                res.redirect(`/${error.url}`);
+            }
         })
     } else {
         res.render('index.ejs', {

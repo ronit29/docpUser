@@ -58,7 +58,12 @@ class SearchResults extends React.Component {
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
-            return store.dispatch(getDoctors(searchState, filterCriteria, false, 1, null, true))
+            let searchUrl = null
+            if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
+                searchUrl = match.url
+            }
+
+            return store.dispatch(getDoctors(searchState, filterCriteria, false, 1, null, true, searchUrl))
 
         } catch (e) {
             console.error(e)
@@ -106,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server))
+        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl))
     }
 }
 

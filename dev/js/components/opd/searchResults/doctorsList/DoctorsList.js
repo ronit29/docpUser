@@ -100,12 +100,17 @@ class DoctorsList extends React.Component {
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
+            let searchUrl = null
+            if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
+                searchUrl = this.props.match.url
+            }
+
             this.props.getDoctors(searchState, filterCriteria, false, page + 1, (hasMore) => {
                 this.setState({ loading: false })
                 setTimeout(() => {
                     this.setState({ hasMore })
                 }, 1000)
-            })
+            }, false, searchUrl)
 
         } catch (e) {
             this.setState({ loading: false })

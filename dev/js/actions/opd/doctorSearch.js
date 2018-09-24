@@ -3,7 +3,7 @@ import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false) => (dispatch) => {
+export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false) => (dispatch) => {
 
 	dispatch({
 		type: SET_SERVER_RENDER_OPD,
@@ -42,7 +42,13 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		searchState.condition_ids = ""
 	}
 
-	let url = `/api/v1/doctor/doctorsearch?specialization_ids=${searchState.specializations_ids || ""}&condition_ids=${searchState.condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	let url = `/api/v1/doctor/doctorsearch?`
+
+	if (searchByUrl) {
+		url = `/api/v1/doctor/doctorsearch_by_url?url=${searchByUrl.split('/')[1]}&`
+	}
+
+	url += `specialization_ids=${searchState.specializations_ids || ""}&condition_ids=${searchState.condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name}`
@@ -170,9 +176,9 @@ export const getDoctorByUrl = (doctor_url, cb) => (dispatch) => {
 			type: APPEND_DOCTORS,
 			payload: [response]
 		})
-		cb((response.id ? response.id : null))
+		cb((response.id ? response.id : null), null)
 	}).catch(function (error) {
-		cb(null)
+		cb(null, error.url)
 	})
 }
 

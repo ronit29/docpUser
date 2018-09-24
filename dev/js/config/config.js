@@ -19,8 +19,8 @@ const PROD_CONFIG = {
     CHAT_URL: "https://telemed.docprime.com/livechat",
     CHAT_API_URL: "https://telemed.docprime.com/api/v1",
     env: "production",
-    UAID:'UA-124740649-1',
-    Tracker:'docobj'
+    UAID: 'UA-124740649-1',
+    Tracker: 'docobj'
 
 }
 
@@ -33,12 +33,12 @@ const STAGING_CONFIG = {
     CHAT_URL: "https://chatqa.docprime.com/livechat",
     CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
     env: "staging",
-    UAID:'UA-124740649-2',
-    Tracker:'docqa'
+    UAID: 'UA-124740649-2',
+    Tracker: 'docqa'
 }
 
 const DEV_CONFIG = {
-    
+
     API_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://liveqa.docprime.com",
@@ -48,8 +48,8 @@ const DEV_CONFIG = {
     CHAT_URL: "https://telemed.docprime.com/livechat",
     CHAT_API_URL: "https://telemed.docprime.com/api/v1",
     env: "dev",
-    UAID:'UA-124740649-2',
-    Tracker:'docqa'
+    UAID: 'UA-124740649-2',
+    Tracker: 'docqa'
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }
