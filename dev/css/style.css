@@ -357,6 +357,7 @@ background: black;
 	margin-top: 21px;
 }
 
+
 @media screen and (max-width: 380px) {
 	.wrng-mssg span {
 		font-size: 12px;
@@ -376,6 +377,12 @@ background: black;
 	}
 	.cht-stts {
 		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 370px){
+	.header-text-chat{
+		font-size: 12px;
 	}
 }
 /*header styling*/

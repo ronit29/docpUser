@@ -267,16 +267,16 @@ class ChatPanel extends React.Component {
 
                         */}
 
-                        <div className="hd-chat float-left">
-                            <h1 className="text-left header-text-chat">
+                        <div className="hd-chat" style={{flex: 1}}>
+                            <p className="text-left header-text-chat">
                                 <span className="hed-txt-lt">Get a </span>
-                                Free Online Doctor Consult!
-                            </h1>
+                                Free <h1 style={{ display: 'inline', fontSize: 'inherit', fontWeight: 'inherit' }}>Online Doctor Consultation!</h1>
+                            </p>
                         </div>
 
 
-                        <div className="cht-head-rqst-btn float-right">
-                            <span className="mr-3" onClick={() => {
+                        <div className="cht-head-rqst-btn" style={{width: 60}}>
+                            <span className="mr-2" onClick={() => {
                                 let data = {
                                     'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
                                 }
