@@ -168,9 +168,9 @@
 
 .pb-view{ padding: 4px 0; }
 .pb-list>li{padding: 8px 0; font-size: 14px; font-weight: 500; color: #000}
-.pb-list .test-price{float: right;}
-.test-name-item{float: left; width: calc(100% - 42px)}
-
+.pb-list .test-price{float: right;text-align: right; width: 90px;}
+.test-name-item{display: block; padding-right: 90px;}
+.test-mrp{margin-right: 12px; color: #757575; text-decoration: line-through}
 .pb-location .address-details .add-map{float: right;width: 50px;cursor: pointer; margin-top: 10px}
 .pb-location .address-details .add-info{padding-right: 92px;}
 
