@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { setUTMTags, selectLocation, getGeoIpLocation } from './actions/index.js'
+import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 
 
@@ -146,6 +146,7 @@ class App extends React.Component {
 
 
         }
+        this.props.saveDeviceInfo(device)
 
         // boot Raven(Sentry logger)
         if (CONFIG.RAVEN_DSN_KEY) {
@@ -189,7 +190,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setUTMTags: (utmTags) => dispatch(setUTMTags(utmTags)),
         selectLocation: (location) => dispatch(selectLocation(location)),
-        getGeoIpLocation: () => dispatch(getGeoIpLocation())
+        getGeoIpLocation: () => dispatch(getGeoIpLocation()),
+        saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device))
     }
 
 }

@@ -40,7 +40,7 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     let {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info
     } = state.USER
 
     const {
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info
     }
 }
 
