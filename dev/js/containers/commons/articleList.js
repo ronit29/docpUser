@@ -11,10 +11,10 @@ class ArticleList extends React.Component {
         super(props)
     }
 
-    static loadData(store, match) {
+    static loadData(store, match,query) {
         let title = match.url
         title = title.substring(1, title.length)
-        return store.dispatch(getArticleList(title))
+        return store.dispatch(getArticleList(title,query))
     }
 
     static contextTypes = {
