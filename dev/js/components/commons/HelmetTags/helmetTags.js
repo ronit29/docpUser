@@ -17,8 +17,8 @@ class HelmetTags extends React.Component {
         let canonicalUrl = (tagsData && tagsData.canonicalUrl) ? tagsData.canonicalUrl : ""
 
         if (setDefault) {
-            title = "Online Doctor Consultation | Ask a Doctor for Assistance | DocPrime"
-            description = "Chat with doctors online or book appointment online instantly with best doctors, hospitals & clinics nearby you. Get diagnostic lab assistance and more."
+            title = "Free Online Doctor Consultation | Up To 50% off on Doctor Appointment"
+            description = "Consult Doctors Online for free or Book Appointment at DocPrime & get 50% off. &#10003 Ask a doctor for medical assistance, find & &#10003 Book best Labs, and &#10003 Hospitals."
         }
 
         return (

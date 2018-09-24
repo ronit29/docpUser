@@ -999,7 +999,12 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 	font-size: 14px;
 }
 
-.breadcrumb-link-div {
+.breadcrumb-list{
+	padding: 0;
+	list-style: none;
+}
+
+.breadcrumb-list-item {
 	display: inline;
 }
 
