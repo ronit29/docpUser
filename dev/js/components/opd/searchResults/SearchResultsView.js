@@ -201,13 +201,18 @@ class SearchResultsView extends React.Component {
         let is_available = filterCriteria.is_available
         let is_female = filterCriteria.is_female
 
-        let url = `/opd/searchresults?specializations=${specialization_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name}&hospital_name=${hospital_name}&place_id=${place_id}`
+        let url = `${window.location.pathname}?specializations=${specialization_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name}&hospital_name=${hospital_name}&place_id=${place_id}`
 
         return url
     }
 
     getDoctorList(searchState, filterCriteria, mergeState) {
-        this.props.getDoctors(searchState, filterCriteria, mergeState, 1);
+        let searchUrl = null
+        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
+            searchUrl = this.props.match.url
+        }
+
+        this.props.getDoctors(searchState, filterCriteria, mergeState, 1, null, false, searchUrl);
     }
 
     isSelectedLocationNearDelhi() {
@@ -244,7 +249,7 @@ class SearchResultsView extends React.Component {
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,title:"Doctor Search"
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`, title: "Doctor Search"
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     {

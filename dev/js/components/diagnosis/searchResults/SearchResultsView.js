@@ -111,7 +111,12 @@ class SearchResultsView extends React.Component {
     }
 
     getLabList(searchState, filterCriteria, mergeState) {
-        this.props.getLabs(searchState, filterCriteria, mergeState);
+        let searchUrl = null
+        if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
+            searchUrl = this.props.match.url
+        }
+
+        this.props.getLabs(searchState, filterCriteria, mergeState, 1, null, false, searchUrl);
     }
 
     applyFilters(filterState) {
@@ -174,7 +179,7 @@ class SearchResultsView extends React.Component {
         let max_price = filterCriteria.priceRange[1]
         let sort_on = filterCriteria.sort_on || ""
 
-        let url = `/lab/searchresults?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
+        let url = `${window.location.pathname}?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
 
         return url
     }
@@ -214,7 +219,7 @@ class SearchResultsView extends React.Component {
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,title:"Lab Search"
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`, title: "Lab Search"
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     {

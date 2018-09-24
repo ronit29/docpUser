@@ -2,7 +2,7 @@ import { SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, 
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false) => (dispatch) => {
+export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false) => (dispatch) => {
 
 	dispatch({
 		type: SET_SERVER_RENDER_LAB,
@@ -36,7 +36,13 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		testIds = ""
 	}
 
-	let url = `/api/v1/diagnostic/lablist?ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
+	let url = `/api/v1/diagnostic/lablist?`
+
+	if (searchByUrl) {
+		url = `/api/v1/diagnostic/lablist_by_url?url=${searchByUrl.split('/')[1]}&`
+	}
+
+	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name}`
