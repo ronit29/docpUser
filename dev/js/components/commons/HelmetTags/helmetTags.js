@@ -21,6 +21,10 @@ class HelmetTags extends React.Component {
             description = "Consult Doctors Online for free or Book Appointment at DocPrime & get 50% off. &#10003 Ask a doctor for medical assistance, find & &#10003 Book best Labs, and &#10003 Hospitals."
         }
 
+        if (canonicalUrl) {
+            canonicalUrl = canonicalUrl.toLowerCase()
+        }
+
         return (
             <div>
                 <Helmet>
@@ -35,7 +39,7 @@ class HelmetTags extends React.Component {
                     <meta name="keywords" content={keywords} />
                     {
                         canonicalUrl ?
-                            <link rel="canonical" href={tagsData.canonicalUrl} />
+                            <link rel="canonical" href={canonicalUrl} />
                             : ''
                     }
                 </Helmet>

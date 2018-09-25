@@ -38,8 +38,9 @@ const GTM = {
             if (dataLayer) {
                 data.UAID=CONFIG.UAID
                 data.Tracker=CONFIG.Tracker
+                let gtmData = JSON.parse(JSON.stringify(data))
                 if(data.addToGA==undefined){
-                    dataLayer.push(data)    
+                    dataLayer.push(gtmData)    
                 }
                                 
             }

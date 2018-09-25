@@ -22,8 +22,14 @@ class DoctorProfile extends React.Component {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctorByUrl(url, (doctor_id) => {
-                    resolve(doctor_id)
+                store.dispatch(getDoctorByUrl(url, (doctor_id, url) => {
+                    if (doctor_id) {
+                        resolve(doctor_id)
+                    } else {
+                        reject({
+                            url: url
+                        })
+                    }
                 }))
             })
         }
