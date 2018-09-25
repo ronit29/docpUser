@@ -437,7 +437,7 @@ background: black;
 }
 @media screen and (max-width: 438px) {
 	.head-links{
-		margin-left: 12px !important;
+		margin-left: 10px !important;
 	}
 	.logo-size {
 		width: 155px;
@@ -803,3 +803,20 @@ background: black;
 }
 
 /* lab doc link */
+
+/* lab doc booking */
+.card-nm-ovrlpng{
+    padding-right: 55px;
+}
+.bokng-card{
+	position: relative;
+}
+.crd-doc-img{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+.lgn-ovrflow{
+	overflow: hidden;
+}
+/* lab doc booking */
