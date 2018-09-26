@@ -17,7 +17,7 @@ class HowitWorks extends React.Component {
                         <p className="fw-500 about-heading">How it Works</p>
                     </div>
                     <div className="col-12">
-                        <p className="fw-500 about-content">DocPrime aims to provide efficient and affordable access to doctors and medical help to people across India and improving the healthcare experience for all humanity.</p>
+                        <p className="fw-500 about-content">docprime aims to provide efficient and affordable access to doctors and medical help to people across India and improving the healthcare experience for all humanity.</p>
                     </div>
                 </div>
                 <div className="row working-row">

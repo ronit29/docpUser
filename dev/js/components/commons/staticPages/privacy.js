@@ -19,7 +19,7 @@ class Privacy extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-12 privacy-desc-div">
-                        <p className="privacy-desc">Docprime.com (“Website/Mobile Application”) operated by Docprime Technologies Private Limited
+                        <p className="privacy-desc">docprime.com (“Website/Mobile Application”) operated by docprime Technologies Private Limited
                           (“Company/we/us”) recognizes the importance of maintaining your privacy. The Company is
                           committed to maintain the confidentiality, integrity and security of all information of our users.
                           This Privacy Policy explains how we collect, use, share, disclose and protect Personal information
@@ -79,7 +79,7 @@ class Privacy extends React.Component {
                         <p className="privacy-desc">However, Company will be free to use, collect and disclose information that is freely
               available about you in the public domain without your consent.</p>
                         <p className="privacy-desc-subheading">2.&nbsp;&nbsp;&nbsp;&nbsp;CONTROLLERS OF PERSONAL INFORMATION</p>
-                        <p className="privacy-desc">Your personal data will be stored and collected by Docprime Technologies Private Limited and with its parent company Etechaces Marketing and Consulting Private Limited.</p>
+                        <p className="privacy-desc">Your personal data will be stored and collected by docprime Technologies Private Limited and with its parent company Etechaces Marketing and Consulting Private Limited.</p>
                         <p className="privacy-desc-subheading">3.&nbsp;&nbsp;&nbsp;&nbsp;PURPOSES OF COLLECTION OF YOUR DATA</p>
                         <p className="privacy-desc">Company collects your information when you register for an account, when you use its
                           products or services, visit its Website's pages, and when you enter your details for receiving
@@ -307,7 +307,7 @@ class Privacy extends React.Component {
                         <br />
                         <p className="privacy-desc">Mr. Rajendra Prasad</p>
                         <br />
-                        <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>Docprime.com</p>
+                        <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>docprime.com</p>
                         <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>Plot No. 123,</p>
                         <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>Sector-44, Gurgaon-122001,</p>
                         <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 10 }}>Haryana</p>

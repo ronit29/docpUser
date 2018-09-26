@@ -18,7 +18,7 @@ class HelmetTags extends React.Component {
 
         if (setDefault) {
             title = "Free Online Doctor Consultation | Up To 50% off on Doctor Appointment"
-            description = "Consult Doctors Online for free or Book Appointment at DocPrime & get 50% off. &#10003 Ask a doctor for medical assistance, find & &#10003 Book best Labs, and &#10003 Hospitals."
+            description = "Consult Doctors Online for free or Book Appointment at docprime & get 50% off. &#10003 Ask a doctor for medical assistance, find & &#10003 Book best Labs, and &#10003 Hospitals."
         }
 
         if (canonicalUrl) {

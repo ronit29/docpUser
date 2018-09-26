@@ -166,26 +166,26 @@ class Footer extends React.Component {
                                     </div>
                                 </a>
                                 <div className="copyright-info">
-                                    <p>Docprime.com Copyright &copy; 2018.</p>
+                                    <p>docprime.com Copyright &copy; 2018.</p>
                                     <p>All rights reserved.</p>
                                     <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
                                     <p>CIN : U74999HR2016PTC064312</p>
                                 </div>
                                 <div className="row social-icons-row">
                                     <div className="social-icon">
-                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="Docprime YouTube" /></a>
+                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
                                     </div>
                                     <div className="social-icon">
-                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="Docprime Instagram" /></a>
+                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
                                     </div>
                                     <div className="social-icon">
-                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="Docprime Facebook" /></a>
+                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
                                     </div>
                                     <div className="social-icon">
-                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="Docprime Twitter" /></a>
+                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
                                     </div>
                                     <div className="social-icon">
-                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="Docprime Linkedin" /></a>
+                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
                                     </div>
                                 </div>
                             </div>
