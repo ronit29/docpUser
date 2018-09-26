@@ -21,6 +21,7 @@ import { createLogger } from 'redux-logger'
 import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 
+app.disable('etag');
 app.set('views', path.join(__dirname, '/dist'));
 app.get('/firebase-messaging-sw.js', function (req, res) {
     res.sendFile(__dirname + '/assets/firebase-messaging-sw.js')

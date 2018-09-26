@@ -7,10 +7,11 @@
     "start": "node server.js",
     "client": "webpack --progress --watch",
     "build-dev": "webpack --progress",
-    "build-prod": "webpack --env.production --progress && npm run upload",
-    "build-staging": "webpack --env.staging --progress && npm run upload",
-    "build": "webpack --progress && npm run upload",
-    "upload": "node upload.js"
+    "build-prod": "webpack --env.production --progress && npm run minify && npm run upload",
+    "build-staging": "webpack --env.staging --progress && npm run minify && npm run upload",
+    "build": "webpack --progress && npm run minify && npm run upload",
+    "upload": "node upload.js",
+    "minify": "node minify_css.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "compress.js": "^1.1.2",
     "lightbox-react": "^0.1.6",
     "mime": "^2.3.1",
+    "node-minify": "^3.5.0",
     "node-snackbar": "^0.1.10",
     "passport-linkedin": "^1.0.0",
     "query-string": "^5.1.1",
