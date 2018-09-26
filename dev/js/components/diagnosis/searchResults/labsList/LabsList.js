@@ -56,17 +56,19 @@ class LabsList extends React.Component {
         this.setState({ hasMore: false, loading: true })
 
         try {
-            let test_ids = this.getLocationParam('test_ids')
+
+            let test_ids = this.getLocationParam('test_ids') || ""
             let lat = this.getLocationParam('lat')
             let long = this.getLocationParam('long')
             let place_id = this.getLocationParam('place_id') || ""
-            let min_distance = parseInt(this.getLocationParam('min_distance'))
-            let max_distance = parseInt(this.getLocationParam('max_distance'))
-            let min_price = parseInt(this.getLocationParam('min_price'))
-            let max_price = parseInt(this.getLocationParam('max_price'))
-            let sort_on = this.getLocationParam('sort_on')
-            let lab_name = this.getLocationParam('lab_name')
+            let min_distance = parseInt(this.getLocationParam('min_distance')) || 0
+            let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
+            let min_price = parseInt(this.getLocationParam('min_price')) || 0
+            let max_price = parseInt(this.getLocationParam('max_price')) || 20000
+            let sort_on = this.getLocationParam('sort_on') || null
+            let lab_name = this.getLocationParam('lab_name') || ""
             lab_name = lab_name || ""
+            let force_location_fromUrl = !!this.getLocationParam('force_location')
 
             let searchState = {
                 selectedCriterias: test_ids
