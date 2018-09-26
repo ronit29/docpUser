@@ -32,7 +32,7 @@ class HowitWorks extends React.Component {
                         </div>
                         <div className="doctext">
                             <p className="fw-500">
-                                Our flawless platform helps user get answers to their queries and offers one-on-one interaction with experienced doctors at a nominal fee. Users can anonymously, or otherwise, communicate with doctors with various areas of expertise directly from their smartphones.
+                                Our flawless platform helps user get answers to their queries and offers one-on-one interaction with experienced doctors for free. Users can anonymously, or otherwise, communicate with doctors with various areas of expertise directly from their smartphones.
                             </p>
                         </div>
                     </div>
