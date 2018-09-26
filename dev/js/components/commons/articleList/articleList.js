@@ -3,8 +3,9 @@ import React from 'react';
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroller'
 import Loader from '../../commons/Loader'
+import HelmetTags from '../../commons/HelmetTags'
 const queryString = require('query-string');
 import CONFIG from '../../../config'
 
@@ -63,15 +64,14 @@ class ArticleList extends React.Component {
 			}
 		});
 	}
-	
-	handleKeyUp(e){
-		if(e.key === 'Enter'){
+
+	handleKeyUp(e) {
+		if (e.key === 'Enter') {
 			this.searchArticle();
 		}
 	}
 
 	render() {
-		
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -79,6 +79,11 @@ class ArticleList extends React.Component {
 					<div className="row main-row parent-section-row">
 						<LeftBar />
 						<div className="col-12 col-md-7 col-lg-7 center-column">
+
+							<HelmetTags tagsData={{
+								canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
+							}} />
+
 							<div className="container-fluid main-container">
 								<div className="row art-search-row">
 									<div className="col-12">

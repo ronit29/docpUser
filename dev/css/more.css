@@ -908,6 +908,11 @@ figure>img{
     margin-bottom: 10px;
 }
 
+.docprime-article ul{
+    list-style-type: disc;
+    padding-left: 16px;
+}
+
 .chat-history-list>li{
     padding: 16px 10px;
     cursor: pointer;
