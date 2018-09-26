@@ -464,3 +464,55 @@
 .lab-rslt-card-link:last-child{
 	margin-bottom: 80px;
 }
+
+.doc-select-location-div{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.doc-input-loc-div{
+	flex: 1.5;
+	position: relative;
+}
+
+.doc-input-loc{
+	box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
+	border: none;
+	padding: 8px 2px 8px 24px;
+}
+
+.doc-input-loc-icon{
+	position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+}
+
+.doc-input-loc-icon>img{
+	width: 100%;
+}
+
+.doc-or-text{
+	width: 20px;
+	margin: 0 8px;
+}
+
+.doc-auto-detect-div{
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	flex: 1;
+	position: relative;
+}
+
+.doc-auto-detect-div>img{
+	width: 16px;
+}
+
+.doc-auto-detect-div>p{
+	flex: 1;
+	margin-left: 4px;
+}
