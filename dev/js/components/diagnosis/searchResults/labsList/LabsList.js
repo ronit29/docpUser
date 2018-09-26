@@ -92,8 +92,8 @@ class LabsList extends React.Component {
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             let searchUrl = null
-            if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
-                searchUrl = match.url
+            if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
+                searchUrl = this.props.match.url
             }
 
             this.props.getLabs(searchState, filterCriteria, false, page + 1, (hasMore) => {
