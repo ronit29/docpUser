@@ -44,10 +44,12 @@ class ArticleList extends React.Component {
 const mapStateToProps = (state) => {
     let {
         articleList,
+        articleListData,
         ARTICLE_LOADED
     } = state.USER
     return {
         articleList,
+        articleListData,
         ARTICLE_LOADED
     }
 }

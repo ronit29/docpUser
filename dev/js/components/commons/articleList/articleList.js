@@ -79,12 +79,14 @@ class ArticleList extends React.Component {
 					<div className="row main-row parent-section-row">
 						<LeftBar />
 						<div className="col-12 col-md-7 col-lg-7 center-column">
-
-							<HelmetTags tagsData={{
-								canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
-								setDefault: true
-							}} />
-
+							{
+								this.props.ARTICLE_LOADED ? <HelmetTags tagsData={{
+									title: (this.props.articleListData.seo ? this.props.articleListData.seo.title : ""),
+									description: (this.props.articleListData.seo ? this.props.articleListData.seo.description : ""),
+									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+									setDefault: true
+								}} /> : null
+							}
 							<div className="container-fluid main-container">
 								<div className="row art-search-row">
 									<div className="col-12">
