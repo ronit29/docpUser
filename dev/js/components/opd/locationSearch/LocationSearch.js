@@ -81,7 +81,7 @@ class LocationSearch extends React.Component {
     }
 
     componentDidMount() {
-        let input = document.getElementById('topLocationSearch')
+        let input = document.getElementById('topLocationSearch');
         input.focus()
     }
 
