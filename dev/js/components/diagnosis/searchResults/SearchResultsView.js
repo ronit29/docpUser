@@ -11,7 +11,7 @@ class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            seoData: this.props.initialServerData
         }
     }
 
@@ -116,7 +116,11 @@ class SearchResultsView extends React.Component {
             searchUrl = this.props.match.url
         }
 
-        this.props.getLabs(searchState, filterCriteria, mergeState, 1, null, false, searchUrl);
+        this.props.getLabs(searchState, filterCriteria, mergeState, 1, (loadMore, seoData) => {
+            if (seoData) {
+                this.setState({ seoData: seoData })
+            }
+        }, false, searchUrl);
     }
 
     applyFilters(filterState) {
@@ -213,13 +217,25 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    getMetaTagsData(seoData) {
+        let title = "Lab Search"
+        let description = ""
+        if (seoData) {
+            title = seoData.title || ""
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
+
     render() {
 
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`, title: "Lab Search"
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.state.seoData).title,
+                    description: this.getMetaTagsData(this.state.seoData).description,
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     {

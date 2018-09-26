@@ -63,7 +63,11 @@ class SearchResults extends React.Component {
                 searchUrl = match.url
             }
 
-            return store.dispatch(getDoctors(searchState, filterCriteria, false, 1, null, true, searchUrl))
+            return new Promise((resolve, reject) => {
+                store.dispatch(getDoctors(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
+                    resolve(seoData)
+                }, true, searchUrl))
+            })
 
         } catch (e) {
             console.error(e)
@@ -83,7 +87,15 @@ class SearchResults extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps) => {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    let initialServerData = null
+    let { staticContext } = passedProps
+    if (staticContext && staticContext.data) {
+        initialServerData = staticContext.data
+    }
 
     const {
         LOADED_SEARCH_CRITERIA_OPD,
@@ -102,7 +114,8 @@ const mapStateToProps = (state) => {
         selectedLocation,
         filterCriteria,
         count,
-        SET_FROM_SERVER
+        SET_FROM_SERVER,
+        initialServerData
     }
 }
 

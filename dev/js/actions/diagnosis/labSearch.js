@@ -128,10 +128,10 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		if (cb) {
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
-				cb(true)
+				cb(true, response.seo)
 			}
 		}
-		cb(false)
+		cb(false, response.seo)
 
 	}).catch(function (error) {
 
