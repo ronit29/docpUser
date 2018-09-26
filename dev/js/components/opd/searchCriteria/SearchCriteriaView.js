@@ -8,6 +8,7 @@ import GTM from '../../../helpers/gtm.js'
 class SearchCriteriaView extends React.Component {
     constructor(props) {
         super(props)
+        this.state={focusInput:0}
     }
 
     componentDidMount() {
@@ -17,6 +18,11 @@ class SearchCriteriaView extends React.Component {
     }
 
     searchProceed(doctor_name, hospital_name) {
+        if(this.props.locationType =="geo"){
+            this.setState({focusInput:1})
+            return null 
+        }
+
         let selectedCriterias = ((doctor_name && doctor_name.length > 0) || (hospital_name && hospital_name.length > 0)) ? [] : this.props.selectedCriterias
         selectedCriterias = selectedCriterias.map((x) => {
             delete x.icon
@@ -78,7 +84,7 @@ class SearchCriteriaView extends React.Component {
     render() {
         return (
             <div>
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)} focusInput={this.state.focusInput}>
                     <section className="opd-search-section">
                         {
                             (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched

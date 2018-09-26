@@ -33,6 +33,18 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props){
+        let lat = this.props.selectedLocation.geometry.location.lat
+        if (typeof lat === 'function') lat = lat()
+        
+        let nextLat = props.selectedLocation.geometry.location.lat
+        if (typeof nextLat === 'function') nextLat = nextLat()
+        
+        if(lat != nextLat){
+            this.getDcotors(0)
+        }
+    }
+
     getLocationParam(tag) {
         // this API assumes the context of react-router-4
         const paramString = this.props.location.search
@@ -40,7 +52,7 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getDcotors() {
+    getDcotors(showLocation=1) {
         let {
             selectedLocation
         } = this.props
@@ -120,7 +132,7 @@ class SearchResultsView extends React.Component {
 
             }
 
-            this.getDoctorList(searchState, filterCriteria, true)
+            this.getDoctorList(searchState, filterCriteria, true,showLocation)
         } catch (e) {
             console.error(e)
         }
@@ -207,13 +219,13 @@ class SearchResultsView extends React.Component {
         return url
     }
 
-    getDoctorList(searchState, filterCriteria, mergeState) {
+    getDoctorList(searchState, filterCriteria, mergeState,showLocation=1) {
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
             searchUrl = this.props.match.url
         }
 
-        this.props.getDoctors(searchState, filterCriteria, mergeState, 1, null, false, searchUrl);
+        this.props.getDoctors(searchState, filterCriteria, mergeState, 1, null, false, searchUrl,showLocation);
     }
 
     isSelectedLocationNearDelhi() {

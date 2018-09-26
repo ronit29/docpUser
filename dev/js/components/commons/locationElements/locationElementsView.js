@@ -143,16 +143,20 @@ class LocationElementsView extends React.Component {
         return (
             // toggle class : 'doc-select-none'
             <div className="row" style={{backgroundColor: '#f78316'}}>
+                
                 <div className="col-12">
-                    <div className="doc-caret"></div>
-                    <div className="text-center">
+                    <div className={this.props.resultType == 'list'?"doc-caret":"doc-select-none"}></div>
+                    {
+                        this.props.resultType == 'list'?''
+                        :<div className="text-center">
                         <p className="fw-500 text-xs" style={{ color: '#fff' }}>IN</p>
                     </div>
+                    }
                 </div>
                 <div className="col-12 mrt-10" style={{ paddingBottom: 10 }}>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div">
-                            <input type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality" value={this.state.search} onChange={this.inputHandler.bind(this)} />
+                            <input id="topLocationElem" type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality" value={this.state.search} onChange={this.inputHandler.bind(this)} />
                             <span className="doc-input-loc-icon">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
                             </span>

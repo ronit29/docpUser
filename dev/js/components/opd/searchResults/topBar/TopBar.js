@@ -199,7 +199,7 @@ class TopBar extends React.Component {
                             }
                         </div>
                     </div>
-                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} />
+                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} resultType='list'/>
                 </div>
 
 

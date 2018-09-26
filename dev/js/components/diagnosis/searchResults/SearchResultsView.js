@@ -7,6 +7,16 @@ import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 
+
+const debouncer = (fn, delay) => {
+    let timer = null
+    return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn.call(this)
+        }, delay)
+    }
+}
 class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
@@ -29,6 +39,18 @@ class SearchResultsView extends React.Component {
             //         window.LAB_SCROLL_POS = 0
             //     }
             // }, 100)
+        }
+    }
+
+    componentWillReceiveProps(props){
+        let lat = this.props.selectedLocation.geometry.location.lat
+        if (typeof lat === 'function') lat = lat()
+        
+        let nextLat = props.selectedLocation.geometry.location.lat
+        if (typeof nextLat === 'function') nextLat = nextLat()
+        
+        if(lat != nextLat){
+            debouncer(this.getLabs(),1500)
         }
     }
 

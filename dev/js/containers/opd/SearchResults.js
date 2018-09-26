@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl))
+        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate))
     }
 }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
+import LocationElements from '../../../../containers/commons/locationElements'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class TopBar extends React.Component {
             distanceRange: [0, 35],
             sort_on: null,
             shortURL: "",
-            dropdown_visible: false
+            dropdown_visible: false,
+            searchCities:[]
         }
     }
 
@@ -110,6 +112,16 @@ class TopBar extends React.Component {
         }
     }
 
+    getCityListLayout(searchResults){
+        this.setState({searchCities:searchResults})
+    }
+
+    selectLocation(city){
+        this.child.selectLocation((city),()=>{
+            this.setState({searchCities:[]})
+        })
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -157,6 +169,8 @@ class TopBar extends React.Component {
                             }
                         </div>
                     </div>
+                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} resultType='list'/>
+
                 </div>
 
                 {
@@ -202,6 +216,28 @@ class TopBar extends React.Component {
                             </div>
                         </div>
                     </div> : ""
+                }
+
+                {
+                     this.state.searchCities.length>0?
+                        <section style={{ paddingTop: 52 }}>
+                            {
+                                this.state.searchCities.map((result, i) => {
+                                    return <div className="widget-panel" key={i}>
+                                        <div className="panel-content">
+                                            <ul className="list search-result-list">    
+                                            <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                    <a>{result.description}
+                                                        <span className="city-loc">City</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                })
+                            }
+
+                        </section>:''
                 }
 
             </section>

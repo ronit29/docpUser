@@ -9,7 +9,7 @@ class SearchCriteriaView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            focusInput:0
         }
     }
 
@@ -20,6 +20,12 @@ class SearchCriteriaView extends React.Component {
     }
 
     searchProceed(lab_name = "") {
+
+        if(this.props.locationType =="geo"){
+            this.setState({focusInput:1})
+            return null 
+        }
+
         let selectedCriterias = (lab_name && lab_name.length > 0) ? [] : this.props.selectedCriterias
         selectedCriterias = selectedCriterias.map((x) => {
             delete x.icon
