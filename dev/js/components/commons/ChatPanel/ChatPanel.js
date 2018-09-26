@@ -275,7 +275,7 @@ class ChatPanel extends React.Component {
                         </div>
 
 
-                        <div className="cht-head-rqst-btn" style={{width: 60}}>
+                        <div className="cht-head-rqst-btn" style={this.props.homePage ? {width: 64} : {width: 98}} >
                             <span className="mr-2" onClick={() => {
                                 let data = {
                                     'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
@@ -293,7 +293,7 @@ class ChatPanel extends React.Component {
                             </span>
                             {
                                 this.state.showChatBlock
-                                    ? <span className="ml-3" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                    ? <span className="ml-2" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
                                     : ''
                             }
                         </div>

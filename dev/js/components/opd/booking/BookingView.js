@@ -221,18 +221,19 @@ class BookingView extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="widget mrb-10">
-                                                    <div className="widget-content pb-details pb-location">
-                                                        <h4 className="wc-title text-md fw-700">{doctor.display_name}</h4>
-                                                        <div className="address-details">
-                                                            <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd" onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
-                                                                <img src={doctor_thumbnail} style={{ width: 50, marginTop: -28 }} className="img-fluid add-map img-round" />
+                                                    <div className="widget-content bokng-card pb-details pb-location">
+                                                        <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{doctor.display_name}</h4>
+                                                        <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd" onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
+                                                                <img src={doctor_thumbnail} style={{ width: 50 }} className="img-fluid add-map img-round crd-doc-img" />
                                                             </InitialsPicture>
+                                                        <div className="address-details">
+                                                            
 
                                                             <p className="add-info fw-500">{this.getQualificationStr(doctor.general_specialization || [])}</p>
                                                         </div>
                                                     </div>
                                                     <div className="widget-content pb-details pb-location">
-                                                        <h4 className="wc-title text-md fw-700">{hospital.name}</h4>
+                                                        <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{hospital.name}</h4>
                                                         <div className="address-details">
                                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
                                                             <p className="add-info fw-500">{hospital.address}</p>

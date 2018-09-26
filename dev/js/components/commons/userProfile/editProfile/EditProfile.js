@@ -140,7 +140,7 @@ class EditProfile extends React.Component {
 
                 {this.getComp()}
                 {
-                    this.state.openCrop ? "" : <a href="#" onClick={this.proceedUpdate.bind(this)} className="fixed horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile</a>
+                    this.state.openCrop ? "" : <button onClick={this.proceedUpdate.bind(this)} className="fixed p-3 horizontal bottom v-btn v-btn-primary no-round btn-lg text-center sticky-btn">Update Profile</button>
                 }
 
             </div>

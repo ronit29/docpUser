@@ -160,7 +160,7 @@ class TestSelectorView extends React.Component {
                                             </div>
                                         </section>
 
-                                        <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => {
+                                        <button className="v-btn p-2 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => {
                                             let data = {
                                             'Category':'ConsumerApp','Action':'DoneClickedOnAddTestPage','CustomerID':GTM.getUserId()||'','leadid':0,'event':'done-clicked-add-test-page'}
                                             GTM.sendEvent({ data: data })
