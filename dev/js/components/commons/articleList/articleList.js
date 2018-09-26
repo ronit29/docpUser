@@ -81,7 +81,8 @@ class ArticleList extends React.Component {
 						<div className="col-12 col-md-7 col-lg-7 center-column">
 
 							<HelmetTags tagsData={{
-								canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
+								canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+								setDefault: true
 							}} />
 
 							<div className="container-fluid main-container">

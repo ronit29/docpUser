@@ -11,7 +11,8 @@ class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            seoData: this.props.initialServerData
+            seoData: this.props.initialServerData,
+            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')
         }
     }
 
@@ -266,6 +267,7 @@ class SearchResultsView extends React.Component {
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description,
+                    seoFriendly: this.state.seoFriendly
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     {

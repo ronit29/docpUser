@@ -10,7 +10,7 @@ class HelmetTags extends React.Component {
     }
 
     render() {
-        let { tagsData, setDefault } = this.props
+        let { tagsData, setDefault, seoFriendly } = this.props
         let title = (tagsData && tagsData.title) ? tagsData.title : ""
         let description = (tagsData && tagsData.description) ? tagsData.description : ""
         let keywords = (tagsData && tagsData.keywords) ? tagsData.keywords : ""
@@ -41,6 +41,9 @@ class HelmetTags extends React.Component {
                         canonicalUrl ?
                             <link rel="canonical" href={canonicalUrl} />
                             : ''
+                    }
+                    {
+                        !seoFriendly ? <meta name="robots" content="noindex, notfollow" /> : ""
                     }
                 </Helmet>
             </div>
