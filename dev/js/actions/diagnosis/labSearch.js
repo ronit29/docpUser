@@ -80,18 +80,20 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 				})
 			}
 
+			searchState.selectedCriterias = tests_criteria
+			searchState.selectedLocation = null
+
+			dispatch({
+				type: MERGE_SEARCH_STATE_LAB,
+				payload: {
+					searchState,
+					filterCriteria
+				}
+			})
+
 			if (place_id) {
 				_getLocationFromPlaceId(place_id, (locationData) => {
-					searchState.selectedLocation = locationData
-					searchState.selectedCriterias = tests_criteria
-
-					dispatch({
-						type: MERGE_SEARCH_STATE_LAB,
-						payload: {
-							searchState,
-							filterCriteria
-						}
-					})
+					// searchState.selectedLocation = locationData
 
 					dispatch({
 						type: SELECT_LOCATION_DIAGNOSIS,
@@ -107,16 +109,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 			} else {
 
 				_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
-					searchState.selectedLocation = locationData
-					searchState.selectedCriterias = tests_criteria
-
-					dispatch({
-						type: MERGE_SEARCH_STATE_LAB,
-						payload: {
-							searchState,
-							filterCriteria
-						}
-					})
+					// searchState.selectedLocation = locationData
 
 					dispatch({
 						type: SELECT_LOCATION_DIAGNOSIS,

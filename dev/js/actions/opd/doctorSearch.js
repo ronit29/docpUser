@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -98,44 +98,48 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 				x.type = 'speciality'
 				return x
 			})
+
 			let condition_criterias = response.conditions.map((x) => {
 				x.type = 'condition'
 				return x
 			})
 
+			searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
+			searchState.selectedLocation = null
+
+			dispatch({
+				type: MERGE_SEARCH_STATE_OPD,
+				payload: {
+					searchState,
+					filterCriteria
+				}
+			})
+
 			if (place_id) {
 				_getLocationFromPlaceId(place_id, (locationData) => {
-					searchState.selectedLocation = locationData
-					searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
-
-					dispatch({
-						type: MERGE_SEARCH_STATE_OPD,
-						payload: {
-							searchState,
-							filterCriteria
-						}
-					})
+					// searchState.selectedLocation = locationData
 
 					dispatch({
 						type: SELECT_LOCATION_DIAGNOSIS,
 						payload: locationData
 					})
+
+					dispatch({
+						type: SELECT_LOCATION_OPD,
+						payload: locationData
+					})
 				})
 			} else {
 				_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
-					searchState.selectedLocation = locationData
-					searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
-
-					dispatch({
-						type: MERGE_SEARCH_STATE_OPD,
-						payload: {
-							searchState,
-							filterCriteria
-						}
-					})
+					// searchState.selectedLocation = locationData
 
 					dispatch({
 						type: SELECT_LOCATION_DIAGNOSIS,
+						payload: locationData
+					})
+
+					dispatch({
+						type: SELECT_LOCATION_OPD,
 						payload: locationData
 					})
 				})
