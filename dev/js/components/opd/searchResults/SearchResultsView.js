@@ -7,6 +7,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 
+
 class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
@@ -243,6 +244,7 @@ class SearchResultsView extends React.Component {
             return true
         }
     }
+
 
     render() {
         return (

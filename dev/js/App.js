@@ -78,7 +78,7 @@ class App extends React.Component {
                 if (latitude && longitude) {
                     _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
                         if (locationData) {
-                            this.props.selectLocation(locationData)
+                            this.props.selectLocation(locationData,'geo')
                         }
                     })
                 }

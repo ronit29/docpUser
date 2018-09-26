@@ -25,7 +25,8 @@ class CriteriaSearchView extends React.Component {
         this.state = {
             searchValue: '',
             searchResults: [],
-            loading: false
+            loading: false,
+            searchCities:[]
         }
     }
 
@@ -109,6 +110,15 @@ class CriteriaSearchView extends React.Component {
         }
     }
 
+    getCityListLayout(searchResults){
+        this.setState({searchCities:searchResults})
+    }
+
+    selectLocation(city){
+        this.child.selectLocation((city),()=>{
+            this.setState({searchCities:[]})
+        })
+    }
 
     render() {
 
@@ -173,37 +183,33 @@ class CriteriaSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <LocationElements {...this.props}/>
+                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} />
                                             </div>
                                         </div>
                                     }
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="text-center">
-                                                <p className="fw-500 text-xs" style={{ color: '#fff' }}>IN</p>
-                                            </div>
-                                        </div>
-                                        <div className="col-12 mrt-10" style={{ paddingBottom: 10 }}>
-                                            <div className="doc-select-location-div">
-                                                <div className="doc-input-loc-div">
-                                                    <input type="text" class="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality" />
-                                                    <span className="doc-input-loc-icon">
-                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                                    </span>
-                                                </div>
-                                                <div className="doc-or-text text-left">
-                                                    <p className="fw-500 text-xs" style={{ color: '#fff' }}>OR</p>
-                                                </div>
-                                                <div className="doc-auto-detect-div">
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/crosshairs-gps.png"} />
-                                                    <p className="fw-500 text-sm" style={{ color: '#fff' }}>Auto Detect Location</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </header>
+                            {
+                                 this.state.searchCities.length>0?
+                                    <section style={{ paddingTop: 52 }}>
+                                        {
+                                            this.state.searchCities.map((result, i) => {
+                                                return <div className="widget-panel" key={i}>
+                                                    <div className="panel-content">
+                                                        <ul className="list search-result-list">    
+                                                        <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                                <a>{result.description}
+                                                                    <span className="city-loc">City</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
 
+                                    </section>:''
+                            }
                             {
                                 this.state.searchValue ?
 
@@ -233,6 +239,7 @@ class CriteriaSearchView extends React.Component {
                                                 }
                                             })
                                         }
+                                        
                                         {
                                             this.props.type == 'opd' ? <div className="widget-panel">
                                                 <h4 className="panel-title">Name Search</h4>
@@ -282,6 +289,7 @@ class CriteriaSearchView extends React.Component {
                                     </section>
                                     : (this.props.checkForLoad ? this.props.children : <Loader />)
                             }
+                            
                         </div>
 
                         <RightBar extraClass=" chat-float-btn-2" />

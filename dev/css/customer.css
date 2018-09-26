@@ -472,20 +472,20 @@
 }
 
 .doc-input-loc-div{
-	flex: 1.5;
+	flex: 1;
 	position: relative;
 }
 
 .doc-input-loc{
 	box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
 	border: none;
-	padding: 8px 2px 8px 24px;
+	padding: 8px 2px 8px 40px;
 }
 
 .doc-input-loc-icon{
 	position: absolute;
     top: 50%;
-    left: 4px;
+    left: 12px;
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
@@ -496,7 +496,7 @@
 }
 
 .doc-or-text{
-	width: 20px;
+	width: 10px;
 	margin: 0 8px;
 }
 
@@ -504,7 +504,7 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	flex: 1;
+	justify-content: end;
 	position: relative;
 }
 
@@ -513,6 +513,5 @@
 }
 
 .doc-auto-detect-div>p{
-	flex: 1;
 	margin-left: 4px;
 }

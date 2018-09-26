@@ -14,7 +14,8 @@ const defaultState = {
     selectedCriterias: [],
     selectedLocation: null,
     filterCriteria: DEFAULT_FILTER_STATE,
-    lab_test_data: {}
+    lab_test_data: {},
+    locationType:'geo'
 }
 
 export default function (state = defaultState, action) {
@@ -80,6 +81,18 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
 
             newState.selectedLocation = action.payload
+            if(action.range == 'autoComplete'){
+
+                newState.locationType = 'autoComplete'
+            
+            }else if(action.range == 'autoDetect'){
+
+                newState.locationType ='autoDetect'
+
+            }else{
+
+                newState.locationType = 'geo'
+            }
             return newState
         }
 

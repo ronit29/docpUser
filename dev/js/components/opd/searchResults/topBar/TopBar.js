@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
+import LocationElements from '../../../../containers/commons/locationElements'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -139,6 +140,10 @@ class TopBar extends React.Component {
         }
     }
 
+    getCityListLayout(searchResults){
+        this.setState({searchCities:searchResults})
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -187,6 +192,7 @@ class TopBar extends React.Component {
                             }
                         </div>
                     </div>
+                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} />
                 </div>
 
 

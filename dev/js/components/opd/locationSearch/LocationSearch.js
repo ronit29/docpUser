@@ -72,7 +72,7 @@ class LocationSearch extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
-            this.props.selectLocation(location_object).then(() => {
+            this.props.selectLocation(location_object,'autoComplete').then(() => {
                 this.props.history.go(-1)
                 this.setState({ detectLoading: false })
             })
@@ -81,7 +81,7 @@ class LocationSearch extends React.Component {
     }
 
     componentDidMount() {
-        let input = document.getElementById('topLocationSearch');
+        let input = document.getElementById('topLocationSearch')
         input.focus()
     }
 
@@ -109,7 +109,7 @@ class LocationSearch extends React.Component {
                             geometry: results[0].geometry
                         }
 
-                        this.props.selectLocation(location_object).then(() => {
+                        this.props.selectLocation(location_object,'autoDetect').then(() => {
                             clearTimeout(timeout)
                             this.props.history.go(-1)
                             this.setState({ detectLoading: false })

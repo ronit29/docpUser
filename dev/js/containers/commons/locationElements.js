@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { selectLocation } from '../../actions/index.js'
-import LocationSearchView from '../../components/opd/locationSearch/index.js'
+import LocationElementView from '../../components/commons/locationElements/index.js'
 
-class LocationSearch extends React.Component {
+class LocationElemContainer extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -16,18 +16,20 @@ class LocationSearch extends React.Component {
     render() {
 
         return (
-            <LocationSearchView {...this.props} />
+            <LocationElementView {...this.props} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
     const {
-        selectedLocation
+        selectedLocation,
+        locationType
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        selectedLocation
+        selectedLocation,
+        locationType
     }
 }
 
@@ -38,4 +40,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LocationSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(LocationElemContainer);
