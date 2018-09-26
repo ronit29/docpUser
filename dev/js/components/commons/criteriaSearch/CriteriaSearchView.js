@@ -5,6 +5,7 @@ import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import LocationElements from '../../../containers/commons/locationElements'
 
 
 const debouncer = (fn, delay) => {
@@ -169,6 +170,7 @@ class CriteriaSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <LocationElements {...this.props}/>
                                             </div>
                                         </div>
                                     }
