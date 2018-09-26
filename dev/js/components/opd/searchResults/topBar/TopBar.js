@@ -19,7 +19,8 @@ class TopBar extends React.Component {
             is_female: false,
             is_available: false,
             shortURL: "",
-            dropdown_visible: false
+            dropdown_visible: false,
+            searchCities:[]
         }
     }
 
@@ -142,6 +143,12 @@ class TopBar extends React.Component {
 
     getCityListLayout(searchResults){
         this.setState({searchCities:searchResults})
+    }
+
+    selectLocation(city){
+        this.child.selectLocation((city),()=>{
+            this.setState({searchCities:[]})
+        })
     }
 
     render() {
@@ -274,6 +281,28 @@ class TopBar extends React.Component {
                             </div>
                         </div>
                     </div> : ""
+                }
+
+                {
+                     this.state.searchCities.length>0?
+                        <section style={{ paddingTop: 52 }}>
+                            {
+                                this.state.searchCities.map((result, i) => {
+                                    return <div className="widget-panel" key={i}>
+                                        <div className="panel-content">
+                                            <ul className="list search-result-list">    
+                                            <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                    <a>{result.description}
+                                                        <span className="city-loc">City</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                })
+                            }
+
+                        </section>:''
                 }
 
             </section>

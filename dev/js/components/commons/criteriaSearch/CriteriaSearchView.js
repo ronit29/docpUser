@@ -121,7 +121,7 @@ class CriteriaSearchView extends React.Component {
     }
 
     render() {
-
+        
         let location = "Delhi"
         if (this.props.selectedLocation) {
             location = this.props.selectedLocation.formatted_address.slice(0, 25)
