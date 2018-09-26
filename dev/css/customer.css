@@ -480,6 +480,7 @@
 	box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
 	border: none;
 	padding: 8px 2px 8px 40px;
+	font-size: 14px;
 }
 
 .doc-input-loc-icon{
@@ -514,4 +515,27 @@
 
 .doc-auto-detect-div>p{
 	margin-left: 4px;
+}
+
+.doc-caret{
+	position: absolute;
+	top: -15px;
+	right: 120px;
+	width: 0; 
+  	height: 0; 
+  	border-left: 12px solid transparent;
+  	border-right: 12px solid transparent;
+  	border-bottom: 15px solid black;
+}
+
+.doc-select-none{
+	display: none;
+}
+
+.doc-city-loc {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 14px;
+    font-weight: normal;
 }

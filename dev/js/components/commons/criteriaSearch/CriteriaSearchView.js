@@ -26,7 +26,7 @@ class CriteriaSearchView extends React.Component {
             searchValue: '',
             searchResults: [],
             loading: false,
-            searchCities:[]
+            searchCities: []
         }
     }
 
@@ -110,13 +110,13 @@ class CriteriaSearchView extends React.Component {
         }
     }
 
-    getCityListLayout(searchResults){
-        this.setState({searchCities:searchResults})
+    getCityListLayout(searchResults) {
+        this.setState({ searchCities: searchResults })
     }
 
-    selectLocation(city){
-        this.child.selectLocation((city),()=>{
-            this.setState({searchCities:[]})
+    selectLocation(city) {
+        this.child.selectLocation((city), () => {
+            this.setState({ searchCities: [] })
         })
     }
 
@@ -183,23 +183,23 @@ class CriteriaSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} />
+                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} />
                                             </div>
                                         </div>
                                     }
                                 </div>
                             </header>
                             {
-                                 this.state.searchCities.length>0?
+                                this.state.searchCities.length > 0 ?
                                     <section style={{ paddingTop: 52 }}>
                                         {
                                             this.state.searchCities.map((result, i) => {
                                                 return <div className="widget-panel" key={i}>
                                                     <div className="panel-content">
-                                                        <ul className="list search-result-list">    
-                                                        <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                        <ul className="list search-result-list">
+                                                            <li key={i} onClick={this.selectLocation.bind(this, result)} style={{ position: 'relative' }}>
                                                                 <a>{result.description}
-                                                                    <span className="city-loc">City</span>
+                                                                    <span className="doc-city-loc">City</span>
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -208,7 +208,7 @@ class CriteriaSearchView extends React.Component {
                                             })
                                         }
 
-                                    </section>:''
+                                    </section> : ''
                             }
                             {
                                 this.state.searchValue ?
@@ -239,7 +239,7 @@ class CriteriaSearchView extends React.Component {
                                                 }
                                             })
                                         }
-                                        
+
                                         {
                                             this.props.type == 'opd' ? <div className="widget-panel">
                                                 <h4 className="panel-title">Name Search</h4>
@@ -289,7 +289,7 @@ class CriteriaSearchView extends React.Component {
                                     </section>
                                     : (this.props.checkForLoad ? this.props.children : <Loader />)
                             }
-                            
+
                         </div>
 
                         <RightBar extraClass=" chat-float-btn-2" />
