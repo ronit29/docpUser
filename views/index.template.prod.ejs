@@ -59,11 +59,20 @@
         }
         else {
             // DOM: Create the script element
+            var jsElm1 = document.createElement("script");
+            // set the type attribute
+            jsElm1.type = "application/javascript";
+            // make the script element load file
+            jsElm1.src = 'https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js';
+            // finally insert the element to the body element in order to load the script
+            document.body.appendChild(jsElm1);
+
+            // DOM: Create the script element
             var jsElm = document.createElement("script");
             // set the type attribute
             jsElm.type = "application/javascript";
             // make the script element load file
-            jsElm.src = 'https://www.gstatic.com/firebasejs/5.0.1/firebase.js';
+            jsElm.src = 'https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js';
             // finally insert the element to the body element in order to load the script
             document.body.appendChild(jsElm);
         }
