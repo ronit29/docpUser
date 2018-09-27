@@ -57,7 +57,7 @@ const client_prod = {
             exclude: ['index.ejs']
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].[hash].css",
+            filename: "style.[hash].css",
         }),
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": true,
@@ -87,7 +87,7 @@ const client_staging = {
             exclude: ['index.ejs']
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].[hash].css",
+            filename: "style.[hash].css",
         }),
         new webpack.DefinePlugin({
             "DOCPRIME_STAGING": true,
