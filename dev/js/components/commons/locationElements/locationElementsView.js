@@ -15,9 +15,21 @@ class LocationElementsView extends React.Component {
 
     componentWillReceiveProps(props) {
         if (props.locationType != 'geo') {
-            console.log(props)
-            if (this.props.selectedLocation.formatted_address != props.selectedLocation.formatted_address) {
-                this.setState({ search: props.selectedLocation.formatted_address })
+
+            if(props.selectedLocation && this.props.selectedLocation){
+
+                let lat = this.props.selectedLocation.geometry.location.lat
+                if (typeof lat === 'function') lat = lat()
+                let nextLat = props.selectedLocation.geometry.location.lat
+                if (typeof nextLat === 'function') nextLat = nextLat()
+
+                if(this.state.search){
+                    if (lat != nextLat) {
+                        this.setState({ search: props.selectedLocation.formatted_address })
+                    }
+                }else{
+                    this.setState({ search: props.selectedLocation.formatted_address })
+                }
             }
 
         }
@@ -57,8 +69,8 @@ class LocationElementsView extends React.Component {
 
     selectLocation(location, cb) {
         let timeout = setTimeout(() => {
-            if (this.state.detectLoading) {
-                this.setState({ detectLoading: false })
+            if (this.state.detectLoading) 
+{                this.setState({ detectLoading: false })
                 SnackBar.show({ pos: 'bottom-center', text: "Could not select location." });
             }
         }, 5000)

@@ -19,7 +19,7 @@ class SearchResultsView extends React.Component {
 
     componentDidMount() {
         if (NAVIGATE.refreshLabSearchResults(this.props)) {
-            this.getLabs()
+            this.getLabs(this.props)
         }
 
         // this.getLabs()
@@ -36,7 +36,7 @@ class SearchResultsView extends React.Component {
 
     componentWillReceiveProps(props) {
 
-        if(props.selectedLocation && this.props.selectedLocation){
+        if (props.selectedLocation && this.props.selectedLocation) {
 
             let lat = this.props.selectedLocation.geometry.location.lat
             if (typeof lat === 'function') lat = lat()
@@ -44,15 +44,15 @@ class SearchResultsView extends React.Component {
             if (typeof nextLat === 'function') nextLat = nextLat()
 
             if (lat != nextLat) {
-                this.getLabs(0)
+                this.getLabs(props, 0)
             }
         }
     }
 
-    getLabs(showLocation = 1) {
+    getLabs(props, showLocation = 1) {
         let {
             selectedLocation
-        } = this.props
+        } = props
 
         try {
 
