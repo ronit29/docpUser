@@ -820,3 +820,9 @@ background: black;
 	overflow: hidden;
 }
 /* lab doc booking */
+
+.loaderCircular.chat-loader-center{
+    height: 100%;
+   position: absolute;
+   top: 0px;
+}

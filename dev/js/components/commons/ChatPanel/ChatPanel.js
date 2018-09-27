@@ -5,6 +5,7 @@ import CONFIG from '../../../config'
 import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
+import Loader from '../Loader'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -17,7 +18,8 @@ class ChatPanel extends React.Component {
             showCancel: false,
             showChatBlock: false,
             additionClasses: ' chat-load-mobile',
-            hideIframe: true
+            hideIframe: true,
+            iframeLoading: true
         }
     }
 
@@ -139,7 +141,14 @@ class ChatPanel extends React.Component {
             }.bind(this))
         }
 
-        this.setState({ hideIframe: false })
+
+        this.setState({ hideIframe: false }, () => {
+            let iframe = this.refs.chat_frame
+            iframe.onload = () => {
+                this.setState({ iframeLoading: false })
+            }
+        })
+
     }
 
     dispatchCustomEvent(eventName, data = {}) {
@@ -305,6 +314,13 @@ class ChatPanel extends React.Component {
                     <div className="chat-body">
                         {
                             STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
+                        }
+                        {
+                            this.state.iframeLoading ?
+                                <div className="loaderCircular chat-loader-center" >
+                                    <div className="dp-loader"></div>
+                                </div>
+                                : ""
                         }
                     </div>
                     {/* chat Body */}
