@@ -26,6 +26,11 @@ class SearchCriteriaView extends React.Component {
     searchProceed(doctor_name, hospital_name) {
         if(this.props.locationType =="geo"){
             this.setState({focusInput:1})
+
+            if (window) {
+            window.scrollTo(0, 0)
+            }
+            
             return null 
         }
 

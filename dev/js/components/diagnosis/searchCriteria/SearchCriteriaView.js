@@ -29,6 +29,11 @@ class SearchCriteriaView extends React.Component {
 
         if(this.props.locationType =="geo"){
             this.setState({focusInput:1})
+
+            if (window) {
+            window.scrollTo(0, 0)
+            }
+            
             return null 
         }
 
