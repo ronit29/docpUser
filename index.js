@@ -45,7 +45,7 @@ app.all('*', function (req, res) {
             css_file = fs.readFileSync(`${DIST_FOLDER}${file}`, 'utf-8')
         }
     }
-    let bootstrap_file = fs.readFileSync(`./assets/css/bootstrap.min.css`, 'utf-8')
+    let bootstrap_file = fs.readFileSync(`./assets/css/bootstrap-grid.min.css`, 'utf-8')
     /** 
      *  Track API calls for funneling 
      */
