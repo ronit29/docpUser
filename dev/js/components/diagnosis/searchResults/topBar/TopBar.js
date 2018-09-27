@@ -160,7 +160,7 @@ class TopBar extends React.Component {
                                     <span onClick={()=>{this.setState({showLocationPopup:!this.state.showLocationPopup})}}>
 
                                         {
-                                            this.state.showLocationPopup
+                                            this.state.showLocationPopup && false
                                             ?''
                                             :(this.props.selectedLocation && this.props.selectedLocation.formatted_address)?<span className="location-edit" style={{color:'#f6843a',cursor:'pointer'}}>{` in ${this.props.selectedLocation.formatted_address}`}</span>:''
 

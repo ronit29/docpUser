@@ -174,7 +174,7 @@ class CriteriaSearchView extends React.Component {
                                                             }
                                                         }} />
                                                         <span className="ct-img ct-img-sm search-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} /></span>
-                                                        <div className="head-links location-item inner-location" onClick={() => {
+                                                        <div style={{display:'none'}} className="head-links location-item inner-location" onClick={() => {
                                                             this.props.history.push('/locationsearch')
                                                         }}>
                                                             <img width="10px" className="m-0" src={ASSETS_BASE_URL + "/images/srch-loc.svg"} />
