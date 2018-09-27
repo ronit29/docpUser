@@ -98,7 +98,7 @@ const client_staging = {
 
 const client_base = {
     entry: {
-        'index': ['babel-polyfill', './dev/js/index.js']
+        'index': ['./dev/js/index.js']
     },
 
     optimization: {
