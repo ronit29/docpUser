@@ -14,13 +14,8 @@ class LocationElementsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setLocationState.bind(this)
         
-    }
-
-    setLocationState(updateVal=1){
-        if(updateVal==1){
-            if(props.selectedLocation && this.props.selectedLocation){
+        if(props.selectedLocation && this.props.selectedLocation){
                 let lat = this.props.selectedLocation.geometry.location.lat
                 if (typeof lat === 'function') lat = lat()
                 let nextLat = props.selectedLocation.geometry.location.lat
@@ -34,14 +29,16 @@ class LocationElementsView extends React.Component {
                     this.setState({ search: props.selectedLocation.formatted_address })
                 }
             }
-        }else if(this.props.locationType &&this.props.locationType!="geo" && this.props.selectedLocation && this.props.selectedLocation.formatted_address){
-            this.setState({ search: this.props.selectedLocation.formatted_address })
-        }
+        
     }
 
     componentDidMount() {
         this.props.onRef(this)
-        this.setLocationState(0)
+        
+        if(this.props.locationType && this.props.locationType!="geo" && this.props.selectedLocation && this.props.selectedLocation.formatted_address){
+            this.setState({ search: this.props.selectedLocation.formatted_address })
+        }
+
         if(document.getElementById('doc-input-field')){
             document.getElementById('doc-input-field').addEventListener('focusin',()=>{this.setState({search:''})})
             
