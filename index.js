@@ -8,6 +8,7 @@ const http = require('http');
 const Express = require('express');
 const app = new Express();
 const server = new http.Server(app);
+const axios = require('axios')
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -20,6 +21,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
+import CONFIG from './dev/js/config'
 
 app.disable('etag');
 app.set('views', path.join(__dirname, '/dist'));
@@ -48,6 +50,19 @@ app.all('*', function (req, res) {
         // use `matchPath` here
         const match = matchPath(req.path, route)
         if (match && route.RENDER_ON_SERVER) {
+
+            /** 
+             *  Track API calls for funneling 
+             */
+            axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
+                url: req.url,
+                refferar: req.headers.referer
+            }).then((res) => {
+                console.log(res)
+            }).catch((e) => {
+                console.log(e)
+            })
+
             if (route.component.loadData) {
                 promises.push(route.component.loadData(store, match, req.query))
             } else {
@@ -76,7 +91,7 @@ app.all('*', function (req, res) {
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL
                 })
-            }, 2000)
+            }, 5000)
 
             const storeData = JSON.stringify(store.getState())
             const html = ReactDOMServer.renderToString(
