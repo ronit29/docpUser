@@ -14,9 +14,8 @@ class LocationElementsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-
         if (props.locationType != 'geo') {
-
+            console.log(props)
             if (this.props.selectedLocation.formatted_address != props.selectedLocation.formatted_address) {
                 this.setState({ search: props.selectedLocation.formatted_address })
             }

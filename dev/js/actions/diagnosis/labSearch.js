@@ -2,7 +2,7 @@ import { SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, 
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false,updateLocation=true) => (dispatch) => {
+export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false, updateLocation = true) => (dispatch) => {
 
 	dispatch({
 		type: SET_SERVER_RENDER_LAB,
@@ -79,19 +79,23 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 					return x
 				})
 			}
-			if(updateLocation){
+
+			searchState.selectedCriterias = tests_criteria
+			searchState.selectedLocation = null
+
+			dispatch({
+				type: MERGE_SEARCH_STATE_LAB,
+				payload: {
+					searchState,
+					filterCriteria
+				}
+			})
+
+			if (updateLocation) {
+
 				if (place_id) {
 					_getLocationFromPlaceId(place_id, (locationData) => {
-						searchState.selectedLocation = locationData
-						searchState.selectedCriterias = tests_criteria
-
-						dispatch({
-							type: MERGE_SEARCH_STATE_LAB,
-							payload: {
-								searchState,
-								filterCriteria
-							}
-						})
+						// searchState.selectedLocation = locationData
 
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
@@ -107,16 +111,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 				} else {
 
 					_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
-						searchState.selectedLocation = locationData
-						searchState.selectedCriterias = tests_criteria
-
-						dispatch({
-							type: MERGE_SEARCH_STATE_LAB,
-							payload: {
-								searchState,
-								filterCriteria
-							}
-						})
+						// searchState.selectedLocation = locationData
 
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
@@ -136,10 +131,10 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		if (cb) {
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
-				cb(true)
+				cb(true, response.seo)
 			}
 		}
-		cb(false)
+		cb(false, response.seo)
 
 	}).catch(function (error) {
 

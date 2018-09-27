@@ -12,7 +12,8 @@ class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            seoData: this.props.initialServerData,
+            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')
         }
     }
 
@@ -33,14 +34,14 @@ class SearchResultsView extends React.Component {
         }
     }
 
-    componentWillReceiveProps(props){
+    componentWillReceiveProps(props) {
         let lat = this.props.selectedLocation.geometry.location.lat
         if (typeof lat === 'function') lat = lat()
-        
+
         let nextLat = props.selectedLocation.geometry.location.lat
         if (typeof nextLat === 'function') nextLat = nextLat()
-        
-        if(lat != nextLat){
+
+        if (lat != nextLat) {
             this.getDcotors(0)
         }
     }
@@ -52,7 +53,7 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getDcotors(showLocation=1) {
+    getDcotors(showLocation = 1) {
         let {
             selectedLocation
         } = this.props
@@ -132,7 +133,7 @@ class SearchResultsView extends React.Component {
 
             }
 
-            this.getDoctorList(searchState, filterCriteria, true,showLocation)
+            this.getDoctorList(searchState, filterCriteria, true, showLocation)
         } catch (e) {
             console.error(e)
         }
@@ -219,13 +220,17 @@ class SearchResultsView extends React.Component {
         return url
     }
 
-    getDoctorList(searchState, filterCriteria, mergeState,showLocation=1) {
+    getDoctorList(searchState, filterCriteria, mergeState, showLocation = 1) {
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
             searchUrl = this.props.match.url
         }
 
-        this.props.getDoctors(searchState, filterCriteria, mergeState, 1, null, false, searchUrl,showLocation);
+        this.props.getDoctors(searchState, filterCriteria, mergeState, 1, (loadMore, seoData) => {
+            if (seoData) {
+                this.setState({ seoData: seoData })
+            }
+        }, false, searchUrl, showLocation);
     }
 
     isSelectedLocationNearDelhi() {
@@ -257,13 +262,25 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    getMetaTagsData(seoData) {
+        let title = "Doctor Search"
+        let description = ""
+        if (seoData) {
+            title = seoData.title || ""
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
 
     render() {
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`, title: "Doctor Search"
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.state.seoData).title,
+                    description: this.getMetaTagsData(this.state.seoData).description,
+                    seoFriendly: this.state.seoFriendly
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     {

@@ -12,7 +12,8 @@ class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            seoData: this.props.initialServerData,
+            seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')
         }
     }
 
@@ -33,19 +34,22 @@ class SearchResultsView extends React.Component {
         }
     }
 
-    componentWillReceiveProps(props){
-        let lat = this.props.selectedLocation.geometry.location.lat
-        if (typeof lat === 'function') lat = lat()
-        
-        let nextLat = props.selectedLocation.geometry.location.lat
-        if (typeof nextLat === 'function') nextLat = nextLat()
-        
-        if(lat != nextLat){
-            this.getLabs(0)
+    componentWillReceiveProps(props) {
+
+        if(props.selectedLocation && this.props.selectedLocation){
+
+            let lat = this.props.selectedLocation.geometry.location.lat
+            if (typeof lat === 'function') lat = lat()
+            let nextLat = props.selectedLocation.geometry.location.lat
+            if (typeof nextLat === 'function') nextLat = nextLat()
+
+            if (lat != nextLat) {
+                this.getLabs(0)
+            }
         }
     }
 
-    getLabs(updateLab=1) {
+    getLabs(showLocation = 1) {
         let {
             selectedLocation
         } = this.props
@@ -110,7 +114,7 @@ class SearchResultsView extends React.Component {
 
             }
 
-            this.getLabList(searchState, filterCriteria, true,updateLab)
+            this.getLabList(searchState, filterCriteria, true, showLocation)
         } catch (e) {
             console.error(e)
         }
@@ -123,13 +127,17 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(searchState, filterCriteria, mergeState,updateLab=1) {
+    getLabList(searchState, filterCriteria, mergeState, showLocation = 1) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url
         }
 
-        this.props.getLabs(searchState, filterCriteria, mergeState, 1, null, false, searchUrl,updateLab);
+        this.props.getLabs(searchState, filterCriteria, mergeState, 1, (loadMore, seoData) => {
+            if (seoData) {
+                this.setState({ seoData: seoData })
+            }
+        }, false, searchUrl, showLocation);
     }
 
     applyFilters(filterState) {
@@ -226,13 +234,26 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    getMetaTagsData(seoData) {
+        let title = "Lab Search"
+        let description = ""
+        if (seoData) {
+            title = seoData.title || ""
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
+
     render() {
 
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`, title: "Lab Search"
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.state.seoData).title,
+                    description: this.getMetaTagsData(this.state.seoData).description,
+                    seoFriendly: this.state.seoFriendly
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     {

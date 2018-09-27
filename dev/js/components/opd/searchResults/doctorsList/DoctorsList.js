@@ -63,10 +63,10 @@ class DoctorsList extends React.Component {
             let lat = this.getLocationParam('lat')
             let long = this.getLocationParam('long')
             let place_id = this.getLocationParam('place_id') || ""
-            let min_fees = parseInt(this.getLocationParam('min_fees'))
-            let max_fees = parseInt(this.getLocationParam('max_fees'))
-            let min_distance = parseInt(this.getLocationParam('min_distance'))
-            let max_distance = parseInt(this.getLocationParam('max_distance'))
+            let min_distance = parseInt(this.getLocationParam('min_distance')) || 0
+            let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
+            let min_fees = parseInt(this.getLocationParam('min_fees')) || 0
+            let max_fees = parseInt(this.getLocationParam('max_fees')) || 1500
             let sort_on = this.getLocationParam('sort_on')
             let is_available = this.getLocationParam('is_available') === "true"
             let is_female = this.getLocationParam('is_female') === "true"
