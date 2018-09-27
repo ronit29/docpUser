@@ -316,7 +316,7 @@ class ChatPanel extends React.Component {
                     {/* chat header */}
                     {/* chat Body */}
                     <div className="chat-body">
-                        {
+                        {/* {
                             STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
                         }
                         {
@@ -325,7 +325,7 @@ class ChatPanel extends React.Component {
                                     <div className="dp-loader"></div>
                                 </div>
                                 : ""
-                        }
+                        } */}
                     </div>
                     {/* chat Body */}
                     <div className="chat-footer">
