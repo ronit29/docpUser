@@ -123,13 +123,16 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData
+							payload: locationData,
+							range: 'autoDetect'
 						})
 
 						dispatch({
 							type: SELECT_LOCATION_OPD,
-							payload: locationData
+							payload: locationData,
+							range: 'autoDetect'
 						})
+
 					})
 				} else {
 					_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
@@ -137,13 +140,16 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData
+							payload: locationData,
+							range: 'autoComplete'
 						})
 
 						dispatch({
 							type: SELECT_LOCATION_OPD,
-							payload: locationData
+							payload: locationData,
+							range: 'autoComplete'
 						})
+
 					})
 				}
 			}

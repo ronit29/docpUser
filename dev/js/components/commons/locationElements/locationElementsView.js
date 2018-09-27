@@ -7,7 +7,7 @@ class LocationElementsView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            search: props.locationType != 'geo' ? props.selectedLocation.formatted_address || '' : '',
+            search: '',
             searchResults: [],
             detectLoading: false
         }
@@ -15,23 +15,9 @@ class LocationElementsView extends React.Component {
 
     componentWillReceiveProps(props) {
         if (props.locationType != 'geo') {
-
-            if(props.selectedLocation && this.props.selectedLocation){
-
-                let lat = this.props.selectedLocation.geometry.location.lat
-                if (typeof lat === 'function') lat = lat()
-                let nextLat = props.selectedLocation.geometry.location.lat
-                if (typeof nextLat === 'function') nextLat = nextLat()
-
-                if(this.state.search){
-                    if (lat != nextLat) {
-                        this.setState({ search: props.selectedLocation.formatted_address })
-                    }
-                }else{
-                    this.setState({ search: props.selectedLocation.formatted_address })
-                }
+            if (props.selectedLocation && props.selectedLocation.formatted_address) {
+                this.setState({ search: props.selectedLocation.formatted_address })
             }
-
         }
     }
 
@@ -42,6 +28,7 @@ class LocationElementsView extends React.Component {
     componentWillUnmount() {
         this.props.onRef(undefined)
     }
+    
     getLocation(location) {
         var auto = new google.maps.places.AutocompleteService()
 
@@ -69,8 +56,8 @@ class LocationElementsView extends React.Component {
 
     selectLocation(location, cb) {
         let timeout = setTimeout(() => {
-            if (this.state.detectLoading) 
-{                this.setState({ detectLoading: false })
+            if (this.state.detectLoading) {
+                this.setState({ detectLoading: false })
                 SnackBar.show({ pos: 'bottom-center', text: "Could not select location." });
             }
         }, 5000)
@@ -92,11 +79,6 @@ class LocationElementsView extends React.Component {
                 geometry: place.geometry
             }
 
-            /*            let data = {
-                            'Category': 'ConsumerApp', 'Action': 'UserLocation', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-location', 'location': place.name || '', 'place_id': place.place_id || '', 'formatted_address': place.formatted_address || ''
-                        }
-                        GTM.sendEvent({ data: data })
-            */
             this.props.selectLocation(location_object, 'autoComplete').then(() => {
                 this.setState({ detectLoading: false, searchResults: [], search: place.formatted_address })
                 cb()
@@ -155,15 +137,15 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row" style={{backgroundColor: '#f78316'}}>
-                
+            <div className="row" style={{ backgroundColor: '#f78316' }}>
+
                 <div className="col-12">
-                    <div className={this.props.resultType == 'list'?"doc-caret":"doc-select-none"}></div>
+                    <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
                     {
-                        this.props.resultType == 'list'?''
-                        :<div className="text-center">
-                        <p className="fw-500 text-xs" style={{ color: '#fff' }}>IN</p>
-                    </div>
+                        this.props.resultType == 'list' ? ''
+                            : <div className="text-center">
+                                <p className="fw-500 text-xs" style={{ color: '#fff' }}>IN</p>
+                            </div>
                     }
                 </div>
                 <div className="col-12 mrt-10" style={{ paddingBottom: 10 }}>

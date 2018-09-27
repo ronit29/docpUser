@@ -36,16 +36,22 @@ class SearchResultsView extends React.Component {
 
     componentWillReceiveProps(props) {
 
-        if (props.selectedLocation && this.props.selectedLocation) {
+        let prev_lat = null
+        if (this.props.selectedLocation) {
+            prev_lat = this.props.selectedLocation.geometry.location.lat
+            if (typeof prev_lat === 'function') prev_lat = prev_lat()
+            prev_lat = parseFloat(parseFloat(prev_lat).toFixed(6))
+        }
 
-            let lat = this.props.selectedLocation.geometry.location.lat
-            if (typeof lat === 'function') lat = lat()
-            let nextLat = props.selectedLocation.geometry.location.lat
-            if (typeof nextLat === 'function') nextLat = nextLat()
+        let nex_lat = null
+        if (props.selectedLocation) {
+            nex_lat = props.selectedLocation.geometry.location.lat
+            if (typeof nex_lat === 'function') nex_lat = nex_lat()
+            nex_lat = parseFloat(parseFloat(nex_lat).toFixed(6))
+        }
 
-            if (lat != nextLat) {
-                this.getLabs(props, 0)
-            }
+        if (prev_lat != nex_lat) {
+            this.getLabs(props, 0)
         }
     }
 

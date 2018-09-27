@@ -99,12 +99,14 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData
+							payload: locationData,
+							range: 'autoDetect'
 						})
 
 						dispatch({
 							type: SELECT_LOCATION_OPD,
-							payload: locationData
+							payload: locationData,
+							range: 'autoDetect'
 						})
 
 					})
@@ -115,12 +117,14 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData
+							payload: locationData,
+							range: 'autoComplete'
 						})
 
 						dispatch({
 							type: SELECT_LOCATION_OPD,
-							payload: locationData
+							payload: locationData,
+							range: 'autoComplete'
 						})
 					})
 				}
