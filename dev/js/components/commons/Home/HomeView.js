@@ -247,7 +247,7 @@ class HomeView extends React.Component {
                                                                 return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
                                                                     <div className="grid-img-cnt brdr-btm brdr-btm">
                                                                         <a href="javascript:void(0);">
-                                                                            <img className="img-fluid" src={sp.icon} />
+                                                                            {/* <img className="img-fluid" src={sp.icon} /> */}
                                                                             <span>{sp.name}</span>
                                                                         </a>
                                                                     </div>
@@ -258,7 +258,7 @@ class HomeView extends React.Component {
                                                         <div className="col-4">
                                                             <div className="grid-img-cnt brdr-btm">
                                                                 <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/opd')}>
-                                                                    <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                    {/* <img className="img-fluid" src="/assets/images/vall.png" /> */}
                                                                     <span>Search more specializations</span>
                                                                 </a>
                                                             </div>
@@ -291,7 +291,7 @@ class HomeView extends React.Component {
                                                             return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
                                                                 <div className="grid-img-cnt brdr-btm">
                                                                     <a href="javascript:void(0);">
-                                                                        <img className="img-fluid" src={ct.icon} />
+                                                                        {/* <img className="img-fluid" src={ct.icon} /> */}
                                                                         <span> {ct.name} </span>
                                                                     </a>
                                                                 </div>
@@ -302,7 +302,7 @@ class HomeView extends React.Component {
                                                     <div className="col-4">
                                                         <div className="grid-img-cnt brdr-btm">
                                                             <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
-                                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                {/* <img className="img-fluid" src="/assets/images/vall.png" /> */}
                                                                 <span>Search more tests</span>
                                                             </a>
                                                         </div>
@@ -367,7 +367,7 @@ class HomeView extends React.Component {
                                                                 return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
                                                                     <div className="grid-img-cnt brdr-btm brdr-btm">
                                                                         <a href="javascript:void(0);">
-                                                                            <img className="img-fluid" src={sp.icon} />
+                                                                            {/* <img className="img-fluid" src={sp.icon} /> */}
                                                                             <span>{sp.name}</span>
                                                                         </a>
                                                                     </div>
@@ -378,7 +378,7 @@ class HomeView extends React.Component {
                                                         <div className="col-4">
                                                             <div className="grid-img-cnt brdr-btm">
                                                                 <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/opd')}>
-                                                                    <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                    {/* <img className="img-fluid" src="/assets/images/vall.png" /> */}
                                                                     <span>Search more specializations</span>
                                                                 </a>
                                                             </div>
@@ -407,7 +407,7 @@ class HomeView extends React.Component {
                                                             return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
                                                                 <div className="grid-img-cnt brdr-btm">
                                                                     <a href="javascript:void(0);">
-                                                                        <img className="img-fluid" src={ct.icon} />
+                                                                        {/* <img className="img-fluid" src={ct.icon} /> */}
                                                                         <span> {ct.name} </span>
                                                                     </a>
                                                                 </div>
@@ -418,7 +418,7 @@ class HomeView extends React.Component {
                                                     <div className="col-4">
                                                         <div className="grid-img-cnt brdr-btm">
                                                             <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
-                                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                {/* <img className="img-fluid" src="/assets/images/vall.png" /> */}
                                                                 <span>Search more tests</span>
                                                             </a>
                                                         </div>
