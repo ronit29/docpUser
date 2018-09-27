@@ -9,6 +9,8 @@ const Express = require('express');
 const app = new Express();
 const server = new http.Server(app);
 const axios = require('axios')
+const fs = require('fs');
+const DIST_FOLDER = './dist/';
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -33,6 +35,17 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 
 app.all('*', function (req, res) {
+    /**
+     * Fetch Css files
+     */
+    let files = fs.readdirSync(DIST_FOLDER)
+    let css_file = null
+    for (let file of files) {
+        if (file.includes('.css')) {
+            css_file = fs.readFileSync(`${DIST_FOLDER}${file}`, 'utf-8')
+        }
+    }
+    let bootstrap_file = fs.readFileSync(`./assets/css/bootstrap.min.css`, 'utf-8')
     /** 
      *  Track API calls for funneling 
      */
@@ -94,7 +107,7 @@ app.all('*', function (req, res) {
             // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
             let SSR_TIMER = setTimeout(() => {
                 res.render('index.ejs', {
-                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL
+                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                 })
             }, 5000)
 
@@ -117,7 +130,7 @@ app.all('*', function (req, res) {
             // clear timer to mark success in SSR
             clearTimeout(SSR_TIMER)
             res.render('index.ejs', {
-                html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL
+                html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
             })
 
         }).catch((error) => {
@@ -130,7 +143,7 @@ app.all('*', function (req, res) {
         })
     } else {
         res.render('index.ejs', {
-            html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL
+            html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
         })
     }
 

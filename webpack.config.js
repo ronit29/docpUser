@@ -10,6 +10,7 @@ const nodeExternals = require('webpack-node-externals')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
 const client_dev = {
     mode: 'development',
@@ -35,8 +36,10 @@ const client_dev = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
-            template: '!!raw-loader!./views/index.template.ejs'
-        })
+            template: '!!raw-loader!./views/index.template.ejs',
+            excludeAssets: [/style.*.css/]
+        }),
+        new HtmlWebpackExcludeAssetsPlugin()
     ]
 }
 
@@ -63,8 +66,10 @@ const client_prod = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
-            template: '!!raw-loader!./views/index.template.prod.ejs'
-        })
+            template: '!!raw-loader!./views/index.template.prod.ejs',
+            excludeAssets: [/style.*.css/]
+        }),
+        new HtmlWebpackExcludeAssetsPlugin()
     ]
 }
 
@@ -91,8 +96,10 @@ const client_staging = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
-            template: '!!raw-loader!./views/index.template.ejs'
-        })
+            template: '!!raw-loader!./views/index.template.ejs',
+            excludeAssets: [/style.*.css/]
+        }),
+        new HtmlWebpackExcludeAssetsPlugin()
     ]
 }
 
