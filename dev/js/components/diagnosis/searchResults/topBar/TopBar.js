@@ -16,12 +16,16 @@ class TopBar extends React.Component {
             sort_on: null,
             shortURL: "",
             dropdown_visible: false,
-            searchCities:[]
+            searchCities:[],
+            showLocationPopup:true
         }
     }
 
     componentWillReceiveProps(props) {
         this.setState({ ...props.filterCriteria })
+        if(props.locationType && props.locationType!="geo"){
+            this.setState({showLocationPopup:false})
+        }
     }
 
     componentDidMount() {
@@ -127,7 +131,7 @@ class TopBar extends React.Component {
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
 
         return (
-            <section className="filter-row sticky-header">
+            <section className="filter-row sticky-header mbl-stick">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
@@ -152,6 +156,18 @@ class TopBar extends React.Component {
                                 </div>
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
+                                
+                                    <span onClick={()=>{this.setState({showLocationPopup:!this.state.showLocationPopup})}}>
+
+                                        {
+                                            this.state.showLocationPopup
+                                            ?''
+                                            :(this.props.selectedLocation && this.props.selectedLocation.formatted_address)?<span className="location-edit" style={{color:'#f6843a'}}>{` in ${this.props.selectedLocation.formatted_address}`}</span>:''
+
+                                        }
+                                        <img style={{width:15, height:15, marginLeft:7}} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                    </span>
+
                                 </div>
                             </div>
                             {
@@ -169,7 +185,11 @@ class TopBar extends React.Component {
                             }
                         </div>
                     </div>
-                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} resultType='list'/>
+                    {
+                        this.state.showLocationPopup?
+                        <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} resultType='list'/>
+                        :''
+                    }
 
                 </div>
 
@@ -220,7 +240,7 @@ class TopBar extends React.Component {
 
                 {
                      this.state.searchCities.length>0?
-                        <section style={{ paddingTop: 52 }}>
+                        <section >
                             {
                                 this.state.searchCities.map((result, i) => {
                                     return <div className="widget-panel" key={i}>
@@ -228,7 +248,7 @@ class TopBar extends React.Component {
                                             <ul className="list search-result-list">    
                                             <li key={i} onClick={this.selectLocation.bind(this, result)}>
                                                     <a>{result.description}
-                                                        <span className="city-loc">City</span>
+                                                        
                                                     </a>
                                                 </li>
                                             </ul>

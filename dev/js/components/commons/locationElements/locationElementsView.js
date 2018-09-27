@@ -14,15 +14,43 @@ class LocationElementsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props.locationType != 'geo') {
-            if (props.selectedLocation && props.selectedLocation.formatted_address) {
-                this.setState({ search: props.selectedLocation.formatted_address })
+        this.setLocationState.bind(this)
+        
+    }
+
+    setLocationState(updateVal=1){
+        if(updateVal==1){
+            if(props.selectedLocation && this.props.selectedLocation){
+                let lat = this.props.selectedLocation.geometry.location.lat
+                if (typeof lat === 'function') lat = lat()
+                let nextLat = props.selectedLocation.geometry.location.lat
+                if (typeof nextLat === 'function') nextLat = nextLat()
+
+                if(this.state.search){
+                    if (lat != nextLat) {
+                        this.setState({ search: props.selectedLocation.formatted_address })
+                    }
+                }else if(props.locationType!="geo"){
+                    this.setState({ search: props.selectedLocation.formatted_address })
+                }
             }
+        }else if(this.props.locationType &&this.props.locationType!="geo" && this.props.selectedLocation && this.props.selectedLocation.formatted_address){
+            this.setState({ search: this.props.selectedLocation.formatted_address })
         }
     }
 
     componentDidMount() {
         this.props.onRef(this)
+        this.setLocationState(0)
+        if(document.getElementById('doc-input-field')){
+            document.getElementById('doc-input-field').addEventListener('focusin',()=>{this.setState({search:''})})
+            
+            /*document.getElementById('doc-input-field').addEventListener('focusout',()=>{
+                if(this.props.selectedLocation && this.props.selectedLocation.formatted_address){
+                    this.setState({search:props.selectedLocation.formatted_address||''})
+                }
+            })*/
+        }
     }
 
     componentWillUnmount() {
@@ -58,7 +86,7 @@ class LocationElementsView extends React.Component {
         let timeout = setTimeout(() => {
             if (this.state.detectLoading) {
                 this.setState({ detectLoading: false })
-                SnackBar.show({ pos: 'bottom-center', text: "Could not select location." });
+               // SnackBar.show({ pos: 'bottom-center', text: "Could not select location." });
             }
         }, 5000)
         this.setState({ detectLoading: true })
@@ -133,6 +161,12 @@ class LocationElementsView extends React.Component {
         }
     }
 
+    focusOut(){
+        if(this.props.selectedLocation && this.props.selectedLocation.formatted_address){
+            this.setState({search:props.selectedLocation.formatted_address||''})
+        }
+    }
+
     render() {
 
         return (
@@ -140,6 +174,11 @@ class LocationElementsView extends React.Component {
             <div className="row" style={{ backgroundColor: '#f78316' }}>
 
                 <div className="col-12">
+                    {
+                        this.props.resultType == 'list'?
+                        <p className="location-txt-msg">Tell us your exact location to get more relevant results:</p>
+                        :''
+                    }
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
                     {
                         this.props.resultType == 'list' ? ''
@@ -151,7 +190,7 @@ class LocationElementsView extends React.Component {
                 <div className="col-12 mrt-10" style={{ paddingBottom: 10 }}>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div">
-                            <input id="topLocationElem" type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality" value={this.state.search} onChange={this.inputHandler.bind(this)} />
+                            <input type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality"  value={this.state.search} onChange={this.inputHandler.bind(this)} />
                             <span className="doc-input-loc-icon">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
                             </span>

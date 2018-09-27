@@ -135,7 +135,7 @@ class CriteriaSearchView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column criteria-search-header">
-                            <header className="skin-primary fixed horizontal top search-book-header sticky-header">
+                            <header className="skin-primary fixed horizontal top mbl-stick search-book-header sticky-header">
                                 <div className="container-fluid">
                                     {/* <div className="row">
                                         <div className="col-12">
@@ -191,7 +191,7 @@ class CriteriaSearchView extends React.Component {
                             </header>
                             {
                                 this.state.searchCities.length > 0 ?
-                                    <section style={{ paddingTop: 52 }}>
+                                    <section >
                                         {
                                             this.state.searchCities.map((result, i) => {
                                                 return <div className="widget-panel" key={i}>
@@ -199,7 +199,7 @@ class CriteriaSearchView extends React.Component {
                                                         <ul className="list search-result-list">
                                                             <li key={i} onClick={this.selectLocation.bind(this, result)} style={{ position: 'relative' }}>
                                                                 <a>{result.description}
-                                                                    <span className="doc-city-loc">City</span>
+                                                                    
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -213,7 +213,7 @@ class CriteriaSearchView extends React.Component {
                             {
                                 this.state.searchValue ?
 
-                                    <section style={{ paddingTop: 52 }}>
+                                    <section>
                                         {
                                             this.state.searchResults.map((cat, j) => {
                                                 if (cat.values && cat.values.length) {

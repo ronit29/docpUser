@@ -101,7 +101,8 @@ const mapStateToProps = (state, passedProps) => {
         LOADED_SEARCH_CRITERIA_OPD,
         selectedCriterias,
         selectedLocation,
-        filterCriteria
+        filterCriteria,
+        locationType
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -115,7 +116,8 @@ const mapStateToProps = (state, passedProps) => {
         filterCriteria,
         count,
         SET_FROM_SERVER,
-        initialServerData
+        initialServerData,
+        locationType
     }
 }
 

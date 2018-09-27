@@ -92,7 +92,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedLocation,
         selectedCriterias,
         filterCriteria,
-        LOADED_SEARCH_CRITERIA_LAB
+        LOADED_SEARCH_CRITERIA_LAB,
+        locationType
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LABS
@@ -107,7 +108,8 @@ const mapStateToProps = (state, passedProps) => {
         labList, LOADED_LABS_SEARCH,
         count,
         SET_FROM_SERVER,
-        initialServerData
+        initialServerData,
+        locationType
     }
 
 }

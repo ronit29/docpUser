@@ -17,6 +17,12 @@ class SearchCriteriaView extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props){
+        if(props.locationType && props.locationType!="geo"){
+            this.setState({ focusInput: 0 })
+        }
+    }
+
     searchProceed(doctor_name, hospital_name) {
         if(this.props.locationType =="geo"){
             this.setState({focusInput:1})
@@ -85,7 +91,15 @@ class SearchCriteriaView extends React.Component {
         return (
             <div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)} focusInput={this.state.focusInput}>
-                    <section className="opd-search-section">
+                    <section className="opd-search-section mbl-pdng-zero">
+                        {
+                            this.state.focusInput
+                            ?<div>
+                                <p className="location-error-msg">Please Select Location</p>
+                            </div>
+                            :''
+                        }
+                        
                         {
                             (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
                                 heading={`View Selected (${this.props.selectedCriterias.length})`}
@@ -111,7 +125,7 @@ class SearchCriteriaView extends React.Component {
                             selected={this.props.selectedCriterias.filter(x => x.type == 'condition')}
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
-
+                        
                         <button onClick={this.searchProceed.bind(this, "", "")} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                     </section>

@@ -519,13 +519,20 @@
 
 .doc-caret{
 	position: absolute;
-	top: -15px;
-	right: 120px;
+	top: -14px;
+	left: 38%;
 	width: 0; 
   	height: 0; 
   	border-left: 12px solid transparent;
   	border-right: 12px solid transparent;
-  	border-bottom: 15px solid black;
+  	border-bottom: 15px solid #f6843a;
+}
+
+@media screen and (max-width: 380px) {
+	.doc-caret{
+		left: 64%;
+	}
+	
 }
 
 .doc-select-none{
@@ -538,4 +545,21 @@
     right: 14px;
     font-size: 14px;
     font-weight: normal;
+}
+.location-error-msg{
+	background: #ef4a47;
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.location-txt-msg{
+	color: white;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    padding-top: 3px;
+    font-weight: 500;
 }
