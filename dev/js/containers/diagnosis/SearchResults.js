@@ -101,7 +101,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl)),
+        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests())

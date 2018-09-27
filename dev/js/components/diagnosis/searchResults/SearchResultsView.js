@@ -8,15 +8,6 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 
 
-const debouncer = (fn, delay) => {
-    let timer = null
-    return function () {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-            fn.call(this)
-        }, delay)
-    }
-}
 class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
@@ -50,11 +41,11 @@ class SearchResultsView extends React.Component {
         if (typeof nextLat === 'function') nextLat = nextLat()
         
         if(lat != nextLat){
-            debouncer(this.getLabs(),1500)
+            this.getLabs(0)
         }
     }
 
-    getLabs() {
+    getLabs(updateLab=1) {
         let {
             selectedLocation
         } = this.props
@@ -119,7 +110,7 @@ class SearchResultsView extends React.Component {
 
             }
 
-            this.getLabList(searchState, filterCriteria, true)
+            this.getLabList(searchState, filterCriteria, true,updateLab)
         } catch (e) {
             console.error(e)
         }
@@ -132,13 +123,13 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(searchState, filterCriteria, mergeState) {
+    getLabList(searchState, filterCriteria, mergeState,updateLab=1) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url
         }
 
-        this.props.getLabs(searchState, filterCriteria, mergeState, 1, null, false, searchUrl);
+        this.props.getLabs(searchState, filterCriteria, mergeState, 1, null, false, searchUrl,updateLab);
     }
 
     applyFilters(filterState) {
