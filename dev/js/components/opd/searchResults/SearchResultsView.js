@@ -19,7 +19,7 @@ class SearchResultsView extends React.Component {
 
     componentDidMount() {
         if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
-            this.getDcotors()
+            this.getDcotors(this.props)
         }
 
         // this.getDcotors()
@@ -42,7 +42,7 @@ class SearchResultsView extends React.Component {
         if (typeof nextLat === 'function') nextLat = nextLat()
 
         if (lat != nextLat) {
-            this.getDcotors(0)
+            this.getDcotors(props,0)
         }
     }
 
@@ -53,10 +53,10 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getDcotors(showLocation = 1) {
+    getDcotors(props,showLocation = 1) {
         let {
             selectedLocation
-        } = this.props
+        } = props
 
         try {
             let specializations_ids = this.getLocationParam('specializations') || ""
