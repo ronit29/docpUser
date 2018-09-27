@@ -2,7 +2,7 @@ import { SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, 
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false) => (dispatch) => {
+export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false, updateLocation = true) => (dispatch) => {
 
 	dispatch({
 		type: SET_SERVER_RENDER_LAB,
@@ -91,36 +91,43 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 				}
 			})
 
-			if (place_id) {
-				_getLocationFromPlaceId(place_id, (locationData) => {
-					// searchState.selectedLocation = locationData
+			if (updateLocation) {
 
-					dispatch({
-						type: SELECT_LOCATION_DIAGNOSIS,
-						payload: locationData
+				if (place_id) {
+					_getLocationFromPlaceId(place_id, (locationData) => {
+						// searchState.selectedLocation = locationData
+
+						dispatch({
+							type: SELECT_LOCATION_DIAGNOSIS,
+							payload: locationData,
+							range: 'autoDetect'
+						})
+
+						dispatch({
+							type: SELECT_LOCATION_OPD,
+							payload: locationData,
+							range: 'autoDetect'
+						})
+
 					})
+				} else {
 
-					dispatch({
-						type: SELECT_LOCATION_OPD,
-						payload: locationData
+					_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
+						// searchState.selectedLocation = locationData
+
+						dispatch({
+							type: SELECT_LOCATION_DIAGNOSIS,
+							payload: locationData,
+							range: 'autoComplete'
+						})
+
+						dispatch({
+							type: SELECT_LOCATION_OPD,
+							payload: locationData,
+							range: 'autoComplete'
+						})
 					})
-
-				})
-			} else {
-
-				_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
-					// searchState.selectedLocation = locationData
-
-					dispatch({
-						type: SELECT_LOCATION_DIAGNOSIS,
-						payload: locationData
-					})
-
-					dispatch({
-						type: SELECT_LOCATION_OPD,
-						payload: locationData
-					})
-				})
+				}
 			}
 
 		}

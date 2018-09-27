@@ -464,3 +464,102 @@
 .lab-rslt-card-link:last-child{
 	margin-bottom: 80px;
 }
+
+.doc-select-location-div{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.doc-input-loc-div{
+	flex: 1;
+	position: relative;
+}
+
+.doc-input-loc{
+	box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
+	border: none;
+	padding: 8px 2px 8px 40px;
+	font-size: 14px;
+}
+
+.doc-input-loc-icon{
+	position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+}
+
+.doc-input-loc-icon>img{
+	width: 100%;
+}
+
+.doc-or-text{
+	width: 10px;
+	margin: 0 8px;
+}
+
+.doc-auto-detect-div{
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	justify-content: end;
+	position: relative;
+}
+
+.doc-auto-detect-div>img{
+	width: 16px;
+}
+
+.doc-auto-detect-div>p{
+	margin-left: 4px;
+}
+
+.doc-caret{
+	position: absolute;
+	top: -14px;
+	left: 38%;
+	width: 0; 
+  	height: 0; 
+  	border-left: 12px solid transparent;
+  	border-right: 12px solid transparent;
+  	border-bottom: 15px solid #f6843a;
+}
+
+@media screen and (max-width: 380px) {
+	.doc-caret{
+		left: 64%;
+	}
+	
+}
+
+.doc-select-none{
+	display: none;
+}
+
+.doc-city-loc {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 14px;
+    font-weight: normal;
+}
+.location-error-msg{
+	background: #ef4a47;
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.location-txt-msg{
+	color: white;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    padding-top: 3px;
+    font-weight: 500;
+}

@@ -101,7 +101,8 @@ const mapStateToProps = (state, passedProps) => {
         LOADED_SEARCH_CRITERIA_OPD,
         selectedCriterias,
         selectedLocation,
-        filterCriteria
+        filterCriteria,
+        locationType
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -115,7 +116,8 @@ const mapStateToProps = (state, passedProps) => {
         filterCriteria,
         count,
         SET_FROM_SERVER,
-        initialServerData
+        initialServerData,
+        locationType
     }
 }
 
@@ -124,7 +126,7 @@ const mapDispatchToProps = (dispatch) => {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl))
+        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate))
     }
 }
 

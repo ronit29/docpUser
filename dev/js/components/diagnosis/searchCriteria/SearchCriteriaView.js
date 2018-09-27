@@ -9,7 +9,7 @@ class SearchCriteriaView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            focusInput:0
         }
     }
 
@@ -19,7 +19,24 @@ class SearchCriteriaView extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props){
+        if(props.locationType && props.locationType!="geo"){
+            this.setState({ focusInput: 0 })
+        }
+    }
+
     searchProceed(lab_name = "") {
+
+        if(this.props.locationType =="geo"){
+            this.setState({focusInput:1})
+
+            if (window) {
+            window.scrollTo(0, 0)
+            }
+            
+            return null 
+        }
+
         let selectedCriterias = (lab_name && lab_name.length > 0) ? [] : this.props.selectedCriterias
         selectedCriterias = selectedCriterias.map((x) => {
             delete x.icon
@@ -75,8 +92,16 @@ class SearchCriteriaView extends React.Component {
         return (
             <div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for tests or lab" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)}>
-                    <section className="opd-search-section">
+                    <section className="opd-search-section mbl-pdng-zero">
 
+                        {
+                            this.state.focusInput  
+                            ?<div>
+                                <p className="location-error-msg">Please Select Location</p>
+                            </div>
+                            :''
+                        }
+                        
                         {
                             (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
                                 heading={`View Selected (${this.props.selectedCriterias.length})`}
@@ -108,6 +133,7 @@ class SearchCriteriaView extends React.Component {
                             type="lab"
                             data={this.props.preferred_labs}
                         /> */}
+
 
                         <button onClick={this.searchProceed.bind(this, "")} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
                     </section>

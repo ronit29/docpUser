@@ -7,6 +7,7 @@ import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 
+
 class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
@@ -18,7 +19,7 @@ class SearchResultsView extends React.Component {
 
     componentDidMount() {
         if (NAVIGATE.refreshLabSearchResults(this.props)) {
-            this.getLabs()
+            this.getLabs(this.props)
         }
 
         // this.getLabs()
@@ -33,10 +34,31 @@ class SearchResultsView extends React.Component {
         }
     }
 
-    getLabs() {
+    componentWillReceiveProps(props) {
+
+        let prev_lat = null
+        if (this.props.selectedLocation) {
+            prev_lat = this.props.selectedLocation.geometry.location.lat
+            if (typeof prev_lat === 'function') prev_lat = prev_lat()
+            prev_lat = parseFloat(parseFloat(prev_lat).toFixed(6))
+        }
+
+        let nex_lat = null
+        if (props.selectedLocation) {
+            nex_lat = props.selectedLocation.geometry.location.lat
+            if (typeof nex_lat === 'function') nex_lat = nex_lat()
+            nex_lat = parseFloat(parseFloat(nex_lat).toFixed(6))
+        }
+
+        if (prev_lat != nex_lat) {
+            this.getLabs(props, 0)
+        }
+    }
+
+    getLabs(props, showLocation = 1) {
         let {
             selectedLocation
-        } = this.props
+        } = props
 
         try {
 
@@ -98,7 +120,7 @@ class SearchResultsView extends React.Component {
 
             }
 
-            this.getLabList(searchState, filterCriteria, true)
+            this.getLabList(searchState, filterCriteria, true, showLocation)
         } catch (e) {
             console.error(e)
         }
@@ -111,7 +133,7 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(searchState, filterCriteria, mergeState) {
+    getLabList(searchState, filterCriteria, mergeState, showLocation = 1) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url
@@ -121,7 +143,7 @@ class SearchResultsView extends React.Component {
             if (seoData) {
                 this.setState({ seoData: seoData })
             }
-        }, false, searchUrl);
+        }, false, searchUrl, showLocation);
     }
 
     applyFilters(filterState) {

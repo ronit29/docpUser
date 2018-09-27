@@ -92,7 +92,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedLocation,
         selectedCriterias,
         filterCriteria,
-        LOADED_SEARCH_CRITERIA_LAB
+        LOADED_SEARCH_CRITERIA_LAB,
+        locationType
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LABS
@@ -107,7 +108,8 @@ const mapStateToProps = (state, passedProps) => {
         labList, LOADED_LABS_SEARCH,
         count,
         SET_FROM_SERVER,
-        initialServerData
+        initialServerData,
+        locationType
     }
 
 }
@@ -115,7 +117,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl)),
+        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests())

@@ -11,7 +11,7 @@ const queryString = require('query-string');
 import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 
-
+require('../css/custom-bootstrap.css')
 require('../css/carousel.css')
 require('../css/normalize.css')
 require('../css/layout.css')
@@ -78,7 +78,7 @@ class App extends React.Component {
                 if (latitude && longitude) {
                     _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
                         if (locationData) {
-                            this.props.selectLocation(locationData)
+                            this.props.selectLocation(locationData,'geo')
                         }
                     })
                 }

@@ -282,10 +282,10 @@ class ChatPanel extends React.Component {
 
                         */}
 
-                        <div className="hd-chat" style={{ flex: 1 }}>
-                            <p className="text-left header-text-chat">
+                        <div className="hd-chat" style={{flex: 1}}>
+                            <p className="text-left header-text-chat" style={{color: '#ef5350'}}>
                                 <span className="hed-txt-lt">Get a </span>
-                                Free <h1 style={{ display: 'inline', fontSize: 'inherit', fontWeight: 'inherit' }}>Online Doctor Consultation!</h1>
+                                Free <h1 style={{color: '#ef5350', display: 'inline', fontSize: 'inherit', fontWeight: 'inherit' }}>Online Doctor Consultation!</h1>
                             </p>
                         </div>
 

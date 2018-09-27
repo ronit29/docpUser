@@ -378,6 +378,21 @@ background: black;
 	.cht-stts {
 		font-size: 17px;
 	}
+	.mbl-stick{
+		position:sticky;
+	}
+	.mbl-pdng-zero{
+		padding-top: 0px;
+	}
+	.location-edit{
+		color: rgb(246, 132, 58);
+		display: inline-block;
+		width: 90px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-left: 4px;
+	}
 }
 
 @media screen and (max-width: 370px){

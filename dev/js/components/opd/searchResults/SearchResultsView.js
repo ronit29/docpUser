@@ -7,6 +7,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 
+
 class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
@@ -18,7 +19,7 @@ class SearchResultsView extends React.Component {
 
     componentDidMount() {
         if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
-            this.getDcotors()
+            this.getDcotors(this.props)
         }
 
         // this.getDcotors()
@@ -33,6 +34,26 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props) {
+        let prev_lat = null
+        if (this.props.selectedLocation) {
+            prev_lat = this.props.selectedLocation.geometry.location.lat
+            if (typeof prev_lat === 'function') prev_lat = prev_lat()
+            prev_lat = parseFloat(parseFloat(prev_lat).toFixed(6))
+        }
+
+        let nex_lat = null
+        if (props.selectedLocation) {
+            nex_lat = props.selectedLocation.geometry.location.lat
+            if (typeof nex_lat === 'function') nex_lat = nex_lat()
+            nex_lat = parseFloat(parseFloat(nex_lat).toFixed(6))
+        }
+
+        if (prev_lat != nex_lat) {
+            this.getDcotors(props, 0)
+        }
+    }
+
     getLocationParam(tag) {
         // this API assumes the context of react-router-4
         const paramString = this.props.location.search
@@ -40,10 +61,10 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getDcotors() {
+    getDcotors(props, showLocation = 1) {
         let {
             selectedLocation
-        } = this.props
+        } = props
 
         try {
             let specializations_ids = this.getLocationParam('specializations') || ""
@@ -120,7 +141,7 @@ class SearchResultsView extends React.Component {
 
             }
 
-            this.getDoctorList(searchState, filterCriteria, true)
+            this.getDoctorList(searchState, filterCriteria, true, showLocation)
         } catch (e) {
             console.error(e)
         }
@@ -207,7 +228,7 @@ class SearchResultsView extends React.Component {
         return url
     }
 
-    getDoctorList(searchState, filterCriteria, mergeState) {
+    getDoctorList(searchState, filterCriteria, mergeState, showLocation = 1) {
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
             searchUrl = this.props.match.url
@@ -217,7 +238,7 @@ class SearchResultsView extends React.Component {
             if (seoData) {
                 this.setState({ seoData: seoData })
             }
-        }, false, searchUrl);
+        }, false, searchUrl, showLocation);
     }
 
     isSelectedLocationNearDelhi() {

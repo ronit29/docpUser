@@ -16,7 +16,8 @@ const defaultState = {
     conditions: [],
     selectedCriterias: [],
     selectedLocation: null,
-    filterCriteria: DEFAULT_FILTER_STATE
+    filterCriteria: DEFAULT_FILTER_STATE,
+    locationType: 'geo'
 }
 
 export default function (state = defaultState, action) {
@@ -72,10 +73,24 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
 
             newState.selectedLocation = action.payload
+            if (action.range == 'autoComplete') {
+
+                newState.locationType = 'autoComplete'
+
+            } else if (action.range == 'autoDetect') {
+
+                newState.locationType = 'autoDetect'
+
+            } else {
+
+                newState.locationType = 'geo'
+            }
             return newState
         }
 
         case MERGE_SEARCH_STATE_OPD: {
+            delete action.payload.searchState.selectedLocation
+
             let newState = { ...state, ...action.payload.searchState, filterCriteria: action.payload.filterCriteria }
 
             return newState
