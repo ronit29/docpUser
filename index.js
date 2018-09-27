@@ -33,6 +33,18 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 
 app.all('*', function (req, res) {
+    /** 
+     *  Track API calls for funneling 
+     */
+    axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
+        url: req.url,
+        refferar: req.headers.referer
+    }).then((res) => {
+        console.log(res)
+    }).catch((e) => {
+        console.log(e)
+    })
+
     /**
      * Initialized store with persisted reducer and all middlewares
      * TODO: use persisted data for inital render
@@ -50,19 +62,6 @@ app.all('*', function (req, res) {
         // use `matchPath` here
         const match = matchPath(req.path, route)
         if (match && route.RENDER_ON_SERVER) {
-
-            /** 
-             *  Track API calls for funneling 
-             */
-            axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
-                url: req.url,
-                refferar: req.headers.referer
-            }).then((res) => {
-                console.log(res)
-            }).catch((e) => {
-                console.log(e)
-            })
-
             if (route.component.loadData) {
                 promises.push(route.component.loadData(store, match, req.query))
             } else {
