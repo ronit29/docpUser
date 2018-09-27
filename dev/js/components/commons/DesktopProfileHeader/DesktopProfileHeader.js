@@ -48,8 +48,8 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
-                                <img className="pb-img-sized pb-window" src={ASSETS_BASE_URL + "/img/pb-logo-window.png"} />
-                                <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.png"} />
+                                {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
                     </div>
