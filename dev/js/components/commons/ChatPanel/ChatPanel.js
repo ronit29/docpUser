@@ -5,6 +5,7 @@ import CONFIG from '../../../config'
 import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
+import Loader from '../Loader'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -16,7 +17,9 @@ class ChatPanel extends React.Component {
             roomId: "",
             showCancel: false,
             showChatBlock: false,
-            additionClasses: ' chat-load-mobile'
+            additionClasses: ' chat-load-mobile',
+            hideIframe: true,
+            iframeLoading: true
         }
     }
 
@@ -137,6 +140,14 @@ class ChatPanel extends React.Component {
                 }
             }.bind(this))
         }
+
+
+        this.setState({ hideIframe: false }, () => {
+            let iframe = this.refs.chat_frame
+            iframe.onload = () => {
+                this.setState({ iframeLoading: false })
+            }
+        })
 
     }
 
@@ -275,7 +286,7 @@ class ChatPanel extends React.Component {
                         </div>
 
 
-                        <div className="cht-head-rqst-btn" style={this.props.homePage ? {width: 64} : {width: 98}} >
+                        <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
                             <span className="mr-2" onClick={() => {
                                 let data = {
                                     'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
@@ -302,7 +313,14 @@ class ChatPanel extends React.Component {
                     {/* chat Body */}
                     <div className="chat-body">
                         {
-                            STORAGE.isAgent() ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
+                            STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
+                        }
+                        {
+                            this.state.iframeLoading ?
+                                <div className="loaderCircular chat-loader-center" >
+                                    <div className="dp-loader"></div>
+                                </div>
+                                : ""
                         }
                     </div>
                     {/* chat Body */}

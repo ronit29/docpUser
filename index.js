@@ -36,9 +36,15 @@ app.all('*', function (req, res) {
     /** 
      *  Track API calls for funneling 
      */
+    let ip = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        (req.connection.socket ? req.connection.socket.remoteAddress : null);
+
     axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
         url: req.url,
-        refferar: req.headers.referer
+        refferar: req.headers.referer,
+        ip: ip
     }).then((res) => {
         console.log(res)
     }).catch((e) => {

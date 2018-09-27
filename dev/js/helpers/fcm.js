@@ -11,8 +11,10 @@ const FCM = (() => {
 
         if (window.firebase && messaging == null) {
             firebase.initializeApp(CONFIG.FCM_CONFIG)
-            messaging = firebase.messaging()
-            messaging.usePublicVapidKey(CONFIG.FCM_PUBLIC_VAPID_KEYL);
+            if (firebase && firebase.messaging) {
+                messaging = firebase.messaging()
+                messaging.usePublicVapidKey(CONFIG.FCM_PUBLIC_VAPID_KEYL);
+            }
         }
 
         if (!_initialized && messaging) {
