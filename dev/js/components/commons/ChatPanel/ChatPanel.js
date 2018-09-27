@@ -16,7 +16,8 @@ class ChatPanel extends React.Component {
             roomId: "",
             showCancel: false,
             showChatBlock: false,
-            additionClasses: ' chat-load-mobile'
+            additionClasses: ' chat-load-mobile',
+            hideIframe: true
         }
     }
 
@@ -138,6 +139,7 @@ class ChatPanel extends React.Component {
             }.bind(this))
         }
 
+        this.setState({ hideIframe: false })
     }
 
     dispatchCustomEvent(eventName, data = {}) {
@@ -267,7 +269,7 @@ class ChatPanel extends React.Component {
 
                         */}
 
-                        <div className="hd-chat" style={{flex: 1}}>
+                        <div className="hd-chat" style={{ flex: 1 }}>
                             <p className="text-left header-text-chat">
                                 <span className="hed-txt-lt">Get a </span>
                                 Free <h1 style={{ display: 'inline', fontSize: 'inherit', fontWeight: 'inherit' }}>Online Doctor Consultation!</h1>
@@ -275,7 +277,7 @@ class ChatPanel extends React.Component {
                         </div>
 
 
-                        <div className="cht-head-rqst-btn" style={this.props.homePage ? {width: 64} : {width: 98}} >
+                        <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
                             <span className="mr-2" onClick={() => {
                                 let data = {
                                     'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
@@ -301,9 +303,9 @@ class ChatPanel extends React.Component {
                     {/* chat header */}
                     {/* chat Body */}
                     <div className="chat-body">
-                        {/* {
-                            STORAGE.isAgent() ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
-                        } */}
+                        {
+                            STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
+                        }
                     </div>
                     {/* chat Body */}
                     <div className="chat-footer">
