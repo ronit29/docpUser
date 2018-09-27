@@ -13,7 +13,7 @@ export default ({ toggle, deal_price, mrp, payable_amount }) => {
                 <p className="payment-content fw-500">&#8377;  {mrp}</p>
             </div>
             <div className="payment-content-div">
-                <p className="payment-content">Docprime Discount</p>
+                <p className="payment-content">docprime Discount</p>
                 <p className="payment-content fw-500">&#8377;  {mrp - deal_price}</p>
             </div>
             <div className="payment-content-div">

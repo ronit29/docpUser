@@ -28,6 +28,7 @@ const defaultState = {
     chatRoomIds: {},
     citiesName: [],
     articleList: [],
+    articleListData: [],
     ARTICLE_LOADED: false,
     currentRoomId: null,
     utm_tags: {},
@@ -227,10 +228,11 @@ export default function (state = defaultState, action) {
             }
             newState.ARTICLE_LOADED = true;
             if(action.page == 1){
-                newState.articleList = action.payload
+                newState.articleList = action.payload.result
+                newState.articleListData = action.payload
             }
             else {
-                newState.articleList = newState.articleList.concat(action.payload);
+                newState.articleList = newState.articleList.concat(action.payload.result);
             }
             return newState
         }

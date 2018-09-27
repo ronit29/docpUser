@@ -19,7 +19,7 @@ export default ({ toggle, finalPrice, finalMrp, is_home_collection_enabled, home
                 </div> : ""
             }
             <div className="payment-content-div">
-                <p className="payment-content">Docprime Discount</p>
+                <p className="payment-content">docprime Discount</p>
                 <p className="payment-content fw-500">&#8377; {finalMrp - finalPrice}</p>
             </div>
             {

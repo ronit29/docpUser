@@ -354,7 +354,7 @@ export const getArticleList = (title, page = 1, searchString = '', callback) => 
 			payload: response,
 			page: page
 		})
-		if (callback) callback(response);
+		if (callback) callback(response.result);
 	}).catch(function (error) {
 		if (callback) callback(error, null);
 	})
