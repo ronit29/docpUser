@@ -357,7 +357,9 @@ background: black;
 	margin-top: 21px;
 }
 
-
+.mbl-stick{
+	position:sticky;
+}
 @media screen and (max-width: 380px) {
 	.wrng-mssg span {
 		font-size: 12px;
@@ -378,9 +380,7 @@ background: black;
 	.cht-stts {
 		font-size: 17px;
 	}
-	.mbl-stick{
-		position:sticky;
-	}
+	
 	.mbl-pdng-zero{
 		padding-top: 0px;
 	}
