@@ -57,7 +57,8 @@ app.all('*', function (req, res) {
     axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
         url: req.url,
         refferar: req.headers.referer,
-        ip: ip
+        ip: ip,
+        type: 'server'
     }).then((res) => {
         console.log(res)
     }).catch((e) => {
