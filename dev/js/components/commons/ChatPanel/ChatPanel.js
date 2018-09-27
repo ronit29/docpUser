@@ -144,7 +144,11 @@ class ChatPanel extends React.Component {
 
         this.setState({ hideIframe: false }, () => {
             let iframe = this.refs.chat_frame
-            iframe.onload = () => {
+            if (iframe) {
+                iframe.onload = () => {
+                    this.setState({ iframeLoading: false })
+                }
+            } else {
                 this.setState({ iframeLoading: false })
             }
         })
