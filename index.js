@@ -8,6 +8,7 @@ const http = require('http');
 const Express = require('express');
 const app = new Express();
 const server = new http.Server(app);
+const axios = require('axios')
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -20,6 +21,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
+import CONFIG from './dev/js/config'
 
 app.disable('etag');
 app.set('views', path.join(__dirname, '/dist'));
@@ -31,6 +33,18 @@ app.use('/dist', Express.static(path.join(__dirname, 'dist')));
 
 
 app.all('*', function (req, res) {
+    /** 
+     *  Track API calls for funneling 
+     */
+    axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
+        url: req.url,
+        refferar: req.headers.referer
+    }).then((res) => {
+        console.log(res)
+    }).catch((e) => {
+        console.log(e)
+    })
+
     /**
      * Initialized store with persisted reducer and all middlewares
      * TODO: use persisted data for inital render
@@ -76,7 +90,7 @@ app.all('*', function (req, res) {
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL
                 })
-            }, 2000)
+            }, 5000)
 
             const storeData = JSON.stringify(store.getState())
             const html = ReactDOMServer.renderToString(
