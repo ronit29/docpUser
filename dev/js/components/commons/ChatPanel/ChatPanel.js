@@ -247,7 +247,7 @@ class ChatPanel extends React.Component {
             <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
                 {
                     this.props.homePage ? '' :
-                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src="/assets/img/customer-icons/floatingicon.png" /></div>
+                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL+"/img/customer-icons/floatingicon.png"} /></div>
                 }
 
 
@@ -299,16 +299,16 @@ class ChatPanel extends React.Component {
 
                                 this.dispatchCustomEvent.call(this, 'call')
                             }}>
-                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
+                                <img style={{ width: 26 }} src={ASSETS_BASE_URL+"/img/customer-icons/chat-call.svg"} />
 
                             </span>
                             <span onClick={this.toggleCancel.bind(this)}>
-                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
+                                <img style={{ width: 26 }} src={ASSETS_BASE_URL+"/img/customer-icons/chat-rstrt.svg" }/>
 
                             </span>
                             {
                                 this.state.showChatBlock
-                                    ? <span className="ml-2" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                    ? <span className="ml-2" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL+"/img/customer-icons/cht-cls.svg" }/></span>
                                     : ''
                             }
                         </div>
@@ -341,7 +341,7 @@ class ChatPanel extends React.Component {
                             </button>
                         </div> */}
                         <div className="wrng-mssg">
-                            <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
+                            <img style={{ height: 24, width: 24 }} sth src={ASSETS_BASE_URL+"/images/warning-icon.png"} />
                             <span>
                                 Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
                             </span>
