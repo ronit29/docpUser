@@ -75,6 +75,10 @@
 	position: relative;
 	flex: 1;
 	height:-webkit-fill-available;
+	height:-moz-available;
+	height:fill-available;
+	overflow: hidden;
+
 
 }
 
@@ -358,7 +362,8 @@ background: black;
 }
 
 .mbl-stick{
-	position:sticky;
+	position:sticky !important;
+	position: -webkit-sticky;
 }
 @media screen and (max-width: 380px) {
 	.wrng-mssg span {
@@ -601,7 +606,7 @@ background: black;
 }
 @media(max-width: 412px) {
 	.chatbox-right {
-		height: calc(100vh - 190px);
+		height: calc(100vh - 235px);
 	}
 	.smiley-img-div{
 		display: none;
@@ -632,7 +637,7 @@ background: black;
 }
 @media(max-width: 380px) {
 	.chatbox-right {
-    height: calc(100vh - 198px);
+    height: calc(100vh - 230px);
 	}
 }
 .chat-float-btn{

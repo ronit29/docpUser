@@ -118,13 +118,13 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
 							payload: locationData,
-							range: 'autoComplete'
+							range: 'geo'
 						})
 
 						dispatch({
 							type: SELECT_LOCATION_OPD,
 							payload: locationData,
-							range: 'autoComplete'
+							range: 'geo'
 						})
 					})
 				}
