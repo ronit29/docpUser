@@ -141,13 +141,13 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 						dispatch({
 							type: SELECT_LOCATION_DIAGNOSIS,
 							payload: locationData,
-							range: 'autoComplete'
+							range: 'geo'
 						})
 
 						dispatch({
 							type: SELECT_LOCATION_OPD,
 							payload: locationData,
-							range: 'autoComplete'
+							range: 'geo'
 						})
 
 					})
