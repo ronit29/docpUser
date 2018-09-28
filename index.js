@@ -172,9 +172,9 @@ app.all('*', function (req, res) {
 });
 
 
-app.use(function (req, res) {
-    res.sendFile('index.html', { root: './dist/' })
-})
+// app.use(function (req, res) {
+//     res.sendFile('index.html', { root: './dist/' })
+// })
 
 if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     app.use(Sentry.Handlers.errorHandler())
