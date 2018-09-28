@@ -24,16 +24,7 @@ class SearchCriteriaView extends React.Component {
     }
 
     searchProceed(doctor_name, hospital_name) {
-        if(this.props.locationType =="geo"){
-            this.setState({focusInput:1})
-
-            if (window) {
-            window.scrollTo(0, 0)
-            }
-            
-            return null 
-        }
-
+        
         let selectedCriterias = ((doctor_name && doctor_name.length > 0) || (hospital_name && hospital_name.length > 0)) ? [] : this.props.selectedCriterias
         selectedCriterias = selectedCriterias.map((x) => {
             delete x.icon
@@ -92,6 +83,20 @@ class SearchCriteriaView extends React.Component {
         return url
     }
 
+    showDoctors(){
+
+        if(this.props.locationType =="geo"){
+            this.setState({focusInput:1})
+
+            if (window) {
+            window.scrollTo(0, 0)
+            }
+            
+            return null 
+        }
+        this.searchProceed("", "")
+    }
+
     render() {
         return (
             <div>
@@ -131,7 +136,7 @@ class SearchCriteriaView extends React.Component {
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
                         
-                        <button onClick={this.searchProceed.bind(this, "", "")} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                        <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                     </section>
                 </CriteriaSearch>

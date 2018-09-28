@@ -27,16 +27,6 @@ class SearchCriteriaView extends React.Component {
 
     searchProceed(lab_name = "") {
 
-        if(this.props.locationType =="geo"){
-            this.setState({focusInput:1})
-
-            if (window) {
-            window.scrollTo(0, 0)
-            }
-            
-            return null 
-        }
-
         let selectedCriterias = (lab_name && lab_name.length > 0) ? [] : this.props.selectedCriterias
         selectedCriterias = selectedCriterias.map((x) => {
             delete x.icon
@@ -87,6 +77,21 @@ class SearchCriteriaView extends React.Component {
         return url
     }
 
+    showLabs(){
+
+        if(this.props.locationType =="geo"){
+            this.setState({focusInput:1})
+
+            if (window) {
+            window.scrollTo(0, 0)
+            }
+            
+            return null 
+        }
+        this.searchProceed("")
+
+    }
+
     render() {
 
         return (
@@ -135,7 +140,7 @@ class SearchCriteriaView extends React.Component {
                         /> */}
 
 
-                        <button onClick={this.searchProceed.bind(this, "")} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
+                        <button onClick={this.showLabs.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
                     </section>
                 </CriteriaSearch>
 
