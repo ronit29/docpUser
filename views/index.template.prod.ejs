@@ -51,11 +51,13 @@
 
     <script>
         try{
-            if(FormData && navigator){
+            if(FormData){
                 var data = new FormData();
                 data.append('url', window.location.href);
                 data.append('type', 'client');
-                data.append('data', navigator.connection);
+                if(navigator){
+                    data.append('data', navigator.connection);
+                }
 
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', '/api/v1/tracking/serverhit', true);
