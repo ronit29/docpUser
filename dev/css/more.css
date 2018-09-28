@@ -993,6 +993,7 @@ figure>img{
 
 .form-control:focus{
     box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
+    outline: none;
 }
 
 .sendemailsms{
