@@ -168,8 +168,8 @@
 
 .pb-view{ padding: 4px 0; }
 .pb-list>li{padding: 8px 0; font-size: 14px; font-weight: 500; color: #000}
-.pb-list .test-price{float: right;text-align: right; width: 90px;}
-.test-name-item{display: block; padding-right: 90px;}
+.pb-list .test-price{float: right;text-align: right; width: 105px;}
+.test-name-item{display: block; padding-right: 110px;}
 .test-mrp{margin-right: 12px; color: #757575; text-decoration: line-through}
 .pb-location .address-details .add-map{float: right;width: 50px;cursor: pointer; margin-top: 10px}
 .pb-location .address-details .add-info{padding-right: 92px;}
@@ -199,7 +199,7 @@
 
 .booking-confirm-screen .lab-visit-time{margin-bottom: 40px;}
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
-.booking-confirm-screen .lab-visit-time>p{margin-bottom: 10px; margin-top: 5px; word-wrap: break-word;}
+.booking-confirm-screen .lab-visit-time>p{margin-bottom: 10px; margin-top: 5px; word-wrap: break-word;padding-left: 22px;}
 
 .payment-method>li{padding: 10px; vertical-align: middle;}
 .payment-method>li>label{font-size: 14px; font-weight: bold;}
