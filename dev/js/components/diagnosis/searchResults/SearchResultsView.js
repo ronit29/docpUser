@@ -23,6 +23,9 @@ class SearchResultsView extends React.Component {
         }
 
         // this.getLabs()
+        if (window) {
+            window.scrollTo(0, 0)
+        }
 
         if (this.props.location.state && this.props.location.state.scrollTop) {
             // setTimeout(() => {

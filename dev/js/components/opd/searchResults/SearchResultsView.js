@@ -24,6 +24,10 @@ class SearchResultsView extends React.Component {
 
         // this.getDcotors()
 
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+
         if (this.props.location.state && this.props.location.state.scrollTop) {
             // setTimeout(() => {
             //     if (window) {

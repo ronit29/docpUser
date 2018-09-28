@@ -285,7 +285,7 @@ class ChatPanel extends React.Component {
                         <div className="hd-chat" style={{flex: 1}}>
                             <p className="text-left header-text-chat" style={{color: '#ef5350'}}>
                                 <span className="hed-txt-lt">Get a </span>
-                                Free <h1 style={{color: '#ef5350', display: 'inline', fontSize: 'inherit', fontWeight: 'inherit' }}>Online Doctor Consultation!</h1>
+                                Free Online Doctor Consultation!
                             </p>
                         </div>
 
@@ -316,7 +316,7 @@ class ChatPanel extends React.Component {
                     {/* chat header */}
                     {/* chat Body */}
                     <div className="chat-body">
-                        {/* {
+                        {
                             STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
                         }
                         {
@@ -325,7 +325,7 @@ class ChatPanel extends React.Component {
                                     <div className="dp-loader"></div>
                                 </div>
                                 : ""
-                        } */}
+                        }
                     </div>
                     {/* chat Body */}
                     <div className="chat-footer">
