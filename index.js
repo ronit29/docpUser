@@ -60,7 +60,7 @@ app.all('*', function (req, res) {
         ip: ip,
         type: 'server'
     }).then((res) => {
-        console.log(res)
+        // console.log(res)
     }).catch((e) => {
         console.log(e)
     })
@@ -97,42 +97,52 @@ app.all('*', function (req, res) {
     if (promises && promises.length) {
 
         Promise.all(promises).then(data => {
-            /**
-             * Context for async data loading -> mimic componentDidMount actions.
-             */
-            let context = {}
-            if (data && data[0]) {
-                context.data = data[0]
-            }
+            try {
+                /**
+                 * Context for async data loading -> mimic componentDidMount actions.
+                 */
+                let context = {}
+                if (data && data[0]) {
+                    context.data = data[0]
+                }
 
-            // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
-            let SSR_TIMER = setTimeout(() => {
+                // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
+                let SSR_TIMER = setTimeout(() => {
+                    res.render('index.ejs', {
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                    })
+                }, 5000)
+
+                const storeData = JSON.stringify(store.getState())
+                const html = ReactDOMServer.renderToString(
+                    <Provider store={store}>
+                        <div>
+                            <StaticRouter
+                                location={req.url}
+                                context={context}
+                            >
+                                <div>
+                                    <Routes />
+                                </div>
+                            </StaticRouter>
+                        </div>
+                    </Provider>
+                )
+                const helmet = Helmet.renderStatic()
+
+                // clear timer to mark success in SSR
+                clearTimeout(SSR_TIMER)
+
+                res.render('index.ejs', {
+                    html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                })
+                
+            } catch (e) {
+
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                 })
-            }, 5000)
-
-            const storeData = JSON.stringify(store.getState())
-            const html = ReactDOMServer.renderToString(
-                <Provider store={store}>
-                    <div>
-                        <StaticRouter
-                            location={req.url}
-                            context={context}
-                        >
-                            <div>
-                                <Routes />
-                            </div>
-                        </StaticRouter>
-                    </div>
-                </Provider>
-            )
-            const helmet = Helmet.renderStatic()
-            // clear timer to mark success in SSR
-            clearTimeout(SSR_TIMER)
-            res.render('index.ejs', {
-                html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
-            })
+            }
 
         }).catch((error) => {
             /** 
@@ -140,6 +150,10 @@ app.all('*', function (req, res) {
              */
             if (error && error.url) {
                 res.redirect(`/${error.url}`);
+            } else {
+                res.render('index.ejs', {
+                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                })
             }
         })
     } else {
