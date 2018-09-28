@@ -11,6 +11,7 @@ const server = new http.Server(app);
 const axios = require('axios')
 const fs = require('fs');
 const DIST_FOLDER = './dist/';
+const Sentry = require('@sentry/node');
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -24,6 +25,11 @@ import { createLogger } from 'redux-logger'
 import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 import CONFIG from './dev/js/config'
+
+if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+    Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
+    app.use(Sentry.Handlers.requestHandler())
+}
 
 app.disable('etag');
 app.set('views', path.join(__dirname, '/dist'));
@@ -136,7 +142,7 @@ app.all('*', function (req, res) {
                 res.render('index.ejs', {
                     html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                 })
-                
+
             } catch (e) {
 
                 res.render('index.ejs', {
@@ -169,6 +175,10 @@ app.all('*', function (req, res) {
 app.use(function (req, res) {
     res.sendFile('index.html', { root: './dist/' })
 })
+
+if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+    app.use(Sentry.Handlers.errorHandler())
+}
 
 server.listen(process.env.PORT || 3000, (err) => {
     if (err) {
