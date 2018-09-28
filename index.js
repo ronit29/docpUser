@@ -102,6 +102,13 @@ app.all('*', function (req, res) {
      */
     if (promises && promises.length) {
 
+        // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
+        let SSR_TIMER = setTimeout(() => {
+            res.render('index.ejs', {
+                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+            })
+        }, 5000)
+
         Promise.all(promises).then(data => {
             try {
                 /**
@@ -111,13 +118,6 @@ app.all('*', function (req, res) {
                 if (data && data[0]) {
                     context.data = data[0]
                 }
-
-                // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
-                let SSR_TIMER = setTimeout(() => {
-                    res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
-                    })
-                }, 5000)
 
                 const storeData = JSON.stringify(store.getState())
                 const html = ReactDOMServer.renderToString(
