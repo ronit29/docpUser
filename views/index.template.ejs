@@ -46,7 +46,28 @@
 
     <div id="root"><%-html%></div>
 
+    <script>
+        try{
+            if(FormData){
+                var data = new FormData();
+                data.append('url', window.location.href);
+                data.append('type', 'client');
+                if(navigator){
+                    data.append('data', navigator.connection);
+                }
 
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/api/v1/tracking/serverhit', true);
+                xhr.onload = function () {
+                    // do something to response
+                    console.log(this.responseText);
+                };
+                xhr.send(data);
+            }
+        } catch(e){
+            
+        }
+    </script>
     <script type="text/javascript">window.__INITIAL_STATE__ = <%-storeData%></script>
     <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-pgh4txgxAWWUy0480Ezo-UKiZP-kP4o&libraries=places,geometry"></script>
 

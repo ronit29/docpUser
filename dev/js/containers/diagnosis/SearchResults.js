@@ -57,7 +57,9 @@ class SearchResults extends React.Component {
             return new Promise((resolve, reject) => {
                 store.dispatch(getLabs(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
                     resolve(seoData)
-                }, true, searchUrl))
+                }, true, searchUrl)).catch((e) => {
+                    reject(e)
+                })
             })
 
         } catch (e) {
@@ -117,7 +119,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation)),
+        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, updateLocation) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, updateLocation)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests())

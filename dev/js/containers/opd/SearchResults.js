@@ -66,7 +66,9 @@ class SearchResults extends React.Component {
             return new Promise((resolve, reject) => {
                 store.dispatch(getDoctors(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
                     resolve(seoData)
-                }, true, searchUrl))
+                }, true, searchUrl)).catch((e) => {
+                    reject(e)
+                })
             })
 
         } catch (e) {
@@ -126,7 +128,7 @@ const mapDispatchToProps = (dispatch) => {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate))
+        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, locationUpdate) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, locationUpdate))
     }
 }
 

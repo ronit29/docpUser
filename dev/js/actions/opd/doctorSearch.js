@@ -164,7 +164,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		cb(false, response.seo)
 
 	}).catch(function (error) {
-
+		throw error
 	})
 }
 
