@@ -145,6 +145,10 @@ app.all('*', function (req, res) {
 
             } catch (e) {
 
+                if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+                    Sentry.captureException(e)
+                }
+
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                 })
@@ -157,6 +161,11 @@ app.all('*', function (req, res) {
             if (error && error.url) {
                 res.redirect(`/${error.url}`);
             } else {
+
+                if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+                    Sentry.captureException(error)
+                }
+
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                 })
