@@ -124,6 +124,7 @@ app.all('*', function (req, res) {
                     clearTimeout(SSR_TIMER)
 
                     _serverHit(req, 'server_done')
+                    _serverHit(req, 'server_done_ssr')
                     res.render('index.ejs', {
                         html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                     })
