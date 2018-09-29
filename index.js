@@ -44,38 +44,15 @@ app.all('*', function (req, res) {
     /**
      * Fetch Css files
      */
-    // let files = fs.readdirSync(DIST_FOLDER)
-    // let css_file = null
-    // for (let file of files) {
-    //     if (file.includes('.css')) {
-    //         css_file = fs.readFileSync(`${DIST_FOLDER}${file}`, 'utf-8')
-    //     }
-    // }
-    // let bootstrap_file = fs.readFileSync(`./assets/css/bootstrap-grid.min.css`, 'utf-8')
-
     _readStyles().then((styleFiles) => {
-        
+
         let css_file = styleFiles[0]
         let bootstrap_file = styleFiles[1]
 
         /** 
          *  Track API calls for funneling 
          */
-        let ip = req.headers['x-forwarded-for'] ||
-            req.connection.remoteAddress ||
-            req.socket.remoteAddress ||
-            (req.connection.socket ? req.connection.socket.remoteAddress : null);
-
-        axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
-            url: req.url,
-            refferar: req.headers.referer,
-            ip: ip,
-            type: 'server'
-        }).then((res) => {
-            // console.log(res)
-        }).catch((e) => {
-            // console.log(e)
-        })
+        _serverHit(req, 'server')
 
         /**
          * Initialized store with persisted reducer and all middlewares
@@ -110,6 +87,7 @@ app.all('*', function (req, res) {
 
             // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
             let SSR_TIMER = setTimeout(() => {
+                _serverHit(req, 'server_done')
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                 })
@@ -145,6 +123,7 @@ app.all('*', function (req, res) {
                     // clear timer to mark success in SSR
                     clearTimeout(SSR_TIMER)
 
+                    _serverHit(req, 'server_done')
                     res.render('index.ejs', {
                         html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                     })
@@ -155,6 +134,7 @@ app.all('*', function (req, res) {
                         Sentry.captureException(e)
                     }
 
+                    _serverHit(req, 'server_done')
                     res.render('index.ejs', {
                         html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                     })
@@ -172,12 +152,14 @@ app.all('*', function (req, res) {
                         Sentry.captureException(error)
                     }
 
+                    _serverHit(req, 'server_done')
                     res.render('index.ejs', {
                         html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                     })
                 }
             })
         } else {
+            _serverHit(req, 'server_done')
             res.render('index.ejs', {
                 html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
             })
@@ -187,8 +169,6 @@ app.all('*', function (req, res) {
         if (CONFIG.RAVEN_SERVER_DSN_KEY) {
             Sentry.captureException(error)
         }
-
-
     })
 
 });
@@ -225,7 +205,6 @@ function _readStyles() {
                     Sentry.captureException(error)
                 }
                 reject(e)
-
             })
         })
     })
@@ -240,5 +219,23 @@ function _readFileAsync(filename) {
         } catch (err) {
             reject(err)
         }
-    });
-};
+    })
+}
+
+function _serverHit(req, type = 'server') {
+    let ip = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        (req.connection.socket ? req.connection.socket.remoteAddress : null);
+
+    axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
+        url: req.url,
+        refferar: req.headers.referer,
+        ip: ip,
+        type: type
+    }).then((res) => {
+        // console.log(res)
+    }).catch((e) => {
+        // console.log(e)
+    })
+}
