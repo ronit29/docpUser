@@ -229,11 +229,14 @@ function _serverHit(req, type = 'server') {
         req.socket.remoteAddress ||
         (req.connection.socket ? req.connection.socket.remoteAddress : null);
 
+    let agent = req.headers['user-agent'] || null
+
     axios.post(CONFIG.API_BASE_URL + '/api/v1/tracking/serverhit', {
         url: req.url,
         refferar: req.headers.referer,
         ip: ip,
-        type: type
+        type: type,
+        agent: agent
     }).then((res) => {
         // console.log(res)
     }).catch((e) => {
