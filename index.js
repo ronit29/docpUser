@@ -184,6 +184,10 @@ app.all('*', function (req, res) {
         }
 
     }).catch((e) => {
+        if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+            Sentry.captureException(error)
+        }
+
 
     })
 
@@ -217,7 +221,11 @@ function _readStyles() {
             Promise.all(stylePromises).then((styleFilesData) => {
                 resolve(styleFilesData)
             }).catch((e) => {
+                if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+                    Sentry.captureException(error)
+                }
                 reject(e)
+
             })
         })
     })
