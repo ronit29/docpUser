@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST , SAVE_UTM_TAGS, SAVE_DEVICE_INFO } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST , SAVE_UTM_TAGS, SAVE_DEVICE_INFO ,SAVE_STATIC_CHAT_MSG} from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -32,7 +32,8 @@ const defaultState = {
     ARTICLE_LOADED: false,
     currentRoomId: null,
     utm_tags: {},
-    device_info:'desktop'
+    device_info:'desktop',
+    chat_static_msg : ''
 }
 
 export default function (state = defaultState, action) {
@@ -189,7 +190,7 @@ export default function (state = defaultState, action) {
                 chatDoctors: { ...state.chatDoctors },
                 chatRoomIds: { ...state.chatRoomIds },
             }
-
+            newState.chatRoomIds = {}
             newState.chatDoctors[action.payload.doctorId] = action.payload.data
             newState.chatRoomIds[action.payload.roomId] = action.payload.doctorId
             return newState
@@ -250,6 +251,14 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.device_info = action.payload
+            return newState
+        }
+
+        case SAVE_STATIC_CHAT_MSG: {
+            let newState = {
+                ...state
+            }
+            newState.chat_static_msg = action.payload
             return newState
         }
 

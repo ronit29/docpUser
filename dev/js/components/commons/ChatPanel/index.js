@@ -3,23 +3,33 @@ import { connect } from 'react-redux';
 import { getUserProfile, setChatRoomId } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
-import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat } from '../../../actions/index.js'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, saveChatStaticMsg } from '../../../actions/index.js'
 
 import ChatPanelView from './ChatPanel'
+import ChatStaticView from './ChatStaticView'
 
 class ChatPanel extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state={showStatic:true}
     }
 
-    componentDidMount() {
+    componentWillReceiveProps(props) {
+
+        if(props.USER && (props.USER.chat_static_msg || Object.keys(props.USER.chatRoomIds).length>0) ){
+
+            this.setState({showStatic:false})
+        }
 
     }
 
     render() {
 
         return (
-            <ChatPanelView {...this.props} />
+                this.state.showStatic?
+                <ChatStaticView {...this.props}/>
+                :<ChatPanelView {...this.props} />
         );
     }
 }
@@ -50,7 +60,8 @@ const mapDispatchToProps = (dispatch) => {
         clearExtraTests: () => dispatch(clearExtraTests()),
         selectLocation: (location) => dispatch(selectLocation(location)),
         loginViaChat: (token) => dispatch(loginViaChat(token)),
-        setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId))
+        setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId)),
+        saveChatStaticMsg: (msg) => dispatch(saveChatStaticMsg(msg))
     }
 }
 
