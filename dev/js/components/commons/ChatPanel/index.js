@@ -6,31 +6,17 @@ import { withRouter } from 'react-router'
 import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, saveChatStaticMsg } from '../../../actions/index.js'
 
 import ChatPanelView from './ChatPanel'
-import ChatStaticView from './ChatStaticView'
 
 class ChatPanel extends React.Component {
     constructor(props) {
         super(props)
-
-        this.state={showStatic:true}
-    }
-
-    componentWillReceiveProps(props) {
-
-        if(props.USER && (props.USER.chat_static_msg || Object.keys(props.USER.chatRoomIds).length>0) ){
-
-            this.setState({showStatic:false})
-        }
-
     }
 
     render() {
 
         return (
-                this.state.showStatic?
-                <ChatStaticView {...this.props}/>
-                :<ChatPanelView {...this.props} />
-        );
+            <ChatPanelView {...this.props} />
+            )
     }
 }
 

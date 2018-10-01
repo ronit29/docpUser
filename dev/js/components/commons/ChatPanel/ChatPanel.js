@@ -6,6 +6,7 @@ import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
 import Loader from '../Loader'
+import ChatStaticView from './ChatStaticView'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class ChatPanel extends React.Component {
             showChatBlock: false,
             additionClasses: ' chat-load-mobile',
             hideIframe: true,
-            iframeLoading: true
+            iframeLoading: true,
+            showStaticView:true,
         }
     }
 
@@ -32,6 +34,11 @@ class ChatPanel extends React.Component {
                 this.setState({ token })
             }
         })
+
+        if(this.props.USER && (this.props.USER.chat_static_msg || Object.keys(this.props.USER.chatRoomIds).length>0) ){
+
+            this.setState({showStaticView:false})
+        }
 
         if (window) {
             // handling events sent by iframe
@@ -155,6 +162,14 @@ class ChatPanel extends React.Component {
 
     }
 
+    componentWillReceiveProps(props){
+
+        if(props.USER && (props.USER.chat_static_msg || Object.keys(props.USER.chatRoomIds).length>0) ){
+
+            this.setState({showStaticView:false})
+        }
+    }
+
     dispatchCustomEvent(eventName, data = {}) {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
@@ -241,7 +256,6 @@ class ChatPanel extends React.Component {
 
         let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&msg=${this.props.USER.chat_static_msg||''}`
 
-
         return (
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
@@ -251,107 +265,109 @@ class ChatPanel extends React.Component {
                 }
 
 
-
-                <div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
-
-
-                    {/* chat header */}
-                    <div className="chat-head">
-
-                        { /*<div className="hd-chat" onClick={() => {
-                            if (doctorData) {
-                                this.openDoctorProfile(doctorData.id)
-                            }
-                        }}>
-                            {
-                                doctorData ?
-                                    <InitialsPicture name={doctorData.name} has_image={!!doctorData.thumbnail} className="chat-usr-img initialsPicture-cs">
-                                        <img src={doctorData.thumbnail} className="chat-usr-img" />
-                                    </InitialsPicture> : ""
-                            }
-                            {
-                                doctorData ?
-                                    <p>
-                                        Dr. {doctorData.name}<br />
-                                        <span className="hed-txt-lt">{this.getDoctorSpecialization(doctorData)}</span>
-                                    </p> : ""
-                            }
-                        
-
-                        </div>
-
-                        */}
-
-                        <div className="hd-chat" style={{flex: 1}}>
-                            <p className="text-left header-text-chat" style={{color: '#ef5350'}}>
-                                <span className="hed-txt-lt">Get a </span>
-                                Free Online Doctor Consultation!
-                            </p>
-                        </div>
+                {this.state.showStaticView
+                        ?<ChatStaticView {...this.props} dataClass={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
+                        :<div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
 
-                        <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
-                            <span className="mr-2" onClick={() => {
-                                let data = {
-                                    'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
-                                }
-                                GTM.sendEvent({ data: data })
+                            {/* chat header */}
+                            <div className="chat-head">
 
-                                this.dispatchCustomEvent.call(this, 'call')
-                            }}>
-                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
+                                { /*<div className="hd-chat" onClick={() => {
+                                    if (doctorData) {
+                                        this.openDoctorProfile(doctorData.id)
+                                    }
+                                }}>
+                                    {
+                                        doctorData ?
+                                            <InitialsPicture name={doctorData.name} has_image={!!doctorData.thumbnail} className="chat-usr-img initialsPicture-cs">
+                                                <img src={doctorData.thumbnail} className="chat-usr-img" />
+                                            </InitialsPicture> : ""
+                                    }
+                                    {
+                                        doctorData ?
+                                            <p>
+                                                Dr. {doctorData.name}<br />
+                                                <span className="hed-txt-lt">{this.getDoctorSpecialization(doctorData)}</span>
+                                            </p> : ""
+                                    }
+                                
 
-                            </span>
-                            <span onClick={this.toggleCancel.bind(this)}>
-                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
-
-                            </span>
-                            {
-                                this.state.showChatBlock
-                                    ? <span className="ml-2" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
-                                    : ''
-                            }
-                        </div>
-                    </div>
-                    {/* chat header */}
-                    {/* chat Body */}
-                    <div className="chat-body">
-                        {
-                            STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
-                        }
-                        {
-                            this.state.iframeLoading ?
-                                <div className="loaderCircular chat-loader-center" >
-                                    <div className="dp-loader"></div>
                                 </div>
-                                : ""
-                        }
-                    </div>
-                    {/* chat Body */}
-                    <div className="chat-footer">
-                        {/* <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text chat-attachd-btn">
-                                    <img src="/assets/images/attch.png" />
-                                </span>
-                            </div>
-                            <textarea className="form-control chat-text-area" placeholder="Write your message here" aria-label="With textarea" defaultValue={""} />
-                            <button className="send-msg-btn">
-                                <img src="/assets/images/send-msg-btn.png" />
-                            </button>
-                        </div> */}
-                        <div className="wrng-mssg">
-                            <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
-                            <span>
-                                Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
-                            </span>
-                        </div>
-                    </div>
 
-                    {
-                        this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
-                    }
-                </div>
+                                */}
+
+                                <div className="hd-chat" style={{flex: 1}}>
+                                    <p className="text-left header-text-chat" style={{color: '#ef5350'}}>
+                                        <span className="hed-txt-lt">Get a </span>
+                                        Free Online Doctor Consultation!
+                                    </p>
+                                </div>
+
+
+                                <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
+                                    <span className="mr-2" onClick={() => {
+                                        let data = {
+                                            'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
+                                        }
+                                        GTM.sendEvent({ data: data })
+
+                                        this.dispatchCustomEvent.call(this, 'call')
+                                    }}>
+                                        <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
+
+                                    </span>
+                                    <span onClick={this.toggleCancel.bind(this)}>
+                                        <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
+
+                                    </span>
+                                    {
+                                        this.state.showChatBlock
+                                            ? <span className="ml-2" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                            : ''
+                                    }
+                                </div>
+                            </div>
+                            {/* chat header */}
+                            {/* chat Body */}
+                            <div className="chat-body">
+                                {
+                                    STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
+                                }
+                                {
+                                    this.state.iframeLoading ?
+                                        <div className="loaderCircular chat-loader-center" >
+                                            <div className="dp-loader"></div>
+                                        </div>
+                                        : ""
+                                }
+                            </div>
+                            {/* chat Body */}
+                            <div className="chat-footer">
+                                {/* <div className="input-group">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text chat-attachd-btn">
+                                            <img src="/assets/images/attch.png" />
+                                        </span>
+                                    </div>
+                                    <textarea className="form-control chat-text-area" placeholder="Write your message here" aria-label="With textarea" defaultValue={""} />
+                                    <button className="send-msg-btn">
+                                        <img src="/assets/images/send-msg-btn.png" />
+                                    </button>
+                                </div> */}
+                                <div className="wrng-mssg">
+                                    <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
+                                    <span>
+                                        Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
+                                    </span>
+                                </div>
+                            </div>
+
+                            {
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
+                            }
+                        </div>
+                }
             </div>
         );
     }
