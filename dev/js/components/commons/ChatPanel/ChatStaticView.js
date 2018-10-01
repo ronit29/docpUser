@@ -35,7 +35,15 @@ class ChatStatic extends React.Component{
                    <div className="hd-chat" style={{flex:1}}>
                       <p className="text-left header-text-chat" style={{color:'#ef5350'}}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
                    </div>
-                   <div className="cht-head-rqst-btn" style={{width:64}}><span className="mr-2"><img style={{width:26}} src={ASSETS_BASE_URL + "/img/customer-icons/chat-call.svg"}/></span><span><img style={{width:26}} src={ASSETS_BASE_URL + "/img/customer-icons/chat-rstrt.svg"}/></span></div>
+                   <div className="cht-head-rqst-btn" style={{width:64}}>
+
+                   {/*<span className="mr-2"><img style={{width:26}} src={ASSETS_BASE_URL + "/img/customer-icons/chat-call.svg"}/></span><span><img style={{width:26}} src={ASSETS_BASE_URL + "/img/customer-icons/chat-rstrt.svg"}/></span>
+                   */}{
+                      this.props.showChatBlock
+                          ? <span className="ml-2" onClick={this.props.hideStaticChat.bind(this)}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                          : ''
+                  }
+                  </div>
                 </div>
                 <div className="chat-body">
                    <div className="onload-chat">

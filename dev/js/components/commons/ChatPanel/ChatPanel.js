@@ -238,6 +238,10 @@ class ChatPanel extends React.Component {
 
     }
 
+    hideStaticChat(data){
+        this.setState({showChatBlock:false})
+    }
+
     render() {
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
@@ -261,13 +265,13 @@ class ChatPanel extends React.Component {
             <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
                 {
                     this.props.homePage ? '' :
-                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src="/assets/img/customer-icons/floatingicon.png" /></div>
+                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL+"/img/customer-icons/floatingicon.png"} /></div>
                 }
 
-
+                <div className={this.state.showChatBlock ? "floating-chat " :""}>
                 {this.state.showStaticView
-                        ?<ChatStaticView {...this.props} dataClass={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
-                        :<div className={this.state.showChatBlock ? "chatbox-right floating-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
+                        ?<ChatStaticView {...this.props} hideStaticChat = {this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
+                        :<div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
 
                             {/* chat header */}
@@ -368,6 +372,7 @@ class ChatPanel extends React.Component {
                             }
                         </div>
                 }
+                </div>
             </div>
         );
     }

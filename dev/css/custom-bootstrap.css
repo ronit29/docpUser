@@ -98,6 +98,17 @@
 .p-2 {
     padding: .5rem .5rem!important;
 }
+.p-3 {
+    padding: 1rem!important
+}
+.ml-2{
+    margin-left: .5rem!important
+}
+
+.m-3 {
+    margin: 1rem!important
+}
+
 
 .img-fluid {
     max-width: 100%;
