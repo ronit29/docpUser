@@ -109,7 +109,7 @@ class ChatPanel extends React.Component {
                             if (data.data.rid) {
                                 // save current room
                                 this.props.setChatRoomId(data.data.rid)
-                                this.setState({ selectedRoom: data.data.rid })
+                                this.setState({ selectedRoom: data.data.rid ,iframeLoading:false})
                             }
                             break
                         }
@@ -158,6 +158,7 @@ class ChatPanel extends React.Component {
             } else {
                 this.setState({ iframeLoading: false })
             }
+                
         })
 
     }
@@ -165,10 +166,18 @@ class ChatPanel extends React.Component {
     componentWillReceiveProps(props){
 
         if(props.USER && (props.USER.chat_static_msg!="" || Object.keys(props.USER.chatRoomIds).length>0) ){
+            let iframe = this.refs.chat_frame
+            if(iframe){
+                iframe.onload = () => {
+                   this.setState({ iframeLoading: false,showStaticView:false })
+                }
+            }else{
+                this.setState({showStaticView:false,iframeLoading:true})
+            }
+            
 
-            this.setState({showStaticView:false})
         }else{
-            this.setState({showStaticView:true})
+            this.setState({showStaticView:true,iframeLoading:false})
         }
     }
 
@@ -343,7 +352,7 @@ class ChatPanel extends React.Component {
                             {/* chat Body */}
                             <div className="chat-body">
                                 {
-                                    STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? "chat-iframe" : "chat-iframe-inner float-chat-height"} src={iframe_url} ref="chat_frame"></iframe>
+                                    STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading?'d-none':''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading?'d-none':''}`} src={iframe_url} ref="chat_frame"></iframe>
                                 }
                                 {
                                     this.state.iframeLoading ?

@@ -19,11 +19,8 @@ class ChatStatic extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-        if (document.getElementById('cstbox')) {
-            document.getElementById('cstbox').addEventListener('focusout', () => { this.props.saveChatStaticMsg(this.state.value) })
-        }
+    getIframe(){
+        this.props.saveChatStaticMsg(this.state.value)
     }
 
     render() {
@@ -80,7 +77,7 @@ class ChatStatic extends React.Component {
                                         <textarea id="cstbox" className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
                                     </div>
                                     <div className="send_icon">
-                                        <a href="#" className="send-msg-btn">
+                                        <a href="javascript:;" className="send-msg-btn" onClick ={this.getIframe.bind(this)}>
                                             <img src={ASSETS_BASE_URL + "/img/send.svg"} className="send-md-icon" />
                                         </a>
                                     </div>
