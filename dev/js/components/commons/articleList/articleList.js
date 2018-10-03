@@ -71,6 +71,10 @@ class ArticleList extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	render() {
 		return (
 			<div className="profile-body-wrap">
@@ -90,10 +94,30 @@ class ArticleList extends React.Component {
 							<div className="container-fluid main-container">
 								<div className="row art-search-row">
 									<div className="col-12">
+										<ul itemScope itemType="http://schema.org/BreadcrumbList" className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+											<li itemProp="itemListElement" itemScope
+												itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
+												<a itemProp="item" href="/" onClick={(e) => this.onHomeClick(e, "/")}>
+													<span itemProp="name" className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span>
+												</a>
+												<meta itemProp="position" content="1" />
+											</li>
+											<span className="breadcrumb-arrow">&gt;</span>
+											<li itemProp="itemListElement" itemScope
+												itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
+												<span itemProp="name" className="fw-500 breadcrumb-title">{this.props.articleListData.category}</span>
+												<meta itemProp="position" content="2" />
+											</li>
+										</ul>
+									</div>
+									<div className="col-12">
 										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder="Search any Disease" onChange={(e) => this.changeVal(e)} onKeyUp={(e) => this.handleKeyUp(e)} />
 										<button className="art-search-btn" onClick={() => this.searchArticle()}>
 											<img src={ASSETS_BASE_URL + "/images/search.svg"} />
 										</button>
+									</div>
+									<div className="col-12">
+										<h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >{this.props.articleListData.category}</h1>
 									</div>
 								</div>
 								<div className="row mrt-20">
