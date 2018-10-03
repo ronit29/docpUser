@@ -110,6 +110,19 @@ class Article extends React.Component {
                                     <div><img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} /></div>
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
+                                    {
+                                        this.state.articleData.linked_articles.length ?
+                                            <div className="related-articles-div">
+                                                <p className="related-articles-text fw-700 mrb-20">Related Articles :</p>
+                                                <ul className="related-articles-list">
+                                                    {
+                                                        this.state.articleData.linked_articles.map((linkedArticle, index) => {
+                                                            return <li className="mrb-10" key={index} onClick={() => this.props.history.push(`/${linkedArticle.url}`)}>{linkedArticle.title}</li>
+                                                        })
+                                                    }
+                                                </ul>
+                                            </div> : ""
+                                    }
                                 </div> : ""
                             }
                         </div>

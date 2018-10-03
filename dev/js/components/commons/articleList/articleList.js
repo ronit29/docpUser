@@ -113,7 +113,7 @@ class ArticleList extends React.Component {
 																			property.header_image ?
 																				<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} /> : ''
 																		}
-																		<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><p className="disease-list-name fw-500">{property.title}</p></a>
+																		<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><h2 className="disease-list-name fw-500">{property.title}</h2></a>
 																		<p className="disease-list-content fw-500" dangerouslySetInnerHTML={{ __html: property.articleTeaser }}></p>
 																	</div>
 																</div>
