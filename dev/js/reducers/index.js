@@ -32,7 +32,7 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['chatDoctors', 'chatRoomIds']
+    whitelist: ['chatDoctors', 'chatRoomIds','currentRoomId']
 }
 
 const allReducers = combineReducers({

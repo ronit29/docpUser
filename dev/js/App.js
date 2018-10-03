@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo } from './actions/index.js'
+import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, loc_physical_ms } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 
 require('../css/custom-bootstrap.css')
@@ -54,7 +54,6 @@ class App extends React.Component {
 
     componentDidMount() {
 
-
         if (STORAGE.checkAuth()) {
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
@@ -72,13 +71,25 @@ class App extends React.Component {
         /** 
          * Select a default location, if no location is selected and lat,long are not provided in url
          */
-        if (!this.props.selectedLocation && parsed && !parsed.lat) {
+        if (!this.props.selectedLocation && parsed && !parsed.lat && !parsed.location) {
             this.props.getGeoIpLocation().then((data) => {
                 let { latitude, longitude } = data
                 if (latitude && longitude) {
                     _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
                         if (locationData) {
-                            this.props.selectLocation(locationData,'geo')
+                            this.props.selectLocation(locationData, 'geo')
+                        }
+                    })
+                }
+            })
+        }
+
+        if (parsed.location) {
+            this.props.loc_physical_ms(parsed.location).then((loc) => {
+                if (loc && loc.longitude && loc.latitude) {
+                    _getlocationFromLatLong(loc.latitude, loc.longitude, 'locality', (locationData) => {
+                        if (locationData) {
+                            this.props.selectLocation(locationData, 'adwords')
                         }
                     })
                 }
@@ -189,9 +200,10 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         setUTMTags: (utmTags) => dispatch(setUTMTags(utmTags)),
-        selectLocation: (location) => dispatch(selectLocation(location)),
+        selectLocation: (location, type) => dispatch(selectLocation(location, type)),
         getGeoIpLocation: () => dispatch(getGeoIpLocation()),
-        saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device))
+        saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device)),
+        loc_physical_ms: (loc) => dispatch(loc_physical_ms(loc))
     }
 
 }

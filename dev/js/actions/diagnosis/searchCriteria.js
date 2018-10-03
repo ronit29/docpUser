@@ -13,6 +13,7 @@ export const loadLabCommonCriterias = () => (dispatch) => {
             type: LOAD_SEARCH_CRITERIA_LAB,
             payload: null
         })
+        throw error
     })
 
 }

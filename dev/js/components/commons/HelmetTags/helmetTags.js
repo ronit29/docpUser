@@ -42,7 +42,7 @@ class HelmetTags extends React.Component {
                         : ''
                 }
                 {
-                    !seoFriendly ? <meta name="robots" content="noindex, notfollow" /> : ""
+                    seoFriendly === false ? <meta name="robots" content="noindex, notfollow" /> : ""
                 }
             </Helmet>
         )

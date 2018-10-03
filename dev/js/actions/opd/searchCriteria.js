@@ -14,6 +14,7 @@ export const loadOPDCommonCriteria = () => (dispatch) => {
             type: LOAD_SEARCH_CRITERIA_OPD,
             payload: null
         })
+        throw error
     })
 
 }
@@ -28,18 +29,18 @@ export const toggleOPDCriteria = (type, criteria) => (dispatch) => {
 
 }
 
-export const selectLocation = (location,type='geo') => (dispatch) => {
+export const selectLocation = (location, type = 'geo') => (dispatch) => {
     return Promise.all([
-    dispatch({
-        type: SELECT_LOCATION_OPD,
-        payload: location,
-        range:type
+        dispatch({
+            type: SELECT_LOCATION_OPD,
+            payload: location,
+            range: type
         }),
-    dispatch({
-        type: SELECT_LOCATION_DIAGNOSIS,
-        payload: location,
-        range:type
-    })
+        dispatch({
+            type: SELECT_LOCATION_DIAGNOSIS,
+            payload: location,
+            range: type
+        })
 
     ])
 }

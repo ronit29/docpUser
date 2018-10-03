@@ -27,6 +27,7 @@ class SearchResults extends React.Component {
             let lab_name = queryParams['lab_name'] || ""
             lab_name = lab_name || ""
             let force_location_fromUrl = !!queryParams['force_location']
+            let location = queryParams['location'] || null
 
             let searchState = {
                 selectedCriterias: test_ids
@@ -55,9 +56,15 @@ class SearchResults extends React.Component {
             }
 
             return new Promise((resolve, reject) => {
-                store.dispatch(getLabs(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
-                    resolve(seoData)
-                }, true, searchUrl))
+                if (!location) {
+                    store.dispatch(getLabs(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
+                        resolve(seoData)
+                    }, true, searchUrl)).catch((e) => {
+                        reject(e)
+                    })
+                } else {
+                    resolve(null)
+                }
             })
 
         } catch (e) {
@@ -117,7 +124,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,updateLocation)),
+        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, updateLocation) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, updateLocation)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests())

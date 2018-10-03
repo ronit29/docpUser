@@ -37,7 +37,7 @@ class ChatPanel extends React.Component {
 
         if(this.props.USER && (this.props.USER.chat_static_msg || Object.keys(this.props.USER.chatRoomIds).length>0) ){
 
-            this.setState({showStaticView:false})
+            this.setState({showStaticView : false})
         }
 
         if (window) {
@@ -164,9 +164,11 @@ class ChatPanel extends React.Component {
 
     componentWillReceiveProps(props){
 
-        if(props.USER && (props.USER.chat_static_msg || Object.keys(props.USER.chatRoomIds).length>0) ){
+        if(props.USER && (props.USER.chat_static_msg!="" || Object.keys(props.USER.chatRoomIds).length>0) ){
 
             this.setState({showStaticView:false})
+        }else{
+            this.setState({showStaticView:true})
         }
     }
 
@@ -194,7 +196,11 @@ class ChatPanel extends React.Component {
     }
 
     closeChat() {
+        
         this.dispatchCustomEvent.call(this, 'close_frame')
+        setTimeout(() => {
+            this.props.saveChatStaticMsg('', true)
+        }, 2000)
         this.setState({ showCancel: !this.state.showCancel })
         // this.props.history.go(-1)
     }
@@ -258,7 +264,8 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&msg=${this.props.USER.chat_static_msg||''}`
+        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&msg=${this.props.USER.chat_static_msg||''}&room=${this.state.roomId}`
+
 
         return (
 

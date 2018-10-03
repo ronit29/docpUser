@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO ,SAVE_STATIC_CHAT_MSG} from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -373,15 +373,20 @@ export const getGeoIpLocation = () => (dispatch) => {
 
 export const saveDeviceInfo = (device) => (dispatch) => {
 	dispatch({
-		type:SAVE_DEVICE_INFO,
-		payload:device
+		type: SAVE_DEVICE_INFO,
+		payload: device
 	})
 }
 
-export const saveChatStaticMsg = (msg) => (dispatch) => {
+export const loc_physical_ms = (loc) => (dispatch) => {
+	return API_GET(`/api/v1/geoip/adword/${loc}`)
+}
+
+export const saveChatStaticMsg = (msg, deleteRoomId = false) => (dispatch) => {
 	dispatch({
-		type:SAVE_STATIC_CHAT_MSG,
-		payload:msg
+		type: SAVE_STATIC_CHAT_MSG,
+		payload: msg,
+		deleteRoomId: deleteRoomId
 	})
 
 }

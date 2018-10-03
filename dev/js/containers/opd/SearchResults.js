@@ -33,6 +33,7 @@ class SearchResults extends React.Component {
             let hospital_name = queryParams['hospital_name']
             hospital_name = hospital_name || ""
             let force_location_fromUrl = !!queryParams['force_location']
+            let location = queryParams['location'] || null
 
             let searchState = {
                 specializations_ids, condition_ids
@@ -64,9 +65,15 @@ class SearchResults extends React.Component {
             }
 
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctors(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
-                    resolve(seoData)
-                }, true, searchUrl))
+                if (!location) {
+                    store.dispatch(getDoctors(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
+                        resolve(seoData)
+                    }, true, searchUrl)).catch((e) => {
+                        reject(e)
+                    })
+                } else {
+                    resolve(null)
+                }
             })
 
         } catch (e) {
@@ -126,7 +133,7 @@ const mapDispatchToProps = (dispatch) => {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl,locationUpdate))
+        getDoctors: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, locationUpdate) => dispatch(getDoctors(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, locationUpdate))
     }
 }
 

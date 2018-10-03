@@ -81,6 +81,10 @@ export default function (state = defaultState, action) {
 
                 newState.locationType = 'autoDetect'
 
+            } else if (action.range == 'adwords') {
+
+                newState.locationType = 'adwords'
+
             } else {
 
                 newState.locationType = 'geo'

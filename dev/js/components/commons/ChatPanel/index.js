@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => {
         selectLocation: (location) => dispatch(selectLocation(location)),
         loginViaChat: (token) => dispatch(loginViaChat(token)),
         setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId)),
-        saveChatStaticMsg: (msg) => dispatch(saveChatStaticMsg(msg))
+        saveChatStaticMsg: (msg,deleteRoomId) => dispatch(saveChatStaticMsg(msg,deleteRoomId))
     }
 }
 

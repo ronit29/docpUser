@@ -18,7 +18,9 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        if (NAVIGATE.refreshDoctorSearchResults(this.props)) {
+        let location = this.getLocationParam('location') || null
+
+        if ((NAVIGATE.refreshDoctorSearchResults(this.props) && !location) || this.props.locationType == 'adwords') {
             this.getDcotors(this.props)
         }
 

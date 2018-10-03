@@ -141,7 +141,7 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 		cb(false, response.seo)
 
 	}).catch(function (error) {
-
+		throw error
 	})
 }
 
