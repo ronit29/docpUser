@@ -79,7 +79,7 @@ class PaymentView extends React.Component {
                                                 <div className="widget-content">
                                                     <ul className="list payment-method">
                                                         <li>
-                                                            <label htmlFor="pay"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm</label>
+                                                            <label htmlFor="pay" className="paytm-label"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'PPI'} value="PPI" className="radio-inline" name="gender" id="pay" /></span>
                                                         </li>
                                                         {/* <li id="oneclick-label">

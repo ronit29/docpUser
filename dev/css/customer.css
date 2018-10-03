@@ -205,6 +205,10 @@
 .payment-method>li>label{font-size: 14px; font-weight: bold; vertical-align: middle}
 .payment-method>li>label img{width: 40px; margin-right: 20px; vertical-align: middle;}
 .payment-method .radio-inline{width: 20px; height: 20px; margin-top: 6px;}
+.paytm-label{
+	vertical-align: -webkit-baseline-middle !important;
+	vertical-align: -moz-middle-with-baseline !important;
+}
 
 .quick-payment>li img{width: 20px!important;}
 
