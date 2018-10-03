@@ -24,6 +24,7 @@ class ChatStatic extends React.Component {
     }
 
     render() {
+        var time = new Date()
 
         return (
 
@@ -53,7 +54,8 @@ class ChatStatic extends React.Component {
                                                 <div className="received-msg HS_font">
                                                     <p className="chat-text">
                                                         Hi, Welcome to docprime!
-                                              <span className="send-chat-time">2:11 PM</span>
+                                              <span className="send-chat-time">{  time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -63,7 +65,8 @@ class ChatStatic extends React.Component {
                                                 <div className="received-msg HS_font">
                                                     <p className="chat-text">
                                                         Please let me know how can I help you today, I will connect you to the right doctor for a free online consultation.
-                                              <span className="send-chat-time">2:11 PM</span>
+                                              <span className="send-chat-time">{  time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+}</span>
                                                     </p>
                                                 </div>
                                             </div>
