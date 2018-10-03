@@ -259,6 +259,10 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.chat_static_msg = action.payload
+
+            if(action.deleteRoomId){
+                newState.chatRoomIds = {} 
+            }
             return newState
         }
 

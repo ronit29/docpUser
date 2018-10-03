@@ -378,10 +378,11 @@ export const saveDeviceInfo = (device) => (dispatch) => {
 	})
 }
 
-export const saveChatStaticMsg = (msg) => (dispatch) => {
+export const saveChatStaticMsg = (msg,deleteRoomId=false) => (dispatch) => {
 	dispatch({
 		type:SAVE_STATIC_CHAT_MSG,
-		payload:msg
+		payload:msg,
+		deleteRoomId:deleteRoomId
 	})
 
 }
