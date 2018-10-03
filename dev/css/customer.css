@@ -201,8 +201,8 @@
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
 .booking-confirm-screen .lab-visit-time>p{margin-bottom: 10px; margin-top: 5px; word-wrap: break-word;padding-left: 22px;}
 
-.payment-method>li{padding: 10px; vertical-align: middle;}
-.payment-method>li>label{font-size: 14px; font-weight: bold;}
+.payment-method>li{padding: 10px; vertical-align: middle; height: 60px;}
+.payment-method>li>label{font-size: 14px; font-weight: bold; vertical-align: middle}
 .payment-method>li>label img{width: 40px; margin-right: 20px; vertical-align: middle;}
 .payment-method .radio-inline{width: 20px; height: 20px; margin-top: 6px;}
 
