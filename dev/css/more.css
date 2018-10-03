@@ -1322,8 +1322,16 @@ span.ofr-ribbon:after {
     position: relative;
 }
 
-.acdn-title>p{
-    font-size: 19px;
+.acdn-title>h2{
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.acdn-hr{
+    margin: 10px -15px;
+    height: 1px;
+    border: none;
+    background-color: #d3d3d3;
 }
 
 .acdn-arrow{
@@ -1348,5 +1356,16 @@ span.ofr-ribbon:after {
 }
 
 .acdn-heading{
-    font-size: 17px;
+    font-size: 18px;
+    margin-top: 25px;
+}
+
+.acdn-subheading{
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.acdn-ques{
+    font-size: 14px;
+    margin: 0;
 }
