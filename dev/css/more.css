@@ -914,6 +914,26 @@ figure>img{
     padding-left: 16px;
 }
 
+.related-articles-div{
+    margin-top: 30px;
+}
+
+.related-articles-text{
+    font-size: 20px;
+    color: #f78631;
+}
+
+.related-articles-list{
+    list-style-type: disc;
+    padding-left: 16px;
+}
+
+.related-articles-list>li{
+    color: #f78631;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .chat-history-list>li{
     padding: 16px 10px;
     cursor: pointer;
