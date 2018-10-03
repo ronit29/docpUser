@@ -14,6 +14,11 @@ class ArticleList extends React.Component {
     static loadData(store, match,query) {
         let title = match.url
         title = title.substring(1, title.length)
+        if(query.page){
+            query = query.page
+        }else{
+            query = 1
+        }
         return store.dispatch(getArticleList(title,query))
     }
 
