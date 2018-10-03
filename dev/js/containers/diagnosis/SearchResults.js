@@ -27,6 +27,7 @@ class SearchResults extends React.Component {
             let lab_name = queryParams['lab_name'] || ""
             lab_name = lab_name || ""
             let force_location_fromUrl = !!queryParams['force_location']
+            let location = queryParams['location'] || null
 
             let searchState = {
                 selectedCriterias: test_ids
@@ -55,11 +56,15 @@ class SearchResults extends React.Component {
             }
 
             return new Promise((resolve, reject) => {
-                store.dispatch(getLabs(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
-                    resolve(seoData)
-                }, true, searchUrl)).catch((e) => {
-                    reject(e)
-                })
+                if (!location) {
+                    store.dispatch(getLabs(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
+                        resolve(seoData)
+                    }, true, searchUrl)).catch((e) => {
+                        reject(e)
+                    })
+                } else {
+                    resolve(null)
+                }
             })
 
         } catch (e) {

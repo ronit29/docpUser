@@ -373,7 +373,11 @@ export const getGeoIpLocation = () => (dispatch) => {
 
 export const saveDeviceInfo = (device) => (dispatch) => {
 	dispatch({
-		type:SAVE_DEVICE_INFO,
-		payload:device
+		type: SAVE_DEVICE_INFO,
+		payload: device
 	})
+}
+
+export const loc_physical_ms = (loc) => (dispatch) => {
+	return API_GET(`/api/v1/geoip/adword/${loc}`)
 }
