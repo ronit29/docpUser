@@ -1,4 +1,4 @@
-import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
@@ -36,11 +36,18 @@ export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch
     })
 }
 
-export const getLabTests = (lab_id, searchString, callback) => (dispatch) => {
+export const getLabTests = (lab_id, searchString,defaultTest=false, callback) => (dispatch) => {
     API_GET(`/api/v1/diagnostic/labtest/${lab_id}?test_name=${searchString}`).then(function (response) {
-        callback(response)
+        if(callback) callback(response)
+        if(defaultTest){
+            dispatch({
+                type: ADD_DEFAULT_LAB_TESTS,
+                payload: response,
+                labId: lab_id
+            })
+        }
     }).catch(function (error) {
-        callback(null)
+        if(callback) callback(null)
     })
 }
 

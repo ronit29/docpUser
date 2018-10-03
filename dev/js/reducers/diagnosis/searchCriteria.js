@@ -1,4 +1,4 @@
-import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -140,6 +140,35 @@ export default function (state = defaultState, action) {
                 selectedCriterias: [],
                 lab_test_data: {}
             }
+
+            return newState
+        }
+
+        case ADD_DEFAULT_LAB_TESTS: {
+            let newState = {
+                ...state
+            }
+            let testDefault
+            
+            newState.lab_test_data[action.payload.labId]=[]
+            console.log(action.payload.labId)
+            
+            action.payload.map((test,index)=>{
+                
+                if(index>3){
+                    return 
+                }
+                
+
+                testDefault = {}
+                testDefault.test = test.test
+                testDefault.mrp = test.mrp
+                testDefault.deal_price = test.deal_price
+                testDefault.extra_test = true
+                testDefault.lab_id = action.payload.labId
+
+                newState.lab_test_data[action.payload.labId].push(testDefault)    
+            })
 
             return newState
         }
