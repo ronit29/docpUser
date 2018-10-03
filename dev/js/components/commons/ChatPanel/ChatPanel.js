@@ -37,7 +37,7 @@ class ChatPanel extends React.Component {
 
         if(this.props.USER && (this.props.USER.chat_static_msg || Object.keys(this.props.USER.chatRoomIds).length>0) ){
 
-            this.setState({showStaticView:false})
+            this.setState({showStaticView : false})
         }
 
         if (window) {
