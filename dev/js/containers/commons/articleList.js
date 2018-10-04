@@ -9,6 +9,9 @@ const queryString = require('query-string');
 class ArticleList extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            pageNo: 1
+        }
     }
 
     static loadData(store, match,query) {
@@ -31,17 +34,17 @@ class ArticleList extends React.Component {
         title = title.substring(1, title.length)
         const parsed = queryString.parse(this.props.location.search)
         if (parsed) {
+            this.setState({pageNo:parsed.page})
             this.props.getArticleList(title, parsed.page)
         } else {
             this.props.getArticleList(title)
         }
-
     }
 
     render() {
 
         return (
-            <ArticleListView {...this.props} />
+            <ArticleListView {...this.props} pageNo = {this.state.pageNo}/>
         );
     }
 }
@@ -65,7 +68,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, searchString, callback) => dispatch(getArticleList(title, page, searchString, callback))
+        getArticleList: (title, page, searchString, staticPage, callback) => dispatch(getArticleList(title, page, searchString, staticPage, callback))
     }
 }
 
