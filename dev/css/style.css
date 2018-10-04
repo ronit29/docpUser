@@ -973,3 +973,6 @@ img.img-arwp {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
+.lb-tst-cstm-pdng{
+	padding-left: 25px;
+}
