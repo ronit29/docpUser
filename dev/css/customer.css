@@ -353,7 +353,7 @@
     border-radius: 10px;
 	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
 	position: relative;
-	padding: 40px 0 0;
+	padding: 20px 0 0;
 }
 
 .dp-dr-search-card-div{
@@ -367,12 +367,30 @@
     max-width: 50%;
 }
 
+.fltr-lctn-dtls{
+    text-align: right;
+margin-bottom: 10px;
+}
+.fltr-lctn-dtls p{
+    color: #757575;
+font-weight: 500;
+}
+.fltr-loc-ico{
+    margin-right: 5px;
+}
+.fltr-loc-txt{
+    max-width: 185px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+display: inline-block;
+}
+
 .dp-dr-search-loc-icon{
 	width: 18px;
 	height: 18px;
 	float: left;
 }
-
 .dp-dr-search-card-address>p{
 	margin-left: 20px;
 	width: auto;
@@ -483,7 +501,7 @@
 .doc-input-loc{
 	box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
 	border: none;
-	padding: 8px 2px 8px 40px;
+	padding: 8px 134px 8px 40px;
 	font-size: 14px;
 }
 
@@ -496,6 +514,7 @@
     height: 18px;
 }
 
+
 .doc-input-loc-icon>img{
 	width: 100%;
 }
@@ -503,14 +522,25 @@
 .doc-or-text{
 	width: 10px;
 	margin: 0 8px;
+	position: absolute;
+	top: 41%;
+    right: 107px;
+    transform: translateY(-50%);
 }
+.doc-or-text>p{
+	color:#464a4c!important;
 
+}
 .doc-auto-detect-div{
 	display: flex;
 	align-items: center;
 	cursor: pointer;
 	justify-content: end;
-	position: relative;
+	position: absolute;
+	top: 50%;
+	right:12px;
+    transform: translateY(-50%);
+    
 }
 .no-rsk{
     display: flex;
@@ -602,6 +632,7 @@ li.lst-bfr:before{
 
 .doc-auto-detect-div>p{
 	margin-left: 4px;
+	color:#464a4c!important;
 }
 
 .doc-caret{
