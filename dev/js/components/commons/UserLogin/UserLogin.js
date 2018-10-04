@@ -6,6 +6,8 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 
+
+
 class UserLoginView extends React.Component {
     constructor(props) {
         super(props)
@@ -50,14 +52,19 @@ class UserLoginView extends React.Component {
             this.setState({ validationError: "Please enter OTP" })
             return
         }
+        const parsed = queryString.parse(window.location.search)
+        
+        
         if (this.state.phoneNumber.match(/^[789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 const parsed = queryString.parse(this.props.location.search)
                 if (exists) {
-                    let data = {
-                    'Category':'ConsumerApp','Action':'LoginSuccess','CustomerID':GTM.getUserId(),'leadid':0,'event':'login-success'}
-                    GTM.sendEvent({ data: data })
+                    if(parsed.login){
+                        let data = {
+                            'Category':'ConsumerApp','Action':'LoginSuccess','page':parsed.login,'CustomerID':GTM.getUserId(),'leadid':0,'event':'login-success'}
+                            GTM.sendEvent({ data: data })
+                    }  
                     if (parsed.callback) {
                         this.props.history.replace(parsed.callback)
                     } else {
@@ -66,11 +73,11 @@ class UserLoginView extends React.Component {
                 } else {
                     // gtm event
 
-
-                    let data = {
-                    'Category':'ConsumerApp','Action':'UserRegistered','CustomerID':GTM.getUserId(),'leadid':0,'event':'user-registered'}
-                    GTM.sendEvent({ data: data })
-                    
+                    if(parsed.login){
+                        let data = {
+                            'Category':'ConsumerApp','Action':'UserRegistered','page':parsed.login,'CustomerID':GTM.getUserId(),'leadid':0,'event':'user-registered'}
+                            GTM.sendEvent({ data: data })
+                    }
                     if (parsed.callback) {
                         this.props.history.replace(`/signup?callback=${parsed.callback}`)
                     } else {

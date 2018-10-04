@@ -91,7 +91,7 @@ class PatientDetails extends React.Component {
                         'Category':'ConsumerApp','Action':'DoctorOrderCreated','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}`)
+                    this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
 
                     // this.setState({
                     //     paymentData: data.data

@@ -5,6 +5,8 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+const queryString = require('query-string');
+
 
 class PaymentView extends React.Component {
     constructor(props) {
@@ -27,20 +29,24 @@ class PaymentView extends React.Component {
             }
         })
     }
-
+    
     selectPaymentType(e) {
         this.setState({ selectedPayment: e.target.value })
     }
 
     proceed() {
-
-        let data = {
-            'Category':'ConsumerApp','Action':'ContinueClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
-
-        GTM.sendEvent({ data: data })
-
-        let form = document.getElementById('paymentForm')
-        form.submit()
+        const parsed = queryString.parse(window.location.search)
+        
+        if(parsed.refs){
+            let data = {
+                'Category':'ConsumerApp','Action':'ContinueClicked','page':parsed.refs,'CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
+    
+            GTM.sendEvent({ data: data })
+    
+        }
+        
+        // let form = document.getElementById('paymentForm')
+        // form.submit()
     }
 
     render() {

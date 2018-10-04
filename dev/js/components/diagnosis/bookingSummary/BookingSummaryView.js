@@ -153,7 +153,7 @@ class BookingSummaryView extends React.Component {
                         'Category':'ConsumerApp','Action':'LabOrderCreated','CustomerID':GTM.getUserId(),'leadid':0,'event':'lab_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}`)
+                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
 
                     // this.setState({
                     //     paymentData: data.data
