@@ -244,7 +244,7 @@ class PatientDetails extends React.Component {
 
                                                                 <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                                 {
-                                                                    !!priceData.payable_amount ? <div className="lab-visit-time test-report">
+                                                                    priceData? <div className="lab-visit-time test-report">
                                                                         <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                         <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
                                                                     </div> : ""
