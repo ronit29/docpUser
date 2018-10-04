@@ -39,14 +39,19 @@ class PaymentView extends React.Component {
         
         if(parsed.refs){
             let data = {
-                'Category':'ConsumerApp','Action':'ContinueClicked','page':parsed.refs,'CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
+                'Category':'ConsumerApp','Action':'ContinueClicked','pageSource':parsed.refs,'CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
     
             GTM.sendEvent({ data: data })
     
+        }else{
+            let data = {
+                'Category':'ConsumerApp','Action':'ContinueClicked','pageSource':'UNKNOWN','CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
+    
+            GTM.sendEvent({ data: data })        
         }
         
-        // let form = document.getElementById('paymentForm')
-        // form.submit()
+        let form = document.getElementById('paymentForm')
+        form.submit()
     }
 
     render() {
