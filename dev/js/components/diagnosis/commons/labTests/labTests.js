@@ -27,12 +27,12 @@ class LabTests extends React.Component {
 
         return (
             <div className="widget-content pb-details pb-test">
-                <h4 className="wc-title text-md fw-700">Tests ({tests.length} Selected)</h4>
+                <h4 className="wc-title text-md fw-700">Tests</h4>
                 <ul className="list pb-list pb-test-list">
                     {tests}
                 </ul>
                 <div className="pb-view text-right">
-                    <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>Add/Remove Tests</a>
+                    <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View Tests</a>
                 </div>
             </div>
         );
