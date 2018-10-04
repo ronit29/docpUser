@@ -18,7 +18,14 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        let location = this.getLocationParam('location') || null
+        const path = this.props.location.pathname
+        let location = null
+        if (path.includes('location=')) {
+            location = path.split('location=')[1]
+            if (location) {
+                location = parseInt(location)
+            }
+        }
 
         if ((NAVIGATE.refreshLabSearchResults(this.props) && !location) || this.props.locationType == 'adwords') {
             this.getLabs(this.props)

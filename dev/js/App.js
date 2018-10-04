@@ -67,11 +67,19 @@ class App extends React.Component {
         }
 
         const parsed = queryString.parse(window.location.search)
+        const path = window.location.pathname
+        let location = null
+        if (path.includes('location=')) {
+            location = path.split('location=')[1]
+            if (location) {
+                location = parseInt(location)
+            }
+        }
 
         /** 
          * Select a default location, if no location is selected and lat,long are not provided in url
          */
-        if (!this.props.selectedLocation && parsed && !parsed.lat && !parsed.location) {
+        if (!this.props.selectedLocation && parsed && !parsed.lat && !location) {
             this.props.getGeoIpLocation().then((data) => {
                 let { latitude, longitude } = data
                 if (latitude && longitude) {
@@ -84,8 +92,8 @@ class App extends React.Component {
             })
         }
 
-        if (parsed.location) {
-            this.props.loc_physical_ms(parsed.location).then((loc) => {
+        if (location) {
+            this.props.loc_physical_ms(location).then((loc) => {
                 if (loc && loc.longitude && loc.latitude) {
                     _getlocationFromLatLong(loc.latitude, loc.longitude, 'locality', (locationData) => {
                         if (locationData) {
@@ -93,6 +101,17 @@ class App extends React.Component {
                         }
                     })
                 }
+            }).catch((e) => {
+                this.props.getGeoIpLocation().then((data) => {
+                    let { latitude, longitude } = data
+                    if (latitude && longitude) {
+                        _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
+                            if (locationData) {
+                                this.props.selectLocation(locationData, 'geo')
+                            }
+                        })
+                    }
+                })
             })
         }
 

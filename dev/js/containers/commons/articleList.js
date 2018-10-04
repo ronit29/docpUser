@@ -50,12 +50,16 @@ const mapStateToProps = (state) => {
     let {
         articleList,
         articleListData,
-        ARTICLE_LOADED
+        ARTICLE_LOADED,
+        pageButtonCount,
+        articlePageCount
     } = state.USER
     return {
         articleList,
         articleListData,
-        ARTICLE_LOADED
+        ARTICLE_LOADED,
+        pageButtonCount,
+        articlePageCount
     }
 }
 

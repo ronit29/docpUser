@@ -19,14 +19,12 @@ class ChatStatic extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-        if (document.getElementById('cstbox')) {
-            document.getElementById('cstbox').addEventListener('focusout', () => { this.props.saveChatStaticMsg(this.state.value) })
-        }
+    getIframe(){
+        this.props.saveChatStaticMsg(this.state.value)
     }
 
     render() {
+        var time = new Date()
 
         return (
 
@@ -56,7 +54,8 @@ class ChatStatic extends React.Component {
                                                 <div className="received-msg HS_font">
                                                     <p className="chat-text">
                                                         Hi, Welcome to docprime!
-                                              <span className="send-chat-time">2:11 PM</span>
+                                              <span className="send-chat-time">{  time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -66,7 +65,8 @@ class ChatStatic extends React.Component {
                                                 <div className="received-msg HS_font">
                                                     <p className="chat-text">
                                                         Please let me know how can I help you today, I will connect you to the right doctor for a free online consultation.
-                                              <span className="send-chat-time">2:11 PM</span>
+                                              <span className="send-chat-time">{  time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -80,7 +80,7 @@ class ChatStatic extends React.Component {
                                         <textarea id="cstbox" className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
                                     </div>
                                     <div className="send_icon">
-                                        <a href="#" className="send-msg-btn">
+                                        <a href="javascript:;" className="send-msg-btn" onClick ={this.getIframe.bind(this)}>
                                             <img src={ASSETS_BASE_URL + "/img/send.svg"} className="send-md-icon" />
                                         </a>
                                     </div>

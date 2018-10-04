@@ -890,7 +890,6 @@ background: black;
 .onload-chat .livechat-room .footer.footer_doc {
     flex: 1 0 55px;
     padding: 0 0 5px 0;
-    z-index: 10;
     background-color: transparent;
     border-top: none;
     position: relative;
