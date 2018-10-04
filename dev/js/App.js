@@ -159,6 +159,17 @@ class App extends React.Component {
         }
         this.props.saveDeviceInfo(device)
 
+        //Save Organic Search on DB
+        if(document && document.referrer){
+            if(document.referrer.match('google')){
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'OrganicSearch', 'event': 'organic-search', 'addToGA': false
+                }
+
+                GTM.sendEvent({ data: data })
+            }
+        }
+
         // boot Raven(Sentry logger)
         if (CONFIG.RAVEN_DSN_KEY) {
 
