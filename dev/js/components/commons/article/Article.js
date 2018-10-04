@@ -52,7 +52,7 @@ class Article extends React.Component {
 
     linkedinClick() {
         if (window) {
-            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${document.URL}&title=${this.state.articleData.title}&source=docprime.com`);
+            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${document.URL}&title=${this.state.articleData.title.split('|')[0]}&source=docprime.com`);
         }
     }
 
@@ -114,16 +114,16 @@ class Article extends React.Component {
                                                 <span itemProp="name" className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span>
                                             </a>
                                             <meta itemProp="position" content="1" />
+                                            <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
-                                        <span className="breadcrumb-arrow">&gt;</span>
                                         <li itemProp="itemListElement" itemScope
                                             itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
                                             <a itemProp="item" href={`/${this.state.articleData.category.url}`} onClick={(e) => this.onHomeClick(e, `/${this.state.articleData.category.url}`)}>
                                                 <span itemProp="name" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span>
                                             </a>
                                             <meta itemProp="position" content="2" />
+                                            <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
-                                        <span className="breadcrumb-arrow">&gt;</span>
                                         <li itemProp="itemListElement" itemScope
                                             itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
                                             <span itemProp="name" className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</span>

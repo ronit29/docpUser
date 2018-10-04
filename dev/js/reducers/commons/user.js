@@ -237,7 +237,7 @@ export default function (state = defaultState, action) {
             }
 
             if (action.payload.result.length) {
-                newState.pageButtonCount = action.page
+                newState.pageButtonCount = action.staticPage
             }
 
             newState.ARTICLE_LOADED = true;
@@ -246,6 +246,7 @@ export default function (state = defaultState, action) {
                 newState.articleListData = action.payload
             } else {
                 newState.articleList = newState.articleList.concat(action.payload.result);
+                newState.articleListData = action.payload
             }
             return newState
         }
