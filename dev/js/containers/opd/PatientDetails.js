@@ -10,7 +10,7 @@ class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
         if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=${this.props.location.pathname}`)
+            this.props.history.replace(`/login?callback=${this.props.location.pathname}&login=opd`)
         }
     }
 
