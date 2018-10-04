@@ -30,7 +30,7 @@ class ArticleList extends React.Component {
 		this.setState({ page: page, hasMore: false })
 		let title = this.props.match.url
 		title = title.substring(1, title.length)
-		this.props.getArticleList(title, page, this.state.searchVal, (resp) => {
+		this.props.getArticleList(title, page, this.state.searchVal, this.props.pageNo, (resp) => {
 			if (resp.length) {
 				this.setState({
 					hasMore: true
@@ -49,7 +49,7 @@ class ArticleList extends React.Component {
 		let title = this.props.match.url
 		title = title.substring(1, title.length);
 		this.setState({ page: 1, hasMore: true })
-		this.props.getArticleList(title, 1, this.state.searchVal, (resp) => {
+		this.props.getArticleList(title, 1, this.state.searchVal, this.props.pageNo, (resp) => {
 			if (resp.length == 0) {
 				this.setState({
 					hasMore: false,
