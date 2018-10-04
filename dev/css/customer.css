@@ -501,7 +501,7 @@ display: inline-block;
 .doc-input-loc{
 	box-shadow: -1.2px 1.6px 4px 0 rgba(0, 0, 0, 0.38);
 	border: none;
-	padding: 8px 2px 8px 40px;
+	padding: 8px 134px 8px 40px;
 	font-size: 14px;
 }
 
@@ -514,6 +514,7 @@ display: inline-block;
     height: 18px;
 }
 
+
 .doc-input-loc-icon>img{
 	width: 100%;
 }
@@ -521,14 +522,25 @@ display: inline-block;
 .doc-or-text{
 	width: 10px;
 	margin: 0 8px;
+	position: absolute;
+	top: 41%;
+    right: 107px;
+    transform: translateY(-50%);
 }
+.doc-or-text>p{
+	color:#464a4c!important;
 
+}
 .doc-auto-detect-div{
 	display: flex;
 	align-items: center;
 	cursor: pointer;
 	justify-content: end;
-	position: relative;
+	position: absolute;
+	top: 50%;
+	right:12px;
+    transform: translateY(-50%);
+    
 }
 
 .doc-auto-detect-div>img{
@@ -537,6 +549,7 @@ display: inline-block;
 
 .doc-auto-detect-div>p{
 	margin-left: 4px;
+	color:#464a4c!important;
 }
 
 .doc-caret{
