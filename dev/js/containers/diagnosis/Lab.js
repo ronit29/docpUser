@@ -9,8 +9,7 @@ class Lab extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedLab: this.props.match.params.id || null,
-            defaultTest:[]
+            selectedLab: this.props.match.params.id || null
         }
     }
 
@@ -47,15 +46,18 @@ class Lab extends React.Component {
             lab_id = this.props.match.params.id
 
             if(!testIds.length){
-                this.props.getLabTests(lab_id, '', true,(searchResults) => {
+                this.props.getLabTests(lab_id, '', true, (searchResults) => {
                     if (searchResults) {
-                        this.setState({ defaultTest: searchResults })
+
+                        testIds = searchResults.map(x => x.id)
+                        this.props.getLabById(this.props.match.params.id, testIds)
                     }
                 })
+            }else{
+                testIds = testIds.map(x => x.id)
+                this.props.getLabById(this.props.match.params.id, testIds)
             }
-            testIds = testIds.map(x => x.id)
-
-            this.props.getLabById(this.props.match.params.id, testIds)
+            
         } else {
             let url = this.props.match.url
             if (url) {
@@ -66,18 +68,24 @@ class Lab extends React.Component {
                     lab_id = labId
                     this.setState({ selectedLab: labId })
                     let testIds = this.props.lab_test_data[labId] || []
-                    
-                    if(!testIds.length){console.log('ccccccccc');console.log(lab_id)
-                        this.props.getLabTests(lab_id, '',true, (searchResults) => {
-                            if (searchResults) {
-                                this.setState({ defaultTest: searchResults })
 
-                                testIds = this.props.lab_test_data[labId] || []
-                                testIds = testIds.map(x => x.id)
+                    if(!testIds.length){
+                        
+                        this.props.getLabTests(lab_id, '',true, (searchResults) => {
+                            
+                            if (searchResults) {
+                                
+                                testIds = searchResults.map(x => x.id)
                                 this.props.getLabById(labId, testIds)
+                    
                             }
                         })
+                    }else{
+                        testIds = testIds.map(x => x.id)
+                        this.props.getLabById(labId, testIds)    
                     }
+
+                    
                     
                 }
             })
@@ -91,7 +99,7 @@ class Lab extends React.Component {
 
     render() {
         return (
-            <LabView {...this.props} selectedLab={this.state.selectedLab} defaultTest ={this.state.defaultTest}/>
+            <LabView {...this.props} selectedLab={this.state.selectedLab} />
         );
     }
 }
@@ -129,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
         getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
-        getLabTests: (labid, search_string, callback) => dispatch(getLabTests(labid, search_string, callback))
+        getLabTests: (labid, search_string, defaultTest, callback) => dispatch(getLabTests(labid, search_string, defaultTest, callback))
     }
 }
 

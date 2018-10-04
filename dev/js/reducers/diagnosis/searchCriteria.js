@@ -148,28 +148,10 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            let testDefault
             
-            newState.lab_test_data[action.payload.labId]=[]
-            console.log(action.payload.labId)
-            
-            action.payload.map((test,index)=>{
-                
-                if(index>3){
-                    return 
-                }
-                
+            newState.lab_test_data[action.labId]=[]
 
-                testDefault = {}
-                testDefault.test = test.test
-                testDefault.mrp = test.mrp
-                testDefault.deal_price = test.deal_price
-                testDefault.extra_test = true
-                testDefault.lab_id = action.payload.labId
-
-                newState.lab_test_data[action.payload.labId].push(testDefault)    
-            })
-
+            newState.lab_test_data[action.labId] = action.payload
             return newState
         }
 
