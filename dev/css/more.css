@@ -1311,7 +1311,7 @@ span.ofr-ribbon:after {
 }
 
 .dp-accordian{
-    padding: 15px;
+    padding: 10px 15px;
     border-radius: 10px;
     box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
     background-color: #fff;
@@ -1323,7 +1323,7 @@ span.ofr-ribbon:after {
 }
 
 .acdn-title>h2{
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 0;
 }
 
@@ -1356,12 +1356,12 @@ span.ofr-ribbon:after {
 }
 
 .acdn-heading{
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 25px;
 }
 
 .acdn-subheading{
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 4px;
 }
 

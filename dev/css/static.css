@@ -1062,3 +1062,25 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .breadcrumb-colored-title {
 	color: #f78631;
 }
+
+.article-container{
+	margin-top: 104px;
+}
+
+.article-column{
+	margin-top: 20px;
+	padding-top: 10px;
+	background-color: #fff;
+}
+
+@media(max-width: 575px){
+	.article-column{
+		margin-top: 0;
+	}
+}
+
+@media(max-width: 438px){
+	.article-container{
+		margin-top: 100px;
+	}
+}
