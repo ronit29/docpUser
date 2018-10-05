@@ -207,9 +207,7 @@ class ChatPanel extends React.Component {
     closeChat() {
         
         this.dispatchCustomEvent.call(this, 'close_frame')
-        setTimeout(() => {
-            this.props.saveChatStaticMsg('', true)
-        }, 2000)
+        this.props.saveChatStaticMsg('', true)
         this.setState({ showCancel: !this.state.showCancel })
         // this.props.history.go(-1)
     }
