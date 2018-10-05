@@ -66,10 +66,10 @@ class Article extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container article-container">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-7 col-lg-8 center-column" style={{ paddingTop: 10 }} >
+                        <div className="col-12 col-md-7 col-lg-8 center-column">
 
                             {/* <header className="wallet-header article-header sticky-header">
                                 <div className="container-fluid header-container">
@@ -86,7 +86,7 @@ class Article extends React.Component {
                                 </div>
                             </header> */}
                             {
-                                this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
+                                this.state.articleData ? <div className="container-fluid article-column">
 
                                     <HelmetTags tagsData={{
                                         title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
