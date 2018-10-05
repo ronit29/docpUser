@@ -447,6 +447,22 @@ display: inline-block;
 	font-weight: 500;
 }
 
+.dp-dr-free-label{
+	float: left;
+	background-color: #55a740;
+	padding: 8px;
+	text-align: center;
+	margin: 4px 0 0 -8px;
+	border-radius: 5px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.dp-dr-free-label>p{
+	color: #fff;
+	font-size: 12px;
+}
+
 .dp-dr-card-btn{
 	float: right;
 	color: #fff;
