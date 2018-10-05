@@ -22,6 +22,7 @@ class ChatPanel extends React.Component {
             hideIframe: true,
             iframeLoading: true,
             showStaticView:true,
+            hideStaticView:false
         }
     }
 
@@ -207,7 +208,9 @@ class ChatPanel extends React.Component {
     closeChat() {
         
         this.dispatchCustomEvent.call(this, 'close_frame')
-        this.props.saveChatStaticMsg('', true)
+        /*setTimeout(() => {
+            this.props.saveChatStaticMsg('', true)
+        }, 2000)*/
         this.setState({ showCancel: !this.state.showCancel })
         // this.props.history.go(-1)
     }
@@ -283,7 +286,7 @@ class ChatPanel extends React.Component {
                 }
 
                 <div className={this.state.showChatBlock ? "floating-chat " :""}>
-                {this.state.showStaticView
+                {this.state.hideStaticView
                         ?<ChatStaticView {...this.props} hideStaticChat = {this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
                         :<div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
