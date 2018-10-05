@@ -74,10 +74,7 @@ class DoctorProfileCard extends React.Component {
                             <div className="fltr-lctn-dtls">
                                 <p>
                                     <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                    <span className="fltr-loc-txt">                                                {hospital.short_address} |
-                                    {hospital.short_address}
-                                    </span> |
-                                <span> {Distance} Km</span>
+                                    <span className="fltr-loc-txt">{hospital.short_address}</span> | <span>{Distance} Km</span>
                                 </p>
                             </div>
 

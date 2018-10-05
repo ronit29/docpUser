@@ -376,7 +376,7 @@ margin-bottom: 10px;
 font-weight: 500;
 }
 .fltr-loc-ico{
-    margin-right: 5px;
+    margin-right: 4px;
 }
 .fltr-loc-txt{
     max-width: 185px;
@@ -384,6 +384,7 @@ white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 display: inline-block;
+text-align: left;
 }
 
 .dp-dr-search-loc-icon{
