@@ -976,3 +976,35 @@ img.img-arwp {
 .lb-tst-cstm-pdng{
 	padding-left: 25px;
 }
+
+/* payament card style */
+.crdblty{
+	display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.crdblty-img{
+	width: 18px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.trst-txt{
+    font-size: 18px;
+    font-weight: 500;
+    color: #3c3c3c;
+    margin-left: 10px;
+}
+.ptmnt-lst li.lst-bfr{
+	font-size: 15px;
+    font-weight: 500;
+    color: #3c3c3c;
+}
+.md-coverage{
+	font-size: 16px;
+	font-weight: 500;
+	margin:20px 0px;
+}
+.cv-md-img{
+
+}
+/* payament card style */

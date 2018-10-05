@@ -29,27 +29,29 @@ class PaymentView extends React.Component {
             }
         })
     }
-    
+
     selectPaymentType(e) {
         this.setState({ selectedPayment: e.target.value })
     }
 
     proceed() {
         const parsed = queryString.parse(window.location.search)
-        
-        if(parsed.refs){
+
+        if (parsed.refs) {
             let data = {
-                'Category':'ConsumerApp','Action':'ContinueClicked','pageSource':parsed.refs,'CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
-    
+                'Category': 'ConsumerApp', 'Action': 'ContinueClicked', 'pageSource': parsed.refs, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'continue-clicked'
+            }
+
             GTM.sendEvent({ data: data })
-    
-        }else{
+
+        } else {
             let data = {
-                'Category':'ConsumerApp','Action':'ContinueClicked','pageSource':'UNKNOWN','CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
-    
-            GTM.sendEvent({ data: data })        
+                'Category': 'ConsumerApp', 'Action': 'ContinueClicked', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'continue-clicked'
+            }
+
+            GTM.sendEvent({ data: data })
         }
-        
+
         let form = document.getElementById('paymentForm')
         form.submit()
     }
@@ -114,6 +116,33 @@ class PaymentView extends React.Component {
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="cdc" /></span>
                                                         </li> */}
                                                     </ul>
+                                                </div>
+                                            </div>
+                                            <div className="widget mt-21">
+                                                <div className="widget-content p-3">
+                                                    <div className="crdblty-container">
+                                                        <div className="crdblty">
+                                                            <img className="crdblty-img" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                            <p className="trst-txt">Trust docprime!</p>
+                                                        </div>
+                                                        <ul className="rsk-lstng ptmnt-lst">
+                                                            <li className="lst-bfr">100% money back guarantee -  No questions! </li>
+                                                            <li className="lst-bfr">Part of Policybazaar group valued at over $1 billion :</li>
+                                                        </ul>
+
+                                                        <h4 className="md-coverage">Media Coverage</h4>
+                                                        <div className="row">
+                                                            <div className="col-4 text-center">
+                                                                <img className="cv-md-img" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                            </div>
+                                                            <div className="col-4 text-center">
+                                                                <img className="cv-md-img" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                            </div>
+                                                            <div className="col-4 text-center">
+                                                                <img className="cv-md-img" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
