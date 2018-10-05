@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
         getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
-        getLabTests: (labid, search_string,defaultTest, callback) => dispatch(getLabTests(labid, search_string, defaultTest, callback))
+        getLabTests: (labid, search_string,defaultTest,selectedTests, callback) => dispatch(getLabTests(labid, search_string, defaultTest, selectedTests, callback))
     }
 }
 
