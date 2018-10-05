@@ -207,12 +207,13 @@ class ChatPanel extends React.Component {
 
     closeChat() {
         
+        STORAGE.getAuthToken().then((token) => {
+            token = token || ""
+              this.setState({ token })
+        })
         this.dispatchCustomEvent.call(this, 'close_frame')
-        /*setTimeout(() => {
-            this.props.saveChatStaticMsg('', true)
-        }, 2000)*/
         this.setState({ showCancel: !this.state.showCancel })
-        // this.props.history.go(-1)
+         
     }
 
     toggleCancel(e) {
