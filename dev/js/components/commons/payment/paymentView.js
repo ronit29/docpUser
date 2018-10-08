@@ -5,16 +5,24 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import Lightbox from '../../../helpers/lightbox';
+
 const queryString = require('query-string');
 
-
+const images = [
+    ASSETS_BASE_URL + "/img/customer-icons/image2-min.jpg",
+    ASSETS_BASE_URL + "/img/customer-icons/image1-min.jpg",
+    ASSETS_BASE_URL + "/img/customer-icons/image3-min.jpg",
+  ];
 class PaymentView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             selectedPayment: "DC",
             paymentData: {},
-            paymentEnabled: false
+            paymentEnabled: false,
+            photoIndex: 0,
+            isOpen: false,
         }
     }
 
@@ -29,7 +37,7 @@ class PaymentView extends React.Component {
             }
         })
     }
-
+   
     selectPaymentType(e) {
         this.setState({ selectedPayment: e.target.value })
     }
@@ -57,6 +65,7 @@ class PaymentView extends React.Component {
     }
 
     render() {
+        const { photoIndex, isOpen } = this.state;
 
         return (
             <div className="profile-body-wrap">
@@ -133,13 +142,75 @@ class PaymentView extends React.Component {
                                                         <h4 className="md-coverage">Media Coverage</h4>
                                                         <div className="row">
                                                             <div className="col-4 text-center">
-                                                                <img className="cv-md-img" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                                <div className="media-img"> 
+                                                                    <img  onClick={() => this.setState({ isOpen: true,photoIndex:0 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image2-min.jpg"} />
+                                                                    {isOpen && (
+                                                                        <Lightbox
+                                                                            mainSrc={images[photoIndex]}
+                                                                            nextSrc={images[(photoIndex + 1) % images.length]}
+                                                                            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                                                                            onCloseRequest={() => this.setState({ isOpen: false })}
+                                                                            onMovePrevRequest={() =>
+                                                                            this.setState({
+                                                                                photoIndex: (photoIndex + images.length - 1) % images.length,
+                                                                            })
+                                                                            }
+                                                                            onMoveNextRequest={() =>
+                                                                            this.setState({
+                                                                                photoIndex: (photoIndex + 1) % images.length,
+                                                                            })
+                                                                            }
+                                                                        />
+                                                                        )}
+                                                                </div>
                                                             </div>
+
                                                             <div className="col-4 text-center">
-                                                                <img className="cv-md-img" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                            <div className="media-img"> 
+                                                                    <img  onClick={() => this.setState({ isOpen: true, photoIndex:1 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image1-min.jpg"} />
+                                                                    {isOpen && (
+                                                                        <Lightbox
+                                                                            mainSrc={images[photoIndex]}
+                                                                            nextSrc={images[(photoIndex + 1) % images.length]}
+                                                                            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                                                                            onCloseRequest={() => this.setState({ isOpen: false })}
+                                                                            onMovePrevRequest={() =>
+                                                                            this.setState({
+                                                                                photoIndex: (photoIndex + images.length - 1) % images.length,
+                                                                            })
+                                                                            }
+                                                                            onMoveNextRequest={() =>
+                                                                            this.setState({
+                                                                                photoIndex: (photoIndex + 1) % images.length,
+                                                                            })
+                                                                            }
+                                                                        />
+                                                                        )}
+                                                                </div>
                                                             </div>
+                                                            
                                                             <div className="col-4 text-center">
-                                                                <img className="cv-md-img" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                            <div className="media-img"> 
+                                                                    <img  onClick={() => this.setState({ isOpen: true, photoIndex:2 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image3-min.jpg"} />
+                                                                    {isOpen && (
+                                                                        <Lightbox
+                                                                            mainSrc={images[photoIndex]}
+                                                                            nextSrc={images[(photoIndex + 1) % images.length]}
+                                                                            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                                                                            onCloseRequest={() => this.setState({ isOpen: false })}
+                                                                            onMovePrevRequest={() =>
+                                                                            this.setState({
+                                                                                photoIndex: (photoIndex + images.length - 1) % images.length,
+                                                                            })
+                                                                            }
+                                                                            onMoveNextRequest={() =>
+                                                                            this.setState({
+                                                                                photoIndex: (photoIndex + 1) % images.length,
+                                                                            })
+                                                                            }
+                                                                        />
+                                                                        )}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
