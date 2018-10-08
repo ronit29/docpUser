@@ -605,7 +605,7 @@ text-align: left;
         .lst-bfr {
             font-size: 12px;
             font-weight: 500;
-            color: #757575;
+			color: #757575;
 		}
 		.no-risk-container{
 			position: relative;
@@ -628,7 +628,8 @@ text-align: left;
 }
 .lst-bfr{
     position: relative;
-    padding-left: 25px;
+	padding-left: 25px;
+	margin-bottom: 5px;
 }
 
 li.lst-bfr:before{
@@ -637,9 +638,8 @@ li.lst-bfr:before{
     height: 10px;
     width: 10px;
     left: 5px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+    top: 5px;
+    bottom: 0;;
     background: #e58950;
     border-radius: 10px;
 }
