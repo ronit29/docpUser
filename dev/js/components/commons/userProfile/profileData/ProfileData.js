@@ -16,7 +16,57 @@ class ProfileData extends React.Component {
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav">
                 <div className="widget-content">
-                    <ul className="list nav-items dp-user-list">
+                    <ul className="list nav-items dp-user-list bg-lst">
+                        <li className="my-profile-item">
+                            <p className="usr-dtls-name">Welcome to docprime, Akshay!</p>
+                            <p className="usr-dtls-benf">docprime benifits</p>
+                            <div className="usr-dtls-startup">
+                                <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
+                                <div className="row no-gutters">
+                                    <div className="col-4 mbl-usr-grd">
+                                    <span className="usr-dtls-free">FREE</span>
+                                        <a className="usr-dtls-anchor" href="javascript:void(0);">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.png"} className="img-fluid usr-frst-ico" />
+                                            <p>
+                                                <span>Chat Now </span>
+                                                with qualified doctors
+                                    </p>
+                                        </a>
+                                    </div>
+                                    <div className="col-4 mbl-usr-grd">
+                                    <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
+                                            <p>
+                                                <span>Find Doctors </span>
+                                                Upto 50% OFF
+                                    </p>
+                                        </a>
+                                    </div>
+                                    <div className="col-4 mbl-usr-grd">
+                                    <a className="usr-dtls-anchor" href="javascript:void(0);">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
+                                            <p>
+                                                <span>Book Tests </span>
+                                                Upto 50% OFF
+                                    </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li className="my-profile-item">
+                            <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/stmp.svg"} className="img-fluid" />OFFERS</p>
+
+                            <div className="ofr-img-txt">
+                                <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/customer-icons/vector-smart-object.png"} className="img-fluid" /></div>
+                                <div className="ofr-contnt">
+                                    <p className="fst-bkg">FIRST BOOKING</p>
+                                    <p className="ofr-bkg">100% discount on your first booking 
+                                        <span>on doctor and diagnostics</span>
+ </p>
+                                </div>
+                            </div>
+                        </li>
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -39,10 +89,22 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item">
+                        <li className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/opd-visit.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/onlnpres.svg"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">My Online Prescription
+                                        {/* <span className="float-right badge badge-warning">1</span> */}
+                                    </h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/apoitm.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Appointments
@@ -51,7 +113,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        {/* <li className="my-profile-item">
+                        {/* <li className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/medical-history.svg"} className="img-fluid" />
@@ -73,10 +135,10 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item">
+                        <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/family.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/fmly.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Family</h4>
@@ -95,10 +157,10 @@ class ProfileData extends React.Component {
                         </li> */}
                         <li onClick={() => {
                             this.props.history.push('/wallet')
-                        }} className="my-profile-item">
+                        }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/transaction.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/rp-ico.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Transactions</h4>
@@ -107,10 +169,10 @@ class ProfileData extends React.Component {
                         </li>
                         <li onClick={() => {
                             this.props.history.push('/user/address')
-                        }} className="my-profile-item">
+                        }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/address.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/addmang.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Manage Address</h4>
@@ -119,10 +181,10 @@ class ProfileData extends React.Component {
                         </li>
                         <li onClick={() => {
                             this.props.history.push('/notifications')
-                        }} className="my-profile-item">
+                        }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img style={{ height: 25 }} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/notificagtion.svg"} className="img-fluid" />
+                                    <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/bl-bell.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Notifications</h4>
@@ -131,10 +193,10 @@ class ProfileData extends React.Component {
                         </li>
                         <li onClick={() => {
                             this.props.logout(currentRoomId)
-                        }} className="my-profile-item d-none d-md-block">
+                        }} className="my-profile-item lst-spcng ">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img style={{ height: 25 }} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/logout_orange.svg"} className="img-fluid" />
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/log-out.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Logout</h4>
@@ -143,9 +205,9 @@ class ProfileData extends React.Component {
                         </li>
                     </ul>
                 </div>
-                <div className="logout-div d-md-none" onClick={() => { this.props.logout(currentRoomId) }}>
+                {/* <div className="logout-div d-md-none" onClick={() => { this.props.logout(currentRoomId) }}>
                     <p className="fw-500">Logout</p>
-                </div>
+                </div> */}
             </div>
         );
     }

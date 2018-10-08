@@ -146,7 +146,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .profile-nav{margin-top: 0px;}
 .profile-nav .nav-items>li{background-color: #fff; position: relative; border-bottom: 1px solid #ddd; padding: 22px;}
 .profile-nav .nav-items>li .nav-icon{float: left;}
-.profile-nav .nav-items>li .nav-content{padding-left: 50px; padding-right: 30px;}
+.profile-nav .nav-items>li .nav-content{padding-left: 50px; padding-right: 0px;}
 .profile-nav .nav-items>li .nav-content .app-title{color: #5d5d5d}
 .profile-nav .nav-items>li .forward-icon{ position: absolute; top: 40px; right: 20px; width: 18px; height: 20px; opacity: .4; }
 .my-profile-item{cursor: pointer;}

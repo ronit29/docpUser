@@ -12,15 +12,14 @@
 .wrap-100{padding-top: 100px;}
 
 
-.book-header.back-icon{}
+
 .back-icon-white{margin-top: 12px;cursor: pointer}
 
 /*header*/
 .ct-header{height: 100px;}
-.navigate-row{}
+
 .top-nav>li{line-height: 50px; vertical-align: middle; margin-right: 10px;  font-size: 16px; font-weight: 500;cursor: pointer}
-.alpha-bx{}
-.beta-bx {}
+
 
 .user-notification-action{padding-top: 10px;}
 
@@ -62,7 +61,7 @@
 .root-map-field .dr-with{color: #757575;}
 
 /*list of labs*/
-.total-labs{}
+
 .total-labs .lab-items>li{text-align: center;  padding:2px 10px; margin-bottom: 10px;}
 .total-labs .lab-items .lab-name{font-size: 14px; font-weight: 500;color: #404040;}
 .total-labs .lab-img{width: 60px;}
@@ -141,7 +140,7 @@
 .info-popup{margin-top: 20px;}
 
 /*All test screen 13*/
-.all-test-list>li{position: relative; padding: 20px; border-bottom:1px solid #ddd; padding-right: 70px;}
+.all-test-list>li{position: relative; padding: 20px; border-bottom:1px solid #ddd; padding-right: 120px;}
 .all-test-list .test-price{position: absolute; top: 18px; right:10px; }
 
 .text-price-btn{position: relative;}
@@ -162,13 +161,13 @@
 .pb-details:last-child{border: none}
 
 .pb-header .location{color: #f78631; font-size: 14px; font-weight: 500; margin-bottom: 10px;}
-.profile-book .time-contact{}
+
 .profile-book .time-contact>li{padding: 1px 0;}
 .profile-book .time-contact>li .open-close{font-size: 14px; font-weight: 500; color: #008000;}
 
 .pb-view{ padding: 4px 0; }
 .pb-list>li{padding: 8px 0; font-size: 14px; font-weight: 500; color: #000}
-.pb-list .test-price{float: right;text-align: right; width: 105px;}
+.pb-list .test-price{float: right;text-align: right; width: 110px;}
 .test-name-item{display: block; padding-right: 110px;}
 .test-mrp{margin-right: 12px; color: #757575; text-decoration: line-through}
 .pb-location .address-details .add-map{float: right;width: 50px;cursor: pointer; margin-top: 10px}
@@ -181,7 +180,7 @@
 
 /*===============
 	book-time
-=================*/
+=================*/	
 .book-time-screeen{padding-top: 165px;}
 .date-time-calander{position: fixed; left: 0; right: 0;top: 50px; z-index: 8; background-color: #f8f8f8}
 .add-new-time{padding: 10px 0;}
@@ -228,18 +227,22 @@
 /*login mobile verification*/
 .mobile-verification-screen .mv-header{padding: 10px;}
 .mobile-verification-screen .mv-header{padding-top: 20px;}
-.mobile-verification-screen .mobile-field .enter-mobile-number{  width: 200px ; margin: 0 auto;}
+.mobile-verification-screen .mobile-field .enter-mobile-number{  width: 80% ; margin: 0 auto;}
+.mobile-verification-screen .mobile-field .enter-mobile-number input{
+	border-left: transparent;
+    border-right: transparent;
+    border-top: transparent;
+    border-radius: 0px;
+}
 
 /*search dr screen*/
-.search-Dr-Screen{}
+
 .search-Dr-Screen .drList>li{padding: 6px  0;}
 .search-Dr-Screen .drList>li>a{font-size: 14px; font-weight: 500;}
 
 /*doctor search result*/
 .search-result-dr{padding-top: 160px;}
 
-.search-dr-list{}
-.search-dr-list .dr-header{}
 
 .search-dr-list .alpha{flex: 1;display: flex;align-items: flex-start;}
 .search-dr-list .dr-name{ font-size: 16px; font-weight: bold;}
@@ -344,9 +347,9 @@
 	display: block;
 }
 
-.dp-dr-search-card-link:last-child{
-	/*margin-bottom: 120px;*/
-}
+/* .dp-dr-search-card-link:last-child{
+	margin-bottom: 120px;
+} */
 
 .dp-dr-search-card{
 	background-color: #fff;
