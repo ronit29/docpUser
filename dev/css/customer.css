@@ -451,9 +451,9 @@ text-align: left;
 .dp-dr-free-label{
 	float: left;
 	background-color: #55a740;
-	padding: 8px;
+	padding: 4px;
 	text-align: center;
-	margin: 4px 0 0 -8px;
+	margin: 9px 0 0 -8px;
 	border-radius: 5px;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
@@ -461,7 +461,7 @@ text-align: left;
 
 .dp-dr-free-label>p{
 	color: #fff;
-	font-size: 12px;
+	font-size: 11px;
 }
 
 .dp-dr-card-btn{

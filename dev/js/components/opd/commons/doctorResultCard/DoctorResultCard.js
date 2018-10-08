@@ -101,7 +101,7 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     !deal_price ?
                                         <div className="dp-dr-free-label">
-                                            <p className="fw-500">Free Consultation</p>
+                                            <p>Free Consultation</p>
                                         </div> : ''
                                 }
                                 <button className="dp-dr-card-btn text-center fw-500">Book Now</button>
