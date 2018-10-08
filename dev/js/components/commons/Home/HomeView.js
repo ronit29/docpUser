@@ -524,7 +524,7 @@ class HomeView extends React.Component {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-12 col-md-7">
+                        <div className="col-12">
                             <div className="dp-accordian">
                                 <div className="acdn-title" onClick={() => this.toggleAccordian()}>
                                     <h2 className="fw-500">Know more about docprime</h2>

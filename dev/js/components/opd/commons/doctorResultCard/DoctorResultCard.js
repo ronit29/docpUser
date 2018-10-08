@@ -74,10 +74,7 @@ class DoctorProfileCard extends React.Component {
                             <div className="fltr-lctn-dtls">
                                 <p>
                                     <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                    <span className="fltr-loc-txt">                                                {hospital.short_address} |
-                                    {hospital.short_address}
-                                    </span> |
-                                <span> {Distance} Km</span>
+                                    <span className="fltr-loc-txt">{hospital.short_address}</span> | <span>{Distance} Km</span>
                                 </p>
                             </div>
 
@@ -104,7 +101,7 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     !deal_price ?
                                         <div className="dp-dr-free-label">
-                                            <p className="fw-500">Free Consultation</p>
+                                            <p>Free Consultation</p>
                                         </div> : ''
                                 }
                                 <button className="dp-dr-card-btn text-center fw-500">Book Now</button>
