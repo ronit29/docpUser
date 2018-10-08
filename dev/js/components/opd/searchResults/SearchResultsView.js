@@ -307,9 +307,9 @@ class SearchResultsView extends React.Component {
                     {
                         this.isSelectedLocationNearDelhi() ? <div>
                             <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
-                            <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
+                            {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
-                            </div>
+                            </div> */}
                             <DoctorsList {...this.props} />
                         </div> : <div className="noopDiv"><img src={ASSETS_BASE_URL + "/images/nonop.png"} className="noop" /></div>
                     }

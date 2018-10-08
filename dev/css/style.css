@@ -500,7 +500,7 @@ background: black;
 	color: #fff;
 	cursor: pointer;
 	font-size: 15px;
-	font-weight: 400;
+	font-weight: 500;
 }
 
 p.top-head-link.card-lab-link span {
@@ -534,6 +534,10 @@ p.top-head-link.card-lab-link span {
 	}
 	.pb-mbl {
 		display: inline-block !important;
+	}
+	.search-book-header {
+		height: auto;
+		top: 100px !important;
 	}
 }
 
@@ -632,11 +636,14 @@ p.top-head-link.card-lab-link span {
 		font-size: 12px;
 	}
 	.logo-ancher {
-		width: 58px;
+		width: 62px;
 		overflow: hidden;
 	}
 	.header-text-chat {
 		font-size: 11px;
+	}
+	.top-head-link{
+		font-size: 14px;
 	}
 }
 
@@ -1231,4 +1238,7 @@ img.img-arwp {
 .ldng-text {
 	text-align: center;
 	font-size: 14px;
+}
+.rmv-pointer{
+	cursor:default;
 }
