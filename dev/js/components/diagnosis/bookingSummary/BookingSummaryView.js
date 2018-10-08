@@ -153,7 +153,7 @@ class BookingSummaryView extends React.Component {
                         'Category':'ConsumerApp','Action':'LabOrderCreated','CustomerID':GTM.getUserId(),'leadid':0,'event':'lab_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}`)
+                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
 
                     // this.setState({
                     //     paymentData: data.data
@@ -218,7 +218,7 @@ class BookingSummaryView extends React.Component {
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label clearfix"><span className="test-name-item">{twp.test.name}</span><span className="float-right fw-700">&#8377; {price}</span></p>
+                return <p key={i} className="test-list test-list-label clearfix"><span className="float-right fw-700">&#8377; {price}</span><span className="test-name-item">{twp.test.name}</span></p>
             })
 
         }

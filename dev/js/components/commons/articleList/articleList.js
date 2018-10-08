@@ -30,7 +30,7 @@ class ArticleList extends React.Component {
 		this.setState({ page: page, hasMore: false })
 		let title = this.props.match.url
 		title = title.substring(1, title.length)
-		this.props.getArticleList(title, page, this.state.searchVal, (resp) => {
+		this.props.getArticleList(title, page, this.state.searchVal, this.props.pageNo, (resp) => {
 			if (resp.length) {
 				this.setState({
 					hasMore: true
@@ -49,7 +49,7 @@ class ArticleList extends React.Component {
 		let title = this.props.match.url
 		title = title.substring(1, title.length);
 		this.setState({ page: 1, hasMore: true })
-		this.props.getArticleList(title, 1, this.state.searchVal, (resp) => {
+		this.props.getArticleList(title, 1, this.state.searchVal, this.props.pageNo, (resp) => {
 			if (resp.length == 0) {
 				this.setState({
 					hasMore: false,
@@ -76,6 +76,25 @@ class ArticleList extends React.Component {
 	}
 
 	render() {
+
+		var articleButtons = [];
+		var articleURL = this.props.match.url;
+
+		for (var i = parseInt(this.props.pageButtonCount) - 1; i <= parseInt(this.props.pageButtonCount) + 1; i++) {
+			articleButtons.push(
+				<div>
+					{
+						i >= 1 && i <= this.props.articlePageCount ?
+							<a href={`${articleURL}?page=${i}`} >
+								<div className="art-pagination-btn">
+									<span className="fw-500">{i}</span>
+								</div>
+							</a> : ""
+					}
+				</div>
+			);
+		}
+
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -131,7 +150,7 @@ class ArticleList extends React.Component {
 													hasMore={this.state.hasMore}
 												>
 													{
-														this.props.articleList && !this.state.noArticleFound ?
+														this.props.articleList.length && !this.state.noArticleFound ?
 															this.props.articleList.map((property, index) => {
 																return <div className="col-12" key={index}>
 																	<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
@@ -152,6 +171,15 @@ class ArticleList extends React.Component {
 															<a href={`${CONFIG.API_BASE_URL}${this.props.match.url}?page=${this.state.page}`} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
 														</div>
 														: ''
+												}
+
+												{
+													this.props.articleList.length && !this.state.noArticleFound ?
+														<div className="col-12">
+															<div className="art-pagination-div">
+																{articleButtons}
+															</div>
+														</div> : ""
 												}
 
 											</div> : <Loader />

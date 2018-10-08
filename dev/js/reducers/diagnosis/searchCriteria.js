@@ -1,4 +1,4 @@
-import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS ,ADD_LAB_PROFILE_TESTS} from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -15,7 +15,9 @@ const defaultState = {
     selectedLocation: null,
     filterCriteria: DEFAULT_FILTER_STATE,
     lab_test_data: {},
-    locationType: 'geo'
+    locationType: 'geo',
+    lab_profile_demo_tests:[],
+    lab_tests:{}
 }
 
 export default function (state = defaultState, action) {
@@ -141,6 +143,43 @@ export default function (state = defaultState, action) {
                 lab_test_data: {}
             }
 
+            return newState
+        }
+
+        case ADD_DEFAULT_LAB_TESTS: {
+            let newState = {
+                ...state
+            }
+            /*
+            newState.lab_test_data[action.labId]=[]
+
+            newState.lab_test_data[action.labId] = action.payload*/
+
+            newState.lab_tests[action.labId] = []
+
+            newState.lab_tests[action.labId] = action.payload
+            return newState
+        }
+
+        case ADD_LAB_PROFILE_TESTS: {
+            let newState = {
+                ...state
+            }
+            if(newState.lab_profile_demo_tests.length){
+
+                if(newState.lab_profile_demo_tests.indexOf(action.payload)>-1){
+                    let tests = newState.lab_profile_demo_tests
+                    tests.splice(tests.indexOf(action.payload),1)
+                    newState.lab_profile_demo_tests.concat(tests)    
+                }else{
+                    
+                    newState.lab_profile_demo_tests.push(action.payload)    
+                }
+            }else{
+                newState.lab_profile_demo_tests= newState.lab_profile_demo_tests || []
+                newState.lab_profile_demo_tests.push(action.payload)    
+            }
+            
             return newState
         }
 

@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST , SAVE_UTM_TAGS, SAVE_DEVICE_INFO ,SAVE_STATIC_CHAT_MSG} from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -30,10 +30,12 @@ const defaultState = {
     articleList: [],
     articleListData: [],
     ARTICLE_LOADED: false,
+    articlePageCount: 0,
+    pageButtonCount: 0,
     currentRoomId: null,
     utm_tags: {},
-    device_info:'desktop',
-    chat_static_msg : ''
+    device_info: 'desktop',
+    chat_static_msg: ''
 }
 
 export default function (state = defaultState, action) {
@@ -227,13 +229,18 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
             }
+
+            newState.articlePageCount = Math.ceil(action.payload.total_articles / 10);
+
+            newState.pageButtonCount = action.staticPage || 1;
+
             newState.ARTICLE_LOADED = true;
-            if(action.page == 1){
+            if (action.page == 1) {
                 newState.articleList = action.payload.result
                 newState.articleListData = action.payload
-            }
-            else {
+            } else {
                 newState.articleList = newState.articleList.concat(action.payload.result);
+                newState.articleListData = action.payload
             }
             return newState
         }
@@ -260,8 +267,8 @@ export default function (state = defaultState, action) {
             }
             newState.chat_static_msg = action.payload
 
-            if(action.deleteRoomId){
-                newState.chatRoomIds = {} 
+            if (action.deleteRoomId) {
+                newState.chatRoomIds = {}
             }
             return newState
         }

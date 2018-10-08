@@ -22,6 +22,7 @@ class ChatPanel extends React.Component {
             hideIframe: true,
             iframeLoading: true,
             showStaticView:true,
+            hideStaticView:false
         }
     }
 
@@ -206,12 +207,13 @@ class ChatPanel extends React.Component {
 
     closeChat() {
         
+        STORAGE.getAuthToken().then((token) => {
+            token = token || ""
+              this.setState({ token })
+        })
         this.dispatchCustomEvent.call(this, 'close_frame')
-        setTimeout(() => {
-            this.props.saveChatStaticMsg('', true)
-        }, 2000)
         this.setState({ showCancel: !this.state.showCancel })
-        // this.props.history.go(-1)
+         
     }
 
     toggleCancel(e) {
@@ -273,7 +275,7 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&msg=${this.props.USER.chat_static_msg||''}&room=${this.state.roomId}`
+        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
 
 
         return (
@@ -285,7 +287,7 @@ class ChatPanel extends React.Component {
                 }
 
                 <div className={this.state.showChatBlock ? "floating-chat " :""}>
-                {this.state.showStaticView
+                {this.state.hideStaticView
                         ?<ChatStaticView {...this.props} hideStaticChat = {this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
                         :<div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 

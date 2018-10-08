@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getLabTests, addLabProfileTests } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -9,7 +9,8 @@ class Lab extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedLab: this.props.match.params.id || null
+            selectedLab: this.props.match.params.id || null,
+            defaultTest:[]
         }
     }
 
@@ -40,10 +41,26 @@ class Lab extends React.Component {
     }
 
     componentDidMount() {
+        let lab_id ;
         if (this.props.match.params.id) {
             let testIds = this.props.lab_test_data[this.props.match.params.id] || []
-            testIds = testIds.map(x => x.id)
-            this.props.getLabById(this.props.match.params.id, testIds)
+            lab_id = this.props.match.params.id
+            let tests = testIds.map(x => x.id)
+            this.props.getLabById(lab_id, tests)
+            if(true){
+                this.props.getLabTests(lab_id, '', true, tests,(searchResults) => {
+                    if (searchResults) {
+
+                        testIds = searchResults.map(x => x.id)
+                       // this.props.getLabById(this.props.match.params.id, testIds)
+                        this.setState({defaultTest:searchResults})
+                    }
+                })
+            }else{
+                testIds = testIds.map(x => x.id)
+                this.props.getLabById(this.props.match.params.id, testIds)
+            }
+            
         } else {
             let url = this.props.match.url
             if (url) {
@@ -51,14 +68,34 @@ class Lab extends React.Component {
             }
             this.props.getLabByUrl(url, [], (labId) => {
                 if (labId) {
+                    lab_id = labId
                     this.setState({ selectedLab: labId })
                     let testIds = this.props.lab_test_data[labId] || []
-                    testIds = testIds.map(x => x.id)
-                    this.props.getLabById(labId, testIds)
+                    let tests = testIds.map(x => x.id)
+                    this.props.getLabById(labId, tests)
+                    if(true){
+                        
+                        this.props.getLabTests(lab_id, '',true, tests,(searchResults) => {
+                            
+                            if (searchResults) {
+                                
+                                testIds = searchResults.map(x => x.id)
+                                this.setState({defaultTest:searchResults})
+                    
+                            }
+                        })
+                    }else{
+                        testIds = testIds.map(x => x.id)
+                        this.props.getLabById(labId, testIds)    
+                    }
+
+                    
+                    
                 }
             })
         }
 
+        
         //always clear selected time at lab profile
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
@@ -66,7 +103,7 @@ class Lab extends React.Component {
 
     render() {
         return (
-            <LabView {...this.props} selectedLab={this.state.selectedLab} />
+            <LabView {...this.props} selectedLab={this.state.selectedLab} defaultTest={this.state.defaultTest}/>
         );
     }
 }
@@ -86,7 +123,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedLocation,
         selectedCriterias,
         filterCriteria,
-        LOADED_SEARCH_CRITERIA_LAB
+        LOADED_SEARCH_CRITERIA_LAB,
+        lab_profile_demo_tests
     } = state.SEARCH_CRITERIA_LABS
 
     let LABS = state.LABS
@@ -94,7 +132,8 @@ const mapStateToProps = (state, passedProps) => {
     return {
         lab_test_data,
         selectedCriterias,
-        LABS, initialServerData
+        LABS, initialServerData,
+        lab_profile_demo_tests
     }
 }
 
@@ -103,7 +142,9 @@ const mapDispatchToProps = (dispatch) => {
         getLabByUrl: (url, testIds, cb) => dispatch(getLabByUrl(url, testIds, cb)),
         getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd))
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
+        getLabTests: (labid, search_string, defaultTest, selectedTesIds, callback) => dispatch(getLabTests(labid, search_string, defaultTest, selectedTesIds, callback)),
+        addLabProfileTests: (testId) => dispatch(addLabProfileTests(testId))
     }
 }
 

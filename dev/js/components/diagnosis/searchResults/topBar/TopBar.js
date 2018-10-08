@@ -165,7 +165,7 @@ class TopBar extends React.Component {
                                             :(this.props.selectedLocation && this.props.selectedLocation.formatted_address)?<span className="location-edit" style={{color:'#f6843a',cursor:'pointer'}}>{` in ${this.props.selectedLocation.formatted_address}`}</span>:''
 
                                         }
-                                        <img style={{width:15, height:15, marginLeft:7}} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                        <img style={{width:15, height:15, marginLeft:7, cursor:'pointer'}} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                     </span>
 
                                 </div>

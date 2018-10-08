@@ -6,8 +6,8 @@ export default ({ toggle, closeChat }) => {
         <div className="widget cancel-appointment-div payment-popup">
             <div className="widget-header text-center">
                 <p className="fw-500 cancel-appointment-head">Are you sure you want to restart a new chat?</p>
-                <hr />
             </div>
+            <hr />
             <a href="javascript:;">
                 <div className="widget-content cancel-content-div" onClick={() => {
                     closeChat()
@@ -31,7 +31,7 @@ export default ({ toggle, closeChat }) => {
                     </div>
                 </div>
             </a>
-            <hr style={{ visibility: 'hidden' }} />
+            <hr style={{ display: 'none' }} />
         </div>
     </div>
 }

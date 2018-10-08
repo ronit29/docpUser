@@ -49,7 +49,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url } = this.props.details
 
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
@@ -62,15 +62,26 @@ class DoctorProfileCard extends React.Component {
             })
         }
 
+        var Distance = (Math.round(distance * 10) / 10).toFixed(1);
+
+
         if (hospitals && hospitals.length) {
             return (
                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
                     <div className="dp-dr-search-card">
                         <div className="dp-dr-search-card-div">
-                            <div className="dp-dr-search-card-address clearfix">
-                                <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="dp-dr-search-loc-icon" />
-                                <p>{hospital.short_address}</p>
+
+                            <div className="fltr-lctn-dtls">
+                                <p>
+                                    <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                    <span className="fltr-loc-txt">                                                {hospital.short_address} |
+                                    {hospital.short_address}
+                                    </span> |
+                                <span> {Distance} Km</span>
+                                </p>
                             </div>
+
+
                             <div className="dp-dr-search-card-content clearfix">
 
                                 <div className="dp-dr-search-card-img">
@@ -90,6 +101,12 @@ class DoctorProfileCard extends React.Component {
                                 <p className="fw-700 dp-dr-new-price"><span className="dp-dr-old-price">&#8377; {mrp}</span> &#8377; {deal_price}</p>
                             </div>
                             <div className="dp-dr-search-card-content-3 clearfix">
+                                {
+                                    !deal_price ?
+                                        <div className="dp-dr-free-label">
+                                            <p className="fw-500">Free Consultation</p>
+                                        </div> : ''
+                                }
                                 <button className="dp-dr-card-btn text-center fw-500">Book Now</button>
                             </div>
                         </div>
@@ -113,6 +130,7 @@ class DoctorProfileCard extends React.Component {
                             </div>
                         </div>
                     </div>
+
                 </a>
             );
         } else {
