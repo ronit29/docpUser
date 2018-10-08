@@ -268,43 +268,53 @@ class Footer extends React.Component {
                 <div className="container footer-3">
                     <div className="row footer-3-row">
                         <ul className="list-inline footer-3-list text-center">
-                            <a onClick={() => {
+                            <a href="/about" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/about")
                             }}><li className="list-inline-item">ABOUT US</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/howitworks" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/howitworks")
                             }}><li className="list-inline-item">HOW IT WORKS</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/careers" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/careers")
                             }}><li className="list-inline-item">CAREERS</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/contact" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/contact")
                             }}><li className="list-inline-item">CONTACT US</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/terms" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/terms")
                             }}><li className="list-inline-item">TERMS &amp; CONDITIONS</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/privacy" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/privacy")
                             }}><li className="list-inline-item">PRIVACY POLICY</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/disclaimer" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/disclaimer")
                             }}><li className="list-inline-item">DISCLAIMER</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/media" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/media")
                             }}><li className="list-inline-item">MEDIA</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/all-diseases" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/all-diseases")
                             }}><li className="list-inline-item">ALL DISEASES</li></a>
                             <li className="list-inline-item">|</li>
-                            <a onClick={() => {
+                            <a href="/all-medicines" onClick={(e) => {
+                                e.preventDefault();
                                 this.navigateTo("/all-medicines")
                             }}><li className="list-inline-item">ALL MEDICINES</li></a>
                         </ul>

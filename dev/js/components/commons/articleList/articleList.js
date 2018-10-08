@@ -73,26 +73,64 @@ class ArticleList extends React.Component {
 
 	componentDidMount() {
 		window.scrollTo(0, 0);
+		if (this.props.location.search == '?page=1') {
+			var newHref = window.location.href.replace('?page=1', '');
+			window.location.href = newHref;
+		}
 	}
 
 	render() {
 
+		var prevPage = 0;
+		var nextPage = 0;
+		var currentPage = parseInt(this.state.page);
+		var lastPage = this.props.articlePageCount;
+
+		if (currentPage > 1 && currentPage < lastPage) {
+			prevPage = currentPage - 1;
+			nextPage = currentPage + 1;
+		}
+
+		else if (currentPage == 1) {
+			nextPage = currentPage + 1;
+		}
+
+		else if (currentPage == lastPage) {
+			prevPage = currentPage - 1;
+		}
+
 		var articleButtons = [];
 		var articleURL = this.props.match.url;
 
-		for (var i = parseInt(this.props.pageButtonCount) - 1; i <= parseInt(this.props.pageButtonCount) + 1; i++) {
-			articleButtons.push(
-				<div>
-					{
-						i >= 1 && i <= this.props.articlePageCount ?
-							<a href={`${articleURL}?page=${i}`} >
+		for (var i = currentPage - 1; i <= currentPage + 1; i++) {
+			if (i == currentPage) {
+				articleButtons.push(
+					<div>
+						{
+							i >= 1 && i <= lastPage ?
 								<div className="art-pagination-btn">
 									<span className="fw-500">{i}</span>
 								</div>
-							</a> : ""
-					}
-				</div>
-			);
+								: ""
+						}
+					</div>
+				);
+
+			}
+			else {
+				articleButtons.push(
+					<div>
+						{
+							i >= 1 && i <= lastPage ?
+								<a href={`${articleURL}?page=${i}`} >
+									<div className="art-pagination-btn">
+										<span className="fw-500">{i}</span>
+									</div>
+								</a> : ""
+						}
+					</div>
+				);
+			}
 		}
 
 		return (
@@ -106,7 +144,9 @@ class ArticleList extends React.Component {
 								this.props.ARTICLE_LOADED ? <HelmetTags tagsData={{
 									title: (this.props.articleListData.seo ? this.props.articleListData.seo.title : ""),
 									description: (this.props.articleListData.seo ? this.props.articleListData.seo.description : ""),
-									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
+									prev: `${prevPage ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${prevPage}` : ""}`,
+									next: `${nextPage ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${nextPage}` : ""}`,
 									setDefault: true
 								}} /> : null
 							}
