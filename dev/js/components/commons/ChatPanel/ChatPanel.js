@@ -20,7 +20,8 @@ class ChatPanel extends React.Component {
             additionClasses: ' chat-load-mobile',
             hideIframe: true,
             iframeLoading: true,
-            showStaticView: true,
+            showStaticView:true,
+            hideStaticView:false
         }
     }
 
@@ -204,13 +205,14 @@ class ChatPanel extends React.Component {
     }
 
     closeChat() {
-
+        
+        STORAGE.getAuthToken().then((token) => {
+            token = token || ""
+              this.setState({ token })
+        })
         this.dispatchCustomEvent.call(this, 'close_frame')
-        setTimeout(() => {
-            this.props.saveChatStaticMsg('', true)
-        }, 2000)
         this.setState({ showCancel: !this.state.showCancel })
-        // this.props.history.go(-1)
+         
     }
 
     toggleCancel(e) {
@@ -272,7 +274,7 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&msg=${this.props.USER.chat_static_msg || ''}&room=${this.state.roomId}`
+        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
 
 
         return (
@@ -283,10 +285,10 @@ class ChatPanel extends React.Component {
                         <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} /></div>
                 }
 
-                <div className={this.state.showChatBlock ? "floating-chat " : ""}>
-                    {this.state.showStaticView
-                        ? <ChatStaticView {...this.props} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} />
-                        : <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
+                <div className={this.state.showChatBlock ? "floating-chat " :""}>
+                {this.state.hideStaticView
+                        ?<ChatStaticView {...this.props} hideStaticChat = {this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
+                        :<div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
 
                             {/* chat header */}

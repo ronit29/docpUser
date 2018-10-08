@@ -9,7 +9,6 @@ export default function (state = defaultState, action) {
     switch (action.type) {
         case APPEND_LABS: {
             let newState = { ...state }
-
             return action.payload.reduce((lapMap, lab) => {
                 lapMap[lab.lab.id] = lapMap[lab.lab.id] || {}
                 lapMap[lab.lab.id] = { ...lapMap[lab.lab.id], ...lab }

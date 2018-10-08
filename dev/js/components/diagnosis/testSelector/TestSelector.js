@@ -34,13 +34,14 @@ class TestSelectorView extends React.Component {
         test.deal_price = test_to_toggle.deal_price
         test.extra_test = true
         test.lab_id = this.state.selectedLab
+
         this.props.toggleDiagnosisCriteria('test', test)
     }
 
     getSearchList(e) {
         var search_string = e.target.value;
         this.setState({ searchString: search_string });
-        this.props.getLabTests(this.state.selectedLab, search_string, false, (searchResults) => {
+        this.props.getLabTests(this.state.selectedLab, search_string, false,[], (searchResults) => {
             if (searchResults) {
                 this.setState({ searchResults: searchResults })
             }
