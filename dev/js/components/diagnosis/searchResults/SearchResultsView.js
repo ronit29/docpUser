@@ -20,6 +20,9 @@ class SearchResultsView extends React.Component {
     componentDidMount() {
         if (this.props.fetchNewResults) {
             this.getLabList(this.props)
+            if (window) {
+                window.scrollTo(0, 0)
+            }
         }
     }
 
