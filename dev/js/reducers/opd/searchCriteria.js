@@ -1,4 +1,4 @@
-import { RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -17,7 +17,8 @@ const defaultState = {
     selectedCriterias: [],
     selectedLocation: null,
     filterCriteria: DEFAULT_FILTER_STATE,
-    locationType: 'geo'
+    locationType: 'geo',
+    fetchNewResults: false
 }
 
 export default function (state = defaultState, action) {
@@ -59,12 +60,18 @@ export default function (state = defaultState, action) {
                 })
             }
 
-            if (!found) {
+            if (action.payload.forceAdd) {
+                newState.selectedCriterias = [{
+                    ...action.payload.criteria,
+                    type: action.payload.type
+                }]
+            } else if (!found) {
                 newState.selectedCriterias.push({
                     ...action.payload.criteria,
                     type: action.payload.type
                 })
             }
+            newState.fetchNewResults = true
 
             return newState
         }
@@ -74,24 +81,23 @@ export default function (state = defaultState, action) {
 
             newState.selectedLocation = action.payload
             if (action.range == 'autoComplete') {
-
                 newState.locationType = 'autoComplete'
-
             } else if (action.range == 'autoDetect') {
-
                 newState.locationType = 'autoDetect'
-
             } else {
-
                 newState.locationType = 'geo'
             }
+            newState.fetchNewResults = action.fetchNewResults
+
             return newState
         }
 
         case MERGE_SEARCH_STATE_OPD: {
-            delete action.payload.searchState.selectedLocation
-
-            let newState = { ...state, ...action.payload.searchState, filterCriteria: action.payload.filterCriteria }
+            let newState = {
+                ...state,
+                ...action.payload,
+                fetchNewResults: action.fetchNewResults
+            }
 
             return newState
         }
@@ -99,6 +105,13 @@ export default function (state = defaultState, action) {
         case RESET_FILTER_STATE: {
             let newState = { ...state }
             newState.filterCriteria = DEFAULT_FILTER_STATE
+            // newState.fetchNewResults = true
+            return newState
+        }
+
+        case SET_FETCH_RESULTS_OPD: {
+            let newState = { ...state }
+            newState.fetchNewResults = !!action.payload
             return newState
         }
 

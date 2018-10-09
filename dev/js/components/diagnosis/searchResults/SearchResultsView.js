@@ -18,114 +18,14 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        if (NAVIGATE.refreshLabSearchResults(this.props)) {
-            this.getLabs(this.props)
-        }
-
-        // this.getLabs()
-        if (window) {
-            window.scrollTo(0, 0)
-        }
-
-        if (this.props.location.state && this.props.location.state.scrollTop) {
-            // setTimeout(() => {
-            //     if (window) {
-            //         window.scrollTo(0, 0)
-            //         window.LAB_SCROLL_POS = 0
-            //     }
-            // }, 100)
+        if (this.props.fetchNewResults) {
+            this.getLabList(this.props)
         }
     }
 
     componentWillReceiveProps(props) {
-
-        let prev_lat = null
-        if (this.props.selectedLocation) {
-            prev_lat = this.props.selectedLocation.geometry.location.lat
-            if (typeof prev_lat === 'function') prev_lat = prev_lat()
-            prev_lat = parseFloat(parseFloat(prev_lat).toFixed(6))
-        }
-
-        let nex_lat = null
-        if (props.selectedLocation) {
-            nex_lat = props.selectedLocation.geometry.location.lat
-            if (typeof nex_lat === 'function') nex_lat = nex_lat()
-            nex_lat = parseFloat(parseFloat(nex_lat).toFixed(6))
-        }
-
-        if (prev_lat != nex_lat) {
-            this.getLabs(props, 0)
-        }
-    }
-
-    getLabs(props, showLocation = 1) {
-        let {
-            selectedLocation
-        } = props
-
-        try {
-
-            let test_ids = this.getLocationParam('test_ids') || ""
-            let lat = this.getLocationParam('lat')
-            let long = this.getLocationParam('long')
-            let place_id = this.getLocationParam('place_id') || ""
-            let min_distance = parseInt(this.getLocationParam('min_distance')) || 0
-            let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
-            let min_price = parseInt(this.getLocationParam('min_price')) || 0
-            let max_price = parseInt(this.getLocationParam('max_price')) || 20000
-            let sort_on = this.getLocationParam('sort_on') || null
-            let lab_name = this.getLocationParam('lab_name') || ""
-            lab_name = lab_name || ""
-            let force_location_fromUrl = !!this.getLocationParam('force_location')
-
-            let searchState = {
-                selectedCriterias: test_ids
-            }
-            searchState.selectedLocation = {
-                geometry: { location: { lat, lng: long } }, place_id
-            }
-            let filterCriteria = {
-                min_price, max_price, min_distance, max_distance, sort_on
-            }
-            if (lab_name) {
-                filterCriteria.lab_name = lab_name
-            }
-
-            filterCriteria.priceRange = [0, 20000]
-            filterCriteria.priceRange[0] = filterCriteria.min_price
-            filterCriteria.priceRange[1] = filterCriteria.max_price
-
-            filterCriteria.distanceRange = [0, 35]
-            filterCriteria.distanceRange[0] = filterCriteria.min_distance
-            filterCriteria.distanceRange[1] = filterCriteria.max_distance
-
-            // if location found in store , use that instead of the one in URL
-            if (selectedLocation && selectedLocation.geometry) {
-
-                // if location is changed then update url with new locations
-                if (!!!searchState.selectedLocation || (searchState.selectedLocation && searchState.selectedLocation.geometry && selectedLocation.geometry.location.lat != searchState.selectedLocation.geometry.location.lat)) {
-                    // skip location pick from store if force location from url is set
-                    if (!force_location_fromUrl) {
-                        searchState.selectedLocation = selectedLocation
-                    }
-
-                    let sel_cri = test_ids ? test_ids.split(',').map((x) => {
-                        return {
-                            type: 'test',
-                            id: x,
-                            name: ""
-                        }
-                    }) : []
-
-                    let url = this.buildURI([...sel_cri], searchState.selectedLocation, filterCriteria, lab_name)
-                    this.props.history.replace(url)
-                }
-
-            }
-
-            this.getLabList(searchState, filterCriteria, true, showLocation)
-        } catch (e) {
-            console.error(e)
+        if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+            this.getLabList(props)
         }
     }
 
@@ -136,57 +36,31 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(searchState, filterCriteria, mergeState, showLocation = 1) {
+    getLabList(state = null, page = 1, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url
         }
+        if (!state) {
+            state = this.props
+        }
 
-        this.props.getLabs(searchState, filterCriteria, mergeState, 1, (loadMore, seoData) => {
-            if (seoData) {
-                this.setState({ seoData: seoData })
+        this.props.getLabs(state, page, false, searchUrl, (...args) => {
+            let new_url = this.buildURI(state)
+            this.props.history.replace(new_url)
+            if (cb) {
+                cb(...args)
             }
-        }, false, searchUrl, showLocation);
+        })
     }
 
     applyFilters(filterState) {
-
-        let test_ids = this.getLocationParam('test_ids')
-        let lat = this.getLocationParam('lat')
-        let long = this.getLocationParam('long')
-        let place_id = this.getLocationParam('place_id') || ""
-
-        let searchState = {
-            selectedCriterias: test_ids
-        }
-        searchState.selectedLocation = {
-            geometry: { location: { lat, lng: long } }, place_id
-        }
-
-        let lab_name = this.getLocationParam('lab_name')
-        lab_name = lab_name || ""
-        if (lab_name) {
-            filterState.lab_name = lab_name
-        }
-
-        let url = this.buildURI(this.props.selectedCriterias, this.props.selectedLocation, filterState, lab_name)
-        this.props.history.replace(url)
-        this.getLabList(searchState, filterState, true)
-
-        if (window) {
-            window.scrollTo(0, 0)
-            window.LAB_SCROLL_POS = 0
-        }
+        this.props.mergeLABState({ filterCriteria: filterState })
     }
 
-    buildURI(selectedCriterias, selectedLocation, filterCriteria, lab_name) {
-        let specialization_ids = selectedCriterias
-            .filter((x) => {
-                return x.type == "test"
-            })
-            .map((x) => {
-                return x.id
-            }).join(',')
+    buildURI(state) {
+        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+        let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
 
         let lat = 28.644800
         let long = 77.216721
@@ -208,8 +82,9 @@ class SearchResultsView extends React.Component {
         let min_price = filterCriteria.priceRange[0]
         let max_price = filterCriteria.priceRange[1]
         let sort_on = filterCriteria.sort_on || ""
+        let lab_name = filterCriteria.lab_name || ""
 
-        let url = `${window.location.pathname}?test_ids=${specialization_ids}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
+        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
 
         return url
     }
@@ -271,7 +146,7 @@ class SearchResultsView extends React.Component {
                             <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
                             </div>
-                            <LabsList {...this.props} />
+                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} />
                         </div> : <div className="noopDiv"><img src={ASSETS_BASE_URL + "/images/nonop.png"} className="noop" /></div>
                     }
                 </CriteriaSearch>

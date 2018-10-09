@@ -1,14 +1,25 @@
-import { SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false, locationUpdate = 1) => (dispatch) => {
+export const getDoctors = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
-	dispatch({
-		type: SET_SERVER_RENDER_OPD,
-		payload: from_server
-	})
+	if (page == 1) {
+		dispatch({
+			type: DOCTOR_SEARCH_START,
+			payload: null
+		})
+	}
+
+	// dispatch({
+	// 	type: SET_SERVER_RENDER_OPD,
+	// 	payload: from_server
+	// })
+
+	let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+	let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
 
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
@@ -20,10 +31,10 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 	let long = 77.216721
 	let place_id = ""
 
-	if (searchState.selectedLocation) {
-		lat = searchState.selectedLocation.geometry.location.lat
-		long = searchState.selectedLocation.geometry.location.lng
-		place_id = searchState.selectedLocation.place_id || ""
+	if (selectedLocation) {
+		lat = selectedLocation.geometry.location.lat
+		long = selectedLocation.geometry.location.lng
+		place_id = selectedLocation.place_id || ""
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
 	}
@@ -48,26 +59,42 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		url = `/api/v1/doctor/doctorsearch_by_url?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `specialization_ids=${searchState.specializations_ids || ""}&condition_ids=${searchState.condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
 
 	if (!!filterCriteria.doctor_name) {
-		url += `&doctor_name=${filterCriteria.doctor_name}`
-		delete filterCriteria.doctor_name
+		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
 	}
 
 	if (!!filterCriteria.hospital_name) {
-		url += `&hospital_name=${filterCriteria.hospital_name}`
-		delete filterCriteria.hospital_name
-	}
-
-	if (page == 1) {
-		dispatch({
-			type: DOCTOR_SEARCH_START,
-			payload: null
-		})
+		url += `&hospital_name=${filterCriteria.hospital_name || ""}`
 	}
 
 	return API_GET(url).then(function (response) {
+
+		let specializations = response.specializations.map((x) => {
+			x.type = 'speciality'
+			return x
+		})
+
+		let conditions = response.conditions.map((x) => {
+			x.type = 'condition'
+			return x
+		})
+
+		let selectedCriterias = [...specializations, ...conditions]
+
+		dispatch({
+			type: MERGE_SEARCH_STATE_OPD,
+			payload: {
+				selectedCriterias
+			},
+			fetchNewResults: false
+		})
+
+		dispatch({
+			type: SET_FETCH_RESULTS_OPD,
+			payload: false
+		})
 
 		dispatch({
 			type: APPEND_DOCTORS,
@@ -84,75 +111,10 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 		})
 
 		if (page == 1) {
-
 			let data = {
 				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0
 			}
 			GTM.sendEvent({ data: data })
-
-		}
-
-		if (mergeState) {
-
-			let specialization_criterias = response.specializations.map((x) => {
-				x.type = 'speciality'
-				return x
-			})
-
-			let condition_criterias = response.conditions.map((x) => {
-				x.type = 'condition'
-				return x
-			})
-
-			searchState.selectedCriterias = [...specialization_criterias, ...condition_criterias]
-			searchState.selectedLocation = null
-
-			dispatch({
-				type: MERGE_SEARCH_STATE_OPD,
-				payload: {
-					searchState,
-					filterCriteria
-				}
-			})
-
-			if (locationUpdate) {
-
-				if (place_id) {
-					_getLocationFromPlaceId(place_id, (locationData) => {
-						// searchState.selectedLocation = locationData
-
-						dispatch({
-							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData,
-							range: 'autoDetect'
-						})
-
-						dispatch({
-							type: SELECT_LOCATION_OPD,
-							payload: locationData,
-							range: 'autoDetect'
-						})
-
-					})
-				} else {
-					_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
-						// searchState.selectedLocation = locationData
-
-						dispatch({
-							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData,
-							range: 'geo'
-						})
-
-						dispatch({
-							type: SELECT_LOCATION_OPD,
-							payload: locationData,
-							range: 'geo'
-						})
-
-					})
-				}
-			}
 		}
 
 		if (cb) {
@@ -161,6 +123,7 @@ export const getDoctors = (searchState = {}, filterCriteria = {}, mergeState = f
 				cb(true, response.seo)
 			}
 		}
+
 		cb(false, response.seo)
 
 	}).catch(function (error) {

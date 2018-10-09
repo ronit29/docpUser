@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests } from '../../actions/index.js'
-
+import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests } from '../../actions/index.js'
+import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 
 class SearchResults extends React.Component {
@@ -15,53 +15,20 @@ class SearchResults extends React.Component {
 
     static loadData(store, match, queryParams = {}) {
         try {
-            let test_ids = queryParams['test_ids'] || ""
-            let lat = queryParams['lat']
-            let long = queryParams['long']
-            let place_id = queryParams['place_id'] || ""
-            let min_distance = parseInt(queryParams['min_distance']) || 0
-            let max_distance = parseInt(queryParams['max_distance']) || 35
-            let min_price = parseInt(queryParams['min_price']) || 0
-            let max_price = parseInt(queryParams['max_price']) || 20000
-            let sort_on = queryParams['sort_on'] || null
-            let lab_name = queryParams['lab_name'] || ""
-            lab_name = lab_name || ""
-            let force_location_fromUrl = !!queryParams['force_location']
-
-            let searchState = {
-                selectedCriterias: test_ids
-            }
-            searchState.selectedLocation = {
-                geometry: { location: { lat, lng: long } }, place_id
-            }
-            let filterCriteria = {
-                min_price, max_price, min_distance, max_distance, sort_on
-            }
-            if (lab_name) {
-                filterCriteria.lab_name = lab_name
-            }
-
-            filterCriteria.priceRange = [0, 20000]
-            filterCriteria.priceRange[0] = filterCriteria.min_price
-            filterCriteria.priceRange[1] = filterCriteria.max_price
-
-            filterCriteria.distanceRange = [0, 35]
-            filterCriteria.distanceRange[0] = filterCriteria.min_distance
-            filterCriteria.distanceRange[1] = filterCriteria.max_distance
-
-            let searchUrl = null
-            if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
-                searchUrl = match.url
-            }
-
             return new Promise((resolve, reject) => {
-                store.dispatch(getLabs(searchState, filterCriteria, false, 1, (loadMore, seoData) => {
-                    resolve(seoData)
-                }, true, searchUrl)).catch((e) => {
-                    reject(e)
+                labSearchStateBuilder(null, queryParams, true).then((state) => {
+                    store.dispatch(mergeLABState(state))
+
+                    let searchUrl = null
+                    if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
+                        searchUrl = match.url
+                    }
+
+                    store.dispatch(getLabs(state, 1, true, searchUrl, (loadMore, seoData) => {
+                        resolve(seoData)
+                    }))
                 })
             })
-
         } catch (e) {
             console.error(e)
         }
@@ -95,7 +62,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedCriterias,
         filterCriteria,
         LOADED_SEARCH_CRITERIA_LAB,
-        locationType
+        locationType,
+        fetchNewResults
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LABS
@@ -111,7 +79,8 @@ const mapStateToProps = (state, passedProps) => {
         count,
         SET_FROM_SERVER,
         initialServerData,
-        locationType
+        locationType,
+        fetchNewResults
     }
 
 }
@@ -119,10 +88,11 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, updateLocation) => dispatch(getLabs(searchState, filterCriteria, mergeState, page, cb, from_server, searchByUrl, updateLocation)),
+        getLabs: (state, page, from_server, searchByUrl, cb) => dispatch(getLabs(state, page, from_server, searchByUrl, cb)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
-        clearExtraTests: () => dispatch(clearExtraTests())
+        clearExtraTests: () => dispatch(clearExtraTests()),
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults))
     }
 }
 

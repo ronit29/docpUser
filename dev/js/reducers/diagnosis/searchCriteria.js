@@ -1,4 +1,4 @@
-import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -15,7 +15,8 @@ const defaultState = {
     selectedLocation: null,
     filterCriteria: DEFAULT_FILTER_STATE,
     lab_test_data: {},
-    locationType: 'geo'
+    locationType: 'geo',
+    fetchNewResults: false
 }
 
 export default function (state = defaultState, action) {
@@ -66,12 +67,18 @@ export default function (state = defaultState, action) {
                     return true
                 })
 
-                if (!found || action.payload.forceAdd) {
+                if (action.payload.forceAdd) {
+                    newState.selectedCriterias = [{
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    }]
+                } else if (!found) {
                     newState.selectedCriterias.push({
                         ...action.payload.criteria,
                         type: action.payload.type
                     })
                 }
+                newState.fetchNewResults = true
             }
 
             return newState
@@ -82,27 +89,22 @@ export default function (state = defaultState, action) {
 
             newState.selectedLocation = action.payload
             if (action.range == 'autoComplete') {
-
                 newState.locationType = 'autoComplete'
-
             } else if (action.range == 'autoDetect') {
-
                 newState.locationType = 'autoDetect'
-
             } else {
-
                 newState.locationType = 'geo'
             }
+            newState.fetchNewResults = action.fetchNewResults
+
             return newState
         }
 
         case MERGE_SEARCH_STATE_LAB: {
-            delete action.payload.searchState.selectedLocation
-
             let newState = {
                 ...state,
-                ...action.payload.searchState,
-                filterCriteria: action.payload.filterCriteria
+                ...action.payload,
+                fetchNewResults: action.fetchNewResults
             }
 
             let extra_tests = state.selectedCriterias.filter(x => x.extra_test) || []
@@ -137,6 +139,12 @@ export default function (state = defaultState, action) {
                 lab_test_data: {}
             }
 
+            return newState
+        }
+
+        case SET_FETCH_RESULTS_LAB: {
+            let newState = { ...state }
+            newState.fetchNewResults = !!action.payload
             return newState
         }
 

@@ -8,8 +8,9 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo } from './actions/index.js'
+import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
+import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
 require('../css/custom-bootstrap.css')
 require('../css/carousel.css')
@@ -54,7 +55,7 @@ class App extends React.Component {
 
     componentDidMount() {
 
-
+        const parsed = queryString.parse(window.location.search)
         if (STORAGE.checkAuth()) {
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
@@ -67,7 +68,6 @@ class App extends React.Component {
             })
         }
 
-        const parsed = queryString.parse(window.location.search)
 
         /** 
          * Select a default location, if no location is selected and lat,long are not provided in url
@@ -78,7 +78,7 @@ class App extends React.Component {
                 if (latitude && longitude) {
                     _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
                         if (locationData) {
-                            this.props.selectLocation(locationData,'geo')
+                            this.props.selectLocation(locationData, 'geo', true)
                         }
                     })
                 }
@@ -86,23 +86,22 @@ class App extends React.Component {
         }
 
 
+        /**
+         * Tracking code
+         * TODO : refactor
+         */
         if (parsed) {
-
             if (parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign) {
-
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': parsed.utm_source || '', 'utm_medium': parsed.utm_medium || '', 'utm_term': parsed.utm_term || '', 'utm_campaign': parsed.utm_campaign || '', 'addToGA': false
                 }
-
                 GTM.sendEvent({ data: data })
-
                 let utm_tags = {
                     utm_source: parsed.utm_source || '',
                     utm_medium: parsed.utm_medium || '',
                     utm_term: parsed.utm_term || '',
                     utm_campaign: parsed.utm_campaign || ''
                 }
-
                 this.props.setUTMTags(utm_tags)
             }
         }
@@ -110,21 +109,16 @@ class App extends React.Component {
         let isMobile = false
         let device = 'desktop'
         if (navigator) {
-
             if (/mobile/i.test(navigator.userAgent)) {
                 isMobile = true
                 device = 'mobile'
             }
-
             if (navigator.userAgent.match(/iPad/i)) {
                 device = 'ipad'
             }
-
             if (navigator.userAgent.match(/iPhone/i)) {
                 device = 'iphone'
             }
-
-
             if (navigator.userAgent.match(/Android/i)) {
                 device = 'Android'
             }
@@ -132,28 +126,33 @@ class App extends React.Component {
             if (navigator.userAgent.match(/BlackBerry/i)) {
                 device = 'BlackBerry'
             }
-
-            /*
-            if(navigator.userAgent.match(/webOS/i)){
-                    device = 'desktop'
-            }*/
-
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'VisitorInfo', 'event': 'visitor-info', 'Device': device, 'Mobile': isMobile, 'platform': navigator.platform || '', 'addToGA': false
             }
-
             GTM.sendEvent({ data: data })
-
-
         }
         this.props.saveDeviceInfo(device)
 
-        // boot Raven(Sentry logger)
-        if (CONFIG.RAVEN_DSN_KEY) {
 
+        /**  
+         * Boot Raven(Sentry logger)
+         */
+        if (CONFIG.RAVEN_DSN_KEY) {
             Raven.config(CONFIG.RAVEN_DSN_KEY, {
                 environment: CONFIG.env
             }).install()
+        }
+
+        if (window.location.pathname.includes('/opd/searchresults')) {
+            opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
+                this.props.mergeOPDState(state)
+            })
+        }
+
+        if (window.location.pathname.includes('/lab/searchresults')) {
+            labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
+                this.props.mergeLABState(state)
+            })
         }
 
     }
@@ -189,9 +188,11 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         setUTMTags: (utmTags) => dispatch(setUTMTags(utmTags)),
-        selectLocation: (location) => dispatch(selectLocation(location)),
+        selectLocation: (location, type, fetchNewResults) => dispatch(selectLocation(location, type, fetchNewResults)),
         getGeoIpLocation: () => dispatch(getGeoIpLocation()),
-        saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device))
+        saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device)),
+        mergeOPDState: (state) => dispatch(mergeOPDState(state)),
+        mergeLABState: (state) => dispatch(mergeLABState(state))
     }
 
 }

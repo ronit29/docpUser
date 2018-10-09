@@ -14,7 +14,7 @@ import AUTH from './commons/auth.js'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['SEARCH_CRITERIA_LABS', 'SEARCH_CRITERIA_OPD']
+    whitelist: []
 }
 
 const DOCTOR_LIST_PRESIST = {
@@ -32,12 +32,24 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['chatDoctors', 'chatRoomIds']
+    whitelist: ['chatDoctors', 'chatRoomIds', 'currentRoomId']
+}
+
+const OPD_SEARCH_PERSIST = {
+    key: 'SEARCH_CRITERIA_OPD',
+    storage: storage,
+    blacklist: ['fetchNewResults']
+}
+
+const LAB_SEARCH_PERSIST = {
+    key: 'SEARCH_CRITERIA_LABS',
+    storage: storage,
+    blacklist: ['fetchNewResults']
 }
 
 const allReducers = combineReducers({
-    SEARCH_CRITERIA_OPD,
-    SEARCH_CRITERIA_LABS,
+    SEARCH_CRITERIA_OPD: persistReducer(OPD_SEARCH_PERSIST, SEARCH_CRITERIA_OPD),
+    SEARCH_CRITERIA_LABS: persistReducer(LAB_SEARCH_PERSIST, SEARCH_CRITERIA_LABS),
     DOCTORS,
     DOCTOR_SEARCH: persistReducer(DOCTOR_LIST_PRESIST, DOCTOR_SEARCH),
     LABS,
