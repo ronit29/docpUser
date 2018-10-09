@@ -102,7 +102,7 @@ class ArticleList extends React.Component {
 									title: (this.props.articleListData.seo ? this.props.articleListData.seo.title : ""),
 									description: (this.props.articleListData.seo ? this.props.articleListData.seo.description : ""),
 									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
-									prev: `${true ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(this.state.staticPage > 1 && this.state.staticPage <= Math.ceil(this.props.articleListData.total_articles / 10))?this.state.staticPage-1:null}` : ""}`,
+									prev: `${this.state.page != 1 ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(this.state.staticPage > 1 && this.state.staticPage <= Math.ceil(this.props.articleListData.total_articles / 10))?this.state.staticPage-1:null}` : ""}`,
 									next: `${true ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(this.state.staticPage >= 1 && this.state.staticPage < Math.ceil(this.props.articleListData.total_articles / 10))?this.state.staticPage+1:null}` : ""}`,
 									setDefault: true
 								}} /> : null
@@ -134,7 +134,7 @@ class ArticleList extends React.Component {
 									</div>
 									<div className="col-12">
 										{
-											this.state.title === '/all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
+											this.state.title === 'all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
 										}
 									</div>
 								</div>
