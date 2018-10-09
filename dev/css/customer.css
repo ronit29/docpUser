@@ -545,7 +545,7 @@ text-align: left;
     transform: translateY(-50%);
 }
 .doc-or-text>p{
-	color:#464a4c!important;
+	color:#d3d3d3!important;
 
 }
 .doc-auto-detect-div{
@@ -639,7 +639,6 @@ li.lst-bfr:before{
     width: 10px;
     left: 5px;
     top: 5px;
-    bottom: 0;;
     background: #e58950;
     border-radius: 10px;
 }
