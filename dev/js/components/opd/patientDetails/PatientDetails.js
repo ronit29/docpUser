@@ -6,6 +6,10 @@ import Loader from '../../commons/Loader'
 import VisitTime from './visitTime'
 import ChoosePatient from './choosePatient'
 const queryString = require('query-string');
+import SelectedClinic from '../commons/selectedClinic/index.js'
+
+
+
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -223,9 +227,16 @@ class PatientDetails extends React.Component {
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
-                                                            <DoctorProfileCard
+                                                             {/* <DoctorProfileCard
                                                                 details={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                            />  */}
+                                                            
+                                                            <SelectedClinic
+                                                                boxShadowHide = 1
+                                                                selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                                selectedClinic={this.state.selectedClinic}
                                                             />
+                                                            
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">

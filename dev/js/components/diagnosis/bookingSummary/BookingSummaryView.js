@@ -29,7 +29,8 @@ class BookingSummaryView extends React.Component {
             openCancellation: false,
             openPaymentSummary: false,
             // order_id: !!parsed.order_id,
-            order_id: false
+            order_id: false,
+            showTimeError: false
         }
     }
 
@@ -84,7 +85,7 @@ class BookingSummaryView extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTime type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                    <VisitTime type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
                     <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
@@ -110,6 +111,7 @@ class BookingSummaryView extends React.Component {
             return
         }
         if (!datePicked) {
+            this.setState({showTimeError: true});
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
         }
@@ -292,6 +294,12 @@ class BookingSummaryView extends React.Component {
                                                                         <p className="fw-500 text-sm text-light">{labDetail.address}</p>
                                                                     </div>
                                                                 </div>
+                                                                
+                                                                <div className="lab-visit-time test-report">
+                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
+                                                                    {tests}
+                                                                </div>
+
                                                                 {
                                                                     is_home_collection_enabled ?
                                                                         <div className="lab-visit-time test-report lab-appointment-div row">
@@ -304,10 +312,7 @@ class BookingSummaryView extends React.Component {
                                                                 }
 
 
-                                                                <div className="lab-visit-time test-report">
-                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
-                                                                    {tests}
-                                                                </div>
+                                                                
 
                                                                 {this.getSelectors()}
 

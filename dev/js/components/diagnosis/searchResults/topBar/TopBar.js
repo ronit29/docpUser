@@ -162,8 +162,8 @@ class TopBar extends React.Component {
 
                                         {
                                             this.state.showLocationPopup && false
-                                                ? ''
-                                                : (this.props.selectedLocation && this.props.selectedLocation.formatted_address) ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${this.props.selectedLocation.formatted_address}`}</span> : ''
+                                            ?''
+                                            :(this.props.selectedLocation && this.props.selectedLocation.formatted_address)?<span className="location-edit" style={{color:'#f6843a',cursor:'pointer'}}>{` in ${this.props.selectedLocation.formatted_address.split(', India')[0]}`}</span>:''
 
                                         }
                                         <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />

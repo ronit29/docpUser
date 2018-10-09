@@ -54,7 +54,7 @@ class Media extends React.Component {
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">Plot no</p>
 											<p className="media-contact-text">119, Sector 44</p>
-											<p className="media-contact-text">Gurgaon - 122001</p>
+											<p className="media-contact-text">Gurugram - 122001</p>
 										</div>
 									</div>
 								</div>
@@ -128,7 +128,7 @@ class Media extends React.Component {
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">Plot no</p>
 											<p className="media-contact-text">119, Sector 44</p>
-											<p className="media-contact-text">Gurgaon - 122001</p>
+											<p className="media-contact-text">Gurugram - 122001</p>
 										</div>
 									</div>
 								</div>
