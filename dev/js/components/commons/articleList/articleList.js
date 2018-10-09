@@ -17,29 +17,29 @@ class ArticleList extends React.Component {
 			page: 1,
 			searchVal: '',
 			noArticleFound: false,
-			staticPage : 1,
-			title : ''
+			staticPage: 1,
+			title: ''
 		}
 	}
 
 	componentDidMount() {
-        window.scrollTo(0, 0);
-        let title = this.props.match.url
-        title = title.substring(1, title.length)
-        this.setState({title:title})
-        const parsed = queryString.parse(this.props.location.search)
-        if (parsed.page) {
-        	let page = parseInt(parsed.page)
-            this.setState({ page: page , staticPage: page})
-            this.props.getArticleList(title, page)
-            if(parsed.page == 1){
-	        	var newHref = window.location.href.replace('?page=1', '');
+		window.scrollTo(0, 0);
+		let title = this.props.match.url
+		title = title.substring(1, title.length)
+		this.setState({ title: title })
+		const parsed = queryString.parse(this.props.location.search)
+		if (parsed.page) {
+			let page = parseInt(parsed.page)
+			this.setState({ page: page, staticPage: page })
+			this.props.getArticleList(title, page)
+			if (parsed.page == 1) {
+				var newHref = window.location.href.replace('?page=1', '');
 				window.location.href = newHref;
-        	}
-        } else {
-            this.props.getArticleList(title)
-        }
-    }
+			}
+		} else {
+			this.props.getArticleList(title)
+		}
+	}
 
 	loadMore() {
 		let page = this.state.page + 1;
@@ -85,10 +85,16 @@ class ArticleList extends React.Component {
 
 	render() {
 
+		const parsed = queryString.parse(this.props.location.search)
+		let page = 1
+		if (parsed.page) {
+			page = parseInt(parsed.page)
+		}
+
 		let currentPage = []
 		currentPage.push(<div className="art-pagination-btn">
-					<span className="fw-500">{this.state.staticPage}</span>
-				</div>)
+			<span className="fw-500" style={{ color: '#000' }} >{this.state.staticPage}</span>
+		</div>)
 
 		return (
 			<div className="profile-body-wrap">
@@ -102,8 +108,11 @@ class ArticleList extends React.Component {
 									title: (this.props.articleListData.seo ? this.props.articleListData.seo.title : ""),
 									description: (this.props.articleListData.seo ? this.props.articleListData.seo.description : ""),
 									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
-									prev: `${this.state.page != 1 ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(this.state.staticPage > 1 && this.state.staticPage <= Math.ceil(this.props.articleListData.total_articles / 10))?this.state.staticPage-1:null}` : ""}`,
-									next: `${true ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(this.state.staticPage >= 1 && this.state.staticPage < Math.ceil(this.props.articleListData.total_articles / 10))?this.state.staticPage+1:null}` : ""}`,
+
+									prev: `${page != 1 ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(page > 1 && page <= Math.ceil(this.props.articleListData.total_articles / 10)) ? page - 1 : null}` : null}`,
+
+									next: `${page != Math.ceil(this.props.articleListData.total_articles / 10) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(page >= 1 && page < Math.ceil(this.props.articleListData.total_articles / 10)) ? page + 1 : null}` : null}`,
+
 									setDefault: true
 								}} /> : null
 							}
@@ -134,7 +143,7 @@ class ArticleList extends React.Component {
 									</div>
 									<div className="col-12">
 										{
-											this.state.title === 'all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
+											this.props.match.url === '/all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
 										}
 									</div>
 								</div>
@@ -173,46 +182,42 @@ class ArticleList extends React.Component {
 												{
 													this.props.articleList.length && !this.state.noArticleFound ?
 														<div className="col-12">
-															<div className="art-pagination-div">
-																{
-																	this.state.staticPage==1?
-																	<div>
+															{
+																this.state.staticPage == 1 ?
+																	<div className="art-pagination-div">
 																		{currentPage}
-																		<a href={`${this.state.title}?page=${this.state.staticPage+1}`} >
+																		<a href={`${this.state.title}?page=${this.state.staticPage + 1}`} >
 																			<div className="art-pagination-btn">
-																				<span className="fw-500">{this.state.staticPage+1}</span>
+																				<span className="fw-500">{this.state.staticPage + 1}</span>
 																			</div>
 																		</a>
 																	</div>
-																	:(this.state.staticPage == Math.ceil(this.props.articleListData.total_articles / 10))?
-																		<div>
-																			<a href={`${this.state.title}?page=${this.state.staticPage-1}`} >
+																	: (this.state.staticPage == Math.ceil(this.props.articleListData.total_articles / 10)) ?
+																		<div className="art-pagination-div">
+																			<a href={`${this.state.title}?page=${this.state.staticPage - 1}`} >
 																				<div className="art-pagination-btn">
-																					<span className="fw-500">{this.state.staticPage-1}</span>
+																					<span className="fw-500">{this.state.staticPage - 1}</span>
 																				</div>
 																			</a>
 																			{currentPage}
 																		</div>
-																		:<div>
-																			<a href={`${this.state.title}?page=${this.state.staticPage-1}`} >
+																		: <div className="art-pagination-div">
+																			<a href={`${this.state.title}?page=${this.state.staticPage - 1}`} >
 																				<div className="art-pagination-btn">
-																					<span className="fw-500">{this.state.staticPage-1}</span>
+																					<span className="fw-500">{this.state.staticPage - 1}</span>
 																				</div>
 																			</a>
 																			{currentPage}
-																			<a href={`${this.state.title}?page=${this.state.staticPage+1}`} >
+																			<a href={`${this.state.title}?page=${this.state.staticPage + 1}`} >
 																				<div className="art-pagination-btn">
-																					<span className="fw-500">{this.state.staticPage+1}</span>
+																					<span className="fw-500">{this.state.staticPage + 1}</span>
 																				</div>
 																			</a>
 																		</div>
-																}
-															</div>
+															}
 														</div> : ""
 												}
-
 											</div> : <Loader />
-
 									}
 								</div>
 							</div>

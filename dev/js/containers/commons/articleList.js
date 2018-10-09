@@ -31,7 +31,7 @@ class ArticleList extends React.Component {
 
     render() {
         return (
-            <ArticleListView {...this.props} pageNo={this.state.pageNo} />
+            <ArticleListView {...this.props} />
         );
     }
 }
