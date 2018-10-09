@@ -110,6 +110,7 @@ class BookingSummaryView extends React.Component {
             return
         }
         if (!datePicked) {
+            
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
         }

@@ -25,6 +25,7 @@ class VisitTime extends React.Component {
                     e.stopPropagation()
                     this.props.navigateTo('time')
                 }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Pick"} Time</a></span></h4>
+                {time.text?'':<span style={{color:'red', fontSize:12,float:'right'}}>*Required</span>}
                 <p className="date-time">{date || "No time selected"} {time.text ? "|" : ""} {time.text}</p>
             </div>
         );
