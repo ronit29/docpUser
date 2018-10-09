@@ -73,8 +73,11 @@ class LabProfileCard extends React.Component {
 
         distance = Math.ceil(distance / 1000);
 
-        var openingTime = this.props.details.lab_timing.split('-')[0];
-
+        var openingTime = ''
+        if(this.props.details.lab_timing){
+            openingTime = this.props.details.lab_timing.split('-')[0];    
+        }
+        
         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var day = new Date();
         var today = day.getDay();

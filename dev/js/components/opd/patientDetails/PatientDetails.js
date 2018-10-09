@@ -232,7 +232,7 @@ class PatientDetails extends React.Component {
                                                             />  */}
                                                             
                                                             <SelectedClinic
-                                                                boxShadowHide
+                                                                boxShadowHide = 1
                                                                 selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                                 selectedClinic={this.state.selectedClinic}
                                                             />
