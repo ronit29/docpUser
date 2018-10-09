@@ -20,16 +20,17 @@ class TopBar extends React.Component {
             is_available: false,
             shortURL: "",
             dropdown_visible: false,
-            searchCities:[],
-            showLocationPopup:true
+            searchCities: [],
+            showLocationPopup: true
         }
     }
 
     componentWillReceiveProps(props) {
         this.setState({ ...props.filterCriteria })
-        if(props.locationType && props.locationType!="geo"){
-            this.setState({showLocationPopup:false})
+        if (props.locationType && props.locationType != "geo") {
+            this.setState({ showLocationPopup: false })
         }
+        this.shortenUrl()
     }
 
     componentDidMount() {
@@ -145,13 +146,13 @@ class TopBar extends React.Component {
         }
     }
 
-    getCityListLayout(searchResults){
-        this.setState({searchCities:searchResults})
+    getCityListLayout(searchResults) {
+        this.setState({ searchCities: searchResults })
     }
 
-    selectLocation(city){
-        this.child.selectLocation((city),()=>{
-            this.setState({searchCities:[]})
+    selectLocation(city) {
+        this.child.selectLocation((city), () => {
+            this.setState({ searchCities: [] })
         })
     }
 
@@ -186,15 +187,15 @@ class TopBar extends React.Component {
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr} </span>
 
-                                     <span onClick={()=>{this.setState({showLocationPopup:!this.state.showLocationPopup})}}>
+                                    <span onClick={() => { this.setState({ showLocationPopup: !this.state.showLocationPopup }) }}>
 
                                         {
-                                            this.state.showLocationPopup && false?''
-                                            :(this.props.selectedLocation && this.props.selectedLocation.formatted_address)?<span className="location-edit" style={{color:'#f6843a',cursor:'pointer'}}>{` in ${this.props.selectedLocation.formatted_address}`}</span>:''
+                                            this.state.showLocationPopup && false ? ''
+                                                : (this.props.selectedLocation && this.props.selectedLocation.formatted_address) ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${this.props.selectedLocation.formatted_address}`}</span> : ''
                                         }
-                                        <img style={{width:15, height:15, marginLeft:7, cursor:'pointer'}} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                     </span>
-                                    
+                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                    </span>
+
                                 </div>
                             </div>
                             {
@@ -214,9 +215,9 @@ class TopBar extends React.Component {
                         </div>
                     </div>
                     {
-                        this.state.showLocationPopup?
-                        <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout = {this.getCityListLayout.bind(this)} resultType='list'/>
-                        :''
+                        this.state.showLocationPopup ?
+                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='list' />
+                            : ''
                     }
                 </div>
 
@@ -302,16 +303,16 @@ class TopBar extends React.Component {
                 }
 
                 {
-                     this.state.searchCities.length>0?
+                    this.state.searchCities.length > 0 ?
                         <section >
                             {
                                 this.state.searchCities.map((result, i) => {
                                     return <div className="widget-panel" key={i}>
                                         <div className="panel-content">
-                                            <ul className="list search-result-list">    
-                                            <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                            <ul className="list search-result-list">
+                                                <li key={i} onClick={this.selectLocation.bind(this, result)}>
                                                     <a>{result.description}
-                                                        
+
                                                     </a>
                                                 </li>
                                             </ul>
@@ -320,7 +321,7 @@ class TopBar extends React.Component {
                                 })
                             }
 
-                        </section>:''
+                        </section> : ''
                 }
 
             </section>
