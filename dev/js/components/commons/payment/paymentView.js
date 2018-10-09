@@ -142,7 +142,7 @@ class PaymentView extends React.Component {
                                                         <h4 className="md-coverage">Media Coverage</h4>
                                                         <div className="row">
                                                             <div className="col-4 text-center">
-                                                                <div className="media-img"> 
+                                                                <div className=""> 
                                                                     <img  onClick={() => this.setState({ isOpen: true,photoIndex:0 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image2-min.jpg"} />
                                                                     {isOpen && (
                                                                         <Lightbox
@@ -166,14 +166,14 @@ class PaymentView extends React.Component {
                                                             </div>
 
                                                             <div className="col-4 text-center">
-                                                            <div className="media-img"> 
+                                                            <div className=""> 
                                                                     <img  onClick={() => this.setState({ isOpen: true, photoIndex:1 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image1-min.jpg"} />
                                                             
                                                                 </div>
                                                             </div>
                                                             
                                                             <div className="col-4 text-center">
-                                                            <div className="media-img"> 
+                                                            <div className=""> 
                                                                     <img  onClick={() => this.setState({ isOpen: true, photoIndex:2 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image3-min.jpg"} />
                                                                    
                                                                 </div>
