@@ -69,9 +69,16 @@ class LabProfileCard extends React.Component {
 
     render() {
 
-        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp } = this.props.details
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp } = this.props.details;
 
-        distance = Math.ceil(distance / 1000)
+        distance = Math.ceil(distance / 1000);
+
+        var openingTime = this.props.details.lab_timing.split('-')[0];
+
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var day = new Date();
+        var today = day.getDay();
+        var tomorrow = days[today + 1];
 
         return (
             <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
@@ -104,16 +111,15 @@ class LabProfileCard extends React.Component {
                                 <p className="lab-locality">
                                     {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
                                     {lab.locality} {lab.city}&nbsp;|
-                            </p>
+                                </p>
                                 <div style={{ width: 60, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
                                     <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance} KM</span>
                                 </div>
                             </div>
-                            <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} |
+
                             {
-                                    this.isOpenToday(lab_timing_data) ? <span style={{ color: 'green' }}> Open Today</span> : <span style={{ color: '#d82907' }} > Now Closed</span>
-                                }
-                            </p>
+                                this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : <p style={{ color: '#f78316', fontSize: 14 }}>Opens next at {openingTime} on {tomorrow}</p>
+                            }
                         </div>
                     </div>
                     <div className="widget-footer card-footer lab-search-card-footer">
