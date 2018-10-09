@@ -5,6 +5,8 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+const queryString = require('query-string');
+
 
 class PaymentView extends React.Component {
     constructor(props) {
@@ -27,18 +29,27 @@ class PaymentView extends React.Component {
             }
         })
     }
-
+    
     selectPaymentType(e) {
         this.setState({ selectedPayment: e.target.value })
     }
 
     proceed() {
-
-        let data = {
-            'Category':'ConsumerApp','Action':'ContinueClicked','CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
-
-        GTM.sendEvent({ data: data })
-
+        const parsed = queryString.parse(window.location.search)
+        
+        if(parsed.refs){
+            let data = {
+                'Category':'ConsumerApp','Action':'ContinueClicked','pageSource':parsed.refs,'CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
+    
+            GTM.sendEvent({ data: data })
+    
+        }else{
+            let data = {
+                'Category':'ConsumerApp','Action':'ContinueClicked','pageSource':'UNKNOWN','CustomerID':GTM.getUserId()||'','leadid':0,'event':'continue-clicked'}
+    
+            GTM.sendEvent({ data: data })        
+        }
+        
         let form = document.getElementById('paymentForm')
         form.submit()
     }
@@ -79,7 +90,7 @@ class PaymentView extends React.Component {
                                                 <div className="widget-content">
                                                     <ul className="list payment-method">
                                                         <li>
-                                                            <label htmlFor="pay"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm</label>
+                                                            <label htmlFor="pay" className="paytm-label"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'PPI'} value="PPI" className="radio-inline" name="gender" id="pay" /></span>
                                                         </li>
                                                         {/* <li id="oneclick-label">

@@ -914,6 +914,26 @@ figure>img{
     padding-left: 16px;
 }
 
+.related-articles-div{
+    margin-top: 30px;
+}
+
+.related-articles-text{
+    font-size: 20px;
+    color: #f78631;
+}
+
+.related-articles-list{
+    list-style-type: disc;
+    padding-left: 16px;
+}
+
+.related-articles-list>li{
+    color: #f78631;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .chat-history-list>li{
     padding: 16px 10px;
     cursor: pointer;
@@ -1288,4 +1308,64 @@ span.ofr-ribbon:after {
 }
 .lgo-text span{
     display: block;
+}
+
+.dp-accordian{
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+}
+
+.acdn-title{
+    cursor: pointer;
+    position: relative;
+}
+
+.acdn-title>h2{
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.acdn-hr{
+    margin: 10px -15px;
+    height: 1px;
+    border: none;
+    background-color: #d3d3d3;
+}
+
+.acdn-arrow{
+    position: absolute;
+    right: 4px;
+    top: 10px;
+}
+
+.acdn-arrow-up{
+    position: absolute;
+    right: 4px;
+    top: 10px;
+    transform: rotate(180deg);
+}
+
+.acdn-block{
+    display: block;
+}
+
+.acdn-none{
+    display: none;
+}
+
+.acdn-heading{
+    font-size: 16px;
+    margin-top: 25px;
+}
+
+.acdn-subheading{
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.acdn-ques{
+    font-size: 14px;
+    margin: 0;
 }

@@ -34,13 +34,14 @@ class TestSelectorView extends React.Component {
         test.deal_price = test_to_toggle.deal_price
         test.extra_test = true
         test.lab_id = this.state.selectedLab
+
         this.props.toggleDiagnosisCriteria('test', test)
     }
 
     getSearchList(e) {
         var search_string = e.target.value;
         this.setState({ searchString: search_string });
-        this.props.getLabTests(this.state.selectedLab, search_string, (searchResults) => {
+        this.props.getLabTests(this.state.selectedLab, search_string, false,[], (searchResults) => {
             if (searchResults) {
                 this.setState({ searchResults: searchResults })
             }
@@ -76,7 +77,7 @@ class TestSelectorView extends React.Component {
                             <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
                             <span className="checkmark" />
                         </label>
-                        <span className="test-price text-md fw-500">&#8377; {test.deal_price}</span>
+                        <span className="test-price text-md fw-500"><span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span>&#8377; {test.deal_price}</span>
                     </li>
                 }
             })
@@ -97,7 +98,7 @@ class TestSelectorView extends React.Component {
                         <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                         <span className="checkmark" />
                     </label>
-                    <span className="test-price text-md fw-500">&#8377; {test.deal_price}</span>
+                    <span className="test-price text-md fw-500"><span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span>&#8377; {test.deal_price}</span>
                 </li>
             })
 

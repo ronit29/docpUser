@@ -63,6 +63,7 @@ const routes = [
 
     { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
+    { path: '/opd/searchresults/location=*', exact: true, component: SearchResults, RENDER_ON_SERVER: false },
     { path: '/*-sptcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptlitcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
@@ -74,6 +75,7 @@ const routes = [
 
     { path: '/lab', exact: true, component: DX_SearchCriteria },
     { path: '/lab/searchresults', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
+    { path: '/lab/searchresults/location=*', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: false },
     { path: '/*-lbcit', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-lblitcit', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/lab/:id', exact: true, component: Lab, RENDER_ON_SERVER: true },

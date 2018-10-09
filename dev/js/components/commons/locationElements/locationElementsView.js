@@ -168,7 +168,7 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row" style={{ backgroundColor: '#f78316', marginTop:10 }}>
+            <div className="row" style={{ backgroundColor: '#f78316' }}>
 
                 <div className="col-12">
                     {
@@ -177,12 +177,7 @@ class LocationElementsView extends React.Component {
                         :''
                     }
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
-                    {
-                        this.props.resultType == 'list' ? ''
-                            : <div className="text-center">
-                                <p className="fw-500 text-xs" style={{ color: '#fff' }}>IN</p>
-                            </div>
-                    }
+                    
                 </div>
                 <div className="col-12 mrt-10" style={{ paddingBottom: 10 }}>
                     <div className="doc-select-location-div">
@@ -191,14 +186,15 @@ class LocationElementsView extends React.Component {
                             <span className="doc-input-loc-icon">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
                             </span>
-                        </div>
-                        <div className="doc-or-text text-center">
+                            <div className="doc-or-text  text-center">
                             <p style={{ color: '#fff', fontSize: 28 }}>|</p>
                         </div>
-                        <div className="doc-auto-detect-div" onClick={this.detectLocation.bind(this)}>
-                            <img src={ASSETS_BASE_URL + "/img/customer-icons/crosshairs-gps.png"} />
+                        <div className="doc-auto-detect-div " onClick={this.detectLocation.bind(this)}>
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/crosshairs-gps.svg"} />
                             <p className="fw-500 text-sm" style={{ color: '#fff' }}>Auto Detect</p>
                         </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div id="map1" style={{ display: 'none' }}></div>

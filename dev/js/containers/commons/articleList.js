@@ -9,12 +9,20 @@ const queryString = require('query-string');
 class ArticleList extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            pageNo: 1
+        }
     }
 
-    static loadData(store, match,query) {
+    static loadData(store, match, query) {
         let title = match.url
         title = title.substring(1, title.length)
-        return store.dispatch(getArticleList(title,query))
+        if (query.page) {
+            query = query.page
+        } else {
+            query = 1
+        }
+        return store.dispatch(getArticleList(title, query))
     }
 
     static contextTypes = {
@@ -26,17 +34,16 @@ class ArticleList extends React.Component {
         title = title.substring(1, title.length)
         const parsed = queryString.parse(this.props.location.search)
         if (parsed) {
-            this.props.getArticleList(title, parsed.page)
+            this.setState({ pageNo: parsed.page })
+            this.props.getArticleList(title, parsed.page, '', parsed.page)
         } else {
             this.props.getArticleList(title)
         }
-
     }
 
     render() {
-
         return (
-            <ArticleListView {...this.props} />
+            <ArticleListView {...this.props} pageNo={this.state.pageNo} />
         );
     }
 }
@@ -45,18 +52,22 @@ const mapStateToProps = (state) => {
     let {
         articleList,
         articleListData,
-        ARTICLE_LOADED
+        ARTICLE_LOADED,
+        pageButtonCount,
+        articlePageCount
     } = state.USER
     return {
         articleList,
         articleListData,
-        ARTICLE_LOADED
+        ARTICLE_LOADED,
+        pageButtonCount,
+        articlePageCount
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, searchString, callback) => dispatch(getArticleList(title, page, searchString, callback))
+        getArticleList: (title, page, searchString, staticPage, callback) => dispatch(getArticleList(title, page, searchString, staticPage, callback))
     }
 }
 

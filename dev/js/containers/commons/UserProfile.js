@@ -11,7 +11,7 @@ class UserProfile extends React.Component {
     constructor(props) {
         super(props)
         if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=/`)
+            this.props.history.replace(`/login?callback=/&login=home`)
         }
     }
 

@@ -30,7 +30,7 @@ class ArticleList extends React.Component {
 		this.setState({ page: page, hasMore: false })
 		let title = this.props.match.url
 		title = title.substring(1, title.length)
-		this.props.getArticleList(title, page, this.state.searchVal, (resp) => {
+		this.props.getArticleList(title, page, this.state.searchVal, this.props.pageNo, (resp) => {
 			if (resp.length) {
 				this.setState({
 					hasMore: true
@@ -49,7 +49,7 @@ class ArticleList extends React.Component {
 		let title = this.props.match.url
 		title = title.substring(1, title.length);
 		this.setState({ page: 1, hasMore: true })
-		this.props.getArticleList(title, 1, this.state.searchVal, (resp) => {
+		this.props.getArticleList(title, 1, this.state.searchVal, this.props.pageNo, (resp) => {
 			if (resp.length == 0) {
 				this.setState({
 					hasMore: false,
@@ -71,7 +71,30 @@ class ArticleList extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	render() {
+
+		var articleButtons = [];
+		var articleURL = this.props.match.url;
+
+		for (var i = parseInt(this.props.pageButtonCount) - 1; i <= parseInt(this.props.pageButtonCount) + 1; i++) {
+			articleButtons.push(
+				<div>
+					{
+						i >= 1 && i <= this.props.articlePageCount ?
+							<a href={`${articleURL}?page=${i}`} >
+								<div className="art-pagination-btn">
+									<span className="fw-500">{i}</span>
+								</div>
+							</a> : ""
+					}
+				</div>
+			);
+		}
+
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -90,10 +113,32 @@ class ArticleList extends React.Component {
 							<div className="container-fluid main-container">
 								<div className="row art-search-row">
 									<div className="col-12">
+										<ul itemScope itemType="http://schema.org/BreadcrumbList" className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+											<li itemProp="itemListElement" itemScope
+												itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
+												<a itemProp="item" href="/" onClick={(e) => this.onHomeClick(e, "/")}>
+													<span itemProp="name" className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span>
+												</a>
+												<meta itemProp="position" content="1" />
+											</li>
+											<span className="breadcrumb-arrow">&gt;</span>
+											<li itemProp="itemListElement" itemScope
+												itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
+												<span itemProp="name" className="fw-500 breadcrumb-title">{this.props.articleListData.category}</span>
+												<meta itemProp="position" content="2" />
+											</li>
+										</ul>
+									</div>
+									<div className="col-12">
 										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder="Search any Disease" onChange={(e) => this.changeVal(e)} onKeyUp={(e) => this.handleKeyUp(e)} />
 										<button className="art-search-btn" onClick={() => this.searchArticle()}>
 											<img src={ASSETS_BASE_URL + "/images/search.svg"} />
 										</button>
+									</div>
+									<div className="col-12">
+										{
+											this.props.match.url === '/all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
+										}
 									</div>
 								</div>
 								<div className="row mrt-20">
@@ -105,7 +150,7 @@ class ArticleList extends React.Component {
 													hasMore={this.state.hasMore}
 												>
 													{
-														this.props.articleList && !this.state.noArticleFound ?
+														this.props.articleList.length && !this.state.noArticleFound ?
 															this.props.articleList.map((property, index) => {
 																return <div className="col-12" key={index}>
 																	<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
@@ -113,7 +158,7 @@ class ArticleList extends React.Component {
 																			property.header_image ?
 																				<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} /> : ''
 																		}
-																		<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><p className="disease-list-name fw-500">{property.title}</p></a>
+																		<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><h2 className="disease-list-name fw-500">{property.title}</h2></a>
 																		<p className="disease-list-content fw-500" dangerouslySetInnerHTML={{ __html: property.articleTeaser }}></p>
 																	</div>
 																</div>
@@ -126,6 +171,15 @@ class ArticleList extends React.Component {
 															<a href={`${CONFIG.API_BASE_URL}${this.props.match.url}?page=${this.state.page}`} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
 														</div>
 														: ''
+												}
+
+												{
+													this.props.articleList.length && !this.state.noArticleFound ?
+														<div className="col-12">
+															<div className="art-pagination-div">
+																{articleButtons}
+															</div>
+														</div> : ""
 												}
 
 											</div> : <Loader />

@@ -38,14 +38,38 @@ class Article extends React.Component {
         this.props.history.push(link);
     }
 
+    facebookClick() {
+        if (window) {
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + document.URL, 'facebook-popup', 'height=350,width=600');
+        }
+    }
+
+    twitterClick() {
+        if (window) {
+            window.open('https://twitter.com/share?url=' + document.URL, 'twitter-popup', 'height=350,width=600');
+        }
+    }
+
+    linkedinClick() {
+        if (window) {
+            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${document.URL}&title=${this.state.articleData.title.split('|')[0]}&source=docprime.com`);
+        }
+    }
+
+    whatsappClick() {
+        if (window) {
+            window.open(`https://wa.me/?text=${document.URL}`);
+        }
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container article-container">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-7 col-lg-8 center-column" style={{ paddingTop: 10 }} >
+                        <div className="col-12 col-md-7 col-lg-8 center-column">
 
                             {/* <header className="wallet-header article-header sticky-header">
                                 <div className="container-fluid header-container">
@@ -62,7 +86,7 @@ class Article extends React.Component {
                                 </div>
                             </header> */}
                             {
-                                this.state.articleData ? <div className="container-fluid transaction-column" style={{ paddingTop: 20 }} >
+                                this.state.articleData ? <div className="container-fluid article-column">
 
                                     <HelmetTags tagsData={{
                                         title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
@@ -90,16 +114,16 @@ class Article extends React.Component {
                                                 <span itemProp="name" className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span>
                                             </a>
                                             <meta itemProp="position" content="1" />
+                                            <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
-                                        <span className="breadcrumb-arrow">&gt;</span>
                                         <li itemProp="itemListElement" itemScope
                                             itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
                                             <a itemProp="item" href={`/${this.state.articleData.category.url}`} onClick={(e) => this.onHomeClick(e, `/${this.state.articleData.category.url}`)}>
                                                 <span itemProp="name" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span>
                                             </a>
                                             <meta itemProp="position" content="2" />
+                                            <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
-                                        <span className="breadcrumb-arrow">&gt;</span>
                                         <li itemProp="itemListElement" itemScope
                                             itemType="http://schema.org/ListItem" className="breadcrumb-list-item">
                                             <span itemProp="name" className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</span>
@@ -107,9 +131,44 @@ class Article extends React.Component {
                                         </li>
                                     </ul>
 
-                                    <div><img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} /></div>
+                                    <div className="art-sharing-div mrt-20 mrb-20">
+                                        <div className="art-sharing-btn mr-3" onClick={() => this.facebookClick()} >
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} />
+                                        </div>
+                                        <div className="art-sharing-btn ml-3 mr-3" onClick={() => this.twitterClick()}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} />
+                                        </div>
+                                        <div className="art-sharing-btn ml-3 mr-3" onClick={() => this.linkedinClick()}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} />
+                                        </div>
+                                        <div className="art-sharing-btn ml-3" onClick={() => this.whatsappClick()}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/whatsapp.svg"} />
+                                        </div>
+                                    </div>
+
+                                    {
+                                        this.state.articleData.header_image ?
+                                            <div>
+                                                <img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} alt={this.state.articleData.header_image_alt} />
+                                            </div> : ""
+                                    }
+
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
+
+                                    {
+                                        this.state.articleData.linked_articles.length ?
+                                            <div className="related-articles-div">
+                                                <p className="related-articles-text fw-700 mrb-20">Related Articles :</p>
+                                                <ul className="related-articles-list">
+                                                    {
+                                                        this.state.articleData.linked_articles.map((linkedArticle, index) => {
+                                                            return <li className="mrb-10" key={index} onClick={() => this.props.history.push(`/${linkedArticle.url}`)}>{linkedArticle.title}</li>
+                                                        })
+                                                    }
+                                                </ul>
+                                            </div> : ""
+                                    }
                                 </div> : ""
                             }
                         </div>

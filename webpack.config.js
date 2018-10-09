@@ -24,7 +24,8 @@ const client_dev = {
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs']
+            exclude: ['index.ejs'],
+            beforeEmit: true
         }),
         new MiniCssExtractPlugin({
             filename: "style.css",
@@ -54,7 +55,8 @@ const client_prod = {
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs']
+            exclude: ['index.ejs'],
+            beforeEmit: true
         }),
         new MiniCssExtractPlugin({
             filename: "style.[hash].css",
@@ -84,7 +86,8 @@ const client_staging = {
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs']
+            exclude: ['index.ejs'],
+            beforeEmit: true
         }),
         new MiniCssExtractPlugin({
             filename: "style.[hash].css",
