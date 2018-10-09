@@ -38,6 +38,9 @@ class SearchResultsView extends React.Component {
 
     applyFilters(filterState) {
         this.props.mergeOPDState({ filterCriteria: filterState })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     buildURI(state) {
@@ -150,7 +153,7 @@ class SearchResultsView extends React.Component {
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            <DoctorsList {...this.props}  getDoctorList={this.getDoctorList.bind(this)}/>
+                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} />
                         </div> : <div className="noopDiv"><img src={ASSETS_BASE_URL + "/images/nonop.png"} className="noop" /></div>
                     }
                 </CriteriaSearch>

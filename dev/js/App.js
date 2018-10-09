@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
+import { setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -147,15 +147,17 @@ class App extends React.Component {
 
         if (window.location.pathname.includes('/opd/searchresults')) {
             opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
-                this.props.mergeOPDState(state)
+                this.props.mergeOPDState(state, false)
             })
         }
 
         if (window.location.pathname.includes('/lab/searchresults')) {
             labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
-                this.props.mergeLABState(state)
+                this.props.mergeLABState(state, false)
             })
         }
+
+        this.props.setFetchResults(true)
 
     }
 
@@ -193,8 +195,9 @@ const mapDispatchToProps = (dispatch) => {
         selectLocation: (location, type, fetchNewResults) => dispatch(selectLocation(location, type, fetchNewResults)),
         getGeoIpLocation: () => dispatch(getGeoIpLocation()),
         saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device)),
-        mergeOPDState: (state) => dispatch(mergeOPDState(state)),
-        mergeLABState: (state) => dispatch(mergeLABState(state))
+        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
+        setFetchResults: (fetchNewResults) => dispatch(setFetchResults(fetchNewResults))
     }
 
 }

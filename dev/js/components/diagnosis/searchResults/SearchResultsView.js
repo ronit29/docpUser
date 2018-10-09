@@ -56,6 +56,9 @@ class SearchResultsView extends React.Component {
 
     applyFilters(filterState) {
         this.props.mergeLABState({ filterCriteria: filterState })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     buildURI(state) {
@@ -147,7 +150,7 @@ class SearchResultsView extends React.Component {
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
                         </div>
                         */}
-                        <LabsList {...this.props} getLabList={this.getLabList.bind(this)}/>
+                        <LabsList {...this.props} getLabList={this.getLabList.bind(this)} />
                     </div>
                 </CriteriaSearch>
             </div>
