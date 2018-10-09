@@ -26,6 +26,13 @@ class SearchCriteriaView extends React.Component {
     }
 
     searchProceed(lab_name = "") {
+        // handle doctor name, hospital name
+        this.props.mergeLABState({
+            filterCriteria: {
+                ...this.props.filterCriteria,
+                lab_name
+            }
+        }, true)
         this.props.history.push('/lab/searchresults')
     }
 

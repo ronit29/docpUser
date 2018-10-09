@@ -7,7 +7,9 @@ const DEFAULT_FILTER_STATE = {
     sits_at_clinic: false,
     sits_at_hospital: false,
     is_female: false,
-    is_available: false
+    is_available: false,
+    doctor_name: "",
+    hospital_name: ""
 }
 
 const defaultState = {
@@ -36,8 +38,12 @@ export default function (state = defaultState, action) {
         case TOGGLE_OPD_CRITERIA: {
             let newState = {
                 ...state,
-                selectedCriterias: [].concat(state.selectedCriterias)
+                selectedCriterias: [].concat(state.selectedCriterias),
+                filterCriteria: { ...state.filterCriteria }
             }
+
+            newState.filterCriteria.doctor_name = ""
+            newState.filterCriteria.hospital_name = ""
 
             let found = false
             newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
@@ -87,7 +93,7 @@ export default function (state = defaultState, action) {
             } else {
                 newState.locationType = 'geo'
             }
-            newState.fetchNewResults = action.fetchNewResults
+            newState.fetchNewResults = !!action.fetchNewResults
 
             return newState
         }
@@ -96,7 +102,7 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 ...action.payload,
-                fetchNewResults: action.fetchNewResults
+                fetchNewResults: !!action.fetchNewResults
             }
 
             return newState

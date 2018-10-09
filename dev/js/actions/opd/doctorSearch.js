@@ -49,8 +49,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
-		searchState.specializations_ids = ""
-		searchState.condition_ids = ""
+		specializations_ids = ""
+		condition_ids = ""
 	}
 
 	let url = `/api/v1/doctor/doctorsearch?`

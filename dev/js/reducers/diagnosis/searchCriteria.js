@@ -3,7 +3,8 @@ import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
     distanceRange: [0, 35],
-    sort_on: null
+    sort_on: null,
+    lab_name: ""
 }
 
 const defaultState = {
@@ -35,8 +36,11 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 selectedCriterias: [].concat(state.selectedCriterias),
-                lab_test_data: { ...state.lab_test_data }
+                lab_test_data: { ...state.lab_test_data },
+                filterCriteria: { ...state.filterCriteria }
             }
+
+            newState.filterCriteria.lab_name = ""
 
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
@@ -95,7 +99,7 @@ export default function (state = defaultState, action) {
             } else {
                 newState.locationType = 'geo'
             }
-            newState.fetchNewResults = action.fetchNewResults
+            newState.fetchNewResults = !!action.fetchNewResults
 
             return newState
         }
@@ -104,7 +108,7 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 ...action.payload,
-                fetchNewResults: action.fetchNewResults
+                fetchNewResults: !!action.fetchNewResults
             }
 
             let extra_tests = state.selectedCriterias.filter(x => x.extra_test) || []

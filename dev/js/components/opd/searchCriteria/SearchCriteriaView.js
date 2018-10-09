@@ -23,8 +23,14 @@ class SearchCriteriaView extends React.Component {
         }
     }
 
-    searchProceed(doctor_name, hospital_name) {
-        // TODO: handle doctor name, hospital name
+    searchProceed(doctor_name = "", hospital_name = "") {
+        // handle doctor name, hospital name
+        this.props.mergeOPDState({
+            filterCriteria: {
+                ...this.props.filterCriteria,
+                doctor_name, hospital_name
+            }
+        }, true)
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'ShowDoctorsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-doctors-clicked'
