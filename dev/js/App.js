@@ -147,17 +147,19 @@ class App extends React.Component {
 
         if (window.location.pathname.includes('/opd/searchresults')) {
             opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
-                this.props.mergeOPDState(state, false)
+                this.props.mergeOPDState(state, true)
             })
         }
 
         if (window.location.pathname.includes('/lab/searchresults')) {
             labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
-                this.props.mergeLABState(state, false)
+                this.props.mergeLABState(state, true)
             })
         }
 
-        this.props.setFetchResults(true)
+        if(!window.location.pathname.includes('/opd/searchresults') && !window.location.pathname.includes('/lab/searchresults')){
+            this.props.setFetchResults(true)
+        }
 
     }
 
