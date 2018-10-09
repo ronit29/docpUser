@@ -253,13 +253,6 @@ class HomeView extends React.Component {
                 slabOrder[j - 1] = temp
             }
 
-            let temp
-            for (var j = SlabSequence; j > 0; j--) {
-                temp = slabOrder[j]
-                slabOrder[j] = slabOrder[j - 1]
-                slabOrder[j - 1] = temp
-            }
-
         } else {
 
             slabOrder.push(<ChatPanel homePage={true} />)

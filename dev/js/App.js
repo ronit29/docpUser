@@ -72,7 +72,7 @@ class App extends React.Component {
         /** 
          * Select a default location, if no location is selected and lat,long are not provided in url
          */
-        if (!this.props.selectedLocation && parsed && !parsed.lat && !location) {
+        if (!this.props.selectedLocation && parsed && !parsed.lat) {
             this.props.getGeoIpLocation().then((data) => {
                 let { latitude, longitude } = data
                 if (latitude && longitude) {
@@ -83,16 +83,7 @@ class App extends React.Component {
                     })
                 }
             }).catch((e) => {
-                this.props.getGeoIpLocation().then((data) => {
-                    let { latitude, longitude } = data
-                    if (latitude && longitude) {
-                        _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
-                            if (locationData) {
-                                this.props.selectLocation(locationData, 'geo')
-                            }
-                        })
-                    }
-                })
+
             })
         }
 
@@ -115,8 +106,6 @@ class App extends React.Component {
                 }
                 this.props.setUTMTags(utm_tags)
             }
-
-            this.props.setUTMTags(utm_tags)
         }
 
         let isMobile = false

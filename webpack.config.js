@@ -24,8 +24,7 @@ const client_dev = {
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs'],
-            beforeEmit: true
+            exclude: ['index.ejs']
         }),
         new MiniCssExtractPlugin({
             filename: "style.css",
