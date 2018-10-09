@@ -36,50 +36,9 @@ export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch
     })
 }
 
-export const getLabTests = (lab_id, searchString, defaultTest = false, selectedTesIds = [], callback) => (dispatch) => {
+export const getLabTests = (lab_id, searchString, callback) => (dispatch) => {
     API_GET(`/api/v1/diagnostic/labtest/${lab_id}?test_name=${searchString}`).then(function (response) {
-
-        if (defaultTest) {
-            let testDefault = {}
-            let defaultTests = []
-            let testCount = 0
-
-            response.map((test, index) => {
-
-                if (selectedTesIds.indexOf(test.test.id) > -1) {
-                    return
-                }
-                testCount++
-                if (testCount > 4) {
-                    return
-                }
-
-                testDefault = {}
-                testDefault.mrp = test.mrp
-                testDefault.deal_price = test.deal_price
-                testDefault.extra_test = true
-                testDefault.id = test.test.id
-                testDefault.lab_id = lab_id
-                testDefault.name = test.test.name
-                testDefault.why = test.test.why
-                testDefault.pre_test_info = test.test.pre_test_info
-                testDefault.type = 'test'
-                testDefault.test = test.test
-                testDefault.testDefault = true
-                defaultTests.push(testDefault)
-
-            })
-
-            if (callback) callback(defaultTests)
-            /*dispatch({
-                type: ADD_DEFAULT_LAB_TESTS,
-                payload: defaultTests,
-                labId: lab_id
-            })*/
-        } else {
-
-            if (callback) callback(response)
-        }
+        if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)
     })
@@ -105,12 +64,5 @@ export const mergeLABState = (state, fetchNewResults = true) => (dispatch) => {
         type: MERGE_SEARCH_STATE_LAB,
         payload: state,
         fetchNewResults
-    })
-}
-
-export const addLabProfileTests = (testIds) => (dispatch) => {
-    dispatch({
-        type: ADD_LAB_PROFILE_TESTS,
-        payload: testIds
     })
 }

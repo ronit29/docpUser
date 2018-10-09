@@ -15,6 +15,8 @@ class HelmetTags extends React.Component {
         let description = (tagsData && tagsData.description) ? tagsData.description : ""
         let keywords = (tagsData && tagsData.keywords) ? tagsData.keywords : ""
         let canonicalUrl = (tagsData && tagsData.canonicalUrl) ? tagsData.canonicalUrl : ""
+        let prev = (tagsData && tagsData.prev) ? tagsData.prev : ""
+        let next = (tagsData && tagsData.next) ? tagsData.next : ""
 
         if (setDefault) {
             title = "Free Online Doctor Consultation | Up To 50% off on Doctor Appointment"
@@ -43,6 +45,16 @@ class HelmetTags extends React.Component {
                 }
                 {
                     seoFriendly === false ? <meta name="robots" content="noindex, notfollow" /> : ""
+                }
+                {
+                    prev ?
+                        <link rel="prev" href={prev} />
+                        : ''
+                }
+                {
+                    next ?
+                        <link rel="next" href={next} />
+                        : ''
                 }
             </Helmet>
         )

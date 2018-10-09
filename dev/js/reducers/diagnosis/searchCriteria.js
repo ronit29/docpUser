@@ -16,9 +16,7 @@ const defaultState = {
     filterCriteria: DEFAULT_FILTER_STATE,
     lab_test_data: {},
     locationType: 'geo',
-    fetchNewResults: false,
-    lab_profile_demo_tests: [],
-    lab_tests: {}
+    fetchNewResults: false
 }
 
 export default function (state = defaultState, action) {
@@ -147,43 +145,6 @@ export default function (state = defaultState, action) {
         case SET_FETCH_RESULTS_LAB: {
             let newState = { ...state }
             newState.fetchNewResults = !!action.payload
-        }
-
-        case ADD_DEFAULT_LAB_TESTS: {
-            let newState = {
-                ...state
-            }
-            /*
-            newState.lab_test_data[action.labId]=[]
-
-            newState.lab_test_data[action.labId] = action.payload*/
-
-            newState.lab_tests[action.labId] = []
-
-            newState.lab_tests[action.labId] = action.payload
-            return newState
-        }
-
-        case ADD_LAB_PROFILE_TESTS: {
-            let newState = {
-                ...state
-            }
-            if (newState.lab_profile_demo_tests.length) {
-
-                if (newState.lab_profile_demo_tests.indexOf(action.payload) > -1) {
-                    let tests = newState.lab_profile_demo_tests
-                    tests.splice(tests.indexOf(action.payload), 1)
-                    newState.lab_profile_demo_tests.concat(tests)
-                } else {
-
-                    newState.lab_profile_demo_tests.push(action.payload)
-                }
-            } else {
-                newState.lab_profile_demo_tests = newState.lab_profile_demo_tests || []
-                newState.lab_profile_demo_tests.push(action.payload)
-            }
-
-            return newState
         }
 
     }
