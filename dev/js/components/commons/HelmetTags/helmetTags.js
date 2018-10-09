@@ -26,7 +26,6 @@ class HelmetTags extends React.Component {
         if (canonicalUrl) {
             canonicalUrl = canonicalUrl.toLowerCase()
         }
-
         return (
             <Helmet>
                 <title>{title}</title>

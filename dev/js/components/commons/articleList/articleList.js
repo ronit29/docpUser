@@ -109,9 +109,9 @@ class ArticleList extends React.Component {
 									description: (this.props.articleListData.seo ? this.props.articleListData.seo.description : ""),
 									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
 
-									prev: `${page != 1 ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(page > 1 && page <= Math.ceil(this.props.articleListData.total_articles / 10)) ? page - 1 : null}` : null}`,
+									prev: `${(page != 1 && page <= Math.ceil(this.props.articleListData.total_articles / 10))? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(page > 1 && page <= Math.ceil(this.props.articleListData.total_articles / 10)) ? page - 1 : ''}` : ''}`,
 
-									next: `${page != Math.ceil(this.props.articleListData.total_articles / 10) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(page >= 1 && page < Math.ceil(this.props.articleListData.total_articles / 10)) ? page + 1 : null}` : null}`,
+									next: `${(page != Math.ceil(this.props.articleListData.total_articles / 10) && page <= Math.ceil(this.props.articleListData.total_articles / 10))? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(page >= 1 && page < Math.ceil(this.props.articleListData.total_articles / 10)) ? page + 1 : ''}` : ''}`,
 
 									setDefault: true
 								}} /> : null
