@@ -343,7 +343,7 @@ export const getCities = (filterText) => (dispatch) => {
 	})
 }
 
-export const getArticleList = (title, page = 1, searchString = '', staticPage, callback) => (dispatch) => {
+export const getArticleList = (title, page = 1, searchString = '', callback) => (dispatch) => {
 	let url = `/api/v1/article/list?categoryUrl=${title}&page=${page}`;
 	if (searchString) {
 		url = url + `&contains=${searchString}`
@@ -352,8 +352,7 @@ export const getArticleList = (title, page = 1, searchString = '', staticPage, c
 		dispatch({
 			type: APPEND_ARTICLE_LIST,
 			payload: response,
-			page: page,
-			staticPage: staticPage
+			page: page
 		})
 		if (callback) callback(response.result);
 	}).catch(function (error) {

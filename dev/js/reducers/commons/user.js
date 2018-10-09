@@ -230,18 +230,14 @@ export default function (state = defaultState, action) {
                 ...state,
             }
 
-            newState.articlePageCount = Math.ceil(action.payload.total_articles / 10);
+            newState.articlePageCount = Math.ceil(action.payload.total_articles / 10)
 
-            newState.pageButtonCount = action.staticPage || 1;
+            newState.pageButtonCount = action.staticPage || 1
 
-            newState.ARTICLE_LOADED = true;
-            if (action.page == 1) {
-                newState.articleList = action.payload.result
-                newState.articleListData = action.payload
-            } else {
-                newState.articleList = newState.articleList.concat(action.payload.result);
-                newState.articleListData = action.payload
-            }
+            newState.ARTICLE_LOADED = true
+            newState.articleList = newState.articleList.concat(action.payload.result) || []
+            newState.articleListData = action.payload
+            
             return newState
         }
 
