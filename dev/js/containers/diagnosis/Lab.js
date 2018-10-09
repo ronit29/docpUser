@@ -45,9 +45,10 @@ class Lab extends React.Component {
         if (this.props.match.params.id) {
             let testIds = this.props.lab_test_data[this.props.match.params.id] || []
             lab_id = this.props.match.params.id
-
-            if(!testIds.length){
-                this.props.getLabTests(lab_id, '', true, (searchResults) => {
+            let tests = testIds.map(x => x.id)
+            this.props.getLabById(lab_id, tests)
+            if(true){
+                this.props.getLabTests(lab_id, '', true, tests,(searchResults) => {
                     if (searchResults) {
 
                         testIds = searchResults.map(x => x.id)
@@ -72,7 +73,7 @@ class Lab extends React.Component {
                     let testIds = this.props.lab_test_data[labId] || []
                     let tests = testIds.map(x => x.id)
                     this.props.getLabById(labId, tests)
-                    if(testIds.length<4){
+                    if(true){
                         
                         this.props.getLabTests(lab_id, '',true, tests,(searchResults) => {
                             

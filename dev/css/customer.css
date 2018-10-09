@@ -94,7 +94,7 @@
 
 /*search book*/
 .search-book-result{padding-top: 0px;}
-.search-book-header{height: auto;top: 100px !important;}
+.search-book-header{height: auto;top: 104px !important;}
 .filter-row{position: fixed; left: 0; right: 0; top: 100px; z-index: 8; background-color: #f8f8f8;}
 
 .filter-item{padding: 10px 0;}
@@ -167,8 +167,8 @@
 
 .pb-view{ padding: 4px 0; }
 .pb-list>li{padding: 8px 0; font-size: 14px; font-weight: 500; color: #000}
-.pb-list .test-price{float: right;text-align: right; width: 110px;}
-.test-name-item{display: block; padding-right: 110px;}
+.pb-list .test-price{float: right;text-align: right; width: 120px;}
+.test-name-item{display: block; padding-right: 115px;}
 .test-mrp{margin-right: 12px; color: #757575; text-decoration: line-through}
 .pb-location .address-details .add-map{float: right;width: 50px;cursor: pointer; margin-top: 10px}
 .pb-location .address-details .add-info{padding-right: 92px;}
@@ -379,7 +379,7 @@ margin-bottom: 10px;
 font-weight: 500;
 }
 .fltr-loc-ico{
-    margin-right: 5px;
+    margin-right: 4px;
 }
 .fltr-loc-txt{
     max-width: 185px;
@@ -387,6 +387,7 @@ white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 display: inline-block;
+text-align: left;
 }
 
 .dp-dr-search-loc-icon{
@@ -448,6 +449,22 @@ display: inline-block;
 	color: #757575;
 	vertical-align: 1px;
 	font-weight: 500;
+}
+
+.dp-dr-free-label{
+	float: left;
+	background-color: #55a740;
+	padding: 4px;
+	text-align: center;
+	margin: 9px 0 0 -8px;
+	border-radius: 5px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.dp-dr-free-label>p{
+	color: #fff;
+	font-size: 11px;
 }
 
 .dp-dr-card-btn{
@@ -531,7 +548,7 @@ display: inline-block;
     transform: translateY(-50%);
 }
 .doc-or-text>p{
-	color:#464a4c!important;
+	color:#d3d3d3!important;
 
 }
 .doc-auto-detect-div{
@@ -615,6 +632,7 @@ display: inline-block;
 .lst-bfr{
     position: relative;
     padding-left: 25px;
+    margin-bottom: 5px;
 }
 
 li.lst-bfr:before{
@@ -623,9 +641,7 @@ li.lst-bfr:before{
     height: 10px;
     width: 10px;
     left: 5px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+    top: 5px;
     background: #e58950;
     border-radius: 10px;
 }
@@ -677,10 +693,10 @@ li.lst-bfr:before{
 }
 
 .location-txt-msg{
-	color: white;
+    color: white;
     font-size: 14px;
     text-align: center;
     width: 100%;
-    padding-top: 3px;
+    padding: 5px 0px;
     font-weight: 500;
 }

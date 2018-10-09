@@ -7,3 +7,9 @@
     margin-left: 10px;
     margin-right: 30px;
 }
+.media-img{
+    width:140px;
+    height:140px;
+    display: inline-block;
+    overflow: hidden;
+}

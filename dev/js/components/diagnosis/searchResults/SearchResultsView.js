@@ -274,15 +274,15 @@ class SearchResultsView extends React.Component {
                     seoFriendly: this.state.seoFriendly
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
-                    {
-                        this.isSelectedLocationNearDelhi() ? <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
-                            <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
-                                <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
-                            </div>
-                            <LabsList {...this.props} />
-                        </div> : <div className="noopDiv"><img src={ASSETS_BASE_URL + "/images/nonop.png"} className="noop" /></div>
-                    }
+                    <div>
+                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
+                        {/*
+                        <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
+                            <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
+                        </div>
+                        */}
+                        <LabsList {...this.props} />
+                    </div>
                 </CriteriaSearch>
             </div>
         );

@@ -168,7 +168,7 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row" style={{ backgroundColor: '#f78316' }}>
+            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10 }}>
 
                 <div className="col-12">
                     {
@@ -179,7 +179,7 @@ class LocationElementsView extends React.Component {
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
                     
                 </div>
-                <div className="col-12 mrt-10" style={{ paddingBottom: 10 }}>
+                <div className="col-12" style={{ paddingBottom: 10 }}>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div">
                             <input type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality"  value={this.state.search} onChange={this.inputHandler.bind(this)} />

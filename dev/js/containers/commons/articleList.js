@@ -14,15 +14,15 @@ class ArticleList extends React.Component {
         }
     }
 
-    static loadData(store, match,query) {
+    static loadData(store, match, query) {
         let title = match.url
         title = title.substring(1, title.length)
-        if(query.page){
+        if (query.page) {
             query = query.page
-        }else{
+        } else {
             query = 1
         }
-        return store.dispatch(getArticleList(title,query))
+        return store.dispatch(getArticleList(title, query))
     }
 
     static contextTypes = {
@@ -34,17 +34,16 @@ class ArticleList extends React.Component {
         title = title.substring(1, title.length)
         const parsed = queryString.parse(this.props.location.search)
         if (parsed) {
-            this.setState({pageNo:parsed.page})
-            this.props.getArticleList(title, parsed.page)
+            this.setState({ pageNo: parsed.page })
+            this.props.getArticleList(title, parsed.page, '', parsed.page)
         } else {
             this.props.getArticleList(title)
         }
     }
 
     render() {
-
         return (
-            <ArticleListView {...this.props} pageNo = {this.state.pageNo}/>
+            <ArticleListView {...this.props} pageNo={this.state.pageNo} />
         );
     }
 }

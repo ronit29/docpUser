@@ -230,15 +230,9 @@ export default function (state = defaultState, action) {
                 ...state,
             }
 
-            if (action.payload.total_articles % 10 == 0) {
-                newState.articlePageCount = action.payload.total_articles / 10;
-            } else {
-                newState.articlePageCount = action.payload.total_articles / 10 + 1;
-            }
+            newState.articlePageCount = Math.ceil(action.payload.total_articles / 10);
 
-            if (action.payload.result.length) {
-                newState.pageButtonCount = action.staticPage
-            }
+            newState.pageButtonCount = action.staticPage || 1;
 
             newState.ARTICLE_LOADED = true;
             if (action.page == 1) {

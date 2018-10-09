@@ -5,7 +5,6 @@ import CONFIG from '../../../config'
 import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
-import Loader from '../Loader'
 import ChatStaticView from './ChatStaticView'
 
 class ChatPanel extends React.Component {
@@ -22,6 +21,7 @@ class ChatPanel extends React.Component {
             hideIframe: true,
             iframeLoading: true,
             showStaticView:true,
+            hideStaticView:false
         }
     }
 
@@ -35,9 +35,9 @@ class ChatPanel extends React.Component {
             }
         })
 
-        if(this.props.USER && (this.props.USER.chat_static_msg || Object.keys(this.props.USER.chatRoomIds).length>0) ){
+        if (this.props.USER && (this.props.USER.chat_static_msg || Object.keys(this.props.USER.chatRoomIds).length > 0)) {
 
-            this.setState({showStaticView : false})
+            this.setState({ showStaticView: false })
         }
 
         if (window) {
@@ -109,7 +109,7 @@ class ChatPanel extends React.Component {
                             if (data.data.rid) {
                                 // save current room
                                 this.props.setChatRoomId(data.data.rid)
-                                this.setState({ selectedRoom: data.data.rid ,iframeLoading:false})
+                                this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
                             }
                             break
                         }
@@ -158,26 +158,26 @@ class ChatPanel extends React.Component {
             } else {
                 this.setState({ iframeLoading: false })
             }
-                
+
         })
 
     }
 
-    componentWillReceiveProps(props){
+    componentWillReceiveProps(props) {
 
-        if(props.USER && (props.USER.chat_static_msg!="" || Object.keys(props.USER.chatRoomIds).length>0) ){
+        if (props.USER && (props.USER.chat_static_msg != "" || Object.keys(props.USER.chatRoomIds).length > 0)) {
             let iframe = this.refs.chat_frame
-            if(iframe){
+            if (iframe) {
                 iframe.onload = () => {
-                   this.setState({ iframeLoading: false,showStaticView:false })
+                    this.setState({ iframeLoading: false, showStaticView: false })
                 }
-            }else{
-                this.setState({showStaticView:false,iframeLoading:true})
+            } else {
+                this.setState({ showStaticView: false, iframeLoading: true })
             }
-            
 
-        }else{
-            this.setState({showStaticView:true,iframeLoading:false})
+
+        } else {
+            this.setState({ showStaticView: true, iframeLoading: false })
         }
     }
 
@@ -206,12 +206,13 @@ class ChatPanel extends React.Component {
 
     closeChat() {
         
+        STORAGE.getAuthToken().then((token) => {
+            token = token || ""
+              this.setState({ token })
+        })
         this.dispatchCustomEvent.call(this, 'close_frame')
-        setTimeout(() => {
-            this.props.saveChatStaticMsg('', true)
-        }, 2000)
         this.setState({ showCancel: !this.state.showCancel })
-        // this.props.history.go(-1)
+         
     }
 
     toggleCancel(e) {
@@ -253,8 +254,8 @@ class ChatPanel extends React.Component {
 
     }
 
-    hideStaticChat(data){
-        this.setState({showChatBlock:false})
+    hideStaticChat(data) {
+        this.setState({ showChatBlock: false })
     }
 
     render() {
@@ -273,7 +274,7 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&msg=${this.props.USER.chat_static_msg||''}&room=${this.state.roomId}`
+        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
 
 
         return (
@@ -281,11 +282,11 @@ class ChatPanel extends React.Component {
             <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
                 {
                     this.props.homePage ? '' :
-                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL+"/img/customer-icons/floatingicon.png"} /></div>
+                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} /></div>
                 }
 
                 <div className={this.state.showChatBlock ? "floating-chat " :""}>
-                {this.state.showStaticView
+                {this.state.hideStaticView
                         ?<ChatStaticView {...this.props} hideStaticChat = {this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
                         :<div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
@@ -317,8 +318,8 @@ class ChatPanel extends React.Component {
 
                                 */}
 
-                                <div className="hd-chat" style={{flex: 1}}>
-                                    <p className="text-left header-text-chat" style={{color: '#ef5350'}}>
+                                <div className="hd-chat" style={{ flex: 1 }}>
+                                    <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
                                         <span className="hed-txt-lt">Get a </span>
                                         Free Online Doctor Consultation!
                                     </p>
@@ -352,12 +353,20 @@ class ChatPanel extends React.Component {
                             {/* chat Body */}
                             <div className="chat-body">
                                 {
-                                    STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading?'d-none':''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading?'d-none':''}`} src={iframe_url} ref="chat_frame"></iframe>
+                                    STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} ref="chat_frame"></iframe>
                                 }
                                 {
                                     this.state.iframeLoading ?
-                                        <div className="loaderCircular chat-loader-center" >
-                                            <div className="dp-loader"></div>
+                                        <div className="loader-for-chat-div">
+                                            <div className='loader-for-chat'>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                            <p className="ldng-text">Connecting to best doctor...</p>
                                         </div>
                                         : ""
                                 }
@@ -387,7 +396,7 @@ class ChatPanel extends React.Component {
                                 this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
                             }
                         </div>
-                }
+                    }
                 </div>
             </div>
         );
