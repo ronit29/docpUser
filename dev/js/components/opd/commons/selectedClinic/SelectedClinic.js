@@ -31,7 +31,7 @@ class SelectedClinic extends React.Component {
         }
 
         return (
-            <div className="widget mrt-10 ct-profile skin-white" style={this.props.boxShadowHide?{boxShadow: 'none'}:''}>
+            <div className="widget mrt-10 ct-profile skin-white" style={this.props.boxShadowHide?{boxShadow: 'none'}:{boxShadow:''}}>
                 <div className="widget-header dr-qucik-info">
                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
                         <img src={thumbnail} className="img-fluid img-round" />
