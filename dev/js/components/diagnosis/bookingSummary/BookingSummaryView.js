@@ -29,7 +29,8 @@ class BookingSummaryView extends React.Component {
             openCancellation: false,
             openPaymentSummary: false,
             // order_id: !!parsed.order_id,
-            order_id: false
+            order_id: false,
+            showTimeError: false
         }
     }
 
@@ -84,7 +85,7 @@ class BookingSummaryView extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTime type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                    <VisitTime type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
                     <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
@@ -110,7 +111,7 @@ class BookingSummaryView extends React.Component {
             return
         }
         if (!datePicked) {
-            
+            this.setState({showTimeError: true});
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
         }
