@@ -168,48 +168,14 @@ class PaymentView extends React.Component {
                                                             <div className="col-4 text-center">
                                                             <div className="media-img"> 
                                                                     <img  onClick={() => this.setState({ isOpen: true, photoIndex:1 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image1-min.jpg"} />
-                                                                    {isOpen && (
-                                                                        <Lightbox
-                                                                            mainSrc={images[photoIndex]}
-                                                                            nextSrc={images[(photoIndex + 1) % images.length]}
-                                                                            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-                                                                            onCloseRequest={() => this.setState({ isOpen: false })}
-                                                                            onMovePrevRequest={() =>
-                                                                            this.setState({
-                                                                                photoIndex: (photoIndex + images.length - 1) % images.length,
-                                                                            })
-                                                                            }
-                                                                            onMoveNextRequest={() =>
-                                                                            this.setState({
-                                                                                photoIndex: (photoIndex + 1) % images.length,
-                                                                            })
-                                                                            }
-                                                                        />
-                                                                        )}
+                                                            
                                                                 </div>
                                                             </div>
                                                             
                                                             <div className="col-4 text-center">
                                                             <div className="media-img"> 
                                                                     <img  onClick={() => this.setState({ isOpen: true, photoIndex:2 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image3-min.jpg"} />
-                                                                    {isOpen && (
-                                                                        <Lightbox
-                                                                            mainSrc={images[photoIndex]}
-                                                                            nextSrc={images[(photoIndex + 1) % images.length]}
-                                                                            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-                                                                            onCloseRequest={() => this.setState({ isOpen: false })}
-                                                                            onMovePrevRequest={() =>
-                                                                            this.setState({
-                                                                                photoIndex: (photoIndex + images.length - 1) % images.length,
-                                                                            })
-                                                                            }
-                                                                            onMoveNextRequest={() =>
-                                                                            this.setState({
-                                                                                photoIndex: (photoIndex + 1) % images.length,
-                                                                            })
-                                                                            }
-                                                                        />
-                                                                        )}
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </div>
