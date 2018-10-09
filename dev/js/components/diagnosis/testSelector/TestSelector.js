@@ -141,7 +141,7 @@ class TestSelectorView extends React.Component {
                                                                 <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)} />
                                                                 <span className="ct-img ct-img-sm map-marker-blue"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} className="img-fluid" /></span>
                                                             </div>
-                                                            <div className="detect-my-locaiton">
+                                                            <div className="detect-my-locaiton rmv-pointer">
                                                                 <span className="ct-img ct-img-xs" />
                                                                 {selectedTestIds.length} Selected Item
                                                             </div>

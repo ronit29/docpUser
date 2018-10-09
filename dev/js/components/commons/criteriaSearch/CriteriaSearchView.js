@@ -135,7 +135,7 @@ class CriteriaSearchView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column criteria-search-header">
-                            <header className="skin-primary horizontal top mbl-stick search-book-header sticky-header">
+                            <header style={{zIndex:1}} className="skin-primary horizontal top mbl-stick search-book-header sticky-header">
                                 <div className="container-fluid">
                                     {/* <div className="row">
                                         <div className="col-12">
