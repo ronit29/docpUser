@@ -18,7 +18,7 @@ class Lab extends React.Component {
         if (match.params.id) {
             return store.dispatch(getLabById(match.params.id))
         } else {
-            let url = match.url
+            let url =  match.url
             if (url) {
                 url = url.split("/")[1]
             }
