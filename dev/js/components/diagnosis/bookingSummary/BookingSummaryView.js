@@ -292,6 +292,12 @@ class BookingSummaryView extends React.Component {
                                                                         <p className="fw-500 text-sm text-light">{labDetail.address}</p>
                                                                     </div>
                                                                 </div>
+                                                                
+                                                                <div className="lab-visit-time test-report">
+                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
+                                                                    {tests}
+                                                                </div>
+
                                                                 {
                                                                     is_home_collection_enabled ?
                                                                         <div className="lab-visit-time test-report lab-appointment-div row">
@@ -304,10 +310,7 @@ class BookingSummaryView extends React.Component {
                                                                 }
 
 
-                                                                <div className="lab-visit-time test-report">
-                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
-                                                                    {tests}
-                                                                </div>
+                                                                
 
                                                                 {this.getSelectors()}
 

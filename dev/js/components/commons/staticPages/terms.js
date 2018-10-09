@@ -1188,7 +1188,7 @@ class Terms extends React.Component {
                         <p className="privacy-desc-subheading">6.&nbsp;&nbsp;&nbsp;&nbsp;GENERAL PROVISIONS</p>
                         <ol className="privacy-order-list">
                             <li className="privacy-order-item">
-                                <span>Governing Law; Dispute Resolution:</span> This Agreement shall be governed by, and construed in accordance with, the laws of India, without regard to the principles of conflict of laws of any other jurisdiction. The courts of Gurgaon, India which shall have exclusive jurisdiction, for remedies available at law to such Party.
+                                <span>Governing Law; Dispute Resolution:</span> This Agreement shall be governed by, and construed in accordance with, the laws of India, without regard to the principles of conflict of laws of any other jurisdiction. The courts of Gurugram, India which shall have exclusive jurisdiction, for remedies available at law to such Party.
             </li>
                             <li className="privacy-order-item">
                                 <span>Relationship of Parties:</span> The Parties are independent contracting parties and will have no power or authority to assume or create any obligation or responsibility on behalf of each other. This Agreement will not be construed to create or imply any partnership, agency, or joint venture, or employer-employee relationship.
