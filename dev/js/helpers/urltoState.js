@@ -10,8 +10,8 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let specializations_ids = _getLocationParamBind('specializations') || ""
             let condition_ids = _getLocationParamBind('conditions') || ""
 
-            let lat = _getLocationParamBind('lat')
-            let long = _getLocationParamBind('long')
+            let lat = _getLocationParamBind('lat') || ""
+            let long = _getLocationParamBind('long') || ""
             let place_id = _getLocationParamBind('place_id') || ""
 
             let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
@@ -79,22 +79,33 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                         })
                     }, 1000)
                 } else {
-                    setTimeout(() => {
-                        _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                            selectLocation(location_object, 'geo', false)
-                        })
-                    }, 1000)
+                    if (lat && long) {
+                        setTimeout(() => {
+                            _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
+                                selectLocation(location_object, 'geo', false)
+                            })
+                        }, 1000)
+                    }
                 }
             }
 
-            resolve({
-                filterCriteria,
-                selectedCriterias,
-                selectedLocation: {
-                    geometry: { location: { lat, lng: long } }, place_id, formatted_address: ""
-                }
-            })
+            let selectedLocation = null
+            if (lat && long) {
+                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "" }
+            }
 
+            if (selectedLocation) {
+                resolve({
+                    filterCriteria,
+                    selectedCriterias,
+                    selectedLocation
+                })
+            } else {
+                resolve({
+                    filterCriteria,
+                    selectedCriterias
+                })
+            }
         })
 
     } catch (e) {
@@ -111,8 +122,8 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let _getLocationParamBind = (tag) => _getLocationParam(querParams, isServer, tag)
 
             let test_ids = _getLocationParamBind('test_ids') || ""
-            let lat = _getLocationParamBind('lat')
-            let long = _getLocationParamBind('long')
+            let lat = _getLocationParamBind('lat') || ""
+            let long = _getLocationParamBind('long') || ""
             let place_id = _getLocationParamBind('place_id') || ""
             let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
             let max_distance = parseInt(_getLocationParamBind('max_distance')) || 35
@@ -157,21 +168,33 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                         })
                     }, 1000)
                 } else {
-                    setTimeout(() => {
-                        _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                            selectLocation(location_object, 'geo', false)
-                        })
-                    }, 1000)
+                    if (lat && long) {
+                        setTimeout(() => {
+                            _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
+                                selectLocation(location_object, 'geo', false)
+                            })
+                        }, 1000)
+                    }
                 }
             }
 
-            resolve({
-                filterCriteria,
-                selectedCriterias,
-                selectedLocation: {
-                    geometry: { location: { lat, lng: long } }, place_id, formatted_address: ""
-                }
-            })
+            let selectedLocation = null
+            if (lat && long) {
+                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "" }
+            }
+
+            if (selectedLocation) {
+                resolve({
+                    filterCriteria,
+                    selectedCriterias,
+                    selectedLocation
+                })
+            } else {
+                resolve({
+                    filterCriteria,
+                    selectedCriterias
+                })
+            }
 
         })
 
