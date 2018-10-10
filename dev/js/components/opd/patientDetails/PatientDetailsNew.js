@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import SnackBar from 'node-snackbar'
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import Loader from '../../commons/Loader'
-import VisitTime from './visitTime'
-import ChoosePatient from './choosePatient'
+import VisitTimeNew from './VisitTimeNew'
+import ChoosePatientNewView from './choosePatientNew'
 const queryString = require('query-string');
 import SelectedClinic from '../commons/selectedClinic/index.js'
-
-
 
 
 import LeftBar from '../../commons/LeftBar'
@@ -192,30 +190,7 @@ class PatientDetailsNew extends React.Component {
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
-                            {/* <header className="skin-primary fixed horizontal top bdr-1 light sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <ul className="inline-list top-nav alpha-bx text-white"
-                                                onClick={() => {
-                                                    this.props.history.go(-1)
-                                                }}
-                                            >
-                                                <li>
-                                                    <span className="ct-img ct-img-sm arrow-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" />
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-white text-center">Booking Confirmation</div>
-                                        </div>
-                                        <div className="col-2" style={{ paddingLeft: 0 }} >
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
+                           
 
                             {
                                 this.props.DOCTORS[this.state.selectedDoctor] ?
@@ -236,9 +211,9 @@ class PatientDetailsNew extends React.Component {
                                                             <hr/>
                                                             <div className="widget-content">
 
-                                                                <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                                                                <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
 
-                                                                <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                                
 
                                                             </div>
