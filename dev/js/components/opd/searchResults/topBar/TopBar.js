@@ -30,6 +30,8 @@ class TopBar extends React.Component {
         this.setState({ ...props.filterCriteria })
         if (props.locationType && props.locationType != "geo") {
             this.setState({ showLocationPopup: false })
+        }else{
+            this.setState({ showLocationPopup: true, overlayVisible: true })
         }
         this.shortenUrl()
     }
