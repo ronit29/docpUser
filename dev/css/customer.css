@@ -191,7 +191,7 @@
 .booking-type>li .radio-inline{font-size: 18px;}
 
 /*booking confirm*/
-.booking-confirm-screen{padding-bottom: 50px;}
+/* .booking-confirm-screen{padding-bottom: 50px;} */
 .booking-confirm-screen .lab-details{margin-bottom: 20px;}
 .booking-confirm-screen .lab-details .lab-title{padding-right: 100px;}
 .booking-confirm-screen .lab-details img{max-width: 90px; max-height: 60px; border:1px solid #ddd; padding: 3px ; float: right;}
@@ -221,9 +221,6 @@
 .book-confirmed-timeline{padding-top: 10px;}
 .book-confirmed-timeline .lab-visit-time{margin-bottom: 10px;}
 .cancel-booking-btn{background-color: #b0b0b0; color: #fff;}
-
-
-
 
 /*login mobile verification*/
 .mobile-verification-screen .mv-header{padding: 10px;}
@@ -265,7 +262,7 @@
 .search-dr-list{cursor: pointer}
 
 /*doctor profile screen*/
-.dr-profile-screen{padding-bottom: 50px;}
+/* .dr-profile-screen{padding-bottom: 50px;} */
 .dr-qucik-info{display: flex; flex-wrap: wrap; align-items: flex-start}
 .dr-profile-screen .dr-qucik-info img{height: 80px; width: 80px;}
 .dr-qucik-info .dr-profile {padding-left: 12px; flex: 1}

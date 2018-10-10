@@ -78,10 +78,10 @@ class LabProfileCard extends React.Component {
             openingTime = this.props.details.lab_timing.split('-')[0];    
         }
         
-        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        var day = new Date();
-        var today = day.getDay();
-        var tomorrow = days[today + 1];
+        // var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        // var day = new Date();
+        // var today = day.getDay();
+        // var tomorrow = days[today + 1];
 
         return (
             <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
@@ -121,7 +121,7 @@ class LabProfileCard extends React.Component {
                             </div>
 
                             {
-                                this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : <p style={{ color: '#f78316', fontSize: 14 }}>Opens next at {openingTime} on {tomorrow}</p>
+                                this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : <p style={{ color: '#f78316', fontSize: 14 }}>Opens next at {openingTime}, tomorrow</p>
                             }
                         </div>
                     </div>
