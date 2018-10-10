@@ -40,10 +40,12 @@ class LocationElementsView extends React.Component {
         }
 
         if(document.getElementById('doc-input-field')){
-            document.getElementById('doc-input-field').addEventListener('focusin',()=>{this.setState({search:''})})
+            document.getElementById('doc-input-field').addEventListener('focusin',()=>{
+                this.props.getCityListLayout()
+                this.setState({search:''})
+            })
             
             document.getElementById('doc-input-field').addEventListener('focusout',()=>{
-                this.props.getCityListLayout()
                 this.setState({search:''})
             })
         }

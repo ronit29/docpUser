@@ -187,7 +187,7 @@ class TopBar extends React.Component {
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr} </span>
 
-                                    <span onClick={() => { this.setState({ showLocationPopup: !this.state.showLocationPopup }) }}>
+                                    <span onClick={() => { this.setState({ showLocationPopup: !this.state.showLocationPopup ,searchCities: []}) }}>
 
                                         {
                                             this.state.showLocationPopup && false ? ''

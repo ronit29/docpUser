@@ -37,6 +37,10 @@ class CriteriaSearchView extends React.Component {
         if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
             // input.focus()
         }
+        if(document.getElementById('topCriteriaSearch')){
+            document.getElementById('topCriteriaSearch').addEventListener('focusin',()=>{this.setState({searchCities:''})})
+            
+        }
     }
 
     inputHandler(e) {
@@ -111,7 +115,11 @@ class CriteriaSearchView extends React.Component {
     }
 
     getCityListLayout(searchResults = []) {
-        this.setState({ searchCities: searchResults })
+        if(searchResults.length){
+            this.setState({ searchCities: searchResults })
+        }else{
+            this.setState({ searchResults: [],searchValue: '' })
+        }
     }
 
     selectLocation(city) {
@@ -183,7 +191,7 @@ class CriteriaSearchView extends React.Component {
                                                         </div> */}
                                                     </div>
                                                 </div>
-                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search'/>
+                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this )} resultType='search'/>
                                             </div>
                                         </div>
                                     }
