@@ -55,59 +55,12 @@ class LabsList extends React.Component {
     loadMore(page) {
         this.setState({ hasMore: false, loading: true })
 
-        try {
-
-            let test_ids = this.getLocationParam('test_ids') || ""
-            let lat = this.getLocationParam('lat')
-            let long = this.getLocationParam('long')
-            let place_id = this.getLocationParam('place_id') || ""
-            let min_distance = parseInt(this.getLocationParam('min_distance')) || 0
-            let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
-            let min_price = parseInt(this.getLocationParam('min_price')) || 0
-            let max_price = parseInt(this.getLocationParam('max_price')) || 20000
-            let sort_on = this.getLocationParam('sort_on') || null
-            let lab_name = this.getLocationParam('lab_name') || ""
-            lab_name = lab_name || ""
-            let force_location_fromUrl = !!this.getLocationParam('force_location')
-
-            let searchState = {
-                selectedCriterias: test_ids
-            }
-            searchState.selectedLocation = {
-                geometry: { location: { lat, lng: long } }, place_id
-            }
-            let filterCriteria = {
-                min_price, max_price, min_distance, max_distance, sort_on
-            }
-            if (lab_name) {
-                filterCriteria.lab_name = lab_name
-            }
-
-            filterCriteria.priceRange = [0, 20000]
-            filterCriteria.priceRange[0] = filterCriteria.min_price
-            filterCriteria.priceRange[1] = filterCriteria.max_price
-
-            filterCriteria.distanceRange = [0, 35]
-            filterCriteria.distanceRange[0] = filterCriteria.min_distance
-            filterCriteria.distanceRange[1] = filterCriteria.max_distance
-
-            let searchUrl = null
-            if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
-                searchUrl = this.props.match.url
-            }
-
-            this.props.getLabs(searchState, filterCriteria, false, page + 1, (hasMore) => {
-                this.setState({ loading: false })
-                setTimeout(() => {
-                    this.setState({ hasMore })
-                }, 1000)
-            }, false, searchUrl)
-
-        } catch (e) {
+        this.props.getLabList(null, page + 1, (hasMore) => {
             this.setState({ loading: false })
-            console.error(e)
-        }
-
+            setTimeout(() => {
+                this.setState({ hasMore })
+            }, 1000)
+        })
     }
 
     render() {

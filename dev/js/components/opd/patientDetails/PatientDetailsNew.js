@@ -20,7 +20,7 @@ import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 
 
-class PatientDetails extends React.Component {
+class PatientDetailsNew extends React.Component {
     constructor(props) {
         super(props)
         // const parsed = queryString.parse(this.props.location.search)
@@ -227,46 +227,69 @@ class PatientDetails extends React.Component {
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
-                                                            {/* <DoctorProfileCard
-                                                                details={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                            />  */}
 
                                                             <SelectedClinic
                                                                 boxShadowHide={true}
                                                                 selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                                 selectedClinic={this.state.selectedClinic}
                                                             />
-
+                                                            <hr/>
                                                             <div className="widget-content">
-
-                                                                <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 4 }} /></span><span style={{ display: 'inline-block', width: '70%' }} >{hospital.hospital_name} </span>
-                                                                        {
-                                                                            (this.props.selectedSlot && this.props.selectedSlot.date) ?
-                                                                                <span className="float-right text-primary fw-700 text-md">&#8377; {this.props.selectedSlot.time.deal_price}
-                                                                                </span> : <span className="float-right text-primary fw-700 text-md">Time slot not selected
-                                                                                </span>
-                                                                        }
-                                                                    </h4>
-                                                                    <p className="date-time">{hospital.address}</p>
-                                                                </div>
 
                                                                 <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
 
                                                                 <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
-                                                                {
-                                                                    priceData ? <div className="lab-visit-time test-report">
-                                                                        <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                        <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
-                                                                    </div> : ""
-                                                                }
+                                                               
 
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div className="col-12">
+                                                        <div className="widget mrt-10 ct-profile skin-white">
+                                                           
+                                                            <div className="widget-content">
+
+                                                               <p>HAVE A COUPON?</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <div className="widget mrt-10 ct-profile skin-white">
+                                                            
+                                                            <div className="widget-content">
+
+                                                               <h4 className="title mb-20">Payment Summary</h4>
+                                                               <div className="payment-summary-content">
+                                                                <div className="payment-detail d-flex">
+                                                                    <p>Doctor fees</p>
+                                                                    <p>{priceData.mrp}</p>
+                                                                </div>
+                                                                <div className="payment-detail d-flex">
+                                                                    <p>Docprime discount</p>
+                                                                    <p>{priceData.mrp - priceData.deal_price}</p>
+                                                                </div>
+                                                                <div className="payment-detail d-flex">
+                                                                    <p>Subtotal</p>
+                                                                    <p>{priceData.deal_price}</p>
+                                                                </div>
+                                                               </div>
+                                                               <hr/>
+                                                               
+                                                               {
+                                                                    priceData ? <div className="test-report payment-detail mt-20">
+                                                                        <h4 className="title payment-amt-label">Amount Payable<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                                        <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
+                                                                    </div> : ""
+                                                                }
+                                                              
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                
                                                     <div className="col-12" style={{ marginTop: 10 }}>
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                            <h4 className="title payment-amt-label">Free Cancellation charges<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
                                                     </div>
                                                     <div className="col-12">
@@ -312,4 +335,4 @@ class PatientDetails extends React.Component {
 }
 
 
-export default PatientDetails
+export default PatientDetailsNew

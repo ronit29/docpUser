@@ -40,13 +40,14 @@ class LocationElementsView extends React.Component {
         }
 
         if(document.getElementById('doc-input-field')){
-            document.getElementById('doc-input-field').addEventListener('focusin',()=>{this.setState({search:''})})
+            document.getElementById('doc-input-field').addEventListener('focusin',()=>{
+                this.props.getCityListLayout()
+                this.setState({search:''})
+            })
             
-            /*document.getElementById('doc-input-field').addEventListener('focusout',()=>{
-                if(this.props.selectedLocation && this.props.selectedLocation.formatted_address){
-                    this.setState({search:props.selectedLocation.formatted_address||''})
-                }
-            })*/
+            document.getElementById('doc-input-field').addEventListener('focusout',()=>{
+                this.setState({search:''})
+            })
         }
     }
 
@@ -168,7 +169,7 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10 }}>
+            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }}>
 
                 <div className="col-12">
                     {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, resetFilters, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests } from '../../actions/index.js'
+import { mergeLABState, clearAllTests, resetFilters, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/diagnosis/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -62,7 +62,8 @@ const mapDispatchToProps = (dispatch) => {
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         resetFilters: () => dispatch(resetFilters()),
         clearExtraTests: () => dispatch(clearExtraTests()),
-        clearAllTests: () => dispatch(clearAllTests())
+        clearAllTests: () => dispatch(clearAllTests()),
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults))
     }
 }
 

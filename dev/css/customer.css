@@ -4,6 +4,8 @@
 .ct-img-md{width: 50px; height: 50px;}
 .ct-img-sm{width: 40px; height: 40px;cursor: pointer}
 .ct-img-xs{width: 18px; height: 18px; margin-right: 4px;}
+.mt-20{margin-top: 20px}
+.mb-20{margin-bottom: 20px}
 
 .img-fluid{vertical-align: middle;}
 
@@ -173,6 +175,7 @@
 .pb-location .address-details .add-map{float: right;width: 50px;cursor: pointer; margin-top: 10px}
 .pb-location .address-details .add-info{padding-right: 92px;}
 
+
 .pb-about>p{margin-bottom: 10px;}
 
 .selected-option{position: absolute; left: 10px; top:15px;}
@@ -269,13 +272,16 @@
 
 /*doctor profile screen*/
 .dr-profile-screen{padding-bottom: 50px;}
-.dr-qucik-info{display: flex; flex-wrap: wrap; align-items: flex-start}
+.dr-qucik-info{display: flex; flex-wrap: wrap; align-items: flex-start;padding-bottom:1px}
 .dr-profile-screen .dr-qucik-info img{height: 80px; width: 80px;}
 .dr-qucik-info .dr-profile {padding-left: 12px; flex: 1}
 .dr-qucik-info .dr-profile .dr-name{font-size: 18px; font-weight: bold; margin: 6px 0;height: auto; max-height: 48px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 .dr-qucik-info .dr-profile .desg{font-size: 14px; font-weight: 500; margin: 6px 0;}
 .dr-qucik-info .dr-profile .add-details{font-size: 12px; font-weight: 500; color: #757575; margin: 6px 0;}
 .add-details{margin-top: 8px;}
+.payment-detail{justify-content: space-between;margin-bottom: 10px}
+
+
 
 .drop-down-list>li{font-size: 16px; font-weight: 500; padding: 10px; border-bottom:1px solid #ddd;}
 .drop-down-list>li .title{font-size: 16px; font-weight: 500;position: relative;}
@@ -534,6 +540,15 @@ text-align: left;
     height: 18px;
 }
 
+.locationPopup-overlay{
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 10;
+}
 
 .doc-input-loc-icon>img{
 	width: 100%;

@@ -1,9 +1,10 @@
-import { CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS ,ADD_LAB_PROFILE_TESTS} from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
     distanceRange: [0, 35],
-    sort_on: null
+    sort_on: null,
+    lab_name: ""
 }
 
 const defaultState = {
@@ -16,8 +17,7 @@ const defaultState = {
     filterCriteria: DEFAULT_FILTER_STATE,
     lab_test_data: {},
     locationType: 'geo',
-    lab_profile_demo_tests:[],
-    lab_tests:{}
+    fetchNewResults: false
 }
 
 export default function (state = defaultState, action) {
@@ -36,8 +36,11 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 selectedCriterias: [].concat(state.selectedCriterias),
-                lab_test_data: { ...state.lab_test_data }
+                lab_test_data: { ...state.lab_test_data },
+                filterCriteria: { ...state.filterCriteria }
             }
+
+            newState.filterCriteria.lab_name = ""
 
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
@@ -68,12 +71,18 @@ export default function (state = defaultState, action) {
                     return true
                 })
 
-                if (!found || action.payload.forceAdd) {
+                if (action.payload.forceAdd) {
+                    newState.selectedCriterias = [{
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    }]
+                } else if (!found) {
                     newState.selectedCriterias.push({
                         ...action.payload.criteria,
                         type: action.payload.type
                     })
                 }
+                newState.fetchNewResults = true
             }
 
             return newState
@@ -84,31 +93,22 @@ export default function (state = defaultState, action) {
 
             newState.selectedLocation = action.payload
             if (action.range == 'autoComplete') {
-
                 newState.locationType = 'autoComplete'
-
             } else if (action.range == 'autoDetect') {
-
                 newState.locationType = 'autoDetect'
-
-            } else if (action.range == 'adwords') {
-
-                newState.locationType = 'adwords'
-
             } else {
-
                 newState.locationType = 'geo'
             }
+            newState.fetchNewResults = !!action.fetchNewResults
+
             return newState
         }
 
         case MERGE_SEARCH_STATE_LAB: {
-            delete action.payload.searchState.selectedLocation
-
             let newState = {
                 ...state,
-                ...action.payload.searchState,
-                filterCriteria: action.payload.filterCriteria
+                ...action.payload,
+                fetchNewResults: !!action.fetchNewResults
             }
 
             let extra_tests = state.selectedCriterias.filter(x => x.extra_test) || []
@@ -146,40 +146,9 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case ADD_DEFAULT_LAB_TESTS: {
-            let newState = {
-                ...state
-            }
-            /*
-            newState.lab_test_data[action.labId]=[]
-
-            newState.lab_test_data[action.labId] = action.payload*/
-
-            newState.lab_tests[action.labId] = []
-
-            newState.lab_tests[action.labId] = action.payload
-            return newState
-        }
-
-        case ADD_LAB_PROFILE_TESTS: {
-            let newState = {
-                ...state
-            }
-            if(newState.lab_profile_demo_tests.length){
-
-                if(newState.lab_profile_demo_tests.indexOf(action.payload)>-1){
-                    let tests = newState.lab_profile_demo_tests
-                    tests.splice(tests.indexOf(action.payload),1)
-                    newState.lab_profile_demo_tests.concat(tests)    
-                }else{
-                    
-                    newState.lab_profile_demo_tests.push(action.payload)    
-                }
-            }else{
-                newState.lab_profile_demo_tests= newState.lab_profile_demo_tests || []
-                newState.lab_profile_demo_tests.push(action.payload)    
-            }
-            
+        case SET_FETCH_RESULTS_LAB: {
+            let newState = { ...state }
+            newState.fetchNewResults = !!action.payload
             return newState
         }
 

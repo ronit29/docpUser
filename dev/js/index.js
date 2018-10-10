@@ -15,7 +15,7 @@ const middlewares = [thunk]
 /**
  * Only log in DEV MODE.
  */
-if (!DOCPRIME_PRODUCTION && !DOCPRIME_STAGING) {
+if (!DOCPRIME_PRODUCTION) {
     const logger = createLogger();
     middlewares.push(logger)
 }

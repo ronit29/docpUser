@@ -29,21 +29,9 @@ class ArticleList extends React.Component {
         router: () => null
     }
 
-    componentDidMount() {
-        let title = this.props.match.url
-        title = title.substring(1, title.length)
-        const parsed = queryString.parse(this.props.location.search)
-        if (parsed) {
-            this.setState({ pageNo: parsed.page })
-            this.props.getArticleList(title, parsed.page, '', parsed.page)
-        } else {
-            this.props.getArticleList(title)
-        }
-    }
-
     render() {
         return (
-            <ArticleListView {...this.props} pageNo={this.state.pageNo} />
+            <ArticleListView {...this.props} />
         );
     }
 }
@@ -67,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, searchString, staticPage, callback) => dispatch(getArticleList(title, page, searchString, staticPage, callback))
+        getArticleList: (title, page, searchString, callback) => dispatch(getArticleList(title, page, searchString, callback))
     }
 }
 

@@ -56,66 +56,12 @@ class DoctorsList extends React.Component {
     loadMore(page) {
         this.setState({ hasMore: false, loading: true })
 
-        try {
-
-            let specializations_ids = this.getLocationParam('specializations')
-            let condition_ids = this.getLocationParam('conditions')
-            let lat = this.getLocationParam('lat')
-            let long = this.getLocationParam('long')
-            let place_id = this.getLocationParam('place_id') || ""
-            let min_distance = parseInt(this.getLocationParam('min_distance')) || 0
-            let max_distance = parseInt(this.getLocationParam('max_distance')) || 35
-            let min_fees = parseInt(this.getLocationParam('min_fees')) || 0
-            let max_fees = parseInt(this.getLocationParam('max_fees')) || 1500
-            let sort_on = this.getLocationParam('sort_on')
-            let is_available = this.getLocationParam('is_available') === "true"
-            let is_female = this.getLocationParam('is_female') === "true"
-            let doctor_name = this.getLocationParam('doctor_name')
-            doctor_name = doctor_name || ""
-            let hospital_name = this.getLocationParam('hospital_name')
-            hospital_name = hospital_name || ""
-            let force_location_fromUrl = !!this.getLocationParam('force_location')
-
-            let searchState = {
-                specializations_ids, condition_ids
-            }
-            searchState.selectedLocation = {
-                geometry: { location: { lat, lng: long } }, place_id
-            }
-            let filterCriteria = {
-                min_fees, max_fees, min_distance, max_distance, sort_on, is_available, is_female
-            }
-            if (doctor_name) {
-                filterCriteria.doctor_name = doctor_name
-            }
-            if (hospital_name) {
-                filterCriteria.hospital_name = hospital_name
-            }
-
-            filterCriteria.priceRange = {}
-            filterCriteria.priceRange[0] = filterCriteria.min_fees
-            filterCriteria.priceRange[1] = filterCriteria.max_fees
-
-            filterCriteria.distanceRange = [0, 35]
-            filterCriteria.distanceRange[0] = filterCriteria.min_distance
-            filterCriteria.distanceRange[1] = filterCriteria.max_distance
-
-            let searchUrl = null
-            if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
-                searchUrl = this.props.match.url
-            }
-
-            this.props.getDoctors(searchState, filterCriteria, false, page + 1, (hasMore) => {
-                this.setState({ loading: false })
-                setTimeout(() => {
-                    this.setState({ hasMore })
-                }, 1000)
-            }, false, searchUrl)
-
-        } catch (e) {
+        this.props.getDoctorList(null, page + 1, (hasMore) => {
             this.setState({ loading: false })
-            console.error(e)
-        }
+            setTimeout(() => {
+                this.setState({ hasMore })
+            }, 1000)
+        })
 
     }
 

@@ -1,25 +1,32 @@
-import { SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = false, page = 1, cb, from_server = false, searchByUrl = false, updateLocation = true) => (dispatch) => {
+export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
-	dispatch({
-		type: SET_SERVER_RENDER_LAB,
-		payload: from_server
-	})
+	if (page == 1) {
+		dispatch({
+			type: LAB_SEARCH_START,
+			payload: null
+		})
+	}
 
-	let dedupe_ids = {}
-	let testIds = searchState.selectedCriterias
+	// dispatch({
+	// 	type: SET_SERVER_RENDER_LAB,
+	// 	payload: from_server
+	// })
+
+	let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+	let testIds = selectedCriterias.map((x) => x.id)
 
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
 
-	if (searchState.selectedLocation) {
-		lat = searchState.selectedLocation.geometry.location.lat
-		long = searchState.selectedLocation.geometry.location.lng
-		place_id = searchState.selectedLocation.place_id || ""
+	if (selectedLocation) {
+		lat = selectedLocation.geometry.location.lat
+		long = selectedLocation.geometry.location.lng
+		place_id = selectedLocation.place_id || ""
 
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
@@ -45,18 +52,30 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
 
 	if (!!filterCriteria.lab_name) {
-		url += `&name=${filterCriteria.lab_name}`
-		delete filterCriteria.lab_name
-	}
-
-	if (page == 1) {
-		dispatch({
-			type: LAB_SEARCH_START,
-			payload: null
-		})
+		url += `&name=${filterCriteria.lab_name || ""}`
 	}
 
 	return API_GET(url).then(function (response) {
+
+		let tests = response.tests.map((x) => {
+			x.type = 'test'
+			return x
+		})
+
+		let selectedCriterias = tests || []
+
+		dispatch({
+			type: MERGE_SEARCH_STATE_LAB,
+			payload: {
+				selectedCriterias
+			},
+			fetchNewResults: false
+		})
+
+		dispatch({
+			type: SET_FETCH_RESULTS_LAB,
+			payload: false
+		})
 
 		dispatch({
 			type: APPEND_LABS,
@@ -70,67 +89,6 @@ export const getLabs = (searchState = {}, filterCriteria = {}, mergeState = fals
 			}
 
 		})
-
-		if (mergeState) {
-			let tests_criteria = []
-			if (response.tests && response.tests.length) {
-				tests_criteria = response.tests.map((x) => {
-					x.type = 'test'
-					return x
-				})
-			}
-
-			searchState.selectedCriterias = tests_criteria
-			searchState.selectedLocation = null
-
-			dispatch({
-				type: MERGE_SEARCH_STATE_LAB,
-				payload: {
-					searchState,
-					filterCriteria
-				}
-			})
-
-			if (updateLocation) {
-
-				if (place_id) {
-					_getLocationFromPlaceId(place_id, (locationData) => {
-						// searchState.selectedLocation = locationData
-
-						dispatch({
-							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData,
-							range: 'autoDetect'
-						})
-
-						dispatch({
-							type: SELECT_LOCATION_OPD,
-							payload: locationData,
-							range: 'autoDetect'
-						})
-
-					})
-				} else {
-
-					_getlocationFromLatLong(lat, long, 'locality', (locationData) => {
-						// searchState.selectedLocation = locationData
-
-						dispatch({
-							type: SELECT_LOCATION_DIAGNOSIS,
-							payload: locationData,
-							range: 'geo'
-						})
-
-						dispatch({
-							type: SELECT_LOCATION_OPD,
-							payload: locationData,
-							range: 'geo'
-						})
-					})
-				}
-			}
-
-		}
 
 		if (cb) {
 			// TODO: DO not hardcode page length
@@ -222,7 +180,6 @@ export const retryPaymentLAB = (appointmentId, callback) => (dispatch) => {
 		callback(error, null)
 	})
 }
-
 
 export const getLabBookingSummary = (appointmentID, callback) => (dispatch) => {
 	API_GET(`/api/v1/user/appointment/${appointmentID}?type=lab`).then(function (response) {

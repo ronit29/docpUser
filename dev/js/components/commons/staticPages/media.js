@@ -54,7 +54,7 @@ class Media extends React.Component {
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">Plot no</p>
 											<p className="media-contact-text">119, Sector 44</p>
-											<p className="media-contact-text">Gurgaon - 122001</p>
+											<p className="media-contact-text">Gurugram - 122001</p>
 										</div>
 									</div>
 								</div>
@@ -94,6 +94,21 @@ class Media extends React.Component {
 								<a href="http://www.asiainsurancepost.com/health/policybazaars-promoter-offer-free-online-medical-consultations" target="_blank"><img src="/assets/img/media/asinsurance-blwh.png" onmouseover="this.src='/assets/img/media/asinsurance-color.png'" onmouseout="this.src='/assets/img/media/asinsurance-blwh.png'" /></a>
 							</div>
 						</div>
+						<div className="media-div-card">
+							<p className="media-card-heading">docprime.com gets internal fund infusion worth $50 million from Policybazaar Group</p>
+							
+							<p className="media-card-content"><span className="media-card-heading">Gurugram, September 17, 2018:</span>&nbsp;<a href="https://docprime.com" target="_blank">docprime.com</a>, the latest healthcare venture by EtechAces Marketing and Consulting Private Limited (“Policybazaar Group”), announced that it has received initial internal funding of $50 million from the parent company. The Policybazaar Group also owns India’s leading insurtech brand PolicyBazaar.com and leading lending marketplace, Paisabazaar.com.</p>
+							<p className="media-card-content"><span className="media-card-heading">According to Yashish Dahiya, CEO and Co-founder, Policybazaar Group of Companies,</span> “Healthcare sector has a lot of untapped potential and currently, the services are not affordable and accessible for all. With rising out-of-pocket expenses, there’s a need to provide quality healthcare at competitive prices that can be accessed by anyone, anywhere. As a Group, we wholeheartedly support docprime.com’s vision to provide a customized experience and maximize health benefits for everyone.”</p>
+							<p className="media-card-content"><span className="media-card-heading">Excited about the investment, Ashish Gupta, CEO, docprime.com said,</span>  “We intend to use the capital in providing seamless user experience and bringing innovation in the healthcare space. Our focus is to make the services more customer-friendly driven by transparency, trust and sustainability. We are bringing innovation through use of various technology tools like AI, data science and deep analytics.”</p>
+							<p className="media-card-content"><span className="media-card-heading">He further added,</span>"Our core offerings include free consultation services through chat and phone from our in-house doctors, and discounted doctor and lab appointment bookings to encourage consumers in seeking expert medical advice and getting right solutions in a timely manner. Soon, we will also bring a unique OPD subscription-based product, which will cover unlimited consultations and diagnostic tests."</p>
+							<p className="media-card-content">docprime.com has tied-up with 14,000 doctors and 5,000 diagnostic labs at present and aims to expand its network to 1,50,000 doctors and 20,000 labs across 100+ cities. Currently, appointments can be booked with doctors and labs based in Delhi-NCR but from next month onwards, the facility will be made available across all major cities including Mumbai, Bangalore, Hyderabad & Chennai </p>
+							<p className="media-card-content"><span className="media-card-heading">About docprime.com</span></p>
+							<p className="media-card-content">docprime.com is the latest venture by the Policybazaar Group with an aim to redefine how Indians seek healthcare services. It connects patients with doctors in real time and bridges the gap between need and fulfillment using state-of-the-art technology and a robust offline network. Besides providing free consultation on chat and phone by in-house team of health experts, it also facilitates booking of doctor appointments and lab tests at discounted rates and will soon be giving the option of OPD subscription packages with unlimited consultations and tests. The company is targeting 1 million free medical consultations by March 2019 and up to 5 million by March 2020.</p>					
+							<p className="media-card-content"><span className="media-card-heading">About ETechAces Marketing & Consulting Pvt. Ltd.</span></p>							
+							<p className="media-card-content">ETechAces is the parent company that holds India’s leading insurtech brand, Policybazaar.com and leading lending marketplace, Paisabazaar.com. The company has backing from a host of investors including the likes of Softbank, Temasek, Tiger Global Management, True North, InfoEdge (Naukri.com), Premji Invest, besides investments from other PE funds and family offices.</p>
+							<p className="media-card-content">ETechAces started Policybazaar.com with a purpose to educate people on insurance products and has transformed the way how insurance is bought in the country. From receiving traffic of 180,000 visitors in 2008, Policybazaar.com has come a long way and today, hosts over 100 million visitors yearly and records sale of nearly 300,000 transactions a month. Currently, Policybazaar.com accounts for nearly 25% of India’s life cover.</p>
+							<p className="media-card-content">In 2014, ETechAces started Paisabazaar.com, an online financial marketplace for investment and lending products. Today, Paisabazaar.com is India’s largest online financial marketplace for loans and credit cards. It has collaborated with more than 75 partners across lending and investment categories with 300+ products on offer.  </p>
+						</div>
 					</div>
 					<div className="col-lg-3 col-12">
 						<div className="media-sticky-div">
@@ -128,7 +143,7 @@ class Media extends React.Component {
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">Plot no</p>
 											<p className="media-contact-text">119, Sector 44</p>
-											<p className="media-contact-text">Gurgaon - 122001</p>
+											<p className="media-contact-text">Gurugram - 122001</p>
 										</div>
 									</div>
 								</div>

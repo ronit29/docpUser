@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria } from '../../actions/index.js'
+import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/opd/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -58,7 +58,8 @@ const mapDispatchToProps = (dispatch) => {
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
         getOPDCriteriaResults: (searchString, callback) => dispatch(getOPDCriteriaResults(searchString, callback)),
-        resetFilters: () => dispatch(resetFilters())
+        resetFilters: () => dispatch(resetFilters()),
+        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults))
     }
 }
 

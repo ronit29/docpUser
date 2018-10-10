@@ -9,22 +9,25 @@ class CommonlySearched extends React.Component {
         }
     }
 
-    toggle(row){
-        if(this.props.type == 'condition'){
+    toggle(row) {
+        if (this.props.type == 'condition') {
             let data = {
-            'Category':'ConsumerApp','Action':'CommonConditionSelected','CustomerID':GTM.getUserId()||'','leadid':0,'event':'common-condition-selected' ,'selected':row.name||'','selectedId':row.id||''}
-            GTM.sendEvent({ data: data })
-        
-        }else if(this.props.type == 'speciality'){
-
-            let data = {
-            'Category':'ConsumerApp','Action':'CommonSpecializationsSelected','CustomerID':GTM.getUserId()||'','leadid':0,'event':'common-specializations-selected' ,'selected':row.name||'','selectedId':row.id||''}
+                'Category': 'ConsumerApp', 'Action': 'CommonConditionSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-condition-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+            }
             GTM.sendEvent({ data: data })
 
-        }else if(this.props.type == 'test'){
+        } else if (this.props.type == 'speciality') {
 
             let data = {
-            'Category':'ConsumerApp','Action':'TestSelected','CustomerID':GTM.getUserId()||'','leadid':0,'event':'test-selected' ,'selected':row.name||'','selectedId':row.id||''}
+                'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+            }
+            GTM.sendEvent({ data: data })
+
+        } else if (this.props.type == 'test') {
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+            }
             GTM.sendEvent({ data: data })
 
         }
@@ -63,7 +66,7 @@ class CommonlySearched extends React.Component {
                 return <li key={i}>
                     <a
                         className={selected ? "v-btn v-btn-primary tag-sm outline selected" : "v-btn v-btn-primary tag-sm outline"}
-                        onClick={this.toggle.bind(this,row)}
+                        onClick={this.toggle.bind(this, row)}
                     >
                         {row.name}
                     </a>

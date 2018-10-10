@@ -8,8 +8,9 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, loc_physical_ms } from './actions/index.js'
+import { setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
+import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
 require('../css/custom-bootstrap.css')
 require('../css/carousel.css')
@@ -54,6 +55,7 @@ class App extends React.Component {
 
     componentDidMount() {
 
+        const parsed = queryString.parse(window.location.search)
         if (STORAGE.checkAuth()) {
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
@@ -66,102 +68,59 @@ class App extends React.Component {
             })
         }
 
-        const parsed = queryString.parse(window.location.search)
-        const path = window.location.pathname
-        let location = null
-        if (path.includes('location=')) {
-            location = path.split('location=')[1]
-            if (location) {
-                location = parseInt(location)
-            }
-        }
 
         /** 
          * Select a default location, if no location is selected and lat,long are not provided in url
          */
-        if (!this.props.selectedLocation && parsed && !parsed.lat && !location) {
+        if (!this.props.selectedLocation && parsed && !parsed.lat) {
             this.props.getGeoIpLocation().then((data) => {
                 let { latitude, longitude } = data
                 if (latitude && longitude) {
                     _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
                         if (locationData) {
-                            this.props.selectLocation(locationData, 'geo')
-                        }
-                    })
-                }
-            })
-        }
-
-        if (location) {
-            this.props.loc_physical_ms(location).then((loc) => {
-                if (loc && loc.longitude && loc.latitude) {
-                    _getlocationFromLatLong(loc.latitude, loc.longitude, 'locality', (locationData) => {
-                        if (locationData) {
-                            this.props.selectLocation(locationData, 'adwords')
+                            this.props.selectLocation(locationData, 'geo', true)
                         }
                     })
                 }
             }).catch((e) => {
-                this.props.getGeoIpLocation().then((data) => {
-                    let { latitude, longitude } = data
-                    if (latitude && longitude) {
-                        _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
-                            if (locationData) {
-                                this.props.selectLocation(locationData, 'geo')
-                            }
-                        })
-                    }
-                })
+
             })
         }
 
 
+        /**
+         * Tracking code
+         * TODO : refactor
+         */
         if (parsed) {
-
-            let source = ''
-            
-            if(parsed.utm_source){
-                source = parsed.utm_source
-            }else if(document.referrer){
-                source = document.referrer    
+            if (parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign) {
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': parsed.utm_source || '', 'utm_medium': parsed.utm_medium || '', 'utm_term': parsed.utm_term || '', 'utm_campaign': parsed.utm_campaign || '', 'addToGA': false
+                }
+                GTM.sendEvent({ data: data })
+                let utm_tags = {
+                    utm_source: parsed.utm_source || '',
+                    utm_medium: parsed.utm_medium || '',
+                    utm_term: parsed.utm_term || '',
+                    utm_campaign: parsed.utm_campaign || ''
+                }
+                this.props.setUTMTags(utm_tags)
             }
-
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': parsed.utm_source || '', 'utm_medium': parsed.utm_medium || '', 'utm_term': parsed.utm_term || '', 'utm_campaign': parsed.utm_campaign || '', 'addToGA': false,'source' : source, 'referrer': document.referrer || ''
-            }
-
-            GTM.sendEvent({ data: data })
-
-            let utm_tags = {
-                utm_source: parsed.utm_source || '',
-                utm_medium: parsed.utm_medium || '',
-                utm_term: parsed.utm_term || '',
-                utm_campaign: parsed.utm_campaign || '',
-                source:source,
-                referrer:document.referrer || ''
-            }
-
-            this.props.setUTMTags(utm_tags)
         }
 
         let isMobile = false
         let device = 'desktop'
         if (navigator) {
-
             if (/mobile/i.test(navigator.userAgent)) {
                 isMobile = true
                 device = 'mobile'
             }
-
             if (navigator.userAgent.match(/iPad/i)) {
                 device = 'ipad'
             }
-
             if (navigator.userAgent.match(/iPhone/i)) {
                 device = 'iphone'
             }
-
-
             if (navigator.userAgent.match(/Android/i)) {
                 device = 'Android'
             }
@@ -169,28 +128,37 @@ class App extends React.Component {
             if (navigator.userAgent.match(/BlackBerry/i)) {
                 device = 'BlackBerry'
             }
-
-            /*
-            if(navigator.userAgent.match(/webOS/i)){
-                    device = 'desktop'
-            }*/
-
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'VisitorInfo', 'event': 'visitor-info', 'Device': device, 'Mobile': isMobile, 'platform': navigator.platform || '', 'addToGA': false
             }
-
             GTM.sendEvent({ data: data })
-
-
         }
         this.props.saveDeviceInfo(device)
 
-        // boot Raven(Sentry logger)
-        if (CONFIG.RAVEN_DSN_KEY) {
 
+        /**  
+         * Boot Raven(Sentry logger)
+         */
+        if (CONFIG.RAVEN_DSN_KEY) {
             Raven.config(CONFIG.RAVEN_DSN_KEY, {
                 environment: CONFIG.env
             }).install()
+        }
+
+        if (window.location.pathname.includes('/opd/searchresults')) {
+            opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
+                this.props.mergeOPDState(state, true)
+            })
+        }
+
+        if (window.location.pathname.includes('/lab/searchresults')) {
+            labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
+                this.props.mergeLABState(state, true)
+            })
+        }
+
+        if(!window.location.pathname.includes('/opd/searchresults') && !window.location.pathname.includes('/lab/searchresults')){
+            this.props.setFetchResults(true)
         }
 
     }
@@ -226,10 +194,12 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         setUTMTags: (utmTags) => dispatch(setUTMTags(utmTags)),
-        selectLocation: (location, type) => dispatch(selectLocation(location, type)),
+        selectLocation: (location, type, fetchNewResults) => dispatch(selectLocation(location, type, fetchNewResults)),
         getGeoIpLocation: () => dispatch(getGeoIpLocation()),
         saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device)),
-        loc_physical_ms: (loc) => dispatch(loc_physical_ms(loc))
+        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
+        setFetchResults: (fetchNewResults) => dispatch(setFetchResults(fetchNewResults))
     }
 
 }
