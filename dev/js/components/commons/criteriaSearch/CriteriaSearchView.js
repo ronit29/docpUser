@@ -110,7 +110,7 @@ class CriteriaSearchView extends React.Component {
         }
     }
 
-    getCityListLayout(searchResults) {
+    getCityListLayout(searchResults = []) {
         this.setState({ searchCities: searchResults })
     }
 

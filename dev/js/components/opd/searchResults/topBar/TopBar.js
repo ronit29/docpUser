@@ -147,7 +147,7 @@ class TopBar extends React.Component {
         }
     }
 
-    getCityListLayout(searchResults) {
+    getCityListLayout(searchResults = []) {
         this.setState({ searchCities: searchResults })
     }
 
