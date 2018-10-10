@@ -31,7 +31,7 @@ class SelectedClinic extends React.Component {
         }
 
         return (
-            <div className="widget mrt-10 ct-profile skin-white" style={this.props.boxShadowHide?{boxShadow: 'none'}:{boxShadow:''}}>
+            <div className="widget mrt-10 ct-profile skin-white" style={this.props.boxShadowHide ? { boxShadow: 'none' } : { boxShadow: '' }}>
                 <div className="widget-header dr-qucik-info">
                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
                         <img src={thumbnail} className="img-fluid img-round" />
@@ -40,7 +40,7 @@ class SelectedClinic extends React.Component {
                     <div className="dr-profile">
                         <h4 className="dr-name">{display_name}</h4>
                         <p className="desg">{this.getQualificationStr(general_specialization) || []}</p>
-                        {this.props.boxShadowHide?'':<h4 className="clinic-name mrt-10 text-sm">{hospitalName}</h4>}
+                        {this.props.boxShadowHide ? '' : <h4 className="clinic-name mrt-10 text-sm">{hospitalName}</h4>}
                     </div>
                 </div>
             </div>

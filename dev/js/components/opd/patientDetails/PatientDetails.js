@@ -78,7 +78,7 @@ class PatientDetails extends React.Component {
         }
 
         let analyticData = {
-            'Category':'ConsumerApp','Action':'OpdProceedButtonClicked','CustomerID':GTM.getUserId(),'leadid':0,'event':'opd-proceed-button-clicked'
+            'Category': 'ConsumerApp', 'Action': 'OpdProceedButtonClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-proceed-button-clicked'
         }
         GTM.sendEvent({ data: analyticData })
 
@@ -92,7 +92,7 @@ class PatientDetails extends React.Component {
                 if (data.payment_required) {
                     // send to payment selection page
                     let analyticData = {
-                        'Category':'ConsumerApp','Action':'DoctorOrderCreated','CustomerID':GTM.getUserId(),'leadid':0,'event':'doctor_order_created'
+                        'Category': 'ConsumerApp', 'Action': 'DoctorOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
                     this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
@@ -227,16 +227,16 @@ class PatientDetails extends React.Component {
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
-                                                             {/* <DoctorProfileCard
+                                                            {/* <DoctorProfileCard
                                                                 details={this.props.DOCTORS[this.state.selectedDoctor]}
                                                             />  */}
-                                                            
+
                                                             <SelectedClinic
-                                                                boxShadowHide = 'true'
+                                                                boxShadowHide={true}
                                                                 selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                                 selectedClinic={this.state.selectedClinic}
                                                             />
-                                                            
+
                                                             <div className="widget-content">
 
                                                                 <div className="lab-visit-time">
@@ -255,7 +255,7 @@ class PatientDetails extends React.Component {
 
                                                                 <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                                 {
-                                                                    priceData? <div className="lab-visit-time test-report">
+                                                                    priceData ? <div className="lab-visit-time test-report">
                                                                         <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
                                                                         <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
                                                                     </div> : ""
