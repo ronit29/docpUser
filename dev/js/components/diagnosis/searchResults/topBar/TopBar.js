@@ -17,7 +17,8 @@ class TopBar extends React.Component {
             shortURL: "",
             dropdown_visible: false,
             searchCities: [],
-            showLocationPopup: true
+            showLocationPopup: false,
+            overlayVisible: false
         }
     }
 
@@ -25,6 +26,8 @@ class TopBar extends React.Component {
         this.setState({ ...props.filterCriteria })
         if (props.locationType && props.locationType != "geo") {
             this.setState({ showLocationPopup: false })
+        }else{
+            this.setState({ showLocationPopup: true, overlayVisible: true })
         }
         this.shortenUrl()
     }
@@ -117,14 +120,20 @@ class TopBar extends React.Component {
         }
     }
 
-    getCityListLayout(searchResults) {
-        this.setState({ searchCities: searchResults })
+    getCityListLayout(searchResults = []) {
+        if(searchResults.length){
+            this.setState({ searchCities: searchResults ,overlayVisible:true})
+        }
     }
 
     selectLocation(city) {
         this.child.selectLocation((city), () => {
             this.setState({ searchCities: [] })
         })
+    }
+
+    overlayClick() {
+        this.setState({ overlayVisible: false , searchCities:[]});
     }
 
     render() {
@@ -158,12 +167,17 @@ class TopBar extends React.Component {
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
 
-                                    <span onClick={() => { this.setState({ showLocationPopup: !this.state.showLocationPopup }) }}>
+                                    <span onClick={() => {
+                                        this.setState({
+                                            showLocationPopup: !this.state.showLocationPopup,
+                                            searchCities: []
+                                        })
+                                    }}>
 
                                         {
                                             this.state.showLocationPopup && false
-                                            ?''
-                                            :(this.props.selectedLocation && this.props.selectedLocation.formatted_address)?<span className="location-edit" style={{color:'#f6843a',cursor:'pointer'}}>{` in ${this.props.selectedLocation.formatted_address.split(', India')[0]}`}</span>:''
+                                                ? ''
+                                                : (this.props.selectedLocation && this.props.selectedLocation.formatted_address) ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${this.props.selectedLocation.formatted_address.split(', India')[0]}`}</span> : ''
 
                                         }
                                         <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
@@ -190,6 +204,11 @@ class TopBar extends React.Component {
                         this.state.showLocationPopup ?
                             <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='list' />
                             : ''
+                    }
+
+                    {
+                        this.state.showLocationPopup && this.state.overlayVisible ?
+                            <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
                     }
 
                 </div>
@@ -241,7 +260,7 @@ class TopBar extends React.Component {
 
                 {
                     this.state.searchCities.length > 0 ?
-                        <section >
+                        <section style={{ position: 'relative', zIndex: 11 }}>
                             {
                                 this.state.searchCities.map((result, i) => {
                                     return <div className="widget-panel" key={i}>
