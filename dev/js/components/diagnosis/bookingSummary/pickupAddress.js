@@ -45,7 +45,7 @@ class PickupAddress extends React.Component {
                     e.stopPropagation()
                     this.setState({ selectorOpen: true })
                 }} className="text-primary fw-700 text-sm">{addressStr ? "Change" : "Pick"} Address</a></span></h4>
-                <p className="date-time">{addressStr}</p>
+                <p className="date-time">{addressStr} {this.props.addressError == false || addressStr.length ? '' : <span className="fw-500" style={{ color: 'red', fontSize: 11, float: 'right' }}>Required</span>}</p>
 
                 {
                     this.state.selectorOpen ? <div className="fullscreen" onClick={() => {
