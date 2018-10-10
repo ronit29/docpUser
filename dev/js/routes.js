@@ -9,6 +9,7 @@ import SearchResults from './containers/opd/SearchResults.js'
 import DoctorProfile from './containers/opd/DoctorProfile.js'
 import AppointmentSlot from './containers/opd/AppointmentSlot.js'
 import PatientDetails from './containers/opd/PatientDetails.js'
+import CouponSelectNewView from './components/opd/patientDetails/couponSelectNew.js'
 import Booking_OPD from './containers/opd/Booking.js'
 import AppointmentReschedule from './containers/opd/AppointmentReschedule.js'
 
@@ -70,6 +71,7 @@ const routes = [
     { path: '/*-dpp', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
     { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, private: true, component: PatientDetails },
+    { path: '/opd/doctor/:id/:clinicId/coupon', exact: true, private: true, component: CouponSelectNewView },
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 

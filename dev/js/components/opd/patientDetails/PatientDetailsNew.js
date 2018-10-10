@@ -181,106 +181,92 @@ class PatientDetailsNew extends React.Component {
         }
 
 
-        return (
-            <div className="profile-body-wrap">
-                <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
-                    <div className="row main-row parent-section-row">
-                        <LeftBar />
-
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
-
-                           
-
-                            {
-                                this.props.DOCTORS[this.state.selectedDoctor] ?
-                                    <div>
-
-                                        <section className="dr-profile-screen booking-confirm-screen">
-                                            <div className="container-fluid">
-
-                                                <div className="row mrb-20">
-                                                    <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
-
-                                                            <SelectedClinic
-                                                                boxShadowHide={true}
-                                                                selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                                selectedClinic={this.state.selectedClinic}
-                                                            />
-                                                            <hr/>
-                                                            <div className="widget-content">
-
-                                                                <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
-
-                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
-                                                               
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
-                                                           
-                                                            <div className="widget-content">
-
-                                                               <p>HAVE A COUPON?</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
-                                                            
-                                                            <div className="widget-content">
-
-                                                               <h4 className="title mb-20">Payment Summary</h4>
-                                                               <div className="payment-summary-content">
-                                                                <div className="payment-detail d-flex">
-                                                                    <p>Doctor fees</p>
-                                                                    <p>{priceData.mrp}</p>
-                                                                </div>
-                                                                <div className="payment-detail d-flex">
-                                                                    <p>Docprime discount</p>
-                                                                    <p>{priceData.mrp - priceData.deal_price}</p>
-                                                                </div>
-                                                                <div className="payment-detail d-flex">
-                                                                    <p>Subtotal</p>
-                                                                    <p>{priceData.deal_price}</p>
-                                                                </div>
-                                                               </div>
-                                                               <hr/>
-                                                               
-                                                               {
-                                                                    priceData ? <div className="test-report payment-detail mt-20">
-                                                                        <h4 className="title payment-amt-label">Amount Payable<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                        <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
-                                                                    </div> : ""
-                                                                }
-                                                              
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                
-                                                    <div className="col-12" style={{ marginTop: 10 }}>
-                                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Free Cancellation charges<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-12">
-                                                        <a href="/terms" target="_blank">
-                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
-                                                                <h4 className="title payment-amt-label">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
+    return (
+        <div className="profile-body-wrap">
+            <ProfileHeader />
+            <section className="container parent-section book-appointment-section">
+                <div className="row main-row parent-section-row">
+                    <LeftBar />
+                    <div className="col-12 col-md-7 col-lg-7 center-column">
+                    {
+                        this.props.DOCTORS[this.state.selectedDoctor] ?
+                        <div>
+                            <section className="dr-profile-screen booking-confirm-screen">
+                                <div className="container-fluid">
+                                    <div className="row mrb-20">
+                                        <div className="col-12">
+                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                <SelectedClinic
+                                                    boxShadowHide={true}
+                                                    selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                    selectedClinic={this.state.selectedClinic}
+                                                />
+                                                <hr/>
+                                                <div className="widget-content">
+                                                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                                                    <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />     
                                                 </div>
                                             </div>
-                                        </section>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                           
+                                                <div className="widget-content">
+                                                    <p onClick={() => {
+                                                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/coupon`)}}> HAVE A COUPON?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                           
+                                                <div className="widget-content">
+                                                    <h4 className="title mb-20">Payment Summary</h4>
+                                                    <div className="payment-summary-content">
+                                                        <div className="payment-detail d-flex">
+                                                        <p>Doctor fees</p>
+                                                        <p>{priceData.mrp}</p>
+                                                    </div>
+                                                    <div className="payment-detail d-flex">
+                                                        <p>Docprime discount</p>
+                                                        <p>{priceData.mrp - priceData.deal_price}</p>
+                                                    </div>
+                                                    <div className="payment-detail d-flex">
+                                                        <p>Subtotal</p>
+                                                        <p>{priceData.deal_price}</p>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                               
+                                                {
+                                                priceData ? <div className="test-report payment-detail mt-20">
+                                                    <h4 className="title payment-amt-label">Amount Payable<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                    <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
+                                                </div> : ""
+                                                }
+                                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                     <div className="col-12" style={{ marginTop: 10 }}>
+                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                            <h4 className="title payment-amt-label">Free Cancellation charges<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                        </div>
+                                    </div>
+                                    <div className="col-12">
+                                        <a href="/terms" target="_blank">
+                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
+                                                <h4 className="title payment-amt-label">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                <span className="errorMessage">{this.state.error}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
 
-                                    </div> : <Loader />
+                    </div> : <Loader />
                             }
 
                             {
@@ -299,7 +285,7 @@ class PatientDetailsNew extends React.Component {
                             }
 
 
-                        </div>
+                    </div>
 
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
