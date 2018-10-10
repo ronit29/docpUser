@@ -11,12 +11,24 @@ export function _getlocationFromLatLong(lat, long, location_type = 'locality', c
                         results_to_pick = x
                     }
                 })
-                if (false) {
-                    location_type = "sublocality"
+
+                let location_name = ""
+                let locality = _getNameFromLocation(results_to_pick, 'locality')
+                let sub_locality = _getNameFromLocation(results_to_pick, 'sublocality')
+                // debugger
+                if (sub_locality && location_type != 'city') {
+                    location_name += `${sub_locality}, `
                 }
+                if (locality) {
+                    location_name += `${locality}`
+                }
+                if (!location_name) {
+                    location_name = results_to_pick.formatted_address
+                }
+
                 let location_object = {
-                    formatted_address: _getNameFromLocation(results_to_pick, location_type),
-                    name: _getNameFromLocation(results_to_pick, location_type),
+                    formatted_address: location_name,
+                    name: location_name,
                     place_id: "",
                     geometry: { location: { lat, lng: long } }
                 }
@@ -36,9 +48,15 @@ export function _getLocationFromPlaceId(placeId, cb) {
         service.getDetails({
             reference: placeId
         }, function (place, status) {
+            let location_name = place.formatted_address
+            let formedName = _getNameforPlaceId(place)
+            if (formedName) {
+                location_name = formedName
+            }
+            // debugger
             let location_object = {
-                formatted_address: place.formatted_address,
-                name: place.name,
+                formatted_address: location_name,
+                name: location_name,
                 place_id: place.place_id,
                 geometry: place.geometry
             }
@@ -49,8 +67,37 @@ export function _getLocationFromPlaceId(placeId, cb) {
     }
 }
 
+export function _getNameforPlaceId(result) {
+    let name = []
+    if (result.address_components && result.address_components.length) {
+        let found_locality = false
+        for (let i = 0; i < result.address_components.length; i++) {
+
+            if (result.address_components[i].types) {
+                for (let x of result.address_components[i].types) {
+                    if (x == 'locality') {
+                        found_locality = true
+                        break
+                    }
+                }
+                name.push(result.address_components[i].long_name)
+                if (found_locality) {
+                    break
+                }
+            }
+
+        }
+        if (!found_locality) {
+            name = ""
+        }
+    }
+    if (name.length) {
+        return name.join(', ')
+    } else return ""
+}
+
 export function _getNameFromLocation(result, type) {
-    let name = result.formatted_address
+    let name = ""
     if (result.address_components && result.address_components.length) {
         for (let i = result.address_components.length - 1; i >= 0; i--) {
             if (result.address_components[i].types) {

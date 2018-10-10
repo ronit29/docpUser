@@ -76,7 +76,7 @@ class App extends React.Component {
             this.props.getGeoIpLocation().then((data) => {
                 let { latitude, longitude } = data
                 if (latitude && longitude) {
-                    _getlocationFromLatLong(latitude, longitude, 'locality', (locationData) => {
+                    _getlocationFromLatLong(latitude, longitude, 'city', (locationData) => {
                         if (locationData) {
                             this.props.selectLocation(locationData, 'geo', true)
                         }
@@ -157,7 +157,7 @@ class App extends React.Component {
             })
         }
 
-        if(!window.location.pathname.includes('/opd/searchresults') && !window.location.pathname.includes('/lab/searchresults')){
+        if (!window.location.pathname.includes('/opd/searchresults') && !window.location.pathname.includes('/lab/searchresults')) {
             this.props.setFetchResults(true)
         }
 
