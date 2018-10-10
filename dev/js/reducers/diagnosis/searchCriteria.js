@@ -149,6 +149,7 @@ export default function (state = defaultState, action) {
         case SET_FETCH_RESULTS_LAB: {
             let newState = { ...state }
             newState.fetchNewResults = !!action.payload
+            return newState
         }
 
     }
