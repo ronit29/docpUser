@@ -42,11 +42,10 @@ class LocationElementsView extends React.Component {
         if(document.getElementById('doc-input-field')){
             document.getElementById('doc-input-field').addEventListener('focusin',()=>{this.setState({search:''})})
             
-            /*document.getElementById('doc-input-field').addEventListener('focusout',()=>{
-                if(this.props.selectedLocation && this.props.selectedLocation.formatted_address){
-                    this.setState({search:props.selectedLocation.formatted_address||''})
-                }
-            })*/
+            document.getElementById('doc-input-field').addEventListener('focusout',()=>{
+                this.props.getCityListLayout()
+                this.setState({search:''})
+            })
         }
     }
 
