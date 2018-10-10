@@ -21,7 +21,8 @@ class TopBar extends React.Component {
             shortURL: "",
             dropdown_visible: false,
             searchCities: [],
-            showLocationPopup: true
+            showLocationPopup: true,
+            overlayVisible: true
         }
     }
 
@@ -156,6 +157,10 @@ class TopBar extends React.Component {
         })
     }
 
+    overlayClick() {
+        this.setState({ overlayVisible: false });
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -187,7 +192,12 @@ class TopBar extends React.Component {
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr} </span>
 
-                                    <span onClick={() => { this.setState({ showLocationPopup: !this.state.showLocationPopup }) }}>
+                                    <span onClick={() => {
+                                        this.setState({
+                                            showLocationPopup: !this.state.showLocationPopup,
+                                            overlayVisible: true
+                                        })
+                                    }}>
 
                                         {
                                             this.state.showLocationPopup && false ? ''
@@ -219,6 +229,12 @@ class TopBar extends React.Component {
                             <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='list' />
                             : ''
                     }
+
+                    {
+                        this.state.showLocationPopup && this.state.overlayVisible ?
+                            <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
+                    }
+
                 </div>
 
 
@@ -304,7 +320,7 @@ class TopBar extends React.Component {
 
                 {
                     this.state.searchCities.length > 0 ?
-                        <section >
+                        <section style={{ position: 'relative', zIndex: 11 }}>
                             {
                                 this.state.searchCities.map((result, i) => {
                                     return <div className="widget-panel" key={i}>

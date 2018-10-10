@@ -143,7 +143,9 @@ class TestSelectorView extends React.Component {
                                                             </div>
                                                             <div className="detect-my-locaiton rmv-pointer">
                                                                 <span className="ct-img ct-img-xs" />
-                                                                {selectedTestIds.length} Item Selected
+                                                                {
+                                                                    selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
