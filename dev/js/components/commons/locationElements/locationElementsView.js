@@ -167,7 +167,7 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10 }}>
+            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }}>
 
                 <div className="col-12">
                     {
