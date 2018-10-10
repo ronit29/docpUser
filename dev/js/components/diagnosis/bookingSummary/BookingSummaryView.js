@@ -30,7 +30,8 @@ class BookingSummaryView extends React.Component {
             openPaymentSummary: false,
             // order_id: !!parsed.order_id,
             order_id: false,
-            showTimeError: false
+            showTimeError: false,
+            showAddressError: false
         }
     }
 
@@ -92,8 +93,8 @@ class BookingSummaryView extends React.Component {
 
             case "home": {
                 return <div>
-                    <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
-                    <PickupAddress {...this.props} />
+                    <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <PickupAddress {...this.props} addressError={this.state.showAddressError} />
                     <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
@@ -107,6 +108,7 @@ class BookingSummaryView extends React.Component {
             return
         }
         if (!addressPicked) {
+            this.setState({ showAddressError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
             return
         }
