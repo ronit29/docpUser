@@ -84,6 +84,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                             let type = 'geo'
                             if (place_id && place_id == 'from_sensor') {
                                 type = 'autoDetect'
+                                location_object.place_id = 'from_sensor'
                             }
                             _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
                                 selectLocation(location_object, type, false)
@@ -177,6 +178,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                             let type = 'geo'
                             if (place_id && place_id == 'from_sensor') {
                                 type = 'autoDetect'
+                                location_object.place_id = 'from_sensor'
                             }
                             _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
                                 selectLocation(location_object, type, false)
