@@ -81,12 +81,12 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
-                            let type = 'geo'
-                            if (place_id && place_id == 'from_sensor') {
-                                type = 'autoDetect'
-                                location_object.place_id = 'from_sensor'
-                            }
                             _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
+                                let type = 'geo'
+                                if (place_id && place_id == 'from_sensor') {
+                                    type = 'autoDetect'
+                                    location_object.place_id = 'from_sensor'
+                                }
                                 selectLocation(location_object, type, false)
                             })
                         }, 1000)
@@ -175,12 +175,12 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
-                            let type = 'geo'
-                            if (place_id && place_id == 'from_sensor') {
-                                type = 'autoDetect'
-                                location_object.place_id = 'from_sensor'
-                            }
                             _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
+                                let type = 'geo'
+                                if (place_id && place_id == 'from_sensor') {
+                                    type = 'autoDetect'
+                                    location_object.place_id = 'from_sensor'
+                                }
                                 selectLocation(location_object, type, false)
                             })
                         }, 1000)
