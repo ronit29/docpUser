@@ -85,7 +85,65 @@ class LabProfileCard extends React.Component {
 
         return (
             <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
-                <div className="widget card lab-rslt-card">
+                
+                <div className="filter-card-dl mb-3">
+                        <div className="fltr-crd-top-container">
+                            <div className="fltr-lctn-dtls">
+                                <p><img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/customer-icons/map-marker-blue.svg" /><span className="fltr-loc-txt">Huda City Centre Mall...</span> | <span>3.5 Km</span></p>
+                            </div>
+                            <div className="row no-gutters">
+                                <div className="col-8">
+                                    <div className="fltr-crd-img">
+                                        <img className="fltr-usr-image" src="/assets/img/customer-icons/user.png" />
+                                        <span className="fltr-rtng">Polular</span>
+                                        <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span>
+                                    </div>
+                                    <div className="fltr-name-dtls">
+                                        <h5 className="fltr-dc-name">Liver Function </h5>
+                                        <h5 className="fltr-dc-name sub-trunk">SRL Diagnostics Lab Gurg...</h5>
+                                        <p>CAP | ISO</p>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="fltr-bkng-section">
+                                        <span class="filtr-offer ofr-ribbon">50% Off</span>
+                                        <p className="fltr-prices">&#x20B9; 300 <span className="fltr-cut-price">&#x20B9; 375</span></p>
+                                        <button className="fltr-bkng-btn">Book Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <ul className="fltr-labs-test-selected">
+                                <span className="fltr-prv-selected-test">Tests Selected</span>
+                                    <li className="fltr-slected-test">
+                                        <label>Liver Function </label>
+                                        <p>&#x20B9; 299 <span>&#x20B9; 399</span></p>
+                                    </li>
+                                    <li className="fltr-slected-test">
+                                        <label>MRI Brain </label>
+                                        <p>&#x20B9; 299 <span>&#x20B9; 399</span></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="filtr-card-footer">
+                            <div>
+                                <img src="/assets/img/customer-icons/home.svg" />
+                                <p>
+                                Home Sample Pickup Not 
+                                        <span>Available</span>
+                                </p>
+                            </div>
+                            <div className="text-right">
+                                <img src="/assets/img/customer-icons/clock-black.svg" />
+                                <p>
+                                    <span>8:00 AM to 12:00 PM</span>
+                                    <span>1:00 PM to 7:00 PM</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {/* <div className="widget card lab-rslt-card">
                     <div className="widget-content card-content book-card" style={{ paddingBottom: 0 }} >
                         <div className="logo-ratting">
                             <span className="ct-img lab-icon">
@@ -97,22 +155,13 @@ class LabProfileCard extends React.Component {
                             {
                                 pickup_available == 0 ? "" : <p className='fw-500' style={{ fontSize: 10, color: '#757575', marginTop: 2 }} >FREE HOME PICKUP</p>
                             }
-
-                            {/* <ul className="inline-list ratting">
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/half-star.svg"} className="img-fluid" /></span></li>
-                        </ul> */}
-
                         </div>
                         <div className="book-card-content">
                             <h4 className="book-cart-title">{lab.name}</h4>
                             <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8 }} >Radiology | Pathology</p>
                             <div style={{ display: 'flex', flexWrap: 'wrap', minWidth: 0 }} >
                                 <p className="lab-locality">
-                                    {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
+                                   
                                     {lab.locality} {lab.city}&nbsp;|
                                 </p>
                                 <div style={{ width: 60, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
@@ -135,7 +184,7 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </a>
         );
     }
