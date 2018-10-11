@@ -9,6 +9,10 @@ class ProfileData extends React.Component {
         this.props.history.push(`/user/${where}`)
     }
 
+    pushUrl(where) {
+        this.props.history.push(`/${where}`)   
+    }
+
     render() {
 
         let currentRoomId = this.props.USER.currentRoomId
@@ -25,7 +29,7 @@ class ProfileData extends React.Component {
                                 <div className="row no-gutters">
                                     <div className="col-4 mbl-usr-grd">
                                     <span className="usr-dtls-free">FREE</span>
-                                        <a className="usr-dtls-anchor" href="javascript:void(0);">
+                                        <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={this.pushUrl.bind(this ,'')}>
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.png"} className="img-fluid usr-frst-ico" />
                                             <p>
                                                 <span>Chat Now </span>
@@ -33,7 +37,7 @@ class ProfileData extends React.Component {
                                     </p>
                                         </a>
                                     </div>
-                                    <div className="col-4 mbl-usr-grd">
+                                    <div className="col-4 mbl-usr-grd" onClick={this.pushUrl.bind(this, 'opd')}>
                                     <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
                                             <p>
@@ -42,7 +46,7 @@ class ProfileData extends React.Component {
                                     </p>
                                         </a>
                                     </div>
-                                    <div className="col-4 mbl-usr-grd">
+                                    <div className="col-4 mbl-usr-grd" onClick={this.pushUrl.bind(this, 'lab')}>
                                     <a className="usr-dtls-anchor" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
                                             <p>
@@ -89,7 +93,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li className="my-profile-item lst-spcng">
+                        <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/onlnpres.svg"} className="img-fluid" />

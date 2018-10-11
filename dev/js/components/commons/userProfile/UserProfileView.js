@@ -12,7 +12,7 @@ import Reports from './userReports'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
-
+import UserPrescription from './userPrescriptions'
 import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
@@ -126,6 +126,10 @@ class UserProfileView extends React.Component {
                                             return <Section_Component {...this.props} title={props.match.params.type == 'opd' ? "Prescriptions" : "Lab Reports"}>
                                                 <Reports {...this.props} {...props} />
                                             </Section_Component>
+                                        }} />
+
+                                        <Route exact path={`${this.props.match.url}/onlinePrescriptions`} render={(props) => {
+                                            return <UserPrescription {...this.props} {...props} />
                                         }} />
 
                                     </div> : ""

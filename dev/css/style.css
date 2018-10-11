@@ -1437,3 +1437,77 @@ margin: 0px 10px;
 	margin:20px 0px;
 }
 /* payament card style */
+
+
+            /* prescription card style */
+.prescription-card{
+    background: white;
+}
+.pres-card-content{
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+}
+.prs-name-section{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.prs-name-section img{
+    width: 35px;
+    margin-right: 15px;
+}
+
+.prs-name-age-gender{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.prs-sub-txt{
+    font-size: 14px;
+    font-weight: 500;
+}
+.btn-prs-section{
+display: flex;
+justify-content: center;
+}
+.prs-snd-sms{
+    background: #f78631;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 5px 15px;
+}
+.prs-snd-email{
+    background: #f78631;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.prs-pdf-section{
+    text-align: center;
+}
+.prs-pdf-section p{
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+}
+.prs-pdf-section p span{
+    display: block;
+}
+.prs-pdf-section a{
+    display: inline-block;
+    margin-top: 10px;
+} 
+.prs-pdf-section a img{
+    width: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
+} 
+@media screen and (max-width: 380px) {
+    .prs-snd-sms, .prs-snd-email {
+        padding: 5px 9px !important;
+    }
+}
+/* prescription card style */
