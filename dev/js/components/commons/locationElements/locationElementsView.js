@@ -39,14 +39,14 @@ class LocationElementsView extends React.Component {
             this.setState({ search: this.props.selectedLocation.formatted_address })
         }
 
-        if(document.getElementById('doc-input-field')){
-            document.getElementById('doc-input-field').addEventListener('focusin',()=>{
+        if (document.getElementById('doc-input-field')) {
+            document.getElementById('doc-input-field').addEventListener('focusin', () => {
                 this.props.getCityListLayout()
-                this.setState({search:''})
+                this.setState({ search: '' })
             })
-            
-            document.getElementById('doc-input-field').addEventListener('focusout',()=>{
-                this.setState({search:''})
+
+            document.getElementById('doc-input-field').addEventListener('focusout', () => {
+                this.setState({ search: '' })
             })
         }
     }
@@ -110,6 +110,7 @@ class LocationElementsView extends React.Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
+                    location_object.place_id = 'from_sensor'
                     this.props.selectLocation(location_object, 'autoDetect').then(() => {
                         clearTimeout(timeout)
                         this.setState({ detectLoading: false })

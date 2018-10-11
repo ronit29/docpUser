@@ -72,7 +72,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             if (!isServer) {
-                if (place_id) {
+                if (place_id && place_id != 'from_sensor') {
                     setTimeout(() => {
                         _getLocationFromPlaceId(place_id, (location_object) => {
                             selectLocation(location_object, 'autoComplete', false)
@@ -81,8 +81,12 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
+                            let type = 'geo'
+                            if (place_id && place_id == 'from_sensor') {
+                                type = 'autoDetect'
+                            }
                             _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                                selectLocation(location_object, 'geo', false)
+                                selectLocation(location_object, type, false)
                             })
                         }, 1000)
                     }
@@ -161,7 +165,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             if (!isServer) {
-                if (place_id) {
+                if (place_id && place_id != 'from_sensor') {
                     setTimeout(() => {
                         _getLocationFromPlaceId(place_id, (location_object) => {
                             selectLocation(location_object, 'autoComplete', false)
@@ -170,8 +174,12 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
+                            let type = 'geo'
+                            if (place_id && place_id == 'from_sensor') {
+                                type = 'autoDetect'
+                            }
                             _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                                selectLocation(location_object, 'geo', false)
+                                selectLocation(location_object, type, false)
                             })
                         }, 1000)
                     }

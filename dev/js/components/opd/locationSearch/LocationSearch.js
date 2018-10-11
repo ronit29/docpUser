@@ -83,6 +83,7 @@ class LocationSearch extends React.Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
+                    location_object.place_id = 'from_sensor'
                     this.props.selectLocation(location_object, 'autoDetect').then(() => {
                         clearTimeout(timeout)
                         this.props.history.go(-1)
