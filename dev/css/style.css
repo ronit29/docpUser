@@ -1560,7 +1560,8 @@ margin: 0px;
     align-items: center;
 }
 .feed-back-container{
-
+	margin-bottom: 30px;
+	padding: 15px;
 }
 .feedback-rating-text{
 text-align: center;
@@ -1584,16 +1585,94 @@ text-align: center;
 .feed-progress-point img{ 
 
 	margin-left: 2px;
+	height: 11px;
+    width: 11px;
 }
 .feed-progress-count{
     float: right;
     color: #757575;
     font-weight: 500;
     width: 12%;
-    text-align: center;
+	text-align: center;
+	align-items: center;
 }
 .flx-center{
 	align-items: center;
 }
+.user-satisfaction-section{
+	margin-bottom: 30px;
+	padding: 15px;
+}
+.user-satisfaction-images{
+    text-align: center;
+    position: relative;
+}
+.user-satisfaction-images img{
+	width: 80px;
+    height: 80px;
+}
+.user-satisfaction-images p{
+	display: inline-block;
+    padding: 0 14px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.user-satisfaction-images span{
+	color: white;
+    background: #f78631;
+    position: absolute;
+    top: 1px;
+    right: 15px;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.usr-feed-comment{
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    padding: 10px 0;
+}
+.usr-feed-comment:last-child{
+	border-bottom: transparent;
+}
 
+.comment-status-content{
+    display: flex;
+    align-items: end;
+	margin-bottom: 10px;
+	padding: 0px 15px;
+}
+.comment-status-content span{
+	border-radius: 5px;
+    background-color: #55a740;
+    color: white;
+    padding-left: 10px;
+    display: inline-flex;
+    align-items: center;
+}
+.feed-sts-heading{
+    color: #fb8f3e;
+    margin-left: 9px;
+}
+.comment-status-content span>img{
+	width: 10px;
+    height: 10px;
+    position: relative;
+    top: -1px;
+    margin-left: 2px;
+    margin-right: 10px;
+}
+.usr-feed-comment p.usr-comments-pera{
+	color: #3c3c3c;
+	margin-bottom: 7px;
+	padding: 0px 15px;
+}
+.comment-para-status{
+    color: #757575;
+	font-size: 12px;
+	padding: 0px 15px;
+}
 /*=========================== new rating style ===========================*/

@@ -115,7 +115,7 @@ class DoctorProfileView extends React.Component {
                                                             />
                                                             <div className="widget-panel">
                                                                 <h4 className="panel-title mb-rmv">Patient Feedback</h4>
-                                                                <div className="panel-content">
+                                                                <div className="panel-content pd-0">
                                                                     <div className="feed-back-container">
                                                                         <div className="row flx-center">
                                                                             <div className="col-4">
@@ -129,7 +129,7 @@ class DoctorProfileView extends React.Component {
                                                                             </div>
                                                                             <div className="col-8">
                                                                                 <div className="feed-status-container">
-                                                                                    <span className="feed-progress-point">5<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <span className="feed-progress-point">5<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                                                                     <div className="rating-progress">
                                                                                         <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '70%' }}>
                                                                                             <span className="sr-only">70% Complete</span>
@@ -138,7 +138,7 @@ class DoctorProfileView extends React.Component {
                                                                                     <span className="feed-progress-count">800</span>
                                                                                 </div>
                                                                                 <div className="feed-status-container">
-                                                                                    <span className="feed-progress-point">4<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <span className="feed-progress-point">4<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                                                                     <div className="rating-progress">
                                                                                         <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '60%' }}>
                                                                                             <span className="sr-only">70% Complete</span>
@@ -147,7 +147,7 @@ class DoctorProfileView extends React.Component {
                                                                                     <span className="feed-progress-count">800</span>
                                                                                 </div>
                                                                                 <div className="feed-status-container">
-                                                                                    <span className="feed-progress-point">3<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <span className="feed-progress-point">3<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                                                                     <div className="rating-progress">
                                                                                         <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '40%' }}>
                                                                                             <span className="sr-only">70% Complete</span>
@@ -156,7 +156,7 @@ class DoctorProfileView extends React.Component {
                                                                                     <span className="feed-progress-count">800</span>
                                                                                 </div>
                                                                                 <div className="feed-status-container">
-                                                                                    <span className="feed-progress-point">2<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <span className="feed-progress-point">2<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                                                                     <div className="rating-progress">
                                                                                         <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '20%' }}>
                                                                                             <span className="sr-only">70% Complete</span>
@@ -165,7 +165,7 @@ class DoctorProfileView extends React.Component {
                                                                                     <span className="feed-progress-count">20</span>
                                                                                 </div>
                                                                                 <div className="feed-status-container">
-                                                                                    <span className="feed-progress-point">1<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <span className="feed-progress-point">1<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                                                                     <div className="rating-progress">
                                                                                         <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '10%' }}>
                                                                                             <span className="sr-only">70% Complete</span>
@@ -176,6 +176,83 @@ class DoctorProfileView extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div className="user-satisfaction-section">
+                                                                        <div className="row">
+                                                                            <div className="col-4">
+                                                                                <div className="user-satisfaction-images">
+                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/frndly.png" />
+                                                                                    <p>Friendly</p>
+                                                                                    <span>29</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="col-4">
+                                                                                <div className="user-satisfaction-images">
+                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/tret-satis.png" />
+                                                                                    <p>Treatment Satisfaction</p>
+                                                                                    <span>17</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="col-4">
+                                                                                <div className="user-satisfaction-images">
+                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/value-money.png" />
+                                                                                    <p>Value of Money</p>
+                                                                                    <span>35</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {/* list comment loop */}
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    {/* list comment loop */}
                                                                 </div>
                                                             </div>
                                                         </div>
