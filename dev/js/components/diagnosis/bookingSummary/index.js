@@ -1,3 +1,3 @@
-import BookingSummaryViewNew from './BookingSummaryView.js'
+import BookingSummaryViewNew from './BookingSummaryViewNew.js'
 
 export default BookingSummaryViewNew

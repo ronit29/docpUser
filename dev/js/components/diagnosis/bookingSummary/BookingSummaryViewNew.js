@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux'
 import SnackBar from 'node-snackbar'
 import Loader from '../../commons/Loader'
-import VisitTime from './visitTime'
+import VisitTimeNew from './VisitTimeNew'
 import PickupAddress from './pickupAddress'
-import ChoosePatient from './choosePatient'
+import ChoosePatientNewView from './choosePatientNew'
 import InitialsPicture from '../../commons/initialsPicture'
 // const queryString = require('query-string');
 
@@ -85,16 +85,16 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTime type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
-                    <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                     <PickupAddress {...this.props} />
-                    <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                    <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
         }
@@ -248,135 +248,149 @@ class BookingSummaryViewNew extends React.Component {
 
 
         return (
+
             <div className="profile-body-wrap">
-                <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
-                    <div className="row main-row parent-section-row">
-                        <LeftBar />
-
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
-                            {/* <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <ul className="inline-list">
-                                                <li onClick={() => {
-                                                    this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Booking Confirmation</div>
-                                        </div>
-                                        <div className="col-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
-
-                            {
+            <ProfileHeader />
+            <section className="container parent-section book-appointment-section">
+                <div className="row main-row parent-section-row">
+                    <LeftBar />
+                    <div className="col-12 col-md-7 col-lg-7 center-column">
+                    {
                                 this.props.LABS[this.state.selectedLab] ?
-                                    <div>
-                                        <section className="booking-confirm-screen">
-                                            <div className="container-fluid">
-                                                <div className="row">
+                        <div>
+                            <section className="dr-profile-screen booking-confirm-screen">
+                                <div className="container-fluid">
+                                    <div className="row mrb-20">
+                                        <div className="col-12">
+                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                <div className="test-report widget-content">
+                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a></span></h4>
+                                                        {tests}
+                                                </div>
 
-                                                    <div className="col-12">
-                                                        <div className="widget mrt-10">
+                                                {
+                                                is_home_collection_enabled ?
+                                                <div className="lab-visit-time test-report lab-appointment-div row">
+                                                    <h4 className="title col-12"><span style={{ display: 'none' }}><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>{labDetail.name}</h4>
+                                                        <ul className="inline-list booking-type col-12">
+                                                            <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
+                                                            <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
+                                                        </ul>
+                                                </div> : ""
+                                                }
 
-                                                            <div className="widget-content">
-
-                                                                <div className="lab-details">
-                                                                    <InitialsPicture name={labDetail.name} has_image={!!labDetail.lab_thumbnail} className="initialsPicture-lb">
-                                                                        <img src={labDetail.lab_thumbnail} className="img-fluid" />
-                                                                    </InitialsPicture>
-
-                                                                    <div className="lab-title">
-                                                                        <h4 className="fw-700 text-md title">{labDetail.name}</h4>
-                                                                        <p className="fw-500 text-sm text-light">{labDetail.address}</p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div className="lab-visit-time test-report">
-                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Change Tests</a></span></h4>
-                                                                    {tests}
-                                                                </div>
-
-                                                                {
-                                                                    is_home_collection_enabled ?
-                                                                        <div className="lab-visit-time test-report lab-appointment-div row">
-                                                                            <h4 className="title col-12"><span style={{ display: 'none' }}><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Appointment type </h4>
-                                                                            <ul className="inline-list booking-type col-12">
-                                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
-                                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
-                                                                            </ul>
-                                                                        </div> : ""
-                                                                }
-
-
-
-
-                                                                {this.getSelectors()}
-
-                                                                <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} style={{ cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                    {
-                                                                        this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice}</h5>
-                                                                    }
-
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="col-12">
-                                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Free Cancellation<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="col-12">
-                                                        <a href="/terms" target="_blank">
-                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
-                                                                <h4 className="title payment-amt-label">Terms of Use hhhhhh<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
+                                                <div className="widget-content">
+                                                    {this.getSelectors()}    
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                           
+                                                <div className="widget-content">
+                                                    <p className="coupon-link" onClick={() => {
+                                                this.props.history.push(`/coupon`)}}> HAVE A COUPON?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                           
+                                                <div className="widget-content">
+                                                    <h4 className="title mb-20">Payment Summary</h4>
+                                                    <div className="payment-summary-content">
+                                                        <div className="payment-detail d-flex">
+                                                        <p>Lab fees</p>
+                                                        <p>{finalMrp}</p>
+                                                    </div>
+                                                    {
+                                                        is_home_collection_enabled ? <div className="payment-content-div">
+                                                            <p className="payment-content">Home Pickup Charges</p>
+                                                            <p className="payment-content fw-500">&#8377; {home_pickup_charges || 0}</p>
+                                                        </div> : ""
+                                                    }
+                                                    <div className="payment-detail d-flex">
+                                                        <p>Docprime discount</p>
+                                                        <p>{finalMrp - finalPrice}</p>
+                                                    </div>
+                                                    {
+                                                        is_home_collection_enabled ? <div className="payment-detail d-flex">
+                                                            <p className="payment-content fw-500">Subtotal</p>
+                                                            <p className="payment-content fw-500">&#8377; {finalPrice + home_pickup_charges}</p>
+                                                        </div> : <div className="payment-detail d-flex">
+                                                                <p className="payment-content fw-500">Subtotal</p>
+                                                                <p className="payment-content fw-500">&#8377; {finalPrice}</p>
+                                                            </div>
+                                                    }
+                                                
+                                                </div>
+                                                <hr/>
 
+                                                <div className="lab-visit-time test-report">
+                                                    <h4 className="title payment-amt-label">Amount Payable<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} style={{ cursor: 'pointer' }} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                    {
+                                                        this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice}</h5>
+                                                    }
 
-                                        </section>
+                                                </div>
+                                              
+                                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                     <div className="col-12" style={{ marginTop: 10 }}>
+                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                            <h4 className="title payment-amt-label">Free Cancellation charges<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                        </div>
+                                    </div>
+                                    <div className="col-12">
+                                        <a href="/terms" target="_blank">
+                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
+                                                <h4 className="title payment-amt-label">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                <span className="errorMessage">{this.state.error}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
 
-                                        {
-                                            this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
-                                        }
-
-                                        {
-                                            this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} finalPrice={finalPrice} finalMrp={finalMrp} home_pickup_charges={labDetail.home_pickup_charges} is_home_collection_enabled={this.props.selectedAppointmentType == 'home'} /> : ""
-                                        }
-
-                                        {
-                                            this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Send SMS EMAIL</button> : <button data-disabled={
-                                                (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (address_picked_verified || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
-                                            } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
-                                        }
-
-
-
-                                    </div> : <Loader />
+                    </div> : <Loader />
                             }
 
-                        </div>
+                            {
+                                this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                            }
+
+                            {
+                                this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient?'Select Patient':'Confirm Booking'}</button>
+                            }
+
+
+                    </div>
 
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         );
     }
 }
