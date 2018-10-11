@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-import LeftBar from '../../commons/LeftBar'
-import RightBar from '../../commons/RightBar'
-import ProfileHeader from '../../commons/DesktopProfileHeader'
+import LeftBar from '../LeftBar'
+import RightBar from '../RightBar'
+import ProfileHeader from '../DesktopProfileHeader'
 
 
-class CouponSelectNewView extends React.Component {
+class CouponSelectionView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -50,4 +50,4 @@ class CouponSelectNewView extends React.Component {
 }
 
 
-export default CouponSelectNewView
+export default CouponSelectionView

@@ -29,7 +29,6 @@ class PatientDetailsNew extends React.Component {
             loading: false,
             error: "",
             openCancellation: false,
-            openPaymentSummary: false,
             order_id: false
             // order_id: !!parsed.order_id
         }
@@ -213,7 +212,7 @@ class PatientDetailsNew extends React.Component {
                                                            
                                                 <div className="widget-content">
                                                     <p onClick={() => {
-                                                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/coupon`)}}> HAVE A COUPON?</p>
+                                                this.props.history.push(`/coupon`)}}> HAVE A COUPON?</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,7 +239,7 @@ class PatientDetailsNew extends React.Component {
                                                                
                                                 {
                                                 priceData ? <div className="test-report payment-detail mt-20">
-                                                    <h4 className="title payment-amt-label">Amount Payable<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
+                                                    <h4 className="title payment-amt-label">Amount Payable<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                     <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
                                                 </div> : ""
                                                 }
@@ -274,14 +273,9 @@ class PatientDetailsNew extends React.Component {
                             }
 
                             {
-                                this.state.openPaymentSummary ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} {...priceData} /> : ""
-                            }
-
-
-                            {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>Proceed</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient?'Select Patient':'Confirm Booking'}</button>
                             }
 
 
