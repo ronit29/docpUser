@@ -212,7 +212,7 @@ class PatientDetailsNew extends React.Component {
                                                            
                                                 <div className="widget-content">
                                                     <p onClick={() => {
-                                                this.props.history.push(`/coupon`)}}> HAVE A COUPON?</p>
+                                                this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}`)}}> HAVE A COUPON?</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,6 +230,14 @@ class PatientDetailsNew extends React.Component {
                                                         <p>Docprime discount</p>
                                                         <p>{priceData.mrp - priceData.deal_price}</p>
                                                     </div>
+                                                    {
+                                                        this.props.DOCTORS[this.state.selectedDoctor].couponCode
+                                                        ?<div className="payment-detail d-flex">
+                                                            <p  style={{color:'green'}}>Coupon discount</p>
+                                                            <p  style={{color:'green'}}>{this.props.DOCTORS[this.state.selectedDoctor].disCountedPrice}</p>
+                                                        </div>
+                                                        :''
+                                                    }
                                                     <div className="payment-detail d-flex">
                                                         <p>Subtotal</p>
                                                         <p>{priceData.deal_price}</p>

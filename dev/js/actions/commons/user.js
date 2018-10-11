@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, APPEND_DOCTORS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -391,7 +391,7 @@ export const saveChatStaticMsg = (msg, deleteRoomId = false) => (dispatch) => {
 
 }
 
-export const getCoupons = () => {
+export const getCoupons = (productId = '') => {
 	API_GET('/api/v1/coupon/applicablecoupons').then(function (response) {
 
 		dispatch({
@@ -403,11 +403,21 @@ export const getCoupons = () => {
 }
 
 export const getUserPrescription = (mobile) => (dispatch) => {
+	//mobile = '9582557400'
 	API_GET(`/api/v1/chat/chatprescription?mobile=${mobile}`).then(function (response) {
 
 		dispatch({
 			type : GET_USER_PRESCRIPTION,
 			payload: response
 		})
+	})
+}
+
+export const applyCoupons = (productId = '', couponCode, couponId, hospitalId, dealPrice) => (dispatch) => {
+
+	var code = {id:hospitalId,couponCode:couponCode,disCountedPrice:dealPrice}
+	dispatch({
+		type: APPEND_DOCTORS,
+		payload: [code]
 	})
 }
