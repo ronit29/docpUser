@@ -211,7 +211,7 @@ class PatientDetailsNew extends React.Component {
                                             <div className="widget mrt-10 ct-profile skin-white">
                                                            
                                                 <div className="widget-content">
-                                                    <p onClick={() => {
+                                                    <p className="coupon-link" onClick={() => {
                                                 this.props.history.push(`/coupon`)}}> HAVE A COUPON?</p>
                                                 </div>
                                             </div>

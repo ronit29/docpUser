@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
-import BookingSummaryView from '../../components/diagnosis/bookingSummary/index.js'
+import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
 
 class BookingSummary extends React.Component {
     constructor(props) {
@@ -37,7 +37,7 @@ class BookingSummary extends React.Component {
     render() {
 
         return (
-            <BookingSummaryView {...this.props} />
+            <BookingSummaryViewNew {...this.props} />
         );
     }
 }

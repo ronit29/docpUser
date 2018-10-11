@@ -750,6 +750,9 @@ li.lst-bfr:before{
     background-color: #ffffff !important;
     border-bottom: 2px solid #e5e5e5;
 }
+.coupon-link{
+	cursor: pointer;
+}
 /* coupon timeline */
 /*appointment timeline*/
 .coupon-timeline{margin-bottom: 20px;}
