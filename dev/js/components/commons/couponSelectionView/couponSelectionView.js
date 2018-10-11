@@ -29,9 +29,66 @@ class CouponSelectionView extends React.Component {
                                     <div className="row mrb-20">
                                         <div className="col-12">
                                             <div className="widget mrt-10 ct-profile skin-white">
-                                               
-                                               <h4>Apply Coupon</h4> 
-                                               <input/>
+                                        
+                                                <div className="widget-content">
+                                                    <h4 className="title">Apply Coupon</h4> 
+                                                    <div className="search-coupon-input">
+                                                        <input type="text" id="disease-search"  className="coupon-searchbar" placeholder="Enter Here" />           
+                                                        <p className="text-sm text-primary apply-button">Apply</p>
+                                                    </div>
+
+                                                              
+                                                </div>
+                                                <div className="coupons-list">
+                                                <p className="pd-12">Select</p>
+                                                    <ul>
+                                                        <li className="coupon-style d-flex pd-12">
+                                                            <input type="radio"/>
+                                                            <div className="coupon-input">
+                                                                
+                                                                <p className="fw-700 text-md">FIRST</p>
+                                                                <p>100% discount on your first booking on doctor & diagnostics</p>
+                                                                <p className="text-sm text-primary">Terms & Conditions</p>
+                                                            </div>
+                                                        </li>
+                                                        <li className="coupon-style d-flex pd-12">
+                                                        <input type="radio"/>
+
+                                                            <div className="coupon-input">
+                                                                <p className="fw-700 text-md">FIRST</p>
+                                                                <p>100% discount on your first booking on doctor & diagnostics</p>
+                                                                <p className="text-sm text-primary">Terms & Conditions</p>
+
+                                                            </div>
+                                                        </li>
+                                                        <li  className="coupon-style d-flex pd-12">
+                                                        <input type="radio"/>
+
+                                                            <div className="coupon-input">
+                                                                <p className="fw-700 text-md">FIRST</p>
+                                                                <p>100% discount on your first booking on doctor & diagnostics</p>
+                                                                <p className="text-sm text-primary">Can be used 3 times per user</p>
+                                                                <div className="coupon-timeline book-confirmed-timeline">
+                                                                    <ul className="inline-list">
+                                                                        <li className="active">
+                                                                            <span className="dot">1</span>
+                                                                        </li>
+                                                                        <li >
+                                                                            <span className="dot">2</span>
+                                                                        </li>
+                                                                        <li >
+                                                                            <span className="dot">3</span>
+                                                                        </li>
+                                                                    </ul>                                 
+                                                                 </div>
+                                                                <p className="text-sm text-primary">Terms & Conditions</p>
+
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                           
                                             </div>
                                         </div>
                                         

@@ -8,6 +8,7 @@
 .mb-20{margin-bottom: 20px}
 .jc-spaceb{justify-content: space-between}
 .mr-10{margin-right: 10px}
+.pd-12{padding:12px}
 
 .img-fluid{vertical-align: middle;}
 
@@ -201,7 +202,7 @@
 .booking-confirm-screen .lab-details img{max-width: 90px; max-height: 60px; border:1px solid #ddd; padding: 3px ; float: right;}
 .booking-confirm-screen .lab-details .lab-title .title{margin-bottom: 5px;}
 
-.booking-confirm-screen .lab-visit-time{margin-bottom: 40px;}
+.booking-confirm-screen .lab-visit-time{margin-bottom: 24px;}
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
 .booking-confirm-screen .lab-visit-time>p{margin-bottom: 10px; margin-top: 5px; word-wrap: break-word;padding-left: 22px;}
 
@@ -275,9 +276,9 @@
 /*doctor profile screen*/
 .dr-profile-screen{padding-bottom: 50px;}
 .dr-qucik-info{display: flex; flex-wrap: wrap; align-items: flex-start;padding-bottom:1px}
-.dr-profile-screen .dr-qucik-info img{height: 80px; width: 80px;}
+.dr-profile-screen .dr-qucik-info img{height: 80px; width: 80;}
 .dr-qucik-info .dr-profile {padding-left: 12px; flex: 1}
-.dr-qucik-info .dr-profile .dr-name{font-size: 18px; font-weight: bold; margin: 6px 0;height: auto; max-height: 48px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
+.dr-qucik-info .dr-profile .dr-name{font-size: 16px; font-weight: bold; margin: 6px 0;height: auto; max-height: 48px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 .dr-qucik-info .dr-profile .desg{font-size: 14px; font-weight: 500; margin: 6px 0;}
 .dr-qucik-info .dr-profile .add-details{font-size: 12px; font-weight: 500; color: #757575; margin: 6px 0;}
 .add-details{margin-top: 8px;}
@@ -614,7 +615,8 @@ text-align: left;
 @media screen and (max-width: 438px) {
     .rsk-image img{
         width: 40px;
-    }
+	}
+	
     .no-rsk{
         padding: 10px 5px 10px 20px;
         }
@@ -717,3 +719,44 @@ li.lst-bfr:before{
     padding: 5px 0px;
     font-weight: 500;
 }
+
+/* coupon style */
+
+.coupon-style{
+	border-bottom: 1px solid #e5e5e5;
+}
+.coupon-input{
+	margin-left: 10px;
+}
+.coupon-input p{
+	margin-bottom: 10px;
+}
+.search-coupon-input{
+	position: relative;
+}
+.apply-button{
+	position: absolute;
+    right: 12px;
+    cursor: pointer;
+    top: 18px;
+}
+.coupon-searchbar{
+	font-size: 16px;
+    width: 100%;
+    padding: 18px 57px 6px 9px;
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    background-color: #ffffff !important;
+    border-bottom: 2px solid #e5e5e5;
+}
+/* coupon timeline */
+/*appointment timeline*/
+.coupon-timeline{margin-bottom: 20px;}
+.coupon-timeline>ul{width: 100%;}
+.coupon-timeline li{position: relative; width: 12%; margin-right: -3px; text-align: center;}
+.coupon-timeline li:before{width: 100%; height: 1px; background-color: #b1b1b1; position: absolute; top:10px;  content: '';}
+.coupon-timeline li .dot{position: relative; width: 20px; background-color: #757575; height: 20px; color: #fff; display: inline-block; border-radius: 50%; font-weight: 700;margin-bottom: 5px;}
+.coupon-timeline li.active .dot{ color: #fff; background-color: #f78631}
+.coupon-timeline li.active:before{background-color:  #f78631}
+.coupun-timeline li:last-child:before{width:0%} 

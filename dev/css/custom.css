@@ -296,7 +296,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .clinics-items>li{min-height: 100px; margin-bottom: 10px;   border-radius: 10px;background-color: #ffffff; padding: 10px;box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25)}
 .fee-details{width: 100px; float: right;}
 .clinic-details{padding-right: 120px;}
-.clinic-name{font-size: 16px; margin-bottom: 5px;font-weight: 500;}
+.clinic-name{font-size: 14px; margin-bottom: 5px;font-weight: 500;}
 .clinic-address {font-size: 14px;font-weight: 500; color: #757575;}
 .fee-details>span {color: #757575; font-size: 12px; font-weight: 600;}
 .fee-details>.fee{font-weight: 600}
@@ -377,3 +377,4 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .clinic-filter-items{white-space: nowrap;}
 .clinic-filter-items>li{white-space: nowrap;}
 .generate-btn{background-color: #9e9e9e; color: #fff;}
+

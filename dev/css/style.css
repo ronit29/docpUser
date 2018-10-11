@@ -663,6 +663,7 @@ p.top-head-link.card-lab-link span {
 	.top-head-link{
 		font-size: 14px;
 	}
+	
 }
 
 .searchlocationresults {
@@ -761,6 +762,13 @@ p.top-head-link.card-lab-link span {
 @media(max-width: 380px) {
 	.chatbox-right {
 		height: calc(100vh - 230px);
+	}
+	.booking-confirm-screen .lab-visit-time .title{
+		font-size: 11px;
+	}
+	.text-sm{
+		font-size: 11px;
+
 	}
 }
 
