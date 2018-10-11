@@ -61,6 +61,7 @@ class BookingSummaryView extends React.Component {
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
         this.props.selectLabAppointmentType(e.target.value)
+        this.setState({ showTimeError: false, showAddressError: false });
     }
 
     navigateTo(where, e) {
