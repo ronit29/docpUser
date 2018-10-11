@@ -113,6 +113,71 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
+                                                            <div className="widget-panel">
+                                                                <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                                                <div className="panel-content">
+                                                                    <div className="feed-back-container">
+                                                                        <div className="row flx-center">
+                                                                            <div className="col-4">
+                                                                                <div className="feedback-rating-text">
+                                                                                    <p className="feedback-rate">4.5</p>
+                                                                                    <p className="feedback-rate-status">
+                                                                                        2033 ratings and
+                                                                                        <span>245 reviews</span>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="col-8">
+                                                                                <div className="feed-status-container">
+                                                                                    <span className="feed-progress-point">5<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <div className="rating-progress">
+                                                                                        <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '70%' }}>
+                                                                                            <span className="sr-only">70% Complete</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <span className="feed-progress-count">800</span>
+                                                                                </div>
+                                                                                <div className="feed-status-container">
+                                                                                    <span className="feed-progress-point">4<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <div className="rating-progress">
+                                                                                        <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '60%' }}>
+                                                                                            <span className="sr-only">70% Complete</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <span className="feed-progress-count">800</span>
+                                                                                </div>
+                                                                                <div className="feed-status-container">
+                                                                                    <span className="feed-progress-point">3<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <div className="rating-progress">
+                                                                                        <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '40%' }}>
+                                                                                            <span className="sr-only">70% Complete</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <span className="feed-progress-count">800</span>
+                                                                                </div>
+                                                                                <div className="feed-status-container">
+                                                                                    <span className="feed-progress-point">2<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <div className="rating-progress">
+                                                                                        <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '20%' }}>
+                                                                                            <span className="sr-only">70% Complete</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <span className="feed-progress-count">20</span>
+                                                                                </div>
+                                                                                <div className="feed-status-container">
+                                                                                    <span className="feed-progress-point">1<img src="/assets/img/customer-icons/star.svg" /></span>
+                                                                                    <div className="rating-progress">
+                                                                                        <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{ width: '10%' }}>
+                                                                                            <span className="sr-only">70% Complete</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <span className="feed-progress-count">80</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

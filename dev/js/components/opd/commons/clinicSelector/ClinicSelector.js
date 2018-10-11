@@ -37,18 +37,18 @@ class ClinicSelector extends React.Component {
 
         return (
             <div className="widget-panel">
-                <h4 className="panel-title">Dr. {name} Available at</h4>
+                <h4 className="panel-title mb-rmv">Dr. {name} Available at</h4>
                 <div className="panel-content clinic-info-panel">
-                    <ul className="inline-list Clinic-card-list">
+                    <ul className="inline-list Clinic-card-list rtng-box-shadow">
                         {
                             hospitals.map((hospital, i) => {
                                 return <li key={i} style={style}>
                                     <div className="widget no-shadow">
-                                        <div className="widget-header clearfix">
-                                            <h4 className="widget-title text-md fw-700 clinic-selector-name">{hospital.hospital_name}</h4>
-                                            <span className="float-right text-md fw-700">&#8377; {hospital.deal_price}</span>
+                                        <div className="widget-header pb-rmv clearfix">
+                                            <h4 className="widget-title text-md fw-700 clinic-selector-name ratng-clinic-slc-name">{hospital.hospital_name}</h4>
+                                            <span className="float-right text-md fw-700 ratng-doc-price">&#8377; {hospital.deal_price}</span>
                                         </div>
-                                        <div className="widget-content">
+                                        <div className="widget-content pt-two">
                                             <div className="location-details clearfix">
                                                 <p className="address">{hospital.address}</p>
                                                 <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
@@ -58,7 +58,8 @@ class ClinicSelector extends React.Component {
 
                                                 </div> */}
                                             </div>
-                                            <div className="timing-details">
+                                            <div className="timing-details mt-rmv">
+                                            <span className="rtng-clnc-time">Timings</span>
                                                 {
                                                     Object.keys(hospital.timings).map((timingKey, key) => {
                                                         return <p className="fw-700" key={key}>
