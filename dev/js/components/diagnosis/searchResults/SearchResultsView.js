@@ -29,6 +29,9 @@ class SearchResultsView extends React.Component {
     componentWillReceiveProps(props) {
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getLabList(props)
+            if (window) {
+                window.scrollTo(0, 0)
+            }
         }
     }
 
