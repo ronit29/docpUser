@@ -403,7 +403,7 @@ export const getCoupons = () => {
 }
 
 export const getUserPrescription = (mobile) => (dispatch) => {
-	API_GET('chatqa.docprime.com/api/v1/livechat/healthservices/getPrescriptions/9582557400').then(function (response) {
+	API_GET(`/api/v1/chat/chatprescription?mobile=${mobile}`).then(function (response) {
 
 		dispatch({
 			type : GET_USER_PRESCRIPTION,

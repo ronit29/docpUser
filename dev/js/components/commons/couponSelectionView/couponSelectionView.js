@@ -10,8 +10,12 @@ class CouponSelectionView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            coupon:''
         }
+    }
+
+    toggleButtons(couponId){
+        this.setState({coupon: couponId})
     }
 
     render() {
@@ -24,7 +28,7 @@ class CouponSelectionView extends React.Component {
                     <LeftBar />
                     <div className="col-12 col-md-7 col-lg-7 center-column">
                     
-                    <section className="dr-profile-screen booking-confirm-screen">
+                        <section className="dr-profile-screen booking-confirm-screen">
                                 <div className="container-fluid">
                                     <div className="row mrb-20">
                                         <div className="col-12">
@@ -43,7 +47,7 @@ class CouponSelectionView extends React.Component {
                                                 <p className="pd-12">Select</p>
                                                     <ul>
                                                         <li className="coupon-style d-flex pd-12">
-                                                            <input type="radio"/>
+                                                            <input type="radio" name ="coupons" checked={this.state.coupon == '1'} onChange = {this.toggleButtons.bind(this,'1')}/>
                                                             <div className="coupon-input">
                                                                 
                                                                 <p className="fw-700 text-md">FIRST</p>
@@ -52,7 +56,7 @@ class CouponSelectionView extends React.Component {
                                                             </div>
                                                         </li>
                                                         <li className="coupon-style d-flex pd-12">
-                                                        <input type="radio"/>
+                                                        <input type="radio" name ="coupons" checked={this.state.coupon == '2'} onChange = {this.toggleButtons.bind(this,'2')}/>
 
                                                             <div className="coupon-input">
                                                                 <p className="fw-700 text-md">FIRST</p>
@@ -62,7 +66,7 @@ class CouponSelectionView extends React.Component {
                                                             </div>
                                                         </li>
                                                         <li  className="coupon-style d-flex pd-12">
-                                                        <input type="radio"/>
+                                                        <input type="radio" name ="coupons" checked = {this.state.coupon == '3'} onChange = {this.toggleButtons.bind(this,'3')}/>
 
                                                             <div className="coupon-input">
                                                                 <p className="fw-700 text-md">FIRST</p>
