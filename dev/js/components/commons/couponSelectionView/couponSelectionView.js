@@ -10,12 +10,32 @@ class CouponSelectionView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            coupon:''
+            coupon:'',
+            appointmentType: '',
+            id: ''
         }
+    }
+
+    componentDidMount(){
+        let appointmentType = this.props.match.params.type;
+        let id = this.props.match.params.id;
+        if(appointmentType == 'opd'){
+            appointmentType = 1 
+        }else if (appointmentType == 'lab'){
+            appointmentType = 2
+        }else {
+            appointmentType = ''
+        }
+        this.setState({appointmentType: appointmentType, id: id})
     }
 
     toggleButtons(couponId){
         this.setState({coupon: couponId})
+    }
+
+    applyCoupon(){
+        this.props.applyCoupons(this.state.appointmentType, 'FIRST','3',this.state.id, '20')
+        this.props.history.go(-1)
     }
 
     render() {
@@ -38,7 +58,7 @@ class CouponSelectionView extends React.Component {
                                                     <h4 className="title">Apply Coupon</h4> 
                                                     <div className="search-coupon-input">
                                                         <input type="text" id="disease-search"  className="coupon-searchbar" placeholder="Enter Here" />           
-                                                        <p className="text-sm text-primary apply-button">Apply</p>
+                                                        <p className="text-sm text-primary apply-button" onClick={this.applyCoupon.bind(this)}>Apply</p>
                                                     </div>
 
                                                               
