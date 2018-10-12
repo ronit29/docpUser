@@ -208,12 +208,43 @@ class PatientDetailsNew extends React.Component {
                                             </div>
                                         </div>
                                         <div className="col-12">
-                                            <div className="widget mrt-10 ct-profile skin-white">
-                                                           
-                                                <div className="widget-content">
-                                                    <p onClick={() => {
-                                                this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}`)}}> HAVE A COUPON?</p>
-                                                </div>
+                                            <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={() => {
+                                                this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}`)}}>         
+                                                    {
+                                                        this.props.DOCTORS[this.state.selectedDoctor].couponCode
+                                                        ?
+                                                        <div className="widget-content  d-flex jc-spaceb" >
+                                                            <div className="d-flex">
+                                                                <span className="coupon-img">
+                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+                                                                </span>
+                                                                <h4 className="title coupon-text" style={{color:'green'}}>
+                                                                    Coupon Applied
+                                                                </h4>
+                                                            </div>
+                                                            <div className=" d-flex">
+                                                                <h4 className="title coupon-text" style={{color:'green'}}>
+                                                                    FIRST
+                                                                </h4>
+                                                                <span className="coupon-img">
+                                                                    <img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
+                                                                </span>
+                                                            </div>
+                                                        </div>:
+                                                    <div className="widget-content d-flex jc-spaceb" >
+                                                        <div className="d-flex">
+                                                            <span className="coupon-img">
+                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                            </span>  
+                                                            <h4 className="title coupon-text">
+                                                                HAVE A COUPON?
+                                                            </h4>
+                                                        </div>
+                                                        <div className="visit-time-icon coupon-icon">
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
+                                                        </div>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                         <div className="col-12">
@@ -247,7 +278,7 @@ class PatientDetailsNew extends React.Component {
                                                                
                                                 {
                                                 priceData ? <div className="test-report payment-detail mt-20">
-                                                    <h4 className="title payment-amt-label">Amount Payable<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                    <h4 className="title payment-amt-label">Amount Payable</h4>
                                                     <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
                                                 </div> : ""
                                                 }
