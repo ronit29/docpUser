@@ -28,7 +28,7 @@ class TopBar extends React.Component {
 
     componentWillReceiveProps(props) {
         this.setState({ ...props.filterCriteria })
-        if (props.locationType && props.locationType != "geo") {
+        if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
             if (props.selectedLocation != this.props.selectedLocation) {
@@ -41,6 +41,9 @@ class TopBar extends React.Component {
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
+        if (this.props.locationType.includes("geo")) {
+            this.setState({ showLocationPopup: true, overlayVisible: true })
+        }
     }
 
     handleInput(e) {

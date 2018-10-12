@@ -25,7 +25,7 @@ class LocationElementsView extends React.Component {
                 if (lat != nextLat) {
                     this.setState({ search: props.selectedLocation.formatted_address })
                 }
-            } else if (props.locationType != "geo") {
+            } else if (props.locationType.includes("geo")) {
                 this.setState({ search: props.selectedLocation.formatted_address })
             }
         }
@@ -35,7 +35,7 @@ class LocationElementsView extends React.Component {
     componentDidMount() {
         this.props.onRef(this)
 
-        if (this.props.locationType && this.props.locationType != "geo" && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+        if (this.props.locationType && this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             this.setState({ search: this.props.selectedLocation.formatted_address })
         }
 
@@ -110,7 +110,6 @@ class LocationElementsView extends React.Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
-                    location_object.place_id = 'from_sensor'
                     this.props.selectLocation(location_object, 'autoDetect').then(() => {
                         clearTimeout(timeout)
                         this.setState({ detectLoading: false })

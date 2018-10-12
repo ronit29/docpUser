@@ -26,6 +26,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             doctor_name = doctor_name || ""
             let hospital_name = _getLocationParamBind('hospital_name')
             hospital_name = hospital_name || ""
+            let locationType = _getLocationParamBind('locationType') || "geo"
 
             let selectedCriterias = []
             let spec = []
@@ -73,7 +74,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             if (!isServer && !location_ms) {
-                if (place_id && place_id != 'from_sensor') {
+                if (place_id) {
                     setTimeout(() => {
                         _getLocationFromPlaceId(place_id, (location_object) => {
                             selectLocation(location_object, 'autoComplete', false)
@@ -82,13 +83,8 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
-                            _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                                let type = 'geo'
-                                if (place_id && place_id == 'from_sensor') {
-                                    type = 'autoDetect'
-                                    location_object.place_id = 'from_sensor'
-                                }
-                                selectLocation(location_object, type, false)
+                            _getlocationFromLatLong(lat, long, (locationType == 'geoip' ? 'city' : 'locality'), (location_object) => {
+                                selectLocation(location_object, locationType, false)
                             })
                         }, 1000)
                     }
@@ -178,6 +174,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let sort_on = _getLocationParamBind('sort_on') || null
             let lab_name = _getLocationParamBind('lab_name') || ""
             lab_name = lab_name || ""
+            let locationType = _getLocationParamBind('locationType') || "geo"
 
             let selectedCriterias = []
             if (test_ids) {
@@ -207,7 +204,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             if (!isServer && !location_ms) {
-                if (place_id && place_id != 'from_sensor') {
+                if (place_id) {
                     setTimeout(() => {
                         _getLocationFromPlaceId(place_id, (location_object) => {
                             selectLocation(location_object, 'autoComplete', false)
@@ -216,13 +213,8 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
-                            _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                                let type = 'geo'
-                                if (place_id && place_id == 'from_sensor') {
-                                    type = 'autoDetect'
-                                    location_object.place_id = 'from_sensor'
-                                }
-                                selectLocation(location_object, type, false)
+                            _getlocationFromLatLong(lat, long, (locationType == 'geoip' ? 'city' : 'locality'), (location_object) => {
+                                selectLocation(location_object, locationType, false)
                             })
                         }, 1000)
                     }
