@@ -26,8 +26,10 @@ class TopBar extends React.Component {
         this.setState({ ...props.filterCriteria })
         if (props.locationType && props.locationType != "geo") {
             this.setState({ showLocationPopup: false })
-        }else{
-            this.setState({ showLocationPopup: true, overlayVisible: true })
+        } else {
+            if (props.selectedLocation != this.props.selectedLocation) {
+                this.setState({ showLocationPopup: true, overlayVisible: true })
+            }
         }
         this.shortenUrl()
     }
@@ -121,8 +123,8 @@ class TopBar extends React.Component {
     }
 
     getCityListLayout(searchResults = []) {
-        if(searchResults.length){
-            this.setState({ searchCities: searchResults ,overlayVisible:true})
+        if (searchResults.length) {
+            this.setState({ searchCities: searchResults, overlayVisible: true })
         }
     }
 
@@ -133,7 +135,7 @@ class TopBar extends React.Component {
     }
 
     overlayClick() {
-        this.setState({ overlayVisible: false , searchCities:[]});
+        this.setState({ overlayVisible: false, searchCities: [] });
     }
 
     render() {

@@ -104,8 +104,12 @@ export function _getNameFromLocation(result, type) {
                 for (let x of result.address_components[i].types) {
                     if (x == type) {
                         name = result.address_components[i].long_name
+                        break
                     }
                 }
+            }
+            if(name){
+                break
             }
         }
     }
