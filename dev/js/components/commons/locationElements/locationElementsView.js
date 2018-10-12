@@ -16,13 +16,8 @@ class LocationElementsView extends React.Component {
     componentWillReceiveProps(props) {
 
         if (props.selectedLocation && this.props.selectedLocation) {
-            let lat = this.props.selectedLocation.geometry.location.lat
-            if (typeof lat === 'function') lat = lat()
-            let nextLat = props.selectedLocation.geometry.location.lat
-            if (typeof nextLat === 'function') nextLat = nextLat()
-
             if (this.state.search) {
-                if (lat != nextLat) {
+                if (props.selectedLocation != this.props.selectedLocation) {
                     this.setState({ search: props.selectedLocation.formatted_address })
                 }
             } else if (props.locationType.includes("geo")) {
