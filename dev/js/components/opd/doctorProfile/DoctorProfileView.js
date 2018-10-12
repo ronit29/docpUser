@@ -208,7 +208,7 @@ class DoctorProfileView extends React.Component {
                                                                             <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
                                                                         </div>
                                                                         <p className="usr-comments-pera">
-                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                            Doctor listened about our queries patiently and advised best solutions
                                                                         </p>
                                                                         <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
                                                                     </div>
@@ -218,7 +218,7 @@ class DoctorProfileView extends React.Component {
                                                                             <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
                                                                         </div>
                                                                         <p className="usr-comments-pera">
-                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                            Doctor listened about our queries patiently and advised best solutions
                                                                         </p>
                                                                         <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
                                                                     </div>
@@ -228,7 +228,7 @@ class DoctorProfileView extends React.Component {
                                                                             <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
                                                                         </div>
                                                                         <p className="usr-comments-pera">
-                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                            Doctor listened about our queries patiently and advised best solutions
                                                                         </p>
                                                                         <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
                                                                     </div>
@@ -238,7 +238,7 @@ class DoctorProfileView extends React.Component {
                                                                             <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
                                                                         </div>
                                                                         <p className="usr-comments-pera">
-                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                            Doctor listened about our queries patiently and advised best solutions
                                                                         </p>
                                                                         <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
                                                                     </div>
@@ -248,13 +248,39 @@ class DoctorProfileView extends React.Component {
                                                                             <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
                                                                         </div>
                                                                         <p className="usr-comments-pera">
-                                                                        Doctor listened about our queries patiently and advised best solutions
+                                                                            Doctor listened about our queries patiently and advised best solutions
                                                                         </p>
                                                                         <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
                                                                     </div>
                                                                     {/* list comment loop */}
                                                                 </div>
                                                             </div>
+                                                            {/* rating popup */}
+                                                            <div className="raiting-popup">
+                                                                <div className="home-rating-card">
+                                                                    <div className="rate-card-header">
+                                                                        Rate your Experience
+                                                                    <span>x</span>
+                                                                    </div>
+                                                                    <div className="rate-card-doc-dtls">
+                                                                        <img src="/assets/img/customer-icons/user.png" className="img-fluid img-round " />
+                                                                        <div className="rate-doc-dtl">
+                                                                            <p className="rt-doc-nm">
+                                                                                Dr. Pallavi Kumar
+                                                                            </p>
+                                                                            <span>MBBS | General Physician</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="rate-star-icon">
+                                                                    <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                    <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                    <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                    <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                    <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {/* rating popup */}
                                                         </div>
                                                     </div>
                                                 </div>

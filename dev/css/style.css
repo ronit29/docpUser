@@ -1580,7 +1580,8 @@ text-align: center;
     display: inline-flex;
     font-weight: 500;
     width: 12%;
-    justify-content: center;
+	justify-content: center;
+	align-items: center;
 }
 .feed-progress-point img{ 
 
@@ -1649,30 +1650,103 @@ text-align: center;
 	border-radius: 5px;
     background-color: #55a740;
     color: white;
-    padding-left: 10px;
+	padding: 0px 5px 0px 10px;
     display: inline-flex;
     align-items: center;
 }
-.feed-sts-heading{
+p.feed-sts-heading{
     color: #fb8f3e;
     margin-left: 9px;
 }
 .comment-status-content span>img{
-	width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 11px;
     position: relative;
     top: -1px;
-    margin-left: 2px;
+    margin-left: 3px;
     margin-right: 10px;
+    display: block;
 }
 .usr-feed-comment p.usr-comments-pera{
 	color: #3c3c3c;
 	margin-bottom: 7px;
 	padding: 0px 15px;
 }
-.comment-para-status{
+p.comment-para-status{
     color: #757575;
 	font-size: 12px;
 	padding: 0px 15px;
 }
+
+/* popup star */
+.raiting-popup{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000000c9;
+    z-index: 999;
+}
+.home-rating-card{
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    width: 355px;
+}
+.rate-card-header{
+	text-align: center;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.rate-card-header span{
+	position: absolute;
+    right: 0;
+}
+.rate-card-doc-dtls{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+.rate-card-doc-dtls img{
+    width: 40px;
+	height: 40px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.rate-doc-dtl{
+	margin-left: 15px;
+}
+p.rt-doc-nm{
+	color: black;
+    margin-bottom: 2px;
+}
+.rate-doc-dtl span{
+    color: #757575;
+    font-weight: 500;
+    font-size: 13px;
+}
+.rate-star-icon{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 30px;
+}
+.rate-star-icon img{
+    width: 35px;
+	height: 35px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+/* popup star */
+
+
+
 /*=========================== new rating style ===========================*/
