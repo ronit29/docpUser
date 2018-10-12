@@ -12,7 +12,8 @@ class CouponSelectionView extends React.Component {
         this.state = {
             coupon:'',
             appointmentType: '',
-            id: ''
+            id: '',
+            couponName:''
         }
     }
 
@@ -29,12 +30,12 @@ class CouponSelectionView extends React.Component {
         this.setState({appointmentType: appointmentType, id: id})
     }
 
-    toggleButtons(couponId){
-        this.setState({coupon: couponId})
+    toggleButtons(couponId,e){
+        this.setState({coupon: couponId,couponName:e.target.value})
     }
 
     applyCoupon(){
-        this.props.applyCoupons(this.state.appointmentType, 'FIRST','3',this.state.id, '20')
+        this.props.applyCoupons(this.state.appointmentType, this.state.couponName ,'3',this.state.id, '20')
         this.props.history.go(-1)
     }
 
@@ -57,7 +58,7 @@ class CouponSelectionView extends React.Component {
                                                 <div className="widget-content">
                                                     <h4 className="title">Apply Coupon</h4> 
                                                     <div className="search-coupon-input">
-                                                        <input type="text" id="disease-search"  className="coupon-searchbar" placeholder="Enter Here" />           
+                                                        <input type="text" id="disease-search"  className="coupon-searchbar" placeholder={this.state.couponName} />           
                                                         <p className="text-sm text-primary apply-button" onClick={this.applyCoupon.bind(this)}>Apply</p>
                                                     </div>
 
@@ -67,7 +68,7 @@ class CouponSelectionView extends React.Component {
                                                 <p className="pd-12">Select</p>
                                                     <ul>
                                                         <li className="coupon-style d-flex pd-12">
-                                                            <input type="radio" name ="coupons" checked={this.state.coupon == '1'} onChange = {this.toggleButtons.bind(this,'1')}/>
+                                                            <input type="radio" name ="coupons" checked={this.state.coupon == '1'} value='FIRST' onChange = {this.toggleButtons.bind(this,'1')}/>
                                                             <div className="coupon-input">
                                                                 
                                                                 <p className="fw-700 text-md">FIRST</p>
@@ -76,20 +77,20 @@ class CouponSelectionView extends React.Component {
                                                             </div>
                                                         </li>
                                                         <li className="coupon-style d-flex pd-12">
-                                                        <input type="radio" name ="coupons" checked={this.state.coupon == '2'} onChange = {this.toggleButtons.bind(this,'2')}/>
+                                                        <input type="radio" name ="coupons" checked={this.state.coupon == '2'}  value='SECOND' onChange = {this.toggleButtons.bind(this,'2')}/>
 
                                                             <div className="coupon-input">
-                                                                <p className="fw-700 text-md">FIRST</p>
+                                                                <p className="fw-700 text-md">SECOND</p>
                                                                 <p>100% discount on your first booking on doctor & diagnostics</p>
                                                                 <p className="text-sm text-primary">Terms & Conditions</p>
 
                                                             </div>
                                                         </li>
                                                         <li  className="coupon-style d-flex pd-12">
-                                                        <input type="radio" name ="coupons" checked = {this.state.coupon == '3'} onChange = {this.toggleButtons.bind(this,'3')}/>
+                                                        <input type="radio" name ="coupons" checked = {this.state.coupon == '3'} value='THIRD' onChange = {this.toggleButtons.bind(this,'3')}/>
 
                                                             <div className="coupon-input">
-                                                                <p className="fw-700 text-md">FIRST</p>
+                                                                <p className="fw-700 text-md">THIRD</p>
                                                                 <p>100% discount on your first booking on doctor & diagnostics</p>
                                                                 <p className="text-sm text-primary">Can be used 3 times per user</p>
                                                                 <div className="coupon-timeline book-confirmed-timeline">

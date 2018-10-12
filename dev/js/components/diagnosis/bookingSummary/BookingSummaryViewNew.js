@@ -246,7 +246,7 @@ class BookingSummaryViewNew extends React.Component {
                 })
             }
         }
-
+        console.log(JSON.stringify(this.props.LABS[this.state.selectedLab]) + 'lab coupon nnnnnnnnnnnnnnnnnnnnnn')
 
         return (
 
@@ -286,13 +286,52 @@ class BookingSummaryViewNew extends React.Component {
                                             </div>
                                         </div>
                                         <div className="col-12">
-                                            <div className="widget mrt-10 ct-profile skin-white">
+
+                                        <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={() => {
+                                                this.props.history.push(`/coupon/lab/${this.state.selectedLab}`)}}>         
+                                                    {
+                                                        this.props.LABS[this.state.selectedLab].couponCode
+                                                        ?
+                                                        <div className="widget-content  d-flex jc-spaceb" >
+                                                            <div className="d-flex">
+                                                                <span className="coupon-img">
+                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+                                                                </span>
+                                                                <h4 className="title coupon-text" style={{color:'green'}}>
+                                                                    Coupon Applied
+                                                                </h4>
+                                                            </div>
+                                                            <div className=" d-flex">
+                                                                <h4 className="title coupon-text" style={{color:'green',marginRight: 13}}>
+                                                                    {this.props.LABS[this.state.selectedLab].couponCode}
+                                                                </h4>
+                                                                <span className="visit-time-icon coupon-icon">
+                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
+                                                                </span>
+                                                            </div>
+                                                        </div>:
+                                                    <div className="widget-content d-flex jc-spaceb" >
+                                                        <div className="d-flex">
+                                                            <span className="coupon-img">
+                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                            </span>  
+                                                            <h4 className="title coupon-text">
+                                                                HAVE A COUPON?
+                                                            </h4>
+                                                        </div>
+                                                        <div className="visit-time-icon coupon-icon">
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            {/* <div className="widget mrt-10 ct-profile skin-white">
                                                            
                                                 <div className="widget-content">
                                                     <p className="coupon-link" onClick={() => {
-                                                this.props.history.push(`/coupon`)}}> HAVE A COUPON?</p>
+                                                this.props.history.push(`/coupon/lab/${this.state.selectedLab}`)}}> HAVE A COUPON?</p>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="col-12">
                                             <div className="widget mrt-10 ct-profile skin-white">
@@ -302,7 +341,7 @@ class BookingSummaryViewNew extends React.Component {
                                                     <div className="payment-summary-content">
                                                         <div className="payment-detail d-flex">
                                                         <p>Lab fees</p>
-                                                        <p>{finalMrp}</p>
+                                                        <p>&#8377; {finalMrp}</p>
                                                     </div>
                                                     {
                                                         is_home_collection_enabled ? <div className="payment-detail d-flex">
@@ -312,8 +351,16 @@ class BookingSummaryViewNew extends React.Component {
                                                     }
                                                     <div className="payment-detail d-flex">
                                                         <p>Docprime discount</p>
-                                                        <p>{finalMrp - finalPrice}</p>
+                                                        <p>&#8377; {finalMrp - finalPrice}</p>
                                                     </div>
+                                                    {
+                                                        this.props.LABS[this.state.selectedLab].couponCode
+                                                        ?<div className="payment-detail d-flex">
+                                                            <p  style={{color:'green'}}>Coupon discount</p>
+                                                            <p  style={{color:'green'}}>&#8377; {this.props.LABS[this.state.selectedLab].disCountedPrice}</p>
+                                                        </div>
+                                                        :''
+                                                    }
                                                     {
                                                         is_home_collection_enabled ? <div className="payment-detail d-flex">
                                                             <p className="payment-content fw-500">Subtotal</p>

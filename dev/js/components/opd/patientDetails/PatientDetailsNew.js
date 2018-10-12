@@ -146,13 +146,12 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
-
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let hospital = {}
         let patient = null
         let priceData = {}
-
-        if (doctorDetails) {
+        
+            if (doctorDetails) {
             let { name, qualifications, hospitals } = doctorDetails
 
             if (hospitals && hospitals.length) {
@@ -223,11 +222,11 @@ class PatientDetailsNew extends React.Component {
                                                                 </h4>
                                                             </div>
                                                             <div className=" d-flex">
-                                                                <h4 className="title coupon-text" style={{color:'green'}}>
-                                                                    FIRST
+                                                                <h4 className="title coupon-text" style={{color:'green',marginRight: 13}}>
+                                                                    {this.props.DOCTORS[this.state.selectedDoctor].couponCode}
                                                                 </h4>
-                                                                <span className="coupon-img">
-                                                                    <img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
+                                                                <span className="visit-time-icon coupon-icon">
+                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
                                                                 </span>
                                                             </div>
                                                         </div>:
@@ -255,23 +254,23 @@ class PatientDetailsNew extends React.Component {
                                                     <div className="payment-summary-content">
                                                         <div className="payment-detail d-flex">
                                                         <p>Doctor fees</p>
-                                                        <p>{priceData.mrp}</p>
+                                                        <p>&#8377; {priceData.mrp}</p>
                                                     </div>
                                                     <div className="payment-detail d-flex">
                                                         <p>Docprime discount</p>
-                                                        <p>{priceData.mrp - priceData.deal_price}</p>
+                                                        <p>&#8377; {priceData.mrp - priceData.deal_price}</p>
                                                     </div>
                                                     {
                                                         this.props.DOCTORS[this.state.selectedDoctor].couponCode
                                                         ?<div className="payment-detail d-flex">
                                                             <p  style={{color:'green'}}>Coupon discount</p>
-                                                            <p  style={{color:'green'}}>{this.props.DOCTORS[this.state.selectedDoctor].disCountedPrice}</p>
+                                                            <p  style={{color:'green'}}>&#8377; {this.props.DOCTORS[this.state.selectedDoctor].disCountedPrice}</p>
                                                         </div>
                                                         :''
                                                     }
                                                     <div className="payment-detail d-flex">
                                                         <p>Subtotal</p>
-                                                        <p>{priceData.deal_price}</p>
+                                                        <p> &#8377; {priceData.deal_price}</p>
                                                     </div>
                                                 </div>
                                                 <hr/>
