@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, START_LIVE_CHAT } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -35,7 +35,7 @@ const defaultState = {
     currentRoomId: null,
     utm_tags: {},
     device_info: 'desktop',
-    chat_static_msg: ''
+    liveChatStarted: false
 }
 
 export default function (state = defaultState, action) {
@@ -262,11 +262,11 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case SAVE_STATIC_CHAT_MSG: {
+        case START_LIVE_CHAT: {
             let newState = {
                 ...state
             }
-            newState.chat_static_msg = action.payload
+            newState.liveChatStarted = action.payload
 
             if (action.deleteRoomId) {
                 newState.chatRoomIds = {}
