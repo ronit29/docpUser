@@ -96,6 +96,8 @@ export default function (state = defaultState, action) {
                 newState.locationType = 'autoComplete'
             } else if (action.range == 'autoDetect') {
                 newState.locationType = 'autoDetect'
+            } else if (action.range == 'geoip') {
+                newState.locationType = 'geoip'
             } else {
                 newState.locationType = 'geo'
             }

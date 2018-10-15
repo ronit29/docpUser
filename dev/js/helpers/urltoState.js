@@ -1,6 +1,7 @@
 import { _getlocationFromLatLong, _getLocationFromPlaceId } from './mapHelpers.js'
+import { API_GET } from '../api/api'
 
-export function opdSearchStateBuilder(selectLocation, querParams, isServer = false) {
+export function opdSearchStateBuilder(selectLocation, querParams, isServer = false, location_ms = null) {
 
     try {
         return new Promise((resolve, reject) => {
@@ -25,6 +26,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             doctor_name = doctor_name || ""
             let hospital_name = _getLocationParamBind('hospital_name')
             hospital_name = hospital_name || ""
+            let locationType = _getLocationParamBind('locationType') || "geo"
 
             let selectedCriterias = []
             let spec = []
@@ -71,7 +73,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
-            if (!isServer) {
+            if (!isServer && !location_ms) {
                 if (place_id) {
                     setTimeout(() => {
                         _getLocationFromPlaceId(place_id, (location_object) => {
@@ -81,8 +83,8 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
-                            _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                                selectLocation(location_object, 'geo', false)
+                            _getlocationFromLatLong(lat, long, (locationType == 'geoip' ? 'city' : 'locality'), (location_object) => {
+                                selectLocation(location_object, locationType, false)
                             })
                         }, 1000)
                     }
@@ -91,20 +93,60 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
 
             let selectedLocation = null
             if (lat && long) {
-                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "" }
+                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "Delhi" }
             }
 
-            if (selectedLocation) {
-                resolve({
-                    filterCriteria,
-                    selectedCriterias,
-                    selectedLocation
+            if (location_ms) {
+                API_GET(`/api/v1/geoip/adword/${location_ms}`).then((data) => {
+                    selectedLocation = { geometry: { location: { lat: data.latitude, lng: data.longitude } }, place_id, formatted_address: "" }
+
+                    if (!isServer) {
+                        setTimeout(() => {
+                            _getlocationFromLatLong(data.latitude, data.longitude, 'locality', (location_object) => {
+                                selectLocation(location_object, 'geo', false)
+                            })
+                        }, 1000)
+                    }
+
+                    resolve({
+                        filterCriteria,
+                        selectedCriterias,
+                        selectedLocation
+                    })
+                }).catch((e) => {
+                    if (selectedLocation) {
+                        if (!isServer) {
+                            setTimeout(() => {
+                                _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
+                                    selectLocation(location_object, 'geo', false)
+                                })
+                            }, 1000)
+                        }
+                        resolve({
+                            filterCriteria,
+                            selectedCriterias,
+                            selectedLocation
+                        })
+                    } else {
+                        resolve({
+                            filterCriteria,
+                            selectedCriterias
+                        })
+                    }
                 })
             } else {
-                resolve({
-                    filterCriteria,
-                    selectedCriterias
-                })
+                if (selectedLocation) {
+                    resolve({
+                        filterCriteria,
+                        selectedCriterias,
+                        selectedLocation
+                    })
+                } else {
+                    resolve({
+                        filterCriteria,
+                        selectedCriterias
+                    })
+                }
             }
         })
 
@@ -115,7 +157,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
 }
 
 
-export function labSearchStateBuilder(selectLocation, querParams, isServer = false) {
+export function labSearchStateBuilder(selectLocation, querParams, isServer = false, location_ms = null) {
     try {
         return new Promise((resolve, reject) => {
 
@@ -132,6 +174,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let sort_on = _getLocationParamBind('sort_on') || null
             let lab_name = _getLocationParamBind('lab_name') || ""
             lab_name = lab_name || ""
+            let locationType = _getLocationParamBind('locationType') || "geo"
 
             let selectedCriterias = []
             if (test_ids) {
@@ -160,7 +203,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
-            if (!isServer) {
+            if (!isServer && !location_ms) {
                 if (place_id) {
                     setTimeout(() => {
                         _getLocationFromPlaceId(place_id, (location_object) => {
@@ -170,8 +213,8 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                 } else {
                     if (lat && long) {
                         setTimeout(() => {
-                            _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
-                                selectLocation(location_object, 'geo', false)
+                            _getlocationFromLatLong(lat, long, (locationType == 'geoip' ? 'city' : 'locality'), (location_object) => {
+                                selectLocation(location_object, locationType, false)
                             })
                         }, 1000)
                     }
@@ -180,22 +223,61 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
 
             let selectedLocation = null
             if (lat && long) {
-                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "" }
+                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "Delhi" }
             }
 
-            if (selectedLocation) {
-                resolve({
-                    filterCriteria,
-                    selectedCriterias,
-                    selectedLocation
+            if (location_ms) {
+                API_GET(`/api/v1/geoip/adword/${location_ms}`).then((data) => {
+                    selectedLocation = { geometry: { location: { lat: data.latitude, lng: data.longitude } }, place_id, formatted_address: "" }
+
+                    if (!isServer) {
+                        setTimeout(() => {
+                            _getlocationFromLatLong(data.latitude, data.longitude, 'locality', (location_object) => {
+                                selectLocation(location_object, 'geo', false)
+                            })
+                        }, 1000)
+                    }
+
+                    resolve({
+                        filterCriteria,
+                        selectedCriterias,
+                        selectedLocation
+                    })
+                }).catch((e) => {
+                    if (selectedLocation) {
+                        if (!isServer) {
+                            setTimeout(() => {
+                                _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
+                                    selectLocation(location_object, 'geo', false)
+                                })
+                            }, 1000)
+                        }
+                        resolve({
+                            filterCriteria,
+                            selectedCriterias,
+                            selectedLocation
+                        })
+                    } else {
+                        resolve({
+                            filterCriteria,
+                            selectedCriterias
+                        })
+                    }
                 })
             } else {
-                resolve({
-                    filterCriteria,
-                    selectedCriterias
-                })
+                if (selectedLocation) {
+                    resolve({
+                        filterCriteria,
+                        selectedCriterias,
+                        selectedLocation
+                    })
+                } else {
+                    resolve({
+                        filterCriteria,
+                        selectedCriterias
+                    })
+                }
             }
-
         })
 
     } catch (e) {

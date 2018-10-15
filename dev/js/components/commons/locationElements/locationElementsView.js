@@ -16,16 +16,11 @@ class LocationElementsView extends React.Component {
     componentWillReceiveProps(props) {
 
         if (props.selectedLocation && this.props.selectedLocation) {
-            let lat = this.props.selectedLocation.geometry.location.lat
-            if (typeof lat === 'function') lat = lat()
-            let nextLat = props.selectedLocation.geometry.location.lat
-            if (typeof nextLat === 'function') nextLat = nextLat()
-
             if (this.state.search) {
-                if (lat != nextLat) {
+                if (props.selectedLocation != this.props.selectedLocation) {
                     this.setState({ search: props.selectedLocation.formatted_address })
                 }
-            } else if (props.locationType != "geo") {
+            } else if (props.locationType.includes("geo")) {
                 this.setState({ search: props.selectedLocation.formatted_address })
             }
         }
@@ -35,18 +30,18 @@ class LocationElementsView extends React.Component {
     componentDidMount() {
         this.props.onRef(this)
 
-        if (this.props.locationType && this.props.locationType != "geo" && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+        if (this.props.locationType && this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             this.setState({ search: this.props.selectedLocation.formatted_address })
         }
 
-        if(document.getElementById('doc-input-field')){
-            document.getElementById('doc-input-field').addEventListener('focusin',()=>{
+        if (document.getElementById('doc-input-field')) {
+            document.getElementById('doc-input-field').addEventListener('focusin', () => {
                 this.props.getCityListLayout()
-                this.setState({search:''})
+                this.setState({ search: '' })
             })
-            
-            document.getElementById('doc-input-field').addEventListener('focusout',()=>{
-                this.setState({search:''})
+
+            document.getElementById('doc-input-field').addEventListener('focusout', () => {
+                this.setState({ search: '' })
             })
         }
     }

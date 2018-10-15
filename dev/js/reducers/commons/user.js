@@ -228,6 +228,7 @@ export default function (state = defaultState, action) {
         case APPEND_ARTICLE_LIST: {
             let newState = {
                 ...state,
+                articleList: [].concat(state.articleList)
             }
 
             newState.articlePageCount = Math.ceil(action.payload.total_articles / 10)
@@ -235,9 +236,13 @@ export default function (state = defaultState, action) {
             newState.pageButtonCount = action.staticPage || 1
 
             newState.ARTICLE_LOADED = true
-            newState.articleList = newState.articleList.concat(action.payload.result) || []
+            if (action.page == 1) {
+                newState.articleList = action.payload.result
+            } else {
+                newState.articleList = newState.articleList.concat(action.payload.result)
+            }
             newState.articleListData = action.payload
-            
+
             return newState
         }
 

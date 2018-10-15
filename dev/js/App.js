@@ -68,17 +68,22 @@ class App extends React.Component {
             })
         }
 
+        let location_ms = null
+        if (window.location.pathname.includes('location=')) {
+            location_ms = window.location.pathname.split('location=')[1]
+            location_ms = parseInt(location_ms)
+        }
 
-        /** 
+        /** /
          * Select a default location, if no location is selected and lat,long are not provided in url
          */
-        if (!this.props.selectedLocation && parsed && !parsed.lat) {
+        if (!this.props.selectedLocation && parsed && !parsed.lat && !location_ms) {
             this.props.getGeoIpLocation().then((data) => {
                 let { latitude, longitude } = data
                 if (latitude && longitude) {
                     _getlocationFromLatLong(latitude, longitude, 'city', (locationData) => {
                         if (locationData) {
-                            this.props.selectLocation(locationData, 'geo', true)
+                            this.props.selectLocation(locationData, 'geoip', true)
                         }
                     })
                 }
@@ -146,13 +151,13 @@ class App extends React.Component {
         }
 
         if (window.location.pathname.includes('/opd/searchresults')) {
-            opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
+            opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false, location_ms).then((state) => {
                 this.props.mergeOPDState(state, true)
             })
         }
 
         if (window.location.pathname.includes('/lab/searchresults')) {
-            labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false).then((state) => {
+            labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false, location_ms).then((state) => {
                 this.props.mergeLABState(state, true)
             })
         }

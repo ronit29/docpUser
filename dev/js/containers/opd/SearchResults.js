@@ -16,7 +16,13 @@ class SearchResults extends React.Component {
     static loadData(store, match, queryParams = {}) {
         try {
             return new Promise((resolve, reject) => {
-                opdSearchStateBuilder(null, queryParams, true).then((state) => {
+                let location_ms = null
+                if (match.url.includes('location=')) {
+                    location_ms = match.url.split('location=')[1]
+                    location_ms = parseInt(location_ms)
+                }
+
+                opdSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
                     store.dispatch(mergeOPDState(state))
 
                     let searchUrl = null
