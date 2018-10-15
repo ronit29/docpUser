@@ -16,7 +16,9 @@
 
 .wrap-100{padding-top: 100px;}
 .cursor-pointer{cursor: pointer;}
-
+.colorPink{
+	background-color: #fef3ea;
+}
 
 
 .back-icon-white{margin-top: 12px;cursor: pointer}
@@ -762,6 +764,10 @@ li.lst-bfr:before{
 }
 .coupon-icon{
 	margin-top: 7px;
+}
+.homePickup{
+	vertical-align: inherit;
+	margin-right: 4px;
 }
 /* coupon timeline */
 /*appointment timeline*/

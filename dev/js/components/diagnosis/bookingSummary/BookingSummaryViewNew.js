@@ -92,8 +92,8 @@ class BookingSummaryViewNew extends React.Component {
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                     <PickupAddress {...this.props} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />         
                     <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
@@ -246,7 +246,6 @@ class BookingSummaryViewNew extends React.Component {
                 })
             }
         }
-        console.log(JSON.stringify(this.props.LABS[this.state.selectedLab]) + 'lab coupon nnnnnnnnnnnnnnnnnnnnnn')
 
         return (
 
@@ -271,13 +270,19 @@ class BookingSummaryViewNew extends React.Component {
                                                 
                                                 {
                                                 is_home_collection_enabled ?
-                                                <div className="widget-content test-report lab-appointment-div row">
-                                                    <h4 className="title col-12"><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon" /></span>{labDetail.name}</h4>
-                                                        <ul className="inline-list booking-type col-12">
-                                                            <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
-                                                            <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
-                                                        </ul>
-                                                </div> : ""
+                                                <div>
+                                                    <div className="widget-content test-report lab-appointment-div row">
+                                                        <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
+                                                    </div> 
+                                                    <div className="colorPink">
+                                                        <div className="widget-content test-report lab-appointment-div row">
+                                                            <ul className="inline-list booking-type col-12">
+                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
+                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>: ""
                                                 }
 
                                                 <div className="widget-content">
