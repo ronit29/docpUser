@@ -1708,8 +1708,12 @@ p.comment-para-status{
 }
 .rate-card-header span{
 	position: absolute;
-    right: 0;
+	right: 0;
+	cursor: pointer;
 }
+.rate-card-header span img{
+	width:15px;
+ }
 .rate-card-doc-dtls{
     display: flex;
     align-items: center;
@@ -1744,6 +1748,45 @@ p.rt-doc-nm{
 	height: 35px;
 	flex-grow: 0;
 	flex-shrink: 0;
+}
+.rate-compliment-section{
+    margin-top: 20px;
+}
+.cmplmnt-para{
+    margin-bottom: 20px;
+}
+.compliment-lising{
+    padding-left: 15px;
+}
+.compliment-lising li{
+	margin-bottom: 15px;
+}
+.compliment-lising .rate-feed-text{
+    font-size: 15px;
+    font-weight: 500;
+    color: #252525;
+}
+.rate-submit-cmnnt-box{
+    margin-top: 20px;
+}
+.rate-submit-cmnnt-box textarea{
+	width: 100%;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+	border-bottom: 1px solid rgba(0, 0, 0, .12);
+	outline: none;
+}
+.rate-submit-btn{
+    margin: auto;
+    background: linear-gradient(to left, #f78631, #ff6d00);
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+    padding: 10px 40px;
+    font-size: 16px;
+	margin-top: 80px;
+	display: block;
 }
 /* popup star */
 
