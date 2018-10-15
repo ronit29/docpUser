@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
-import ReviewList from '../doctorProfile/ReviewList.js'
-import RatingGraph from '../doctorProfile/RatingGraph.js'
-import ComplimentListView from '../doctorProfile/ComplimentListView.js'
+import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
+import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
+import ComplimentListView from '../../commons/ratingsProfileView/ComplimentListView.js'
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import AboutDoctor from '../doctorProfile/aboutDoctor/index.js'
 import ProfessionalGraph from '../doctorProfile/professionalGraph/index.js'
@@ -121,86 +121,10 @@ class DoctorProfileView extends React.Component {
                                                                     <RatingGraph details={this.props.DOCTORS[doctor_id]} />
                                                                     <div className="user-satisfaction-section">
                                                                         <div className="row">
-<<<<<<< HEAD
                                                                             {this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
                                                                                 <ComplimentListView key={compliment.id} details={compliment} />
                                                                             )}
                                                                         </div>
-=======
-                                                                            <div className="col-4">
-                                                                                <div className="user-satisfaction-images">
-                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/frndly.png" />
-                                                                                    <p>Friendly</p>
-                                                                                    <span>29</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="col-4">
-                                                                                <div className="user-satisfaction-images">
-                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/tret-satis.png" />
-                                                                                    <p>Treatment Satisfaction</p>
-                                                                                    <span>17</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="col-4">
-                                                                                <div className="user-satisfaction-images">
-                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/value-money.png" />
-                                                                                    <p>Value of Money</p>
-                                                                                    <span>35</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    {/* list comment loop */}
-                                                                    <div className="usr-feed-comment">
-                                                                        <div className="comment-status-content">
-                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
-                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
-                                                                        </div>
-                                                                        <p className="usr-comments-pera">
-                                                                            Doctor listened about our queries patiently and advised best solutions
-                                                                        </p>
-                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
-                                                                    </div>
-                                                                    <div className="usr-feed-comment">
-                                                                        <div className="comment-status-content">
-                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
-                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
-                                                                        </div>
-                                                                        <p className="usr-comments-pera">
-                                                                            Doctor listened about our queries patiently and advised best solutions
-                                                                        </p>
-                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
-                                                                    </div>
-                                                                    <div className="usr-feed-comment">
-                                                                        <div className="comment-status-content">
-                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
-                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
-                                                                        </div>
-                                                                        <p className="usr-comments-pera">
-                                                                            Doctor listened about our queries patiently and advised best solutions
-                                                                        </p>
-                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
-                                                                    </div>
-                                                                    <div className="usr-feed-comment">
-                                                                        <div className="comment-status-content">
-                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
-                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
-                                                                        </div>
-                                                                        <p className="usr-comments-pera">
-                                                                            Doctor listened about our queries patiently and advised best solutions
-                                                                        </p>
-                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
-                                                                    </div>
-                                                                    <div className="usr-feed-comment">
-                                                                        <div className="comment-status-content">
-                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
-                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
-                                                                        </div>
-                                                                        <p className="usr-comments-pera">
-                                                                            Doctor listened about our queries patiently and advised best solutions
-                                                                        </p>
-                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
->>>>>>> origin/rating_design
                                                                     </div>
                                                                     <ReviewList details={this.props.DOCTORS[doctor_id]} />
                                                                 </div>
@@ -293,7 +217,7 @@ class DoctorProfileView extends React.Component {
                                                                         </ul>
                                                                         <div className="rate-submit-cmnnt-box">
                                                                             <textarea placeholder="Leave a review" rows="1">
-                                                                               
+
                                                                             </textarea>
 
                                                                             <button className="rate-submit-btn">Submit</button>
