@@ -121,14 +121,188 @@ class DoctorProfileView extends React.Component {
                                                                     <RatingGraph details={this.props.DOCTORS[doctor_id]} />
                                                                     <div className="user-satisfaction-section">
                                                                         <div className="row">
+<<<<<<< HEAD
                                                                             {this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
                                                                                 <ComplimentListView key={compliment.id} details={compliment} />
                                                                             )}
                                                                         </div>
+=======
+                                                                            <div className="col-4">
+                                                                                <div className="user-satisfaction-images">
+                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/frndly.png" />
+                                                                                    <p>Friendly</p>
+                                                                                    <span>29</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="col-4">
+                                                                                <div className="user-satisfaction-images">
+                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/tret-satis.png" />
+                                                                                    <p>Treatment Satisfaction</p>
+                                                                                    <span>17</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="col-4">
+                                                                                <div className="user-satisfaction-images">
+                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/value-money.png" />
+                                                                                    <p>Value of Money</p>
+                                                                                    <span>35</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {/* list comment loop */}
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                            Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                            Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                            Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                            Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+                                                                    </div>
+                                                                    <div className="usr-feed-comment">
+                                                                        <div className="comment-status-content">
+                                                                            <span>4.5 <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                                                                            <p className="feed-sts-heading">Friendly, Value of Money, Treatment Satisfaction</p>
+                                                                        </div>
+                                                                        <p className="usr-comments-pera">
+                                                                            Doctor listened about our queries patiently and advised best solutions
+                                                                        </p>
+                                                                        <p className="comment-para-status">By Rishabh Mehrotra | 20 Sept 2018</p>
+>>>>>>> origin/rating_design
                                                                     </div>
                                                                     <ReviewList details={this.props.DOCTORS[doctor_id]} />
                                                                 </div>
                                                             </div>
+                                                            {/* rating popup */}
+                                                            <div className="raiting-popup">
+                                                                <div className="home-rating-card" style={{ display: 'none' }}>
+                                                                    <div className="rate-card-header">
+                                                                        Rate your Experience
+                                                                    <span><img src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
+                                                                    </div>
+                                                                    <div className="rate-card-doc-dtls">
+                                                                        <img src="/assets/img/customer-icons/user.png" className="img-fluid img-round " />
+                                                                        <div className="rate-doc-dtl">
+                                                                            <p className="rt-doc-nm">
+                                                                                Dr. Pallavi Kumar
+                                                                            </p>
+                                                                            <span>MBBS | General Physician</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="rate-star-icon">
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Complete rate container */}
+                                                                <div className="home-rating-card">
+                                                                    <div className="rate-card-header">
+                                                                        Share your Feedback
+                                                                    <span><img src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
+                                                                    </div>
+                                                                    <div className="rate-card-doc-dtls">
+                                                                        <img src="/assets/img/customer-icons/user.png" className="img-fluid img-round " />
+                                                                        <div className="rate-doc-dtl">
+                                                                            <p className="rt-doc-nm">
+                                                                                Dr. Pallavi Kumar
+                                                                            </p>
+                                                                            <span>MBBS | General Physician</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="rate-star-icon">
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                                    </div>
+                                                                    <div className="rate-compliment-section">
+                                                                        <p className="cmplmnt-para">Give your compliment</p>
+                                                                        <ul className="compliment-lising">
+                                                                            <li>
+                                                                                <label className="ck-bx">
+                                                                                    <span className="rate-feed-text">Friendly</span>
+                                                                                    <input type="checkbox" />
+                                                                                    <span className="checkmark" />
+                                                                                </label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <label className="ck-bx">
+                                                                                    <span className="rate-feed-text">Treatment Satisfaction</span>
+                                                                                    <input type="checkbox" />
+                                                                                    <span className="checkmark" />
+                                                                                </label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <label className="ck-bx">
+                                                                                    <span className="rate-feed-text">Value of Money</span>
+                                                                                    <input type="checkbox" />
+                                                                                    <span className="checkmark" />
+                                                                                </label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <label className="ck-bx">
+                                                                                    <span className="rate-feed-text">Health issue explaination</span>
+                                                                                    <input type="checkbox" />
+                                                                                    <span className="checkmark" />
+                                                                                </label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <label className="ck-bx">
+                                                                                    <span className="rate-feed-text">Lesser wait time</span>
+                                                                                    <input type="checkbox" />
+                                                                                    <span className="checkmark" />
+                                                                                </label>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div className="rate-submit-cmnnt-box">
+                                                                            <textarea placeholder="Leave a review" rows="1">
+                                                                               
+                                                                            </textarea>
+
+                                                                            <button className="rate-submit-btn">Submit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {/* Complete rate container */}
+                                                            </div>
+                                                            {/* rating popup */}
                                                         </div>
                                                     </div>
                                                 </div>
