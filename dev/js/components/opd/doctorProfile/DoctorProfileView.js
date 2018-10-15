@@ -3,6 +3,7 @@ import React from 'react';
 import Loader from '../../commons/Loader'
 import ReviewList from '../doctorProfile/ReviewList.js'
 import RatingGraph from '../doctorProfile/RatingGraph.js'
+import ComplimentListView from '../doctorProfile/ComplimentListView.js'
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import AboutDoctor from '../doctorProfile/aboutDoctor/index.js'
 import ProfessionalGraph from '../doctorProfile/professionalGraph/index.js'
@@ -117,37 +118,15 @@ class DoctorProfileView extends React.Component {
                                                             <div className="widget-panel">
                                                                 <h4 className="panel-title mb-rmv">Patient Feedback</h4>
                                                                 <div className="panel-content pd-0">
-
                                                                     <RatingGraph details={this.props.DOCTORS[doctor_id]} />
                                                                     <div className="user-satisfaction-section">
                                                                         <div className="row">
-                                                                            <div className="col-4">
-                                                                                <div className="user-satisfaction-images">
-                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/frndly.png" />
-                                                                                    <p>Friendly</p>
-                                                                                    <span>29</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="col-4">
-                                                                                <div className="user-satisfaction-images">
-                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/tret-satis.png" />
-                                                                                    <p>Treatment Satisfaction</p>
-                                                                                    <span>17</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="col-4">
-                                                                                <div className="user-satisfaction-images">
-                                                                                    <img className="img-fluid" src="/assets/img/customer-icons/value-money.png" />
-                                                                                    <p>Value of Money</p>
-                                                                                    <span>35</span>
-                                                                                </div>
-                                                                            </div>
+                                                                            {this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
+                                                                                <ComplimentListView key={compliment.id} details={compliment} />
+                                                                            )}
                                                                         </div>
                                                                     </div>
-                                                                    {/* list comment loop */}
                                                                     <ReviewList details={this.props.DOCTORS[doctor_id]} />
-
-                                                                    {/* list comment loop */}
                                                                 </div>
                                                             </div>
                                                         </div>
