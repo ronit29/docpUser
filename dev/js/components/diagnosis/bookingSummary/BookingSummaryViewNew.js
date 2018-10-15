@@ -276,9 +276,10 @@ class BookingSummaryViewNew extends React.Component {
                                                     </div> 
                                                     <div className="colorPink">
                                                         <div className="widget-content test-report lab-appointment-div row">
-                                                            <ul className="inline-list booking-type col-12">
-                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /> Home Pick-up</label></li>
-                                                                <li><label className="radio-inline lab-appointment-label text-md fw-500 text-primary"><input type="radio" name="optradio" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> Lab Visit</label></li>
+
+                                                            <ul className="inline-list booking-type search-list-radio">
+                                                                <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" for="home"> Home Pick-up</label></li>
+                                                                <li><input type="radio" id="lab" name="radio-group"  onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" for="lab">Lab Visit</label></li>
                                                             </ul>
                                                         </div>
                                                     </div>

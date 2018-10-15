@@ -200,7 +200,7 @@
   display: inline-flex;
 }
 .addresspickerDiv.selected{
-    border: solid 1px #00acc1;
+    border: solid 1px #f78631;
     position: relative;
 }
 
@@ -221,7 +221,7 @@
     display: block;
     font-size: 12px;
     font-weight: bold;
-    color: #00acc1;
+    color: #f78631;
 }
 
 .addresspickerDiv .selectedText{
@@ -242,7 +242,7 @@
     margin-top: 11px;
     right: 24px;
     font-weight: 500;
-    color: #00acc1;
+    color: #f78631;
     font-size: 16px;
 }
 
