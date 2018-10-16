@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria } from '../../actions/index.js'
+import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -27,7 +27,7 @@ class SearchResults extends React.Component {
 
                     let searchUrl = null
                     if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
-                        searchUrl = match.url
+                        searchUrl = match.url.toLowerCase()
                     }
 
                     store.dispatch(getDoctors(state, 1, true, searchUrl, (loadMore, seoData) => {
@@ -38,7 +38,6 @@ class SearchResults extends React.Component {
         } catch (e) {
             console.error(e)
         }
-
     }
 
     static contextTypes = {
@@ -95,7 +94,8 @@ const mapDispatchToProps = (dispatch) => {
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
         getDoctors: (state, page, from_server, searchByUrl, cb) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb)),
-        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults))
+        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
+        getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback))
     }
 }
 

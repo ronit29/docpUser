@@ -36,9 +36,8 @@ class LabDetails extends React.Component {
                                         <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-lp">
                                             <img src={lab_thumbnail} className="img-fluid" />
                                         </InitialsPicture>
-
                                     </div>
-                                    <h4 className="widget-title pb-title">{name}</h4>
+                                    <h1 className="widget-title pb-title">{name}</h1>
                                     <p className="location">{locality} {city}
                                         {/* <span className="ct-img ct-img-xs">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" />
@@ -51,7 +50,6 @@ class LabDetails extends React.Component {
                                             {
                                                 this.isOpenToday(this.props.data.lab_timing_data) ? <span className="open-close">{" Open Today"}</span> : <span className="open-close">{" Now Closed"}</span>
                                             }
-
                                         </li>
                                         {/* <li>
                                             <span className="fw-700 text-sm">Contact: -</span>
