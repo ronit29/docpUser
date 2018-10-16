@@ -97,7 +97,11 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                             </div>
                             <div className="dp-dr-search-card-content-2 clearfix mrt-20">
-                                <p className="fw-700 dp-dr-new-price"><span className="dp-dr-old-price">&#8377; {mrp}</span> &#8377; {deal_price}</p>
+                                <p className="fw-700 dp-dr-new-price">
+                                    {
+                                        mrp != deal_price ? <span className="dp-dr-old-price">&#8377; {mrp}</span> : ""
+                                    }
+                                    &#8377; {deal_price}</p>
                             </div>
                             <div className="dp-dr-search-card-content-3 clearfix">
                                 {
