@@ -222,7 +222,11 @@ class ChatPanel extends React.Component {
     }
 
     hideStaticChat(data) {
-        this.setState({ showChatBlock: false })
+        if (this.props.mobilechatview) {
+            this.props.history.go(-1);
+        } else {
+            this.setState({ showChatBlock: false });
+        }
     }
 
     startLiveChatWithMessage(message) {
