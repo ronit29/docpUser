@@ -66,10 +66,9 @@ class DoctorProfileCard extends React.Component {
 
         var Distance = (Math.round(distance * 10) / 10).toFixed(1);
 
-
         if (hospitals && hospitals.length) {
             return (
-                <a href={url ? `/${url}` : `/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
+                <div className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
                     <div className="dp-dr-search-card">
                         <div className="dp-dr-search-card-div">
 
@@ -80,7 +79,6 @@ class DoctorProfileCard extends React.Component {
                                 </p>
                             </div>
 
-
                             <div className="dp-dr-search-card-content clearfix">
 
                                 <div className="dp-dr-search-card-img">
@@ -88,7 +86,9 @@ class DoctorProfileCard extends React.Component {
                                 </div>
 
                                 <div className="dp-dr-search-card-details">
-                                    <p className="fw-500 dp-dr-exp-details-1" style={{ fontSize: 16 }}>{display_name}</p>
+                                    <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
+                                        <h2 className="fw-500 dp-dr-exp-details-1" style={{ fontSize: 16 }}>{display_name}</h2>
+                                    </a>
                                     <p className="dp-dr-exp-details-1">{this.getQualificationStr(general_specialization || [])}</p>
                                     {
                                         experience_years ? <p className="fw-500 dp-dr-exp-details-2">{experience_years} Years of Experience</p> : ""
@@ -135,8 +135,7 @@ class DoctorProfileCard extends React.Component {
                             </div>
                         </div>
                     </div>
-
-                </a>
+                </div>
             );
         } else {
             return ""

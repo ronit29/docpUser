@@ -27,7 +27,7 @@ class SearchResults extends React.Component {
 
                     let searchUrl = null
                     if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
-                        searchUrl = match.url
+                        searchUrl = match.url.toLowerCase()
                     }
 
                     store.dispatch(getLabs(state, 1, true, searchUrl, (loadMore, seoData) => {

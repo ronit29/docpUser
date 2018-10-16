@@ -27,7 +27,7 @@ class SearchResults extends React.Component {
 
                     let searchUrl = null
                     if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
-                        searchUrl = match.url
+                        searchUrl = match.url.toLowerCase()
                     }
 
                     store.dispatch(getDoctors(state, 1, true, searchUrl, (loadMore, seoData) => {
@@ -38,7 +38,6 @@ class SearchResults extends React.Component {
         } catch (e) {
             console.error(e)
         }
-
     }
 
     static contextTypes = {

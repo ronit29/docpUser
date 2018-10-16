@@ -55,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, searchString, callback) => dispatch(getArticleList(title, page, searchString, callback))
+        getArticleList: (title, page, replaceList, searchString, callback) => dispatch(getArticleList(title, page, replaceList, searchString, callback))
     }
 }
 

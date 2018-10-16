@@ -189,7 +189,7 @@ class PaymentView extends React.Component {
 
                             <PaymentForm paymentData={this.state.paymentData} mode={this.state.selectedPayment} />
 
-                            <button onClick={this.proceed.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" disabled={!this.state.paymentEnabled}>Continue</button>
+                            <button onClick={this.proceed.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" disabled={!this.state.paymentEnabled}>Continue</button>
 
                         </div>
 
