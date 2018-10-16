@@ -48,7 +48,7 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
-                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.png"} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{width: 120}} />
                                 {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
@@ -63,7 +63,7 @@ class DesktopProfileHeader extends React.Component {
                             this.props.history.push('/')
                         }}>
                             <a className="logo-ancher" href="javascript:void(0);">
-                                <img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.png"} alt="docprime" />
+                                <img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
                             </a>
                             {/* <p className="d-none d-md-inline-block d-lg-inline-block lgo-text">Family Doctor <span>for Life</span></p> */}
                         </div>
