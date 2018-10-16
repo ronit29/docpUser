@@ -6,10 +6,13 @@ import GTM from '../../../../helpers/gtm.js'
 class DoctorProfileCard extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+
+        }
     }
 
     cardClick(id, url, e) {
-
+        e.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
         }
@@ -24,7 +27,6 @@ class DoctorProfileCard extends React.Component {
 
         } else {
             e.preventDefault();
-
             if (url) {
                 this.props.history.push(`/${url}`)
             } else {
@@ -49,7 +51,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enable_for_online_booking } = this.props.details
 
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
@@ -95,7 +97,11 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                             </div>
                             <div className="dp-dr-search-card-content-2 clearfix mrt-20">
-                                <p className="fw-700 dp-dr-new-price"><span className="dp-dr-old-price">&#8377; {mrp}</span> &#8377; {deal_price}</p>
+                                <p className="fw-700 dp-dr-new-price">
+                                    {
+                                        mrp != deal_price ? <span className="dp-dr-old-price">&#8377; {mrp}</span> : ""
+                                    }
+                                    &#8377; {deal_price}</p>
                             </div>
                             <div className="dp-dr-search-card-content-3 clearfix">
                                 {
@@ -104,7 +110,9 @@ class DoctorProfileCard extends React.Component {
                                             <p>Free Consultation</p>
                                         </div> : ''
                                 }
-                                <button className="dp-dr-card-btn text-center fw-500">Book Now</button>
+                                {
+                                    enable_for_online_booking ? <button className="dp-dr-card-btn text-center fw-500">Book Now</button> : <button className="dp-dr-card-btn text-center fw-500">Contact</button>
+                                }
                             </div>
                         </div>
                         <div className="dp-dr-search-card-footer mrt-20">
