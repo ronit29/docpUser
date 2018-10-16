@@ -11,26 +11,28 @@ import CONFIG from '../../../config'
 class ArticleList extends React.Component {
 	constructor(props) {
 		super(props)
+
 		var page = 1;
 		if (this.props.location.search.length) {
 			page = this.props.location.search.split('=')[1];
 		}
+
+		var title = this.props.match.url
+		title = title.substring(1, title.length)
+
 		this.state = {
 			hasMore: true,
 			page: page,
 			searchVal: '',
 			noArticleFound: false,
-			title: ''
+			title: title
 		}
 	}
 
 	componentDidMount() {
 		window.scrollTo(0, 0);
-		let title = this.props.match.url
-		title = title.substring(1, title.length)
-		this.setState({ title: title })
 
-		this.props.getArticleList(title, this.state.page, true)
+		this.props.getArticleList(this.state.title, this.state.page, true)
 
 		if (this.props.location.search == '?page=1') {
 			var newHref = window.location.href.replace('?page=1', '');
@@ -89,7 +91,7 @@ class ArticleList extends React.Component {
 		currentPage.push(<div className="art-pagination-btn">
 			<span className="fw-500" style={{ color: '#000' }}>{pageNo}</span>
 		</div>)
-
+		
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -103,7 +105,7 @@ class ArticleList extends React.Component {
 									description: (this.props.articleListData.seo ? this.props.articleListData.seo.description : ""),
 									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
 
-									prev: `${(pageNo != 1 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(pageNo > 1 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? pageNo - 1 : ''}` : ''}`,
+									prev: `${(pageNo != 1 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}${(pageNo > 2 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? '?page=' + (pageNo - 1) : ''}` : ''}`,
 
 									next: `${(pageNo != Math.ceil(this.props.articleListData.total_articles / 10) && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(pageNo >= 1 && pageNo < Math.ceil(this.props.articleListData.total_articles / 10)) ? pageNo + 1 : ''}` : ''}`,
 
@@ -168,7 +170,7 @@ class ArticleList extends React.Component {
 												{
 													this.state.hasMore ?
 														<div>
-															<a href={`${CONFIG.API_BASE_URL}${this.state.title}?page=${this.state.page}`} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
+															<a href={`${CONFIG.API_BASE_URL}/${this.state.title}?page=${this.state.page}`} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
 														</div>
 														: ''
 												}
@@ -196,7 +198,7 @@ class ArticleList extends React.Component {
 																			{currentPage}
 																		</div>
 																		: <div className="art-pagination-div">
-																			<a href={`${this.state.title}?page=${pageNo - 1}`} >
+																			<a href={`${pageNo == 2 ? `${this.state.title}` : `${this.state.title}?page=${pageNo - 1}`}`} >
 																				<div className="art-pagination-btn">
 																					<span className="fw-500">{pageNo - 1}</span>
 																				</div>

@@ -38,7 +38,7 @@ class SelectedClinic extends React.Component {
                     </InitialsPicture>
 
                     <div className="dr-profile">
-                        <h4 className="dr-name">{display_name}</h4>
+                        <h1 className="dr-name">{display_name}</h1>
                         <p className="desg">{this.getQualificationStr(general_specialization) || []}</p>
                         {this.props.boxShadowHide ? '' : <h4 className="clinic-name mrt-10 text-sm">{hospitalName}</h4>}
                     </div>

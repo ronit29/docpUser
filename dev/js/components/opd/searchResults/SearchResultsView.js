@@ -93,7 +93,7 @@ class SearchResultsView extends React.Component {
     getDoctorList(state = null, page = 1, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
-            searchUrl = this.props.match.url
+            searchUrl = this.props.match.url.toLowerCase()
         }
         if (!state) {
             state = this.props

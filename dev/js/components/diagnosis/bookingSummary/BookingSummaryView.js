@@ -295,7 +295,7 @@ class BookingSummaryView extends React.Component {
                                                                     </InitialsPicture>
 
                                                                     <div className="lab-title">
-                                                                        <h4 className="fw-700 text-md title">{labDetail.name}</h4>
+                                                                        <h1 className="fw-700 text-md title">{labDetail.name}</h1>
                                                                         <p className="fw-500 text-sm text-light">{labDetail.address}</p>
                                                                     </div>
                                                                 </div>
