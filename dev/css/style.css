@@ -803,7 +803,6 @@ p.top-head-link.card-lab-link span {
 	background-image: initial;
 	bottom: 0px;
 	height: auto;
-	overflow-y: scroll;
 	-webkit-animation: slide-up .3s ease-out;
 	-moz-animation: slide-up .3s ease-out;
 }
