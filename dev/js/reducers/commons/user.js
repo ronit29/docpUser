@@ -236,7 +236,7 @@ export default function (state = defaultState, action) {
             newState.pageButtonCount = action.staticPage || 1
 
             newState.ARTICLE_LOADED = true
-            if (action.page == 1) {
+            if (action.replaceList) {
                 newState.articleList = action.payload.result
             } else {
                 newState.articleList = newState.articleList.concat(action.payload.result)

@@ -28,9 +28,6 @@ class PickupAddress extends React.Component {
             this.props.address.map((add) => {
                 if (add.id == this.props.selectedAddress) {
                     addressStr = add.address
-                    if (add.land_mark) {
-                        addressStr += ", " + add.land_mark
-                    }
                     if (add.locality) {
                         addressStr += ", " + add.locality
                     }

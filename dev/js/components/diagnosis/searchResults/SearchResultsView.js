@@ -50,13 +50,14 @@ class SearchResultsView extends React.Component {
     getLabList(state = null, page = 1, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
-            searchUrl = this.props.match.url
+            searchUrl = this.props.match.url.toLowerCase()
         }
         if (!state) {
             state = this.props
         }
 
         this.props.getLabs(state, page, false, searchUrl, (...args) => {
+            this.setState({ seoData: args[1] })
             let new_url = this.buildURI(state)
             this.props.history.replace(new_url)
             if (cb) {
