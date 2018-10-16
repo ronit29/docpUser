@@ -5,7 +5,8 @@ class ChatStatic extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: ''
+            value: '',
+            openBanner: true
         }
     }
 
@@ -27,6 +28,8 @@ class ChatStatic extends React.Component {
         // handle static page redirects for homepage
         if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
             this.props.history.push('/mobileviewchat')
+        } else {
+            this.setState({ openBanner: false })
         }
     }
 
@@ -94,12 +97,18 @@ class ChatStatic extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="chat-footer">
-                    <div className="wrng-mssg">
-                        <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
-                        <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
-                    </div>
-                </div>
+                {
+                    this.props.mobilechatview && this.state.openBanner ? <div className="chat-footer toast-tip-icon">
+                        <span className="toast-close-btn" onClick={() => {
+                            this.setState({ openBanner: false })
+                        }}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} /></span>
+                        <div className="wrng-mssg">
+                            <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
+                            <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
+                        </div>
+                    </div> : ""
+                }
+
             </div>
 
         )

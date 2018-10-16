@@ -336,21 +336,21 @@ class ChatPanel extends React.Component {
                                     }
                                 </div>
                                 {/* chat Body */}
-                                <div className="chat-footer">
-                                    <div className="wrng-mssg">
-                                        <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
-                                        <span>
-                                            Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
-                                    </span>
-                                    </div>
-                                </div>
-
                                 {
                                     this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
                                 }
                             </div>
                     }
                 </div>
+
+                <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
+                    <div className="wrng-mssg">
+                        <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
+                        <span>
+                            Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
+                    </div>
+                </div>
+
             </div>
         );
     }
