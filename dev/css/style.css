@@ -1307,4 +1307,7 @@ img.img-arwp {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
+.floating-chat .chat-body{
+	border-radius: 0px;
+}
 /* chat-toast-icon */

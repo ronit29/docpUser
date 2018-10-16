@@ -72,7 +72,7 @@ class ChatStatic extends React.Component {
                                             <div className="in-mssgs">
                                                 <div className="received-msg HS_font">
                                                     <p className="chat-text">
-                                                        Please let me know how can I help you today, I will connect you to the right doctor for a free online consultation.
+                                                    Briefly describe the symptom/health concern worrying you the most (e.g. I have a fever) or simply ask any query.
                                               <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                         }</span>
                                                     </p>
