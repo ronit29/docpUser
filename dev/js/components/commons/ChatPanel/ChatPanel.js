@@ -33,6 +33,10 @@ class ChatPanel extends React.Component {
             } else {
                 this.setState({ token })
             }
+
+            if (this.props.mobilechatview) {
+                this.setState({ showChatBlock: true });
+            }
         })
 
         /**
@@ -154,12 +158,18 @@ class ChatPanel extends React.Component {
                         }
                     }
 
+                    /**
+                     * redirecting chat to new page for mobile users on homepage and on focus
+                     * TODO : review this
+                     */
                     if (data.message && data.message == 'focus') {
                         let iframe = this.refs.chat_frame
                         iframe.scrollTop = iframe.scrollHeight
-                        // window.scrollTo(0, iframe.scrollHeight)
-                        // debugger
+                        if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
+                            this.props.history.push('/mobileviewchat')
+                        }
                     }
+
                 }
             }.bind(this))
         }
@@ -221,6 +231,14 @@ class ChatPanel extends React.Component {
         })
     }
 
+    closeChatClick() {
+        if (this.props.mobilechatview) {
+            this.props.history.go(-1);
+        } else {
+            this.setState({ showChatBlock: false });
+        }
+    }
+
     render() {
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
@@ -247,7 +265,7 @@ class ChatPanel extends React.Component {
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
                 {
-                    this.props.homePage ? '' :
+                    this.props.homePage || this.props.mobilechatview ? '' :
                         <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} /></div>
                 }
 
@@ -286,7 +304,7 @@ class ChatPanel extends React.Component {
                                         </span>
                                         {
                                             this.state.showChatBlock
-                                                ? <span className="ml-2" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                                ? <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
                                                 : ''
                                         }
                                     </div>

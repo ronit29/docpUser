@@ -16,7 +16,6 @@ import UserProfile from './containers/commons/UserProfile.js'
 import UserSignup from './containers/commons/UserSignup'
 import UserLogin from './containers/commons/UserLogin'
 import Notifications from './containers/commons/Notifications'
-import DoctorChat from './containers/commons/Chat.js'
 import Home from './containers/commons/Home'
 import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
@@ -25,6 +24,7 @@ import ArticleList from './containers/commons/articleList'
 import Payment from './containers/commons/Payment'
 import ChatHistory from './containers/commons/chatHistory'
 import StaticPages from './containers/commons/StaticPages'
+import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
 
 import Booking_LAB from './containers/diagnosis/Booking.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
@@ -36,8 +36,6 @@ import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 
 import AgentLogin from './containers/commons/agentLogin.js'
 import DirectBooking from './containers/commons/directBooking.js'
-import GTM from './helpers/gtm.js'
-
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -48,7 +46,6 @@ const routes = [
     { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
-    { path: '/chat', exact: true, component: DoctorChat },
     { path: '/chathistory', exact: true, component: ChatHistory },
     { path: '/notifications', exact: true, component: Notifications },
     { path: '/login', exact: true, component: UserLogin },
@@ -60,6 +57,7 @@ const routes = [
     { path: `/all-diseases`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: `/all-medicines`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: '/payment/:id', exact: true, component: Payment },
+    { path: '/mobileviewchat', exact: true, component: MobileViewChat },
 
     { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },

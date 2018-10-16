@@ -23,6 +23,13 @@ class ChatStatic extends React.Component {
         this.props.startLiveChatWithMessage(this.state.value)
     }
 
+    checkOpenMobileChat() {
+        // handle static page redirects for homepage
+        if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
+            this.props.history.push('/mobileviewchat')
+        }
+    }
+
     render() {
         var time = new Date()
 
@@ -75,7 +82,7 @@ class ChatStatic extends React.Component {
                             <div className="footer footer_doc">
                                 <div className="chat_footer">
                                     <div className="write-msg-bx">
-                                        <textarea id="cstbox" className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
+                                        <textarea id="cstbox" onFocus={this.checkOpenMobileChat.bind(this)} className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
                                     </div>
                                     <div className="send_icon">
                                         <a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
