@@ -55,7 +55,7 @@ class PatientDetailsNew extends React.Component {
             let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor]
             if(this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.state.selectedDoctor ){
                     
-                    this.setState({couponCode: doctorCoupons[0].couponCode})
+                    this.setState({couponCode: doctorCoupons[0].couponCode , couponId: doctorCoupons[0].couponId})
                     this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode ,doctorCoupons[0].couponId,this.state.selectedDoctor,this.props.selectedSlot.time.deal_price )   
             }
         }else{
@@ -83,8 +83,10 @@ class PatientDetailsNew extends React.Component {
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
             start_date, start_time,
-            payment_type: 1, // TODO : Select payment type
-            coupon_code: this.state.couponCode?[this.state.couponCode]:[]
+            payment_type: 1
+        }
+        if(this.props.disCountedOpdPrice){
+            postData['coupon_code'] = [this.state.couponCode] || []
         }
 
         let analyticData = {
@@ -93,6 +95,7 @@ class PatientDetailsNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
 
         this.props.createOPDAppointment(postData, (err, data) => {
+            this.props.removeCoupons(this.state.selectedDoctor , this.state.couponId)
             if (!err) {
                 if (data.is_agent) {
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
@@ -280,7 +283,7 @@ class PatientDetailsNew extends React.Component {
                                                         this.props.disCountedOpdPrice
                                                         ?<div className="payment-detail d-flex">
                                                             <p  style={{color:'green'}}>Coupon discount</p>
-                                                            <p  style={{color:'green'}}>&#8377; {this.props.disCountedOpdPrice}</p>
+                                                            <p  style={{color:'green'}}>-&#8377; {this.props.disCountedOpdPrice}</p>
                                                         </div>
                                                         :''
                                                     }
