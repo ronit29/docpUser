@@ -171,7 +171,7 @@ class TestSelectorView extends React.Component {
                                             </div>
                                         </section>
 
-                                        <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={() => {
+                                        <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => {
                                             let data = {
                                                 'Category': 'ConsumerApp', 'Action': 'DoneClickedOnAddTestPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'done-clicked-add-test-page'
                                             }
@@ -180,13 +180,13 @@ class TestSelectorView extends React.Component {
                                         }}>Done</button>
                                     </div> : <Loader />
                             }
-                            {
+                            {/* {
                                 this.state.moreResultIndicator ?
                                     <div className="more-test-results-div d-none d-lg-flex">
                                         <span>more</span>
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/downarrow_white.svg"} />
                                     </div> : ""
-                            }
+                            } */}
                         </div>
 
                         <RightBar extraClass=" chat-float-btn-2" />

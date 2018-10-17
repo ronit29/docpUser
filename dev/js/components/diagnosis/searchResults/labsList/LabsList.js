@@ -10,7 +10,8 @@ class LabsList extends React.Component {
         this.state = {
             hasMore: true,
             loading: false,
-            renderBlock: false
+            renderBlock: false,
+            page: 0
         }
     }
 
@@ -53,7 +54,7 @@ class LabsList extends React.Component {
     }
 
     loadMore(page) {
-        this.setState({ hasMore: false, loading: true })
+        this.setState({ hasMore: false, loading: true, page: page })
 
         this.props.getLabList(null, page + 1, (hasMore) => {
             this.setState({ loading: false })

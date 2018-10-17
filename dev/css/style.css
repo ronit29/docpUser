@@ -89,6 +89,8 @@
 	height: -moz-available;
 	height: fill-available;
 	overflow: hidden;
+	border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
 }
 
 .chat-mssgs {
@@ -220,7 +222,6 @@
 .chat-footer {
 	height: auto;
 	background: whitesmoke;
-	padding: 10px;
 	position: relative;
 	border-bottom-right-radius: 12px;
 	border-bottom-left-radius: 12px;
@@ -448,6 +449,15 @@ background: black;
 		text-overflow: ellipsis;
 		margin-left: 4px;
 	}
+	.usr-dtls-anchor p {
+		font-size: 12px !important;
+	}
+	.lft-rgt-brdr {
+			margin: 0px 5px !important;
+	}
+	.mrng-btm-scrl{
+		margin-bottom: 3rem;
+	}
 }
 
 @media screen and (max-width: 370px) {
@@ -642,9 +652,19 @@ p.top-head-link.card-lab-link span {
 	.header-text-chat {
 		font-size: 11px;
 	}
+	.mbl-usr-grd{
+		max-width: 100% !important;
+		flex: 0 0 100%;
+		margin-bottom: 15px;
+	}
+	.lft-rgt-brdr{
+		border-left: transparent !important;
+	border-right: transparent !important;
+	}
 	.top-head-link{
 		font-size: 14px;
 	}
+	
 }
 
 .searchlocationresults {
@@ -744,6 +764,13 @@ p.top-head-link.card-lab-link span {
 	.chatbox-right {
 		height: calc(100vh - 230px);
 	}
+	.booking-confirm-screen .lab-visit-time .title{
+		font-size: 11px;
+	}
+	.text-sm{
+		font-size: 11px;
+
+	}
 }
 
 .chat-float-btn {
@@ -802,7 +829,6 @@ p.top-head-link.card-lab-link span {
 	background-image: initial;
 	bottom: 0px;
 	height: auto;
-	overflow-y: scroll;
 	-webkit-animation: slide-up .3s ease-out;
 	-moz-animation: slide-up .3s ease-out;
 }
@@ -1053,7 +1079,7 @@ p.top-head-link.card-lab-link span {
 
 .onload-chat .chat_footer {
 	display: block;
-	width: 90%;
+	width: 94%;
 	padding: 0px 10px;
 	margin: auto;
 }
@@ -1069,7 +1095,7 @@ p.top-head-link.card-lab-link span {
 
 .onload-chat .fc-input {
 	border: 1px solid #ddd;
-	padding: 10px 10px 5px 40px;
+	padding: 10px 10px 5px 10px;
 	width: 100%;
 	border-radius: 15px;
 	font-size: 15px;
@@ -1111,6 +1137,7 @@ p.top-head-link.card-lab-link span {
 	top: 0px;
 	bottom: 0px;
 	height: auto;
+	width: 100%;
 }
 
 button.lap-doc-btn {
@@ -1138,6 +1165,155 @@ img.img-arwp {
 	padding-left: 25px;
 }
 
+/* new sign up page design */
+.sign-up-mbl-text{
+	color: #4b4b4b;
+}
+
+.sign-coupon{
+	font-size: 20px;
+	font-weight:500;
+	color: #4b4b4b;
+	margin-bottom: 30px;
+}
+
+.sign-up-container{
+	border-radius: 5px;
+    box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.sup-input-pdng{
+    padding: 20px 0px;
+    margin-bottom: 0;
+}
+.sighnup-scnd-heading{
+	background-image: linear-gradient(to left, #f79246, #ff6d00);
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    color: white;
+    padding: 10px 10px;
+}
+.sighnup-scnd-heading p {
+	font-size: 16px;
+	line-height: 1.5;
+}
+.sighnup-scnd-heading p>b {
+    font-weight: 600;
+}
+.sign-up-lisitng {
+padding: 20px;
+}
+.sign-up-lisitng li {
+	display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.sign-up-lisitng li img {
+	width: 22px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.sign-up-lisitng li p {
+	margin-left: 15px;
+	color: #6d6b6b;
+    font-weight: 500;
+}
+
+.usr-dtls-name{
+	color: #4b4b4b;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.usr-dtls-benf{
+	color: #f78630;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.usr-dtls-strt-txt{
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #757575;
+    display: flex;
+    align-items: center;
+}
+.usr-dtls-strt-txt img{
+    width: 19px;
+    margin-right: 5px;
+}
+.usr-dtls-anchor{
+	display: flex;
+    flex-direction: column;
+    justify-content: end;
+    text-align: center;
+    align-items: center;
+}
+.usr-dtls-anchor img{
+    width: auto;
+    height: 40px;
+    margin-bottom: 15px;
+}
+.usr-dtls-anchor p{
+	color: #000;
+    font-size: 14px;
+    font-weight: 400;
+	
+}
+.usr-dtls-anchor p span{
+	display: block;
+    font-weight: 600;
+}
+.usr-dtls-free{
+    background-color: #fc4747;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+.lft-rgt-brdr{
+	border-left: 1px solid rgba(0, 0, 0, .1);
+    border-right: 1px solid rgba(0, 0, 0, .1);
+    margin: 0px 10px;
+}
+.usr-dtls-anchor img.usr-frst-ico{
+	height: 35px;
+    width: 35px;
+    margin-top: 5px;
+}
+.ofr-img-txt{
+	display: flex;
+    align-items: center;
+}
+.box-img-cont img {
+    width: 120px;
+}
+.ofr-contnt{
+    margin-left: 20px;
+}
+.fst-bkg{
+    font-size: 18px;
+    color: #404040;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+.ofr-bkg{
+	color: #4a4949;
+    font-size: 15px;
+    font-weight: 400;
+}
+.ofr-bkg span{
+    display: block;
+}
+.lst-spcng{
+margin: 0px 10px;
+}
+.bg-lst{
+	background-color:white;
+}
+/* new sign up page design */
 .loader-for-chat-div{
 	margin-top: 50%;
 	transform: translateY(-50%);
@@ -1270,3 +1446,127 @@ img.img-arwp {
 	margin:20px 0px;
 }
 /* payament card style */
+/* chat-toast-icon */
+
+.chat-footer.toast-tip-icon{
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background: #00000061;
+    border-radius: 10px;
+    height: auto;
+    width: 88%;
+}
+.chat-footer.toast-tip-icon .wrng-mssg span {
+    color: white;
+}
+.chat-footer.toast-tip-icon .wrng-mssg{
+	background-color: #00000012;
+}
+.toast-close-btn{
+	position: absolute;
+    right: -6px;
+    top: -8px;
+    background: #313131;
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.toast-close-btn img{
+    width: 10px;
+	height: 10px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.floating-chat .chat-body{
+	border-radius: 0px;
+}
+/* chat-toast-icon */
+
+/* prescription card style */
+.prescription-card{
+    background: white;
+}
+.pres-card-content{
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+}
+.prs-name-section{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.prs-name-section img{
+    width: 35px;
+    margin-right: 15px;
+}
+
+.prs-name-age-gender{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.prs-sub-txt{
+    font-size: 14px;
+    font-weight: 500;
+}
+.btn-prs-section{
+display: flex;
+justify-content: center;
+}
+.prs-snd-sms{
+    background: #f78631;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 5px 15px;
+}
+.prs-snd-email{
+    background: #f78631;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.prs-pdf-section{
+    text-align: center;
+}
+.prs-pdf-section p{
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+}
+.prs-pdf-section p span{
+    display: block;
+}
+.prs-pdf-section a{
+    display: inline-block;
+    margin-top: 10px;
+} 
+.prs-pdf-section a img{
+    width: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
+} 
+@media screen and (max-width: 380px) {
+    .prs-snd-sms, .prs-snd-email {
+        padding: 5px 9px !important;
+    }
+}
+/* prescription card style */
+
+.padding-remove{
+padding: 0px !important;
+}
+.lst-spcng a{
+	display: flex;
+	align-items: center;
+
+}
+.lst-spcng a div.nav-content{
+padding-left: 15px !important;
+}

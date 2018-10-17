@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS} from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -7,7 +7,9 @@ const defaultState = {
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
     appointmentId: null,
-    SET_FROM_SERVER: false
+    SET_FROM_SERVER: false,
+    doctorCoupons: {},
+    disCountedOpdPrice: 0
 }
 
 export default function (state = defaultState, action) {
@@ -65,6 +67,60 @@ export default function (state = defaultState, action) {
         case SET_SERVER_RENDER_OPD: {
             let newState = { ...state }
             newState.SET_FROM_SERVER = action.payload
+            return newState
+        }
+
+        case ADD_OPD_COUPONS: {
+
+            let newState = {
+                ...state,
+                doctorCoupons : { ...state.doctorCoupons }
+            }
+/*
+            if(state.doctorCoupons[action.hospitalId]){
+                newState.doctorCoupons[action.hospitalId] = [].concat(state.doctorCoupons[action.hospitalId])
+            } else {
+                newState.doctorCoupons[action.hospitalId] = []
+            }*/
+            newState.doctorCoupons[action.hospitalId] = []
+            newState.doctorCoupons[action.hospitalId].push(action.payload)
+            
+            return newState
+        }
+
+        case REMOVE_OPD_COUPONS: {
+
+            let newState = {
+                ...state,
+                doctorCoupons : { ...state.doctorCoupons }
+            }
+
+            if(action.couponId){
+                newState.doctorCoupons[action.hospitalId] = newState.doctorCoupons[action.hospitalId].filter((coupon) => { coupon.coupon_id != action.couponId })  
+            }
+            newState.disCountedOpdPrice = 0
+            return newState
+
+        }
+
+        case APPLY_OPD_COUPONS: {
+            let newState = {
+                ...state
+            }
+
+            if(action.payload.status == 1){
+                newState.disCountedOpdPrice = parseInt(action.payload.discount)
+            }
+            
+            return newState
+        }
+
+        case RESET_OPD_COUPONS: {
+            let newState = {
+                ...state
+            }
+            newState.disCountedOpdPrice = 0
+
             return newState
         }
 

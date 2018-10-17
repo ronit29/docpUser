@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG, SAVE_USER_PHONE_NO } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SAVE_USER_PHONE_NO } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -383,10 +383,10 @@ export const loc_physical_ms = (loc) => (dispatch) => {
 	return API_GET(`/api/v1/geoip/adword/${loc}`)
 }
 
-export const saveChatStaticMsg = (msg, deleteRoomId = false) => (dispatch) => {
+export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch) => {
 	dispatch({
-		type: SAVE_STATIC_CHAT_MSG,
-		payload: msg,
+		type: START_LIVE_CHAT,
+		payload: started,
 		deleteRoomId: deleteRoomId
 	})
 }
@@ -399,4 +399,45 @@ export const userPhoneNumber = (phone_number) => (dispatch) => {
 		})
 	}).catch(function (error) {
 	});
+}
+
+export const getCoupons = (productId = '') => (dispatch) => {
+	API_GET(`/api/v1/coupon/applicablecoupons?product_id=${productId}`).then(function (response) {
+
+		dispatch({
+			type: GET_APPLICABLE_COUPONS,
+			payload: response
+		})
+
+	})
+}
+
+export const getUserPrescription = (mobile) => (dispatch) => {
+	//mobile = '9582557400'
+	API_GET(`/api/v1/chat/chatprescription?mobile=${mobile}`).then(function (response) {
+
+		dispatch({
+			type: GET_USER_PRESCRIPTION,
+			payload: response
+		})
+	})
+}
+
+export const applyCoupons = (productId = '', couponCode, couponId, hospitalId) => (dispatch) => {
+
+	let couponData = { id: hospitalId, couponCode: couponCode, couponApplied: true, couponId: couponId }
+	if (productId == 1) {
+		dispatch({
+			type: ADD_OPD_COUPONS,
+			payload: couponData,
+			hospitalId: hospitalId
+		})
+	} else {
+		dispatch({
+			type: ADD_LAB_COUPONS,
+			payload: couponData,
+			labId: hospitalId
+		})
+	}
+
 }
