@@ -31,7 +31,8 @@ class BookingSummaryViewNew extends React.Component {
             // order_id: !!parsed.order_id,
             order_id: false,
             showTimeError: false,
-            couponCode: ''
+            couponCode: '',
+            couponId:''
         }
     }
 
@@ -79,7 +80,7 @@ class BookingSummaryViewNew extends React.Component {
                         finalPrice = finalPrice + (this.props.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
                     }
                      
-                    this.setState({couponCode: labCoupons[0].couponCode})
+                    this.setState({couponCode: labCoupons[0].couponCode, couponId: labCoupons[0].couponId})
                  this.props.applyLabCoupons('2', labCoupons[0].couponCode ,labCoupons[0].couponId,this.state.selectedLab,finalPrice )
                 }
             }
@@ -180,6 +181,7 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: data })
 
         this.props.createLABAppointment(postData, (err, data) => {
+            this.props.removeLabCoupons(this.state.selectedLab,this.state.couponId)
             if (!err) {
                 if (data.is_agent) {
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
@@ -403,7 +405,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         this.props.disCountedLabPrice
                                                         ?<div className="payment-detail d-flex">
                                                             <p  style={{color:'green'}}>Coupon discount</p>
-                                                            <p  style={{color:'green'}}>&#8377; {this.props.disCountedLabPrice}</p>
+                                                            <p  style={{color:'green'}}>-&#8377; {this.props.disCountedLabPrice}</p>
                                                         </div>
                                                         :''
                                                     }
