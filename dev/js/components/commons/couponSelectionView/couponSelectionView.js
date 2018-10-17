@@ -4,6 +4,8 @@ import React from 'react';
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
+import TermsConditions from './termsConditions.js'
+
 
 
 class CouponSelectionView extends React.Component {
@@ -14,8 +16,13 @@ class CouponSelectionView extends React.Component {
             appointmentType: '',
             id: '',
             couponName:'',
-            errorMsg: ''
+            errorMsg: '',
+            openTermsConditions:false,
         }
+    }
+
+    toggle(which,tnc='') {
+        this.setState({ [which]: !this.state[which], tnc:tnc })
     }
 
     componentDidMount(){
@@ -60,6 +67,7 @@ class CouponSelectionView extends React.Component {
     }
 
     render() {
+        console.log(this.props.applicableCoupons + 'tncccccccccccccc')
 
         return (
             <div className="profile-body-wrap">
@@ -111,16 +119,20 @@ class CouponSelectionView extends React.Component {
                                                                                             }
                                                                                         </ul>                                 
                                                                                      </div>
-                                                                                <p className="text-sm text-primary">Terms & Conditions</p>
+                                                                                <p className="text-sm text-primary" onClick={this.toggle.bind(this, 'openTermsConditions',coupons.tnc)}>Terms & Conditions</p>
+                                                                                
                                                                             </div>
                                                                     
                                                                         </li>
                                                                     })                                                            
                                                                 }   
+                                                                {
+                                                                    this.state.openTermsConditions ?<TermsConditions toggle={this.toggle.bind(this, 'openTermsConditions')} tnc={this.state.tnc} /> : ""
+                                                                }
                                                             </ul>
                                                         </div>
                                                         :<div>
-                                                            <p>No coupons available</p>
+                                                            <p className="no-coupon">No coupons available</p>
                                                         </div>
                                                     }
                                            
@@ -131,6 +143,7 @@ class CouponSelectionView extends React.Component {
                                 </div>
                             </div>
                         </section>
+                        
                     </div>
 
                         <RightBar extraClass=" chat-float-btn-2" />
