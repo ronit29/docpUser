@@ -19,7 +19,7 @@ class ProfileData extends React.Component {
 
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav">
-                <div className="widget-content">
+                <div className="widget-content padding-remove">
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item">
                             <p className="usr-dtls-name">{`Welcome to docprime ${this.props.USER.userName ?`, ${this.props.USER.userName}! `:''} `}</p>
