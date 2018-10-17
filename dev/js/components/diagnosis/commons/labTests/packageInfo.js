@@ -17,7 +17,7 @@ export default ({ toggle, content }) => {
                 <img src={ASSETS_BASE_URL + "/img/icons/close.png"} className="close-modal" onClick={toggle} />
                 <hr />
             </div>
-            <div className="cancel-policy-text" style={{ paddingTop: 0 }}>
+            <div className="" style={{ padding:'0px 15px' }}>
                 <div className="qa-container">
                     <h4 className="pkg-qus">What is this test?</h4>
                     <p className="pkg-ans">{why}</p>
