@@ -778,7 +778,10 @@ li.lst-bfr:before{
 .coupon-timeline li .dot{position: relative; width: 20px; background-color: #757575; height: 20px; color: #fff; display: inline-block; border-radius: 50%; font-weight: 700;margin-bottom: 5px;}
 .coupon-timeline li.active .dot{ color: #fff; background-color: #f78631}
 .coupon-timeline li.active:before{background-color:  #f78631}
-.coupun-timeline li:last-child:before{width:0%} 
+.coupon-timeline .coupon-inline-list{display: inline-block }
+.coupon-timeline .coupon-inline-list li{display: inline-block }
+.coupon-timeline .coupon-inline-list li:last-child:before{width: 0 }
+
 
 
 /* Radio Button common css */
