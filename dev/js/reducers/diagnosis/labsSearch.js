@@ -88,13 +88,13 @@ export default function (state = defaultState, action) {
                 ...state,
                 labCoupons : { ...state.labCoupons }
             }
-
+/*
             if(state.labCoupons[action.labId]){
                 newState.labCoupons[action.labId] = [].concat(state.labCoupons[action.labId])
             } else {
                 newState.labCoupons[action.labId] = []
-            }
-
+            }*/
+            newState.labCoupons[action.labId] = []
             newState.labCoupons[action.labId].push(action.payload)
             
             return newState

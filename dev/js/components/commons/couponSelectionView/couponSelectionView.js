@@ -42,15 +42,17 @@ class CouponSelectionView extends React.Component {
 
     toggleButtons(coupon,e){
         this.setState({coupon: coupon.coupon_id, couponName: coupon.code, errorMsg: ''})
+        this.props.applyCoupons(this.state.appointmentType, coupon.code ,coupon.coupon_id,this.state.id )
+        this.props.history.go(-1)
     }
 
     applyCoupon(){
-        if(this.state.coupon){  
+        /*if(this.state.coupon){  
             this.props.applyCoupons(this.state.appointmentType, this.state.couponName ,this.state.coupon,this.state.id )
             this.props.history.go(-1)   
         }else{
             this.setState({errorMsg:'Please Select Coupon'})
-        }   
+        }   */
     }
 
     getDots(no,used){
@@ -81,7 +83,7 @@ class CouponSelectionView extends React.Component {
                                         <div className="col-12">
                                             <div className="widget mrt-10 ct-profile skin-white">
                                         
-                                                <div className="widget-content">
+                                                {/*<div className="widget-content">
                                                     <h4 className="title">Apply Coupon</h4> 
                                                     {
                                                         this.state.errorMsg?
@@ -94,7 +96,7 @@ class CouponSelectionView extends React.Component {
                                                     </div>
 
                                                               
-                                                </div>
+                                                </div>*/}
 
                                                 {
                                                     this.props.applicableCoupons.length?
@@ -105,11 +107,12 @@ class CouponSelectionView extends React.Component {
                                                                 {
                                                                     this.props.applicableCoupons.map((coupons,index)=>{
                                                                         return <li key = {index} className="coupon-style search-list-radio pd-12">
-                                                                                <input type="radio" id="coupon-label" name="radio-group" checked={this.state.coupon == coupons.coupon_id} value={coupons.code} onChange = {this.toggleButtons.bind(this,coupons)}/>
-                                                                                 <label className="fw-700 text-md" for="coupon-label">{coupons.code}</label>
+                                                                                <input type="radio" id={coupons.coupon_id} name="radio-group" checked={this.state.coupon === coupons.coupon_id} value={coupons.code} onClick = {this.toggleButtons.bind(this,coupons)}/>
+                                                                                 <label className="fw-700 text-md" for={coupons.coupon_id}>{coupons.code}</label>
                                                                                 <div className="coupon-input col-12">
                                                                                 <p>{coupons.desc}</p>
                                                                                 <div className="coupon-timeline book-confirmed-timeline">
+                                                                                        <p className="text-sm text-primary">can be used {coupons.coupon_count - coupons.used_count} times per user</p>
                                                                                         <ul className="coupon-inline-list">
                                                                                             {
                                                                                                     this.getDots(coupons.coupon_count,coupons.used_count)

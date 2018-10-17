@@ -76,13 +76,13 @@ export default function (state = defaultState, action) {
                 ...state,
                 doctorCoupons : { ...state.doctorCoupons }
             }
-
+/*
             if(state.doctorCoupons[action.hospitalId]){
                 newState.doctorCoupons[action.hospitalId] = [].concat(state.doctorCoupons[action.hospitalId])
             } else {
                 newState.doctorCoupons[action.hospitalId] = []
-            }
-
+            }*/
+            newState.doctorCoupons[action.hospitalId] = []
             newState.doctorCoupons[action.hospitalId].push(action.payload)
             
             return newState

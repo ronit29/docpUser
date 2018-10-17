@@ -64,8 +64,8 @@ class ProfileData extends React.Component {
                             <div className="ofr-img-txt">
                                 <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/customer-icons/vector-smart-object.png"} className="img-fluid" /></div>
                                 <div className="ofr-contnt">
-                                    <p className="fst-bkg">FIRST BOOKING</p>
-                                    <p className="ofr-bkg">100% discount on your first booking 
+                                    <p className="fst-bkg">FIRST</p>
+                                    <p className="ofr-bkg">Flat Rs 100 off on your first 3 bookings 
                                         <span>on doctor and diagnostics</span>
  </p>
                                 </div>
@@ -99,7 +99,7 @@ class ProfileData extends React.Component {
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/onlnpres.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
-                                    <h4 className="title app-title">My Online Prescription
+                                    <h4 className="title app-title">My Online Prescriptions
                                         {/* <span className="float-right badge badge-warning">1</span> */}
                                     </h4>
                                 </div>

@@ -49,6 +49,7 @@
 
 @media(min-width: 768px){
 	.static-btn{position: static!important;}
+	.sticky-btn{position: sticky!important; bottom: 0;}
 }
 
 @media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 104px!important;margin-top: 20px;z-index: 9;}
