@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, APPEND_DOCTORS } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, SAVE_STATIC_CHAT_MSG, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS,  ADD_LAB_COUPONS  } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -391,8 +391,8 @@ export const saveChatStaticMsg = (msg, deleteRoomId = false) => (dispatch) => {
 
 }
 
-export const getCoupons = (productId = '') => {
-	API_GET('/api/v1/coupon/applicablecoupons').then(function (response) {
+export const getCoupons = (productId = '') => (dispatch) => {
+	API_GET(`/api/v1/coupon/applicablecoupons?product_id=${productId}`).then(function (response) {
 
 		dispatch({
 			type: GET_APPLICABLE_COUPONS,
@@ -413,11 +413,21 @@ export const getUserPrescription = (mobile) => (dispatch) => {
 	})
 }
 
-export const applyCoupons = (productId = '', couponCode, couponId, hospitalId, dealPrice) => (dispatch) => {
+export const applyCoupons = (productId = '', couponCode, couponId, hospitalId ) => (dispatch) => {
 
-	var code = {id:hospitalId,couponCode:couponCode,disCountedPrice:dealPrice}
-	dispatch({
-		type: APPEND_DOCTORS,
-		payload: [code]
-	})
+		let couponData = { id: hospitalId, couponCode: couponCode, couponApplied: true, couponId: couponId }
+		if(productId == 1){
+			dispatch({
+				type: ADD_OPD_COUPONS,
+				payload: couponData,
+				hospitalId: hospitalId
+			})
+		}else{
+			dispatch({
+				type: ADD_LAB_COUPONS,
+				payload: couponData,
+				labId: hospitalId
+			})
+		}
+		
 }

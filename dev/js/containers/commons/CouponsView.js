@@ -1,7 +1,7 @@
 import React from 'react'
 import CouponSelectionView from '../../components/commons/couponSelectionView'
 import { connect } from 'react-redux'
-import { getCoupons , applyCoupons} from '../../actions/index.js'
+import { getCoupons , applyCoupons } from '../../actions/index.js'
 
 
 class Coupons extends React.Component{
@@ -19,8 +19,15 @@ const mapStateToProps = (state) =>{
 		applicableCoupons
 	} = state.USER
 
+	let {
+	 	selectedSlot 
+	 } = state.DOCTOR_SEARCH
+
+
+
 	return {
-		applicableCoupons
+		applicableCoupons,
+		selectedSlot
 	}
 }
 
@@ -28,7 +35,8 @@ const mapDispatchToProps = (dispatch) =>{
 
 	return{
 		getCoupons: (productId) => dispatch(getCoupons(productId)),
-		applyCoupons: (productId, couponCode, couponId, hospitalId, dealPrice) => dispatch(applyCoupons(productId, couponCode, couponId, hospitalId, dealPrice))
+		applyCoupons: (productId, couponCode, couponId, hospitalId ) => dispatch(applyCoupons(productId, couponCode, couponId, hospitalId ))
+
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Coupons)

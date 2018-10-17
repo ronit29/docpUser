@@ -29,7 +29,8 @@ class PatientDetailsNew extends React.Component {
             loading: false,
             error: "",
             openCancellation: false,
-            order_id: false
+            order_id: false,
+            couponCode: []
             // order_id: !!parsed.order_id
         }
     }
@@ -48,6 +49,15 @@ class PatientDetailsNew extends React.Component {
                 SnackBar.show({ pos: 'bottom-center', text: "Could not complete payment, Try again!" })
             }, 500)
             this.props.history.replace(this.props.location.pathname)
+        }
+        
+        if(this.props.doctorCoupons && this.props.doctorCoupons[this.state.selectedDoctor] && this.props.doctorCoupons[this.state.selectedDoctor].length ){
+            let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor]
+            if(this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.state.selectedDoctor ){
+                    
+                    this.setState({couponCode: doctorCoupons[0].couponCode})
+                    this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode ,doctorCoupons[0].couponId,this.state.selectedDoctor,this.props.selectedSlot.time.deal_price )   
+            }
         }
     }
 
@@ -71,7 +81,8 @@ class PatientDetailsNew extends React.Component {
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
             start_date, start_time,
-            payment_type: 1 // TODO : Select payment type
+            payment_type: 1, // TODO : Select payment type
+            coupon_code: this.state.couponCode
         }
 
         let analyticData = {
@@ -147,6 +158,7 @@ class PatientDetailsNew extends React.Component {
 
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
+        let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
         let hospital = {}
         let patient = null
         let priceData = {}
@@ -208,10 +220,9 @@ class PatientDetailsNew extends React.Component {
                                         </div>
                                         <div className="col-12">
                                             <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={() => {
-                                                this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}`)}}>         
+                                                this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}/${this.state.selectedClinic}`)}}>         
                                                     {
-                                                        this.props.DOCTORS[this.state.selectedDoctor].couponCode
-                                                        ?
+                                                        doctorCoupons.length ?
                                                         <div className="widget-content  d-flex jc-spaceb" >
                                                             <div className="d-flex">
                                                                 <span className="coupon-img">
@@ -223,10 +234,13 @@ class PatientDetailsNew extends React.Component {
                                                             </div>
                                                             <div className=" d-flex">
                                                                 <h4 className="title coupon-text" style={{color:'green',marginRight: 13}}>
-                                                                    {this.props.DOCTORS[this.state.selectedDoctor].couponCode}
+                                                                    {doctorCoupons[0].couponCode}
                                                                 </h4>
                                                                 <span className="visit-time-icon coupon-icon">
-                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
+                                                                    <img onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            this.props.removeCoupons(this.state.selectedDoctor,doctorCoupons[0].couponId)
+                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"}/>
                                                                 </span>
                                                             </div>
                                                         </div>:
@@ -261,16 +275,16 @@ class PatientDetailsNew extends React.Component {
                                                         <p>&#8377; {priceData.mrp - priceData.deal_price}</p>
                                                     </div>
                                                     {
-                                                        this.props.DOCTORS[this.state.selectedDoctor].couponCode
+                                                        this.props.disCountedOpdPrice
                                                         ?<div className="payment-detail d-flex">
                                                             <p  style={{color:'green'}}>Coupon discount</p>
-                                                            <p  style={{color:'green'}}>&#8377; {this.props.DOCTORS[this.state.selectedDoctor].disCountedPrice}</p>
+                                                            <p  style={{color:'green'}}>&#8377; {this.props.disCountedOpdPrice}</p>
                                                         </div>
                                                         :''
                                                     }
                                                     <div className="payment-detail d-flex">
                                                         <p>Subtotal</p>
-                                                        <p> &#8377; {priceData.deal_price}</p>
+                                                        <p> &#8377; {priceData.deal_price - (this.props.disCountedOpdPrice?this.props.disCountedOpdPrice:0)}</p>
                                                     </div>
                                                 </div>
                                                 <hr/>
@@ -278,7 +292,7 @@ class PatientDetailsNew extends React.Component {
                                                 {
                                                 priceData ? <div className="test-report payment-detail mt-20">
                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                    <h5 className="payment-amt-value">&#8377; {priceData.payable_amount}</h5>
+                                                    <h5 className="payment-amt-value">&#8377; {priceData.deal_price - (this.props.disCountedOpdPrice?this.props.disCountedOpdPrice:0)}</h5>
                                                 </div> : ""
                                                 }
                                                               
