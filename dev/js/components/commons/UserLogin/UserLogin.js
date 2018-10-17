@@ -108,11 +108,11 @@ class UserLoginView extends React.Component {
         return (
             <div className="profile-body-wrap lgn-ovrflow">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container parent-section book-appointment-section-login">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12 col-md-7  center-column">
                             {/* <header className="skin-white fixed horizontal top bdr-1 light sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
@@ -132,8 +132,8 @@ class UserLoginView extends React.Component {
                             <section className="mobile-verification-screen p-3">
                                 <div className="widget no-shadow no-round sign-up-container">
                                     <div className="widget-header text-center mv-header">
-                                        <h3 className="sign-coupon">Signup & get coupons worth<br />300! </h3>
-                                        <h4 className="fw-700 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
+                                        <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 300!</span> </h3>
+                                        <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
                                     </div>
                                     <div className="widget-content text-center">
                                         <div className="mobile-verification">

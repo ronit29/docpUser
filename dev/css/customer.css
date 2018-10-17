@@ -856,3 +856,23 @@ li.lst-bfr:before{
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+
+.no-coupon{
+	padding: 20px;
+    text-align: center;
+}
+.test-list{
+	padding-top:8px;
+}
+.ft-25{
+	font-size: 25px;
+}
+.book-appointment-section-login{
+	margin-top: 93px;
+}
+.terms-condition-div{
+	padding:15px;
+}
+.terms-popup{
+	top:20%!important;
+}
