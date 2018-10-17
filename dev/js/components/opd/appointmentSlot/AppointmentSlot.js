@@ -127,7 +127,7 @@ class AppointmentSlot extends React.Component {
                                     </section> : <Loader />
                             }
 
-                            <button disabled={!this.props.selectedSlot.date} onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Select</button>
+                            <button disabled={!this.props.selectedSlot.date} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Select</button>
                         </div>
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>

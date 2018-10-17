@@ -31,7 +31,7 @@ class BookingSummaryViewNew extends React.Component {
             // order_id: !!parsed.order_id,
             order_id: false,
             showTimeError: false,
-            couponCode: []
+            couponCode: ''
         }
     }
 
@@ -169,7 +169,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            coupon_code: [this.state.couponCode]
+            coupon_code: this.state.couponCode?[this.state.couponCode]:[]
         }
 
         let data = {

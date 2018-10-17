@@ -30,7 +30,8 @@ class BookingSummaryView extends React.Component {
             openPaymentSummary: false,
             // order_id: !!parsed.order_id,
             order_id: false,
-            showTimeError: false
+            showTimeError: false,
+            showAddressError: false
         }
     }
 
@@ -60,6 +61,7 @@ class BookingSummaryView extends React.Component {
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
         this.props.selectLabAppointmentType(e.target.value)
+        this.setState({ showTimeError: false, showAddressError: false });
     }
 
     navigateTo(where, e) {
@@ -92,8 +94,8 @@ class BookingSummaryView extends React.Component {
 
             case "home": {
                 return <div>
-                    <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
-                    <PickupAddress {...this.props} />
+                    <VisitTime type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <PickupAddress {...this.props} addressError={this.state.showAddressError} />
                     <ChoosePatient patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
@@ -107,6 +109,7 @@ class BookingSummaryView extends React.Component {
             return
         }
         if (!addressPicked) {
+            this.setState({ showAddressError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
             return
         }
@@ -292,7 +295,7 @@ class BookingSummaryView extends React.Component {
                                                                     </InitialsPicture>
 
                                                                     <div className="lab-title">
-                                                                        <h4 className="fw-700 text-md title">{labDetail.name}</h4>
+                                                                        <h1 className="fw-700 text-md title">{labDetail.name}</h1>
                                                                         <p className="fw-500 text-sm text-light">{labDetail.address}</p>
                                                                     </div>
                                                                 </div>
@@ -361,9 +364,9 @@ class BookingSummaryView extends React.Component {
                                         }
 
                                         {
-                                            this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Send SMS EMAIL</button> : <button data-disabled={
+                                            this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Send SMS EMAIL</button> : <button data-disabled={
                                                 (!(patient && this.props.selectedSlot && this.props.selectedSlot.date && (address_picked_verified || this.props.selectedAppointmentType == 'lab')) || this.state.loading || tests.length == 0)
-                                            } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Proceed</button>
+                                            } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Proceed</button>
                                         }
 
 

@@ -29,6 +29,14 @@ class SearchResultsView extends React.Component {
     componentWillReceiveProps(props) {
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getDoctorList(props)
+            if (window) {
+                window.scrollTo(0, 0)
+            }
+        } else {
+            if (props.selectedLocation != this.props.selectedLocation) {
+                let new_url = this.buildURI(props)
+                this.props.history.replace(new_url)
+            }
         }
     }
 
@@ -77,7 +85,7 @@ class SearchResultsView extends React.Component {
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
 
-        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}`
+        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}`
 
         return url
     }
@@ -85,13 +93,14 @@ class SearchResultsView extends React.Component {
     getDoctorList(state = null, page = 1, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
-            searchUrl = this.props.match.url
+            searchUrl = this.props.match.url.toLowerCase()
         }
         if (!state) {
             state = this.props
         }
 
         this.props.getDoctors(state, page, false, searchUrl, (...args) => {
+            this.setState({ seoData: args[1] })
             let new_url = this.buildURI(state)
             this.props.history.replace(new_url)
             if (cb) {

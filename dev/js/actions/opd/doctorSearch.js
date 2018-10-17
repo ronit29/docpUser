@@ -209,6 +209,14 @@ export const updateOPDAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
+export const getDoctorNumber = (doctorId, callback) => (dispatch) => {
+	API_GET(`/api/v1/doctor/contact-number/${doctorId}`).then(function (response) {
+		callback(null, response)
+	}).catch(function (error) {
+		callback(error, null)
+	})
+}
+
 export const applyOpdCoupons = (productId = '', couponCode, couponId, hospitalId, dealPrice) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {coupon_code: [couponCode], deal_price: dealPrice, product_id: productId}).then(function (response) {

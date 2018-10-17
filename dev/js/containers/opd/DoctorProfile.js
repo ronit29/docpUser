@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorByUrl, getDoctorById, selectOpdTimeSLot } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 
@@ -88,7 +88,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getDoctorByUrl: (doctr_url, cb) => dispatch(getDoctorByUrl(doctr_url, cb)),
         getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
-        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId))
+        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
+        getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback))
     }
 }
 

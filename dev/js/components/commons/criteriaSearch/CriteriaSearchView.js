@@ -37,9 +37,9 @@ class CriteriaSearchView extends React.Component {
         if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
             // input.focus()
         }
-        if(document.getElementById('topCriteriaSearch')){
-            document.getElementById('topCriteriaSearch').addEventListener('focusin',()=>{this.setState({searchCities:''})})
-            
+        if (document.getElementById('topCriteriaSearch')) {
+            document.getElementById('topCriteriaSearch').addEventListener('focusin', () => { this.setState({ searchCities: '' }) })
+
         }
     }
 
@@ -91,12 +91,12 @@ class CriteriaSearchView extends React.Component {
 
             if (docType == 'Conditions') {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonConditionSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-condition-searched', 'selected': criteria.name || ''
+                    'Category': 'ConsumerApp', 'Action': 'CommonConditionSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-condition-searched', 'selected': criteria.name || '', 'selectedId': criteria.id || ''
                 }
                 GTM.sendEvent({ data: data })
             } else if (docType == 'Specializations') {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || ''
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.id || ''
                 }
                 GTM.sendEvent({ data: data })
             }
@@ -105,7 +105,7 @@ class CriteriaSearchView extends React.Component {
         } else {
             if (docType == 'Tests') {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || ''
+                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.id || ''
                 }
                 GTM.sendEvent({ data: data })
             }
@@ -115,10 +115,10 @@ class CriteriaSearchView extends React.Component {
     }
 
     getCityListLayout(searchResults = []) {
-        if(searchResults.length){
+        if (searchResults.length) {
             this.setState({ searchCities: searchResults })
-        }else{
-            this.setState({ searchResults: [],searchValue: '' })
+        } else {
+            this.setState({ searchResults: [], searchValue: '' })
         }
     }
 
@@ -129,7 +129,7 @@ class CriteriaSearchView extends React.Component {
     }
 
     render() {
-        
+
         let location = "Delhi"
         if (this.props.selectedLocation) {
             location = this.props.selectedLocation.formatted_address.slice(0, 25)
@@ -143,7 +143,7 @@ class CriteriaSearchView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column criteria-search-header">
-                            <header style={{zIndex:1}} className="skin-primary horizontal top mbl-stick search-book-header sticky-header">
+                            <header style={{ zIndex: 1 }} className="skin-primary horizontal top mbl-stick search-book-header sticky-header">
                                 <div className="container-fluid">
                                     {/* <div className="row">
                                         <div className="col-12">
@@ -191,7 +191,7 @@ class CriteriaSearchView extends React.Component {
                                                         </div> */}
                                                     </div>
                                                 </div>
-                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this )} resultType='search'/>
+                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' />
                                             </div>
                                         </div>
                                     }
@@ -207,7 +207,7 @@ class CriteriaSearchView extends React.Component {
                                                         <ul className="list search-result-list">
                                                             <li key={i} onClick={this.selectLocation.bind(this, result)} style={{ position: 'relative' }}>
                                                                 <a>{result.description}
-                                                                    
+
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -226,16 +226,17 @@ class CriteriaSearchView extends React.Component {
                                             this.state.searchResults.map((cat, j) => {
                                                 if (cat.values && cat.values.length) {
                                                     return <div className="widget-panel" key={j}>
-                                                        <h4 className="panel-title">{cat.title}</h4>
-                                                        <div className="panel-content">
+                                                        <h4 className="panel-title mrb-0">{cat.title}</h4>
+                                                        <div className="panel-content" style={{ padding: '0 15px' }} >
                                                             <ul className="list search-result-list">
                                                                 {
                                                                     cat.values.length < 1 ? <li><a>No Results Found ...</a></li> : ""
                                                                 }
                                                                 {
                                                                     cat.values.map((curr, i) => {
-                                                                        return <li onClick={this.addCriteria.bind(this, curr, cat.title)} key={i}><a>{curr.name}</a>
-                                                                            {i < cat.values.length - 1 ? <hr className="search-list-hr" /> : ""}
+                                                                        return <li onClick={this.addCriteria.bind(this, curr, cat.title)} key={i} style={i < cat.values.length - 1 ? { borderBottom: '1px solid #d3d3d3' } : {}} >
+                                                                            <p>{curr.name}</p>
+                                                                            <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                                                         </li>
                                                                     })
                                                                 }
@@ -250,10 +251,10 @@ class CriteriaSearchView extends React.Component {
 
                                         {
                                             this.props.type == 'opd' ? <div className="widget-panel">
-                                                <h4 className="panel-title">Name Search</h4>
+                                                <h4 className="panel-title mrb-0">Name Search</h4>
                                                 <div className="panel-content">
                                                     <ul className="list search-result-list">
-                                                        <li onClick={() => {
+                                                        <li style={{ borderBottom: '1px solid #d3d3d3' }} onClick={() => {
 
                                                             let data = {
                                                                 'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || ''
@@ -261,11 +262,9 @@ class CriteriaSearchView extends React.Component {
                                                             GTM.sendEvent({ data: data })
 
                                                             this.props.searchProceed(this.state.searchValue, "")
-                                                        }}><a>Search Doctors with name {this.state.searchValue}</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div className="panel-content">
-                                                    <ul className="list search-result-list">
+                                                        }}><p>Search Doctors with name {this.state.searchValue}</p>
+                                                            <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                                                        </li>
                                                         <li onClick={() => {
 
                                                             let data = {
@@ -274,14 +273,16 @@ class CriteriaSearchView extends React.Component {
                                                             GTM.sendEvent({ data: data })
 
                                                             this.props.searchProceed("", this.state.searchValue)
-                                                        }}><a>Search Hospitals with name {this.state.searchValue}</a></li>
+                                                        }}><p>Search Hospitals with name {this.state.searchValue}</p>
+                                                            <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div> : <div className="widget-panel">
-                                                    <h4 className="panel-title">Name Search</h4>
+                                                    <h4 className="panel-title mrb-0">Name Search</h4>
                                                     <div className="panel-content">
                                                         <ul className="list search-result-list">
-                                                            <li onClick={() => {
+                                                            <li style={{ borderBottom: '1px solid #d3d3d3' }} onClick={() => {
 
                                                                 let data = {
                                                                     'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || ''
@@ -289,7 +290,9 @@ class CriteriaSearchView extends React.Component {
                                                                 GTM.sendEvent({ data: data })
 
                                                                 this.props.searchProceed(this.state.searchValue)
-                                                            }}><a>Search Labs with name {this.state.searchValue}</a></li>
+                                                            }}><p>Search Labs with name {this.state.searchValue}</p>
+                                                                <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

@@ -7,6 +7,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
+import { _getlocationFromLatLong, _getLocationFromPlaceId } from '../../../helpers/mapHelpers'
 
 class LocationSearch extends React.Component {
     constructor(props) {
@@ -51,33 +52,17 @@ class LocationSearch extends React.Component {
         }, 5000)
         this.setState({ detectLoading: true })
 
-        let map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 28, lng: 77 },
-            zoom: 15
-        })
-        let service = new google.maps.places.PlacesService(map);
-        service.getDetails({
-            reference: location.reference
-        }, function (place, status) {
-
-            let location_object = {
-                formatted_address: place.formatted_address,
-                name: place.name,
-                place_id: place.place_id,
-                geometry: place.geometry
-            }
-
+        _getLocationFromPlaceId(location.reference, (location_object) => {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'UserLocation', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-location', 'location': place.name || '', 'place_id': place.place_id || '', 'formatted_address': place.formatted_address || ''
+                'Category': 'ConsumerApp', 'Action': 'UserLocation', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-location', 'location': location_object.name || '', 'place_id': location_object.place_id || '', 'formatted_address': location_object.formatted_address || ''
             }
             GTM.sendEvent({ data: data })
 
-            this.props.selectLocation(location_object,'autoComplete').then(() => {
+            this.props.selectLocation(location_object, 'autoComplete').then(() => {
                 this.props.history.go(-1)
                 this.setState({ detectLoading: false })
             })
-
-        }.bind(this))
+        })
     }
 
     componentDidMount() {
@@ -97,25 +82,12 @@ class LocationSearch extends React.Component {
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                var latlng = { lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) };
-
-                let geocoder = new google.maps.Geocoder
-                geocoder.geocode({ 'location': latlng }, (results, status) => {
-                    if (results && results[0]) {
-                        let location_object = {
-                            formatted_address: results[0].formatted_address,
-                            name: results[0].name,
-                            place_id: results[0].place_id,
-                            geometry: results[0].geometry
-                        }
-
-                        this.props.selectLocation(location_object,'autoDetect').then(() => {
-                            clearTimeout(timeout)
-                            this.props.history.go(-1)
-                            this.setState({ detectLoading: false })
-                        })
-
-                    }
+                _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
+                    this.props.selectLocation(location_object, 'autoDetect').then(() => {
+                        clearTimeout(timeout)
+                        this.props.history.go(-1)
+                        this.setState({ detectLoading: false })
+                    })
                 })
             }, (a, b, c) => {
                 this.setState({ detectLoading: false })
