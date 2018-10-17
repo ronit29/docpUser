@@ -132,7 +132,7 @@ class UserLoginView extends React.Component {
                             <section className="mobile-verification-screen p-3">
                                 <div className="widget no-shadow no-round sign-up-container">
                                     <div className="widget-header text-center mv-header">
-                                        <h3 className="sign-coupon">Signup & get coupons worth<br />500! </h3>
+                                        <h3 className="sign-coupon">Signup & get coupons worth<br />300! </h3>
                                         <h4 className="fw-700 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
                                     </div>
                                     <div className="widget-content text-center">
@@ -177,7 +177,7 @@ class UserLoginView extends React.Component {
                                             </li>
                                             <li>
                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/su-opd.png"} className="img-fluid" /> 
-                                                <p>OPD Indsurance coming soon</p>
+                                                <p>OPD Insurance coming soon</p>
                                             </li>
                                         </ul>
                                     </div>
