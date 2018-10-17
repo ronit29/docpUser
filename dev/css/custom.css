@@ -46,13 +46,15 @@
 .appointment-form-container{padding-bottom: 42px;}
 .profile-details{padding-top: 40px !important;}
 .someone-else-labelwrap{display: none;}
-.sticky-btn{padding-bottom: env(safe-area-inset-bottom);}
+
+@media(min-width: 768px){
+	.static-btn{position: static!important;}
+}
 
 @media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 104px!important;margin-top: 20px;z-index: 9;}
 .sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 114px!important;margin-top: 2px!important;}
 .sticky-header-3{position: sticky!important; position: -webkit-sticky!important; top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
-.sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}
 .parent-section{margin-top: 100px;padding-top: 0px;}
 .parent-section-temp{margin-top: 100px;padding-top: 0;}
 .all-test-screen,.locaton-detect-screen {padding-top: 10px!important;}

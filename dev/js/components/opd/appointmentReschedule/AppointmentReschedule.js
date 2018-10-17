@@ -207,7 +207,7 @@ class AppointmentReschedule extends React.Component {
                             }
 
 
-                            <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.proceed.bind(this)}>Reschedule</button>
+                            <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.proceed.bind(this)}>Reschedule</button>
 
                         </div>
 

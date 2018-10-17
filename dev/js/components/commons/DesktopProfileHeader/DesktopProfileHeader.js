@@ -18,7 +18,8 @@ class DesktopProfileHeader extends React.Component {
 
     toggleHeaderButtons() {
         let data = {
-        'Category':'ConsumerApp','Action':'SearchButtonClickedMobile','CustomerID':GTM.getUserId(),'leadid':0,'event':'search-button-clicked-mobile'}
+            'Category': 'ConsumerApp', 'Action': 'SearchButtonClickedMobile', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'search-button-clicked-mobile'
+        }
         GTM.sendEvent({ data: data })
         this.setState({ headerButtonsState: !this.state.headerButtonsState })
     }
@@ -48,7 +49,7 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
-                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.png"} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{width: 120}} />
                                 {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
@@ -62,8 +63,8 @@ class DesktopProfileHeader extends React.Component {
                         <div className="col-lg-3 col-md-4 col-4 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
-                            <a className="logo-ancher" href="javascript:void(0);">
-                                <img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.png"} alt="docprime" />
+                            <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
+                                <img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
                             </a>
                             {/* <p className="d-none d-md-inline-block d-lg-inline-block lgo-text">Family Doctor <span>for Life</span></p> */}
                         </div>
@@ -118,7 +119,7 @@ class DesktopProfileHeader extends React.Component {
                             <div className="head-links location-item" onClick={() => {
                                 this.props.history.push('/locationsearch')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{marginRight: 0, width: 12}} />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>
                                 {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
@@ -143,7 +144,7 @@ class DesktopProfileHeader extends React.Component {
                             <div className="head-links location-item" onClick={() => {
                                 this.props.history.push('/locationsearch')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{marginRight: 0, width: 12}} />
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>
                                 {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>

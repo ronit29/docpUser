@@ -51,6 +51,7 @@ class SearchCriteriaView extends React.Component {
 
         return (
             <div>
+                <div id="map" style={{ display: 'none' }}></div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for tests or lab" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)}>
                     <section className="opd-search-section mbl-pdng-zero">
 
@@ -95,7 +96,7 @@ class SearchCriteriaView extends React.Component {
                         /> */}
 
 
-                        <button onClick={this.showLabs.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
+                        <button onClick={this.showLabs.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn">Show Labs</button>
                     </section>
                 </CriteriaSearch>
 

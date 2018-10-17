@@ -55,6 +55,7 @@ class SearchCriteriaView extends React.Component {
     render() {
         return (
             <div>
+                <div id="map" style={{ display: 'none' }}></div>
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)} focusInput={this.state.focusInput}>
                     <section className="opd-search-section mbl-pdng-zero">
                         {
@@ -91,7 +92,7 @@ class SearchCriteriaView extends React.Component {
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
 
-                        <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                        <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn">Show Doctors</button>
 
                     </section>
                 </CriteriaSearch>
