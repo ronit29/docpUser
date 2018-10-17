@@ -16,7 +16,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let place_id = _getLocationParamBind('place_id') || ""
 
             let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
-            let max_distance = parseInt(_getLocationParamBind('max_distance')) || 35
+            let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             let min_fees = parseInt(_getLocationParamBind('min_fees')) || 0
             let max_fees = parseInt(_getLocationParamBind('max_fees')) || 1500
             let sort_on = _getLocationParamBind('sort_on') || null
@@ -69,7 +69,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.priceRange[0] = filterCriteria.min_fees
             filterCriteria.priceRange[1] = filterCriteria.max_fees
 
-            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange = [0, 15]
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
@@ -168,7 +168,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let long = _getLocationParamBind('long') || ""
             let place_id = _getLocationParamBind('place_id') || ""
             let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
-            let max_distance = parseInt(_getLocationParamBind('max_distance')) || 35
+            let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             let min_price = parseInt(_getLocationParamBind('min_price')) || 0
             let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
             let sort_on = _getLocationParamBind('sort_on') || null
@@ -199,7 +199,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             filterCriteria.priceRange[0] = filterCriteria.min_price
             filterCriteria.priceRange[1] = filterCriteria.max_price
 
-            filterCriteria.distanceRange = [0, 35]
+            filterCriteria.distanceRange = [0, 15]
             filterCriteria.distanceRange[0] = filterCriteria.min_distance
             filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
