@@ -123,7 +123,9 @@ class LabProfileCard extends React.Component {
                             </div>
 
                             {
-                                this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : <p style={{ color: '#f78316', fontSize: 14 }}>Opens next at {openingTime}, tomorrow</p>
+                                // this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : <p style={{ color: '#f78316', fontSize: 14 }}>Opens next at {openingTime}, tomorrow</p>
+
+                                this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : ''
                             }
                         </div>
                     </div>
