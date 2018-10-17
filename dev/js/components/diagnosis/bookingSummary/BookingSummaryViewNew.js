@@ -55,8 +55,6 @@ class BookingSummaryViewNew extends React.Component {
 
 
     componentWillReceiveProps(nextProps){
-        
-        if(nextProps.selectedSlot &&  nextProps.selectedSlot.time && Object.values(nextProps.selectedSlot.time).length){
             
             if(nextProps.labCoupons && nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length && nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests ){
  
@@ -86,7 +84,6 @@ class BookingSummaryViewNew extends React.Component {
                 }
             }
         }
-    }
 
     openTests() {
         this.props.history.push(`/lab/${this.state.selectedLab}/tests`)
