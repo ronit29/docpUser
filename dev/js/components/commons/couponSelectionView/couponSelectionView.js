@@ -46,6 +46,17 @@ class CouponSelectionView extends React.Component {
         }   
     }
 
+    getDots(no,used){
+        let dots = []
+        for(let i = 1; i<=no; i++){
+            if(i <= used )
+                dots.push(<li className="active"><span className="dot">1</span></li>)
+            else
+                dots.push(<li className=""><span className="dot">1</span></li>)
+        }
+        return dots
+    }
+
     render() {
 
         return (
@@ -92,15 +103,9 @@ class CouponSelectionView extends React.Component {
                                                                                 <p>{coupons.desc}</p>
                                                                                 <div className="coupon-timeline book-confirmed-timeline">
                                                                                         <ul className="coupon-inline-list">
-                                                                                            <li className="active">
-                                                                                                <span className="dot">1</span>
-                                                                                            </li>
-                                                                                            <li >
-                                                                                                <span className="dot">2</span>
-                                                                                            </li>
-                                                                                            <li >
-                                                                                                <span className="dot">3</span>
-                                                                                            </li>
+                                                                                            {
+                                                                                                    this.getDots(coupons.coupon_count,coupons.used_count)
+                                                                                            }
                                                                                         </ul>                                 
                                                                                      </div>
                                                                                 <p className="text-sm text-primary">Terms & Conditions</p>

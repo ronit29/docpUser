@@ -2,7 +2,16 @@ import React from 'react'
 
 class PrescriptionCardView extends React.Component{
 
+    downloadImage(src) {
+        if (window) {
+            window.open(src, '_blank')
+        }
+    }
+
 	render(){
+
+        let date = new Date(this.props._updatedAt).toDateString()
+
 
 		return(
 			<div className="prescription-card">
@@ -12,21 +21,17 @@ class PrescriptionCardView extends React.Component{
                             <div className="prs-name-section">
                                 <img src={ASSETS_BASE_URL + "/img/ps-lft.svg"} />
                                 <div className="name-sec-text">
-                                    <p className="prs-name-age-gender">  Rajiv Kumar  |  <span>28</span>   |   <span>M</span></p>
-                                    <p className="prs-sub-txt">By Dr. Sopha Jearmy</p>
+                                    <p className="prs-name-age-gender">  {this.props.profile.name} | <span>{this.props.profile.age}</span>   |   <span>{this.props.profile.gender.toUpperCase()}</span></p>
+                                    <p className="prs-sub-txt">{`By Dr. ${this.props.doctorProfile.name}`}</p>
                                 </div>
-                            </div>
-                            <div className="btn-prs-section">
-                                <button className="prs-snd-sms">Send SMS</button>
-                                <button className="prs-snd-email">Send to Email</button>
                             </div>
                         </div>
                         <div className="col-4">
                             <div className="prs-pdf-section">
                                 <p>Created on
-                                    <span>8th Oct 2018</span>
+                                    <span>{date}</span>
                                 </p>
-                                <a href="#">
+                                <a href='#' onClick = {this.downloadImage.bind(this,this.props.PrescriptionFileURL)} >
                                     <img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
                                 </a>
                             </div>

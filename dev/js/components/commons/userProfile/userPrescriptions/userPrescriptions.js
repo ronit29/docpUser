@@ -9,16 +9,16 @@ class UserPrescriptionList extends React.Component{
 		}
 	}
 
-	render(){console.log('aaaaaaaaaaaaaaaaaaaaaa');console.log(this.props)
+	render(){
 		
 		return(
 			<div>
 			{
-				this.props.USER.userPrescriptions.length?
-					this.props.USER.userPrescriptions.map((prescription,index)=>{		
-						<PrescriptionCard {...prescription} />		
+				(this.props.USER.userPrescriptions && this.props.USER.userPrescriptions.data)?
+					this.props.USER.userPrescriptions.data.prescriptions.map((prescription,index)=>{		
+						return <PrescriptionCard {...prescription} />		
 					})	
-					:<PrescriptionCard/>
+					:''
 			}
 			</div>
 			)
