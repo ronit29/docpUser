@@ -32,11 +32,13 @@ class LabTests extends React.Component {
     render() {
         let tests = []
         let is_package = false
+        let number_of_tests = 0
         if (this.props.data.tests && this.props.data.tests.length) {
 
             tests = this.props.data.tests.map((test, i) => {
                 if (test.is_package) {
                     is_package = true
+                    number_of_tests = test.number_of_tests
                 }
                 if (is_package) {
                     return <PackageTest i={i} test={test} toggle={this.toggle.bind(this)} />
@@ -48,7 +50,10 @@ class LabTests extends React.Component {
         }
         return (
             <div className="widget-content pb-details pb-test">
-                <h4 className="wc-title text-md fw-700">Tests</h4>
+                {
+                    is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Tests</h4>
+                }
+
                 <ul className="list pb-list pb-test-list">
                     {tests}
                 </ul>

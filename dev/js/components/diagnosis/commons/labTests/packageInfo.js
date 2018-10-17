@@ -1,6 +1,14 @@
 import React from 'react';
 
-export default ({ toggle }) => {
+export default ({ toggle, content }) => {
+    let name = ""
+    let pre_test_info = ""
+    let why = ""
+    if (content) {
+        name = content.test.name
+        pre_test_info = content.test.pre_test_info
+        why = content.test.name
+    }
     return <div>
         <div className="cancel-overlay" onClick={toggle}></div>
         <div className="widget cancel-appointment-div cancel-popup">
