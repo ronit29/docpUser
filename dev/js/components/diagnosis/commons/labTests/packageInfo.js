@@ -20,8 +20,11 @@ export default ({ toggle, content }) => {
             <div className="cancel-policy-text" style={{ paddingTop: 0 }}>
                 <div className="qa-container">
                     <h4 className="pkg-qus">What is this test?</h4>
-                    <p className="pkg-ans">chromosomal abnormalities, genetic conditions like downs syndrome, CML,
-malignancies Also known as Karyotyping</p>
+                    <p className="pkg-ans">{why}</p>
+                </div>
+                <div className="qa-container">
+                    <h4 className="pkg-qus">What is the preparation needed for doing this test?</h4>
+                    <p className="pkg-ans">{pre_test_info}</p>
                 </div>
             </div>
         </div>
