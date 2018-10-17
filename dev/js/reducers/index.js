@@ -32,7 +32,7 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted']
+    whitelist: ['chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo']
 }
 
 const OPD_SEARCH_PERSIST = {

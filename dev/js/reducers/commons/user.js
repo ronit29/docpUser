@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, SAVE_USER_PHONE_NO } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -37,9 +37,10 @@ const defaultState = {
     device_info: 'desktop',
     liveChatStarted: false,
     applicableCoupons: [],
-    userPrescriptions:[],
-    primaryMobile:0,
-    userName:''
+    userPrescriptions: [],
+    primaryMobile: 0,
+    userName: '',
+    userPhoneNo: 0
 }
 
 export default function (state = defaultState, action) {
@@ -214,7 +215,7 @@ export default function (state = defaultState, action) {
         }
 
         case RESET_AUTH: {
-            return defaultState
+            return { ...defaultState, userPhoneNo: state.userPhoneNo }
         }
 
         case APPEND_CITIES: {
@@ -280,6 +281,14 @@ export default function (state = defaultState, action) {
             return newState
         }
 
+        case SAVE_USER_PHONE_NO: {
+            let newState = {
+                ...state
+            }
+            newState.userPhoneNo = action.payload
+            return newState
+        }
+
         case GET_APPLICABLE_COUPONS: {
             let newState = {
                 ...state
@@ -288,7 +297,7 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case GET_USER_PRESCRIPTION : {
+        case GET_USER_PRESCRIPTION: {
             let newState = {
                 ...state
             }

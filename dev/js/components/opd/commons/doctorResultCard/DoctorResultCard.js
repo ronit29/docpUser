@@ -51,7 +51,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enable_for_online_booking } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enable_for_online_booking , is_license_verified } = this.props.details
 
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
@@ -82,7 +82,7 @@ class DoctorProfileCard extends React.Component {
                                 <div className="col-8">
                                     <div className="fltr-crd-img">
                                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} /></InitialsPicture>
-                                        <span className="fltr-rtng">Verified</span>
+                                        {is_license_verified?<span className="fltr-rtng">Verified</span>:''}
                                         {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
                                     </div>
                                     <div className="fltr-name-dtls">

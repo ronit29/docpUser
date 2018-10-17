@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias } from '../../actions/index.js'
+import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -28,6 +28,7 @@ class Home extends React.Component {
         this.props.loadOPDCommonCriteria()
         this.props.loadLabCommonCriterias()
         this.props.resetFilters()
+        this.props.clearExtraTests()
     }
 
     render() {
@@ -46,6 +47,7 @@ const mapStateToProps = (state) => {
     const {
         LOADED_SEARCH_CRITERIA_LAB,
         common_tests,
+        common_package,
         selectedLocation
     } = state.SEARCH_CRITERIA_LABS
     let filterCriteria_lab = state.SEARCH_CRITERIA_LABS.filterCriteria
@@ -57,7 +59,7 @@ const mapStateToProps = (state) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || []
     }
 }
 
@@ -71,6 +73,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
         fetchArticles: () => dispatch(fetchArticles()),
         resetFilters: () => dispatch(resetFilters()),
+        clearExtraTests: () => dispatch(clearExtraTests())
     }
 }
 

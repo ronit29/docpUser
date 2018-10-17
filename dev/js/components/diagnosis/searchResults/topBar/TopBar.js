@@ -12,7 +12,7 @@ class TopBar extends React.Component {
             anchorEl: null,
             openFilter: false,
             priceRange: [0, 20000],
-            distanceRange: [0, 35],
+            distanceRange: [0, 15],
             sort_on: null,
             shortURL: "",
             dropdown_visible: false,
@@ -100,7 +100,7 @@ class TopBar extends React.Component {
     isFilterApplied() {
         const def = {
             priceRange: [0, 20000],
-            distanceRange: [0, 35]
+            distanceRange: [0, 15]
         }
         try {
             for (let filter in def) {
@@ -139,6 +139,14 @@ class TopBar extends React.Component {
 
     overlayClick() {
         this.setState({ overlayVisible: false, searchCities: [] });
+    }
+
+    numberInputHandler() {
+        this.setState({ searchCities: [] });
+    }
+
+    hideLocationPopup() {
+        this.setState({ showLocationPopup: false });
     }
 
     render() {
@@ -207,7 +215,7 @@ class TopBar extends React.Component {
                     </div>
                     {
                         this.state.showLocationPopup ?
-                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='list' />
+                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} />
                             : ''
                     }
 
@@ -266,22 +274,19 @@ class TopBar extends React.Component {
                 {
                     this.state.searchCities.length > 0 ?
                         <section style={{ position: 'relative', zIndex: 11 }}>
-                            {
-                                this.state.searchCities.map((result, i) => {
-                                    return <div className="widget-panel" key={i}>
-                                        <div className="panel-content">
-                                            <ul className="list search-result-list">
-                                                <li key={i} onClick={this.selectLocation.bind(this, result)}>
-                                                    <a>{result.description}
-
-                                                    </a>
+                            <div className="widget-panel">
+                                <div className="panel-content">
+                                    <ul className="list search-result-list">
+                                        {
+                                            this.state.searchCities.map((result, i) => {
+                                                return <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                    <a>{result.description}</a>
                                                 </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                })
-                            }
-
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </section> : ''
                 }
 
