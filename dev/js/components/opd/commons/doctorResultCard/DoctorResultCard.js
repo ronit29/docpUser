@@ -68,57 +68,8 @@ class DoctorProfileCard extends React.Component {
         if (hospitals && hospitals.length) {
             return (
                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} className="dp-dr-search-card-link mrb-20" onClick={this.cardClick.bind(this, id, url)}>
-                    <div className="filter-card-dl mb-3">
-                        <div className="fltr-crd-top-container">
-                            <div className="fltr-lctn-dtls">
-                                <p><img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/customer-icons/map-marker-blue.svg" /><span className="fltr-loc-txt">Huda City Centre Mall...</span> | <span>3.5 Km</span></p>
-                            </div>
-                            <div className="row no-gutters">
-                                <div className="col-8">
-                                    <div className="fltr-crd-img">
-                                        <img className="fltr-usr-image" src="/assets/img/customer-icons/user.png" />
-                                        <span className="fltr-rtng">Polular</span>
-                                        <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span>
-                                    </div>
-                                    <div className="fltr-name-dtls">
-                                        <h5 className="fltr-dc-name">Dr. Vandana Kumar Ver...</h5>
-                                        <p>MD</p>
-                                        <p>General Physician</p>
-                                        <p>12 Years of Experince </p>
-                                    </div>
-                                </div>
-                                <div className="col-4">
-                                    <div className="fltr-bkng-section">
-                                        <span class="filtr-offer ofr-ribbon">50% Off</span>
-                                        <p className="fltr-prices">&#x20B9; 300 <span className="fltr-cut-price">&#x20B9; 375</span></p>
-                                        <button className="fltr-bkng-btn">Book Now</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="filtr-card-footer">
-                            <div>
-                                <img src="/assets/img/customer-icons/home.svg" />
-                                <p>
-                                    Cloud Nine Health clinic
-                                        <span>& 2 More</span>
-                                </p>
-                            </div>
-                            <div className="text-right">
-                                <img src="/assets/img/customer-icons/clock-black.svg" />
-                                <p>
-                                    <span>8:00 AM to 12:00 PM</span>
-                                    <span>1:00 PM to 7:00 PM</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-                    {/* <div className="dp-dr-search-card">
+            
+                     <div className="dp-dr-search-card">
                         <div className="dp-dr-search-card-div">
 
                             <div className="fltr-lctn-dtls">
@@ -176,7 +127,7 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
 
                 </a>
             );

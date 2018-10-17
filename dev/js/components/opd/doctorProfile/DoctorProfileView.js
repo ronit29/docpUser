@@ -94,6 +94,13 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+                                                    <div className="rate-star-icon">
+                                                        {
+                                                            [1, 2, 3, 4, 5].map((x, i) => {
+                                                                return <img key={i} className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
+                                                            })
+                                                        }
+                                                    </div>
                                                     <div className="widget mrt-10 ct-profile skin-white">
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
@@ -129,104 +136,6 @@ class DoctorProfileView extends React.Component {
                                                                     <ReviewList details={this.props.DOCTORS[doctor_id]} />
                                                                 </div>
                                                             </div>
-                                                            {/* rating popup */}
-                                                            <div className="raiting-popup">
-                                                                <div className="home-rating-card" style={{ display: 'none' }}>
-                                                                    <div className="rate-card-header">
-                                                                        Rate your Experience
-                                                                    <span><img src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
-                                                                    </div>
-                                                                    <div className="rate-card-doc-dtls">
-                                                                        <img src="/assets/img/customer-icons/user.png" className="img-fluid img-round " />
-                                                                        <div className="rate-doc-dtl">
-                                                                            <p className="rt-doc-nm">
-                                                                                Dr. Pallavi Kumar
-                                                                            </p>
-                                                                            <span>MBBS | General Physician</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="rate-star-icon">
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                    </div>
-                                                                </div>
-
-                                                                {/* Complete rate container */}
-                                                                <div className="home-rating-card">
-                                                                    <div className="rate-card-header">
-                                                                        Share your Feedback
-                                                                    <span><img src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
-                                                                    </div>
-                                                                    <div className="rate-card-doc-dtls">
-                                                                        <img src="/assets/img/customer-icons/user.png" className="img-fluid img-round " />
-                                                                        <div className="rate-doc-dtl">
-                                                                            <p className="rt-doc-nm">
-                                                                                Dr. Pallavi Kumar
-                                                                            </p>
-                                                                            <span>MBBS | General Physician</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="rate-star-icon">
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                        <img className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                                    </div>
-                                                                    <div className="rate-compliment-section">
-                                                                        <p className="cmplmnt-para">Give your compliment</p>
-                                                                        <ul className="compliment-lising">
-                                                                            <li>
-                                                                                <label className="ck-bx">
-                                                                                    <span className="rate-feed-text">Friendly</span>
-                                                                                    <input type="checkbox" />
-                                                                                    <span className="checkmark" />
-                                                                                </label>
-                                                                            </li>
-                                                                            <li>
-                                                                                <label className="ck-bx">
-                                                                                    <span className="rate-feed-text">Treatment Satisfaction</span>
-                                                                                    <input type="checkbox" />
-                                                                                    <span className="checkmark" />
-                                                                                </label>
-                                                                            </li>
-                                                                            <li>
-                                                                                <label className="ck-bx">
-                                                                                    <span className="rate-feed-text">Value of Money</span>
-                                                                                    <input type="checkbox" />
-                                                                                    <span className="checkmark" />
-                                                                                </label>
-                                                                            </li>
-                                                                            <li>
-                                                                                <label className="ck-bx">
-                                                                                    <span className="rate-feed-text">Health issue explaination</span>
-                                                                                    <input type="checkbox" />
-                                                                                    <span className="checkmark" />
-                                                                                </label>
-                                                                            </li>
-                                                                            <li>
-                                                                                <label className="ck-bx">
-                                                                                    <span className="rate-feed-text">Lesser wait time</span>
-                                                                                    <input type="checkbox" />
-                                                                                    <span className="checkmark" />
-                                                                                </label>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div className="rate-submit-cmnnt-box">
-                                                                            <textarea placeholder="Leave a review" rows="1">
-
-                                                                            </textarea>
-
-                                                                            <button className="rate-submit-btn">Submit</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                {/* Complete rate container */}
-                                                            </div>
-                                                            {/* rating popup */}
                                                         </div>
                                                     </div>
                                                 </div>

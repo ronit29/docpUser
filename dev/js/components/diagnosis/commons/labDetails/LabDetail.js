@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
-
+import ReviewList from '../../../commons/ratingsProfileView/ReviewList.js'
+import RatingGraph from '../../../commons/ratingsProfileView/RatingGraph.js'
+import ComplimentListView from '../../../commons/ratingsProfileView/ComplimentListView.js'
 import LabTests from '../labTests'
 
 class LabDetails extends React.Component {
@@ -88,6 +90,20 @@ class LabDetails extends React.Component {
                                     <h4 className="wc-title text-md fw-700">About</h4>
                                     <p>{about}
                                     </p>
+                                </div>
+                            </div>
+                            <div className="widget-panel">
+                                <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                <div className="panel-content pd-0">
+                                    <RatingGraph details={this.props.data.lab} />
+                                    <div className="user-satisfaction-section">
+                                        <div className="row">
+                                            {this.props.data.lab.rating_graph.top_compliments.map(compliment =>
+                                                <ComplimentListView key={compliment.id} details={compliment} />
+                                            )}
+                                        </div>
+                                    </div>
+                                    <ReviewList details={this.props.data.lab} />
                                 </div>
                             </div>
                         </div>
