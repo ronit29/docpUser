@@ -81,9 +81,9 @@ class DoctorProfileCard extends React.Component {
                             <div className="row no-gutters">
                                 <div className="col-8">
                                     <div className="fltr-crd-img">
-                                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds"><img className="img-fluid img-round" src={thumbnail} /></InitialsPicture>
-                                        {/* <span className="fltr-rtng">Polular</span>
-                                        <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
+                                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} /></InitialsPicture>
+                                        <span className="fltr-rtng">Verified</span>
+                                        {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
                                     </div>
                                     <div className="fltr-name-dtls">
                                         <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
@@ -98,13 +98,14 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                                 <div className="col-4">
                                     <div className="fltr-bkng-section">
-                                    {mrp!=0?<span class="filtr-offer ofr-ribbon fw-700">{discount}% Off</span>:''}
+                                    {discount!=0?<span class="filtr-offer ofr-ribbon fw-700">{discount}% Off</span>:''}
 
                                     <p className="fltr-prices">
+                                    
+                                    &#x20B9; {deal_price}
                                     {
                                         mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
-                                    }
-                                    &#x20B9; {deal_price}</p>
+                                    }</p>
                                     {
                                     !deal_price ?
                                         <div className="dp-dr-free-label">
