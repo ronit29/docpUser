@@ -11,10 +11,10 @@ export default ({ i, test, toggle }) => {
                 <span className="pkg-old-price">&#8377; {mrp}</span>
             </span>
             <span className="test-name-item">
-                <p className="pkg-info">aaaaaaaaaa  <button className="pkg-info-btn" onClick={() => {
+                <p className="pkg-info">{test.test.name}  <button className="pkg-info-btn" onClick={() => {
                     toggle('showPackageInfo', test)
                 }}>
-                <img src={ASSETS_BASE_URL + "/img/customer-icons/info.svg"} />
+                    <img src={ASSETS_BASE_URL + "/img/customer-icons/info.svg"} />
                 </button></p>
             </span>
         </div>

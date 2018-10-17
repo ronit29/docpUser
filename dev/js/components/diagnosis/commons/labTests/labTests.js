@@ -40,7 +40,8 @@ class LabTests extends React.Component {
                     is_package = true
                     number_of_tests = test.number_of_tests
                 }
-                if (is_package) {
+
+                if (test.is_package) {
                     return <PackageTest i={i} test={test} toggle={this.toggle.bind(this)} />
                 } else {
                     return <li className="clearfix" key={i}>
