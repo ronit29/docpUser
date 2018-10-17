@@ -1519,3 +1519,51 @@ justify-content: center;
     }
 }
 /* prescription card style */
+
+/* lab info packages */
+.pkg-current-price{
+    color: #f78631;
+    font-size: 16px;
+    margin-right: 12px;
+    position: relative;
+    top: -3px;
+}
+.pkg-old-price{
+    color: #757575;
+	font-size: 13px;
+	text-decoration: line-through;
+}
+.pkg-info{
+    font-weight: 500;
+    font-size: 14px;
+}
+.pkg-info-btn{
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.pkg-content{
+	font-size: 13px;
+    margin: 8px 0;
+    display: inline-block;
+    color: #313131;
+}
+ul.pkgs-drp-listing{
+    padding-left: 15px;
+}
+ul.pkgs-drp-listing li{
+	font-size: 14px;
+    color: #757575;
+    font-weight: 400;
+    margin-bottom: 14px;
+}
+
+.pkg-qus{
+font-weight: 500;
+}
+.pkg-ans{
+	font-weight: 500;
+}
+/* lab info packages */

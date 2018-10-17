@@ -29,14 +29,17 @@ class ExpansionPanel extends React.Component {
                     </div>
                     {
                         this.state.open ? <div className="more-content">
-                            <span>{content}</span>
-                            {
-                                contentList.map((cont, i) => {
-                                    return <div className="expansion-label-div" key={i}>
-                                        {cont}
-                                    </div>
-                                })
-                            }
+                            <span className="pkg-content">{content}</span>
+                            <ul className="pkgs-drp-listing">
+                                {
+                                    contentList.map((cont, i) => {
+                                        return <li key={i}>
+                                            {cont}
+                                        </li>
+
+                                    })
+                                }
+                            </ul>
                         </div> : ""
                     }
                 </div>

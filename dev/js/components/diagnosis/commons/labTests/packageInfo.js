@@ -18,7 +18,11 @@ export default ({ toggle, content }) => {
                 <hr />
             </div>
             <div className="cancel-policy-text" style={{ paddingTop: 0 }}>
-
+                <div className="qa-container">
+                    <h4 className="pkg-qus">What is this test?</h4>
+                    <p className="pkg-ans">chromosomal abnormalities, genetic conditions like downs syndrome, CML,
+malignancies Also known as Karyotyping</p>
+                </div>
             </div>
         </div>
     </div>
