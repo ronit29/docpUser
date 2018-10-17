@@ -20,13 +20,13 @@ const persistConfig = {
 const DOCTOR_LIST_PRESIST = {
     key: 'DOCTOR_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'doctorCoupons']
 }
 
 const LAB_LIST_PRESIST = {
     key: 'LAB_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons']
 }
 
 const USER_PERSIST = {

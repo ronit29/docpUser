@@ -30,7 +30,8 @@ class BookingSummaryViewNew extends React.Component {
             openPaymentSummary: false,
             // order_id: !!parsed.order_id,
             order_id: false,
-            showTimeError: false
+            showTimeError: false,
+            couponCode: []
         }
     }
 
@@ -48,6 +49,36 @@ class BookingSummaryViewNew extends React.Component {
                 SnackBar.show({ pos: 'bottom-center', text: "Could not complete payment, Try again!" })
             }, 500)
             this.props.history.replace(this.props.location.pathname)
+        }
+    }
+
+
+    componentWillReceiveProps(nextProps){
+        
+        if(nextProps.selectedSlot &&  nextProps.selectedSlot.time && Object.values(nextProps.selectedSlot.time).length){
+            
+            if(nextProps.labCoupons && nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length && nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests ){
+ 
+                let is_home_collection_enabled= true, finalPrice= 0, finalMrp= 0
+                let labCoupons = nextProps.labCoupons[this.state.selectedLab]
+
+                if(this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab]){
+
+
+                    nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
+                        let price = twp.deal_price
+                        let mrp = twp.mrp
+                        // check if any of the selected test does not allow home_pickup_available
+                        if (!twp.is_home_collection_enabled) {
+                            is_home_collection_enabled = false
+                        }
+                        finalPrice += parseFloat(price)
+                        finalMrp += parseFloat(mrp)
+                    })
+                    this.setState({couponCode: labCoupons[0].couponCode})
+                 this.props.applyLabCoupons('2', labCoupons[0].couponCode ,labCoupons[0].couponId,this.state.selectedLab,finalPrice )
+                }
+            }
         }
     }
 
@@ -131,7 +162,8 @@ class BookingSummaryViewNew extends React.Component {
             test_ids: testIds,
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
-            payment_type: 1 // TODO : Select payment type
+            payment_type: 1, // TODO : Select payment type
+            coupon_code: this.state.couponCode
         }
 
         let data = {
@@ -247,6 +279,8 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
 
+        let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
+
         return (
 
             <div className="profile-body-wrap">
@@ -294,9 +328,9 @@ class BookingSummaryViewNew extends React.Component {
                                         <div className="col-12">
 
                                         <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={() => {
-                                                this.props.history.push(`/coupon/lab/${this.state.selectedLab}`)}}>         
+                                                this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons`)}}>         
                                                     {
-                                                        this.props.LABS[this.state.selectedLab].couponCode
+                                                        labCoupons.length
                                                         ?
                                                         <div className="widget-content  d-flex jc-spaceb" >
                                                             <div className="d-flex">
@@ -309,10 +343,13 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                             <div className=" d-flex">
                                                                 <h4 className="title coupon-text" style={{color:'green',marginRight: 13}}>
-                                                                    {this.props.LABS[this.state.selectedLab].couponCode}
+                                                                    {labCoupons[0].couponCode}
                                                                 </h4>
                                                                 <span className="visit-time-icon coupon-icon">
-                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
+                                                                    <img onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            this.props.removeLabCoupons(this.state.selectedLab,labCoupons[0].couponId)
+                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"}/>
                                                                 </span>
                                                             </div>
                                                         </div>:
@@ -360,20 +397,20 @@ class BookingSummaryViewNew extends React.Component {
                                                         <p>&#8377; {finalMrp - finalPrice}</p>
                                                     </div>
                                                     {
-                                                        this.props.LABS[this.state.selectedLab].couponCode
+                                                        this.props.disCountedLabPrice
                                                         ?<div className="payment-detail d-flex">
                                                             <p  style={{color:'green'}}>Coupon discount</p>
-                                                            <p  style={{color:'green'}}>&#8377; {this.props.LABS[this.state.selectedLab].disCountedPrice}</p>
+                                                            <p  style={{color:'green'}}>&#8377; {this.props.disCountedLabPrice}</p>
                                                         </div>
                                                         :''
                                                     }
                                                     {
                                                         is_home_collection_enabled ? <div className="payment-detail d-flex">
                                                             <p className="payment-content fw-500">Subtotal</p>
-                                                            <p className="payment-content fw-500">&#8377; {finalPrice + labDetail.home_pickup_charges}</p>
+                                                            <p className="payment-content fw-500">&#8377; {finalPrice + labDetail.home_pickup_charges - (this.props.disCountedLabPrice || 0)}</p>
                                                         </div> : <div className="payment-detail d-flex">
                                                                 <p className="payment-content fw-500">Subtotal</p>
-                                                                <p className="payment-content fw-500">&#8377; {finalPrice}</p>
+                                                                <p className="payment-content fw-500">&#8377; {finalPrice - this.props.disCountedLabPrice || 0}</p>
                                                             </div>
                                                     }
                                                 
@@ -383,7 +420,7 @@ class BookingSummaryViewNew extends React.Component {
                                                 <div className="lab-visit-time test-report">
                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
                                                     {
-                                                        this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice}</h5>
+                                                        this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0) - (this.props.disCountedLabPrice || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice - this.props.disCountedLabPrice || 0}</h5>
                                                     }
 
                                                 </div>
@@ -420,7 +457,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient?'Select Patient':'Confirm Booking'}</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient?'Select Patient':'Confirm Booking'}</button>
                             }
 
 
