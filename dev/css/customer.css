@@ -763,6 +763,9 @@ li.lst-bfr:before{
 	margin-top: 2px;
 }
 .coupon-icon{
+	margin-top: 3px;
+}
+.coupon-icon-arrow{
 	margin-top: 7px;
 }
 .homePickup{
