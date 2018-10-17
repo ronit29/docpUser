@@ -1010,7 +1010,9 @@ li.lst-bfr:before{
 	color: #757575;
     font-size: 14px;
     text-decoration: line-through;
-    margin-left: 3px;
+	margin-left: 3px;
+	margin-top: 2px;
+	display: inline-block;
 }
 .fltr-bkng-btn{
 	border-radius: 5px;
@@ -1085,15 +1087,26 @@ li.lst-bfr:before{
 	.filtr-offer.ofr-ribbon {
 		top: 4px;
 	}
+	.fltr-name-dtls p{
+		width: 140px;
+	}
 }
 @media screen and (max-width: 380px) {
 	.fltr-dc-name{
 		width: 110px;
 		font-size: 14px;
 	}
-	.fltr-crd-img .fltr-usr-image {
+	.fltr-crd-img .fltr-usr-image{
 		height: 60px;
 		width: 60px;
+	}
+	div.initialsPicture-ds.fltr-initialPicture-ds {
+		height: 60px;
+		width: 60px;
+		margin: 0px;
+	}
+	.fltr-name-dtls p{
+		width: 110px;
 	}
 
 }

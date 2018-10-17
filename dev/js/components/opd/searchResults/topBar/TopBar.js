@@ -12,7 +12,7 @@ class TopBar extends React.Component {
             anchorEl: null,
             openFilter: false,
             priceRange: [0, 1500],
-            distanceRange: [0, 35],
+            distanceRange: [0, 15],
             sort_on: null,
             sits_at_clinic: false,
             sits_at_hospital: false,
@@ -119,7 +119,7 @@ class TopBar extends React.Component {
     isFilterApplied() {
         const def = {
             priceRange: [0, 1500],
-            distanceRange: [0, 35],
+            distanceRange: [0, 15],
             sits_at_clinic: false,
             sits_at_hospital: false,
             is_female: false,
