@@ -83,8 +83,10 @@ class PatientDetailsNew extends React.Component {
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
             start_date, start_time,
-            payment_type: 1, // TODO : Select payment type
-            coupon_code: this.state.couponCode?[this.state.couponCode]:[]
+            payment_type: 1
+        }
+        if(this.props.disCountedOpdPrice){
+            postData['coupon_code'] = [this.state.couponCode] || []
         }
 
         let analyticData = {

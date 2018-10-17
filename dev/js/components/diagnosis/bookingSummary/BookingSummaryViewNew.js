@@ -166,18 +166,22 @@ class BookingSummaryViewNew extends React.Component {
             test_ids: testIds,
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
-            payment_type: 1, // TODO : Select payment type
-            coupon_code: this.state.couponCode?[this.state.couponCode]:[]
+            payment_type: 1 // TODO : Select payment type
+        }
+        if(this.props.disCountedLabPrice){
+            postData['coupon_code'] = [this.state.couponCode] || []
         }
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'LabProceedClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-proceed-clicked'
         }
+
         GTM.sendEvent({ data: data })
 
         data = {
             'Category': 'ConsumerApp', 'Action': 'AppointmentType', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'appointment-type', 'appointmentType': this.props.selectedAppointmentType || ''
         }
+
         GTM.sendEvent({ data: data })
 
         this.props.createLABAppointment(postData, (err, data) => {
