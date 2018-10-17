@@ -31,10 +31,13 @@ class DoctorProfileCard extends React.Component {
 
         return (
             <div className="widget-header dr-qucik-info">
-                <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
-                    <img src={thumbnail} className="img-fluid img-round" />
-                </InitialsPicture>
-
+                <div className="fltr-crd-img">
+                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
+                        <img src={thumbnail} className="img-fluid img-round" />
+                    </InitialsPicture>
+                    <span className="fltr-rtng">Verified</span>
+                </div>
+                    
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
                     <p className="desg">{this.getQualificationStr(general_specialization || [])}</p>
