@@ -58,6 +58,8 @@ class PatientDetailsNew extends React.Component {
                     this.setState({couponCode: doctorCoupons[0].couponCode})
                     this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode ,doctorCoupons[0].couponId,this.state.selectedDoctor,this.props.selectedSlot.time.deal_price )   
             }
+        }else{
+            this.props.resetOpdCoupons()
         }
     }
 
@@ -82,7 +84,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: 1, // TODO : Select payment type
-            coupon_code: this.state.couponCode
+            coupon_code: [this.state.couponCode]
         }
 
         let analyticData = {

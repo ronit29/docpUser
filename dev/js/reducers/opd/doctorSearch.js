@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS} from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -110,6 +110,15 @@ export default function (state = defaultState, action) {
                 newState.disCountedOpdPrice = parseInt(action.payload.discount)
             }
             
+            return newState
+        }
+
+        case RESET_OPD_COUPONS: {
+            let newState = {
+                ...state
+            }
+            newState.disCountedOpdPrice = 0
+
             return newState
         }
 
