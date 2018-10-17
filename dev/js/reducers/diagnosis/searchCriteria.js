@@ -2,7 +2,7 @@ import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
-    distanceRange: [0, 35],
+    distanceRange: [0, 15],
     sort_on: null,
     lab_name: ""
 }

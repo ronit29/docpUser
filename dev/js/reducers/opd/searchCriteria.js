@@ -2,7 +2,7 @@ import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_S
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
-    distanceRange: [0, 35],
+    distanceRange: [0, 15],
     sort_on: null,
     sits_at_clinic: false,
     sits_at_hospital: false,
