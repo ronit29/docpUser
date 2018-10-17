@@ -23,7 +23,7 @@ class ExpansionPanel extends React.Component {
         return (
             <li className="expansion-panel-list-item" >
                 <div>
-                    <div className="title" onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0 }} >
+                    <div className="title" onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0, fontSize: 15 }} >
                         {heading}
                         {
                             contentList.length ? (this.state.open ? <img className="titlearrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /> : <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />) : ""

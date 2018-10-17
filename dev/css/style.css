@@ -1542,7 +1542,8 @@ justify-content: center;
     border: none;
     outline: none;
     cursor: pointer;
-    margin-left: 5px;
+	margin-left: 5px;
+	background: transparent;
 }
 .pkg-content{
 	font-size: 13px;
@@ -1559,7 +1560,9 @@ ul.pkgs-drp-listing li{
     font-weight: 400;
     margin-bottom: 14px;
 }
-
+.qa-container{
+	margin-bottom: 35px;
+}
 .pkg-qus{
 font-weight: 500;
 }
