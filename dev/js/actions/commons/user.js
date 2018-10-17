@@ -389,5 +389,10 @@ export const saveChatStaticMsg = (msg, deleteRoomId = false) => (dispatch) => {
 		payload: msg,
 		deleteRoomId: deleteRoomId
 	})
+}
 
+export const userPhoneNumber = (phone_number) => (dispatch) => {
+	API_POST('api/v1/common/search-lead/create', { 'phone_number': phone_number }).then(function (response) {
+	}).catch(function (error) {
+	});
 }

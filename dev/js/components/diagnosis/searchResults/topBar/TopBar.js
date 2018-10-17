@@ -141,6 +141,10 @@ class TopBar extends React.Component {
         this.setState({ overlayVisible: false, searchCities: [] });
     }
 
+    numberInputHandler(){
+        this.setState({ searchCities: [] });
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -207,7 +211,7 @@ class TopBar extends React.Component {
                     </div>
                     {
                         this.state.showLocationPopup ?
-                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='list' />
+                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} />
                             : ''
                     }
 
@@ -266,22 +270,19 @@ class TopBar extends React.Component {
                 {
                     this.state.searchCities.length > 0 ?
                         <section style={{ position: 'relative', zIndex: 11 }}>
-                            {
-                                this.state.searchCities.map((result, i) => {
-                                    return <div className="widget-panel" key={i}>
-                                        <div className="panel-content">
-                                            <ul className="list search-result-list">
-                                                <li key={i} onClick={this.selectLocation.bind(this, result)}>
-                                                    <a>{result.description}
-
-                                                    </a>
+                            <div className="widget-panel">
+                                <div className="panel-content">
+                                    <ul className="list search-result-list">
+                                        {
+                                            this.state.searchCities.map((result, i) => {
+                                                return <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                    <a>{result.description}</a>
                                                 </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                })
-                            }
-
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </section> : ''
                 }
 

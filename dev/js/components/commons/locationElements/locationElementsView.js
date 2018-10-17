@@ -8,8 +8,10 @@ class LocationElementsView extends React.Component {
         super(props)
         this.state = {
             search: '',
+            mobile_no: '',
             searchResults: [],
-            detectLoading: false
+            detectLoading: false,
+            validationError: false
         }
     }
 
@@ -72,7 +74,23 @@ class LocationElementsView extends React.Component {
             search: e.target.value
         })
         this.getLocation(e.target.value)
+    }
 
+    inputNoHandler(e) {
+        this.setState({
+            mobile_no: e.target.value,
+            validationError: false
+        })
+    }
+
+    numberSubmitClick() {
+        let number = this.state.mobile_no;
+        if (number.match(/^[56789]{1}[0-9]{9}$/)) {
+            this.props.userPhoneNumber(number);
+        }
+        else {
+            this.setState({ validationError: true });
+        }
     }
 
     selectLocation(location, cb) {
@@ -143,8 +161,8 @@ class LocationElementsView extends React.Component {
                             : ''
                     }
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
-
                 </div>
+
                 <div className="col-12" style={{ paddingBottom: 10 }}>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div">
@@ -160,9 +178,28 @@ class LocationElementsView extends React.Component {
                                 <p className="fw-500 text-sm" style={{ color: '#fff' }}>Auto Detect</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
+                {
+                    this.props.isTopbar ?
+                        <div className="col-12" style={{ paddingBottom: 10 }}>
+                            <div className="doc-select-location-div">
+                                <div className="doc-input-loc-div">
+                                    <input type="number" className="form-control doc-input-loc doc-input-loc-number" id="doc-input-number-field" placeholder="Enter your mobile number" onFocus={() => this.props.numberInputHandler()} onChange={(e) => this.inputNoHandler(e)} />
+                                    <span className="doc-input-loc-icon doc-input-loc-mobile-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/mobile.svg"} />
+                                    </span>
+                                    {
+                                        this.state.validationError ?
+                                            <span className="input-no-error">Invalid no</span> : ''
+                                    }
+                                    <button className="loc-submit-no-btn" onClick={(e) => this.numberSubmitClick(e)}>Submit</button>
+                                </div>
+                            </div>
+                        </div> : ''
+                }
+
                 <div id="map1" style={{ display: 'none' }}></div>
             </div>
         )

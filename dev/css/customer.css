@@ -539,6 +539,10 @@ text-align: left;
 	font-size: 14px;
 }
 
+.doc-input-loc-number{
+	padding: 8px 80px 8px 40px;
+}
+
 .doc-input-loc-icon{
 	position: absolute;
     top: 50%;
@@ -688,11 +692,43 @@ li.lst-bfr:before{
   	border-bottom: 15px solid #f6843a;
 }
 
+.doc-input-loc-mobile-icon{
+	width: 14px;
+	height: auto;
+}
+
+.loc-submit-no-btn{
+	position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+	cursor: pointer;
+	background-color: #f78631;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 500;
+	border: none;
+	box-shadow: none;
+	outline: none;
+	padding: 4px 8px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.input-no-error{
+	position: absolute;
+	right: 80px;
+    top: 50%;
+	transform: translateY(-50%);
+	color: red;
+	font-weight: 500;
+	font-size: 12px;
+}
+
 @media screen and (max-width: 380px) {
 	.doc-caret{
 		left: 64%;
 	}
-	
 }
 
 .doc-select-none{
