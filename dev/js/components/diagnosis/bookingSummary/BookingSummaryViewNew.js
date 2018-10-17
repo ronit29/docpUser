@@ -80,7 +80,7 @@ class BookingSummaryViewNew extends React.Component {
                         finalPrice = finalPrice + (this.props.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
                     }
                      
-                    this.setState({couponCode: labCoupons[0].couponCode, couponId: labCoupons[0].couponId})
+                    this.setState({couponCode: labCoupons[0].couponCode , couponId: labCoupons[0].couponId || ''})
                  this.props.applyLabCoupons('2', labCoupons[0].couponCode ,labCoupons[0].couponId,this.state.selectedLab,finalPrice )
                 }
             }
@@ -185,8 +185,8 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: data })
 
         this.props.createLABAppointment(postData, (err, data) => {
-            this.props.removeLabCoupons(this.state.selectedLab,this.state.couponId)
             if (!err) {
+                this.props.removeLabCoupons(this.state.selectedLab,this.state.couponId)
                 if (data.is_agent) {
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
