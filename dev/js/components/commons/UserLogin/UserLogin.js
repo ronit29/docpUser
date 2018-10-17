@@ -155,9 +155,23 @@ class UserLoginView extends React.Component {
                                                 </div> : ""
                                             }
                                         </div>
+                                        <span className="errorMessage m-0 mb-2">{this.props.error_message}</span>
+                                        <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
+                                        {
+                                            this.state.showOTP ?
+                                            <div class="text-center">
+                                                <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} class="v-btn v-btn-primary btn-sm">
+                                                    Verify
+                                                </button>
+                                            </div>:
+                                            <div class="text-center">
+                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent}  class="v-btn v-btn-primary btn-sm">
+                                                    Continue
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
-                                    <span className="errorMessage m-0 mb-2">{this.props.error_message}</span>
-                                    <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
+                                    
                                     <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                                 </div>
                                 <div className="widget mt-21 sign-up-container mrng-btm-scrl">
@@ -183,10 +197,6 @@ class UserLoginView extends React.Component {
                                     </div>
                                 </div>
                             </section>
-
-                            {
-                                this.state.showOTP ? <button onClick={this.verifyOTP.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" disabled={this.props.submit_otp}>Verify</button> : <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Continue</button>
-                            }
 
                         </div>
 
