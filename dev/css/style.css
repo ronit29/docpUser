@@ -590,7 +590,7 @@ p.top-head-link.card-lab-link span {
 }
 
 .header-loc-text {
-	width: 70px;
+	max-width: 70px;
 	text-align: left;
 	overflow: hidden;
 	white-space: nowrap;

@@ -6,9 +6,15 @@ class LocationElementsView extends React.Component {
 
     constructor(props) {
         super(props)
+
+        var mobile_no = ''
+        if (this.props.userPhoneNo) {
+            mobile_no = this.props.userPhoneNo;
+        }
+
         this.state = {
             search: '',
-            mobile_no: '',
+            mobile_no: mobile_no,
             searchResults: [],
             detectLoading: false,
             validationError: false
@@ -26,7 +32,6 @@ class LocationElementsView extends React.Component {
                 this.setState({ search: props.selectedLocation.formatted_address })
             }
         }
-
     }
 
     componentDidMount() {
@@ -87,6 +92,10 @@ class LocationElementsView extends React.Component {
         let number = this.state.mobile_no;
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.props.userPhoneNumber(number);
+            this.props.hideLocationPopup();
+        }
+        else if (!number) {
+            this.props.hideLocationPopup();
         }
         else {
             this.setState({ validationError: true });
@@ -186,13 +195,13 @@ class LocationElementsView extends React.Component {
                         <div className="col-12" style={{ paddingBottom: 10 }}>
                             <div className="doc-select-location-div">
                                 <div className="doc-input-loc-div">
-                                    <input type="number" className="form-control doc-input-loc doc-input-loc-number" id="doc-input-number-field" placeholder="Enter your mobile number" onFocus={() => this.props.numberInputHandler()} onChange={(e) => this.inputNoHandler(e)} />
+                                    <input type="number" className="form-control doc-input-loc doc-input-loc-number" id="doc-input-number-field" value={this.state.mobile_no} placeholder="Enter your mobile number" onFocus={() => this.props.numberInputHandler()} onChange={(e) => this.inputNoHandler(e)} />
                                     <span className="doc-input-loc-icon doc-input-loc-mobile-icon">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/mobile.svg"} />
                                     </span>
                                     {
                                         this.state.validationError ?
-                                            <span className="input-no-error">Invalid no</span> : ''
+                                            <span className="input-no-error">Invalid no</span> : <span className="input-no-error" style={{color: '#808080'}}>Optional</span>
                                     }
                                     <button className="loc-submit-no-btn" onClick={(e) => this.numberSubmitClick(e)}>Submit</button>
                                 </div>

@@ -27,16 +27,21 @@ const mapStateToProps = (state) => {
         locationType
     } = state.SEARCH_CRITERIA_OPD
 
+    const {
+        userPhoneNo
+    } = state.USER
+
     return {
         selectedLocation,
-        locationType
+        locationType,
+        userPhoneNo
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         userPhoneNumber: (phone_number) => dispatch(userPhoneNumber(phone_number)),
-        selectLocation: (location,type) => dispatch(selectLocation(location,type))
+        selectLocation: (location, type) => dispatch(selectLocation(location, type))
     }
 }
 

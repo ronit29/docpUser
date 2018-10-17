@@ -141,8 +141,12 @@ class TopBar extends React.Component {
         this.setState({ overlayVisible: false, searchCities: [] });
     }
 
-    numberInputHandler(){
+    numberInputHandler() {
         this.setState({ searchCities: [] });
+    }
+
+    hideLocationPopup() {
+        this.setState({ showLocationPopup: false });
     }
 
     render() {
@@ -211,7 +215,7 @@ class TopBar extends React.Component {
                     </div>
                     {
                         this.state.showLocationPopup ?
-                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} />
+                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} />
                             : ''
                     }
 
