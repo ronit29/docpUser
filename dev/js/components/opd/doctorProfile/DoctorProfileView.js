@@ -95,6 +95,7 @@ class DoctorProfileView extends React.Component {
                                                     <div className="widget mrt-10 ct-profile skin-white">
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
+                                                            getDoctorNumber={this.props.getDoctorNumber}
                                                         />
                                                         <div className="widge-content pd-0">
                                                             {

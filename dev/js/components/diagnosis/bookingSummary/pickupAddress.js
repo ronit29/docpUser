@@ -28,9 +28,6 @@ class PickupAddress extends React.Component {
             this.props.address.map((add) => {
                 if (add.id == this.props.selectedAddress) {
                     addressStr = add.address
-                    if (add.land_mark) {
-                        addressStr += ", " + add.land_mark
-                    }
                     if (add.locality) {
                         addressStr += ", " + add.locality
                     }
@@ -45,7 +42,7 @@ class PickupAddress extends React.Component {
                     e.stopPropagation()
                     this.setState({ selectorOpen: true })
                 }} className="text-primary fw-700 text-sm">{addressStr ? "Change" : "Pick"}</a></span></h4>
-                <p className="date-time">{addressStr}</p>
+                <p className="date-time">{addressStr} {this.props.addressError == false || addressStr.length ? '' : <span className="fw-500" style={{ color: 'red', fontSize: 11, float: 'right' }}>Required</span>}</p>
 
                 {
                     this.state.selectorOpen ? <div className="fullscreen" onClick={() => {

@@ -185,7 +185,7 @@ class UserLoginView extends React.Component {
                             </section>
 
                             {
-                                this.state.showOTP ? <button onClick={this.verifyOTP.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" disabled={this.props.submit_otp}>Verify</button> : <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Continue</button>
+                                this.state.showOTP ? <button onClick={this.verifyOTP.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" disabled={this.props.submit_otp}>Verify</button> : <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Continue</button>
                             }
 
                         </div>

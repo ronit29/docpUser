@@ -72,7 +72,6 @@ class CommonlySearched extends React.Component {
                     </a>
                 </li>
             }
-
         })
 
         let divClass = `panel-content`
@@ -91,7 +90,7 @@ class CommonlySearched extends React.Component {
         return (
 
             <div className="widget-panel">
-                <h4 className="panel-title">{this.props.heading}</h4>
+                <h4 className="panel-title mrb-0">{this.props.heading}</h4>
                 <div className={divClass}>
                     <ul className={ulClass}>
                         {rows}
