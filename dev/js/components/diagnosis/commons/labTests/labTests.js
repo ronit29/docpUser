@@ -58,11 +58,10 @@ class LabTests extends React.Component {
                 <ul className="list pb-list pb-test-list">
                     {tests}
                 </ul>
-                {
-                    is_package ? "" : <div className="pb-view text-right">
-                        <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
-                    </div>
-                }
+                <div className="pb-view text-right">
+                    <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
+                </div>
+
                 {
                     this.state.showPackageInfo ? <PackageInfo content={this.state.packageInfoTest} toggle={this.toggle.bind(this, 'showPackageInfo')} /> : ""
                 }
