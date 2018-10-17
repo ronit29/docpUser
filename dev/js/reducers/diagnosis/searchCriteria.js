@@ -11,6 +11,7 @@ const defaultState = {
     LOADED_SEARCH_CRITERIA_LAB: false,
     common_tests: [],
     common_conditions: [],
+    common_package: [],
     preferred_labs: [],
     selectedCriterias: [],
     selectedLocation: null,

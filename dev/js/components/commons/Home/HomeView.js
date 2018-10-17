@@ -242,6 +242,39 @@ class HomeView extends React.Component {
                             </p>
                         </div>
 
+                        <div className="card cstm-card mb-3">
+                            <div className="card-header" style={{ justifyContent: 'normal' }}>
+                                <h2>Health Packages</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                            </div>
+                            <div className="card-body">
+                                <div className="row mb-2">
+
+                                    {
+                                        this.props.common_package.map((ct, i) => {
+                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                <div className="grid-img-cnt brdr-btm">
+                                                    <a href="javascript:void(0);">
+                                                        <img className="img-fluid" src={ct.icon} />
+                                                        <span> {ct.name} </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        })
+                                    }
+
+                                    <div className="col-4">
+                                        <div className="grid-img-cnt brdr-btm">
+                                            <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
+                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                <span>Search more tests</span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>)
@@ -322,45 +355,69 @@ class HomeView extends React.Component {
 
 
                         {/* Book a test */}
-                        {
-                            <div className="card cstm-card mb-3">
-                                <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                    <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
-                                </div>
-                                <div className="card-body">
-                                    <div className="row mb-2">
 
-                                        {
-                                            this.props.common_tests.map((ct, i) => {
-                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
-                                                    <div className="grid-img-cnt brdr-btm">
-                                                        <a href="javascript:void(0);">
-                                                            <img className="img-fluid" src={ct.icon} />
-                                                            <span> {ct.name} </span>
-                                                        </a>
-                                                    </div>
+                        <div className="card cstm-card mb-3">
+                            <div className="card-header" style={{ justifyContent: 'normal' }}>
+                                <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                            </div>
+                            <div className="card-body">
+                                <div className="row mb-2">
+
+                                    {
+                                        this.props.common_tests.map((ct, i) => {
+                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                <div className="grid-img-cnt brdr-btm">
+                                                    <a href="javascript:void(0);">
+                                                        <img className="img-fluid" src={ct.icon} />
+                                                        <span> {ct.name} </span>
+                                                    </a>
                                                 </div>
-                                            })
-                                        }
-
-                                        <div className="col-4">
-                                            <div className="grid-img-cnt brdr-btm">
-                                                <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
-                                                    <img className="img-fluid" src="/assets/images/vall.png" />
-                                                    <span>Search more tests</span>
-                                                </a>
                                             </div>
+                                        })
+                                    }
+
+                                    <div className="col-4">
+                                        <div className="grid-img-cnt brdr-btm">
+                                            <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>
+                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                <span>Search more tests</span>
+                                            </a>
                                         </div>
-
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
 
-                        }
+                        </div>
+
                         <div className="fw-500 doc-lap-link">
                             <p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
                             <button className="lap-doc-btn" onClick={() => this.props.history.push('/doctorsignup')} >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+                        </div>
+
+                        <div className="card cstm-card mb-3">
+                            <div className="card-header" style={{ justifyContent: 'normal' }}>
+                                <h2>Health Packages</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                            </div>
+                            <div className="card-body">
+                                <div className="row mb-2">
+
+                                    {
+                                        this.props.common_package.map((ct, i) => {
+                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                <div className="grid-img-cnt brdr-btm">
+                                                    <a href="javascript:void(0);">
+                                                        <img className="img-fluid" src={ct.icon} />
+                                                        <span> {ct.name} </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        })
+                                    }
+
+                                </div>
+                            </div>
+
                         </div>
 
 
