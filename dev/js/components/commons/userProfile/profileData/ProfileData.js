@@ -22,8 +22,8 @@ class ProfileData extends React.Component {
                 <div className="widget-content">
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item">
-                            <p className="usr-dtls-name">Welcome to docprime, Akshay!</p>
-                            <p className="usr-dtls-benf">docprime benifits</p>
+                            <p className="usr-dtls-name">{`Welcome to docprime ${this.props.USER.userName ?`, ${this.props.USER.userName}! `:''} `}</p>
+                            <p className="usr-dtls-benf">docprime benefits</p>
                             <div className="usr-dtls-startup">
                                 <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
                                 <div className="row no-gutters">

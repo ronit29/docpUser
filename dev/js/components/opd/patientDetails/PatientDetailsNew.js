@@ -30,7 +30,7 @@ class PatientDetailsNew extends React.Component {
             error: "",
             openCancellation: false,
             order_id: false,
-            couponCode: []
+            couponCode: ''
             // order_id: !!parsed.order_id
         }
     }
@@ -84,7 +84,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: 1, // TODO : Select payment type
-            coupon_code: [this.state.couponCode]
+            coupon_code: this.state.couponCode?[this.state.couponCode]:[]
         }
 
         let analyticData = {

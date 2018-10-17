@@ -50,9 +50,9 @@ class CouponSelectionView extends React.Component {
         let dots = []
         for(let i = 1; i<=no; i++){
             if(i <= used )
-                dots.push(<li className="active"><span className="dot">1</span></li>)
+                dots.push(<li className="active"><span className="dot">{i}</span></li>)
             else
-                dots.push(<li className=""><span className="dot">1</span></li>)
+                dots.push(<li className=""><span className="dot">{i}</span></li>)
         }
         return dots
     }

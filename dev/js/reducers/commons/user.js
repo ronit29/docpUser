@@ -38,7 +38,8 @@ const defaultState = {
     chat_static_msg: '',
     applicableCoupons: [],
     userPrescriptions:[],
-    primaryMobile:0
+    primaryMobile:0,
+    userName:''
 }
 
 export default function (state = defaultState, action) {
@@ -66,6 +67,7 @@ export default function (state = defaultState, action) {
                     if (!newState.selectedProfile) {
                         newState.selectedProfile = profile.id
                         newState.primaryMobile = profile.phone_number
+                        newState.userName = profile.name
                     }
                     newState.defaultProfile = profile.id
                 }
