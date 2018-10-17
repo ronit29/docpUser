@@ -765,6 +765,9 @@ li.lst-bfr:before{
 .coupon-icon{
 	margin-top: 3px;
 }
+.coupon-icon-arrow{
+	margin-top: 7px;
+}
 .homePickup{
 	vertical-align: inherit;
 	margin-right: 4px;

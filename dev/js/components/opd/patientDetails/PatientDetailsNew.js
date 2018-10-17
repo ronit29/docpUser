@@ -255,7 +255,7 @@ class PatientDetailsNew extends React.Component {
                                                                 HAVE A COUPON?
                                                             </h4>
                                                         </div>
-                                                        <div className="visit-time-icon coupon-icon">
+                                                        <div className="visit-time-icon coupon-icon-arrow">
                                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"}/>
                                                         </div>
                                                     </div>
