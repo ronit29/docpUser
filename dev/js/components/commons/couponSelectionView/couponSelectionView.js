@@ -66,31 +66,31 @@ class CouponSelectionView extends React.Component {
                                                 </div>
                                                 <div className="coupons-list">
                                                 <p className="pd-12">Select</p>
-                                                    <ul>
-                                                        <li className="coupon-style d-flex pd-12">
-                                                            <input type="radio" name ="coupons" checked={this.state.coupon == '1'} value='FIRST' onChange = {this.toggleButtons.bind(this,'1')}/>
-                                                            <div className="coupon-input">
+                                                    <ul className="search-list-radio">
+                                                        <li className="coupon-style pd-12">
+                                                            <input type="radio" id="first" name="radio-group" checked={this.state.coupon == '1'} value='FIRST' onChange = {this.toggleButtons.bind(this,'1')}/>
+                                                            <label className="fw-700 text-md" for="first">FIRST</label>
+                                                            <div className="coupon-input col-12">
                                                                 
-                                                                <p className="fw-700 text-md">FIRST</p>
                                                                 <p>100% discount on your first booking on doctor & diagnostics</p>
                                                                 <p className="text-sm text-primary">Terms & Conditions</p>
                                                             </div>
                                                         </li>
-                                                        <li className="coupon-style d-flex pd-12">
-                                                        <input type="radio" name ="coupons" checked={this.state.coupon == '2'}  value='SECOND' onChange = {this.toggleButtons.bind(this,'2')}/>
+                                                        <li className="coupon-style pd-12">
+                                                            <input type="radio" id="second" name="radio-group" checked={this.state.coupon == '2'}  value='SECOND' onChange = {this.toggleButtons.bind(this,'2')}/>
+                                                            <label className="fw-700 text-md" for="second">SECOND</label>
 
-                                                            <div className="coupon-input">
-                                                                <p className="fw-700 text-md">SECOND</p>
+                                                            <div className="coupon-input col-12">
                                                                 <p>100% discount on your first booking on doctor & diagnostics</p>
                                                                 <p className="text-sm text-primary">Terms & Conditions</p>
 
                                                             </div>
                                                         </li>
-                                                        <li  className="coupon-style d-flex pd-12">
-                                                        <input type="radio" name ="coupons" checked = {this.state.coupon == '3'} value='THIRD' onChange = {this.toggleButtons.bind(this,'3')}/>
+                                                        <li  className="coupon-style pd-12">
+                                                            <input type="radio" id="third" name="radio-group" checked = {this.state.coupon == '3'} value='THIRD' onChange = {this.toggleButtons.bind(this,'3')}/>
+                                                            <label className="fw-700 text-md" for="third">THIRD</label>
 
-                                                            <div className="coupon-input">
-                                                                <p className="fw-700 text-md">THIRD</p>
+                                                            <div className="coupon-input col-12">
                                                                 <p>100% discount on your first booking on doctor & diagnostics</p>
                                                                 <p className="text-sm text-primary">Can be used 3 times per user</p>
                                                                 <div className="coupon-timeline book-confirmed-timeline">
