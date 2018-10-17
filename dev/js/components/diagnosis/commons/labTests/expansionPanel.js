@@ -6,7 +6,7 @@ class ExpansionPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: true
+            open: false
         }
     }
 
@@ -16,7 +16,7 @@ class ExpansionPanel extends React.Component {
 
     render() {
 
-        let { heading, contentList, image } = this.props
+        let { heading, contentList, image, content } = this.props
 
         return (
             <li className="expansion-panel-list-item" >
@@ -29,6 +29,7 @@ class ExpansionPanel extends React.Component {
                     </div>
                     {
                         this.state.open ? <div className="more-content">
+                            <span>{content}</span>
                             {
                                 contentList.map((cont, i) => {
                                     return <div className="expansion-label-div" key={i}>
