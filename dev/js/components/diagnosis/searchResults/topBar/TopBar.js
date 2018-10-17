@@ -12,7 +12,7 @@ class TopBar extends React.Component {
             anchorEl: null,
             openFilter: false,
             priceRange: [0, 20000],
-            distanceRange: [0, 35],
+            distanceRange: [0, 15],
             sort_on: null,
             shortURL: "",
             dropdown_visible: false,
@@ -100,7 +100,7 @@ class TopBar extends React.Component {
     isFilterApplied() {
         const def = {
             priceRange: [0, 20000],
-            distanceRange: [0, 35]
+            distanceRange: [0, 15]
         }
         try {
             for (let filter in def) {
