@@ -50,6 +50,7 @@ class BookingSummaryViewNew extends React.Component {
             }, 500)
             this.props.history.replace(this.props.location.pathname)
         }
+        this.props.resetLabCoupons()
     }
 
 
@@ -75,6 +76,11 @@ class BookingSummaryViewNew extends React.Component {
                         finalPrice += parseFloat(price)
                         finalMrp += parseFloat(mrp)
                     })
+
+                    if(this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && is_home_collection_enabled){
+                        finalPrice = finalPrice + (this.props.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+                    }
+                     
                     this.setState({couponCode: labCoupons[0].couponCode})
                  this.props.applyLabCoupons('2', labCoupons[0].couponCode ,labCoupons[0].couponId,this.state.selectedLab,finalPrice )
                 }
@@ -163,7 +169,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            coupon_code: this.state.couponCode
+            coupon_code: [this.state.couponCode]
         }
 
         let data = {
@@ -387,7 +393,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         <p>&#8377; {finalMrp}</p>
                                                     </div>
                                                     {
-                                                        is_home_collection_enabled ? <div className="payment-detail d-flex">
+                                                        (is_home_collection_enabled && this.props.selectedAppointmentType == 'home')? <div className="payment-detail d-flex">
                                                             <p className="payment-content">Home Pickup Charges</p>
                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                         </div> : ""
@@ -405,9 +411,9 @@ class BookingSummaryViewNew extends React.Component {
                                                         :''
                                                     }
                                                     {
-                                                        is_home_collection_enabled ? <div className="payment-detail d-flex">
+                                                        (is_home_collection_enabled && this.props.selectedAppointmentType == 'home')? <div className="payment-detail d-flex">
                                                             <p className="payment-content fw-500">Subtotal</p>
-                                                            <p className="payment-content fw-500">&#8377; {finalPrice + labDetail.home_pickup_charges - (this.props.disCountedLabPrice || 0)}</p>
+                                                            <p className="payment-content fw-500">&#8377; {finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)}</p>
                                                         </div> : <div className="payment-detail d-flex">
                                                                 <p className="payment-content fw-500">Subtotal</p>
                                                                 <p className="payment-content fw-500">&#8377; {finalPrice - this.props.disCountedLabPrice || 0}</p>

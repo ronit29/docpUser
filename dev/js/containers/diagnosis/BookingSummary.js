@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons } from '../../actions/index.js'
+import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -71,7 +71,8 @@ const mapDispatchToProps = (dispatch) => {
         createLABAppointment: (postData, callback) => dispatch(createLABAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeLabCoupons: (labId, couponId) => dispatch(removeLabCoupons(labId, couponId)),
-        applyLabCoupons: (productId , couponCode, couponId, labId, dealPrice) => dispatch(applyLabCoupons(productId ,couponCode, couponId, labId, dealPrice))
+        applyLabCoupons: (productId , couponCode, couponId, labId, dealPrice) => dispatch(applyLabCoupons(productId ,couponCode, couponId, labId, dealPrice)),
+        resetLabCoupons: () => dispatch(resetLabCoupons())
     }
 }
 
