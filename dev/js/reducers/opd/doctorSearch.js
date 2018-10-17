@@ -95,7 +95,9 @@ export default function (state = defaultState, action) {
                 doctorCoupons : { ...state.doctorCoupons }
             }
 
-            newState.doctorCoupons[action.hospitalId] = newState.doctorCoupons[action.hospitalId].filter((coupon) => { coupon.coupon_id != action.couponId })
+            if(action.couponId){
+                newState.doctorCoupons[action.hospitalId] = newState.doctorCoupons[action.hospitalId].filter((coupon) => { coupon.coupon_id != action.couponId })  
+            }
             newState.disCountedOpdPrice = 0
             return newState
 

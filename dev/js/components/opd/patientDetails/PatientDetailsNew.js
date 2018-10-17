@@ -55,7 +55,7 @@ class PatientDetailsNew extends React.Component {
             let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor]
             if(this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.state.selectedDoctor ){
                     
-                    this.setState({couponCode: doctorCoupons[0].couponCode , couponId: doctorCoupons[0].couponId})
+                    this.setState({couponCode: doctorCoupons[0].couponCode , couponId: doctorCoupons[0].couponId || ''})
                     this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode ,doctorCoupons[0].couponId,this.state.selectedDoctor,this.props.selectedSlot.time.deal_price )   
             }
         }else{
@@ -95,8 +95,8 @@ class PatientDetailsNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
 
         this.props.createOPDAppointment(postData, (err, data) => {
-            this.props.removeCoupons(this.state.selectedDoctor , this.state.couponId)
             if (!err) {
+                this.props.removeCoupons(this.state.selectedDoctor , this.state.couponId)
                 if (data.is_agent) {
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
