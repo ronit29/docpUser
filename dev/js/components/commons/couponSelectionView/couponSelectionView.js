@@ -102,7 +102,7 @@ class CouponSelectionView extends React.Component {
                                                     this.props.applicableCoupons.length?
                                                 
                                                         <div className="coupons-list">
-                                                            <p className="pd-12">Select</p>
+                                                            <p className="pd-12">Select Coupon</p>
                                                             <ul>
                                                                 {
                                                                     this.props.applicableCoupons.map((coupons,index)=>{

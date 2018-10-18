@@ -66,7 +66,7 @@ class DoctorProfileCard extends React.Component {
 
         var Distance = (Math.round(distance * 10) / 10).toFixed(1);
         if(mrp != 0){
-            var discount = Math.round((deal_price*100) / mrp);
+            var discount = 100 - Math.round((deal_price*100) / mrp);
         }
         
         if (hospitals && hospitals.length) {
