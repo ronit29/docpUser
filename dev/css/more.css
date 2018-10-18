@@ -460,7 +460,7 @@ ul.inline-list li {
 }
 
 .expansion-label-div{
-    display: inline-block;
+    display: block;
 }
 
 .expansion-label-div:first-child{
