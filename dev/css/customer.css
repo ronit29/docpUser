@@ -44,7 +44,7 @@
 .ct-profile .ct-profile-icon{float:left;}
 .ct-profile .ct-content{padding-left: 60px;}
 .ct-title{font-size: 16px; font-weight: bold; margin-bottom: 2px;}
-.ct-profile p{color: #757575; font-size: 14px; font-weight: 500;}
+.ct-profile p{color: #000; font-size: 14px; font-weight: 500;}
 
 .welcome{ font-size: 14px; font-weight: 500;}
 .notification-icon{position: relative;}
@@ -295,7 +295,7 @@
 
 /*doctor profile screen*/
 .dr-profile-screen{padding-bottom: 50px;}
-.dr-qucik-info{display: flex; flex-wrap: wrap; align-items: flex-start;padding-bottom:1px}
+.dr-qucik-info{display: flex; flex-wrap: wrap; align-items: flex-start}
 .dr-profile-screen .dr-qucik-info img{height: 80px; width: 80;}
 .dr-qucik-info .dr-profile {padding-left: 12px; flex: 1}
 .dr-qucik-info .dr-profile .dr-name{font-size: 16px; font-weight: bold; margin: 6px 0;height: auto; max-height: 48px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
@@ -814,7 +814,8 @@ li.lst-bfr:before{
 	margin-right: 10px;
 }
 .coupon-text{
-	margin-top: 2px;
+    margin-top: 3px;
+    font-size: 15px !important;
 }
 .coupon-icon{
 	margin-top: 3px;
@@ -1446,3 +1447,6 @@ p.rt-doc-nm{
 }
 /* popup star */
 
+.fs-italic{
+    font-style: italic;
+}
