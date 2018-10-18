@@ -121,7 +121,11 @@ class CouponSelectionView extends React.Component {
                                                                                             }
                                                                                         </ul>                                 
                                                                                      </div>
-                                                                                <p className="text-sm text-primary" onClick={this.toggle.bind(this, 'openTermsConditions',coupons.tnc)}>Terms & Conditions</p>
+                                                                                {
+                                                                                    coupons.tnc?
+                                                                                    <p className="text-sm text-primary" style= {{'cursor': 'pointer'}} onClick={this.toggle.bind(this, 'openTermsConditions',coupons.tnc)}>Terms & Conditions</p>
+                                                                                    :''    
+                                                                                }
                                                                                 
                                                                             </div>
                                                                     

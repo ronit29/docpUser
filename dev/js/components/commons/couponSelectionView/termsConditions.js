@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class Terms extends React.Component{
 
-    render(){console.log('vvvvvvvvvvvvvvvvv');console.log(this.props)
+    render(){
 
         return(
         <div>
