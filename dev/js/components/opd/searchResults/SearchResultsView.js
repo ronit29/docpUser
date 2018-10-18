@@ -101,10 +101,11 @@ class SearchResultsView extends React.Component {
 
         this.props.getDoctors(state, page, false, searchUrl, (...args) => {
             this.setState({ seoData: args[1] })
-            let new_url = this.buildURI(state)
-            this.props.history.replace(new_url)
             if (cb) {
                 cb(...args)
+            } else {
+                let new_url = this.buildURI(state)
+                this.props.history.replace(new_url)
             }
         })
     }
