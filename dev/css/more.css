@@ -460,7 +460,7 @@ ul.inline-list li {
 }
 
 .expansion-label-div{
-    display: inline-block;
+    display: block;
 }
 
 .expansion-label-div:first-child{
@@ -1369,4 +1369,12 @@ span.ofr-ribbon:after {
 .acdn-ques{
     font-size: 14px;
     margin: 0;
+}
+
+.time-error{
+    color: red;
+    font-size: 11px;
+    position: absolute;
+    right: 0px;
+    top: 16px;
 }

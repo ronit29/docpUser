@@ -191,7 +191,7 @@ class CriteriaSearchView extends React.Component {
                                                         </div> */}
                                                     </div>
                                                 </div>
-                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' />
+                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} />
                                             </div>
                                         </div>
                                     }
