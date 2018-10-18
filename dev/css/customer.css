@@ -710,26 +710,22 @@ li.lst-bfr:before{
 }
 
 .loc-submit-no-btn{
-	position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
 	cursor: pointer;
-	background-color: #f78631;
-	color: #fff;
+	background-color: #fff;
+	color: #f78631;
 	font-size: 14px;
 	font-weight: 500;
 	border: none;
 	box-shadow: none;
 	outline: none;
-	padding: 4px 8px;
+	padding: 6px 24px;
 	text-align: center;
 	border-radius: 5px;
 }
 
 .input-no-error{
 	position: absolute;
-	right: 80px;
+	right: 10px;
     top: 50%;
 	transform: translateY(-50%);
 	color: red;

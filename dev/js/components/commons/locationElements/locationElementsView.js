@@ -210,17 +210,24 @@ class LocationElementsView extends React.Component {
 
                 {
                     this.props.isTopbar ?
-                        <div className="col-12" style={{ paddingBottom: 10 }}>
-                            <div className="doc-select-location-div">
-                                <div className="doc-input-loc-div">
-                                    <input type="number" className="form-control doc-input-loc doc-input-loc-number" id="doc-input-number-field" value={this.state.mobile_no} placeholder="Enter your mobile number" onFocus={() => this.props.numberInputHandler()} onChange={(e) => this.inputNoHandler(e)} />
-                                    <span className="doc-input-loc-icon doc-input-loc-mobile-icon">
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/mobile.svg"} />
-                                    </span>
-                                    {
-                                        this.state.validationError ?
-                                            <span className="input-no-error">Invalid no</span> : <span className="input-no-error" style={{ color: '#808080' }}>Optional</span>
-                                    }
+                        <div className="col-12">
+                            <div className="row">
+                                <div className="col-12" style={{ paddingBottom: 10 }}>
+                                    <div className="doc-select-location-div">
+                                        <div className="doc-input-loc-div">
+                                            <input type="number" className="form-control doc-input-loc doc-input-loc-number" id="doc-input-number-field" value={this.state.mobile_no} placeholder="Enter your mobile number" onFocus={() => this.props.numberInputHandler()} onChange={(e) => this.inputNoHandler(e)} />
+                                            <span className="doc-input-loc-icon doc-input-loc-mobile-icon">
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/mobile.svg"} />
+                                            </span>
+                                            {
+                                                this.state.validationError ?
+                                                    <span className="input-no-error">Invalid no</span> : <span className="input-no-error" style={{ color: '#808080' }}>Optional</span>
+                                            }
+                                            {/* <button className="loc-submit-no-btn" onClick={(e) => this.numberSubmitClick(e)}>Submit</button> */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12 text-center" style={{ paddingBottom: 10 }}>
                                     <button className="loc-submit-no-btn" onClick={(e) => this.numberSubmitClick(e)}>Submit</button>
                                 </div>
                             </div>
