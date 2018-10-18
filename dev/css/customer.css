@@ -75,7 +75,7 @@
 .total-labs .lab-img{width: 60px;}
 
 /*search screen 8*/
-.search-result-list>li{position: relative;cursor: pointer;padding: 20px 10px}
+.search-result-list>li{position: relative;cursor: pointer;padding: 15px 10px}
 .search-result-list>li>p{font-size: 14px; font-weight: 500;padding-right: 15px}
 
 

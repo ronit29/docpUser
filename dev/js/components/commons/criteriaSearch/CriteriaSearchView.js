@@ -199,23 +199,20 @@ class CriteriaSearchView extends React.Component {
                             </header>
                             {
                                 this.state.searchCities.length > 0 ?
-                                    <section >
-                                        {
-                                            this.state.searchCities.map((result, i) => {
-                                                return <div className="widget-panel" key={i}>
-                                                    <div className="panel-content">
-                                                        <ul className="list search-result-list">
-                                                            <li key={i} onClick={this.selectLocation.bind(this, result)} style={{ position: 'relative' }}>
-                                                                <a>{result.description}
-
-                                                                </a>
+                                    <section>
+                                        <div className="widget-panel">
+                                            <div className="panel-content">
+                                                <ul className="list search-result-list">
+                                                    {
+                                                        this.state.searchCities.map((result, i) => {
+                                                            return <li key={i} onClick={this.selectLocation.bind(this, result)} style={{ position: 'relative' }}>
+                                                                <a>{result.description}</a>
                                                             </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            })
-                                        }
-
+                                                        })
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </section> : ''
                             }
                             {
