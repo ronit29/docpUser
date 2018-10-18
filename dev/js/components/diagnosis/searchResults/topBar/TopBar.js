@@ -146,7 +146,7 @@ class TopBar extends React.Component {
     }
 
     hideLocationPopup() {
-        this.setState({ showLocationPopup: false });
+        // this.setState({ showLocationPopup: false });
     }
 
     render() {

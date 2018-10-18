@@ -109,7 +109,7 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                     </div>
                                 </div> : <div className="head-links" onClick={() => {
-                                    this.props.history.push('/user')
+                                    this.props.homePage?this.props.history.push('/user?ref=home'):this.props.history.push('/user')
                                 }}>
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                         <span>Login</span>
