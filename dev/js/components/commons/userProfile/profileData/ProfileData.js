@@ -23,7 +23,7 @@ class ProfileData extends React.Component {
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item padding-remove">
                             <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to docprime ${this.props.USER.userName ?`, ${this.props.USER.userName}! `:''} `}</p>
-                            <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p>
+                            {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
                             <div className="usr-dtls-startup">
                                 <p className="usr-dtls-strt-txt pdng-usr-dtls-slots"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
                                 <div className="row no-gutters pdng-bttm">

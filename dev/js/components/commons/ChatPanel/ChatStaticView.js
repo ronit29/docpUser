@@ -98,7 +98,7 @@ class ChatStatic extends React.Component {
                     </div>
                 </div>
                 {
-                    this.props.mobilechatview && this.state.openBanner ? <div className="chat-footer toast-tip-icon">
+                    this.props.mobilechatview && this.state.openBanner ? <div className="toast-tip-icon">
                         <span className="toast-close-btn" onClick={() => {
                             this.setState({ openBanner: false })
                         }}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} /></span>
