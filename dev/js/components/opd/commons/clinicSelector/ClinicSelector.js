@@ -43,7 +43,7 @@ class ClinicSelector extends React.Component {
 
     render() {
 
-        let { id, name, hospitals, is_live, enable_for_online_booking } = this.props.details
+        let { id, name, hospitals, is_live, enabled_for_online_booking } = this.props.details
 
         let style = {}
         if (hospitals && hospitals.length == 1) {
@@ -88,7 +88,7 @@ class ClinicSelector extends React.Component {
                                         </div>
                                         <div className="text-center" style={{ marginTop: 12 }}>
                                             {
-                                                enable_for_online_booking ? <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live, i)}>Book Now</button> : <button onClick={this.showNumber.bind(this, id)} className="v-btn v-btn-primary btn-sm">{this.state.numberShown || "Contact"}</button>
+                                                enabled_for_online_booking ? <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live, i)}>Book Now</button> : <button onClick={this.showNumber.bind(this, id)} className="v-btn v-btn-primary btn-sm">{this.state.numberShown || "Contact"}</button>
                                             }
 
                                         </div>
