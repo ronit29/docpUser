@@ -195,7 +195,7 @@ class PatientDetailsNew extends React.Component {
             }
         }
 
-
+        let finalPrice = priceData.deal_price?priceData.deal_price - (this.props.disCountedOpdPrice?this.props.disCountedOpdPrice:0):0
     return (
         <div className="profile-body-wrap">
             <ProfileHeader />
@@ -289,7 +289,7 @@ class PatientDetailsNew extends React.Component {
                                                     }
                                                     <div className="payment-detail d-flex">
                                                         <p>Subtotal</p>
-                                                        <p> &#8377; {priceData.deal_price - (this.props.disCountedOpdPrice?this.props.disCountedOpdPrice:0)}</p>
+                                                        <p> &#8377; {finalPrice}</p>
                                                     </div>
                                                 </div>
                                                 <hr/>
@@ -297,7 +297,7 @@ class PatientDetailsNew extends React.Component {
                                                 {
                                                 priceData ? <div className="test-report payment-detail mt-20">
                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                    <h5 className="payment-amt-value">&#8377; {priceData.deal_price - (this.props.disCountedOpdPrice?this.props.disCountedOpdPrice:0)}</h5>
+                                                    <h5 className="payment-amt-value">&#8377; {finalPrice}</h5>
                                                 </div> : ""
                                                 }
                                                               
@@ -332,7 +332,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient?'Select Patient':'Confirm Booking'}</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{ !patient?'Select Patient':`Confirm Booking  ${priceData.deal_price? ` (Rs ${finalPrice})`:'' }` }</button>
                             }
 
 
