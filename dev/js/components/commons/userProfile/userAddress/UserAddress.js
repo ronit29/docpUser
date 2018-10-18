@@ -50,6 +50,7 @@ class UserAddress extends React.Component {
                                 <div className="member-details">
                                     <ul className="list">
                                         <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.address}</li>
+                                        <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.land_mark}</li>
                                     </ul>
                                 </div>
                                 <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 10 }} className="ct-img ct-img-sm arrow-forward-right">{this.state.pick ? "Pick" : "Edit"}</span>
