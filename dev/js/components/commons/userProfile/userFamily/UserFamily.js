@@ -62,7 +62,7 @@ class UserFamily extends React.Component {
                                                         <span className="ct-img ct-img-xs">
                                                             {
                                                                 profiles[id].gender == 'm' ?
-                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{width: 14, height: 16}} className="img-fluid" />
+                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{ width: 14, height: 16 }} className="img-fluid" />
                                                             }
                                                         </span>
                                                 }
