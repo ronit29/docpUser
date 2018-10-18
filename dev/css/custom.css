@@ -47,9 +47,10 @@
 .profile-details{padding-top: 40px !important;}
 .someone-else-labelwrap{display: none;}
 
+.sticky-btn{padding-bottom: env(safe-area-inset-bottom);}
 @media(min-width: 768px){
 	.static-btn{position: static!important;}
-	.sticky-btn{position: sticky!important; bottom: 0;}
+	.sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}
 }
 
 @media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 107px!important;margin-top: 20px;z-index: 9;}
