@@ -101,6 +101,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                 </div>
+                                </div>
                                 <div className="col-4">
                                     <div className="fltr-bkng-section">
                                     {discount?<span class="filtr-offer ofr-ribbon fw-700">{discount}% Off</span>:''}
