@@ -314,7 +314,7 @@ class HomeView extends React.Component {
 
 
                         {/* Find a doctor */}
-                        <div className="fw-500 main-signup-banner" onClick={() => this.props.history.push('/doctorsignup')}>
+                        <div className="fw-500 main-signup-banner" onClick={() => this.props.history.push('/user?ref=home')}>
                             <div className="main-lft-content">
                                 <p className="main-sgn-top">Sign up and get</p>
                                 <span className="main-sgn-ofr">₹ 300 OFF</span>
