@@ -66,9 +66,14 @@ class UserLoginView extends React.Component {
                         }
                         GTM.sendEvent({ data: data })
                     }
-                    if (parsed.callback) {
+
+                    if(parsed.ref){
+                        this.props.history.push('/user')
+                    }
+                    else if (parsed.callback) {
                         this.props.history.replace(parsed.callback)
-                    } else {
+                    } 
+                    else {
                         this.props.history.go(-1)
                     }
                 } else {

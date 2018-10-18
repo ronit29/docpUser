@@ -8,9 +8,9 @@ class LocationElementsView extends React.Component {
         super(props)
 
         var mobile_no = ''
-        if (this.props.userPhoneNo) {
-            mobile_no = this.props.userPhoneNo;
-        }
+        // if (this.props.userPhoneNo) {
+        //     mobile_no = this.props.userPhoneNo;
+        // }
 
         this.state = {
             search: '',
@@ -92,10 +92,10 @@ class LocationElementsView extends React.Component {
         let number = this.state.mobile_no;
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.props.userPhoneNumber(number);
-            this.props.hideLocationPopup();
+            // this.props.hideLocationPopup();
         }
         else if (!number) {
-            this.props.hideLocationPopup();
+            // this.props.hideLocationPopup();
         }
         else {
             this.setState({ validationError: true });
@@ -201,7 +201,7 @@ class LocationElementsView extends React.Component {
                                     </span>
                                     {
                                         this.state.validationError ?
-                                            <span className="input-no-error">Invalid no</span> : <span className="input-no-error" style={{color: '#808080'}}>Optional</span>
+                                            <span className="input-no-error">Invalid no</span> : <span className="input-no-error" style={{ color: '#808080' }}>Optional</span>
                                     }
                                     <button className="loc-submit-no-btn" onClick={(e) => this.numberSubmitClick(e)}>Submit</button>
                                 </div>

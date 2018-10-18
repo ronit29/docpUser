@@ -4,7 +4,7 @@ class UserAddress extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            pick: this.props.location.search.includes('pick=true')
         }
     }
 
@@ -17,7 +17,13 @@ class UserAddress extends React.Component {
     }
 
     editAddress(id) {
-        this.props.history.push(`/user/address/edit/${id}`)
+        if (this.props.location.search.includes('pick=true')) {
+            // pick address and go back, else go on to edit.
+            this.props.selectPickupAddress(id)
+            this.props.history.go(-1)
+        } else {
+            this.props.history.push(`/user/address/edit/${id}`)
+        }
     }
 
     updateAddress(addressData, e) {
@@ -36,7 +42,7 @@ class UserAddress extends React.Component {
                 <ul className="list family-list dp-user-list">
                     {
                         (address && address.length) ? address.map((curr, key) => {
-                            return <li key={key} style={{cursor: 'unset'}}>
+                            return <li key={key} style={{ cursor: 'unset' }}>
                                 <span className="icon icon-lg member-icon" onClick={this.updateAddress.bind(this, curr)} style={{ marginTop: -17, position: 'relative', cursor: 'pointer' }}>
                                     <input type="radio" value={curr.id.toString()} checked={curr.is_default} className="user-address-hidden-radio" />
                                     <span className="user-address-radio"></span>
@@ -44,9 +50,10 @@ class UserAddress extends React.Component {
                                 <div className="member-details">
                                     <ul className="list">
                                         <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.address}</li>
+                                        <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.land_mark}</li>
                                     </ul>
                                 </div>
-                                <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 10 }} className="ct-img ct-img-sm arrow-forward-right">Edit</span>
+                                <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 10 }} className="ct-img ct-img-sm arrow-forward-right">{this.state.pick ? "Pick" : "Edit"}</span>
                             </li>
                         }) : <div className="text-center pd-20">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/no-address.png"} />

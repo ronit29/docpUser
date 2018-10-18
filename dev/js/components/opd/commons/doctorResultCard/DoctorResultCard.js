@@ -65,8 +65,8 @@ class DoctorProfileCard extends React.Component {
         }
 
         var Distance = (Math.round(distance * 10) / 10).toFixed(1);
-        if (mrp != 0) {
-            var discount = Math.round((deal_price * 100) / mrp);
+        if(mrp != 0 && deal_price !=0){
+            var discount = 100 - Math.round((deal_price*100) / mrp);
         }
 
         if (hospitals && hospitals.length) {
@@ -101,10 +101,9 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                 </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="fltr-bkng-section">
-                                    {discount != 0 ? <span class="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''}
+                                <div className="col-4">
+                                    <div className="fltr-bkng-section">
+                                    {discount?<span class="filtr-offer ofr-ribbon fw-700">{discount}% Off</span>:''}
 
                                     <p className="fltr-prices">
 
