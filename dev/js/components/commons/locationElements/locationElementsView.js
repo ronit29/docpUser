@@ -151,6 +151,7 @@ class LocationElementsView extends React.Component {
                             this.setState({ detectLoading: false })
                         })
                     } else {
+                        clearTimeout(timeout)
                         this.setState({ location_object, search: location_object.formatted_address, location_type: 'autoDetect' })
                     }
 
