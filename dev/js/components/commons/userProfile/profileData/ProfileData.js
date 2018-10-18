@@ -21,12 +21,12 @@ class ProfileData extends React.Component {
             <div className="widget no-round no-shadow skin-transparent profile-nav">
                 <div className="widget-content padding-remove">
                     <ul className="list nav-items dp-user-list bg-lst">
-                        <li className="my-profile-item">
-                            <p className="usr-dtls-name">{`Welcome to docprime ${this.props.USER.userName ?`, ${this.props.USER.userName}! `:''} `}</p>
-                            <p className="usr-dtls-benf">docprime benefits</p>
+                        <li className="my-profile-item padding-remove">
+                            <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to docprime ${this.props.USER.userName ?`, ${this.props.USER.userName}! `:''} `}</p>
+                            <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p>
                             <div className="usr-dtls-startup">
-                                <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
-                                <div className="row no-gutters">
+                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
+                                <div className="row no-gutters pdng-bttm">
                                     <div className="col-4 mbl-usr-grd">
                                     <span className="usr-dtls-free">FREE</span>
                                         <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={this.pushUrl.bind(this ,'')}>
@@ -64,8 +64,8 @@ class ProfileData extends React.Component {
                             <div className="ofr-img-txt">
                                 <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/customer-icons/vector-smart-object.png"} className="img-fluid" /></div>
                                 <div className="ofr-contnt">
-                                    <p className="ofr-bkg">Flat Rs 100 off on your first 3 bookings 
-                                        <span>on doctor and diagnostics</span>
+                                    <p className="ofr-bkg"><b className="fw-500 drk-blk">Flat Rs 100 off</b> on your first 3 bookings 
+                                        on doctor and diagnostics
  </p>
                                 </div>
                             </div>

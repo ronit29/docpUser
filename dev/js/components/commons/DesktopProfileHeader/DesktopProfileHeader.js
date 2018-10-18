@@ -135,7 +135,7 @@ class DesktopProfileHeader extends React.Component {
                                     <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14 }}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                     </InitialsPicture>
-                                </div> : <div className="head-links" onClick={() => {
+                                </div> : <div className="head-links" onClick={() => { this.props.homePage?this.props.history.push('/user?ref=home'):
                                     this.props.history.push('/user')
                                 }}>
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
