@@ -1450,3 +1450,6 @@ p.rt-doc-nm{
 .fs-italic{
     font-style: italic;
 }
+.mb-0{
+    margin-bottom: 0px!important;
+}
