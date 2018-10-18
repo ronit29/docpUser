@@ -117,6 +117,15 @@ class HomeView extends React.Component {
         this.setState(prevState => ({ accordianShow: !prevState.accordianShow }));
     }
 
+    gotToSignup(){
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'HomepageBannerSignupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'homepage-banner-signup-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/user?ref=home')
+    }
+
     render() {
         let profileData = this.props.profiles[this.props.selectedProfile]
 
@@ -314,7 +323,7 @@ class HomeView extends React.Component {
 
 
                         {/* Find a doctor */}
-                        <div className="fw-500 main-signup-banner" onClick={() => this.props.history.push('/user?ref=home')}>
+                        <div className="fw-500 main-signup-banner" onClick={this.gotToSignup.bind(this) }>
                             <div className="main-lft-content">
                                 <p className="main-sgn-top">Sign up and get</p>
                                 <span className="main-sgn-ofr">₹ 300 OFF</span>
