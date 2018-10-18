@@ -6,18 +6,19 @@ class LocationElementsView extends React.Component {
 
     constructor(props) {
         super(props)
-
-        var mobile_no = ''
-        // if (this.props.userPhoneNo) {
-        //     mobile_no = this.props.userPhoneNo;
-        // }
+        let m_no = ""
+        if (this.props.userPhoneNo) {
+            m_no = this.props.userPhoneNo
+        }
 
         this.state = {
             search: '',
-            mobile_no: mobile_no,
+            mobile_no: m_no,
             searchResults: [],
             detectLoading: false,
-            validationError: false
+            validationError: false,
+            location_object: null,
+            location_type: ''
         }
     }
 
@@ -26,29 +27,28 @@ class LocationElementsView extends React.Component {
         if (props.selectedLocation && this.props.selectedLocation) {
             if (this.state.search) {
                 if (props.selectedLocation != this.props.selectedLocation) {
-                    this.setState({ search: props.selectedLocation.formatted_address })
+                    this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
                 }
-            } else if (props.locationType.includes("geo")) {
-                this.setState({ search: props.selectedLocation.formatted_address })
+            } else if (!props.locationType.includes("geo")) {
+                this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
             }
         }
     }
 
     componentDidMount() {
         this.props.onRef(this)
-
-        if (this.props.locationType && this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-            this.setState({ search: this.props.selectedLocation.formatted_address })
+        if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+            this.setState({ location_object: this.props.selectedLocation, search: this.props.selectedLocation.formatted_address })
         }
 
         if (document.getElementById('doc-input-field')) {
             document.getElementById('doc-input-field').addEventListener('focusin', () => {
                 this.props.getCityListLayout()
-                this.setState({ search: '' })
+                this.setState({ location_object: null, search: '' })
             })
 
             document.getElementById('doc-input-field').addEventListener('focusout', () => {
-                this.setState({ search: '' })
+                this.setState({ location_object: null, search: '' })
             })
         }
     }
@@ -92,14 +92,22 @@ class LocationElementsView extends React.Component {
         let number = this.state.mobile_no;
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.props.userPhoneNumber(number);
+        } else if (!number) {
             // this.props.hideLocationPopup();
-        }
-        else if (!number) {
-            // this.props.hideLocationPopup();
-        }
-        else {
+        } else {
             this.setState({ validationError: true });
         }
+
+        if (this.state.location_object) {
+            if (this.state.location_type) {
+                this.props.selectLocation(this.state.location_object, this.state.location_type).then(() => {
+                    this.setState({ detectLoading: false, searchResults: [], search: location_object.formatted_address })
+                })
+            } else {
+                this.props.hideLocationPopup()
+            }
+        }
+
     }
 
     selectLocation(location, cb) {
@@ -112,10 +120,15 @@ class LocationElementsView extends React.Component {
         this.setState({ detectLoading: true })
 
         _getLocationFromPlaceId(location.reference, (location_object) => {
-            this.props.selectLocation(location_object, 'autoComplete').then(() => {
-                this.setState({ detectLoading: false, searchResults: [], search: location_object.formatted_address })
+            if (this.props.fromCriteria) {
+                this.props.selectLocation(location_object, 'autoComplete').then(() => {
+                    this.setState({ detectLoading: false, searchResults: [], search: location_object.formatted_address })
+                    cb()
+                })
+            } else {
+                this.setState({ location_object, search: location_object.formatted_address, location_type: 'autoComplete' })
                 cb()
-            })
+            }
         })
     }
 
@@ -132,10 +145,15 @@ class LocationElementsView extends React.Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
-                    this.props.selectLocation(location_object, 'autoDetect').then(() => {
-                        clearTimeout(timeout)
-                        this.setState({ detectLoading: false })
-                    })
+                    if (this.props.fromCriteria) {
+                        this.props.selectLocation(location_object, 'autoDetect').then(() => {
+                            clearTimeout(timeout)
+                            this.setState({ detectLoading: false })
+                        })
+                    } else {
+                        this.setState({ location_object, search: location_object.formatted_address, location_type: 'autoDetect' })
+                    }
+
                 })
             }, (a, b, c) => {
                 this.setState({ detectLoading: false })
