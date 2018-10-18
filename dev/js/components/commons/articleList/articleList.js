@@ -17,7 +17,7 @@ class ArticleList extends React.Component {
 			page = this.props.location.search.split('=')[1];
 		}
 
-		var title = this.props.match.url
+		var title = this.props.match.url.toLowerCase();
 		title = title.substring(1, title.length)
 
 		this.state = {
@@ -139,7 +139,7 @@ class ArticleList extends React.Component {
 									</div>
 									<div className="col-12">
 										{
-											this.props.match.url === '/all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
+											this.props.match.url.toLowerCase() === '/all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
 										}
 									</div>
 								</div>

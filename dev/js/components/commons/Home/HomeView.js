@@ -314,6 +314,19 @@ class HomeView extends React.Component {
 
 
                         {/* Find a doctor */}
+                        <div className="fw-500 main-signup-banner" onClick={() => this.props.history.push('/user?ref=home')}>
+                            <div className="main-lft-content">
+                                <p className="main-sgn-top">Sign up and get</p>
+                                <span className="main-sgn-ofr">₹ 300 OFF</span>
+                                <p className="main-sgn-bkng">on doctor booking</p>
+                            </div>
+                            <div className="main-sgn-right">
+                            <img className="img-fluid sgn-doc-logo" src="/assets/images/dov-wt-white.png" />
+                            <p className="avail-logo">Avail Now <img className="img-fluid" src="/assets/images/rt-arrow.svg" /></p>
+                            </div>
+                            
+                            
+                        </div>
                         {
                             this.isSelectedLocationNearDelhi(this.props.selectedLocation) ? <div className="card cstm-card mb-3">
                                 <div className="card-header" style={{ justifyContent: 'normal' }}>
@@ -349,9 +362,9 @@ class HomeView extends React.Component {
 
                             </div> : <div className="card cstm-card mb-3"></div>
                         }
-                        <div className="fw-500 doc-lap-link">
+                        <div className="fw-500 doc-lap-link" onClick={() => this.props.history.push('/doctorsignup')}>
                             <p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
-                            <button className="lap-doc-btn" onClick={() => this.props.history.push('/doctorsignup')}>Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+                            <button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
                         </div>
 
 
@@ -391,9 +404,9 @@ class HomeView extends React.Component {
 
                         </div>
 
-                        <div className="fw-500 doc-lap-link">
+                        <div className="fw-500 doc-lap-link" onClick={() => this.props.history.push('/doctorsignup')}>
                             <p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
-                            <button className="lap-doc-btn" onClick={() => this.props.history.push('/doctorsignup')} >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+                            <button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
                         </div>
 
                         {

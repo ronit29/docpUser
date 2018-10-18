@@ -54,10 +54,12 @@ class BookingSummaryViewNew extends React.Component {
         }
         this.props.resetLabCoupons()
 
-        var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
-        var elementHeight = document.getElementById('time-patient-details-widget').clientHeight;
-        var scrollPosition = elementTop - elementHeight;
-        this.setState({scrollPosition : scrollPosition});
+        if (document.getElementById('time-patient-details-widget')) {
+            var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
+            var elementHeight = document.getElementById('time-patient-details-widget').clientHeight;
+            var scrollPosition = elementTop - elementHeight;
+            this.setState({ scrollPosition: scrollPosition });
+        }
     }
 
 
@@ -158,7 +160,7 @@ class BookingSummaryViewNew extends React.Component {
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
 
             window.scrollTo(0, this.state.scrollPosition);
-            
+
             return
         }
         if (!datePicked) {
