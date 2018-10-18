@@ -994,6 +994,8 @@ p.top-head-link.card-lab-link span {
 	cursor: pointer;
 }
 
+
+
 .card-lab-link img {
 	margin-top: 2px;
 	margin-left: 10px;
@@ -1638,3 +1640,52 @@ font-weight: 500;
 .drk-blk{
 	color: #000000;
 }
+/* homescreen sign up banner */
+.main-signup-banner{
+	position: relative;
+    background: url(/assets/images/s-banner.svg);
+    border-radius: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    padding: 4px 20px;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+.main-lft-content{
+	margin-left: 20px;
+    text-align: center;
+}
+.main-sgn-top{
+	font-size: 14px;
+}
+.main-sgn-ofr{
+	background: #fa7d1f;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 2px 5px;
+    margin: 2px 0;
+}
+.main-sgn-right{
+	text-align: center;
+}
+.sgn-doc-logo{
+	width: 61px;
+    height: auto;
+}
+.avail-logo{
+	font-size: 12px;
+    margin-top: 6px;
+}
+.avail-logo img{
+	background: white;
+    border-radius: 10px;
+    padding: 2px;
+    height: 14px;
+    width: 14px;
+}
+/* homescreen sign up banner */

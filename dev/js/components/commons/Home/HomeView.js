@@ -314,6 +314,19 @@ class HomeView extends React.Component {
 
 
                         {/* Find a doctor */}
+                        <div className="fw-500 main-signup-banner" onClick={() => this.props.history.push('/doctorsignup')}>
+                            <div className="main-lft-content">
+                                <p className="main-sgn-top">Sign up and get</p>
+                                <span className="main-sgn-ofr">₹ 300 OFF</span>
+                                <p className="main-sgn-bkng">on doctor booking</p>
+                            </div>
+                            <div className="main-sgn-right">
+                            <img className="img-fluid sgn-doc-logo" src="/assets/images/dov-wt-white.png" />
+                            <p className="avail-logo">Avail Now <img className="img-fluid" src="/assets/images/rt-arrow.svg" /></p>
+                            </div>
+                            
+                            
+                        </div>
                         {
                             this.isSelectedLocationNearDelhi(this.props.selectedLocation) ? <div className="card cstm-card mb-3">
                                 <div className="card-header" style={{ justifyContent: 'normal' }}>
