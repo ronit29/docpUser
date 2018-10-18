@@ -75,7 +75,7 @@
 .total-labs .lab-img{width: 60px;}
 
 /*search screen 8*/
-.search-result-list>li{position: relative;cursor: pointer;padding: 20px 10px}
+.search-result-list>li{position: relative;cursor: pointer;padding: 15px 10px}
 .search-result-list>li>p{font-size: 14px; font-weight: 500;padding-right: 15px}
 
 
@@ -483,19 +483,14 @@ text-align: left;
 }
 
 .dp-dr-free-label{
-	float: left;
-	background-color: #55a740;
-	padding: 4px;
-	text-align: center;
-	margin: 9px 0 0 -8px;
-	border-radius: 5px;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
+    float: left;
+    margin: 10px 0px 0px 8px;
 }
 
 .dp-dr-free-label>p{
-	color: #fff;
-	font-size: 11px;
+    color: #3e6728;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 .dp-dr-card-btn{
@@ -993,6 +988,7 @@ li.lst-bfr:before{
     font-size: 13px;
     font-weight: 500;
     margin-bottom: 5px;
+    width: 200px;
 }
 .fltr-bkng-section{
 	display: flex;
@@ -1006,13 +1002,14 @@ li.lst-bfr:before{
     font-weight: 500;
     font-size: 18px;
     padding-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
 }
 .fltr-cut-price{
 	color: #757575;
     font-size: 14px;
     text-decoration: line-through;
 	margin-left: 3px;
-	margin-top: 2px;
 	display: inline-block;
 }
 .fltr-bkng-btn{
@@ -1021,6 +1018,7 @@ li.lst-bfr:before{
     color: white;
     border: none;
     padding: 10px 0;
+    cursor: pointer;
 }
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
@@ -1036,7 +1034,8 @@ li.lst-bfr:before{
 	justify-content: space-between;
 }
 .filtr-card-footer div{
-    display: inline-block;
+    display: inline-flex;
+    align-items: end;
 } 
 .filtr-card-footer p {
     display: inline-block;
