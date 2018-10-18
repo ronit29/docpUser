@@ -125,6 +125,11 @@ class ChatPanel extends React.Component {
                         case "chat_loaded": {
                             if (data.data.rid) {
                                 // save current room
+                                let analyticData = {
+                                    'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid
+                                }
+                                GTM.sendEvent({ data: analyticData })
+
                                 this.props.setChatRoomId(data.data.rid)
                                 this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
                             }
@@ -330,7 +335,7 @@ class ChatPanel extends React.Component {
                                                     <span></span>
                                                     <span></span>
                                                 </div>
-                                                <p className="ldng-text">Connecting to best doctor...</p>
+                                                <p className="ldng-text">Connecting to doctor...</p>
                                             </div>
                                             : ""
                                     }

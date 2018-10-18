@@ -26,6 +26,9 @@ class CouponSelectionView extends React.Component {
     }
 
     componentDidMount(){
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         let appointmentType = this.props.match.params.type;
         let id = this.props.match.params.id;
         let clinicId = this.props.match.params.cid
@@ -59,15 +62,14 @@ class CouponSelectionView extends React.Component {
         let dots = []
         for(let i = 1; i<=no; i++){
             if(i <= used )
-                dots.push(<li className="active"><span className="dot">{i}</span></li>)
+                dots.push(<li key = {i} className="active"><span className="dot">{i}</span></li>)
             else
-                dots.push(<li className=""><span className="dot">{i}</span></li>)
+                dots.push(<li key = {i} className=""><span className="dot">{i}</span></li>)
         }
         return dots
     }
 
     render() {
-        console.log(this.props.applicableCoupons + 'tncccccccccccccc')
 
         return (
             <div className="profile-body-wrap">
@@ -108,7 +110,7 @@ class CouponSelectionView extends React.Component {
                                                                     this.props.applicableCoupons.map((coupons,index)=>{
                                                                         return <li key = {index} className="coupon-style search-list-radio pd-12">
                                                                                 <input type="radio" id={coupons.coupon_id} name="radio-group" checked={this.state.coupon === coupons.coupon_id} value={coupons.code} onClick = {this.toggleButtons.bind(this,coupons)}/>
-                                                                                 <label className="fw-700 text-md" for={coupons.coupon_id}>{coupons.code}</label>
+                                                                                 <label className="fw-700 text-md" htmlFor={coupons.coupon_id}>{coupons.code}</label>
                                                                                 <div className="coupon-input col-12">
                                                                                 <p>{coupons.desc}</p>
                                                                                 <div className="coupon-timeline book-confirmed-timeline">
