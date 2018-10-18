@@ -991,6 +991,7 @@ p.top-head-link.card-lab-link span {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	cursor: pointer;
 }
 
 .card-lab-link img {
