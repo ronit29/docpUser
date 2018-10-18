@@ -96,6 +96,7 @@ class BookingSummaryViewNew extends React.Component {
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
         this.props.selectLabAppointmentType(e.target.value)
+        this.setState({ showTimeError: false, showAddressError: false });
     }
 
     navigateTo(where, e) {
@@ -134,7 +135,7 @@ class BookingSummaryViewNew extends React.Component {
             case "home": {
                 return <div>
                     <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} />
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
                     <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }

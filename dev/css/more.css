@@ -1370,3 +1370,11 @@ span.ofr-ribbon:after {
     font-size: 14px;
     margin: 0;
 }
+
+.time-error{
+    color: red;
+    font-size: 11px;
+    position: absolute;
+    right: 0px;
+    top: 16px;
+}
