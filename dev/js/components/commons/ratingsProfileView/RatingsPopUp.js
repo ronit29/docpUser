@@ -37,14 +37,13 @@ class RatingsPopUp extends React.Component {
         }
     }
 
-    handleselectRating = (x, size) => {
+    selectRating(x, size) {
         this.setState({ selectedRating: x })
         if (!size) {
             let type = this.getAppointmentType();
             let post_data = { 'rating': x, 'appointment_id': this.state.data.id, 'appointment_type': type };
             this.props.createAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
-                    console.log(data.id);
                     this.setState({ rating_id: data.id })
                 }
             })
@@ -90,10 +89,11 @@ class RatingsPopUp extends React.Component {
             let specialization = qualification_object ? qualification_object[0].specialization : '';
             let type = this.getAppointmentType();
             let pipe = ''
+            let thumbnail = this.state.data.doctor ? this.state.data.doctor_thumbnail : this.state.data.lab_thumbnail;
             if (type !== 1) {
                 pipe = ' | ';
             }
-            if (!this.state.rating_id) {
+            if (this.state.rating_id) {
                 return (
                     <div className="raiting-popup">
                         <div className="home-rating-card">
@@ -154,7 +154,7 @@ class RatingsPopUp extends React.Component {
                         <span><img onClick={this.declineRating.bind(this, type, this.state.data.id, 0)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
                             </div>
                             <div className="rate-card-doc-dtls">
-                                <img src="/assets/img/customer-icons/user.png" className="img-fluid img-round " />
+                                <img src={thumbnail} className="img-fluid img-round " />
                                 <div className="rate-doc-dtl">
                                     <p className="rt-doc-nm">{name}</p>
                                     <span>{qualification} {pipe} {specialization}</span>
