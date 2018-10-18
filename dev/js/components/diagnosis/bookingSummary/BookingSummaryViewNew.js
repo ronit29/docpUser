@@ -410,7 +410,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     }
                                                                     <div className="payment-detail d-flex">
                                                                         <p>Docprime discount</p>
-                                                                        <p>&#8377; {finalMrp - finalPrice}</p>
+                                                                        <p>- &#8377; {finalMrp - finalPrice}</p>
                                                                     </div>
                                                                     {
                                                                         this.props.disCountedLabPrice
@@ -448,13 +448,13 @@ class BookingSummaryViewNew extends React.Component {
 
                                                     <div className="col-12" style={{ marginTop: 10 }}>
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Free Cancellation charges<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                            <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
                                                     </div>
                                                     <div className="col-12">
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
-                                                                <h4 className="title payment-amt-label">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                                <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                                 <span className="errorMessage">{this.state.error}</span>
                                                             </div>
                                                         </a>
