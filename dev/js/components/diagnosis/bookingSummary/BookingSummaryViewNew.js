@@ -148,6 +148,17 @@ class BookingSummaryViewNew extends React.Component {
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
+
+            // var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
+            // var elementBottom = document.getElementById('time-patient-details-widget').getBoundingClientRect().bottom;
+            // var headerHeight = document.getElementsByTagName('header')[0].clientHeight;
+            // var scrollPosition = elementTop - headerHeight;
+
+            // console.log('rewiufyeriufyeriureiufiuwe');
+            // console.log(elementTop, headerHeight, scrollPosition, elementBottom);
+
+            // window.scrollTo(0, scrollPosition);
+
             return
         }
         if (e.target.dataset.disabled == true) {
@@ -329,7 +340,7 @@ class BookingSummaryViewNew extends React.Component {
                                                 </div>: ""
                                                 }
 
-                                                <div className="widget-content">
+                                                <div className="widget-content" id="time-patient-details-widget">
                                                     {this.getSelectors()}    
                                                 </div>
                                             </div>
