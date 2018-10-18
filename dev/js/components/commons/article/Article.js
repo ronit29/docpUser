@@ -17,7 +17,7 @@ class Article extends React.Component {
     componentDidMount() {
         let articleId = this.props.match.url
         if (articleId) {
-            articleId = articleId.substring(1, articleId.length)
+            articleId = articleId.toLowerCase().substring(1, articleId.length)
             this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
                 if (!err && !this.state.articleData) {
                     this.setState({ articleData: data })
