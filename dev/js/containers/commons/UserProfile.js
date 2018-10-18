@@ -5,13 +5,20 @@ import { editUserProfileImage, getAppointmentReports, selectPickupAddress, editU
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
+const queryString = require('query-string');
 
 
 class UserProfile extends React.Component {
     constructor(props) {
         super(props)
         if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=/&login=home`)
+             const parsed = queryString.parse(window.location.search)
+             if(parsed && parsed.ref){
+                this.props.history.replace(`/login?callback=/&ref=home`)    
+             }else{
+                this.props.history.replace(`/login?callback=/`)
+             }
+            
         }
     }
 

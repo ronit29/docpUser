@@ -725,6 +725,9 @@ p.top-head-link.card-lab-link span {
 	.mrg-top {
 		margin-top: -1px;
 	}
+	.fltr-loc-txt{
+		max-width: 125px;
+	}
 }
 
 @-webkit-keyframes slide-down {
@@ -900,6 +903,9 @@ p.top-head-link.card-lab-link span {
 	}
 	.close-chat {
 		width: 26px !important;
+	}
+	.fltr-loc-txt{
+		max-width: 100px;
 	}
 }
 
@@ -1268,7 +1274,7 @@ padding: 20px;
     color: white;
     position: absolute;
     top: -5px;
-    right: -5px;
+    right: 1px;
     font-size: 12px;
     padding: 0 5px;
     border-radius: 5px;
@@ -1585,7 +1591,7 @@ padding-left: 15px !important;
 }
 .pkg-info{
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
 }
 .pkg-info-btn{
     padding: 0;
@@ -1599,7 +1605,8 @@ padding-left: 15px !important;
 	font-size: 13px;
     margin: 8px 0;
     display: inline-block;
-    color: #313131;
+	color: #313131;
+	font-weight: 400;
 }
 ul.pkgs-drp-listing{
     padding-left: 15px;
@@ -1620,3 +1627,12 @@ font-weight: 500;
 	font-weight: 500;
 }
 /* lab info packages */
+.pdng-usr-dtls-slots{
+	padding: 15px 20px 0px 20px;
+}
+.pdng-bttm{
+	padding-bottom:22px;
+}
+.drk-blk{
+	color: #000000;
+}
