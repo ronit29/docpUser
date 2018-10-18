@@ -32,7 +32,8 @@ class BookingSummaryViewNew extends React.Component {
             order_id: false,
             showTimeError: false,
             couponCode: '',
-            couponId: ''
+            couponId: '',
+            scrollPosition: ''
         }
     }
 
@@ -52,6 +53,11 @@ class BookingSummaryViewNew extends React.Component {
             this.props.history.replace(this.props.location.pathname)
         }
         this.props.resetLabCoupons()
+
+        var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
+        var elementHeight = document.getElementById('time-patient-details-widget').clientHeight;
+        var scrollPosition = elementTop - elementHeight;
+        this.setState({scrollPosition : scrollPosition});
     }
 
 
@@ -150,21 +156,16 @@ class BookingSummaryViewNew extends React.Component {
         }
         if (!addressPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
+
+            window.scrollTo(0, this.state.scrollPosition);
+            
             return
         }
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
 
-            // var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
-            // var elementBottom = document.getElementById('time-patient-details-widget').getBoundingClientRect().bottom;
-            // var headerHeight = document.getElementsByTagName('header')[0].clientHeight;
-            // var scrollPosition = elementTop - headerHeight;
-
-            // console.log('rewiufyeriufyeriureiufiuwe');
-            // console.log(elementTop, headerHeight, scrollPosition, elementBottom);
-
-            // window.scrollTo(0, scrollPosition);
+            window.scrollTo(0, this.state.scrollPosition);
 
             return
         }
@@ -307,7 +308,7 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
-        let finalDisplayPrice = (finalPrice) ? (is_home_collection_enabled && this.props.selectedAppointmentType == 'home')? ( finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0) ):( finalPrice -(this.props.disCountedLabPrice || 0) ):0
+        let finalDisplayPrice = (finalPrice) ? (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? (finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)) : (finalPrice - (this.props.disCountedLabPrice || 0)) : 0
 
         return (
 
@@ -486,7 +487,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking ${finalDisplayPrice?` (Rs ${finalDisplayPrice})`:''}` }</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking ${finalDisplayPrice ? ` (Rs ${finalDisplayPrice})` : ''}`}</button>
                             }
 
 
