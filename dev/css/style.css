@@ -1692,3 +1692,12 @@ font-weight: 500;
     width: 14px;
 }
 /* homescreen sign up banner */
+
+.btn-number{
+	color: #2f2f2f;
+    background-color: white;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 16px;
+    cursor: default;
+}
