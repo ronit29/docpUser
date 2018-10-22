@@ -7,7 +7,7 @@ export default ({ toggle, content }) => {
     if (content) {
         name = content.test.name
         pre_test_info = content.test.pre_test_info
-        why = content.test.name
+        why = content.test.why
     }
     return <div>
         <div className="cancel-overlay" onClick={toggle}></div>
