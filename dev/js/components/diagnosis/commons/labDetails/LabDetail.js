@@ -98,9 +98,9 @@ class LabDetails extends React.Component {
                                     <RatingGraph details={this.props.data.lab} />
                                     <div className="user-satisfaction-section">
                                         <div className="row">
-                                            {this.props.data.lab.rating_graph.top_compliments.map(compliment =>
+                                            {this.props.data.lab.rating_graph ? this.props.data.lab.rating_graph.top_compliments.map(compliment =>
                                                 <ComplimentListView key={compliment.id} details={compliment} />
-                                            )}
+                                            ) : <span></span>}
                                         </div>
                                     </div>
                                     <ReviewList details={this.props.data.lab} />

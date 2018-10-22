@@ -128,9 +128,11 @@ class DoctorProfileView extends React.Component {
                                                                     <RatingGraph details={this.props.DOCTORS[doctor_id]} />
                                                                     <div className="user-satisfaction-section">
                                                                         <div className="row">
-                                                                            {this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
-                                                                                <ComplimentListView key={compliment.id} details={compliment} />
-                                                                            )}
+                                                                            {(typeof (this.props.DOCTORS[doctor_id].rating_graph) != "undefined" && this.props.DOCTORS[doctor_id].rating_graph != null && this.props.DOCTORS[doctor_id].rating_graph) ?
+                                                                                this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
+                                                                                    <ComplimentListView key={compliment.id} details={compliment} />
+                                                                                ) : <div></div>}
+
                                                                         </div>
                                                                     </div>
                                                                     <ReviewList details={this.props.DOCTORS[doctor_id]} />
