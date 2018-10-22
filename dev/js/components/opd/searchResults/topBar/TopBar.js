@@ -170,7 +170,7 @@ class TopBar extends React.Component {
         this.setState({ overlayVisible: false, searchCities: [] });
     }
 
-    numberInputHandler(){
+    numberInputHandler() {
         this.setState({ searchCities: [] });
     }
 
@@ -183,80 +183,100 @@ class TopBar extends React.Component {
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
 
         return (
-            <section className="filter-row sticky-header mbl-stick">
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="filter-item">
-                                <div className="action-filter">
-                                    <ul className="inline-list">
-                                        <li className="d-none d-md-inline-block">
-                                            <CopyToClipboard text={this.state.shortURL}
-                                                onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
-                                                <span style={{ cursor: 'pointer' }}>
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                                </span>
-                                            </CopyToClipboard>
-                                        </li>
-                                        <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
-                                        <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
+            <div>
+                <section className="filter-row sticky-header mbl-stick">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="filter-item">
+                                    <div className="action-filter">
+                                        <ul className="inline-list">
+                                            <li className="d-none d-md-inline-block">
+                                                <CopyToClipboard text={this.state.shortURL}
+                                                    onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
+                                                    <span style={{ cursor: 'pointer' }}>
+                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                                    </span>
+                                                </CopyToClipboard>
+                                            </li>
+                                            <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                            <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
+                                                {
+                                                    this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
+                                                }
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="filter-title">
+                                        {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr} </span>
+
+                                        <span onClick={() => {
+                                            this.setState({
+                                                showLocationPopup: !this.state.showLocationPopup,
+                                                searchCities: []
+                                            })
+                                        }}>
+
                                             {
-                                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
+                                                this.state.showLocationPopup && false ? ''
+                                                    : (this.props.selectedLocation && this.props.selectedLocation.formatted_address) ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${this.props.selectedLocation.formatted_address}`}</span> : ''
                                             }
-                                        </li>
-                                    </ul>
+                                            <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                        </span>
+
+                                    </div>
                                 </div>
-                                <div className="filter-title">
-                                    {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr} </span>
-
-                                    <span onClick={() => {
-                                        this.setState({
-                                            showLocationPopup: !this.state.showLocationPopup,
-                                            searchCities: []
-                                        })
-                                    }}>
-
-                                        {
-                                            this.state.showLocationPopup && false ? ''
-                                                : (this.props.selectedLocation && this.props.selectedLocation.formatted_address) ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${this.props.selectedLocation.formatted_address}`}</span> : ''
-                                        }
-                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                    </span>
-
-                                </div>
+                                {
+                                    this.state.dropdown_visible ?
+                                        <div>
+                                            <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
+                                            <div className="sort-dropdown-div">
+                                                <ul className="sort-dropdown-list">
+                                                    <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
+                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
+                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'distance' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
+                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'experience' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'experience')}>Experience</li>
+                                                </ul>
+                                            </div>
+                                        </div> : ""
+                                }
                             </div>
-                            {
-                                this.state.dropdown_visible ?
-                                    <div>
-                                        <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
-                                        <div className="sort-dropdown-div">
-                                            <ul className="sort-dropdown-list">
-                                                <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sort_on == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sort_on == 'distance' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
-                                                <li className={`sort-dropdown-list-item ${this.state.sort_on == 'experience' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'experience')}>Experience</li>
-                                            </ul>
-                                        </div>
-                                    </div> : ""
-                            }
                         </div>
+                        {
+                            this.state.showLocationPopup ?
+                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} />
+                                : ''
+                        }
+
+                        {
+                            this.state.showLocationPopup && this.state.overlayVisible ?
+                                <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
+                        }
+
                     </div>
-                    {
-                        this.state.showLocationPopup ?
-                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} />
-                            : ''
-                    }
 
                     {
-                        this.state.showLocationPopup && this.state.overlayVisible ?
-                            <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
+                        this.state.searchCities.length > 0 ?
+                            <section style={{ position: 'relative', zIndex: 11 }}>
+                                <div className="widget-panel">
+                                    <div className="panel-content">
+                                        <ul className="list search-result-list">
+                                            {
+                                                this.state.searchCities.map((result, i) => {
+                                                    return <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                        <a>{result.description}</a>
+                                                    </li>
+                                                })
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section> : ''
                     }
 
-                </div>
-
-
+                </section>
                 {
-                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="overlay black">
+                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
                         <div className="widget filter-popup" onClick={(e) => {
                             e.stopPropagation()
                             e.preventDefault()
@@ -334,27 +354,7 @@ class TopBar extends React.Component {
                         </div>
                     </div> : ""
                 }
-
-                {
-                    this.state.searchCities.length > 0 ?
-                        <section style={{ position: 'relative', zIndex: 11 }}>
-                            <div className="widget-panel">
-                                <div className="panel-content">
-                                    <ul className="list search-result-list">
-                                        {
-                                            this.state.searchCities.map((result, i) => {
-                                                return <li key={i} onClick={this.selectLocation.bind(this, result)}>
-                                                    <a>{result.description}</a>
-                                                </li>
-                                            })
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        </section> : ''
-                }
-
-            </section>
+            </div>
         );
     }
 }

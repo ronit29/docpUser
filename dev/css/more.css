@@ -315,6 +315,15 @@ ul.inline-list li {
 .overlay.black {
     background-color: rgba(0, 0, 0, 0.8);
 }
+.filter-overlay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+}
+.filter-overlay>.filter-popup{
+    margin: 0;
+}
 .filter-item{
   overflow: hidden;
   height: 55px;
