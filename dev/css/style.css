@@ -539,6 +539,9 @@ p.top-head-link.card-lab-link span {
 		height: auto;
 		top: 100px !important;
 	}
+	.sub-upside-star p {
+		font-size: 15px !important;
+	}
 }
 
 .header-overflow {
@@ -586,6 +589,10 @@ p.top-head-link.card-lab-link span {
 @media screen and (max-width: 380px) {
 	.head-links {
 		margin-left: 12px;
+	}
+	.sub-upside-star img {
+		width: 25px !important;
+		height: 25px !important;
 	}
 }
 
@@ -1787,6 +1794,38 @@ p.rt-doc-nm{
     font-size: 16px;
 	margin-top: 80px;
 	display: block;
+}
+
+.rating-upside-container{
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
+    background-color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+.sub-upside-star p{
+    color: #757575;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+.sub-upside-star img{
+	width: 35px;
+    height: 35px;
+    margin-right: 20px;
+	cursor: pointer;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.inner-star-cls img{
+	width: 15px;
+	flex-grow: 0;
+	flex-shrink: 0;
 }
 /* popup star */
 

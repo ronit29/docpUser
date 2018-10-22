@@ -94,12 +94,18 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <div className="rate-star-icon">
+                                                    <div className="rating-upside-container">
+                                                    <div className="sub-upside-star">
+                                                    <p>Rate your recent visit with the doctor</p>
                                                         {
                                                             [1, 2, 3, 4, 5].map((x, i) => {
                                                                 return <img key={i} className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
                                                             })
                                                         }
+                                                    </div>
+                                                    <div className="inner-star-cls">
+                                                        <img className="img-fluid" src="/assets/img/customer-icons/rt-close.svg"/>
+                                                    </div>
                                                     </div>
                                                     <div className="widget mrt-10 ct-profile skin-white">
                                                         <DoctorProfileCard
