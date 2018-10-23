@@ -16,7 +16,7 @@ class RatingProfileCard extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ data: this.props.details.unrated_appointment })
+        this.setState({ data: this.props.details })
         if (STORAGE.checkAuth()) {
             this.props.getRatingCompliments((err, compliments) => {
                 if (!err && compliments) {
@@ -30,7 +30,7 @@ class RatingProfileCard extends React.Component {
         this.setState({ selectedRating: x })
         if (!size) {
             let type = this.getAppointmentType();
-            let post_data = { 'rating': x, 'appointment_id': this.props.details.unrated_appointment.id, 'appointment_type': type };
+            let post_data = { 'rating': x, 'appointment_id': this.props.details.id, 'appointment_type': type };
             this.props.createAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
                     this.setState({ rating_id: data.id })
@@ -52,7 +52,7 @@ class RatingProfileCard extends React.Component {
     }
 
     getAppointmentType = () => {
-        let type = this.props.details.unrated_appointment.type && this.props.details.unrated_appointment.type == "lab" ? 1 : 2;
+        let type = this.props.details.type && this.props.details.type == "lab" ? 1 : 2;
         return type;
     }
     handleReviewChange(e) {
@@ -76,23 +76,25 @@ class RatingProfileCard extends React.Component {
 
     render() {
         if (this.state.data) {
-            let name = (this.props.details.unrated_appointment.doctor) ? this.props.details.unrated_appointment.doctor.name : this.props.details.unrated_appointment.lab.name;
-            let qualification_object = this.props.details.unrated_appointment.doctor ? this.props.details.unrated_appointment.doctor.qualifications : null;
+            console.log(this.props.details);
+            let name = (this.props.details.doctor) ? this.props.details.doctor.name : this.props.details.lab_name;
+            let qualification_object = this.props.details.doctor ? this.props.details.doctor.qualifications : null;
             let qualification = qualification_object ? qualification_object[0].qualification : '';
             let specialization = qualification_object ? qualification_object[0].specialization : '';
+            let thumbnail = this.props.details.doctor ? this.props.details.doctor_thumbnail : this.props.details.lab_thumbnail;
             let type = this.getAppointmentType();
             let pipe = '';
             if (type !== 1) {
                 pipe = ' | ';
             }
-            let thumbnail = this.props.details.unrated_appointment.doctor ? this.props.details.unrated_appointment.doctor_thumbnail : this.props.details.unrated_appointment.lab_thumbnail;
+            let entity = (type == 1) ? 'lab' : 'doctor';
             if (!this.state.rating_id) {
 
                 return (
 
                     <div className="rating-upside-container">
                         <div className="sub-upside-star">
-                            <p>Rate your recent visit with the doctor</p>
+                            <p>Rate your recent visit with the {entity}</p>
                             {
                                 [1, 2, 3, 4, 5].map((x, i) => {
                                     return <img key={i} onClick={this.selectRating.bind(this, x, 0)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
@@ -115,7 +117,7 @@ class RatingProfileCard extends React.Component {
                     <span><img onClick={this.declineRating.bind(this, type, 0, 1)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
                         </div>
                         <div className="rate-card-doc-dtls">
-                            <img src="/assets/img/customer-icons/user.png" className="img-fluid img-round " />
+                            <img src={thumbnail} className="img-fluid img-round " />
                             <div className="rate-doc-dtl">
                                 <p className="rt-doc-nm">
                                     {name}

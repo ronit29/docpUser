@@ -5,6 +5,7 @@ import ReviewList from '../../../commons/ratingsProfileView/ReviewList.js'
 import RatingGraph from '../../../commons/ratingsProfileView/RatingGraph.js'
 import ComplimentListView from '../../../commons/ratingsProfileView/ComplimentListView.js'
 import LabTests from '../labTests'
+import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfileCard.js'
 
 class LabDetails extends React.Component {
 
@@ -32,6 +33,9 @@ class LabDetails extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
+                            {this.props.data.lab && this.props.data.lab.unrated_appointment ? (<RatingProfileCard {...this.props} details={(this.props.data.lab && this.props.data.lab.unrated_appointment)
+                                ? this.props.data.lab.unrated_appointment : this.props.data.lab} />) : ""}
+
                             <div className="widget profile-book">
                                 <div className="widget-header pb-header text-center">
                                     <div className="pb-logo">

@@ -166,11 +166,65 @@ export const OTTLogin = (ott) => (dispatch) => {
     })
 }
 
-export function setGTMSession(data){
-    API_POST('api/v1/tracking/event/save',data).then((data)=>{
-        
-    }).catch(function(e){
-        
+export function setGTMSession(data) {
+    API_POST('api/v1/tracking/event/save', data).then((data) => {
+
+    }).catch(function (e) {
+
     })
-    
+
+}
+
+export const getUnratedAppointment = (callback) => (dispatch) => {
+    API_GET(`/api/v1/ratings/unrated`).then(function (response) {
+        callback(null, response)
+    }).catch(function (error) {
+        callback(error, null)
+    })
+}
+
+export const getRatingCompliments = (callback) => (dispatch) => {
+    API_GET(`/api/v1/ratings/compliments`).then(function (response) {
+        callback(null, response)
+    }).catch(function (error) {
+        callback(error, null)
+    })
+}
+
+
+export const createAppointmentRating = (appointmentData, callback) => (dispatch) => {
+    let post_data = {
+        'rating': appointmentData.rating,
+        'review': appointmentData.review ? appointmentData.review : '',
+        'appointment_id': appointmentData.appointment_id,
+        'appointment_type': appointmentData.appointment_type,
+        'compliment': appointmentData.compliment ? appointmentData.compliment : []
+    }
+    API_POST(`/api/v1/ratings/create`, post_data).then(function (response) {
+        callback(null, response)
+    }).catch(function (error) {
+        callback(error, null)
+    })
+}
+
+export const updateAppointmentRating = (ratingData, callback) => (dispatch) => {
+    let post_data = {
+        'id': ratingData.id,
+        'rating': ratingData.rating,
+        'review': ratingData.review ? ratingData.review : '',
+        'compliment': ratingData.compliment ? ratingData.compliment : []
+    }
+    API_POST(`/api/v1/ratings/update/${ratingData.id}`, post_data).then(function (response) {
+        callback(null, response)
+    }).catch(function (error) {
+        callback(error, null)
+    })
+}
+
+export const closeAppointmentRating = (appointmentData, callback) => (dispatch) => {
+    API_POST(`/api/v1/ratings/prompt/close`, appointmentData).then(function (response) {
+        callback(null, response)
+    }).catch(function (error) {
+        callback(error, null)
+    })
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -10,7 +10,7 @@ class Lab extends React.Component {
         super(props)
         this.state = {
             selectedLab: this.props.match.params.id || null,
-            defaultTest:[]
+            defaultTest: []
         }
     }
 
@@ -18,7 +18,7 @@ class Lab extends React.Component {
         if (match.params.id) {
             return store.dispatch(getLabById(match.params.id))
         } else {
-            let url =  match.url
+            let url = match.url
             if (url) {
                 url = url.split("/")[1]
             }
@@ -41,12 +41,12 @@ class Lab extends React.Component {
     }
 
     componentDidMount() {
-        let lab_id ;
+        let lab_id;
         if (this.props.match.params.id) {
             let testIds = this.props.lab_test_data[this.props.match.params.id] || []
             lab_id = this.props.match.params.id
             let tests = testIds.map(x => x.id)
-            this.props.getLabById(lab_id, tests)            
+            this.props.getLabById(lab_id, tests)
         } else {
             let url = this.props.match.url
             if (url) {
@@ -58,12 +58,12 @@ class Lab extends React.Component {
                     this.setState({ selectedLab: labId })
                     let testIds = this.props.lab_test_data[labId] || []
                     let tests = testIds.map(x => x.id)
-                    this.props.getLabById(labId, tests)                   
+                    this.props.getLabById(labId, tests)
                 }
             })
         }
 
-        
+
         //always clear selected time at lab profile
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
@@ -108,7 +108,10 @@ const mapDispatchToProps = (dispatch) => {
         getLabByUrl: (url, testIds, cb) => dispatch(getLabByUrl(url, testIds, cb)),
         getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd))
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
+        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
+        createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
+        updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
     }
 }
 

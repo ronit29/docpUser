@@ -95,7 +95,9 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    {(typeof (this.props.DOCTORS[doctor_id].unrated_appointment) != "undefined" && this.props.DOCTORS[doctor_id].unrated_appointment != null && this.props.DOCTORS[doctor_id].unrated_appointment) ? (<RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id]} />) : ""}
+                                                    {(typeof (this.props.DOCTORS[doctor_id].unrated_appointment) != "undefined" && this.props.DOCTORS[doctor_id].unrated_appointment != null && this.props.DOCTORS[doctor_id].unrated_appointment)
+                                                        ? (<RatingProfileCard {...this.props} details={(this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].unrated_appointment)
+                                                            ? this.props.DOCTORS[doctor_id].unrated_appointment : this.props.DOCTORS[doctor_id]} />) : ""}
                                                     <div className="widget mrt-10 ct-profile skin-white">
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
