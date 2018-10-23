@@ -1824,6 +1824,7 @@ p.rt-doc-nm{
 
 .inner-star-cls img{
 	width: 15px;
+	height: 15px;
 	flex-grow: 0;
 	flex-shrink: 0;
 }
