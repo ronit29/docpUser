@@ -31,8 +31,12 @@ class TopBar extends React.Component {
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (props.selectedLocation != this.props.selectedLocation) {
-                this.setState({ showLocationPopup: true, overlayVisible: true })
+            if (props.seoData && props.seoData.location) {
+                this.setState({ showLocationPopup: false })
+            } else {
+                if (props.selectedLocation != this.props.selectedLocation) {
+                    this.setState({ showLocationPopup: true, overlayVisible: true })
+                }
             }
         }
         this.shortenUrl()
@@ -41,8 +45,12 @@ class TopBar extends React.Component {
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
-        if (this.props.locationType.includes("geo")) {
-            this.setState({ showLocationPopup: true, overlayVisible: true })
+        if (this.props.seoData && this.props.seoData.location) {
+            this.setState({ showLocationPopup: false })
+        } else {
+            if (this.props.locationType.includes("geo")) {
+                this.setState({ showLocationPopup: true, overlayVisible: true })
+            }
         }
     }
 
@@ -181,6 +189,13 @@ class TopBar extends React.Component {
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+        let locationName = ""
+        if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+            locationName = this.props.selectedLocation.formatted_address
+        }
+        if (this.props.seoData && this.props.seoData.location) {
+            locationName = this.props.seoData.location
+        }
 
         return (
             <div>
@@ -219,7 +234,7 @@ class TopBar extends React.Component {
 
                                             {
                                                 this.state.showLocationPopup && false ? ''
-                                                    : (this.props.selectedLocation && this.props.selectedLocation.formatted_address) ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${this.props.selectedLocation.formatted_address}`}</span> : ''
+                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
                                             }
                                             <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                         </span>
@@ -244,7 +259,7 @@ class TopBar extends React.Component {
                         </div>
                         {
                             this.state.showLocationPopup ?
-                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} />
+                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} numberInputHandler={() => this.numberInputHandler()} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
                                 : ''
                         }
 

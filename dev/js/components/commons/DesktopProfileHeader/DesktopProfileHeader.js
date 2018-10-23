@@ -24,6 +24,23 @@ class DesktopProfileHeader extends React.Component {
         this.setState({ headerButtonsState: !this.state.headerButtonsState })
     }
 
+    goToLocation() {
+        let redirect_to = ""
+        if (window.location.pathname.includes('sptcit') || window.location.pathname.includes('sptlitcit')) {
+            redirect_to = "/opd/searchresults"
+        }
+
+        if (window.location.pathname.includes('lbcit') || window.location.pathname.includes('lblitcit')) {
+            redirect_to = "/lab/searchresults"
+        }
+
+        let location_url = '/locationsearch'
+        if (redirect_to) {
+            location_url += `?redirect_to=${redirect_to}`
+        }
+        this.props.history.push(location_url)
+    }
+
     render() {
 
         let profileData = this.props.profiles[this.props.defaultProfile]
@@ -49,7 +66,7 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
-                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{width: 120}} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 120 }} />
                                 {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
@@ -109,7 +126,7 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                     </div>
                                 </div> : <div className="head-links" onClick={() => {
-                                    this.props.homePage?this.props.history.push('/user?ref=home'):this.props.history.push('/user')
+                                    this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
                                 }}>
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                         <span>Login</span>
@@ -117,7 +134,7 @@ class DesktopProfileHeader extends React.Component {
                             }
 
                             <div className="head-links location-item" onClick={() => {
-                                this.props.history.push('/locationsearch')
+                                this.goToLocation()
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>
@@ -135,14 +152,15 @@ class DesktopProfileHeader extends React.Component {
                                     <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14 }}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                     </InitialsPicture>
-                                </div> : <div className="head-links" onClick={() => { this.props.homePage?this.props.history.push('/user?ref=home'):
-                                    this.props.history.push('/user')
+                                </div> : <div className="head-links" onClick={() => {
+                                    this.props.homePage ? this.props.history.push('/user?ref=home') :
+                                        this.props.history.push('/user')
                                 }}>
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                     </div>
                             }
                             <div className="head-links location-item" onClick={() => {
-                                this.props.history.push('/locationsearch')
+                                this.goToLocation()
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>

@@ -11,6 +11,15 @@ class LocationElementsView extends React.Component {
             m_no = this.props.userPhoneNo
         }
 
+        let redirect_to = ""
+        if (this.props.location.pathname.includes('sptcit') || this.props.location.pathname.includes('sptlitcit')) {
+            redirect_to = "/opd/searchresults"
+        }
+
+        if (this.props.location.pathname.includes('lbcit') || this.props.location.pathname.includes('lblitcit')) {
+            redirect_to = "/lab/searchresults"
+        }
+
         this.state = {
             search: '',
             mobile_no: m_no,
@@ -18,7 +27,8 @@ class LocationElementsView extends React.Component {
             detectLoading: false,
             validationError: false,
             location_object: null,
-            location_type: ''
+            location_type: '',
+            redirect_to
         }
     }
 
@@ -38,7 +48,7 @@ class LocationElementsView extends React.Component {
     componentDidMount() {
         this.props.onRef(this)
         if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-            this.setState({ location_object: this.props.selectedLocation, search: this.props.selectedLocation.formatted_address })
+            this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
         }
 
         if (document.getElementById('doc-input-field')) {
@@ -101,6 +111,9 @@ class LocationElementsView extends React.Component {
         if (this.state.location_object) {
             if (this.state.location_type) {
                 this.props.selectLocation(this.state.location_object, this.state.location_type).then(() => {
+                    if (this.state.redirect_to) {
+                        this.props.history.replace(this.state.redirect_to)
+                    }
                     this.setState({ detectLoading: false, searchResults: [], search: location_object.formatted_address })
                 })
             } else {
