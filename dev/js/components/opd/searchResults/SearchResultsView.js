@@ -161,7 +161,7 @@ class SearchResultsView extends React.Component {
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     <div>
-                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
+                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
                         {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
