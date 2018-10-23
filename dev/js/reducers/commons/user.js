@@ -40,7 +40,8 @@ const defaultState = {
     userPrescriptions: [],
     primaryMobile: 0,
     userName: '',
-    userPhoneNo: 0
+    userPhoneNo: 0,
+    unread_count: ''
 }
 
 export default function (state = defaultState, action) {
@@ -135,6 +136,7 @@ export default function (state = defaultState, action) {
             }
 
             newState.newNotification = 0
+            newState.unread_count = action.payload.unread_count
 
             if (action.payload.replace) {
                 newState.notifications = action.payload.notifications

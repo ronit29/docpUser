@@ -187,7 +187,7 @@ class UserLoginView extends React.Component {
                                         </div>
                                         <ul className="sign-up-lisitng">
                                             <li>
-                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.png"} className="img-fluid" /> 
+                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid" /> 
                                                 <p>Chat instantly, anytime, anywhere with qualified doctors for free</p>
                                             </li>
                                             <li>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription } from '../../actions/index.js'
+import { editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
@@ -49,8 +49,13 @@ class UserProfile extends React.Component {
 const mapStateToProps = (state) => {
     const USER = state.USER
 
+    const {
+		applicableCoupons
+	} = state.USER
+
     return {
-        USER
+        USER,
+        applicableCoupons
     }
 }
 
@@ -67,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
         editUserProfileImage: (profileData, profileId, cb) => dispatch(editUserProfileImage(profileData, profileId, cb)),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
         getAppointmentReports: (appointmentId, type, cb) => dispatch(getAppointmentReports(appointmentId, type, cb)),
-        getUserPrescription: (mobileNo) => dispatch(getUserPrescription(mobileNo))
+        getUserPrescription: (mobileNo) => dispatch(getUserPrescription(mobileNo)),
+        getCoupons: (productId) => dispatch(getCoupons(productId))
     }
 }
 

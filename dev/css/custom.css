@@ -154,6 +154,8 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .profile-nav .nav-items>li .nav-content .app-title{color: #5d5d5d}
 .profile-nav .nav-items>li .forward-icon{ position: absolute; top: 40px; right: 20px; width: 18px; height: 20px; opacity: .4; }
 .my-profile-item{cursor: pointer;}
+.notification-count{position: absolute; width: 22px; height: 22px; right: 20px; top: 50%; transform: translateY(-50%); border-radius: 50%; background-color: #f78631; display: flex; align-items: center; justify-content: center}
+.notification-count>span{color: #ffffff;}
 
 /*===================
 	my appointments

@@ -1297,7 +1297,7 @@ padding: 20px;
 }
 .ofr-img-txt{
 	display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 .box-img-cont img {
     width: 120px;

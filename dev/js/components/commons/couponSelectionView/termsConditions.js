@@ -7,7 +7,7 @@ export default class Terms extends React.Component{
         return(
         <div>
             <div className="cancel-overlay" onClick={this.props.toggle}></div>
-            <div className="widget cancel-appointment-div payment-popup terms-popup">
+            <div className="widget cancel-appointment-div cancel-popup">
                 <div className="widget-header text-center action-screen-header">
                     <p className="fw-500 cancel-appointment-head">Terms & Conditions</p>
                     <hr />

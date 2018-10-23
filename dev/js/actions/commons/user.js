@@ -137,7 +137,7 @@ export const fetchNotifications = (cb) => (dispatch) => {
 		dispatch({
 			type: APPEND_NOTIFICATIONS,
 			payload: {
-				replace: true, notifications: response.data
+				replace: true, notifications: response.data, unread_count: response.unread_count || ''
 			}
 		})
 		if (cb) cb(null, response);
@@ -408,7 +408,6 @@ export const getCoupons = (productId = '') => (dispatch) => {
 			type: GET_APPLICABLE_COUPONS,
 			payload: response
 		})
-
 	})
 }
 

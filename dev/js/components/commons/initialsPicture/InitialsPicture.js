@@ -36,7 +36,7 @@ class InitialsPicture extends React.Component {
 
         return sum;
     }
-    
+
     render() {
         let style = this.props.style || {}
 
@@ -58,6 +58,10 @@ class InitialsPicture extends React.Component {
             return (
                 <div className={this.props.className} style={style} onClick={this.props.onClick || (() => { })}>
                     <span>{initial.toUpperCase()}</span>
+                    {
+                        this.props.notificationNew ?
+                            <div style={{ borderRadius: '50%', backgroundColor: 'red', position: 'absolute', right: '-2px', top: '-2px', width: '8px', height: '8px' }}></div> : ''
+                    }
                 </div>
             )
         }

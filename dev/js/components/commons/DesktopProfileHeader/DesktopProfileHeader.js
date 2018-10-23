@@ -49,7 +49,7 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
-                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{width: 120}} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 120 }} />
                                 {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
@@ -109,7 +109,7 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                     </div>
                                 </div> : <div className="head-links" onClick={() => {
-                                    this.props.homePage?this.props.history.push('/user?ref=home'):this.props.history.push('/user')
+                                    this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
                                 }}>
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                         <span>Login</span>
@@ -132,10 +132,11 @@ class DesktopProfileHeader extends React.Component {
                                 profileData ? <div className="head-links" onClick={() => {
                                     this.props.history.push('/user')
                                 }}>
-                                    <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14 }}>
+                                    <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                     </InitialsPicture>
-                                </div> : <div className="head-links" onClick={() => { this.props.homePage?this.props.history.push('/user?ref=home'):
+                                </div> : <div className="head-links" onClick={() => {
+                                    this.props.homePage ? this.props.history.push('/user?ref=home') :
                                     this.props.history.push('/user')
                                 }}>
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
