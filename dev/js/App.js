@@ -35,12 +35,17 @@ require('./helpers/lightbox/style.css')
 require('../css/style.css')
 
 const logPageView = () => {
+    let ch_route = window.location.pathname
     // window.location.pathname -> changed route
+    if (window.ch_route == ch_route) {
+        return null
+    }
     let data = {
-        'Category': 'ConsumerApp', 'Action': 'RouteChange', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'route-changed', url: window.location.pathname + window.location.search 
+        'Category': 'ConsumerApp', 'Action': 'RouteChange', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'page-view', 'VPageName': window.location.pathname + window.location.search, url: window.location.pathname + window.location.search
     }
     GTM.sendEvent({ data: data })
-    return null;
+    window.ch_route = ch_route
+    return null
 };
 
 import NotificationsBoot from './containers/commons/NotificationsBoot'
