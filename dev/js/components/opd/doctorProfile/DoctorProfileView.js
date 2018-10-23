@@ -3,6 +3,7 @@ import React from 'react';
 import Loader from '../../commons/Loader'
 import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
 import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
+import RatingProfileCard from '../../commons/ratingsProfileView/RatingProfileCard.js'
 import ComplimentListView from '../../commons/ratingsProfileView/ComplimentListView.js'
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import AboutDoctor from '../doctorProfile/aboutDoctor/index.js'
@@ -94,19 +95,7 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <div className="rating-upside-container">
-                                                    <div className="sub-upside-star">
-                                                    <p>Rate your recent visit with the doctor</p>
-                                                        {
-                                                            [1, 2, 3, 4, 5].map((x, i) => {
-                                                                return <img key={i} className="img-fluid" src="/assets/img/customer-icons/unselected-star.svg" />
-                                                            })
-                                                        }
-                                                    </div>
-                                                    <div className="inner-star-cls">
-                                                        <img className="img-fluid" src="/assets/img/customer-icons/rt-close.svg"/>
-                                                    </div>
-                                                    </div>
+                                                    {(typeof (this.props.DOCTORS[doctor_id].unrated_appointment) != "undefined" && this.props.DOCTORS[doctor_id].unrated_appointment != null && this.props.DOCTORS[doctor_id].unrated_appointment) ? (<RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id]} />) : ""}
                                                     <div className="widget mrt-10 ct-profile skin-white">
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
