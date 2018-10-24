@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DoctorResultCard from '../../commons/doctorResultCard'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
+import ClinicResultCard from '../../commons/clinicResultCard';
 
 class DoctorsList extends React.Component {
     constructor(props) {
@@ -100,12 +101,18 @@ class DoctorsList extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                        {
+                                                            this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                        }
                                                     </div>
 
                                                 } else {
                                                     if (DOCTORS[docId]) {
-                                                        return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                        return <div>
+                                                            {
+                                                                this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                            }
+                                                        </div>
 
                                                     } else {
                                                         return ""

@@ -13,7 +13,8 @@ class SearchResultsView extends React.Component {
         super(props)
         this.state = {
             seoData: this.props.initialServerData,
-            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')
+            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
+            clinic_card: this.getLocationParam('clinic_card') || null
         }
     }
 
@@ -86,6 +87,10 @@ class SearchResultsView extends React.Component {
         let doctor_name = filterCriteria.doctor_name || ""
 
         let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}`
+
+        if (this.state.clinic_card) {
+            url += `&clinic_card=true`
+        }
 
         return url
     }
@@ -165,7 +170,7 @@ class SearchResultsView extends React.Component {
                         {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                        <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} />
+                        <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} />
                     </div>
                 </CriteriaSearch>
             </div>
