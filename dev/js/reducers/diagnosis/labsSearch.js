@@ -1,4 +1,5 @@
-import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH } from '../../constants/types';
+
+import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS , REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS} from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -8,7 +9,9 @@ const defaultState = {
     rescheduleSlot: { time: {} },
     selectedAppointmentType: 'lab',
     selectedAddress: null,
-    SET_FROM_SERVER: false
+    SET_FROM_SERVER: false,
+    labCoupons: {},
+    disCountedLabPrice: 0
 }
 
 export default function (state = defaultState, action) {
@@ -77,6 +80,55 @@ export default function (state = defaultState, action) {
         case SET_SERVER_RENDER_LAB: {
             let newState = { ...state }
             newState.SET_FROM_SERVER = action.payload
+            return newState
+        }
+
+        case ADD_LAB_COUPONS: {
+            let newState = {
+                ...state,
+                labCoupons : { ...state.labCoupons }
+            }
+/*
+            if(state.labCoupons[action.labId]){
+                newState.labCoupons[action.labId] = [].concat(state.labCoupons[action.labId])
+            } else {
+                newState.labCoupons[action.labId] = []
+            }*/
+            newState.labCoupons[action.labId] = []
+            newState.labCoupons[action.labId].push(action.payload)
+            
+            return newState
+        }
+
+        case REMOVE_LAB_COUPONS: {
+            let newState = {
+                ...state,
+                labCoupons : { ...state.labCoupons }
+            }
+            if(action.couponId){
+                newState.labCoupons[action.labId] = newState.labCoupons[action.labId].filter((coupon) => { coupon.coupon_id != action.couponId })    
+            }
+            newState.disCountedLabPrice = 0
+            return newState
+        }
+
+        case APPLY_LAB_COUPONS: {
+            let newState = {
+                ...state
+            }
+            if(action.payload.status == 1){
+                newState.disCountedLabPrice = parseInt(action.payload.discount)
+            }
+            
+            return newState
+        }
+
+        case RESET_LAB_COUPONS: {
+            let newState = {
+                ...state
+            }
+            newState.disCountedLabPrice = 0
+
             return newState
         }
 

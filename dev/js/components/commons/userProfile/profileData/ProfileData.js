@@ -1,12 +1,28 @@
 import React from 'react';
+import TermsConditions from '../../couponSelectionView/termsConditions.js'
 
 class ProfileData extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            openTermsConditions: false
+        }
+    }
+
+    componentDidMount() {
+        this.props.getCoupons(1);
     }
 
     gotTo(where) {
         this.props.history.push(`/user/${where}`)
+    }
+
+    pushUrl(where) {
+        this.props.history.push(`/${where}`)
+    }
+
+    toggleTandC() {
+        this.setState({ openTermsConditions: !this.state.openTermsConditions });
     }
 
     render() {
@@ -15,8 +31,68 @@ class ProfileData extends React.Component {
 
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav">
-                <div className="widget-content">
-                    <ul className="list nav-items dp-user-list">
+                <div className="widget-content padding-remove">
+                    <ul className="list nav-items dp-user-list bg-lst">
+                        <li className="my-profile-item padding-remove">
+                            <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
+                            {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
+                            <div className="usr-dtls-startup">
+                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
+                                <div className="row no-gutters pdng-bttm">
+                                    <div className="col-4 mbl-usr-grd">
+                                        <span className="usr-dtls-free">FREE</span>
+                                        <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={this.pushUrl.bind(this, '')}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
+                                            <p>
+                                                <span>Chat Now </span>
+                                                with qualified doctors
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <div className="col-4 mbl-usr-grd" onClick={this.pushUrl.bind(this, 'opd')}>
+                                        <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
+                                            <p>
+                                                <span>Find Doctors </span>
+                                                Upto 50% OFF
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <div className="col-4 mbl-usr-grd" onClick={this.pushUrl.bind(this, 'lab')}>
+                                        <a className="usr-dtls-anchor" href="javascript:void(0);">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
+                                            <p>
+                                                <span>Book Tests </span>
+                                                Upto 50% OFF
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li className="my-profile-item" style={{ cursor: 'auto' }}>
+                            <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/stmp.svg"} className="img-fluid" />OFFERS</p>
+
+                            <div className="ofr-img-txt">
+                                <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/customer-icons/vector-smart-object.png"} className="img-fluid" /></div>
+                                <div className="ofr-contnt">
+                                    <p className="ofr-bkg"><b className="fw-500 drk-blk">Flat Rs 100 off</b> on your first 3 bookings on doctor and diagnostics</p>
+                                    {
+                                        this.props.applicableCoupons && this.props.applicableCoupons.length ?
+                                            this.props.applicableCoupons.map((coupon, i) => {
+                                                return coupon.code == 'WELCOME' && coupon.used_count < 3 ?
+                                                    <div key={i}>
+                                                        <p className="mrt-10" style={{ color: '#757575' }}>Use Coupon : <b className="fw-700" style={{ color: '#000000' }}>{coupon.code}</b></p>
+                                                        <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                            <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: '#f78631', cursor: 'pointer' }}>Terms & Conditions</p>
+                                                            <p className="fw-500 text-xs" style={{ color: '#adadad' }}>(Auto applies at checkout)</p>
+                                                        </div>
+                                                    </div> : ''
+                                            }) : ''
+                                    }
+                                </div>
+                            </div>
+                        </li>
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -39,10 +115,22 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item">
+                        <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/opd-visit.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/onlnpres.svg"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">My Online Prescriptions
+                                        {/* <span className="float-right badge badge-warning">1</span> */}
+                                    </h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/apoitm.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Appointments
@@ -51,7 +139,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        {/* <li className="my-profile-item">
+                        {/* <li className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/medical-history.svg"} className="img-fluid" />
@@ -73,10 +161,10 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item">
+                        <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/family.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/fmly.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Family</h4>
@@ -95,10 +183,10 @@ class ProfileData extends React.Component {
                         </li> */}
                         <li onClick={() => {
                             this.props.history.push('/wallet')
-                        }} className="my-profile-item">
+                        }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/transaction.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/rp-ico.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Transactions</h4>
@@ -107,10 +195,10 @@ class ProfileData extends React.Component {
                         </li>
                         <li onClick={() => {
                             this.props.history.push('/user/address')
-                        }} className="my-profile-item">
+                        }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/address.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/addmang.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Manage Address</h4>
@@ -119,22 +207,28 @@ class ProfileData extends React.Component {
                         </li>
                         <li onClick={() => {
                             this.props.history.push('/notifications')
-                        }} className="my-profile-item">
+                        }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img style={{ height: 25 }} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/notificagtion.svg"} className="img-fluid" />
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/bl-bell.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Notifications</h4>
                                 </div>
                             </a>
+                            {
+                                this.props.USER.unread_count ?
+                                    <div className="notification-count">
+                                        <span className="fw-500 text-xs">{this.props.USER.unread_count}</span>
+                                    </div> : ''
+                            }
                         </li>
                         <li onClick={() => {
                             this.props.logout(currentRoomId)
-                        }} className="my-profile-item d-none d-md-block">
+                        }} className="my-profile-item lst-spcng ">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img style={{ height: 25 }} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/logout_orange.svg"} className="img-fluid" />
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/log-out.svg"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">Logout</h4>
@@ -143,9 +237,16 @@ class ProfileData extends React.Component {
                         </li>
                     </ul>
                 </div>
-                <div className="logout-div d-md-none" onClick={() => { this.props.logout(currentRoomId) }}>
+                {
+                    this.state.openTermsConditions ?
+                        this.props.applicableCoupons.map(coupon => {
+                            return coupon.code == 'WELCOME' ?
+                                <TermsConditions toggle={() => this.toggleTandC()} tnc={coupon.tnc} /> : ""
+                        }) : ''
+                }
+                {/* <div className="logout-div d-md-none" onClick={() => { this.props.logout(currentRoomId) }}>
                     <p className="fw-500">Logout</p>
-                </div>
+                </div> */}
             </div>
         );
     }

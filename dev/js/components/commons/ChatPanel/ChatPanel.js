@@ -20,8 +20,8 @@ class ChatPanel extends React.Component {
             additionClasses: ' chat-load-mobile',
             hideIframe: true,
             iframeLoading: true,
-            showStaticView:true,
-            hideStaticView:false
+            showStaticView: true,
+            initialMessage: ""
         }
     }
 
@@ -33,11 +33,28 @@ class ChatPanel extends React.Component {
             } else {
                 this.setState({ token })
             }
+
+            if (this.props.mobilechatview) {
+                this.setState({ showChatBlock: true });
+            }
         })
 
-        if (this.props.USER && (this.props.USER.chat_static_msg || Object.keys(this.props.USER.chatRoomIds).length > 0)) {
-
-            this.setState({ showStaticView: false })
+        /**
+         * Check for static message and hide/show iframe with loader accordingly.
+         */
+        if (this.props.USER && this.props.USER.liveChatStarted) {
+            this.setState({ showStaticView: false, iframeLoading: true }, () => {
+                this.setState({ hideIframe: false }, () => {
+                    let iframe = this.refs.chat_frame
+                    if (iframe) {
+                        iframe.onload = () => {
+                            this.setState({ iframeLoading: false })
+                        }
+                    } else {
+                        this.setState({ iframeLoading: false })
+                    }
+                })
+            })
         }
 
         if (window) {
@@ -108,6 +125,11 @@ class ChatPanel extends React.Component {
                         case "chat_loaded": {
                             if (data.data.rid) {
                                 // save current room
+                                let analyticData = {
+                                    'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid
+                                }
+                                GTM.sendEvent({ data: analyticData })
+
                                 this.props.setChatRoomId(data.data.rid)
                                 this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
                             }
@@ -126,7 +148,10 @@ class ChatPanel extends React.Component {
                         }
 
                         case "Chat_Close": {
-                            this.props.history.go(-1)
+                            // this.props.startLiveChat(false, this.state.selectedLocation)
+                            this.setState({ initialMessage: "", selectedRoom: null, })
+                            this.props.setChatRoomId(null)
+                            // this.props.history.go(-1)
                             break
                         }
 
@@ -138,47 +163,44 @@ class ChatPanel extends React.Component {
                         }
                     }
 
+                    /**
+                     * redirecting chat to new page for mobile users on homepage and on focus
+                     * TODO : review this
+                     */
                     if (data.message && data.message == 'focus') {
                         let iframe = this.refs.chat_frame
                         iframe.scrollTop = iframe.scrollHeight
-                        // window.scrollTo(0, iframe.scrollHeight)
-                        // debugger
+                        if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
+                            this.props.history.push('/mobileviewchat')
+                        }
                     }
+
                 }
             }.bind(this))
         }
 
-
-        this.setState({ hideIframe: false }, () => {
-            let iframe = this.refs.chat_frame
-            if (iframe) {
-                iframe.onload = () => {
-                    this.setState({ iframeLoading: false })
-                }
-            } else {
-                this.setState({ iframeLoading: false })
-            }
-
-        })
-
     }
 
     componentWillReceiveProps(props) {
-
-        if (props.USER && (props.USER.chat_static_msg != "" || Object.keys(props.USER.chatRoomIds).length > 0)) {
-            let iframe = this.refs.chat_frame
-            if (iframe) {
-                iframe.onload = () => {
-                    this.setState({ iframeLoading: false, showStaticView: false })
-                }
-            } else {
-                this.setState({ showStaticView: false, iframeLoading: true })
-            }
-
-
+        if (props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) {
+            this.setState({ showStaticView: false, iframeLoading: true }, () => {
+                this.setState({ hideIframe: false }, () => {
+                    let iframe = this.refs.chat_frame
+                    if (iframe) {
+                        iframe.onload = () => {
+                            this.setState({ iframeLoading: false })
+                        }
+                    } else {
+                        this.setState({ iframeLoading: false })
+                    }
+                })
+            })
         } else {
-            this.setState({ showStaticView: true, iframeLoading: false })
+            if (props.USER && !props.USER.liveChatStarted) {
+                this.setState({ showStaticView: true, iframeLoading: false })
+            }
         }
+
     }
 
     dispatchCustomEvent(eventName, data = {}) {
@@ -188,31 +210,14 @@ class ChatPanel extends React.Component {
         iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
     }
 
-    openDoctorProfile(doctor_id) {
-        // this.props.history.push(`/opd/doctor/${doctor_id}`)
-    }
-
-    getLocation(latitude, longitude, cb) {
-        var latlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) }
-
-        let geocoder = new google.maps.Geocoder
-        geocoder.geocode({ 'location': latlng }, (results, status) => {
-            if (results && results[0]) {
-                this.props.selectLocation(results[0])
-                if (cb) cb()
-            }
-        })
-    }
-
     closeChat() {
-        
         STORAGE.getAuthToken().then((token) => {
             token = token || ""
-              this.setState({ token })
+            this.setState({ token, initialMessage: "", selectedRoom: null })
         })
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
-         
+        this.props.setChatRoomId(null)
     }
 
     toggleCancel(e) {
@@ -221,41 +226,26 @@ class ChatPanel extends React.Component {
         this.setState({ showCancel: !this.state.showCancel })
     }
 
-    getDoctorSpecialization(doctor_data) {
-        let final_str = ""
-        let qualification_str = null
-        let { qualifications, general_specialization, practicing_since } = doctor_data
-        if (qualifications && qualifications.length) {
-            for (let qual of qualifications) {
-                let curr_qual = qual.qualification.toString().trim().toLowerCase()
-                if (curr_qual == 'mbbs') {
-                    qualification_str = 'MBBS | '
-                }
-            }
+    hideStaticChat(data) {
+        if (this.props.mobilechatview) {
+            this.props.history.go(-1);
+        } else {
+            this.setState({ showChatBlock: false });
         }
-
-        if (qualification_str) {
-            final_str = qualification_str
-
-            if (general_specialization && general_specialization.length) {
-                final_str += `${general_specialization[0].name}`
-            }
-
-            if (practicing_since) {
-                let curr_year = (new Date()).getFullYear()
-                let expYears = curr_year - parseInt(practicing_since)
-                if (expYears >= 5) {
-                    final_str += ` | ${expYears} Yr. Experience`
-                }
-            }
-        }
-
-        return final_str
-
     }
 
-    hideStaticChat(data) {
-        this.setState({ showChatBlock: false })
+    startLiveChatWithMessage(message) {
+        this.setState({ initialMessage: message }, () => {
+            this.props.startLiveChat()
+        })
+    }
+
+    closeChatClick() {
+        if (this.props.mobilechatview) {
+            this.props.history.go(-1);
+        } else {
+            this.setState({ showChatBlock: false });
+        }
     }
 
     render() {
@@ -276,128 +266,96 @@ class ChatPanel extends React.Component {
 
         let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
 
+        if (this.state.initialMessage && !this.state.showStaticView) {
+            iframe_url += `&msg=${this.state.initialMessage}`
+        }
 
         return (
 
             <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
                 {
-                    this.props.homePage ? '' :
+                    this.props.homePage || this.props.mobilechatview ? '' :
                         <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} /></div>
                 }
 
-                <div className={this.state.showChatBlock ? "floating-chat " :""}>
-                {this.state.hideStaticView
-                        ?<ChatStaticView {...this.props} hideStaticChat = {this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}/>
-                        :<div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
+                <div className={this.state.showChatBlock ? "floating-chat " : ""}>
+                    {
+                        this.state.showStaticView ?
+                            <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} />
+                            :
+                            <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
+                                {/* chat header */}
+                                <div className="chat-head">
 
-                            {/* chat header */}
-                            <div className="chat-head">
-
-                                { /*<div className="hd-chat" onClick={() => {
-                                    if (doctorData) {
-                                        this.openDoctorProfile(doctorData.id)
-                                    }
-                                }}>
-                                    {
-                                        doctorData ?
-                                            <InitialsPicture name={doctorData.name} has_image={!!doctorData.thumbnail} className="chat-usr-img initialsPicture-cs">
-                                                <img src={doctorData.thumbnail} className="chat-usr-img" />
-                                            </InitialsPicture> : ""
-                                    }
-                                    {
-                                        doctorData ?
-                                            <p>
-                                                Dr. {doctorData.name}<br />
-                                                <span className="hed-txt-lt">{this.getDoctorSpecialization(doctorData)}</span>
-                                            </p> : ""
-                                    }
-                                
-
-                                </div>
-
-                                */}
-
-                                <div className="hd-chat" style={{ flex: 1 }}>
-                                    <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                        <span className="hed-txt-lt">Get a </span>
-                                        Free Online Doctor Consultation!
+                                    <div className="hd-chat" style={{ flex: 1 }}>
+                                        <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                            <span className="hed-txt-lt">Get a </span>
+                                            Free Online Doctor Consultation!
                                     </p>
-                                </div>
+                                    </div>
 
+                                    <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
+                                        <span className="mr-2" onClick={() => {
+                                            let data = {
+                                                'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
+                                            }
+                                            GTM.sendEvent({ data: data })
 
-                                <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
-                                    <span className="mr-2" onClick={() => {
-                                        let data = {
-                                            'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
+                                            this.dispatchCustomEvent.call(this, 'call')
+                                        }}>
+                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
+
+                                        </span>
+                                        <span onClick={this.toggleCancel.bind(this)}>
+                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
+
+                                        </span>
+                                        {
+                                            this.state.showChatBlock
+                                                ? <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                                : ''
                                         }
-                                        GTM.sendEvent({ data: data })
-
-                                        this.dispatchCustomEvent.call(this, 'call')
-                                    }}>
-                                        <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
-
-                                    </span>
-                                    <span onClick={this.toggleCancel.bind(this)}>
-                                        <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
-
-                                    </span>
+                                    </div>
+                                </div>
+                                {/* chat header */}
+                                {/* chat Body */}
+                                <div className="chat-body">
                                     {
-                                        this.state.showChatBlock
-                                            ? <span className="ml-2" onClick={() => this.setState({ showChatBlock: false })}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
-                                            : ''
+                                        STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} ref="chat_frame"></iframe>
+                                    }
+                                    {
+                                        this.state.iframeLoading ?
+                                            <div className="loader-for-chat-div">
+                                                <div className='loader-for-chat'>
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                </div>
+                                                <p className="ldng-text">Connecting to doctor...</p>
+                                            </div>
+                                            : ""
                                     }
                                 </div>
-                            </div>
-                            {/* chat header */}
-                            {/* chat Body */}
-                            <div className="chat-body">
+                                {/* chat Body */}
                                 {
-                                    STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} ref="chat_frame"></iframe>
-                                }
-                                {
-                                    this.state.iframeLoading ?
-                                        <div className="loader-for-chat-div">
-                                            <div className='loader-for-chat'>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </div>
-                                            <p className="ldng-text">Connecting to best doctor...</p>
-                                        </div>
-                                        : ""
+                                    this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
                                 }
                             </div>
-                            {/* chat Body */}
-                            <div className="chat-footer">
-                                {/* <div className="input-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text chat-attachd-btn">
-                                            <img src="/assets/images/attch.png" />
-                                        </span>
-                                    </div>
-                                    <textarea className="form-control chat-text-area" placeholder="Write your message here" aria-label="With textarea" defaultValue={""} />
-                                    <button className="send-msg-btn">
-                                        <img src="/assets/images/send-msg-btn.png" />
-                                    </button>
-                                </div> */}
-                                <div className="wrng-mssg">
-                                    <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
-                                    <span>
-                                        Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.
-                                    </span>
-                                </div>
-                            </div>
-
-                            {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
-                            }
-                        </div>
                     }
                 </div>
+
+                <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
+                    <div className="wrng-mssg">
+                        <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
+                        <span>
+                            Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
+                    </div>
+                </div>
+
             </div>
         );
     }

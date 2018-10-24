@@ -6,6 +6,9 @@ import GTM from '../../../../helpers/gtm.js'
 class ClinicSelector extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            numberShown: ""
+        }
     }
 
     selectClinic(clinicId, is_live, rank) {
@@ -26,9 +29,23 @@ class ClinicSelector extends React.Component {
         }
     }
 
+    showNumber(id, e) {
+        e.preventDefault()
+        e.stopPropagation()
+        if (!this.state.numberShown) {
+            this.props.getDoctorNumber(id, (err, data) => {
+                if (!err && data.number) {
+                    this.setState({
+                        numberShown: data.number
+                    })
+                }
+            })
+        }
+    }
+
     render() {
 
-        let { name, hospitals, is_live } = this.props.details
+        let { id, name, hospitals, is_live, enabled_for_online_booking } = this.props.details
 
         let style = {}
         if (hospitals && hospitals.length == 1) {
@@ -73,7 +90,10 @@ class ClinicSelector extends React.Component {
                                             </div>
                                         </div>
                                         <div className="text-center" style={{ marginTop: 12 }}>
-                                            <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live, i)}>Book Now</button>
+                                            {
+                                                enabled_for_online_booking ? <button style={{ visibility: (!!is_live ? "visible" : "hidden") }} className="v-btn v-btn-primary btn-sm" onClick={this.selectClinic.bind(this, hospital.hospital_id, !!is_live, i)}>Book Now</button> : <button onClick={this.showNumber.bind(this, id)} className={this.state.numberShown ? "v-btn v-btn-primary btn-sm btn-number" : "v-btn v-btn-primary btn-sm"}>{this.state.numberShown || "Contact"}</button>
+                                            }
+
                                         </div>
                                     </div>
                                 </li>

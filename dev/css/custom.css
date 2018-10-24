@@ -46,13 +46,17 @@
 .appointment-form-container{padding-bottom: 42px;}
 .profile-details{padding-top: 40px !important;}
 .someone-else-labelwrap{display: none;}
-.sticky-btn{padding-bottom: env(safe-area-inset-bottom);}
 
-@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 104px!important;margin-top: 20px;z-index: 9;}
+.sticky-btn{padding-bottom: env(safe-area-inset-bottom);}
+@media(min-width: 768px){
+	.static-btn{position: static!important;}
+	.sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}
+}
+
+@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 107px!important;margin-top: 20px;z-index: 9;}
 .sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 114px!important;margin-top: 2px!important;}
 .sticky-header-3{position: sticky!important; position: -webkit-sticky!important; top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
-.sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}
 .parent-section{margin-top: 100px;padding-top: 0px;}
 .parent-section-temp{margin-top: 100px;padding-top: 0;}
 .all-test-screen,.locaton-detect-screen {padding-top: 10px!important;}
@@ -146,10 +150,12 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .profile-nav{margin-top: 0px;}
 .profile-nav .nav-items>li{background-color: #fff; position: relative; border-bottom: 1px solid #ddd; padding: 22px;}
 .profile-nav .nav-items>li .nav-icon{float: left;}
-.profile-nav .nav-items>li .nav-content{padding-left: 50px; padding-right: 30px;}
+.profile-nav .nav-items>li .nav-content{padding-left: 50px; padding-right: 0px;}
 .profile-nav .nav-items>li .nav-content .app-title{color: #5d5d5d}
 .profile-nav .nav-items>li .forward-icon{ position: absolute; top: 40px; right: 20px; width: 18px; height: 20px; opacity: .4; }
 .my-profile-item{cursor: pointer;}
+.notification-count{position: absolute; width: 22px; height: 22px; right: 20px; top: 50%; transform: translateY(-50%); border-radius: 50%; background-color: #f78631; display: flex; align-items: center; justify-content: center}
+.notification-count>span{color: #ffffff;}
 
 /*===================
 	my appointments
@@ -296,7 +302,7 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .clinics-items>li{min-height: 100px; margin-bottom: 10px;   border-radius: 10px;background-color: #ffffff; padding: 10px;box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25)}
 .fee-details{width: 100px; float: right;}
 .clinic-details{padding-right: 120px;}
-.clinic-name{font-size: 16px; margin-bottom: 5px;font-weight: 500;}
+.clinic-name{font-size: 14px; margin-bottom: 5px;font-weight: 500;}
 .clinic-address {font-size: 14px;font-weight: 500; color: #757575;}
 .fee-details>span {color: #757575; font-size: 12px; font-weight: 600;}
 .fee-details>.fee{font-weight: 600}
@@ -377,3 +383,4 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .clinic-filter-items{white-space: nowrap;}
 .clinic-filter-items>li{white-space: nowrap;}
 .generate-btn{background-color: #9e9e9e; color: #fff;}
+

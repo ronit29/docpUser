@@ -16,12 +16,18 @@ class SearchResults extends React.Component {
     static loadData(store, match, queryParams = {}) {
         try {
             return new Promise((resolve, reject) => {
-                labSearchStateBuilder(null, queryParams, true).then((state) => {
+                let location_ms = null
+                if (match.url.includes('location=')) {
+                    location_ms = match.url.split('location=')[1]
+                    location_ms = parseInt(location_ms)
+                }
+
+                labSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
                     store.dispatch(mergeLABState(state))
 
                     let searchUrl = null
                     if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
-                        searchUrl = match.url
+                        searchUrl = match.url.toLowerCase()
                     }
 
                     store.dispatch(getLabs(state, 1, true, searchUrl, (loadMore, seoData) => {

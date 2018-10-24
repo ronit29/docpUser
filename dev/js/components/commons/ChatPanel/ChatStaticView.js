@@ -5,7 +5,8 @@ class ChatStatic extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: ''
+            value: '',
+            openBanner: true
         }
     }
 
@@ -15,12 +16,21 @@ class ChatStatic extends React.Component {
 
     handleKeyUp(e) {
         if (e.key === 'Enter') {
-            this.props.saveChatStaticMsg(this.state.value)
+            this.props.startLiveChatWithMessage(this.state.value)
         }
     }
 
-    getIframe(){
-        this.props.saveChatStaticMsg(this.state.value)
+    getIframe() {
+        this.props.startLiveChatWithMessage(this.state.value)
+    }
+
+    checkOpenMobileChat() {
+        // handle static page redirects for homepage
+        if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
+            this.props.history.push('/mobileviewchat')
+        } else {
+            this.setState({ openBanner: false })
+        }
     }
 
     render() {
@@ -34,9 +44,7 @@ class ChatStatic extends React.Component {
                         <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
                     </div>
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>
-
-                        {/*<span className="mr-2"><img style={{width:26}} src={ASSETS_BASE_URL + "/img/customer-icons/chat-call.svg"}/></span><span><img style={{width:26}} src={ASSETS_BASE_URL + "/img/customer-icons/chat-rstrt.svg"}/></span>
-                   */}{
+                        {
                             this.props.showChatBlock
                                 ? <span className="ml-2" onClick={this.props.hideStaticChat.bind(this)}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
                                 : ''
@@ -54,8 +62,8 @@ class ChatStatic extends React.Component {
                                                 <div className="received-msg HS_font">
                                                     <p className="chat-text">
                                                         Hi, Welcome to docprime!
-                                              <span className="send-chat-time">{  time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-}</span>
+                                              <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+                                                        }</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -64,9 +72,9 @@ class ChatStatic extends React.Component {
                                             <div className="in-mssgs">
                                                 <div className="received-msg HS_font">
                                                     <p className="chat-text">
-                                                        Please let me know how can I help you today, I will connect you to the right doctor for a free online consultation.
-                                              <span className="send-chat-time">{  time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-}</span>
+                                                    Briefly describe the symptom/health concern worrying you the most (e.g. I have a fever) or simply ask any query.
+                                              <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+                                                        }</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -77,10 +85,10 @@ class ChatStatic extends React.Component {
                             <div className="footer footer_doc">
                                 <div className="chat_footer">
                                     <div className="write-msg-bx">
-                                        <textarea id="cstbox" className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
+                                        <textarea id="cstbox" onFocus={this.checkOpenMobileChat.bind(this)} className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
                                     </div>
                                     <div className="send_icon">
-                                        <a href="javascript:;" className="send-msg-btn" onClick ={this.getIframe.bind(this)}>
+                                        <a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
                                             <img src={ASSETS_BASE_URL + "/img/send.svg"} className="send-md-icon" />
                                         </a>
                                     </div>
@@ -89,12 +97,18 @@ class ChatStatic extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="chat-footer">
-                    <div className="wrng-mssg">
-                        <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
-                        <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
-                    </div>
-                </div>
+                {
+                    this.props.mobilechatview && this.state.openBanner ? <div className="toast-tip-icon">
+                        <span className="toast-close-btn" onClick={() => {
+                            this.setState({ openBanner: false })
+                        }}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} /></span>
+                        <div className="wrng-mssg">
+                            <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
+                            <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
+                        </div>
+                    </div> : ""
+                }
+
             </div>
 
         )

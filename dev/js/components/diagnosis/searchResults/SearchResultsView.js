@@ -32,6 +32,11 @@ class SearchResultsView extends React.Component {
             if (window) {
                 window.scrollTo(0, 0)
             }
+        } else {
+            if (props.selectedLocation != this.props.selectedLocation) {
+                let new_url = this.buildURI(props)
+                this.props.history.replace(new_url)
+            }
         }
     }
 
@@ -45,17 +50,19 @@ class SearchResultsView extends React.Component {
     getLabList(state = null, page = 1, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
-            searchUrl = this.props.match.url
+            searchUrl = this.props.match.url.toLowerCase()
         }
         if (!state) {
             state = this.props
         }
 
         this.props.getLabs(state, page, false, searchUrl, (...args) => {
-            let new_url = this.buildURI(state)
-            this.props.history.replace(new_url)
+            this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
+            } else {
+                let new_url = this.buildURI(state)
+                this.props.history.replace(new_url)
             }
         })
     }
@@ -93,7 +100,8 @@ class SearchResultsView extends React.Component {
         let sort_on = filterCriteria.sort_on || ""
         let lab_name = filterCriteria.lab_name || ""
 
-        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}`
+
+        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}`
 
         return url
     }
@@ -150,7 +158,7 @@ class SearchResultsView extends React.Component {
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     <div>
-                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
+                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
                         {/*
                         <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />

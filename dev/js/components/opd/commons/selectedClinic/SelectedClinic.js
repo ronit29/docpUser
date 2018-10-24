@@ -37,10 +37,10 @@ class SelectedClinic extends React.Component {
                         <img src={thumbnail} className="img-fluid img-round" />
                     </InitialsPicture>
 
-                    <div className="dr-profile">
-                        <h4 className="dr-name">{display_name}</h4>
-                        <p className="desg">{this.getQualificationStr(general_specialization) || []}</p>
-                        {this.props.boxShadowHide ? '' : <h4 className="clinic-name mrt-10 text-sm">{hospitalName}</h4>}
+                    <div className="dr-profile mrt-10">
+                        <h1 className="dr-name">{display_name}</h1>
+                        {/* {this.props.boxShadowHide ?'':<p className="desg">{this.getQualificationStr(general_specialization) || []}</p>} */}
+                        <p className="clinic-name text-sm">{hospitalName}</p>
                     </div>
                 </div>
             </div>

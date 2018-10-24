@@ -1,17 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout } from '../../actions/index.js'
+import { editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
+const queryString = require('query-string');
 
 
 class UserProfile extends React.Component {
     constructor(props) {
         super(props)
         if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=/&login=home`)
+             const parsed = queryString.parse(window.location.search)
+             if(parsed && parsed.ref){
+                this.props.history.replace(`/login?callback=/&ref=home`)    
+             }else{
+                this.props.history.replace(`/login?callback=/`)
+             }
+            
         }
     }
 
@@ -42,8 +49,13 @@ class UserProfile extends React.Component {
 const mapStateToProps = (state) => {
     const USER = state.USER
 
+    const {
+		applicableCoupons
+	} = state.USER
+
     return {
-        USER
+        USER,
+        applicableCoupons
     }
 }
 
@@ -59,7 +71,9 @@ const mapDispatchToProps = (dispatch) => {
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         editUserProfileImage: (profileData, profileId, cb) => dispatch(editUserProfileImage(profileData, profileId, cb)),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
-        getAppointmentReports: (appointmentId, type, cb) => dispatch(getAppointmentReports(appointmentId, type, cb))
+        getAppointmentReports: (appointmentId, type, cb) => dispatch(getAppointmentReports(appointmentId, type, cb)),
+        getUserPrescription: (mobileNo) => dispatch(getUserPrescription(mobileNo)),
+        getCoupons: (productId) => dispatch(getCoupons(productId))
     }
 }
 

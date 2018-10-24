@@ -74,18 +74,17 @@ class LabProfileCard extends React.Component {
         distance = Math.ceil(distance / 1000);
 
         var openingTime = ''
-        if(this.props.details.lab_timing){
-            openingTime = this.props.details.lab_timing.split('-')[0];    
+        if (this.props.details.lab_timing) {
+            openingTime = this.props.details.lab_timing.split('-')[0];
         }
-        
-        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        var day = new Date();
-        var today = day.getDay();
-        var tomorrow = days[today + 1];
+
+        // var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        // var day = new Date();
+        // var today = day.getDay();
+        // var tomorrow = days[today + 1];
 
         return (
-            <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`} className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
-                
+            <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                 <div className="widget card lab-rslt-card">
                     <div className="widget-content card-content book-card" style={{ paddingBottom: 0 }} >
                         <div className="logo-ratting">
@@ -100,11 +99,13 @@ class LabProfileCard extends React.Component {
                             }
                         </div>
                         <div className="book-card-content">
-                            <h4 className="book-cart-title">{lab.name}</h4>
+                            <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`}>
+                                <h2 className="book-cart-title">{lab.name}</h2>
+                            </a>
                             <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8 }} >Radiology | Pathology</p>
                             <div style={{ display: 'flex', flexWrap: 'wrap', minWidth: 0 }} >
                                 <p className="lab-locality">
-                                   
+
                                     {lab.locality} {lab.city}&nbsp;|
                                 </p>
                                 <div style={{ width: 60, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
@@ -112,7 +113,11 @@ class LabProfileCard extends React.Component {
                                 </div>
                             </div>
 
-                            
+                            {
+                                // this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : <p style={{ color: '#f78316', fontSize: 14 }}>Opens next at {openingTime}, tomorrow</p>
+
+                                this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : ''
+                            }
                         </div>
                     </div>
                     <div className="widget-footer card-footer lab-search-card-footer">
@@ -125,8 +130,8 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div> 
-            </a>
+                </div>
+            </div>
         );
     }
 }

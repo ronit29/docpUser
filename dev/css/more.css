@@ -200,7 +200,7 @@
   display: inline-flex;
 }
 .addresspickerDiv.selected{
-    border: solid 1px #00acc1;
+    border: solid 1px #f78631;
     position: relative;
 }
 
@@ -221,7 +221,7 @@
     display: block;
     font-size: 12px;
     font-weight: bold;
-    color: #00acc1;
+    color: #f78631;
 }
 
 .addresspickerDiv .selectedText{
@@ -242,7 +242,7 @@
     margin-top: 11px;
     right: 24px;
     font-weight: 500;
-    color: #00acc1;
+    color: #f78631;
     font-size: 16px;
 }
 
@@ -314,6 +314,15 @@ ul.inline-list li {
 }
 .overlay.black {
     background-color: rgba(0, 0, 0, 0.8);
+}
+.filter-overlay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+}
+.filter-overlay>.filter-popup{
+    margin: 0;
 }
 .filter-item{
   overflow: hidden;
@@ -460,7 +469,7 @@ ul.inline-list li {
 }
 
 .expansion-label-div{
-    display: inline-block;
+    display: block;
 }
 
 .expansion-label-div:first-child{
@@ -1058,6 +1067,7 @@ cursor: pointer;
 }
 
 .dp-user-list>li:last-child{
+    border:transparent;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -1162,7 +1172,7 @@ span.ofr-ribbon:after {
     right: 5px;
     width: 110px;
     background-color: #fff;
-    z-index: 2;
+    z-index: 91;
     text-align: left;
     box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
@@ -1368,4 +1378,12 @@ span.ofr-ribbon:after {
 .acdn-ques{
     font-size: 14px;
     margin: 0;
+}
+
+.time-error{
+    color: red;
+    font-size: 11px;
+    position: absolute;
+    right: 0px;
+    top: 16px;
 }

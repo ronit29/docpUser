@@ -8,14 +8,17 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId } from '../../../helpers/mapHelpers'
+const queryString = require('query-string');
 
 class LocationSearch extends React.Component {
     constructor(props) {
         super(props)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             search: "",
             searchResults: [],
-            detectLoading: false
+            detectLoading: false,
+            redirect_to: parsed.redirect_to
         }
     }
 
@@ -59,7 +62,11 @@ class LocationSearch extends React.Component {
             GTM.sendEvent({ data: data })
 
             this.props.selectLocation(location_object, 'autoComplete').then(() => {
-                this.props.history.go(-1)
+                if (this.state.redirect_to) {
+                    this.props.history.push(this.state.redirect_to)
+                } else {
+                    this.props.history.go(-1)
+                }
                 this.setState({ detectLoading: false })
             })
         })
@@ -83,10 +90,13 @@ class LocationSearch extends React.Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
-                    location_object.place_id = 'from_sensor'
                     this.props.selectLocation(location_object, 'autoDetect').then(() => {
                         clearTimeout(timeout)
-                        this.props.history.go(-1)
+                        if (this.state.redirect_to) {
+                            this.props.history.push(this.state.redirect_to)
+                        } else {
+                            this.props.history.go(-1)
+                        }
                         this.setState({ detectLoading: false })
                     })
                 })

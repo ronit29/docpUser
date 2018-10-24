@@ -213,9 +213,9 @@ class UserSignupView extends React.Component {
 
                             {
                                 this.state.showMedical ?
-                                    <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Done</button>
+                                    <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Done</button>
                                     :
-                                    <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.submitForm.bind(this)}>Next</button>
+                                    <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Next</button>
                             }
 
                         </div>

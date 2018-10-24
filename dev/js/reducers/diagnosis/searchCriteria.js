@@ -2,7 +2,7 @@ import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
-    distanceRange: [0, 35],
+    distanceRange: [0, 15],
     sort_on: null,
     lab_name: ""
 }
@@ -11,6 +11,7 @@ const defaultState = {
     LOADED_SEARCH_CRITERIA_LAB: false,
     common_tests: [],
     common_conditions: [],
+    common_package: [],
     preferred_labs: [],
     selectedCriterias: [],
     selectedLocation: null,
@@ -96,6 +97,8 @@ export default function (state = defaultState, action) {
                 newState.locationType = 'autoComplete'
             } else if (action.range == 'autoDetect') {
                 newState.locationType = 'autoDetect'
+            } else if (action.range == 'geoip') {
+                newState.locationType = 'geoip'
             } else {
                 newState.locationType = 'geo'
             }

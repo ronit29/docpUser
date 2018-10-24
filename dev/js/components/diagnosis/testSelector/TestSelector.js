@@ -12,7 +12,8 @@ class TestSelectorView extends React.Component {
         this.state = {
             selectedLab: this.props.match.params.id,
             searchResults: [],
-            searchString: ''
+            searchString: '',
+            moreResultIndicator: true
         }
     }
 
@@ -26,6 +27,12 @@ class TestSelectorView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        window.addEventListener('scroll', this.hideResultIndicator);
+    }
+
+    hideResultIndicator = () => {
+        window.scrollY > 10 ? this.setState({ moreResultIndicator: false }) : ""
     }
 
     toggleTest(test_to_toggle) {
@@ -46,6 +53,7 @@ class TestSelectorView extends React.Component {
                 this.setState({ searchResults: searchResults })
             }
         })
+        search_string ? this.setState({ moreResultIndicator: false }) : ""
     }
 
 
@@ -122,7 +130,7 @@ class TestSelectorView extends React.Component {
                                 labData ?
 
                                     <div>
-                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{top: 100}}>
+                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 100 }}>
                                             <div className="container-fluid">
                                                 {/* <div className="row">
                                                     <div className="col-12">
@@ -135,7 +143,7 @@ class TestSelectorView extends React.Component {
                                                     </div>
                                                 </div> */}
                                                 <div className="row">
-                                                    <div className="col-12" style={{paddingTop: 10}}>
+                                                    <div className="col-12" style={{ paddingTop: 10 }}>
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
                                                                 <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)} />
@@ -165,13 +173,20 @@ class TestSelectorView extends React.Component {
 
                                         <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => {
                                             let data = {
-                                            'Category':'ConsumerApp','Action':'DoneClickedOnAddTestPage','CustomerID':GTM.getUserId()||'','leadid':0,'event':'done-clicked-add-test-page'}
+                                                'Category': 'ConsumerApp', 'Action': 'DoneClickedOnAddTestPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'done-clicked-add-test-page'
+                                            }
                                             GTM.sendEvent({ data: data })
                                             this.props.history.go(-1)
                                         }}>Done</button>
                                     </div> : <Loader />
                             }
-
+                            {/* {
+                                this.state.moreResultIndicator ?
+                                    <div className="more-test-results-div d-none d-lg-flex">
+                                        <span>more</span>
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/downarrow_white.svg"} />
+                                    </div> : ""
+                            } */}
                         </div>
 
                         <RightBar extraClass=" chat-float-btn-2" />
@@ -179,6 +194,7 @@ class TestSelectorView extends React.Component {
                 </section>
             </div>
         );
+        
     }
 }
 

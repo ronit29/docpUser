@@ -42,9 +42,15 @@ class ExpansionPanel extends React.Component {
 										<label className="fw-700 text-sm text-primary">College</label>
 										<div>
 											<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.qualification}</p>
-											<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+											{cont.specialization?
+												<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+												:''
+											}
 											<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.specialization}</p>
-											<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+											{cont.college?
+												<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+												:''
+											}
 											<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.college}</p>
 										</div>
 									</div>

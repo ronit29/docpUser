@@ -16,7 +16,7 @@ class ArticleList extends React.Component {
 
     static loadData(store, match, query) {
         let title = match.url
-        title = title.substring(1, title.length)
+        title = title.substring(1, title.length).toLowerCase();
         if (query.page) {
             query = query.page
         } else {
@@ -55,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, searchString, callback) => dispatch(getArticleList(title, page, searchString, callback))
+        getArticleList: (title, page, replaceList, searchString, callback) => dispatch(getArticleList(title, page, replaceList, searchString, callback))
     }
 }
 

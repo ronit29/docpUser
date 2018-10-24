@@ -14,7 +14,7 @@ class Article extends React.Component {
         let articleId = match.url
         if (articleId) {
             return new Promise((resolve, reject) => {
-                articleId = articleId.substring(1, articleId.length)
+                articleId = articleId.toLowerCase().substring(1, articleId.length)
                 fetchArticle(articleId, false, (err, data) => {
                     if (!err) {
                         resolve(data)

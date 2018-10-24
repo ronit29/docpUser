@@ -32,6 +32,11 @@ class SearchResultsView extends React.Component {
             if (window) {
                 window.scrollTo(0, 0)
             }
+        } else {
+            if (props.selectedLocation != this.props.selectedLocation) {
+                let new_url = this.buildURI(props)
+                this.props.history.replace(new_url)
+            }
         }
     }
 
@@ -80,7 +85,7 @@ class SearchResultsView extends React.Component {
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
 
-        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}`
+        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}`
 
         return url
     }
@@ -88,17 +93,19 @@ class SearchResultsView extends React.Component {
     getDoctorList(state = null, page = 1, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
-            searchUrl = this.props.match.url
+            searchUrl = this.props.match.url.toLowerCase()
         }
         if (!state) {
             state = this.props
         }
 
         this.props.getDoctors(state, page, false, searchUrl, (...args) => {
-            let new_url = this.buildURI(state)
-            this.props.history.replace(new_url)
+            this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
+            } else {
+                let new_url = this.buildURI(state)
+                this.props.history.replace(new_url)
             }
         })
     }
@@ -153,15 +160,13 @@ class SearchResultsView extends React.Component {
                     seoFriendly: this.state.seoFriendly
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
-                    {
-                        this.isSelectedLocationNearDelhi() ? <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} />
-                            {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
+                    <div>
+                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
+                        {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} />
-                        </div> : <div className="noopDiv"><img src={ASSETS_BASE_URL + "/images/nonop.png"} className="noop" /></div>
-                    }
+                        <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} />
+                    </div>
                 </CriteriaSearch>
             </div>
         );

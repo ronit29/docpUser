@@ -35,7 +35,7 @@ class UserLoginView extends React.Component {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (error) => {
                 if (error) {
-                   // this.setState({ validationError: "Could not generate OTP." })
+                    // this.setState({ validationError: "Could not generate OTP." })
                 } else {
                     this.setState({ showOTP: true })
                 }
@@ -55,31 +55,40 @@ class UserLoginView extends React.Component {
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 const parsed = queryString.parse(this.props.location.search)
                 if (exists) {
-                    if(parsed.login){
+                    if (parsed.login) {
                         let data = {
-                            'Category':'ConsumerApp','Action':'LoginSuccess','pageSource':parsed.login,'CustomerID':GTM.getUserId(),'leadid':0,'event':'login-success'}
-                            GTM.sendEvent({ data: data })
-                    }else{
-                        let data = {
-                            'Category':'ConsumerApp','Action':'LoginSuccess','pageSource':'UNKNOWN','CustomerID':GTM.getUserId(),'leadid':0,'event':'login-success'}
-                            GTM.sendEvent({ data: data })
-                    } 
-                    if (parsed.callback) {
-                        this.props.history.replace(parsed.callback)
+                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success'
+                        }
+                        GTM.sendEvent({ data: data })
                     } else {
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success'
+                        }
+                        GTM.sendEvent({ data: data })
+                    }
+
+                    if(parsed.ref){
+                        this.props.history.push('/user')
+                    }
+                    else if (parsed.callback) {
+                        this.props.history.replace(parsed.callback)
+                    } 
+                    else {
                         this.props.history.go(-1)
                     }
                 } else {
                     // gtm event
 
-                    if(parsed.login){
+                    if (parsed.login) {
                         let data = {
-                            'Category':'ConsumerApp','Action':'UserRegistered','pageSource':parsed.login,'CustomerID':GTM.getUserId(),'leadid':0,'event':'user-registered'}
-                            GTM.sendEvent({ data: data })
-                    }else{
+                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered'
+                        }
+                        GTM.sendEvent({ data: data })
+                    } else {
                         let data = {
-                            'Category':'ConsumerApp','Action':'UserRegistered','pageSource':'UNKNOWN','CustomerID':GTM.getUserId(),'leadid':0,'event':'user-registered'}
-                            GTM.sendEvent({ data: data })
+                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered'
+                        }
+                        GTM.sendEvent({ data: data })
                     }
                     if (parsed.callback) {
                         this.props.history.replace(`/signup?callback=${parsed.callback}`)
@@ -104,11 +113,11 @@ class UserLoginView extends React.Component {
         return (
             <div className="profile-body-wrap lgn-ovrflow">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container parent-section book-appointment-section-login">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12 col-md-7  center-column">
                             {/* <header className="skin-white fixed horizontal top bdr-1 light sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
@@ -125,10 +134,11 @@ class UserLoginView extends React.Component {
                                     </div>
                                 </div>
                             </header> */}
-                            <section className="mobile-verification-screen">
-                                <div className="widget no-shadow no-round">
+                            <section className="mobile-verification-screen p-3">
+                                <div className="widget no-shadow no-round sign-up-container">
                                     <div className="widget-header text-center mv-header">
-                                        <h4 className="fw-700 text-md">Enter your Mobile Number <br /> to continue</h4>
+                                        <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 300!</span> </h3>
+                                        <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
                                     </div>
                                     <div className="widget-content text-center">
                                         <div className="mobile-verification">
@@ -136,9 +146,9 @@ class UserLoginView extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
                                             </div>
                                         </div>
-                                        <div className="form-group mobile-field">
+                                        <div className="form-group mobile-field sup-input-pdng">
                                             <div className="adon-group enter-mobile-number">
-                                                <input type="number" className="fc-input text-center" placeholder="934XXXXXX" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" />
+                                                <input type="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" />
                                             </div>
 
                                             {
@@ -150,15 +160,48 @@ class UserLoginView extends React.Component {
                                                 </div> : ""
                                             }
                                         </div>
+                                        <span className="errorMessage m-0 mb-2">{this.props.error_message}</span>
+                                        <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
+                                        {
+                                            this.state.showOTP ?
+                                            <div class="text-center">
+                                                <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} class="v-btn v-btn-primary btn-sm">
+                                                    Verify
+                                                </button>
+                                            </div>:
+                                            <div class="text-center">
+                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent}  class="v-btn v-btn-primary btn-sm">
+                                                    Continue
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
-                                    <span className="errorMessage">{this.props.error_message}</span>
-                                    <span className="errorMessage">{this.state.validationError}</span>
+                                    
+                                    <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
+                                </div>
+                                <div className="widget mt-21 sign-up-container mrng-btm-scrl">
+                                    <div className="sgn-up-instructions">
+                                        <div className="sighnup-scnd-heading">
+                                            <p><b>docprime</b> is your <span>Free Family Doctor For Life</span> </p>
+                                            
+                                        </div>
+                                        <ul className="sign-up-lisitng">
+                                            <li>
+                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid" /> 
+                                                <p>Chat instantly, anytime, anywhere with qualified doctors for free</p>
+                                            </li>
+                                            <li>
+                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-offr.png"} className="img-fluid" /> 
+                                                <p>Get upto 50% off on doctor appointments and lab tests</p>
+                                            </li>
+                                            <li>
+                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-opd.png"} className="img-fluid" /> 
+                                                <p>OPD Insurance coming soon</p>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </section>
-                            <p className="text-center fw-500 mrb-20" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
-                            {
-                                this.state.showOTP ? <button onClick={this.verifyOTP.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" disabled={this.props.submit_otp}>Verify</button> : <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">Continue</button>
-                            }
 
                         </div>
 

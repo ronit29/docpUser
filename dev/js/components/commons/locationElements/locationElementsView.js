@@ -6,47 +6,59 @@ class LocationElementsView extends React.Component {
 
     constructor(props) {
         super(props)
+        let m_no = ""
+        if (this.props.userPhoneNo) {
+            m_no = this.props.userPhoneNo
+        }
+
+        let redirect_to = ""
+        if (this.props.location.pathname.includes('sptcit') || this.props.location.pathname.includes('sptlitcit')) {
+            redirect_to = "/opd/searchresults"
+        }
+
+        if (this.props.location.pathname.includes('lbcit') || this.props.location.pathname.includes('lblitcit')) {
+            redirect_to = "/lab/searchresults"
+        }
+
         this.state = {
             search: '',
+            mobile_no: m_no,
             searchResults: [],
-            detectLoading: false
+            detectLoading: false,
+            validationError: false,
+            location_object: null,
+            location_type: '',
+            redirect_to
         }
     }
 
     componentWillReceiveProps(props) {
 
         if (props.selectedLocation && this.props.selectedLocation) {
-            let lat = this.props.selectedLocation.geometry.location.lat
-            if (typeof lat === 'function') lat = lat()
-            let nextLat = props.selectedLocation.geometry.location.lat
-            if (typeof nextLat === 'function') nextLat = nextLat()
-
             if (this.state.search) {
-                if (lat != nextLat) {
-                    this.setState({ search: props.selectedLocation.formatted_address })
+                if (props.selectedLocation != this.props.selectedLocation) {
+                    this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
                 }
-            } else if (props.locationType != "geo") {
-                this.setState({ search: props.selectedLocation.formatted_address })
+            } else if (!props.locationType.includes("geo")) {
+                this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
             }
         }
-
     }
 
     componentDidMount() {
         this.props.onRef(this)
-
-        if (this.props.locationType && this.props.locationType != "geo" && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-            this.setState({ search: this.props.selectedLocation.formatted_address })
+        if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+            this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
         }
 
         if (document.getElementById('doc-input-field')) {
             document.getElementById('doc-input-field').addEventListener('focusin', () => {
                 this.props.getCityListLayout()
-                this.setState({ search: '' })
+                this.setState({ location_object: null, search: '' })
             })
 
             document.getElementById('doc-input-field').addEventListener('focusout', () => {
-                this.setState({ search: '' })
+                this.setState({ location_object: null, search: '' })
             })
         }
     }
@@ -77,6 +89,37 @@ class LocationElementsView extends React.Component {
             search: e.target.value
         })
         this.getLocation(e.target.value)
+    }
+
+    inputNoHandler(e) {
+        this.setState({
+            mobile_no: e.target.value,
+            validationError: false
+        })
+    }
+
+    numberSubmitClick() {
+        let number = this.state.mobile_no;
+        if (number.match(/^[56789]{1}[0-9]{9}$/)) {
+            this.props.userPhoneNumber(number);
+        } else if (!number) {
+            // this.props.hideLocationPopup();
+        } else {
+            this.setState({ validationError: true });
+        }
+
+        if (this.state.location_object) {
+            if (this.state.location_type) {
+                this.props.selectLocation(this.state.location_object, this.state.location_type).then(() => {
+                    if (this.state.redirect_to) {
+                        this.props.history.replace(this.state.redirect_to)
+                    }
+                    this.setState({ detectLoading: false, searchResults: [], search: location_object.formatted_address })
+                })
+            } else {
+                this.props.hideLocationPopup()
+            }
+        }
 
     }
 
@@ -90,10 +133,15 @@ class LocationElementsView extends React.Component {
         this.setState({ detectLoading: true })
 
         _getLocationFromPlaceId(location.reference, (location_object) => {
-            this.props.selectLocation(location_object, 'autoComplete').then(() => {
-                this.setState({ detectLoading: false, searchResults: [], search: location_object.formatted_address })
+            if (this.props.fromCriteria) {
+                this.props.selectLocation(location_object, 'autoComplete').then(() => {
+                    this.setState({ detectLoading: false, searchResults: [], search: location_object.formatted_address })
+                    cb()
+                })
+            } else {
+                this.setState({ location_object, search: location_object.formatted_address, location_type: 'autoComplete' })
                 cb()
-            })
+            }
         })
     }
 
@@ -110,11 +158,16 @@ class LocationElementsView extends React.Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
-                    location_object.place_id = 'from_sensor'
-                    this.props.selectLocation(location_object, 'autoDetect').then(() => {
+                    if (this.props.fromCriteria) {
+                        this.props.selectLocation(location_object, 'autoDetect').then(() => {
+                            clearTimeout(timeout)
+                            this.setState({ detectLoading: false })
+                        })
+                    } else {
                         clearTimeout(timeout)
-                        this.setState({ detectLoading: false })
-                    })
+                        this.setState({ location_object, search: location_object.formatted_address, location_type: 'autoDetect' })
+                    }
+
                 })
             }, (a, b, c) => {
                 this.setState({ detectLoading: false })
@@ -149,8 +202,8 @@ class LocationElementsView extends React.Component {
                             : ''
                     }
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
-
                 </div>
+
                 <div className="col-12" style={{ paddingBottom: 10 }}>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div">
@@ -166,9 +219,35 @@ class LocationElementsView extends React.Component {
                                 <p className="fw-500 text-sm" style={{ color: '#fff' }}>Auto Detect</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
+                {
+                    this.props.isTopbar ?
+                        <div className="col-12">
+                            <div className="row">
+                                <div className="col-12" style={{ paddingBottom: 10 }}>
+                                    <div className="doc-select-location-div">
+                                        <div className="doc-input-loc-div">
+                                            <input type="number" className="form-control doc-input-loc doc-input-loc-number" id="doc-input-number-field" value={this.state.mobile_no} placeholder="Enter your mobile number" onFocus={() => this.props.numberInputHandler()} onChange={(e) => this.inputNoHandler(e)} />
+                                            <span className="doc-input-loc-icon doc-input-loc-mobile-icon">
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/mobile.svg"} />
+                                            </span>
+                                            {
+                                                this.state.validationError ?
+                                                    <span className="input-no-error">Invalid no</span> : <span className="input-no-error" style={{ color: '#808080' }}>Optional</span>
+                                            }
+                                            {/* <button className="loc-submit-no-btn" onClick={(e) => this.numberSubmitClick(e)}>Submit</button> */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12 text-center" style={{ paddingBottom: 10 }}>
+                                    <button className="loc-submit-no-btn" onClick={(e) => this.numberSubmitClick(e)}>Submit</button>
+                                </div>
+                            </div>
+                        </div> : ''
+                }
+
                 <div id="map1" style={{ display: 'none' }}></div>
             </div>
         )
