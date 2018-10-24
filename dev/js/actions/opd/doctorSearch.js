@@ -220,6 +220,10 @@ export const getDoctorNumber = (doctorId, callback) => (dispatch) => {
 export const applyOpdCoupons = (productId = '', couponCode, couponId, hospitalId, dealPrice) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {coupon_code: [couponCode], deal_price: dealPrice, product_id: productId}).then(function (response) {
+		let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'OpdCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupon-applied','couponId': couponId
+        }
+        GTM.sendEvent({ data: analyticData })
 		dispatch({
 			type: APPLY_OPD_COUPONS,
 			payload: response
@@ -228,6 +232,7 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, hospitalId
 }
 
 export const removeCoupons = (hospitalId, couponId) => (dispatch) => {
+
 	dispatch({
 		type: REMOVE_OPD_COUPONS,
 		hospitalId: hospitalId,

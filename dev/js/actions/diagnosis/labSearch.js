@@ -207,7 +207,10 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 export const applyLabCoupons = (productId = '', couponCode, couponId, labId, dealPrice) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {coupon_code: [couponCode], deal_price: dealPrice, product_id: productId}).then(function (response) {
-		
+		let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied','couponId': couponId
+        }
+        GTM.sendEvent({ data: analyticData })
 		dispatch({
 			type: APPLY_LAB_COUPONS,
 			payload: response
