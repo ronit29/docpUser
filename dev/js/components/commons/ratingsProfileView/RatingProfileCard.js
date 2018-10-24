@@ -100,9 +100,11 @@ class RatingProfileCard extends React.Component {
                                 })
                             }
                         </div>
-                        <div className="inner-star-cls">
-                            <img onClick={this.declineRating.bind(this, type, 0, 0)} className="img-fluid" src="/assets/img/customer-icons/rt-close.svg" />
-                        </div>
+                        {typeof (this.props.booking_flag) != 'undefined' && this.props.booking_flag ? "" :
+                            (<div className="inner-star-cls">
+                                <img onClick={this.declineRating.bind(this, type, 0, 0)} className="img-fluid" src="/assets/img/customer-icons/rt-close.svg" />
+                            </div>)
+                        }
                     </div>
                 );
             }
