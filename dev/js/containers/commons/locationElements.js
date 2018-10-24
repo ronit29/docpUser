@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLocation, userPhoneNumber } from '../../actions/index.js'
+import { selectLocation } from '../../actions/index.js'
 import LocationElementView from '../../components/commons/locationElements/index.js'
 
 class LocationElemContainer extends React.Component {
@@ -27,20 +27,14 @@ const mapStateToProps = (state) => {
         locationType
     } = state.SEARCH_CRITERIA_OPD
 
-    const {
-        userPhoneNo
-    } = state.USER
-
     return {
         selectedLocation,
-        locationType,
-        userPhoneNo
+        locationType
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        userPhoneNumber: (phone_number) => dispatch(userPhoneNumber(phone_number)),
         selectLocation: (location, type) => dispatch(selectLocation(location, type))
     }
 }
