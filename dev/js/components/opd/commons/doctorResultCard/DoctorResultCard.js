@@ -65,20 +65,14 @@ class DoctorProfileCard extends React.Component {
         }
 
         var Distance = (Math.round(distance * 10) / 10).toFixed(1);
-        if(mrp != 0 && deal_price !=0){
-            var discount = 100 - Math.round((deal_price*100) / mrp);
+        if (mrp != 0 && deal_price != 0) {
+            var discount = 100 - Math.round((deal_price * 100) / mrp);
         }
 
         if (hospitals && hospitals.length) {
             return (
 
                 <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
-                    {
-                        !deal_price ?
-                            <div className="dp-dr-free-label">
-                                <p>Free Consultation</p>
-                            </div> : ''
-                    }
                     <div className="fltr-crd-top-container">
                         <div className="fltr-lctn-dtls">
                             <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
@@ -101,17 +95,25 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                 </div>
-                                </div>
-                                <div className="col-4">
-                                    <div className="fltr-bkng-section">
-                                    {discount?<span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span>:''}
+                            </div>
+                            <div className="col-4">
+                                <div className="fltr-bkng-section">
+                                    {
+                                        discount && discount != 0 ?
+                                            <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
+                                    }
+
+                                    {
+                                        !deal_price ?
+                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700" >Free Consultation</span> : ''
+                                    }
 
                                     <p className="fltr-prices">
-
                                         &#x20B9; {deal_price}
                                         {
                                             mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
-                                        }</p>
+                                        }
+                                    </p>
 
                                     {
                                         enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
