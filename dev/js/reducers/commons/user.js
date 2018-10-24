@@ -1,4 +1,4 @@
-import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, SAVE_USER_PHONE_NO } from '../../constants/types';
+import { APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -40,7 +40,6 @@ const defaultState = {
     userPrescriptions: [],
     primaryMobile: 0,
     userName: '',
-    userPhoneNo: 0,
     unread_count: ''
 }
 
@@ -217,7 +216,7 @@ export default function (state = defaultState, action) {
         }
 
         case RESET_AUTH: {
-            return { ...defaultState, userPhoneNo: state.userPhoneNo }
+            return { ...defaultState }
         }
 
         case APPEND_CITIES: {
@@ -280,14 +279,6 @@ export default function (state = defaultState, action) {
             if (action.deleteRoomId) {
                 newState.chatRoomIds = {}
             }
-            return newState
-        }
-
-        case SAVE_USER_PHONE_NO: {
-            let newState = {
-                ...state
-            }
-            newState.userPhoneNo = action.payload
             return newState
         }
 
