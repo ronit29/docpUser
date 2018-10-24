@@ -41,7 +41,7 @@ class RatingProfileCard extends React.Component {
 
     declineRating(type, id, size) {
         if (!size) {
-            let post_data = { 'appointment_idgetRatingCompliments': id, 'appointment_type': type };
+            let post_data = { 'appointment_id': id, 'appointment_type': type };
             this.props.closeAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
                     console.log('Popup Closed');
@@ -86,6 +86,7 @@ class RatingProfileCard extends React.Component {
             if (type !== 1) {
                 pipe = ' | ';
             }
+            let app_id = this.props.details.id
             let entity = (type == 1) ? 'lab' : 'doctor';
             if (!this.state.rating_id) {
 
@@ -102,7 +103,7 @@ class RatingProfileCard extends React.Component {
                         </div>
                         {typeof (this.props.booking_flag) != 'undefined' && this.props.booking_flag ? "" :
                             (<div className="inner-star-cls">
-                                <img onClick={this.declineRating.bind(this, type, 0, 0)} className="img-fluid" src="/assets/img/customer-icons/rt-close.svg" />
+                                <img onClick={this.declineRating.bind(this, type, app_id, 0)} className="img-fluid" src="/assets/img/customer-icons/rt-close.svg" />
                             </div>)
                         }
                     </div>
@@ -115,7 +116,7 @@ class RatingProfileCard extends React.Component {
 
                         <div className="rate-card-header">
                             Share your Feedback
-                    <span><img onClick={this.declineRating.bind(this, type, 0, 1)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
+                    <span><img onClick={this.declineRating.bind(this, type, app_id, 1)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
                         </div>
                         <div className="rate-card-doc-dtls">
                             <img src={thumbnail} className="img-fluid img-round " />
