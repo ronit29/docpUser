@@ -137,7 +137,6 @@ class BookingView extends React.Component {
     }
 
     render() {
-
         let profile = {}
         let lab_test = []
         let lab = {}
@@ -221,6 +220,7 @@ class BookingView extends React.Component {
                                             </div>
                                             <div className="row">
                                                 <div className="col-12">
+
                                                     {(typeof (this.state.data.is_rated) != 'undefined' && this.state.data.is_rated == false && this.state.data.rating_declined == false) ? (<RatingProfileCard {...this.props} details={this.state.data} />) : ""}
                                                     {
                                                         (this.state.data.otp && status == 5) ? <div className="widget mrb-10">

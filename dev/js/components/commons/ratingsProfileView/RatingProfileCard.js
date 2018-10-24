@@ -76,7 +76,6 @@ class RatingProfileCard extends React.Component {
 
     render() {
         if (this.state.data) {
-            console.log(this.props.details);
             let name = (this.props.details.doctor) ? this.props.details.doctor.name : this.props.details.lab_name;
             let qualification_object = this.props.details.doctor ? this.props.details.doctor.qualifications : null;
             let qualification = qualification_object ? qualification_object[0].qualification : '';

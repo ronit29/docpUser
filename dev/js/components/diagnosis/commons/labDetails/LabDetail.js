@@ -33,7 +33,7 @@ class LabDetails extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
-                            {this.props.data.lab && this.props.data.lab.unrated_appointment ? (<RatingProfileCard {...this.props} details={(this.props.data.lab && this.props.data.lab.unrated_appointment)
+                            {this.props.data.lab && this.props.data.lab.unrated_appointment && this.props.data.lab.unrated_appointment.length ? (<RatingProfileCard {...this.props} details={(this.props.data.lab && this.props.data.lab.unrated_appointment)
                                 ? this.props.data.lab.unrated_appointment : this.props.data.lab} />) : ""}
 
                             <div className="widget profile-book">
