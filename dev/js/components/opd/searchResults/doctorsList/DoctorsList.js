@@ -85,7 +85,7 @@ class DoctorsList extends React.Component {
                                         {
                                             doctorList.map((docId, i) => {
                                                 if (i == 1 && DOCTORS[docId]) {
-                                                    return <div>
+                                                    return <div key={i}>
                                                         <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
                                                                 <div className="rsk-image">
