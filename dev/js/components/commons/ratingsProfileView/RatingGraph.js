@@ -68,7 +68,7 @@ class RatingGraph extends React.Component {
                             <div className="feed-status-container">
                                 <span className="feed-progress-point">1<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                 <div className="rating-progress">
-                                    <div className="this.props.DOCTORS[doctor_id].rating_graphprogress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={this.getRatingPercent(onestar_progress)}>
+                                    <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={this.getRatingPercent(onestar_progress)}>
                                         <span className="sr-only"></span>
                                     </div>
                                 </div>
