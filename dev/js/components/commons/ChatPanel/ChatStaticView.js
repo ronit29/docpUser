@@ -11,30 +11,35 @@ class ChatStatic extends React.Component {
             value: '',
             openBanner: true,
             utm_term: parsed.utm_term || "",
-            BasicEnquiry: "",
-            utm_loader: !!parsed.utm_term
+            BasicEnquiry: parsed.BasicEnquiry || "",
+            utm_loader: !!parsed.utm_term,
+            force_start: parsed.force_start || false
         }
     }
 
     componentDidMount() {
-        if (this.state.utm_term) {
-            chat_utm(this.state.utm_term).then((data) => {
-                if (data && data.data && data.data.BasicEnquiry) {
-                    this.setState({ BasicEnquiry: data.data.BasicEnquiry, utm_loader: false })
-                } else {
+        if ((this.state.BasicEnquiry || this.state.force_start) && this.props.mobilechatview) {
+            this.getIframe()
+        } else {
+            if (this.state.utm_term) {
+                chat_utm(this.state.utm_term).then((data) => {
+                    if (data && data.data && data.data.BasicEnquiry) {
+                        this.setState({ BasicEnquiry: data.data.BasicEnquiry, utm_loader: false })
+                    } else {
+                        this.setState({
+                            BasicEnquiry: "",
+                            utm_term: "",
+                            utm_loader: false
+                        })
+                    }
+                }).catch((e) => {
                     this.setState({
                         BasicEnquiry: "",
                         utm_term: "",
                         utm_loader: false
                     })
-                }
-            }).catch((e) => {
-                this.setState({
-                    BasicEnquiry: "",
-                    utm_term: "",
-                    utm_loader: false
                 })
-            })
+            }
         }
     }
 
@@ -55,17 +60,27 @@ class ChatStatic extends React.Component {
     checkOpenMobileChat() {
         // handle static page redirects for homepage
         if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
-            this.props.history.push('/mobileviewchat')
+            this.props.history.push(`/mobileviewchat?BasicEnquiry=${this.state.BasicEnquiry}`)
         } else {
+            if (this.state.BasicEnquiry && this.props.homePage) {
+                this.getIframe()
+            }
             this.setState({ openBanner: false })
         }
     }
 
     removeUTM() {
-        this.setState({
-            utm_term: "",
-            BasicEnquiry: ""
-        })
+        if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
+            this.props.history.push(`/mobileviewchat?BasicEnquiry=&force_start=true`)
+        } else {
+            this.setState({
+                utm_term: "",
+                BasicEnquiry: "",
+                value: ""
+            }, () => {
+                this.getIframe()
+            })
+        }
     }
 
     render() {
@@ -73,7 +88,7 @@ class ChatStatic extends React.Component {
 
         return (
 
-            <div className={this.props.dataClass + ( this.state.utm_term ? " utm_chatbox_right" : "")}>
+            <div className={this.props.dataClass + (this.state.utm_term ? " utm_chatbox_right" : "")}>
                 <div className="chat-head">
                     <div className="hd-chat" style={{ flex: 1 }}>
                         <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
@@ -145,7 +160,7 @@ class ChatStatic extends React.Component {
                                     <div className="footer footer_doc">
                                         {
                                             this.state.utm_term ? <div className="utm-chat-footer">
-                                                <button className="utm-chat-btn" onClick={this.getIframe.bind(this)}>Start Chat for “Fever”</button>
+                                                <button className="utm-chat-btn" onClick={this.checkOpenMobileChat.bind(this)}>Start Chat for "{this.state.BasicEnquiry}"</button>
                                                 <p className="utm-clear-chat" onClick={this.removeUTM.bind(this)}>OR<span className="utm-sapprater">Start chat for any other health concern?</span></p>
                                             </div> : <div className="chat_footer">
                                                     <div className="write-msg-bx">
