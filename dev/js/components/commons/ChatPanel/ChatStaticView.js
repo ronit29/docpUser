@@ -73,7 +73,7 @@ class ChatStatic extends React.Component {
 
         return (
 
-            <div className={this.props.dataClass}>
+            <div className={this.props.dataClass + ( this.state.utm_term ? " utm_chatbox_right" : "")}>
                 <div className="chat-head">
                     <div className="hd-chat" style={{ flex: 1 }}>
                         <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
@@ -146,8 +146,7 @@ class ChatStatic extends React.Component {
                                         {
                                             this.state.utm_term ? <div className="utm-chat-footer">
                                                 <button className="utm-chat-btn" onClick={this.getIframe.bind(this)}>Start Chat for “Fever”</button>
-                                                <span className="utm-sapprater">OR</span>
-                                                <p className="utm-clear-chat" onClick={this.removeUTM.bind(this)}>Start chat for any other health concern?</p>
+                                                <p className="utm-clear-chat" onClick={this.removeUTM.bind(this)}>OR<span className="utm-sapprater">Start chat for any other health concern?</span></p>
                                             </div> : <div className="chat_footer">
                                                     <div className="write-msg-bx">
                                                         <textarea id="cstbox" onFocus={this.checkOpenMobileChat.bind(this)} className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
