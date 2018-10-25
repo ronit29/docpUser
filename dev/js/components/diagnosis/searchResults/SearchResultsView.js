@@ -153,9 +153,8 @@ class SearchResultsView extends React.Component {
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
-                    description: this.getMetaTagsData(this.state.seoData).description,
-                    seoFriendly: this.state.seoFriendly
-                }} />
+                    description: this.getMetaTagsData(this.state.seoData).description
+                }} noIndex={!this.state.seoFriendly} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
                     <div>
                         <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />

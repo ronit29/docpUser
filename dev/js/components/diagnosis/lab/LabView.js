@@ -13,6 +13,9 @@ import CONFIG from '../../../config'
 class LabView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            seoFriendly: this.props.match.url.includes('-lpp')
+        }
     }
 
     componentDidMount() {
@@ -28,7 +31,7 @@ class LabView extends React.Component {
         GTM.sendEvent({ data: data })
 
         let testIds = this.props.LABS[this.props.selectedLab] || []
-        
+
         testIds = testIds.tests.map(x => x.test_id)
 
         this.props.getLabById(this.props.selectedLab, testIds)
@@ -98,12 +101,12 @@ class LabView extends React.Component {
                                             title: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).title,
                                             description: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
-                                        }} />
+                                        }} noIndex={!this.state.seoFriendly} />
 
                                         <LabDetails {...this.props} data={this.props.LABS[lab_id]} />
 
                                         <button disabled={
-                                            this.props.LABS[lab_id].tests.length < 1 
+                                            this.props.LABS[lab_id].tests.length < 1
                                         } onClick={this.bookLab.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn"><span className="text-xs selected-option static-btn" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.LABS[lab_id].tests.length} Selected) </span>Book
                                         </button>
 

@@ -10,7 +10,7 @@ class HelmetTags extends React.Component {
     }
 
     render() {
-        let { tagsData, setDefault, seoFriendly } = this.props
+        let { tagsData, setDefault, noIndex } = this.props
         let title = (tagsData && tagsData.title) ? tagsData.title : ""
         let description = (tagsData && tagsData.description) ? tagsData.description : ""
         let keywords = (tagsData && tagsData.keywords) ? tagsData.keywords : ""
@@ -43,7 +43,7 @@ class HelmetTags extends React.Component {
                         : ''
                 }
                 {
-                    seoFriendly === false ? <meta name="robots" content="noindex, notfollow" /> : ""
+                    noIndex ? <meta name="robots" content="noindex, notfollow" /> : ""
                 }
                 {
                     prev ?
