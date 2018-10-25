@@ -1462,7 +1462,7 @@ p.rt-doc-nm{
 }
 
 .clinic-fltr-dc-name{
-    width: 180px;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1481,4 +1481,9 @@ p.rt-doc-nm{
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+.clinic-fltr-name-dtls{
+    display: block;
+    padding: 0 10px 0 0;
 }
