@@ -56,13 +56,20 @@ class HomeView extends React.Component {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
-    searchLab(test) {
+    searchLab(test,isPackage=false) {
         test.type = 'test'
         this.props.toggleDiagnosisCriteria('test', test, true)
-
-        let data = {
-            'Category': 'ConsumerApp', 'Action': 'SelectedBookTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-book-test', 'selected': test.name || '', 'selectedId': test.id || ''
+        let data
+        if(isPackage){
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'SelectedHealthPackage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-health-package', 'selected': test.name || '', 'selectedId': test.id || ''
+            }
+        }else{
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'SelectedBookTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-book-test', 'selected': test.name || '', 'selectedId': test.id || ''
+            }
         }
+        
         GTM.sendEvent({ data: data })
 
         setTimeout(() => {
@@ -124,6 +131,23 @@ class HomeView extends React.Component {
         }
         GTM.sendEvent({ data: data })
         this.props.history.push('/user?ref=home')
+    }
+
+    gotToDoctorSignup(isLab) {
+        let data
+        if(isLab){
+
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'RunLabBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'run-lab-banner-clicked'
+            }
+        }else{
+
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'RunClinicBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'run-clinic-banner-clicked'
+            }
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/doctorsignup')
     }
 
     render() {
@@ -223,7 +247,7 @@ class HomeView extends React.Component {
 
                                     {
                                         this.props.common_tests.map((ct, i) => {
-                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,false)}>
                                                 <div className="grid-img-cnt brdr-btm">
                                                     <a href="javascript:void(0);">
                                                         <img className="img-fluid" src={ct.icon} />
@@ -260,7 +284,7 @@ class HomeView extends React.Component {
 
                                         {
                                             this.props.common_package.map((ct, i) => {
-                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,true)}>
                                                     <div className="grid-img-cnt brdr-btm">
                                                         <a href="javascript:void(0);">
                                                             <img className="img-fluid" src={ct.icon} />
@@ -371,7 +395,7 @@ class HomeView extends React.Component {
 
                         </div>
 
-                        <div className="fw-500 doc-lap-link" onClick={() => this.props.history.push('/doctorsignup')}>
+                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this,false)}>
                             <p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
                             <button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
                         </div>
@@ -388,7 +412,7 @@ class HomeView extends React.Component {
 
                                     {
                                         this.props.common_tests.map((ct, i) => {
-                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,false)}>
                                                 <div className="grid-img-cnt brdr-btm">
                                                     <a href="javascript:void(0);">
                                                         <img className="img-fluid" src={ct.icon} />
@@ -413,7 +437,7 @@ class HomeView extends React.Component {
 
                         </div>
 
-                        <div className="fw-500 doc-lap-link" onClick={() => this.props.history.push('/doctorsignup')}>
+                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this,true)}>
                             <p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
                             <button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
                         </div>
@@ -428,7 +452,7 @@ class HomeView extends React.Component {
 
                                         {
                                             this.props.common_package.map((ct, i) => {
-                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct)}>
+                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,true)}>
                                                     <div className="grid-img-cnt brdr-btm">
                                                         <a href="javascript:void(0);">
                                                             <img className="img-fluid" src={ct.icon} />

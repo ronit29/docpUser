@@ -1,5 +1,7 @@
 import React from 'react';
 import TermsConditions from '../../couponSelectionView/termsConditions.js'
+import GTM from '../../../../helpers/gtm'
+
 
 class ProfileData extends React.Component {
     constructor(props) {
@@ -15,10 +17,6 @@ class ProfileData extends React.Component {
 
     gotTo(where) {
         this.props.history.push(`/user/${where}`)
-    }
-
-    pushUrl(where) {
-        this.props.history.push(`/${where}`)
     }
 
     toggleTandC() {
@@ -41,7 +39,12 @@ class ProfileData extends React.Component {
                                 <div className="row no-gutters pdng-bttm">
                                     <div className="col-4 mbl-usr-grd">
                                         <span className="usr-dtls-free">FREE</span>
-                                        <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={this.pushUrl.bind(this, '')}>
+                                        <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={(e)=>{
+                                            let data = {
+                                                'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'}
+                                            GTM.sendEvent({ data: data })
+                                            this.props.history.push(`/`)
+                                        }}>
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
                                             <p>
                                                 <span>Chat Now </span>
@@ -49,7 +52,13 @@ class ProfileData extends React.Component {
                                             </p>
                                         </a>
                                     </div>
-                                    <div className="col-4 mbl-usr-grd" onClick={this.pushUrl.bind(this, 'opd')}>
+                                    <div className="col-4 mbl-usr-grd" onClick={(e)=>{
+
+                                        let data = {
+                                                'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'}
+                                            GTM.sendEvent({ data: data })
+                                        this.props.history.push(`/opd`)
+                                    }}>
                                         <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
                                             <p>
@@ -58,7 +67,12 @@ class ProfileData extends React.Component {
                                             </p>
                                         </a>
                                     </div>
-                                    <div className="col-4 mbl-usr-grd" onClick={this.pushUrl.bind(this, 'lab')}>
+                                    <div className="col-4 mbl-usr-grd" onClick={(e)=>{
+                                        let data = {
+                                                'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'}
+                                            GTM.sendEvent({ data: data })
+                                            this.props.history.push(`/lab`)
+                                    }}>
                                         <a className="usr-dtls-anchor" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
                                             <p>

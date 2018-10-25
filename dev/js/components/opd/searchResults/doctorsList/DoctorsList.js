@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DoctorResultCard from '../../commons/doctorResultCard'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
+import GTM from '../../../../helpers/gtm'
 
 class DoctorsList extends React.Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class DoctorsList extends React.Component {
         this.state = {
             hasMore: true,
             loading: false,
-            renderBlock: false
+            renderBlock: false,
+            page:1
         }
     }
 
@@ -41,6 +43,10 @@ class DoctorsList extends React.Component {
     }
 
     componentWillUnmount() {
+        let data = {
+        'Category': 'ConsumerApp', 'Action': 'DoctorSearchPagination', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-pagination','Pages': this.state.page}
+        GTM.sendEvent({ data: data })
+
         // if (window) {
         //     window.onscroll = null
         // }
@@ -54,10 +60,9 @@ class DoctorsList extends React.Component {
     }
 
     loadMore(page) {
-        this.setState({ hasMore: false, loading: true })
-
+        this.setState({ hasMore: false, loading: true })    
         this.props.getDoctorList(null, page + 1, (hasMore) => {
-            this.setState({ loading: false })
+            this.setState({ loading: false ,page: page + 1})
             setTimeout(() => {
                 this.setState({ hasMore })
             }, 1000)
