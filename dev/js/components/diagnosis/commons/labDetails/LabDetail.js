@@ -27,14 +27,12 @@ class LabDetails extends React.Component {
     render() {
 
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
-
         return (
             <section className="profile-book-screen">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
-                            {this.props.data.lab && this.props.data.lab.unrated_appointment && this.props.data.lab.unrated_appointment.length ? (<RatingProfileCard {...this.props} details={(this.props.data.lab && this.props.data.lab.unrated_appointment)
-                                ? this.props.data.lab.unrated_appointment : this.props.data.lab} />) : ""}
+                            { this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.data.lab.unrated_appointment} /> : ""}
 
                             <div className="widget profile-book">
                                 <div className="widget-header pb-header text-center">

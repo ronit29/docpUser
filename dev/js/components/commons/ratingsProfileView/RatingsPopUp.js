@@ -135,7 +135,7 @@ class RatingsPopUp extends React.Component {
                                     }
                                 </ul>
                                 <div className="rate-submit-cmnnt-box">
-                                    <textarea placeholder="Leave a review" rows="2" value={this.state.review_field} onChange={this.handleReviewChange.bind(this)}>
+                                    <textarea maxLength="5000" placeholder="Leave a review" rows="2" value={this.state.review_field} onChange={this.handleReviewChange.bind(this)}>
                                     </textarea>
 
                                     <button className="rate-submit-btn" onClick={this.submitRating.bind(this)}>Submit</button>
