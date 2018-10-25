@@ -203,7 +203,7 @@ class HomeView extends React.Component {
                                     {
                                         this.props.specializations.map((sp, i) => {
                                             return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
-                                                <div className="grid-img-cnt brdr-btm brdr-btm">
+                                                <div className="grid-img-cnt brdr-btm">
                                                     <a href="javascript:void(0);">
                                                         <img className="img-fluid" src={sp.icon} />
                                                         <span>{sp.name}</span>
@@ -371,7 +371,7 @@ class HomeView extends React.Component {
                                     {
                                         this.props.specializations.map((sp, i) => {
                                             return <div className="col-4" key={i} onClick={this.searchDoctor.bind(this, sp)}>
-                                                <div className="grid-img-cnt brdr-btm brdr-btm">
+                                                <div className="grid-img-cnt brdr-btm">
                                                     <a href="javascript:void(0);">
                                                         <img className="img-fluid" src={sp.icon} />
                                                         <span>{sp.name}</span>
@@ -434,7 +434,6 @@ class HomeView extends React.Component {
 
                                 </div>
                             </div>
-
                         </div>
 
                         <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this,true)}>
@@ -472,8 +471,6 @@ class HomeView extends React.Component {
 
                     </div>
                 </div>)
-
-
 
         }
 

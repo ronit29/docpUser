@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 
-class DoctorProfileCard extends React.Component {
+class ClinicResultCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -73,27 +71,23 @@ class DoctorProfileCard extends React.Component {
             return (
 
                 <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
-                    <div className="fltr-crd-top-container">
+                    <div className="fltr-crd-top-container" style={{ position: 'relative' }}>
+                        {is_license_verified ? <span className="clinic-fltr-rtng">Verified</span> : ''}
                         <div className="fltr-lctn-dtls">
-                            <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                <span className="fltr-loc-txt">{hospital.short_address}</span> | <span>{Distance} Km</span></p>
+                            <p>
+                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                <span>{Distance} Km</span>
+                            </p>
                         </div>
                         <div className="row no-gutters">
                             <div className="col-8">
-                                <div className="fltr-crd-img">
-                                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} /></InitialsPicture>
-                                    {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
-                                    {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
-                                </div>
-                                <div className="fltr-name-dtls">
+                                <div className="fltr-name-dtls" style={{ paddingLeft: 0 }}>
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
-                                        <h5 className="fltr-dc-name">{display_name}</h5>
+                                        <h5 className="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital.hospital_name}</h5>
                                     </a>
-                                    <p>{this.getQualificationStr(general_specialization || [])}</p>
-                                    {
-                                        experience_years ? <p >{experience_years} Years of Experience</p> : ""
-                                    }
-
+                                    <span className="clinic-fltr-loc-txt mrb-10">{hospital.short_address}</span>
+                                    <p className="mrb-10">{this.getQualificationStr(general_specialization || [])}</p>
+                                    <p className="fw-500 clinic-status mrb-10">Open Today</p>
                                 </div>
                             </div>
                             <div className="col-4">
@@ -105,7 +99,7 @@ class DoctorProfileCard extends React.Component {
 
                                     {
                                         !deal_price ?
-                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700" >Free Consultation</span> : ''
+                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                     }
 
                                     <p className="fltr-prices">
@@ -125,13 +119,12 @@ class DoctorProfileCard extends React.Component {
                     <div className="filtr-card-footer">
                         <div>
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} />
-                            <p >{hospital.hospital_name}
+                            <div style={{ display: 'inline-block' }}>
+                                <p style={{ display: 'block' }}>{display_name}</p>
                                 {
-                                    hospital_count > 1 ?
-                                        <span> &amp; {hospital_count - 1} More </span> : ''
+                                    experience_years ? <p style={{ display: 'block' }}>{experience_years} Years of Experience</p> : ""
                                 }
-                            </p>
-
+                            </div>
                         </div>
                         <div className="text-right">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />
@@ -141,7 +134,6 @@ class DoctorProfileCard extends React.Component {
                         </div>
                     </div>
                 </div>
-
             );
         } else {
             return ""
@@ -150,4 +142,4 @@ class DoctorProfileCard extends React.Component {
 }
 
 
-export default DoctorProfileCard
+export default ClinicResultCard

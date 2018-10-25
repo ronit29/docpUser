@@ -1140,6 +1140,14 @@ span.ofr-ribbon:after {
     right: 0px;
 }
 
+.free-ofr-ribbon{
+    background: #55a740 !important;
+}
+
+span.free-ofr-ribbon:after {
+    border-color: #73818800 #ed3f3a00 #55a740 #55a740 !important;
+}
+
 .pdf-report-div{
     width: 100%;
     position: relative;
