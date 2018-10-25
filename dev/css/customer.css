@@ -985,7 +985,8 @@ li.lst-bfr:before{
 }
 .fltr-bkng-section{
 	display: flex;
-	position: relative;
+    position: relative;
+    padding-top: 30px;
     flex-direction: column;
     height: 100%;
     justify-content: flex-end;
@@ -1016,7 +1017,6 @@ li.lst-bfr:before{
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
     right: -18px;
-    top: 50px;
 }
 .filtr-card-footer{
 	background-color: rgba(194, 194, 194, .2);
@@ -1106,7 +1106,11 @@ li.lst-bfr:before{
 @media screen and (max-width: 352px) {
 	.filtr-card-footer p{
 		font-size:10px;
-	}
+    }
+    .filtr-offer.ofr-ribbon{
+        font-size: 9px;
+        padding: 4px;
+    }
 }
 @media screen and (max-width: 335px) {
 	.fltr-dc-name{
@@ -1114,7 +1118,7 @@ li.lst-bfr:before{
 	}
 	.fltr-name-dtls p{
 		font-size: 11px;
-	}
+    }
 
 }
 .initialsPicture-dp.rating-doc-dp{
@@ -1444,4 +1448,37 @@ p.rt-doc-nm{
 }
 .mb-0{
     margin-bottom: 0px!important;
+}
+
+.clinic-fltr-rtng{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #55a740;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 0 4px;
+}
+
+.clinic-fltr-dc-name{
+    width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.clinic-status{
+    color: #008000 !important;
+    font-size: 14px !important;
+}
+
+.clinic-fltr-loc-txt{
+    max-height: 36px;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

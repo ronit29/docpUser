@@ -169,7 +169,7 @@ class ChatPanel extends React.Component {
                      */
                     if (data.message && data.message == 'focus') {
                         let iframe = this.refs.chat_frame
-                        iframe.scrollTop = iframe.scrollHeight
+                        // iframe.scrollTop = iframe.scrollHeight
                         if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
                             this.props.history.push('/mobileviewchat')
                         }
@@ -350,9 +350,9 @@ class ChatPanel extends React.Component {
 
                 <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
                     <div className="wrng-mssg">
-                        <img style={{ height: 24, width: 24 }} sth src="/assets/images/warning-icon.png" />
+                        <img style={{ height: 24, width: 24 }} src="/assets/images/warning-icon.png" />
                         <span>
-                            Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
+                            Not for emergencies! In the case of emergency please visit a hospital. Chat is only applicable to Indian citizens currently residing in India.</span>
                     </div>
                 </div>
 

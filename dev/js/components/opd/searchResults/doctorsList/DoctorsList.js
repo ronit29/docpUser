@@ -5,6 +5,7 @@ import DoctorResultCard from '../../commons/doctorResultCard'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
+import ClinicResultCard from '../../commons/clinicResultCard';
 
 class DoctorsList extends React.Component {
     constructor(props) {
@@ -90,7 +91,7 @@ class DoctorsList extends React.Component {
                                         {
                                             doctorList.map((docId, i) => {
                                                 if (i == 1 && DOCTORS[docId]) {
-                                                    return <div>
+                                                    return <div key={i}>
                                                         <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
                                                                 <div className="rsk-image">
@@ -105,12 +106,18 @@ class DoctorsList extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                        {
+                                                            this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                        }
                                                     </div>
 
                                                 } else {
                                                     if (DOCTORS[docId]) {
-                                                        return <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                        return <div>
+                                                            {
+                                                                this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                            }
+                                                        </div>
 
                                                     } else {
                                                         return ""
