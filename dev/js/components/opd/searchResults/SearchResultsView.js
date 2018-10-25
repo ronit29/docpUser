@@ -13,7 +13,7 @@ class SearchResultsView extends React.Component {
         super(props)
         this.state = {
             seoData: this.props.initialServerData,
-            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')
+            seoFriendly: (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'))
         }
     }
 
@@ -156,9 +156,8 @@ class SearchResultsView extends React.Component {
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
-                    description: this.getMetaTagsData(this.state.seoData).description,
-                    seoFriendly: this.state.seoFriendly
-                }} />
+                    description: this.getMetaTagsData(this.state.seoData).description
+                }} noIndex={!this.state.seoFriendly} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
                     <div>
                         <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />

@@ -19,6 +19,9 @@ import CONFIG from '../../../config'
 class DoctorProfileView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            seoFriendly: this.props.match.url.includes('-dpp')
+        }
     }
 
     componentDidMount() {
@@ -90,7 +93,7 @@ class DoctorProfileView extends React.Component {
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
                                             description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
-                                        }} />
+                                        }} noIndex={!this.state.seoFriendly} />
 
                                         <div className="container-fluid">
                                             <div className="row">

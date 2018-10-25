@@ -41,7 +41,7 @@ const STAGING_CONFIG = {
 
 const DEV_CONFIG = {
 
-    API_BASE_URL: "http://127.0.0.1:8090",
+    API_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
