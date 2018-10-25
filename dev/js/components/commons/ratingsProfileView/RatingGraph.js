@@ -47,7 +47,7 @@ class RatingGraph extends React.Component {
                                 </div>
                                 <span className="feed-progress-count">{fourstar_progress['count']}</span>
                             </div>
-                            <div className="feed-stthis.props.DOCTORS[doctor_id].rating_graphatus-container">
+                            <div className="feed-status-container">
                                 <span className="feed-progress-point">3<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                 <div className="rating-progress">
                                     <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={this.getRatingPercent(threestar_progress)}>

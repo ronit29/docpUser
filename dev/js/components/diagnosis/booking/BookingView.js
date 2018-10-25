@@ -221,7 +221,7 @@ class BookingView extends React.Component {
                                             <div className="row">
                                                 <div className="col-12">
 
-                                                    {(typeof (this.state.data.is_rated) != 'undefined' && this.state.data.is_rated == false && this.state.data.is_rated == 7) ? (<RatingProfileCard {...this.props} booking_flag={true} details={this.state.data} />) : ""}
+                                                    {this.state.data.is_rated == false && this.state.data.status == 7 ? (<RatingProfileCard {...this.props} booking_flag={true} details={this.state.data} />) : ""}
                                                     {
                                                         (this.state.data.otp && status == 5) ? <div className="widget mrb-10">
                                                             <div className="widget-content">
