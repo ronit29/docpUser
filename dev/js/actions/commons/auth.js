@@ -1,4 +1,4 @@
-import { AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
+import { AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -216,6 +216,12 @@ export const updateAppointmentRating = (ratingData, callback) => (dispatch) => {
     }
     API_POST(`/api/v1/ratings/update/${ratingData.id}`, post_data).then(function (response) {
         callback(null, response)
+        dispatch({
+            type: CLOSE_POPUP,
+            payload: {
+                appointment_id: ratingData.appointment_id
+            }
+        })
     }).catch(function (error) {
         callback(error, null)
     })

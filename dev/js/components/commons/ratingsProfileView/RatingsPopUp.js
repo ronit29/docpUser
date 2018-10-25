@@ -73,7 +73,7 @@ class RatingsPopUp extends React.Component {
     }
 
     submitRating() {
-        let post_data = { 'id': this.state.rating_id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments };
+        let post_data = { 'id': this.state.rating_id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments, 'appointment_id': this.state.data.id };
         this.props.updateAppointmentRating(post_data, (err, data) => {
             if (!err && data) {
                 this.setState({ data: null })

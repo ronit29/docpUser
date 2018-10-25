@@ -66,7 +66,7 @@ class RatingProfileCard extends React.Component {
     }
 
     submitRating() {
-        let post_data = { 'id': this.state.rating_id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments };
+        let post_data = { 'id': this.state.rating_id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments, 'appointment_id': this.props.details.id };
         this.props.updateAppointmentRating(post_data, (err, data) => {
             if (!err && data) {
                 this.setState({ data: null })
@@ -75,7 +75,9 @@ class RatingProfileCard extends React.Component {
     }
 
     render() {
-        if (this.state.data) {
+        let app_id = this.props.details.id
+        let submitted_flag = !!this.props.rated_appoinments[app_id];
+        if (!submitted_flag && this.state.data) {
             let name = (this.props.details.doctor) ? this.props.details.doctor.name : this.props.details.lab_name;
             let qualification_object = this.props.details.doctor ? this.props.details.doctor.qualifications : null;
             let qualification = qualification_object ? qualification_object[0].qualification : '';
@@ -86,7 +88,6 @@ class RatingProfileCard extends React.Component {
             if (type !== 1) {
                 pipe = ' | ';
             }
-            let app_id = this.props.details.id
             let entity = (type == 1) ? 'lab' : 'doctor';
             if (!this.state.rating_id) {
 
