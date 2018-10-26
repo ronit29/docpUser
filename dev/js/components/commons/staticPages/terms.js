@@ -1,4 +1,5 @@
 import React from 'react';
+import HelmetTags from '../HelmetTags'
 
 class Terms extends React.Component {
     constructor(props) {
@@ -16,6 +17,10 @@ class Terms extends React.Component {
 
         return (
             <div className="container about-container">
+                <HelmetTags tagsData={{
+                    title: ('Terms & Conditions - Submission, Listings & Payment Terms'),
+                    description: ('docprime: Read Terms & Conditions, details on Submission and Administration of Listings, Payment Terms.')
+                }} />
                 <div className="row">
                     <div className="col-12 text-center">
                         <p className="fw-500 about-heading" style={{ marginBottom: 20 }}>Terms &amp; Conditions</p>

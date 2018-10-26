@@ -95,6 +95,9 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                 </div>
+                                {/* <div className="signup-off-container">
+                                    <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                </div> */}
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">
@@ -109,6 +112,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                     <p className="fltr-prices">
+
                                         &#x20B9; {deal_price}
                                         {
                                             mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""

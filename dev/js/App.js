@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
+import { getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -49,12 +49,12 @@ const logPageView = () => {
 };
 
 import NotificationsBoot from './containers/commons/NotificationsBoot'
+import RatingsPopUp from './components/commons/ratingsProfileView/RatingsPopUp.js'
 
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
         }
     }
 
@@ -195,6 +195,7 @@ class App extends React.Component {
                         <Routes />
                     </div>
                 </BrowserRouter>
+                <RatingsPopUp {...this.props} />
             </div>
         );
     }
@@ -206,8 +207,12 @@ const mapStateToProps = (state) => {
         selectedLocation
     } = state.SEARCH_CRITERIA_OPD
 
+    let {
+        profiles, selectedProfile
+    } = state.USER
+
     return {
-        selectedLocation
+        selectedLocation, profiles, selectedProfile
     }
 }
 
@@ -220,7 +225,13 @@ const mapDispatchToProps = (dispatch) => {
         saveDeviceInfo: (device) => dispatch(saveDeviceInfo(device)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
-        setFetchResults: (fetchNewResults) => dispatch(setFetchResults(fetchNewResults))
+        setFetchResults: (fetchNewResults) => dispatch(setFetchResults(fetchNewResults)),
+        getUnratedAppointment: (callback) => dispatch(getUnratedAppointment(callback)),
+        createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
+        updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
+        closeAppointmentRating: (appointmentData) => dispatch(closeAppointmentRating(appointmentData)),
+        closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
+        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback))
     }
 
 }

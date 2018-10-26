@@ -35,9 +35,9 @@ class DoctorProfileCard extends React.Component {
                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
                         <img src={thumbnail} className="img-fluid img-round" />
                     </InitialsPicture>
-                    {is_license_verified?<span className="fltr-rtng">Verified</span>:''}
+                    {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                 </div>
-                    
+
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
                     <p className="desg">{this.getQualificationStr(general_specialization || [])}</p>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 
@@ -78,9 +78,10 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let DOCTORS = state.DOCTORS
+    let { rated_appoinments } = state.USER
 
     return {
-        DOCTORS, initialServerData
+        DOCTORS, initialServerData, rated_appoinments
     }
 }
 
@@ -89,7 +90,12 @@ const mapDispatchToProps = (dispatch) => {
         getDoctorByUrl: (doctr_url, cb) => dispatch(getDoctorByUrl(doctr_url, cb)),
         getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
-        getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback))
+        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
+        createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
+        updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
+        getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
+        closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
+        closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback))
     }
 }
 
