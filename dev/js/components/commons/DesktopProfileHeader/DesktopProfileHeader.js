@@ -106,6 +106,17 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
                                 <span>Book Medical Test</span>
                             </div>
+                            <div className="head-links">
+                                <div className="head-dropdowns">
+                                    <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
+                                    <span>Articals</span>
+                                    <ul className="list-sub-menu">
+                                        <li><a href="javascript:void(0);">All Medicines</a></li>
+                                        <li><a href="javascript:void(0);">All Articles</a></li>
+                                        <li><a href="javascript:void(0);">All Diseases</a></li>
+                                    </ul>
+                                </div>
+                            </div>
 
                             {
                                 profileData ? <div className="head-links">
@@ -142,6 +153,9 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         </div>
                         <div className="col-lg-9 col-md-8 col-8 ml-auto text-right  d-lg-none pl-0">
+                            <div className="head-links">
+                                <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} />
+                            </div>
                             <div className="head-links" onClick={this.toggleHeaderButtons.bind(this)}>
                                 <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
                             </div>
@@ -192,6 +206,17 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         </div> : ""
                     }
+                    <div className="search-show d-lg-none">
+                        <div className="head-links">
+                            <span>All Medicines</span>
+                        </div>
+                        <div className="head-links">
+                            <span>All Articles</span>
+                        </div>
+                        <div className="head-links">
+                            <span>All Diseases</span>
+                        </div>
+                    </div>
                 </div>
             </header>
         );
