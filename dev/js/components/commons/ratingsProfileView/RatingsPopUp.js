@@ -12,7 +12,8 @@ class RatingsPopUp extends React.Component {
             rating_id: null,
             compliments: [],
             review_field: '',
-            selected_compliments: []
+            selected_compliments: [],
+            rating_done: false
         }
     }
 
@@ -76,12 +77,32 @@ class RatingsPopUp extends React.Component {
         let post_data = { 'id': this.state.rating_id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments, 'appointment_id': this.state.data.id };
         this.props.updateAppointmentRating(post_data, (err, data) => {
             if (!err && data) {
-                this.setState({ data: null })
+                this.setState({ data: null, rating_done: true })
             }
         })
     }
 
+    thanYouButton() {
+        this.setState({ rating_done: false })
+    }
+
     render() {
+        if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
+            let profileData = this.props.profiles[this.props.selectedProfile]
+            let name = ""
+            if (profileData && profileData.name) {
+                name = profileData.name
+            }
+
+            return (
+                <div className="raiting-popup">
+                    <div className="home-rating-card">
+                        <p>{name}</p>
+                        <button className="rate-submit-btn" onClick={this.thanYouButton.bind(this)}>Submit</button>
+                    </div>
+                </div>
+            )
+        }
         if (typeof (this.state.data) != "undefined" && this.state.data != null && this.state.data.id) {
             let name = (this.state.data.doctor) ? this.state.data.doctor.name : this.state.data.lab.name;
             let qualification_object = this.state.data.doctor ? this.state.data.doctor.qualifications : null;
