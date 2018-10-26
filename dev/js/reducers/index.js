@@ -10,6 +10,7 @@ import LABS from './diagnosis/labs.js'
 import LAB_SEARCH from './diagnosis/labsSearch.js'
 import USER from './commons/user.js'
 import AUTH from './commons/auth.js'
+import SITE_MAP from './commons/siteMap.js'
 
 const persistConfig = {
     key: 'root',
@@ -55,7 +56,8 @@ const allReducers = combineReducers({
     LABS,
     LAB_SEARCH: persistReducer(LAB_LIST_PRESIST, LAB_SEARCH),
     USER: persistReducer(USER_PERSIST, USER),
-    AUTH
+    AUTH,
+    SITE_MAP
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers)

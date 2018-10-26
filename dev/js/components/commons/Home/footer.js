@@ -317,6 +317,18 @@ class Footer extends React.Component {
                                 e.preventDefault();
                                 this.navigateTo("/all-medicines")
                             }}><li className="list-inline-item">ALL MEDICINES</li></a>
+
+                            <li className="list-inline-item">|</li>
+                            <a href="/all-specialities" onClick={(e) => {
+                                e.preventDefault();
+                                this.navigateTo("/speciality-inventory")
+                            }}><li className="list-inline-item">ALL SPECIALITIES</li></a>
+
+                            <li className="list-inline-item">|</li>
+                            <a href="/all-cities" onClick={(e) => {
+                                e.preventDefault();
+                                this.navigateTo("/city-inventory")
+                            }}><li className="list-inline-item">ALL CITIES</li></a>
                         </ul>
                     </div>
                 </div>

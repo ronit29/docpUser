@@ -37,6 +37,8 @@ import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 import AgentLogin from './containers/commons/agentLogin.js'
 import DirectBooking from './containers/commons/directBooking.js'
 import CouponSelectNewView from  './containers/commons/CouponsView.js'
+import CitiesSiteMap from  './containers/commons/CitiesSiteMap.js'
+import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 
 
 /**
@@ -98,6 +100,9 @@ const routes = [
 
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },
+
+    { path: '/speciality-inventory', component: SpecializationSiteMap },
+    { path: '/city-inventory', component: CitiesSiteMap },
 
     { path: '*', component: NotFound },
 ]

@@ -1738,3 +1738,11 @@ font-weight: 500;
     font-weight: 500;
     cursor: pointer;
 }
+.anchor-data-style{
+	display: block;
+	padding: 10px
+}
+.anch-page-cnt{
+	padding: 5px;
+	cursor: pointer;
+}
