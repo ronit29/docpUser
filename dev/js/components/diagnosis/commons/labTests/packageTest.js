@@ -21,7 +21,7 @@ class PackageTest extends React.Component {
             <li className="clearfix" key={i}>
                 <div>
                     <span className="test-price">
-                        <span class="test-price"><span class="test-mrp">&#8377; {mrp}</span>&#8377; {deal_price}</span>
+                        <span className="test-price"><span className="test-mrp">&#8377; {mrp}</span>&#8377; {deal_price}</span>
                     </span>
                     <span className="test-name-item">
                         <p className="pkg-info" onClick={() => this.packageNameClick()} >{test.test.name}
