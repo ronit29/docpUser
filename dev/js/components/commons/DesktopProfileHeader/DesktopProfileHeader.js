@@ -115,12 +115,12 @@ class DesktopProfileHeader extends React.Component {
                                         <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img mr-2" style={{ fontSize: 14 }}>
                                             <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                         </InitialsPicture>
-                                        <span className>{profileData.name}</span>
+                                        <span>{profileData.name}</span>
                                     </div>
                                     <div className="head-links" onClick={() => {
                                         this.props.history.push('/notifications')
                                     }}>
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span className>Notifications</span>
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
                                         {
                                             this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
                                         }
