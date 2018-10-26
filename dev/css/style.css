@@ -464,6 +464,9 @@ background: black;
 	.header-text-chat {
 		font-size: 12px;
 	}
+	.clinic-selector-name.ratng-clinic-slc-name{
+		width: 43% !important;
+	}
 }
 
 /*header styling*/
@@ -1637,6 +1640,9 @@ margin: 0px 10px;
 	.filtr-offer.ofr-ribbon {
 		top: 4px;
 	}
+	.clinic-selector-name.ratng-clinic-slc-name{
+		width: 43% !important;
+	}
 }
 @media screen and (max-width: 380px) {
 	.fltr-dc-name{
@@ -1646,6 +1652,9 @@ margin: 0px 10px;
 	.fltr-crd-img .fltr-usr-image {
 		height: 60px;
 		width: 60px;
+	}
+	.clinic-selector-name.ratng-clinic-slc-name{
+		width:100% !important;
 	}
 
 }
@@ -1694,6 +1703,25 @@ margin: 0px 10px;
 	height: auto;
 max-height: 40px;
 margin: 0px;
+width: 55%;
+}
+.add-on-doc-price{
+	width: 158px;
+    text-align: right;
+}
+.signup-off-doc{
+    border-radius: 5px;
+    border: 1px dashed;
+    display: block;
+    padding: 0 5px;
+    font-size: 14px;
+	text-align: center;
+	color: #f07939;
+    font-weight: 500;
+}
+.signup-off-doc b{
+	color: #757575;
+    font-weight: 500;
 }
 .ratng-doc-price{
     color: #f78631;
@@ -2263,4 +2291,14 @@ font-weight: 500;
     text-decoration: underline;
     font-size: 16px;
     cursor: default;
+}
+.ratng-doc-oldprice{
+	font-size: 12px;
+    display: inline-flex;
+    margin-top: 6px;
+    color: #757575;
+    text-decoration: line-through;
+}
+.signup-off-container{
+	width: 158px;
 }

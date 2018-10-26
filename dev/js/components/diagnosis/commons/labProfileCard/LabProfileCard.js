@@ -126,6 +126,9 @@ class LabProfileCard extends React.Component {
                                 {
                                     price ? <p className="lab-price mrb-10"><span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span> &#8377; {price}</p> : ""
                                 }
+                                <div className="signup-off-container float-left">
+                                    <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                </div>
                                 <button className="v-btn v-btn-primary btn-md">Book Lab</button>
                             </div>
                         </div>
