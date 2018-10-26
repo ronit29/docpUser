@@ -48,7 +48,7 @@ class RatingProfileCard extends React.Component {
                 }
             })
         }
-        else{
+        else {
             this.props.closeAppointmentPopUp(id, (err, data) => {
                 if (!err && data) {
                     console.log('Popup Closed');
@@ -100,7 +100,7 @@ class RatingProfileCard extends React.Component {
 
                 return (
 
-                    <div className="rating-upside-container">
+                    <div className="rating-upside-container mt-0">
                         <div className="sub-upside-star">
                             <p>Rate your recent visit with the {entity}</p>
                             {
