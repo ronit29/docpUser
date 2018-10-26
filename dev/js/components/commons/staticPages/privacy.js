@@ -1,4 +1,5 @@
 import React from 'react';
+import HelmetTags from '../HelmetTags'
 
 class Privacy extends React.Component {
     constructor(props) {
@@ -12,6 +13,10 @@ class Privacy extends React.Component {
 
         return (
             <div className="container about-container">
+                <HelmetTags tagsData={{
+                    title: ('Privacy Policy | docprime'),
+                    description: ('The policy is effective from the date and time a user registers withDocprime by filling up the Registration form and accepting the terms and conditions.')
+                }} />
                 <div className="row">
                     <div className="col-12 text-center">
                         <p className="fw-500 about-heading" style={{ marginBottom: 20 }}>Privacy Policy</p>

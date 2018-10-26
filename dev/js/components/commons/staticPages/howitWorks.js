@@ -1,4 +1,5 @@
 import React from 'react';
+import HelmetTags from '../HelmetTags'
 
 class HowitWorks extends React.Component {
     constructor(props) {
@@ -12,6 +13,10 @@ class HowitWorks extends React.Component {
 
         return (
             <div className="container about-container">
+                <HelmetTags tagsData={{
+                    title: ('How docprime Works | docprime'),
+                    description: ('how does docprime works for the patients and doctors.')
+                }} />
                 <div className="row">
                     <div className="col-12 text-center">
                         <p className="fw-500 about-heading">How it Works</p>
@@ -112,7 +117,7 @@ class HowitWorks extends React.Component {
                         <p className="fw-500 text-xl">Our Upcoming Services :</p>
                     </div>
                 </div>
-                <div className="row working-row lab" style={{marginTop: 40}} >
+                <div className="row working-row lab" style={{ marginTop: 40 }} >
                     <div className="working-content-div col-12 col-lg-8">
                         <div className="doctor-consultation">
                             <div className="working-count text-center">

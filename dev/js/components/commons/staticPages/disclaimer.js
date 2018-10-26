@@ -1,4 +1,5 @@
 import React from 'react';
+import HelmetTags from '../HelmetTags'
 
 class Disclaimer extends React.Component {
     constructor(props) {
@@ -12,6 +13,10 @@ class Disclaimer extends React.Component {
 
         return (
             <div className="container about-container">
+                <HelmetTags tagsData={{
+                    title: ('Disclaimer | docprime'),
+                    description: ('Disclaimer: Read Disclaimer document of docprime.')
+                }} />
                 <div className="row">
                     <div className="col-12 text-center">
                         <p className="fw-500 about-heading" style={{ marginBottom: 20 }}>Disclaimer</p>

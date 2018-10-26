@@ -1,5 +1,6 @@
 import React from 'react';
 import SnackBar from 'node-snackbar'
+import HelmetTags from '../HelmetTags'
 
 class ContactUs extends React.Component {
     constructor(props) {
@@ -35,6 +36,10 @@ class ContactUs extends React.Component {
 
         return (
             <div className="container about-container contact-container">
+                <HelmetTags tagsData={{
+                    title: ('Contact Us | docprime'),
+                    description: ('Contact Us: Contac docprime for query related to booking, signup and more.')
+                }} />
                 <div className="row">
                     <div className="col-12 text-center">
                         <p className="fw-500 about-heading">Contact Us</p>
