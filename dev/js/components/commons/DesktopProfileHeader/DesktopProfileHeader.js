@@ -133,7 +133,7 @@ class DesktopProfileHeader extends React.Component {
                                         <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img mr-2" style={{ fontSize: 14 }}>
                                             <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                         </InitialsPicture>
-                                        <span>{profileData.name}</span>
+                                        <span className="username-overflow">{profileData.name}</span>
                                     </div>
                                     <div className="head-links" onClick={() => {
                                         this.props.history.push('/notifications')
