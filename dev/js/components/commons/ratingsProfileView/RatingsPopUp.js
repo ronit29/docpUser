@@ -97,8 +97,17 @@ class RatingsPopUp extends React.Component {
             return (
                 <div className="raiting-popup">
                     <div className="home-rating-card">
-                        <p>{name}</p>
-                        <button className="rate-submit-btn" onClick={this.thanYouButton.bind(this)}>Submit</button>
+                        <div className="thankyou-popup-head">
+                            <img src={ASSETS_BASE_URL + "/img/dpsmile.png"} />
+                            <p>Thanks {name}</p>
+                        </div>
+                        <p className="thnks-content">
+                            Your feedback matters!
+                        </p>
+                        <p className="thanks-sub-content">
+                            It helps our thousands / millions of users find the right healthcare solutions.
+                        </p>
+                        <button className="rate-submit-btn thnks-btn" onClick={this.thanYouButton.bind(this)}>Done</button>
                     </div>
                 </div>
             )
