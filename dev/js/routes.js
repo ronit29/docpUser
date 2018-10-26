@@ -36,7 +36,7 @@ import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
 
 import AgentLogin from './containers/commons/agentLogin.js'
 import DirectBooking from './containers/commons/directBooking.js'
-import CouponSelectNewView from  './containers/commons/CouponsView.js'
+import CouponSelectNewView from './containers/commons/CouponsView.js'
 
 
 /**

@@ -1,5 +1,6 @@
 import React from 'react';
 import SnackBar from 'node-snackbar'
+import HelmetTags from '../HelmetTags'
 
 class Careers extends React.Component {
 	constructor(props) {
@@ -48,6 +49,10 @@ class Careers extends React.Component {
 	render() {
 		return (
 			<div>
+				<HelmetTags tagsData={{
+					title: ('Career at docprime'),
+					description: ("Fine career opportunity at docprime, India's one stop health care solution.")
+				}} />
 				<div className="laptop-img-div absolute-images">
 					<img src="/assets/img/career/laptop.png" />
 				</div>
