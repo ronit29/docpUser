@@ -34,7 +34,7 @@ class LabDetails extends React.Component {
                         <div className="col-12">
                             { this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.data.lab.unrated_appointment} /> : ""}
 
-                            <div className="widget profile-book">
+                            <div className="widget profile-book border-bottom-radious">
                                 <div className="widget-header pb-header text-center">
                                     <div className="pb-logo">
                                         <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-lp">
@@ -91,8 +91,7 @@ class LabDetails extends React.Component {
                                     <p>{about}
                                     </p>
                                 </div>
-                            </div>
-                            <div className="widget-panel">
+                                <div className="widget-panel">
                                 <h4 className="panel-title mb-rmv">Patient Feedback</h4>
                                 <div className="panel-content pd-0">
                                     <RatingGraph details={this.props.data.lab} />
@@ -106,6 +105,8 @@ class LabDetails extends React.Component {
                                     <ReviewList details={this.props.data.lab} />
                                 </div>
                             </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

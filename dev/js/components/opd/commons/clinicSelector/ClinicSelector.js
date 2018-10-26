@@ -63,11 +63,14 @@ class ClinicSelector extends React.Component {
                                     <div className="widget no-shadow">
                                         <div className="widget-header pb-rmv clearfix">
                                             <h4 className="widget-title text-md fw-700 clinic-selector-name ratng-clinic-slc-name">{hospital.hospital_name}</h4>
+                                            <span className="float-right text-md fw-700 ratng-doc-price">&#8377; {hospital.deal_price}</span>
+                                        </div>
+                                        {/* <div className="widget-header pb-rmv clearfix">
+                                            <h4 className="widget-title text-md fw-700 clinic-selector-name ratng-clinic-slc-name">{hospital.hospital_name}</h4>
                                             <span className="float-right text-md fw-700 ratng-doc-price add-on-doc-price">&#8377; {hospital.deal_price} <b className="ratng-doc-oldprice">&#8377; 700</b>
                                             <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                                             </span>
-                                            
-                                        </div>
+                                        </div> */}
                                         <div className="widget-content pt-two">
                                             <div className="location-details clearfix">
                                                 <p className="address">{hospital.address}</p>
@@ -79,7 +82,7 @@ class ClinicSelector extends React.Component {
                                                 </div> */}
                                             </div>
                                             <div className="timing-details mt-rmv">
-                                            <span className="rtng-clnc-time">Timings</span>
+                                                <span className="rtng-clnc-time">Timings</span>
                                                 {
                                                     Object.keys(hospital.timings).map((timingKey, key) => {
                                                         return <p className="fw-700" key={key}>

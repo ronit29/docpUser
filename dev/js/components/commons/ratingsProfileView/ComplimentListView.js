@@ -7,7 +7,7 @@ class ComplimentListView extends React.Component {
 
     render() {
         return (
-            <div className="col-4">
+            <div className="">
                 <div className="user-satisfaction-images">
                     <img className="img-fluid" src={this.props.details.icon} />
                     <p>{this.props.details.message}</p>

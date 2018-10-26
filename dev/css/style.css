@@ -467,6 +467,13 @@ background: black;
 	.clinic-selector-name.ratng-clinic-slc-name{
 		width: 43% !important;
 	}
+	.user-satisfaction-images{
+		width: 85px !important;
+	}
+	.user-satisfaction-images img {
+		width: 65px !important;
+		height: 65px !important;
+	}
 }
 
 /*header styling*/
@@ -1791,10 +1798,11 @@ text-align: center;
 }
 .feed-back-container p.feedback-rate{
     color: #fb8f3e;
-    font-size: 20px;
+    font-size: 36px;
 }
 .feed-back-container p.feedback-rate-status{
-    font-size: 12px;
+	font-size: 12px;
+	color: #757575;
 }
 .feed-back-container p.feedback-rate-status span{
 	display: block;
@@ -1829,7 +1837,8 @@ text-align: center;
 }
 .user-satisfaction-images{
     text-align: center;
-    position: relative;
+	position: relative;
+	width: 99px;
 }
 .user-satisfaction-images img{
 	width: 80px;
@@ -1846,7 +1855,7 @@ text-align: center;
     background: #f78631;
     position: absolute;
     top: 1px;
-    right: 15px;
+    right: 5px;
     height: 25px;
     width: 25px;
     border-radius: 15px;
@@ -1990,7 +1999,7 @@ p.rt-doc-nm{
     color: #252525;
 }
 .rate-submit-cmnnt-box{
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .rate-submit-cmnnt-box textarea{
 	width: 100%;
@@ -2301,4 +2310,10 @@ font-weight: 500;
 }
 .signup-off-container{
 	width: 158px;
+}
+.border-bottom-radious{
+	overflow: hidden;
+}
+.border-lft{
+	border-left:1px solid rgba(0, 0, 0, .12);
 }

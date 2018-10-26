@@ -28,7 +28,7 @@ class RatingGraph extends React.Component {
                                 </p>
                             </div>
                         </div>
-                        <div className="col-8">
+                        <div className="col-7 border-lft">
                             <div className="feed-status-container">
                                 <span className="feed-progress-point">5<img src="/assets/img/customer-icons/star-dark.svg" /></span>
                                 <div className="rating-progress">
