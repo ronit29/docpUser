@@ -99,7 +99,6 @@ class ProfileData extends React.Component {
                                                         <p className="mrt-10" style={{ color: '#757575' }}>Use Coupon : <b className="fw-700" style={{ color: '#000000' }}>{coupon.code}</b></p>
                                                         <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                                             <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: '#f78631', cursor: 'pointer' }}>Terms & Conditions</p>
-                                                            <p className="fw-500 text-xs" style={{ color: '#adadad' }}>(Auto applies at checkout)</p>
                                                         </div>
                                                     </div> : ''
                                             }) : ''
