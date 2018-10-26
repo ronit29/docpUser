@@ -4,7 +4,7 @@ import SnackBar from 'node-snackbar'
 
 import TestDetail from './testDetail'
 import Loader from '../../commons/Loader'
-
+import RatingProfileCard from '../../commons/ratingsProfileView/RatingProfileCard.js'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -88,18 +88,18 @@ class BookingView extends React.Component {
     cancelAppointment(type) {
         this.setState({ loading: true, showCancel: false })
         let data;
-        if(type){
+        if (type) {
 
             data = {
-                'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Refund','appointmentId':this.state.data.id
+                'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Refund', 'appointmentId': this.state.data.id
             }
-        }else{
+        } else {
 
             data = {
-                'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndBookNew', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Book-New','appointmentId':this.state.data.id
+                'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndBookNew', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Book-New', 'appointmentId': this.state.data.id
             }
         }
-    
+
         GTM.sendEvent({ data: data })
 
 
@@ -137,7 +137,6 @@ class BookingView extends React.Component {
     }
 
     render() {
-
         let profile = {}
         let lab_test = []
         let lab = {}
@@ -221,6 +220,8 @@ class BookingView extends React.Component {
                                             </div>
                                             <div className="row">
                                                 <div className="col-12">
+
+                                                    {this.state.data.is_rated == false && this.state.data.status == 7 ? (<RatingProfileCard {...this.props} booking_flag={true} details={this.state.data} />) : ""}
                                                     {
                                                         (this.state.data.otp && status == 5) ? <div className="widget mrb-10">
                                                             <div className="widget-content">

@@ -97,15 +97,6 @@ class LabProfileCard extends React.Component {
                             {
                                 pickup_available == 0 ? "" : <p className='fw-500' style={{ fontSize: 10, color: '#757575', marginTop: 2 }} >FREE HOME PICKUP</p>
                             }
-
-                            {/* <ul className="inline-list ratting">
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/star.svg"} className="img-fluid" /></span></li>
-                            <li><span className="ct-img ct-img-xs star-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/half-star.svg"} className="img-fluid" /></span></li>
-                        </ul> */}
-
                         </div>
                         <div className="book-card-content">
                             <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`}>
@@ -114,7 +105,7 @@ class LabProfileCard extends React.Component {
                             <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8 }} >Radiology | Pathology</p>
                             <div style={{ display: 'flex', flexWrap: 'wrap', minWidth: 0 }} >
                                 <p className="lab-locality">
-                                    {/* Blood Test, Pathology Ultrasound, MRI, CTI */}
+
                                     {lab.locality} {lab.city}&nbsp;|
                                 </p>
                                 <div style={{ width: 60, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
@@ -135,6 +126,9 @@ class LabProfileCard extends React.Component {
                                 {
                                     price ? <p className="lab-price mrb-10"><span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span> &#8377; {price}</p> : ""
                                 }
+                                {/* <div className="signup-off-container float-left">
+                                    <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                </div> */}
                                 <button className="v-btn v-btn-primary btn-md">Book Lab</button>
                             </div>
                         </div>

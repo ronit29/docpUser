@@ -1,3 +1,3 @@
-import ClinicResultCard from './clinicResultCard.js'
+import ClinicResultCard from './ClinicResultCard.js'
 
 export default ClinicResultCard

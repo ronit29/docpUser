@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
-
+import ReviewList from '../../../commons/ratingsProfileView/ReviewList.js'
+import RatingGraph from '../../../commons/ratingsProfileView/RatingGraph.js'
+import ComplimentListView from '../../../commons/ratingsProfileView/ComplimentListView.js'
 import LabTests from '../labTests'
+import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfileCard.js'
 
 class LabDetails extends React.Component {
 
@@ -24,13 +27,14 @@ class LabDetails extends React.Component {
     render() {
 
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
-
         return (
             <section className="profile-book-screen">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
-                            <div className="widget profile-book">
+                            { this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.data.lab.unrated_appointment} /> : ""}
+
+                            <div className="widget profile-book border-bottom-radious">
                                 <div className="widget-header pb-header text-center">
                                     <div className="pb-logo">
                                         <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-lp">
@@ -87,7 +91,22 @@ class LabDetails extends React.Component {
                                     <p>{about}
                                     </p>
                                 </div>
+                                <div className="widget-panel">
+                                <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                <div className="panel-content pd-0">
+                                    <RatingGraph details={this.props.data.lab} />
+                                    <div className="user-satisfaction-section">
+                                        <div className="row">
+                                            {this.props.data.lab.rating_graph ? this.props.data.lab.rating_graph.top_compliments.map(compliment =>
+                                                <ComplimentListView key={compliment.id} details={compliment} />
+                                            ) : <span></span>}
+                                        </div>
+                                    </div>
+                                    <ReviewList details={this.props.data.lab} />
+                                </div>
                             </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

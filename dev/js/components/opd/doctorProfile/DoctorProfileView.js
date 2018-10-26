@@ -1,7 +1,10 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
-
+import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
+import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
+import RatingProfileCard from '../../commons/ratingsProfileView/RatingProfileCard.js'
+import ComplimentListView from '../../commons/ratingsProfileView/ComplimentListView.js'
 import DoctorProfileCard from '../commons/doctorProfileCard'
 import AboutDoctor from '../doctorProfile/aboutDoctor/index.js'
 import ProfessionalGraph from '../doctorProfile/professionalGraph/index.js'
@@ -16,6 +19,9 @@ import CONFIG from '../../../config'
 class DoctorProfileView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            seoFriendly: this.props.match.url.includes('-dpp')
+        }
     }
 
     componentDidMount() {
@@ -87,12 +93,16 @@ class DoctorProfileView extends React.Component {
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
                                             description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
-                                        }} />
+                                        }} noIndex={!this.state.seoFriendly} />
 
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <div className="widget mrt-10 ct-profile skin-white">
+                                                    {
+                                                        this.props.DOCTORS[doctor_id].unrated_appointment
+                                                            ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
+                                                    }
+                                                    <div className="widget mrt-10 ct-profile skin-white border-bottom-radious">
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
@@ -114,6 +124,22 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
+                                                            <div className="widget-panel">
+                                                                <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                                                <div className="panel-content pd-0">
+                                                                    <RatingGraph details={this.props.DOCTORS[doctor_id]} />
+                                                                    <div className="user-satisfaction-section">
+                                                                        <div className="row no-gutters">
+                                                                            {(typeof (this.props.DOCTORS[doctor_id].rating_graph) != "undefined" && this.props.DOCTORS[doctor_id].rating_graph != null && this.props.DOCTORS[doctor_id].rating_graph) ?
+                                                                                this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
+                                                                                    <ComplimentListView key={compliment.id} details={compliment} />
+                                                                                ) : <div></div>}
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <ReviewList details={this.props.DOCTORS[doctor_id]} />
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

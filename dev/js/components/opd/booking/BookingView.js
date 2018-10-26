@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loader from '../../commons/Loader'
 import InitialsPicture from '../../commons/initialsPicture'
-
+import RatingProfileCard from '../../commons/ratingsProfileView/RatingProfileCard.js'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -69,18 +69,18 @@ class BookingView extends React.Component {
     cancelAppointment(type) {
         this.setState({ loading: true, showCancel: false })
         let data;
-        if(type){
+        if (type) {
 
             data = {
-                'Category': 'ConsumerApp', 'Action': 'CancelOpdAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-opd-appointment-Refund','appointmentId':this.state.data.id
+                'Category': 'ConsumerApp', 'Action': 'CancelOpdAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-opd-appointment-Refund', 'appointmentId': this.state.data.id
             }
-        }else{
+        } else {
 
             data = {
-                'Category': 'ConsumerApp', 'Action': 'CancelOpdAppointmentAndBookNew', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-opd-appointment-Book-New','appointmentId':this.state.data.id
+                'Category': 'ConsumerApp', 'Action': 'CancelOpdAppointmentAndBookNew', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-opd-appointment-Book-New', 'appointmentId': this.state.data.id
             }
         }
-    
+
         GTM.sendEvent({ data: data })
 
         let appointmentData = { id: this.state.data.id, status: 6, refund: type }
@@ -193,6 +193,10 @@ class BookingView extends React.Component {
                                         <div className="row">
                                             <div className="col-12">
                                                 {
+                                                    this.state.data.status == 7 && this.state.data.is_rated === false ? (<RatingProfileCard {...this.props} booking_flag={true} details={this.state.data} />) : ""
+                                                }
+
+                                                {
                                                     (this.state.data.otp && status == 5) ? <div className="widget mrb-10">
                                                         <div className="widget-content">
                                                             <p className="fw-500 text-md mrb-10">Unique Confirmation Code: <span className="fw-700 text-md">{this.state.data.otp}</span></p>
@@ -224,10 +228,10 @@ class BookingView extends React.Component {
                                                     <div className="widget-content bokng-card pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{doctor.display_name}</h4>
                                                         <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd" onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
-                                                                <img src={doctor_thumbnail} style={{ width: 50 }} className="img-fluid add-map img-round crd-doc-img" />
-                                                            </InitialsPicture>
+                                                            <img src={doctor_thumbnail} style={{ width: 50 }} className="img-fluid add-map img-round crd-doc-img" />
+                                                        </InitialsPicture>
                                                         <div className="address-details">
-                                                            
+
 
                                                             <p className="add-info fw-500">{this.getQualificationStr(doctor.general_specialization || [])}</p>
                                                         </div>
