@@ -1738,12 +1738,39 @@ font-weight: 500;
     font-weight: 500;
     cursor: pointer;
 }
+
+.sitemap-body{
+	background-color: #fff !important;
+}
 .anchor-data-style{
-	padding: 10px;
-	color: #0000EE;
+	padding: 15px 10px;
+	display: block;
+	border-bottom: 1px solid #f2f2f2;
+	position: relative;
+	padding-right: 30px;
+	cursor: pointer;
+}
+.anchor-data-style>a{
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .anch-page-cnt{
 	padding: 5px;
 	cursor: pointer;
 	color: #0000EE;
+}
+.sitemap-right-arrow{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 15px;
+	height: 14px;
+}
+.sitemap-count{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 15px;
 }
