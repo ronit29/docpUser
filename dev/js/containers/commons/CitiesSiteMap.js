@@ -6,11 +6,9 @@ import { getCitiesMap, getSpecialitiesMap } from '../../actions/index.js'
 class CitiesMap extends React.Component {
 
 	static loadData(store, match, query) {
-    
         let city = match.params.city
-        console.log(query)
         if(city){
-            return store.dispatch(getCitiesMap())
+            return store.dispatch(getCitiesMap(city))
         }else{
             return store.dispatch(getCitiesMap())
         }

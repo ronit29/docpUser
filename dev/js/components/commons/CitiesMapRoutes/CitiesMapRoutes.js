@@ -30,13 +30,13 @@ class CitiesRoutes extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                        	<Route exact path = {`${this.props.match.url}/`} render={(props) => {
-                                return <CitiesMapView {...this.props} {...props} /> 
-                            }} />
+                        	
+                            {
+                                this.props.match.params.city?
+                                <CitiesSpecialities {...this.props} />
+                                :<CitiesMapView {...this.props} />
 
-                            <Route path = {`${this.props.match.url}/:city`} render={(props) => {
-                                return <CitiesSpecialities {...this.props} {...props} /> 
-                            }} />
+                            }
 
                        	</div>
                     </div>
