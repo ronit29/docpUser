@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating } from '../../actions/index.js'
+import { getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp } from '../../actions/index.js'
 
 import BookingView from '../../components/diagnosis/booking/BookingView.js'
 
@@ -40,6 +40,7 @@ const mapDispatchToProps = (dispatch) => {
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
+        closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
     }
 }
 

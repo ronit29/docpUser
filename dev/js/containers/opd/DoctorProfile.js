@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 
@@ -94,7 +94,8 @@ const mapDispatchToProps = (dispatch) => {
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
-        closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback))
+        closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
+        closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback))
     }
 }
 

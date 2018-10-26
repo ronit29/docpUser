@@ -234,3 +234,12 @@ export const closeAppointmentRating = (appointmentData, callback) => (dispatch) 
         callback(error, null)
     })
 }
+
+export const closeAppointmentPopUp = (id, callback) => (dispatch) => {
+   dispatch({
+            type: CLOSE_POPUP,
+            payload: {
+                appointment_id: id
+            }
+        })
+}

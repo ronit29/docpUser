@@ -59,6 +59,13 @@ class RatingsPopUp extends React.Component {
                 }
             })
         }
+        else{
+            this.props.closeAppointmentPopUp(id, (err, data) => {
+                if (!err && data) {
+                    console.log('Popup Closed');
+                }
+            })
+        }
         this.setState({ data: null })
     }
 

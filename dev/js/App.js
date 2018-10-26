@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
+import { getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -55,7 +55,6 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
         }
     }
 
@@ -216,6 +215,7 @@ const mapDispatchToProps = (dispatch) => {
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentRating: (appointmentData) => dispatch(closeAppointmentRating(appointmentData)),
+        closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback))
     }
 
