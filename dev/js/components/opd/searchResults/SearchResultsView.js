@@ -14,7 +14,7 @@ class SearchResultsView extends React.Component {
         this.state = {
             seoData: this.props.initialServerData,
             seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
-            clinic_card: this.getLocationParam('clinic_card') || null
+            clinic_card: this.props.location.search.includes('clinic_card') || null
         }
     }
 

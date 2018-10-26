@@ -6,7 +6,8 @@ class DesktopProfileHeader extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            headerButtonsState: false
+            headerButtonsState: false,
+            medicinePopup: false
         }
     }
 
@@ -21,7 +22,7 @@ class DesktopProfileHeader extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'SearchButtonClickedMobile', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'search-button-clicked-mobile'
         }
         GTM.sendEvent({ data: data })
-        this.setState({ headerButtonsState: !this.state.headerButtonsState })
+        this.setState({ headerButtonsState: !this.state.headerButtonsState, medicinePopup: false })
     }
 
     goToLocation() {
@@ -106,6 +107,23 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
                                 <span>Book Medical Test</span>
                             </div>
+                            <div className="head-links">
+                                <div className="head-dropdowns">
+                                    <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
+                                    <span>Articals</span>
+                                    <ul className="list-sub-menu">
+                                        <li><a href="/all-medicines" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-medicines")
+                                        }}>All Medicines</a></li>
+                                        {/* <li><a href="javascript:void(0);">All Articles</a></li> */}
+                                        <li><a href="/all-diseases" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-diseases")
+                                        }}>All Diseases</a></li>
+                                    </ul>
+                                </div>
+                            </div>
 
                             {
                                 profileData ? <div className="head-links">
@@ -142,6 +160,9 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         </div>
                         <div className="col-lg-9 col-md-8 col-8 ml-auto text-right  d-lg-none pl-0">
+                            <div className="head-links">
+                                <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
+                            </div>
                             <div className="head-links" onClick={this.toggleHeaderButtons.bind(this)}>
                                 <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
                             </div>
@@ -192,6 +213,29 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         </div> : ""
                     }
+                    {
+                        this.state.medicinePopup ?
+                            <div className="search-show art-padding d-lg-none">
+                                <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.props.history.push("/all-medicines")
+                                }}>
+                                    <span>All Medicines</span>
+                                </a>
+                                {/* <div className="article-list mid-border">
+                                <span>All Articles</span>
+                            </div> */}
+                                <a className="article-list" href="/all-diseases" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.props.history.push("/all-diseases")
+                                }}>
+                                    <span>All Diseases</span>
+                                </a>
+                            </div>
+                            : ''
+
+                    }
+
                 </div>
             </header>
         );
