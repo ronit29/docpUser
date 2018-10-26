@@ -1,31 +1,29 @@
 import React from 'react'
 
-class CitiesSpecialitiesView extends React.Component{
+class CitiesSpecialitiesView extends React.Component {
 
-	componentDidMount(){
+	componentDidMount() {
 
 		let city = this.props.match.params.city
 		this.props.getCitiesMap(city)
 	}
 
-	render(){
+	render() {
 
-		return(
-			<div className="col-12 col-md-7 col-lg-7 center-column">
+		return (
+			<div>
 				{
-					this.props.citiesMapSpecialities.specialization_city_urls?
-					this.props.citiesMapSpecialities.specialization_city_urls.map((city, i) => {
-						return <div key= {i}>
-							<a className= "anchor-data-style" href={`/${city.url}`} onClick={(e) => {
-		                    e.preventDefault();
-		                    this.props.history.push(`/${city.url}`) }} >{`${city.title}`}</a>
-		                    <span>{`(${city.count})`}</span>
-	                    </div>
-					})
-					:''
+					this.props.citiesMapSpecialities.specialization_city_urls ?
+						this.props.citiesMapSpecialities.specialization_city_urls.map((city, i) => {
+							return <div className="anchor-data-style" key={i} onClick={() => { this.props.history.push(`/${city.url}`) }} style={{paddingRight: 50}} >
+								<a href={`/${city.url}`} onClick={(e) => { e.preventDefault() }}>{`${city.title}`}</a>
+								<span className="sitemap-count">{`(${city.count})`}</span>
+							</div>
+						})
+						: ''
 				}
 			</div>
-			)
+		)
 	}
 }
 

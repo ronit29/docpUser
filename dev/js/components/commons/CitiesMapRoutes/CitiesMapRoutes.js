@@ -23,7 +23,7 @@ class CitiesRoutes extends React.Component {
     render() {
 
         return (
-            <div className="profile-body-wrap">
+            <div className="profile-body-wrap sitemap-body">
                 <ProfileHeader />
                 <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
@@ -35,7 +35,6 @@ class CitiesRoutes extends React.Component {
                                 this.props.match.params.city?
                                 <CitiesSpecialities {...this.props} />
                                 :<CitiesMapView {...this.props} />
-
                             }
 
                        	</div>
