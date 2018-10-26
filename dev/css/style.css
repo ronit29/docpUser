@@ -531,7 +531,15 @@ p.top-head-link.card-lab-link span {
 .pb-mbl {
 	display: none;
 }
-
+@media screen and (max-width: 400px) {
+	.logo-ancher {
+		width: 62px;
+		overflow: hidden;
+	}
+	.head-links img {
+		margin-right: 8px !important;
+	}
+}
 @media screen and (max-width: 438px) {
 	.head-links {
 		margin-left: 10px !important;
@@ -551,9 +559,9 @@ p.top-head-link.card-lab-link span {
 	}
 }
 
-.header-overflow {
+/* .header-overflow {
 	overflow: hidden;
-}
+} */
 
 .smiley-img-div {
 	position: absolute;
@@ -723,7 +731,11 @@ p.top-head-link.card-lab-link span {
 		height: auto !important;
 	}
 }
-
+@media(max-width: 470px) {
+	.head-links img {
+		margin-right: 0px;
+	}
+}
 @media(max-width: 412px) {
 	.chatbox-right {
 		height: calc(100vh - 400px);
@@ -916,6 +928,10 @@ p.top-head-link.card-lab-link span {
 	.fltr-loc-txt{
 		max-width: 100px;
 	}
+	.logo-ancher {
+		width: 62px;
+		overflow: hidden;
+	}
 }
 
 @media(max-width: 992px) {
@@ -951,6 +967,12 @@ p.top-head-link.card-lab-link span {
 @media (max-height: 370px) {
 	.livechat-room .footer {
 		display: block !important;
+	}
+	
+}
+@media (max-width: 370px) {
+	.head-links img {
+		margin-right: 1px !important;
 	}
 }
 
@@ -1747,7 +1769,7 @@ font-weight: 500;
 	visibility: hidden;
 	opacity: 0;
 	position: absolute;
-	top: 100%;
+	top: 30px;
 	left: 0;
 	width: 120px;
 	text-align: center;
@@ -1793,6 +1815,35 @@ ul.list-sub-menu a:hover {
     top: 0;
     bottom: 0;
     margin: auto;
+}
+.art-padding{
+    padding: 5px 0px;
+}
+.article-list{
+	color: white;
+    cursor: pointer;
+    padding: 5px 55px;
+}
+.article-list:hover{
+	color:white;
+}
+.border-rgt{
+	border-right: 1px solid #f7ac76;
+}
+.mid-border{
+	border-left: 1px solid #f7ac76;
+    border-right: 1px solid #f7ac76;
+}
+.search-show.art-padding:before {
+    content: '';
+    position: absolute;
+    border-left: 12px solid #fd000000;
+    border-right: 12px solid transparent;
+    border-top: 12px solid #f39551;
+    margin: auto;
+    top: -12px;
+    transform: rotate(180deg);
+    filter: drop-shadow(0px 1px 0px #ffffff);
 }
 
 /* header-dropdown */
