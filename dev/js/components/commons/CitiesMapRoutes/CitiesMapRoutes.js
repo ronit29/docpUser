@@ -3,7 +3,7 @@ import ProfileHeader from '../DesktopProfileHeader'
 import LeftBar from '../LeftBar'
 import CitiesMapView from './CitiesMapView'
 import CitiesSpecialities from './CitiesSpecialities'
-
+import Footer from '../Home/footer'
 import { Route } from 'react-router-dom'
 
 class CitiesRoutes extends React.Component {
@@ -40,6 +40,7 @@ class CitiesRoutes extends React.Component {
                        	</div>
                     </div>
                 </section>
+                <Footer />
             </div>
         )
     }

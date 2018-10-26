@@ -110,7 +110,7 @@ class DesktopProfileHeader extends React.Component {
                             <div className="head-links">
                                 <div className="head-dropdowns">
                                     <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
-                                    <span>Articals</span>
+                                    <span>Articles</span>
                                     <ul className="list-sub-menu">
                                         <li><a href="/all-medicines" onClick={(e) => {
                                             e.preventDefault();
