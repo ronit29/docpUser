@@ -3,6 +3,7 @@ import React from 'react';
 import LabProfileCard from '../../commons/labProfileCard/index.js'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
+import GTM from '../../../../helpers/gtm'
 
 class LabsList extends React.Component {
     constructor(props) {
@@ -41,6 +42,9 @@ class LabsList extends React.Component {
     }
 
     componentWillUnmount() {
+        let data = {
+        'Category': 'ConsumerApp', 'Action': 'LabSearchPagination', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-search-pagination','Pages': this.state.page}
+        GTM.sendEvent({ data: data })
         // if (window) {
         //     window.onscroll = null
         // }

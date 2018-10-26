@@ -257,6 +257,14 @@ class BookingSummaryViewNew extends React.Component {
         })
     }
 
+    applyCoupons(){
+        let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'LabCouponsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+        this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons`)
+    }
+
     render() {
 
         let tests = []
@@ -358,9 +366,7 @@ class BookingSummaryViewNew extends React.Component {
                                                     </div>
                                                     <div className="col-12">
 
-                                                        <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={() => {
-                                                            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons`)
-                                                        }}>
+                                                        <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
                                                             {
                                                                 labCoupons.length
                                                                     ?
@@ -380,6 +386,11 @@ class BookingSummaryViewNew extends React.Component {
                                                                             <span className="visit-time-icon coupon-icon">
                                                                                 <img onClick={(e) => {
                                                                                     e.stopPropagation();
+                                                                                    let analyticData = {
+                                                                                        'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].couponId
+                                                                                    }
+                                                                                    GTM.sendEvent({ data: analyticData })
+                                                                                    
                                                                                     this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].couponId)
                                                                                 }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                             </span>

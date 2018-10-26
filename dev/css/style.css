@@ -733,6 +733,12 @@ p.top-head-link.card-lab-link span {
 	.chat-footer{
 		display: none;
 	}
+	.chatbox-right.utm_chatbox_right{
+		height: auto !important;
+	}
+	.chatbox-right.utm_chatbox_right .chat-body{
+		height: auto !important;
+	}
 }
 
 @media(max-width: 412px) {
@@ -1584,7 +1590,6 @@ margin: 0px 10px;
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
     right: -18px;
-    top: 50px;
 }
 .filtr-card-footer{
 	background-color: rgba(194, 194, 194, .2);
@@ -2346,4 +2351,37 @@ font-weight: 500;
 }
 .thnks-btn{
 	margin-top:15px
+}
+.utm-chat-footer{
+    text-align: center;
+    padding-top: 5px;
+}
+.utm-chat-btn{
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.09);
+    background-color: #f78631;
+    padding: 10px 20px;
+    width: 70%;
+	font-size: 14px;
+	border: none;
+	cursor: pointer;
+}
+.utm-sapprater{
+	color: #8d8d8d;
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+.utm-clear-chat{
+	color: #8d8d8d;
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.mt-0{
+	margin-top: 0px !important;
 }

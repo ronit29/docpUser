@@ -1,7 +1,7 @@
 import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
-
+import GTM from '../../helpers/gtm.js'
 export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
 	if (page == 1) {
@@ -89,6 +89,13 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 			}
 
 		})
+
+		if (page == 1) {
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'LabSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-search-count', 'LabSearchCount': response.count || 0
+			}
+			GTM.sendEvent({ data: data })
+		}
 
 		if (cb) {
 			// TODO: DO not hardcode page length
@@ -200,7 +207,10 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 export const applyLabCoupons = (productId = '', couponCode, couponId, labId, dealPrice) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {coupon_code: [couponCode], deal_price: dealPrice, product_id: productId}).then(function (response) {
-		
+		let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied','couponId': couponId
+        }
+        GTM.sendEvent({ data: analyticData })
 		dispatch({
 			type: APPLY_LAB_COUPONS,
 			payload: response

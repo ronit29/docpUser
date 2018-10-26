@@ -107,9 +107,7 @@ class ArticleList extends React.Component {
 
 									prev: `${(pageNo != 1 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}${(pageNo > 2 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? '?page=' + (pageNo - 1) : ''}` : ''}`,
 
-									next: `${(pageNo != Math.ceil(this.props.articleListData.total_articles / 10) && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(pageNo >= 1 && pageNo < Math.ceil(this.props.articleListData.total_articles / 10)) ? pageNo + 1 : ''}` : ''}`,
-
-									setDefault: true
+									next: `${(pageNo != Math.ceil(this.props.articleListData.total_articles / 10) && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(pageNo >= 1 && pageNo < Math.ceil(this.props.articleListData.total_articles / 10)) ? pageNo + 1 : ''}` : ''}`
 								}} /> : null
 							}
 							<div className="container-fluid main-container">

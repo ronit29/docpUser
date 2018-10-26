@@ -161,6 +161,14 @@ class PatientDetailsNew extends React.Component {
         })
     }
 
+    applyCoupons(){
+        let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'OpdCouponsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+        this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}/${this.state.selectedClinic}`)
+    }
+
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
@@ -224,8 +232,7 @@ class PatientDetailsNew extends React.Component {
                                             </div>
                                         </div>
                                         <div className="col-12">
-                                            <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={() => {
-                                                this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}/${this.state.selectedClinic}`)}}>         
+                                            <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>         
                                                     {
                                                         doctorCoupons.length ?
                                                         <div className="widget-content  d-flex jc-spaceb" >
@@ -244,6 +251,11 @@ class PatientDetailsNew extends React.Component {
                                                                 <span className="visit-time-icon coupon-icon">
                                                                     <img onClick={(e) => {
                                                             e.stopPropagation();
+                                                            let analyticData = {
+                                                                'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
+                                                                'couponId': doctorCoupons[0].couponId
+                                                            }
+                                                            GTM.sendEvent({ data: analyticData })
                                                             this.props.removeCoupons(this.state.selectedDoctor,doctorCoupons[0].couponId)
                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"}/>
                                                                 </span>

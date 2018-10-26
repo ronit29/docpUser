@@ -32,6 +32,12 @@ class ClinicSelector extends React.Component {
     showNumber(id, e) {
         e.preventDefault()
         e.stopPropagation()
+        
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data })
+
         if (!this.state.numberShown) {
             this.props.getDoctorNumber(id, (err, data) => {
                 if (!err && data.number) {

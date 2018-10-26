@@ -1,4 +1,5 @@
 import React from 'react';
+import HelmetTags from '../HelmetTags'
 
 class AboutUs extends React.Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class AboutUs extends React.Component {
 
         }
     }
-    
+
     navigateTo(where) {
         this.props.history.push(where)
     }
@@ -16,6 +17,10 @@ class AboutUs extends React.Component {
 
         return (
             <div className="container about-container">
+                <HelmetTags tagsData={{
+                    title: ('About Us | docprime'),
+                    description: ('docprime: docprime is one stop health care solution for patients and doctors. Patients can book doctors online and doctors can manage patients online.')
+                }} />
                 <div className="row">
                     <div className="col-12 text-center">
                         <p className="fw-500 about-heading">About Us</p>
@@ -158,7 +163,7 @@ class AboutUs extends React.Component {
                         <p className="fw-500 about-content">We aim to tap the latest technology to find solutions to various issues in order to disrupt the global healthcare delivery system. Our innovative healthcare solutions are a step towards bridging the gap between healthcare experts and the patients.</p>
                     </div>
                     <div className="col-12">
-                        <button onClick={() => {this.navigateTo("/contact")}} className="contact-btn">Contact Us</button>
+                        <button onClick={() => { this.navigateTo("/contact") }} className="contact-btn">Contact Us</button>
                     </div>
                 </div>
             </div>

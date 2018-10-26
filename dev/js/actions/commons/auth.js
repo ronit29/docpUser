@@ -236,10 +236,16 @@ export const closeAppointmentRating = (appointmentData, callback) => (dispatch) 
 }
 
 export const closeAppointmentPopUp = (id, callback) => (dispatch) => {
-   dispatch({
-            type: CLOSE_POPUP,
-            payload: {
-                appointment_id: id
-            }
-        })
+    dispatch({
+        type: CLOSE_POPUP,
+        payload: {
+            appointment_id: id
+        }
+    })
+}
+
+
+export function chat_utm(term) {
+    let url = CONFIG.CHAT_API_URL + `/livechat/healthservices/intentresponse/BasicEnquiry?text=${term}`
+    return Axios.get(url)
 }
