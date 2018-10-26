@@ -81,13 +81,13 @@ class ClinicResultCard extends React.Component {
                         </div>
                         <div className="row no-gutters">
                             <div className="col-8">
-                                <div className="fltr-name-dtls" style={{ paddingLeft: 0 }}>
+                                <div className="clinic-fltr-name-dtls">
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
                                         <h5 className="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital.hospital_name}</h5>
                                     </a>
                                     <span className="clinic-fltr-loc-txt mrb-10">{hospital.short_address}</span>
                                     <p className="mrb-10">{this.getQualificationStr(general_specialization || [])}</p>
-                                    <p className="fw-500 clinic-status mrb-10">Open Today</p>
+                                    {/* <p className="fw-500 clinic-status mrb-10">Open Today</p> */}
                                 </div>
                             </div>
                             <div className="col-4">
@@ -118,7 +118,7 @@ class ClinicResultCard extends React.Component {
                     </div>
                     <div className="filtr-card-footer">
                         <div>
-                            <img src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/doctor.svg"} style={{width: 19}} />
                             <div style={{ display: 'inline-block' }}>
                                 <p style={{ display: 'block' }}>{display_name}</p>
                                 {
