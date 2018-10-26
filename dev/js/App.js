@@ -196,8 +196,12 @@ const mapStateToProps = (state) => {
         selectedLocation
     } = state.SEARCH_CRITERIA_OPD
 
+    let {
+        profiles, selectedProfile
+    } = state.USER
+
     return {
-        selectedLocation
+        selectedLocation, profiles, selectedProfile
     }
 }
 

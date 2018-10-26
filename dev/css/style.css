@@ -1921,7 +1921,7 @@ p.comment-para-status{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000000c9;
+    background:rgba(0, 0, 0, 0.4);
     z-index: 999;
 }
 .home-rating-card{
@@ -2316,4 +2316,34 @@ font-weight: 500;
 }
 .border-lft{
 	border-left:1px solid rgba(0, 0, 0, .12);
+}
+.thankyou-popup-head{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.thankyou-popup-head img{
+	width: 40px;
+	height: 40px;
+	flex-grow: 0;
+    flex-shrink: 0;
+}
+.thankyou-popup-head p{
+	font-size: 20px;
+    font-weight: 500;
+    color: #f48254;
+	margin-left: 10px;
+	text-align: center;
+}
+.thnks-content{
+	text-align: center;
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+.thanks-sub-content{
+	text-align: center;
+}
+.thnks-btn{
+	margin-top:15px
 }
