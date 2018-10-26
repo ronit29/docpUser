@@ -5,6 +5,22 @@ import { getCitiesMap, getSpecialitiesMap } from '../../actions/index.js'
 
 class CitiesMap extends React.Component {
 
+	static loadData(store, match, query) {
+    
+        let city = match.params.city
+        console.log(query)
+        if(city){
+            return store.dispatch(getCitiesMap())
+        }else{
+            return store.dispatch(getCitiesMap())
+        }
+        
+    }
+
+    static contextTypes = {
+        router: () => null
+    }
+
 	render(){
 		
 		return(

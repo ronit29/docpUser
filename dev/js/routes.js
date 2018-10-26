@@ -102,7 +102,7 @@ const routes = [
     { path: '/agent/booking', exact: true, component: DirectBooking },
 
     { path: '/speciality-inventory', component: SpecializationSiteMap },
-    { path: '/city-inventory', component: CitiesSiteMap },
+    { path: '/city-inventory', component: CitiesSiteMap , RENDER_ON_SERVER: true },
 
     { path: '*', component: NotFound },
 ]

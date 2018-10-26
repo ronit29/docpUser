@@ -1739,10 +1739,11 @@ font-weight: 500;
     cursor: pointer;
 }
 .anchor-data-style{
-	display: block;
-	padding: 10px
+	padding: 10px;
+	color: #0000EE;
 }
 .anch-page-cnt{
 	padding: 5px;
 	cursor: pointer;
+	color: #0000EE;
 }

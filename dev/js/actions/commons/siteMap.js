@@ -25,7 +25,7 @@ export const getCitiesMap = (city = "", page = 0) => (dispatch) => {
 			
 			dispatch({
 				type: GET_CITIES_MAP,
-				payload: response
+				payload: response.cities
 			})
 		}
 		
