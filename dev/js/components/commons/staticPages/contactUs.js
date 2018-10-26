@@ -38,7 +38,7 @@ class ContactUs extends React.Component {
             <div className="container about-container contact-container">
                 <HelmetTags tagsData={{
                     title: ('Contact Us | docprime'),
-                    description: ('Contact Us: Contac docprime for query related to booking, signup and more.')
+                    description: ('Contact Us: Contact docprime for query related to booking, signup and more.')
                 }} />
                 <div className="row">
                     <div className="col-12 text-center">
