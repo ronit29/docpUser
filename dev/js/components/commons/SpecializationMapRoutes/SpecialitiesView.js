@@ -16,7 +16,10 @@ class SpecialitiesMap extends React.Component {
 	render() {
 
 		return (
+		<div>
+			<div className="fw-500 sitemap-title">All Specialities</div>
 			<div className="row sitemap-row">
+
 				{
 					this.props.specialitiesMap.specialization_inventory && this.props.specialitiesMap.specialization_inventory.length ?
 						this.props.specialitiesMap.specialization_inventory.slice(0, 20).map((city, i) => {
@@ -54,6 +57,7 @@ class SpecialitiesMap extends React.Component {
 				}
 
 			</div>
+		</div>
 		)
 	}
 }

@@ -1,5 +1,7 @@
 import React from 'react'
 const queryString = require('query-string');
+import HelmetTags from '../HelmetTags'
+import CONFIG from '../../../config'
 
 
 class SpecialitiesCitiesMap extends React.Component {
@@ -36,12 +38,16 @@ class SpecialitiesCitiesMap extends React.Component {
 
 		let totalPages = this.props.specialitiesMapCities ? parseInt(this.props.specialitiesMapCities.pages) : 0
 		let pageCount = []
+		let prev = '', next = ''
 		if (totalPages) {
 			if (this.state.page == 1 && this.state.page < totalPages) {
+				next = this.state.page + 1
 				pageCount.push(<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page + 1}`} >{this.state.page + 1}</a>
 				)
 
 			} else if (this.state.page != 1 && this.state.page + 1 <= totalPages) {
+				next = this.state.page + 1
+				prev = this.state.page - 1
 				pageCount.push(
 					<div>
 						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>
@@ -53,7 +59,7 @@ class SpecialitiesCitiesMap extends React.Component {
 				)
 
 			} else if (this.state.page == totalPages && totalPages > 1) {
-
+				prev = this.state.page - 1
 				pageCount.push(
 					<div>
 						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>
@@ -70,20 +76,25 @@ class SpecialitiesCitiesMap extends React.Component {
 			<div className="row sitemap-row">
 				{
 					this.props.specialitiesMapCities.paginated_specialists && this.props.specialitiesMapCities.paginated_specialists.length ?
+						
 						this.props.specialitiesMapCities.paginated_specialists.map((city, i) => {
 							return (
-								<div className="col-12 col-md-6" key={i}>
+								<div style={{marginBottom: '15px'}} className="col-12 col-md-12" key={i}>
 									<p className="fw-500 sitemap-title">{city.city_title}</p>
+									<div className="row">
 									{
 										city.speciality_url_title.map((speciality, i) => {
-											return <div key={i} className="anchor-data-style" onClick={this.goToSpeciality.bind(this, speciality.url)} >
+											return <div key={i} className="col-md-6" onClick={this.goToSpeciality.bind(this, speciality.url)} >
+											<div className="anchor-data-style">
 												<a href={`/${speciality.url}`} onClick={(e) => { e.preventDefault() }} >{`${speciality.title}`}</a>
 												<span className="sitemap-right-arrow">
 													<img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
 												</span>
+												</div>
 											</div>
 										})
 									}
+									</div>
 								</div>
 							)
 						})
