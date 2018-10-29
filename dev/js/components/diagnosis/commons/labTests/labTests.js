@@ -79,12 +79,14 @@ class LabTests extends React.Component {
 
         let pickup_text = ""
         let extra_price = ""
+        let showPriceTag = 0
         if (is_home_collection_enabled && distance_related_charges == 1) {
-            pickup_text = "Home pickup charges applicable."
+            pickup_text = "Home pickup charges applicable"
         }
 
         if (is_home_collection_enabled && !distance_related_charges) {
-            pickup_text = "Home visit charges."
+            pickup_text = "Home visit charges"
+            showPriceTag = 1
             extra_price = this.props.data.lab.home_pickup_charges
         }
 
@@ -100,9 +102,15 @@ class LabTests extends React.Component {
                     </ul>
                     {
                         pickup_text ? <div className="clearfix">
+                        
                             <p className="health-visit-charge">{pickup_text}</p>
+
                             {
-                                extra_price >= 0 ? <p className="prc-tstcoin"> &#8377;{extra_price}</p> : ""
+                                showPriceTag?<p className="prc-tstcoin"> &#8377;{extra_price==""?'0':extra_price}</p>:''
+                                
+                            }
+                            {
+                                !showPriceTag && extra_price >= 0 && extra_price ? <p className="prc-tstcoin"> &#8377;{extra_price}</p> : ""
                             }
                         </div> : ""
                     }

@@ -71,11 +71,11 @@ class LabProfileCard extends React.Component {
 
         let pickup_text = ""
         if (lab.is_home_collection_enabled && distance_related_charges == 1) {
-            pickup_text = "Home pickup charges applicable."
+            pickup_text = "Home pickup charges applicable"
         }
 
         if (lab.is_home_collection_enabled && !distance_related_charges) {
-            pickup_text = "Inclusive of home visit charges."
+            pickup_text = "Inclusive of home visit charges"
             price = price + pickup_charges
         }
 

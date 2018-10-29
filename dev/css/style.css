@@ -2638,7 +2638,8 @@ ul.list-sub-menu a:hover {
 .health-visit-charge{
     font-size: 15px;
     font-weight: 500;
-    float: left;	
+	float: left;	
+	position: relative;
 }
 .str-symbol{
 	color: red;
