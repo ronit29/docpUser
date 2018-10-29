@@ -164,7 +164,7 @@ class SearchResultsView extends React.Component {
                     description: this.getMetaTagsData(this.state.seoData).description,
                     seoFriendly: this.state.seoFriendly
                 }} />
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card}>
                     <div>
                         <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
                         {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
