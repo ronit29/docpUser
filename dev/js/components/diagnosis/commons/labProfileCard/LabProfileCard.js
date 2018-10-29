@@ -2,6 +2,8 @@ import React from 'react';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 
+import { buildOpenBanner } from '../../../../helpers/utils.js'
+
 class LabProfileCard extends React.Component {
     constructor(props) {
         super(props)
@@ -56,20 +58,9 @@ class LabProfileCard extends React.Component {
         }
     }
 
-    isOpenToday(lab_timing_data = []) {
-        let is_open = false
-        let time_now = new Date().getHours() + 0.5
-        for (let ltd of lab_timing_data) {
-            if (time_now <= ltd.end && time_now >= ltd.start) {
-                is_open = true
-            }
-        }
-        return is_open
-    }
-
     render() {
 
-        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp } = this.props.details;
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -78,10 +69,15 @@ class LabProfileCard extends React.Component {
             openingTime = this.props.details.lab_timing.split('-')[0];
         }
 
-        // var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        // var day = new Date();
-        // var today = day.getDay();
-        // var tomorrow = days[today + 1];
+        let pickup_text = ""
+        if (lab.is_home_collection_enabled && distance_related_charges == 1) {
+            pickup_text = "Home pickup charges applicable"
+        }
+
+        if (lab.is_home_collection_enabled && !distance_related_charges) {
+            pickup_text = "Inclusive of home visit charges"
+            price = price + pickup_charges
+        }
 
         return (
             <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
@@ -112,14 +108,10 @@ class LabProfileCard extends React.Component {
                                     <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance} KM</span>
                                 </div>
                             </div>
-
-                            {
-                                // this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : <p style={{ color: '#f78316', fontSize: 14 }}>Opens next at {openingTime}, tomorrow</p>
-
-                                this.isOpenToday(lab_timing_data) ? <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p> : ''
-                            }
+                            {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
                         </div>
                     </div>
+
                     <div className="widget-footer card-footer lab-search-card-footer">
                         <div className="row">
                             <div className="col-12 text-right">
@@ -129,6 +121,9 @@ class LabProfileCard extends React.Component {
                                 {/* <div className="signup-off-container float-left">
                                     <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                                 </div> */}
+                                {
+                                    pickup_text ? <p className="features-dtls"><sup className="str-symbol">*</sup>{pickup_text}</p> : ""
+                                }
                                 <button className="v-btn v-btn-primary btn-md">Book Lab</button>
                             </div>
                         </div>
