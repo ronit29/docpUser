@@ -29,7 +29,7 @@ class CitiesRoutes extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12">
                         	
                             {
                                 this.props.match.params.city?

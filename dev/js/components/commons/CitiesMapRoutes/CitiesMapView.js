@@ -11,20 +11,21 @@ class CitiesMap extends React.Component {
 	render() {
 
 		return (
-			<div className="col-12 col-md-7 col-lg-7 center-column">
+			<div className="row sitemap-row">
 				{
 					this.props.citiesMap ?
 						this.props.citiesMap.map((city, i) => {
-							return <div className="anchor-data-style" key={i} onClick={() => { this.props.history.push(`/city-inventory/${city.toLowerCase()}`) }}>
-								<a href={`/city-inventory/${city.toLowerCase()}`} onClick={(e) => { e.preventDefault(); }}>{city}</a>
-								<span className="sitemap-right-arrow">
-									<img src="/assets/img/customer-icons/arrow-forward-right.svg" />
-								</span>
+							return <div className="col-12 col-md-6" key={i} onClick={() => { this.props.history.push(`/city-inventory/${city.toLowerCase()}`) }}>
+								<div className="anchor-data-style">
+									<a href={`/city-inventory/${city.toLowerCase()}`} onClick={(e) => { e.preventDefault(); }}>{city}</a>
+									<span className="sitemap-right-arrow">
+										<img src="/assets/img/customer-icons/arrow-forward-right.svg" />
+									</span>
+								</div>
 							</div>
 						})
 						: ''
 				}
-
 			</div>
 		)
 	}
