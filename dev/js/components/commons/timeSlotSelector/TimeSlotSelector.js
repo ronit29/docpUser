@@ -167,10 +167,25 @@ class TimeSlotSelector extends React.Component {
             }
         }
 
+
+
         let today = new Date()
+        let tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        if (today.toDateString() == selectedDate && this.props.today_min) {
+            return ts.value > this.props.today_min
+        }
+
+        if (tomorrow.toDateString() == selectedDate && this.props.tomorrow_min) {
+            return ts.value > this.props.tomorrow_min
+        }
+
+        // base case if nothing works :)
         if (today.toDateString() == selectedDate) {
             return ts.value > (today.getHours() + 1)
         }
+
         return true
     }
 
