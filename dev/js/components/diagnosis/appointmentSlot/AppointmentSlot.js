@@ -16,7 +16,9 @@ class AppointmentSlot extends React.Component {
             reschedule: this.props.location.search.includes('reschedule'),
             timeSlots: null,
             goback: this.props.location.search.includes('goback'),
-            pickupType: this.props.location.search.includes('type=lab') ? 0 : 1
+            pickupType: this.props.location.search.includes('type=lab') ? 0 : 1,
+            today_min: null,
+            tomorrow_min: null
         }
     }
 
@@ -43,8 +45,9 @@ class AppointmentSlot extends React.Component {
     componentDidMount() {
         let selectedLab = this.props.match.params.id
 
-        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (timeSlots) => {
-            this.setState({ timeSlots: timeSlots })
+        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (data) => {
+            let { time_slots, today_min, tomorrow_min } = data
+            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null })
         })
 
     }
@@ -91,6 +94,8 @@ class AppointmentSlot extends React.Component {
                                                                 timeSlots={this.state.timeSlots}
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 selectedSlot={this.props.selectedSlot}
+                                                                today_min={this.state.today_min}
+                                                                tomorrow_min={this.state.tomorrow_min}
                                                             /> : <Loader />
                                                     }
 

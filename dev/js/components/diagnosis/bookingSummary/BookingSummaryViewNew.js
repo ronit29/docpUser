@@ -257,7 +257,7 @@ class BookingSummaryViewNew extends React.Component {
         })
     }
 
-    applyCoupons(){
+    applyCoupons() {
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'LabCouponsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-clicked'
         }
@@ -275,6 +275,7 @@ class BookingSummaryViewNew extends React.Component {
         let patient = null
         let is_home_collection_enabled = true
         let address_picked_verified = false
+        let center_visit_enabled = true
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -296,14 +297,23 @@ class BookingSummaryViewNew extends React.Component {
                 return <p key={i} className="test-list test-list-label clearfix"><span className="float-right fw-700">&#8377; {price}</span><span className="test-name-item">{twp.test.name}</span></p>
             })
 
+            center_visit_enabled = labDetail.center_visit_enabled
+
         }
 
-        // if home pickup not available but selected type is home , then change in next iteration
-        if (!is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
-            // using timeout to skip this render iteration
+        // if center visi not enabled, check home pick as true
+        if (!center_visit_enabled) {
             setTimeout(() => {
-                this.props.selectLabAppointmentType('lab')
+                this.props.selectLabAppointmentType('home')
             })
+        } else {
+            // if home pickup not available but selected type is home , then change in next iteration
+            if (!is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
+                // using timeout to skip this render iteration
+                setTimeout(() => {
+                    this.props.selectLabAppointmentType('lab')
+                })
+            }
         }
 
         // check if the picked address is correct or not
@@ -352,7 +362,9 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                                 <ul className="inline-list booking-type search-list-radio">
                                                                                     <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li>
-                                                                                    <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li>
+                                                                                    {
+                                                                                        center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
+                                                                                    }
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -390,7 +402,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].couponId
                                                                                     }
                                                                                     GTM.sendEvent({ data: analyticData })
-                                                                                    
+
                                                                                     this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].couponId)
                                                                                 }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                             </span>
