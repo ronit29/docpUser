@@ -2429,6 +2429,10 @@ font-weight: 500;
 	font-weight: 500;
 	font-size: 14px;
 }
+.sitemap-title{
+	font-size: 17px;
+	margin: 20px 0 8px;
+}
 .anchor-data-style{
 	display: block;
 	border-bottom: 1px solid #f2f2f2;
