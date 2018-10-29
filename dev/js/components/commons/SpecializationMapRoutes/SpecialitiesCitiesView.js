@@ -28,6 +28,27 @@ class SpecialitiesCitiesMap extends React.Component{
 		this.props.getSpecialitiesMap(speciality, this.state.page)
 	}
 
+	goToSpeciality( url, e){
+        e.preventDefault();
+        this.props.history.push(`/${url}`)
+	}
+
+	getCitiesSpeciality(){
+		let citySpeciality = []
+
+		if(this.props.specialitiesMapCities.paginated_specialists && this.props.specialitiesMapCities.paginated_specialists.length){
+			this.props.specialitiesMapCities.paginated_specialists.map((city, i) => {
+				citySpeciality.push(<span>{city.city_title}</span>)
+				
+				city.speciality_url_title.map((speciality, i) => {
+					citySpeciality.push(<a key= {i} className= "anchor-data-style" href={`/${speciality.url}`} onClick={this.goToSpeciality.bind(this,speciality.url)} >{`${speciality.title}`}</a>)
+				})
+
+			})
+		}
+		return citySpeciality
+	}
+
 	render(){
 
 		let totalPages = this.props.specialitiesMapCities?parseInt(this.props.specialitiesMapCities.pages):0
@@ -77,13 +98,7 @@ class SpecialitiesCitiesMap extends React.Component{
 		return(
 			<div className="col-12 col-md-7 col-lg-7 center-column">
 				{
-					this.props.specialitiesMapCities.paginated_specialists && this.props.specialitiesMapCities.paginated_specialists.length?
-					this.props.specialitiesMapCities.paginated_specialists[0].speciality_urls.map((city, i) => {
-						return <a key= {i} className= "anchor-data-style" href={`/${city.url}`} onClick={(e) => {
-	                    e.preventDefault();
-	                    this.props.history.push(`/${city.url}`) }} >{`${city.title}`}</a>
-					})
-					:''
+					this.getCitiesSpeciality()
 				}
 				{ pageCount }
 			</div>
