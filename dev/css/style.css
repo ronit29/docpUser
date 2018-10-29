@@ -2530,7 +2530,7 @@ ul.list-sub-menu a:hover {
 /* header-dropdown */
 
 .username-overflow{
-	width: 45;
+	width: 45px;
 	overflow:  hidden;
 	white-space: nowrap;
 }
