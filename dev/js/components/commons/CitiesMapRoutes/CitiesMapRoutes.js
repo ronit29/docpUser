@@ -4,7 +4,6 @@ import LeftBar from '../LeftBar'
 import CitiesMapView from './CitiesMapView'
 import CitiesSpecialities from './CitiesSpecialities'
 import Footer from '../Home/footer'
-import { Route } from 'react-router-dom'
 
 class CitiesRoutes extends React.Component {
     constructor(props) {
@@ -29,7 +28,7 @@ class CitiesRoutes extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12">
                         	
                             {
                                 this.props.match.params.city?

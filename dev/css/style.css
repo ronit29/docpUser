@@ -951,12 +951,19 @@ p.top-head-link.card-lab-link span {
 	}
 }
 
+.sitemap-row{
+	margin-top: 12px;
+}
+
 @media(max-width: 992px) {
 	.inner-location {
 		display: none;
 	}
 	.inp-with-loc {
 		padding-right: 12px !important;
+	}
+	.sitemap-row{
+		margin-top: 0px;
 	}
 }
 
@@ -2410,15 +2417,31 @@ font-weight: 500;
 .sitemap-body{
 	background-color: #fff !important;
 }
+.sitemap-show-more{
+	cursor: pointer;
+	background-color: #f78631;
+	padding: 8px 16px;
+	border: none;
+	box-shadow: none;
+	outline: none;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: 500;
+	font-size: 14px;
+}
+.sitemap-title{
+	font-size: 17px;
+	margin: 20px 0 8px;
+}
 .anchor-data-style{
-	padding: 15px 10px;
 	display: block;
 	border-bottom: 1px solid #f2f2f2;
 	position: relative;
-	padding-right: 30px;
+	padding: 10px 50px 10px 10px;
 	cursor: pointer;
 }
 .anchor-data-style>a{
+	display: block;
 	width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;

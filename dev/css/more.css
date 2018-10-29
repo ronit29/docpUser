@@ -1130,6 +1130,9 @@ span.ofr-ribbon{
     right: -8px;
     top: 8px;
 }
+span.home-ofr-ribbon{
+    top: 16px;
+}
 span.ofr-ribbon:after {
     border-width: 4px;
     border-style: solid;

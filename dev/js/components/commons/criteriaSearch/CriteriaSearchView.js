@@ -299,8 +299,9 @@ class CriteriaSearchView extends React.Component {
                             }
 
                         </div>
-
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        {
+                            this.props.clinic_card ? '' : <RightBar extraClass=" chat-float-btn-2" />
+                        }
                     </div>
                 </section>
             </div>
