@@ -195,7 +195,7 @@ class HomeView extends React.Component {
                         {/* Find a doctor */}
                         <div className="card cstm-card mb-3">
                             <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                <h2>Find a Doctor</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                                <h2>Find a Doctor</h2> <span className="ofr-ribbon home-ofr-ribbon">Upto 50% Off</span>
                             </div>
                             <div className="card-body">
                                 <div className="row mb-2">
@@ -240,7 +240,7 @@ class HomeView extends React.Component {
                         {/* Book a test */}
                         <div className="card cstm-card mb-3">
                             <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                                <h2>Book a Test</h2> <span className="ofr-ribbon home-ofr-ribbon">Upto 50% Off</span>
                             </div>
                             <div className="card-body">
                                 <div className="row mb-2">
@@ -277,7 +277,7 @@ class HomeView extends React.Component {
                         {
                             this.props.common_package && this.props.common_package.length ? <div className="card cstm-card mb-3">
                                 <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                    <h2>Health Packages</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                                    <h2>Health Packages</h2> <span className="ofr-ribbon home-ofr-ribbon">Upto 50% Off</span>
                                 </div>
                                 <div className="card-body">
                                     <div className="row mb-2">
@@ -363,7 +363,7 @@ class HomeView extends React.Component {
 
                         <div className="card cstm-card mb-3">
                             <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                <h2>Find a Doctor</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                                <h2>Find a Doctor</h2> <span className="ofr-ribbon home-ofr-ribbon">Upto 50% Off</span>
                             </div>
                             <div className="card-body">
                                 <div className="row mb-2">
@@ -405,7 +405,7 @@ class HomeView extends React.Component {
 
                         <div className="card cstm-card mb-3">
                             <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                <h2>Book a Test</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                                <h2>Book a Test</h2> <span className="ofr-ribbon home-ofr-ribbon">Upto 50% Off</span>
                             </div>
                             <div className="card-body">
                                 <div className="row mb-2">
@@ -444,7 +444,7 @@ class HomeView extends React.Component {
                         {
                             this.props.common_package && this.props.common_package.length ? <div className="card cstm-card mb-3">
                                 <div className="card-header" style={{ justifyContent: 'normal' }}>
-                                    <h2>Health Packages</h2> <span className="ofr-ribbon">Upto 50% Off</span>
+                                    <h2>Health Packages</h2> <span className="ofr-ribbon home-ofr-ribbon">Upto 50% Off</span>
                                 </div>
                                 <div className="card-body">
                                     <div className="row mb-2">
