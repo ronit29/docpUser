@@ -27,11 +27,11 @@ class CitiesSpecialitiesView extends React.Component {
 								</div>
 							</div>
 						})
-						: ''
+						: <p>No Data Found</p>
 				}
 
 				{
-					this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length ?
+					this.state.showMore && this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length ?
 						this.props.citiesMapSpecialities.specialization_city_urls.slice(20).map((city, i) => {
 							return <div className="col-12 col-md-6" key={i} onClick={() => { this.props.history.push(`/${city.url}`) }}>
 								<div className="anchor-data-style">
