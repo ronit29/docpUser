@@ -2648,3 +2648,10 @@ ul.list-sub-menu a:hover {
     top: -3px;
     position: absolute;
 }
+.pagination-style{
+	    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 15px;
+}

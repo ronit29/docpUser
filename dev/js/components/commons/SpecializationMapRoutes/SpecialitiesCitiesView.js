@@ -52,7 +52,7 @@ class SpecialitiesCitiesMap extends React.Component {
 					<div>
 						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>
 
-						<a key={2} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page}`} >{this.state.page}</a>
+						<a key={2} className="anch-page-cnt" href="javascript:void(0);" >{this.state.page}</a>
 
 						<a key={3} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page + 1}`} >{this.state.page + 1}</a>
 					</div>
@@ -64,7 +64,7 @@ class SpecialitiesCitiesMap extends React.Component {
 					<div>
 						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>
 
-						<a key={2} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page}`} >{this.state.page}</a>
+						<a key={2} className="anch-page-cnt" href="javascript:void(0);" >{this.state.page}</a>
 					</div>
 				)
 
@@ -100,7 +100,9 @@ class SpecialitiesCitiesMap extends React.Component {
 						})
 						: ''
 				}
+				<div className="pagination-style">
 				{pageCount}
+				</div>
 			</div>
 		)
 	}
