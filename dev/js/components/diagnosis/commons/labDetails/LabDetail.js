@@ -6,6 +6,7 @@ import RatingGraph from '../../../commons/ratingsProfileView/RatingGraph.js'
 import ComplimentListView from '../../../commons/ratingsProfileView/ComplimentListView.js'
 import LabTests from '../labTests'
 import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfileCard.js'
+import { buildOpenBanner } from '../../../../helpers/utils.js'
 
 class LabDetails extends React.Component {
 
@@ -13,26 +14,17 @@ class LabDetails extends React.Component {
         super(props)
     }
 
-    isOpenToday(lab_timing_data = []) {
-        let is_open = false
-        let time_now = new Date().getHours() + 0.5
-        for (let ltd of lab_timing_data) {
-            if (time_now <= ltd.end && time_now >= ltd.start) {
-                is_open = true
-            }
-        }
-        return is_open
-    }
-
     render() {
 
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
+        let { lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data } = this.props.data
+
         return (
             <section className="profile-book-screen">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
-                            { this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.data.lab.unrated_appointment} /> : ""}
+                            {this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.data.lab.unrated_appointment} /> : ""}
 
                             <div className="widget profile-book border-bottom-radious">
                                 <div className="widget-header pb-header text-center">
@@ -50,10 +42,7 @@ class LabDetails extends React.Component {
                                     <ul className="list time-contact">
                                         <li>
                                             <span className="fw-700 text-sm">Timing: -</span>
-                                            {this.props.data.lab_timing}
-                                            {
-                                                this.isOpenToday(this.props.data.lab_timing_data) ? <span className="open-close">{" Open Today"}</span> : <span className="open-close">{" Now Closed"}</span>
-                                            }
+                                            {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
                                         </li>
                                         {/* <li>
                                             <span className="fw-700 text-sm">Contact: -</span>
@@ -92,21 +81,21 @@ class LabDetails extends React.Component {
                                     </p>
                                 </div>
                                 <div className="widget-panel">
-                                <h4 className="panel-title mb-rmv">Patient Feedback</h4>
-                                <div className="panel-content pd-0">
-                                    <RatingGraph details={this.props.data.lab} />
-                                    <div className="user-satisfaction-section">
-                                        <div className="row">
-                                            {this.props.data.lab.rating_graph ? this.props.data.lab.rating_graph.top_compliments.map(compliment =>
-                                                <ComplimentListView key={compliment.id} details={compliment} />
-                                            ) : <span></span>}
+                                    <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                    <div className="panel-content pd-0">
+                                        <RatingGraph details={this.props.data.lab} />
+                                        <div className="user-satisfaction-section">
+                                            <div className="row">
+                                                {this.props.data.lab.rating_graph ? this.props.data.lab.rating_graph.top_compliments.map(compliment =>
+                                                    <ComplimentListView key={compliment.id} details={compliment} />
+                                                ) : <span></span>}
+                                            </div>
                                         </div>
+                                        <ReviewList details={this.props.data.lab} />
                                     </div>
-                                    <ReviewList details={this.props.data.lab} />
                                 </div>
                             </div>
-                            </div>
-                            
+
                         </div>
                     </div>
                 </div>
