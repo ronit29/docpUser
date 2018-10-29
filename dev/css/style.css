@@ -552,7 +552,7 @@ p.top-head-link.card-lab-link span {
 }
 @media screen and (max-width: 438px) {
 	.head-links {
-		margin-left: 10px !important;
+		margin-left: 16px !important;
 	}
 	.logo-size {
 		width: 155px;
@@ -611,7 +611,7 @@ p.top-head-link.card-lab-link span {
 }
 
 .head-links:first-child {
-	margin-left: 0px;
+	margin-left: 0px !important;
 }
 
 @media screen and (max-width: 380px) {
@@ -747,6 +747,13 @@ p.top-head-link.card-lab-link span {
 	.chatbox-right.utm_chatbox_right .chat-body{
 		height: auto !important;
 	}
+	.banner-content-home button.signup-btn-banner{
+		font-size:15px !important;
+	}
+	.banner-lft-content span.bn-down-offer {
+		margin-left: 40px !important;
+	}
+
 }
 @media(max-width: 470px) {
 	.head-links img {
@@ -949,6 +956,9 @@ p.top-head-link.card-lab-link span {
 		width: 62px;
 		overflow: hidden;
 	}
+	.banner-lft-content span.bn-down-offer {
+		margin-left: 25px !important;
+	}
 }
 
 @media(max-width: 992px) {
@@ -957,6 +967,12 @@ p.top-head-link.card-lab-link span {
 	}
 	.inp-with-loc {
 		padding-right: 12px !important;
+	}
+	.banner-lft-content span.bn-down-offer {
+		margin-left: 20px;
+	}
+	.banner-content-home button.signup-btn-banner{
+		font-size:13px;
 	}
 }
 
@@ -1092,8 +1108,7 @@ p.top-head-link.card-lab-link span {
 	height: 100%;
 	border-top-right-radius: inherit;
 	border-top-left-radius: inherit;
-	background: url(https://cdn.docprime.com/static/web/images/pattern-1.png);
-	background-size: contain;
+	background: url(https://cdn.docprime.com/static/web/images/chat-bg.png);
 }
 
 .onload-chat .chatboat-container.chatbot_doc {
@@ -1703,6 +1718,9 @@ margin: 0px 10px;
 	}
 	.fltr-name-dtls p{
 		font-size: 11px;
+	}
+	.head-links {
+		margin-left: 13px !important;
 	}
 
 }
@@ -2533,4 +2551,49 @@ ul.list-sub-menu a:hover {
 	width: 45px;
 	overflow:  hidden;
 	white-space: nowrap;
+}
+
+.home-signup-banner {
+    background-image: url(/assets/img/SignupBanner-main.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 15px;
+    filter: drop-shadow(2px 4px 5px #0000001f);
+}
+.banner-content-home{
+	display: flex;
+    justify-content: space-between;
+    padding: 5px 15px;
+    align-items: center;
+}
+.bn-up-txt{
+	color: #f78631;
+    font-size: 15px;
+    font-weight: 500;
+}
+.sign-up-offer{
+	color: #ff5e3a;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: .9;
+}
+.bn-down-offer{
+	color: #f78631;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 40px;
+}
+.signup-btn-banner{
+	background-color: #ffffff;
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    border: none;
+    color: #f1863b;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 7px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }

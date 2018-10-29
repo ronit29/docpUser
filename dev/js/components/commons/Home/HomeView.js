@@ -56,20 +56,20 @@ class HomeView extends React.Component {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
-    searchLab(test,isPackage=false) {
+    searchLab(test, isPackage = false) {
         test.type = 'test'
         this.props.toggleDiagnosisCriteria('test', test, true)
         let data
-        if(isPackage){
+        if (isPackage) {
             data = {
                 'Category': 'ConsumerApp', 'Action': 'SelectedHealthPackage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-health-package', 'selected': test.name || '', 'selectedId': test.id || ''
             }
-        }else{
+        } else {
             data = {
                 'Category': 'ConsumerApp', 'Action': 'SelectedBookTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-book-test', 'selected': test.name || '', 'selectedId': test.id || ''
             }
         }
-        
+
         GTM.sendEvent({ data: data })
 
         setTimeout(() => {
@@ -135,12 +135,12 @@ class HomeView extends React.Component {
 
     gotToDoctorSignup(isLab) {
         let data
-        if(isLab){
+        if (isLab) {
 
             data = {
                 'Category': 'ConsumerApp', 'Action': 'RunLabBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'run-lab-banner-clicked'
             }
-        }else{
+        } else {
 
             data = {
                 'Category': 'ConsumerApp', 'Action': 'RunClinicBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'run-clinic-banner-clicked'
@@ -247,7 +247,7 @@ class HomeView extends React.Component {
 
                                     {
                                         this.props.common_tests.map((ct, i) => {
-                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,false)}>
+                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct, false)}>
                                                 <div className="grid-img-cnt brdr-btm">
                                                     <a href="javascript:void(0);">
                                                         <img className="img-fluid" src={ct.icon} />
@@ -284,7 +284,7 @@ class HomeView extends React.Component {
 
                                         {
                                             this.props.common_package.map((ct, i) => {
-                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,true)}>
+                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct, true)}>
                                                     <div className="grid-img-cnt brdr-btm">
                                                         <a href="javascript:void(0);">
                                                             <img className="img-fluid" src={ct.icon} />
@@ -348,6 +348,27 @@ class HomeView extends React.Component {
                         {/* Find a doctor */}
                         {
                             !!!profileData ?
+                        <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>
+                            <div className="banner-content-home">
+                                <div className="banner-lft-content">
+                                    <span className="bn-up-txt">
+                                        Get extra
+                                         </span>
+                                    <p className="sign-up-offer">
+                                        ₹ 300 OFF
+                                         </p>
+                                    <span className="bn-down-offer">
+                                        on bookings
+                                         </span>
+                                </div>
+                                <button className="signup-btn-banner">
+                                    Signup Now <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} />
+                                </button>
+                            </div>
+                        </div>: ''
+                        }
+                        {/* {
+                            !!!profileData ?
                                 <div className="fw-500 main-signup-banner" onClick={this.gotToSignup.bind(this)}>
                                     <div className="main-lft-content">
                                         <p className="main-sgn-top">Sign up and get</p>
@@ -359,7 +380,7 @@ class HomeView extends React.Component {
                                         <p className="avail-logo">Avail Now <img className="img-fluid" src="/assets/images/rt-arrow.svg" /></p>
                                     </div>
                                 </div> : ''
-                        }
+                        } */}
 
                         <div className="card cstm-card mb-3">
                             <div className="card-header" style={{ justifyContent: 'normal' }}>
@@ -395,7 +416,7 @@ class HomeView extends React.Component {
 
                         </div>
 
-                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this,false)}>
+                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
                             <p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
                             <button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
                         </div>
@@ -412,7 +433,7 @@ class HomeView extends React.Component {
 
                                     {
                                         this.props.common_tests.map((ct, i) => {
-                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,false)}>
+                                            return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct, false)}>
                                                 <div className="grid-img-cnt brdr-btm">
                                                     <a href="javascript:void(0);">
                                                         <img className="img-fluid" src={ct.icon} />
@@ -436,7 +457,7 @@ class HomeView extends React.Component {
                             </div>
                         </div>
 
-                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this,true)}>
+                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
                             <p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
                             <button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
                         </div>
@@ -451,7 +472,7 @@ class HomeView extends React.Component {
 
                                         {
                                             this.props.common_package.map((ct, i) => {
-                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct,true)}>
+                                                return <div className="col-4" key={i} onClick={this.searchLab.bind(this, ct, true)}>
                                                     <div className="grid-img-cnt brdr-btm">
                                                         <a href="javascript:void(0);">
                                                             <img className="img-fluid" src={ct.icon} />
