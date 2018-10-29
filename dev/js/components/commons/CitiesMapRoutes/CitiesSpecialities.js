@@ -16,7 +16,7 @@ class CitiesSpecialitiesView extends React.Component {
 	render() {
 
 		return (
-			<div>
+			<div className="row sitemap-row">
 				{
 					this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length ?
 						this.props.citiesMapSpecialities.specialization_city_urls.slice(0,20).map((city, i) => {

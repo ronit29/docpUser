@@ -16,7 +16,7 @@ class CitiesMap extends React.Component {
 	render() {
 
 		return (
-			<div className="col-12 col-md-7 col-lg-7 center-column">
+			<div className="row sitemap-row">
 				{
 					this.props.citiesMap && this.props.citiesMap.length?
 						this.props.citiesMap.slice(0,20).map((city, i) => {

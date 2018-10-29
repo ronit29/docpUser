@@ -951,12 +951,19 @@ p.top-head-link.card-lab-link span {
 	}
 }
 
+.sitemap-row{
+	margin-top: 8px;
+}
+
 @media(max-width: 992px) {
 	.inner-location {
 		display: none;
 	}
 	.inp-with-loc {
 		padding-right: 12px !important;
+	}
+	.sitemap-row{
+		margin-top: 0px;
 	}
 }
 
@@ -2411,11 +2418,10 @@ font-weight: 500;
 	background-color: #fff !important;
 }
 .anchor-data-style{
-	padding: 15px 10px;
 	display: block;
 	border-bottom: 1px solid #f2f2f2;
 	position: relative;
-	padding-right: 30px;
+	padding: 10px 50px 10px 10px;
 	cursor: pointer;
 }
 .anchor-data-style>a{
