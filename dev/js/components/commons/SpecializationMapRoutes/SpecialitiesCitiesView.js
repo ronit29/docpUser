@@ -74,11 +74,10 @@ class SpecialitiesCitiesMap extends React.Component{
 
 		}
 
-		console.log(pageCount)
 		return(
 			<div className="col-12 col-md-7 col-lg-7 center-column">
 				{
-					this.props.specialitiesMapCities.paginated_specialists?
+					this.props.specialitiesMapCities.paginated_specialists && this.props.specialitiesMapCities.paginated_specialists.length?
 					this.props.specialitiesMapCities.paginated_specialists[0].speciality_urls.map((city, i) => {
 						return <a key= {i} className= "anchor-data-style" href={`/${city.url}`} onClick={(e) => {
 	                    e.preventDefault();

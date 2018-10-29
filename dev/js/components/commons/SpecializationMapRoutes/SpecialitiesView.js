@@ -20,9 +20,14 @@ class SpecialitiesMap extends React.Component {
 			{
 				this.props.specialitiesMap.specialization_inventory?
 				this.props.specialitiesMap.specialization_inventory.slice(1,20).map((city, i) => {
-					return <a className="anchor-data-style" key= {i} href={`/speciality-inventory/${city.id}`} onClick={(e) => {
-                    e.preventDefault();
-                    this.props.history.push(`/speciality-inventory/${city.id}`) }} >{city.specialization}</a>
+					return <div key= {i} className="anchor-data-style">
+							<a href={`/speciality-inventory/${city.id}`} onClick={(e) => {
+		                    e.preventDefault();
+		                    this.props.history.push(`/speciality-inventory/${city.id}`) }} >{city.specialization}</a>
+		                    <span className="sitemap-right-arrow">
+								<img src="/assets/img/customer-icons/arrow-forward-right.svg" />
+							</span>
+						</div>
 				})
 				:''
 			}

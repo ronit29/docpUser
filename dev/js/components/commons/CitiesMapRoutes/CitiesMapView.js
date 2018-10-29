@@ -11,7 +11,7 @@ class CitiesMap extends React.Component {
 	render() {
 
 		return (
-			<div>
+			<div className="col-12 col-md-7 col-lg-7 center-column">
 				{
 					this.props.citiesMap ?
 						this.props.citiesMap.map((city, i) => {
