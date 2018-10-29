@@ -323,7 +323,7 @@ class UserSignupView extends React.Component {
 
                 </section>
                 {
-                    this.state.edit ? <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Edit</button>
+                    this.state.edit ? <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Update</button>
                         :
                         <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Add</button>
                 }
