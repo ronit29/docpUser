@@ -6,9 +6,8 @@ import {  getSpecialitiesMap } from '../../actions/index.js'
 class SpecializationMap extends React.Component {
 
 	static loadData(store, match, query) {
-
         if(match.params.speciality){
-            return store.dispatch(getSpecialitiesMap(match.params.speciality))
+            return store.dispatch(getSpecialitiesMap(match.params.speciality, query.page))
         }else{
             return store.dispatch(getSpecialitiesMap())
         }
