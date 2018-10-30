@@ -1,29 +1,33 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import CitiesMapRoutes from '../../components/commons/CitiesMapRoutes'
-import { getCitiesMap, getSpecialitiesMap } from '../../actions/index.js'
+import { setFetchResults, getCitiesMap, getSpecialitiesMap } from '../../actions/index.js'
 
 class CitiesMap extends React.Component {
 
 	static loadData(store, match, query) {
-        let city = match.params.city
-        if(city){
-            return store.dispatch(getCitiesMap(city))
-        }else{
-            return store.dispatch(getCitiesMap())
-        }
-        
-    }
+		let city = match.params.city
+		if (city) {
+			return store.dispatch(getCitiesMap(city))
+		} else {
+			return store.dispatch(getCitiesMap())
+		}
 
-    static contextTypes = {
-        router: () => null
-    }
+	}
 
-	render(){
-		
-		return(
+	static contextTypes = {
+		router: () => null
+	}
+
+	componentDidMount() {
+		this.props.setFetchResults(true)
+	}
+
+	render() {
+
+		return (
 			<CitiesMapRoutes {...this.props} />
-			)
+		)
 	}
 }
 
@@ -35,7 +39,7 @@ const mapStateToProps = (state) => {
 		specialitiesMapCities
 	} = state.SITE_MAP
 
-	return{
+	return {
 		citiesMap,
 		citiesMapSpecialities,
 		specialitiesMap,
@@ -46,11 +50,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 
-	return{
+	return {
 		getCitiesMap: (city) => dispatch(getCitiesMap(city)),
-		getSpecialitiesMap: (speciality) => dispatch(getCitiesMap(speciality))
+		getSpecialitiesMap: (speciality) => dispatch(getCitiesMap(speciality)),
+		setFetchResults: (status) => dispatch(setFetchResults(status))
 	}
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (CitiesMap)
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesMap)
