@@ -25,7 +25,9 @@ class SpecialitiesCitiesMap extends React.Component {
 		}
 	}
 	componentDidMount() {
-
+		if (window) {
+            window.scrollTo(0, 0)
+        }
 		let speciality = this.props.match.params.speciality
 		this.props.getSpecialitiesMap(speciality, this.state.page)
 	}
@@ -76,28 +78,41 @@ class SpecialitiesCitiesMap extends React.Component {
 			<div className="row sitemap-row">
 				{
 					this.props.specialitiesMapCities.paginated_specialists && this.props.specialitiesMapCities.paginated_specialists.length ?
+
+							<div>
+							<HelmetTags tagsData={{
+									
+									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
+
+									prev: `${prev?`${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${prev}`:''}`,
+
+									next: `${next?`${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${next}`:''}`
+								}} />
 						
-						this.props.specialitiesMapCities.paginated_specialists.map((city, i) => {
-							return (
-								<div style={{marginBottom: '15px'}} className="col-12 col-md-12" key={i}>
-									<p className="fw-500 sitemap-title">{city.city_title}</p>
-									<div className="row">
-									{
-										city.speciality_url_title.map((speciality, i) => {
-											return <div key={i} className="col-md-6" onClick={this.goToSpeciality.bind(this, speciality.url)} >
-											<div className="anchor-data-style">
-												<a href={`/${speciality.url}`} onClick={(e) => { e.preventDefault() }} >{`${speciality.title}`}</a>
-												<span className="sitemap-right-arrow">
-													<img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
-												</span>
+						{
+							this.props.specialitiesMapCities.paginated_specialists.map((city, i) => {
+								return (
+									<div style={{marginBottom: '15px'}} className="col-12 col-md-12" key={i}>
+										<p className="fw-500 sitemap-title">{city.city_title}</p>
+										<div className="row">
+										{
+											city.speciality_url_title.map((speciality, i) => {
+												return <div key={i} className="col-md-6" onClick={this.goToSpeciality.bind(this, speciality.url)} >
+												<div className="anchor-data-style">
+													<a href={`/${speciality.url}`} onClick={(e) => { e.preventDefault() }} >{`${speciality.title}`}</a>
+													<span className="sitemap-right-arrow">
+														<img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
+													</span>
+													</div>
 												</div>
-											</div>
-										})
-									}
+											})
+										}
+										</div>
 									</div>
-								</div>
-							)
-						})
+								)
+							})
+						}
+						</div>
 						: ''
 				}
 				<div className="pagination-style">

@@ -7,7 +7,7 @@ class SpecializationMap extends React.Component {
 
 	static loadData(store, match, query) {
         if(match.params.speciality){
-            return store.dispatch(getSpecialitiesMap(match.params.speciality, query.page))
+        	return store.dispatch(getSpecialitiesMap(match.params.speciality, query.page))
         }else{
             return store.dispatch(getSpecialitiesMap())
         }
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
 	return{
-		getSpecialitiesMap: (speciality, page) => dispatch(getSpecialitiesMap(speciality, page))
+		getSpecialitiesMap: (speciality, page, cb) => dispatch(getSpecialitiesMap(speciality, page, cb))
 	}
 
 }
