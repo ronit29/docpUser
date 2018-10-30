@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import GTM from '../../../../helpers/gtm.js'
 import PackageTest from './packageTest.js'
 import PackageInfo from './packageInfo.js'
+import STORAGE from '../../../../helpers/storage'
 const queryString = require('query-string');
 
 
@@ -102,19 +103,25 @@ class LabTests extends React.Component {
                     </ul>
                     {
                         pickup_text ? <div className="clearfix">
-                        
+
                             <p className="health-visit-charge">{pickup_text}</p>
 
                             {
-                                showPriceTag?<p className="prc-tstcoin"> &#8377;{extra_price==""?'0':extra_price}</p>:''
-                                
+                                showPriceTag ? <p className="prc-tstcoin"> &#8377;{extra_price == "" ? '0' : extra_price}</p> : ''
+
                             }
                             {
                                 !showPriceTag && extra_price >= 0 && extra_price ? <p className="prc-tstcoin"> &#8377;{extra_price}</p> : ""
                             }
                         </div> : ""
                     }
-
+                    {
+                        STORAGE.checkAuth() ?
+                            ''
+                            : <div className="signup-off-container lab-signup-offr">
+                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                            </div>
+                    }
                     <div className="pb-view text-right">
                         <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
                     </div>

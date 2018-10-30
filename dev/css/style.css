@@ -2361,7 +2361,7 @@ font-weight: 500;
     text-decoration: line-through;
 }
 .signup-off-container{
-	width: 158px;
+	margin-bottom: 10px;
 }
 .border-bottom-radious{
 	overflow: hidden;
@@ -2647,4 +2647,8 @@ ul.list-sub-menu a:hover {
     left: 0px;
     top: -3px;
     position: absolute;
+}
+.signup-off-container.lab-signup-offr{
+	display:flex;
+	justify-content: flex-end;
 }

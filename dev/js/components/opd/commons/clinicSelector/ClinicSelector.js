@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
+import STORAGE from '../../../../helpers/storage'
 
 class ClinicSelector extends React.Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class ClinicSelector extends React.Component {
     showNumber(id, e) {
         e.preventDefault()
         e.stopPropagation()
-        
+
         let data = {
             'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'selectedId': id
         }
@@ -67,16 +68,20 @@ class ClinicSelector extends React.Component {
                             hospitals.map((hospital, i) => {
                                 return <li key={i} style={style}>
                                     <div className="widget no-shadow">
-                                        <div className="widget-header pb-rmv clearfix">
-                                            <h4 className="widget-title text-md fw-700 clinic-selector-name ratng-clinic-slc-name">{hospital.hospital_name}</h4>
-                                            <span className="float-right text-md fw-700 ratng-doc-price">&#8377; {hospital.deal_price}</span>
-                                        </div>
                                         {/* <div className="widget-header pb-rmv clearfix">
                                             <h4 className="widget-title text-md fw-700 clinic-selector-name ratng-clinic-slc-name">{hospital.hospital_name}</h4>
-                                            <span className="float-right text-md fw-700 ratng-doc-price add-on-doc-price">&#8377; {hospital.deal_price} <b className="ratng-doc-oldprice">&#8377; 700</b>
-                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                            </span>
+                                            <span className="float-right text-md fw-700 ratng-doc-price">&#8377; {hospital.deal_price}</span>
                                         </div> */}
+                                        <div className="widget-header pb-rmv clearfix">
+                                            <h4 className="widget-title text-md fw-700 clinic-selector-name ratng-clinic-slc-name">{hospital.hospital_name}</h4>
+                                            <span className="float-right text-md fw-700 ratng-doc-price add-on-doc-price">&#8377; {hospital.deal_price} <b className="ratng-doc-oldprice">&#8377; 700</b>
+                                                {
+                                                    STORAGE.checkAuth() ?
+                                                        ''
+                                                        : <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                }
+                                            </span>
+                                        </div>
                                         <div className="widget-content pt-two">
                                             <div className="location-details clearfix">
                                                 <p className="address">{hospital.address}</p>
