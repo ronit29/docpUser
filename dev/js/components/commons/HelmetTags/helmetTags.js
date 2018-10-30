@@ -17,6 +17,14 @@ class HelmetTags extends React.Component {
         let canonicalUrl = (tagsData && tagsData.canonicalUrl) ? tagsData.canonicalUrl : ""
         let prev = (tagsData && tagsData.prev) ? tagsData.prev : ""
         let next = (tagsData && tagsData.next) ? tagsData.next : ""
+        let schema = (tagsData && tagsData.schema) ? tagsData.schema : null
+        try {
+            if (schema) {
+                schema = JSON.stringify(schema)
+            }
+        } catch (e) {
+            schema = ""
+        }
 
         if (setDefault) {
             title = "Free Online Doctor Consultation | Up To 50% off on Doctor Appointment"
@@ -54,6 +62,11 @@ class HelmetTags extends React.Component {
                     next ?
                         <link rel="next" href={next} />
                         : ''
+                }
+                {
+                    schema ? <script type="application/ld+json">
+                        {`${schema}`}
+                    </script> : ""
                 }
             </Helmet>
         )

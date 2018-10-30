@@ -147,11 +147,13 @@ class SearchResultsView extends React.Component {
     getMetaTagsData(seoData) {
         let title = "Doctor Search"
         let description = ""
+        let schema = {}
         if (seoData) {
             title = seoData.title || ""
             description = seoData.description || ""
+            schema = seoData.schema
         }
-        return { title, description }
+        return { title, description, schema }
     }
 
     render() {
@@ -162,6 +164,7 @@ class SearchResultsView extends React.Component {
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description,
+                    schema: this.getMetaTagsData(this.state.seoData).schema,
                     seoFriendly: this.state.seoFriendly
                 }} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card}>
