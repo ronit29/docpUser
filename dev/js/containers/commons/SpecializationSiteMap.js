@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SpecializationMapRoutes from '../../components/commons/SpecializationMapRoutes'
-import {  getSpecialitiesMap } from '../../actions/index.js'
+import { setFetchResults, getSpecialitiesMap } from '../../actions/index.js'
 
 class SpecializationMap extends React.Component {
 
 	static loadData(store, match, query) {
-
         if(match.params.speciality){
-            return store.dispatch(getSpecialitiesMap(match.params.speciality))
+        	return store.dispatch(getSpecialitiesMap(match.params.speciality, query.page))
         }else{
             return store.dispatch(getSpecialitiesMap())
         }
@@ -23,7 +22,7 @@ class SpecializationMap extends React.Component {
 		
 		return(
 			<SpecializationMapRoutes {...this.props} />
-			)
+		)
 	}
 }
 
@@ -33,7 +32,7 @@ const mapStateToProps = (state) => {
 		specialitiesMapCities
 	} = state.SITE_MAP
 
-	return{
+	return {
 		specialitiesMap,
 		specialitiesMapCities
 	}
@@ -43,9 +42,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
 	return{
-		getSpecialitiesMap: (speciality, page) => dispatch(getSpecialitiesMap(speciality, page))
+		getSpecialitiesMap: (speciality, page, cb) => dispatch(getSpecialitiesMap(speciality, page, cb))
 	}
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (SpecializationMap)
+export default connect(mapStateToProps, mapDispatchToProps)(SpecializationMap)

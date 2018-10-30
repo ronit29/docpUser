@@ -151,7 +151,7 @@
 .all-test-list .test-price{position: absolute; top: 18px; right:10px;}
 .more-test-results-div{
 	position: sticky;
-	bottom: 10px;
+	bottom: 60px;
 	border-radius: 50px;
 	padding: 4px 8px;
 	width: 76px;

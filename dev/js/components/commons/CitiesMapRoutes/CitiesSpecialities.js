@@ -16,6 +16,8 @@ class CitiesSpecialitiesView extends React.Component {
 	render() {
 
 		return (
+		<div>
+			<div className="fw-500 sitemap-title">{this.props.match.params.city}</div>
 			<div className="row sitemap-row">
 				{
 					this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length ?
@@ -51,6 +53,7 @@ class CitiesSpecialitiesView extends React.Component {
 						: ''
 				}
 			</div>
+		</div>
 		)
 	}
 }

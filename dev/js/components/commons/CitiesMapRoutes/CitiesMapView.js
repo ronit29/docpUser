@@ -16,6 +16,8 @@ class CitiesMap extends React.Component {
 	render() {
 
 		return (
+		<div>
+			<div className="fw-500 sitemap-title">All Cities</div>
 			<div className="row sitemap-row">
 				{
 					this.props.citiesMap && this.props.citiesMap.length ?
@@ -53,6 +55,7 @@ class CitiesMap extends React.Component {
 						: ''
 				}
 			</div>
+		</div>
 		)
 	}
 }
