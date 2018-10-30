@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SpecializationMapRoutes from '../../components/commons/SpecializationMapRoutes'
-import {  getSpecialitiesMap } from '../../actions/index.js'
+import { setFetchResults, getSpecialitiesMap } from '../../actions/index.js'
 
 class SpecializationMap extends React.Component {
 
@@ -22,7 +22,7 @@ class SpecializationMap extends React.Component {
 		
 		return(
 			<SpecializationMapRoutes {...this.props} />
-			)
+		)
 	}
 }
 
@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
 		specialitiesMapCities
 	} = state.SITE_MAP
 
-	return{
+	return {
 		specialitiesMap,
 		specialitiesMapCities
 	}
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch) => {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (SpecializationMap)
+export default connect(mapStateToProps, mapDispatchToProps)(SpecializationMap)
