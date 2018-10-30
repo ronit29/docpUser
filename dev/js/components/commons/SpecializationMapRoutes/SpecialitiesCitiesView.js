@@ -25,7 +25,13 @@ class SpecialitiesCitiesMap extends React.Component {
 		}
 	}
 	componentDidMount() {
-
+		if (window) {
+            window.scrollTo(0, 0)
+        }
+        if (this.props.location.search == '?page=1') {
+			var newHref = window.location.href.replace('?page=1', '');
+			window.location.href = newHref;
+		}
 		let speciality = this.props.match.params.speciality
 		this.props.getSpecialitiesMap(speciality, this.state.page)
 	}
@@ -42,31 +48,31 @@ class SpecialitiesCitiesMap extends React.Component {
 		if (totalPages) {
 			if (this.state.page == 1 && this.state.page < totalPages) {
 				next = this.state.page + 1
-				pageCount.push(<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page + 1}`} >{this.state.page + 1}</a>
+				pageCount.push(<span key={1} className="anch-page-cnt active">{this.state.page}</span>
 				)
+				for(var i =2; i<=totalPages; i++){
+					pageCount.push(<a key={i} className="anch-page-cnt" href={`/${this.state.title}?page=${i}`} >{i}</a>)
+				}
 
 			} else if (this.state.page != 1 && this.state.page + 1 <= totalPages) {
 				next = this.state.page + 1
 				prev = this.state.page - 1
 				pageCount.push(
-					<div>
-						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>
+						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>)
 
-						<a key={2} className="anch-page-cnt" href="javascript:void(0);" >{this.state.page}</a>
+				pageCount.push(<span key={this.state.page} className="anch-page-cnt" >{this.state.page}</span>)
 
-						<a key={3} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page + 1}`} >{this.state.page + 1}</a>
-					</div>
-				)
+				for(var i = this.state.page + 1; i<=totalPages; i++){
+					pageCount.push(<a key={i} className="anch-page-cnt" href={`/${this.state.title}?page=${i}`} >{i}</a>)
+				}
 
 			} else if (this.state.page == totalPages && totalPages > 1) {
 				prev = this.state.page - 1
 				pageCount.push(
-					<div>
-						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>
+						<a key={1} className="anch-page-cnt" href={`/${this.state.title}?page=${this.state.page - 1}`} >{this.state.page - 1}</a>)
 
-						<a key={2} className="anch-page-cnt" href="javascript:void(0);" >{this.state.page}</a>
-					</div>
-				)
+				pageCount.push(<span key={this.state.page} className="anch-page-cnt" >{this.state.page}</span>)
+					
 
 			}
 
@@ -76,28 +82,41 @@ class SpecialitiesCitiesMap extends React.Component {
 			<div className="row sitemap-row">
 				{
 					this.props.specialitiesMapCities.paginated_specialists && this.props.specialitiesMapCities.paginated_specialists.length ?
+
+							<div>
+							<HelmetTags tagsData={{
+									
+									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
+
+									prev: `${prev?`${CONFIG.API_BASE_URL}${this.props.location.pathname}${prev != 1?`?page=${prev}`:''}`:''}`,
+
+									next: `${next?`${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${next}`:''}`
+								}} />
 						
-						this.props.specialitiesMapCities.paginated_specialists.map((city, i) => {
-							return (
-								<div style={{marginBottom: '15px'}} className="col-12 col-md-12" key={i}>
-									<p className="fw-500 sitemap-title">{city.city_title}</p>
-									<div className="row">
-									{
-										city.speciality_url_title.map((speciality, i) => {
-											return <div key={i} className="col-md-6" onClick={this.goToSpeciality.bind(this, speciality.url)} >
-											<div className="anchor-data-style">
-												<a href={`/${speciality.url}`} onClick={(e) => { e.preventDefault() }} >{`${speciality.title}`}</a>
-												<span className="sitemap-right-arrow">
-													<img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
-												</span>
+						{
+							this.props.specialitiesMapCities.paginated_specialists.map((city, i) => {
+								return (
+									<div style={{marginBottom: '15px'}} className="col-12 col-md-12" key={i}>
+										<p className="fw-500 sitemap-title">{city.city_title}</p>
+										<div className="row">
+										{
+											city.speciality_url_title.map((speciality, i) => {
+												return <div key={i} className="col-md-6" onClick={this.goToSpeciality.bind(this, speciality.url)} >
+												<div className="anchor-data-style">
+													<a href={`/${speciality.url}`} onClick={(e) => { e.preventDefault() }} >{`${speciality.title}`}</a>
+													<span className="sitemap-right-arrow">
+														<img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
+													</span>
+													</div>
 												</div>
-											</div>
-										})
-									}
+											})
+										}
+										</div>
 									</div>
-								</div>
-							)
-						})
+								)
+							})
+						}
+						</div>
 						: ''
 				}
 				<div className="pagination-style">

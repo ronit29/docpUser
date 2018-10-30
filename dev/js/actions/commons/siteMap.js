@@ -34,7 +34,7 @@ export const getCitiesMap = (city = "", page = 0) => (dispatch) => {
 	})
 }
 
-export const getSpecialitiesMap = (speciality = "", page = 0) => (dispatch) => {
+export const getSpecialitiesMap = (speciality = "", page = 0, cb) => (dispatch) => {
 	let url = '/api/v1/location/speciality-inventory'
 	
 	if(speciality){
@@ -53,6 +53,7 @@ export const getSpecialitiesMap = (speciality = "", page = 0) => (dispatch) => {
 				type: GET_SPECIALITIES_CITIES,
 				payload: response
 			})
+			if(cb)cb(response)
 
 		}else{
 			

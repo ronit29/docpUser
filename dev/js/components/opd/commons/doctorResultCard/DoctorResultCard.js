@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
+import STORAGE from '../../../../helpers/storage';
 
 class DoctorProfileCard extends React.Component {
     constructor(props) {
@@ -95,9 +96,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                 </div>
-                                {/* <div className="signup-off-container">
-                                    <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                </div> */}
+
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">
@@ -118,6 +117,13 @@ class DoctorProfileCard extends React.Component {
                                             mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                         }
                                     </p>
+                                    {
+                                        STORAGE.checkAuth()?
+                                        ''
+                                        :<div className="signup-off-container">
+                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                        </div>
+                                    }
 
                                     {
                                         enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>

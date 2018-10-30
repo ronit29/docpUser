@@ -9,6 +9,7 @@ import GTM from '../../../helpers/gtm.js'
 class TestSelectorView extends React.Component {
     constructor(props) {
         super(props)
+        this.hideResultIndicator = this.hideResultIndicator.bind(this);
         this.state = {
             selectedLab: this.props.match.params.id,
             searchResults: [],
@@ -118,6 +119,20 @@ class TestSelectorView extends React.Component {
 
         }
 
+        // hide and show "more" code below :
+        // if (document.getElementById('lab-tests-list')) {
+        //     var listTopOffset = document.getElementById('lab-tests-list').getBoundingClientRect().top;
+        //     var listHeight = document.getElementById('lab-tests-list').scrollHeight;
+        //     var windowHeight = window.innerHeight;
+        //     console.log('sgusauhufihaduihauisdhusahuiashisua');
+        //     console.log(listTopOffset);
+        //     console.log(listHeight);
+        //     console.log(windowHeight);
+        //     if ((listHeight - listTopOffset) > windowHeight) {
+        //         this.setState({ moreResultIndicator: true })
+        //     }
+        // }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -164,7 +179,7 @@ class TestSelectorView extends React.Component {
                                         <section className="wrap all-test-screen">
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
-                                                    <ul className="list all-test-list">
+                                                    <ul className="list all-test-list" id="lab-tests-list">
                                                         {tests}
                                                     </ul>
                                                 </div>
@@ -194,7 +209,7 @@ class TestSelectorView extends React.Component {
                 </section>
             </div>
         );
-        
+
     }
 }
 

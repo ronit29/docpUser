@@ -3,6 +3,7 @@ import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 
 import { buildOpenBanner } from '../../../../helpers/utils.js'
+import STORAGE from '../../../../helpers/storage'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -118,9 +119,13 @@ class LabProfileCard extends React.Component {
                                 {
                                     price ? <p className="lab-price mrb-10"><span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span> &#8377; {price}</p> : ""
                                 }
-                                {/* <div className="signup-off-container float-left">
-                                    <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                </div> */}
+                                {
+                                    STORAGE.checkAuth() ?
+                                        ''
+                                        : <div className="signup-off-container lab-signup-offr">
+                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                        </div>
+                                }
                                 {
                                     pickup_text ? <p className="features-dtls"><sup className="str-symbol">*</sup>{pickup_text}</p> : ""
                                 }

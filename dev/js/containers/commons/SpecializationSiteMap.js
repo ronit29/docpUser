@@ -6,25 +6,21 @@ import { setFetchResults, getSpecialitiesMap } from '../../actions/index.js'
 class SpecializationMap extends React.Component {
 
 	static loadData(store, match, query) {
-		if (match.params.speciality) {
-			return store.dispatch(getSpecialitiesMap(match.params.speciality, query.page))
-		} else {
-			return store.dispatch(getSpecialitiesMap())
-		}
+        if(match.params.speciality){
+        	return store.dispatch(getSpecialitiesMap(match.params.speciality, query.page))
+        }else{
+            return store.dispatch(getSpecialitiesMap())
+        }
+        
+    }
 
-	}
+    static contextTypes = {
+        router: () => null
+    }
 
-	static contextTypes = {
-		router: () => null
-	}
-
-	componentDidMount() {
-		this.props.setFetchResults(true)
-	}
-
-	render() {
-
-		return (
+	render(){
+		
+		return(
 			<SpecializationMapRoutes {...this.props} />
 		)
 	}
@@ -45,9 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 
-	return {
-		getSpecialitiesMap: (speciality, page) => dispatch(getSpecialitiesMap(speciality, page)),
-		setFetchResults: (status) => dispatch(setFetchResults(status))
+	return{
+		getSpecialitiesMap: (speciality, page, cb) => dispatch(getSpecialitiesMap(speciality, page, cb))
 	}
 
 }

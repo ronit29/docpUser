@@ -2361,7 +2361,7 @@ font-weight: 500;
     text-decoration: line-through;
 }
 .signup-off-container{
-	width: 158px;
+	margin-bottom: 10px;
 }
 .border-bottom-radious{
 	overflow: hidden;
@@ -2465,10 +2465,24 @@ font-weight: 500;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+span.anch-page-cnt{
+	       z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #f97a3b;
+    border-color: #f97b3b;
+}
 .anch-page-cnt{
-	padding: 5px;
-	cursor: pointer;
-	color: #0000EE;
+	    cursor: pointer;
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #f97b3b;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #efc1aa;
 }
 .sitemap-right-arrow{
 	position: absolute;
@@ -2648,10 +2662,12 @@ ul.list-sub-menu a:hover {
     top: -3px;
     position: absolute;
 }
+.signup-off-container.lab-signup-offr{
+	display:flex;
+	justify-content: flex-end;
+}
 .pagination-style{
-	    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 15px;
+	width: 100%;
+	    display: flex;
+    justify-content: center;
 }

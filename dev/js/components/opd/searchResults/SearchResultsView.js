@@ -25,6 +25,9 @@ class SearchResultsView extends React.Component {
                 window.scrollTo(0, 0)
             }
         }
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     componentWillReceiveProps(props) {
