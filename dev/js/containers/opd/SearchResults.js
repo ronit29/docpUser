@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria } from '../../actions/index.js'
+import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -31,7 +31,16 @@ class SearchResults extends React.Component {
                     }
 
                     store.dispatch(getDoctors(state, 1, true, searchUrl, (loadMore, seoData) => {
-                        resolve(seoData)
+                        if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
+                            getFooterData(match.url.split("/")[1])().then((footerData) => {
+                                footerData = footerData || null
+                                resolve({ seoData, footerData })
+                            }).catch((e) => {
+                                resolve({ seoData })
+                            })
+                        } else {
+                            resolve({ seoData })
+                        }
                     }))
                 })
             })
@@ -95,7 +104,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
         getDoctors: (state, page, from_server, searchByUrl, cb) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
-        getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback))
+        getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
+        getFooterData: (url) => dispatch(getFooterData(url))
     }
 }
 

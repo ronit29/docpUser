@@ -926,7 +926,7 @@
 }
 
 .social-icons-row{
-	justify-content: space-around;
+	justify-content: center;
 }
 
 .footer-2-head>p{
@@ -945,6 +945,7 @@
 .social-icon{
 	width: 30px;
 	height: 30px;
+	margin: 0px 5px;
 }
 
 .social-icon>a>img{

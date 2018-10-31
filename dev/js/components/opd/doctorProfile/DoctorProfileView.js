@@ -15,11 +15,17 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
+import Footer from '../../commons/Home/footer'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
         super(props)
+        let footerData = null
+        if (this.props.initialServerData) {
+            footerData = this.props.initialServerData.footerData
+        }
         this.state = {
+            footerData,
             seoFriendly: this.props.match.url.includes('-dpp')
         }
     }
@@ -28,6 +34,11 @@ class DoctorProfileView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+        this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+            if (footerData) {
+                this.setState({ footerData: footerData })
+            }
+        })
     }
 
     getMetaTagsData(seoData) {
@@ -44,7 +55,11 @@ class DoctorProfileView extends React.Component {
 
     render() {
 
-        let doctor_id = this.props.initialServerData || this.props.selectedDoctor
+        let doctor_id = this.props.selectedDoctor
+        if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
+            doctor_id = this.props.initialServerData.doctor_id
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -155,6 +170,7 @@ class DoctorProfileView extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+                <Footer footerData={this.state.footerData} />
             </div>
         );
     }

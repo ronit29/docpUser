@@ -6,13 +6,19 @@ import TopBar from './topBar'
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
-
+import Footer from '../../commons/Home/footer'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
+        let seoData = null
+        let footerData = null
+        if (this.props.initialServerData) {
+            seoData = this.props.initialServerData.seoData
+            footerData = this.props.initialServerData.footerData
+        }
         this.state = {
-            seoData: this.props.initialServerData,
+            seoData, footerData,
             seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
             clinic_card: this.props.location.search.includes('clinic_card') || null
         }
@@ -25,6 +31,11 @@ class SearchResultsView extends React.Component {
                 window.scrollTo(0, 0)
             }
         }
+        this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+            if (footerData) {
+                this.setState({ footerData: footerData })
+            }
+        })
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -149,6 +160,9 @@ class SearchResultsView extends React.Component {
 
     getMetaTagsData(seoData) {
         let title = "Doctor Search"
+        if (this.state.seoFriendly) {
+            title = ""
+        }
         let description = ""
         let schema = {}
         if (seoData) {
@@ -179,6 +193,7 @@ class SearchResultsView extends React.Component {
                         <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} />
                     </div>
                 </CriteriaSearch>
+                <Footer footerData={this.state.footerData} />
             </div>
         );
     }
