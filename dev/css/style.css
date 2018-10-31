@@ -2712,7 +2712,11 @@ ul.list-sub-menu a:hover {
 }
 .footer-doctor-listing h4{
     font-weight: 500;
-    font-size: 15px;
+	font-size: 15px;
+	margin-bottom: 4px;
+}
+.footer-doctor-listing {
+    margin-bottom: 10px;
 }
 .footer-doctor-listing li{
 	display: inline-block;

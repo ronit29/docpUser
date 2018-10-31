@@ -64,10 +64,10 @@ class Footer extends React.Component {
 
 
                 <div className="container-fluid footer-2">
-                    {
-                        menu.map((f, i) => {
-                            return <div className="container" key={i}>
-                                <div className="footer-doctor-listing">
+                    <div className="container">
+                        {
+                            menu.map((f, i) => {
+                                return <div className="footer-doctor-listing" key={i}>
                                     <h4>{f.sub_heading}</h4>
                                     <ul>
                                         {
@@ -79,10 +79,9 @@ class Footer extends React.Component {
                                         }
                                     </ul>
                                 </div>
-                            </div>
-                        })
-                    }
-
+                            })
+                        }
+                    </div>
                 </div>
 
 
