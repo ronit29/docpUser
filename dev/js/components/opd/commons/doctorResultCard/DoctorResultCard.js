@@ -88,7 +88,7 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                                 <div className="fltr-name-dtls">
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
-                                        <h2 className="fltr-dc-name">{display_name}</h2>
+                                        <h2 style={{fontSize: "16px"}} className="fltr-dc-name">{display_name}</h2>
                                     </a>
                                     <p>{this.getQualificationStr(general_specialization || [])}</p>
                                     {
