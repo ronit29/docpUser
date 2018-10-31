@@ -759,6 +759,16 @@ p.top-head-link.card-lab-link span {
 	h3.foot-sub-lisitng {
 		margin-top: 40px;
 	}
+	div.footer-new-copyrght{
+		text-align: center;
+		margin-top: 40px;
+	}
+	.mbl-divider{
+		border-top: 1px solid #e6e0e0;
+	}
+	div.foot-with-img {
+		margin: 0px 0px;
+	}
 
 }
 @media(max-width: 470px) {
@@ -2739,5 +2749,19 @@ ul.list-sub-menu a:hover {
 	text-decoration: underline;
     color: #d76e48;
 }
-
+.footer-new-copyrght{
+	text-align: center;
+	margin-top: 15px;
+}
+.footer-new-copyrght p{
+    display: inline-block;
+    color: #353333;
+    font-weight: 500;
+}
+.foot-with-img{
+	margin: 70px 0px;
+}
+.social-icons-row{
+	margin-top: 25px;
+}
 /* new footer design */
