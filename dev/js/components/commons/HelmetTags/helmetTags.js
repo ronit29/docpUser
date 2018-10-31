@@ -36,7 +36,9 @@ class HelmetTags extends React.Component {
         }
         return (
             <Helmet>
-                <title>{title}</title>
+                {
+                    title ? <title>{title}</title> : ""
+                }
                 <meta name="title" content={title} />
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />

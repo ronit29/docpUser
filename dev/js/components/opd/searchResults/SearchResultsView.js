@@ -160,6 +160,9 @@ class SearchResultsView extends React.Component {
 
     getMetaTagsData(seoData) {
         let title = "Doctor Search"
+        if (this.state.seoFriendly) {
+            title = ""
+        }
         let description = ""
         let schema = {}
         if (seoData) {
