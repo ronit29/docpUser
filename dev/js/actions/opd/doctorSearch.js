@@ -219,11 +219,11 @@ export const getDoctorNumber = (doctorId, callback) => (dispatch) => {
 
 export const applyOpdCoupons = (productId = '', couponCode, couponId, hospitalId, dealPrice) => (dispatch) => {
 
-	API_POST(`/api/v1/coupon/discount`, {coupon_code: [couponCode], deal_price: dealPrice, product_id: productId}).then(function (response) {
+	API_POST(`/api/v1/coupon/discount`, { coupon_code: [couponCode], deal_price: dealPrice, product_id: productId }).then(function (response) {
 		let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'OpdCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupon-applied','couponId': couponId
-        }
-        GTM.sendEvent({ data: analyticData })
+			'Category': 'ConsumerApp', 'Action': 'OpdCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupon-applied', 'couponId': couponId
+		}
+		GTM.sendEvent({ data: analyticData })
 		dispatch({
 			type: APPLY_OPD_COUPONS,
 			payload: response
@@ -243,5 +243,13 @@ export const removeCoupons = (hospitalId, couponId) => (dispatch) => {
 export const resetOpdCoupons = () => (dispatch) => {
 	dispatch({
 		type: RESET_OPD_COUPONS
+	})
+}
+
+export const getFooterData = (url) => (dispatch) => {
+	return API_GET(`/api/v1/location/dynamicfooters?url=${url}`).then(function (response) {
+		return response
+	}).catch(function (error) {
+
 	})
 }

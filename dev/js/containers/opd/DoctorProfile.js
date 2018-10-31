@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 
@@ -24,7 +24,16 @@ class DoctorProfile extends React.Component {
             return new Promise((resolve, reject) => {
                 store.dispatch(getDoctorByUrl(url, (doctor_id, url) => {
                     if (doctor_id) {
-                        resolve(doctor_id)
+                        if (match.url.includes('-dpp')) {
+                            getFooterData(match.url.split("/")[1])().then((footerData) => {
+                                footerData = footerData || null
+                                resolve({ doctor_id, footerData })
+                            }).catch((e) => {
+                                resolve({ doctor_id })
+                            })
+                        } else {
+                            resolve({ doctor_id })
+                        }
                     } else {
                         reject({
                             url: url
@@ -95,7 +104,8 @@ const mapDispatchToProps = (dispatch) => {
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
-        closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback))
+        closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
+        getFooterData: (url) => dispatch(getFooterData(url))
     }
 }
 

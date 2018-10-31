@@ -82,7 +82,7 @@
 }
 
 .chat-body {
-	background: #f4f4f4 url(/dist8f8cea8b032be29b75383cd65dfb63f9.png);
+	background: #f4f4f4;
 	position: relative;
 	flex: 1;
 	height: -webkit-fill-available;
@@ -96,7 +96,7 @@
 .chat-mssgs {
 	min-height: 445px;
 	max-height: 445px;
-	background: #f4f4f4 url(/dist8f8cea8b032be29b75383cd65dfb63f9.png);
+	background: #f4f4f4;
 	padding: 15px;
 	overflow-x: hidden;
 	overflow-y: scroll;

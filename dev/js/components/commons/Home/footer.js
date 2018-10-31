@@ -12,6 +12,11 @@ class Footer extends React.Component {
 
     render() {
 
+        let menu = []
+        if (this.props.footerData && this.props.footerData.menu && this.props.footerData.menu.length) {
+            menu = this.props.footerData.menu
+        }
+
         return (
             <footer className="profile-footer">
 
@@ -56,26 +61,31 @@ class Footer extends React.Component {
                         </div>
                     </div>
                 </div> */}
+
+
                 <div className="container-fluid footer-2">
-                    <div className="container">
-                        <div className="footer-doctor-listing">
-                        <h4>Popular Doctors In Gurgaon</h4>
-                            <ul>
-                                <li>
-                                    <a>Psychiatrists in gurgaon</a>
-                                </li>
-                                <li><a>Sexologists in gurgaon</a></li>
-                                <li><a>Nephrologists in gurgaon</a></li>
-                                <li><a>Alternative Medicine Specialists in gurgaon</a></li>
-                                <li><a>Diabetologists in gurgaon</a></li>
-                                <li><a>Beauticians in gurgaon</a></li>
-                                <li><a>Rheumatologists in gurgaon</a></li>
-                                <li><a>Chiropractors in gurgaon</a></li>
-                                <li><a>Gynecologists in gurgaon </a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    {
+                        menu.map((f, i) => {
+                            return <div className="container" key={i}>
+                                <div className="footer-doctor-listing">
+                                    <h4>{f.sub_heading}</h4>
+                                    <ul>
+                                        {
+                                            f.url_list.map((u, j) => {
+                                                return <li key={j}>
+                                                    <a href={"/" + u.url}>{u.title}</a>
+                                                </li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        })
+                    }
+
                 </div>
+
+
                 <div className="footer-3 updated-footer-container">
                     <div className="row no-gutters foot-row-alignment">
                         <div className="col-md-2">
