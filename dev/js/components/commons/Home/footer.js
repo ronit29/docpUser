@@ -162,15 +162,15 @@ class Footer extends React.Component {
                             <div className="footer-links">
                                 <h3>For Patients</h3>
                                 <ul>
-                                    <li><a>Book Doctor Appointment</a></li>
-                                    <li><a>Book a Medical Test</a></li>
-                                    <li><a>Consult a doctor</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/opd')}>Book Doctor Appointment</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/lab')}>Book a Medical Test</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/mobileviewchat')}>Consult a doctor</a></li>
                                 </ul>
                                 <h3 className="foot-sub-lisitng">For Doctors</h3>
                                 <ul>
-                                    <li><a>Add Your Clinic</a></li>
-                                    <li><a>Add Your Lab</a></li>
-                                    <li><a>Doctor Sign Up</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctorsignup')}>Add Your Clinic</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctorsignup')}>Add Your Lab</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctorsignup')}>Doctor Sign Up</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -178,16 +178,16 @@ class Footer extends React.Component {
                             <div className="footer-links">
                                 <h3>Labs in Top Cities</h3>
                                 <ul>
-                                    <li><a>Labs in Delhi</a></li>
-                                    <li><a>Labs in Mumbai</a></li>
-                                    <li><a>Labs in Chennai</a></li>
-                                    <li><a>Labs in Bangalore</a></li>
-                                    <li><a>Labs in Hyderabad</a></li>
-                                    <li><a>Labs in Gurgaon</a></li>
-                                    <li><a>Labs in Pune</a></li>
-                                    <li><a>Labs in Jaipur</a></li>
-                                    <li><a>Labs in Nagpur</a></li>
-                                    <li><a>Labs in Chandigarh</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-delhi-lbcit')}>Labs in Delhi</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-gurgaon-lbcit')}>Labs in Gurgaon</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-bangalore-lbcit')}>Labs in Bangalore</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-noida-lbcit')}>Labs in Noida</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-mumbai-lbcit')}>Labs in Mumbai</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-kolkata-lbcit')}>Labs in Kolkata</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-hyderabad-lbcit')}>Labs in Hyderabad</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-chennai-lbcit')}>Labs in Chennai</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-pune-lbcit')}>Labs in Pune</a></li>
+                                    <li><a onClick={this.navigateTo.bind(this, '/labs-in-ghaziabad-lbcit')}>Labs in Ghaziabad</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -195,16 +195,16 @@ class Footer extends React.Component {
                             <div className="footer-links">
                                 <h3>Doctors in Top Cities</h3>
                                 <ul>
-                                    <li><a>Doctors in Delhi</a></li>
-                                    <li><a>Doctors in Mumbai</a></li>
-                                    <li><a>Doctors in Chennai</a></li>
-                                    <li><a>Doctors in Bangalore</a></li>
-                                    <li><a>Doctors in Hyderabad</a></li>
-                                    <li><a>Doctors in Gurgaon</a></li>
-                                    <li><a>Doctors in Pune</a></li>
-                                    <li><a>Doctors in Jaipur</a></li>
-                                    <li><a>Doctors in Nagpur</a></li>
-                                    <li><a>Doctors in Chandigarh</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-delhi-sptcit')}>Doctors in Delhi</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-gurgaon-sptcit')}>Doctors in Gurgaon</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-bangalore-sptcit')}>Doctors in Bangalore</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-noida-sptcit')}>Doctors in Noida</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-mumbai-sptcit')}>Doctors in Mumbai</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-kolkata-sptcit')}>Doctors in Kolkata</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-hyderabad-sptcit')}>Doctors in Hyderabad</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-chennai-sptcit')}>Doctors in Chennai</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-pune-sptcit')}>Doctors in Pune</a></li>
+                                    <li><a href="javascript:void(0);" onClick={this.navigateTo.bind(this, '/doctors-in-ghaziabad-sptcit')}>Doctors in Ghaziabad</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -220,7 +220,6 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/all-medicines")
                                     }}>All Medicines</a></li>
-                                    <li><a>Articles</a></li>
                                     <li><a href="/all-cities" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/city-inventory")
