@@ -20,7 +20,9 @@ class CitiesMap extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.setFetchResults(true)
+		setTimeout(() => {
+			this.props.setFetchResults(true)
+		}, 1000)
 	}
 
 	render() {
