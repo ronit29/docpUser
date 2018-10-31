@@ -754,8 +754,10 @@ p.top-head-link.card-lab-link span {
 		margin-left: 40px !important;
 	}
 	div.footer-links {
-		text-align: center;
 		padding-left: 0px;
+	}
+	h3.foot-sub-lisitng {
+		margin-top: 40px;
 	}
 
 }
@@ -2677,12 +2679,10 @@ ul.list-sub-menu a:hover {
 }
 /* new footer design */
 .updated-footer-container{
+	border-top: 1px solid #e8e7e7;
 	background: #ffffff;
     color: #3a3737;
     padding: 40px 15px;
-}
-.foot-row-alignment{
-
 }
 .footer-links{
 	padding-left: 30px;
@@ -2692,11 +2692,8 @@ ul.list-sub-menu a:hover {
 	font-size: 14px;
     font-weight: 600;
     margin-bottom: 7px;
-    border-bottom: 1px solid #bdbdbd;
+    border-bottom: 1px solid #e6e0e0;
     padding-bottom: 7px;
-}
-.footer-links ul{ 
-	
 }
 .footer-links ul li{ 
 	margin-bottom: 1px;
@@ -2710,10 +2707,33 @@ ul.list-sub-menu a:hover {
 .footer-links ul li a:hover{ 
 	color: #e2754c;
 }
-.footer-last-div{
-
-}
 .foot-sub-lisitng{
     margin-top: 15px;
 }
+.footer-doctor-listing h4{
+    font-weight: 500;
+    font-size: 15px;
+}
+.footer-doctor-listing li{
+	display: inline-block;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    position: relative;
+    padding-left: 12px;
+}
+.footer-doctor-listing li:before{
+	content: '\FFED';
+    margin-right: 0.5em;
+    position: absolute;
+    left: 0px;
+}
+.footer-doctor-listing li a{
+	color: #524e4e;
+    cursor: pointer;
+}
+.footer-doctor-listing li a:hover{
+	text-decoration: underline;
+    color: #d76e48;
+}
+
 /* new footer design */

@@ -56,6 +56,26 @@ class Footer extends React.Component {
                         </div>
                     </div>
                 </div> */}
+                <div className="container-fluid footer-2">
+                    <div className="container">
+                        <div className="footer-doctor-listing">
+                        <h4>Popular Doctors In Gurgaon</h4>
+                            <ul>
+                                <li>
+                                    <a>Psychiatrists in gurgaon</a>
+                                </li>
+                                <li><a>Sexologists in gurgaon</a></li>
+                                <li><a>Nephrologists in gurgaon</a></li>
+                                <li><a>Alternative Medicine Specialists in gurgaon</a></li>
+                                <li><a>Diabetologists in gurgaon</a></li>
+                                <li><a>Beauticians in gurgaon</a></li>
+                                <li><a>Rheumatologists in gurgaon</a></li>
+                                <li><a>Chiropractors in gurgaon</a></li>
+                                <li><a>Gynecologists in gurgaon </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div className="footer-3 updated-footer-container">
                     <div className="row no-gutters foot-row-alignment">
                         <div className="col-md-2">
@@ -208,11 +228,11 @@ class Footer extends React.Component {
                         </div>
                     </div>
                     <div className="col-12 text-center">
-                                <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
-                                
-                            </div>
+                        <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
+
+                    </div>
                 </div>
-                
+
                 {/* <div className="container footer-3">
                     <div className="row footer-3-row">
                         <ul className="list-inline footer-3-list text-center">
