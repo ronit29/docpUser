@@ -2766,3 +2766,18 @@ ul.list-sub-menu a:hover {
 	margin-top: 25px;
 }
 /* new footer design */
+
+.search-result-heading{
+    display: inline;
+	font-size: 14px;
+	line-height: 1.5;
+}
+.location-edit-img{
+    position: relative;
+	left: -26px;
+	z-index: -1;
+}
+.search-result-span{
+	padding-right: 26px;
+	cursor: pointer;
+}
