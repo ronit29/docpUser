@@ -245,9 +245,8 @@ class BookingView extends React.Component {
                                                             <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                                             <p className="text-xs text-light">Details have been sent to your email-id and mobile number.</p>
                                                             {
-                                                                actions.indexOf(6) > -1 ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
+                                                                actions.indexOf(6) > -1 && !this.state.payment_success ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                             }
-
                                                         </div>
                                                     </div>
 
