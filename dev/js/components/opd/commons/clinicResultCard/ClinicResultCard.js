@@ -99,7 +99,7 @@ class ClinicResultCard extends React.Component {
 
                                     {
                                         !deal_price ?
-                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
+                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free</span> : ''
                                     }
 
                                     <p className="fltr-prices">
