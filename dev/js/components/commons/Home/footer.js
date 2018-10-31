@@ -14,149 +14,8 @@ class Footer extends React.Component {
 
         return (
             <footer className="profile-footer">
-                {/* <div className="container footer-1 d-none d-md-block">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="foot-head">
-                                DELHI
-						    </div>
-                            <div className="footer-link-div">
-                                <a href="javascript:;">Anaesthesiology in Delhi | </a>
-                                <a href="javascript:;">Andrologist in Delhi | </a>
-                                <a href="javascript:;">Anesthesiologist in Delhi | </a>
-                                <a href="javascript:;">Cardiac Anaesthesia in Delhi | </a>
-                                <a href="javascript:;">Cardio Thoracic Surgery in Delhi | </a>
-                                <a href="javascript:;">Cardiologist in Delhi | </a>
-                                <a href="javascript:;">Cardiology in Delhi | </a>
-                                <a href="javascript:;">Cosmetologist in Delhi | </a>
-                                <a href="javascript:;">Dentist in Delhi | </a>
-                                <a href="javascript:;">Dermatologist in Delhi | </a>
-                                <a href="javascript:;">Dietitian Nutritionist in Delhi | </a>
-                                <a href="javascript:;">Ear-Nose-Throat (ENT) Specialist in Delhi | </a>
-                                <a href="javascript:;">Endocrinologist in Delhi | </a>
-                                <a href="javascript:;">Endocrinology in Delhi | </a>
-                                <a href="javascript:;">Gastroenterologist in Delhi | </a>
-                                <a href="javascript:;">Gastroenterology in Delhi | </a>
-                                <a href="javascript:;">General Physician in Delhi | </a>
-                                <a href="javascript:;">General surgeon in Delhi |</a>
-                                <a href="javascript:;">Gynecologist in Delhi | </a>
-                                <a href="javascript:;">Hematology Specialist in Delhi | </a>
-                                <a href="javascript:;">Homoeopath in Delhi | </a>
-                                <a href="javascript:;">Medical Genetics in Delhi | </a>
-                                <a href="javascript:;">Neonatology in Delhi | </a>
-                                <a href="javascript:;">Nephrologist in Delhi | </a>
-                                <a href="javascript:;">Nephrology in Delhi | </a>
-                                <a href="javascript:;">Neuro Surgery in Delhi | </a>
-                                <a href="javascript:;">Neurologist in Delhi | </a>
-                                <a href="javascript:;">Neurology in Delhi | </a>
-                                <a href="javascript:;">Ophthalmologyin Delhi | </a>
-                                <a href="javascript:;">Opthalmologist in Delhi | </a>
-                                <a href="javascript:;">Orthopedist in Delhi | </a>
-                                <a href="javascript:;">Paediatrics in Delhi | </a>
-                                <a href="javascript:;">Pathologist in Delhi | </a>
-                                <a href="javascript:;">Pediatrician in Delhi | </a>
-                                <a href="javascript:;">Physiotherapist in Delhi | </a>
-                                <a href="javascript:;">Psychiatrist in Delhi | </a>
-                                <a href="javascript:;">Pulmonologist in Delhi | </a>
-                                <a href="javascript:;">Radiologist in Delhi | </a>
-                                <a href="javascript:;">Rheumatology in Delhi | </a>
-                                <a href="javascript:;">Urology Nutritionist Surgery in Delhi</a>
-                            </div>
-                            <div className="foot-head">
-                                BANGLORE
-						    </div>
-                            <div className="footer-link-div">
-                                <a href="javascript:;">Anaesthesiology in Banglore | </a>
-                                <a href="javascript:;">Andrologist in Banglore | </a>
-                                <a href="javascript:;">Anesthesiologist in Banglore | </a>
-                                <a href="javascript:;">Cardiac Anaesthesia in Banglore | </a>
-                                <a href="javascript:;">Cardio Thoracic Surgery in Banglore | </a>
-                                <a href="javascript:;">Cardiologist in Banglore | </a>
-                                <a href="javascript:;">Cardiology in Banglore | </a>
-                                <a href="javascript:;">Cosmetologist in Banglore | </a>
-                                <a href="javascript:;">Dentist in Banglore | </a>
-                                <a href="javascript:;">Dermatologist in Banglore | </a>
-                                <a href="javascript:;">Dietitian Nutritionist in Banglore | </a>
-                                <a href="javascript:;">Ear-Nose-Throat (ENT) Specialist in Banglore | </a>
-                                <a href="javascript:;">Endocrinologist in Banglore | </a>
-                                <a href="javascript:;">Endocrinology in Banglore | </a>
-                                <a href="javascript:;">Gastroenterologist in Banglore | </a>
-                                <a href="javascript:;">Gastroenterology in Banglore | </a>
-                                <a href="javascript:;">General Physician in Banglore | </a>
-                                <a href="javascript:;">General surgeon in Banglore | </a>
-                                <a href="javascript:;">Gynecologist in Banglore | </a>
-                                <a href="javascript:;">Hematology Specialist in Banglore | </a>
-                                <a href="javascript:;">Homoeopath in Banglore | </a>
-                                <a href="javascript:;">Medical Genetics in Banglore | </a>
-                                <a href="javascript:;">Neonatology in Banglore | </a>
-                                <a href="javascript:;">Nephrologist in Banglore | </a>
-                                <a href="javascript:;">Nephrology in Banglore | </a>
-                                <a href="javascript:;">Neuro Surgery in Banglore | </a>
-                                <a href="javascript:;">Neurologist in Banglore | </a>
-                                <a href="javascript:;">Neurology in Banglore | </a>
-                                <a href="javascript:;">Ophthalmologyin Banglore | </a>
-                                <a href="javascript:;">Opthalmologist in Banglore | </a>
-                                <a href="javascript:;">Orthopedist in Banglore | </a>
-                                <a href="javascript:;">Paediatrics in Banglore | </a>
-                                <a href="javascript:;">Pathologist in Banglore | </a>
-                                <a href="javascript:;">Pediatrician in Banglore | </a>
-                                <a href="javascript:;">Physiotherapist in Banglore | </a>
-                                <a href="javascript:;">Psychiatrist in Banglore | </a>
-                                <a href="javascript:;">Pulmonologist in Banglore | </a>
-                                <a href="javascript:;">Radiologist in Banglore | </a>
-                                <a href="javascript:;">Rheumatology in Banglore | </a>
-                                <a href="javascript:;">Urology Nutritionist Surgery in Banglore</a>
-                            </div>
-                            <div className="foot-head">
-                                MUMBAI
-						    </div>
-                            <div className="footer-link-div">
-                                <a href="javascript:;">Anaesthesiology in Mumbai | </a>
-                                <a href="javascript:;">Andrologist in Mumbai | </a>
-                                <a href="javascript:;">Anesthesiologist in Mumbai | </a>
-                                <a href="javascript:;">Cardiac Anaesthesia in Mumbai | </a>
-                                <a href="javascript:;">Cardio Thoracic Surgery in Mumbai | </a>
-                                <a href="javascript:;">Cardiologist in Mumbai | </a>
-                                <a href="javascript:;">Cardiology in Mumbai | </a>
-                                <a href="javascript:;">Cosmetologist in Mumbai | </a>
-                                <a href="javascript:;">Dentist in Mumbai | </a>
-                                <a href="javascript:;">Dermatologist in Mumbai | </a>
-                                <a href="javascript:;">Dietitian Nutritionist in Mumbai | </a>
-                                <a href="javascript:;">Ear-Nose-Throat (ENT) Specialist in DMumbai | </a>
-                                <a href="javascript:;">Endocrinologist in Mumbai | </a>
-                                <a href="javascript:;">Endocrinology in Mumbai | </a>
-                                <a href="javascript:;">Gastroenterologist in Mumbai | </a>
-                                <a href="javascript:;">Gastroenterology in Mumbai | </a>
-                                <a href="javascript:;">General Physician in Mumbai | </a>
-                                <a href="javascript:;">General surgeon in Mumbai | </a>
-                                <a href="javascript:;">Gynecologist in Mumbai | </a>
-                                <a href="javascript:;">Hematology Specialist in Mumbai | </a>
-                                <a href="javascript:;">Homoeopath in Mumbai | </a>
-                                <a href="javascript:;">Medical Genetics in Mumbai | </a>
-                                <a href="javascript:;">Neonatology in Mumbai | </a>
-                                <a href="javascript:;">Nephrologist in Mumbai | </a>
-                                <a href="javascript:;">Nephrology in Mumbai | </a>
-                                <a href="javascript:;">Neuro Surgery in Mumbai | </a>
-                                <a href="javascript:;">Neurologist in Mumbai | </a>
-                                <a href="javascript:;">Neurology in Mumbai | </a>
-                                <a href="javascript:;">Ophthalmologyin Mumbai | </a>
-                                <a href="javascript:;">Opthalmologist in Mumbai | </a>
-                                <a href="javascript:;">Orthopedist in Mumbai | </a>
-                                <a href="javascript:;">Paediatrics in Mumbai | </a>
-                                <a href="javascript:;">Pathologist in Mumbai | </a>
-                                <a href="javascript:;">Pediatrician in Mumbai | </a>
-                                <a href="javascript:;">Physiotherapist in Mumbai | </a>
-                                <a href="javascript:;">Psychiatrist in Mumbai | </a>
-                                <a href="javascript:;">Pulmonologist in Mumbai | </a>
-                                <a href="javascript:;">Radiologist in Mumbai | </a>
-                                <a href="javascript:;">Rheumatology in Mumbai | </a>
-                                <a href="javascript:;">Urology Nutritionist Surgery in Mumbai</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
 
-                <div className="container-fluid footer-2">
+                {/* <div className="container-fluid footer-2">
                     <div className="container">
                         <div className="row">
                             <div className="col-12 col-md-4 offset-md-4">
@@ -191,81 +50,190 @@ class Footer extends React.Component {
                             </div>
                             <div className="col-12 text-center">
                                 <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
-                                {/* <p className="fw-500 mrt-10 d-md-none">
-                                    <span className="top-head-link" style={{color: '#f78361'}} onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic or hospital</span>
-                                    <span className="top-head-link-divider" style={{color: '#f78361'}}>|</span>
-                                    <span className="top-head-link" style={{color: '#f78361'}} onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
-                                </p> */}
+                                
                             </div>
-                            {/* <div className="col-md-9 d-none d-md-block">
-                                <div className="row">
-                                    <div className="col-3">
-                                        <div className="footer-2-head">
-                                            <p>For Doctors</p>
-                                        </div>
-                                        <div className="footer-2-content">
-                                            <ul className="footer-2-list">
-                                                <a href="javascript:;"><li>Doctor Profile</li></a>
-                                                <a href="javascript:;"><li>Consultations</li></a>
-                                                <a href="javascript:;"><li>Health Profile</li></a>
-                                                <a href="javascript:;"><li>Billing/Analytics</li></a>
-                                                <a href="javascript:;"><li>Patients Detail</li></a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="col-3">
-                                        <div className="footer-2-head">
-                                            <p>For Diagnostic Centers</p>
-                                        </div>
-                                        <div className="footer-2-content">
-                                            <ul className="footer-2-list">
-                                                <a href="javascript:;"><li>Diagnostics Profile</li></a>
-                                                <a href="javascript:;"><li>Consultations</li></a>
-                                                <a href="javascript:;"><li>Medical Tests</li></a>
-                                                <a href="javascript:;"><li>Billing/Analytics</li></a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="col-3">
-                                        <div className="footer-2-head">
-                                            <p>For Hospital/Clinics</p>
-                                        </div>
-                                        <div className="footer-2-content">
-                                            <ul className="footer-2-list">
-                                                <a href="javascript:;"><li>Hospital/Clinic Profile</li></a>
-                                                <a href="javascript:;"><li>Consultations for Doctors</li></a>
-                                                <a href="javascript:;"><li>Medical Tests</li></a>
-                                                <a href="javascript:;"><li>Billing/Analytics</li></a>
-                                                <a href="javascript:;"><li>Listing of doctors</li></a>
-                                                <a href="javascript:;"><li>Admin Access</li></a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="col-3">
-                                        <div className="footer-2-head">
-                                            <p>For Patients</p>
-                                        </div>
-                                        <div className="footer-2-content">
-                                            <ul className="footer-2-list">
-                                                <a href="javascript:;"><li>Free health Consultation chat</li></a>
-                                                <a href="javascript:;"><li>Search for doctors</li></a>
-                                                <a href="javascript:;"><li>Search for clinics</li></a>
-                                                <a href="javascript:;"><li>Search for hospitals</li></a>
-                                                <a href="javascript:;"><li>Search for diagnostics</li></a>
-                                                <a href="javascript:;"><li>Health articles</li></a>
-                                                <a href="javascript:;"><li>Consult a doctor</li></a>
-                                                <a href="javascript:;"><li>Article about medicines</li></a>
-                                                <a href="javascript:;"><li>Disease Articles</li></a>
-                                                <a href="javascript:;"><li>Daily tip for health</li></a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
+                            
+                        </div>
+                    </div>
+                </div> */}
+                <div className="container-fluid footer-2">
+                    <div className="container">
+                        <div className="footer-doctor-listing">
+                        <h4>Popular Doctors In Gurgaon</h4>
+                            <ul>
+                                <li>
+                                    <a>Psychiatrists in gurgaon</a>
+                                </li>
+                                <li><a>Sexologists in gurgaon</a></li>
+                                <li><a>Nephrologists in gurgaon</a></li>
+                                <li><a>Alternative Medicine Specialists in gurgaon</a></li>
+                                <li><a>Diabetologists in gurgaon</a></li>
+                                <li><a>Beauticians in gurgaon</a></li>
+                                <li><a>Rheumatologists in gurgaon</a></li>
+                                <li><a>Chiropractors in gurgaon</a></li>
+                                <li><a>Gynecologists in gurgaon </a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div className="container footer-3">
+                <div className="footer-3 updated-footer-container">
+                    <div className="row no-gutters foot-row-alignment">
+                        <div className="col-md-2">
+                            <div className="footer-links pl-0">
+                                <a href="javascript:;">
+                                    <div className="logo-img-div">
+                                        <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
+                                    </div>
+                                </a>
+                                <div className="copyright-info">
+                                    <p>docprime.com Copyright &copy; 2018.</p>
+                                    <p>All rights reserved.</p>
+                                    <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
+                                    <p>CIN : U74999HR2016PTC064312</p>
+                                </div>
+                                <div className="row social-icons-row">
+                                    <div className="social-icon">
+                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-2">
+                            <div className="footer-links">
+                                <h3>docprime</h3>
+                                <ul>
+                                    <li><a href="/about" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/about")
+                                    }}>About Us</a></li>
+                                    <li><a href="/howitworks" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/howitworks")
+                                    }}>How it Works</a></li>
+                                    <li><a href="/careers" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/careers")
+                                    }}>Careers</a></li>
+                                    <li><a href="/privacy" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/privacy")
+                                    }}>Privacy Policy</a></li>
+                                    <li><a href="/terms" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/terms")
+                                    }}>Terms &amp; Conditions</a></li>
+                                    <li><a href="/disclaimer" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/disclaimer")
+                                    }}>Disclaimer</a></li>
+                                    <li><a href="/media" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/media")
+                                    }}>Media</a></li>
+                                    <li><a href="/contact" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/contact")
+                                    }}>Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-md-2">
+                            <div className="footer-links">
+                                <h3>For Patients</h3>
+                                <ul>
+                                    <li><a>Book Doctor Appointment</a></li>
+                                    <li><a>Book a Medical Test</a></li>
+                                    <li><a>Consult a doctor</a></li>
+                                </ul>
+                                <h3 className="foot-sub-lisitng">For Doctors</h3>
+                                <ul>
+                                    <li><a>Add Your Clinic</a></li>
+                                    <li><a>Add Your Lab</a></li>
+                                    <li><a>Doctor Sign Up</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-md-2">
+                            <div className="footer-links">
+                                <h3>Labs in Top Cities</h3>
+                                <ul>
+                                    <li><a>Labs in Delhi</a></li>
+                                    <li><a>Labs in Mumbai</a></li>
+                                    <li><a>Labs in Chennai</a></li>
+                                    <li><a>Labs in Bangalore</a></li>
+                                    <li><a>Labs in Hyderabad</a></li>
+                                    <li><a>Labs in Gurgaon</a></li>
+                                    <li><a>Labs in Pune</a></li>
+                                    <li><a>Labs in Jaipur</a></li>
+                                    <li><a>Labs in Nagpur</a></li>
+                                    <li><a>Labs in Chandigarh</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-md-2">
+                            <div className="footer-links">
+                                <h3>Doctors in Top Cities</h3>
+                                <ul>
+                                    <li><a>Doctors in Delhi</a></li>
+                                    <li><a>Doctors in Mumbai</a></li>
+                                    <li><a>Doctors in Chennai</a></li>
+                                    <li><a>Doctors in Bangalore</a></li>
+                                    <li><a>Doctors in Hyderabad</a></li>
+                                    <li><a>Doctors in Gurgaon</a></li>
+                                    <li><a>Doctors in Pune</a></li>
+                                    <li><a>Doctors in Jaipur</a></li>
+                                    <li><a>Doctors in Nagpur</a></li>
+                                    <li><a>Doctors in Chandigarh</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-md-2 footer-last-div">
+                            <div className="footer-links">
+                                <h3>Useful Resources</h3>
+                                <ul>
+                                    <li><a href="/all-diseases" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/all-diseases")
+                                    }}>All Diseases</a></li>
+                                    <li><a href="/all-medicines" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/all-medicines")
+                                    }}>All Medicines</a></li>
+                                    <li><a>Articles</a></li>
+                                    <li><a href="/all-cities" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/city-inventory")
+                                    }}>All Cities </a></li>
+                                    <li><a href="/all-cities" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/speciality-inventory")
+                                    }}>All Specialities</a></li>
+                                    {/* <li><a>All Labs (later)</a></li>
+                                    <li><a>All Tests (Later)</a></li>
+                                    <li><a>All Hospitals (Later)</a></li> */}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 text-center">
+                        <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
+
+                    </div>
+                </div>
+
+                {/* <div className="container footer-3">
                     <div className="row footer-3-row">
                         <ul className="list-inline footer-3-list text-center">
                             <a href="/about" onClick={(e) => {
@@ -329,8 +297,9 @@ class Footer extends React.Component {
                             }}><li className="list-inline-item">ALL SPECIALITIES</li></a>
                         </ul>
                     </div>
-                </div>
-            </footer>
+                </div> */}
+
+            </footer >
         );
     }
 }
