@@ -224,6 +224,7 @@ function _readFileAsync(filename) {
 }
 
 function _serverHit(req, type = 'server') {
+    return;
     let ip = req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
