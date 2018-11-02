@@ -15,7 +15,7 @@ class Privacy extends React.Component {
             <div className="container about-container">
                 <HelmetTags tagsData={{
                     title: ('Privacy Policy | docprime'),
-                    description: ('The policy is effective from the date and time a user registers withDocprime by filling up the Registration form and accepting the terms and conditions.')
+                    description: ('The policy is effective from the date and time a user registers with docprime by filling up the Registration form and accepting the terms and conditions.')
                 }} />
                 <div className="row">
                     <div className="col-12 text-center">
