@@ -689,6 +689,9 @@ p.top-head-link.card-lab-link span {
 	.top-head-link{
 		font-size: 14px;
 	}
+	.gold-card-img {
+		width: 45px;
+	}
 	
 }
 
@@ -1549,7 +1552,8 @@ margin: 0px 10px;
 }
 .filter-card-dl{
 	background: white;
-    border-radius: 10px;
+	border-radius: 10px;
+	position: relative;
 	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
 }
 .fltr-lctn-dtls{
@@ -2379,9 +2383,7 @@ font-weight: 500;
 .signup-off-container{
 	margin-bottom: 10px;
 }
-.border-bottom-radious{
-	overflow: hidden;
-}
+
 .border-lft{
 	border-left:1px solid rgba(0, 0, 0, .12);
 }
@@ -2780,4 +2782,27 @@ ul.list-sub-menu a:hover {
 .search-result-span{
 	padding-right: 26px;
 	cursor: pointer;
+}
+
+.gold-card-img {
+	width: 65px;
+    position: absolute;
+    left: -3px;
+    top: -3px;
+}
+.gold-card-img-inner{
+	width: 65px;
+    position: relative;
+    left: -3px;
+    top: -3px;
+}
+.gold-relative{
+	position: relative;
+}
+.doc-gold-padding{
+	padding-top: 22px;
+}
+.border-bottom-panel{
+	border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }

@@ -74,6 +74,7 @@ class DoctorProfileCard extends React.Component {
             return (
 
                 <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
+                <img className="gold-card-img" src={ASSETS_BASE_URL + "/img//gold.svg"}/>
                     <div className="fltr-crd-top-container">
                         <div className="fltr-lctn-dtls">
                             <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
