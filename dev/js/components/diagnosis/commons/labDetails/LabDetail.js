@@ -24,11 +24,7 @@ class LabDetails extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
-<<<<<<< HEAD
-                            {this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.data.lab.unrated_appointment} /> : ""}
-=======
                             {this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} details={this.props.data.lab.unrated_appointment} /> : ""}
->>>>>>> ronit_ratings
 
                             <div className="widget profile-book border-bottom-radious">
                                 <div className="widget-header pb-header text-center">
