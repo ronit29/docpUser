@@ -759,6 +759,9 @@ p.top-head-link.card-lab-link span {
 	h3.foot-sub-lisitng {
 		margin-top: 40px;
 	}
+	 div.footer-doctor-listing ul li{
+		display: block;
+	}
 
 }
 @media(max-width: 470px) {
@@ -2712,7 +2715,8 @@ ul.list-sub-menu a:hover {
 }
 .footer-doctor-listing h4{
     font-weight: 500;
-    font-size: 15px;
+	font-size: 15px;
+	color: #505050;
 }
 .footer-doctor-listing li{
 	display: inline-block;
@@ -2725,10 +2729,11 @@ ul.list-sub-menu a:hover {
 	content: '\FFED';
     margin-right: 0.5em;
     position: absolute;
-    left: 0px;
+	left: 0px;
+	color: #867f7f;
 }
 .footer-doctor-listing li a{
-	color: #524e4e;
+	color: #867f7f;
     cursor: pointer;
 }
 .footer-doctor-listing li a:hover{
@@ -2778,5 +2783,11 @@ ul.list-sub-menu a:hover {
 .search-result-card-collpase ol {
 	list-style: decimal;
     padding-left: 18px;
+}
+.search-result-card-collpase span {
+    font-weight: 500;
+}
+.footer-doctor-listing {
+    padding: 0px 15px;
 }
 /* search read more container */
