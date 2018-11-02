@@ -121,7 +121,11 @@ class DoctorProfileView extends React.Component {
                                                             ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
-                                                    <img className="gold-card-img" src={ASSETS_BASE_URL + "/img//gold.svg"}/>
+                                                    {
+                                                        this.props.DOCTORS[doctor_id].is_gold?
+                                                        <img className="gold-card-img" src={ASSETS_BASE_URL + "/img//gold.svg"}/>
+                                                        :''
+                                                    }
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
