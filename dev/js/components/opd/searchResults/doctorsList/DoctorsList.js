@@ -82,6 +82,7 @@ class DoctorsList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             <div className="search-result-card-collpase">
+                                <div className="search-details-data-less">
                                 <h5>Anaesthesiologists in Chennai </h5>
                                 <p>Anaesthesiologists in Chennai are acclaimed for taking care of patients during and post-surgery so that the procedure goes well without being felt by the patients, in and around Chennai, prevent any glitch in between the surgery. The best Anaesthesiologists in Chennai are always ready to cater to the needs of their patients.</p>
                                 <h5>When should you Book Appointments with Anaesthesiologists in Chennai?</h5>
@@ -95,6 +96,8 @@ class DoctorsList extends React.Component {
                                 At docprime, you can not only find the best and most experienced Anaesthesiologists in Chennai but also learn about the causes, symptoms, treatments, precautions, and other aspects of the concerned health condition in the comfort of your home.</p>
                                 <p>Attends Elderly:
                                 Often, aged individuals need medical attention and they find it difficult to commute to the clinics in Chennai simply to get an appointment for a later date. Now book appointments with a doctor right from your home with just a few clicks of your mouse and let them address the health concerns of your beloved elderly family members.</p>
+                                
+                                </div>
                                 <span className="rd-more">Read More</span>
 
                             </div>
