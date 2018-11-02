@@ -87,10 +87,10 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let DOCTORS = state.DOCTORS
-    let { rated_appoinments } = state.USER
+    let { rated_appoinments, profiles, selectedProfile } = state.USER
 
     return {
-        DOCTORS, initialServerData, rated_appoinments
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile
     }
 }
 

@@ -118,7 +118,7 @@ class DoctorProfileView extends React.Component {
                                                 <div className="col-12">
                                                     {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
-                                                            ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
+                                                            ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious">
                                                         <DoctorProfileCard
@@ -142,22 +142,24 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
-                                                            <div className="widget-panel">
-                                                                <h4 className="panel-title mb-rmv">Patient Feedback</h4>
-                                                                <div className="panel-content pd-0">
-                                                                    <RatingGraph details={this.props.DOCTORS[doctor_id]} />
-                                                                    <div className="user-satisfaction-section">
-                                                                        <div className="row no-gutters">
-                                                                            {(typeof (this.props.DOCTORS[doctor_id].rating_graph) != "undefined" && this.props.DOCTORS[doctor_id].rating_graph != null && this.props.DOCTORS[doctor_id].rating_graph) ?
-                                                                                this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
-                                                                                    <ComplimentListView key={compliment.id} details={compliment} />
-                                                                                ) : <div></div>}
+                                                            {this.props.DOCTORS[doctor_id].display_rating_widget ?
+                                                                <div className="widget-panel">
+                                                                    <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                                                    <div className="panel-content pd-0">
+                                                                        <RatingGraph details={this.props.DOCTORS[doctor_id]} />
+                                                                        <div className="user-satisfaction-section">
+                                                                            <div className="row no-gutters">
+                                                                                {(typeof (this.props.DOCTORS[doctor_id].rating_graph) != "undefined" && this.props.DOCTORS[doctor_id].rating_graph != null && this.props.DOCTORS[doctor_id].rating_graph) ?
+                                                                                    this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
+                                                                                        <ComplimentListView key={compliment.id} details={compliment} />
+                                                                                    ) : <div></div>}
 
+                                                                            </div>
                                                                         </div>
+                                                                        <ReviewList details={this.props.DOCTORS[doctor_id]} />
                                                                     </div>
-                                                                    <ReviewList details={this.props.DOCTORS[doctor_id]} />
-                                                                </div>
-                                                            </div>
+                                                                </div> :
+                                                                ""}
                                                         </div>
                                                     </div>
                                                 </div>

@@ -229,7 +229,7 @@ const mapDispatchToProps = (dispatch) => {
         getUnratedAppointment: (callback) => dispatch(getUnratedAppointment(callback)),
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
-        closeAppointmentRating: (appointmentData) => dispatch(closeAppointmentRating(appointmentData)),
+        closeAppointmentRating: (appointmentData, callback) => dispatch(closeAppointmentRating(appointmentData, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback))
     }
