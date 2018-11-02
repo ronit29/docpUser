@@ -91,20 +91,23 @@ class LabDetails extends React.Component {
                                     <p>{about}
                                     </p>
                                 </div>
-                                <div className="widget-panel">
-                                    <h4 className="panel-title mb-rmv">Patient Feedback</h4>
-                                    <div className="panel-content pd-0">
-                                        <RatingGraph details={this.props.data.lab} />
-                                        <div className="user-satisfaction-section">
-                                            <div className="row">
-                                                {this.props.data.lab.rating_graph ? this.props.data.lab.rating_graph.top_compliments.map(compliment =>
-                                                    <ComplimentListView key={compliment.id} details={compliment} />
-                                                ) : <span></span>}
+                                {this.props.data.lab.display_rating_widget ?
+                                    <div className="widget-panel">
+                                        <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                        <div className="panel-content pd-0">
+                                            <RatingGraph details={this.props.data.lab} />
+                                            <div className="user-satisfaction-section">
+                                                <div className="row">
+                                                    {this.props.data.lab.rating_graph ? this.props.data.lab.rating_graph.top_compliments.map(compliment =>
+                                                        <ComplimentListView key={compliment.id} details={compliment} />
+                                                    ) : <span></span>}
+                                                </div>
                                             </div>
+                                            <ReviewList details={this.props.data.lab} />
                                         </div>
-                                        <ReviewList details={this.props.data.lab} />
-                                    </div>
-                                </div>
+                                    </div> : ""}
+
+
                             </div>
 
                         </div>
