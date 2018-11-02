@@ -76,7 +76,7 @@ class DoctorProfileCard extends React.Component {
                 <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
                 {
                     is_gold?
-                    <img className="gold-card-img" src={ASSETS_BASE_URL + "/img//gold.svg"}/>
+                    <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"}/>
                     :''
                 }
                     <div className="fltr-crd-top-container">

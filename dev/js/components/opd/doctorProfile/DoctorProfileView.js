@@ -123,7 +123,7 @@ class DoctorProfileView extends React.Component {
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                                     {
                                                         this.props.DOCTORS[doctor_id].is_gold?
-                                                        <img className="gold-card-img" src={ASSETS_BASE_URL + "/img//gold.svg"}/>
+                                                        <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"}/>
                                                         :''
                                                     }
                                                         <DoctorProfileCard
