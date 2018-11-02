@@ -2768,9 +2768,15 @@ ul.list-sub-menu a:hover {
 	height: 190px;
 	overflow: hidden;
 }
-/* .search-details-data-less:after{
-	content:'';
-	height:20px;
-	background-color:white;
-} */
+.search-result-card-collpase b {
+    font-weight: 500;
+    display: block;
+}
+.search-result-card-collpase ol li {
+    margin-bottom: 15px;
+}
+.search-result-card-collpase ol {
+	list-style: decimal;
+    padding-left: 18px;
+}
 /* search read more container */

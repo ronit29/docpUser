@@ -73,6 +73,13 @@ class DoctorsList extends React.Component {
 
     }
 
+    toggleScroll(){
+        if(window){
+            window.scrollTo(0,0)
+        }
+        this.setState({readMore:'search-details-data-less'})
+    }
+
     render() {
 
         let { DOCTORS, doctorList } = this.props
@@ -94,7 +101,7 @@ class DoctorsList extends React.Component {
                                     }
 
                                     {   this.state.readMore == ''?
-                                        <span className="rd-more" onClick={()=>this.setState({readMore:'search-details-data-less'})}>Read Less</span>
+                                        <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
                                         :''
                                     }
 
