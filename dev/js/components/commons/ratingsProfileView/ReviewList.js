@@ -26,7 +26,7 @@ class ReviewList extends React.Component {
       );
     }
     else {
-      return (<div></div>);
+      return ("");
     }
   }
 }

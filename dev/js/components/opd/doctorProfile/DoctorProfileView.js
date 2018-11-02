@@ -100,7 +100,7 @@ class DoctorProfileView extends React.Component {
                                                 <div className="col-12">
                                                     {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
-                                                            ? <RatingProfileCard {...this.props} booking_flag={true} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
+                                                            ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious">
                                                         <DoctorProfileCard

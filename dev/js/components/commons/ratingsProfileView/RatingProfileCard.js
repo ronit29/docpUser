@@ -1,5 +1,7 @@
 import React from "react";
 import STORAGE from '../../../helpers/storage'
+import ReviewPopUp from './ReviewPopUp'
+import ThankYouPopUp from './ThankYouPopUp'
 
 
 class RatingProfileCard extends React.Component {
@@ -10,8 +12,7 @@ class RatingProfileCard extends React.Component {
             selectedRating: 0,
             rating_id: null,
             compliments: [],
-            review_field: '',
-            selected_compliments: []
+            rating_done: false
         }
     }
 
@@ -26,35 +27,25 @@ class RatingProfileCard extends React.Component {
         }
     }
 
-    selectRating(x, size) {
+    selectRating(x) {
         this.setState({ selectedRating: x })
-        if (!size) {
-            let type = this.getAppointmentType();
-            let post_data = { 'rating': x, 'appointment_id': this.props.details.id, 'appointment_type': type };
-            this.props.createAppointmentRating(post_data, (err, data) => {
-                if (!err && data) {
-                    this.setState({ rating_id: data.id })
-                }
-            })
-        }
+        let type = this.getAppointmentType();
+        let post_data = { 'rating': x, 'appointment_id': this.props.details.id, 'appointment_type': type };
+        this.props.createAppointmentRating(post_data, (err, data) => {
+            if (!err && data) {
+                this.setState({ rating_id: data.id })
+            }
+        })
     }
 
-    declineRating(type, id, size) {
-        if (!size) {
-            let post_data = { 'appointment_id': id, 'appointment_type': type };
-            this.props.closeAppointmentRating(post_data, (err, data) => {
-                if (!err && data) {
-                    console.log('Popup Closed');
-                }
-            })
-        }
-        else {
-            this.props.closeAppointmentPopUp(id, (err, data) => {
-                if (!err && data) {
-                    console.log('Popup Closed');
-                }
-            })
-        }
+    declineRating(type, id) {
+        let post_data = { 'appointment_id': id, 'appointment_type': type };
+        this.props.closeAppointmentRating(post_data, (err, data) => {
+            if (!err && data) {
+                console.log('Popup Closed');
+            }
+        })
+
         this.setState({ data: null })
     }
 
@@ -62,114 +53,60 @@ class RatingProfileCard extends React.Component {
         let type = this.props.details.type && this.props.details.type == "lab" ? 1 : 2;
         return type;
     }
-    handleReviewChange(e) {
-        this.setState({ review_field: e.target.value });
+
+
+    thanYouButton = () => {
+        this.setState({ rating_done: false })
     }
 
-    handleComplimentChange(id) {
-        let compliments = this.state.selected_compliments;
-        compliments.push(id);
-        this.setState({ selected_compliments: compliments });
-    }
-
-    submitRating() {
-        let post_data = { 'id': this.state.rating_id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments, 'appointment_id': this.props.details.id };
-        this.props.updateAppointmentRating(post_data, (err, data) => {
-            if (!err && data) {
-                this.setState({ data: null })
-            }
-        })
+    submitRating = (post_data, flag) => {
+        this.setState({ data: null })
+        if (!flag) {
+            this.props.updateAppointmentRating(post_data, (err, data) => {
+                if (!err && data) {
+                    this.setState({ data: null, rating_done: true })
+                }
+            })
+        }
     }
 
     render() {
+        if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
+            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} />);
+        }
         let app_id = this.props.details.id
         let submitted_flag = !!this.props.rated_appoinments[app_id];
         if (!submitted_flag && this.state.data) {
-            let name = (this.props.details.doctor) ? this.props.details.doctor.name : this.props.details.lab_name;
             let qualification_object = this.props.details.doctor ? this.props.details.doctor.qualifications : null;
-            let qualification = qualification_object ? qualification_object[0].qualification : '';
-            let specialization = qualification_object ? qualification_object[0].specialization : '';
-            let thumbnail = this.props.details.doctor ? this.props.details.doctor_thumbnail : this.props.details.lab_thumbnail;
-            let type = this.getAppointmentType();
-            let pipe = '';
-            if (type !== 1) {
-                pipe = ' | ';
+            let pipe = ''
+            let data_obj = {
+                'name': (this.props.details.doctor) ? this.props.details.doctor.name : this.props.details.lab_name,
+                'qualification': qualification_object ? qualification_object[0].qualification : '',
+                'specialization': qualification_object ? qualification_object[0].specialization : '',
+                'type': this.getAppointmentType(),
+                'thumbnail': this.props.details.doctor ? this.props.details.doctor_thumbnail : this.props.details.lab_thumbnail,
+                'pipe': pipe
             }
-            let entity = (type == 1) ? 'lab' : 'doctor';
+            if (data_obj.type !== 1) {
+                data_obj.pipe = ' | ';
+            }
+            let entity = (data_obj.type == 1) ? 'lab' : 'doctor';
             if (!this.state.rating_id) {
-
                 return (
-
                     <div className="rating-upside-container mt-0">
                         <div className="sub-upside-star">
                             <p>Rate your recent visit with the {entity}</p>
                             {
                                 [1, 2, 3, 4, 5].map((x, i) => {
-                                    return <img key={i} onClick={this.selectRating.bind(this, x, 0)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
+                                    return <img key={i} onClick={this.selectRating.bind(this, x)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
                                 })
                             }
                         </div>
-                        {typeof (this.props.booking_flag) != 'undefined' && this.props.booking_flag ? "" :
-                            (<div className="inner-star-cls">
-                                <img onClick={this.declineRating.bind(this, type, app_id, 0)} className="img-fluid" src="/assets/img/customer-icons/rt-close.svg" />
-                            </div>)
-                        }
                     </div>
                 );
             }
             else {
-
-                return (<div className="raiting-popup">
-                    <div className="home-rating-card">
-
-                        <div className="rate-card-header">
-                            Share your Feedback
-                    <span><img onClick={this.declineRating.bind(this, type, app_id, 1)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
-                        </div>
-                        <div className="rate-card-doc-dtls">
-                            <img src={thumbnail} className="img-fluid img-round " />
-                            <div className="rate-doc-dtl">
-                                <p className="rt-doc-nm">
-                                    {name}
-                                </p>
-                                <span>{qualification} {pipe} {specialization}</span>
-                            </div>
-                        </div>
-                        <div className="rate-star-icon">
-                            {
-                                [1, 2, 3, 4, 5].map((x, i) => {
-                                    return <img key={i} onClick={this.selectRating.bind(this, x, 1)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
-                                })
-                            }
-                        </div>
-                        {/* <StarView handleSelect={this.h        this.setState({ data: this.props.details.unrated_appointment })
-andleselectRating} selectedRating={this.state.selectedRating} /> */}
-                        <div className="rate-compliment-section">
-                            <p className="cmplmnt-para">Give your compliment</p>
-                            <ul className="compliment-lising">
-                                {this.state.compliments.map(comp => {
-                                    if (comp.type == type && this.state.selectedRating == comp.rating_level)
-                                        return <li key={comp.id}>
-                                            <label className="ck-bx">
-                                                <span className="rate-feed-text">{comp.message}</span>
-                                                <input type="checkbox" onChange={this.handleComplimentChange.bind(this, comp.id)} />
-                                                <span className="checkmark" />
-                                            </label>
-                                        </li>
-                                }
-                                )
-                                }
-                            </ul>
-                            <div className="rate-submit-cmnnt-box">
-                                <textarea placeholder="Leave a review" rows="2" value={this.state.review_field} onChange={this.handleReviewChange.bind(this)}>
-                                </textarea>
-
-
-                                <button className="rate-submit-btn" onClick={this.submitRating.bind(this)}>Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>);
+                return (<ReviewPopUp {...this.props} details={this.state.data} submit={this.submitRating} obj={data_obj} rating_id={this.state.rating_id} selected_rating={this.state.selectedRating} compliments={this.state.compliments} />)
             }
         }
         else {
