@@ -238,11 +238,11 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/all-medicines")
                                     }}>All Medicines</a></li>
-                                    <li><a href="/all-cities" onClick={(e) => {
+                                    <li><a href="/city-inventory" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/city-inventory")
                                     }}>All Cities </a></li>
-                                    <li><a href="/all-cities" onClick={(e) => {
+                                    <li><a href="/speciality-inventory" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/speciality-inventory")
                                     }}>All Specialities</a></li>
