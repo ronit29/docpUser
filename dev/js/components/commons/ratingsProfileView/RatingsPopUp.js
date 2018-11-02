@@ -82,7 +82,7 @@ class RatingsPopUp extends React.Component {
     render() {
         console.log(this.state);
         if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
-            <ThankYouPopUp {...this.props} submit={this.thanYouButton} />
+            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} />)
         }
         if (typeof (this.state.data) != "undefined" && this.state.data != null && this.state.data.id) {
             let qualification_object = this.state.data.doctor ? this.state.data.doctor.qualifications : null;
