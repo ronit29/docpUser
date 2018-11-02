@@ -30,7 +30,8 @@ class BookingView extends React.Component {
             data: null,
             loading: true,
             showCancel: false,
-            payment_success: this.props.location.search.includes('payment_success')
+            payment_success: this.props.location.search.includes('payment_success'),
+            hide_button: this.props.location.search.includes('hide_button')
         }
     }
 
@@ -82,6 +83,7 @@ class BookingView extends React.Component {
                 'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
             }
             GTM.sendEvent({ data: data })
+            this.props.history.replace(this.props.location.pathname + "?hide_button=true")
         }
     }
 
@@ -245,7 +247,7 @@ class BookingView extends React.Component {
                                                             <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                                             <p className="text-xs text-light">Details have been sent to your email-id and mobile number.</p>
                                                             {
-                                                                actions.indexOf(6) > -1 && !this.state.payment_success ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
+                                                                actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                             }
                                                         </div>
                                                     </div>
