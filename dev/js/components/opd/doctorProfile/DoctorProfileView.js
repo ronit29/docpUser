@@ -120,7 +120,12 @@ class DoctorProfileView extends React.Component {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
-                                                    <div className="widget mrt-10 ct-profile skin-white border-bottom-radious">
+                                                    <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
+                                                    {
+                                                        this.props.DOCTORS[doctor_id].is_gold?
+                                                        <img className="gold-card-img" src={ASSETS_BASE_URL + "/img//gold.svg"}/>
+                                                        :''
+                                                    }
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
@@ -145,7 +150,7 @@ class DoctorProfileView extends React.Component {
                                                             {this.props.DOCTORS[doctor_id].display_rating_widget ?
                                                                 <div className="widget-panel">
                                                                     <h4 className="panel-title mb-rmv">Patient Feedback</h4>
-                                                                    <div className="panel-content pd-0">
+                                                                    <div className="panel-content pd-0 border-bottom-panel">
                                                                         <RatingGraph details={this.props.DOCTORS[doctor_id]} />
                                                                         <div className="user-satisfaction-section">
                                                                             <div className="row no-gutters">

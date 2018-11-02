@@ -113,7 +113,7 @@ class DoctorsList extends React.Component {
 
                                                 } else {
                                                     if (DOCTORS[docId]) {
-                                                        return <div>
+                                                        return <div key={i} >
                                                             {
                                                                 this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
                                                             }

@@ -83,7 +83,7 @@ class LabDetails extends React.Component {
                                 {this.props.data.lab.display_rating_widget ?
                                     <div className="widget-panel">
                                         <h4 className="panel-title mb-rmv">Patient Feedback</h4>
-                                        <div className="panel-content pd-0">
+                                        <div className="panel-content pd-0 border-bottom-panel">
                                             <RatingGraph details={this.props.data.lab} />
                                             <div className="user-satisfaction-section">
                                                 <div className="row">
