@@ -31,11 +31,13 @@ class SearchResultsView extends React.Component {
                 window.scrollTo(0, 0)
             }
         }
-        this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
-            if (footerData) {
-                this.setState({ footerData: footerData })
-            }
-        })
+        if (this.state.seoFriendly) {
+            this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                if (footerData) {
+                    this.setState({ footerData: footerData })
+                }
+            })
+        }
         if (window) {
             window.scrollTo(0, 0)
         }
