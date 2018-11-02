@@ -772,6 +772,9 @@ p.top-head-link.card-lab-link span {
 	div.foot-with-img {
 		margin: 0px 0px;
 	}
+	 div.footer-doctor-listing ul li{
+		display: block;
+	}
 
 }
 @media(max-width: 470px) {
@@ -2725,10 +2728,8 @@ ul.list-sub-menu a:hover {
 .footer-doctor-listing h4{
     font-weight: 500;
 	font-size: 15px;
-	margin-bottom: 4px;
-}
-.footer-doctor-listing {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+	color: #505050;
 }
 .footer-doctor-listing li{
 	display: inline-block;
@@ -2741,10 +2742,11 @@ ul.list-sub-menu a:hover {
 	content: '\FFED';
     margin-right: 0.5em;
     position: absolute;
-    left: 0px;
+	left: 0px;
+	color: #867f7f;
 }
 .footer-doctor-listing li a{
-	color: #524e4e;
+	color: #867f7f;
     cursor: pointer;
 }
 .footer-doctor-listing li a:hover{
@@ -2806,3 +2808,53 @@ ul.list-sub-menu a:hover {
 	border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
+/* new footer design */
+
+/* search read more container */
+.search-result-card-collpase{
+	background: white;
+    padding: 15px;
+	color: #333333;
+	position: relative;
+    margin-bottom: 20px;
+    border-radius: 10px;
+	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
+	padding-block-end: 30px;
+}
+.search-result-card-collpase h5{
+	font-size: 16px;
+    font-weight: 500;
+}
+.search-result-card-collpase p{
+	margin-bottom: 10px;
+}
+.rd-more{
+    color: #d76e48;
+    font-weight: 500;
+    position: absolute;
+    right: 15px;
+	bottom: 5px;
+	cursor: pointer;
+}
+.search-details-data-less{
+	height: 36px;
+	overflow: hidden;
+}
+.search-result-card-collpase b {
+    font-weight: 500;
+    display: block;
+}
+.search-result-card-collpase ol li {
+    margin-bottom: 15px;
+}
+.search-result-card-collpase ol {
+	list-style: decimal;
+    padding-left: 18px;
+}
+.search-result-card-collpase span {
+    font-weight: 500;
+}
+.footer-doctor-listing {
+    padding: 0px 15px;
+}
+/* search read more container */

@@ -9,7 +9,8 @@ const defaultState = {
     appointmentId: null,
     SET_FROM_SERVER: false,
     doctorCoupons: {},
-    disCountedOpdPrice: 0
+    disCountedOpdPrice: 0,
+    search_content: ''
 }
 
 export default function (state = defaultState, action) {
@@ -40,7 +41,7 @@ export default function (state = defaultState, action) {
                         return dedupe.hasOwnProperty(item) ? false : (dedupe[item] = true)
                     })
             }
-
+            newState.search_content = action.payload.search_content || ''
             newState.count = action.payload.count
             newState.LOADED_DOCTOR_SEARCH = true
 
