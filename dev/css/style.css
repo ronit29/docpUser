@@ -1652,7 +1652,8 @@ margin: 0px 10px;
     background-color: #f78631;
     color: white;
     border: none;
-    padding: 10px 0;
+	padding: 10px 0;
+	font-weight: 500;
 }
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
