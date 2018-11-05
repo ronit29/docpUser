@@ -2859,11 +2859,9 @@ ul.list-sub-menu a:hover {
 }
 /* search read more container */
 .norf{
-	position: fixed;
-    display: flex;
+	display: flex;
     height: 100vh;
     bottom: 0;
-    width: 100%;
     align-items: center;
     justify-content: center;
     font-weight: 500;
