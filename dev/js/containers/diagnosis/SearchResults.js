@@ -14,8 +14,8 @@ class SearchResults extends React.Component {
     }
 
     static loadData(store, match, queryParams = {}) {
-        try {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            try {
                 let location_ms = null
                 if (match.url.includes('location=')) {
                     location_ms = match.url.split('location=')[1]
@@ -30,15 +30,17 @@ class SearchResults extends React.Component {
                         searchUrl = match.url.toLowerCase()
                     }
 
-                    store.dispatch(getLabs(state, 1, true, searchUrl, (loadMore, seoData) => {
+                    return store.dispatch(getLabs(state, 1, true, searchUrl, (loadMore, seoData) => {
                         resolve(seoData)
                     }))
+                }).catch((e) => {
+                    reject()
                 })
-            })
-        } catch (e) {
-            console.error(e)
-        }
-
+            } catch (e) {
+                console.error(e)
+                reject()
+            }
+        })
     }
 
     static contextTypes = {

@@ -67,9 +67,13 @@ app.all('*', function (req, res) {
          * then wait for that data to resolve then render with proper data.
          */
         const promises = []
+        let route_matched = false
         Routes.ROUTES.some(route => {
             // use `matchPath` here
             const match = matchPath(req.path, route)
+            if (match) {
+                route_matched = route
+            }
             if (match && route.RENDER_ON_SERVER) {
                 if (route.component.loadData) {
                     promises.push(route.component.loadData(store, match, req.query))
@@ -153,13 +157,19 @@ app.all('*', function (req, res) {
                         Sentry.captureException(error)
                     }
 
+                    res.status(404)
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
                         html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                     })
                 }
             })
+
         } else {
+            // if not route is matched, send 404 status along with the page.
+            if (route_matched.NO_MATCH) {
+                res.status(404)
+            }
             _serverHit(req, 'server_done')
             res.render('index.ejs', {
                 html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
