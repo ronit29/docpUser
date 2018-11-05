@@ -13,7 +13,8 @@ class SearchResultsView extends React.Component {
         super(props)
         this.state = {
             seoData: this.props.initialServerData,
-            seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')
+            seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
+            showError: false
         }
     }
 
@@ -64,6 +65,8 @@ class SearchResultsView extends React.Component {
                 let new_url = this.buildURI(state)
                 this.props.history.replace(new_url)
             }
+        }).catch((e) => {
+            this.setState({ showError: true })
         })
     }
 
@@ -158,16 +161,18 @@ class SearchResultsView extends React.Component {
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description
                 }} noIndex={!this.state.seoFriendly} />
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH} title="Search for Test and Labs." goBack={true}>
-                    <div>
-                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
-                        {/*
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true}>
+                    {
+                        this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
+                            {/*
                         <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
                         </div>
                         */}
-                        <LabsList {...this.props} getLabList={this.getLabList.bind(this)} />
-                    </div>
+                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} />
+                        </div>
+                    }
                 </CriteriaSearch>
             </div>
         );

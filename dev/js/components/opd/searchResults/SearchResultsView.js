@@ -20,7 +20,8 @@ class SearchResultsView extends React.Component {
         this.state = {
             seoData, footerData,
             seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
-            clinic_card: this.props.location.search.includes('clinic_card') || null
+            clinic_card: this.props.location.search.includes('clinic_card') || null,
+            showError: false
         }
     }
 
@@ -128,6 +129,8 @@ class SearchResultsView extends React.Component {
                 let new_url = this.buildURI(state)
                 this.props.history.replace(new_url)
             }
+        }).catch((e) => {
+            this.setState({ showError: true })
         })
     }
 
@@ -186,15 +189,21 @@ class SearchResultsView extends React.Component {
                     schema: this.getMetaTagsData(this.state.seoData).schema,
                     seoFriendly: this.state.seoFriendly
                 }} />
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card}>
-                    <div>
-                        <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
-                        {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
+
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card}>
+                    {
+                        this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
+                            {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                        <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} />
-                    </div>
+                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} />
+
+                        </div>
+                    }
                 </CriteriaSearch>
+
+
                 <Footer footerData={this.state.footerData} />
             </div>
         );
