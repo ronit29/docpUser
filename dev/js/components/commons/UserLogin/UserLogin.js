@@ -13,7 +13,8 @@ class UserLoginView extends React.Component {
             phoneNumber: '',
             validationError: '',
             showOTP: false,
-            otp: ""
+            otp: "",
+            otpTimeout: false
         }
     }
 
@@ -37,7 +38,10 @@ class UserLoginView extends React.Component {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    this.setState({ showOTP: true })
+                    this.setState({ showOTP: true, otpTimeout: true })
+                    setTimeout(() => {
+                        this.setState({ otpTimeout: false })
+                    }, 10000)
                 }
             })
         } else {
@@ -67,12 +71,12 @@ class UserLoginView extends React.Component {
                         GTM.sendEvent({ data: data })
                     }
 
-                    if(parsed.ref){
+                    if (parsed.ref) {
                         this.props.history.push('/user')
                     }
                     else if (parsed.callback) {
                         this.props.history.replace(parsed.callback)
-                    } 
+                    }
                     else {
                         this.props.history.go(-1)
                     }
@@ -155,8 +159,9 @@ class UserLoginView extends React.Component {
                                                 this.state.showOTP ? <div className="adon-group enter-mobile-number">
                                                     <br /><br />
                                                     <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
-
-                                                    <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)}>Resend ?</a>
+                                                    {
+                                                        this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)}>Resend ?</a>
+                                                    }
                                                 </div> : ""
                                             }
                                         </div>
@@ -164,38 +169,38 @@ class UserLoginView extends React.Component {
                                         <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
                                         {
                                             this.state.showOTP ?
-                                            <div class="text-center">
-                                                <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} class="v-btn v-btn-primary btn-sm">
-                                                    Verify
+                                                <div class="text-center">
+                                                    <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} class="v-btn v-btn-primary btn-sm">
+                                                        Verify
                                                 </button>
-                                            </div>:
-                                            <div class="text-center">
-                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent}  class="v-btn v-btn-primary btn-sm">
-                                                    Continue
+                                                </div> :
+                                                <div class="text-center">
+                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} class="v-btn v-btn-primary btn-sm">
+                                                        Continue
                                                 </button>
-                                            </div>
+                                                </div>
                                         }
                                     </div>
-                                    
+
                                     <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                                 </div>
                                 <div className="widget mt-21 sign-up-container mrng-btm-scrl">
                                     <div className="sgn-up-instructions">
                                         <div className="sighnup-scnd-heading">
                                             <p><b>docprime</b> is your <span>Free Family Doctor For Life</span> </p>
-                                            
+
                                         </div>
                                         <ul className="sign-up-lisitng">
                                             <li>
-                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid" /> 
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid" />
                                                 <p>Chat instantly, anytime, anywhere with qualified doctors for free</p>
                                             </li>
                                             <li>
-                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-offr.png"} className="img-fluid" /> 
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/su-offr.png"} className="img-fluid" />
                                                 <p>Get upto 50% off on doctor appointments and lab tests</p>
                                             </li>
                                             <li>
-                                               <img src={ASSETS_BASE_URL + "/img/customer-icons/su-opd.png"} className="img-fluid" /> 
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/su-opd.png"} className="img-fluid" />
                                                 <p>OPD Insurance coming soon</p>
                                             </li>
                                         </ul>

@@ -21,7 +21,8 @@ class ChatPanel extends React.Component {
             hideIframe: true,
             iframeLoading: true,
             showStaticView: true,
-            initialMessage: ""
+            initialMessage: "",
+            callTimeout: false
         }
     }
 
@@ -296,17 +297,25 @@ class ChatPanel extends React.Component {
                                     </div>
 
                                     <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
-                                        <span className="mr-2" onClick={() => {
-                                            let data = {
-                                                'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
-                                            }
-                                            GTM.sendEvent({ data: data })
+                                        {
+                                            this.state.selectedRoom ? <span className="mr-2" onClick={() => {
+                                                let data = {
+                                                    'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
+                                                }
+                                                GTM.sendEvent({ data: data })
+                                                if (!this.state.callTimeout) {
+                                                    this.dispatchCustomEvent.call(this, 'call')
+                                                    this.setState({ callTimeout: true })
+                                                    setTimeout(() => {
+                                                        this.setState({ callTimeout: false })
+                                                    }, 10000)
+                                                }
+                                            }}>
+                                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
 
-                                            this.dispatchCustomEvent.call(this, 'call')
-                                        }}>
-                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
+                                            </span> : ""
+                                        }
 
-                                        </span>
                                         <span onClick={this.toggleCancel.bind(this)}>
                                             <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
 
