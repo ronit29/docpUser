@@ -83,7 +83,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
-    let { doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER } = state.DOCTOR_SEARCH
+    let { doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -95,7 +95,8 @@ const mapStateToProps = (state, passedProps) => {
         SET_FROM_SERVER,
         initialServerData,
         locationType,
-        fetchNewResults
+        fetchNewResults,
+        search_content
     }
 }
 

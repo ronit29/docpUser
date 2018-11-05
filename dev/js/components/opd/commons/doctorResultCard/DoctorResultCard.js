@@ -52,7 +52,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enabled_for_online_booking, is_license_verified } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enabled_for_online_booking, is_license_verified, is_gold, schema } = this.props.details
 
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
@@ -70,10 +70,29 @@ class DoctorProfileCard extends React.Component {
             var discount = 100 - Math.round((deal_price * 100) / mrp);
         }
 
+        try {
+            if (schema) {
+                schema = JSON.stringify(schema)
+            }
+        } catch (e) {
+            schema = ""
+        }
+
         if (hospitals && hospitals.length) {
             return (
 
                 <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
+                {
+                    schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: schema
+                    }} />
+                    :""
+                }
+                {
+                    is_gold?
+                    <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"}/>
+                    :''
+                }
                     <div className="fltr-crd-top-container">
                         <div className="fltr-lctn-dtls">
                             <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />

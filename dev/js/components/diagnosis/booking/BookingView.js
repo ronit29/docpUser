@@ -31,7 +31,7 @@ class BookingView extends React.Component {
             loading: true,
             showCancel: false,
             payment_success: this.props.location.search.includes('payment_success'),
-            hide_button: this.props.location.search.includes('hide_button')
+            hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button')
         }
     }
 

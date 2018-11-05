@@ -14,7 +14,8 @@ class DoctorsList extends React.Component {
             hasMore: true,
             loading: false,
             renderBlock: false,
-            page:1
+            page: 1,
+            readMore: 'search-details-data-less'
         }
     }
 
@@ -45,7 +46,8 @@ class DoctorsList extends React.Component {
 
     componentWillUnmount() {
         let data = {
-        'Category': 'ConsumerApp', 'Action': 'DoctorSearchPagination', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-pagination','Pages': this.state.page}
+            'Category': 'ConsumerApp', 'Action': 'DoctorSearchPagination', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-pagination', 'Pages': this.state.page
+        }
         GTM.sendEvent({ data: data })
 
         // if (window) {
@@ -61,14 +63,21 @@ class DoctorsList extends React.Component {
     }
 
     loadMore(page) {
-        this.setState({ hasMore: false, loading: true })    
+        this.setState({ hasMore: false, loading: true })
         this.props.getDoctorList(null, page + 1, (hasMore) => {
-            this.setState({ loading: false ,page: page + 1})
+            this.setState({ loading: false, page: page + 1 })
             setTimeout(() => {
                 this.setState({ hasMore })
             }, 1000)
         })
 
+    }
+
+    toggleScroll(){
+        if(window){
+            window.scrollTo(0,0)
+        }
+        this.setState({readMore:'search-details-data-less'})
     }
 
     render() {
@@ -80,6 +89,25 @@ class DoctorsList extends React.Component {
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
+                            {
+                                this.props.search_content && this.props.search_content !=''?
+                                <div className="search-result-card-collpase">
+                                    <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
+                                    </div>
+                                    
+                                    {   this.state.readMore && this.state.readMore != ''?
+                                        <span className="rd-more" onClick={()=>this.setState({readMore:''})}>Read More</span>
+                                        :''
+                                    }
+
+                                    {   this.state.readMore == ''?
+                                        <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                                        :''
+                                    }
+
+                                </div>
+                                :''
+                            }
                             <div className="row">
                                 <div className="col-12">
                                     <InfiniteScroll
@@ -113,7 +141,7 @@ class DoctorsList extends React.Component {
 
                                                 } else {
                                                     if (DOCTORS[docId]) {
-                                                        return <div>
+                                                        return <div key={i} >
                                                             {
                                                                 this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
                                                             }
