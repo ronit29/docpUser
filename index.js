@@ -95,7 +95,7 @@ app.all('*', function (req, res) {
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
                 })
-            }, 5000)
+            }, 10000)
 
             Promise.all(promises).then(data => {
                 try {

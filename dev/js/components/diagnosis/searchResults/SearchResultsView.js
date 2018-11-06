@@ -6,13 +6,19 @@ import TopBar from './topBar'
 import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
-
+import Footer from '../../commons/Home/footer'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
         super(props)
+        let seoData = null
+        let footerData = null
+        if (this.props.initialServerData) {
+            seoData = this.props.initialServerData.seoData
+            footerData = this.props.initialServerData.footerData
+        }
         this.state = {
-            seoData: this.props.initialServerData,
+            seoData, footerData,
             seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
             showError: false
         }
@@ -24,6 +30,13 @@ class SearchResultsView extends React.Component {
             if (window) {
                 window.scrollTo(0, 0)
             }
+        }
+        if (this.state.seoFriendly) {
+            this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                if (footerData) {
+                    this.setState({ footerData: footerData })
+                }
+            })
         }
     }
 
@@ -161,6 +174,7 @@ class SearchResultsView extends React.Component {
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description
                 }} noIndex={!this.state.seoFriendly} />
+
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
@@ -174,6 +188,8 @@ class SearchResultsView extends React.Component {
                         </div>
                     }
                 </CriteriaSearch>
+
+                <Footer footerData={this.state.footerData} />
             </div>
         );
     }

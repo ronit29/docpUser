@@ -9,11 +9,17 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import GTM from '../../../helpers/gtm.js'
 import CONFIG from '../../../config'
+import Footer from '../../commons/Home/footer'
 
 class LabView extends React.Component {
     constructor(props) {
         super(props)
+        let footerData = null
+        if (this.props.initialServerData) {
+            footerData = this.props.initialServerData.footerData
+        }
         this.state = {
+            footerData,
             seoFriendly: this.props.match.url.includes('-lpp')
         }
     }
@@ -21,6 +27,13 @@ class LabView extends React.Component {
     componentDidMount() {
         if (window) {
             window.scrollTo(0, 0)
+        }
+        if (this.state.seoFriendly) {
+            this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                if (footerData) {
+                    this.setState({ footerData: footerData })
+                }
+            })
         }
     }
 
@@ -51,8 +64,10 @@ class LabView extends React.Component {
 
     render() {
 
-        let lab_id = this.props.initialServerData || this.props.selectedLab
-
+        let lab_id = this.props.selectedLab
+        if (this.props.initialServerData && this.props.initialServerData.labId) {
+            lab_id = this.props.initialServerData.labId
+        }
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -118,6 +133,8 @@ class LabView extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
+
+                <Footer footerData={this.state.footerData} />
             </div>
         );
     }

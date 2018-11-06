@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 
@@ -31,7 +31,16 @@ class SearchResults extends React.Component {
                     }
 
                     return store.dispatch(getLabs(state, 1, true, searchUrl, (loadMore, seoData) => {
-                        resolve(seoData)
+                        if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
+                            getFooterData(match.url.split("/")[1])().then((footerData) => {
+                                footerData = footerData || null
+                                resolve({ seoData, footerData })
+                            }).catch((e) => {
+                                resolve({ seoData })
+                            })
+                        } else {
+                            resolve({ seoData })
+                        }
                     }))
                 }).catch((e) => {
                     reject()
@@ -100,7 +109,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
-        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults))
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
+        getFooterData: (url) => dispatch(getFooterData(url))
     }
 }
 
