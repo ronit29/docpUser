@@ -154,7 +154,7 @@ app.all('*', function (req, res) {
                  * If a new url is sent via any API call, then redirect client.
                  */
                 if (error && error.url) {
-                    res.redirect(`/${error.url}`);
+                    res.redirect(301, `/${error.url}`);
                 } else {
 
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
