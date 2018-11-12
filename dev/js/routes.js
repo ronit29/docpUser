@@ -48,6 +48,7 @@ import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 const routes = [
 
     { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
+    { path: '/homechat', exact: true, component: Home, RENDER_ON_SERVER: true },
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
     { path: '/chathistory', exact: true, component: ChatHistory },
