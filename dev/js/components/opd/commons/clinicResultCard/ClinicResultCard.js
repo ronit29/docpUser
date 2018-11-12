@@ -1,5 +1,6 @@
 import React from 'react';
 import GTM from '../../../../helpers/gtm.js'
+import STORAGE from '../../../../helpers/storage';
 
 class ClinicResultCard extends React.Component {
     constructor(props) {
@@ -89,12 +90,15 @@ class ClinicResultCard extends React.Component {
                                     <p className="mrb-10">{this.getQualificationStr(general_specialization || [])}</p>
                                     {/* <p className="fw-500 clinic-status mrb-10">Open Today</p> */}
                                 </div>
+                                <div className="mrt-10" style={{position: 'absolute', bottom: 4}}>
+                                    <p className="fw-500 text-xs" style={{ color: 'red' }}>*Exclusive discount. Available only on prepaid bookings</p>
+                                </div>
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">
                                     {
                                         discount && discount != 0 ?
-                                            <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
+                                            <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off*</span> : ''
                                     }
 
                                     {
@@ -110,21 +114,29 @@ class ClinicResultCard extends React.Component {
                                     </p>
 
                                     {
+                                        STORAGE.checkAuth() ?
+                                            ''
+                                            : <div className="signup-off-container">
+                                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                            </div>
+                                    }
+
+                                    {
                                         enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="filtr-card-footer">
+                    {/* <div className="filtr-card-footer">
                         <div>
-                            {/* <img src={ASSETS_BASE_URL + "/img/customer-icons/doctor.svg"} style={{width: 19}} />
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/doctor.svg"} style={{width: 19}} />
                             <div style={{ display: 'inline-block' }}>
                                 <p style={{ display: 'block' }}>{display_name}</p>
                                 {
                                     experience_years ? <p style={{ display: 'block' }}>{experience_years} Years of Experience</p> : ""
                                 }
-                            </div> */}
+                            </div>
                         </div>
                         <div className="text-right">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />
@@ -132,7 +144,7 @@ class ClinicResultCard extends React.Component {
                                 <span>{Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}</span>
                             </p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             );
         } else {
