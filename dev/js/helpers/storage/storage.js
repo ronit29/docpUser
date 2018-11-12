@@ -65,7 +65,7 @@ const STORAGE = {
     },
     deleteAuth: () => {
         eraseCookie('tokenauth')
-        deleteAllCookies()
+        // deleteAllCookies()
         return Promise.resolve()
     },
     isAgent: () => {

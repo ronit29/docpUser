@@ -8,7 +8,6 @@ class CitiesSpecialitiesView extends React.Component {
 	}
 
 	componentDidMount() {
-
 		let city = this.props.match.params.city
 		this.props.getCitiesMap(city)
 	}
@@ -16,44 +15,35 @@ class CitiesSpecialitiesView extends React.Component {
 	render() {
 
 		return (
-		<div>
-			<div className="fw-500 sitemap-title">{this.props.match.params.city}</div>
-			<div className="row sitemap-row">
-				{
-					this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length ?
-						this.props.citiesMapSpecialities.specialization_city_urls.slice(0, 20).map((city, i) => {
-							return <div className="col-12 col-md-6" key={i} onClick={() => { this.props.history.push(`/${city.url}`) }}>
-								<div className="anchor-data-style">
-									<a href={`/${city.url}`} onClick={(e) => { e.preventDefault() }}>{`${city.title}`}</a>
-									<span className="sitemap-count">{`(${city.count})`}</span>
+			<div>
+				<div className="fw-500 sitemap-title">{this.props.match.params.city}</div>
+				<div className="row sitemap-row">
+					{
+						this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length ?
+							this.props.citiesMapSpecialities.specialization_city_urls.map((city, i) => {
+								let style = {}
+								if (!this.state.showMore && i >= 20) {
+									style = { display: 'none' }
+								}
+								return <div style={style} className="col-12 col-md-6" key={i} onClick={() => { this.props.history.push(`/${city.url}`) }}>
+									<div className="anchor-data-style">
+										<a href={`/${city.url}`} onClick={(e) => { e.preventDefault() }}>{`${city.title}`}</a>
+										<span className="sitemap-count">{`(${city.count})`}</span>
+									</div>
 								</div>
-							</div>
-						})
-						: <p>No Data Found</p>
-				}
+							})
+							: <p>No Data Found</p>
+					}
 
-				{
-					this.state.showMore && this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length ?
-						this.props.citiesMapSpecialities.specialization_city_urls.slice(20).map((city, i) => {
-							return <div className="col-12 col-md-6" key={i} onClick={() => { this.props.history.push(`/${city.url}`) }}>
-								<div className="anchor-data-style">
-									<a href={`/${city.url}`} onClick={(e) => { e.preventDefault() }}>{`${city.title}`}</a>
-									<span className="sitemap-count">{`(${city.count})`}</span>
-								</div>
+					{
+						!this.state.showMore && this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length >= 20 ?
+							<div className="col-12 text-center mrt-20">
+								<button className="sitemap-show-more" onClick={() => { this.setState({ showMore: true }) }}>Show More</button>
 							</div>
-						})
-						: ''
-				}
-
-				{
-					!this.state.showMore && this.props.citiesMapSpecialities.specialization_city_urls && this.props.citiesMapSpecialities.specialization_city_urls.length >= 20 ?
-						<div className="col-12 text-center mrt-20">
-							<button className="sitemap-show-more" onClick={() => { this.setState({ showMore: true }) }}>Show More</button>
-						</div>
-						: ''
-				}
+							: ''
+					}
+				</div>
 			</div>
-		</div>
 		)
 	}
 }

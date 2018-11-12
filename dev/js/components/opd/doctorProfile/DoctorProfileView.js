@@ -34,11 +34,13 @@ class DoctorProfileView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
-            if (footerData) {
-                this.setState({ footerData: footerData })
-            }
-        })
+        if (this.state.seoFriendly) {
+            this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                if (footerData) {
+                    this.setState({ footerData: footerData })
+                }
+            })
+        }
     }
 
     getMetaTagsData(seoData) {
@@ -121,11 +123,11 @@ class DoctorProfileView extends React.Component {
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
-                                                    {
-                                                        this.props.DOCTORS[doctor_id].is_gold?
-                                                        <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"}/>
-                                                        :''
-                                                    }
+                                                        {
+                                                            this.props.DOCTORS[doctor_id].is_gold ?
+                                                                <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"} />
+                                                                : ''
+                                                        }
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
@@ -177,6 +179,7 @@ class DoctorProfileView extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+
                 <Footer footerData={this.state.footerData} />
             </div>
         );

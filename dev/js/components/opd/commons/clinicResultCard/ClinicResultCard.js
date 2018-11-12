@@ -118,13 +118,13 @@ class ClinicResultCard extends React.Component {
                     </div>
                     <div className="filtr-card-footer">
                         <div>
-                            <img src={ASSETS_BASE_URL + "/img/customer-icons/doctor.svg"} style={{width: 19}} />
+                            {/* <img src={ASSETS_BASE_URL + "/img/customer-icons/doctor.svg"} style={{width: 19}} />
                             <div style={{ display: 'inline-block' }}>
                                 <p style={{ display: 'block' }}>{display_name}</p>
                                 {
                                     experience_years ? <p style={{ display: 'block' }}>{experience_years} Years of Experience</p> : ""
                                 }
-                            </div>
+                            </div> */}
                         </div>
                         <div className="text-right">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />

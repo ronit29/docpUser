@@ -2858,3 +2858,11 @@ ul.list-sub-menu a:hover {
     padding: 0px 15px;
 }
 /* search read more container */
+.norf{
+	display: flex;
+    height: 100vh;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
