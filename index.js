@@ -139,6 +139,8 @@ app.all('*', function (req, res) {
                         Sentry.captureException(e)
                     }
 
+                    clearTimeout(SSR_TIMER)
+
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
                         html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
@@ -146,6 +148,8 @@ app.all('*', function (req, res) {
                 }
 
             }).catch((error) => {
+                clearTimeout(SSR_TIMER)
+
                 /** 
                  * If a new url is sent via any API call, then redirect client.
                  */
