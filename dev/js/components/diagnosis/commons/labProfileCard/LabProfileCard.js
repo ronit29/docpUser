@@ -117,7 +117,7 @@ class LabProfileCard extends React.Component {
                         <div className="row">
                             <div className="col-12 text-right">
                                 {
-                                    price ? <p className="lab-price mrb-10"><span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span> &#8377; {price}</p> : ""
+                                    price ? <p className="lab-price mrb-10"> &#8377; {price} <span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span></p> : ""
                                 }
                                 {
                                     STORAGE.checkAuth() ?
