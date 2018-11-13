@@ -107,6 +107,12 @@ class UserSignupView extends React.Component {
         }
     }
 
+    handleEnterPress(e) {
+        if (e.key === 'Enter') {
+            this.submitForm();
+        }
+    }
+
     render() {
 
         return (
@@ -175,16 +181,16 @@ class UserSignupView extends React.Component {
                                                 <form className="go-bottom" >
 
                                                     <div className="labelWrap">
-                                                        <input id="number" name="phone_number" type="text" onChange={this.inputHandler.bind(this)} value={this.state.phone_number} required ref="phone_number" />
+                                                        <input id="number" name="phone_number" type="text" onChange={this.inputHandler.bind(this)} value={this.state.phone_number} required ref="phone_number" onKeyPress={this.handleEnterPress.bind(this)} />
                                                         <label htmlFor="number">Mobile Number</label>
                                                     </div>
                                                     <div className="labelWrap">
-                                                        <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" />
+                                                        <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" onKeyPress={this.handleEnterPress.bind(this)} />
                                                         <label htmlFor="fname">{this.state.existingUser ? "Member" : "Patient"} Name</label>
                                                         <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
                                                     </div>
                                                     <div className="labelWrap">
-                                                        <input id="age" name="age" type="number" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" />
+                                                        <input id="age" name="age" type="number" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" onKeyPress={this.handleEnterPress.bind(this)} />
                                                         <label htmlFor="age">Age</label>
                                                     </div>
                                                     <div className="form-group input-group">
@@ -196,7 +202,7 @@ class UserSignupView extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="labelWrap">
-                                                        <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" />
+                                                        <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" onKeyPress={this.handleEnterPress.bind(this)} />
                                                         <label htmlFor="email">Email</label>
                                                     </div>
 

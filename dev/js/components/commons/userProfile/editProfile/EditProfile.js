@@ -34,7 +34,7 @@ class EditProfile extends React.Component {
 
         switch (this.state.selectedTab) {
             case 0: {
-                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)} />
+                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} proceedUpdate={this.proceedUpdate.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)} />
             }
             case 1: {
                 return <MedialDetails />
