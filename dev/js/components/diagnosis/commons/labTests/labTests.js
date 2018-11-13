@@ -50,7 +50,7 @@ class LabTests extends React.Component {
                     return <PackageTest i={i} test={test} toggle={this.toggle.bind(this)} />
                 } else {
                     return <li className="clearfix" key={i}>
-                        <span className="test-price"><span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span>&#8377; {test.deal_price}</span><span className="fw-500 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
+                        <span className="test-price">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span><span className="fw-500 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
                 }
             })
         }
@@ -65,7 +65,7 @@ class LabTests extends React.Component {
             defaultTests = this.props.data.lab_tests.map((test, i) => {
 
                 return <li className="clearfix" key={i}>
-                    <span className="test-price"><span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span>&#8377; {test.deal_price}</span><span className="fw-400 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
+                    <span className="test-price">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span><span className="fw-400 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
             })
         }
 
