@@ -49,6 +49,15 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
+    toggleProcedures(test_to_toggle) {/*
+        let test = Object.assign({}, test_to_toggle.test)
+        test.mrp = test_to_toggle.mrp
+        test.deal_price = test_to_toggle.deal_price
+        test.extra_test = true
+        test.lab_id = this.state.selectedLab
+
+        this.props.toggleDiagnosisCriteria('test', test)*/
+    }
 
     render() {
 
@@ -149,6 +158,33 @@ class DoctorProfileCard extends React.Component {
                                     }
                                 </div>
                             </div>
+
+                            {
+                                hospitals[0] && hospitals[0].procedures && hospitals[0].procedures.length?
+                                <div className="widget-content pb-details pb-test">
+                                    <h4 className="wc-title text-md fw-700">Price List</h4>
+
+                                    <ul className="list pb-list pb-test-list">
+                                        {
+                                            hospitals[0].procedures.map((procedure, i) => {
+
+                                                return <li key={i + "st"}>
+                                                        <label className="ck-bx">
+                                                            {procedure.name}
+                                                            <input type="checkbox" checked={true} onChange={this.toggleProcedures.bind(this, procedure)} />
+                                                            <span className="checkmark" />
+                                                        </label>
+                                                        <span className="test-price text-md fw-500"><span className="test-mrp">&#8377; {procedure.mrp}</span>&#8377; {procedure.deal_price}</span>
+                                                    </li>
+                                            })
+                                        }
+                                    </ul>
+                                    <div className="pb-view text-right">
+                                        <a href="javascript:;" className="link-text text-md fw-700">View More & Select Tests</a>
+                                    </div>
+                                </div>
+                                :''
+                            }
                         </div>
                     </div>
                     <div className="filtr-card-footer">

@@ -77,6 +77,8 @@ class SearchResultsView extends React.Component {
         let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
         let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
         let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+        let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+        let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
 
         let lat = 28.644800
         let long = 77.216721
@@ -103,7 +105,7 @@ class SearchResultsView extends React.Component {
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
 
-        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}`
+        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}`
 
         if (this.state.clinic_card) {
             url += `&clinic_card=true`

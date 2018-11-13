@@ -20,7 +20,8 @@ const defaultState = {
     selectedLocation: null,
     filterCriteria: DEFAULT_FILTER_STATE,
     locationType: 'geo',
-    fetchNewResults: false
+    fetchNewResults: false,
+    procedure_categories: []
 }
 
 export default function (state = defaultState, action) {
@@ -58,12 +59,19 @@ export default function (state = defaultState, action) {
              * QUICK HACK TO MAKE CONDITIONS AND SPECIALIZATIONS MUTUALLY EXCLUSIVE 
              * TO BE CHANGED IN FUTURE 
             **/
-            if (action.payload.type == 'condition') {
+           
+           /* if (action.payload.type == 'condition') {
                 newState.selectedCriterias = []
             } else {
                 newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
                     return curr.type != 'condition'
                 })
+            }*/
+
+            if(action.payload.type){
+                newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
+                    return curr.type == action.payload.type
+                })   
             }
 
             if (action.payload.forceAdd) {

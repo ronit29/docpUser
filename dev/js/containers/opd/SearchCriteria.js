@@ -39,7 +39,8 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         selectedLocation,
         filterCriteria,
-        locationType
+        locationType,
+        procedure_categories
     } = state.SEARCH_CRITERIA_OPD
 
     return {
@@ -49,7 +50,8 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         selectedLocation,
         filterCriteria,
-        locationType
+        locationType,
+        procedure_categories
     }
 }
 

@@ -92,6 +92,14 @@ class SearchCriteriaView extends React.Component {
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
 
+                        <CommonlySearched
+                            heading="Common Procedure Categories"
+                            type="procedures_category"
+                            data={this.props.procedure_categories}
+                            selected={this.props.selectedCriterias.filter(x => x.type == 'procedures_category')}
+                            toggle={this.props.toggleOPDCriteria.bind(this)}
+                        />
+
                         <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn">Show Doctors</button>
 
                     </section>

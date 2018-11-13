@@ -20,6 +20,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
 	let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
 	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+	let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+	let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
 
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
@@ -51,6 +53,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
 		specializations_ids = ""
 		condition_ids = ""
+		procedures_ids = ""
+		category_ids = ""
 	}
 
 	let url = `/api/v1/doctor/doctorsearch?`
@@ -59,7 +63,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearch_by_url?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
@@ -81,7 +85,12 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			return x
 		})
 
-		let selectedCriterias = [...specializations, ...conditions]
+		let procedures = response.procedure_categories.map((x) => {
+			x.type = 'procedures_category'
+			return x
+		})		
+
+		let selectedCriterias = [...specializations, ...conditions, ...procedures]
 
 		dispatch({
 			type: MERGE_SEARCH_STATE_OPD,
