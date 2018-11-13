@@ -101,7 +101,13 @@ class ClinicResultCard extends React.Component {
                                 <div className="fltr-bkng-section">
                                     {
                                         discount && discount != 0 ?
-                                            <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off*</span> : ''
+                                            <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off
+                                                {
+                                                    discount && discount != 0 && deal_price && !!!STORAGE.checkAuth() ?
+                                                        <span>*</span> : ''
+
+                                                }
+                                            </span> : ''
                                     }
 
                                     {
