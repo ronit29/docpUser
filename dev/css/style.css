@@ -1667,9 +1667,6 @@ margin: 0px 10px;
 	display: flex;
 	justify-content: space-between;
 }
-.filtr-card-footer div{
-    display: inline-block;
-} 
 .filtr-card-footer p {
     display: inline-block;
     text-align: start;
