@@ -76,7 +76,7 @@ class ClinicSelector extends React.Component {
                                             <h4 className="widget-title text-md fw-700 clinic-selector-name ratng-clinic-slc-name">{hospital.hospital_name}</h4>
                                             <span className="float-right text-md fw-700 ratng-doc-price add-on-doc-price">&#8377; {hospital.deal_price} <b className="ratng-doc-oldprice">&#8377; {hospital.mrp}</b>
                                                 {
-                                                    STORAGE.checkAuth() ?
+                                                    STORAGE.checkAuth() || hospital.deal_price < 100 ?
                                                         ''
                                                         : <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                                                 }

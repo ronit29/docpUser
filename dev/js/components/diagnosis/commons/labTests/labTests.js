@@ -60,10 +60,15 @@ class LabTests extends React.Component {
             showDefaultTests = true
         }
 
+        let totalAmount = 0;
+        if (this.props.data.tests && this.props.data.tests.length) {
+            for (var i = 0; i < this.props.data.tests.length; i++) {
+                totalAmount = totalAmount + this.props.data.tests[i].deal_price;
+            }
+        }
+
         if (this.props.data.lab_tests && this.props.data.lab_tests.length && showDefaultTests) {
-
             defaultTests = this.props.data.lab_tests.map((test, i) => {
-
                 return <li className="clearfix" key={i}>
                     <span className="test-price"><span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span>&#8377; {test.deal_price}</span><span className="fw-400 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
             })
@@ -116,7 +121,7 @@ class LabTests extends React.Component {
                         </div> : ""
                     }
                     {
-                        STORAGE.checkAuth() ?
+                        STORAGE.checkAuth() || totalAmount < 100 ?
                             ''
                             : <div className="signup-off-container lab-signup-offr">
                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
