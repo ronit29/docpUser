@@ -9,7 +9,7 @@ class LabsList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            hasMore: true,
+            hasMore: false,
             loading: false,
             renderBlock: false,
             page: 0
@@ -20,30 +20,36 @@ class LabsList extends React.Component {
         /**
          * Below code ensures smooth back page transitions in case of huge data sets, and maintains scroll position.
          * renderBlock = true (by default) will block render until the page transition is completed, and once its done, it will then render and set scroll position accordingly
-         */
-        // setTimeout(() => {
-        //     if (this.refs.checkIfExists) {
-        //         this.setState({ renderBlock: false })
-        //     }
-        //     setTimeout(() => {
-        //         if (window) {
-        //             let scroll_pos = window.LAB_SCROLL_POS ? (window.LAB_SCROLL_POS) : 0
-        //             // TODO: improve scroll back logic
-        //             window.scrollTo(0, scroll_pos || 0)
-        //             window.LAB_SCROLL_POS = 0
+         
+        setTimeout(() => {
+            if (this.refs.checkIfExists) {
+                this.setState({ renderBlock: false })
+            }
+            setTimeout(() => {
+                if (window) {
+                    let scroll_pos = window.LAB_SCROLL_POS ? (window.LAB_SCROLL_POS) : 0
+                    // TODO: improve scroll back logic
+                    window.scrollTo(0, scroll_pos || 0)
+                    window.LAB_SCROLL_POS = 0
 
-        //             window.onscroll = function () {
-        //                 window.LAB_SCROLL_POS = window.pageYOffset
-        //             }
-        //         }
-        //     }, 100)
-        // }, 100)
+                    window.onscroll = function () {
+                        window.LAB_SCROLL_POS = window.pageYOffset
+                    }
+                }
+            }, 100)
+        }, 100)
+        
+        */
+        setTimeout(() => {
+            this.setState({ hasMore: true })
+        }, 0)
 
     }
 
     componentWillUnmount() {
         let data = {
-        'Category': 'ConsumerApp', 'Action': 'LabSearchPagination', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-search-pagination','Pages': this.state.page}
+            'Category': 'ConsumerApp', 'Action': 'LabSearchPagination', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-search-pagination', 'Pages': this.state.page
+        }
         GTM.sendEvent({ data: data })
         // if (window) {
         //     window.onscroll = null
@@ -88,8 +94,8 @@ class LabsList extends React.Component {
                                     >
                                         {
                                             labList.map((labId, i) => {
-                                                if(i == 1 && LABS[labId]){
-                
+                                                if (i == 1 && LABS[labId]) {
+
                                                     return <div>
                                                         <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
@@ -107,8 +113,8 @@ class LabsList extends React.Component {
                                                         </div>
                                                         <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                     </div>
-                                 
-                                                 }else{
+
+                                                } else {
                                                     if (LABS[labId]) {
                                                         return <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                     } else {
