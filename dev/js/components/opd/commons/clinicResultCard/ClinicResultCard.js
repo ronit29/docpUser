@@ -90,9 +90,12 @@ class ClinicResultCard extends React.Component {
                                     <p className="mrb-10">{this.getQualificationStr(general_specialization || [])}</p>
                                     {/* <p className="fw-500 clinic-status mrb-10">Open Today</p> */}
                                 </div>
-                                <div className="mrt-10" style={{position: 'absolute', bottom: 4}}>
-                                    <p className="fw-500 text-xs" style={{ color: 'red' }}>*Exclusive discount. Available only on prepaid bookings</p>
-                                </div>
+                                {
+                                    discount && discount != 0 && deal_price && !!!STORAGE.checkAuth() ?
+                                        <div className="mrt-10" style={{ position: 'absolute', bottom: 4 }}>
+                                            <p className="fw-500 text-xs" style={{ color: 'red' }}>*Exclusive discount. Available only on prepaid bookings</p>
+                                        </div> : ''
+                                }
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">
