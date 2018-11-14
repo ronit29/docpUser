@@ -34,7 +34,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            this.props.match.url === '/homechat' ? <HomeChatView {...this.props} /> : <HomeView {...this.props} />
+            this.props.match.url === '/online-consultation' ? <HomeChatView {...this.props} /> : <HomeView {...this.props} />
         );
     }
 }
