@@ -66,17 +66,17 @@ class TestSelectorView extends React.Component {
 
         if (labData) {
 
-            selectedTests.map((criteria) => {
-                let found = false
-                for (let test of labData.tests) {
-                    if (test.test.id == criteria.id) {
-                        found = true
-                    }
-                }
-                if (!found) {
-                    labData.tests.push({ ...criteria, test: criteria })
-                }
-            })
+            // selectedTests.map((criteria) => {
+            //     let found = false
+            //     for (let test of labData.tests) {
+            //         if (test.test.id == criteria.id) {
+            //             found = true
+            //         }
+            //     }
+            //     if (!found) {
+            //         labData.tests.push({ ...criteria, test: criteria })
+            //     }
+            // })
 
             let selected_tests = labData.tests.map((test, i) => {
                 if (selectedTestIds.indexOf(test.test.id) > -1) {
@@ -86,7 +86,7 @@ class TestSelectorView extends React.Component {
                             <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
                             <span className="checkmark" />
                         </label>
-                        <span className="test-price text-md fw-500">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                        <span className="test-price text-md fw-500">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp ? test.mrp.split('.')[0] : ""}</span></span>
                     </li>
                 }
             })
