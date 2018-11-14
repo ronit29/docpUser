@@ -48,7 +48,7 @@ class ContactUs extends React.Component {
                 <div className="row">
                     <div className="col-md-6 col-12 contact-background">
                         <div className="contact-text">
-                            Feel like contacting us? Submit your queries here and we will try to get back you as soon as possible
+                            Feel like contacting us? Submit your queries here and we will try to get back you as soon as possible. You can also mail us at customercare@docprime.com
                         </div>
                         <div className="gps">
                             <div className="contact-location">
