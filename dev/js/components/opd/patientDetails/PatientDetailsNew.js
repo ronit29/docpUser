@@ -232,7 +232,7 @@ class PatientDetailsNew extends React.Component {
                                                         </div>
                                                     </div>
                                                     {
-                                                        finalPrice != 0 ?
+                                                        priceData.deal_price != 0 ?
                                                             <div className="col-12">
                                                                 <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
                                                                     {
@@ -350,10 +350,9 @@ class PatientDetailsNew extends React.Component {
                                 } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{ !patient?'Select Patient':`Confirm Booking  ${priceData.deal_price? ` (₹ ${finalPrice})`:'' }` }</button>
                             }
 
-
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass="chat-float-btn-2" />
                     </div>
                 </section>
             </div>
