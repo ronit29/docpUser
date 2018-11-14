@@ -199,34 +199,6 @@ class DoctorProfileView extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="panel-content pnl-bottom-border">
-                                                                    <div className="dtl-radio">
-                                                                        <label className="container-radio">Veritaas Multispeciality  Clinic Diagnostic Centre
-                                                                            <input type="radio" checked name="radio" />
-                                                                            <span className="checkmark"></span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div className="dtl-cnslt-fee pb-list">
-                                                                        <div class="clearfix"><span class="test-price txt-ornage">₹ 300<span class="test-mrp">₹ 600</span></span><span class="fw-500 test-name-item">Consultation Fee</span></div>
-                                                                    </div>
-                                                                    <div className="row row-marginTop">
-                                                                        <div className="col-10">
-                                                                             <div className="add-content">
-                                                                                <span className="add-span">Address:</span>
-                                                                                <p>Huda city center, Gurgaon</p>
-                                                                             </div>
-                                                                             <div className="add-content">
-                                                                                <span className="add-span">Timings:</span>
-                                                                                <p>Mon to Wed - 10:20 AM to 1:00 PM
-                                                                                    <span className="ad-sub-content">Thu - 2:00 PM to 6:00 PM</span>
-                                                                                </p>
-                                                                             </div>
-                                                                        </div>
-                                                                        <div>
-                                                                        <img style={{width: "30px"}} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
