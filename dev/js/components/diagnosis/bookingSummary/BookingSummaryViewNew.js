@@ -64,13 +64,12 @@ class BookingSummaryViewNew extends React.Component {
 
 
     componentWillReceiveProps(nextProps) {
-
         if (nextProps.labCoupons && nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length && nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
 
             let is_home_collection_enabled = true, finalPrice = 0, finalMrp = 0
             let labCoupons = nextProps.labCoupons[this.state.selectedLab]
 
-            if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab]) {
+            if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
 
 
                 nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
@@ -84,8 +83,8 @@ class BookingSummaryViewNew extends React.Component {
                     finalMrp += parseFloat(mrp)
                 })
 
-                if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && is_home_collection_enabled) {
-                    finalPrice = finalPrice + (this.props.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+                if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
+                    finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
                 }
 
                 this.setState({ couponCode: labCoupons[0].couponCode, couponId: labCoupons[0].couponId || '' })
