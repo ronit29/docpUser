@@ -265,7 +265,6 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     render() {
-
         let tests = []
         let finalPrice = 0
         let finalMrp = 0
@@ -329,6 +328,13 @@ class BookingSummaryViewNew extends React.Component {
         let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
         let finalDisplayPrice = (finalPrice) ? (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? (finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)) : (finalPrice - (this.props.disCountedLabPrice || 0)) : 0
 
+        var amtBeforeCoupon = 0
+        if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
+            amtBeforeCoupon = finalPrice + (labDetail.home_pickup_charges)
+        } else {
+            amtBeforeCoupon = finalPrice
+        }
+
         return (
 
             <div className="profile-body-wrap">
@@ -375,53 +381,55 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
-                                                            {
-                                                                labCoupons.length ?
-                                                                    <div className="widget-content  d-flex jc-spaceb" >
-                                                                        <div className="d-flex">
-                                                                            <span className="coupon-img">
-                                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
-                                                                            </span>
-                                                                            <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                Coupon Applied
+                                                    {
+                                                        amtBeforeCoupon != 0 ?
+                                                            <div className="col-12">
+                                                                <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                                    {
+                                                                        labCoupons.length ?
+                                                                            <div className="widget-content  d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
+                                                                                        Coupon Applied
                                                                             </h4>
-                                                                        </div>
-                                                                        <div className=" d-flex">
-                                                                            <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                {labCoupons[0].couponCode}
-                                                                            </h4>
-                                                                            <span className="visit-time-icon coupon-icon">
-                                                                                <img onClick={(e) => {
-                                                                                    e.stopPropagation();
-                                                                                    let analyticData = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].couponId
-                                                                                    }
-                                                                                    GTM.sendEvent({ data: analyticData })
+                                                                                </div>
+                                                                                <div className=" d-flex">
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                        {labCoupons[0].couponCode}
+                                                                                    </h4>
+                                                                                    <span className="visit-time-icon coupon-icon">
+                                                                                        <img onClick={(e) => {
+                                                                                            e.stopPropagation();
+                                                                                            let analyticData = {
+                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].couponId
+                                                                                            }
+                                                                                            GTM.sendEvent({ data: analyticData })
 
-                                                                                    this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].couponId)
-                                                                                }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                                            </span>
-                                                                        </div>
-                                                                    </div> :
-                                                                    finalDisplayPrice != 0 ?
-                                                                        <div className="widget-content d-flex jc-spaceb" >
-                                                                            <div className="d-flex">
-                                                                                <span className="coupon-img">
-                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
-                                                                                </span>
-                                                                                <h4 className="title coupon-text">
-                                                                                    HAVE A COUPON?
+                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].couponId)
+                                                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div> :
+                                                                            <div className="widget-content d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text">
+                                                                                        HAVE A COUPON?
                                                                                 </h4>
+                                                                                </div>
+                                                                                <div className="visit-time-icon coupon-icon-arrow">
+                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                </div>
                                                                             </div>
-                                                                            <div className="visit-time-icon coupon-icon-arrow">
-                                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-                                                                            </div>
-                                                                        </div> : ''
-                                                            }
-                                                        </div>
-                                                    </div>
+                                                                    }
+                                                                </div>
+                                                            </div> : ''
+                                                    }
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
 

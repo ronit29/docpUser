@@ -16,6 +16,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
 import Footer from '../../commons/Home/footer'
+import GTM from '../../../helpers/gtm.js'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -26,7 +27,10 @@ class DoctorProfileView extends React.Component {
         }
         this.state = {
             footerData,
-            seoFriendly: this.props.match.url.includes('-dpp')
+            seoFriendly: this.props.match.url.includes('-dpp'),
+            selectedClinic: "",
+            is_live: false,
+            rank: 0
         }
     }
 
@@ -53,6 +57,30 @@ class DoctorProfileView extends React.Component {
             schema = seoData.schema
         }
         return { title, description, schema }
+    }
+
+    selectClinic(clinic_id, is_live, rank) {
+        this.setState({ selectedClinic: clinic_id, is_live, rank })
+    }
+
+    navigateToClinic(doctor_id, clinicId) {
+        let is_live = this.state.is_live
+        let rank = this.state.rank
+
+        if (is_live) {
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'OpdBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': clinicId || ''
+            }
+            GTM.sendEvent({ data: data })
+
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'OpdBookNowRank', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-rank', 'rank': rank + 1
+            }
+            GTM.sendEvent({ data: data })
+
+            this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/book`)
+        }
     }
 
     render() {
@@ -143,6 +171,8 @@ class DoctorProfileView extends React.Component {
                                                                 (this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) ? <ClinicSelector
                                                                     details={this.props.DOCTORS[doctor_id]}
                                                                     {...this.props} doctorId={doctor_id}
+                                                                    selectClinic={this.selectClinic.bind(this)}
+                                                                    selectedClinic={this.state.selectedClinic}
                                                                 /> : ""
                                                             }
 
@@ -167,44 +197,12 @@ class DoctorProfileView extends React.Component {
                                                                     </div>
                                                                 </div> :
                                                                 ""}
-
-                                                                {/* dummy book now */}
-                                                            <div className="widget-panel">
-                                                                <h4 className="panel-title mb-rmv">Select Clinic</h4>
-                                                                <div className="panel-content pnl-bottom-border">
-                                                                    <div className="dtl-radio">
-                                                                        <label className="container-radio">Veritaas Multispeciality  Clinic Diagnostic Centre
-                                                                            <input type="radio" checked name="radio" />
-                                                                            <span className="checkmark"></span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div className="dtl-cnslt-fee pb-list">
-                                                                        <div class="clearfix"><span class="test-price txt-ornage">₹ 300<span class="test-mrp">₹ 600</span></span><span class="fw-500 test-name-item">Consultation Fee</span></div>
-                                                                    </div>
-                                                                    <div className="row row-marginTop">
-                                                                        <div className="col-10">
-                                                                             <div className="add-content">
-                                                                                <span className="add-span">Address:</span>
-                                                                                <p>Huda city center, Gurgaon</p>
-                                                                             </div>
-                                                                             <div className="add-content">
-                                                                                <span className="add-span">Timings:</span>
-                                                                                <p>Mon to Wed - 10:20 AM to 1:00 PM
-                                                                                    <span className="ad-sub-content">Thu - 2:00 PM to 6:00 PM</span>
-                                                                                </p>
-                                                                             </div>
-                                                                        </div>
-                                                                        <div>
-                                                                        <img style={{width: "35px", height: "35px"}} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button>
                                     </section> : <Loader />
                             }
                         </div>
