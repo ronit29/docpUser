@@ -16,7 +16,7 @@ const GENDER = {
     "o": "Other"
 }
 
-class HomeView extends React.Component {
+class HomeChatView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -308,4 +308,4 @@ class HomeView extends React.Component {
     }
 }
 
-export default HomeView
+export default HomeChatView
