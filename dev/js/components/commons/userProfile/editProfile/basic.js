@@ -80,6 +80,12 @@ class BasicDetails extends React.Component {
         return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
     }
 
+    handleEnterPress(e){
+        if(e.key === 'Enter'){
+            this.props.proceedUpdate(e);
+        }
+    }
+
     render() {
 
         let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
@@ -113,7 +119,7 @@ class BasicDetails extends React.Component {
                         <div className="widget-content">
                             <form className="go-bottom">
                                 <div className="labelWrap">
-                                    <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input" name="fname" type="text" required />
+                                    <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input" name="fname" type="text" required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="fname">Name</label>
                                 </div>
                                 <div className="form-group input-group">
@@ -129,11 +135,11 @@ class BasicDetails extends React.Component {
                                 <label htmlFor="age">Age</label>
                             </div> */}
                                 <div className="labelWrap">
-                                    <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required />
+                                    <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="email">Email</label>
                                 </div>
                                 <div className="labelWrap">
-                                    <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required />
+                                    <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="number">Mobile Number</label>
                                 </div>
 
