@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, TOOGLE_PROCEDURE_CRITERIA } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, TOOGLE_PROCEDURE_CRITERIA , APPEND_DOCTORS} from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadOPDCommonCriteria = () => (dispatch) => {
@@ -85,10 +85,11 @@ export const setFetchResults = (fetchNewResults = true) => (dispatch) => {
     })
 }
 
-export const toggleProceduresCriteria = (procedure) => (dispatch) => {
+export const toggleProceduresCriteria = (procedure, doctorId) => (dispatch) => {
 
     dispatch({
         type: TOOGLE_PROCEDURE_CRITERIA,
+        doctorId: doctorId,
         payload: procedure
     })
 }

@@ -22,7 +22,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
 	let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 	let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-
+/*
 	let pids = opd_procedure.filter((x) => {
             if(procedures_ids.indexOf(x.procedure.id) == -1){
                 return true
@@ -30,7 +30,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
             return false
     }).map(x => x.procedure.id)
 
-    procedures_ids =  procedures_ids.concat(pids)
+    procedures_ids =  procedures_ids.concat(pids)*/
 
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
@@ -94,7 +94,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			return x
 		})
 
-		let procedures = response.procedure_categories.map((x) => {
+		let procedures = response.procedures.map((x) => {
 			x.type = 'procedures'
 			return x
 		})
@@ -154,9 +154,9 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	})
 }
 
-export const getDoctorById = (doctorId) => (dispatch) => {
+export const getDoctorById = (doctorId, hospitalId, procedure_ids, category_ids) => (dispatch) => {
 
-	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 
 		dispatch({
 			type: APPEND_DOCTORS,
@@ -168,9 +168,9 @@ export const getDoctorById = (doctorId) => (dispatch) => {
 	})
 }
 
-export const getDoctorByUrl = (doctor_url, cb) => (dispatch) => {
+export const getDoctorByUrl = (doctor_url, hospitalId, cb) => (dispatch) => {
 
-	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}&hospital_id=${hospitalId}`).then(function (response) {
 		dispatch({
 			type: APPEND_DOCTORS,
 			payload: [response]

@@ -12,7 +12,7 @@ class DoctorProfileCard extends React.Component {
         }
     }
 
-    cardClick(id, url, e) {
+    cardClick(id, url, hospital_id, e) {
         e.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
@@ -29,9 +29,9 @@ class DoctorProfileCard extends React.Component {
         } else {
             e.preventDefault();
             if (url) {
-                this.props.history.push(`/${url}`)
+                this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
             } else {
-                this.props.history.push(`/opd/doctor/${id}`)
+                this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
             }
         }
     }
@@ -61,7 +61,8 @@ class DoctorProfileCard extends React.Component {
             this.props.mergeOPDState('')
         }else{
             let procedure = Object.assign({}, procedure_to_toggle)
-            this.props.toggleProceduresCriteria(procedure)    
+            this.props.toggleProceduresCriteria(procedure, this.props.details.id)   
+
         }
         
     }
@@ -165,7 +166,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                     {
-                                        enabled_for_online_booking ? <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url)}>Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
+                                        enabled_for_online_booking ? <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url, hospital.hospital_id)}>Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
                                     }
                                 </div>
                             </div>
@@ -196,7 +197,7 @@ class DoctorProfileCard extends React.Component {
                                     {
                                         hospitals[0].procedure_categories.length
                                         ?this.state.vieMoreProcedures
-                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} toggleProcedures = {this.toggleProcedures.bind(this)} data={hospitals[0].procedure_categories} />
+                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} {...this.props} doctor_id = {this.props.details.id} toggleProcedures = {this.toggleProcedures.bind(this)} data={hospitals[0].procedure_categories} />
                                             :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
                                             + {hospitals[0].procedure_categories.length} more
                                             </button>

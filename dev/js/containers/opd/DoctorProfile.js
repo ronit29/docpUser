@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProceduresCriteria } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
+const queryString = require('query-string');
+
 
 class DoctorProfile extends React.Component {
     constructor(props) {
@@ -22,7 +24,7 @@ class DoctorProfile extends React.Component {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctorByUrl(url, (doctor_id, url) => {
+                store.dispatch(getDoctorByUrl(url, hospital_id, (doctor_id, url) => {
                     if (doctor_id) {
                         if (match.url.includes('-dpp')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
@@ -49,8 +51,28 @@ class DoctorProfile extends React.Component {
     }
 
     componentDidMount() {
+        const parsed = queryString.parse(window.location.search)
+        let hospital_id = ''
+        if(parsed && parsed.hospital_id){
+            hospital_id = parsed.hospital_id
+        }
+        let category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
+        let procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+         
+        if(this.props.opd_procedure[this.props.match.params.id]){
+
+            let pids = this.props.opd_procedure[this.props.match.params.id].filter((x) => {
+                if(procedure_ids.indexOf(x.procedure.id) == -1){
+                    return true
+                }
+                return false
+            }).map(x => x.procedure.id)
+            procedure_ids =  procedure_ids.concat(pids)
+        }   
+
         if (this.props.match.params.id) {
-            this.props.getDoctorById(this.props.match.params.id)
+            this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
+            this.setState({hospital_id: hospital_id})
         } else {
             let url = this.props.match.url
             if (url) {
@@ -58,7 +80,7 @@ class DoctorProfile extends React.Component {
             }
             this.props.getDoctorByUrl(url, (doctor_id) => {
                 if (doctor_id) {
-                    this.setState({ selectedDoctor: doctor_id })
+                    this.setState({ selectedDoctor: doctor_id , hospital_id: hospital_id})
                 }
             })
         }
@@ -68,6 +90,36 @@ class DoctorProfile extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
     }
 
+    componentWillReceiveProps(props){
+        if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+           // this.buildUrl(this.state.hospital_id)
+            if (window) {
+                window.scrollTo(0, 0)
+            }
+        }
+    }
+
+    buildUrl(hospital_id){
+
+        let category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
+        let procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+         
+        if(this.props.opd_procedure[this.props.match.params.id]){
+
+            let pids = this.props.opd_procedure[this.props.match.params.id].filter((x) => {
+                if(procedure_ids.indexOf(x.procedure.id) == -1){
+                    return true
+                }
+                return false
+            }).map(x => x.procedure.id)
+            procedure_ids =  procedure_ids.concat(pids)
+        }   
+
+        if (this.props.match.params.id) {
+            this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
+        }
+
+    }
     render() {
 
         return (
@@ -89,15 +141,21 @@ const mapStateToProps = (state, passedProps) => {
     let DOCTORS = state.DOCTORS
     let { rated_appoinments, profiles, selectedProfile } = state.USER
 
+    const {
+        selectedCriterias,
+        opd_procedure,
+        fetchNewResults
+    } = state.SEARCH_CRITERIA_OPD
+
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, opd_procedure, fetchNewResults
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorByUrl: (doctr_url, cb) => dispatch(getDoctorByUrl(doctr_url, cb)),
-        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
+        getDoctorByUrl: (doctr_url, hospitalId, cb) => dispatch(getDoctorByUrl(doctr_url, hospitalId, cb)),
+        getDoctorById: (doctorId, hospitalId, procedure_ids, category_ids) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
@@ -105,7 +163,9 @@ const mapDispatchToProps = (dispatch) => {
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
-        getFooterData: (url) => dispatch(getFooterData(url))
+        getFooterData: (url) => dispatch(getFooterData(url)),
+        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
+        toggleProceduresCriteria: (procedure, doctorId) => dispatch(toggleProceduresCriteria(procedure, doctorId))
     }
 }
 

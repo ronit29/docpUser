@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
-        toggleProceduresCriteria: (procedure, fetchNewResults) => dispatch(toggleProceduresCriteria(procedure))
+        toggleProceduresCriteria: (procedure, doctorId) => dispatch(toggleProceduresCriteria(procedure, doctorId))
     }
 }
 

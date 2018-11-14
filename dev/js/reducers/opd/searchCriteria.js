@@ -22,7 +22,8 @@ const defaultState = {
     locationType: 'geo',
     fetchNewResults: false,
     procedure_categories: [],
-    opd_procedure: []
+    opd_procedure: [],
+    selectedCriteriaType:''
 }
 
 export default function (state = defaultState, action) {
@@ -33,6 +34,12 @@ export default function (state = defaultState, action) {
             if (action.payload) {
                 newState = { ...newState, ...action.payload }
             }
+
+            newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
+                return curr.type == newState.selectedCriteriaType
+            })  
+            newState.opd_procedure = []
+
             newState.LOADED_SEARCH_CRITERIA_OPD = true
             return newState
         }
@@ -86,6 +93,7 @@ export default function (state = defaultState, action) {
                     type: action.payload.type
                 })
             }
+            newState.selectedCriteriaType = action.payload.type
             newState.fetchNewResults = true
 
             return newState
@@ -138,6 +146,28 @@ export default function (state = defaultState, action) {
              opd_procedure : [].concat(state.opd_procedure)
             }
 
+            if(newState.opd_procedure[action.doctorId]){
+                
+                let found = false
+                newState.opd_procedure[action.doctorId] =  newState.opd_procedure[action.doctorId].filter((x) => {
+                    if(x.procedure.id == action.payload.procedure.id){
+                        found = true
+                        return false
+                    }
+                    return true
+                })
+
+                if(!found){
+                    newState.opd_procedure[action.doctorId].push({...action.payload})
+                }
+
+            }else{
+                newState.opd_procedure[action.doctorId] = []
+                newState.opd_procedure[action.doctorId].push({ ...action.payload })
+            }
+
+/*
+
             let found = false
             newState.opd_procedure =  newState.opd_procedure.filter((x) => {
                 if(x.procedure.id == action.payload.procedure.id){
@@ -149,7 +179,7 @@ export default function (state = defaultState, action) {
 
             if(!found){
                 newState.opd_procedure.push({...action.payload})
-            }
+            }*/
             return newState
         }
 
