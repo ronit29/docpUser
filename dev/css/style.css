@@ -2864,3 +2864,76 @@ ul.list-sub-menu a:hover {
     justify-content: center;
     font-weight: 500;
 }
+
+/* details card */
+.container-radio {
+    display: block;
+    position: relative;
+    padding-left: 29px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: 500;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.container input:checked ~ .checkmark {
+    background-color: #ffffff;
+    border: 2px solid #f78631;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+.container .checkmark:after {
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background:#f78631;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.txt-ornage{
+color: #f78631;
+font-weight: 500;
+}
+.add-content {
+    display: flex;
+    margin-bottom: 5px;
+}
+span.add-span {
+    margin-right: 8px;
+    color: #757575;
+    font-weight: 500;
+}
+span.ad-sub-content {
+    display: block;
+}
+.row-marginTop{
+	margin-top:15px;
+}
+.pnl-bottom-border{
+	border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+/* details card */
