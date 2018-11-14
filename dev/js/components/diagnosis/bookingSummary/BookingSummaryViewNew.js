@@ -64,13 +64,12 @@ class BookingSummaryViewNew extends React.Component {
 
 
     componentWillReceiveProps(nextProps) {
-
         if (nextProps.labCoupons && nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length && nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
 
             let is_home_collection_enabled = true, finalPrice = 0, finalMrp = 0
             let labCoupons = nextProps.labCoupons[this.state.selectedLab]
 
-            if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab]) {
+            if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
 
 
                 nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
@@ -84,8 +83,8 @@ class BookingSummaryViewNew extends React.Component {
                     finalMrp += parseFloat(mrp)
                 })
 
-                if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && is_home_collection_enabled) {
-                    finalPrice = finalPrice + (this.props.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+                if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
+                    finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
                 }
 
                 this.setState({ couponCode: labCoupons[0].couponCode, couponId: labCoupons[0].couponId || '' })
@@ -377,11 +376,9 @@ class BookingSummaryViewNew extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="col-12">
-
                                                         <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
                                                             {
-                                                                labCoupons.length
-                                                                    ?
+                                                                labCoupons.length ?
                                                                     <div className="widget-content  d-flex jc-spaceb" >
                                                                         <div className="d-flex">
                                                                             <span className="coupon-img">
@@ -389,7 +386,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                             </span>
                                                                             <h4 className="title coupon-text" style={{ color: 'green' }}>
                                                                                 Coupon Applied
-                                                                </h4>
+                                                                            </h4>
                                                                         </div>
                                                                         <div className=" d-flex">
                                                                             <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
@@ -408,28 +405,22 @@ class BookingSummaryViewNew extends React.Component {
                                                                             </span>
                                                                         </div>
                                                                     </div> :
-                                                                    <div className="widget-content d-flex jc-spaceb" >
-                                                                        <div className="d-flex">
-                                                                            <span className="coupon-img">
-                                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
-                                                                            </span>
-                                                                            <h4 className="title coupon-text">
-                                                                                HAVE A COUPON?
-                                                            </h4>
-                                                                        </div>
-                                                                        <div className="visit-time-icon coupon-icon-arrow">
-                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-                                                                        </div>
-                                                                    </div>
+                                                                    finalDisplayPrice != 0 ?
+                                                                        <div className="widget-content d-flex jc-spaceb" >
+                                                                            <div className="d-flex">
+                                                                                <span className="coupon-img">
+                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                                                </span>
+                                                                                <h4 className="title coupon-text">
+                                                                                    HAVE A COUPON?
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div className="visit-time-icon coupon-icon-arrow">
+                                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                            </div>
+                                                                        </div> : ''
                                                             }
                                                         </div>
-                                                        {/* <div className="widget mrt-10 ct-profile skin-white">
-                                                           
-                                                <div className="widget-content">
-                                                    <p className="coupon-link" onClick={() => {
-                                                this.props.history.push(`/coupon/lab/${this.state.selectedLab}`)}}> HAVE A COUPON?</p>
-                                                </div>
-                                            </div> */}
                                                     </div>
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
