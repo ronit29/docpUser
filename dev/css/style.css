@@ -2870,9 +2870,9 @@ ul.list-sub-menu a:hover {
     display: block;
     position: relative;
     padding-left: 29px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -2890,13 +2890,14 @@ ul.list-sub-menu a:hover {
     border: 2px solid #f78631;
 }
 .checkmark {
-    position: absolute;
-    top: 0;
+	position: absolute;
+    top: 3px;
     left: 0;
     height: 18px;
     width: 18px;
-    background-color: #eee;
+    background-color: #fff;
     border-radius: 50%;
+    border: 1px solid #d8d5d5;
 }
 .container input:checked ~ .checkmark:after {
     display: block;

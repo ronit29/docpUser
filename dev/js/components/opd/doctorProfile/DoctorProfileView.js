@@ -195,7 +195,7 @@ class DoctorProfileView extends React.Component {
                                                                              </div>
                                                                         </div>
                                                                         <div>
-                                                                        <img style={{width: "30px"}} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
+                                                                        <img style={{width: "35px", height: "35px"}} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
