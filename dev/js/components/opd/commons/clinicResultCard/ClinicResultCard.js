@@ -92,7 +92,7 @@ class ClinicResultCard extends React.Component {
                                 </div>
                                 {
                                     discount && discount != 0 && deal_price && !!!STORAGE.checkAuth() ?
-                                        <div className="mrt-10" style={{ position: 'absolute', bottom: 4 }}>
+                                        <div className="mrt-20">
                                             <p className="fw-500 text-xs" style={{ color: 'red' }}>*Exclusive discount. Available only on prepaid bookings</p>
                                         </div> : ''
                                 }
