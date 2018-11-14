@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData } from '../../actions/index.js'
+import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, toggleProceduresCriteria } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -79,7 +79,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedLocation,
         filterCriteria,
         locationType,
-        fetchNewResults
+        fetchNewResults,
+        opd_procedure
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -96,7 +97,8 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData,
         locationType,
         fetchNewResults,
-        search_content
+        search_content,
+        opd_procedure
     }
 }
 
@@ -108,7 +110,8 @@ const mapDispatchToProps = (dispatch) => {
         getDoctors: (state, page, from_server, searchByUrl, cb) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
-        getFooterData: (url) => dispatch(getFooterData(url))
+        getFooterData: (url) => dispatch(getFooterData(url)),
+        toggleProceduresCriteria: (procedure, fetchNewResults) => dispatch(toggleProceduresCriteria(procedure))
     }
 }
 

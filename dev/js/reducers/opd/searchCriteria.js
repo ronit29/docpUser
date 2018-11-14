@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD , TOOGLE_PROCEDURE_CRITERIA} from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -21,7 +21,8 @@ const defaultState = {
     filterCriteria: DEFAULT_FILTER_STATE,
     locationType: 'geo',
     fetchNewResults: false,
-    procedure_categories: []
+    procedure_categories: [],
+    opd_procedure: []
 }
 
 export default function (state = defaultState, action) {
@@ -128,6 +129,27 @@ export default function (state = defaultState, action) {
         case SET_FETCH_RESULTS_OPD: {
             let newState = { ...state }
             newState.fetchNewResults = !!action.payload
+            return newState
+        }
+
+        case TOOGLE_PROCEDURE_CRITERIA: {
+            let newState = {
+             ...state ,
+             opd_procedure : [].concat(state.opd_procedure)
+            }
+
+            let found = false
+            newState.opd_procedure =  newState.opd_procedure.filter((x) => {
+                if(x.procedure.id == action.payload.procedure.id){
+                    found = true
+                    return false
+                }
+                return true
+            })
+
+            if(!found){
+                newState.opd_procedure.push({...action.payload})
+            }
             return newState
         }
 

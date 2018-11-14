@@ -17,11 +17,20 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	// 	payload: from_server
 	// })
 
-	let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+	let { selectedLocation, selectedCriterias, filterCriteria, locationType, opd_procedure } = state
 	let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
 	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
 	let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 	let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
+
+	let pids = opd_procedure.filter((x) => {
+            if(procedures_ids.indexOf(x.procedure.id) == -1){
+                return true
+            }
+            return false
+    }).map(x => x.procedure.id)
+
+    procedures_ids =  procedures_ids.concat(pids)
 
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
@@ -86,11 +95,16 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		})
 
 		let procedures = response.procedure_categories.map((x) => {
+			x.type = 'procedures'
+			return x
+		})
+
+		let procedure_category = response.procedure_categories.map((x) => {
 			x.type = 'procedures_category'
 			return x
 		})		
 
-		let selectedCriterias = [...specializations, ...conditions, ...procedures]
+		let selectedCriterias = [...specializations, ...conditions, ...procedure_category, ...procedures]
 
 		dispatch({
 			type: MERGE_SEARCH_STATE_OPD,

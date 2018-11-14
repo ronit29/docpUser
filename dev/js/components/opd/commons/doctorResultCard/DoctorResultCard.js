@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage';
-
+import ProcedurePopup from '../PopUp'
 class DoctorProfileCard extends React.Component {
     constructor(props) {
         super(props)
@@ -49,7 +49,7 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
-    toggleProcedures(test_to_toggle) {/*
+    toggleProcedures(procedure_to_toggle, searchData = false) {/*
         let test = Object.assign({}, test_to_toggle.test)
         test.mrp = test_to_toggle.mrp
         test.deal_price = test_to_toggle.deal_price
@@ -57,6 +57,17 @@ class DoctorProfileCard extends React.Component {
         test.lab_id = this.state.selectedLab
 
         this.props.toggleDiagnosisCriteria('test', test)*/
+        if(searchData){
+            this.props.mergeOPDState('')
+        }else{
+            let procedure = Object.assign({}, procedure_to_toggle)
+            this.props.toggleProceduresCriteria(procedure)    
+        }
+        
+    }
+
+    toggle(which) {
+        this.setState({ [which]: !this.state[which] })
     }
 
     render() {
@@ -90,7 +101,7 @@ class DoctorProfileCard extends React.Component {
         if (hospitals && hospitals.length) {
             return (
 
-                <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
+                <div className="filter-card-dl mb-3" >
                 {
                     schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
                 __html: schema
@@ -154,38 +165,49 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                     {
-                                        enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
+                                        enabled_for_online_booking ? <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url)}>Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
                                     }
                                 </div>
                             </div>
-
-                            {
-                                hospitals[0] && hospitals[0].procedures && hospitals[0].procedures.length?
-                                <div className="widget-content pb-details pb-test">
-                                    <h4 className="wc-title text-md fw-700">Price List</h4>
-
-                                    <ul className="list pb-list pb-test-list">
-                                        {
-                                            hospitals[0].procedures.map((procedure, i) => {
-
-                                                return <li key={i + "st"}>
-                                                        <label className="ck-bx">
-                                                            {procedure.name}
-                                                            <input type="checkbox" checked={true} onChange={this.toggleProcedures.bind(this, procedure)} />
-                                                            <span className="checkmark" />
-                                                        </label>
-                                                        <span className="test-price text-md fw-500"><span className="test-mrp">&#8377; {procedure.mrp}</span>&#8377; {procedure.deal_price}</span>
-                                                    </li>
-                                            })
-                                        }
-                                    </ul>
-                                    <div className="pb-view text-right">
-                                        <a href="javascript:;" className="link-text text-md fw-700">View More & Select Tests</a>
-                                    </div>
-                                </div>
-                                :''
-                            }
                         </div>
+
+                        {
+                            hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length?
+                            <div className="procedure-checkboxes">
+                                <h4>Procedures in <span>{hospitals[0].procedure_categories.map(x=>x.name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                <div className="insurance-checkboxes">
+                                    <ul className="procedure-list">
+                                    {
+                                        hospitals[0].procedure_categories.map((category) =>{
+
+
+                                            return category.procedures.filter(x=>x.is_selected).map((procedure, i) => {
+
+                                                return <li key={i}>
+                                                        <div>
+                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={this.toggleProcedures.bind(this, procedure)} /><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                        </div>
+                                                        <p className="pr-prices">₹ {procedure.mrp}<span className="pr-cut-price">₹ {procedure.deal_price}</span></p>
+                                                    </li>
+
+                                            })
+                                        })
+                                    }
+                                    {
+                                        hospitals[0].procedure_categories.length
+                                        ?this.state.vieMoreProcedures
+                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} toggleProcedures = {this.toggleProcedures.bind(this)} data={hospitals[0].procedure_categories} />
+                                            :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
+                                            + {hospitals[0].procedure_categories.length} more
+                                            </button>
+                                        :''
+                                    }
+                                    </ul>
+                                </div>
+                            </div>
+                            :''
+                        }
+
                     </div>
                     <div className="filtr-card-footer">
                         <div>

@@ -2867,3 +2867,202 @@ ul.list-sub-menu a:hover {
     justify-content: center;
     font-weight: 500;
 }
+/* procedure style */
+.insurance-checkboxes input[type=checkbox] + label {
+	display: block;
+	margin: 0.2em;
+	cursor: pointer;
+	padding: 0.2em;
+  }
+  
+  .insurance-checkboxes input[type=checkbox] {
+	display: none;
+  }
+  
+  .insurance-checkboxes input[type=checkbox] + label:before {
+    content: "\2713";
+    border: 0.1em solid rgba(0, 0, 0, .25);
+    border-radius: 0.2em;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    padding-left: 0.2em;
+    padding-bottom: 0.3em;
+    margin-right: 0.7em;
+    vertical-align: bottom;
+    color: transparent;
+    transition: .2s;
+  }
+  
+  .insurance-checkboxes input[type=checkbox] + label:active:before {
+	transform: scale(0);
+  }
+  
+  .insurance-checkboxes input[type=checkbox]:checked + label:before {
+	background-color: #fa7d1f;
+    border-color: #fd872f;
+    color: #fff;
+  }
+  
+  .insurance-checkboxes input[type=checkbox]:disabled + label:before {
+	transform: scale(1);
+	border-color: #aaa;
+  }
+  
+  .insurance-checkboxes input[type=checkbox]:checked:disabled + label:before {
+	transform: scale(1);
+	background-color: #bfb;
+	border-color: #bfb;
+  }
+  
+  .procedure-list {
+	margin-bottom: 10px;
+}
+.procedure-list li{
+	display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.pr-prices{
+    width: 100px;
+    font-weight: 500;
+    text-align: right;
+}
+.pr-cut-price{
+	margin-left: 10px;
+    color: #757575;
+    text-decoration: line-through;
+}
+.pr-plus-add-btn{
+    color: #f78631;
+    background: transparent;
+    border: none;
+	font-weight: 500;
+	cursor: pointer;
+}
+.procedure-checkboxes{
+	margin-top: 10px;
+}
+.procedure-checkboxes h4{
+	font-weight: 500;
+}
+.procedure-checkboxes h4 span{
+	color: #e58950;
+    display: inline-flex;
+    align-items: center;
+}
+.procedure-checkboxes h4 span img{
+	margin-left: 6px;
+	cursor: pointer;
+}
+.widget.pr-border-radious{
+	border-radius: 4px;
+	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.11);
+}
+.prp-chk-card{
+	margin-bottom: 15px;
+}
+.conslt-fee-card{
+    margin-bottom: 15px;
+}
+.conslt-fee-card p{
+    display: flex;
+    justify-content: space-between;
+}
+.conslt-fee-card p span.pr-prices{
+	color: #e58750;
+}
+.pr-address-card{
+
+}
+.pr-addrs-card-pc{
+	display: flex;
+	margin-bottom: 5px;
+}
+.pr-addrs-card-pc .test-span{
+	color: #757575;
+    margin-right: 10px;
+    font-weight: 500;
+}
+.pr-addrs-card-pc p{
+	
+}
+.procedure-checkboxes{
+    margin-top: 20px;
+}
+.procedure-checkboxes img{
+	margin-left: 8px;
+} 
+.procedure-checkboxes h3{
+    font-size: 17px;
+    font-weight: 500;
+}
+.chk-with-img{
+    display: flex;
+    align-items: center;
+}
+.pnl-bottom-border{
+	border-bottom: 1px solid #e8e8e8;
+}
+.treatment-select{
+	display: flex;
+}
+.treatment-select img{
+	width: 20px;
+    height: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.flex-align{
+	display: flex;
+	justify-content: space-between;
+}
+.select-span{
+    color: #e58850;
+    font-weight: 500;
+    cursor: pointer;
+}
+.tbl-img-txt{
+	display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+.tbl-img-txt img{
+    width: 20px;
+    height: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.tbl-img-txt p{
+	margin-left: 5px;
+}
+.summery-status{
+    padding: 15px;
+}
+p.tbl-price {
+    display: inline;
+    margin-right: 15px;
+}
+.trt-tabl table {
+    width: 100%;
+}
+.trt-tabl{
+
+}
+.trt-tabl table{
+	
+}
+.trt-tabl table tr{
+	
+}
+.trt-tabl table td {
+    padding: 4px 0;
+}
+span.tbl-price-span {
+    text-decoration: line-through;
+    color: #757575;
+    font-weight: 500;
+    font-size: 14px;
+}
+/* procedure style */
