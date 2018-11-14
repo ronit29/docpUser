@@ -123,7 +123,7 @@ class ClinicResultCard extends React.Component {
                                     </p>
 
                                     {
-                                        STORAGE.checkAuth() || deal_price == 0 ?
+                                        STORAGE.checkAuth() || deal_price < 100 ?
                                             ''
                                             : <div className="signup-off-container">
                                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
