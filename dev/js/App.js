@@ -106,24 +106,24 @@ class App extends React.Component {
 
             let source = ''
 
-            if(parsed.utm_source){
+            if (parsed.utm_source) {
                 source = parsed.utm_source
-            }else if(document.referrer){
-                source = document.referrer 
+            } else if (document.referrer) {
+                source = document.referrer
             }
 
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': parsed.utm_source || '', 'utm_medium': parsed.utm_medium || '', 'utm_term': parsed.utm_term || '', 'utm_campaign': parsed.utm_campaign || '', 'addToGA': false,'source' : source, 'referrer': document.referrer || ''
+                'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': parsed.utm_source || '', 'utm_medium': parsed.utm_medium || '', 'utm_term': parsed.utm_term || '', 'utm_campaign': parsed.utm_campaign || '', 'addToGA': false, 'source': source, 'referrer': document.referrer || ''
             }
             GTM.sendEvent({ data: data })
 
             let utm_tags = {
-                    utm_source: parsed.utm_source || '',
-                    utm_medium: parsed.utm_medium || '',
-                    utm_term: parsed.utm_term || '',
-                    utm_campaign: parsed.utm_campaign || '',
-                    source:source,
-                    referrer:document.referrer || ''
+                utm_source: parsed.utm_source || '',
+                utm_medium: parsed.utm_medium || '',
+                utm_term: parsed.utm_term || '',
+                utm_campaign: parsed.utm_campaign || '',
+                source: source,
+                referrer: document.referrer || ''
             }
             this.props.setUTMTags(utm_tags)
 
@@ -211,8 +211,12 @@ const mapStateToProps = (state) => {
         profiles, selectedProfile
     } = state.USER
 
+    let {
+        token
+    } = state.AUTH
+
     return {
-        selectedLocation, profiles, selectedProfile
+        selectedLocation, profiles, selectedProfile, token
     }
 }
 

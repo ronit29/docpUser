@@ -27,7 +27,6 @@ class RatingsPopUp extends React.Component {
             this.props.getUnratedAppointment((err, data) => {
                 if (!err && data) {
                     this.setState({ data })
-                    //let type = this.state.data.type && this.state.data.type == "lab" ? 1 : 2;
                 }
             })
             this.props.getRatingCompliments((err, compliments) => {
@@ -35,6 +34,23 @@ class RatingsPopUp extends React.Component {
                     this.setState({ compliments })
                 }
             })
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.token != this.props.token) {
+            if (STORAGE.checkAuth()) {
+                this.props.getUnratedAppointment((err, data) => {
+                    if (!err && data) {
+                        this.setState({ data })
+                    }
+                })
+                this.props.getRatingCompliments((err, compliments) => {
+                    if (!err && compliments) {
+                        this.setState({ compliments })
+                    }
+                })
+            }
         }
     }
 
