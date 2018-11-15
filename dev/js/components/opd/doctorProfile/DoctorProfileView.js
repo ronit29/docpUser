@@ -30,7 +30,8 @@ class DoctorProfileView extends React.Component {
             seoFriendly: this.props.match.url.includes('-dpp'),
             selectedClinic: "",
             is_live: false,
-            rank: 0
+            rank: 0,
+            numberShown: ""
         }
     }
 
@@ -80,6 +81,25 @@ class DoctorProfileView extends React.Component {
             GTM.sendEvent({ data: data })
 
             this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/book`)
+        }
+    }
+
+    showNumber(id, e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'doctor_id': id, "hospital_id": this.state.selectedClinic
+        }
+        if (!this.state.numberShown) {
+            GTM.sendEvent({ data: data })
+            this.props.getDoctorNumber(id, (err, data) => {
+                if (!err && data.number) {
+                    this.setState({
+                        numberShown: data.number
+                    })
+                }
+            })
         }
     }
 
@@ -203,7 +223,7 @@ class DoctorProfileView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button> : ""
+                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
                                         }
 
                                     </section> : <Loader />

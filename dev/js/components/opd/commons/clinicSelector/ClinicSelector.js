@@ -8,27 +8,7 @@ class ClinicSelector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            numberShown: ""
-        }
-    }
 
-    showNumber(id, hospital_id, e) {
-        e.preventDefault()
-        e.stopPropagation()
-
-        let data = {
-            'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'doctor_id': id, "hospital_id": hospital_id
-        }
-        GTM.sendEvent({ data: data })
-
-        if (!this.state.numberShown) {
-            this.props.getDoctorNumber(id, (err, data) => {
-                if (!err && data.number) {
-                    this.setState({
-                        numberShown: data.number
-                    })
-                }
-            })
         }
     }
 
@@ -133,29 +113,29 @@ class ClinicSelector extends React.Component {
                                 </div>
                             </div>
                             <div className="address-bg-color">
-                            <div className="row">
-                                <div className="col-10">
-                                    <div className="add-content">
-                                        <span className="add-span">Address:</span>
-                                        <p>{hospital.address}</p>
-                                    </div>
-                                    <div className="add-content">
-                                        <span className="add-span">Timings:</span>
-                                        <div style={{ flex: 1 }}>
-                                            {
-                                                Object.keys(hospital.timings).map((timingKey, key) => {
-                                                    return <p key={key}>{timingKey}<span>{" " + hospital.timings[timingKey].join(', ')}</span></p>
-                                                })
-                                            }
+                                <div className="row">
+                                    <div className="col-10">
+                                        <div className="add-content">
+                                            <span className="add-span">Address:</span>
+                                            <p>{hospital.address}</p>
+                                        </div>
+                                        <div className="add-content">
+                                            <span className="add-span">Timings:</span>
+                                            <div style={{ flex: 1 }}>
+                                                {
+                                                    Object.keys(hospital.timings).map((timingKey, key) => {
+                                                        return <p key={key}>{timingKey}<span>{" " + hospital.timings[timingKey].join(', ')}</span></p>
+                                                    })
+                                                }
+                                            </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
+                                            <img style={{ width: "35px", height: "35px", cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
+                                        </a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
-                                        <img style={{ width: "35px", height: "35px", cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
-                                    </a>
-                                </div>
-                            </div>
                             </div>
                         </div>
                     })
