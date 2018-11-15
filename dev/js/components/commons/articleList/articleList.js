@@ -25,7 +25,8 @@ class ArticleList extends React.Component {
 			page: page,
 			searchVal: '',
 			noArticleFound: false,
-			title: title
+			title: title,
+			buttonsVisible: true
 		}
 	}
 
@@ -76,6 +77,17 @@ class ArticleList extends React.Component {
 					noArticleFound: false
 				});
 			}
+
+			if (this.state.searchVal) {
+				this.setState({
+					buttonsVisible: false
+				});
+			}
+			else {
+				this.setState({
+					buttonsVisible: true
+				});
+			}
 		});
 	}
 
@@ -91,7 +103,7 @@ class ArticleList extends React.Component {
 		currentPage.push(<div className="art-pagination-btn">
 			<span className="fw-500" style={{ color: '#000' }}>{pageNo}</span>
 		</div>)
-		
+
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -170,7 +182,7 @@ class ArticleList extends React.Component {
 												}
 
 												{
-													this.props.articleList.length && !this.state.noArticleFound ?
+													this.props.articleList.length && !this.state.noArticleFound && this.state.buttonsVisible ?
 														<div className="col-12">
 															{
 																pageNo == 1 ?
@@ -220,6 +232,5 @@ class ArticleList extends React.Component {
 		);
 	}
 }
-
 
 export default ArticleList

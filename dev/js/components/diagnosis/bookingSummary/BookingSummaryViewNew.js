@@ -292,7 +292,7 @@ class BookingSummaryViewNew extends React.Component {
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label clearfix"><span className="float-right fw-700">&#8377; {price}</span><span className="test-name-item">{twp.test.name}</span></p>
+                return <p key={i} className="test-list test-list-label clearfix"><span className="float-right fw-700">&#8377; {price}<span class="test-mrp">₹ {parseFloat(twp.mrp)}</span></span><span className="test-name-item">{twp.test.name}</span></p>
             })
 
             center_visit_enabled = labDetail.center_visit_enabled
