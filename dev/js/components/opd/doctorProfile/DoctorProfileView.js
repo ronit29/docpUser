@@ -188,7 +188,7 @@ class DoctorProfileView extends React.Component {
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
                                                     {
-                                                        search_data ? <a className="doc-search-data" href={this.build_search_data_url(search_data)}>{search_data.heading}</a> : ""
+                                                        search_data ? <a className="doc-search-data" href={this.build_search_data_url(search_data)}>{search_data.title}</a> : ""
                                                     }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                                         {
