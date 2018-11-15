@@ -64,7 +64,7 @@ class DoctorProfileView extends React.Component {
     }
 
     navigateToClinic(doctor_id, clinicId) {
-        let is_live = this.state.is_live
+        let is_live = this.props.DOCTORS[doctor_id].is_live
         let rank = this.state.rank
 
         if (is_live) {
@@ -202,7 +202,10 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button>
+                                        {
+                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button> : ""
+                                        }
+
                                     </section> : <Loader />
                             }
                         </div>
