@@ -66,17 +66,17 @@ class TestSelectorView extends React.Component {
 
         if (labData) {
 
-            // selectedTests.map((criteria) => {
-            //     let found = false
-            //     for (let test of labData.tests) {
-            //         if (test.test.id == criteria.id) {
-            //             found = true
-            //         }
-            //     }
-            //     if (!found) {
-            //         labData.tests.push({ ...criteria, test: criteria })
-            //     }
-            // })
+            selectedTests.map((criteria) => {
+                let found = false
+                for (let test of labData.tests) {
+                    if (test.test.id == criteria.id) {
+                        found = true
+                    }
+                }
+                if (!found) {
+                    labData.tests.push({ ...criteria, test: criteria })
+                }
+            })
 
             let selected_tests = labData.tests.map((test, i) => {
                 if (selectedTestIds.indexOf(test.test.id) > -1) {

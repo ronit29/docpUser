@@ -2943,3 +2943,11 @@ span.ad-sub-content {
     margin-top: 10px;
 }
 /* details card */
+
+.doc-search-data{
+	color: #e46608;
+    font-size: 16px;
+    margin-bottom: 21px;
+    display: block;
+    font-weight: 500;
+}

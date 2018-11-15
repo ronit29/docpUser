@@ -30,7 +30,8 @@ class DoctorProfileView extends React.Component {
             seoFriendly: this.props.match.url.includes('-dpp'),
             selectedClinic: "",
             is_live: false,
-            rank: 0
+            rank: 0,
+            numberShown: ""
         }
     }
 
@@ -83,12 +84,48 @@ class DoctorProfileView extends React.Component {
         }
     }
 
+    showNumber(id, e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'doctor_id': id, "hospital_id": this.state.selectedClinic
+        }
+        if (!this.state.numberShown) {
+            GTM.sendEvent({ data: data })
+            this.props.getDoctorNumber(id, (err, data) => {
+                if (!err && data.number) {
+                    this.setState({
+                        numberShown: data.number
+                    })
+                }
+            })
+        }
+    }
+
+    build_search_data_url(search_data) {
+        let { lat, long, specialization_id } = search_data
+        return `/opd/searchresults?specializations=${specialization_id}&lat=${lat}&long=${long}`
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
         }
+
+        let search_data = null
+        if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].search_data) {
+            search_data = this.props.DOCTORS[doctor_id].search_data
+        }
+
+        // search_data = {
+        //     heading: "general physicians",
+        //     specialization_id: 279,
+        //     lat: "28.408727",
+        //     long: "77.049048"
+        // }
 
         return (
             <div className="profile-body-wrap">
@@ -150,6 +187,9 @@ class DoctorProfileView extends React.Component {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
+                                                    {
+                                                        search_data ? <a className="doc-search-data" href={this.build_search_data_url(search_data)}>{search_data.heading}</a> : ""
+                                                    }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                                         {
                                                             this.props.DOCTORS[doctor_id].is_gold ?
@@ -203,7 +243,7 @@ class DoctorProfileView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button> : ""
+                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
                                         }
 
                                     </section> : <Loader />
