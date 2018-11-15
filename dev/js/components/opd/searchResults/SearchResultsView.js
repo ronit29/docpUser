@@ -79,15 +79,7 @@ class SearchResultsView extends React.Component {
         let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
         let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
         let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-       /* let pids = opd_procedure.filter((x) => {
-            if(procedures_ids.indexOf(x.procedure.id) == -1){
-                return true
-            }
-            return false
-        }).map(x => x.procedure.id)
-
-        procedures_ids =  procedures_ids.concat(pids)
-*/
+  
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""

@@ -48,6 +48,7 @@ import ProcedureUI from './containers/commons/Procedure.js'
 const routes = [
 
     { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
+    { path: '/online-consultation', exact: true, component: Home, RENDER_ON_SERVER: true },
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
     { path: '/chathistory', exact: true, component: ChatHistory },

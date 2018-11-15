@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS , SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES} from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -17,20 +17,20 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	// 	payload: from_server
 	// })
 
-	let { selectedLocation, selectedCriterias, filterCriteria, locationType, opd_procedure } = state
+	let { selectedLocation, selectedCriterias, filterCriteria, locationType, opd_procedure , commonProcedurers } = state
 	let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
 	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
 	let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 	let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-/*
-	let pids = opd_procedure.filter((x) => {
-            if(procedures_ids.indexOf(x.procedure.id) == -1){
+
+	let pids = commonProcedurers.filter((x) => {
+            if(procedures_ids.indexOf(x.id) == -1){
                 return true
             }
             return false
-    }).map(x => x.procedure.id)
+    }).map(x => x.id)
 
-    procedures_ids =  procedures_ids.concat(pids)*/
+    procedures_ids =  procedures_ids.concat(pids)
 
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
@@ -162,6 +162,11 @@ export const getDoctorById = (doctorId, hospitalId, procedure_ids, category_ids)
 			type: APPEND_DOCTORS,
 			payload: [response]
 		})
+		dispatch({
+			type: SET_PROCEDURES,
+			payload: response,
+			doctorId: doctorId
+		})
 
 	}).catch(function (error) {
 
@@ -275,4 +280,15 @@ export const getFooterData = (url) => (dispatch) => {
 	}).catch(function (error) {
 
 	})
+}
+
+
+export const toggleProfileProcedures = (procedure, doctor_id, hospital_id) => (dispatch) => {
+
+    dispatch({
+        type: TOGGLE_PROFILE_PROCEDURES,
+        procedure: procedure,
+        doctor_id: doctor_id,
+        hospital_id: hospital_id
+    })
 }

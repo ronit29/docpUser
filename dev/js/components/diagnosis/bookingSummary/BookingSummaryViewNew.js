@@ -64,13 +64,12 @@ class BookingSummaryViewNew extends React.Component {
 
 
     componentWillReceiveProps(nextProps) {
-
         if (nextProps.labCoupons && nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length && nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
 
             let is_home_collection_enabled = true, finalPrice = 0, finalMrp = 0
             let labCoupons = nextProps.labCoupons[this.state.selectedLab]
 
-            if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab]) {
+            if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
 
 
                 nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
@@ -84,8 +83,8 @@ class BookingSummaryViewNew extends React.Component {
                     finalMrp += parseFloat(mrp)
                 })
 
-                if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && is_home_collection_enabled) {
-                    finalPrice = finalPrice + (this.props.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+                if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
+                    finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
                 }
 
                 this.setState({ couponCode: labCoupons[0].couponCode, couponId: labCoupons[0].couponId || '' })
@@ -266,7 +265,6 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     render() {
-
         let tests = []
         let finalPrice = 0
         let finalMrp = 0
@@ -330,6 +328,13 @@ class BookingSummaryViewNew extends React.Component {
         let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
         let finalDisplayPrice = (finalPrice) ? (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? (finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)) : (finalPrice - (this.props.disCountedLabPrice || 0)) : 0
 
+        var amtBeforeCoupon = 0
+        if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
+            amtBeforeCoupon = finalPrice + (labDetail.home_pickup_charges)
+        } else {
+            amtBeforeCoupon = finalPrice
+        }
+
         return (
 
             <div className="profile-body-wrap">
@@ -376,61 +381,55 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-12">
-
-                                                        <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
-                                                            {
-                                                                labCoupons.length
-                                                                    ?
-                                                                    <div className="widget-content  d-flex jc-spaceb" >
-                                                                        <div className="d-flex">
-                                                                            <span className="coupon-img">
-                                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
-                                                                            </span>
-                                                                            <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                Coupon Applied
-                                                                </h4>
-                                                                        </div>
-                                                                        <div className=" d-flex">
-                                                                            <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                {labCoupons[0].couponCode}
+                                                    {
+                                                        amtBeforeCoupon != 0 ?
+                                                            <div className="col-12">
+                                                                <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                                    {
+                                                                        labCoupons.length ?
+                                                                            <div className="widget-content  d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
+                                                                                        Coupon Applied
                                                                             </h4>
-                                                                            <span className="visit-time-icon coupon-icon">
-                                                                                <img onClick={(e) => {
-                                                                                    e.stopPropagation();
-                                                                                    let analyticData = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].couponId
-                                                                                    }
-                                                                                    GTM.sendEvent({ data: analyticData })
+                                                                                </div>
+                                                                                <div className=" d-flex">
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                        {labCoupons[0].couponCode}
+                                                                                    </h4>
+                                                                                    <span className="visit-time-icon coupon-icon">
+                                                                                        <img onClick={(e) => {
+                                                                                            e.stopPropagation();
+                                                                                            let analyticData = {
+                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].couponId
+                                                                                            }
+                                                                                            GTM.sendEvent({ data: analyticData })
 
-                                                                                    this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].couponId)
-                                                                                }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                                            </span>
-                                                                        </div>
-                                                                    </div> :
-                                                                    <div className="widget-content d-flex jc-spaceb" >
-                                                                        <div className="d-flex">
-                                                                            <span className="coupon-img">
-                                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
-                                                                            </span>
-                                                                            <h4 className="title coupon-text">
-                                                                                HAVE A COUPON?
-                                                            </h4>
-                                                                        </div>
-                                                                        <div className="visit-time-icon coupon-icon-arrow">
-                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-                                                                        </div>
-                                                                    </div>
-                                                            }
-                                                        </div>
-                                                        {/* <div className="widget mrt-10 ct-profile skin-white">
-                                                           
-                                                <div className="widget-content">
-                                                    <p className="coupon-link" onClick={() => {
-                                                this.props.history.push(`/coupon/lab/${this.state.selectedLab}`)}}> HAVE A COUPON?</p>
-                                                </div>
-                                            </div> */}
-                                                    </div>
+                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].couponId)
+                                                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div> :
+                                                                            <div className="widget-content d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text">
+                                                                                        HAVE A COUPON?
+                                                                                </h4>
+                                                                                </div>
+                                                                                <div className="visit-time-icon coupon-icon-arrow">
+                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                </div>
+                                                                            </div>
+                                                                    }
+                                                                </div>
+                                                            </div> : ''
+                                                    }
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
 
@@ -512,7 +511,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking ${finalDisplayPrice ? ` (Rs ${finalDisplayPrice})` : ''}`}</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking ${finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
                             }
 
 

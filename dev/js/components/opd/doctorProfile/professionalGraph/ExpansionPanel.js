@@ -33,13 +33,6 @@ class ExpansionPanel extends React.Component {
 							{
 								this.props.qulification ? contentList.map((cont, i) => {
 									return <div className="form-group expansion-label-div" key={i} style={{ marginTop: 10 }} >
-										<label className="fw-700 text-sm text-primary">Qualification
-                                            <span>| &nbsp;</span>
-										</label>
-										<label className="fw-700 text-sm text-primary">Specialization
-                                            <span>| &nbsp;</span>
-										</label>
-										<label className="fw-700 text-sm text-primary">College</label>
 										<div>
 											<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.qualification}</p>
 											{cont.specialization?

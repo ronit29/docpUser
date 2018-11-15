@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
+import HomeChatView from '../../components/commons/Home/HomeChatView'
 import STORAGE from '../../helpers/storage'
 
 class Home extends React.Component {
@@ -32,9 +33,8 @@ class Home extends React.Component {
     }
 
     render() {
-
         return (
-            <HomeView {...this.props} />
+            this.props.match.url === '/online-consultation' ? <HomeChatView {...this.props} /> : <HomeView {...this.props} />
         );
     }
 }

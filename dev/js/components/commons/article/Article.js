@@ -10,7 +10,8 @@ class Article extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            articleData: props.initialServerData
+            articleData: props.initialServerData,
+            medicineURL: false
         }
     }
 
@@ -25,11 +26,14 @@ class Article extends React.Component {
 
                 }
             })
-
         }
 
         if (window) {
             window.scrollTo(0, 0)
+        }
+
+        if (this.props.match.path.split('-')[1] === 'mddp') {
+            this.setState({ medicineURL: true });
         }
     }
 
@@ -139,6 +143,14 @@ class Article extends React.Component {
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/whatsapp.svg"} />
                                         </div>
                                     </div>
+
+                                    {
+                                        this.state.medicineURL ?
+                                            <div className="mrt-20 mrb-10 article-chat-div d-md-none">
+                                                <p className="fw-500">Ask a doctor about {this.state.articleData.title.split('|')[0]} and any related queries.</p>
+                                                <button onClick={() => this.props.history.push('/mobileviewchat')} >Chat Now</button>
+                                            </div> : ''
+                                    }
 
                                     {
                                         this.state.articleData.header_image ?

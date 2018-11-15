@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProceduresCriteria } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProceduresCriteria, toggleProfileProcedures } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -59,14 +59,17 @@ class DoctorProfile extends React.Component {
         let category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
         let procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
          
-        if(this.props.opd_procedure[this.props.match.params.id]){
+        if(this.props.commonProcedurers.length){
 
-            let pids = this.props.opd_procedure[this.props.match.params.id].filter((x) => {
-                if(procedure_ids.indexOf(x.procedure.id) == -1){
+            let pids = this.props.commonProcedurers.filter((x) => {
+                if(procedure_ids.indexOf(x.id) == -1){
                     return true
                 }
                 return false
-            }).map(x => x.procedure.id)
+            }).map(x => x.id)
+
+
+           // let pids = this.props.commonProcedurers.map(x=>x.id)
             procedure_ids =  procedure_ids.concat(pids)
         }   
 
@@ -78,7 +81,7 @@ class DoctorProfile extends React.Component {
             if (url) {
                 url = url.split("/")[1]
             }
-            this.props.getDoctorByUrl(url, (doctor_id) => {
+            this.props.getDoctorByUrl(url, hospital_id, (doctor_id) => {
                 if (doctor_id) {
                     this.setState({ selectedDoctor: doctor_id , hospital_id: hospital_id})
                 }
@@ -104,14 +107,16 @@ class DoctorProfile extends React.Component {
         let category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
         let procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
          
-        if(this.props.opd_procedure[this.props.match.params.id]){
+        if(this.props.commonProcedurers){
 
-            let pids = this.props.opd_procedure[this.props.match.params.id].filter((x) => {
-                if(procedure_ids.indexOf(x.procedure.id) == -1){
+            let pids = this.props.commonProcedurers.filter((x) => {
+                if(procedure_ids.indexOf(x.id) == -1){
                     return true
                 }
                 return false
-            }).map(x => x.procedure.id)
+            }).map(x => x.id)
+
+            //let pids = this.props.commonProcedurers.map(x=>x.id)
             procedure_ids =  procedure_ids.concat(pids)
         }   
 
@@ -144,11 +149,16 @@ const mapStateToProps = (state, passedProps) => {
     const {
         selectedCriterias,
         opd_procedure,
-        fetchNewResults
+        fetchNewResults,
+        commonProcedurers
     } = state.SEARCH_CRITERIA_OPD
 
+    const {
+        selectedDoctorProcedure
+    } = state.DOCTOR_SEARCH
+
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, opd_procedure, fetchNewResults
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, opd_procedure, fetchNewResults, commonProcedurers, selectedDoctorProcedure
     }
 }
 
@@ -165,7 +175,8 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
-        toggleProceduresCriteria: (procedure, doctorId) => dispatch(toggleProceduresCriteria(procedure, doctorId))
+        toggleProceduresCriteria: (procedure, doctorId) => dispatch(toggleProceduresCriteria(procedure, doctorId)),
+        toggleProfileProcedures: (procedure_to_toggle, doctor_id, hospital_id) => dispatch(toggleProfileProcedures(procedure_to_toggle, doctor_id, hospital_id))
     }
 }
 

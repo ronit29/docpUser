@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD , TOOGLE_PROCEDURE_CRITERIA} from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD , TOOGLE_PROCEDURE_CRITERIA, TOGGLE_COMMON_PROCEDURES} from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -23,7 +23,8 @@ const defaultState = {
     fetchNewResults: false,
     procedure_categories: [],
     opd_procedure: [],
-    selectedCriteriaType:''
+    selectedCriteriaType:'',
+    commonProcedurers: []
 }
 
 export default function (state = defaultState, action) {
@@ -143,28 +144,95 @@ export default function (state = defaultState, action) {
         case TOOGLE_PROCEDURE_CRITERIA: {
             let newState = {
              ...state ,
-             opd_procedure : [].concat(state.opd_procedure)
+             opd_procedure: JSON.parse(JSON.stringify(state.opd_procedure)) 
+            }
+
+
+            if(action.forceAdd){
+                newState.opd_procedure= Object.assign({}, newState.opd_procedure , action.doctorId )
+                newState.opd_procedure[action.doctorId] = {...action.hospitalId, 'selected': Object.values(action.payload).length}
+                newState.opd_procedure[action.doctorId][action.hospitalId] = []
+                newState.opd_procedure[action.doctorId][action.hospitalId] = (Object.values(action.payload))
+                return newState
             }
 
             if(newState.opd_procedure[action.doctorId]){
-                
-                let found = false
-                newState.opd_procedure[action.doctorId] =  newState.opd_procedure[action.doctorId].filter((x) => {
-                    if(x.procedure.id == action.payload.procedure.id){
-                        found = true
-                        return false
-                    }
-                    return true
-                })
+                let selectedCount = parseInt(newState.opd_procedure[action.doctorId].selected)
 
-                if(!found){
-                    newState.opd_procedure[action.doctorId].push({...action.payload})
+                if(newState.opd_procedure[action.doctorId][action.hospitalId]){
+
+                    let found = false
+                    newState.opd_procedure[action.doctorId][action.hospitalId] =  newState.opd_procedure[action.doctorId][action.hospitalId].filter((x) => {
+                        if(x.procedure.id == action.payload.procedure.id){
+                            found = true
+                            return false
+                        }
+                        return true
+                    })
+
+                    if(!found){
+                        newState.opd_procedure[action.doctorId][action.hospitalId].push({...action.payload})
+                        let procedureCount = {'selected': selectedCount + 1}
+                        newState.opd_procedure[action.doctorId] = Object.assign({}, newState.opd_procedure[action.doctorId], procedureCount )
+                    }else{
+                        newState.opd_procedure[action.doctorId].selected = selectedCount - 1
+                    }
+                    
+                }else{
+                    newState.opd_procedure= { ...action.doctorId}
+                    newState.opd_procedure[action.doctorId] = {...action.hospitalId , 'selected': selectedCount + 1}
+                    newState.opd_procedure[action.doctorId][action.hospitalId].push({...action.payload}) 
+
+                }
+
+            }else{
+
+                newState.opd_procedure= { ...action.doctorId}
+                newState.opd_procedure[action.doctorId] = {...action.hospitalId, 'selected': 1}
+                newState.opd_procedure[action.doctorId][action.hospitalId].push({...action.payload})
+            }
+
+            /*if(action.forceAdd){
+                newState.opd_procedure[action.doctorId] = []
+                newState.opd_procedure[action.doctorId][action.hospitalId] = []
+                newState.opd_procedure[action.doctorId][action.hospitalId] = action.payload
+                return newState
+            }
+
+            if(newState.opd_procedure[action.doctorId]){
+
+                if(newState.opd_procedure[action.doctorId][action.hospitalId]){
+
+                    newState.opd_procedure[action.doctorId] = []
+                    newState.opd_procedure[action.doctorId][action.hospitalId] = []
+                    if(action.payload != null){
+                        newState.opd_procedure[action.doctorId][action.hospitalId].push({ ...action.payload })    
+                    }
+                    
+                }else{
+
+                    let found = false
+                    newState.opd_procedure[action.doctorId] =  newState.opd_procedure[action.doctorId].filter((x) => {
+                        if(x.procedure.id == action.payload.procedure.id){
+                            found = true
+                            return false
+                        }
+                        return true
+                    })
+
+                    if(!found){
+                        newState.opd_procedure[action.doctorId].push({...action.payload})
+                    }
+
                 }
 
             }else{
                 newState.opd_procedure[action.doctorId] = []
-                newState.opd_procedure[action.doctorId].push({ ...action.payload })
-            }
+                newState.opd_procedure[action.doctorId][action.hospitalId] = []
+                if(action.payload != null){
+                        newState.opd_procedure[action.doctorId][action.hospitalId].push({ ...action.payload })    
+                }
+            }*/
 
 /*
 
@@ -181,6 +249,49 @@ export default function (state = defaultState, action) {
                 newState.opd_procedure.push({...action.payload})
             }*/
             return newState
+        }
+
+        case TOGGLE_COMMON_PROCEDURES: {
+            let newState = {
+                ...state,
+                commonProcedurers: [].concat(state.commonProcedurers)
+            }
+
+            if(action.payload.forceAdd){
+                newState.commonProcedurers = newState.commonProcedurers.filter((curr) => {
+                    if (curr.id == action.payload.criteria.id) {
+                        found = true
+                        return false
+                    }
+                    return true
+                })
+                newState.commonProcedurers.push({
+                    ...action.payload.criteria,
+                    type: action.payload.type
+                })
+                return newState
+            }
+            let found = false
+            newState.commonProcedurers = newState.commonProcedurers.filter((curr) => {
+                if (curr.id == action.payload.criteria.id) {
+                    found = true
+                    return false
+                }
+                return true
+            })
+
+            if (!found) {
+                newState.commonProcedurers.push({
+                    ...action.payload.criteria,
+                    type: action.payload.type
+                })
+            }
+           // newState.selectedCriteriaType = action.payload.type
+           // newState.fetchNewResults = true
+
+            return newState
+
+
         }
 
     }

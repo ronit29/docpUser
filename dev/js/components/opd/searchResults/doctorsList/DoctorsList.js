@@ -11,7 +11,7 @@ class DoctorsList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            hasMore: true,
+            hasMore: false,
             loading: false,
             renderBlock: false,
             page: 1,
@@ -23,24 +23,29 @@ class DoctorsList extends React.Component {
         /**
          * Below code ensures smooth back page transitions in case of huge data sets, and maintains scroll position.
          * renderBlock = true (by default) will block render until the page transition is completed, and once its done, it will then render and set scroll position accordingly
-         */
-        // setTimeout(() => {
-        //     if (this.refs.checkIfExists) {
-        //         this.setState({ renderBlock: false })
-        //     }
-        //     setTimeout(() => {
-        //         if (window) {
-        //             let scroll_pos = window.OPD_SCROLL_POS ? (window.OPD_SCROLL_POS) : 0
-        //             // TODO: improve scroll back logic
-        //             window.scrollTo(0, scroll_pos || 0)
-        //             window.OPD_SCROLL_POS = 0
+         
+        setTimeout(() => {
+            if (this.refs.checkIfExists) {
+                this.setState({ renderBlock: false })
+            }
+            setTimeout(() => {
+                if (window) {
+                    let scroll_pos = window.OPD_SCROLL_POS ? (window.OPD_SCROLL_POS) : 0
+                    // TODO: improve scroll back logic
+                    window.scrollTo(0, scroll_pos || 0)
+                    window.OPD_SCROLL_POS = 0
 
-        //             window.onscroll = function () {
-        //                 window.OPD_SCROLL_POS = window.pageYOffset
-        //             }
-        //         }
-        //     }, 100)
-        // }, 100)
+                    window.onscroll = function () {
+                        window.OPD_SCROLL_POS = window.pageYOffset
+                    }
+                }
+            }, 100)
+        }, 100)
+        
+        */
+        setTimeout(() => {
+            this.setState({ hasMore: true })
+        }, 0)
 
     }
 
@@ -73,11 +78,11 @@ class DoctorsList extends React.Component {
 
     }
 
-    toggleScroll(){
-        if(window){
-            window.scrollTo(0,0)
+    toggleScroll() {
+        if (window) {
+            window.scrollTo(0, 0)
         }
-        this.setState({readMore:'search-details-data-less'})
+        this.setState({ readMore: 'search-details-data-less' })
     }
 
     render() {
@@ -90,23 +95,23 @@ class DoctorsList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.search_content && this.props.search_content !=''?
-                                <div className="search-result-card-collpase">
-                                    <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
+                                this.props.search_content && this.props.search_content != '' ?
+                                    <div className="search-result-card-collpase">
+                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
+                                        </div>
+
+                                        {this.state.readMore && this.state.readMore != '' ?
+                                            <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
+                                            : ''
+                                        }
+
+                                        {this.state.readMore == '' ?
+                                            <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                                            : ''
+                                        }
+
                                     </div>
-                                    
-                                    {   this.state.readMore && this.state.readMore != ''?
-                                        <span className="rd-more" onClick={()=>this.setState({readMore:''})}>Read More</span>
-                                        :''
-                                    }
-
-                                    {   this.state.readMore == ''?
-                                        <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
-                                        :''
-                                    }
-
-                                </div>
-                                :''
+                                    : ''
                             }
                             <div className="row">
                                 <div className="col-12">

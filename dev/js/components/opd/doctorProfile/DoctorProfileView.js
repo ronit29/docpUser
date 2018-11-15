@@ -16,8 +16,8 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
 import Footer from '../../commons/Home/footer'
-import ProcedurePopup from '../commons/PopUp'
 
+import GTM from '../../../helpers/gtm.js'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -28,7 +28,10 @@ class DoctorProfileView extends React.Component {
         }
         this.state = {
             footerData,
-            seoFriendly: this.props.match.url.includes('-dpp')
+            seoFriendly: this.props.match.url.includes('-dpp'),
+            selectedClinic: "",
+            is_live: false,
+            rank: 0
         }
     }
 
@@ -57,26 +60,28 @@ class DoctorProfileView extends React.Component {
         return { title, description, schema }
     }
 
-    toggleProcedures(procedure_to_toggle, searchData = false) {/*
-        let test = Object.assign({}, test_to_toggle.test)
-        test.mrp = test_to_toggle.mrp
-        test.deal_price = test_to_toggle.deal_price
-        test.extra_test = true
-        test.lab_id = this.state.selectedLab
-
-        this.props.toggleDiagnosisCriteria('test', test)*/
-        if(searchData){
-            this.props.mergeOPDState('')
-        }else{
-            let procedure = Object.assign({}, procedure_to_toggle)
-            this.props.toggleProceduresCriteria(procedure, this.props.selectedDoctor)   
-
-        }
-        
+    selectClinic(clinic_id, is_live, rank) {
+        this.setState({ selectedClinic: clinic_id, is_live, rank })
     }
 
-    toggle(which) {
-        this.setState({ [which]: !this.state[which] })
+    navigateToClinic(doctor_id, clinicId) {
+        let is_live = this.state.is_live
+        let rank = this.state.rank
+
+        if (is_live) {
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'OpdBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': clinicId || ''
+            }
+            GTM.sendEvent({ data: data })
+
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'OpdBookNowRank', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-rank', 'rank': rank + 1
+            }
+            GTM.sendEvent({ data: data })
+
+            this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/book`)
+        }
     }
 
     render() {
@@ -167,46 +172,10 @@ class DoctorProfileView extends React.Component {
                                                                 (this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) ? <ClinicSelector
                                                                     details={this.props.DOCTORS[doctor_id]}
                                                                     {...this.props} doctorId={doctor_id}
+                                                                    selectClinic={this.selectClinic.bind(this)}
+                                                                    selectedClinic={this.state.selectedClinic}
                                                                 /> : ""
                                                             }
-
-                                                            {
-                                                                this.props.DOCTORS[doctor_id].hospitals[0] && this.props.DOCTORS[doctor_id].hospitals[0].procedure_categories && this.props.DOCTORS[doctor_id].hospitals[0].procedure_categories.length?
-                                                                <div className="procedure-checkboxes">
-                                                                    <h4>Procedures in <span>{this.props.DOCTORS[doctor_id].hospitals[0].procedure_categories.map(x=>x.name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                    <div className="insurance-checkboxes">
-                                                                        <ul className="procedure-list">
-                                                                        {
-                                                                            this.props.DOCTORS[doctor_id].hospitals[0].procedure_categories.map((category) =>{
-
-
-                                                                                return category.procedures.filter(x=>x.is_selected).map((procedure, i) => {
-
-                                                                                    return <li key={i}>
-                                                                                            <div>
-                                                                                                <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={this.toggleProcedures.bind(this, procedure)} /><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
-                                                                                            </div>
-                                                                                            <p className="pr-prices">₹ {procedure.mrp}<span className="pr-cut-price">₹ {procedure.deal_price}</span></p>
-                                                                                        </li>
-
-                                                                                })
-                                                                            })
-                                                                        }
-                                                                        {
-                                                                            this.props.DOCTORS[doctor_id].hospitals[0].procedure_categories.length
-                                                                            ?this.state.vieMoreProcedures
-                                                                                ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} {...this.props} toggleProcedures = {this.toggleProcedures.bind(this)} doctor_id = {doctor_id} data={this.props.DOCTORS[doctor_id].hospitals[0].procedure_categories} />
-                                                                                :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
-                                                                                + {this.props.DOCTORS[doctor_id].hospitals[0].procedure_categories.length} more
-                                                                                </button>
-                                                                            :''
-                                                                        }
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                :''
-                                                            }
-
 
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
@@ -234,6 +203,7 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button>
                                     </section> : <Loader />
                             }
                         </div>

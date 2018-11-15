@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS} from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES} from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -10,7 +10,8 @@ const defaultState = {
     SET_FROM_SERVER: false,
     doctorCoupons: {},
     disCountedOpdPrice: 0,
-    search_content: ''
+    search_content: '',
+    selectedDoctorProcedure: {}
 }
 
 export default function (state = defaultState, action) {
@@ -123,6 +124,59 @@ export default function (state = defaultState, action) {
             newState.disCountedOpdPrice = 0
 
             return newState
+        }
+ 
+        case SET_PROCEDURES: {
+            let newState = {
+                ...state
+            }
+            let hospitals = action.payload.hospitals.length?action.payload.hospitals:[]
+            //newState.selectedDoctorProcedure = hospitals
+            let data = {
+
+            }
+            newState.selectedDoctorProcedure = {...action.doctorId}
+                       hospitals.map((hospital) => {
+
+                if(hospital.procedure_categories.length>0){
+                    newState.selectedDoctorProcedure[action.doctorId] = {...hospital.hospital_id}
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id] =  []
+                }
+                hospital.procedure_categories.map((procedure) => {
+                    data['category_name'] = procedure.name
+                    
+                    procedure.procedures.map((pids) => {
+                        data['agreed_price'] = pids.agreed_price
+                        data['deal_price'] = pids.deal_price
+                        data['is_selected'] = pids.is_selected
+                        data['mrp'] = pids.mrp
+
+                        data['procedure_id'] = pids.procedure.id
+                        data['duration'] = pids.procedure.duration
+                        data['procedure_name'] = pids.procedure.name
+                        newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].push({...data})     
+                    })
+                })
+            })
+            return newState
+        }
+
+        case TOGGLE_PROFILE_PROCEDURES: {
+            let newState = {
+                ...state,
+                selectedDoctorProcedure: JSON.parse(JSON.stringify(state.selectedDoctorProcedure)) 
+            }
+            //procedure, doctor_id, hospital_id
+
+            newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].map((procedure, i) => {
+                if(action.procedure.procedure_id == procedure.procedure_id){
+                    let found = newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id][i].is_selected
+                    newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id][i].is_selected = !found
+                }
+                
+            }) 
+            return newState
+
         }
 
     }
