@@ -6,6 +6,7 @@ import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
 import ChatStaticView from './ChatStaticView'
+import RelatedArticles from '../article/RelatedArticles'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -364,6 +365,17 @@ class ChatPanel extends React.Component {
                             Not for emergencies! In the case of emergency please visit a hospital. Chat is only applicable to Indian citizens currently residing in India.</span>
                     </div>
                 </div>
+
+                {
+                    this.props.articleData && this.props.articleData.linked.length ?
+                        <div className="related-articles-div">
+                            {
+                                this.props.articleData.linked.map((linkedArticle, i) => {
+                                    return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
+                                })
+                            }
+                        </div> : ""
+                }
 
             </div>
         );
