@@ -2957,6 +2957,28 @@ span.ad-sub-content {
     display: block;
     font-weight: 500;
 }
+.fltr-bkng-btn.claim-btn {
+	color: #f78361;
+    text-decoration: underline;
+    background: white;
+    padding: 0;
+    font-size: 12px;
+}
+.alert-success {
+	color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.submit-alert {
+	padding: 15px;
+    border: 1px solid #94c64d;
+    border-radius: 4px;
+}
+.submit-alert a{
+	cursor: pointer;
+	user-select: none;
+	color: #e46608;
+}
 
 .speciality-footer-head{
 	font-size: 14px;
