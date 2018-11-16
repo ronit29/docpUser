@@ -4,6 +4,7 @@ import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
+import GTM from '../../../../helpers/gtm'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -55,6 +56,10 @@ class TopBar extends React.Component {
             distanceRange: this.state.distanceRange,
             sort_on: this.state.sort_on
         }
+        let data = {
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
         this.setState({ openFilter: false })
     }

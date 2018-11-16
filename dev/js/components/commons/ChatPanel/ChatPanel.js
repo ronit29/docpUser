@@ -73,21 +73,21 @@ class ChatPanel extends React.Component {
                             if (eventData.data.agentType == 'Type 1') {
 
                                 analyticData = {
-                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
                             } else if (eventData.data.agentType == 'Type 2') {
 
                                 analyticData = {
-                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
                             } else if (eventData.data.agentType == 'Type 3') {
 
                                 analyticData = {
-                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
@@ -128,7 +128,7 @@ class ChatPanel extends React.Component {
                             if (data.data.rid) {
                                 // save current room
                                 let analyticData = {
-                                    'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid
+                                    'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
@@ -141,7 +141,7 @@ class ChatPanel extends React.Component {
                         case "Login": {
                             if (data.data["params.token"]) {
                                 let analyticData = {
-                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat', 'RoomId': eventData.data.rid || ''
+                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat', 'RoomId': eventData.data.rid || '', "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
@@ -159,7 +159,7 @@ class ChatPanel extends React.Component {
 
                         case "prescription_report": {
                             let analyticData = {
-                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated', 'RoomId': eventData.rid || ''
+                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated', 'RoomId': eventData.rid || '', "url": window.location.pathname
                             }
                             GTM.sendEvent({ data: analyticData })
                         }
