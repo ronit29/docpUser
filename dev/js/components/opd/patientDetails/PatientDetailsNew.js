@@ -204,7 +204,7 @@ class PatientDetailsNew extends React.Component {
         }
         let treatment_Price = 0
         let selectedProcedures = {}
-        if(this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price){
+        if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
 
             treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
             selectedProcedures = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories
@@ -236,21 +236,20 @@ class PatientDetailsNew extends React.Component {
                                                                 <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                                 {
-                                                                    selectedProcedures?     
+                                                                    selectedProcedures ?
                                                                         Object.values(selectedProcedures).map((procedure) => {
 
-                                                                           return procedure.filter(x=>x.is_selected).map((category, i) =>{
+                                                                            return procedure.filter(x => x.is_selected).map((category, i) => {
 
-                                                                            return <span>
-                                                                                <p className="pr-prices">₹ {category.procedure_name}<span
-                                                                                className="pr-cut-price">₹ {category.deal_price}</span><span
-                                                                                className="pr-cut-price">₹ {category.mrp}</span></p>
-                                                                            </span> 
+                                                                                return <div className="clearfix"><span className="test-price txt-ornage">₹ {category.deal_price}<span className="test-mrp">₹ {category.mrp}</span></span><span className="fw-500 test-name-item">{category.procedure_name}</span>
+                                                                                </div>
+
                                                                             })
 
                                                                         })
-                                                                        :'' 
+                                                                        : ''
                                                                 }
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -326,12 +325,12 @@ class PatientDetailsNew extends React.Component {
                                                                             : ''
                                                                     }
                                                                     {
-                                                                        treatment_Price?
+                                                                        treatment_Price ?
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Treatment</p>
                                                                                 <p> &#8377; {treatment_Price}</p>
                                                                             </div>
-                                                                            :''   
+                                                                            : ''
                                                                     }
                                                                     <div className="payment-detail d-flex">
                                                                         <p>Subtotal</p>
@@ -378,7 +377,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{ !patient?'Select Patient':`Confirm Booking  ${priceData.deal_price? ` (₹ ${finalPrice+ treatment_Price || 0 })`:'' }` }</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice + treatment_Price || 0})` : ''}`}</button>
                             }
 
                         </div>
