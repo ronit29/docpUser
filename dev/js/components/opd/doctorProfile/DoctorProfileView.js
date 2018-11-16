@@ -61,7 +61,7 @@ class DoctorProfileView extends React.Component {
     }
 
     selectClinic(clinic_id, is_live, rank) {
-        this.setState({ selectedClinic: clinic_id, is_live, rank })
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "" })
     }
 
     navigateToClinic(doctor_id, clinicId) {
@@ -93,7 +93,7 @@ class DoctorProfileView extends React.Component {
         }
         if (!this.state.numberShown) {
             GTM.sendEvent({ data: data })
-            this.props.getDoctorNumber(id, (err, data) => {
+            this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
                 if (!err && data.number) {
                     this.setState({
                         numberShown: data.number

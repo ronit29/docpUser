@@ -102,7 +102,7 @@ const mapDispatchToProps = (dispatch) => {
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
-        getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
+        getDoctorNumber: (doctorId, hospital_id, callback) => dispatch(getDoctorNumber(doctorId, hospital_id, callback)),
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getFooterData: (url) => dispatch(getFooterData(url))

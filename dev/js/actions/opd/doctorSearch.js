@@ -209,8 +209,8 @@ export const updateOPDAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
-export const getDoctorNumber = (doctorId, callback) => (dispatch) => {
-	API_GET(`/api/v1/doctor/contact-number/${doctorId}`).then(function (response) {
+export const getDoctorNumber = (doctorId, hospital_id, callback) => (dispatch) => {
+	API_GET(`/api/v1/doctor/contact-number/${doctorId}?hospital_id=${hospital_id}`).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
 		callback(error, null)
