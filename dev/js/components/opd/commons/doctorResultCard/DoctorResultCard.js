@@ -36,28 +36,6 @@ class DoctorProfileCard extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
-        
-/*
-        if(this.props.details != nextProps.details){
-            let hospital = (nextProps.details.hospitals && nextProps.details.hospitals.length) ? nextProps.details.hospitals[0] : {}
-            let selected_procedures = []
-            let foundNew = false
-            if(hospital){
-                hospital.procedure_categories.map((category) => {
-                    category.procedures.filter( x=>x.is_selected ).map((procedure) => {
-                        selected_procedures.push(procedure)
-                        foundNew = true
-                    })
-                })
-            }
-            if(foundNew){
-                this.toggleProcedures(selected_procedures, hospital.hospital_id, true)
-            }
-        }*/
-
-    }
-
     cardClick(id, url, hospital_id, e) {
         e.stopPropagation()
         let data = {

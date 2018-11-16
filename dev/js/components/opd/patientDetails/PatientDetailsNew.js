@@ -89,6 +89,18 @@ class PatientDetailsNew extends React.Component {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
 
+        let procedure_ids = []
+        if(this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories){
+
+            Object.values(this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
+
+                procedure_ids =  procedure.map(x=>x.procedure_id)    
+            })
+            if(procedure_ids.length){
+                postData['procedure_ids'] = procedure_ids || []
+            }
+        }
+
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'OpdProceedButtonClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-proceed-button-clicked'
         }

@@ -34,18 +34,7 @@ class ClinicSelector extends React.Component {
         }
     }
 
-    toggleProcedures(procedure_to_toggle, doctor_id, hospital_id) {/*
-        let test = Object.assign({}, test_to_toggle.test)
-        test.mrp = test_to_toggle.mrp
-        test.deal_price = test_to_toggle.deal_price
-        test.extra_test = true
-        test.lab_id = this.state.selectedLab
-
-        this.props.toggleDiagnosisCriteria('test', test)*/
-
-        /*this.setState({errorMsg: false})
-        let selectedProcedureIds = this.props.selectedDoctorProcedure[doctor_id][hospital_id].procedures.filter(x=>x.is_selected).map(x=>x.procedure_id)
-*/
+    toggleProcedures(procedure_to_toggle, doctor_id, hospital_id) {
         let selectedProcedureIds = []
         Object.values(this.props.selectedDoctorProcedure[doctor_id][hospital_id].categories).map((procedure) => {
 
