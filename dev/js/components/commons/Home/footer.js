@@ -263,9 +263,9 @@ class Footer extends React.Component {
                                             <ul className="speciality-footer-list">
                                                 {
                                                     footerData.urls.map((url, i) => {
-                                                        return <a href={url.url} key={i}>
-                                                            <li>{url.title}</li>
-                                                        </a>
+                                                        return <li key={i}>
+                                                            <a href={url.url}>{url.title}</a>
+                                                        </li>
                                                     })
                                                 }
                                             </ul>
