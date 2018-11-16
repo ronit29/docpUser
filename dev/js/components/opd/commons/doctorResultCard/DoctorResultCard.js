@@ -49,6 +49,10 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
+    claimButtonClick(e) {
+        e.stopPropagation();
+        this.props.history.push('/doctorsignup');
+    }
 
     render() {
 
@@ -114,7 +118,9 @@ class DoctorProfileCard extends React.Component {
                                         experience_years ? <p >{experience_years} Years of Experience</p> : ""
                                     }
                                 </div>
-                                <button className="fltr-bkng-btn claim-btn">Claim this profile</button>
+                                {
+                                    enabled_for_online_booking ? '' : <button onClick={(e) => this.claimButtonClick(e)} className="fltr-bkng-btn claim-btn">Claim this profile</button>
+                                }
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">

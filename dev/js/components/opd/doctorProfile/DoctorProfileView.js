@@ -199,6 +199,7 @@ class DoctorProfileView extends React.Component {
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
+                                                            {...this.props}
                                                         />
                                                         <div className="widge-content pd-0">
                                                             {
