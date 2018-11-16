@@ -7,7 +7,7 @@ import PickupAddress from './pickupAddress'
 import ChoosePatientNewView from './choosePatientNew'
 import InitialsPicture from '../../commons/initialsPicture'
 // const queryString = require('query-string');
-
+import STORAGE from '../../../helpers/storage'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -42,6 +42,11 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     componentDidMount() {
+
+        if (!STORAGE.checkAuth()) {
+            return
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -63,6 +68,10 @@ class BookingSummaryViewNew extends React.Component {
 
 
     componentWillReceiveProps(nextProps) {
+        if (!STORAGE.checkAuth()) {
+            return
+        }
+
         if (nextProps.labCoupons && nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length && nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
 
             let is_home_collection_enabled = true, finalPrice = 0, finalMrp = 0
@@ -93,33 +102,35 @@ class BookingSummaryViewNew extends React.Component {
             if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
                 if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
                     if (!this.props.labCoupons[this.state.selectedLab] || (this.props.labCoupons[this.state.selectedLab] && this.props.labCoupons[this.state.selectedLab].length == 0)) {
-                        //auto apply coupon if no coupon is apllied
-                        if (this.state.selectedLab) {
-                            let finalPrice = 0
-                            let is_home_collection_enabled = true
-                            nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
-                                let price = twp.deal_price
-                                let mrp = twp.mrp
-                                // check if any of the selected test does not allow home_pickup_available
-                                if (!twp.is_home_collection_enabled) {
-                                    is_home_collection_enabled = false
+                        if (nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
+                            //auto apply coupon if no coupon is apllied
+                            if (this.state.selectedLab) {
+                                let finalPrice = 0
+                                let is_home_collection_enabled = true
+                                nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
+                                    let price = twp.deal_price
+                                    let mrp = twp.mrp
+                                    // check if any of the selected test does not allow home_pickup_available
+                                    if (!twp.is_home_collection_enabled) {
+                                        is_home_collection_enabled = false
+                                    }
+                                    finalPrice += parseFloat(price)
+                                })
+                                if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
+                                    finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
                                 }
-                                finalPrice += parseFloat(price)
-                            })
-                            if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
-                                finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+                                this.props.getCoupons(2, finalPrice, (coupons) => {
+                                    if (coupons && coupons[0]) {
+                                        this.props.applyCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab)
+                                        this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice)
+                                        this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                                    } else {
+                                        this.props.resetLabCoupons()
+                                    }
+                                })
+                            } else {
+                                this.props.resetLabCoupons()
                             }
-                            this.props.getCoupons(2, finalPrice, (coupons) => {
-                                if (coupons && coupons[0]) {
-                                    this.props.applyCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab)
-                                    this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice)
-                                    this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
-                                } else {
-                                    this.props.resetLabCoupons()
-                                }
-                            })
-                        } else {
-                            this.props.resetLabCoupons()
                         }
                     }
                 }

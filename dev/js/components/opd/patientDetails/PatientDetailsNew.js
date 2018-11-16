@@ -8,7 +8,7 @@ import ChoosePatientNewView from './choosePatientNew'
 const queryString = require('query-string');
 import SelectedClinic from '../commons/selectedClinic/index.js'
 
-
+import STORAGE from '../../../helpers/storage'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -40,6 +40,11 @@ class PatientDetailsNew extends React.Component {
     }
 
     componentDidMount() {
+
+        if (!STORAGE.checkAuth()) {
+            return
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
