@@ -2952,7 +2952,7 @@ span.ad-sub-content {
     font-weight: 500;
 }
 .view-more-coupons{
-	color: #e46608;
+	color: #f78631;
 	font-weight: 500;
 	text-align: right;
 	user-select: none;
@@ -2972,10 +2972,6 @@ span.ad-sub-content {
 .avl-cpn-hdng{
 	color: #757575;
     font-weight: 500;
-}
-
-.coupon-listing{
-	
 }
 .coupan-name{
 	display: flex;
@@ -2997,10 +2993,12 @@ span.ad-sub-content {
 }
 .coupon-avail{
 	color: #f78631;
-    font-weight: 500;
+	font-weight: 500;
+	cursor: pointer;
 }
-.couon-details{
-	
+.coupon-avail img{
+	width: 6px;
+    margin-left: 3px;
 }
 .coupon-ins{
 	font-weight: 500;
@@ -3016,6 +3014,7 @@ span.ad-sub-content {
 	display: block;
     margin-top: 15px;
     color: #f78630;
-    font-weight: 500;
+	font-weight: 500;
+	cursor: pointer;
     font-size: 12px;
 }

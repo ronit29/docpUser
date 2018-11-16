@@ -57,7 +57,7 @@ const Section_Component = ({ children, title, history, logout }) => {
                                             <h5 className="avl-cpn-hdng">Available Coupons</h5>
                                             <div className="coupan-name">
                                                 <span className="coupon-desing">WELCOME</span>
-                                                <span className="coupon-avail">Avail Now</span>
+                                                <span className="coupon-avail">Avail Now   <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /> </span>
                                             </div>
                                             <div className="couon-details">
                                                 <span className="coupon-ins">Flat Rs 100 off</span>
@@ -69,7 +69,7 @@ const Section_Component = ({ children, title, history, logout }) => {
                                             <h5 className="avl-cpn-hdng">Available Coupons</h5>
                                             <div className="coupan-name">
                                                 <span className="coupon-desing">WELCOME</span>
-                                                <span className="coupon-avail">Avail Now</span>
+                                                <span className="coupon-avail">Avail Now <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
                                             </div>
                                             <div className="couon-details">
                                                 <span className="coupon-ins">Flat Rs 100 off</span>
@@ -81,7 +81,7 @@ const Section_Component = ({ children, title, history, logout }) => {
                                             <h5 className="avl-cpn-hdng">Available Coupons</h5>
                                             <div className="coupan-name">
                                                 <span className="coupon-desing">WELCOME</span>
-                                                <span className="coupon-avail">Avail Now</span>
+                                                <span className="coupon-avail">Avail Now <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
                                             </div>
                                             <div className="couon-details">
                                                 <span className="coupon-ins">Flat Rs 100 off</span>
