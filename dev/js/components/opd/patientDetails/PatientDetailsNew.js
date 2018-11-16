@@ -61,7 +61,7 @@ class PatientDetailsNew extends React.Component {
         } else {
             //auto apply coupon if no coupon is apllied
             if (this.state.selectedDoctor, this.props.selectedSlot.time.deal_price) {
-                this.props.getCoupons(1, 0, (coupons) => {
+                this.props.getCoupons(1, this.props.selectedSlot.time.deal_price, (coupons) => {
                     if (coupons && coupons[0]) {
                         this.props.applyCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor)
                         this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)

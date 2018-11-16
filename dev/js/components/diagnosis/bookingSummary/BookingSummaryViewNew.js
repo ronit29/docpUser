@@ -53,23 +53,6 @@ class BookingSummaryViewNew extends React.Component {
             this.props.history.replace(this.props.location.pathname)
         }
 
-        if (this.props.labCoupons && this.props.labCoupons[this.state.selectedLab] && this.props.labCoupons[this.state.selectedLab].length) {
-
-        } else {
-            //auto apply coupon if no coupon is apllied
-            if (this.state.selectedLab) {
-                this.props.getCoupons(2, 0, (coupons) => {
-                    if (coupons && coupons[0]) {
-                        this.props.applyCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab)
-                    } else {
-                        this.props.resetLabCoupons()
-                    }
-                })
-            } else {
-                this.props.resetLabCoupons()
-            }
-        }
-
         if (document.getElementById('time-patient-details-widget')) {
             var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
             var elementHeight = document.getElementById('time-patient-details-widget').clientHeight;
@@ -105,6 +88,40 @@ class BookingSummaryViewNew extends React.Component {
 
                 this.setState({ couponCode: labCoupons[0].couponCode, couponId: labCoupons[0].couponId || '' })
                 this.props.applyLabCoupons('2', labCoupons[0].couponCode, labCoupons[0].couponId, this.state.selectedLab, finalPrice)
+            }
+        } else {
+            if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
+                if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
+                    if (!this.props.labCoupons[this.state.selectedLab] || (this.props.labCoupons[this.state.selectedLab] && this.props.labCoupons[this.state.selectedLab].length == 0)) {
+                        //auto apply coupon if no coupon is apllied
+                        if (this.state.selectedLab) {
+                            let finalPrice = 0
+                            let is_home_collection_enabled = true
+                            nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
+                                let price = twp.deal_price
+                                let mrp = twp.mrp
+                                // check if any of the selected test does not allow home_pickup_available
+                                if (!twp.is_home_collection_enabled) {
+                                    is_home_collection_enabled = false
+                                }
+                                finalPrice += parseFloat(price)
+                            })
+                            if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
+                                finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+                            }
+                            this.props.getCoupons(2, finalPrice, (coupons) => {
+                                if (coupons && coupons[0]) {
+                                    this.props.applyCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab)
+                                    this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice)
+                                } else {
+                                    this.props.resetLabCoupons()
+                                }
+                            })
+                        } else {
+                            this.props.resetLabCoupons()
+                        }
+                    }
+                }
             }
         }
     }
