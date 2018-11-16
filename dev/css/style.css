@@ -2870,6 +2870,7 @@ ul.list-sub-menu a:hover {
 	margin: 0.2em;
 	cursor: pointer;
 	padding: 0.2em;
+	font-weight: 500;
   }
   
   .insurance-checkboxes input[type=checkbox] {
@@ -2938,10 +2939,15 @@ ul.list-sub-menu a:hover {
 	cursor: pointer;
 }
 .procedure-checkboxes{
-	margin-top: 10px;
+	margin-top: 20px;
+    background: #f6f6f6;
+    padding: 5px;
+    border-radius: 4px;
 }
 .procedure-checkboxes h4{
 	font-weight: 500;
+	font-size: 14px;
+	margin-bottom: 5px;
 }
 .procedure-checkboxes h4 span{
 	color: #e58950;
@@ -2955,6 +2961,19 @@ ul.list-sub-menu a:hover {
 .widget.pr-border-radious{
 	border-radius: 4px;
 	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.11);
+}
+.procedures-btn-pop {
+	text-align: center;
+}
+.procedures-btn-pop button{ 
+	background: #f78631;
+    color: white;
+    margin: 30px 0;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 50px;
+    font-size: 15px;
 }
 .prp-chk-card{
 	margin-bottom: 15px;
@@ -3142,3 +3161,18 @@ span.ad-sub-content {
     margin-top: 10px;
 }
 /* details card */
+.pop-padding{
+	padding: 0px 12px !important; 
+}
+.pop-top-heading{
+	text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.pop-underline{
+	border-bottom:1px solid rgba(0, 0, 0, 0.06);
+}
+.pop-underline:last-child{
+	border-bottom:1px solid transparent;
+}

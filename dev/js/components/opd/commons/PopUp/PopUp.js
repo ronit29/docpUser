@@ -81,15 +81,17 @@ export default class PopUpView extends React.Component{
 			<div>
 	            <div className="cancel-overlay" onClick={this.toggleLayout.bind(this)}></div>
 	            <div className="widget cancel-appointment-div cancel-popup">
-	                <div className="widget-header text-center action-screen-header">
+				<div className="pop-top-heading">
+                        All Treatment
+                </div>
+	                <div className="widget-header action-screen-header pop-padding">
 	                    <p className="fw-500 cancel-appointment-head">{this.props.heading}</p>
-	                    <hr />
 	                </div>           
 	                <div className="terms-condition-div">
 	                    {
                             this.props.data.procedure_categories.map((category, key) => {
 
-                            return(<div key={key}><h4>{category.name}</h4>
+                            return(<div className="pop-underline" key={key}><h4>{category.name}</h4>
 
 								{
 								  	category.procedures.map((procedure, i) => {
@@ -114,7 +116,7 @@ export default class PopUpView extends React.Component{
 	                	<p>Please Select at least one Procedure</p>
 	                	:''
 	                }
-	                <div className="payment-content-btn text-center">
+	                <div className="procedures-btn-pop">
 	                    <button className="fw-500" onClick={this.toggleLayout.bind(this)}>Done</button>
 	                </div>
 	            </div>
