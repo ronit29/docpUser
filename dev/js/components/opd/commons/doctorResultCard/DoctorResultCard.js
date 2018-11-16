@@ -82,17 +82,17 @@ class DoctorProfileCard extends React.Component {
             return (
 
                 <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
-                {
-                    schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
-                __html: schema
-                    }} />
-                    :""
-                }
-                {
-                    is_gold?
-                    <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"}/>
-                    :''
-                }
+                    {
+                        schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: schema
+                        }} />
+                            : ""
+                    }
+                    {
+                        is_gold ?
+                            <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"} />
+                            : ''
+                    }
                     <div className="fltr-crd-top-container">
                         <div className="fltr-lctn-dtls">
                             <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
@@ -107,15 +107,14 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                                 <div className="fltr-name-dtls">
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
-                                        <h2 style={{fontSize: "16px"}} className="fltr-dc-name">{display_name}</h2>
+                                        <h2 style={{ fontSize: "16px" }} className="fltr-dc-name">{display_name}</h2>
                                     </a>
                                     <p>{this.getQualificationStr(general_specialization || [])}</p>
                                     {
                                         experience_years ? <p >{experience_years} Years of Experience</p> : ""
                                     }
-
                                 </div>
-
+                                <button className="fltr-bkng-btn claim-btn">Claim Your Profile</button>
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">
@@ -138,10 +137,10 @@ class DoctorProfileCard extends React.Component {
                                     </p>
                                     {
                                         STORAGE.checkAuth() || deal_price < 100 ?
-                                        ''
-                                        :<div className="signup-off-container">
-                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                        </div>
+                                            ''
+                                            : <div className="signup-off-container">
+                                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                            </div>
                                     }
 
                                     {

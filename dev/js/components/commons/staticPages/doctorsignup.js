@@ -12,14 +12,14 @@ class Doctorsignup extends React.Component {
 			member_type: "",
 			cityDropdownVisible: false,
 			city_name: "",
-			utm_params:props.utm_tags||{},
-			source:'Consumer'
+			utm_params: props.utm_tags || {},
+			source: 'Consumer'
 		}
 	}
 
-	componentWillReceiveProps(props){
-		if(this.state.utm_params != props.utm_tags){
-			this.setState({utm_params:props.utm_tags})
+	componentWillReceiveProps(props) {
+		if (this.state.utm_params != props.utm_tags) {
+			this.setState({ utm_params: props.utm_tags })
 		}
 	}
 
@@ -66,8 +66,13 @@ class Doctorsignup extends React.Component {
 		return (
 			<div className="container about-container">
 				<div className="row">
-					<div className="col-12 text-center">
+					{/* <div className="col-12 text-center">
 						<p className="fw-500 about-heading">Sign Up</p>
+					</div> */}
+					<div className="col-12">
+						<div className="submit-alert alert-success" role="alert">
+							<strong>Thank you </strong>for choosing <a>docprime.com</a> Our team will get in touch with you shortly
+						</div>
 					</div>
 					<div className="col-12 dsp-main-info-div">
 						<div className="dsp-phone-img-div">
