@@ -114,7 +114,7 @@ class DoctorProfileCard extends React.Component {
                                         experience_years ? <p >{experience_years} Years of Experience</p> : ""
                                     }
                                 </div>
-                                <button className="fltr-bkng-btn claim-btn">Claim Your Profile</button>
+                                <button className="fltr-bkng-btn claim-btn">Claim This Profile</button>
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">

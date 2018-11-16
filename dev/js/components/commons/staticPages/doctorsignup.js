@@ -71,7 +71,7 @@ class Doctorsignup extends React.Component {
 					</div> */}
 					<div className="col-12">
 						<div className="submit-alert alert-success" role="alert">
-							<strong>Thank you </strong>for choosing <a>docprime.com</a> Our team will get in touch with you shortly
+							<strong>Thank you </strong>for choosing <a>docprime.com</a>. Our team will get in touch with you shortly
 						</div>
 					</div>
 					<div className="col-12 dsp-main-info-div">
