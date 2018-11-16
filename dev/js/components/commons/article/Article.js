@@ -5,6 +5,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
+import Footer from '../Home/footer'
 // import RelatedArticles from './RelatedArticles'
 
 class Article extends React.Component {
@@ -12,7 +13,8 @@ class Article extends React.Component {
         super(props)
         this.state = {
             articleData: props.initialServerData,
-            medicineURL: false
+            medicineURL: false,
+            specialityFooterData: ''
         }
     }
 
@@ -36,6 +38,10 @@ class Article extends React.Component {
         if (this.props.match.path.split('-')[1] === 'mddp') {
             this.setState({ medicineURL: true });
         }
+
+        this.props.getSpecialityFooterData((cb) => {
+            this.setState({ specialityFooterData: cb });
+        });
     }
 
     onHomeClick(event, link) {
@@ -168,6 +174,7 @@ class Article extends React.Component {
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
                 </section>
+                <Footer specialityFooterData={this.state.specialityFooterData} />
             </div>
         );
     }

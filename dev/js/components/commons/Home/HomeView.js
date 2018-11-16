@@ -20,7 +20,7 @@ class HomeView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            specialityFooterData: ''
         }
     }
 
@@ -28,6 +28,10 @@ class HomeView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        this.props.getSpecialityFooterData((cb) => {
+            this.setState({ specialityFooterData: cb });
+        });
     }
 
     navigateTo(where, data, e) {
@@ -301,7 +305,7 @@ class HomeView extends React.Component {
 
                 <Accordian />
 
-                <Footer />
+                <Footer specialityFooterData={this.state.specialityFooterData} />
 
             </div>
         );

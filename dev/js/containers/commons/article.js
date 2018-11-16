@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -57,7 +57,9 @@ const mapStateToProps = (state, passedProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb))
+        fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb)),
+        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
+        // getFooterData: (url) => dispatch(getFooterData(url))
     }
 }
 
