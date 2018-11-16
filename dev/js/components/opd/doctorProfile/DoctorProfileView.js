@@ -190,7 +190,7 @@ class DoctorProfileView extends React.Component {
                                                     {
                                                         search_data ? <div className="mrt-10 mrb-20 article-chat-div">
                                                             <p className="fw-500">{search_data.title}</p>
-                                                            <button onClick={() => this.props.history.push(this.build_search_data_url(search_data))}>View Doctors</button>
+                                                            <button onClick={() => this.props.history.push(this.build_search_data_url(search_data))}>View All</button>
                                                         </div> : ''
                                                     }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
