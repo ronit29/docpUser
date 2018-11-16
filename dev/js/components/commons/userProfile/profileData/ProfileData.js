@@ -254,7 +254,7 @@ class ProfileData extends React.Component {
                 {
                     this.state.openTermsConditions ?
                         this.props.applicableCoupons.map(coupon => {
-                            return coupon.code == 'WELCOME' ?
+                            return coupon.code == 'FIRST500' ?
                                 <TermsConditions toggle={() => this.toggleTandC()} tnc={coupon.tnc} /> : ""
                         }) : ''
                 }
