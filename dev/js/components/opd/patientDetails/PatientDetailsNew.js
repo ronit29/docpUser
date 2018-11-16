@@ -202,6 +202,13 @@ class PatientDetailsNew extends React.Component {
                 this.props.selectOpdTimeSLot(slot, false)
             }
         }
+        let treatment_Price = 0
+        let selectedProcedures = {}
+        if(this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price){
+
+            treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+            selectedProcedures = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories
+        }
 
         let finalPrice = priceData.deal_price ? priceData.deal_price - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
         return (
@@ -228,10 +235,23 @@ class PatientDetailsNew extends React.Component {
                                                             <div className="widget-content">
                                                                 <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                                                                {
+                                                                    selectedProcedures?     
+                                                                        Object.values(selectedProcedures).map((procedure) => {
+
+                                                                           return procedure.filter(x=>x.is_selected).map((category, i) =>{
+
+                                                                            return <span>
+                                                                                <p className="pr-prices">₹ {category.procedure_name}<span
+                                                                                className="pr-cut-price">₹ {category.deal_price}</span><span
+                                                                                className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                                            </span> 
+                                                                            })
+
+                                                                        })
+                                                                        :'' 
+                                                                }
                                                             </div>
-                                                            {
-                                                                
-                                                            }
                                                         </div>
                                                     </div>
                                                     {
@@ -305,9 +325,17 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             : ''
                                                                     }
+                                                                    {
+                                                                        treatment_Price?
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Treatment</p>
+                                                                                <p> &#8377; {treatment_Price}</p>
+                                                                            </div>
+                                                                            :''   
+                                                                    }
                                                                     <div className="payment-detail d-flex">
                                                                         <p>Subtotal</p>
-                                                                        <p> &#8377; {finalPrice}</p>
+                                                                        <p> &#8377; {finalPrice + treatment_Price || 0}</p>
                                                                     </div>
                                                                 </div>
                                                                 <hr />
@@ -315,7 +343,7 @@ class PatientDetailsNew extends React.Component {
                                                                 {
                                                                     priceData ? <div className="test-report payment-detail mt-20">
                                                                         <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                        <h5 className="payment-amt-value">&#8377; {finalPrice}</h5>
+                                                                        <h5 className="payment-amt-value">&#8377; {finalPrice + treatment_Price || 0}</h5>
                                                                     </div> : ""
                                                                 }
 
@@ -350,7 +378,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{ !patient?'Select Patient':`Confirm Booking  ${priceData.deal_price? ` (₹ ${finalPrice})`:'' }` }</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{ !patient?'Select Patient':`Confirm Booking  ${priceData.deal_price? ` (₹ ${finalPrice+ treatment_Price || 0 })`:'' }` }</button>
                             }
 
                         </div>

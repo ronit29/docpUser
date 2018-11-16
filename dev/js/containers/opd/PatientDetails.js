@@ -41,10 +41,10 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTORS
     const { selectedProfile, profiles } = state.USER
-    let { selectedSlot, doctorCoupons, disCountedOpdPrice } = state.DOCTOR_SEARCH
+    let { selectedSlot, doctorCoupons, disCountedOpdPrice, selectedDoctorProcedure } = state.DOCTOR_SEARCH
 
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice 
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice , selectedDoctorProcedure
     }
 }
 

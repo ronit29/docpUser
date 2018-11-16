@@ -36,8 +36,9 @@ const mapStateToProps = (state) => {
 
     let { selectedSlot, rescheduleSlot } = state.DOCTOR_SEARCH
 
+    let { commonProcedurers } = state.SEARCH_CRITERIA_OPD
     return {
-        DOCTORS, selectedSlot, rescheduleSlot
+        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers
     }
 }
 
