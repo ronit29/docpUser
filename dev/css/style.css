@@ -2958,21 +2958,21 @@ span.ad-sub-content {
     margin-bottom: 8px;
 }
 
-.speciality-footer-list li{
+.speciality-footer-list a{
 	font-size: 12px;
     color: #757575;
 	font-weight: 500;
-	line-height: 1;
 }
 
-.speciality-footer-list a{
+.speciality-footer-list li{
 	display: inline-block;
 	padding-right: 4px;
 	margin-right: 4px;
 	border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+	line-height: 14px;
 }
 
-.speciality-footer-list a:last-child{
+.speciality-footer-list li:last-child{
 	padding-right: 0;
 	margin-right: 0;
 	border-right: none;
