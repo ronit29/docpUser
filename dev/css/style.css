@@ -549,6 +549,12 @@ p.top-head-link.card-lab-link span {
 	.head-links img {
 		margin-right: 8px !important;
 	}
+	.dr-profile-screen{
+        padding-bottom: 0px !important;
+    }
+    .profile-footer{
+        margin-top: 0px;
+    }
 }
 @media screen and (max-width: 438px) {
 	.head-links {
