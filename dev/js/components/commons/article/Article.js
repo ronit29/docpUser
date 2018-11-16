@@ -11,10 +11,16 @@ import Footer from '../Home/footer'
 class Article extends React.Component {
     constructor(props) {
         super(props)
+        let footerData = null
+        let articleData = null
+        if (this.props.initialServerData) {
+            footerData = this.props.initialServerData.footerData
+            articleData = this.props.initialServerData.articleData
+        }
         this.state = {
-            articleData: props.initialServerData,
+            articleData: articleData,
             medicineURL: false,
-            specialityFooterData: ''
+            specialityFooterData: footerData
         }
     }
 

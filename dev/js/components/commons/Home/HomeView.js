@@ -19,8 +19,12 @@ const GENDER = {
 class HomeView extends React.Component {
     constructor(props) {
         super(props);
+        let footerData = null
+        if (this.props.initialServerData) {
+            footerData = this.props.initialServerData.footerData
+        }
         this.state = {
-            specialityFooterData: ''
+            specialityFooterData: footerData
         }
     }
 

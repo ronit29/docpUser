@@ -12,7 +12,15 @@ class Home extends React.Component {
     }
 
     static loadData(store, match) {
-        return Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())])
+        return new Promise((resolve, reject) => {
+            getSpecialityFooterData((footerData) => {
+                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())]).then(() => {
+                    resolve({ footerData: (footerData || null) })
+                }).catch((e) => {
+                    reject()
+                })
+            })()
+        })
     }
 
     static contextTypes = {
@@ -38,7 +46,16 @@ class Home extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps) => {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    let initialServerData = null
+    let { staticContext } = passedProps
+    if (staticContext && staticContext.data) {
+        initialServerData = staticContext.data
+    }
+
     let {
         profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info
     } = state.USER
@@ -58,7 +75,7 @@ const mapStateToProps = (state) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || []
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData
     }
 }
 

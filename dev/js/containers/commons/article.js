@@ -17,7 +17,9 @@ class Article extends React.Component {
                 articleId = articleId.toLowerCase().substring(1, articleId.length)
                 fetchArticle(articleId, false, (err, data) => {
                     if (!err) {
-                        resolve(data)
+                        getSpecialityFooterData((footerData) => {
+                            resolve({ footerData: (footerData || null), articleData: data })
+                        })()
                     } else {
                         resolve(null)
                     }

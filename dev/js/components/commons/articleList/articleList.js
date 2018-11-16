@@ -21,6 +21,11 @@ class ArticleList extends React.Component {
 		var title = this.props.match.url.toLowerCase();
 		title = title.substring(1, title.length)
 
+		let footerData = null
+		if (this.props.initialServerData) {
+			footerData = this.props.initialServerData.footerData
+		}
+
 		this.state = {
 			hasMore: true,
 			page: page,
@@ -28,7 +33,7 @@ class ArticleList extends React.Component {
 			noArticleFound: false,
 			title: title,
 			buttonsVisible: true,
-			specialityFooterData: ''
+			specialityFooterData: footerData
 		}
 	}
 
