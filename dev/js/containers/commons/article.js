@@ -58,8 +58,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb)),
-        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
-        // getFooterData: (url) => dispatch(getFooterData(url))
+        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb))
     }
 }
 
