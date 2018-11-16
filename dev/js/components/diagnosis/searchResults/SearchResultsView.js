@@ -184,6 +184,16 @@ class SearchResultsView extends React.Component {
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
                         </div>
                         */}
+                            <div className="container-fluid d-md-none">
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div className="mrt-10 mrb-10 article-chat-div">
+                                            <p className="fw-500">Need help with booking?</p>
+                                            <button onClick={() => this.props.history.push('/mobileviewchat?BasicEnquiry=medical%20test%20appointment')} >Chat with us</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <LabsList {...this.props} getLabList={this.getLabList.bind(this)} />
                         </div>
                     }

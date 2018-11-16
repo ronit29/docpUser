@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests } from '../../actions/index.js'
+import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -12,7 +12,15 @@ class Home extends React.Component {
     }
 
     static loadData(store, match) {
-        return Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())])
+        return new Promise((resolve, reject) => {
+            getSpecialityFooterData((footerData) => {
+                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())]).then(() => {
+                    resolve({ footerData: (footerData || null) })
+                }).catch((e) => {
+                    reject()
+                })
+            })()
+        })
     }
 
     static contextTypes = {
@@ -38,7 +46,16 @@ class Home extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps) => {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    let initialServerData = null
+    let { staticContext } = passedProps
+    if (staticContext && staticContext.data) {
+        initialServerData = staticContext.data
+    }
+
     let {
         profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info
     } = state.USER
@@ -58,7 +75,7 @@ const mapStateToProps = (state) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || []
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData
     }
 }
 
@@ -72,7 +89,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
         fetchArticles: () => dispatch(fetchArticles()),
         resetFilters: () => dispatch(resetFilters()),
-        clearExtraTests: () => dispatch(clearExtraTests())
+        clearExtraTests: () => dispatch(clearExtraTests()),
+        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb))
     }
 }
 

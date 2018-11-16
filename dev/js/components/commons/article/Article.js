@@ -5,14 +5,23 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
+import Footer from '../Home/footer'
+import GTM from '../../../helpers/gtm'
 // import RelatedArticles from './RelatedArticles'
 
 class Article extends React.Component {
     constructor(props) {
         super(props)
+        let footerData = null
+        let articleData = null
+        if (this.props.initialServerData) {
+            footerData = this.props.initialServerData.footerData
+            articleData = this.props.initialServerData.articleData
+        }
         this.state = {
-            articleData: props.initialServerData,
-            medicineURL: false
+            articleData: articleData,
+            medicineURL: false,
+            specialityFooterData: footerData
         }
     }
 
@@ -36,6 +45,10 @@ class Article extends React.Component {
         if (this.props.match.path.split('-')[1] === 'mddp') {
             this.setState({ medicineURL: true });
         }
+
+        this.props.getSpecialityFooterData((cb) => {
+            this.setState({ specialityFooterData: cb });
+        });
     }
 
     onHomeClick(event, link) {
@@ -149,7 +162,13 @@ class Article extends React.Component {
                                         this.state.medicineURL ?
                                             <div className="mrt-20 mrb-10 article-chat-div d-md-none">
                                                 <p className="fw-500">Ask a doctor about {this.state.articleData.title.split('|')[0]} and any related queries.</p>
-                                                <button onClick={() => this.props.history.push('/mobileviewchat')} >Chat Now</button>
+                                                <button onClick={() => {
+                                                    let analyticData = {
+                                                        'Category': 'ChatNow', 'Action': 'ChatNow Click', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-now'
+                                                    }
+                                                    GTM.sendEvent({ data: analyticData })
+                                                    this.props.history.push('/mobileviewchat')
+                                                }} >Chat Now</button>
                                             </div> : ''
                                     }
 
@@ -168,6 +187,7 @@ class Article extends React.Component {
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
                 </section>
+                <Footer specialityFooterData={this.state.specialityFooterData} />
             </div>
         );
     }

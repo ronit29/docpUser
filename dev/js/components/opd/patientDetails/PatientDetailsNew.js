@@ -8,7 +8,7 @@ import ChoosePatientNewView from './choosePatientNew'
 const queryString = require('query-string');
 import SelectedClinic from '../commons/selectedClinic/index.js'
 
-
+import STORAGE from '../../../helpers/storage'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -40,6 +40,11 @@ class PatientDetailsNew extends React.Component {
     }
 
     componentDidMount() {
+
+        if (!STORAGE.checkAuth()) {
+            return
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -59,8 +64,23 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode, doctorCoupons[0].couponId, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
             }
         } else {
-            this.props.resetOpdCoupons()
+            //auto apply coupon if no coupon is apllied
+            if (this.state.selectedDoctor, this.props.selectedSlot.time.deal_price) {
+                this.props.getCoupons(1, this.props.selectedSlot.time.deal_price, (coupons) => {
+                    if (coupons && coupons[0]) {
+                        this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                        this.props.applyCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor)
+                        this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
+                    } else {
+                        this.props.resetOpdCoupons()
+                    }
+                })
+            } else {
+                this.props.resetOpdCoupons()
+            }
         }
+
+
     }
 
     proceed(datePicked, e) {
@@ -347,7 +367,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{ !patient?'Select Patient':`Confirm Booking  ${priceData.deal_price? ` (₹ ${finalPrice})`:'' }` }</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice})` : ''}`}</button>
                             }
 
                         </div>

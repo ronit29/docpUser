@@ -253,9 +253,29 @@ class Footer extends React.Component {
                             </div>
                         </div>
                     </div>
+                    {
+                        this.props.specialityFooterData && this.props.specialityFooterData.length ?
+                            <div className="row mrt-10">
+                                {
+                                    this.props.specialityFooterData.map((footerData, i) => {
+                                        return <div className="col-12" style={{marginBottom: 15}} key={i}>
+                                            <h3 className="speciality-footer-head">{footerData.title}</h3>
+                                            <ul className="speciality-footer-list">
+                                                {
+                                                    footerData.urls.map((url, i) => {
+                                                        return <li key={i}>
+                                                            <a href={url.url}>{url.title}</a>
+                                                        </li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    })
+                                }
+                            </div> : ''
+                    }
                     <div className="col-12 text-center mbl-divider">
                         <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
-
                     </div>
                     <div className="footer-new-copyrght">
                         <p>docprime.com Copyright &copy; 2018.</p>

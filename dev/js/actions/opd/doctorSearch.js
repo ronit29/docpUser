@@ -253,3 +253,11 @@ export const getFooterData = (url) => (dispatch) => {
 
 	})
 }
+
+export const getSpecialityFooterData = (cb) => (dispatch) => {
+	return API_GET(`api/v1/location/static-speciality-footer`).then(function (response) {
+		return cb(response)
+	}).catch(function (error) {
+
+	})
+}

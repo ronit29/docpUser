@@ -188,7 +188,15 @@ class DoctorProfileView extends React.Component {
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
                                                     {
-                                                        search_data ? <a className="doc-search-data" href={this.build_search_data_url(search_data)}>{search_data.title}</a> : ""
+                                                        search_data ? <div className="mrt-10 mrb-20 article-chat-div">
+                                                            <p className="fw-500">{search_data.title}</p>
+                                                            <a onClick={() => {
+                                                                let data = {
+                                                                    'Category': 'ConsumerApp', 'Action': 'Prpfile-doctor-search', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-profile-clicked'
+                                                                }
+                                                                GTM.sendEvent({ data: data })
+                                                            }} href={this.build_search_data_url(search_data)}><button>View All</button></a>
+                                                        </div> : ''
                                                     }
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                                         {

@@ -4,6 +4,7 @@ import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
+import GTM from '../../../../helpers/gtm'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -74,6 +75,10 @@ class TopBar extends React.Component {
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital
         }
+        let data = {
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
         this.setState({ openFilter: false })
     }
@@ -206,22 +211,22 @@ class TopBar extends React.Component {
                                         </ul>
                                     </div>
                                     <div className="filter-title">
-                                        {this.props.count} Results found {criteriaStr ? "for" : ""} 
+                                        {this.props.count} Results found {criteriaStr ? "for" : ""}
                                         <h1 className="search-result-heading">
-                                        <span className="fw-700"> {criteriaStr} </span>
-                                        <span className="search-result-span" onClick={() => {
-                                            this.setState({
-                                                showLocationPopup: !this.state.showLocationPopup,
-                                                searchCities: []
-                                            })
-                                        }}>
+                                            <span className="fw-700"> {criteriaStr} </span>
+                                            <span className="search-result-span" onClick={() => {
+                                                this.setState({
+                                                    showLocationPopup: !this.state.showLocationPopup,
+                                                    searchCities: []
+                                                })
+                                            }}>
 
-                                            {
-                                                this.state.showLocationPopup && false ? ''
-                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
-                                            }
-                                            
-                                        </span>
+                                                {
+                                                    this.state.showLocationPopup && false ? ''
+                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                }
+
+                                            </span>
                                         </h1>
                                         <img className="location-edit-img" style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                     </div>
