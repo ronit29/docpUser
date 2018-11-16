@@ -113,6 +113,7 @@ class BookingSummaryViewNew extends React.Component {
                                 if (coupons && coupons[0]) {
                                     this.props.applyCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab)
                                     this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice)
+                                    this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                                 } else {
                                     this.props.resetLabCoupons()
                                 }

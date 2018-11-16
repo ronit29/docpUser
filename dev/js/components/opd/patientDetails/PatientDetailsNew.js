@@ -63,6 +63,7 @@ class PatientDetailsNew extends React.Component {
             if (this.state.selectedDoctor, this.props.selectedSlot.time.deal_price) {
                 this.props.getCoupons(1, this.props.selectedSlot.time.deal_price, (coupons) => {
                     if (coupons && coupons[0]) {
+                        this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                         this.props.applyCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor)
                         this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
                     } else {
