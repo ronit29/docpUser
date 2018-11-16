@@ -52,7 +52,23 @@ class BookingSummaryViewNew extends React.Component {
             }, 500)
             this.props.history.replace(this.props.location.pathname)
         }
-        this.props.resetLabCoupons()
+
+        if (this.props.labCoupons && this.props.labCoupons[this.state.selectedLab] && this.props.labCoupons[this.state.selectedLab].length) {
+
+        } else {
+            //auto apply coupon if no coupon is apllied
+            if (this.state.selectedLab) {
+                this.props.getCoupons(2, 0, (coupons) => {
+                    if (coupons && coupons[0]) {
+                        this.props.applyCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab)
+                    } else {
+                        this.props.resetLabCoupons()
+                    }
+                })
+            } else {
+                this.props.resetLabCoupons()
+            }
+        }
 
         if (document.getElementById('time-patient-details-widget')) {
             var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
