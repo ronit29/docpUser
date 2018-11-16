@@ -3176,3 +3176,7 @@ span.ad-sub-content {
 .pop-underline:last-child{
 	border-bottom:1px solid transparent;
 }
+.proc-padding-list{
+	padding-left: 20px;
+    margin-top: 10px;
+}
