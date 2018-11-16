@@ -2951,3 +2951,29 @@ span.ad-sub-content {
     display: block;
     font-weight: 500;
 }
+
+.speciality-footer-head{
+	font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.speciality-footer-list li{
+	font-size: 12px;
+    color: #757575;
+	font-weight: 500;
+	line-height: 1;
+}
+
+.speciality-footer-list a{
+	display: inline-block;
+	padding-right: 4px;
+	margin-right: 4px;
+	border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+}
+
+.speciality-footer-list a:last-child{
+	padding-right: 0;
+	margin-right: 0;
+	border-right: none;
+}

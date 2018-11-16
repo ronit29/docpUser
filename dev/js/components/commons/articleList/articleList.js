@@ -7,6 +7,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 import Loader from '../../commons/Loader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
+import Footer from '../Home/footer'
 
 class ArticleList extends React.Component {
 	constructor(props) {
@@ -26,7 +27,8 @@ class ArticleList extends React.Component {
 			searchVal: '',
 			noArticleFound: false,
 			title: title,
-			buttonsVisible: true
+			buttonsVisible: true,
+			specialityFooterData: ''
 		}
 	}
 
@@ -39,6 +41,10 @@ class ArticleList extends React.Component {
 			var newHref = window.location.href.replace('?page=1', '');
 			window.location.href = newHref;
 		}
+
+		this.props.getSpecialityFooterData((cb) => {
+			this.setState({ specialityFooterData: cb });
+		});
 	}
 
 	loadMore() {
@@ -228,6 +234,7 @@ class ArticleList extends React.Component {
 						<RightBar />
 					</div>
 				</section>
+				<Footer specialityFooterData={this.state.specialityFooterData} />
 			</div>
 		);
 	}

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ArticleListView from '../../components/commons/articleList'
-import { getArticleList } from '../../actions/index.js'
+import { getArticleList, getSpecialityFooterData } from '../../actions/index.js'
 const queryString = require('query-string');
 
 
@@ -55,7 +55,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, replaceList, searchString, callback) => dispatch(getArticleList(title, page, replaceList, searchString, callback))
+        getArticleList: (title, page, replaceList, searchString, callback) => dispatch(getArticleList(title, page, replaceList, searchString, callback)),
+        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb))
     }
 }
 
