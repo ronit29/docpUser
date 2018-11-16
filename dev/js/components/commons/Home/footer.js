@@ -17,11 +17,6 @@ class Footer extends React.Component {
             menu = this.props.footerData.menu
         }
 
-        console.log('footerewrtyuiopiuyyudata');
-        if (this.props.specialityFooterData) {
-            console.log(this.props.specialityFooterData);
-        }
-
         return (
             <footer className="profile-footer">
 
