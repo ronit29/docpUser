@@ -114,10 +114,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			fetchNewResults: false
 		})
 
-		dispatch({
+		/*dispatch({
 			type: SET_FETCH_RESULTS_OPD,
 			payload: false
-		})
+		})*/
 
 		dispatch({
 			type: APPEND_DOCTORS,
@@ -156,17 +156,20 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 
 export const getDoctorById = (doctorId, hospitalId, procedure_ids, category_ids) => (dispatch) => {
 
-	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 
 		dispatch({
 			type: APPEND_DOCTORS,
 			payload: [response]
 		})
-		dispatch({
-			type: SET_PROCEDURES,
-			payload: response,
-			doctorId: doctorId
-		})
+		if(procedure_ids.length){
+			dispatch({
+				type: SET_PROCEDURES,
+				payload: response,
+				doctorId: doctorId,
+				commonProcedurers: procedure_ids
+			})
+		}
 
 	}).catch(function (error) {
 
@@ -180,6 +183,13 @@ export const getDoctorByUrl = (doctor_url, hospitalId, cb) => (dispatch) => {
 			type: APPEND_DOCTORS,
 			payload: [response]
 		})
+		if(response && response.id){
+			dispatch({
+				type: SET_PROCEDURES,
+				payload: response,
+				doctorId: response.id
+			})
+		}
 		cb((response.id ? response.id : null), null)
 	}).catch(function (error) {
 		cb(null, error.url)

@@ -32,7 +32,7 @@ class DoctorProfileCard extends React.Component {
             })
         }
         if(foundNew){
-            this.toggleProcedures(selected_procedures, hospital.hospital_id, true)
+          //  this.toggleProcedures(selected_procedures, hospital.hospital_id, true)
         }
     }
 
@@ -127,10 +127,13 @@ class DoctorProfileCard extends React.Component {
         this.props.mergeOPDState('')
     }
 
-    toggle(which) {
+    toggle(which, fetchResults) {
 
         this.setState({ [which]: !this.state[which] })
-        this.props.mergeOPDState('')
+        if(fetchResults){
+            this.props.mergeOPDState('')    
+        }
+        
     }
 
     render() {
@@ -162,6 +165,11 @@ class DoctorProfileCard extends React.Component {
         }
 
         if (hospitals && hospitals.length) {
+            let procedureCount = 0
+            hospitals[0].procedure_categories.map((x)=>{
+
+                procedureCount+=x.procedures.filter(x=>!x.is_selected).length
+            })
             return (
 
                 <div className="filter-card-dl mb-3" >
@@ -248,9 +256,9 @@ class DoctorProfileCard extends React.Component {
 
                                                 return <li key={i}>
                                                         <div>
-                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {this.getSearchedProcedures.bind(this, procedure)}/><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/*{this.getSearchedProcedures.bind(this, procedure)}*//><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
                                                         </div>
-                                                        <p className="pr-prices">₹ {procedure.mrp}<span className="pr-cut-price">₹ {procedure.deal_price}</span></p>
+                                                        <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                     </li>
 
                                             })
@@ -262,11 +270,11 @@ class DoctorProfileCard extends React.Component {
                                         :''
                                     }
                                     {
-                                        hospitals[0].procedure_categories.length
+                                        procedureCount.length
                                         ?this.state.vieMoreProcedures
                                             ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} toggleData ={this.toggleProcedures.bind(this)} details = {this.props} doctor_id = {this.props.details.id} getCommonProcedures = {this.props.getCommonProcedures} data={hospitals[0]} />
                                             :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
-                                            + {hospitals[0].procedure_categories.length} more
+                                            + {procedureCount} more
                                             </button>
                                         :''
                                     }

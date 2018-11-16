@@ -42,8 +42,17 @@ class ClinicSelector extends React.Component {
         test.lab_id = this.state.selectedLab
 
         this.props.toggleDiagnosisCriteria('test', test)*/
-        this.setState({errorMsg: false})
-        let selectedProcedureIds = this.props.selectedDoctorProcedure[doctor_id][hospital_id].filter(x=>x.is_selected).map(x=>x.procedure_id)
+
+        /*this.setState({errorMsg: false})
+        let selectedProcedureIds = this.props.selectedDoctorProcedure[doctor_id][hospital_id].procedures.filter(x=>x.is_selected).map(x=>x.procedure_id)
+*/
+        let selectedProcedureIds = []
+        Object.values(this.props.selectedDoctorProcedure[doctor_id][hospital_id].categories).map((procedure) => {
+
+            selectedProcedureIds =  procedure.filter(x=>x.is_selected).map(x=>x.procedure_id)    
+        })
+
+
         if(selectedProcedureIds.indexOf(procedure_to_toggle.procedure_id) == -1 ){
 
         }else if(selectedProcedureIds.length<=1){
@@ -58,7 +67,7 @@ class ClinicSelector extends React.Component {
     }
 
     toggle(which) {
-        this.setState({ [which]: !this.state[which] })
+        this.setState({ [which]: !this.state[which] , errorMsg: false})
     }
 
     render() {
@@ -75,7 +84,8 @@ class ClinicSelector extends React.Component {
                 this.props.selectClinic(hospitals[0].hospital_id, is_live, 0)
             }
         }
-                          
+
+        
         return (
             // <div className="widget-panel">
             //     <h4 className="panel-title mb-rmv">Dr. {name} Available at</h4>
@@ -150,16 +160,16 @@ class ClinicSelector extends React.Component {
                                 </label>
                             </div>
                             <div className="dtl-cnslt-fee pb-list">
-                                {
-                                    this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].length?
-                                        <div className="clearfix">
-                                            <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                                        </div>
-                                        :<div className="clearfix">
-                                            <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                                        </div>    
-                          
-                                }
+                            {  this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
+                                <div className="clearfix">
+                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                    <span className="test-price txt-ornage">₹ {this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.deal_price || 0}<span className="test-mrp">₹ {this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.mrp || 0}</span></span><span className="fw-500 test-name-item">Procedure Fee</span>
+                                    <span className="test-price txt-ornage">₹ {hospital.deal_price+ this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.deal_price || 0}<span className="test-mrp">₹ {hospital.mrp+ this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.mrp || 0}</span></span><span className="fw-500 test-name-item">Final Price</span>
+                                </div>
+                                :<div className="clearfix">
+                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                </div>
+                            }
                                 
                                 <div className="clearfix">
                                     {
@@ -195,23 +205,28 @@ class ClinicSelector extends React.Component {
                             </div>
                             </div>
                             {
-                            this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].length?
+                            this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
                             <div className="procedure-checkboxes">
-                                <h4>Procedures in <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].map(x=>x.procedure_name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                <h4>Procedures in <span>{Object.values(this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories).map((category) =>{
+                                   return category.map(x=>x.procedure_name).join('|')
+                                })} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                 <div className="insurance-checkboxes">
                                     <ul className="procedure-list">
                                     {
-                                        this.props.selectedDoctorProcedure[id][hospital.hospital_id].filter(x=>x.is_selected).map((category, i) =>{
+                                        Object.values(this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories).map((procedure) => {
+
+                                           return procedure.filter(x=>x.is_selected).map((category, i) =>{
 
                                             return <li key={i}>
                                                         <div>
-                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={category.procedure_id} name="fruit-1" value="" onChange={this.toggleProcedures.bind(this, category, id, hospital.hospital_id)} /><label htmlFor={category.procedure_id}>{category.procedure_name}</label>
+                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={category.procedure_id} name="fruit-1" value="" onChange={()=>this.setState({vieMoreProcedures: true, selectedId: hospital.hospital_id, errorMsg: false})}/*{this.toggleProcedures.bind(this, category, id, hospital.hospital_id)} *//><label htmlFor={category.procedure_id}>{category.procedure_name}</label>
                                                         </div>
-                                                        <p className="pr-prices">₹ {category.mrp}<span className="pr-cut-price">₹ {category.deal_price}</span></p>
+                                                        <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
                                                     </li>
 
                                             })
 
+                                        }) 
                                     }
                                     {
                                         this.state.errorMsg?
@@ -219,11 +234,11 @@ class ClinicSelector extends React.Component {
                                         :''
                                     }
                                     {
-                                        this.props.selectedDoctorProcedure[id][hospital.hospital_id].length
+                                        this.props.selectedDoctorProcedure[id][hospital.hospital_id].moreProcedures
                                         ?this.state.vieMoreProcedures
-                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} toggleProcedures = {this.toggleProcedures.bind(this)} hospital_id = {hospital.hospital_id} doctor_id = {id}  data = {this.props.selectedDoctorProcedure[id][hospital.hospital_id]}/>
-                                            :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
-                                            + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].length} more
+                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} errorMsg = {this.state.errorMsg} toggleProcedures = {this.toggleProcedures.bind(this)} hospital_id = {this.state.selectedId} doctor_id = {id}  data = {this.props.selectedDoctorProcedure[id][this.state.selectedId].categories}/>
+                                            :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true, selectedId: hospital.hospital_id, errorMsg: false})}>
+                                            + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].moreProcedures} more
                                             </button>
                                         :''
                                     }

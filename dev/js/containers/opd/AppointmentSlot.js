@@ -11,7 +11,7 @@ class AppointmentSlot extends React.Component {
     }
 
     static loadData(store, match) {
-        return store.dispatch(getDoctorById(match.params.id))
+        return store.dispatch(getDoctorById(match.params.id, match.params.clinicId))
     }
 
     static contextTypes = {
@@ -19,7 +19,7 @@ class AppointmentSlot extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getDoctorById(this.props.match.params.id)
+        this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId)
     }
 
     render() {
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
+        getDoctorById: (doctorId, clinicId) => dispatch(getDoctorById(doctorId, clinicId)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId))
     }

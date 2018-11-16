@@ -24,7 +24,7 @@ class PatientDetails extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.getDoctorById(this.props.match.params.id)
+            this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId)
             this.props.getUserProfile()
         }
     }
@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getDoctorById: (doctorId) => dispatch(getDoctorById(doctorId)),
+        getDoctorById: (doctorId, hospitalId) => dispatch(getDoctorById(doctorId, hospitalId)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId ) => dispatch(removeCoupons(hospitalId, couponId )),

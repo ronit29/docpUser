@@ -40,7 +40,7 @@ export default function (state = defaultState, action) {
                 return curr.type == newState.selectedCriteriaType
             })  
             newState.opd_procedure = []
-
+            newState.commonProcedurers = []
             newState.LOADED_SEARCH_CRITERIA_OPD = true
             return newState
         }

@@ -229,6 +229,9 @@ class PatientDetailsNew extends React.Component {
                                                                 <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                             </div>
+                                                            {
+                                                                
+                                                            }
                                                         </div>
                                                     </div>
                                                     {

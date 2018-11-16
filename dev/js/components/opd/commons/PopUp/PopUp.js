@@ -5,7 +5,8 @@ export default class PopUpView extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			errorMessage: false
+			errorMessage: false,
+			procedure: []
 		}
 	}
 
@@ -38,9 +39,33 @@ export default class PopUpView extends React.Component{
 			id: procedure.procedure.id,
 			name: procedure.procedure.name
 		}
+		
+		let procedure_ids = this.state.procedure
+		if(procedure_ids.indexOf(procedure.procedure.id) == -1){
+			procedure_ids.splice(procedure_ids.indexOf(procedure.procedure.id), 1)
+		}else{
+			procedure_ids.push(procedure.procedure.id)
+		}
+
+		this.setState({procedure: procedure_ids})
+
 
 		this.props.getCommonProcedures('procedures', criteria)
 		this.props.toggleData(procedure, this.props.data.hospital_id, false, false)
+	}
+
+	toggleLayout(){
+
+		let commonIds = this.props.details.commonProcedurers.map(x=>x.id)
+		let selectedProcedureIds = this.state.procedure
+		let fetchResults = false
+
+		if(commonIds.length === selectedProcedureIds.length && commonIds.sort().every(function(value, index) { return value === selectedProcedureIds.sort()[index]})){
+			fetchResults = true
+		}
+
+		this.props.toggle(fetchResults)
+
 	}
 
 	render(){
@@ -54,7 +79,7 @@ export default class PopUpView extends React.Component{
 		}
 		return(
 			<div>
-	            <div className="cancel-overlay" onClick={this.props.toggle}></div>
+	            <div className="cancel-overlay" onClick={this.toggleLayout.bind(this)}></div>
 	            <div className="widget cancel-appointment-div cancel-popup">
 	                <div className="widget-header text-center action-screen-header">
 	                    <p className="fw-500 cancel-appointment-head">{this.props.heading}</p>
@@ -75,7 +100,7 @@ export default class PopUpView extends React.Component{
 		                                            onChange= {this.toggle.bind(this,procedure)}
 		                                            /><label htmlFor={`${procedure.procedure.id}_`}>{procedure.procedure.name}</label>
 		                                        </div>
-		                                        <p className="pr-prices">₹ {procedure.mrp}<span className="pr-cut-price">₹ {procedure.deal_price}</span></p>
+		                                        <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
 		                                    </li>
 
 		                            })
@@ -90,7 +115,7 @@ export default class PopUpView extends React.Component{
 	                	:''
 	                }
 	                <div className="payment-content-btn text-center">
-	                    <button className="fw-500" onClick={this.props.toggle}>Done</button>
+	                    <button className="fw-500" onClick={this.toggleLayout.bind(this)}>Done</button>
 	                </div>
 	            </div>
 	        </div>
