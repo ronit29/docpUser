@@ -2952,11 +2952,11 @@ span.ad-sub-content {
     font-weight: 500;
 }
 .fltr-bkng-btn.claim-btn {
-    color: #e58950;
+	color: #f78361;
+    text-decoration: underline;
     background: white;
-    border: 1px solid;
-	padding: 10px 10px;
-	font-size: 12px;
+    padding: 0;
+    font-size: 12px;
 }
 .alert-success {
 	color: #3c763d;
