@@ -11,7 +11,8 @@ const defaultState = {
     doctorCoupons: {},
     disCountedOpdPrice: 0,
     search_content: '',
-    selectedDoctorProcedure: {}
+    selectedDoctorProcedure: {},
+    profileCommonProcedures : []
 }
 
 export default function (state = defaultState, action) {
@@ -131,8 +132,9 @@ export default function (state = defaultState, action) {
                 ...state,
                 selectedDoctorProcedure: JSON.parse(JSON.stringify(state.selectedDoctorProcedure))
             }
+            newState.profileCommonProcedures = action.commonProcedurers
             let hospitals = action.payload.hospitals.length?action.payload.hospitals:[]
-            //newState.selectedDoctorProcedure = hospitals
+            
             let data = {
 
             }
@@ -141,12 +143,12 @@ export default function (state = defaultState, action) {
                        hospitals.map((hospital) => {
 
                 if(hospital.procedure_categories.length>0){
-                    //newState.selectedDoctorProcedure[action.doctorId] = Object.assign({}, newState.selectedDoctorProcedure[action.doctorId] ,hospital.hospital_id )
-                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id] = {'categories':{}, 'moreProcedures': 0, 'price': {}}
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id] = {'categories':{}, 'selectedProcedures': 0, 'unselectedProcedures': 0, 'price': {}}
                 }
                 let deal_price = 0
                 let mrp = 0
                 let unselectedCount = 0
+                let selectedCount = 0
                 let selectedProcedureIds = []
                 hospital.procedure_categories.map((procedure) => {
                     newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].categories[procedure.procedure_category_id] = []
@@ -160,12 +162,14 @@ export default function (state = defaultState, action) {
                         data['procedure_id'] = pids.procedure.id
                         data['duration'] = pids.procedure.duration
                         data['procedure_name'] = pids.procedure.name
+                        data['hospital_id'] = hospital.hospital_id
                         if(pids.is_selected || action.commonProcedurers.indexOf(pids.procedure.id)!=-1){
 
                             data['is_selected'] = true
                             selectedProcedureIds.push(pids.procedure.id)
                             deal_price = deal_price + pids.deal_price
                             mrp = mrp + pids.mrp
+                            selectedCount++
                         }else{
 
                             data['is_selected'] = false
@@ -179,7 +183,8 @@ export default function (state = defaultState, action) {
                         mrp: mrp
                     }
                     newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].price = price
-                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].moreProcedures = unselectedCount
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].selectedProcedures = selectedCount
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].unselectedProcedures = unselectedCount
                 })
             })
             return newState
@@ -190,35 +195,42 @@ export default function (state = defaultState, action) {
                 ...state,
                 selectedDoctorProcedure: JSON.parse(JSON.stringify(state.selectedDoctorProcedure)) 
             }
-            //procedure, doctor_id, hospital_id
-            console.log(Object.values(newState.selectedDoctorProcedure[action.doctor_id]));
+
             try{
 
-                Object.values(newState.selectedDoctorProcedure[action.doctor_id]).map((hospital, i) => {
+            Object.entries(newState.selectedDoctorProcedure[action.doctor_id]).map((hospital, i) => {
 
-                Object.values(hospital.categories).map((category, j) => {
+                Object.values(hospital[1].categories).map((category, j) => {
 
-                        let deal_price = newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].price.deal_price
-                        let mrp = newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].price.mrp 
+                        let deal_price = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price.deal_price
+                        let mrp = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price.mrp 
+                        let unselectedCount =  newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].unselectedProcedures || 0
+                        let selectedCount = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].selectedProcedures || 0
 
                     if(category){
                         category.map((procedure, k) => {
 
                             if(action.procedure.procedure_id == procedure.procedure_id){
-                                let found = newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].categories[procedure.category_id][k].is_selected
+                                let found = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected
                                 if(found){
-                                    deal_price = deal_price - newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].categories[procedure.category_id][k].deal_price
-                                    mrp = mrp - newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].categories[procedure.category_id][k].mrp
+                                    deal_price = deal_price - newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].deal_price
+                                    mrp = mrp - newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].mrp
+                                    unselectedCount++
+                                    selectedCount--
                                 }else{
-                                    deal_price = deal_price + newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].categories[procedure.category_id][k].deal_price
-                                    mrp = mrp + newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].categories[procedure.category_id][k].mrp
+                                    deal_price = deal_price + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].deal_price
+                                    mrp = mrp + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].mrp
+                                    unselectedCount--
+                                    selectedCount++
                                 }
-                                newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].categories[procedure.category_id][k].is_selected = !found
+                                newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = !found
                                 let price = {
                                     deal_price: deal_price,
                                     mrp: mrp
                                 }
-                                newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].price = price
+                                newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price = price
+                                newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].selectedProcedures = selectedCount
+                                newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].unselectedProcedures = unselectedCount
                             }
 
 
@@ -227,17 +239,15 @@ export default function (state = defaultState, action) {
 
                     })
 
-                })    
+                })
+                if(newState.profileCommonProcedures.indexOf(action.procedure.procedure_id)!=-1){
+                    newState.profileCommonProcedures.splice(newState.profileCommonProcedures.indexOf(action.procedure.procedure_id)) 
+                }    
             }
             catch(e){
                 console.log(e)
             }
-            /*
-                newState.selectedDoctorProcedure[action.doctor_id][action.hospital_id].procedures.map((procedure, i) => {
-                    
-                    
-                }) 
-            })*/
+
             return newState
 
         }

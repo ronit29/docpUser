@@ -17,7 +17,7 @@ class DoctorProfileCard extends React.Component {
         let hospital = (this.props.details.hospitals && this.props.details.hospitals.length) ? this.props.details.hospitals[0] : {}
         let selected_procedures = []
         let foundNew = false
-        if(hospital){
+        /*if(hospital){
             hospital.procedure_categories.map((category) => {
                 category.procedures.filter( x=>x.is_selected ).map((procedure) => {
                     selected_procedures.push(procedure)
@@ -30,11 +30,9 @@ class DoctorProfileCard extends React.Component {
                     foundNew = true
                 })
             })
-        }
-        if(foundNew){
-          //  this.toggleProcedures(selected_procedures, hospital.hospital_id, true)
-        }
+        }*/
     }
+
 
     cardClick(id, url, hospital_id, e) {
         e.stopPropagation()
@@ -92,7 +90,7 @@ class DoctorProfileCard extends React.Component {
     }
 
     getSearchedProcedures(procedure){
-        let selectedCount = this.props.opd_procedure[this.props.details.id]?this.props.opd_procedure[this.props.details.id].selected:0
+     /*   let selectedCount = this.props.opd_procedure[this.props.details.id]?this.props.opd_procedure[this.props.details.id].selected:0
         if(selectedCount<=1){
             this.setState({errorMessage:true})
             return null
@@ -103,13 +101,19 @@ class DoctorProfileCard extends React.Component {
         }
         this.props.getCommonProcedures('procedures', criteria)
         this.props.mergeOPDState('')
-    }
+    */}
 
-    toggle(which, fetchResults) {
+    toggle(which, fetchResults, procedure_ids) {
 
         this.setState({ [which]: !this.state[which] })
         if(fetchResults){
-            this.props.mergeOPDState('')    
+            if(procedure_ids.length){
+                this.props.saveCommonProcedures(procedure_ids)
+                this.props.mergeOPDState('')
+            }else{
+                
+            }
+            //this.props.getCommonProcedures('procedures', criteria, true)
         }
         
     }
@@ -143,11 +147,17 @@ class DoctorProfileCard extends React.Component {
         }
 
         if (hospitals && hospitals.length) {
-            let procedureCount = 0
+            let selectedCount = 0
+            let unselectedCount = 0
             hospitals[0].procedure_categories.map((x)=>{
 
-                procedureCount+=x.procedures.filter(x=>!x.is_selected).length
+                selectedCount+=x.procedures.filter(x=>x.is_selected).length
+                unselectedCount+=x.procedures.filter(x=>!x.is_selected).length
             })
+
+
+            let procedure_ids = this.props.commonProcedurers.map(x=>x.id)
+
             return (
 
                 <div className="filter-card-dl mb-3" >
@@ -223,7 +233,7 @@ class DoctorProfileCard extends React.Component {
                         {
                             hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length?
                             <div className="procedure-checkboxes">
-                                <h4>Procedures in <span>{hospitals[0].procedure_categories.map(x=>x.name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                <h4>Treatment in <span>{hospitals[0].procedure_categories.map(x=>x.name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                 <div className="insurance-checkboxes">
                                     <ul className="procedure-list">
                                     {
@@ -234,7 +244,7 @@ class DoctorProfileCard extends React.Component {
 
                                                 return <li key={i}>
                                                         <div>
-                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/*{this.getSearchedProcedures.bind(this, procedure)}*//><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                            <input type="checkbox" checked={procedure_ids.indexOf(procedure.procedure.id)==-1?false:true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/*{this.getSearchedProcedures.bind(this, procedure)}*//><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
                                                         </div>
                                                         <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                     </li>
@@ -248,12 +258,12 @@ class DoctorProfileCard extends React.Component {
                                         :''
                                     }
                                     {
-                                        procedureCount.length
+                                        unselectedCount + selectedCount > 1
                                         ?this.state.vieMoreProcedures
                                             ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} toggleData ={this.toggleProcedures.bind(this)} details = {this.props} doctor_id = {this.props.details.id} getCommonProcedures = {this.props.getCommonProcedures} data={hospitals[0]} />
-                                            :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
-                                            + {procedureCount} more
-                                            </button>
+                                            :unselectedCount + selectedCount!= selectedCount?<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
+                                            + {unselectedCount} more
+                                            </button>:''
                                         :''
                                     }
                                     </ul>

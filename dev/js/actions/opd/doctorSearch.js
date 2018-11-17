@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS , SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES} from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS , SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES} from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -22,8 +22,9 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
 	let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 	let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-
-	let pids = commonProcedurers.filter((x) => {
+	let commonProcedureIds = commonProcedurers.map(x=>x.id)
+	 procedures_ids = commonProcedureIds.length?commonProcedureIds:procedures_ids
+/*	let pids = commonProcedurers.filter((x) => {
             if(procedures_ids.indexOf(x.id) == -1){
                 return true
             }
@@ -31,7 +32,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
     }).map(x => x.id)
 
     procedures_ids =  procedures_ids.concat(pids)
-
+*/
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
 	// if(filterCriteria.sits_at_hospital) sits_at.push('hospital');
@@ -113,7 +114,13 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			},
 			fetchNewResults: false
 		})
-
+		if(procedures.length){
+			dispatch({
+				type: SAVE_COMMON_PROCEDURES,
+				payload: procedures,
+				forceAdd: false
+			})
+		}
 		/*dispatch({
 			type: SET_FETCH_RESULTS_OPD,
 			payload: false

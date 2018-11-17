@@ -6,8 +6,20 @@ export default class PopUpView extends React.Component{
 		super(props)
 		this.state = {
 			errorMessage: false,
-			procedure: []
+			procedure: [],
+			selectedProcedures: [],
+
 		}
+	}
+
+	componentDidMount(){
+
+		let selectedProcedures = [], procedures = []
+		this.props.data.procedure_categories.map((category) => {
+            procedures = category.procedures.filter( x=>x.is_selected ).map(x=>x.procedure.id)
+        	selectedProcedures = selectedProcedures.concat(procedures)
+        })
+        this.setState({selectedProcedures: selectedProcedures, procedure: [].concat(selectedProcedures)})
 	}
 
 	toggle(procedure){
@@ -56,7 +68,7 @@ export default class PopUpView extends React.Component{
 
 	toggleLayout(){
 
-		let commonIds = this.props.details.commonProcedurers.map(x=>x.id)
+/*		let commonIds = this.props.details.commonProcedurers.map(x=>x.id)
 		let selectedProcedureIds = this.state.procedure
 		let fetchResults = false
 
@@ -66,17 +78,50 @@ export default class PopUpView extends React.Component{
 
 		this.props.toggle(fetchResults)
 
+*/
+
+		let fetchResults = false
+		let selectedProcedures = this.state.selectedProcedures
+		let procedure = this.state.procedure
+		if(selectedProcedures.length === procedure.length && selectedProcedures.sort().every(function(value, index) { return value === procedure.sort()[index]}) ){
+
+		}else{
+			fetchResults = true
+		}
+
+		this.props.toggle(fetchResults, this.state.selectedProcedures)
+
+	}
+
+	toggleD(procedure){
+		let selectedProcedures = this.state.selectedProcedures
+		if(selectedProcedures.length > 1 || (selectedProcedures.length == 1 && selectedProcedures.indexOf(procedure.procedure.id) == -1 ) ){
+
+			if(selectedProcedures.indexOf(procedure.procedure.id) != -1){
+				selectedProcedures.splice(selectedProcedures.indexOf(procedure.procedure.id), 1)
+			}else{
+				selectedProcedures.push(procedure.procedure.id)
+			}
+			this.setState({selectedProcedures: selectedProcedures})
+
+
+		}else{
+			this.setState({errorMessage:true})
+			return null
+		}
 	}
 
 	render(){
 
 		let procedure_ids = []
-		let selectedCount = this.props.details.opd_procedure[this.props.doctor_id]?this.props.details.opd_procedure[this.props.doctor_id].selected:0
+		console.log(this.state)
+	/*	let selectedCount = this.props.details.opd_procedure[this.props.doctor_id]?this.props.details.opd_procedure[this.props.doctor_id].selected:0
 		if(this.props.details.opd_procedure[this.props.doctor_id]){
 			if(this.props.details.opd_procedure[this.props.doctor_id][this.props.data.hospital_id]){
 				procedure_ids = this.props.details.opd_procedure[this.props.doctor_id][this.props.data.hospital_id].map(x=>x.procedure.id)
 			}
 		}
+*/
 		return(
 			<div>
 	            <div className="cancel-overlay" onClick={this.toggleLayout.bind(this)}></div>
@@ -98,8 +143,8 @@ export default class PopUpView extends React.Component{
 
 		                                return <li key = {`${i}_a`}>
 		                                        <div>
-		                                            <input type="checkbox" className="ins-chk-bx" checked = {procedure_ids.indexOf(procedure.procedure.id)==-1?false:true} id={`${procedure.procedure.id}_`} name="fruit-2" value=""  
-		                                            onChange= {this.toggle.bind(this,procedure)}
+		                                            <input type="checkbox" className="ins-chk-bx" checked = {this.state.selectedProcedures.indexOf(procedure.procedure.id)==-1?false:true} id={`${procedure.procedure.id}_`} name="fruit-2" value=""  
+		                                            onChange= {this.toggleD.bind(this,procedure)}
 		                                            /><label htmlFor={`${procedure.procedure.id}_`}>{procedure.procedure.name}</label>
 		                                        </div>
 		                                        <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>

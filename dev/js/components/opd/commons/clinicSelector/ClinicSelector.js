@@ -59,6 +59,11 @@ class ClinicSelector extends React.Component {
         this.setState({ [which]: !this.state[which] , errorMsg: false})
     }
 
+    procedurePopUp(hospital_id){
+
+        this.setState({vieMoreProcedures: true, selectedId: hospital_id, errorMsg: false})
+    }
+
     render() {
 
         let { id, name, hospitals, is_live, enabled_for_online_booking } = this.props.details
@@ -197,7 +202,7 @@ class ClinicSelector extends React.Component {
                             this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
                             <div className="procedure-checkboxes">
                                 <h4>Procedures in <span>{Object.values(this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories).map((category) =>{
-                                   return category.map(x=>x.procedure_name).join('|')
+                                   return category.map(x=>x.procedure_name)
                                 })} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                 <div className="insurance-checkboxes">
                                     <ul className="procedure-list">
@@ -208,7 +213,7 @@ class ClinicSelector extends React.Component {
 
                                             return <li key={i}>
                                                         <div>
-                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={category.procedure_id} name="fruit-1" value="" onChange={()=>this.setState({vieMoreProcedures: true, selectedId: hospital.hospital_id, errorMsg: false})}/*{this.toggleProcedures.bind(this, category, id, hospital.hospital_id)} *//><label htmlFor={category.procedure_id}>{category.procedure_name}</label>
+                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital = {hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id )}/><label htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}</label>
                                                         </div>
                                                         <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
                                                     </li>
@@ -223,12 +228,12 @@ class ClinicSelector extends React.Component {
                                         :''
                                     }
                                     {
-                                        this.props.selectedDoctorProcedure[id][hospital.hospital_id].moreProcedures
+                                        this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures >1
                                         ?this.state.vieMoreProcedures
-                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} errorMsg = {this.state.errorMsg} toggleProcedures = {this.toggleProcedures.bind(this)} hospital_id = {this.state.selectedId} doctor_id = {id}  data = {this.props.selectedDoctorProcedure[id][this.state.selectedId].categories}/>
-                                            :<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true, selectedId: hospital.hospital_id, errorMsg: false})}>
-                                            + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].moreProcedures} more
-                                            </button>
+                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id = {this.state.selectedId} doctor_id = {id}  {...this.props} data = {this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} />
+                                            :this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures != this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures?<button className="pr-plus-add-btn" onClick={this.procedurePopUp.bind(this, hospital.hospital_id )}>
+                                            + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures} more
+                                            </button>:''
                                         :''
                                     }
                                     </ul>

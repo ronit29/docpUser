@@ -2,37 +2,36 @@ import React from 'react'
 
 export default class PopUpView extends React.Component {
 
-    toggleProcedure(procedure_to_toggle, doctor_id, hospital_id) {/*
-        let test = Object.assign({}, test_to_toggle.test)
-        test.mrp = test_to_toggle.mrp
-        test.deal_price = test_to_toggle.deal_price
-        test.extra_test = true
-        test.lab_id = this.state.selectedLab
+    constructor(props){
+        super(props)
+        this.state = { errorMsg: false}
+    }
 
-        this.props.toggleDiagnosisCriteria('test', test)*/
+    toggleProcedure(procedure_to_toggle, doctor_id, hospital_id) {
+
         this.setState({ errorMsg: false })
         let selectedProcedureIds = []
-        this.props.selectedDoctorProcedure[doctor_id][hospital_id].categories.map((procedure) => {
+        Object.values(this.props.selectedDoctorProcedure[doctor_id][hospital_id].categories).map((procedure) => {
 
             selectedProcedureIds = procedure.filter(x => x.is_selected).map(x => x.procedure_id)
         })
 
+        selectedProcedureIds = selectedProcedureIds.concat(this.props.profileCommonProcedures)
 
-        if (selectedProcedureIds.indexOf(procedure_to_toggle.procedure_id) == -1) {
-
-        } else if (selectedProcedureIds.length <= 1) {
-            this.setState({
-                errorMsg: true
-            })
-            return null
+        let found  = false
+        
+        if(selectedProcedureIds.length > 1 || selectedProcedureIds.length < 1 || (selectedProcedureIds.length == 1 && selectedProcedureIds.indexOf(procedure_to_toggle.procedure_id) == -1 ) ){
+            found = true
         }
 
-        this.props.toggleProfileProcedures(procedure_to_toggle, doctor_id, hospital_id)
-
+        if(found){
+            this.props.toggleProfileProcedures(procedure_to_toggle, doctor_id, hospital_id)
+        }else{
+            this.setState({errorMsg: true})
+        }
     }
 
     render() {
-        console.log('aaaaaaaaaaaaaa'); console.log(this.props);
 
         return (
             <div>
@@ -57,7 +56,7 @@ export default class PopUpView extends React.Component {
 
                                                     <li key={i}>
                                                         <div>
-                                                            <input type="checkbox" checked={procedure.is_selected} className="ins-chk-bx" id={`${procedure.procedure_id}_`} name="fruit-2" value="" onChange={() => this.props.toggleProcedures(procedure, this.props.doctor_id, this.props.hospital_id)} /><label htmlFor={`${procedure.procedure_id}_`}>{procedure.procedure_name}</label>
+                                                            <input type="checkbox" checked={procedure.is_selected} className="ins-chk-bx" id={`${procedure.procedure_id}_`} name="fruit-2" value="" onChange={this.toggleProcedure.bind(this, procedure, this.props.doctor_id, this.props.hospital_id)} /><label htmlFor={`${procedure.procedure_id}_`}>{procedure.procedure_name}</label>
                                                         </div>
                                                         <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                     </li>
@@ -75,7 +74,7 @@ export default class PopUpView extends React.Component {
 
                     }
                     {
-                        this.props.errorMsg ?
+                        this.state.errorMsg?
                             <p>Please Select at least one Procedure</p>
                             : ''
                     }

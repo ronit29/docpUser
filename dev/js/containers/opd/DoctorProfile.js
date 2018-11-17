@@ -154,11 +154,12 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_OPD
 
     const {
-        selectedDoctorProcedure
+        selectedDoctorProcedure,
+        profileCommonProcedures
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, opd_procedure, fetchNewResults, commonProcedurers, selectedDoctorProcedure
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, opd_procedure, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures
     }
 }
 
