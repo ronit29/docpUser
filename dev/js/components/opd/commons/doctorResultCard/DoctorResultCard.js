@@ -244,7 +244,7 @@ class DoctorProfileCard extends React.Component {
 
                                                 return <li key={i}>
                                                         <div>
-                                                            <input type="checkbox" checked={procedure_ids.indexOf(procedure.procedure.id)==-1?false:true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/*{this.getSearchedProcedures.bind(this, procedure)}*//><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/*{this.getSearchedProcedures.bind(this, procedure)}*//><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
                                                         </div>
                                                         <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                     </li>
@@ -258,7 +258,7 @@ class DoctorProfileCard extends React.Component {
                                         :''
                                     }
                                     {
-                                        unselectedCount + selectedCount > 1
+                                        unselectedCount + selectedCount >= 1
                                         ?this.state.vieMoreProcedures
                                             ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} toggleData ={this.toggleProcedures.bind(this)} details = {this.props} doctor_id = {this.props.details.id} getCommonProcedures = {this.props.getCommonProcedures} data={hospitals[0]} />
                                             :unselectedCount + selectedCount!= selectedCount?<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>

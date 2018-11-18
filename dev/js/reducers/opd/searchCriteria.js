@@ -245,7 +245,15 @@ export default function (state = defaultState, action) {
             }
             if(action.forceAdd){
                 let procedureData = {}
-                let commonIds = newState.commonProcedurers.map(x=>x.id)
+                newState.commonProcedurers = []
+                action.payload.map((procedure) => {
+                        procedureData.type = "procedures",
+                        procedureData.id =  procedure,
+                        procedureData.name  = ""
+                        newState.commonProcedurers.push(procedureData)   
+                        procedureData = {}     
+                })
+                /*let commonIds = newState.commonProcedurers.map(x=>x.id)
                 action.payload.map((procedure) => {
                     if(commonIds.indexOf(procedure) == -1){
                         procedureData.type = "procedures",
@@ -255,7 +263,7 @@ export default function (state = defaultState, action) {
                     }else{
                         newState.commonProcedurers = newState.commonProcedurers.filter(x=>procedure!=x.id)
                     }
-                })
+                })*/
             }else{
                 let commonIds = newState.commonProcedurers.map(x=>x.id)
                 action.payload.map((procedure) => {

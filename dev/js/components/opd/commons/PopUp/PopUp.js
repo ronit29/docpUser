@@ -8,6 +8,7 @@ export default class PopUpView extends React.Component{
 			errorMessage: false,
 			procedure: [],
 			selectedProcedures: [],
+			currentProcedures: []
 
 		}
 	}
@@ -19,6 +20,16 @@ export default class PopUpView extends React.Component{
             procedures = category.procedures.filter( x=>x.is_selected ).map(x=>x.procedure.id)
         	selectedProcedures = selectedProcedures.concat(procedures)
         })
+
+        let pids = this.props.details.commonProcedurers.filter((x) => {
+            if(selectedProcedures.indexOf(x.id) == -1){
+                return true
+            }
+            return false
+	    }).map(x => x.id)
+
+	    selectedProcedures =  selectedProcedures.concat(pids)
+
         this.setState({selectedProcedures: selectedProcedures, procedure: [].concat(selectedProcedures)})
 	}
 
@@ -88,21 +99,24 @@ export default class PopUpView extends React.Component{
 		}else{
 			fetchResults = true
 		}
-
+		selectedProcedures = selectedProcedures
 		this.props.toggle(fetchResults, this.state.selectedProcedures)
 
 	}
 
 	toggleD(procedure){
 		let selectedProcedures = this.state.selectedProcedures
+		let currentProcedures = this.state.currentProcedures
 		if(selectedProcedures.length > 1 || (selectedProcedures.length == 1 && selectedProcedures.indexOf(procedure.procedure.id) == -1 ) ){
 
 			if(selectedProcedures.indexOf(procedure.procedure.id) != -1){
 				selectedProcedures.splice(selectedProcedures.indexOf(procedure.procedure.id), 1)
+				currentProcedures.splice(currentProcedures.indexOf(procedure.procedure.id), 1)
 			}else{
 				selectedProcedures.push(procedure.procedure.id)
+				currentProcedures.push(procedure.procedure.id)
 			}
-			this.setState({selectedProcedures: selectedProcedures})
+			this.setState({selectedProcedures: selectedProcedures, currentProcedures: currentProcedures})
 
 
 		}else{
