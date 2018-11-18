@@ -17,22 +17,14 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	// 	payload: from_server
 	// })
 
-	let { selectedLocation, selectedCriterias, filterCriteria, locationType, opd_procedure , commonProcedurers } = state
+	let { selectedLocation, selectedCriterias, filterCriteria, locationType , commonProcedurers } = state
 	let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
 	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
 	let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 	let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
 	let commonProcedureIds = commonProcedurers.map(x=>x.id)
 	 procedures_ids = commonProcedureIds.length?commonProcedureIds:procedures_ids
-/*	let pids = commonProcedurers.filter((x) => {
-            if(procedures_ids.indexOf(x.id) == -1){
-                return true
-            }
-            return false
-    }).map(x => x.id)
 
-    procedures_ids =  procedures_ids.concat(pids)
-*/
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
 	// if(filterCriteria.sits_at_hospital) sits_at.push('hospital');
@@ -169,7 +161,7 @@ export const getDoctorById = (doctorId, hospitalId, procedure_ids, category_ids)
 			type: APPEND_DOCTORS,
 			payload: [response]
 		})
-		if(procedure_ids.length){
+		if(procedure_ids.length || category_ids.length){
 			dispatch({
 				type: SET_PROCEDURES,
 				payload: response,
@@ -183,18 +175,19 @@ export const getDoctorById = (doctorId, hospitalId, procedure_ids, category_ids)
 	})
 }
 
-export const getDoctorByUrl = (doctor_url, hospitalId, cb) => (dispatch) => {
+export const getDoctorByUrl = (doctor_url, hospitalId, procedure_ids, category_ids,  cb) => (dispatch) => {
 
-	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}&hospital_id=${hospitalId}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}&hospital_id=${hospitalId}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 		dispatch({
 			type: APPEND_DOCTORS,
 			payload: [response]
 		})
-		if(response && response.id){
+		if(response && response.id && (procedure_ids.length || category_ids.length)){
 			dispatch({
 				type: SET_PROCEDURES,
 				payload: response,
-				doctorId: response.id
+				doctorId: response.id,
+				commonProcedurers: procedure_ids
 			})
 		}
 		cb((response.id ? response.id : null), null)

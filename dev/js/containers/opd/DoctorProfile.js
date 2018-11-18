@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProceduresCriteria, toggleProfileProcedures } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -24,7 +24,7 @@ class DoctorProfile extends React.Component {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctorByUrl(url, hospital_id, (doctor_id, url) => {
+                store.dispatch(getDoctorByUrl(url, hospital_id,'' ,'',(doctor_id, url) => {
                     if (doctor_id) {
                         if (match.url.includes('-dpp')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
@@ -81,7 +81,7 @@ class DoctorProfile extends React.Component {
             if (url) {
                 url = url.split("/")[1]
             }
-            this.props.getDoctorByUrl(url, hospital_id, (doctor_id) => {
+            this.props.getDoctorByUrl(url, hospital_id,procedure_ids, category_ids, (doctor_id) => {
                 if (doctor_id) {
                     this.setState({ selectedDoctor: doctor_id , hospital_id: hospital_id})
                 }
@@ -148,7 +148,6 @@ const mapStateToProps = (state, passedProps) => {
 
     const {
         selectedCriterias,
-        opd_procedure,
         fetchNewResults,
         commonProcedurers
     } = state.SEARCH_CRITERIA_OPD
@@ -159,13 +158,13 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, opd_procedure, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorByUrl: (doctr_url, hospitalId, cb) => dispatch(getDoctorByUrl(doctr_url, hospitalId, cb)),
+        getDoctorByUrl: (doctr_url, hospitalId, procedure_ids, category_ids, cb) => dispatch(getDoctorByUrl(doctr_url, hospitalId, procedure_ids, category_ids ,cb)),
         getDoctorById: (doctorId, hospitalId, procedure_ids, category_ids) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
@@ -176,7 +175,6 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
-        toggleProceduresCriteria: (procedure, doctorId) => dispatch(toggleProceduresCriteria(procedure, doctorId)),
         toggleProfileProcedures: (procedure_to_toggle, doctor_id, hospital_id) => dispatch(toggleProfileProcedures(procedure_to_toggle, doctor_id, hospital_id))
     }
 }

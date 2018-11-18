@@ -201,9 +201,7 @@ class ClinicSelector extends React.Component {
                             {
                             this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
                             <div className="procedure-checkboxes">
-                                <h4>Procedures in <span>{Object.values(this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories).map((category) =>{
-                                   return category.map(x=>x.procedure_name)
-                                })} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                <h4>Treatment in <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories_name.join('|')}<img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                 <div className="insurance-checkboxes">
                                     <ul className="procedure-list">
                                     {

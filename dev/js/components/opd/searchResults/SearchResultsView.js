@@ -74,7 +74,7 @@ class SearchResultsView extends React.Component {
 
     buildURI(state) {
 
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType, opd_procedure } = state
+        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
         let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
         let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
         let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)

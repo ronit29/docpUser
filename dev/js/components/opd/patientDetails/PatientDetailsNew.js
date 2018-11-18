@@ -248,22 +248,11 @@ class PatientDetailsNew extends React.Component {
                                                             <div className="widget-content">
                                                                 <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
-                                                                <ProcedureView/>
                                                                 {
-                                                                    selectedProcedures ?
-                                                                        Object.values(selectedProcedures).map((procedure) => {
-
-                                                                            return procedure.filter(x => x.is_selected).map((category, i) => {
-
-                                                                                return <div className="clearfix pb-list proc-padding-list"><span className="test-price txt-ornage">₹ {category.deal_price}<span className="test-mrp">₹ {category.mrp}</span></span><span className="fw-500 test-name-item">{category.procedure_name}</span>
-                                                                                </div>
-
-                                                                            })
-
-                                                                        })
-                                                                        : ''
+                                                                 Object.values(selectedProcedures).length?
+                                                                 <ProcedureView selectedProcedures = {selectedProcedures}/>
+                                                                 :""   
                                                                 }
-
                                                             </div>
                                                         </div>
                                                     </div>

@@ -35,7 +35,6 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let cond = []
             let procedures = []
             let procedure_categories = []
-            let opd_procedure = []
             if (specializations_ids) {
                 spec = specializations_ids.split(',').map((x) => {
                     return {
@@ -136,8 +135,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                     resolve({
                         filterCriteria,
                         selectedCriterias,
-                        selectedLocation,
-                        opd_procedure
+                        selectedLocation
                     })
                 }).catch((e) => {
                     if (selectedLocation) {
@@ -151,14 +149,12 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                         resolve({
                             filterCriteria,
                             selectedCriterias,
-                            selectedLocation,
-                            opd_procedure
+                            selectedLocation
                         })
                     } else {
                         resolve({
                             filterCriteria,
-                            selectedCriterias,
-                            opd_procedure
+                            selectedCriterias
                         })
                     }
                 })

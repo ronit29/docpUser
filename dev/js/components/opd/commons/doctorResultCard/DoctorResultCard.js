@@ -12,28 +12,6 @@ class DoctorProfileCard extends React.Component {
         }
     }
 
-    componentDidMount(){
-
-        let hospital = (this.props.details.hospitals && this.props.details.hospitals.length) ? this.props.details.hospitals[0] : {}
-        let selected_procedures = []
-        let foundNew = false
-        /*if(hospital){
-            hospital.procedure_categories.map((category) => {
-                category.procedures.filter( x=>x.is_selected ).map((procedure) => {
-                    selected_procedures.push(procedure)
-                    let criteria = {
-                        id: procedure.procedure.id,
-                        name: procedure.procedure.name
-                    }
-
-                    this.props.getCommonProcedures('procedures', criteria, true)
-                    foundNew = true
-                })
-            })
-        }*/
-    }
-
-
     cardClick(id, url, hospital_id, e) {
         e.stopPropagation()
         let data = {
@@ -71,38 +49,6 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
-    toggleProcedures(procedure_to_toggle, hospitalId, forceData = false, searchData = false) {/*
-        let test = Object.assign({}, test_to_toggle.test)
-        test.mrp = test_to_toggle.mrp
-        test.deal_price = test_to_toggle.deal_price
-        test.extra_test = true
-        test.lab_id = this.state.selectedLab
-
-        this.props.toggleDiagnosisCriteria('test', test)*/
-        if(searchData){
-            this.props.mergeOPDState('')
-        }else{
-
-            this.props.toggleProceduresCriteria(procedure_to_toggle, this.props.details.id, hospitalId, forceData)   
-
-        }
-        
-    }
-
-    getSearchedProcedures(procedure){
-     /*   let selectedCount = this.props.opd_procedure[this.props.details.id]?this.props.opd_procedure[this.props.details.id].selected:0
-        if(selectedCount<=1){
-            this.setState({errorMessage:true})
-            return null
-        }
-        let criteria = {
-            id: procedure.procedure.id,
-            name: procedure.procedure.name
-        }
-        this.props.getCommonProcedures('procedures', criteria)
-        this.props.mergeOPDState('')
-    */}
-
     toggle(which, fetchResults, procedure_ids) {
 
         this.setState({ [which]: !this.state[which] })
@@ -113,7 +59,6 @@ class DoctorProfileCard extends React.Component {
             }else{
                 
             }
-            //this.props.getCommonProcedures('procedures', criteria, true)
         }
         
     }
@@ -244,7 +189,7 @@ class DoctorProfileCard extends React.Component {
 
                                                 return <li key={i}>
                                                         <div>
-                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/*{this.getSearchedProcedures.bind(this, procedure)}*//><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
                                                         </div>
                                                         <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                     </li>
@@ -260,7 +205,7 @@ class DoctorProfileCard extends React.Component {
                                     {
                                         unselectedCount + selectedCount >= 1
                                         ?this.state.vieMoreProcedures
-                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} toggleData ={this.toggleProcedures.bind(this)} details = {this.props} doctor_id = {this.props.details.id} getCommonProcedures = {this.props.getCommonProcedures} data={hospitals[0]} />
+                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details = {this.props} doctor_id = {this.props.details.id} data={hospitals[0]} />
                                             :unselectedCount + selectedCount!= selectedCount?<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
                                             + {unselectedCount} more
                                             </button>:''

@@ -143,16 +143,18 @@ export default function (state = defaultState, action) {
                        hospitals.map((hospital) => {
 
                 if(hospital.procedure_categories.length>0){
-                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id] = {'categories':{}, 'selectedProcedures': 0, 'unselectedProcedures': 0, 'price': {}}
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id] = {'categories':{}, 'selectedProcedures': 0, 'unselectedProcedures': 0, 'price': {}, 'categories_name':[]}
                 }
                 let deal_price = 0
                 let mrp = 0
                 let unselectedCount = 0
                 let selectedCount = 0
                 let selectedProcedureIds = []
+                let categories_name = []
                 hospital.procedure_categories.map((procedure) => {
                     newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].categories[procedure.procedure_category_id] = []
                     data['category_name'] = procedure.name
+                    categories_name.push(procedure.name)
                     data['category_id'] = procedure.procedure_category_id
                     procedure.procedures.map((pids) => {
                         data['agreed_price'] = pids.agreed_price
@@ -185,6 +187,7 @@ export default function (state = defaultState, action) {
                     newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].price = price
                     newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].selectedProcedures = selectedCount
                     newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].unselectedProcedures = unselectedCount
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].categories_name = categories_name
                 })
             })
             return newState

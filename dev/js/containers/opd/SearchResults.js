@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, toggleProceduresCriteria, getCommonProcedures, saveCommonProcedures } from '../../actions/index.js'
+import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -80,7 +80,6 @@ const mapStateToProps = (state, passedProps) => {
         filterCriteria,
         locationType,
         fetchNewResults,
-        opd_procedure,
         commonProcedurers
     } = state.SEARCH_CRITERIA_OPD
 
@@ -99,7 +98,6 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         search_content,
-        opd_procedure,
         commonProcedurers
     }
 }
@@ -113,8 +111,6 @@ const mapDispatchToProps = (dispatch) => {
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
-        toggleProceduresCriteria: (procedure, doctorId, hospitalId, forceAdd) => dispatch(toggleProceduresCriteria(procedure, doctorId, hospitalId, forceAdd)),
-        getCommonProcedures: (type, criteria, forceAdd) => dispatch(getCommonProcedures(type, criteria, forceAdd)),
         saveCommonProcedures: (procedure_ids) => dispatch(saveCommonProcedures(procedure_ids))
     }
 }
