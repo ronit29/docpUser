@@ -4,6 +4,8 @@ import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage';
 import ProcedurePopup from '../PopUp'
+
+
 class DoctorProfileCard extends React.Component {
     constructor(props) {
         super(props)
@@ -63,15 +65,15 @@ class DoctorProfileCard extends React.Component {
     toggle(which, fetchResults, procedure_ids) {
 
         this.setState({ [which]: !this.state[which] })
-        if(fetchResults){
-            if(procedure_ids.length){
+        if (fetchResults) {
+            if (procedure_ids.length) {
                 this.props.saveCommonProcedures(procedure_ids)
                 this.props.mergeOPDState('')
-            }else{
-                
+            } else {
+
             }
         }
-        
+
     }
 
     render() {
@@ -105,29 +107,29 @@ class DoctorProfileCard extends React.Component {
         if (hospitals && hospitals.length) {
             let selectedCount = 0
             let unselectedCount = 0
-            hospitals[0].procedure_categories.map((x)=>{
+            hospitals[0].procedure_categories.map((x) => {
 
-                selectedCount+=x.procedures.filter(x=>x.is_selected).length
-                unselectedCount+=x.procedures.filter(x=>!x.is_selected).length
+                selectedCount += x.procedures.filter(x => x.is_selected).length
+                unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
 
 
-            let procedure_ids = this.props.commonProcedurers.map(x=>x.id)
+            let procedure_ids = this.props.commonProcedurers.map(x => x.id)
 
             return (
 
                 <div className="filter-card-dl mb-3" >
-                {
-                    schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
-                __html: schema
-                    }} />
-                    :""
-                }
-                {
-                    is_gold?
-                    <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"}/>
-                    :''
-                }
+                    {
+                        schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: schema
+                        }} />
+                            : ""
+                    }
+                    {
+                        is_gold ?
+                            <img className="gold-card-img" src={ASSETS_BASE_URL + "/img/gold.svg"} />
+                            : ''
+                    }
                     <div className="fltr-crd-top-container">
                         <div className="fltr-lctn-dtls">
                             <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
@@ -142,7 +144,7 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                                 <div className="fltr-name-dtls">
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
-                                        <h2 style={{fontSize: "16px"}} className="fltr-dc-name">{display_name}</h2>
+                                        <h2 style={{ fontSize: "16px" }} className="fltr-dc-name">{display_name}</h2>
                                     </a>
                                     <p>{this.getQualificationStr(general_specialization || [])}</p>
                                     {
@@ -173,10 +175,10 @@ class DoctorProfileCard extends React.Component {
                                     </p>
                                     {
                                         STORAGE.checkAuth() || deal_price < 100 ?
-                                        ''
-                                        :<div className="signup-off-container">
-                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                        </div>
+                                            ''
+                                            : <div className="signup-off-container">
+                                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                            </div>
                                     }
 
                                     {
@@ -187,45 +189,45 @@ class DoctorProfileCard extends React.Component {
                         </div>
 
                         {
-                            hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length?
-                            <div className="procedure-checkboxes">
-                                <h4>Treatment in <span>{hospitals[0].procedure_categories.map(x=>x.name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                <div className="insurance-checkboxes">
-                                    <ul className="procedure-list">
-                                    {
-                                        hospitals[0].procedure_categories.map((category) =>{
+                            hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
+                                <div className="procedure-checkboxes">
+                                    <h4>Treatment in <span>{hospitals[0].procedure_categories.map(x => x.name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                    <div className="insurance-checkboxes">
+                                        <ul className="procedure-list">
+                                            {
+                                                hospitals[0].procedure_categories.map((category) => {
 
 
-                                            return category.procedures.filter(x=>x.is_selected).map((procedure, i) => {
+                                                    return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
 
-                                                return <li key={i}>
-                                                        <div>
-                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange = {()=>this.setState({vieMoreProcedures: true})}/><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
-                                                        </div>
-                                                        <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
-                                                    </li>
+                                                        return <li key={i}>
+                                                            <div>
+                                                                <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} /><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                            </div>
+                                                            <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                        </li>
 
-                                            })
-                                        })
-                                    }
-                                    {
-                                        this.state.errorMessage?
-                                        <p>Please Select at least one Procedure</p>
-                                        :''
-                                    }
-                                    {
-                                        unselectedCount + selectedCount >= 1
-                                        ?this.state.vieMoreProcedures
-                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details = {this.props} doctor_id = {this.props.details.id} data={hospitals[0]} />
-                                            :unselectedCount + selectedCount!= selectedCount?<button className="pr-plus-add-btn" onClick={()=>this.setState({vieMoreProcedures: true})}>
-                                            + {unselectedCount} more
-                                            </button>:''
-                                        :''
-                                    }
-                                    </ul>
+                                                    })
+                                                })
+                                            }
+                                            {
+                                                this.state.errorMessage ?
+                                                    <p>Please Select at least one Procedure</p>
+                                                    : ''
+                                            }
+                                            {
+                                                unselectedCount + selectedCount >= 1
+                                                    ? this.state.vieMoreProcedures
+                                                        ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
+                                                        : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
+                                                            + {unselectedCount} more
+                                            </button> : ''
+                                                    : ''
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            :''
+                                : ''
                         }
 
                     </div>

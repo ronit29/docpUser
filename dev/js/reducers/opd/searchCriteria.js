@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD , SAVE_COMMON_PROCEDURES} from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -22,7 +22,7 @@ const defaultState = {
     locationType: 'geo',
     fetchNewResults: false,
     procedure_categories: [],
-    selectedCriteriaType:'',
+    selectedCriteriaType: '',
     commonProcedurers: []
 }
 
@@ -66,19 +66,19 @@ export default function (state = defaultState, action) {
              * QUICK HACK TO MAKE CONDITIONS AND SPECIALIZATIONS MUTUALLY EXCLUSIVE 
              * TO BE CHANGED IN FUTURE 
             **/
-           
-           /* if (action.payload.type == 'condition') {
-                newState.selectedCriterias = []
-            } else {
-                newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
-                    return curr.type != 'condition'
-                })
-            }*/
 
-            if(action.payload.type){
+            /* if (action.payload.type == 'condition') {
+                 newState.selectedCriterias = []
+             } else {
+                 newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
+                     return curr.type != 'condition'
+                 })
+             }*/
+
+            if (action.payload.type) {
                 newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
                     return curr.type == action.payload.type
-                })   
+                })
             }
 
             if (action.payload.forceAdd) {
@@ -144,23 +144,18 @@ export default function (state = defaultState, action) {
                 ...state,
                 commonProcedurers: [].concat(state.commonProcedurers)
             }
-            if(action.forceAdd){
-                let procedureData = {}
+            if (action.forceAdd) {
                 newState.commonProcedurers = []
                 action.payload.map((procedure) => {
-                        procedureData.type = "procedures",
-                        procedureData.id =  procedure,
-                        procedureData.name  = ""
-                        newState.commonProcedurers.push(procedureData)   
-                        procedureData = {}     
+                    newState.commonProcedurers.push({ type: "procedures", id: procedure, name: "" })
                 })
-            }else{
-                let commonIds = newState.commonProcedurers.map(x=>x.id)
+            } else {
+                let commonIds = newState.commonProcedurers.map(x => x.id)
                 action.payload.map((procedure) => {
-                    if(commonIds.indexOf(procedure.id) == -1){
-                        newState.commonProcedurers.push(procedure)        
-                    }else{
-                        newState.commonProcedurers = newState.commonProcedurers.filter(x=>x!=x.id)
+                    if (commonIds.indexOf(procedure.id) == -1) {
+                        newState.commonProcedurers.push(procedure)
+                    } else {
+                        newState.commonProcedurers = newState.commonProcedurers.filter(x => x != x.id)
                     }
                 })
             }
