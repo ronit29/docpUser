@@ -51,6 +51,12 @@ class DoctorProfileCard extends React.Component {
 
     claimButtonClick(e) {
         e.stopPropagation();
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ClaimButtomClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'claim-buttom-clicked', 'selectedId': this.props.details.id
+        }
+        GTM.sendEvent({ data: data })
+
         this.props.history.push('/doctorsignup');
     }
 

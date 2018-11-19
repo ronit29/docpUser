@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
+import GTM from '../../../../helpers/gtm.js'
 
 class DoctorProfileCard extends React.Component {
     constructor(props) {
@@ -13,6 +14,17 @@ class DoctorProfileCard extends React.Component {
             if (i < qualificationSpecialization.length - 1) str += `, `;
             return str
         }, "")
+    }
+
+    claimButtonClick(e) {
+        e.stopPropagation();
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ClaimButtomClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'claim-buttom-clicked', 'selectedId': this.props.details.id
+        }
+        GTM.sendEvent({ data: data })
+
+        this.props.history.push('/doctorsignup');
     }
 
     render() {
@@ -46,7 +58,7 @@ class DoctorProfileCard extends React.Component {
                     }
                     <p className="add-details">{expStr}</p>
                     {
-                        this.props.details.enabled_for_online_booking ? '' : <button onClick={() => this.props.history.push('/doctorsignup')} className="fltr-bkng-btn claim-btn">Claim this profile</button>
+                        this.props.details.enabled_for_online_booking ? '' : <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn">Claim this profile</button>
                     }
                 </div>
             </div>
