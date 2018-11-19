@@ -32,7 +32,7 @@ class DoctorProfileView extends React.Component {
             selectedClinic: "",
             is_live: false,
             rank: 0,
-            consultation_fee: ''
+            consultation_fee: 0
         }
     }
 
@@ -91,10 +91,10 @@ class DoctorProfileView extends React.Component {
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
         }
-        let final_price = this.state.consultation_fee
+        let final_price = parseInt(this.state.consultation_fee)
         if( this.props.selectedDoctorProcedure[doctor_id] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].categories){
 
-            final_price+= this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].price.deal_price || 0
+            final_price+= parseInt(this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].price.deal_price) || 0
         }
 
         return (

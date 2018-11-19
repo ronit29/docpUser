@@ -27,8 +27,8 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let hospital_name = _getLocationParamBind('hospital_name')
             hospital_name = hospital_name || ""
             let locationType = _getLocationParamBind('locationType') || "geo"
-            let procedures_ids = _getLocationParamBind('procedure_ids') || "" 
-            let category_ids = _getLocationParamBind('procedure_category_ids') || "" 
+            let procedures_ids = _getLocationParamBind('procedure_ids') || ""
+            let category_ids = _getLocationParamBind('procedure_category_ids') || ""
 
             let selectedCriterias = []
             let spec = []
@@ -133,6 +133,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                     }
 
                     resolve({
+                        commonProcedurers: [],
                         filterCriteria,
                         selectedCriterias,
                         selectedLocation
@@ -147,12 +148,14 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                             }, 1000)
                         }
                         resolve({
+                            commonProcedurers: [],
                             filterCriteria,
                             selectedCriterias,
                             selectedLocation
                         })
                     } else {
                         resolve({
+                            commonProcedurers: [],
                             filterCriteria,
                             selectedCriterias
                         })
@@ -161,12 +164,14 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             } else {
                 if (selectedLocation) {
                     resolve({
+                        commonProcedurers: [],
                         filterCriteria,
                         selectedCriterias,
                         selectedLocation
                     })
                 } else {
                     resolve({
+                        commonProcedurers: [],
                         filterCriteria,
                         selectedCriterias
                     })

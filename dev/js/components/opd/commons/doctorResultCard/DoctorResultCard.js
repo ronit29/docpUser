@@ -113,9 +113,6 @@ class DoctorProfileCard extends React.Component {
                 unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
 
-
-            let procedure_ids = this.props.commonProcedurers.map(x => x.id)
-
             return (
 
                 <div className="filter-card-dl mb-3" >
@@ -191,7 +188,7 @@ class DoctorProfileCard extends React.Component {
                         {
                             hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
                                 <div className="procedure-checkboxes">
-                                    <h4>Treatment in <span>{hospitals[0].procedure_categories.map(x => x.name).join('|')} <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                    <h4>Treatment in <span>{hospitals[0].procedure_categories.map(x => x.name).join('|')} </span></h4>
                                     <div className="insurance-checkboxes">
                                         <ul className="procedure-list">
                                             {

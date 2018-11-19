@@ -23,7 +23,8 @@ const defaultState = {
     fetchNewResults: false,
     procedure_categories: [],
     selectedCriteriaType: '',
-    commonProcedurers: []
+    commonProcedurers: [],
+    getNewUrl: false
 }
 
 export default function (state = defaultState, action) {
@@ -146,6 +147,7 @@ export default function (state = defaultState, action) {
             }
             if (action.forceAdd) {
                 newState.commonProcedurers = []
+                newState.getNewUrl = true
                 action.payload.map((procedure) => {
                     newState.commonProcedurers.push({ type: "procedures", id: procedure, name: "" })
                 })

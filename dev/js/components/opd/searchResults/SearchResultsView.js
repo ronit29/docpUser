@@ -45,7 +45,9 @@ class SearchResultsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+        if(props.getNewUrl && props.getNewUrl != this.props.getNewUrl){
+            this.buildURI(props)
+        } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getDoctorList(props)
             if (window) {
                 window.scrollTo(0, 0)
@@ -74,11 +76,15 @@ class SearchResultsView extends React.Component {
 
     buildURI(state) {
 
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+        let { selectedLocation, selectedCriterias, filterCriteria, locationType , commonProcedurers} = state
         let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
         let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
         let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
         let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
+
+        let commonProcedureIds = commonProcedurers.map(x => x.id)
+    
+        procedures_ids = commonProcedureIds.length ? commonProcedureIds : procedures_ids
   
         let lat = 28.644800
         let long = 77.216721
