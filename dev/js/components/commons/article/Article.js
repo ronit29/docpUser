@@ -43,7 +43,7 @@ class Article extends React.Component {
         }
 
         if (this.props.match.path.split('-')[1] === 'mddp') {
-            this.setState({ medicineURL: true });
+            // this.setState({ medicineURL: true });
         }
 
         this.props.getSpecialityFooterData((cb) => {
