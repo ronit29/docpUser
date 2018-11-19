@@ -31,7 +31,8 @@ class DoctorProfileView extends React.Component {
             seoFriendly: this.props.match.url.includes('-dpp'),
             selectedClinic: "",
             is_live: false,
-            rank: 0
+            rank: 0,
+            consultation_fee: ''
         }
     }
 
@@ -60,8 +61,8 @@ class DoctorProfileView extends React.Component {
         return { title, description, schema }
     }
 
-    selectClinic(clinic_id, is_live, rank) {
-        this.setState({ selectedClinic: clinic_id, is_live, rank })
+    selectClinic(clinic_id, is_live, rank, consultation_fee) {
+        this.setState({ selectedClinic: clinic_id, is_live, rank, consultation_fee : consultation_fee})
     }
 
     navigateToClinic(doctor_id, clinicId) {
@@ -89,6 +90,11 @@ class DoctorProfileView extends React.Component {
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
+        }
+        let final_price = this.state.consultation_fee
+        if( this.props.selectedDoctorProcedure[doctor_id] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].categories){
+
+            final_price+= this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].price.deal_price || 0
         }
 
         return (
@@ -203,7 +209,7 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button>
+                                        <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now(₹ ${final_price})`}</button>
                                     </section> : <Loader />
                             }
                         </div>

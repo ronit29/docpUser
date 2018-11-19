@@ -9,8 +9,7 @@ class ClinicSelector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            numberShown: "",
-            errorMsg: false
+            numberShown: ""
         }
     }
 
@@ -34,34 +33,13 @@ class ClinicSelector extends React.Component {
         }
     }
 
-    toggleProcedures(procedure_to_toggle, doctor_id, hospital_id) {
-        let selectedProcedureIds = []
-        Object.values(this.props.selectedDoctorProcedure[doctor_id][hospital_id].categories).map((procedure) => {
-
-            selectedProcedureIds =  procedure.filter(x=>x.is_selected).map(x=>x.procedure_id)    
-        })
-
-
-        if(selectedProcedureIds.indexOf(procedure_to_toggle.procedure_id) == -1 ){
-
-        }else if(selectedProcedureIds.length<=1){
-            this.setState({
-                errorMsg: true
-            })
-            return null
-        }
-
-        this.props.toggleProfileProcedures(procedure_to_toggle, doctor_id, hospital_id)
-        
-    }
-
     toggle(which) {
-        this.setState({ [which]: !this.state[which] , errorMsg: false})
+        this.setState({ [which]: !this.state[which] })
     }
 
     procedurePopUp(hospital_id){
 
-        this.setState({vieMoreProcedures: true, selectedId: hospital_id, errorMsg: false})
+        this.setState({vieMoreProcedures: true, selectedId: hospital_id })
     }
 
     render() {
@@ -75,7 +53,7 @@ class ClinicSelector extends React.Component {
 
         if (!this.props.selectedClinic) {
             if (hospitals && hospitals.length) {
-                this.props.selectClinic(hospitals[0].hospital_id, is_live, 0)
+                this.props.selectClinic(hospitals[0].hospital_id, is_live, 0, hospitals[0].deal_price)
             }
         }
 
@@ -146,7 +124,7 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, !!is_live, i) }}>{hospital.hospital_name}
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, !!is_live, i, hospital.deal_price) }}>{hospital.hospital_name}
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
@@ -154,16 +132,9 @@ class ClinicSelector extends React.Component {
                                 </label>
                             </div>
                             <div className="dtl-cnslt-fee pb-list">
-                            {  this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
                                 <div className="clearfix">
                                     <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                                    <span className="test-price txt-ornage">₹ {this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.deal_price || 0}<span className="test-mrp">₹ {this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.mrp || 0}</span></span><span className="fw-500 test-name-item">Procedure Fee</span>
-                                    <span className="test-price txt-ornage">₹ {hospital.deal_price+ this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.deal_price || 0}<span className="test-mrp">₹ {hospital.mrp+ this.props.selectedDoctorProcedure[id][hospital.hospital_id].price.mrp || 0}</span></span><span className="fw-500 test-name-item">Final Price</span>
                                 </div>
-                                :<div className="clearfix">
-                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                                </div>
-                            }
                                 
                                 <div className="clearfix">
                                     {
@@ -199,7 +170,7 @@ class ClinicSelector extends React.Component {
                             </div>
                             </div>
                             {
-                            this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
+                            this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
                             <div className="procedure-checkboxes">
                                 <h4>Treatment in <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories_name.join('|')}<img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                 <div className="insurance-checkboxes">
@@ -221,12 +192,7 @@ class ClinicSelector extends React.Component {
                                         }) 
                                     }
                                     {
-                                        this.state.errorMsg?
-                                        <p>Please Select at least one Procedure</p>
-                                        :''
-                                    }
-                                    {
-                                        this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures >1
+                                        this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures >1
                                         ?this.state.vieMoreProcedures
                                             ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id = {this.state.selectedId} doctor_id = {id}  {...this.props} data = {this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} />
                                             :this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures != this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures?<button className="pr-plus-add-btn" onClick={this.procedurePopUp.bind(this, hospital.hospital_id )}>

@@ -28,10 +28,21 @@ class DoctorProfileCard extends React.Component {
 
         } else {
             e.preventDefault();
+            let category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
+            let procedure_ids = this.props.commonProcedurers.map(x => x.id)
+
             if (url) {
-                this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
+                if(category_ids.length || procedure_ids.length){
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true`)
+                }else{
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
+                }
             } else {
-                this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
+                if(category_ids.length || procedure_ids.length){
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true`)
+                }else{
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
+                }
             }
         }
     }

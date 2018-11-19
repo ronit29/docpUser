@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES} from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, RESET_PROCEDURES} from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -252,6 +252,14 @@ export default function (state = defaultState, action) {
 
             return newState
 
+        }
+
+        case RESET_PROCEDURES: {
+            let newState = {
+                ...state
+            }
+            newState.selectedDoctorProcedure = {}
+            return newState
         }
 
     }
