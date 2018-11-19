@@ -39,7 +39,6 @@ import DirectBooking from './containers/commons/directBooking.js'
 import CouponSelectNewView from './containers/commons/CouponsView.js'
 import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
-import ProcedureUI from './containers/commons/Procedure.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -107,7 +106,6 @@ const routes = [
     { path: '/city-inventory', exact :true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact:true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
 
-    { path: '/procedure', exact:true, component: ProcedureUI , RENDER_ON_SERVER: true },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

@@ -129,8 +129,7 @@ export default function (state = defaultState, action) {
  
         case SET_PROCEDURES: {
             let newState = {
-                ...state,
-                selectedDoctorProcedure: JSON.parse(JSON.stringify(state.selectedDoctorProcedure))
+                ...state
             }
             newState.profileCommonProcedures = action.commonProcedurers
             let hospitals = action.payload.hospitals.length?action.payload.hospitals:[]

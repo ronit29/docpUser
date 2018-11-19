@@ -95,7 +95,7 @@ class PatientDetailsNew extends React.Component {
 
             Object.values(this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
 
-                procedure_ids =  procedure.map(x=>x.procedure_id)    
+                procedure_ids =  procedure_ids.concat(procedure.map(x=>x.procedure_id))    
             })
             if(procedure_ids.length){
                 postData['procedure_ids'] = procedure_ids || []
