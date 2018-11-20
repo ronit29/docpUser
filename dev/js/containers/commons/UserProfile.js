@@ -12,13 +12,13 @@ class UserProfile extends React.Component {
     constructor(props) {
         super(props)
         if (!STORAGE.checkAuth()) {
-             const parsed = queryString.parse(window.location.search)
-             if(parsed && parsed.ref){
-                this.props.history.replace(`/login?callback=/&ref=home`)    
-             }else{
+            const parsed = queryString.parse(window.location.search)
+            if (parsed && parsed.ref) {
+                this.props.history.replace(`/login?callback=/&ref=home`)
+            } else {
                 this.props.history.replace(`/login?callback=/`)
-             }
-            
+            }
+
         }
     }
 
@@ -34,6 +34,7 @@ class UserProfile extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
             this.props.getUserAddress()
+            this.props.getCoupons()
         }
 
     }
@@ -50,8 +51,8 @@ const mapStateToProps = (state) => {
     const USER = state.USER
 
     const {
-		applicableCoupons
-	} = state.USER
+        applicableCoupons
+    } = state.USER
 
     return {
         USER,

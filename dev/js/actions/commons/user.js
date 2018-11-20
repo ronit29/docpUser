@@ -392,7 +392,10 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 }
 
 export const getCoupons = (productId = '', deal_price = 0, cb) => (dispatch) => {
-	let url = `/api/v1/coupon/applicablecoupons?product_id=${productId}`
+	let url = `/api/v1/coupon/applicablecoupons?`
+	if (productId) {
+		url += `product_id=${productId}`
+	}
 	if (deal_price) {
 		url += `&deal_price=${deal_price}`
 	}

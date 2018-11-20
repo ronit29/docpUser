@@ -13,85 +13,18 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import UserPrescription from './userPrescriptions'
+import UserCoupons from './userCoupons'
 import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
 
 const Section_Component = ({ children, title, history, logout }) => {
     return <div>
-        {/* <header className="skin-primary fixed horizontal top sticky-header">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-2">
-                        <div className="back-icon" onClick={() => {
-                            history.go(-1)
-                        }}>
-                            <a>
-                                <img src={ASSETS_BASE_URL + "/img/icons/back.png"} className="img-fluid" />
-                            </a>
-                        </div>
-                    </div>
-                    <div className="col-8">
-                        <div className="header-title fw-700 capitalize text-center text-white">{title || "My Profile"}</div>
-                    </div>
-                    <div className="col-2" onClick={() => {
-                        logout()
-                    }} style={{ cursor: 'pointer' }}>
-                        <p className="fw-500 mobile-logout-text">Logout</p>
-                    </div>
-                </div>
-            </div>
-        </header> */}
         <section className="consumer-profile-screen">
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-12">
                         {children}
-                    </div>
-                    <div className="col-md-12 mt-21">
-                        <h5 className="all-offers">All offers</h5>
-                        <div className="widget no-round no-shadow skin-transparent profile-nav">
-                            <div className="widget-content padding-remove">
-                                <div className="coupon-listing dp-user-list bg-lst">
-                                        <div className="coupons-container">
-                                            <h5 className="avl-cpn-hdng">Available Coupons</h5>
-                                            <div className="coupan-name">
-                                                <span className="coupon-desing">WELCOME</span>
-                                                <span className="coupon-avail">Avail Now   <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /> </span>
-                                            </div>
-                                            <div className="couon-details">
-                                                <span className="coupon-ins">Flat Rs 100 off</span>
-                                                <p className="coupon-dtls-p">Use code and get 100 off on your first 3 bookings on doctor and diagnostics</p>
-                                                <span className="coupon-terms">Terms & Conditions</span>
-                                            </div>
-                                        </div>
-                                        <div className="coupons-container">
-                                            <h5 className="avl-cpn-hdng">Available Coupons</h5>
-                                            <div className="coupan-name">
-                                                <span className="coupon-desing">WELCOME</span>
-                                                <span className="coupon-avail">Avail Now <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
-                                            </div>
-                                            <div className="couon-details">
-                                                <span className="coupon-ins">Flat Rs 100 off</span>
-                                                <p className="coupon-dtls-p">Use code and get 100 off on your first 3 bookings on doctor and diagnostics</p>
-                                                <span className="coupon-terms">Terms & Conditions</span>
-                                            </div>
-                                        </div>
-                                        <div className="coupons-container">
-                                            <h5 className="avl-cpn-hdng">Available Coupons</h5>
-                                            <div className="coupan-name">
-                                                <span className="coupon-desing">WELCOME</span>
-                                                <span className="coupon-avail">Avail Now <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
-                                            </div>
-                                            <div className="couon-details">
-                                                <span className="coupon-ins">Flat Rs 100 off</span>
-                                                <p className="coupon-dtls-p">Use code and get 100 off on your first 3 bookings on doctor and diagnostics</p>
-                                                <span className="coupon-terms">Terms & Conditions</span>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -175,6 +108,10 @@ class UserProfileView extends React.Component {
 
                                         <Route exact path={`${this.props.match.url}/onlinePrescriptions`} render={(props) => {
                                             return <UserPrescription {...this.props} {...props} />
+                                        }} />
+
+                                        <Route exact path={`${this.props.match.url}/coupons`} render={(props) => {
+                                            return <UserCoupons {...this.props} {...props} />
                                         }} />
 
                                     </div> : ""
