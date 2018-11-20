@@ -62,8 +62,9 @@ class Footer extends React.Component {
                     </div>
                 </div> */}
 
-
-                <div className="container-fluid footer-2">
+                {
+                    menu.length>0?
+                    <div className="container-fluid footer-2">
                     <div className="container">
                         {
                             menu.map((f, i) => {
@@ -83,6 +84,9 @@ class Footer extends React.Component {
                         }
                     </div>
                 </div>
+                    :''
+                }
+                
 
                 {
                     this.props.specialityFooterData && this.props.specialityFooterData.length ?

@@ -94,7 +94,7 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
+                                <img className="drop-img-mrgn" src={ASSETS_BASE_URL + "/images/doc.svg"} />
                                 <span>Book to Visit a Doctor</span>
                             </div>
                             <div className="head-links" onClick={() => {
@@ -104,7 +104,7 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
+                                <img className="drop-img-mrgn" src={ASSETS_BASE_URL + "/images/flask.svg"} />
                                 <span>Book Medical Test</span>
                             </div>
                             <div className="head-links">
@@ -198,7 +198,7 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
+                                <img className="drop-img-mrgn" src={ASSETS_BASE_URL + "/images/doc.svg"} />
                                 <span>Book to Visit a Doctor</span>
                             </div>
                             <div className="head-links" onClick={() => {
@@ -208,7 +208,7 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
+                                <img className="drop-img-mrgn" src={ASSETS_BASE_URL + "/images/flask.svg"} />
                                 <span>Book Medical Test</span>
                             </div>
                         </div> : ""

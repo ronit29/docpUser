@@ -605,6 +605,9 @@ p.top-head-link.card-lab-link span {
 	margin-left: 25px;
 	position: relative;
 }
+.head-links img.drop-img-mrgn{
+	margin-right: 8px;
+}
 
 .head-links img {
 	margin-right: 8px;
@@ -627,6 +630,9 @@ p.top-head-link.card-lab-link span {
 	.sub-upside-star img {
 		width: 25px !important;
 		height: 25px !important;
+	}
+	a.article-list{
+		padding: 5px 38px;
 	}
 }
 
@@ -830,6 +836,12 @@ p.top-head-link.card-lab-link span {
 	100% {
 		opacity: 1;
 		-moz-transform: translateY(0);
+	}
+}
+
+@media(max-width: 414px) {
+	.chatbox-right {
+		height: calc(100vh - 330px);
 	}
 }
 
