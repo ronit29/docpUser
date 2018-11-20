@@ -2968,7 +2968,8 @@ span.ad-sub-content {
     text-decoration: underline;
     background: white;
     padding: 0;
-    font-size: 12px;
+	font-size: 12px;
+	display: block;
 }
 .alert-success {
 	color: #3c763d;
