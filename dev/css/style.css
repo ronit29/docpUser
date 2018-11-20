@@ -2774,7 +2774,7 @@ ul.list-sub-menu a:hover {
 .social-icon{
 	width: 30px;
 	height: 30px;
-	margin: 0px 10px;
+	margin: 0px 5px;
 }
 .social-icon>a>img{
 	width: 100%;
@@ -3006,6 +3006,15 @@ span.ad-sub-content {
 	/* border-right: 1.5px solid rgba(117, 117, 117, 0.8); */
 	line-height: 14px;
 	margin-bottom: 5px;
+}
+
+@media(max-width: 767px){
+	.speciality-footer-list li{
+		display: inline-block;
+		padding-right: 4px;
+		margin-right: 4px;
+		border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+	}
 }
 
 .speciality-footer-list li:last-child{

@@ -86,11 +86,11 @@ class Footer extends React.Component {
 
                 {
                     this.props.specialityFooterData && this.props.specialityFooterData.length ?
-                        <div className="container mrt-10">
-                            <div className="row">
+                        <div className="container-fluid mrt-10">
+                            <div className="row justify-content-center">
                                 {
                                     this.props.specialityFooterData.map((footerData, i) => {
-                                        return <div className="col-12 col-md-3" style={{ marginBottom: 15, paddingTop: 10 }} key={i}>
+                                        return <div className="col-12 col-md-2" style={{ marginBottom: 15, paddingTop: 10 }} key={i}>
                                             <h3 className="speciality-footer-head">{footerData.title}</h3>
                                             <ul className="speciality-footer-list">
                                                 {
@@ -108,9 +108,35 @@ class Footer extends React.Component {
                         </div> : ''
                 }
 
-                <div className="container">
+                <div className="container-fluid mrt-20">
                     <div className="row">
-                        <div className="col-md-3 col-12">
+                        <div className="col-12 col-md-2">
+                            <div className="footer-links">
+                                <a href="javascript:;">
+                                    <div className="logo-img-div">
+                                        <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
+                                    </div>
+                                </a>
+                                <div className="social-icons-row mrt-20">
+                                    <div className="social-icon">
+                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-2 col-12">
                             <div className="footer-links">
                                 <h3>docprime</h3>
                                 <ul>
@@ -149,7 +175,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-3 col-12">
+                        <div className="col-md-2 col-12">
                             <div className="footer-links">
                                 <h3>For Patients</h3>
                                 <ul>
@@ -166,11 +192,7 @@ class Footer extends React.Component {
                                         this.navigateTo("/mobileviewchat")
                                     }}>Consult a doctor</a></li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-12">
-                            <div className="footer-links">
-                                <h3>For Doctors</h3>
+                                <h3 className="foot-sub-lisitng">For Doctors</h3>
                                 <ul>
                                     <li><a href="/doctorsignup" onClick={(e) => {
                                         e.preventDefault();
@@ -187,7 +209,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-3 col-12">
+                        <div className="col-md-2 col-12">
                             <div className="footer-links">
                                 <h3>Labs in Top Cities</h3>
                                 <ul>
@@ -204,7 +226,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-3 col-12">
+                        <div className="col-md-2 col-12">
                             <div className="footer-links">
                                 <h3>Doctors in Top Cities</h3>
                                 <ul>
@@ -221,7 +243,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-3 col-12">
+                        <div className="col-md-2 col-12">
                             <div className="footer-links">
                                 <h3>Useful Resources</h3>
                                 <ul>
@@ -249,36 +271,10 @@ class Footer extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-12">
-                            <div className="mrt-10">
-                                <a href="javascript:;">
-                                    <div className="logo-img-div">
-                                        <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
-                                    </div>
-                                </a>
-                                <div className="social-icons-row mrt-20">
-                                    <div className="social-icon">
-                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div className="col-12 text-center">
                             <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
                         </div>
-                        <div className="col-12 footer-new-copyrght" style={{paddingBottom: 5}} >
+                        <div className="col-12 footer-new-copyrght" style={{ paddingBottom: 5 }} >
                             <p>docprime.com Copyright &copy; 2018.</p>
                             <p>All rights reserved.</p>
                             <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
