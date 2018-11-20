@@ -185,14 +185,6 @@ class ArticleList extends React.Component {
 													}
 												</InfiniteScroll>
 												{
-													this.state.hasMore ?
-														<div>
-															<a href={`${CONFIG.API_BASE_URL}/${this.state.title}?page=${this.state.page}`} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
-														</div>
-														: ''
-												}
-
-												{
 													this.props.articleList.length && !this.state.noArticleFound && this.state.buttonsVisible ?
 														<div className="col-12">
 															{

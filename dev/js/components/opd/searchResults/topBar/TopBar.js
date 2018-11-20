@@ -223,7 +223,7 @@ class TopBar extends React.Component {
 
                                                 {
                                                     this.state.showLocationPopup && false ? ''
-                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` near ${locationName}`}</span> : ''
                                                 }
 
                                             </span>
