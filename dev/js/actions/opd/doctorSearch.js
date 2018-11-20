@@ -298,7 +298,7 @@ export const getFooterData = (url) => (dispatch) => {
 }
 
 
-export const toggleProfileProcedures = (procedure, doctor_id, hospital_id) => (dispatch) => {
+export const toggleProfileProcedures = (procedure=[], doctor_id, hospital_id) => (dispatch) => {
 
 	dispatch({
 		type: TOGGLE_PROFILE_PROCEDURES,

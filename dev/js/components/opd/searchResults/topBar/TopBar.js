@@ -113,6 +113,9 @@ class TopBar extends React.Component {
 
     getCriteriaString(selectedCriterias) {
         if (selectedCriterias && selectedCriterias.length) {
+            let selectedProcedureCategory = selectedCriterias.filter(x=>x.type=='procedures_category')
+            let procedures = selectedCriterias.filter(x=>x.type=='procedures')
+        
             return selectedCriterias.reduce((final, curr, i) => {
                 if (i != 0) {
                     final += ', '

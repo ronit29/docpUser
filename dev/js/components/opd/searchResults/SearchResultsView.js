@@ -46,6 +46,12 @@ class SearchResultsView extends React.Component {
 
     componentWillReceiveProps(props) {
         if(props.getNewUrl && props.getNewUrl != this.props.getNewUrl){
+            if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+                this.getDoctorList(props)
+                if (window) {
+                    window.scrollTo(0, 0)
+                }
+            }
             this.buildURI(props)
         } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getDoctorList(props)

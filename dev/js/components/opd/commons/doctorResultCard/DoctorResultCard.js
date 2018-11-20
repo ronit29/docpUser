@@ -62,13 +62,14 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
-    toggle(which, fetchResults, procedure_ids) {
+    toggle(which, fetchResults=false, procedure_ids=[]) {
 
         this.setState({ [which]: !this.state[which] })
         if (fetchResults) {
             if (procedure_ids.length) {
                 this.props.saveCommonProcedures(procedure_ids)
                 this.props.mergeOPDState('')
+                this.props.resetProcedureURl()
             } else {
 
             }

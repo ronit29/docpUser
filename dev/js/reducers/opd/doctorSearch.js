@@ -12,7 +12,7 @@ const defaultState = {
     disCountedOpdPrice: 0,
     search_content: '',
     selectedDoctorProcedure: {},
-    profileCommonProcedures: []
+    profileCommonProcedures:[]
 }
 
 export default function (state = defaultState, action) {
@@ -200,50 +200,43 @@ export default function (state = defaultState, action) {
             try {
 
                 Object.entries(newState.selectedDoctorProcedure[action.doctor_id]).map((hospital, i) => {
+                    let deal_price = 0
+                        let mrp = 0
+                        let unselectedCount = 0
+                        let selectedCount = 0
 
                     Object.values(hospital[1].categories).map((category, j) => {
-
-                        let deal_price = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price.deal_price
-                        let mrp = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price.mrp
-                        let unselectedCount = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].unselectedProcedures || 0
-                        let selectedCount = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].selectedProcedures || 0
 
                         if (category) {
                             category.map((procedure, k) => {
 
-                                if (action.procedure.procedure_id == procedure.procedure_id) {
-                                    let found = newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected
-                                    if (found) {
-                                        deal_price = deal_price - newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].deal_price
-                                        mrp = mrp - newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].mrp
-                                        unselectedCount++
-                                        selectedCount--
-                                    } else {
-                                        deal_price = deal_price + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].deal_price
+                                if (action.procedure.indexOf(procedure.procedure_id) !=-1) {
+                                    deal_price = deal_price + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].deal_price
                                         mrp = mrp + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].mrp
-                                        unselectedCount--
                                         selectedCount++
-                                    }
-                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = !found
-                                    let price = {
-                                        deal_price: deal_price,
-                                        mrp: mrp
-                                    }
-                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price = price
-                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].selectedProcedures = selectedCount
-                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].unselectedProcedures = unselectedCount
+                                        newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = true
+                                        
+                                }else{
+                                        unselectedCount++
+                                        newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = false
+                                        
                                 }
-
-
                             })
                         }
 
                     })
 
+
+                     let price = {
+                            deal_price: deal_price,
+                            mrp: mrp
+                        }
+                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price = price
+                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].selectedProcedures = selectedCount
+                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].unselectedProcedures = unselectedCount
+                    
                 })
-                if (newState.profileCommonProcedures.indexOf(action.procedure.procedure_id) != -1) {
-                    newState.profileCommonProcedures.splice(newState.profileCommonProcedures.indexOf(action.procedure.procedure_id))
-                }
+                newState.profileCommonProcedures = action.procedure
             }
             catch (e) {
                 console.log(e)
@@ -258,6 +251,7 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.selectedDoctorProcedure = {}
+            newState.profileCommonProcedures = []
             return newState
         }
 

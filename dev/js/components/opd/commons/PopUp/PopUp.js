@@ -42,7 +42,7 @@ export default class PopUpView extends React.Component {
 		} else {
 			fetchResults = true
 		}
-		selectedProcedures = selectedProcedures
+		//selectedProcedures = selectedProcedures
 		this.props.toggle(fetchResults, this.state.selectedProcedures)
 
 	}
@@ -69,7 +69,7 @@ export default class PopUpView extends React.Component {
 
 		return (
 			<div>
-				<div className="cancel-overlay" onClick={this.toggleLayout.bind(this)}></div>
+				<div className="cancel-overlay" onClick={this.props.toggle}></div>
 				<div className="widget cancel-appointment-div cancel-popup">
 					<div className="pop-top-heading">
 						All Treatment

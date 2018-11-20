@@ -4,7 +4,54 @@ export default class PopUpView extends React.Component {
 
     constructor(props){
         super(props)
-        this.state = { errorMsg: false}
+        this.state = { 
+            errorMsg: false,
+            selectedProcedureIds: [],
+            procedure:[]
+        }
+    }
+
+    componentDidMount(){
+        let selectedProcedureIds = []
+        Object.values(this.props.selectedDoctorProcedure[this.props.doctor_id][this.props.hospital_id].categories).map((procedure) => {
+
+            selectedProcedureIds = selectedProcedureIds.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
+        })
+        this.setState({selectedProcedureIds: selectedProcedureIds, procedure: [].concat(selectedProcedureIds)})
+    }
+
+    toggleData(procedure) {
+        let selectedProcedures = this.state.selectedProcedureIds
+        if (selectedProcedures.length > 1 || (selectedProcedures.length == 1 && selectedProcedures.indexOf(procedure.procedure_id) == -1)) {
+
+            if (selectedProcedures.indexOf(procedure.procedure_id) != -1) {
+                selectedProcedures.splice(selectedProcedures.indexOf(procedure.procedure_id), 1)
+            } else {
+                selectedProcedures.push(procedure.procedure_id)
+            }
+            this.setState({ selectedProcedureIds: selectedProcedures })
+
+
+        } else {
+            this.setState({ errorMessage: true })
+            return null
+        }
+    }
+
+    toggleFinal( doctor_id, hospital_id){
+        let fetchResults = false
+        let selectedProcedures = this.state.selectedProcedureIds
+        let procedure = this.state.procedure
+        if (selectedProcedures.length === procedure.length && selectedProcedures.sort().every(function (value, index) { return value === procedure.sort()[index] })) {
+
+        } else {
+            fetchResults = true
+        }
+        if(fetchResults){
+            this.props.toggleProfileProcedures(selectedProcedures, doctor_id, hospital_id)
+            
+        }
+        this.props.toggle()
     }
 
     toggleProcedure(procedure_to_toggle, doctor_id, hospital_id) {
@@ -32,7 +79,7 @@ export default class PopUpView extends React.Component {
     }
 
     render() {
-
+        let procedure_ids = this.state.selectedProcedureIds
         return (
             <div>
                 <div className="cancel-overlay" onClick={this.props.toggle}></div>
@@ -49,22 +96,20 @@ export default class PopUpView extends React.Component {
                                     
                                 </div>
                                 <div>
-                                    {
-                                        category.map((procedure, key) => {
-                                            return <div className="terms-condition-div" key={key}>
-                                                <ul className="procedure-list">
-
-                                                    <li key={i}>
+                                    <div className="terms-condition-div">
+                                        <ul className="procedure-list">
+                                        {
+                                          category.map((procedure, key) => { 
+                                            return <li key={key}>
                                                         <div>
-                                                            <input type="checkbox" checked={procedure.is_selected} className="ins-chk-bx" id={`${procedure.procedure_id}_`} name="fruit-2" value="" onChange={this.toggleProcedure.bind(this, procedure, this.props.doctor_id, this.props.hospital_id)} /><label htmlFor={`${procedure.procedure_id}_`}>{procedure.procedure_name}</label>
+                                                            <input type="checkbox" checked={procedure_ids.indexOf(procedure.procedure_id)!=-1?true:false} className="ins-chk-bx" id={`${procedure.procedure_id}_`} name="fruit-2" value="" onChange={this.toggleData.bind(this,procedure)}/*{this.toggleProcedure.bind(this, procedure, this.props.doctor_id, this.props.hospital_id)}*/ /><label htmlFor={`${procedure.procedure_id}_`}>{procedure.procedure_name}</label>
                                                         </div>
                                                         <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                     </li>
-
-                                                </ul>
-                                            </div>
-                                        })
-                                    }
+                                            })
+                                        }
+                                        </ul>
+                                    </div>
                                 </div>
 
                             </div>
@@ -79,7 +124,7 @@ export default class PopUpView extends React.Component {
                             : ''
                     }
                     <div className="procedures-btn-pop">
-                        <button className="fw-500" onClick={this.props.toggle}>Done</button>
+                        <button className="fw-500" onClick={this.toggleFinal.bind(this,this.props.doctor_id, this.props.hospital_id)}>Done</button>
                     </div>
                 </div>
             </div>

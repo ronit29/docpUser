@@ -65,10 +65,23 @@ class DoctorProfile extends React.Component {
         if(is_procedure){
             category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
             procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
-             
+            
             if(this.props.commonProcedurers.length){
 
                 let pids = this.props.commonProcedurers.filter((x) => {
+                    if(procedure_ids.indexOf(x.id) == -1){
+                        return true
+                    }
+                    return false
+                }).map(x => x.id)
+
+
+               // let pids = this.props.commonProcedurers.map(x=>x.id)
+                procedure_ids =  procedure_ids.concat(pids)
+            }
+             if(this.props.profileCommonProcedures.length){
+
+                let pids = this.props.profileCommonProcedures.filter((x) => {
                     if(procedure_ids.indexOf(x.id) == -1){
                         return true
                     }
@@ -104,36 +117,12 @@ class DoctorProfile extends React.Component {
 
     componentWillReceiveProps(props){
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
-           // this.buildUrl(this.state.hospital_id)
             if (window) {
                 window.scrollTo(0, 0)
             }
         }
     }
 
-    buildUrl(hospital_id){
-
-        let category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
-        let procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
-         
-        if(this.props.commonProcedurers){
-
-            let pids = this.props.commonProcedurers.filter((x) => {
-                if(procedure_ids.indexOf(x.id) == -1){
-                    return true
-                }
-                return false
-            }).map(x => x.id)
-
-            //let pids = this.props.commonProcedurers.map(x=>x.id)
-            procedure_ids =  procedure_ids.concat(pids)
-        }   
-
-        if (this.props.match.params.id) {
-            this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-        }
-
-    }
     render() {
 
         return (

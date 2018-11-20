@@ -53,7 +53,7 @@ class ClinicSelector extends React.Component {
 
         if (!this.props.selectedClinic) {
             if (hospitals && hospitals.length) {
-                this.props.selectClinic(hospitals[0].hospital_id, is_live, 0, hospitals[0].deal_price)
+                this.props.selectClinic(hospitals[0].hospital_id, is_live, 0, hospitals[0].deal_price || 0)
             }
         }
 
@@ -132,9 +132,6 @@ class ClinicSelector extends React.Component {
                                 </label>
                             </div>
                             <div className="dtl-cnslt-fee pb-list">
-                                <div className="clearfix">
-                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                                </div>
                                 
                                 <div className="clearfix">
                                     {
@@ -169,10 +166,15 @@ class ClinicSelector extends React.Component {
                                 </div>
                             </div>
                             </div>
+                            <div className="dtl-cnslt-fee pb-list">
+                                <div className="clearfix">
+                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                </div>
+                            </div>
                             {
                             this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
                             <div className="procedure-checkboxes">
-                                <h4>Treatment in <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories_name.join('|')}</span></h4>
+                                <h4>Services in <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories_name.join('|')}</span></h4>
                                 <div className="insurance-checkboxes">
                                     <ul className="procedure-list">
                                     {

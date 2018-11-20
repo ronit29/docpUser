@@ -209,7 +209,7 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now(₹ ${final_price})`}</button>
+                                        <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now (₹ ${final_price})`}</button>
                                     </section> : <Loader />
                             }
                         </div>
