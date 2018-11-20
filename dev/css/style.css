@@ -2999,6 +2999,10 @@ span.ad-sub-content {
 	font-weight: 500;
 }
 
+.speciality-footer-list a:hover{
+    color: #f78361;
+}
+
 .speciality-footer-list li{
 	display: block;
 	/* padding-right: 4px; */
