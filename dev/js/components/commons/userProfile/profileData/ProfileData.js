@@ -94,7 +94,7 @@ class ProfileData extends React.Component {
                                     {
                                         this.props.applicableCoupons && this.props.applicableCoupons.length ?
                                             this.props.applicableCoupons.map((coupon, i) => {
-                                                return coupon.code == 'WELCOME' && coupon.used_count < 3 ?
+                                                return coupon.code == 'FIRST500' && coupon.used_count < 3 ?
                                                     <div key={i}>
                                                         <p className="mrt-10" style={{ color: '#757575' }}>Use Coupon : <b className="fw-700" style={{ color: '#000000' }}>{coupon.code}</b></p>
                                                         <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -103,6 +103,7 @@ class ProfileData extends React.Component {
                                                     </div> : ''
                                             }) : ''
                                     }
+                                    <p className="view-more-coupons">View more offers</p>
                                 </div>
                             </div>
                         </li>
@@ -253,7 +254,7 @@ class ProfileData extends React.Component {
                 {
                     this.state.openTermsConditions ?
                         this.props.applicableCoupons.map(coupon => {
-                            return coupon.code == 'WELCOME' ?
+                            return coupon.code == 'FIRST500' ?
                                 <TermsConditions toggle={() => this.toggleTandC()} tnc={coupon.tnc} /> : ""
                         }) : ''
                 }

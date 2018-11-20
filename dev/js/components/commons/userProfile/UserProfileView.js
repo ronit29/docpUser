@@ -48,6 +48,51 @@ const Section_Component = ({ children, title, history, logout }) => {
                     <div className="col-md-12">
                         {children}
                     </div>
+                    <div className="col-md-12 mt-21">
+                        <h5 className="all-offers">All offers</h5>
+                        <div className="widget no-round no-shadow skin-transparent profile-nav">
+                            <div className="widget-content padding-remove">
+                                <div className="coupon-listing dp-user-list bg-lst">
+                                        <div className="coupons-container">
+                                            <h5 className="avl-cpn-hdng">Available Coupons</h5>
+                                            <div className="coupan-name">
+                                                <span className="coupon-desing">WELCOME</span>
+                                                <span className="coupon-avail">Avail Now   <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /> </span>
+                                            </div>
+                                            <div className="couon-details">
+                                                <span className="coupon-ins">Flat Rs 100 off</span>
+                                                <p className="coupon-dtls-p">Use code and get 100 off on your first 3 bookings on doctor and diagnostics</p>
+                                                <span className="coupon-terms">Terms & Conditions</span>
+                                            </div>
+                                        </div>
+                                        <div className="coupons-container">
+                                            <h5 className="avl-cpn-hdng">Available Coupons</h5>
+                                            <div className="coupan-name">
+                                                <span className="coupon-desing">WELCOME</span>
+                                                <span className="coupon-avail">Avail Now <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
+                                            </div>
+                                            <div className="couon-details">
+                                                <span className="coupon-ins">Flat Rs 100 off</span>
+                                                <p className="coupon-dtls-p">Use code and get 100 off on your first 3 bookings on doctor and diagnostics</p>
+                                                <span className="coupon-terms">Terms & Conditions</span>
+                                            </div>
+                                        </div>
+                                        <div className="coupons-container">
+                                            <h5 className="avl-cpn-hdng">Available Coupons</h5>
+                                            <div className="coupan-name">
+                                                <span className="coupon-desing">WELCOME</span>
+                                                <span className="coupon-avail">Avail Now <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
+                                            </div>
+                                            <div className="couon-details">
+                                                <span className="coupon-ins">Flat Rs 100 off</span>
+                                                <p className="coupon-dtls-p">Use code and get 100 off on your first 3 bookings on doctor and diagnostics</p>
+                                                <span className="coupon-terms">Terms & Conditions</span>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
