@@ -171,7 +171,7 @@ class DoctorProfileView extends React.Component {
                             {
                                 this.props.DOCTORS[doctor_id] ?
 
-                                    <section className="dr-profile-screen">
+                                    <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
 
                                         <HelmetTags tagsData={{
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
