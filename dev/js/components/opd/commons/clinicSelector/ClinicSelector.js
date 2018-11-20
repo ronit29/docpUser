@@ -37,9 +37,9 @@ class ClinicSelector extends React.Component {
         this.setState({ [which]: !this.state[which] })
     }
 
-    procedurePopUp(hospital_id){
+    procedurePopUp(hospital_id) {
 
-        this.setState({vieMoreProcedures: true, selectedId: hospital_id })
+        this.setState({ vieMoreProcedures: true, selectedId: hospital_id })
     }
 
     render() {
@@ -57,7 +57,7 @@ class ClinicSelector extends React.Component {
             }
         }
 
-        
+
         return (
             // <div className="widget-panel">
             //     <h4 className="panel-title mb-rmv">Dr. {name} Available at</h4>
@@ -131,8 +131,13 @@ class ClinicSelector extends React.Component {
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
+                            <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                <div className="clearfix">
+                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                </div>
+                            </div>
                             <div className="dtl-cnslt-fee pb-list">
-                                
+
                                 <div className="clearfix">
                                     {
                                         STORAGE.checkAuth() || hospital.deal_price < 100 ?
@@ -142,74 +147,93 @@ class ClinicSelector extends React.Component {
                                 </div>
                             </div>
                             <div className="address-bg-color">
-                            <div className="row">
-                                <div className="col-10">
-                                    <div className="add-content">
-                                        <span className="add-span">Address:</span>
-                                        <p>{hospital.address}</p>
-                                    </div>
-                                    <div className="add-content">
-                                        <span className="add-span">Timings:</span>
-                                        <div style={{ flex: 1 }}>
-                                            {
-                                                Object.keys(hospital.timings).map((timingKey, key) => {
-                                                    return <p key={key}>{timingKey}<span>{" " + hospital.timings[timingKey].join(', ')}</span></p>
-                                                })
-                                            }
+                                <div className="row">
+                                    <div className="col-10">
+                                        <div className="add-content">
+                                            <span className="add-span">Address:</span>
+                                            <p>{hospital.address}</p>
+                                        </div>
+                                        <div className="add-content">
+                                            <span className="add-span">Timings:</span>
+                                            <div style={{ flex: 1 }}>
+                                                {
+                                                    Object.keys(hospital.timings).map((timingKey, key) => {
+                                                        return <p key={key}>{timingKey}<span>{" " + hospital.timings[timingKey].join(', ')}</span></p>
+                                                    })
+                                                }
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
-                                        <img style={{ width: "35px", height: "35px", cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
-                                    </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="dtl-cnslt-fee pb-list">
-                                <div className="clearfix">
-                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                    <div>
+                                        <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
+                                            <img style={{ width: "35px", height: "35px", cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+
+
                             {
-                            this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories?
-                            <div className="procedure-checkboxes">
-                                <h4>Services in <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories_name.join('|')}</span></h4>
-                                <div className="insurance-checkboxes">
-                                    <ul className="procedure-list">
-                                    {
-                                        Object.values(this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories).map((procedure) => {
+                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories ?
+                                    <div className="procedure-checkboxes">
+                                        <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                            <div className="clearfix">
+                                                <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                            </div>
+                                        </div>
+                                        <div className="dtl-cnslt-fee pb-list">
 
-                                           return procedure.filter(x=>x.is_selected).map((category, i) =>{
+                                            <div className="clearfix">
+                                                {
+                                                    STORAGE.checkAuth() || hospital.deal_price < 100 ?
+                                                        ''
+                                                        : <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) selected:
+                                         {/* <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories_name.join('|')}</span> */}
+                                        </h4>
+                                        <div className="insurance-checkboxes">
+                                            <ul className="procedure-list">
+                                                {
+                                                    Object.values(this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories).map((procedure) => {
 
-                                            return <li key={i}>
-                                                        <div>
-                                                            <input type="checkbox" checked={true} className="ins-chk-bx" id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital = {hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id )}/><label htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}</label>
-                                                        </div>
-                                                        <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
-                                                    </li>
+                                                        return procedure.filter(x => x.is_selected).map((category, i) => {
 
-                                            })
+                                                            return <li key={i}>
+                                                                <label className="procedure-check ck-bx" htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}
+                                                                    <input type="checkbox" checked={true} id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital={hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id)} />
+                                                                    <span className="checkmark">
+                                                                    </span>
+                                                                </label>
+                                                                {/* <div>
+                                                                    <input type="checkbox" checked={true} className="ins-chk-bx" id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital={hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id)} /><label htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}</label>
+                                                                </div> */}
+                                                                <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                            </li>
 
-                                        }) 
-                                    }
-                                    {
-                                        this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures >1
-                                        ?this.state.vieMoreProcedures
-                                            ?<ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id = {this.state.selectedId} doctor_id = {id}  {...this.props} data = {this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} />
-                                            :this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures != this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures?<button className="pr-plus-add-btn" onClick={this.procedurePopUp.bind(this, hospital.hospital_id )}>
-                                            + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures} more
-                                            </button>:''
-                                        :''
-                                    }
-                                    </ul>
-                                </div>
-                            </div>
-                            :''
-                        }
+                                                        })
+
+                                                    })
+                                                }
+                                                {
+                                                    this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 1
+                                                        ? this.state.vieMoreProcedures
+                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id={this.state.selectedId} doctor_id={id}  {...this.props} data={this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} />
+                                                            : this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures != this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures ? <button className="pr-plus-add-btn" onClick={this.procedurePopUp.bind(this, hospital.hospital_id)}>
+                                                                + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures} more
+                                            </button> : ''
+                                                        : ''
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    : ''
+                            }
 
                         </div>
-                        
+
                     })
                 }
             </div>

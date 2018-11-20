@@ -72,7 +72,8 @@ export default class PopUpView extends React.Component {
 				<div className="cancel-overlay" onClick={this.props.toggle}></div>
 				<div className="widget cancel-appointment-div cancel-popup">
 					<div className="pop-top-heading">
-						All Treatment
+						Select Treatment(s)
+						<img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} />
                 </div>
 					<div className="widget-header action-screen-header pop-padding">
 						<p className="fw-500 cancel-appointment-head">{this.props.heading}</p>
@@ -87,11 +88,17 @@ export default class PopUpView extends React.Component {
 										category.procedures.map((procedure, i) => {
 
 											return <li key={`${i}_a`}>
-												<div>
+												<label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_`}>{procedure.procedure.name}
+													<input type="checkbox" checked={this.state.selectedProcedures.indexOf(procedure.procedure.id) == -1 ? false : true} id={`${procedure.procedure.id}_`} name="fruit-2" value=""
+														onChange={this.toggleData.bind(this, procedure)}/>
+													<span className="checkmark">
+													</span>
+												</label>
+												{/* <div>
 													<input type="checkbox" className="ins-chk-bx" checked={this.state.selectedProcedures.indexOf(procedure.procedure.id) == -1 ? false : true} id={`${procedure.procedure.id}_`} name="fruit-2" value=""
 														onChange={this.toggleData.bind(this, procedure)}
 													/><label htmlFor={`${procedure.procedure.id}_`}>{procedure.procedure.name}</label>
-												</div>
+												</div> */}
 												<p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
 											</li>
 
