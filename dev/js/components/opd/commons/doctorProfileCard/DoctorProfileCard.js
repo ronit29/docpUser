@@ -58,7 +58,7 @@ class DoctorProfileCard extends React.Component {
                     }
                     <p className="add-details">{expStr}</p>
                     {
-                        this.props.details.enabled_for_online_booking ? '' : <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn">Claim this profile</button>
+                        this.props.details.enabled_for_online_booking ? '' : <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button>
                     }
                 </div>
             </div>
