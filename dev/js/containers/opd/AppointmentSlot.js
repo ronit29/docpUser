@@ -32,7 +32,7 @@ class AppointmentSlot extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let DOCTORS = state.DOCTORS
+    let DOCTORS = state.DOCTOR_PROFILES
 
     let { selectedSlot, rescheduleSlot } = state.DOCTOR_SEARCH
 
