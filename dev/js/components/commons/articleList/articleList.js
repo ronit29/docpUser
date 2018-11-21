@@ -21,10 +21,6 @@ class ArticleList extends React.Component {
 		var title = this.props.match.url.toLowerCase();
 		title = title.substring(1, title.length)
 
-		let footerData = null
-		if (this.props.initialServerData) {
-			footerData = this.props.initialServerData.footerData
-		}
 
 		this.state = {
 			hasMore: true,
@@ -32,8 +28,7 @@ class ArticleList extends React.Component {
 			searchVal: '',
 			noArticleFound: false,
 			title: title,
-			buttonsVisible: true,
-			specialityFooterData: footerData
+			buttonsVisible: true
 		}
 	}
 
@@ -47,9 +42,6 @@ class ArticleList extends React.Component {
 			window.location.href = newHref;
 		}
 
-		this.props.getSpecialityFooterData((cb) => {
-			this.setState({ specialityFooterData: cb });
-		});
 	}
 
 	loadMore() {
@@ -149,7 +141,7 @@ class ArticleList extends React.Component {
 										</ul>
 									</div>
 									<div className="col-12">
-										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder="Search any Disease" onChange={(e) => this.changeVal(e)} onKeyUp={(e) => this.handleKeyUp(e)} />
+										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder={`Search any ${this.props.articleListData.category.split(' ')[0]}`} onChange={(e) => this.changeVal(e)} onKeyUp={(e) => this.handleKeyUp(e)} />
 										<button className="art-search-btn" onClick={() => this.searchArticle()}>
 											<img src={ASSETS_BASE_URL + "/images/search.svg"} />
 										</button>
@@ -231,7 +223,7 @@ class ArticleList extends React.Component {
 						<RightBar />
 					</div>
 				</section>
-				<Footer specialityFooterData={this.state.specialityFooterData} />
+				<Footer />
 			</div>
 		);
 	}
