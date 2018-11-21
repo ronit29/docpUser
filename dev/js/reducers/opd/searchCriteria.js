@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS , MERGE_SELECTED_CRITERIAS} from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -175,6 +175,14 @@ export default function (state = defaultState, action) {
             }
             newState.commonSelectedCriterias = [].concat(action.payload)
             return newState
+        }
+
+        case MERGE_SELECTED_CRITERIAS: {
+            let newState = {
+                ...state
+            }
+
+            newState.commonSelectedCriterias = []
         }
 
     }
