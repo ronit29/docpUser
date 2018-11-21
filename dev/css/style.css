@@ -675,10 +675,12 @@ p.top-head-link.card-lab-link span {
     text-align: center;
 	flex-direction: column;
 	width: 33.333%;
+	padding: 8px 0px;
 }
 
 .search-show .head-links span {
-    display: block;
+	display: block;
+	height: 40px;
 }
 
 @media screen and (max-width: 320px) {
