@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData } from '../../actions/index.js'
+import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests } from '../../actions/index.js'
 
-import HomeView from '../../components/commons/Home'
+import HomeChatView from '../../components/commons/Home/HomeChatView'
 import STORAGE from '../../helpers/storage'
 
 class Home extends React.Component {
@@ -12,15 +12,7 @@ class Home extends React.Component {
     }
 
     static loadData(store, match) {
-        return new Promise((resolve, reject) => {
-            getSpecialityFooterData((footerData) => {
-                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())]).then(() => {
-                    resolve({ footerData: (footerData || null) })
-                }).catch((e) => {
-                    reject()
-                })
-            })()
-        })
+        return Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())])
     }
 
     static contextTypes = {
@@ -41,21 +33,12 @@ class Home extends React.Component {
 
     render() {
         return (
-            <HomeView {...this.props} />
+            <HomeChatView {...this.props} />
         );
     }
 }
 
-const mapStateToProps = (state, passedProps) => {
-    /**
-     * initialServerData is server rendered async data required build html on server. 
-     */
-    let initialServerData = null
-    let { staticContext } = passedProps
-    if (staticContext && staticContext.data) {
-        initialServerData = staticContext.data
-    }
-
+const mapStateToProps = (state) => {
     let {
         profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info
     } = state.USER
@@ -75,7 +58,7 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || []
     }
 }
 
@@ -89,8 +72,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
         fetchArticles: () => dispatch(fetchArticles()),
         resetFilters: () => dispatch(resetFilters()),
-        clearExtraTests: () => dispatch(clearExtraTests()),
-        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb))
+        clearExtraTests: () => dispatch(clearExtraTests())
     }
 }
 

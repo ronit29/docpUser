@@ -6,6 +6,7 @@ import InitialsPicture from '../../commons/initialsPicture'
 import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
 import ChatStaticView from './ChatStaticView'
+import RelatedArticles from '../article/RelatedArticles'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -72,21 +73,21 @@ class ChatPanel extends React.Component {
                             if (eventData.data.agentType == 'Type 1') {
 
                                 analyticData = {
-                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L1DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l1-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
                             } else if (eventData.data.agentType == 'Type 2') {
 
                                 analyticData = {
-                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L2DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l2-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
                             } else if (eventData.data.agentType == 'Type 3') {
 
                                 analyticData = {
-                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId
+                                    'Category': 'Chat', 'Action': 'L3DoctorAssigned', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'l3-doctor-assigned', 'RoomId': eventData.data.rid, 'DoctorId': eventData.data.employeeId, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
@@ -127,7 +128,7 @@ class ChatPanel extends React.Component {
                             if (data.data.rid) {
                                 // save current room
                                 let analyticData = {
-                                    'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid
+                                    'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
 
@@ -140,7 +141,7 @@ class ChatPanel extends React.Component {
                         case "Login": {
                             if (data.data["params.token"]) {
                                 let analyticData = {
-                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat', 'RoomId': eventData.data.rid || ''
+                                    'Category': 'Chat', 'Action': 'UserRegisteredviaChat', 'CustomerID': '', 'leadid': 0, 'event': 'user-registered-via-chat', 'RoomId': eventData.data.rid || '', "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
                                 this.props.loginViaChat(data.data["params.token"])
@@ -158,7 +159,7 @@ class ChatPanel extends React.Component {
 
                         case "prescription_report": {
                             let analyticData = {
-                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated', 'RoomId': eventData.rid || ''
+                                'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated', 'RoomId': eventData.rid || '', "url": window.location.pathname
                             }
                             GTM.sendEvent({ data: analyticData })
                         }
@@ -273,7 +274,7 @@ class ChatPanel extends React.Component {
 
         return (
 
-            <div className={this.props.homePage ? "col-md-7 mb-4" : this.props.colClass ? "col-lg-4 col-md-5 mb-4" : "col-md-5 mb-4"}>
+            <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : "col-md-5 mb-3"}>
                 {
                     this.props.homePage || this.props.mobilechatview ? '' :
                         <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} /></div>
@@ -364,6 +365,17 @@ class ChatPanel extends React.Component {
                             Not for emergencies! In the case of emergency please visit a hospital. Chat is only applicable to Indian citizens currently residing in India.</span>
                     </div>
                 </div>
+
+                {
+                    this.props.articleData && this.props.articleData.linked.length ?
+                        <div className="related-articles-div">
+                            {
+                                this.props.articleData.linked.map((linkedArticle, i) => {
+                                    return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
+                                })
+                            }
+                        </div> : ""
+                }
 
             </div>
         );

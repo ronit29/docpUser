@@ -20,7 +20,8 @@ class SearchResultsView extends React.Component {
         this.state = {
             seoData, footerData,
             seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
-            showError: false
+            showError: false,
+            showChatWithus: false
         }
     }
 
@@ -38,6 +39,8 @@ class SearchResultsView extends React.Component {
                 }
             })
         }
+
+        this.setState({ showChatWithus: true })
     }
 
     componentWillReceiveProps(props) {
@@ -184,6 +187,19 @@ class SearchResultsView extends React.Component {
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
                         </div>
                         */}
+                            {
+                                this.state.showChatWithus ? <div className="container-fluid d-md-none">
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div className="mrt-10 mrb-10 article-chat-div">
+                                                <p className="fw-500">Need help with booking?</p>
+                                                <button onClick={() => this.props.history.push('/mobileviewchat?BasicEnquiry=medical%20test%20appointment')} >Chat with us</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> : ""
+                            }
+
                             <LabsList {...this.props} getLabList={this.getLabList.bind(this)} />
                         </div>
                     }

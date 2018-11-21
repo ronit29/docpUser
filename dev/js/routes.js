@@ -17,6 +17,7 @@ import UserSignup from './containers/commons/UserSignup'
 import UserLogin from './containers/commons/UserLogin'
 import Notifications from './containers/commons/Notifications'
 import Home from './containers/commons/Home'
+import HomeChat from './containers/commons/HomeChat'
 import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
 import Article from './containers/commons/article'
@@ -47,7 +48,7 @@ import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 const routes = [
 
     { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
-    { path: '/online-consultation', exact: true, component: Home, RENDER_ON_SERVER: true },
+    { path: '/online-consultation', exact: true, component: HomeChat, RENDER_ON_SERVER: true },
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
     { path: '/chathistory', exact: true, component: ChatHistory },

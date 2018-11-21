@@ -8,7 +8,7 @@ import ChoosePatientNewView from './choosePatientNew'
 const queryString = require('query-string');
 import SelectedClinic from '../commons/selectedClinic/index.js'
 
-
+import STORAGE from '../../../helpers/storage'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -41,6 +41,11 @@ class PatientDetailsNew extends React.Component {
     }
 
     componentDidMount() {
+
+        if (!STORAGE.checkAuth()) {
+            return
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -69,8 +74,23 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode, doctorCoupons[0].couponId, this.state.selectedDoctor, deal_price)
             }
         } else {
-            this.props.resetOpdCoupons()
+            //auto apply coupon if no coupon is apllied
+            if (this.state.selectedDoctor, this.props.selectedSlot.time.deal_price) {
+                this.props.getCoupons(1, this.props.selectedSlot.time.deal_price, (coupons) => {
+                    if (coupons && coupons[0]) {
+                        this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                        this.props.applyCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor)
+                        this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
+                    } else {
+                        this.props.resetOpdCoupons()
+                    }
+                })
+            } else {
+                this.props.resetOpdCoupons()
+            }
         }
+
+
     }
 
     proceed(datePicked, e) {

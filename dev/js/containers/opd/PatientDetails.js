@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons } from '../../actions/index.js'
+import { getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -64,9 +64,11 @@ const mapDispatchToProps = (dispatch) => {
         getDoctorById: (doctorId, hospitalId, procedure_ids) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
-        removeCoupons: (hospitalId, couponId ) => dispatch(removeCoupons(hospitalId, couponId )),
+        removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
         applyOpdCoupons: (productId, couponCode, couponId, hospitalId, dealPrice) => dispatch(applyOpdCoupons(productId, couponCode, couponId, hospitalId, dealPrice)),
-        resetOpdCoupons: () => dispatch(resetOpdCoupons())
+        applyCoupons: (productId, couponCode, couponId, hospitalId) => dispatch(applyCoupons(productId, couponCode, couponId, hospitalId)),
+        resetOpdCoupons: () => dispatch(resetOpdCoupons()),
+        getCoupons: (productId, deal_price, cb) => dispatch(getCoupons(productId, deal_price, cb))
     }
 }
 

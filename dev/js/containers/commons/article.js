@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -17,7 +17,9 @@ class Article extends React.Component {
                 articleId = articleId.toLowerCase().substring(1, articleId.length)
                 fetchArticle(articleId, false, (err, data) => {
                     if (!err) {
-                        resolve(data)
+                        getSpecialityFooterData((footerData) => {
+                            resolve({ footerData: (footerData || null), articleData: data })
+                        })()
                     } else {
                         resolve(null)
                     }
@@ -57,7 +59,8 @@ const mapStateToProps = (state, passedProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb))
+        fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb)),
+        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb))
     }
 }
 

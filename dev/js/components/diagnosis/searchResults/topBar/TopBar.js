@@ -4,6 +4,7 @@ import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
+import GTM from '../../../../helpers/gtm'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -55,6 +56,10 @@ class TopBar extends React.Component {
             distanceRange: this.state.distanceRange,
             sort_on: this.state.sort_on
         }
+        let data = {
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
         this.setState({ openFilter: false })
     }
@@ -188,7 +193,7 @@ class TopBar extends React.Component {
 
                                             {
                                                 this.state.showLocationPopup && false ? ''
-                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` near ${locationName}`}</span> : ''
                                             }
                                             <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                         </span>

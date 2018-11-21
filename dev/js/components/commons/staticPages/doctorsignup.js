@@ -12,15 +12,20 @@ class Doctorsignup extends React.Component {
 			member_type: "",
 			cityDropdownVisible: false,
 			city_name: "",
-			utm_params:props.utm_tags||{},
-			source:'Consumer'
+			utm_params: props.utm_tags || {},
+			source: 'Consumer',
+			showSuccessBox: false
 		}
 	}
 
-	componentWillReceiveProps(props){
-		if(this.state.utm_params != props.utm_tags){
-			this.setState({utm_params:props.utm_tags})
+	componentWillReceiveProps(props) {
+		if (this.state.utm_params != props.utm_tags) {
+			this.setState({ utm_params: props.utm_tags })
 		}
+	}
+
+	componentDidMount() {
+		this.setState({ showSuccessBox: false });
 	}
 
 	changeHandler = (event, key) => {
@@ -56,7 +61,8 @@ class Doctorsignup extends React.Component {
 				email: "",
 				city: "",
 				member_type: "",
-				city_name: ""
+				city_name: "",
+				showSuccessBox: true
 			});
 			SnackBar.show({ pos: 'bottom-center', text: "Sign Up was successful." });
 		});
@@ -66,9 +72,20 @@ class Doctorsignup extends React.Component {
 		return (
 			<div className="container about-container">
 				<div className="row">
-					<div className="col-12 text-center">
+					{/* <div className="col-12 text-center">
 						<p className="fw-500 about-heading">Sign Up</p>
-					</div>
+					</div> */}
+					{
+						this.state.showSuccessBox ?
+							<div className="col-12">
+								<div className="submit-alert alert-success" role="alert">
+									<strong>Thank you </strong>for choosing <a href="/" onClick={(e) => {
+										e.preventDefault();
+										this.props.history.push('/')
+									}}>docprime.com</a>. Our team will get in touch with you shortly.
+								</div>
+							</div> : ''
+					}
 					<div className="col-12 dsp-main-info-div">
 						<div className="dsp-phone-img-div">
 							<img src="https://cdn.docprime.com/static/web/images/phone_doc.c1fe8649711f.png" className="dsp-phone-img" />

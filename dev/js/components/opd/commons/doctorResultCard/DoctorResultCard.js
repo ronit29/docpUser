@@ -62,19 +62,15 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
-    toggle(which, fetchResults = false, procedure_ids = []) {
+    claimButtonClick(e) {
+        e.stopPropagation();
 
-        this.setState({ [which]: !this.state[which] })
-        if (fetchResults) {
-            if (procedure_ids.length) {
-                this.props.saveCommonProcedures(procedure_ids)
-                this.props.mergeOPDState('')
-                this.props.resetProcedureURl()
-            } else {
-
-            }
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ClaimButtomClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'claim-buttom-clicked', 'selectedId': this.props.details.id
         }
+        GTM.sendEvent({ data: data })
 
+        this.props.history.push('/doctorsignup');
     }
 
     render() {
@@ -144,7 +140,7 @@ class DoctorProfileCard extends React.Component {
                     <div className="fltr-crd-top-container">
                         <div className="fltr-lctn-dtls">
                             <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                <span className="fltr-loc-txt">{hospital.short_address}</span> | <span>{Distance} Km</span></p>
+                                <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span></p>
                         </div>
                         <div className="row no-gutters">
                             <div className="col-8">
@@ -161,9 +157,10 @@ class DoctorProfileCard extends React.Component {
                                     {
                                         experience_years ? <p >{experience_years} Years of Experience</p> : ""
                                     }
-
                                 </div>
-
+                                {
+                                    enabled_for_online_booking ? '' : <button onClick={(e) => this.claimButtonClick(e)} className="fltr-bkng-btn claim-btn">Claim this profile</button>
+                                }
                             </div>
                             <div className="col-4">
                                 <div className="fltr-bkng-section">

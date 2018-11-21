@@ -391,13 +391,21 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 	})
 }
 
-export const getCoupons = (productId = '') => (dispatch) => {
-	API_GET(`/api/v1/coupon/applicablecoupons?product_id=${productId}`).then(function (response) {
+export const getCoupons = (productId = '', deal_price = 0, cb) => (dispatch) => {
+	let url = `/api/v1/coupon/applicablecoupons?product_id=${productId}`
+	if (deal_price) {
+		url += `&deal_price=${deal_price}`
+	}
+
+	API_GET(url).then(function (response) {
 
 		dispatch({
 			type: GET_APPLICABLE_COUPONS,
 			payload: response
 		})
+		if (cb) {
+			cb(response)
+		}
 	})
 }
 

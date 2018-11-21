@@ -7,6 +7,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 import Loader from '../../commons/Loader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
+import Footer from '../Home/footer'
 
 class ArticleList extends React.Component {
 	constructor(props) {
@@ -20,12 +21,19 @@ class ArticleList extends React.Component {
 		var title = this.props.match.url.toLowerCase();
 		title = title.substring(1, title.length)
 
+		let footerData = null
+		if (this.props.initialServerData) {
+			footerData = this.props.initialServerData.footerData
+		}
+
 		this.state = {
 			hasMore: true,
 			page: page,
 			searchVal: '',
 			noArticleFound: false,
-			title: title
+			title: title,
+			buttonsVisible: true,
+			specialityFooterData: footerData
 		}
 	}
 
@@ -38,6 +46,10 @@ class ArticleList extends React.Component {
 			var newHref = window.location.href.replace('?page=1', '');
 			window.location.href = newHref;
 		}
+
+		this.props.getSpecialityFooterData((cb) => {
+			this.setState({ specialityFooterData: cb });
+		});
 	}
 
 	loadMore() {
@@ -76,6 +88,17 @@ class ArticleList extends React.Component {
 					noArticleFound: false
 				});
 			}
+
+			if (this.state.searchVal) {
+				this.setState({
+					buttonsVisible: false
+				});
+			}
+			else {
+				this.setState({
+					buttonsVisible: true
+				});
+			}
 		});
 	}
 
@@ -91,7 +114,7 @@ class ArticleList extends React.Component {
 		currentPage.push(<div className="art-pagination-btn">
 			<span className="fw-500" style={{ color: '#000' }}>{pageNo}</span>
 		</div>)
-		
+
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -162,15 +185,7 @@ class ArticleList extends React.Component {
 													}
 												</InfiniteScroll>
 												{
-													this.state.hasMore ?
-														<div>
-															<a href={`${CONFIG.API_BASE_URL}/${this.state.title}?page=${this.state.page}`} className="btn btn-info" style={{ display: 'block', width: 120, margin: '10px auto' }}>Load More</a>
-														</div>
-														: ''
-												}
-
-												{
-													this.props.articleList.length && !this.state.noArticleFound ?
+													this.props.articleList.length && !this.state.noArticleFound && this.state.buttonsVisible ?
 														<div className="col-12">
 															{
 																pageNo == 1 ?
@@ -216,10 +231,10 @@ class ArticleList extends React.Component {
 						<RightBar />
 					</div>
 				</section>
+				<Footer specialityFooterData={this.state.specialityFooterData} />
 			</div>
 		);
 	}
 }
-
 
 export default ArticleList

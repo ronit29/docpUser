@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ArticleListView from '../../components/commons/articleList'
-import { getArticleList } from '../../actions/index.js'
+import { getArticleList, getSpecialityFooterData } from '../../actions/index.js'
 const queryString = require('query-string');
 
 
@@ -22,7 +22,15 @@ class ArticleList extends React.Component {
         } else {
             query = 1
         }
-        return store.dispatch(getArticleList(title, query))
+        return new Promise((resolve, reject) => {
+            Promise.all([store.dispatch(getArticleList(title, query))]).then(() => {
+                getSpecialityFooterData((footerData) => {
+                    resolve({ footerData: (footerData || null) })
+                })()
+            }).catch((e) => {
+                reject()
+            })
+        })
     }
 
     static contextTypes = {
@@ -36,7 +44,16 @@ class ArticleList extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps) => {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    let initialServerData = null
+    let { staticContext } = passedProps
+    if (staticContext && staticContext.data) {
+        initialServerData = staticContext.data
+    }
+
     let {
         articleList,
         articleListData,
@@ -49,13 +66,15 @@ const mapStateToProps = (state) => {
         articleListData,
         ARTICLE_LOADED,
         pageButtonCount,
-        articlePageCount
+        articlePageCount,
+        initialServerData
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticleList: (title, page, replaceList, searchString, callback) => dispatch(getArticleList(title, page, replaceList, searchString, callback))
+        getArticleList: (title, page, replaceList, searchString, callback) => dispatch(getArticleList(title, page, replaceList, searchString, callback)),
+        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb))
     }
 }
 

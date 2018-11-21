@@ -62,8 +62,9 @@ class Footer extends React.Component {
                     </div>
                 </div> */}
 
-
-                <div className="container-fluid footer-2">
+                {
+                    menu.length>0?
+                    <div className="container-fluid footer-2">
                     <div className="container">
                         {
                             menu.map((f, i) => {
@@ -83,43 +84,37 @@ class Footer extends React.Component {
                         }
                     </div>
                 </div>
+                    :''
+                }
+                
 
-
-                <div className="footer-3 updated-footer-container">
-                    <div className="row no-gutters foot-row-alignment">
-                        <div className="col-md-2">
-                            <div className="footer-links pl-0 foot-with-img">
-                                <a href="javascript:;">
-                                    <div className="logo-img-div">
-                                        <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
-                                    </div>
-                                </a>
-                                {/* <div className="copyright-info">
-                                    <p>docprime.com Copyright &copy; 2018.</p>
-                                    <p>All rights reserved.</p>
-                                    <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
-                                    <p>CIN : U74999HR2016PTC064312</p>
-                                </div> */}
-                                <div className="row social-icons-row">
-                                    <div className="social-icon">
-                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
-                                    </div>
-                                </div>
+                {
+                    this.props.specialityFooterData && this.props.specialityFooterData.length ?
+                        <div className="container mrt-10">
+                            <div className="row">
+                                {
+                                    this.props.specialityFooterData.map((footerData, i) => {
+                                        return <div className="col-12 col-md-3" style={{ marginBottom: 15, paddingTop: 10 }} key={i}>
+                                            <h3 className="speciality-footer-head">{footerData.title}</h3>
+                                            <ul className="speciality-footer-list">
+                                                {
+                                                    footerData.urls.map((url, i) => {
+                                                        return <li key={i}>
+                                                            <a href={url.url}>{url.title}</a>
+                                                        </li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    })
+                                }
                             </div>
-                        </div>
-                        <div className="col-md-2">
+                        </div> : ''
+                }
+
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-3 col-12">
                             <div className="footer-links">
                                 <h3>docprime</h3>
                                 <ul>
@@ -158,7 +153,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-3 col-12">
                             <div className="footer-links">
                                 <h3>For Patients</h3>
                                 <ul>
@@ -175,7 +170,11 @@ class Footer extends React.Component {
                                         this.navigateTo("/mobileviewchat")
                                     }}>Consult a doctor</a></li>
                                 </ul>
-                                <h3 className="foot-sub-lisitng">For Doctors</h3>
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-12">
+                            <div className="footer-links">
+                                <h3>For Doctors</h3>
                                 <ul>
                                     <li><a href="/doctorsignup" onClick={(e) => {
                                         e.preventDefault();
@@ -192,7 +191,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-3 col-12">
                             <div className="footer-links">
                                 <h3>Labs in Top Cities</h3>
                                 <ul>
@@ -209,7 +208,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-3 col-12">
                             <div className="footer-links">
                                 <h3>Doctors in Top Cities</h3>
                                 <ul>
@@ -226,7 +225,7 @@ class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-2 footer-last-div">
+                        <div className="col-md-3 col-12">
                             <div className="footer-links">
                                 <h3>Useful Resources</h3>
                                 <ul>
@@ -253,15 +252,42 @@ class Footer extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 text-center mbl-divider">
-                        <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
-
-                    </div>
-                    <div className="footer-new-copyrght">
-                        <p>docprime.com Copyright &copy; 2018.</p>
-                        <p>All rights reserved.</p>
-                        <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
-                        <p>CIN : U74999HR2016PTC064312</p>
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="mrt-10">
+                                <a href="javascript:;">
+                                    <div className="logo-img-div">
+                                        <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
+                                    </div>
+                                </a>
+                                <div className="social-icons-row mrt-20">
+                                    <div className="social-icon">
+                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-12 text-center">
+                            <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
+                        </div>
+                        <div className="col-12 footer-new-copyrght" style={{paddingBottom: 5}} >
+                            <p>docprime.com Copyright &copy; 2018.</p>
+                            <p>All rights reserved.</p>
+                            <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
+                            <p>CIN : U74999HR2016PTC064312</p>
+                        </div>
                     </div>
                 </div>
 

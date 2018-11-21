@@ -245,8 +245,8 @@ export const updateOPDAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
-export const getDoctorNumber = (doctorId, callback) => (dispatch) => {
-	API_GET(`/api/v1/doctor/contact-number/${doctorId}`).then(function (response) {
+export const getDoctorNumber = (doctorId, hospital_id, callback) => (dispatch) => {
+	API_GET(`/api/v1/doctor/contact-number/${doctorId}?hospital_id=${hospital_id}`).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
 		callback(error, null)
@@ -298,5 +298,12 @@ export const toggleProfileProcedures = (procedure=[], doctor_id, hospital_id) =>
 		procedure: procedure,
 		doctor_id: doctor_id,
 		hospital_id: hospital_id
+	})
+}
+export const getSpecialityFooterData = (cb) => (dispatch) => {
+	return API_GET(`api/v1/location/static-speciality-footer`).then(function (response) {
+		return cb(response)
+	}).catch(function (error) {
+
 	})
 }

@@ -19,8 +19,12 @@ const GENDER = {
 class HomeView extends React.Component {
     constructor(props) {
         super(props);
+        let footerData = null
+        if (this.props.initialServerData) {
+            footerData = this.props.initialServerData.footerData
+        }
         this.state = {
-
+            specialityFooterData: footerData
         }
     }
 
@@ -28,6 +32,10 @@ class HomeView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        this.props.getSpecialityFooterData((cb) => {
+            this.setState({ specialityFooterData: cb });
+        });
     }
 
     navigateTo(where, data, e) {
@@ -297,11 +305,12 @@ class HomeView extends React.Component {
                             {slabOrder}
                         </div>
                     </div>
+                    <Accordian />
                 </div>
 
-                <Accordian />
+                
 
-                <Footer />
+                <Footer specialityFooterData={this.state.specialityFooterData} />
 
             </div>
         );
