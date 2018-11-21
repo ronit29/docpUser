@@ -30,19 +30,19 @@ class DoctorProfileCard extends React.Component {
 
         } else {
             e.preventDefault();
-            let category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
+            let category_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
             let procedure_ids = this.props.commonProcedurers.map(x => x.id)
 
             if (url) {
-                if(category_ids.length || procedure_ids.length){
+                if (category_ids.length || procedure_ids.length) {
                     this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true`)
-                }else{
+                } else {
                     this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
                 }
             } else {
-                if(category_ids.length || procedure_ids.length){
+                if (category_ids.length || procedure_ids.length) {
                     this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true`)
-                }else{
+                } else {
                     this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
                 }
             }
@@ -62,7 +62,7 @@ class DoctorProfileCard extends React.Component {
         }, "")
     }
 
-    toggle(which, fetchResults=false, procedure_ids=[]) {
+    toggle(which, fetchResults = false, procedure_ids = []) {
 
         this.setState({ [which]: !this.state[which] })
         if (fetchResults) {
@@ -189,7 +189,12 @@ class DoctorProfileCard extends React.Component {
                         {
                             hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
                                 <div className="procedure-checkboxes">
-                                    <h4>Treatment in <span>{hospitals[0].procedure_categories.map(x => x.name).join('|')} </span></h4>
+                                    <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                        <div className="clearfix">
+                                            <span className="test-price txt-ornage">₹ 0<span className="test-mrp">₹ 0</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                        </div>
+                                    </div>
+                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) in <span>{hospitals[0].procedure_categories.map(x => x.name).join('|')} </span></h4>
                                     <div className="insurance-checkboxes">
                                         <ul className="procedure-list">
                                             {
@@ -199,9 +204,15 @@ class DoctorProfileCard extends React.Component {
                                                     return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
 
                                                         return <li key={i}>
-                                                            <div>
-                                                                <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} /><label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
-                                                            </div>
+                                                            <label className="procedure-check ck-bx" htmlFor={procedure.procedure.id}>{procedure.procedure.name}
+                                                                <input type="checkbox" checked={true} className="proce-input" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
+                                                                <span className="checkmark">
+                                                                </span>
+                                                            </label>
+                                                            {/* <div>
+                                                                <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
+                                                                <label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                            </div> */}
                                                             <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                         </li>
 

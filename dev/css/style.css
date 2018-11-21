@@ -2866,7 +2866,7 @@ ul.list-sub-menu a:hover {
 }
 /* procedure style */
 .insurance-checkboxes input[type=checkbox] + label {
-	display: block;
+	display: flex;
 	margin: 0.2em;
 	cursor: pointer;
 	padding: 0.2em;
@@ -2922,7 +2922,7 @@ ul.list-sub-menu a:hover {
     justify-content: space-between;
 }
 .pr-prices{
-    width: 100px;
+    width: 115px;
     font-weight: 500;
     text-align: right;
 }
@@ -2939,19 +2939,20 @@ ul.list-sub-menu a:hover {
 	cursor: pointer;
 }
 .procedure-checkboxes{
-	margin-top: 20px;
-    background: #f6f6f6;
+	margin-top: 10px;
+    background: rgba(246, 246, 246, .50);
     padding: 5px;
     border-radius: 4px;
 }
 .procedure-checkboxes h4{
 	font-weight: 500;
-	font-size: 14px;
-	margin-bottom: 5px;
+    font-size: 17px;
+    margin-bottom: 15px;
 }
 .procedure-checkboxes h4 span{
-	color: #e58950;
+	color: #000000;
     display: inline-flex;
+    font-weight: 600;
     align-items: center;
 }
 .procedure-checkboxes h4 span img{
@@ -2988,9 +2989,7 @@ ul.list-sub-menu a:hover {
 .conslt-fee-card p span.pr-prices{
 	color: #e58750;
 }
-.pr-address-card{
 
-}
 .pr-addrs-card-pc{
 	display: flex;
 	margin-bottom: 5px;
@@ -3000,11 +2999,9 @@ ul.list-sub-menu a:hover {
     margin-right: 10px;
     font-weight: 500;
 }
-.pr-addrs-card-pc p{
-	
-}
+
 .procedure-checkboxes{
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .procedure-checkboxes img{
 	margin-left: 8px;
@@ -3168,10 +3165,25 @@ span.ad-sub-content {
 	text-align: center;
     font-size: 16px;
     font-weight: 500;
-    margin-bottom: 15px;
+	margin-bottom: 15px;
+	position: relative;
+}
+.pop-top-heading img {
+    width: 13px;
+    top: 5px;
+    position: absolute;
+	right: 4px;
+	cursor: pointer;
+}
+.cnslt-fee-style{
+	margin-bottom: 15px;
+}
+.cnslt-fee-style .txt-ornage{
+	color: #000;
 }
 .pop-underline{
 	border-bottom:1px solid rgba(0, 0, 0, 0.06);
+	margin-top: 15px;
 }
 .pop-underline:last-child{
 	border-bottom:1px solid transparent;
@@ -3180,3 +3192,27 @@ span.ad-sub-content {
 	padding-left: 20px;
     margin-top: 10px;
 }
+
+/* procedure update *//* procedure update */
+label.procedure-check.ck-bx{
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-weight: 500;
+}
+label.procedure-check.ck-bx.ck-bx input:checked ~ .checkmark {
+    background-color: #f78631;
+    border-color: transparent;
+}
+label.procedure-check.ck-bx .checkmark:after{
+	left: 7px;
+    top: 3px;
+}
+label.procedure-check.ck-bx .checkmark  { 
+background-color: #fff;
+border-radius: 4px;
+border: 1px solid #aaaa;
+}
+.procedure-out-heading-font{
+	font-size: 14px !important
+}
+/* procedure update *//* procedure update */

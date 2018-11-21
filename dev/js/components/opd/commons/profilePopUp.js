@@ -85,7 +85,8 @@ export default class PopUpView extends React.Component {
                 <div className="cancel-overlay" onClick={this.props.toggle}></div>
                 <div className="widget cancel-appointment-div cancel-popup">
                     <div className="pop-top-heading">
-                        All Treatment
+                        Select Treatment(s)
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} />
                 </div>
                     {
                         Object.values(this.props.data).map((category, i) => {
