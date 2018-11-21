@@ -87,6 +87,10 @@ class DesktopProfileHeader extends React.Component {
                             {/* <p className="d-none d-md-inline-block d-lg-inline-block lgo-text">Family Doctor <span>for Life</span></p> */}
                         </div>
                         <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
+                            <div className="head-links">
+                                <img style={{width: '17px'}} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} />
+                                <span>Book a Dental Treatment</span>
+                            </div>
                             <div className="head-links" onClick={() => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
@@ -188,7 +192,9 @@ class DesktopProfileHeader extends React.Component {
                                 {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
                         </div>
+
                     </div>
+
                     {
                         this.state.headerButtonsState ? <div className="search-show d-lg-none">
                             <div className="head-links" onClick={() => {
@@ -198,7 +204,7 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
+                                <div className="mbl-view-drop-img"><img src={ASSETS_BASE_URL + "/images/doc.svg"} /></div>
                                 <span>Book to Visit a Doctor</span>
                             </div>
                             <div className="head-links" onClick={() => {
@@ -208,8 +214,12 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
+                                <div className="mbl-view-drop-img"><img src={ASSETS_BASE_URL + "/images/flask.svg"} /></div>
                                 <span>Book Medical Test</span>
+                            </div>
+                            <div className="head-links">
+                                <div className="mbl-view-drop-img"><img style={{width: '17px'}} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} /></div>
+                                <span>Book a Dental Treatment</span>
                             </div>
                         </div> : ""
                     }
