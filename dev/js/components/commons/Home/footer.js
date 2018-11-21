@@ -4,6 +4,13 @@ import { withRouter } from 'react-router'
 class Footer extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            hideSource: false
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ hideSource: true })
     }
 
     navigateTo(where) {
@@ -178,20 +185,22 @@ class Footer extends React.Component {
                         <div className="col-md-2 col-12">
                             <div className="footer-links">
                                 <h3>For Patients</h3>
-                                <ul>
-                                    <li><a href="/opd" onClick={(e) => {
-                                        e.preventDefault();
-                                        this.navigateTo("/opd")
-                                    }}>Book Doctor Appointment</a></li>
-                                    <li><a href="/lab" onClick={(e) => {
-                                        e.preventDefault();
-                                        this.navigateTo("/lab")
-                                    }}>Book a Medical Test</a></li>
-                                    <li><a href="/mobileviewchat" onClick={(e) => {
-                                        e.preventDefault();
-                                        this.navigateTo("/mobileviewchat")
-                                    }}>Consult a doctor</a></li>
-                                </ul>
+                                {
+                                    this.state.hideSource ? <ul>
+                                        <li><a href="/opd" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo("/opd")
+                                        }}>Book Doctor Appointment</a></li>
+                                        <li><a href="/lab" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo("/lab")
+                                        }}>Book a Medical Test</a></li>
+                                        <li><a href="/mobileviewchat" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo("/mobileviewchat")
+                                        }}>Consult a doctor</a></li>
+                                    </ul> : ""
+                                }
                                 <h3 className="foot-sub-lisitng">For Doctors</h3>
                                 <ul>
                                     <li><a href="/doctorsignup" onClick={(e) => {
