@@ -39,7 +39,7 @@ class PatientDetails extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let DOCTORS = state.DOCTORS
+    let DOCTORS = state.DOCTOR_PROFILES
     const { selectedProfile, profiles } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, selectedDoctorProcedure } = state.DOCTOR_SEARCH
 

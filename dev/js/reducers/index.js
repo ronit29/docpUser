@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import SEARCH_CRITERIA_OPD from './opd/searchCriteria.js'
 import SEARCH_CRITERIA_LABS from './diagnosis/searchCriteria.js'
 import DOCTORS from './opd/doctors.js'
+import DOCTOR_PROFILES from './opd/doctorProfiles.js'
 import DOCTOR_SEARCH from './opd/doctorSearch.js'
 import LABS from './diagnosis/labs.js'
 import LAB_SEARCH from './diagnosis/labsSearch.js'
@@ -57,7 +58,8 @@ const allReducers = combineReducers({
     LAB_SEARCH: persistReducer(LAB_LIST_PRESIST, LAB_SEARCH),
     USER: persistReducer(USER_PERSIST, USER),
     AUTH,
-    SITE_MAP
+    SITE_MAP,
+    DOCTOR_PROFILES
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers)

@@ -25,7 +25,7 @@ class DoctorProfile extends React.Component {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctorByUrl(url, hospital_id,'' ,'',(doctor_id, url) => {
+                store.dispatch(getDoctorByUrl(url, hospital_id, '', '', (doctor_id, url) => {
                     if (doctor_id) {
                         if (match.url.includes('-dpp')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
@@ -55,57 +55,57 @@ class DoctorProfile extends React.Component {
         const parsed = queryString.parse(window.location.search)
         let hospital_id = ''
         let is_procedure = false
-        if(parsed){
+        if (parsed) {
             hospital_id = parsed.hospital_id || ''
             is_procedure = parsed.is_procedure || false
         }
 
         let category_ids = []
         let procedure_ids = []
-        if(is_procedure){
-            category_ids = this.props.selectedCriterias.filter(x => x.type=='procedures_category').map(x => x.id)
+        if (is_procedure) {
+            category_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
             procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
-            
-            if(this.props.commonProcedurers.length){
+
+            if (this.props.commonProcedurers.length) {
 
                 let pids = this.props.commonProcedurers.filter((x) => {
-                    if(procedure_ids.indexOf(x.id) == -1){
+                    if (procedure_ids.indexOf(x.id) == -1) {
                         return true
                     }
                     return false
                 }).map(x => x.id)
 
 
-               // let pids = this.props.commonProcedurers.map(x=>x.id)
-                procedure_ids =  procedure_ids.concat(pids)
+                // let pids = this.props.commonProcedurers.map(x=>x.id)
+                procedure_ids = procedure_ids.concat(pids)
             }
-             if(this.props.profileCommonProcedures.length){
+            if (this.props.profileCommonProcedures.length) {
 
                 let pids = this.props.profileCommonProcedures.filter((x) => {
-                    if(procedure_ids.indexOf(x.id) == -1){
+                    if (procedure_ids.indexOf(x.id) == -1) {
                         return true
                     }
                     return false
                 }).map(x => x.id)
 
 
-               // let pids = this.props.commonProcedurers.map(x=>x.id)
-                procedure_ids =  procedure_ids.concat(pids)
+                // let pids = this.props.commonProcedurers.map(x=>x.id)
+                procedure_ids = procedure_ids.concat(pids)
             }
 
         }
 
         if (this.props.match.params.id) {
             this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-            this.setState({hospital_id: hospital_id, is_procedure: is_procedure})
+            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         } else {
             let url = this.props.match.url
             if (url) {
                 url = url.split("/")[1]
             }
-            this.props.getDoctorByUrl(url, hospital_id,procedure_ids, category_ids, (doctor_id) => {
+            this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
                 if (doctor_id) {
-                    this.setState({ selectedDoctor: doctor_id , hospital_id: hospital_id, is_procedure: is_procedure})
+                    this.setState({ selectedDoctor: doctor_id, hospital_id: hospital_id, is_procedure: is_procedure })
                 }
             })
         }
@@ -115,7 +115,7 @@ class DoctorProfile extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
     }
 
-    componentWillReceiveProps(props){
+    componentWillReceiveProps(props) {
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             if (window) {
                 window.scrollTo(0, 0)
@@ -126,7 +126,7 @@ class DoctorProfile extends React.Component {
     render() {
 
         return (
-            <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} is_procedure = {this.state.is_procedure}/>
+            <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} is_procedure={this.state.is_procedure} />
         );
     }
 }
@@ -141,7 +141,7 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData = staticContext.data
     }
 
-    let DOCTORS = state.DOCTORS
+    let DOCTORS = state.DOCTOR_PROFILES
     let { rated_appoinments, profiles, selectedProfile } = state.USER
 
     const {
@@ -162,7 +162,7 @@ const mapStateToProps = (state, passedProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorByUrl: (doctr_url, hospitalId, procedure_ids, category_ids, cb) => dispatch(getDoctorByUrl(doctr_url, hospitalId, procedure_ids, category_ids ,cb)),
+        getDoctorByUrl: (doctr_url, hospitalId, procedure_ids, category_ids, cb) => dispatch(getDoctorByUrl(doctr_url, hospitalId, procedure_ids, category_ids, cb)),
         getDoctorById: (doctorId, hospitalId, procedure_ids, category_ids) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
