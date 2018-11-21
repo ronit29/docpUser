@@ -73,7 +73,7 @@ export default class PopUpView extends React.Component {
 					<div className="widget-header action-screen-header pop-padding">
 						<p className="fw-500 cancel-appointment-head">{this.props.heading}</p>
 					</div>
-					<div className="terms-condition-div">
+					<div className="terms-condition-div onscreen-scroll">
 						{
 							this.props.data.procedure_categories.map((category, key) => {
 

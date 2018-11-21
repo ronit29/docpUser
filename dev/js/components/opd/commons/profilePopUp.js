@@ -101,7 +101,7 @@ export default class PopUpView extends React.Component {
                                     
                                 </div>
                                 <div>
-                                    <div className="terms-condition-div">
+                                    <div className="terms-condition-div onscreen-scroll">
                                         <ul className="procedure-list">
                                         {
                                           category.map((procedure, key) => { 
