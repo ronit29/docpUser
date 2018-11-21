@@ -24,7 +24,8 @@ const defaultState = {
     procedure_categories: [],
     selectedCriteriaType: '',
     commonProcedurers: [],
-    getNewUrl: false
+    getNewUrl: false,
+    commonProcedureCategories: []
 }
 
 export default function (state = defaultState, action) {
@@ -143,7 +144,8 @@ export default function (state = defaultState, action) {
         case SAVE_COMMON_PROCEDURES: {
             let newState = {
                 ...state,
-                commonProcedurers: [].concat(state.commonProcedurers)
+                commonProcedurers: [].concat(state.commonProcedurers),
+                commonProcedureCategories: [].concat(state.commonProcedureCategories)
             }
             if (action.forceAdd) {
                 newState.commonProcedurers = []
@@ -159,6 +161,10 @@ export default function (state = defaultState, action) {
                     } else {
                         newState.commonProcedurers = newState.commonProcedurers.filter(x => x != x.id)
                     }
+                })
+
+                action.category_ids.map((category) => {
+                    newState.commonProcedureCategories.push(category)
                 })
             }
             return newState

@@ -89,6 +89,7 @@ export const saveCommonProcedures = (procedure_ids=[]) => (dispatch) => {
     dispatch({
         type: SAVE_COMMON_PROCEDURES,
         payload: procedure_ids,
+        category_ids:[],
         forceAdd: true
     })
 }

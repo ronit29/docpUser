@@ -111,6 +111,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			dispatch({
 				type: SAVE_COMMON_PROCEDURES,
 				payload: procedures,
+				category_ids: procedure_category,
 				forceAdd: false
 			})
 		}
