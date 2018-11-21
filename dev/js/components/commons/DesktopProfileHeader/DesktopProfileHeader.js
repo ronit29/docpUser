@@ -95,7 +95,7 @@ class DesktopProfileHeader extends React.Component {
                                 this.props.history.push('/opd')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
-                                <span>Book to Visit a Doctor</span>
+                                <span>Book Doctor</span>
                             </div>
                             <div className="head-links" onClick={() => {
                                 let data = {
@@ -105,7 +105,11 @@ class DesktopProfileHeader extends React.Component {
                                 this.props.history.push('/lab')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
-                                <span>Book Medical Test</span>
+                                <span>Book Test</span>
+                            </div>
+                            <div className="head-links">
+                                <img style={{ width: '17px' }} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} />
+                                <span>Book Dental Treatment</span>
                             </div>
                             <div className="head-links">
                                 <div className="head-dropdowns">
@@ -188,9 +192,11 @@ class DesktopProfileHeader extends React.Component {
                                 {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
                         </div>
+
                     </div>
+
                     {
-                        this.state.headerButtonsState ? <div className="search-show d-lg-none">
+                        this.state.headerButtonsState ? <div className="search-show  d-lg-none">
                             <div className="head-links" onClick={() => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
@@ -198,8 +204,8 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/opd')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/doc.svg"} />
-                                <span>Book to Visit a Doctor</span>
+                                <div className="mbl-view-drop-img"><img src={ASSETS_BASE_URL + "/images/doc.svg"} /></div>
+                                <span>Book Doctor</span>
                             </div>
                             <div className="head-links" onClick={() => {
                                 let data = {
@@ -208,8 +214,12 @@ class DesktopProfileHeader extends React.Component {
                                 GTM.sendEvent({ data: data })
                                 this.props.history.push('/lab')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
-                                <span>Book Medical Test</span>
+                                <div className="mbl-view-drop-img"><img src={ASSETS_BASE_URL + "/images/flask.svg"} /></div>
+                                <span>Book Test</span>
+                            </div>
+                            <div className="head-links">
+                                <div className="mbl-view-drop-img"><img style={{ width: '17px' }} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} /></div>
+                                <span>Book Dental Treatment</span>
                             </div>
                         </div> : ""
                     }

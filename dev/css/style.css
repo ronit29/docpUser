@@ -651,7 +651,13 @@ p.top-head-link.card-lab-link span {
 	padding: 14px 2px;
 }
 
-.search-show .head-links:first-child:after {
+.search-show .head-links:last-child:after {
+	content: '';
+	position: absolute;
+	border-right: 1px solid transparent;
+	
+}
+.search-show .head-links:after {
 	content: '';
 	position: absolute;
 	border-right: 1px solid #ffeee473;
@@ -660,6 +666,21 @@ p.top-head-link.card-lab-link span {
 	top: 0px;
 	bottom: 0px;
 	margin: auto;
+}
+.mbl-view-drop-img {
+    display: block;
+    align-items: end;
+}
+.search-show .head-links {
+    text-align: center;
+	flex-direction: column;
+	width: 33.333%;
+	padding: 8px 0px;
+}
+
+.search-show .head-links span {
+	display: block;
+	height: 40px;
 }
 
 @media screen and (max-width: 320px) {
