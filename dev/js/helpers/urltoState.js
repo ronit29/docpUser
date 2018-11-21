@@ -75,7 +75,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 })
             }
 
-            selectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories]
+            commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories]
 
             let filterCriteria = {
                 min_fees, max_fees, sort_on, is_available, is_female, min_distance, max_distance
@@ -133,9 +133,8 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                     }
 
                     resolve({
-                        commonProcedurers: [],
                         filterCriteria,
-                        selectedCriterias,
+                        commonSelectedCriterias,
                         selectedLocation
                     })
                 }).catch((e) => {
@@ -148,32 +147,28 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                             }, 1000)
                         }
                         resolve({
-                            commonProcedurers: [],
                             filterCriteria,
-                            selectedCriterias,
+                            commonSelectedCriterias,
                             selectedLocation
                         })
                     } else {
                         resolve({
-                            commonProcedurers: [],
                             filterCriteria,
-                            selectedCriterias
+                            commonSelectedCriterias
                         })
                     }
                 })
             } else {
                 if (selectedLocation) {
                     resolve({
-                        commonProcedurers: [],
                         filterCriteria,
                         selectedCriterias,
                         selectedLocation
                     })
                 } else {
                     resolve({
-                        commonProcedurers: [],
                         filterCriteria,
-                        selectedCriterias
+                        commonSelectedCriterias
                     })
                 }
             }

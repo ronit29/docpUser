@@ -57,7 +57,16 @@ class PatientDetailsNew extends React.Component {
             if (this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.state.selectedDoctor) {
 
                 this.setState({ couponCode: doctorCoupons[0].couponCode, couponId: doctorCoupons[0].couponId || '' })
-                this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode, doctorCoupons[0].couponId, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
+
+            let treatment_Price = 0
+            let selectedProcedures = {}
+            if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+                treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+            }
+            let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price            
+
+                this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode, doctorCoupons[0].couponId, this.state.selectedDoctor, deal_price)
             }
         } else {
             this.props.resetOpdCoupons()
@@ -95,7 +104,7 @@ class PatientDetailsNew extends React.Component {
 
             Object.values(this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
 
-                procedure_ids =  procedure_ids.concat(procedure.map(x=>x.procedure_id))    
+                procedure_ids =  procedure_ids.concat(procedure.filter(x=>x.is_selected).map(x=>x.procedure_id))    
             })
             if(procedure_ids.length){
                 postData['procedure_ids'] = procedure_ids || []
@@ -215,11 +224,12 @@ class PatientDetailsNew extends React.Component {
                 this.props.selectOpdTimeSLot(slot, false)
             }
         }
-        let treatment_Price = 0
+        let treatment_Price = 0,treatment_mrp = 0
         let selectedProcedures = {}
         if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
 
             treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+            treatment_mrp = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.mrp || 0
             selectedProcedures = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories
         }
 
@@ -250,8 +260,9 @@ class PatientDetailsNew extends React.Component {
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
                                                                 {
                                                                  Object.values(selectedProcedures).length?
-                                                                 <ProcedureView selectedProcedures = {selectedProcedures}/>
-                                                                 :""   
+                                                                 <ProcedureView selectedProcedures = {selectedProcedures} priceData ={priceData}/>
+                                                                 :<div className="clearfix pb-list proc-padding-list">
+                                                                    <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation fee</span></div>
                                                                 }
                                                             </div>
                                                         </div>
@@ -312,12 +323,12 @@ class PatientDetailsNew extends React.Component {
                                                                 <h4 className="title mb-20">Payment Summary</h4>
                                                                 <div className="payment-summary-content">
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>Doctor fees</p>
-                                                                        <p>&#8377; {priceData.mrp}</p>
+                                                                        <p>Subtotal</p>
+                                                                        <p>&#8377; {priceData.mrp + treatment_mrp}</p>
                                                                     </div>
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>Docprime discount</p>
-                                                                        <p>- &#8377; {priceData.mrp - priceData.deal_price}</p>
+                                                                        <p>docprime discount</p>
+                                                                        <p>- &#8377; {(priceData.mrp + treatment_mrp)- (priceData.deal_price + treatment_Price)}</p>
                                                                     </div>
                                                                     {
                                                                         this.props.disCountedOpdPrice
@@ -328,17 +339,18 @@ class PatientDetailsNew extends React.Component {
                                                                             : ''
                                                                     }
                                                                     {
-                                                                        treatment_Price ?
+                                                                    /*    treatment_Price ?
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Treatment</p>
                                                                                 <p> &#8377; {treatment_Price}</p>
                                                                             </div>
                                                                             : ''
-                                                                    }
+                                                                    
                                                                     <div className="payment-detail d-flex">
                                                                         <p>Subtotal</p>
                                                                         <p> &#8377; {finalPrice + treatment_Price || 0}</p>
-                                                                    </div>
+                                                                    </div>*/
+                                                                    }
                                                                 </div>
                                                                 <hr />
 

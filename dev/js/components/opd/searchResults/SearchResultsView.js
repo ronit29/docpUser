@@ -82,15 +82,11 @@ class SearchResultsView extends React.Component {
 
     buildURI(state) {
 
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType , commonProcedurers} = state
-        let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
-        let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
-        let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
-        let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-
-        let commonProcedureIds = commonProcedurers.map(x => x.id)
-    
-        procedures_ids = commonProcedureIds.length ? commonProcedureIds : procedures_ids
+        let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
+        let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+        let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+        let procedures_ids = commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+        let category_ids = commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
   
         let lat = 28.644800
         let long = 77.216721

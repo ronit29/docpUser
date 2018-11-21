@@ -75,12 +75,11 @@ const mapStateToProps = (state, passedProps) => {
 
     const {
         LOADED_SEARCH_CRITERIA_OPD,
-        selectedCriterias,
+        commonSelectedCriterias,
         selectedLocation,
         filterCriteria,
         locationType,
         fetchNewResults,
-        commonProcedurers,
         getNewUrl
     } = state.SEARCH_CRITERIA_OPD
 
@@ -90,7 +89,7 @@ const mapStateToProps = (state, passedProps) => {
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
         LOADED_SEARCH_CRITERIA_OPD,
-        selectedCriterias,
+        commonSelectedCriterias,
         selectedLocation,
         filterCriteria,
         count,
@@ -99,8 +98,8 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         search_content,
-        commonProcedurers,
-        getNewUrl
+        getNewUrl,
+        commonSelectedCriterias
     }
 }
 

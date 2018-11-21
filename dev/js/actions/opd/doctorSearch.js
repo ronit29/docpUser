@@ -17,14 +17,11 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	// 	payload: from_server
 	// })
 
-	let { selectedLocation, selectedCriterias, filterCriteria, locationType, commonProcedurers } = state
-	let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
-	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
-	let procedures_ids = selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
-	let category_ids = selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-	let commonProcedureIds = commonProcedurers.map(x => x.id)
-	
-	procedures_ids = commonProcedureIds.length ? commonProcedureIds : procedures_ids
+	let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
+	let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+	let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+	let procedures_ids = commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+	let category_ids = commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
 
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
@@ -98,23 +95,23 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			return x
 		})
 
-		let selectedCriterias = [...specializations, ...conditions, ...procedure_category, ...procedures]
+		let commonSelectedCriterias = [...specializations, ...conditions, ...procedure_category, ...procedures]
 
 		dispatch({
 			type: MERGE_SEARCH_STATE_OPD,
 			payload: {
-				selectedCriterias
+				commonSelectedCriterias
 			},
 			fetchNewResults: false
 		})
-		if (procedures.length || procedure_category.length) {
+		/*if (procedures.length || procedure_category.length) {
 			dispatch({
 				type: SAVE_COMMON_PROCEDURES,
 				payload: procedures,
 				category_ids: procedure_category,
 				forceAdd: false
 			})
-		}
+		}*/
 		/*dispatch({
 			type: SET_FETCH_RESULTS_OPD,
 			payload: false

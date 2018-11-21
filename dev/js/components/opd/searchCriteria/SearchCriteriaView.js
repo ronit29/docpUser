@@ -37,6 +37,7 @@ class SearchCriteriaView extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
+
         this.props.history.push('/opd/searchresults')
     }
 
@@ -48,7 +49,7 @@ class SearchCriteriaView extends React.Component {
             }
             return null
         }
-
+        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias)
         this.searchProceed("", "")
     }
 

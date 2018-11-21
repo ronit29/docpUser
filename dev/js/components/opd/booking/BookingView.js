@@ -124,7 +124,6 @@ class BookingView extends React.Component {
         let actions = []
         let status = 1
         let doctor_thumbnail = ""
-
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -248,6 +247,20 @@ class BookingView extends React.Component {
                                                             <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
                                                         </div>
                                                     </div>
+                                                    {
+                                                        this.state.data && this.state.data.procedures && this.state.data.procedures.length?
+                                                        <div className="widget-content pb-details pb-location">
+                                                            <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">Treatment</h4>
+                                                            <div className="pb-view text-left">
+                                                                {
+                                                                   this.state.data.procedures.map((procedure) => {
+                                                                    return <p>{procedure.name}</p>
+                                                                   }) 
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        :''
+                                                    }
                                                 </div>
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">

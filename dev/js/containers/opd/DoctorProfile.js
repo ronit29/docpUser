@@ -55,14 +55,17 @@ class DoctorProfile extends React.Component {
         const parsed = queryString.parse(window.location.search)
         let hospital_id = ''
         let is_procedure = false
+        let category_ids = []
+        let procedure_ids = []
+        
         if (parsed) {
             hospital_id = parsed.hospital_id || ''
             is_procedure = parsed.is_procedure || false
+            category_ids = parsed.category_ids || []
+            procedure_ids = parsed.procedure_ids || []
         }
 
-        let category_ids = []
-        let procedure_ids = []
-        if (is_procedure) {
+        /*if (is_procedure) {
             category_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
             procedure_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 
@@ -93,7 +96,7 @@ class DoctorProfile extends React.Component {
                 procedure_ids = procedure_ids.concat(pids)
             }
 
-        }
+        }*/
 
         if (this.props.match.params.id) {
             this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)

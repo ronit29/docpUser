@@ -19,12 +19,7 @@ export default class PopUpView extends React.Component {
 			selectedProcedures = selectedProcedures.concat(procedures)
 		})
 
-		let pids = this.props.details.commonProcedurers.filter((x) => {
-			if (selectedProcedures.indexOf(x.id) == -1) {
-				return true
-			}
-			return false
-		}).map(x => x.id)
+		let pids = this.props.details.commonSelectedCriterias.filter(x=> x.type=='procedures' && selectedProcedures.indexOf(x.id) == -1).map(x => x.id)
 
 		selectedProcedures = selectedProcedures.concat(pids)
 

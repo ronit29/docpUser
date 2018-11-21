@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -25,7 +25,7 @@ const defaultState = {
     selectedCriteriaType: '',
     commonProcedurers: [],
     getNewUrl: false,
-    commonProcedureCategories: []
+    commonSelectedCriterias: []
 }
 
 export default function (state = defaultState, action) {
@@ -143,16 +143,15 @@ export default function (state = defaultState, action) {
 
         case SAVE_COMMON_PROCEDURES: {
             let newState = {
-                ...state,
-                commonProcedurers: [].concat(state.commonProcedurers),
-                commonProcedureCategories: [].concat(state.commonProcedureCategories)
+                ...state
             }
             if (action.forceAdd) {
-                newState.commonProcedurers = []
                 newState.getNewUrl = true
+                newState.commonSelectedCriterias = newState.commonSelectedCriterias.filter(x=>x.type!='procedures')
                 action.payload.map((procedure) => {
-                    newState.commonProcedurers.push({ type: "procedures", id: procedure, name: "" })
+                    newState.commonSelectedCriterias.push({ type: "procedures", id: procedure, name: "" })    
                 })
+
             } else {
                 let commonIds = newState.commonProcedurers.map(x => x.id)
                 action.payload.map((procedure) => {
@@ -164,9 +163,17 @@ export default function (state = defaultState, action) {
                 })
 
                 action.category_ids.map((category) => {
-                    newState.commonProcedureCategories.push(category)
+
                 })
             }
+            return newState
+        }
+
+        case CLONE_SELECTED_CRITERIAS: {
+            let newState = {
+                ...state
+            }
+            newState.commonSelectedCriterias = [].concat(action.payload)
             return newState
         }
 

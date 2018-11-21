@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, APPEND_DOCTORS , SAVE_COMMON_PROCEDURES, RESET_PROCEDURE_URL} from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, APPEND_DOCTORS , SAVE_COMMON_PROCEDURES, RESET_PROCEDURE_URL, CLONE_SELECTED_CRITERIAS} from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadOPDCommonCriteria = () => (dispatch) => {
@@ -97,5 +97,12 @@ export const saveCommonProcedures = (procedure_ids=[]) => (dispatch) => {
 export const resetProcedureURl = () => (dispatch) => {
     dispatch({
         type: RESET_PROCEDURE_URL
+    })
+}
+
+export const cloneCommonSelectedCriterias = (selectedCriterias) => (dispatch) => {
+    dispatch({
+        type: CLONE_SELECTED_CRITERIAS,
+        payload: selectedCriterias
     })
 }

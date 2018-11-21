@@ -30,18 +30,18 @@ class DoctorProfileCard extends React.Component {
 
         } else {
             e.preventDefault();
-            let category_ids = this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-            let procedure_ids = this.props.commonProcedurers.map(x => x.id)
+            let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
+            let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 
             if (url) {
                 if (category_ids.length || procedure_ids.length) {
-                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true`)
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
                 } else {
                     this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
                 }
             } else {
                 if (category_ids.length || procedure_ids.length) {
-                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true`)
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
                 } else {
                     this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
                 }
@@ -104,15 +104,28 @@ class DoctorProfileCard extends React.Component {
         } catch (e) {
             schema = ""
         }
-
+        let is_procedure = false
         if (hospitals && hospitals.length) {
             let selectedCount = 0
             let unselectedCount = 0
+            let finalProcedureDealPrice = deal_price
+            let finalProcedureMrp = mrp
             hospitals[0].procedure_categories.map((x) => {
+                is_procedure = true
+                x.procedures.filter(x =>x.is_selected).map((x)=> {
+                    finalProcedureDealPrice+= x.deal_price
+                    finalProcedureMrp+= x.mrp  
+                    selectedCount++  
+                })
 
-                selectedCount += x.procedures.filter(x => x.is_selected).length
                 unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
+
+            if(is_procedure){
+                if (finalProcedureMrp != 0 && finalProcedureDealPrice != 0) {
+                    discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
+                }
+            }
 
             return (
 
@@ -166,9 +179,11 @@ class DoctorProfileCard extends React.Component {
 
                                     <p className="fltr-prices">
 
-                                        &#x20B9; {deal_price}
+                                        &#x20B9; {is_procedure?finalProcedureDealPrice:deal_price}
                                         {
-                                            mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                            is_procedure
+                                            ?finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
+                                            :mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                         }
                                     </p>
                                     {
@@ -191,7 +206,7 @@ class DoctorProfileCard extends React.Component {
                                 <div className="procedure-checkboxes">
                                     <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
-                                            <span className="test-price txt-ornage">₹ 0<span className="test-mrp">₹ 0</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                            <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
                                     <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) in <span>{hospitals[0].procedure_categories.map(x => x.name).join('|')} </span></h4>
