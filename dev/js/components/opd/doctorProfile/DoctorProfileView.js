@@ -29,7 +29,7 @@ class DoctorProfileView extends React.Component {
         this.state = {
             footerData,
             seoFriendly: this.props.match.url.includes('-dpp'),
-            selectedClinic: "",
+            selectedClinic: this.props.hospital_id || "",
             is_live: false,
             rank: 0,
             consultation_fee: 0

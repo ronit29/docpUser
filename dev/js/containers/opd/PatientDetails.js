@@ -24,7 +24,16 @@ class PatientDetails extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId)
+            let procedure_ids = []
+            if(this.props.selectedDoctorProcedure[this.props.match.params.id] && this.props.selectedDoctorProcedure[this.props.match.params.id][this.props.match.params.clinicId] && this.props.selectedDoctorProcedure[this.props.match.params.id][this.props.match.params.clinicId].categories){
+
+                Object.values(this.props.selectedDoctorProcedure[this.props.match.params.id][this.props.match.params.clinicId].categories).map((procedure) => {
+
+                    procedure_ids =  procedure_ids.concat(procedure.filter(x=>x.is_selected).map(x=>x.procedure_id))    
+                })
+
+            }
+            this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, procedure_ids)
             this.props.getUserProfile()
         }
     }
@@ -52,7 +61,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getDoctorById: (doctorId, hospitalId) => dispatch(getDoctorById(doctorId, hospitalId)),
+        getDoctorById: (doctorId, hospitalId, procedure_ids) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId ) => dispatch(removeCoupons(hospitalId, couponId )),

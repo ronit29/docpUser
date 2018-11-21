@@ -107,10 +107,16 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
                                 <span>Book Test</span>
                             </div>
-                            <div className="head-links">
-                                <img style={{ width: '17px' }} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} />
-                                <span>Book Dental Treatment</span>
-                            </div>
+                                {/*<div className="head-links" onClick={() => {
+                                    let data = {
+                                        'Category': 'ConsumerApp', 'Action': 'BookDentalTreatmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-dental-treatment-clicked'
+                                    }
+                                    GTM.sendEvent({ data: data })
+                                    this.props.history.push('/procedure')
+                                }}>
+                                    <img style={{ width: '17px' }} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} />
+                                    <span>Book Dental Treatment</span>
+                                </div>*/}
                             <div className="head-links">
                                 <div className="head-dropdowns">
                                     <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
@@ -217,10 +223,16 @@ class DesktopProfileHeader extends React.Component {
                                 <div className="mbl-view-drop-img"><img src={ASSETS_BASE_URL + "/images/flask.svg"} /></div>
                                 <span>Book Test</span>
                             </div>
-                            <div className="head-links">
+                            {/*<div className="head-links" onClick={() => {
+                                let data = {
+                                    'Category': 'ConsumerApp', 'Action': 'BookDentalTreatmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-dental-treatment-clicked'
+                                }
+                                GTM.sendEvent({ data: data })
+                                this.props.history.push('/procedure')
+                            }}>
                                 <div className="mbl-view-drop-img"><img style={{ width: '17px' }} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} /></div>
                                 <span>Book Dental Treatment</span>
-                            </div>
+                            </div>*/}
                         </div> : ""
                     }
                     {

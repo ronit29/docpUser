@@ -30,7 +30,6 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let procedures_ids = _getLocationParamBind('procedure_ids') || ""
             let category_ids = _getLocationParamBind('procedure_category_ids') || ""
 
-            let selectedCriterias = []
             let spec = []
             let cond = []
             let procedures = []
@@ -75,7 +74,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 })
             }
 
-            commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories]
+            let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories]
 
             let filterCriteria = {
                 min_fees, max_fees, sort_on, is_available, is_female, min_distance, max_distance
@@ -162,7 +161,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 if (selectedLocation) {
                     resolve({
                         filterCriteria,
-                        selectedCriterias,
+                        commonSelectedCriterias,
                         selectedLocation
                     })
                 } else {

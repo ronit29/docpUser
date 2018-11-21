@@ -131,11 +131,15 @@ class ClinicSelector extends React.Component {
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
-                            <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
-                                <div className="clearfix">
-                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                            {
+                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories
+                                ?''
+                                :<div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                    <div className="clearfix">
+                                        <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             <div className="dtl-cnslt-fee pb-list">
 
                                 <div className="clearfix">

@@ -31,8 +31,12 @@ export default class PopUpView extends React.Component {
             }
             this.setState({ selectedProcedureIds: selectedProcedures })
 
-
-        } else {
+        } 
+        else if(selectedProcedures.length == 0){
+            selectedProcedures.push(procedure.procedure_id)
+            this.setState({ selectedProcedureIds: selectedProcedures })
+        }
+        else {
             this.setState({ errorMessage: true })
             return null
         }
@@ -86,7 +90,7 @@ export default class PopUpView extends React.Component {
                 <div className="widget cancel-appointment-div cancel-popup">
                     <div className="pop-top-heading">
                         Select Treatment(s)
-                        <img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} onClick={this.props.toggle}/>
                 </div>
                     {
                         Object.values(this.props.data).map((category, i) => {

@@ -68,7 +68,7 @@ export default class PopUpView extends React.Component {
 				<div className="widget cancel-appointment-div cancel-popup">
 					<div className="pop-top-heading">
 						Select Treatment(s)
-						<img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} />
+						<img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} onClick={this.props.toggle}/>
                 </div>
 					<div className="widget-header action-screen-header pop-padding">
 						<p className="fw-500 cancel-appointment-head">{this.props.heading}</p>
