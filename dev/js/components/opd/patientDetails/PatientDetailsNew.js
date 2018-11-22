@@ -253,7 +253,7 @@ class PatientDetailsNew extends React.Component {
             selectedProcedures = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories
         }
 
-        let finalPrice = priceData.deal_price ? priceData.deal_price - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
+        let finalPrice = priceData.deal_price ? parseInt(priceData.deal_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -344,11 +344,11 @@ class PatientDetailsNew extends React.Component {
                                                                 <div className="payment-summary-content">
                                                                     <div className="payment-detail d-flex">
                                                                         <p>Subtotal</p>
-                                                                        <p>&#8377; {priceData.mrp + treatment_mrp}</p>
+                                                                        <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                     </div>
                                                                     <div className="payment-detail d-flex">
                                                                         <p>docprime discount</p>
-                                                                        <p>- &#8377; {(priceData.mrp + treatment_mrp)- (priceData.deal_price + treatment_Price)}</p>
+                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                     </div>
                                                                     {
                                                                         this.props.disCountedOpdPrice
