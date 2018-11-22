@@ -48,13 +48,10 @@ class LocationPopupView extends React.Component {
     }
 
     render() {
-
-        console.log('wervvjiuhsacmdsdhcuhfqwiufeirufheiqru');
-        console.log(this.props);
-
         return (
             <div className="fr-location-popup-container">
-                <p className="fw-500 text-md">{this.props.count} Results found <strong>{this.props.criteriaString ? `for ${this.props.criteriaString}` : ''}</strong> <span style={{ color: '#f78361' }}>{this.props.locationName ? `in ${this.props.locationName}` : ''}</span></p>
+                <p className="fw-500 text-md">Showing {this.props.count} results <span style={{ fontWeight: 700 }}>{this.props.criteriaString ? `for ${this.props.criteriaString}` : ''}</span></p>
+                <p className="fw-700 text-md">{this.props.locationName ? ` in ${this.props.locationName}` : ''}</p>
                 <div className="mrt-20">
                     <button className="fw-500 fr-popup-cont" onClick={() => this.props.popupContainer()}>Continue</button>
                 </div>
