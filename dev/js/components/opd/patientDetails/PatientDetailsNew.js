@@ -282,7 +282,7 @@ class PatientDetailsNew extends React.Component {
                                                                  Object.values(selectedProcedures).length?
                                                                  <ProcedureView selectedProcedures = {selectedProcedures} priceData ={priceData}/>
                                                                  :<div className="clearfix pb-list proc-padding-list">
-                                                                    <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation fee</span></div>
+                                                                    <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>
                                                                 }
                                                             </div>
                                                         </div>
