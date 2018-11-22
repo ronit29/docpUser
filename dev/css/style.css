@@ -697,7 +697,6 @@ p.top-head-link.card-lab-link span {
 
 .search-show .head-links span {
 	display: block;
-	height: 40px;
 }
 
 @media screen and (max-width: 320px) {
