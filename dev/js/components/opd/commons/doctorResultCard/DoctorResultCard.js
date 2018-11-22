@@ -61,7 +61,6 @@ class DoctorProfileCard extends React.Component {
     }
 
     render() {
-
         let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enabled_for_online_booking, is_license_verified, is_gold, schema } = this.props.details
 
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -104,10 +103,17 @@ class DoctorProfileCard extends React.Component {
                             : ''
                     }
                     <div className="fltr-crd-top-container">
-                        <div className="fltr-lctn-dtls">
-                            <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span></p>
-                        </div>
+                        {
+                            this.props.seoFriendly ?
+                                <div className="fltr-lctn-dtls" style={{ paddingLeft: 45 }}>
+                                    <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                        <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span></p>
+                                </div>
+                                : <div className="fltr-lctn-dtls">
+                                    <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                        <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span></p>
+                                </div>
+                        }
                         <div className="row no-gutters">
                             <div className="col-8">
                                 <div className="fltr-crd-img">

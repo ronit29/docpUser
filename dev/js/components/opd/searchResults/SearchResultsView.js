@@ -197,7 +197,7 @@ class SearchResultsView extends React.Component {
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} />
+                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
 
                         </div>
                     }
