@@ -34,7 +34,6 @@ class SearchResultsView extends React.Component {
             }
         }
         if (this.state.seoFriendly) {
-            this.props.mergeSelectedCriterias()
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
                 if (footerData) {
                     this.setState({ footerData: footerData })

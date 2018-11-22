@@ -186,7 +186,7 @@ export default function (state = defaultState, action) {
             newState.commonSelectedCriterias = []
             newState.filterCriteria = DEFAULT_FILTER_STATE
 
-            return commonSelectedCriterias
+            return newState
         }
 
     }

@@ -212,7 +212,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                     {
-                                        enabled_for_online_booking ? <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url, hospital.hospital_id)}>Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
+                                        enabled_for_online_booking ? <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url, hospital.hospital_id)}>Book Now</button> : <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')} >Contact</button>
                                     }
                                 </div>
                             </div>
