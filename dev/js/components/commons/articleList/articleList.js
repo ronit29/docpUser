@@ -107,6 +107,11 @@ class ArticleList extends React.Component {
 			<span className="fw-500" style={{ color: '#000' }}>{pageNo}</span>
 		</div>)
 
+		let placeHolder = 'Search any '
+		if (this.props.articleListData && this.props.articleListData.category) {
+			placeHolder = placeHolder + this.props.articleListData.category.split(' ')[0]
+		}
+
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -141,7 +146,7 @@ class ArticleList extends React.Component {
 										</ul>
 									</div>
 									<div className="col-12">
-										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder={`Search any ${this.props.articleListData.category.split(' ')[0]}`} onChange={(e) => this.changeVal(e)} onKeyUp={(e) => this.handleKeyUp(e)} />
+										<input type="text" id="disease-search" value={this.state.searchVal} className="art-searchbar" placeholder={placeHolder} onChange={(e) => this.changeVal(e)} onKeyUp={(e) => this.handleKeyUp(e)} />
 										<button className="art-search-btn" onClick={() => this.searchArticle()}>
 											<img src={ASSETS_BASE_URL + "/images/search.svg"} />
 										</button>
