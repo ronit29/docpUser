@@ -122,7 +122,7 @@ class DoctorProfileCard extends React.Component {
                                     {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
                                 </div>
                                 <div className="fltr-name-dtls">
-                                    <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
+                                    <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
                                         <h2 style={{ fontSize: "16px" }} className="fltr-dc-name">{display_name}</h2>
                                     </a>
                                     <p>{this.getQualificationStr(general_specialization || [])}</p>
