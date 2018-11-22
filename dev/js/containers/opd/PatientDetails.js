@@ -24,16 +24,8 @@ class PatientDetails extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            let procedure_ids = []
-            if(this.props.selectedDoctorProcedure[this.props.match.params.id] && this.props.selectedDoctorProcedure[this.props.match.params.id][this.props.match.params.clinicId] && this.props.selectedDoctorProcedure[this.props.match.params.id][this.props.match.params.clinicId].categories){
-
-                Object.values(this.props.selectedDoctorProcedure[this.props.match.params.id][this.props.match.params.clinicId].categories).map((procedure) => {
-
-                    procedure_ids =  procedure_ids.concat(procedure.filter(x=>x.is_selected).map(x=>x.procedure_id))    
-                })
-
-            }
-            this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, procedure_ids)
+            
+            this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
             this.props.getUserProfile()
         }
     }
@@ -50,10 +42,10 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
     const { selectedProfile, profiles } = state.USER
-    let { selectedSlot, doctorCoupons, disCountedOpdPrice, selectedDoctorProcedure } = state.DOCTOR_SEARCH
+    let { selectedSlot, doctorCoupons, disCountedOpdPrice, selectedDoctorProcedure, commonProfileSelectedProcedures } = state.DOCTOR_SEARCH
 
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice , selectedDoctorProcedure
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice , selectedDoctorProcedure, commonProfileSelectedProcedures
     }
 }
 

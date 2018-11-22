@@ -83,6 +83,7 @@ class DoctorProfileView extends React.Component {
                 'Category': 'ConsumerApp', 'Action': 'OpdBookNowRank', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-rank', 'rank': rank + 1
             }
             GTM.sendEvent({ data: data })
+            this.props.saveProfileProcedures(doctor_id, clinicId)
 
             this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/book`)
         }
