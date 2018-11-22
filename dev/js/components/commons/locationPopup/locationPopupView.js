@@ -1,4 +1,6 @@
 import React from 'react'
+import { _getlocationFromLatLong } from '../../../helpers/mapHelpers'
+const queryString = require('query-string');
 
 class LocationPopupView extends React.Component {
 
@@ -47,13 +49,24 @@ class LocationPopupView extends React.Component {
         }
     }
 
+    continueLocation() {
+        const parsed = queryString.parse(this.props.location.search);
+        if (parsed.lat && parsed.long) {
+            _getlocationFromLatLong(parsed.lat, parsed.long, 'city', (locationData) => {
+                if (locationData) {
+                    this.props.selectLocation(locationData, 'autoComplete')
+                }
+            })
+        }
+    }
+
     render() {
         return (
             <div className="fr-location-popup-container">
                 <p className="fw-500 text-md">Showing {this.props.count} results <span style={{ fontWeight: 700 }}>{this.props.criteriaString ? `for ${this.props.criteriaString}` : ''}</span></p>
                 <p className="fw-700 text-md">{this.props.locationName ? ` in ${this.props.locationName}` : ''}</p>
                 <div className="mrt-20">
-                    <button className="fw-500 fr-popup-cont" onClick={() => this.props.popupContainer()}>Continue</button>
+                    <button className="fw-500 fr-popup-cont" onClick={() => this.continueLocation()}>Continue</button>
                 </div>
                 <p className="fw-500 mrt-20 text-xs">OR</p>
                 <div className="mrt-20">
