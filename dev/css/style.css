@@ -3327,3 +3327,7 @@ border: 1px solid #aaaa;
 	margin-right: 0;
 	border-right: none;
 }
+.proc-para-margin p{
+	font-weight: 500;
+	margin-bottom: 8px;
+}

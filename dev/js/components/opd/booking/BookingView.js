@@ -251,7 +251,7 @@ class BookingView extends React.Component {
                                                         this.state.data && this.state.data.procedures && this.state.data.procedures.length?
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">Treatment</h4>
-                                                            <div className="pb-view text-left">
+                                                            <div className="pb-view text-left proc-para-margin">
                                                                 {
                                                                    this.state.data.procedures.map((procedure) => {
                                                                     return <p>{procedure.name}</p>
