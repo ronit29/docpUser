@@ -13,7 +13,7 @@ export default class PopUpView extends React.Component {
 
     componentDidMount() {
         let selectedProcedureIds = []
-        Object.values(this.props.selectedDoctorProcedure[this.props.doctor_id][this.props.hospital_id].categories).map((procedure) => {
+        Object.values(this.props.data).map((procedure) => {
 
             selectedProcedureIds = selectedProcedureIds.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
         })

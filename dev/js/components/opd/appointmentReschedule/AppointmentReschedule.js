@@ -123,6 +123,12 @@ class AppointmentReschedule extends React.Component {
                 priceData.old_deal_price = this.state.data.deal_price
                 priceData.payable_amount = priceData.deal_price - priceData.old_deal_price
             }
+            if(this.state.data.procedures.length){
+                priceData.payable_amount = 0/*
+                priceData.old_deal_price = this.state.data.deal_price
+                priceData.deal_price = this.state.data.deal_price
+                priceData.mrp =  0*/
+            }
         }
 
         return (

@@ -218,7 +218,7 @@ class DoctorProfileCard extends React.Component {
                                             <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
-                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x=>x.type=='procedures_category').length>0?` in ${this.props.selectedCriterias.filter(x=>x.type=='procedures_category').map(x => x.name).join('|')}`:'Selected'} </span></h4>
+                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x=>x.type=='procedures_category').length>0?` in ${this.props.selectedCriterias.filter(x=>x.type=='procedures_category').map(x => x.name).join(' | ')}`:'Selected'} </span></h4>
                                     <div className="insurance-checkboxes">
                                         <ul className="procedure-list">
                                             {
