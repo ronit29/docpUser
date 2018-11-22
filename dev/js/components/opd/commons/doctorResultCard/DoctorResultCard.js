@@ -228,8 +228,8 @@ class DoctorProfileCard extends React.Component {
                                                     return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
 
                                                         return <li key={i}>
-                                                            <label className="procedure-check ck-bx" htmlFor={procedure.procedure.id}>{procedure.procedure.name}
-                                                                <input type="checkbox" checked={true} className="proce-input" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
+                                                            <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
+                                                                <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
                                                                 <span className="checkmark">
                                                                 </span>
                                                             </label>

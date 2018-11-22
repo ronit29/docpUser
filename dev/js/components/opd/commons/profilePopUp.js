@@ -6,7 +6,6 @@ export default class PopUpView extends React.Component {
     constructor(props){
         super(props)
         this.state = { 
-            errorMsg: false,
             selectedProcedureIds: [],
             procedure:[]
         }
@@ -64,7 +63,6 @@ export default class PopUpView extends React.Component {
 
     toggleProcedure(procedure_to_toggle, doctor_id, hospital_id) {
 
-        this.setState({ errorMsg: false })
         let selectedProcedureIds = []
         Object.values(this.props.selectedDoctorProcedure[doctor_id][hospital_id].categories).map((procedure) => {
 
@@ -96,6 +94,7 @@ export default class PopUpView extends React.Component {
                         Select Treatment(s)
                         <img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} onClick={this.props.toggle}/>
                 </div>
+                <div className ="onscreen-scroll">
                     {
                         Object.values(this.props.data).map((category, i) => {
 
@@ -105,7 +104,7 @@ export default class PopUpView extends React.Component {
                                     
                                 </div>
                                 <div>
-                                    <div className="terms-condition-div onscreen-scroll">
+                                    <div className="terms-condition-div">
                                         <ul className="procedure-list">
                                         {
                                           category.map((procedure, key) => { 
@@ -127,11 +126,7 @@ export default class PopUpView extends React.Component {
                         })
 
                     }
-                    {
-                        this.state.errorMsg?
-                            <p>Please Select at least one Procedure</p>
-                            : ''
-                    }
+                    </div>
                     <div className="procedures-btn-pop">
                         <button className="fw-500" onClick={this.toggleFinal.bind(this,this.props.doctor_id, this.props.hospital_id)}>Done</button>
                     </div>

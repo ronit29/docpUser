@@ -458,10 +458,7 @@ background: black;
 	.mrng-btm-scrl{
 		margin-bottom: 3rem;
 	}
-	.terms-condition-div.onscreen-scroll{
-		max-height: initial !important;
-		overflow-y: auto !important;
-	}
+	
 }
 
 @media screen and (max-width: 370px) {
@@ -814,6 +811,10 @@ p.top-head-link.card-lab-link span {
 @media(max-width: 470px) {
 	.head-links img {
 		margin-right: 0px;
+	}
+	.onscreen-scroll{
+		max-height: initial !important;
+		overflow-y: auto !important;
 	}
 }
 @media(max-width: 412px) {
@@ -3264,7 +3265,7 @@ border: 1px solid #aaaa;
 .procedure-out-heading-font{
 	font-size: 14px !important
 }
-.terms-condition-div.onscreen-scroll{
+.onscreen-scroll{
 	max-height: 70vh;
 	overflow-y:scroll;
 }
