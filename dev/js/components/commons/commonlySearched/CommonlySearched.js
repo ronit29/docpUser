@@ -30,6 +30,12 @@ class CommonlySearched extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
+        } else if(this.props.type == 'procedures_category'){
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'CommonProcedureCategoriesSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedure-category-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+            }
+            GTM.sendEvent({ data: data })
+
         }
         this.props.toggle((this.props.type || row.type), row)
     }

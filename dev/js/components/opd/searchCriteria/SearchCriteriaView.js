@@ -94,7 +94,7 @@ class SearchCriteriaView extends React.Component {
                         />
 
                         <CommonlySearched
-                            heading="Common Dental Treatment"
+                            heading="Common Dental Treatment(s)"
                             type="procedures_category"
                             data={this.props.procedure_categories}
                             selected={this.props.selectedCriterias.filter(x => x.type == 'procedures_category')}

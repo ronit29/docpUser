@@ -105,7 +105,7 @@ class CriteriaSearchView extends React.Component {
                 }
                 GTM.sendEvent({ data: data })
             }
-            else if(docType == 'procedures'){
+            else if(docType == 'Procedures'){
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.id || ''
                 }
