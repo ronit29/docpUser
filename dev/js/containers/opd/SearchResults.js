@@ -80,7 +80,8 @@ const mapStateToProps = (state, passedProps) => {
         filterCriteria,
         locationType,
         fetchNewResults,
-        getNewUrl
+        getNewUrl,
+        selectedCriterias
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -99,7 +100,8 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         search_content,
         getNewUrl,
-        commonSelectedCriterias
+        commonSelectedCriterias,
+        selectedCriterias
     }
 }
 

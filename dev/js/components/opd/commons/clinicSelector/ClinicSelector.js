@@ -175,7 +175,12 @@ class ClinicSelector extends React.Component {
                                     </div>
                                 </div>
                             </div>
-
+                            {
+                                this.props.selectedClinic != hospital.hospital_id && (this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] ) &&  (this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures>0 ||  this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 0)
+                                ?<p>Treatments Available {`(${this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures})`}</p>
+                                :''    
+                            }
+                            
 
                             {
                                 this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories ?
