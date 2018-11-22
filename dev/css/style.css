@@ -635,6 +635,10 @@ p.top-head-link.card-lab-link span {
 	a.article-list{
 		padding: 5px 38px;
 	}
+	.mbl-view-formatting{
+		flex-direction: column !important;
+    text-align: right !important;
+	}
 }
 
 .header-loc-text {
@@ -875,9 +879,7 @@ p.top-head-link.card-lab-link span {
 	.chatbox-right {
 		height: calc(100vh - 330px);
 	}
-	.booking-confirm-screen .lab-visit-time .title{
-		font-size: 11px;
-	}
+	
 	.text-sm{
 		font-size: 11px;
 
@@ -3332,4 +3334,10 @@ border: 1px solid #aaaa;
 	font-weight: 500;
 	margin-bottom: 8px;
 	padding-left: 25px;
+}
+.remove-bg-color{
+	background:transparent !important;
+}
+.ofr-mrngbtm{
+	margin-bottom: 10px;
 }
