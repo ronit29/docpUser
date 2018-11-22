@@ -126,7 +126,7 @@ class AppointmentReschedule extends React.Component {
             }
         }
 
-        if(this.state.data){
+        if(this.state.data && this.props.DOCTOR && this.props.DOCTOR[this.state.data.doctor.id]){
             bookingEnabled = this.props.DOCTOR[this.state.data.doctor.id].enabled_for_online_booking;
         }
 
