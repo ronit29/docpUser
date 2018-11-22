@@ -1,5 +1,5 @@
 export function _getlocationFromLatLong(lat, long, location_type = 'locality', cb) {
-    if (google && lat & long) {
+    if (google && lat && long) {
         var latlng = { lat: parseFloat(parseFloat(lat).toFixed(6)), lng: parseFloat(parseFloat(long).toFixed(6)) };
 
         let geocoder = new google.maps.Geocoder

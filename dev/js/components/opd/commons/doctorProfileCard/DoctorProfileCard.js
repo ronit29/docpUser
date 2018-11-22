@@ -28,7 +28,6 @@ class DoctorProfileCard extends React.Component {
     }
 
     render() {
-
         let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified } = this.props.details
 
         let expStr = ""
@@ -58,7 +57,7 @@ class DoctorProfileCard extends React.Component {
                     }
                     <p className="add-details">{expStr}</p>
                     {
-                        this.props.details.enabled_for_online_booking ? '' : <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button>
+                        this.props.details.enabled_for_online_booking || this.props.bookingEnabled ? '' : <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button>
                     }
                 </div>
             </div>

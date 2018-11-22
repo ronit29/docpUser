@@ -1696,6 +1696,16 @@ margin: 0px 10px;
     border: none;
 	padding: 10px 0;
 	font-weight: 500;
+	cursor: pointer;
+}
+.fltr-cntct-btn{
+	border-radius: 5px;
+    background-color: #ffffff;
+    color: #f78631;
+    border: 1px solid #f78631;
+	padding: 10px 0;
+	font-weight: 500;
+	cursor: pointer;
 }
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
@@ -2813,7 +2823,7 @@ ul.list-sub-menu a:hover {
 .social-icon{
 	width: 30px;
 	height: 30px;
-	margin: 0px 10px;
+	margin: 0px 5px;
 }
 .social-icon>a>img{
 	width: 100%;
@@ -3315,6 +3325,10 @@ border: 1px solid #aaaa;
 	font-weight: 500;
 }
 
+.speciality-footer-list a:hover{
+    color: #f78361;
+}
+
 .speciality-footer-list li{
 	display: block;
 	/* padding-right: 4px; */
@@ -3322,6 +3336,15 @@ border: 1px solid #aaaa;
 	/* border-right: 1.5px solid rgba(117, 117, 117, 0.8); */
 	line-height: 14px;
 	margin-bottom: 5px;
+}
+
+@media(max-width: 767px){
+	.speciality-footer-list li{
+		display: inline-block;
+		padding-right: 4px;
+		margin-right: 4px;
+		border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+	}
 }
 
 .speciality-footer-list li:last-child{

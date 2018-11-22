@@ -146,7 +146,9 @@ class ClinicSelector extends React.Component {
                                     {
                                         STORAGE.checkAuth() || hospital.deal_price < 100 || (this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
                                             ''
-                                            : <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                            : enabled_for_online_booking ?
+                                                <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                : ''
                                     }
                                 </div>
                             </div>

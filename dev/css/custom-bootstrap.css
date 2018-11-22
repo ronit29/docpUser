@@ -28,6 +28,13 @@
     justify-content: space-between!important;
 }
 
+.justify-content-center {
+    -webkit-box-pack: justify!important;
+    -webkit-justify-content: center!important;
+    -ms-flex-pack: justify!important;
+    justify-content: center!important;
+}
+
 @media (min-width: 768px) {
     .d-md-block {
         display: block!important;

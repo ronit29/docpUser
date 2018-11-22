@@ -33,7 +33,8 @@ class DoctorProfileView extends React.Component {
             is_live: false,
             rank: 0,
             consultation_fee: 0,
-            numberShown: ""
+            numberShown: "",
+            searchShown: false
         }
     }
 
@@ -48,6 +49,7 @@ class DoctorProfileView extends React.Component {
                 }
             })
         }
+        this.setState({ searchShown: true })
     }
 
     getMetaTagsData(seoData) {
@@ -195,7 +197,7 @@ class DoctorProfileView extends React.Component {
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
                                                     {
-                                                        search_data ? <div className="mrt-10 mrb-20 article-chat-div" style={{ backgroundColor: 'transparent' }}>
+                                                        search_data && this.state.searchShown ? <div className="mrt-10 mrb-20 article-chat-div" style={{ backgroundColor: 'transparent' }}>
                                                             <p className="fw-500" style={{ color: '#000000' }} >{search_data.title}</p>
                                                             <a onClick={() => {
                                                                 let data = {

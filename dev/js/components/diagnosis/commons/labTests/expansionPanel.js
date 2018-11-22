@@ -18,7 +18,7 @@ class ExpansionPanel extends React.Component {
 
         let { heading, contentList, image, content } = this.props
         if (contentList && contentList.length) {
-            heading += `  (includes ${contentList.length}) tests`
+            heading += `  (includes ${contentList.length} tests)`
         }
         return (
             <li className="expansion-panel-list-item" >

@@ -36,10 +36,12 @@ class AppointmentReschedule extends React.Component {
 
 const mapStateToProps = (state) => {
     let { rescheduleSlot, appointmentId } = state.DOCTOR_SEARCH
+    let DOCTOR = state.DOCTORS
 
     return {
         rescheduleSlot,
-        appointmentId
+        appointmentId,
+        DOCTOR
     }
 }
 

@@ -4,6 +4,7 @@ import LabProfileCard from '../../commons/labProfileCard/index.js'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
+import LabResultCard from '../../commons/labResultCard'
 
 class LabsList extends React.Component {
     constructor(props) {
@@ -111,12 +112,22 @@ class LabsList extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                        {
+                                                            this.props.lab_card ?
+                                                                <LabResultCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                                : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                        }
                                                     </div>
 
                                                 } else {
                                                     if (LABS[labId]) {
-                                                        return <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                        return <div key={i}>
+                                                            {
+                                                                this.props.lab_card ?
+                                                                    <LabResultCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                                    : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                            }
+                                                        </div>
                                                     } else {
                                                         return ""
                                                     }
