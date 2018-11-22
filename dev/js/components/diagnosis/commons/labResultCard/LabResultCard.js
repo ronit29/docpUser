@@ -1,5 +1,4 @@
 import React from 'react';
-import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage'
 
