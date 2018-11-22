@@ -26,7 +26,7 @@ class DoctorProfile extends React.Component {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctorByUrl(url, hospital_id, '', '', (doctor_id, url) => {
+                store.dispatch(getDoctorByUrl(url, queryData.hospital_id ||'', queryData.procedure_ids || [], queryData.category_ids ||[] , (doctor_id, url) => {
                     if (doctor_id) {
                         if (match.url.includes('-dpp')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
