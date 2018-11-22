@@ -1,4 +1,4 @@
-.chat-main-container {
+f.chat-main-container {
 	position: relative;
 	top: -50px;
 }
@@ -3036,6 +3036,7 @@ ul.list-sub-menu a:hover {
     border-radius: 4px;
     padding: 10px 50px;
     font-size: 15px;
+    cursor: pointer;
 }
 .prp-chk-card{
 	margin-bottom: 15px;
@@ -3278,7 +3279,7 @@ border: 1px solid #aaaa;
 }
 .onscreen-scroll{
 	max-height: 70vh;
-	overflow-y:scroll;
+	overflow-y:auto;
 }
 /* procedure update *//* procedure update */
 

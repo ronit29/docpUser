@@ -152,7 +152,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	})
 }
 
-export const getDoctorById = (doctorId, hospitalId="", procedure_ids=[], category_ids=[]) => (dispatch) => {
+export const getDoctorById = (doctorId, hospitalId="", procedure_ids="", category_ids="") => (dispatch) => {
 
 	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 
@@ -173,7 +173,7 @@ export const getDoctorById = (doctorId, hospitalId="", procedure_ids=[], categor
 	})
 }
 
-export const getDoctorByUrl = (doctor_url, hospitalId="", procedure_ids=[], category_ids=[], cb) => (dispatch) => {
+export const getDoctorByUrl = (doctor_url, hospitalId="", procedure_ids="", category_ids="", cb) => (dispatch) => {
 
 	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}&hospital_id=${hospitalId}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 		dispatch({

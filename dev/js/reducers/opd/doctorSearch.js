@@ -133,11 +133,11 @@ export default function (state = defaultState, action) {
             }
 
 //            newState.profileCommonProcedures = action.commonProcedurers
-            let commonProcedurers = action.commonProcedurers.split(',')
+           /* let commonProcedurers = action.commonProcedurers.split(',')
             let commonSelectedProcedures = []
             commonProcedurers.map((x) => {
                 commonSelectedProcedures.push(parseInt(x))
-            })
+            })*/
             let hospitals = action.payload.hospitals.length ? action.payload.hospitals : []
             let is_procedure = false
 
@@ -171,7 +171,7 @@ export default function (state = defaultState, action) {
                         data['duration'] = pids.procedure.duration
                         data['procedure_name'] = pids.procedure.name
                         data['hospital_id'] = hospital.hospital_id
-                        if (pids.is_selected || commonSelectedProcedures.indexOf(pids.procedure.id) != -1) {
+                        if (pids.is_selected) {
 
                             data['is_selected'] = true
                             selectedProcedureIds.push(pids.procedure.id)
