@@ -1007,14 +1007,7 @@ li.lst-bfr:before{
 	margin-left: 3px;
 	display: inline-block;
 }
-.fltr-bkng-btn{
-	border-radius: 5px;
-    background-color: #f78631;
-    color: white;
-    border: none;
-    padding: 10px 0;
-    cursor: pointer;
-}
+
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
     right: -18px;

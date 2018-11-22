@@ -150,13 +150,15 @@ class DoctorProfileCard extends React.Component {
                                     {
                                         STORAGE.checkAuth() || deal_price < 100 ?
                                             ''
-                                            : <div className="signup-off-container">
-                                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                            </div>
+                                            : enabled_for_online_booking ?
+                                                <div className="signup-off-container">
+                                                    <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                </div>
+                                                : ''
                                     }
 
                                     {
-                                        enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
+                                        enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-cntct-btn">Contact</button>
                                     }
                                 </div>
                             </div>

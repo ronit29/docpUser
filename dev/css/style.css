@@ -1657,6 +1657,16 @@ margin: 0px 10px;
     border: none;
 	padding: 10px 0;
 	font-weight: 500;
+	cursor: pointer;
+}
+.fltr-cntct-btn{
+	border-radius: 5px;
+    background-color: #ffffff;
+    color: #f78631;
+    border: 1px solid #f78631;
+	padding: 10px 0;
+	font-weight: 500;
+	cursor: pointer;
 }
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
