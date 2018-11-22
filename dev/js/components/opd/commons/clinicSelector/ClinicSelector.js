@@ -9,9 +9,29 @@ class ClinicSelector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            numberShown: ""
         }
     }
+
+     showNumber(id, hospital_id, e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'doctor_id': id, "hospital_id": hospital_id
+        }
+        GTM.sendEvent({ data: data })
+
+        if (!this.state.numberShown) {
+            this.props.getDoctorNumber(id, (err, data) => {
+                if (!err && data.number) {
+                    this.setState({
+                        numberShown: data.number
+                    })
+                }
+            })
+         }
+     }
 
     toggle(which) {
         this.setState({ [which]: !this.state[which] })

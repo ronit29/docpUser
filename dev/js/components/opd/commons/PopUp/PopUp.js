@@ -1,4 +1,6 @@
 import React from 'react'
+import SnackBar from 'node-snackbar'
+
 
 export default class PopUpView extends React.Component {
 
@@ -55,7 +57,9 @@ export default class PopUpView extends React.Component {
 
 
 		} else {
-			this.setState({ errorMessage: true })
+			setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Select at least one Procedure" })
+            }, 500)
 			return null
 		}
 	}

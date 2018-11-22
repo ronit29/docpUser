@@ -73,6 +73,18 @@ class DoctorProfileCard extends React.Component {
         this.props.history.push('/doctorsignup');
     }
 
+    toggle(which, fetchResults = false, procedure_ids = []) {
+
+        this.setState({ [which]: !this.state[which] })
+        if (fetchResults) {
+            if (procedure_ids.length) {
+                this.props.saveCommonProcedures(procedure_ids)
+                this.props.mergeOPDState('')
+                this.props.resetProcedureURl()
+            } 
+        }
+    }
+
     render() {
 
         let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enabled_for_online_booking, is_license_verified, is_gold, schema } = this.props.details

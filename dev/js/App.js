@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState , mergeSelectedCriterias} from './actions/index.js'
+import { getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -182,10 +182,6 @@ class App extends React.Component {
             this.props.setFetchResults(true)
         }
 
-        if (window.location.pathname == "/") {
-            this.props.mergeSelectedCriterias()
-        }
-
     }
 
     render() {
@@ -239,8 +235,7 @@ const mapDispatchToProps = (dispatch) => {
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentRating: (appointmentData, callback) => dispatch(closeAppointmentRating(appointmentData, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
-        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
-        mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias())
+        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback))
     }
 
 }

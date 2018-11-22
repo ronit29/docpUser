@@ -84,10 +84,11 @@ export default function (state = defaultState, action) {
             }
 
             if (action.payload.forceAdd) {
-                newState.selectedCriterias = [{
+                newState.commonSelectedCriterias = [{
                     ...action.payload.criteria,
                     type: action.payload.type
                 }]
+                newState.filterCriteria = DEFAULT_FILTER_STATE
             } else if (!found) {
                 newState.selectedCriterias.push({
                     ...action.payload.criteria,
@@ -183,6 +184,9 @@ export default function (state = defaultState, action) {
             }
 
             newState.commonSelectedCriterias = []
+            newState.filterCriteria = DEFAULT_FILTER_STATE
+
+            return commonSelectedCriterias
         }
 
     }

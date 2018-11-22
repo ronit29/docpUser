@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
+import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
 class SearchResults extends React.Component {
@@ -113,7 +113,8 @@ const mapDispatchToProps = (dispatch) => {
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
         saveCommonProcedures: (procedure_ids) => dispatch(saveCommonProcedures(procedure_ids)),
-        resetProcedureURl: () => dispatch(resetProcedureURl())
+        resetProcedureURl: () => dispatch(resetProcedureURl()),
+        mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias())
     }
 }
 
