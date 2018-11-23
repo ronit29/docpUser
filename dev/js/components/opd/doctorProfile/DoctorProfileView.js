@@ -197,7 +197,7 @@ class DoctorProfileView extends React.Component {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
-                                                    {
+                                                    {/* {
                                                         search_data && this.state.searchShown ? <div className="mrt-10 mrb-20 article-chat-div" style={{ backgroundColor: 'transparent' }}>
                                                             <p className="fw-500" style={{ color: '#000000' }} >{search_data.title}</p>
                                                             <a onClick={() => {
@@ -207,7 +207,7 @@ class DoctorProfileView extends React.Component {
                                                                 GTM.sendEvent({ data: data })
                                                             }} href={this.build_search_data_url(search_data)}><button style={{ backgroundColor: '#f78631' }}>View All</button></a>
                                                         </div> : ''
-                                                    }
+                                                    } */}
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                                         {
                                                             this.props.DOCTORS[doctor_id].is_gold ?

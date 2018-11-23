@@ -81,7 +81,7 @@ class DoctorProfileCard extends React.Component {
                 this.props.saveCommonProcedures(procedure_ids)
                 this.props.mergeOPDState('')
                 this.props.resetProcedureURl()
-            } 
+            }
         }
     }
 
@@ -119,16 +119,16 @@ class DoctorProfileCard extends React.Component {
             let finalProcedureMrp = mrp
             hospitals[0].procedure_categories.map((x) => {
                 is_procedure = true
-                x.procedures.filter(x =>x.is_selected).map((x)=> {
-                    finalProcedureDealPrice+= x.deal_price
-                    finalProcedureMrp+= x.mrp  
-                    selectedCount++  
+                x.procedures.filter(x => x.is_selected).map((x) => {
+                    finalProcedureDealPrice += x.deal_price
+                    finalProcedureMrp += x.mrp
+                    selectedCount++
                 })
 
                 unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
 
-            if(is_procedure){
+            if (is_procedure) {
                 if (finalProcedureMrp != 0 && finalProcedureDealPrice != 0) {
                     discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
                 }
@@ -160,7 +160,7 @@ class DoctorProfileCard extends React.Component {
                                         <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span></p>
                                 </div>
                         }
-                        <div className="row no-gutters">
+                        <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
                             <div className="col-8">
                                 <div className="fltr-crd-img">
                                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} /></InitialsPicture>
@@ -194,11 +194,11 @@ class DoctorProfileCard extends React.Component {
 
                                     <p className="fltr-prices">
 
-                                        &#x20B9; {is_procedure?finalProcedureDealPrice:deal_price}
+                                        &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
                                         {
                                             is_procedure
-                                            ?finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                                            :mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                                ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
+                                                : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                         }
                                     </p>
                                     {
@@ -212,7 +212,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                     {
-                                        enabled_for_online_booking ? <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url, hospital.hospital_id)}>Book Now</button> : <button className="fltr-bkng-btn" onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')} >Contact</button>
+                                        enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
                                     }
                                 </div>
                             </div>
@@ -226,7 +226,7 @@ class DoctorProfileCard extends React.Component {
                                             <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
-                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x=>x.type=='procedures_category').length>0?` in ${this.props.selectedCriterias.filter(x=>x.type=='procedures_category').map(x => x.name).join(' | ')}`:'Selected'} </span></h4>
+                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
                                     <div className="insurance-checkboxes">
                                         <ul className="procedure-list">
                                             {
