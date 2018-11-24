@@ -88,6 +88,10 @@ export default function (state = defaultState, action) {
                     ...action.payload.criteria,
                     type: action.payload.type
                 }]
+                newState.commonSelectedCriterias = [{
+                    ...action.payload.criteria,
+                    type: action.payload.type
+                }]
                 newState.filterCriteria = DEFAULT_FILTER_STATE
             } else if (!found) {
                 newState.selectedCriterias.push({
