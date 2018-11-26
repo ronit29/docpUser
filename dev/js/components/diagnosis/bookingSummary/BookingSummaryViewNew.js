@@ -201,7 +201,7 @@ class BookingSummaryViewNew extends React.Component {
             case "lab": {
                 return <div>
                     <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
 
