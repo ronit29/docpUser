@@ -48,9 +48,9 @@ class LocationPopupView extends React.Component {
             }
 
             let data = {
-            'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+                'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
             }
-            GTM.sendEvent({ data: data })            
+            GTM.sendEvent({ data: data })
             this.props.history.push(location_url)
         }
     }
@@ -62,9 +62,9 @@ class LocationPopupView extends React.Component {
         }
         GTM.sendEvent({ data: data })
         if (parsed.lat && parsed.long) {
-            _getlocationFromLatLong(parsed.lat, parsed.long, 'city', (locationData) => {
+            _getlocationFromLatLong(parsed.lat, parsed.long, 'locality', (locationData) => {
                 if (locationData) {
-                    this.props.selectLocation(locationData, 'autoComplete')
+                    this.props.selectLocation(locationData, 'autoDetect')
                 }
             })
         }
