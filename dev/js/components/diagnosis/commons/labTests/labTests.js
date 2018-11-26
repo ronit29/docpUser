@@ -38,9 +38,14 @@ class LabTests extends React.Component {
         let number_of_tests = 0
         let defaultTests = []
         let showDefaultTests = false
-        if (this.props.data.tests && this.props.data.tests.length) {
+        let hide_price = false
 
+        if (this.props.data.tests && this.props.data.tests.length) {
             tests = this.props.data.tests.map((test, i) => {
+                if (test.hide_price) {
+                    hide_price = true
+                }
+
                 if (test.is_package) {
                     is_package = true
                     number_of_tests = test.number_of_tests
@@ -50,7 +55,10 @@ class LabTests extends React.Component {
                     return <PackageTest i={i} test={test} toggle={this.toggle.bind(this)} />
                 } else {
                     return <li className="clearfix" key={i}>
-                        <span className="test-price">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span><span className="fw-500 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
+                        {
+                            test.hide_price ? <span className="test-price">Free</span> : <span className="test-price">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                        }
+                        <span className="fw-500 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
                 }
             })
         }
@@ -86,11 +94,12 @@ class LabTests extends React.Component {
         let pickup_text = ""
         let extra_price = ""
         let showPriceTag = 0
-        if (is_home_collection_enabled && distance_related_charges == 1) {
+
+        if (is_home_collection_enabled && distance_related_charges == 1 && !hide_price) {
             pickup_text = "Home pickup charges applicable"
         }
 
-        if (is_home_collection_enabled && !distance_related_charges) {
+        if (is_home_collection_enabled && !distance_related_charges && !hide_price) {
             pickup_text = "Home visit charges"
             showPriceTag = 1
             extra_price = this.props.data.lab.home_pickup_charges
@@ -127,10 +136,11 @@ class LabTests extends React.Component {
                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                             </div>
                     }
-                    <div className="pb-view text-right">
-                        <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
-                    </div>
-
+                    {
+                        hide_price ? "" : <div className="pb-view text-right">
+                            <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
+                        </div>
+                    }
                     {
                         this.state.showPackageInfo ? <PackageInfo content={this.state.packageInfoTest} toggle={this.toggle.bind(this, 'showPackageInfo')} /> : ""
                     }

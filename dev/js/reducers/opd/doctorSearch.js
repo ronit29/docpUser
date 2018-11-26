@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS} from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -10,7 +10,8 @@ const defaultState = {
     SET_FROM_SERVER: false,
     doctorCoupons: {},
     disCountedOpdPrice: 0,
-    search_content: ''
+    search_content: '',
+    couponAutoApply: true
 }
 
 export default function (state = defaultState, action) {
@@ -75,17 +76,17 @@ export default function (state = defaultState, action) {
 
             let newState = {
                 ...state,
-                doctorCoupons : { ...state.doctorCoupons }
+                doctorCoupons: { ...state.doctorCoupons }
             }
-/*
-            if(state.doctorCoupons[action.hospitalId]){
-                newState.doctorCoupons[action.hospitalId] = [].concat(state.doctorCoupons[action.hospitalId])
-            } else {
-                newState.doctorCoupons[action.hospitalId] = []
-            }*/
+            /*
+                        if(state.doctorCoupons[action.hospitalId]){
+                            newState.doctorCoupons[action.hospitalId] = [].concat(state.doctorCoupons[action.hospitalId])
+                        } else {
+                            newState.doctorCoupons[action.hospitalId] = []
+                        }*/
             newState.doctorCoupons[action.hospitalId] = []
             newState.doctorCoupons[action.hospitalId].push(action.payload)
-            
+
             return newState
         }
 
@@ -93,13 +94,14 @@ export default function (state = defaultState, action) {
 
             let newState = {
                 ...state,
-                doctorCoupons : { ...state.doctorCoupons }
+                doctorCoupons: { ...state.doctorCoupons }
             }
 
-            if(action.couponId){
-                newState.doctorCoupons[action.hospitalId] = newState.doctorCoupons[action.hospitalId].filter((coupon) => { coupon.coupon_id != action.couponId })  
+            if (action.couponId) {
+                newState.doctorCoupons[action.hospitalId] = newState.doctorCoupons[action.hospitalId].filter((coupon) => { coupon.coupon_id != action.couponId })
             }
             newState.disCountedOpdPrice = 0
+            newState.couponAutoApply = false
             return newState
 
         }
@@ -109,10 +111,10 @@ export default function (state = defaultState, action) {
                 ...state
             }
 
-            if(action.payload.status == 1){
+            if (action.payload.status == 1) {
                 newState.disCountedOpdPrice = parseInt(action.payload.discount)
             }
-            
+
             return newState
         }
 
@@ -121,7 +123,7 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.disCountedOpdPrice = 0
-
+            
             return newState
         }
 

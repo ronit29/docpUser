@@ -72,72 +72,93 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        if (nextProps.labCoupons && nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length && nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
+        if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
-            let is_home_collection_enabled = true, finalPrice = 0, finalMrp = 0
-            let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-
-            if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
-
-
+            // remove corporate coupon if tests are not valid
+            if (nextProps.corporateCoupon) {
+                let corporate = true
                 nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
-                    let price = twp.deal_price
-                    let mrp = twp.mrp
-                    // check if any of the selected test does not allow home_pickup_available
-                    if (!twp.is_home_collection_enabled) {
-                        is_home_collection_enabled = false
+                    if (!twp.hide_price) {
+                        corporate = false
                     }
-                    finalPrice += parseFloat(price)
-                    finalMrp += parseFloat(mrp)
                 })
 
-                if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
-                    finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+                if (!corporate) {
+                    this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
+                    this.props.resetLabCoupons()
+                    this.props.setCorporateCoupon(null)
+                    this.setState({ couponCode: "", couponId: '' })
+                    return
                 }
-
-                this.setState({ couponCode: labCoupons[0].couponCode, couponId: labCoupons[0].couponId || '' })
-                this.props.applyLabCoupons('2', labCoupons[0].couponCode, labCoupons[0].couponId, this.state.selectedLab, finalPrice)
             }
-        } else {
-            if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests) {
-                if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
-                    if (!this.props.labCoupons[this.state.selectedLab] || (this.props.labCoupons[this.state.selectedLab] && this.props.labCoupons[this.state.selectedLab].length == 0)) {
-                        if (nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
-                            //auto apply coupon if no coupon is apllied
-                            if (this.state.selectedLab) {
-                                let finalPrice = 0
-                                let is_home_collection_enabled = true
-                                nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
-                                    let price = twp.deal_price
-                                    let mrp = twp.mrp
-                                    // check if any of the selected test does not allow home_pickup_available
-                                    if (!twp.is_home_collection_enabled) {
-                                        is_home_collection_enabled = false
-                                    }
-                                    finalPrice += parseFloat(price)
-                                })
-                                if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].lab && is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
-                                    finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
-                                }
-                                this.props.getCoupons(2, finalPrice, (coupons) => {
-                                    if (coupons && coupons[0]) {
-                                        this.props.applyCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab)
-                                        this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice)
-                                        this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
-                                    } else {
-                                        this.props.resetLabCoupons()
-                                    }
-                                })
-                            } else {
-                                this.props.resetLabCoupons()
-                            }
+
+            // if corporateCoupon is set, apply that, leave rest
+            if (nextProps.corporateCoupon) {
+                if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
+                    let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
+
+                    let labCoupon = nextProps.corporateCoupon
+                    this.setState({ couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
+                    this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
+                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids)
+                }
+                return
+            }
+
+            // if coupon already applied just set discount price.
+            if (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length) {
+
+                if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
+
+                    let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
+
+                    let labCoupons = nextProps.labCoupons[this.state.selectedLab]
+                    this.setState({ couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids)
+                }
+                return
+            }
+
+            // if no coupon is applied
+            if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
+                if (nextProps.couponAutoApply) {
+
+                    let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
+
+                    this.props.getCoupons(2, finalPrice, (coupons) => {
+                        if (coupons && coupons[0]) {
+                            this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
+                            this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids)
+                            this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                        } else {
+                            this.props.resetLabCoupons()
                         }
-                    }
+                    }, this.state.selectedLab, test_ids)
                 }
             }
         }
     }
 
+    getLabPriceData(nextProps) {
+        let is_home_collection_enabled = true
+        let finalPrice = 0
+        let test_ids = []
+
+        nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
+            test_ids.push(twp.test_id)
+            let price = twp.deal_price
+            if (!twp.is_home_collection_enabled) {
+                is_home_collection_enabled = false
+            }
+            finalPrice += parseFloat(price)
+        })
+
+        if (is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
+            finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+        }
+
+        return { finalPrice, test_ids }
+    }
 
     openTests() {
         this.props.history.push(`/lab/${this.state.selectedLab}/tests`)
@@ -188,7 +209,7 @@ class BookingSummaryViewNew extends React.Component {
                 return <div>
                     <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} />
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
             }
         }
@@ -302,11 +323,13 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     applyCoupons() {
-        let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'LabCouponsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-clicked'
+        if (!this.props.corporateCoupon) {
+            let analyticData = {
+                'Category': 'ConsumerApp', 'Action': 'LabCouponsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-clicked'
+            }
+            GTM.sendEvent({ data: analyticData })
+            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons`)
         }
-        GTM.sendEvent({ data: analyticData })
-        this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons`)
     }
 
     render() {
@@ -319,6 +342,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_home_collection_enabled = true
         let address_picked_verified = false
         let center_visit_enabled = true
+        let is_corporate = false
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -328,6 +352,9 @@ class BookingSummaryViewNew extends React.Component {
             labDetail = this.props.LABS[this.state.selectedLab].lab
 
             tests = this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
+                if (twp.hide_price) {
+                    is_corporate = true
+                }
                 let price = twp.deal_price
                 let mrp = twp.mrp
                 // check if any of the selected test does not allow home_pickup_available
@@ -337,7 +364,12 @@ class BookingSummaryViewNew extends React.Component {
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label clearfix"><span className="float-right fw-700">&#8377; {price}<span class="test-mrp">₹ {parseFloat(twp.mrp)}</span></span><span className="test-name-item">{twp.test.name}</span></p>
+                return <p key={i} className="test-list test-list-label clearfix">
+                    {
+                        is_corporate ? <span className="float-right fw-700">Free</span> : <span className="float-right fw-700">&#8377; {price}<span class="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        </span>
+                    }
+                    <span className="test-name-item">{twp.test.name}</span></p>
             })
 
             center_visit_enabled = labDetail.center_visit_enabled
@@ -397,7 +429,11 @@ class BookingSummaryViewNew extends React.Component {
                                                     <div className="col-12">
                                                         <div className="widget mrt-10 ct-profile skin-white">
                                                             <div className="test-report widget-content">
-                                                                <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right"><a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a></span></h4>
+                                                                <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right">
+                                                                    {
+                                                                        !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a> : ""
+                                                                    }
+                                                                </span></h4>
                                                                 {tests}
                                                             </div>
 
@@ -439,23 +475,24 @@ class BookingSummaryViewNew extends React.Component {
                                                                                     </span>
                                                                                     <h4 className="title coupon-text" style={{ color: 'green' }}>
                                                                                         Coupon Applied
-                                                                            </h4>
+                                                                                    </h4>
                                                                                 </div>
                                                                                 <div className=" d-flex">
                                                                                     <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                        {labCoupons[0].couponCode}
+                                                                                        {labCoupons[0].code}
                                                                                     </h4>
-                                                                                    <span className="visit-time-icon coupon-icon">
-                                                                                        <img onClick={(e) => {
+                                                                                    {
+                                                                                        is_corporate ? "" : <span className="visit-time-icon coupon-icon"><img onClick={(e) => {
                                                                                             e.stopPropagation();
                                                                                             let analyticData = {
-                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].couponId
+                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
 
-                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].couponId)
+                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                                                    </span>
+                                                                                        </span>
+                                                                                    }
                                                                                 </div>
                                                                             </div> :
                                                                             <div className="widget-content d-flex jc-spaceb" >
@@ -475,59 +512,63 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div>
                                                             </div> : ''
                                                     }
-                                                    <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
 
-                                                            <div className="widget-content">
-                                                                <h4 className="title mb-20">Payment Summary</h4>
-                                                                <div className="payment-summary-content">
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>Lab fees</p>
-                                                                        <p>&#8377; {finalMrp}</p>
-                                                                    </div>
-                                                                    {
-                                                                        (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
-                                                                            <p className="payment-content">Home Pickup Charges</p>
-                                                                            <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
-                                                                        </div> : ""
-                                                                    }
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>Docprime discount</p>
-                                                                        <p>- &#8377; {finalMrp - finalPrice}</p>
-                                                                    </div>
-                                                                    {
-                                                                        this.props.disCountedLabPrice
-                                                                            ? <div className="payment-detail d-flex">
-                                                                                <p style={{ color: 'green' }}>Coupon discount</p>
-                                                                                <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
-                                                                            </div>
-                                                                            : ''
-                                                                    }
-                                                                    {
-                                                                        (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
-                                                                            <p className="payment-content fw-500">Subtotal</p>
-                                                                            <p className="payment-content fw-500">&#8377; {finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)}</p>
-                                                                        </div> : <div className="payment-detail d-flex">
+                                                    {
+                                                        is_corporate ? "" : <div className="col-12">
+                                                            <div className="widget mrt-10 ct-profile skin-white">
+
+                                                                <div className="widget-content">
+                                                                    <h4 className="title mb-20">Payment Summary</h4>
+                                                                    <div className="payment-summary-content">
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Lab fees</p>
+                                                                            <p>&#8377; {finalMrp}</p>
+                                                                        </div>
+                                                                        {
+                                                                            (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                <p className="payment-content">Home Pickup Charges</p>
+                                                                                <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
+                                                                            </div> : ""
+                                                                        }
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Docprime discount</p>
+                                                                            <p>- &#8377; {finalMrp - finalPrice}</p>
+                                                                        </div>
+                                                                        {
+                                                                            this.props.disCountedLabPrice
+                                                                                ? <div className="payment-detail d-flex">
+                                                                                    <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                    <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
+                                                                                </div>
+                                                                                : ''
+                                                                        }
+                                                                        {
+                                                                            (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                 <p className="payment-content fw-500">Subtotal</p>
-                                                                                <p className="payment-content fw-500">&#8377; {finalPrice - this.props.disCountedLabPrice || 0}</p>
-                                                                            </div>
-                                                                    }
+                                                                                <p className="payment-content fw-500">&#8377; {finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)}</p>
+                                                                            </div> : <div className="payment-detail d-flex">
+                                                                                    <p className="payment-content fw-500">Subtotal</p>
+                                                                                    <p className="payment-content fw-500">&#8377; {finalPrice - this.props.disCountedLabPrice || 0}</p>
+                                                                                </div>
+                                                                        }
+
+                                                                    </div>
+                                                                    <hr />
+
+                                                                    <div className="lab-visit-time test-report">
+                                                                        <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                        {
+                                                                            this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0) - (this.props.disCountedLabPrice || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice - this.props.disCountedLabPrice || 0}</h5>
+                                                                        }
+
+                                                                    </div>
+
 
                                                                 </div>
-                                                                <hr />
-
-                                                                <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                    {
-                                                                        this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0) - (this.props.disCountedLabPrice || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice - this.props.disCountedLabPrice || 0}</h5>
-                                                                    }
-
-                                                                </div>
-
-
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    }
+
 
                                                     <div className="col-12" style={{ marginTop: 10 }}>
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>

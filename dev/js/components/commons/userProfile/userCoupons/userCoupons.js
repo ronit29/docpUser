@@ -14,6 +14,19 @@ class UserCoupons extends React.Component {
         this.setState({ openTermsConditions: !this.state.openTermsConditions, selectedCoupon });
     }
 
+    searchLab(coupon) {
+        this.props.setCorporateCoupon(coupon)
+
+        let test_ids = []
+        let network_id = ""
+        if (coupon && coupon.tests) {
+            test_ids = coupon.tests
+        }
+        if (coupon && coupon.network_id) {
+            network_id = coupon.network_id
+        }
+        window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
+    }
 
     render() {
 
@@ -32,7 +45,9 @@ class UserCoupons extends React.Component {
                                                     <h5 className="avl-cpn-hdng">Available Coupons</h5>
                                                     <div className="coupan-name">
                                                         <span className="coupon-desing">{coupon.code}</span>
-                                                        <span className="coupon-avail">Avail Now   <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /> </span>
+                                                        {
+                                                            coupon.is_corporate ? <span onClick={this.searchLab.bind(this, coupon)} className="coupon-avail">Avail Now   <img src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /> </span> : ""
+                                                        }
                                                     </div>
                                                     <div className="couon-details">
                                                         <span className="coupon-ins">{coupon.heading}</span>

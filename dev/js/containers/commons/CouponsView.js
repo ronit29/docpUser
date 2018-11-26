@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) =>{
 
 	return{
 		getCoupons: (productId) => dispatch(getCoupons(productId)),
-		applyCoupons: (productId, couponCode, couponId, hospitalId ) => dispatch(applyCoupons(productId, couponCode, couponId, hospitalId ))
+		applyCoupons: (productId, couponData, couponId, hospitalId ) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId ))
 
 	}
 }

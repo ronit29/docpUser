@@ -1395,7 +1395,8 @@ padding: 20px;
     width: 120px;
 }
 .ofr-contnt{
-    margin-left: 20px;
+	margin-left: 20px;
+	width:100%;
 }
 .fst-bkg{
     font-size: 18px;
@@ -3093,4 +3094,15 @@ span.ad-sub-content {
 	font-weight: 500;
 	cursor: pointer;
     font-size: 12px;
+}
+
+.usr-dtls-plan-act{
+	color: #f78630;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.usr-dtls-off-act{
+	display: flex;
+    justify-content: space-between;
 }

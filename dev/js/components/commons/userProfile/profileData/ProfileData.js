@@ -12,7 +12,7 @@ class ProfileData extends React.Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     gotTo(where) {
@@ -21,6 +21,20 @@ class ProfileData extends React.Component {
 
     toggleTandC() {
         this.setState({ openTermsConditions: !this.state.openTermsConditions });
+    }
+
+    searchLab(coupon) {
+        this.props.setCorporateCoupon(coupon)
+
+        let test_ids = []
+        let network_id = ""
+        if (coupon && coupon.tests) {
+            test_ids = coupon.tests
+        }
+        if (coupon && coupon.network_id) {
+            network_id = coupon.network_id
+        }
+        window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
     render() {
@@ -93,8 +107,15 @@ class ProfileData extends React.Component {
                         </li>
                         {
                             coupon ? <li className="my-profile-item" style={{ cursor: 'auto' }}>
-                                <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/stmp.svg"} className="img-fluid" />OFFERS</p>
-
+                                <div className="usr-dtls-off-act">
+                                    <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/stmp.svg"} className="img-fluid" />OFFERS
+                                    </p>
+                                    {
+                                        coupon.is_corporate ?
+                                            <span onClick={this.searchLab.bind(this, coupon)} className="usr-dtls-plan-act">Avail Now <img style={{ height: '10px' }} src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
+                                            : ""
+                                    }
+                                </div>
                                 <div className="ofr-img-txt">
                                     <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/customer-icons/vector-smart-object.png"} className="img-fluid" /></div>
                                     <div className="ofr-contnt">

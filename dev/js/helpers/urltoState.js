@@ -174,6 +174,8 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let sort_on = _getLocationParamBind('sort_on') || null
             let lab_name = _getLocationParamBind('lab_name') || ""
             lab_name = lab_name || ""
+            let network_id = _getLocationParamBind('network_id') || ""
+            network_id = network_id || ""
             let locationType = _getLocationParamBind('locationType') || "geo"
 
             let selectedCriterias = []
@@ -193,6 +195,10 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
 
             if (lab_name) {
                 filterCriteria.lab_name = lab_name
+            }
+
+            if (network_id) {
+                filterCriteria.network_id = network_id
             }
 
             filterCriteria.priceRange = [0, 20000]

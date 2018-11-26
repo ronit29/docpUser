@@ -60,16 +60,16 @@ class PatientDetailsNew extends React.Component {
             let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor]
             if (this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.state.selectedDoctor) {
 
-                this.setState({ couponCode: doctorCoupons[0].couponCode, couponId: doctorCoupons[0].couponId || '' })
-                this.props.applyOpdCoupons('1', doctorCoupons[0].couponCode, doctorCoupons[0].couponId, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
+                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
             }
         } else {
             //auto apply coupon if no coupon is apllied
-            if (this.state.selectedDoctor, this.props.selectedSlot.time.deal_price) {
+            if (this.state.selectedDoctor && this.props.selectedSlot.time.deal_price && this.props.couponAutoApply) {
                 this.props.getCoupons(1, this.props.selectedSlot.time.deal_price, (coupons) => {
                     if (coupons && coupons[0]) {
                         this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
-                        this.props.applyCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor)
+                        this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
                         this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
                     } else {
                         this.props.resetOpdCoupons()
@@ -268,17 +268,17 @@ class PatientDetailsNew extends React.Component {
                                                                                 </div>
                                                                                 <div className=" d-flex">
                                                                                     <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                        {doctorCoupons[0].couponCode}
+                                                                                        {doctorCoupons[0].code}
                                                                                     </h4>
                                                                                     <span className="visit-time-icon coupon-icon">
                                                                                         <img onClick={(e) => {
                                                                                             e.stopPropagation();
                                                                                             let analyticData = {
                                                                                                 'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
-                                                                                                'couponId': doctorCoupons[0].couponId
+                                                                                                'couponId': doctorCoupons[0].coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
-                                                                                            this.props.removeCoupons(this.state.selectedDoctor, doctorCoupons[0].couponId)
+                                                                                            this.props.removeCoupons(this.state.selectedDoctor, doctorCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                     </span>
                                                                                 </div>

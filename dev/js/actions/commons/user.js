@@ -391,13 +391,17 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 	})
 }
 
-export const getCoupons = (productId = '', deal_price = 0, cb) => (dispatch) => {
+export const getCoupons = (productId = '', deal_price = 0, cb, lab_id = null, test_ids = []) => (dispatch) => {
 	let url = `/api/v1/coupon/applicablecoupons?`
 	if (productId) {
 		url += `product_id=${productId}`
 	}
 	if (deal_price) {
 		url += `&deal_price=${deal_price}`
+	}
+
+	if (lab_id && test_ids) {
+		url += `&lab_id=${lab_id}&test_ids=${test_ids}`
 	}
 
 	API_GET(url).then(function (response) {
@@ -423,9 +427,10 @@ export const getUserPrescription = (mobile) => (dispatch) => {
 	})
 }
 
-export const applyCoupons = (productId = '', couponCode, couponId, hospitalId) => (dispatch) => {
+export const applyCoupons = (productId = '', couponData, couponId, hospitalId) => (dispatch) => {
 
-	let couponData = { id: hospitalId, couponCode: couponCode, couponApplied: true, couponId: couponId }
+	couponData.couponApplied = true
+
 	if (productId == 1) {
 		dispatch({
 			type: ADD_OPD_COUPONS,

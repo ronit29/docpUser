@@ -41,10 +41,10 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTORS
     const { selectedProfile, profiles } = state.USER
-    let { selectedSlot, doctorCoupons, disCountedOpdPrice } = state.DOCTOR_SEARCH
+    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply } = state.DOCTOR_SEARCH
 
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply
     }
 }
 
@@ -57,7 +57,7 @@ const mapDispatchToProps = (dispatch) => {
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
         applyOpdCoupons: (productId, couponCode, couponId, hospitalId, dealPrice) => dispatch(applyOpdCoupons(productId, couponCode, couponId, hospitalId, dealPrice)),
-        applyCoupons: (productId, couponCode, couponId, hospitalId) => dispatch(applyCoupons(productId, couponCode, couponId, hospitalId)),
+        applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId)),
         resetOpdCoupons: () => dispatch(resetOpdCoupons()),
         getCoupons: (productId, deal_price, cb) => dispatch(getCoupons(productId, deal_price, cb))
     }
