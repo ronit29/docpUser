@@ -187,7 +187,7 @@ class ClinicSelector extends React.Component {
                                 this.props.is_procedure?
                                     this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures >= 0
                                     ?''
-                                    :<p>Selected Treatment Not Available</p>
+                                    :<p className="select-bnr-dsn">Selected treatment not available</p>
                                 :''
                             }
 

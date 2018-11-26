@@ -3358,3 +3358,9 @@ border: 1px solid #aaaa;
 .ofr-mrngbtm{
 	margin-bottom: 10px;
 }
+.select-bnr-dsn{
+	padding: 4px 10px;
+    background: #f5e28a;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+}
