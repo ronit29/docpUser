@@ -1619,9 +1619,9 @@ margin: 0px 10px;
     text-overflow: ellipsis;
     display: inline-block;
 }
-.fltr-crd-img{
-	text-align: center;
-    display: inline-block;
+.fltr-crd-col{
+	display: flex;
+	align-items: flex-start;
 }
 .fltr-crd-img .fltr-usr-image{
     height: 70px;
@@ -1648,13 +1648,14 @@ margin: 0px 10px;
 	margin-left:3px;
 }
 .fltr-name-dtls{
-	display: inline-block;
-    padding-left: 10px;
+	flex: 1;
+	padding-left: 10px;
+	min-width: 0;
 }
 .fltr-dc-name{
 	font-weight: 500;
 	margin-bottom: 5px;
-	width: 200px;
+	width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1763,9 +1764,6 @@ margin: 0px 10px;
 
 }
 @media screen and (max-width: 470px) {
-	.fltr-dc-name{
-		width: 140px;
-	}
 	.filtr-offer.ofr-ribbon {
 		top: 4px;
 	}
@@ -1775,7 +1773,6 @@ margin: 0px 10px;
 }
 @media screen and (max-width: 380px) {
 	.fltr-dc-name{
-		width: 110px;
 		font-size: 14px;
 	}
 	.fltr-crd-img .fltr-usr-image {
@@ -1793,9 +1790,6 @@ margin: 0px 10px;
 	}
 }
 @media screen and (max-width: 335px) {
-	.fltr-dc-name{
-		width: 100px;
-	}
 	.fltr-name-dtls p{
 		font-size: 11px;
 	}

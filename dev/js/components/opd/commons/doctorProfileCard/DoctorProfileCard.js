@@ -42,7 +42,7 @@ class DoctorProfileCard extends React.Component {
 
         return (
             <div className="widget-header dr-qucik-info doc-gold-padding">
-                <div className="fltr-crd-img">
+                <div className="fltr-crd-img text-center">
                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
                         <img src={thumbnail} className="img-fluid img-round" />
                     </InitialsPicture>
