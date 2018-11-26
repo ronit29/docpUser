@@ -84,10 +84,6 @@ export default function (state = defaultState, action) {
             }
 
             if (action.payload.forceAdd) {
-                newState.selectedCriterias = [{
-                    ...action.payload.criteria,
-                    type: action.payload.type
-                }]
                 newState.commonSelectedCriterias = [{
                     ...action.payload.criteria,
                     type: action.payload.type

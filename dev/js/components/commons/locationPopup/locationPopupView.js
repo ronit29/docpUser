@@ -1,6 +1,7 @@
 import React from 'react'
 import { _getlocationFromLatLong } from '../../../helpers/mapHelpers'
 const queryString = require('query-string');
+import GTM from '../../../helpers/gtm'
 
 class LocationPopupView extends React.Component {
 
@@ -45,16 +46,25 @@ class LocationPopupView extends React.Component {
             if (redirect_to) {
                 location_url += `?redirect_to=${redirect_to}`
             }
+
+            let data = {
+                'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
             this.props.history.push(location_url)
         }
     }
 
     continueLocation() {
         const parsed = queryString.parse(this.props.location.search);
+        let data = {
+            'Category': 'ContinueLocationDoctorResultsPopUp', 'Action': 'continue-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'continue-location-doctor-results-PopUp', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
         if (parsed.lat && parsed.long) {
-            _getlocationFromLatLong(parsed.lat, parsed.long, 'city', (locationData) => {
+            _getlocationFromLatLong(parsed.lat, parsed.long, 'locality', (locationData) => {
                 if (locationData) {
-                    this.props.selectLocation(locationData, 'autoComplete')
+                    this.props.selectLocation(locationData, 'autoDetect')
                 }
             })
         }

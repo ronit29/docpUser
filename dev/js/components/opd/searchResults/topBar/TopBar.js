@@ -185,7 +185,7 @@ class TopBar extends React.Component {
 
     render() {
 
-        let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+        let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
