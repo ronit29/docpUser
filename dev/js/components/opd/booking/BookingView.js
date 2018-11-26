@@ -124,7 +124,6 @@ class BookingView extends React.Component {
         let actions = []
         let status = 1
         let doctor_thumbnail = ""
-
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -227,6 +226,18 @@ class BookingView extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="widget mrb-10">
+                                                    <div className="widget-content">
+                                                        <div className="test-report">
+                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
+                                                                width: 14, marginRight: 5, verticalAlign: -3
+                                                            }} /></span>Patient Details</h4>
+                                                            <p className="test-list fw-500">{profile.name}</p>
+                                                            <p className="test-list fw-500">{profile.phone_number}</p>
+                                                            <p className="test-list fw-500">{profile.email}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="widget mrb-10">
                                                     <div className="widget-content bokng-card pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{doctor.display_name}</h4>
                                                         <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd" onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
@@ -248,6 +259,20 @@ class BookingView extends React.Component {
                                                             <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
                                                         </div>
                                                     </div>
+                                                    {
+                                                        this.state.data && this.state.data.procedures && this.state.data.procedures.length?
+                                                        <div className="widget-content pb-details pb-location">
+                                                            <h4 className="title" style={{ fontSize: 14 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/teeth.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 8 }} /></span>Services Included</h4>
+                                                            <div className="pb-view text-left proc-para-margin">
+                                                                {
+                                                                   this.state.data.procedures.map((procedure) => {
+                                                                    return <p>{procedure.name}</p>
+                                                                   }) 
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        :''
+                                                    }
                                                 </div>
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
@@ -263,18 +288,7 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="widget mrt-10">
-                                                    <div className="widget-content">
-                                                        <div className="test-report">
-                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
-                                                                width: 14, marginRight: 5, verticalAlign: -3
-                                                            }} /></span>Patient Details</h4>
-                                                            <p className="test-list fw-500">{profile.name}</p>
-                                                            <p className="test-list fw-500">{profile.phone_number}</p>
-                                                            <p className="test-list fw-500">{profile.email}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>

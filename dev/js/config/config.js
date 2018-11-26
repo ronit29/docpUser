@@ -43,7 +43,7 @@ const DEV_CONFIG = {
     API_BASE_URL: "http://localhost:8080",
     // API_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
-    SOCKET_BASE_URL: "https://liveqa.docprime.com",
+    SOCKET_BASE_URL: "https://qa.docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io",
     PG_URL: "https://payqa.docprime.com/dp/pay/init",
@@ -62,6 +62,14 @@ if (DOCPRIME_STAGING) {
 
 if (DOCPRIME_PRODUCTION) {
     CONFIG = { ...BASE_CONFIG, ...PROD_CONFIG }
+}
+
+if (API_BASE_URL) {
+    CONFIG.API_BASE_URL = API_BASE_URL
+}
+
+if (SOCKET_BASE_URL) {
+    CONFIG.SOCKET_BASE_URL = SOCKET_BASE_URL
 }
 
 export default CONFIG

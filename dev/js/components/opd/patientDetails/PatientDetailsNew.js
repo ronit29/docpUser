@@ -16,6 +16,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
+import ProcedureView from './procedureView.js'
 
 
 class PatientDetailsNew extends React.Component {
@@ -60,8 +61,16 @@ class PatientDetailsNew extends React.Component {
             let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor]
             if (this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.state.selectedDoctor) {
 
+                let treatment_Price = 0
+                let selectedProcedures = {}
+                if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+                    treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+                }
+                let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
+
                 this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
-                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
             }
         } else {
             //auto apply coupon if no coupon is apllied
@@ -107,6 +116,18 @@ class PatientDetailsNew extends React.Component {
         }
         if (this.props.disCountedOpdPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
+        }
+
+        let procedure_ids = []
+        if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories) {
+
+            Object.values(this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
+
+                procedure_ids = procedure_ids.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
+            })
+            if (procedure_ids.length) {
+                postData['procedure_ids'] = procedure_ids || []
+            }
         }
 
         let analyticData = {
@@ -222,8 +243,16 @@ class PatientDetailsNew extends React.Component {
                 this.props.selectOpdTimeSLot(slot, false)
             }
         }
+        let treatment_Price = 0, treatment_mrp = 0
+        let selectedProcedures = {}
+        if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
 
-        let finalPrice = priceData.deal_price ? priceData.deal_price - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
+            treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+            treatment_mrp = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.mrp || 0
+            selectedProcedures = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories
+        }
+
+        let finalPrice = priceData.deal_price ? parseInt(priceData.deal_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -248,6 +277,12 @@ class PatientDetailsNew extends React.Component {
                                                             <div className="widget-content">
                                                                 <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                                                                {
+                                                                    Object.values(selectedProcedures).length ?
+                                                                        <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
+                                                                        : <div className="clearfix pb-list proc-padding-list">
+                                                                            <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
@@ -307,12 +342,12 @@ class PatientDetailsNew extends React.Component {
                                                                 <h4 className="title mb-20">Payment Summary</h4>
                                                                 <div className="payment-summary-content">
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>Doctor fees</p>
-                                                                        <p>&#8377; {priceData.mrp}</p>
+                                                                        <p>Subtotal</p>
+                                                                        <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                     </div>
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>Docprime discount</p>
-                                                                        <p>- &#8377; {priceData.mrp - priceData.deal_price}</p>
+                                                                        <p>docprime discount</p>
+                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                     </div>
                                                                     {
                                                                         this.props.disCountedOpdPrice
@@ -322,17 +357,26 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             : ''
                                                                     }
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>Subtotal</p>
-                                                                        <p> &#8377; {finalPrice}</p>
-                                                                    </div>
+                                                                    {
+                                                                        /*    treatment_Price ?
+                                                                                <div className="payment-detail d-flex">
+                                                                                    <p>Treatment</p>
+                                                                                    <p> &#8377; {treatment_Price}</p>
+                                                                                </div>
+                                                                                : ''
+                                                                        
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Subtotal</p>
+                                                                            <p> &#8377; {finalPrice + treatment_Price || 0}</p>
+                                                                        </div>*/
+                                                                    }
                                                                 </div>
                                                                 <hr />
 
                                                                 {
                                                                     priceData ? <div className="test-report payment-detail mt-20">
                                                                         <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                        <h5 className="payment-amt-value">&#8377; {finalPrice}</h5>
+                                                                        <h5 className="payment-amt-value">&#8377; {finalPrice + treatment_Price || 0}</h5>
                                                                     </div> : ""
                                                                 }
 
@@ -367,7 +411,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice})` : ''}`}</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice + treatment_Price || 0})` : ''}`}</button>
                             }
 
                         </div>

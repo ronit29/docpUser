@@ -3,13 +3,43 @@ import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage'
+import ProcedurePopup from '../profilePopUp.js'
 
 class ClinicSelector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            numberShown: ""
         }
+    }
+
+    showNumber(id, hospital_id, e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'doctor_id': id, "hospital_id": hospital_id
+        }
+        GTM.sendEvent({ data: data })
+
+        if (!this.state.numberShown) {
+            this.props.getDoctorNumber(id, (err, data) => {
+                if (!err && data.number) {
+                    this.setState({
+                        numberShown: data.number
+                    })
+                }
+            })
+        }
+    }
+
+    toggle(which) {
+        this.setState({ [which]: !this.state[which] })
+    }
+
+    procedurePopUp(hospital_id) {
+
+        this.setState({ vieMoreProcedures: true, selectedId: hospital_id })
     }
 
     render() {
@@ -23,9 +53,10 @@ class ClinicSelector extends React.Component {
 
         if (!this.props.selectedClinic) {
             if (hospitals && hospitals.length) {
-                this.props.selectClinic(hospitals[0].hospital_id, is_live, 0)
+                this.props.selectClinic(hospitals[0].hospital_id, is_live, 0, hospitals[0].deal_price || 0)
             }
         }
+
 
         return (
             // <div className="widget-panel">
@@ -93,22 +124,31 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, !!is_live, i) }}>{hospital.hospital_name}
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, !!is_live, i, hospital.deal_price) }}>{hospital.hospital_name}
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
+                            {
+                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories
+                                    ? ''
+                                    : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                        <div className="clearfix">
+                                            <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                        </div>
+                                    </div>
+                            }
                             <div className="dtl-cnslt-fee pb-list">
-                                <div className="clearfix">
-                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                                </div>
+
                                 <div className="clearfix">
                                     {
-                                        STORAGE.checkAuth() || hospital.deal_price < 100 ?
+                                        STORAGE.checkAuth() || hospital.deal_price < 100 || (this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
                                             ''
-                                            : <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                            : enabled_for_online_booking ?
+                                                <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                : ''
                                     }
                                 </div>
                             </div>
@@ -130,14 +170,82 @@ class ClinicSelector extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className="col-2">
                                         <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
                                             <img style={{ width: "35px", height: "35px", cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid" />
                                         </a>
                                     </div>
                                 </div>
                             </div>
+                            {
+                                this.props.selectedClinic != hospital.hospital_id && (this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id]) && (this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures > 0 || this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 0)
+                                    ? <p>Treatments Available {`(${this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures})`}</p>
+                                    : ''
+                            }
+
+
+                            {
+                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories ?
+                                    <div className="procedure-checkboxes remove-bg-color">
+                                        <div className="dtl-cnslt-fee pb-list ofr-mrngbtm">
+
+                                            <div className="clearfix">
+                                                {
+                                                    STORAGE.checkAuth() || hospital.deal_price < 100 ?
+                                                        ''
+                                                        : <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                            <div className="clearfix">
+                                                <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                            </div>
+                                        </div>
+
+                                        <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) selected:
+                                         {/* <span>{this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories_name.join('|')}</span> */}
+                                        </h4>
+                                        <div className="insurance-checkboxes">
+                                            <ul className="procedure-list">
+                                                {
+                                                    Object.values(this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories).map((procedure) => {
+
+                                                        return procedure.filter(x => x.is_selected).map((category, i) => {
+
+                                                            return <li key={i}>
+                                                                <label className="procedure-check ck-bx" htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}
+                                                                    <input type="checkbox" checked={true} id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital={hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id)} />
+                                                                    <span className="checkmark">
+                                                                    </span>
+                                                                </label>
+                                                                {/* <div>
+                                                                    <input type="checkbox" checked={true} className="ins-chk-bx" id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital={hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id)} /><label htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}</label>
+                                                                </div> */}
+                                                                <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                            </li>
+
+                                                        })
+
+                                                    })
+                                                }
+                                                {
+                                                    this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 1
+                                                        ? this.state.vieMoreProcedures
+                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id={this.state.selectedId} doctor_id={id}  {...this.props} data={this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} />
+                                                            : this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures != this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures ? <button className="pr-plus-add-btn" onClick={this.procedurePopUp.bind(this, hospital.hospital_id)}>
+                                                                + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures} more
+                                            </button> : ''
+                                                        : ''
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    : ''
+                            }
+
                         </div>
+
                     })
                 }
             </div>

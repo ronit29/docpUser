@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
+import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl } from '../../actions/index.js'
+import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
 class SearchResults extends React.Component {
@@ -75,11 +75,13 @@ const mapStateToProps = (state, passedProps) => {
 
     const {
         LOADED_SEARCH_CRITERIA_OPD,
-        selectedCriterias,
+        commonSelectedCriterias,
         selectedLocation,
         filterCriteria,
         locationType,
-        fetchNewResults
+        fetchNewResults,
+        getNewUrl,
+        selectedCriterias
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -88,7 +90,7 @@ const mapStateToProps = (state, passedProps) => {
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
         LOADED_SEARCH_CRITERIA_OPD,
-        selectedCriterias,
+        commonSelectedCriterias,
         selectedLocation,
         filterCriteria,
         count,
@@ -96,7 +98,10 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData,
         locationType,
         fetchNewResults,
-        search_content
+        search_content,
+        getNewUrl,
+        commonSelectedCriterias,
+        selectedCriterias
     }
 }
 
@@ -108,7 +113,10 @@ const mapDispatchToProps = (dispatch) => {
         getDoctors: (state, page, from_server, searchByUrl, cb) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
-        getFooterData: (url) => dispatch(getFooterData(url))
+        getFooterData: (url) => dispatch(getFooterData(url)),
+        saveCommonProcedures: (procedure_ids) => dispatch(saveCommonProcedures(procedure_ids)),
+        resetProcedureURl: () => dispatch(resetProcedureURl()),
+        mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias())
     }
 }
 

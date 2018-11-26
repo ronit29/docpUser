@@ -15,13 +15,11 @@ class Article extends React.Component {
         let footerData = null
         let articleData = null
         if (this.props.initialServerData) {
-            footerData = this.props.initialServerData.footerData
             articleData = this.props.initialServerData.articleData
         }
         this.state = {
             articleData: articleData,
             medicineURL: false,
-            specialityFooterData: footerData
         }
     }
 
@@ -46,9 +44,6 @@ class Article extends React.Component {
             // this.setState({ medicineURL: true });
         }
 
-        this.props.getSpecialityFooterData((cb) => {
-            this.setState({ specialityFooterData: cb });
-        });
     }
 
     onHomeClick(event, link) {
@@ -187,7 +182,7 @@ class Article extends React.Component {
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
                 </section>
-                <Footer specialityFooterData={this.state.specialityFooterData} />
+                <Footer />
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE , SAVE_PROFILE_PROCEDURES } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -17,9 +17,11 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	// 	payload: from_server
 	// })
 
-	let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
-	let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
-	let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+	let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
+	let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+	let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+	let procedures_ids = commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+	let category_ids = commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
 
 	let sits_at = []
 	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
@@ -51,6 +53,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
 		specializations_ids = ""
 		condition_ids = ""
+		procedures_ids = ""
+		category_ids = ""
 	}
 
 	let url = `/api/v1/doctor/doctorsearch?`
@@ -59,7 +63,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearch_by_url?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
@@ -81,20 +85,37 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			return x
 		})
 
-		let selectedCriterias = [...specializations, ...conditions]
+		let procedures = response.procedures.map((x) => {
+			x.type = 'procedures'
+			return x
+		})
+
+		let procedure_category = response.procedure_categories.map((x) => {
+			x.type = 'procedures_category'
+			return x
+		})
+
+		let commonSelectedCriterias = [...specializations, ...conditions, ...procedure_category, ...procedures]
 
 		dispatch({
 			type: MERGE_SEARCH_STATE_OPD,
 			payload: {
-				selectedCriterias
+				commonSelectedCriterias
 			},
 			fetchNewResults: false
 		})
-
-		dispatch({
+		/*if (procedures.length || procedure_category.length) {
+			dispatch({
+				type: SAVE_COMMON_PROCEDURES,
+				payload: procedures,
+				category_ids: procedure_category,
+				forceAdd: false
+			})
+		}*/
+		/*dispatch({
 			type: SET_FETCH_RESULTS_OPD,
 			payload: false
-		})
+		})*/
 
 		dispatch({
 			type: APPEND_DOCTORS,
@@ -131,13 +152,20 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	})
 }
 
-export const getDoctorById = (doctorId) => (dispatch) => {
+export const getDoctorById = (doctorId, hospitalId="", procedure_ids="", category_ids="") => (dispatch) => {
 
-	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 
 		dispatch({
-			type: APPEND_DOCTORS,
+			type: APPEND_DOCTORS_PROFILE,
 			payload: [response]
+		})
+		
+		dispatch({
+			type: SET_PROCEDURES,
+			payload: response,
+			doctorId: doctorId,
+			commonProcedurers: procedure_ids
 		})
 
 	}).catch(function (error) {
@@ -145,13 +173,21 @@ export const getDoctorById = (doctorId) => (dispatch) => {
 	})
 }
 
-export const getDoctorByUrl = (doctor_url, cb) => (dispatch) => {
+export const getDoctorByUrl = (doctor_url, hospitalId="", procedure_ids="", category_ids="", cb) => (dispatch) => {
 
-	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}&hospital_id=${hospitalId}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 		dispatch({
-			type: APPEND_DOCTORS,
+			type: APPEND_DOCTORS_PROFILE,
 			payload: [response]
 		})
+
+		dispatch({
+			type: SET_PROCEDURES,
+			payload: response,
+			doctorId: response.id,
+			commonProcedurers: procedure_ids
+		})
+		
 		cb((response.id ? response.id : null), null)
 	}).catch(function (error) {
 		cb(null, error.url)
@@ -254,10 +290,29 @@ export const getFooterData = (url) => (dispatch) => {
 	})
 }
 
+
+export const toggleProfileProcedures = (procedure=[], doctor_id, hospital_id) => (dispatch) => {
+
+	dispatch({
+		type: TOGGLE_PROFILE_PROCEDURES,
+		procedure: procedure,
+		doctor_id: doctor_id,
+		hospital_id: hospital_id
+	})
+}
+
 export const getSpecialityFooterData = (cb) => (dispatch) => {
 	return API_GET(`api/v1/location/static-speciality-footer`).then(function (response) {
 		return cb(response)
 	}).catch(function (error) {
 
+	})
+}
+
+export const saveProfileProcedures = (doctor_id, clinic_id) => (dispatch) => {
+	dispatch({
+		type: SAVE_PROFILE_PROCEDURES,
+		doctor_id : doctor_id,
+		clinic_id: clinic_id
 	})
 }

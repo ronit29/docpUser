@@ -108,6 +108,7 @@ class AppointmentReschedule extends React.Component {
         let actions = []
         let status = 1
         let priceData = {}
+        let bookingEnabled = false
 
         if (this.state.data) {
             doctor = this.state.data.doctor
@@ -123,6 +124,16 @@ class AppointmentReschedule extends React.Component {
                 priceData.old_deal_price = this.state.data.deal_price
                 priceData.payable_amount = priceData.deal_price - priceData.old_deal_price
             }
+            if(this.state.data.procedures.length){
+                priceData.payable_amount = 0/*
+                priceData.old_deal_price = this.state.data.deal_price
+                priceData.deal_price = this.state.data.deal_price
+                priceData.mrp =  0*/
+            }
+        }
+
+        if(this.state.data && this.props.DOCTOR && this.props.DOCTOR[this.state.data.doctor.id]){
+            bookingEnabled = this.props.DOCTOR[this.state.data.doctor.id].enabled_for_online_booking;
         }
 
         return (
@@ -165,6 +176,7 @@ class AppointmentReschedule extends React.Component {
                                                         <div className="widget mrt-10 ct-profile skin-white">
                                                             <DoctorProfileCard
                                                                 details={doctor}
+                                                                bookingEnabled={bookingEnabled}
                                                             />
                                                             <div className="widget-content">
 

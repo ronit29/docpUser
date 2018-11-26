@@ -32,7 +32,9 @@ const client_dev = {
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": false,
             "DOCPRIME_STAGING": false,
-            "ASSETS_BASE_URL": JSON.stringify("/assets")
+            "ASSETS_BASE_URL": JSON.stringify("/assets"),
+            "API_BASE_URL": JSON.stringify(process.env.API_BASE_URL) || "",
+            "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
@@ -63,7 +65,9 @@ const client_prod = {
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": true,
             "DOCPRIME_STAGING": false,
-            "ASSETS_BASE_URL": JSON.stringify(process.env.CDN_BASE_URL + "assets")
+            "ASSETS_BASE_URL": JSON.stringify(process.env.CDN_BASE_URL + "assets"),
+            "API_BASE_URL": JSON.stringify(process.env.API_BASE_URL) || "",
+            "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
@@ -94,7 +98,9 @@ const client_staging = {
         new webpack.DefinePlugin({
             "DOCPRIME_STAGING": true,
             "DOCPRIME_PRODUCTION": false,
-            "ASSETS_BASE_URL": JSON.stringify(process.env.CDN_BASE_URL + "assets")
+            "ASSETS_BASE_URL": JSON.stringify(process.env.CDN_BASE_URL + "assets"),
+            "API_BASE_URL": JSON.stringify(process.env.API_BASE_URL) || "",
+            "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
         }),
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
@@ -174,7 +180,9 @@ const serverConfig = {
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": process.env.NODE_ENV == 'production',
             "DOCPRIME_STAGING": process.env.NODE_ENV == 'staging',
-            "ASSETS_BASE_URL": (process.env.NODE_ENV == 'staging' || process.env.NODE_ENV == 'production') ? (JSON.stringify(process.env.CDN_BASE_URL + "assets")) : JSON.stringify("/assets")
+            "ASSETS_BASE_URL": (process.env.NODE_ENV == 'staging' || process.env.NODE_ENV == 'production') ? (JSON.stringify(process.env.CDN_BASE_URL + "assets")) : JSON.stringify("/assets"),
+            "API_BASE_URL": JSON.stringify(process.env.API_BASE_URL) || "",
+            "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
         }),
     ],
     output: {

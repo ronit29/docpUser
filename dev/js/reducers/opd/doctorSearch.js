@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -11,6 +11,9 @@ const defaultState = {
     doctorCoupons: {},
     disCountedOpdPrice: 0,
     search_content: '',
+    selectedDoctorProcedure: {},
+    profileCommonProcedures: [],
+    commonProfileSelectedProcedures: [],
     couponAutoApply: true
 }
 
@@ -123,7 +126,160 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.disCountedOpdPrice = 0
-            
+
+            return newState
+        }
+
+        case SET_PROCEDURES: {
+            let newState = {
+                ...state
+            }
+
+            //            newState.profileCommonProcedures = action.commonProcedurers
+            /* let commonProcedurers = action.commonProcedurers.split(',')
+             let commonSelectedProcedures = []
+             commonProcedurers.map((x) => {
+                 commonSelectedProcedures.push(parseInt(x))
+             })*/
+            let hospitals = action.payload.hospitals.length ? action.payload.hospitals : []
+            let is_procedure = false
+
+            let data = {}
+
+            newState.selectedDoctorProcedure = {}
+            newState.selectedDoctorProcedure[action.doctorId] = {}
+            hospitals.map((hospital) => {
+
+                if (hospital.procedure_categories.length > 0) {
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id] = { 'categories': {}, 'selectedProcedures': 0, 'unselectedProcedures': 0, 'price': {}, 'categories_name': [] }
+                }
+                let deal_price = 0
+                let mrp = 0
+                let unselectedCount = 0
+                let selectedCount = 0
+                let selectedProcedureIds = []
+                let categories_name = []
+                hospital.procedure_categories.map((procedure) => {
+                    is_procedure = true
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].categories[procedure.procedure_category_id] = []
+                    data['category_name'] = procedure.name
+                    categories_name.push(procedure.name)
+                    data['category_id'] = procedure.procedure_category_id
+                    procedure.procedures.map((pids) => {
+                        data['agreed_price'] = pids.agreed_price
+                        data['deal_price'] = pids.deal_price
+                        data['mrp'] = pids.mrp
+
+                        data['procedure_id'] = pids.procedure.id
+                        data['duration'] = pids.procedure.duration
+                        data['procedure_name'] = pids.procedure.name
+                        data['hospital_id'] = hospital.hospital_id
+                        if (pids.is_selected) {
+
+                            data['is_selected'] = true
+                            selectedProcedureIds.push(pids.procedure.id)
+                            deal_price = deal_price + pids.deal_price
+                            mrp = mrp + pids.mrp
+                            selectedCount++
+                        } else {
+
+                            data['is_selected'] = false
+                            unselectedCount++
+                        }
+
+                        newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].categories[procedure.procedure_category_id].push({ ...data })
+                    })
+                    let price = {
+                        deal_price: deal_price,
+                        mrp: mrp
+                    }
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].price = price
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].selectedProcedures = selectedCount
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].unselectedProcedures = unselectedCount
+                    newState.selectedDoctorProcedure[action.doctorId][hospital.hospital_id].categories_name = categories_name
+                })
+            })
+
+            if (!is_procedure) {
+                newState.selectedDoctorProcedure = {}
+                //newState.profileCommonProcedures = []
+            }
+
+            return newState
+        }
+
+        case TOGGLE_PROFILE_PROCEDURES: {
+            let newState = {
+                ...state,
+                selectedDoctorProcedure: JSON.parse(JSON.stringify(state.selectedDoctorProcedure))
+            }
+
+            try {
+
+                Object.entries(newState.selectedDoctorProcedure[action.doctor_id]).map((hospital, i) => {
+                    let deal_price = 0
+                    let mrp = 0
+                    let unselectedCount = 0
+                    let selectedCount = 0
+
+                    Object.values(hospital[1].categories).map((category, j) => {
+
+                        if (category) {
+                            category.map((procedure, k) => {
+
+                                if (action.procedure.indexOf(procedure.procedure_id) != -1) {
+                                    deal_price = deal_price + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].deal_price
+                                    mrp = mrp + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].mrp
+                                    selectedCount++
+                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = true
+
+                                } else {
+                                    unselectedCount++
+                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = false
+
+                                }
+                            })
+                        }
+
+                    })
+
+
+                    let price = {
+                        deal_price: deal_price,
+                        mrp: mrp
+                    }
+                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price = price
+                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].selectedProcedures = selectedCount
+                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].unselectedProcedures = unselectedCount
+
+                })
+                //newState.profileCommonProcedures = action.procedure
+            }
+            catch (e) {
+                console.log(e)
+            }
+
+            return newState
+
+        }
+
+        case SAVE_PROFILE_PROCEDURES: {
+            let newState = {
+                ...state
+            }
+            let selectedProcedures = []
+
+            if (newState.selectedDoctorProcedure[action.doctor_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories) {
+
+                Object.values(newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories).map((procedure) => {
+
+                    selectedProcedures = selectedProcedures.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
+                })
+
+
+            }
+
+            newState.commonProfileSelectedProcedures = selectedProcedures
             return newState
         }
 

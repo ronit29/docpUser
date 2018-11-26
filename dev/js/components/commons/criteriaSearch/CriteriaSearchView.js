@@ -56,6 +56,7 @@ class CriteriaSearchView extends React.Component {
                 if (searchResults) {
                     searchResults.conditions = searchResults.conditions.map(x => { return { ...x, type: 'condition' } })
                     searchResults.specializations = searchResults.specializations.map(x => { return { ...x, type: 'speciality' } })
+                    searchResults.procedures = searchResults.procedures.map(x => { return { ...x, type: 'procedures' } }) || []
                     let results = [
                         {
                             title: 'Conditions',
@@ -64,6 +65,10 @@ class CriteriaSearchView extends React.Component {
                         {
                             title: 'Specializations',
                             values: searchResults.specializations
+                        },
+                        {
+                            title: 'Procedures',
+                            values: searchResults.procedures
                         }
                     ]
                     this.setState({ searchResults: [...results], loading: false })
@@ -97,6 +102,12 @@ class CriteriaSearchView extends React.Component {
             } else if (docType == 'Specializations') {
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.id || ''
+                }
+                GTM.sendEvent({ data: data })
+            }
+            else if(docType == 'Procedures'){
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.id || ''
                 }
                 GTM.sendEvent({ data: data })
             }
@@ -300,7 +311,7 @@ class CriteriaSearchView extends React.Component {
 
                         </div>
                         {
-                            this.props.clinic_card ? '' : <RightBar extraClass=" chat-float-btn-2" />
+                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" />
                         }
                     </div>
                 </section>

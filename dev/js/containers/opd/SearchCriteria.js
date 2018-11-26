@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria } from '../../actions/index.js'
+import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/opd/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -39,7 +39,8 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         selectedLocation,
         filterCriteria,
-        locationType
+        locationType,
+        procedure_categories
     } = state.SEARCH_CRITERIA_OPD
 
     return {
@@ -49,7 +50,8 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         selectedLocation,
         filterCriteria,
-        locationType
+        locationType,
+        procedure_categories
     }
 }
 
@@ -59,7 +61,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
         getOPDCriteriaResults: (searchString, callback) => dispatch(getOPDCriteriaResults(searchString, callback)),
         resetFilters: () => dispatch(resetFilters()),
-        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults))
+        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
+        cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias))
     }
 }
 

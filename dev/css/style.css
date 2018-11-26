@@ -458,6 +458,7 @@ background: black;
 	.mrng-btm-scrl{
 		margin-bottom: 3rem;
 	}
+	
 }
 
 @media screen and (max-width: 370px) {
@@ -605,6 +606,9 @@ p.top-head-link.card-lab-link span {
 	margin-left: 25px;
 	position: relative;
 }
+.head-links img.drop-img-mrgn{
+	margin-right: 8px;
+}
 
 .head-links img {
 	margin-right: 8px;
@@ -627,6 +631,13 @@ p.top-head-link.card-lab-link span {
 	.sub-upside-star img {
 		width: 25px !important;
 		height: 25px !important;
+	}
+	a.article-list{
+		padding: 5px 38px;
+	}
+	.mbl-view-formatting{
+		flex-direction: column !important;
+    text-align: right !important;
 	}
 }
 
@@ -657,7 +668,13 @@ p.top-head-link.card-lab-link span {
 	padding: 14px 2px;
 }
 
-.search-show .head-links:first-child:after {
+.search-show .head-links:last-child:after {
+	content: '';
+	position: absolute;
+	border-right: 1px solid transparent;
+	
+}
+.search-show .head-links:after {
 	content: '';
 	position: absolute;
 	border-right: 1px solid #ffeee473;
@@ -666,6 +683,20 @@ p.top-head-link.card-lab-link span {
 	top: 0px;
 	bottom: 0px;
 	margin: auto;
+}
+.mbl-view-drop-img {
+    display: block;
+    align-items: end;
+}
+.search-show .head-links {
+    text-align: center;
+	flex-direction: column;
+	width: 33.333%;
+	padding: 8px 0px;
+}
+
+.search-show .head-links span {
+	display: block;
 }
 
 @media screen and (max-width: 320px) {
@@ -784,6 +815,10 @@ p.top-head-link.card-lab-link span {
 	.head-links img {
 		margin-right: 0px;
 	}
+	.onscreen-scroll{
+		max-height: initial !important;
+		overflow-y: auto !important;
+	}
 }
 @media(max-width: 412px) {
 	.chatbox-right {
@@ -833,13 +868,17 @@ p.top-head-link.card-lab-link span {
 	}
 }
 
+@media(max-width: 414px) {
+	.chatbox-right {
+		height: calc(100vh - 330px);
+	}
+}
+
 @media(max-width: 380px) {
 	.chatbox-right {
 		height: calc(100vh - 330px);
 	}
-	.booking-confirm-screen .lab-visit-time .title{
-		font-size: 11px;
-	}
+	
 	.text-sm{
 		font-size: 11px;
 
@@ -1581,9 +1620,9 @@ margin: 0px 10px;
     text-overflow: ellipsis;
     display: inline-block;
 }
-.fltr-crd-img{
-	text-align: center;
-    display: inline-block;
+.fltr-crd-col{
+	display: flex;
+	align-items: flex-start;
 }
 .fltr-crd-img .fltr-usr-image{
     height: 70px;
@@ -1610,13 +1649,14 @@ margin: 0px 10px;
 	margin-left:3px;
 }
 .fltr-name-dtls{
-	display: inline-block;
-    padding-left: 10px;
+	flex: 1;
+	padding-left: 10px;
+	min-width: 0;
 }
 .fltr-dc-name{
 	font-weight: 500;
 	margin-bottom: 5px;
-	width: 200px;
+	width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1658,6 +1698,16 @@ margin: 0px 10px;
     border: none;
 	padding: 10px 0;
 	font-weight: 500;
+	cursor: pointer;
+}
+.fltr-cntct-btn{
+	border-radius: 5px;
+    background-color: #ffffff;
+    color: #f78631;
+    border: 1px solid #f78631;
+	padding: 10px 0;
+	font-weight: 500;
+	cursor: pointer;
 }
 .filtr-offer.ofr-ribbon{
 	font-size: 10px;
@@ -1715,9 +1765,6 @@ margin: 0px 10px;
 
 }
 @media screen and (max-width: 470px) {
-	.fltr-dc-name{
-		width: 140px;
-	}
 	.filtr-offer.ofr-ribbon {
 		top: 4px;
 	}
@@ -1727,7 +1774,6 @@ margin: 0px 10px;
 }
 @media screen and (max-width: 380px) {
 	.fltr-dc-name{
-		width: 110px;
 		font-size: 14px;
 	}
 	.fltr-crd-img .fltr-usr-image {
@@ -1745,9 +1791,6 @@ margin: 0px 10px;
 	}
 }
 @media screen and (max-width: 335px) {
-	.fltr-dc-name{
-		width: 100px;
-	}
 	.fltr-name-dtls p{
 		font-size: 11px;
 	}
@@ -2877,6 +2920,222 @@ ul.list-sub-menu a:hover {
     justify-content: center;
     font-weight: 500;
 }
+/* procedure style */
+.insurance-checkboxes input[type=checkbox] + label {
+	display: flex;
+	margin: 0.2em;
+	cursor: pointer;
+	padding: 0.2em;
+	font-weight: 500;
+  }
+  
+  .insurance-checkboxes input[type=checkbox] {
+	display: none;
+  }
+  
+  .insurance-checkboxes input[type=checkbox] + label:before {
+    content: "\2713";
+    border: 0.1em solid rgba(0, 0, 0, .25);
+    border-radius: 0.2em;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    padding-left: 0.2em;
+    padding-bottom: 0.3em;
+    margin-right: 0.7em;
+    vertical-align: bottom;
+    color: transparent;
+    transition: .2s;
+  }
+  
+  .insurance-checkboxes input[type=checkbox] + label:active:before {
+	transform: scale(0);
+  }
+  
+  .insurance-checkboxes input[type=checkbox]:checked + label:before {
+	background-color: #fa7d1f;
+    border-color: #fd872f;
+    color: #fff;
+  }
+  
+  .insurance-checkboxes input[type=checkbox]:disabled + label:before {
+	transform: scale(1);
+	border-color: #aaa;
+  }
+  
+  .insurance-checkboxes input[type=checkbox]:checked:disabled + label:before {
+	transform: scale(1);
+	background-color: #bfb;
+	border-color: #bfb;
+  }
+  
+  .procedure-list {
+	margin-bottom: 10px;
+}
+.procedure-list li{
+	display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.pr-prices{
+    width: 115px;
+    font-weight: 500;
+    text-align: right;
+}
+.pr-cut-price{
+	margin-left: 10px;
+    color: #757575;
+    text-decoration: line-through;
+}
+.pr-plus-add-btn{
+    color: #f78631;
+    background: transparent;
+    border: none;
+	font-weight: 500;
+	cursor: pointer;
+}
+.procedure-checkboxes{
+	margin-top: 10px;
+    background: rgba(246, 246, 246, .50);
+    padding: 5px;
+    border-radius: 4px;
+}
+.procedure-checkboxes h4{
+	font-weight: 500;
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+.procedure-checkboxes h4 span{
+	color: #000000;
+    display: inline-flex;
+    font-weight: 600;
+    align-items: center;
+}
+.procedure-checkboxes h4 span img{
+	margin-left: 6px;
+	cursor: pointer;
+}
+.widget.pr-border-radious{
+	border-radius: 4px;
+	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.11);
+}
+.procedures-btn-pop {
+	text-align: center;
+}
+.procedures-btn-pop button{ 
+	background: #f78631;
+    color: white;
+    margin: 30px 0;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 50px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.prp-chk-card{
+	margin-bottom: 15px;
+}
+.conslt-fee-card{
+    margin-bottom: 15px;
+}
+.conslt-fee-card p{
+    display: flex;
+    justify-content: space-between;
+}
+.conslt-fee-card p span.pr-prices{
+	color: #e58750;
+}
+
+.pr-addrs-card-pc{
+	display: flex;
+	margin-bottom: 5px;
+}
+.pr-addrs-card-pc .test-span{
+	color: #757575;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.procedure-checkboxes{
+    margin-top: 10px;
+}
+.procedure-checkboxes img{
+	margin-left: 8px;
+} 
+.procedure-checkboxes h3{
+    font-size: 17px;
+    font-weight: 500;
+}
+.chk-with-img{
+    display: flex;
+    align-items: center;
+}
+.pnl-bottom-border{
+	border-bottom: 1px solid #e8e8e8;
+}
+.treatment-select{
+	display: flex;
+}
+.treatment-select img{
+	width: 20px;
+    height: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.flex-align{
+	display: flex;
+	justify-content: space-between;
+}
+.select-span{
+    color: #e58850;
+    font-weight: 500;
+    cursor: pointer;
+}
+.tbl-img-txt{
+	display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+.tbl-img-txt img{
+    width: 20px;
+    height: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.tbl-img-txt p{
+	margin-left: 5px;
+}
+.summery-status{
+    padding: 15px;
+}
+p.tbl-price {
+    display: inline;
+    margin-right: 15px;
+}
+.trt-tabl table {
+    width: 100%;
+}
+.trt-tabl{
+
+}
+.trt-tabl table{
+	
+}
+.trt-tabl table tr{
+	
+}
+.trt-tabl table td {
+    padding: 4px 0;
+}
+span.tbl-price-span {
+    text-decoration: line-through;
+    color: #757575;
+    font-weight: 500;
+    font-size: 14px;
+}
+/* procedure style */
 
 /* details card */
 .container-radio {
@@ -2956,6 +3215,68 @@ span.ad-sub-content {
     margin-top: 10px;
 }
 /* details card */
+.pop-padding{
+	padding: 0px 12px !important; 
+}
+.pop-top-heading{
+	text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+	margin-bottom: 15px;
+	position: relative;
+}
+.pop-top-heading img {
+    width: 13px;
+    top: 5px;
+    position: absolute;
+	right: 4px;
+	cursor: pointer;
+}
+.cnslt-fee-style{
+	margin-bottom: 15px;
+}
+.cnslt-fee-style .txt-ornage{
+	color: #000;
+}
+.pop-underline{
+	border-bottom:1px solid rgba(0, 0, 0, 0.06);
+	margin-top: 15px;
+}
+.pop-underline:last-child{
+	border-bottom:1px solid transparent;
+}
+.proc-padding-list{
+	padding-left: 20px;
+    margin-top: 10px;
+}
+
+/* procedure update *//* procedure update */
+label.procedure-check.ck-bx{
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-weight: 500;
+}
+label.procedure-check.ck-bx.ck-bx input:checked ~ .checkmark {
+    background-color: #f78631;
+    border-color: transparent;
+}
+label.procedure-check.ck-bx .checkmark:after{
+	left: 7px;
+    top: 3px;
+}
+label.procedure-check.ck-bx .checkmark  { 
+background-color: #fff;
+border-radius: 4px;
+border: 1px solid #aaaa;
+}
+.procedure-out-heading-font{
+	font-size: 14px !important
+}
+.onscreen-scroll{
+	max-height: 70vh;
+	overflow-y:auto;
+}
+/* procedure update *//* procedure update */
 
 .doc-search-data{
 	color: #e46608;
@@ -3104,5 +3425,17 @@ span.ad-sub-content {
 
 .usr-dtls-off-act{
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;	
+}
+
+.proc-para-margin p{
+	font-weight: 500;
+	margin-bottom: 8px;
+	padding-left: 25px;
+}
+.remove-bg-color{
+	background:transparent !important;
+}
+.ofr-mrngbtm{
+	margin-bottom: 10px;
 }

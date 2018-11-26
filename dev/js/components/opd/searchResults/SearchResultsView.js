@@ -33,6 +33,7 @@ class SearchResultsView extends React.Component {
             }
         }
         if (this.state.seoFriendly) {
+            //this.props.mergeSelectedCriterias()
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
                 if (footerData) {
                     this.setState({ footerData: footerData })
@@ -45,7 +46,15 @@ class SearchResultsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+        if(props.getNewUrl && props.getNewUrl != this.props.getNewUrl){
+            if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+                this.getDoctorList(props)
+                if (window) {
+                    window.scrollTo(0, 0)
+                }
+            }
+            this.buildURI(props)
+        } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getDoctorList(props)
             if (window) {
                 window.scrollTo(0, 0)
@@ -74,10 +83,12 @@ class SearchResultsView extends React.Component {
 
     buildURI(state) {
 
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
-        let specializations_ids = selectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
-        let condition_ids = selectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
-
+        let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
+        let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+        let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+        let procedures_ids = commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+        let category_ids = commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
+  
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
@@ -103,7 +114,7 @@ class SearchResultsView extends React.Component {
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
 
-        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}`
+        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}`
 
         if (this.state.clinic_card) {
             url += `&clinic_card=true`
@@ -193,11 +204,11 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} clinic_card={!!this.state.clinic_card} />
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} />
+                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
 
                         </div>
                     }

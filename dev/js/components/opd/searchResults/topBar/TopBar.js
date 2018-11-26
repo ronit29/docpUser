@@ -4,6 +4,7 @@ import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
+import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
 
 class TopBar extends React.Component {
@@ -22,7 +23,8 @@ class TopBar extends React.Component {
             shortURL: "",
             dropdown_visible: false,
             showLocationPopup: false,
-            overlayVisible: false
+            overlayVisible: false,
+            showPopupContainer: true
         }
     }
 
@@ -118,6 +120,9 @@ class TopBar extends React.Component {
 
     getCriteriaString(selectedCriterias) {
         if (selectedCriterias && selectedCriterias.length) {
+            let selectedProcedureCategory = selectedCriterias.filter(x=>x.type=='procedures_category')
+            let procedures = selectedCriterias.filter(x=>x.type=='procedures')
+        
             return selectedCriterias.reduce((final, curr, i) => {
                 if (i != 0) {
                     final += ', '
@@ -174,9 +179,13 @@ class TopBar extends React.Component {
         this.setState({ showLocationPopup: false });
     }
 
+    popupContainer() {
+        this.setState({ showPopupContainer: false, showLocationPopup: false });
+    }
+
     render() {
 
-        let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+        let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
@@ -217,13 +226,14 @@ class TopBar extends React.Component {
                                             <span className="search-result-span" onClick={() => {
                                                 this.setState({
                                                     showLocationPopup: !this.state.showLocationPopup,
-                                                    searchCities: []
+                                                    searchCities: [],
+                                                    showPopupContainer: true
                                                 })
                                             }}>
 
                                                 {
                                                     this.state.showLocationPopup && false ? ''
-                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` near ${locationName}`}</span> : ''
+                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
                                                 }
 
                                             </span>
@@ -249,13 +259,22 @@ class TopBar extends React.Component {
                         </div>
                         {
                             this.state.showLocationPopup ?
-                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                                this.props.clinic_card && this.state.showPopupContainer ?
+                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
+                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
                                 : ''
                         }
 
                         {
-                            this.state.showLocationPopup && this.state.overlayVisible ?
-                                <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
+                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.clinic_card ?
+                                <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div>
+                                : ''
+                        }
+
+                        {
+                            this.state.showLocationPopup && this.props.clinic_card && this.state.showPopupContainer ?
+                                <div className="popupContainer-overlay"></div>
+                                : ''
                         }
 
                     </div>

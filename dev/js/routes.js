@@ -41,7 +41,6 @@ import CouponSelectNewView from './containers/commons/CouponsView.js'
 import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 
-
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -103,10 +102,11 @@ const routes = [
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },
 
-    { path: '/speciality-inventory', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
-    { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
-    { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
-    { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
+    { path: '/speciality-inventory', exact :true, component: SpecializationSiteMap , RENDER_ON_SERVER: true },
+    { path: '/speciality-inventory/:speciality', exact :true, component: SpecializationSiteMap , RENDER_ON_SERVER: true },
+    { path: '/city-inventory', exact :true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
+    { path: '/city-inventory/:city', exact:true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
+
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

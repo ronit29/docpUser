@@ -37,6 +37,7 @@ class SearchCriteriaView extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
+
         this.props.history.push('/opd/searchresults')
     }
 
@@ -48,7 +49,7 @@ class SearchCriteriaView extends React.Component {
             }
             return null
         }
-
+        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias)
         this.searchProceed("", "")
     }
 
@@ -89,6 +90,14 @@ class SearchCriteriaView extends React.Component {
                             type="condition"
                             data={this.props.conditions}
                             selected={this.props.selectedCriterias.filter(x => x.type == 'condition')}
+                            toggle={this.props.toggleOPDCriteria.bind(this)}
+                        />
+
+                        <CommonlySearched
+                            heading="Common Dental Treatments"
+                            type="procedures_category"
+                            data={this.props.procedure_categories}
+                            selected={this.props.selectedCriterias.filter(x => x.type == 'procedures_category')}
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
 

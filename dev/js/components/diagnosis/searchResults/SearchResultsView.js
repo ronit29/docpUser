@@ -20,6 +20,7 @@ class SearchResultsView extends React.Component {
         this.state = {
             seoData, footerData,
             seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
+            lab_card: this.props.location.search.includes('lab_card') || null,
             showError: false,
             showChatWithus: false
         }
@@ -122,6 +123,10 @@ class SearchResultsView extends React.Component {
 
         let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
 
+        if (this.state.lab_card) {
+            url += `&lab_card=true`
+        }
+
         return url
     }
 
@@ -178,10 +183,10 @@ class SearchResultsView extends React.Component {
                     description: this.getMetaTagsData(this.state.seoData).description
                 }} noIndex={!this.state.seoFriendly} />
 
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                             {/*
                         <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
@@ -200,7 +205,7 @@ class SearchResultsView extends React.Component {
                                 </div> : ""
                             }
 
-                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} />
+                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                         </div>
                     }
                 </CriteriaSearch>

@@ -16,6 +16,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
 import Footer from '../../commons/Home/footer'
+
 import GTM from '../../../helpers/gtm.js'
 
 class DoctorProfileView extends React.Component {
@@ -28,9 +29,10 @@ class DoctorProfileView extends React.Component {
         this.state = {
             footerData,
             seoFriendly: this.props.match.url.includes('-dpp'),
-            selectedClinic: "",
+            selectedClinic: this.props.hospital_id || "",
             is_live: false,
             rank: 0,
+            consultation_fee: 0,
             numberShown: "",
             searchShown: false
         }
@@ -62,8 +64,8 @@ class DoctorProfileView extends React.Component {
         return { title, description, schema }
     }
 
-    selectClinic(clinic_id, is_live, rank) {
-        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "" })
+    selectClinic(clinic_id, is_live, rank, consultation_fee) {
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee : consultation_fee})
     }
 
     navigateToClinic(doctor_id, clinicId) {
@@ -81,6 +83,7 @@ class DoctorProfileView extends React.Component {
                 'Category': 'ConsumerApp', 'Action': 'OpdBookNowRank', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-rank', 'rank': rank + 1
             }
             GTM.sendEvent({ data: data })
+            this.props.saveProfileProcedures(doctor_id, clinicId)
 
             this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/book`)
         }
@@ -115,6 +118,11 @@ class DoctorProfileView extends React.Component {
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
+        }
+        let final_price = parseInt(this.state.consultation_fee)
+        if( this.props.selectedDoctorProcedure[doctor_id] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].categories){
+
+            final_price+= parseInt(this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].price.deal_price) || 0
         }
 
         let search_data = null
@@ -189,7 +197,7 @@ class DoctorProfileView extends React.Component {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
-                                                    {
+                                                    {/* {
                                                         search_data && this.state.searchShown ? <div className="mrt-10 mrb-20 article-chat-div" style={{ backgroundColor: 'transparent' }}>
                                                             <p className="fw-500" style={{ color: '#000000' }} >{search_data.title}</p>
                                                             <a onClick={() => {
@@ -199,7 +207,7 @@ class DoctorProfileView extends React.Component {
                                                                 GTM.sendEvent({ data: data })
                                                             }} href={this.build_search_data_url(search_data)}><button style={{ backgroundColor: '#f78631' }}>View All</button></a>
                                                         </div> : ''
-                                                    }
+                                                    } */}
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                                         {
                                                             this.props.DOCTORS[doctor_id].is_gold ?
@@ -254,7 +262,7 @@ class DoctorProfileView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>Book Now</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
+                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now (₹ ${final_price})`}</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
                                         }
 
                                     </section> : <Loader />

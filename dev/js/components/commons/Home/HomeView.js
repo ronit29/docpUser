@@ -305,9 +305,10 @@ class HomeView extends React.Component {
                             {slabOrder}
                         </div>
                     </div>
+                    <Accordian />
                 </div>
 
-                <Accordian />
+                
 
                 <Footer specialityFooterData={this.state.specialityFooterData} />
 
