@@ -279,11 +279,7 @@ class ProfileData extends React.Component {
                     </ul>
                 </div>
                 {
-                    this.state.openTermsConditions ?
-                        this.props.applicableCoupons.map(coupon => {
-                            return coupon.code == 'FIRST500' ?
-                                <TermsConditions toggle={() => this.toggleTandC()} tnc={coupon.tnc} /> : ""
-                        }) : ''
+                    this.state.openTermsConditions ? <TermsConditions toggle={() => this.toggleTandC()} tnc={coupon.tnc} /> : ""
                 }
                 {/* <div className="logout-div d-md-none" onClick={() => { this.props.logout(currentRoomId) }}>
                     <p className="fw-500">Logout</p>

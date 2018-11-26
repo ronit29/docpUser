@@ -1,27 +1,27 @@
 import React from 'react'
 import CouponSelectionView from '../../components/commons/couponSelectionView'
 import { connect } from 'react-redux'
-import { getCoupons , applyCoupons } from '../../actions/index.js'
+import { getCoupons, applyCoupons } from '../../actions/index.js'
 
 
-class Coupons extends React.Component{
+class Coupons extends React.Component {
 
-	render(){
+	render() {
 
-		return(
-				<CouponSelectionView {...this.props}/>
-			)
+		return (
+			<CouponSelectionView {...this.props} />
+		)
 	}
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
 	const {
 		applicableCoupons
 	} = state.USER
 
 	let {
-	 	selectedSlot 
-	 } = state.DOCTOR_SEARCH
+		selectedSlot
+	} = state.DOCTOR_SEARCH
 
 
 
@@ -31,11 +31,11 @@ const mapStateToProps = (state) =>{
 	}
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
 
-	return{
-		getCoupons: (productId) => dispatch(getCoupons(productId)),
-		applyCoupons: (productId, couponData, couponId, hospitalId ) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId ))
+	return {
+		getCoupons: (productId, deal_price, cb, lab_id, test_ids) => dispatch(getCoupons(productId, deal_price, cb, lab_id, test_ids)),
+		applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId))
 
 	}
 }
