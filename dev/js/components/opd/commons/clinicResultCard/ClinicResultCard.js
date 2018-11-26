@@ -1,6 +1,7 @@
 import React from 'react';
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage';
+import ProcedurePopup from '../PopUp'
 
 class ClinicResultCard extends React.Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class ClinicResultCard extends React.Component {
         }
     }
 
-    cardClick(id, url, e) {
+    cardClick(id, url, hospital_id, e) {
         e.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
@@ -26,10 +27,25 @@ class ClinicResultCard extends React.Component {
 
         } else {
             e.preventDefault();
+
+            let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
+            let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+
+
             if (url) {
-                this.props.history.push(`/${url}`)
+                //this.props.history.push(`/${url}`)
+                if (category_ids.length || procedure_ids.length) {
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
+                } else {
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
+                }
             } else {
-                this.props.history.push(`/opd/doctor/${id}`)
+                //this.props.history.push(`/opd/doctor/${id}`)
+                if (category_ids.length || procedure_ids.length) {
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
+                } else {
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
+                }
             }
         }
     }
@@ -47,6 +63,17 @@ class ClinicResultCard extends React.Component {
         }, "")
     }
 
+    toggle(which, fetchResults = false, procedure_ids = []) {
+
+        this.setState({ [which]: !this.state[which] })
+        if (fetchResults) {
+            if (procedure_ids.length) {
+                this.props.saveCommonProcedures(procedure_ids)
+                this.props.mergeOPDState('')
+                this.props.resetProcedureURl()
+            }
+        }
+    }
 
     render() {
 
@@ -68,10 +95,31 @@ class ClinicResultCard extends React.Component {
             var discount = 100 - Math.round((deal_price * 100) / mrp);
         }
 
+        let is_procedure = false
         if (hospitals && hospitals.length) {
+            let selectedCount = 0
+            let unselectedCount = 0
+            let finalProcedureDealPrice = deal_price
+            let finalProcedureMrp = mrp
+            hospitals[0].procedure_categories.map((x) => {
+                is_procedure = true
+                x.procedures.filter(x => x.is_selected).map((x) => {
+                    finalProcedureDealPrice += x.deal_price
+                    finalProcedureMrp += x.mrp
+                    selectedCount++
+                })
+
+                unselectedCount += x.procedures.filter(x => !x.is_selected).length
+            })
+
+            if (is_procedure) {
+                if (finalProcedureMrp != 0 && finalProcedureDealPrice != 0) {
+                    discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
+                }
+            }
             return (
 
-                <div className="filter-card-dl mb-3" onClick={this.cardClick.bind(this, id, url)}>
+                <div className="filter-card-dl mb-3">
                     <div className="fltr-crd-top-container" style={{ position: 'relative' }}>
                         {is_license_verified ? <span className="clinic-fltr-rtng">Verified</span> : ''}
                         <div className="fltr-lctn-dtls">
@@ -80,7 +128,7 @@ class ClinicResultCard extends React.Component {
                                 <span>{Distance} Km</span>
                             </p>
                         </div>
-                        <div className="row no-gutters">
+                        <div className="row no-gutters" style={{cursor:'pointer'}} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
                             <div className="col-8">
                                 <div className="clinic-fltr-name-dtls">
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
@@ -116,9 +164,11 @@ class ClinicResultCard extends React.Component {
                                     }
 
                                     <p className="fltr-prices">
-                                        &#x20B9; {deal_price}
+                                        &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
                                         {
-                                            mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                            is_procedure
+                                                ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
+                                            : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                         }
                                     </p>
 
@@ -136,6 +186,59 @@ class ClinicResultCard extends React.Component {
                                 </div>
                             </div>
                         </div>
+
+                        {
+                            hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
+                                <div className="procedure-checkboxes">
+                                    <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                        <div className="clearfix">
+                                            <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                        </div>
+                                    </div>
+                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
+                                    <div className="insurance-checkboxes">
+                                        <ul className="procedure-list">
+                                            {
+                                                hospitals[0].procedure_categories.map((category) => {
+
+
+                                                    return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
+
+                                                        return <li key={i}>
+                                                            <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
+                                                                <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
+                                                                <span className="checkmark">
+                                                                </span>
+                                                            </label>
+                                                            {/* <div>
+                                                                <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
+                                                                <label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
+                                                            </div> */}
+                                                            <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                        </li>
+
+                                                    })
+                                                })
+                                            }
+                                            {
+                                                this.state.errorMessage ?
+                                                    <p>Please Select at least one Procedure</p>
+                                                    : ''
+                                            }
+                                            {
+                                                unselectedCount + selectedCount >= 1
+                                                    ? this.state.vieMoreProcedures
+                                                        ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
+                                                        : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
+                                                            + {unselectedCount} more
+                                            </button> : ''
+                                                    : ''
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                : ''
+                        }
                     </div>
                     {/* <div className="filtr-card-footer">
                         <div>
