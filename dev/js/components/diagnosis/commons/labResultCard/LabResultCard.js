@@ -206,8 +206,8 @@ class LabResultCard extends React.Component {
                         <p><img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/customer-icons/map-marker-blue.svg" /><span className="fltr-loc-txt">{lab.locality} {lab.city}</span> | <span>{distance} Km</span></p>
                     </div>
                     <div className="row no-gutters">
-                        <div className="col-8">
-                            <div className="fltr-crd-img">
+                        <div className="col-8 fltr-crd-col">
+                            <div className="fltr-crd-img text-center">
                                 <div>
                                     <img className="fltr-usr-image img-round" src={lab.lab_thumbnail} />
                                 </div>
@@ -215,7 +215,7 @@ class LabResultCard extends React.Component {
                             </div>
                             <div className="fltr-name-dtls">
                                 <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
-                                    <h2 className="fltr-dc-name" style={{ fontSize: '16px' }}>{lab.name}</h2>
+                                    <h2 className="fltr-dc-name text-md">{lab.name}</h2>
                                 </a>
                             </div>
                         </div>

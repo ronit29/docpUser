@@ -161,8 +161,8 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                         }
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
-                            <div className="col-8">
-                                <div className="fltr-crd-img">
+                            <div className="col-8 fltr-crd-col">
+                                <div className="fltr-crd-img text-center">
                                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} /></InitialsPicture>
                                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                                     {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}

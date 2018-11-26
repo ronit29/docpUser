@@ -81,12 +81,12 @@ class TestSelectorView extends React.Component {
             let selected_tests = labData.tests.map((test, i) => {
                 if (selectedTestIds.indexOf(test.test.id) > -1) {
                     return <li key={i + "st"}>
-                        <label className="ck-bx">
+                        <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                             {test.test.name}
                             <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
                             <span className="checkmark" />
                         </label>
-                        <span className="test-price text-md fw-500">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp ? test.mrp.split('.')[0] : ""}</span></span>
+                        <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp ? test.mrp.split('.')[0] : ""}</span></span>
                     </li>
                 }
             })
@@ -102,12 +102,12 @@ class TestSelectorView extends React.Component {
                 return not_found
             }).map((test, i) => {
                 return <li key={i + "srt"}>
-                    <label className="ck-bx">
+                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                         {test.test.name}
                         <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                         <span className="checkmark" />
                     </label>
-                    <span className="test-price text-md fw-500">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                 </li>
             })
 
@@ -179,7 +179,7 @@ class TestSelectorView extends React.Component {
                                         <section className="wrap all-test-screen">
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
-                                                    <ul className="list all-test-list" id="lab-tests-list">
+                                                    <ul className="list all-test-list mrt-10" id="lab-tests-list">
                                                         {tests}
                                                     </ul>
                                                 </div>

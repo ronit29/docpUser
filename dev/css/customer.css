@@ -147,7 +147,7 @@
 .info-popup{margin-top: 20px;}
 
 /*All test screen 13*/
-.all-test-list>li{position: relative; padding: 20px; border-bottom:1px solid #ddd; padding-right: 120px;}
+.all-test-list>li{position: relative; padding: 15px 20px; border-bottom:1px solid #ddd; padding-right: 120px;}
 .all-test-list .test-price{position: absolute; top: 18px; right:10px;}
 .more-test-results-div{
 	position: sticky;
@@ -931,11 +931,7 @@ li.lst-bfr:before{
     text-overflow: ellipsis;
     display: inline-block;
 }
-.fltr-crd-img{
-	text-align: center;
-	display: inline-block;
-	min-height: 113px;
-}
+
 .fltr-crd-img .fltr-usr-image{
     height: 70px;
     width: 70px;
@@ -959,22 +955,6 @@ li.lst-bfr:before{
 	flex-grow:0;
 	flex-shrink:0;
 	margin-left:3px;
-}
-.fltr-name-dtls{
-	display: inline-block;
-    padding-left: 10px;
-}
-.fltr-dc-name{
-	font-weight: 500;
-	margin-bottom: 5px;
-	width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-.sub-trunk{
-	width: 150px;
 }
 
 .fltr-name-dtls p{
@@ -1074,9 +1054,6 @@ li.lst-bfr:before{
 	.filtr-offer.ofr-ribbon {
 		top: 4px;
 	}
-	.fltr-name-dtls p{
-		width: 140px;
-	}
 }
 @media screen and (max-width: 380px) {
 	.fltr-dc-name{
@@ -1092,10 +1069,6 @@ li.lst-bfr:before{
 		width: 60px;
 		margin: 0px;
 	}
-	.fltr-name-dtls p{
-		width: 110px;
-	}
-
 }
 @media screen and (max-width: 352px) {
 	.filtr-card-footer p{
