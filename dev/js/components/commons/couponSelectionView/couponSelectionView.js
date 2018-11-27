@@ -4,6 +4,7 @@ import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import TermsConditions from './termsConditions.js'
+const queryString = require('query-string');
 
 class CouponSelectionView extends React.Component {
     constructor(props) {
@@ -38,9 +39,17 @@ class CouponSelectionView extends React.Component {
             appointmentType = ''
         }
 
-        // this.props.getCoupons(appointmentType, null, (coupons) => { }, this.state.selectedLab, test_ids)
+        if (appointmentType == 2) {
+            const parsed = queryString.parse(this.props.location.search)
+            let test_ids = []
+            if (parsed.test_ids) {
+                test_ids = parsed.test_ids
+            }
+            this.props.getCoupons(appointmentType, null, (coupons) => { }, id, test_ids)
+        } else {
+            this.props.getCoupons(appointmentType)
+        }
 
-        this.props.getCoupons(appointmentType)
         this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId })
     }
 

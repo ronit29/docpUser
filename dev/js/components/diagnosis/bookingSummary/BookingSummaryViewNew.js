@@ -330,7 +330,12 @@ class BookingSummaryViewNew extends React.Component {
                 'Category': 'ConsumerApp', 'Action': 'LabCouponsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-clicked'
             }
             GTM.sendEvent({ data: analyticData })
-            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons`)
+
+            let test_ids = []
+            this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
+                test_ids.push(twp.test_id)
+            })
+            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}`)
         }
     }
 
