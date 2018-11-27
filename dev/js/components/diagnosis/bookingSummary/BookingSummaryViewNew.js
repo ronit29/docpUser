@@ -84,10 +84,12 @@ class BookingSummaryViewNew extends React.Component {
                 })
 
                 if (!corporate) {
-                    this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
                     this.props.resetLabCoupons()
-                    this.props.setCorporateCoupon(null)
                     this.setState({ couponCode: "", couponId: '' })
+                    if (nextProps.labCoupons[this.state.selectedLab]) {
+                        this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
+                    }
+                    this.props.setCorporateCoupon(null)
                     return
                 }
             }
