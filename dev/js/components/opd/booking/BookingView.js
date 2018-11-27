@@ -264,6 +264,7 @@ class BookingView extends React.Component {
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="title" style={{ fontSize: 14 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/teeth.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 8 }} /></span>Services Included</h4>
                                                             <div className="pb-view text-left proc-para-margin">
+                                                                <p>Doctor consultation </p>
                                                                 {
                                                                    this.state.data.procedures.map((procedure) => {
                                                                     return <p>{procedure.name}</p>

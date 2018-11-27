@@ -27,9 +27,6 @@ class DirectBooking extends React.Component {
                 if (data) {
                     if (data.product_id == 1) {
                         this.setOpdBooking(data)
-                        if(data.procedure_ids && data.procedure_ids.length){
-                            this.saveProfileProcedures('','', data.procedure_ids, true)
-                        }
                     } else if (data.product_id == 2) {
                         this.setLabBooking(data)
                     }
@@ -82,6 +79,9 @@ class DirectBooking extends React.Component {
         this.props.selectProfile(data.profile)
         let time_slot = this.buildOPDTimeSlot(data)
         this.props.selectOpdTimeSLot(time_slot, false)
+        if(data.procedure_ids && data.procedure_ids.length){
+            this.props.saveProfileProcedures('','', data.procedure_ids, true)
+        }
         this.props.history.push(`/opd/doctor/${data.doctor}/${data.hospital}/bookdetails`)
     }
 
