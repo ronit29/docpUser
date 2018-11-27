@@ -44,18 +44,18 @@ class DoctorProfileCard extends React.Component {
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
-                        <img src={thumbnail} className="img-fluid img-round" />
+                        <img src={thumbnail} className="img-fluid img-round" alt={display_name} title={display_name} />
                     </InitialsPicture>
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                 </div>
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
-                    <p className="desg">{this.getQualificationStr(general_specialization || [])}</p>
+                    <h2 className="desg">{this.getQualificationStr(general_specialization || [])}</h2>
                     {
-                        experience_years ? <p className="add-details">{experience_years} Years of Experience</p> : ""
+                        experience_years ? <h2 className="add-details">{experience_years} Years of Experience</h2> : ""
                     }
-                    <p className="add-details">{expStr}</p>
+                    <h2 className="add-details">{expStr}</h2>
                     {
                         this.props.details.enabled_for_online_booking || this.props.bookingEnabled ? '' : <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button>
                     }

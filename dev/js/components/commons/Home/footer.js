@@ -26,74 +26,30 @@ class Footer extends React.Component {
 
         return (
             <footer className="profile-footer">
-
-                {/* <div className="container-fluid footer-2">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-12 col-md-4 offset-md-4">
-                                <a href="javascript:;">
-                                    <div className="logo-img-div">
-                                        <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
-                                    </div>
-                                </a>
-                                <div className="copyright-info">
-                                    <p>docprime.com Copyright &copy; 2018.</p>
-                                    <p>All rights reserved.</p>
-                                    <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
-                                    <p>CIN : U74999HR2016PTC064312</p>
-                                </div>
-                                <div className="row social-icons-row">
-                                    <div className="social-icon">
-                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-12 text-center">
-                                <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
-                                
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div> */}
-
                 {
-                    menu.length>0?
-                    <div className="container-fluid footer-2">
-                    <div className="container">
-                        {
-                            menu.map((f, i) => {
-                                return <div className="footer-doctor-listing" key={i}>
-                                    <h4>{f.sub_heading}</h4>
-                                    <ul>
-                                        {
-                                            f.url_list.map((u, j) => {
-                                                return <li key={j}>
-                                                    <a href={"/" + u.url}>{u.title}</a>
-                                                </li>
-                                            })
-                                        }
-                                    </ul>
-                                </div>
-                            })
-                        }
-                    </div>
-                </div>
-                    :''
+                    menu.length > 0 ?
+                        <div className="container-fluid footer-2">
+                            <div className="container">
+                                {
+                                    menu.map((f, i) => {
+                                        return <div className="footer-doctor-listing" key={i}>
+                                            <h2>{f.sub_heading}</h2>
+                                            <ul>
+                                                {
+                                                    f.url_list.map((u, j) => {
+                                                        return <li key={j}>
+                                                            <a href={"/" + u.url}>{u.title}</a>
+                                                        </li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
+                        : ''
                 }
-                
 
                 {
                     this.props.specialityFooterData && this.props.specialityFooterData.length ?
@@ -276,9 +232,6 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/speciality-inventory")
                                     }}>All Specialities</a></li>
-                                    {/* <li><a>All Labs (later)</a></li>
-                                    <li><a>All Tests (Later)</a></li>
-                                    <li><a>All Hospitals (Later)</a></li> */}
                                 </ul>
                             </div>
                         </div>
@@ -295,74 +248,7 @@ class Footer extends React.Component {
                         </div>
                     </div>
                 </div>
-
-                {/* <div className="container footer-3">
-                    <div className="row footer-3-row">
-                        <ul className="list-inline footer-3-list text-center">
-                            <a href="/about" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/about")
-                            }}><li className="list-inline-item">ABOUT US</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/howitworks" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/howitworks")
-                            }}><li className="list-inline-item">HOW IT WORKS</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/careers" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/careers")
-                            }}><li className="list-inline-item">CAREERS</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/contact" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/contact")
-                            }}><li className="list-inline-item">CONTACT US</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/terms" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/terms")
-                            }}><li className="list-inline-item">TERMS &amp; CONDITIONS</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/privacy" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/privacy")
-                            }}><li className="list-inline-item">PRIVACY POLICY</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/disclaimer" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/disclaimer")
-                            }}><li className="list-inline-item">DISCLAIMER</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/media" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/media")
-                            }}><li className="list-inline-item">MEDIA</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/all-diseases" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/all-diseases")
-                            }}><li className="list-inline-item">ALL DISEASES</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/all-medicines" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/all-medicines")
-                            }}><li className="list-inline-item">ALL MEDICINES</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/all-cities" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/city-inventory")
-                            }}><li className="list-inline-item">ALL CITIES</li></a>
-                            <li className="list-inline-item">|</li>
-                            <a href="/all-cities" onClick={(e) => {
-                                e.preventDefault();
-                                this.navigateTo("/speciality-inventory")
-                            }}><li className="list-inline-item">ALL SPECIALITIES</li></a>
-                        </ul>
-                    </div>
-                </div> */}
-
-            </footer >
+            </footer>
         );
     }
 }
