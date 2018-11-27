@@ -222,10 +222,18 @@ export const applyLabCoupons = (productId = '', couponCode, couponId, labId = nu
 			'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied', 'couponId': couponId
 		}
 		GTM.sendEvent({ data: analyticData })
-		dispatch({
-			type: APPLY_LAB_COUPONS,
-			payload: response
-		})
+		if (response && response.status == 1) {
+			dispatch({
+				type: APPLY_LAB_COUPONS,
+				payload: response
+			})
+		} else {
+			dispatch({
+				type: REMOVE_LAB_COUPONS,
+				labId: labId,
+				couponId: couponId
+			})
+		}
 	}).catch(function (error) {
 		dispatch({
 			type: REMOVE_LAB_COUPONS,

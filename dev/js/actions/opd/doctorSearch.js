@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE , SAVE_PROFILE_PROCEDURES } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -152,7 +152,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	})
 }
 
-export const getDoctorById = (doctorId, hospitalId="", procedure_ids="", category_ids="") => (dispatch) => {
+export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", category_ids = "") => (dispatch) => {
 
 	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 
@@ -160,7 +160,7 @@ export const getDoctorById = (doctorId, hospitalId="", procedure_ids="", categor
 			type: APPEND_DOCTORS_PROFILE,
 			payload: [response]
 		})
-		
+
 		dispatch({
 			type: SET_PROCEDURES,
 			payload: response,
@@ -173,7 +173,7 @@ export const getDoctorById = (doctorId, hospitalId="", procedure_ids="", categor
 	})
 }
 
-export const getDoctorByUrl = (doctor_url, hospitalId="", procedure_ids="", category_ids="", cb) => (dispatch) => {
+export const getDoctorByUrl = (doctor_url, hospitalId = "", procedure_ids = "", category_ids = "", cb) => (dispatch) => {
 
 	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}&hospital_id=${hospitalId}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 		dispatch({
@@ -187,7 +187,7 @@ export const getDoctorByUrl = (doctor_url, hospitalId="", procedure_ids="", cate
 			doctorId: response.id,
 			commonProcedurers: procedure_ids
 		})
-		
+
 		cb((response.id ? response.id : null), null)
 	}).catch(function (error) {
 		cb(null, error.url)
@@ -260,9 +260,23 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, hospitalId
 			'Category': 'ConsumerApp', 'Action': 'OpdCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupon-applied', 'couponId': couponId
 		}
 		GTM.sendEvent({ data: analyticData })
+		if (response && response.status == 1) {
+			dispatch({
+				type: APPLY_OPD_COUPONS,
+				payload: response
+			})
+		} else {
+			dispatch({
+				type: REMOVE_OPD_COUPONS,
+				hospitalId: hospitalId,
+				couponId: couponId
+			})
+		}
+	}).catch(function (error) {
 		dispatch({
-			type: APPLY_OPD_COUPONS,
-			payload: response
+			type: REMOVE_OPD_COUPONS,
+			hospitalId: hospitalId,
+			couponId: couponId
 		})
 	})
 }
@@ -291,7 +305,7 @@ export const getFooterData = (url) => (dispatch) => {
 }
 
 
-export const toggleProfileProcedures = (procedure=[], doctor_id, hospital_id) => (dispatch) => {
+export const toggleProfileProcedures = (procedure = [], doctor_id, hospital_id) => (dispatch) => {
 
 	dispatch({
 		type: TOGGLE_PROFILE_PROCEDURES,
@@ -312,7 +326,7 @@ export const getSpecialityFooterData = (cb) => (dispatch) => {
 export const saveProfileProcedures = (doctor_id, clinic_id) => (dispatch) => {
 	dispatch({
 		type: SAVE_PROFILE_PROCEDURES,
-		doctor_id : doctor_id,
+		doctor_id: doctor_id,
 		clinic_id: clinic_id
 	})
 }
