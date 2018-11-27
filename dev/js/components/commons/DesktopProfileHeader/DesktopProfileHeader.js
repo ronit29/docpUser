@@ -140,9 +140,7 @@ class DesktopProfileHeader extends React.Component {
                                     <div className="head-links" onClick={() => {
                                         this.props.history.push('/user')
                                     }}>
-                                        <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img mr-2" style={{ fontSize: 14 }}>
-                                            <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
-                                        </InitialsPicture>
+                                        <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                         <span className="username-overflow">{profileData.name}</span>
                                     </div>
                                     <div className="head-links" onClick={() => {
@@ -169,7 +167,7 @@ class DesktopProfileHeader extends React.Component {
                                 {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
                         </div>
-                        <div className="col-lg-9 col-md-8 col-8 ml-auto text-right  d-lg-none pl-0">
+                        <div className="col-lg-9 col-md-8 col-8 ml-auto text-right d-lg-none pl-0">
                             <div className="head-links">
                                 <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
                             </div>
@@ -180,9 +178,10 @@ class DesktopProfileHeader extends React.Component {
                                 profileData ? <div className="head-links" onClick={() => {
                                     this.props.history.push('/user')
                                 }}>
-                                    <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
+                                    {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
-                                    </InitialsPicture>
+                                    </InitialsPicture> */}
+                                    <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                 </div> : <div className="head-links" onClick={() => {
                                     this.props.homePage ? this.props.history.push('/user?ref=home') :
                                         this.props.history.push('/user')
