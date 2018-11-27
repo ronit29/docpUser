@@ -203,7 +203,10 @@ class LabResultCard extends React.Component {
             <div className="filter-card-dl mb-3" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
-                        <p><img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/customer-icons/map-marker-blue.svg" /><span className="fltr-loc-txt">{lab.locality} {lab.city}</span> | <span>{distance} Km</span></p>
+                        <p>
+                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src="/assets/img/customer-icons/map-marker-blue.svg" />
+                            <span className="fltr-loc-txt">{lab.locality} {lab.city}</span> | <span>{distance} Km</span>
+                        </p>
                     </div>
                     <div className="row no-gutters">
                         <div className="col-8 fltr-crd-col">
@@ -211,7 +214,7 @@ class LabResultCard extends React.Component {
                                 <div>
                                     <img className="fltr-usr-image img-round" src={lab.lab_thumbnail} />
                                 </div>
-                                {/* <span className="fltr-rtng">Verified</span> */}
+                                <span className="fltr-rtng">Verified</span>
                             </div>
                             <div className="fltr-name-dtls">
                                 <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
@@ -221,7 +224,7 @@ class LabResultCard extends React.Component {
                         </div>
                         <div className="col-4">
                             <div className="fltr-bkng-section">
-                                {/* <span className="filtr-offer ofr-ribbon fw-700">30% OFF</span> */}
+                                <span className="filtr-offer ofr-ribbon fw-700">30% OFF</span>
                                 {
                                     price ? <p className="fltr-prices">&#8377; {price}<span className="fltr-cut-price">&#8377; {mrp}</span></p> : ''
                                 }
@@ -238,7 +241,7 @@ class LabResultCard extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {/* <div>
+                    <div>
                         <ul className="fltr-labs-test-selected">
                             <span className="fltr-prv-selected-test">Tests Selected</span>
                             <li className="fltr-slected-test">
@@ -250,7 +253,7 @@ class LabResultCard extends React.Component {
                                 <p>&#x20B9; 299 <span>&#x20B9; 399</span></p>
                             </li>
                         </ul>
-                    </div> */}
+                    </div>
                 </div>
                 <div className="filtr-card-footer">
                     {
@@ -258,7 +261,7 @@ class LabResultCard extends React.Component {
                             <p style={{ marginLeft: 0 }}>* {pickup_text}</p>
                         </div> : ""
                     }
-                    <div className="text-right">
+                    <div className="text-right" style={{ marginLeft: 'auto' }}>
                         <img src="/assets/img/customer-icons/clock-black.svg" />
                         {
                             this.buildLabTimingData(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)
