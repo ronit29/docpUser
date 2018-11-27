@@ -57,12 +57,12 @@ class Footer extends React.Component {
                             <div className="row justify-content-center">
                                 {
                                     this.props.specialityFooterData.map((footerData, i) => {
-                                        return <div className="col-12 col-md-2" style={{ marginBottom: 15, paddingTop: 10 }} key={i}>
+                                        return <div className="col-12 col-md-2" style={{ marginBottom: 15, paddingTop: 10 }} key={"div" + i}>
                                             <h3 className="speciality-footer-head">{footerData.title}</h3>
                                             <ul className="speciality-footer-list">
                                                 {
-                                                    footerData.urls.map((url, i) => {
-                                                        return <li key={i}>
+                                                    footerData.urls.map((url, j) => {
+                                                        return <li key={"li"+ j}>
                                                             <a href={url.url}>{url.title}</a>
                                                         </li>
                                                     })
@@ -74,8 +74,8 @@ class Footer extends React.Component {
                             </div>
                         </div> : ''
                 }
-
-                <div className="container-fluid mrt-20">
+                
+                <section className="container-fluid mrt-20">
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <div className="footer-links">
@@ -247,7 +247,7 @@ class Footer extends React.Component {
                             <p>CIN : U74999HR2016PTC064312</p>
                         </div>
                     </div>
-                </div>
+                </section>
             </footer>
         );
     }
