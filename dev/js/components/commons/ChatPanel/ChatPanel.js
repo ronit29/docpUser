@@ -312,13 +312,13 @@ class ChatPanel extends React.Component {
                                                     }, 10000)
                                                 }
                                             }}>
-                                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
+                                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />
 
                                             </span> : ""
                                         }
 
                                         <span onClick={this.toggleCancel.bind(this)}>
-                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
+                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" title="start a new chat" />
 
                                         </span>
                                         {

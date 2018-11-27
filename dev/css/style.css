@@ -820,7 +820,7 @@ p.top-head-link.card-lab-link span {
 		overflow-y: auto !important;
 	}
 }
-@media(max-width: 412px) {
+@media(max-width: 415px) {
 	.chatbox-right {
 		height: calc(100vh - 400px);
 	}
@@ -868,15 +868,9 @@ p.top-head-link.card-lab-link span {
 	}
 }
 
-@media(max-width: 414px) {
-	.chatbox-right {
-		height: calc(100vh - 330px);
-	}
-}
-
 @media(max-width: 380px) {
 	.chatbox-right {
-		height: calc(100vh - 330px);
+		height: calc(100vh - 350px);
 	}
 	
 	.text-sm{
