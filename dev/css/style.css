@@ -3439,3 +3439,35 @@ border: 1px solid #aaaa;
 .ofr-mrngbtm{
 	margin-bottom: 10px;
 }
+.select-coupon-heading{
+	position: relative;
+    margin: 0px 15px 15px 15px;
+}
+.coupon-search-input{
+    position: relative;
+    margin: 0px 15px 15px 15px;
+}
+.coupon-search-input input{
+    width: 100%;
+    border: transparent;
+    border-bottom: 2px solid rgba(0, 0, 0, .12);
+    padding-right: 70px;
+    outline: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.coupon-search-input button{
+	position: absolute;
+    right: 0;
+    background: transparent;
+    border: #ffffff00;
+    margin-right: 12px;
+    color: #e46608;
+    font-weight: 500;
+    cursor: pointer;
+}
+.coupon-search-input p{
+	color: red;
+    margin-top: 5px;
+    text-align: center;
+}

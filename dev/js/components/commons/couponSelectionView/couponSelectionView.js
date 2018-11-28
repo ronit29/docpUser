@@ -93,7 +93,7 @@ class CouponSelectionView extends React.Component {
                 if (coupon && coupon[0]) {
                     this.toggleButtons(coupon[0], e)
                 } else {
-                    this.setState({ couponTextMessage: "Invalid Coupon" })
+                    this.setState({ couponTextMessage: "Please enter a valid coupon code" })
                 }
             }
             if (this.state.appointmentType == 2) {
@@ -101,6 +101,8 @@ class CouponSelectionView extends React.Component {
             } else {
                 this.props.getCoupons(this.state.appointmentType, null, cb, null, null, this.state.couponText, false)
             }
+        } else {
+            this.setState({ couponTextMessage: "Please enter a coupon code" })
         }
     }
 
@@ -139,10 +141,12 @@ class CouponSelectionView extends React.Component {
                                                     this.props.applicableCoupons.length ?
 
                                                         <div className="coupons-list">
-                                                            <p className="pd-12">Select Coupon</p>
-                                                            <input onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
-                                                            <button onClick={this.applyTextCoupon.bind(this)}>Apply Coupon</button>
-                                                            <p style={{ color: 'red' }}>{this.state.couponTextMessage}</p>
+                                                            <p className="pd-12 select-coupon-heading">Select Coupon</p>
+                                                            <div className="coupon-search-input">
+                                                                <input placeholder="Enter here" onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
+                                                                <button onClick={this.applyTextCoupon.bind(this)}>Apply Coupon</button>
+                                                                <p style={{ color: 'red' }}>{this.state.couponTextMessage}</p>
+                                                            </div>
                                                             <ul>
                                                                 {
                                                                     this.props.applicableCoupons.map((coupons, index) => {
