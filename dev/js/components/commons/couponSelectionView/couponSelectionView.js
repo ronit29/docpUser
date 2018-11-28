@@ -143,8 +143,8 @@ class CouponSelectionView extends React.Component {
                                                         <div className="coupons-list">
                                                             <p className="pd-12 select-coupon-heading">Select Coupon</p>
                                                             <div className="coupon-search-input">
-                                                                <input placeholder="Enter here" onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
-                                                                <button onClick={this.applyTextCoupon.bind(this)}>Apply Coupon</button>
+                                                                <input placeholder="Enter Coupon here" onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
+                                                                <button onClick={this.applyTextCoupon.bind(this)}>Apply</button>
                                                                 <p style={{ color: 'red' }}>{this.state.couponTextMessage}</p>
                                                             </div>
                                                             <ul>
@@ -155,14 +155,17 @@ class CouponSelectionView extends React.Component {
                                                                             <label className="fw-700 text-md" htmlFor={coupons.coupon_id}>{coupons.code}</label>
                                                                             <div className="coupon-input col-12">
                                                                                 <p>{coupons.desc}</p>
-                                                                                <div className="coupon-timeline book-confirmed-timeline">
-                                                                                    <p className="text-sm text-primary">can be used {coupons.coupon_count - coupons.used_count} times per user</p>
-                                                                                    <ul className="coupon-inline-list">
-                                                                                        {
-                                                                                            this.getDots(coupons.coupon_count, coupons.used_count)
-                                                                                        }
-                                                                                    </ul>
-                                                                                </div>
+                                                                                {
+                                                                                    coupons.coupon_count > 1 ? <div className="coupon-timeline book-confirmed-timeline">
+                                                                                        <p className="text-sm text-primary">can be used {coupons.coupon_count - coupons.used_count} times per user</p>
+                                                                                        <ul className="coupon-inline-list">
+                                                                                            {
+                                                                                                this.getDots(coupons.coupon_count, coupons.used_count)
+                                                                                            }
+                                                                                        </ul>
+                                                                                    </div> : ""
+                                                                                }
+
                                                                                 {
                                                                                     coupons.tnc ?
                                                                                         <p className="text-sm text-primary" style={{ 'cursor': 'pointer' }} onClick={this.toggle.bind(this, 'openTermsConditions', coupons.tnc)}>Terms & Conditions</p>

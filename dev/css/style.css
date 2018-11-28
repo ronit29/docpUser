@@ -3441,7 +3441,8 @@ border: 1px solid #aaaa;
 }
 .select-coupon-heading{
 	position: relative;
-    margin: 0px 15px 15px 15px;
+	margin: 0px 15px 15px 15px;
+	padding: 15px 0px 0 0px;
 }
 .coupon-search-input{
     position: relative;
