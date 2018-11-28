@@ -875,7 +875,7 @@ p.top-head-link.card-lab-link span {
 
 @media(max-width: 380px) {
 	.chatbox-right {
-		height: calc(100vh - 330px);
+		height: calc(100vh - 310px);
 	}
 	
 	.text-sm{
