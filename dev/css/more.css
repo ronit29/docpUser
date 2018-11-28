@@ -1424,3 +1424,24 @@ span.free-ofr-ribbon:after {
     right: 0px;
     top: 16px;
 }
+
+.chat-article-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f78631;
+    color: #fff;
+    height: 54px;
+    flex-direction: column;
+    font-size: 18px;
+    line-height: 18px;
+    padding: 8px;
+}
+
+.chat-article-btn>span{
+    font-size: 13px;
+}
+
+.docprime-article{
+    word-break: break-word;
+}
