@@ -99,7 +99,7 @@ class CouponSelectionView extends React.Component {
             if (this.state.appointmentType == 2) {
                 this.props.getCoupons(this.state.appointmentType, null, cb, this.state.id, this.state.test_ids, this.state.couponText, false)
             } else {
-                this.props.getCoupons(this.state.appointmentType, null, cb, null, null, null, false)
+                this.props.getCoupons(this.state.appointmentType, null, cb, null, null, this.state.couponText, false)
             }
         }
     }
