@@ -137,16 +137,17 @@ class CouponSelectionView extends React.Component {
                                                               
                                                 </div>*/}
 
-                                                {
-                                                    this.props.applicableCoupons.length ?
 
-                                                        <div className="coupons-list">
-                                                            <p className="pd-12 select-coupon-heading">Select Coupon</p>
-                                                            <div className="coupon-search-input">
-                                                                <input placeholder="Enter Coupon here" onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
-                                                                <button onClick={this.applyTextCoupon.bind(this)}>Apply</button>
-                                                                <p style={{ color: 'red' }}>{this.state.couponTextMessage}</p>
-                                                            </div>
+
+                                                <div className="coupons-list">
+                                                    <p className="pd-12 select-coupon-heading">Select Coupon</p>
+                                                    <div className="coupon-search-input">
+                                                        <input placeholder="Enter Coupon here" onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
+                                                        <button onClick={this.applyTextCoupon.bind(this)}>Apply</button>
+                                                        <p style={{ color: 'red' }}>{this.state.couponTextMessage}</p>
+                                                    </div>
+                                                    {
+                                                        this.props.applicableCoupons.length ?
                                                             <ul>
                                                                 {
                                                                     this.props.applicableCoupons.map((coupons, index) => {
@@ -181,11 +182,12 @@ class CouponSelectionView extends React.Component {
                                                                     this.state.openTermsConditions ? <TermsConditions toggle={this.toggle.bind(this, 'openTermsConditions')} tnc={this.state.tnc} /> : ""
                                                                 }
                                                             </ul>
-                                                        </div>
-                                                        : <div>
-                                                            <p className="no-coupon">No coupons available</p>
-                                                        </div>
-                                                }
+                                                            : <div>
+                                                                <p className="no-coupon">No coupons available</p>
+                                                            </div>
+                                                    }
+                                                </div>
+
 
                                             </div>
                                         </div>
