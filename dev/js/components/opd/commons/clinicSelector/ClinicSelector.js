@@ -4,6 +4,7 @@ import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage'
 import ProcedurePopup from '../profilePopUp.js'
+import { hostname } from 'os';
 
 class ClinicSelector extends React.Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class ClinicSelector extends React.Component {
 
         if (!this.props.selectedClinic) {
             if (hospitals && hospitals.length) {
-                this.props.selectClinic(hospitals[0].hospital_id, is_live, 0, hospitals[0].deal_price || 0)
+                this.props.selectClinic(hospitals[0].hospital_id, hospitals[0].enabled_for_online_booking, 0, hospitals[0].deal_price || 0)
             }
         }
 
@@ -124,7 +125,7 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, !!is_live, i, hospital.deal_price) }}>{hospital.hospital_name}
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hostname.enabled_for_online_booking, i, hospital.deal_price) }}>{hospital.hospital_name}
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
@@ -180,15 +181,15 @@ class ClinicSelector extends React.Component {
                             {
                                 this.props.selectedClinic != hospital.hospital_id && (this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id]) && (this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures > 0 || this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 0)
                                     ? <p>Treatments Available {`(${this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures})`}</p>
-                                    :''
+                                    : ''
                             }
 
                             {
-                                this.props.is_procedure?
+                                this.props.is_procedure ?
                                     this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures >= 0
-                                    ?''
-                                    :<p className="select-bnr-dsn">Selected treatment not available</p>
-                                :''
+                                        ? ''
+                                        : <p className="select-bnr-dsn">Selected treatment not available</p>
+                                    : ''
                             }
 
                             {

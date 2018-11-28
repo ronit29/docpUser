@@ -86,8 +86,9 @@ class DoctorProfileCard extends React.Component {
     }
 
     render() {
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enabled_for_online_booking, is_license_verified, is_gold, schema } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema } = this.props.details
 
+        let enabled_for_online_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
 
@@ -133,6 +134,8 @@ class DoctorProfileCard extends React.Component {
                     discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
                 }
             }
+
+            enabled_for_online_booking = hospitals[0].enabled_for_online_booking
 
             return (
 
@@ -188,7 +191,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                     {
-                                        !deal_price && !is_procedure?
+                                        !deal_price && !is_procedure ?
                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700" >Free Consultation</span> : ''
                                     }
 
