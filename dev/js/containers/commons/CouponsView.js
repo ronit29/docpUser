@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
 	return {
-		getCoupons: (productId, deal_price, cb, lab_id, test_ids) => dispatch(getCoupons(productId, deal_price, cb, lab_id, test_ids)),
+		getCoupons: (productId, deal_price, cb, lab_id, test_ids, coupon_code, save_in_store) => dispatch(getCoupons(productId, deal_price, cb, lab_id, test_ids, coupon_code, save_in_store)),
 		applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId))
 
 	}

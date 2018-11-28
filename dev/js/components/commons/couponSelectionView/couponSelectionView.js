@@ -16,11 +16,18 @@ class CouponSelectionView extends React.Component {
             couponName: '',
             errorMsg: '',
             openTermsConditions: false,
+            couponText: "",
+            couponTextMessage: "",
+            test_ids: []
         }
     }
 
     toggle(which, tnc = '') {
         this.setState({ [which]: !this.state[which], tnc: tnc })
+    }
+
+    inputHandler(e) {
+        this.setState({ couponText: e.target.value })
     }
 
     componentDidMount() {
@@ -39,9 +46,9 @@ class CouponSelectionView extends React.Component {
             appointmentType = ''
         }
 
+        let test_ids = []
         if (appointmentType == 2) {
             const parsed = queryString.parse(this.props.location.search)
-            let test_ids = []
             if (parsed.test_ids) {
                 test_ids = parsed.test_ids
             }
@@ -50,7 +57,7 @@ class CouponSelectionView extends React.Component {
             this.props.getCoupons(appointmentType)
         }
 
-        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId })
+        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids })
     }
 
     toggleButtons(coupon, e) {
@@ -77,6 +84,24 @@ class CouponSelectionView extends React.Component {
                 dots.push(<li key={i} className=""><span className="dot">{i}</span></li>)
         }
         return dots
+    }
+
+    applyTextCoupon(e) {
+        this.setState({ couponTextMessage: "" })
+        if (this.state.couponText) {
+            let cb = (coupon) => {
+                if (coupon && coupon[0]) {
+                    this.toggleButtons(coupon[0], e)
+                } else {
+                    this.setState({ couponTextMessage: "Invalid Coupon" })
+                }
+            }
+            if (this.state.appointmentType == 2) {
+                this.props.getCoupons(this.state.appointmentType, null, cb, this.state.id, this.state.test_ids, this.state.couponText, false)
+            } else {
+                this.props.getCoupons(this.state.appointmentType, null, cb, null, null, null, false)
+            }
+        }
     }
 
     render() {
@@ -115,6 +140,9 @@ class CouponSelectionView extends React.Component {
 
                                                         <div className="coupons-list">
                                                             <p className="pd-12">Select Coupon</p>
+                                                            <input onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
+                                                            <button onClick={this.applyTextCoupon.bind(this)}>Apply Coupon</button>
+                                                            <p style={{ color: 'red' }}>{this.state.couponTextMessage}</p>
                                                             <ul>
                                                                 {
                                                                     this.props.applicableCoupons.map((coupons, index) => {

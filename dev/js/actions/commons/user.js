@@ -391,7 +391,7 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 	})
 }
 
-export const getCoupons = (productId = '', deal_price = 0, cb, lab_id = null, test_ids = []) => (dispatch) => {
+export const getCoupons = (productId = '', deal_price = 0, cb, lab_id = null, test_ids = [], coupon_code = null, save_in_store = true) => (dispatch) => {
 	let url = `/api/v1/coupon/applicablecoupons?`
 	if (productId) {
 		url += `product_id=${productId}`
@@ -404,14 +404,24 @@ export const getCoupons = (productId = '', deal_price = 0, cb, lab_id = null, te
 		url += `&lab_id=${lab_id}&test_ids=${test_ids}`
 	}
 
-	API_GET(url).then(function (response) {
+	if (coupon_code) {
+		url += `&coupon_code=${coupon_code}`
+	}
 
-		dispatch({
-			type: GET_APPLICABLE_COUPONS,
-			payload: response
-		})
+	API_GET(url).then(function (response) {
+		if (save_in_store) {
+			dispatch({
+				type: GET_APPLICABLE_COUPONS,
+				payload: response
+			})
+		}
+
 		if (cb) {
 			cb(response)
+		}
+	}).catch((e) => {
+		if (cb) {
+			cb(null)
 		}
 	})
 }
