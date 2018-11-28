@@ -86,8 +86,9 @@ class DoctorProfileCard extends React.Component {
     }
 
     render() {
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enabled_for_online_booking, is_license_verified, is_gold, schema } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema } = this.props.details
 
+        let enabled_for_online_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
 
@@ -134,6 +135,8 @@ class DoctorProfileCard extends React.Component {
                 }
             }
 
+            enabled_for_online_booking = hospitals[0].enabled_for_online_booking
+
             return (
 
                 <div className="filter-card-dl mb-3" >
@@ -163,15 +166,15 @@ class DoctorProfileCard extends React.Component {
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
                             <div className="col-8 fltr-crd-col">
                                 <div className="fltr-crd-img text-center">
-                                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} /></InitialsPicture>
+                                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} alt={display_name} title={display_name} /></InitialsPicture>
                                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                                     {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
                                 </div>
                                 <div className="fltr-name-dtls">
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
-                                        <h2 style={{ fontSize: "16px" }} className="fltr-dc-name">{display_name}</h2>
+                                        <h2 style={{ fontSize: 16 }} className="fltr-dc-name">{display_name}</h2>
                                     </a>
-                                    <p>{this.getQualificationStr(general_specialization || [])}</p>
+                                    <h3>{this.getQualificationStr(general_specialization || [])}</h3>
                                     {
                                         experience_years ? <p >{experience_years} Years of Experience</p> : ""
                                     }
@@ -188,7 +191,7 @@ class DoctorProfileCard extends React.Component {
                                     }
 
                                     {
-                                        !deal_price ?
+                                        !deal_price && !is_procedure ?
                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700" >Free Consultation</span> : ''
                                     }
 
@@ -275,12 +278,12 @@ class DoctorProfileCard extends React.Component {
                     <div className="filtr-card-footer">
                         <div>
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/home.svg"} />
-                            <p >{hospital.hospital_name}
+                            <h3 className="mrb-0">{hospital.hospital_name}
                                 {
                                     hospital_count > 1 ?
                                         <span> &amp; {hospital_count - 1} More </span> : ''
                                 }
-                            </p>
+                            </h3>
 
                         </div>
                         <div className="text-right">

@@ -77,7 +77,7 @@ class Article extends React.Component {
 
     render() {
         return (
-            <div className="profile-body-wrap">
+            <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
                 <section className="container article-container">
                     <div className="row main-row parent-section-row">

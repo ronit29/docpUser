@@ -267,6 +267,10 @@ export default function (state = defaultState, action) {
             }
             let selectedProcedures = []
             
+            if(action.forceAdd){
+                newState.commonProfileSelectedProcedures = action.selectedProcedures
+                return newState
+            }
             if(newState.selectedDoctorProcedure[action.doctor_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories){
 
                 Object.values(newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories).map((procedure) => {
