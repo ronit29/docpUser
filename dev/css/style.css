@@ -820,9 +820,14 @@ p.top-head-link.card-lab-link span {
 		overflow-y: auto !important;
 	}
 }
+@media(max-width: 414px) {
+	.chatbox-right {
+		height: calc(100vh - 330px);
+	}
+}
 @media(max-width: 415px) {
 	.chatbox-right {
-		height: calc(100vh - 480px);
+		height: calc(100vh - 440px);
 	}
 	.header-relative {
 		position: relative;
@@ -870,7 +875,7 @@ p.top-head-link.card-lab-link span {
 
 @media(max-width: 380px) {
 	.chatbox-right {
-		height: calc(100vh - 350px);
+		height: calc(100vh - 330px);
 	}
 	
 	.text-sm{
