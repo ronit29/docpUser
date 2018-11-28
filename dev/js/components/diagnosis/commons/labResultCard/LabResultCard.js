@@ -145,6 +145,9 @@ class LabResultCard extends React.Component {
             price = price + pickup_charges
         }
 
+        console.log('this.props');
+        console.log(this.props.details.tests);
+
         return (
             // <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
             //     <div className="widget card lab-rslt-card">
@@ -241,19 +244,22 @@ class LabResultCard extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <ul className="fltr-labs-test-selected">
-                            <span className="fltr-prv-selected-test">Tests Selected</span>
-                            <li className="fltr-slected-test">
-                                <label>Liver Function </label>
-                                <p>&#x20B9; 299 <span>&#x20B9; 399</span></p>
-                            </li>
-                            <li className="fltr-slected-test">
-                                <label>MRI Brain </label>
-                                <p>&#x20B9; 299 <span>&#x20B9; 399</span></p>
-                            </li>
-                        </ul>
-                    </div>
+                    {
+                        this.props.details.tests && this.props.details.tests.length ?
+                            <div>
+                                <ul className="fltr-labs-test-selected">
+                                    <span className="fltr-prv-selected-test">Tests Selected</span>
+                                    {
+                                        this.props.details.tests.map((test, i) => {
+                                            return <li className="fltr-slected-test" key={i}>
+                                                <label>{test.name}</label>
+                                                <p>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                            </li>
+                                        })
+                                    }
+                                </ul>
+                            </div> : ''
+                    }
                 </div>
                 <div className="filtr-card-footer">
                     {
