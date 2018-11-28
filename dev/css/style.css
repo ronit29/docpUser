@@ -822,7 +822,7 @@ p.top-head-link.card-lab-link span {
 }
 @media(max-width: 415px) {
 	.chatbox-right {
-		height: calc(100vh - 400px);
+		height: calc(100vh - 480px);
 	}
 	.header-relative {
 		position: relative;
