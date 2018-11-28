@@ -125,7 +125,7 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hostname.enabled_for_online_booking, i, hospital.deal_price) }}>{hospital.hospital_name}
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.deal_price) }}>{hospital.hospital_name}
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
