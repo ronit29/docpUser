@@ -4,6 +4,7 @@ import Range from 'rc-slider/lib/Range';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
+import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
 
 class TopBar extends React.Component {
@@ -18,7 +19,8 @@ class TopBar extends React.Component {
             shortURL: "",
             dropdown_visible: false,
             showLocationPopup: false,
-            overlayVisible: false
+            overlayVisible: false,
+            showPopupContainer: true
         }
     }
 
@@ -28,7 +30,7 @@ class TopBar extends React.Component {
             this.setState({ showLocationPopup: false })
         } else {
             if (props.seoData && props.seoData.location) {
-                //
+                this.setState({ showLocationPopup: false })
             } else {
                 if (props.selectedLocation != this.props.selectedLocation) {
                     this.setState({ showLocationPopup: true, overlayVisible: true })
@@ -42,7 +44,7 @@ class TopBar extends React.Component {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
         if (this.props.seoData && this.props.seoData.location) {
-            //
+            this.setState({ showLocationPopup: false })
         } else {
             if (this.props.locationType.includes("geo")) {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
@@ -57,7 +59,7 @@ class TopBar extends React.Component {
             sort_on: this.state.sort_on
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on==""?'relevance':this.state.sort_on
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -145,6 +147,10 @@ class TopBar extends React.Component {
         this.setState({ showLocationPopup: false });
     }
 
+    popupContainer() {
+        this.setState({ showPopupContainer: false, showLocationPopup: false });
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
@@ -187,7 +193,8 @@ class TopBar extends React.Component {
                                         <span onClick={() => {
                                             this.setState({
                                                 showLocationPopup: !this.state.showLocationPopup,
-                                                searchCities: []
+                                                searchCities: [],
+                                                showPopupContainer: true
                                             })
                                         }}>
 
@@ -217,13 +224,21 @@ class TopBar extends React.Component {
                         </div>
                         {
                             this.state.showLocationPopup ?
-                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                                this.props.lab_card && this.state.showPopupContainer ?
+                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
+                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
                                 : ''
                         }
 
                         {
-                            this.state.showLocationPopup && this.state.overlayVisible ?
+                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.lab_card ?
                                 <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
+                        }
+
+                        {
+                            this.state.showLocationPopup && this.props.lab_card && this.state.showPopupContainer ?
+                                <div className="popupContainer-overlay"></div>
+                                : ''
                         }
 
                     </div>

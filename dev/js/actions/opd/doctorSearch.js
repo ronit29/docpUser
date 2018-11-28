@@ -323,10 +323,12 @@ export const getSpecialityFooterData = (cb) => (dispatch) => {
 	})
 }
 
-export const saveProfileProcedures = (doctor_id, clinic_id) => (dispatch) => {
+export const saveProfileProcedures = (doctor_id='', clinic_id='', selectedProcedures = [], forceAdd = false) => (dispatch) => {
 	dispatch({
 		type: SAVE_PROFILE_PROCEDURES,
-		doctor_id: doctor_id,
-		clinic_id: clinic_id
+		doctor_id : doctor_id,
+		clinic_id: clinic_id,
+		forceAdd: forceAdd,
+		selectedProcedures: selectedProcedures
 	})
 }

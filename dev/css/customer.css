@@ -957,13 +957,6 @@ li.lst-bfr:before{
 	margin-left:3px;
 }
 
-.fltr-name-dtls p{
-	color: #757575;
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 5px;
-    width: 200px;
-}
 .fltr-bkng-section{
 	display: flex;
     position: relative;
@@ -1083,9 +1076,6 @@ li.lst-bfr:before{
 	.fltr-dc-name{
 		width: 100px;
 	}
-	.fltr-name-dtls p{
-		font-size: 11px;
-    }
     p.pr-prices{
         width: 150px;
     }

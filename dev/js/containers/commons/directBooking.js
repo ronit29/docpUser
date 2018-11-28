@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 const queryString = require('query-string');
 import SnackBar from 'node-snackbar'
 
-import { OTTLogin, fetchOrderById, getUpcomingAppointments, fetchHeatlhTip, fetchOrderHistory, toggleDiagnosisCriteria, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, clearAllTests, selectPickupAddress, selectLabAppointmentType } from '../../actions/index.js'
+import { OTTLogin, fetchOrderById, getUpcomingAppointments, fetchHeatlhTip, fetchOrderHistory, toggleDiagnosisCriteria, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, clearAllTests, selectPickupAddress, selectLabAppointmentType, saveProfileProcedures } from '../../actions/index.js'
 import Loader from '../../components/commons/Loader'
 
 class DirectBooking extends React.Component {
@@ -79,6 +79,9 @@ class DirectBooking extends React.Component {
         this.props.selectProfile(data.profile)
         let time_slot = this.buildOPDTimeSlot(data)
         this.props.selectOpdTimeSLot(time_slot, false)
+        if(data.procedure_ids && data.procedure_ids.length){
+            this.props.saveProfileProcedures('','', data.procedure_ids, true)
+        }
         this.props.history.push(`/opd/doctor/${data.doctor}/${data.hospital}/bookdetails`)
     }
 
@@ -109,7 +112,8 @@ const mapDispatchToProps = (dispatch) => {
         selectProfile: (profile_id) => dispatch(selectProfile(profile_id)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
-        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type))
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
+        saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures , forceAdd))
     }
 }
 

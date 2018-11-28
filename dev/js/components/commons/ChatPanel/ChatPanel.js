@@ -277,7 +277,13 @@ class ChatPanel extends React.Component {
             <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : "col-md-5 mb-3"}>
                 {
                     this.props.homePage || this.props.mobilechatview ? '' :
-                        <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}><img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} /></div>
+                        this.props.articleData ?
+                            <div class="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>Chat now with doctor
+                                <span>(about {this.props.articleData.title.split('|')[0]} and related queries)</span>
+                            </div> :
+                            <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                                <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            </div>
                 }
 
                 <div className={this.state.showChatBlock ? "floating-chat " : ""}>
@@ -312,13 +318,13 @@ class ChatPanel extends React.Component {
                                                     }, 10000)
                                                 }
                                             }}>
-                                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" />
+                                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />
 
                                             </span> : ""
                                         }
 
                                         <span onClick={this.toggleCancel.bind(this)}>
-                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" />
+                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" title="start a new chat" />
 
                                         </span>
                                         {
