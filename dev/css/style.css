@@ -820,9 +820,14 @@ p.top-head-link.card-lab-link span {
 		overflow-y: auto !important;
 	}
 }
+@media(max-width: 414px) {
+	.chatbox-right {
+		height: calc(100vh - 330px);
+	}
+}
 @media(max-width: 415px) {
 	.chatbox-right {
-		height: calc(100vh - 400px);
+		height: calc(100vh - 440px);
 	}
 	.header-relative {
 		position: relative;
@@ -870,7 +875,7 @@ p.top-head-link.card-lab-link span {
 
 @media(max-width: 380px) {
 	.chatbox-right {
-		height: calc(100vh - 350px);
+		height: calc(100vh - 310px);
 	}
 	
 	.text-sm{
@@ -1623,6 +1628,14 @@ margin: 0px 10px;
     height: 70px;
     width: 70px;
 }
+.fltr-crd-img-lab .fltr-usr-image-lab{
+	max-width: 100%;
+	max-height: 100%;
+}
+.fltr-crd-img-lab>div{
+	width: 70px;
+	height: 47px;
+}
 .fltr-rtng{
 	display: block;
     background-color: #55a740;
@@ -1770,10 +1783,6 @@ margin: 0px 10px;
 @media screen and (max-width: 380px) {
 	.fltr-dc-name{
 		font-size: 14px;
-	}
-	.fltr-crd-img .fltr-usr-image {
-		height: 60px;
-		width: 60px;
 	}
 	.clinic-selector-name.ratng-clinic-slc-name{
 		width:100% !important;

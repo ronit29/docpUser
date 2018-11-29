@@ -65,14 +65,13 @@ class DoctorProfileView extends React.Component {
     }
 
     selectClinic(clinic_id, is_live, rank, consultation_fee) {
-        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee : consultation_fee})
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee })
     }
 
     navigateToClinic(doctor_id, clinicId) {
-        let is_live = this.props.DOCTORS[doctor_id].is_live
         let rank = this.state.rank
 
-        if (is_live) {
+        if (this.state.is_live) {
 
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'OpdBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': clinicId || ''
@@ -120,9 +119,9 @@ class DoctorProfileView extends React.Component {
             doctor_id = this.props.initialServerData.doctor_id
         }
         let final_price = parseInt(this.state.consultation_fee)
-        if( this.props.selectedDoctorProcedure[doctor_id] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].categories){
+        if (this.props.selectedDoctorProcedure[doctor_id] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic] && this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].categories) {
 
-            final_price+= parseInt(this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].price.deal_price) || 0
+            final_price += parseInt(this.props.selectedDoctorProcedure[doctor_id][this.state.selectedClinic].price.deal_price) || 0
         }
 
         let search_data = null
@@ -262,7 +261,7 @@ class DoctorProfileView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.props.DOCTORS[doctor_id].enabled_for_online_booking ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now (₹ ${final_price})`}</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
+                                            this.state.is_live ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now (₹ ${final_price})`}</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
                                         }
 
                                     </section> : <Loader />

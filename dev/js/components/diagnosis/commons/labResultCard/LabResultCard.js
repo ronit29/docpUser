@@ -1,6 +1,7 @@
 import React from 'react';
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage'
+import InitialsPicture from '../../../commons/initialsPicture'
 
 class LabResultCard extends React.Component {
     constructor(props) {
@@ -145,6 +146,11 @@ class LabResultCard extends React.Component {
             price = price + pickup_charges
         }
 
+        let offPercent = ''
+        if (mrp && price && (price < mrp)) {
+            offPercent = parseInt(((mrp - price) / mrp) * 100);
+        }
+
         return (
             // <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
             //     <div className="widget card lab-rslt-card">
@@ -203,54 +209,68 @@ class LabResultCard extends React.Component {
             <div className="filter-card-dl mb-3" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
-                        <p><img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/customer-icons/map-marker-blue.svg" /><span className="fltr-loc-txt">{lab.locality} {lab.city}</span> | <span>{distance} Km</span></p>
+                        <p>
+                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src="/assets/img/customer-icons/map-marker-blue.svg" />
+                            <span className="fltr-loc-txt">{lab.locality} {lab.city}</span>
+                            <span>&nbsp;|&nbsp;{distance} Km</span>
+                        </p>
                     </div>
-                    <div className="row no-gutters">
+                    <div className="row no-gutters mrt-20">
                         <div className="col-8 fltr-crd-col">
-                            <div className="fltr-crd-img text-center">
+                            <div className="fltr-crd-img-lab text-center">
                                 <div>
-                                    <img className="fltr-usr-image img-round" src={lab.lab_thumbnail} />
+                                    <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
+                                        <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
+                                    </InitialsPicture>
                                 </div>
                                 {/* <span className="fltr-rtng">Verified</span> */}
                             </div>
                             <div className="fltr-name-dtls">
                                 <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
-                                    <h2 className="fltr-dc-name text-md">{lab.name}</h2>
+                                    <h2 className="fltr-dc-name text-md" style={{ color: '#000' }}>{lab.name}</h2>
                                 </a>
+                                {
+                                    this.props.details.tests && this.props.details.tests.length == 1 ?
+                                        <p className="mrt-10" style={{ color: '#000', fontSize: 14, fontWeight: 400 }}>{this.props.details.tests[0].name}</p> : ''
+                                }
+                                {
+                                    STORAGE.checkAuth() || price < 100 ?
+                                        ''
+                                        : <div style={{ position: 'absolute', top: 75, left: 0 }} >
+                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                        </div>
+                                }
                             </div>
                         </div>
                         <div className="col-4">
                             <div className="fltr-bkng-section">
-                                {/* <span className="filtr-offer ofr-ribbon fw-700">30% OFF</span> */}
+                                {
+                                    offPercent && offPercent > 0 ?
+                                        <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
+                                }
                                 {
                                     price ? <p className="fltr-prices">&#8377; {price}<span className="fltr-cut-price">&#8377; {mrp}</span></p> : ''
                                 }
-
-                                {
-                                    STORAGE.checkAuth() || price < 100 ?
-                                        ''
-                                        : <div className="signup-off-container lab-signup-offr">
-                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                        </div>
-                                }
-
                                 <button className="fltr-bkng-btn">Book Lab</button>
                             </div>
                         </div>
                     </div>
-                    {/* <div>
-                        <ul className="fltr-labs-test-selected">
-                            <span className="fltr-prv-selected-test">Tests Selected</span>
-                            <li className="fltr-slected-test">
-                                <label>Liver Function </label>
-                                <p>&#x20B9; 299 <span>&#x20B9; 399</span></p>
-                            </li>
-                            <li className="fltr-slected-test">
-                                <label>MRI Brain </label>
-                                <p>&#x20B9; 299 <span>&#x20B9; 399</span></p>
-                            </li>
-                        </ul>
-                    </div> */}
+                    {
+                        this.props.details.tests && this.props.details.tests.length >= 2 ?
+                            <div>
+                                <ul className="fltr-labs-test-selected">
+                                    <span className="fltr-prv-selected-test">Tests Selected</span>
+                                    {
+                                        this.props.details.tests.map((test, i) => {
+                                            return <li className="fltr-slected-test" key={i}>
+                                                <label style={{ fontWeight: 400 }}>{test.name}</label>
+                                                <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                            </li>
+                                        })
+                                    }
+                                </ul>
+                            </div> : ''
+                    }
                 </div>
                 <div className="filtr-card-footer">
                     {
@@ -258,7 +278,7 @@ class LabResultCard extends React.Component {
                             <p style={{ marginLeft: 0 }}>* {pickup_text}</p>
                         </div> : ""
                     }
-                    <div className="text-right">
+                    <div className="text-right" style={{ marginLeft: 'auto' }}>
                         <img src="/assets/img/customer-icons/clock-black.svg" />
                         {
                             this.buildLabTimingData(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)

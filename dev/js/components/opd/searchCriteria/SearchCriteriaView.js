@@ -86,18 +86,18 @@ class SearchCriteriaView extends React.Component {
                         />
 
                         <CommonlySearched
-                            heading="Common Conditions"
-                            type="condition"
-                            data={this.props.conditions}
-                            selected={this.props.selectedCriterias.filter(x => x.type == 'condition')}
-                            toggle={this.props.toggleOPDCriteria.bind(this)}
-                        />
-
-                        <CommonlySearched
                             heading="Common Dental Treatments"
                             type="procedures_category"
                             data={this.props.procedure_categories}
                             selected={this.props.selectedCriterias.filter(x => x.type == 'procedures_category')}
+                            toggle={this.props.toggleOPDCriteria.bind(this)}
+                        />
+
+                        <CommonlySearched
+                            heading="Common Conditions"
+                            type="condition"
+                            data={this.props.conditions}
+                            selected={this.props.selectedCriterias.filter(x => x.type == 'condition')}
                             toggle={this.props.toggleOPDCriteria.bind(this)}
                         />
 
