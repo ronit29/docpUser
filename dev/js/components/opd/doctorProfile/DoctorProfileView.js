@@ -35,7 +35,7 @@ class DoctorProfileView extends React.Component {
             consultation_fee: 0,
             numberShown: "",
             searchShown: false,
-            searchDataHidden: this.props.match.url.includes('hide_search_data')
+            searchDataHidden: this.props.location.search.includes('hide_search_data')
         }
     }
 
@@ -261,7 +261,7 @@ class DoctorProfileView extends React.Component {
                                             this.state.is_live ?
                                                 <div className="dpp-btn-div fixed horizontal bottom">
                                                     {
-                                                        this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
+                                                        !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
                                                             <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
                                                                 let data = {
                                                                     'Category': 'ConsumerApp', 'Action': 'Prpfile-doctor-search', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-profile-clicked'
@@ -279,7 +279,7 @@ class DoctorProfileView extends React.Component {
                                                 :
                                                 <div className="dpp-btn-div fixed horizontal bottom">
                                                     {
-                                                        this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
+                                                        !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
                                                             <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
                                                                 let data = {
                                                                     'Category': 'ConsumerApp', 'Action': 'Prpfile-doctor-search', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-profile-clicked'
