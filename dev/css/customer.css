@@ -1498,3 +1498,53 @@ p.rt-doc-nm{
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 10;
 }
+
+.dpp-btn-div{
+    display: flex;
+    align-items: stretch;
+    height: 54px;
+}
+
+.dpp-btn-view{
+    display: flex;
+    align-items: center;
+    width: 40%;
+    background-color: #fff;
+    border: 1px solid #f78631;
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.dpp-btn-view>img{
+    width: 10px;
+    transform: rotate(180deg);
+}
+
+.dpp-btn-view>p{
+    color: #f78631;
+    font-weight: 500;
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+    margin-left: 8px;
+    max-height: 45px;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.dpp-btn-book{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: #f78631;
+    cursor: pointer;
+}
+
+.dpp-btn-book>p{
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+}

@@ -34,7 +34,8 @@ class DoctorProfileView extends React.Component {
             rank: 0,
             consultation_fee: 0,
             numberShown: "",
-            searchShown: false
+            searchShown: false,
+            searchDataHidden: this.props.match.url.includes('hide_search_data')
         }
     }
 
@@ -128,13 +129,6 @@ class DoctorProfileView extends React.Component {
         if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].search_data) {
             search_data = this.props.DOCTORS[doctor_id].search_data
         }
-
-        // search_data = {
-        //     heading: "general physicians",
-        //     specialization_id: 279,
-        //     lat: "28.408727",
-        //     long: "77.049048"
-        // }
 
         return (
             <div className="profile-body-wrap">
@@ -260,10 +254,47 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {
+                                        {/* {
                                             this.state.is_live ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now (₹ ${final_price})`}</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
+                                        } */}
+                                        {
+                                            this.state.is_live ?
+                                                <div className="dpp-btn-div fixed horizontal bottom">
+                                                    {
+                                                        this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
+                                                            <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
+                                                                let data = {
+                                                                    'Category': 'ConsumerApp', 'Action': 'Prpfile-doctor-search', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-profile-clicked'
+                                                                }
+                                                                GTM.sendEvent({ data: data })
+                                                            }}>
+                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
+                                                                <p>{`View ${search_data.result_count}${search_data.title}`}</p>
+                                                            </a> : ''
+                                                    }
+                                                    <div className="dpp-btn-book" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
+                                                        <p>{`Book Now (₹ ${final_price})`}</p>
+                                                    </div>
+                                                </div>
+                                                :
+                                                <div className="dpp-btn-div fixed horizontal bottom">
+                                                    {
+                                                        this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
+                                                            <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
+                                                                let data = {
+                                                                    'Category': 'ConsumerApp', 'Action': 'Prpfile-doctor-search', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-profile-clicked'
+                                                                }
+                                                                GTM.sendEvent({ data: data })
+                                                            }}>
+                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
+                                                                <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
+                                                            </a> : ''
+                                                    }
+                                                    <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
+                                                        <p>{this.state.numberShown || "Contact"}</p>
+                                                    </div>
+                                                </div>
                                         }
-
                                     </section> : <Loader />
                             }
                         </div>

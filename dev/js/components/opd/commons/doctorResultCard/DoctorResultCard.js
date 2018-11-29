@@ -35,15 +35,15 @@ class DoctorProfileCard extends React.Component {
 
             if (url) {
                 if (category_ids.length || procedure_ids.length) {
-                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}&hide_search_data`)
                 } else {
-                    this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&hide_search_data`)
                 }
             } else {
                 if (category_ids.length || procedure_ids.length) {
-                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}&hide_search_data`)
                 } else {
-                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&hide_search_data`)
                 }
             }
         }
