@@ -339,7 +339,7 @@ class BookingView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            reports ? <button onClick={() => {
+                                            reports && reports.length ? <button onClick={() => {
                                                 this.props.history.push(`/user/lab/reports/${this.state.data.id}`)
                                             }} className="viewpresbtn">View Reports</button> : ""
                                         }
