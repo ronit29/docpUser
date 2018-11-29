@@ -152,60 +152,6 @@ class LabResultCard extends React.Component {
         }
 
         return (
-            // <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
-            //     <div className="widget card lab-rslt-card">
-            //         <div className="widget-content card-content book-card" style={{ paddingBottom: 0 }} >
-            //             <div className="logo-ratting">
-            //                 <span className="ct-img lab-icon">
-            //                     <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-            //                         <img src={lab.lab_thumbnail} className="img-fluid" style={{ maxWidth: 90, maxHeight: 60 }} />
-            //                     </InitialsPicture>
-            //                 </span>
-
-            //                 {
-            //                     pickup_available == 0 ? "" : <p className='fw-500' style={{ fontSize: 10, color: '#757575', marginTop: 2 }} >FREE HOME PICKUP</p>
-            //                 }
-            //             </div>
-            //             <div className="book-card-content">
-            //                 <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`}>
-            //                     <h2 className="book-cart-title">{lab.name}</h2>
-            //                 </a>
-            //                 <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8 }} >Radiology | Pathology</p>
-            //                 <div style={{ display: 'flex', flexWrap: 'wrap', minWidth: 0 }} >
-            //                     <p className="lab-locality">
-
-            //                         {lab.locality} {lab.city}&nbsp;|
-            //                     </p>
-            //                     <div style={{ width: 60, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
-            //                         <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance} KM</span>
-            //                     </div>
-            //                 </div>
-            //                 {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
-            //             </div>
-            //         </div>
-
-            //         <div className="widget-footer card-footer lab-search-card-footer">
-            //             <div className="row">
-            //                 <div className="col-12 text-right">
-            //                     {
-            //                         price ? <p className="lab-price mrb-10"> &#8377; {price} <span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span></p> : ""
-            //                     }
-            //                     {
-            //                         STORAGE.checkAuth() || price < 100 ?
-            //                             ''
-            //                             : <div className="signup-off-container lab-signup-offr">
-            //                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-            //                             </div>
-            //                     }
-            //                     {
-            //                         pickup_text ? <p className="features-dtls"><sup className="str-symbol">*</sup>{pickup_text}</p> : ""
-            //                     }
-            //                     <button className="v-btn v-btn-primary btn-md">Book Lab</button>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
             <div className="filter-card-dl mb-3" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
@@ -251,14 +197,14 @@ class LabResultCard extends React.Component {
                                 {
                                     price ? <p className="fltr-prices">&#8377; {price}<span className="fltr-cut-price">&#8377; {mrp}</span></p> : ''
                                 }
-                                <button className="fltr-bkng-btn">Book Lab</button>
+                                <button className="fltr-bkng-btn">Book Now</button>
                             </div>
                         </div>
                     </div>
                     {
                         this.props.details.tests && this.props.details.tests.length >= 2 ?
                             <div>
-                                <ul className="fltr-labs-test-selected">
+                                <ul className="fltr-labs-test-selected mrt-10">
                                     <span className="fltr-prv-selected-test">Tests Selected</span>
                                     {
                                         this.props.details.tests.map((test, i) => {
