@@ -146,6 +146,7 @@ class BookingView extends React.Component {
         let actions = []
         let status = 1
         let lab_thumbnail = ""
+        let reports = []
 
         if (this.state.data) {
             lab = this.state.data.lab
@@ -155,6 +156,7 @@ class BookingView extends React.Component {
             actions = this.state.data.allowed_action || []
             status = this.state.data.status
             lab_thumbnail = this.state.data.lab_thumbnail
+            reports = this.state.data.reports || []
         }
 
         return (
@@ -337,7 +339,7 @@ class BookingView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            status == 7 ? <button onClick={() => {
+                                            reports ? <button onClick={() => {
                                                 this.props.history.push(`/user/lab/reports/${this.state.data.id}`)
                                             }} className="viewpresbtn">View Reports</button> : ""
                                         }
