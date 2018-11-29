@@ -1008,13 +1008,6 @@ li.lst-bfr:before{
 .filtr-card-footer span {
     display: block;
 }
-.fltr-labs-test-selected{
-    margin-left: 20%;
-    border-top: 1px solid rgba(0, 0, 0, .12);
-    margin-top: 5px;
-	padding-top: 5px;
-	position: relative;
-}
 .fltr-slected-test{
     display: flex;
 	justify-content: space-between;
@@ -1032,13 +1025,6 @@ li.lst-bfr:before{
 .fltr-slected-test p>span{
 	color: #757575;
 	text-decoration: line-through;
-}
-.fltr-prv-selected-test{
-	color: #757575;
-	font-size: 13px;
-	position: absolute;
-	top: -28px;
-
 }
 @media screen and (max-width: 470px) {
 	.fltr-dc-name{
