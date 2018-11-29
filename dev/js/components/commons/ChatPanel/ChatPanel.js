@@ -386,6 +386,11 @@ class ChatPanel extends React.Component {
                     this.props.homePage ?
                         <div className="banner-carousel-div mrt-20">
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_carousel.png"} />
+                            <div className="carousel-indicators mrt-10">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
                         </div> : ''
                 }
             </div>

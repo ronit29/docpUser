@@ -1553,3 +1553,20 @@ p.rt-doc-nm{
     width: 100%;
     cursor: pointer;
 }
+
+.carousel-indicators{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.carousel-indicators span{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid grey;
+    background-color: transparent;
+    margin: 0 4px;
+    cursor: pointer;
+}
