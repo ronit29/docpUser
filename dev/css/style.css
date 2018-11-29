@@ -1433,7 +1433,8 @@ padding: 20px;
     width: 120px;
 }
 .ofr-contnt{
-    margin-left: 20px;
+	margin-left: 20px;
+	width:100%;
 }
 .fst-bkg{
     font-size: 18px;
@@ -3353,6 +3354,86 @@ border: 1px solid #aaaa;
 	margin-right: 0;
 	border-right: none;
 }
+
+.view-more-coupons{
+	color: #f78631;
+	font-weight: 500;
+	text-align: right;
+	user-select: none;
+	cursor: pointer;
+}
+.all-offers{
+	font-weight: 500;
+    font-size: 18px;
+}
+.coupons-container {
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+.coupons-container:last-child {
+    border-bottom: 1px solid transparent;
+}
+.avl-cpn-hdng{
+	color: #757575;
+    font-weight: 500;
+}
+.coupan-name{
+	display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.coupon-desing{
+    background-image: url(/assets/img/customer-icons/coupon-rbn.svg);
+    padding: 5px 10px;
+    font-weight: 500;
+    background-size: 100% 100%;
+    padding-left: 24px;
+}
+.coupon-desing:before{
+	content: '';
+}
+.coupon-desing:after{
+	content: '';
+}
+.coupon-avail{
+	color: #f78631;
+	font-weight: 500;
+	cursor: pointer;
+}
+.coupon-avail img{
+	width: 6px;
+    margin-left: 3px;
+}
+.coupon-ins{
+	font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+    color: black;
+}
+.coupon-dtls-p{
+	color: #404040;
+    font-weight: 500;
+}
+.coupon-terms{
+	display: block;
+    margin-top: 15px;
+    color: #f78630;
+	font-weight: 500;
+	cursor: pointer;
+    font-size: 12px;
+}
+
+.usr-dtls-plan-act{
+	color: #f78630;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.usr-dtls-off-act{
+	display: flex;
+	justify-content: space-between;	
+}
+
 .proc-para-margin p{
 	font-weight: 500;
 	margin-bottom: 8px;
@@ -3364,6 +3445,40 @@ border: 1px solid #aaaa;
 .ofr-mrngbtm{
 	margin-bottom: 10px;
 }
+.select-coupon-heading{
+	position: relative;
+	margin: 0px 15px 15px 15px;
+	padding: 15px 0px 0 0px;
+}
+.coupon-search-input{
+    position: relative;
+    margin: 0px 15px 15px 15px;
+}
+.coupon-search-input input{
+    width: 100%;
+    border: transparent;
+    border-bottom: 2px solid rgba(0, 0, 0, .12);
+    padding-right: 70px;
+    outline: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.coupon-search-input button{
+	position: absolute;
+    right: 0;
+    background: transparent;
+    border: #ffffff00;
+    margin-right: 12px;
+    color: #e46608;
+    font-weight: 500;
+    cursor: pointer;
+}
+.coupon-search-input p{
+	color: red;
+    margin-top: 5px;
+	text-align: center;
+}
+
 .select-bnr-dsn{
 	padding: 4px 10px;
     background: #f5e28a;

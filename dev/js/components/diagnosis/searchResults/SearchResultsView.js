@@ -119,9 +119,9 @@ class SearchResultsView extends React.Component {
         let max_price = filterCriteria.priceRange[1]
         let sort_on = filterCriteria.sort_on || ""
         let lab_name = filterCriteria.lab_name || ""
+        let network_id = filterCriteria.network_id || ""
 
-
-        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}`
+        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
 
         if (this.state.lab_card) {
             url += `&lab_card=true`

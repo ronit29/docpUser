@@ -2,6 +2,7 @@ import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELE
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
+
 export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
 	if (page == 1) {
@@ -53,6 +54,10 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
+	}
+
+	if (!!filterCriteria.network_id) {
+		url += `&network_id=${filterCriteria.network_id || ""}`
 	}
 
 	return API_GET(url).then(function (response) {
@@ -204,22 +209,36 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
-export const applyLabCoupons = (productId = '', couponCode, couponId, labId, dealPrice) => (dispatch) => {
+export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = []) => (dispatch) => {
 
-	API_POST(`/api/v1/coupon/discount`, {coupon_code: [couponCode], deal_price: dealPrice, product_id: productId}).then(function (response) {
+	API_POST(`/api/v1/coupon/discount`, {
+		coupon_code: [couponCode],
+		deal_price: dealPrice,
+		product_id: productId,
+		tests: test_ids,
+		lab: labId
+	}).then(function (response) {
 		let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied','couponId': couponId
-        }
-        GTM.sendEvent({ data: analyticData })
-		dispatch({
-			type: APPLY_LAB_COUPONS,
-			payload: response
-		})
+			'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied', 'couponId': couponId
+		}
+		GTM.sendEvent({ data: analyticData })
+		if (response && response.status == 1) {
+			dispatch({
+				type: APPLY_LAB_COUPONS,
+				payload: response
+			})
+		} else {
+			dispatch({
+				type: REMOVE_LAB_COUPONS,
+				labId: labId,
+				couponId: couponId
+			})
+		}
 	}).catch(function (error) {
 		dispatch({
 			type: REMOVE_LAB_COUPONS,
 			labId: labId,
-			couponId: couponId	
+			couponId: couponId
 		})
 	})
 

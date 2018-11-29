@@ -1,10 +1,11 @@
-import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
     distanceRange: [0, 15],
     sort_on: null,
-    lab_name: ""
+    lab_name: "",
+    network_id: ""
 }
 
 const defaultState = {
@@ -18,7 +19,8 @@ const defaultState = {
     filterCriteria: DEFAULT_FILTER_STATE,
     lab_test_data: {},
     locationType: 'geo',
-    fetchNewResults: false
+    fetchNewResults: false,
+    corporateCoupon: ""
 }
 
 export default function (state = defaultState, action) {
@@ -42,6 +44,7 @@ export default function (state = defaultState, action) {
             }
 
             newState.filterCriteria.lab_name = ""
+            newState.filterCriteria.network_id = ""
 
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
@@ -152,6 +155,12 @@ export default function (state = defaultState, action) {
         case SET_FETCH_RESULTS_LAB: {
             let newState = { ...state }
             newState.fetchNewResults = !!action.payload
+            return newState
+        }
+
+        case SET_CORPORATE_COUPON: {
+            let newState = { ...state }
+            newState.corporateCoupon = action.payload
             return newState
         }
 

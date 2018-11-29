@@ -4,6 +4,7 @@ import GTM from '../../../../helpers/gtm.js'
 
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
+import { X_OK } from 'constants';
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -80,6 +81,15 @@ class LabProfileCard extends React.Component {
             price = price + pickup_charges
         }
 
+        let hide_price = false
+        if (this.props.selectedCriterias && this.props.selectedCriterias.length) {
+            this.props.selectedCriterias.map((x) => {
+                if (x.hide_price) {
+                    hide_price = true
+                }
+            })
+        }
+
         return (
             <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                 <div className="widget card lab-rslt-card">
@@ -117,10 +127,10 @@ class LabProfileCard extends React.Component {
                         <div className="row">
                             <div className="col-12 text-right">
                                 {
-                                    price ? <p className="lab-price mrb-10"> &#8377; {price} <span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span></p> : ""
+                                    price && !hide_price ? <p className="lab-price mrb-10"> &#8377; {price} <span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span></p> : ""
                                 }
                                 {
-                                    STORAGE.checkAuth() || price < 100 ?
+                                    (STORAGE.checkAuth() || price < 100) || hide_price ?
                                         ''
                                         : <div className="signup-off-container lab-signup-offr">
                                             <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>

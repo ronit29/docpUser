@@ -13,35 +13,13 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import UserPrescription from './userPrescriptions'
+import UserCoupons from './userCoupons'
 import Loader from '../../commons/Loader'
 
 import { Route } from 'react-router-dom'
 
 const Section_Component = ({ children, title, history, logout }) => {
     return <div>
-        {/* <header className="skin-primary fixed horizontal top sticky-header">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-2">
-                        <div className="back-icon" onClick={() => {
-                            history.go(-1)
-                        }}>
-                            <a>
-                                <img src={ASSETS_BASE_URL + "/img/icons/back.png"} className="img-fluid" />
-                            </a>
-                        </div>
-                    </div>
-                    <div className="col-8">
-                        <div className="header-title fw-700 capitalize text-center text-white">{title || "My Profile"}</div>
-                    </div>
-                    <div className="col-2" onClick={() => {
-                        logout()
-                    }} style={{ cursor: 'pointer' }}>
-                        <p className="fw-500 mobile-logout-text">Logout</p>
-                    </div>
-                </div>
-            </div>
-        </header> */}
         <section className="consumer-profile-screen">
             <div className="container-fluid">
                 <div className="row">
@@ -130,6 +108,10 @@ class UserProfileView extends React.Component {
 
                                         <Route exact path={`${this.props.match.url}/onlinePrescriptions`} render={(props) => {
                                             return <UserPrescription {...this.props} {...props} />
+                                        }} />
+
+                                        <Route exact path={`${this.props.match.url}/coupons`} render={(props) => {
+                                            return <UserCoupons {...this.props} {...props} />
                                         }} />
 
                                     </div> : ""

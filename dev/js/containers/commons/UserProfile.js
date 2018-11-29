@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons } from '../../actions/index.js'
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
@@ -12,13 +12,13 @@ class UserProfile extends React.Component {
     constructor(props) {
         super(props)
         if (!STORAGE.checkAuth()) {
-             const parsed = queryString.parse(window.location.search)
-             if(parsed && parsed.ref){
-                this.props.history.replace(`/login?callback=/&ref=home`)    
-             }else{
+            const parsed = queryString.parse(window.location.search)
+            if (parsed && parsed.ref) {
+                this.props.history.replace(`/login?callback=/&ref=home`)
+            } else {
                 this.props.history.replace(`/login?callback=/`)
-             }
-            
+            }
+
         }
     }
 
@@ -34,6 +34,7 @@ class UserProfile extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
             this.props.getUserAddress()
+            this.props.getCoupons()
         }
 
     }
@@ -50,8 +51,8 @@ const mapStateToProps = (state) => {
     const USER = state.USER
 
     const {
-		applicableCoupons
-	} = state.USER
+        applicableCoupons
+    } = state.USER
 
     return {
         USER,
@@ -73,7 +74,9 @@ const mapDispatchToProps = (dispatch) => {
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
         getAppointmentReports: (appointmentId, type, cb) => dispatch(getAppointmentReports(appointmentId, type, cb)),
         getUserPrescription: (mobileNo) => dispatch(getUserPrescription(mobileNo)),
-        getCoupons: (productId) => dispatch(getCoupons(productId))
+        getCoupons: (productId) => dispatch(getCoupons(productId)),
+        setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon))
+
     }
 }
 
