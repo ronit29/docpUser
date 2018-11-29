@@ -259,7 +259,7 @@ class DoctorProfileView extends React.Component {
                                         } */}
                                         {
                                             this.state.is_live ?
-                                                <div className="dpp-btn-div fixed horizontal bottom">
+                                                <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
                                                             <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
@@ -277,7 +277,7 @@ class DoctorProfileView extends React.Component {
                                                     </div>
                                                 </div>
                                                 :
-                                                <div className="dpp-btn-div fixed horizontal bottom">
+                                                <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
                                                             <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
