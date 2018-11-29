@@ -269,7 +269,7 @@ class DoctorProfileView extends React.Component {
                                                                 GTM.sendEvent({ data: data })
                                                             }}>
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
-                                                                <p>{`View ${search_data.result_count}${search_data.title}`}</p>
+                                                                <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     }
                                                     <div className="dpp-btn-book" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
