@@ -382,7 +382,12 @@ class ChatPanel extends React.Component {
                             }
                         </div> : ""
                 }
-
+                {
+                    this.props.homePage ?
+                        <div className="banner-carousel-div mrt-20">
+                            <img src={ASSETS_BASE_URL + "/img/banners/banner_carousel.png"} />
+                        </div> : ''
+                }
             </div>
         );
     }

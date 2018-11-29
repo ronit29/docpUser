@@ -1548,3 +1548,8 @@ p.rt-doc-nm{
     font-size: 18px;
     font-weight: 500;
 }
+
+.banner-carousel-div>img{
+    width: 100%;
+    cursor: pointer;
+}
