@@ -1661,6 +1661,14 @@ margin: 0px 10px;
 	padding-left: 10px;
 	min-width: 0;
 }
+.fltr-doc-details{
+	padding-right: 2px !important;
+}
+.fltr-doc-details h3, .fltr-doc-details p{
+	color: #757575;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
 .fltr-dc-name{
 	font-weight: 500;
 	margin-bottom: 5px;

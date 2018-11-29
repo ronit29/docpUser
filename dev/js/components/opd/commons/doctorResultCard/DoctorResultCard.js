@@ -35,15 +35,15 @@ class DoctorProfileCard extends React.Component {
 
             if (url) {
                 if (category_ids.length || procedure_ids.length) {
-                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}&hide_search_data=true`)
                 } else {
-                    this.props.history.push(`/${url}?hospital_id=${hospital_id}`)
+                    this.props.history.push(`/${url}?hospital_id=${hospital_id}&hide_search_data=true`)
                 }
             } else {
                 if (category_ids.length || procedure_ids.length) {
-                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}`)
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&is_procedure=true&category_ids=${category_ids}&procedure_ids=${procedure_ids}&hide_search_data=true`)
                 } else {
-                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}`)
+                    this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&hide_search_data=true`)
                 }
             }
         }
@@ -156,69 +156,88 @@ class DoctorProfileCard extends React.Component {
                             this.props.seoFriendly ?
                                 <div className="fltr-lctn-dtls" style={{ paddingLeft: 45 }}>
                                     <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                        <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span></p>
+                                        <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                    </p>
                                 </div>
                                 : <div className="fltr-lctn-dtls">
                                     <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                        <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span></p>
+                                        <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                    </p>
                                 </div>
                         }
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
-                            <div className="col-8 fltr-crd-col">
+                            <div className="col-3" style={{ paddingRight: 4 }}>
                                 <div className="fltr-crd-img text-center">
                                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} alt={display_name} title={display_name} /></InitialsPicture>
                                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                                     {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
                                 </div>
-                                <div className="fltr-name-dtls">
-                                    <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
-                                        <h2 style={{ fontSize: 16 }} className="fltr-dc-name">{display_name}</h2>
-                                    </a>
-                                    <h3>{this.getQualificationStr(general_specialization || [])}</h3>
-                                    {
-                                        experience_years ? <p >{experience_years} Years of Experience</p> : ""
-                                    }
-                                </div>
                                 {
-                                    enabled_for_online_booking ? '' : <button onClick={(e) => this.claimButtonClick(e)} className="fltr-bkng-btn claim-btn">Claim this profile</button>
+                                    enabled_for_online_booking ? '' : <button onClick={(e) => this.claimButtonClick(e)} className="fltr-bkng-btn claim-btn text-center" style={{ marginTop: 10 }}>Claim this profile</button>
                                 }
                             </div>
-                            <div className="col-4">
-                                <div className="fltr-bkng-section">
-                                    {
-                                        discount && discount != 0 ?
-                                            <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
-                                    }
-
-                                    {
-                                        !deal_price && !is_procedure ?
-                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700" >Free Consultation</span> : ''
-                                    }
-
-                                    <p className="fltr-prices">
-
-                                        &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
-                                        {
-                                            is_procedure
-                                                ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                                                : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
-                                        }
-                                    </p>
-                                    {
-                                        STORAGE.checkAuth() || deal_price < 100 ?
-                                            ''
-                                            : enabled_for_online_booking ?
-                                                <div className="signup-off-container">
-                                                    <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                                </div>
-                                                : ''
-                                    }
-
-                                    {
-                                        enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
-                                    }
+                            <div className="col-9">
+                                <div className="row no-gutters">
+                                    <div className="col-12">
+                                        <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
+                                            <h2 style={{ fontSize: 16 }} className="fltr-dc-name">{display_name}</h2>
+                                        </a>
+                                    </div>
                                 </div>
+                                <div className="row no-gutters">
+                                    <div className="col-6 fltr-doc-details">
+                                        <h3 className="fw-500">{this.getQualificationStr(general_specialization || [])}</h3>
+                                        {
+                                            experience_years ? <p className="fw-500">{experience_years} Years of Experience</p> : ""
+                                        }
+                                    </div>
+                                    <div className="col-6">
+                                        <div className="fltr-bkng-section">
+                                            {
+                                                discount && discount != 0 ?
+                                                    <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
+                                            }
+
+                                            {
+                                                !deal_price && !is_procedure ?
+                                                    <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
+                                            }
+
+                                            <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
+                                                {
+                                                    is_procedure
+                                                        ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
+                                                        : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                                }
+                                            </p>
+                                            {
+                                                STORAGE.checkAuth() || deal_price < 100 ?
+                                                    ''
+                                                    : enabled_for_online_booking ?
+                                                        <div className="signup-off-container">
+                                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                        </div>
+                                                        : ''
+                                            }
+
+                                            {
+                                                enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <div className="fltr-name-dtls">
+
+                                </div> */}
                             </div>
+                            {/* <div className="col-8 fltr-crd-col">
+
+                                
+                            </div> */}
+                            {/* <div className="col-4">
+                                
+                            </div> */}
                         </div>
 
                         {
