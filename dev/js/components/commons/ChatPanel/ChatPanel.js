@@ -385,7 +385,7 @@ class ChatPanel extends React.Component {
                 }
                 {
                     this.props.homePage ?
-                        <BannerCarousel /> : ''
+                        <BannerCarousel {...this.props} /> : ''
                 }
             </div>
         );
