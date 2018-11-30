@@ -434,9 +434,9 @@ class BookingSummaryViewNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
+                                                        <div className="widget mrt-10 ct-profile mb-0 skin-white">
                                                             <div className="test-report widget-content">
-                                                                <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right">
+                                                                <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right">
                                                                     {
                                                                         !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a> : ""
                                                                     }
@@ -447,8 +447,8 @@ class BookingSummaryViewNew extends React.Component {
                                                             {
                                                                 is_home_collection_enabled ?
                                                                     <div>
-                                                                        <div className="widget-content test-report lab-appointment-div lab-visit-time mb-0 row">
-                                                                            <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
+                                                                        <div style={{ paddingTop: 0 }} className="widget-content test-report lab-appointment-div lab-visit-time mb-0 row">
+                                                                            <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
                                                                         </div>
                                                                         <div className="colorPink">
                                                                             <div className="widget-content test-report lab-appointment-div row">
@@ -472,7 +472,7 @@ class BookingSummaryViewNew extends React.Component {
                                                     {
                                                         amtBeforeCoupon != 0 ?
                                                             <div className="col-12">
-                                                                <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                                <div className="widget mrt-10 ct-profile mb-0 skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?
                                                                             <div className="widget-content  d-flex jc-spaceb" >
@@ -522,7 +522,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                     {
                                                         is_corporate ? "" : <div className="col-12">
-                                                            <div className="widget mrt-10 ct-profile skin-white">
+                                                            <div className="widget mrt-10 ct-profile mb-0 skin-white">
 
                                                                 <div className="widget-content">
                                                                     <h4 className="title mb-20">Payment Summary</h4>
@@ -604,7 +604,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking ${finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
+                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking ${finalDisplayPrice == 0 ? ' (₹ 0)' : finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
                             }
 
 

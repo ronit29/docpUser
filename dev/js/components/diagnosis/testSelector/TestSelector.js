@@ -158,7 +158,7 @@ class TestSelectorView extends React.Component {
                                                     </div>
                                                 </div> */}
                                                 <div className="row">
-                                                    <div className="col-12" style={{ paddingTop: 10 }}>
+                                                    <div className="col-12" style={{ paddingTop: 10, borderBottom: '1px solid #d3d3d3' }}>
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
                                                                 <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)} />
@@ -176,10 +176,10 @@ class TestSelectorView extends React.Component {
                                             </div>
                                         </header>
 
-                                        <section className="wrap all-test-screen">
+                                        <section className="wrap">
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
-                                                    <ul className="list all-test-list mrt-10" id="lab-tests-list">
+                                                    <ul className="list all-test-list" id="lab-tests-list">
                                                         {tests}
                                                     </ul>
                                                 </div>

@@ -908,11 +908,11 @@ figure>img{
     color: #f78631;
 }
 
-.docprime-article h1, h2, h3, h4, h5, h6{
+.docprime-article h1, .docprime-article h2, .docprime-article h3, .docprime-article h4, .docprime-article h5, .docprime-article h6{
     margin-bottom: 15px;
 }
 
-.docprime-article h1, h2{
+.docprime-article h1, .docprime-article h2{
     font-weight: 500;
 }
 
