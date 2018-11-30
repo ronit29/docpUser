@@ -108,11 +108,6 @@ class DoctorProfileView extends React.Component {
         }
     }
 
-    build_search_data_url(search_data) {
-        let { lat, long, specialization_id } = search_data
-        return `/opd/searchresults?specializations=${specialization_id}&lat=${lat}&long=${long}`
-    }
-
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -138,39 +133,6 @@ class DoctorProfileView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-
-                            {/* <header className="skin-primary fixed horizontal top sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <div className="header-title fw-700 capitalize text-white">
-                                                <ul className="inline-list top-nav alpha-bx text-white"
-                                                    onClick={() => {
-                                                        this.props.history.go(-1)
-                                                    }}
-                                                >
-                                                    <li>
-                                                        <span className="ct-img ct-img-sm arrow-img">
-                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" />
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className='col-8'>
-                                            <div className="header-title fw-700 capitalize text-white text-center">Doctor Details</div>
-                                        </div>
-                                        <div className="col-2" style={{ paddingLeft: 0 }} onClick={() => {
-                                            this.props.history.push('/')
-                                        }}>
-                                            <div className="mobile-home-icon-div" >
-                                                <img src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
-
                             {
                                 this.props.DOCTORS[doctor_id] ?
 
@@ -190,17 +152,6 @@ class DoctorProfileView extends React.Component {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
                                                     }
-                                                    {/* {
-                                                        search_data && this.state.searchShown ? <div className="mrt-10 mrb-20 article-chat-div" style={{ backgroundColor: 'transparent' }}>
-                                                            <p className="fw-500" style={{ color: '#000000' }} >{search_data.title}</p>
-                                                            <a onClick={() => {
-                                                                let data = {
-                                                                    'Category': 'ConsumerApp', 'Action': 'Prpfile-doctor-search', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-profile-clicked'
-                                                                }
-                                                                GTM.sendEvent({ data: data })
-                                                            }} href={this.build_search_data_url(search_data)}><button style={{ backgroundColor: '#f78631' }}>View All</button></a>
-                                                        </div> : ''
-                                                    } */}
                                                     <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                                         {
                                                             this.props.DOCTORS[doctor_id].is_gold ?
@@ -254,9 +205,6 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* {
-                                            this.state.is_live ? <button disabled={!this.state.selectedClinic} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>{`Book Now (₹ ${final_price})`}</button> : <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showNumber.bind(this, doctor_id)}>{this.state.numberShown || "Contact"}</button>
-                                        } */}
                                         {
                                             this.state.is_live ?
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
