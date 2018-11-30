@@ -259,7 +259,7 @@ class DoctorProfileView extends React.Component {
                                         } */}
                                         {
                                             this.state.is_live ?
-                                                <div className="dpp-btn-div fixed horizontal bottom">
+                                                <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
                                                             <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
@@ -269,7 +269,7 @@ class DoctorProfileView extends React.Component {
                                                                 GTM.sendEvent({ data: data })
                                                             }}>
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
-                                                                <p>{`View ${search_data.result_count}${search_data.title}`}</p>
+                                                                <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     }
                                                     <div className="dpp-btn-book" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
@@ -277,7 +277,7 @@ class DoctorProfileView extends React.Component {
                                                     </div>
                                                 </div>
                                                 :
-                                                <div className="dpp-btn-div fixed horizontal bottom">
+                                                <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title ?
                                                             <a className="dpp-btn-view" href={this.build_search_data_url(search_data)} onClick={() => {
@@ -299,7 +299,7 @@ class DoctorProfileView extends React.Component {
                             }
                         </div>
 
-                        <RightBar />
+                        <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
 

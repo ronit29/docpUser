@@ -24,7 +24,7 @@ class PatientDetails extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            
+
             this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
             this.props.getUserProfile()
         }
@@ -42,10 +42,10 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
     const { selectedProfile, profiles } = state.USER
-    let { selectedSlot, doctorCoupons, disCountedOpdPrice, selectedDoctorProcedure, commonProfileSelectedProcedures } = state.DOCTOR_SEARCH
+    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures } = state.DOCTOR_SEARCH
 
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice , selectedDoctorProcedure, commonProfileSelectedProcedures
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures
     }
 }
 
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch) => {
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
         applyOpdCoupons: (productId, couponCode, couponId, hospitalId, dealPrice) => dispatch(applyOpdCoupons(productId, couponCode, couponId, hospitalId, dealPrice)),
-        applyCoupons: (productId, couponCode, couponId, hospitalId) => dispatch(applyCoupons(productId, couponCode, couponId, hospitalId)),
+        applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId)),
         resetOpdCoupons: () => dispatch(resetOpdCoupons()),
         getCoupons: (productId, deal_price, cb) => dispatch(getCoupons(productId, deal_price, cb))
     }

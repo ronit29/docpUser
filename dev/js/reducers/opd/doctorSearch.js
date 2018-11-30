@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS , RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES , SAVE_PROFILE_PROCEDURES } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -12,8 +12,9 @@ const defaultState = {
     disCountedOpdPrice: 0,
     search_content: '',
     selectedDoctorProcedure: {},
-    profileCommonProcedures:[],
-    commonProfileSelectedProcedures: []
+    profileCommonProcedures: [],
+    commonProfileSelectedProcedures: [],
+    couponAutoApply: true
 }
 
 export default function (state = defaultState, action) {
@@ -103,6 +104,7 @@ export default function (state = defaultState, action) {
                 newState.doctorCoupons[action.hospitalId] = newState.doctorCoupons[action.hospitalId].filter((coupon) => { coupon.coupon_id != action.couponId })
             }
             newState.disCountedOpdPrice = 0
+            newState.couponAutoApply = false
             return newState
 
         }
@@ -133,12 +135,12 @@ export default function (state = defaultState, action) {
                 ...state
             }
 
-//            newState.profileCommonProcedures = action.commonProcedurers
-           /* let commonProcedurers = action.commonProcedurers.split(',')
-            let commonSelectedProcedures = []
-            commonProcedurers.map((x) => {
-                commonSelectedProcedures.push(parseInt(x))
-            })*/
+            //            newState.profileCommonProcedures = action.commonProcedurers
+            /* let commonProcedurers = action.commonProcedurers.split(',')
+             let commonSelectedProcedures = []
+             commonProcedurers.map((x) => {
+                 commonSelectedProcedures.push(parseInt(x))
+             })*/
             let hospitals = action.payload.hospitals.length ? action.payload.hospitals : []
             let is_procedure = false
 
@@ -198,11 +200,11 @@ export default function (state = defaultState, action) {
                 })
             })
 
-            if(!is_procedure){
+            if (!is_procedure) {
                 newState.selectedDoctorProcedure = {}
                 //newState.profileCommonProcedures = []
             }
-            
+
             return newState
         }
 
@@ -216,25 +218,25 @@ export default function (state = defaultState, action) {
 
                 Object.entries(newState.selectedDoctorProcedure[action.doctor_id]).map((hospital, i) => {
                     let deal_price = 0
-                        let mrp = 0
-                        let unselectedCount = 0
-                        let selectedCount = 0
+                    let mrp = 0
+                    let unselectedCount = 0
+                    let selectedCount = 0
 
                     Object.values(hospital[1].categories).map((category, j) => {
 
                         if (category) {
                             category.map((procedure, k) => {
 
-                                if (action.procedure.indexOf(procedure.procedure_id) !=-1) {
+                                if (action.procedure.indexOf(procedure.procedure_id) != -1) {
                                     deal_price = deal_price + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].deal_price
-                                        mrp = mrp + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].mrp
-                                        selectedCount++
-                                        newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = true
-                                        
-                                }else{
-                                        unselectedCount++
-                                        newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = false
-                                        
+                                    mrp = mrp + newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].mrp
+                                    selectedCount++
+                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = true
+
+                                } else {
+                                    unselectedCount++
+                                    newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].categories[procedure.category_id][k].is_selected = false
+
                                 }
                             })
                         }
@@ -242,14 +244,14 @@ export default function (state = defaultState, action) {
                     })
 
 
-                     let price = {
-                            deal_price: deal_price,
-                            mrp: mrp
-                        }
+                    let price = {
+                        deal_price: deal_price,
+                        mrp: mrp
+                    }
                     newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].price = price
                     newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].selectedProcedures = selectedCount
                     newState.selectedDoctorProcedure[action.doctor_id][hospital[0]].unselectedProcedures = unselectedCount
-                    
+
                 })
                 //newState.profileCommonProcedures = action.procedure
             }
@@ -275,12 +277,12 @@ export default function (state = defaultState, action) {
 
                 Object.values(newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories).map((procedure) => {
 
-                    selectedProcedures =  selectedProcedures.concat(procedure.filter(x=>x.is_selected).map(x=>x.procedure_id))    
+                    selectedProcedures = selectedProcedures.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
                 })
 
 
             }
-    
+
             newState.commonProfileSelectedProcedures = selectedProcedures
             return newState
         }

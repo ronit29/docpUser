@@ -12,7 +12,7 @@ class ProfileData extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getCoupons(1);
+
     }
 
     gotTo(where) {
@@ -23,9 +23,27 @@ class ProfileData extends React.Component {
         this.setState({ openTermsConditions: !this.state.openTermsConditions });
     }
 
+    searchLab(coupon) {
+        this.props.setCorporateCoupon(coupon)
+
+        let test_ids = []
+        let network_id = ""
+        if (coupon && coupon.tests) {
+            test_ids = coupon.tests
+        }
+        if (coupon && coupon.network_id) {
+            network_id = coupon.network_id
+        }
+        window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
+    }
+
     render() {
 
         let currentRoomId = this.props.USER.currentRoomId
+        let coupon = null
+        if (this.props.applicableCoupons && this.props.applicableCoupons.length) {
+            coupon = this.props.applicableCoupons[0]
+        }
 
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav">
@@ -39,9 +57,10 @@ class ProfileData extends React.Component {
                                 <div className="row no-gutters pdng-bttm">
                                     <div className="col-4 mbl-usr-grd">
                                         <span className="usr-dtls-free">FREE</span>
-                                        <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={(e)=>{
+                                        <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={(e) => {
                                             let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'}
+                                                'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'
+                                            }
                                             GTM.sendEvent({ data: data })
                                             this.props.history.push(`/`)
                                         }}>
@@ -52,11 +71,12 @@ class ProfileData extends React.Component {
                                             </p>
                                         </a>
                                     </div>
-                                    <div className="col-4 mbl-usr-grd" onClick={(e)=>{
+                                    <div className="col-4 mbl-usr-grd" onClick={(e) => {
 
                                         let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'}
-                                            GTM.sendEvent({ data: data })
+                                            'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
+                                        }
+                                        GTM.sendEvent({ data: data })
                                         this.props.history.push(`/opd`)
                                     }}>
                                         <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
@@ -67,11 +87,12 @@ class ProfileData extends React.Component {
                                             </p>
                                         </a>
                                     </div>
-                                    <div className="col-4 mbl-usr-grd" onClick={(e)=>{
+                                    <div className="col-4 mbl-usr-grd" onClick={(e) => {
                                         let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'}
-                                            GTM.sendEvent({ data: data })
-                                            this.props.history.push(`/lab`)
+                                            'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
+                                        }
+                                        GTM.sendEvent({ data: data })
+                                        this.props.history.push(`/lab`)
                                     }}>
                                         <a className="usr-dtls-anchor" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
@@ -84,28 +105,35 @@ class ProfileData extends React.Component {
                                 </div>
                             </div>
                         </li>
-                        <li className="my-profile-item" style={{ cursor: 'auto' }}>
-                            <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/stmp.svg"} className="img-fluid" />OFFERS</p>
-
-                            <div className="ofr-img-txt">
-                                <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/customer-icons/vector-smart-object.png"} className="img-fluid" /></div>
-                                <div className="ofr-contnt">
-                                    <p className="ofr-bkg"><b className="fw-500 drk-blk">Flat Rs 100 off</b> on your first 3 bookings on doctor and diagnostics</p>
+                        {
+                            coupon ? <li className="my-profile-item" style={{ cursor: 'auto' }}>
+                                <div className="usr-dtls-off-act">
+                                    <p className="usr-dtls-strt-txt"><img src={ASSETS_BASE_URL + "/img/customer-icons/stmp.svg"} className="img-fluid" />OFFERS
+                                    </p>
                                     {
-                                        this.props.applicableCoupons && this.props.applicableCoupons.length ?
-                                            this.props.applicableCoupons.map((coupon, i) => {
-                                                return coupon.code == 'WELCOME' && coupon.used_count < 3 ?
-                                                    <div key={i}>
-                                                        <p className="mrt-10" style={{ color: '#757575' }}>Use Coupon : <b className="fw-700" style={{ color: '#000000' }}>{coupon.code}</b></p>
-                                                        <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                            <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: '#f78631', cursor: 'pointer' }}>Terms & Conditions</p>
-                                                        </div>
-                                                    </div> : ''
-                                            }) : ''
+                                        coupon.is_corporate ?
+                                            <span onClick={this.searchLab.bind(this, coupon)} className="usr-dtls-plan-act">Avail Now <img style={{ height: '10px' }} src={ASSETS_BASE_URL + "/img/customer-icons/rgt-arw.svg"} className="img-fluid" /></span>
+                                            : ""
                                     }
                                 </div>
-                            </div>
-                        </li>
+                                <div className="ofr-img-txt">
+                                    <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/customer-icons/vector-smart-object.png"} className="img-fluid" /></div>
+                                    <div className="ofr-contnt">
+                                        <p className="ofr-bkg"><b className="fw-500 drk-blk">{coupon.heading}</b> {coupon.desc}</p>
+                                        <div>
+                                            <p className="mrt-10" style={{ color: '#757575' }}>Use Coupon : <b className="fw-700" style={{ color: '#000000' }}>{coupon.code}</b></p>
+                                            <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: '#f78631', cursor: 'pointer' }}>Terms & Conditions</p>
+                                            </div>
+                                        </div>
+                                        <p className="view-more-coupons" onClick={() => {
+                                            this.props.history.push('/user/coupons')
+                                        }}>View more offers</p>
+                                    </div>
+                                </div>
+                            </li> : ""
+                        }
+
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -251,11 +279,7 @@ class ProfileData extends React.Component {
                     </ul>
                 </div>
                 {
-                    this.state.openTermsConditions ?
-                        this.props.applicableCoupons.map(coupon => {
-                            return coupon.code == 'WELCOME' ?
-                                <TermsConditions toggle={() => this.toggleTandC()} tnc={coupon.tnc} /> : ""
-                        }) : ''
+                    this.state.openTermsConditions ? <TermsConditions toggle={() => this.toggleTandC()} tnc={coupon.tnc} /> : ""
                 }
                 {/* <div className="logout-div d-md-none" onClick={() => { this.props.logout(currentRoomId) }}>
                     <p className="fw-500">Logout</p>

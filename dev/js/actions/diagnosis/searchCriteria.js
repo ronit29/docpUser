@@ -1,4 +1,4 @@
-import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
@@ -64,5 +64,13 @@ export const mergeLABState = (state, fetchNewResults = true) => (dispatch) => {
         type: MERGE_SEARCH_STATE_LAB,
         payload: state,
         fetchNewResults
+    })
+}
+
+export const setCorporateCoupon = (coupon = "") => (dispatch) => {
+
+    dispatch({
+        type: SET_CORPORATE_COUPON,
+        payload: coupon
     })
 }

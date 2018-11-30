@@ -222,22 +222,12 @@ class DoctorProfileCard extends React.Component {
                                             }
 
                                             {
-                                                enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
+                                                enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-cntct-btn">Contact</button>
                                             }
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="fltr-name-dtls">
-
-                                </div> */}
                             </div>
-                            {/* <div className="col-8 fltr-crd-col">
-
-                                
-                            </div> */}
-                            {/* <div className="col-4">
-                                
-                            </div> */}
                         </div>
 
                         {
