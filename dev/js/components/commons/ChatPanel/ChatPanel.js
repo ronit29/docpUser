@@ -7,6 +7,7 @@ import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
 import ChatStaticView from './ChatStaticView'
 import RelatedArticles from '../article/RelatedArticles'
+import BannerCarousel from '../Home/bannerCarousel';
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -382,7 +383,10 @@ class ChatPanel extends React.Component {
                             }
                         </div> : ""
                 }
-
+                {
+                    this.props.homePage ?
+                        <BannerCarousel {...this.props} /> : ''
+                }
             </div>
         );
     }

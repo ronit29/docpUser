@@ -223,7 +223,7 @@ class HomeView extends React.Component {
                 <div className="col-md-5">
                     <div className="right-card-container">
 
-                        {
+                        {/* {
                             !!!profileData ?
                                 <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>
                                     <div className="banner-content-home">
@@ -233,7 +233,7 @@ class HomeView extends React.Component {
                                          </span>
                                             <p className="sign-up-offer">
                                                 ₹ 300 OFF
-                                         </p>
+                                            </p>
                                             <span className="bn-down-offer">
                                                 on bookings
                                          </span>
@@ -243,7 +243,7 @@ class HomeView extends React.Component {
                                         </button>
                                     </div>
                                 </div> : ''
-                        }
+                        } */}
 
                         <HomePageWidget
                             heading="Find a Doctor"
