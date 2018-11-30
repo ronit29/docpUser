@@ -1556,3 +1556,7 @@ p.rt-doc-nm{
     margin: 0 4px;
     cursor: pointer;
 }
+
+.carousel-indicators .indicator-selected{
+    background-color: grey;
+}
