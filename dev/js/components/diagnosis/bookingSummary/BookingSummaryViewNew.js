@@ -31,6 +31,7 @@ class BookingSummaryViewNew extends React.Component {
             // order_id: !!parsed.order_id,
             order_id: false,
             showTimeError: false,
+            showAddressError: false,
             couponCode: '',
             couponId: '',
             scrollPosition: ''
@@ -209,7 +210,7 @@ class BookingSummaryViewNew extends React.Component {
 
             case "home": {
                 return <div>
-                    <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} />
+                    <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} />
                 </div>
@@ -224,6 +225,7 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
         if (!addressPicked) {
+            this.setState({ showAddressError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
 
             window.scrollTo(0, this.state.scrollPosition);

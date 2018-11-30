@@ -42,7 +42,7 @@ class PickupAddress extends React.Component {
                     e.stopPropagation()
                     this.props.navigateTo()
                 }} className="text-primary fw-700 text-sm">{addressStr ? "Change" : "Pick"}</a></span></h4>
-                <p className="date-time">{addressStr} {this.props.addressError == false || addressStr.length ? '' : <span className="fw-500" style={{ color: 'red', fontSize: 11, float: 'right' }}>Required</span>}</p>
+                <p className="date-time" style={{ position: 'relative' }}>{addressStr} {this.props.addressError == false || addressStr.length ? '' : <span className="fw-500" style={{ color: 'red', fontSize: 11, position: 'absolute', top: '-8px', right: 0 }}>Required</span>}</p>
             </div>
         );
     }
