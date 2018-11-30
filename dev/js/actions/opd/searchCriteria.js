@@ -18,11 +18,11 @@ export const loadOPDCommonCriteria = () => (dispatch) => {
 
 }
 
-export const toggleOPDCriteria = (type, criteria, forceAdd = false) => (dispatch) => {
+export const toggleOPDCriteria = (type, criteria, forceAdd = false,filters={}) => (dispatch) => {
     dispatch({
         type: TOGGLE_OPD_CRITERIA,
         payload: {
-            type, criteria, forceAdd
+            type, criteria, forceAdd, filters
         }
     })
 

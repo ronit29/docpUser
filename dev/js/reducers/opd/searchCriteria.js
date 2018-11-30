@@ -98,6 +98,10 @@ export default function (state = defaultState, action) {
             newState.selectedCriteriaType = action.payload.type
             newState.fetchNewResults = true
 
+            if(action.payload.filters && Object.values(action.payload.filters).length){
+                newState.filterCriteria = Object.assign({}, newState.filterCriteria, action.payload.filters)
+            }
+
             return newState
         }
 

@@ -22,7 +22,8 @@ class BannerCarousel extends React.Component {
             let speciality = {}
             speciality.type = 'procedures_category'
             speciality.id = 2
-            this.props.toggleOPDCriteria('procedures_category', speciality, true)
+            let filters = {'sort_on':'fees'}
+            this.props.toggleOPDCriteria('procedures_category', speciality, true, filters)
             setTimeout(() => {
                 this.props.history.push('/opd/searchresults')
             }, 100)

@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId)),
         startLiveChat: (started, deleteRoomId) => dispatch(startLiveChat(started, deleteRoomId)),
         toggleDiagnosisCriteria: (type, test, forceAdd) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd)),
-        toggleOPDCriteria: (type, test, forceAdd) => dispatch(toggleOPDCriteria(type, test, forceAdd))
+        toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters))
     }
 }
 
