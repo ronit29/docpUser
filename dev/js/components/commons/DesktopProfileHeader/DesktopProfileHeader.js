@@ -140,7 +140,7 @@ class DesktopProfileHeader extends React.Component {
                                     <div className="head-links" onClick={() => {
                                         this.props.history.push('/user')
                                     }}>
-                                        <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
+                                        <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
                                         <span className="username-overflow">{profileData.name}</span>
                                     </div>
                                     <div className="head-links" onClick={() => {
@@ -181,7 +181,7 @@ class DesktopProfileHeader extends React.Component {
                                     {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                     </InitialsPicture> */}
-                                    <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
+                                    <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
                                 </div> : <div className="head-links" onClick={() => {
                                     this.props.homePage ? this.props.history.push('/user?ref=home') :
                                         this.props.history.push('/user')
