@@ -13,7 +13,7 @@ const images = [
     ASSETS_BASE_URL + "/img/customer-icons/image2-min.jpg",
     ASSETS_BASE_URL + "/img/customer-icons/image1-min.jpg",
     ASSETS_BASE_URL + "/img/customer-icons/image3-min.jpg",
-  ];
+];
 class PaymentView extends React.Component {
     constructor(props) {
         super(props)
@@ -37,7 +37,7 @@ class PaymentView extends React.Component {
             }
         })
     }
-   
+
     selectPaymentType(e) {
         this.setState({ selectedPayment: e.target.value })
     }
@@ -66,6 +66,11 @@ class PaymentView extends React.Component {
 
     render() {
         const { photoIndex, isOpen } = this.state;
+
+        let totalAmount = ''
+        if (this.state.paymentData && this.state.paymentData.txAmount) {
+            totalAmount = parseInt(this.state.paymentData.txAmount);
+        }
 
         return (
             <div className="profile-body-wrap">
@@ -100,8 +105,13 @@ class PaymentView extends React.Component {
                                             <div className="widget mrt-10">
                                                 <div className="widget-content">
                                                     <ul className="list payment-method">
-                                                        <li>
-                                                            <label htmlFor="pay" className="paytm-label"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm</label>
+                                                        <li style={{ position: 'relative' }}>
+                                                            <label htmlFor="pay" className="paytm-label"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm
+                                                            </label>
+                                                            {
+                                                                totalAmount && totalAmount >= 100 ?
+                                                                    <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>Flat 20% cashback upto &#8377; 50</span> : ''
+                                                            }
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'PPI'} value="PPI" className="radio-inline" name="gender" id="pay" /></span>
                                                         </li>
                                                         {/* <li id="oneclick-label">
@@ -142,8 +152,8 @@ class PaymentView extends React.Component {
                                                         <h4 className="md-coverage">Media Coverage</h4>
                                                         <div className="row">
                                                             <div className="col-4 text-center">
-                                                                <div className=""> 
-                                                                    <img  onClick={() => this.setState({ isOpen: true,photoIndex:0 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image2-min.jpg"} />
+                                                                <div className="">
+                                                                    <img onClick={() => this.setState({ isOpen: true, photoIndex: 0 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image2-min.jpg"} />
                                                                     {isOpen && (
                                                                         <Lightbox
                                                                             mainSrc={images[photoIndex]}
@@ -151,31 +161,31 @@ class PaymentView extends React.Component {
                                                                             prevSrc={images[(photoIndex + images.length - 1) % images.length]}
                                                                             onCloseRequest={() => this.setState({ isOpen: false })}
                                                                             onMovePrevRequest={() =>
-                                                                            this.setState({
-                                                                                photoIndex: (photoIndex + images.length - 1) % images.length,
-                                                                            })
+                                                                                this.setState({
+                                                                                    photoIndex: (photoIndex + images.length - 1) % images.length,
+                                                                                })
                                                                             }
                                                                             onMoveNextRequest={() =>
-                                                                            this.setState({
-                                                                                photoIndex: (photoIndex + 1) % images.length,
-                                                                            })
+                                                                                this.setState({
+                                                                                    photoIndex: (photoIndex + 1) % images.length,
+                                                                                })
                                                                             }
                                                                         />
-                                                                        )}
+                                                                    )}
                                                                 </div>
                                                             </div>
 
                                                             <div className="col-4 text-center">
-                                                            <div className=""> 
-                                                                    <img  onClick={() => this.setState({ isOpen: true, photoIndex:1 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image1-min.jpg"} />
-                                                            
+                                                                <div className="">
+                                                                    <img onClick={() => this.setState({ isOpen: true, photoIndex: 1 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image1-min.jpg"} />
+
                                                                 </div>
                                                             </div>
-                                                            
+
                                                             <div className="col-4 text-center">
-                                                            <div className=""> 
-                                                                    <img  onClick={() => this.setState({ isOpen: true, photoIndex:2 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image3-min.jpg"} />
-                                                                   
+                                                                <div className="">
+                                                                    <img onClick={() => this.setState({ isOpen: true, photoIndex: 2 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image3-min.jpg"} />
+
                                                                 </div>
                                                             </div>
                                                         </div>
