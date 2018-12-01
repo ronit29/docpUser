@@ -75,6 +75,11 @@ class BookingSummaryViewNew extends React.Component {
 
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
+            // bases cases
+            if(this.props.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests == this.props.LABS[this.state.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType){
+                return
+            }
+
             // remove corporate coupon if tests are not valid
             if (nextProps.corporateCoupon) {
                 let corporate = true
@@ -125,7 +130,6 @@ class BookingSummaryViewNew extends React.Component {
             // if no coupon is applied
             if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
                 if (nextProps.couponAutoApply) {
-
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     this.props.getCoupons(2, finalPrice, (coupons) => {
