@@ -73,13 +73,25 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
             }
         } else {
+            let deal_price = 0
+            if (this.props.selectedSlot.time && this.props.selectedSlot.time.deal_price) {
+                deal_price = this.props.selectedSlot.time.deal_price
+            }
+
+            let treatment_Price = 0
+            if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+                treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+            }
+
+            deal_price += treatment_Price
             //auto apply coupon if no coupon is apllied
-            if (this.state.selectedDoctor && this.props.selectedSlot.time.deal_price && this.props.couponAutoApply) {
-                this.props.getCoupons(1, this.props.selectedSlot.time.deal_price, (coupons) => {
+            if (this.state.selectedDoctor && deal_price && this.props.couponAutoApply) {
+                this.props.getCoupons(1, deal_price, (coupons) => {
                     if (coupons && coupons[0]) {
                         this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                         this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
-                        this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, this.props.selectedSlot.time.deal_price)
+                        this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price)
                     } else {
                         this.props.resetOpdCoupons()
                     }
@@ -287,7 +299,7 @@ class PatientDetailsNew extends React.Component {
                                                         </div>
                                                     </div>
                                                     {
-                                                        priceData.deal_price != 0 ?
+                                                        (priceData.deal_price + treatment_Price) != 0 ?
                                                             <div className="col-12">
                                                                 <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
                                                                     {
