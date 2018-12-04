@@ -3498,6 +3498,17 @@ border: 1px solid #aaaa;
     display: flex;
     text-align: center;
 }
+
+.sticky-pk-container{
+	position: sticky;
+    top: 100px;
+    background-color: #fff;
+	z-index: 1;
+	border-bottom: 1px solid #d3d3d3;
+}
+.stc-no-cursor{
+	cursor: auto;
+}
 .static-pkg-top-column{
 	width: 33.33%;
 }
@@ -3535,12 +3546,17 @@ p.stc-free-pick{
 }
 .stc-book-btn{
     background: #f78631;
-    border: #ffffff00;
-    color: white;
+    border: none;
+    color: #fff;
     border-radius: 4px;
     font-weight: 500;
     margin-top: 5px;
-    padding: 5px 10px;
+	padding: 5px 10px;
+	cursor: pointer;
+	display: inline-block;
+}
+.stc-book-btn:hover, .stc-book-btn:focus{
+	color: #fff;
 }
 .stc-mid-mrgn{
 	margin: 0px 10px;
@@ -3553,7 +3569,8 @@ p.stc-free-pick{
     color: #f78631;
     font-size: 12px;
     margin-right: 10px;
-    text-align: right;
+	text-align: right;
+	cursor: pointer;
 }
 .stc-accord-container{
     margin-top: 10px;
@@ -3613,5 +3630,8 @@ ul.stc-data-ul-list li{
 .stc-scn-listing p{
 	color: #f78631;
     margin-bottom: 10px;
+}
+.stc-no-cursor{
+	cursor: auto;
 }
 /* ================ static page style ================ */
