@@ -67,7 +67,7 @@ class Careers extends React.Component {
 								<h1 className="hiring-heading">We Are Hiring !</h1>
 							</div>
 							<div className="hiring-desc-div">
-								<h3 className="hiring-desc">We are hiring for multiple positions, It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h3>
+								<h3 className="hiring-desc">We are hiring for multiple positions.</h3>
 							</div>
 							<img src="/assets/img/career/arrow.svg" className="careers-arrow-img absolute-images" />
 						</div>
