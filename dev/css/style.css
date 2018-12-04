@@ -3491,3 +3491,127 @@ border: 1px solid #aaaa;
     font-weight: 400 !important;
     font-size: 12px !important;
 }
+
+/* ================ static page style ================ */
+.static-pk-container{
+    padding: 10px;
+    display: flex;
+    text-align: center;
+}
+.static-pkg-top-column{
+	width: 33.33%;
+}
+
+p.stc-sub-para{
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 5px;
+}
+p.stc-price-cut{
+    font-size: 13px;
+    color: #f78631;
+}
+.stc-price-cut span{
+	color: #757575;
+    text-decoration: line-through;
+    margin-left: 4px;
+    display: inline-block;
+}
+.stc-offr-cpn{
+    background: #d7fbe7;
+    border: 1px dashed #2f6704;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+p.stc-off-para{
+    font-size: 11px;
+    padding: 4px 4px;
+    color: #2f6704;
+}
+p.stc-free-pick{
+	font-size: 11px;
+    color: #757575;
+    margin-top: 5px;
+}
+.stc-book-btn{
+    background: #f78631;
+    border: #ffffff00;
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-top: 5px;
+    padding: 5px 10px;
+}
+.stc-mid-mrgn{
+	margin: 0px 10px;
+}
+.stc-acrdn-contaniner{
+	
+}
+.stc-expnd-btn{
+	font-weight: 500;
+    color: #f78631;
+    font-size: 12px;
+    margin-right: 10px;
+    text-align: right;
+}
+.stc-accord-container{
+    margin-top: 10px;
+}
+.stc-acrd-heading{
+	background: rgba(0, 0, 0, .12);
+	position: relative;
+	cursor: pointer;
+}
+div.stc-acrd-heading p{
+	color: #757575;
+    font-size: 12px;
+    padding: 5px 5px;
+}
+.stc-acrd-content{
+	display: flex;
+	padding: 5px 0;
+	justify-content: space-between;
+}
+.acrd-stc-data{
+	padding: 12px 9px;
+	width: 33.33%;
+}
+div.acrd-stc-data p{
+    font-size: 12px;
+}
+.mid-border-mrgn{
+	border-left: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+}
+.pt-0{
+	padding-top: 0px !important;
+}
+.pb-0{
+	padding-bottom: 0px !important;
+}
+ul.stc-data-ul-list{
+    margin-top: 20px;
+    text-align: left;
+    list-style: disc;
+	padding-left: 12px;
+	word-break: break-word;
+}
+ul.stc-data-ul-list li{
+	margin-bottom: 10px;
+}
+
+.stc-scn-listing{
+    padding: 10px;
+}
+.stc-scn-listing h5{
+	font-size: 14px;
+    font-weight: 500;
+    color: #757575;
+    margin-bottom: 10px;
+}
+.stc-scn-listing p{
+	color: #f78631;
+    margin-bottom: 10px;
+}
+/* ================ static page style ================ */
