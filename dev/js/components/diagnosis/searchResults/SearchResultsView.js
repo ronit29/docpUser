@@ -198,7 +198,7 @@ class SearchResultsView extends React.Component {
                                         <div className="col-12">
                                             <div className="mrt-10 mrb-10 article-chat-div">
                                                 <p className="fw-500">Need help with booking?</p>
-                                                <button onClick={() => this.props.history.push('/mobileviewchat?BasicEnquiry=medical%20test%20appointment&botagent=true')} >Chat with us</button>
+                                                <button onClick={() => this.props.history.push('/mobileviewchat?botagent=true')} >Chat with us</button>
                                             </div>
                                         </div>
                                     </div>
