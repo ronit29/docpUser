@@ -183,7 +183,8 @@ class LabView extends React.Component {
                                         {
                                             this.state.collapse[0] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Hemogram. CBC with Differential. Complete Blood Count. The complete blood count (CBC) is a test that evaluates the cells (white blood cells, red blood cells, platelets) that circulate in blood.
+                                                    <p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
+
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
 
@@ -316,7 +317,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Hemogram. CBC with Differential. Complete Blood Count. The complete blood count (CBC) is a test that evaluates the cells (white blood cells, red blood cells, platelets) that circulate in blood.
+                                                    <p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
 
@@ -449,7 +450,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Hemogram. CBC with Differential. Complete Blood Count. The complete blood count (CBC) is a test that evaluates the cells (white blood cells, red blood cells, platelets) that circulate in blood.
+                                                    <p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
 
@@ -609,7 +610,7 @@ class LabView extends React.Component {
                                         {
                                             this.state.collapse[1] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Inflamed or injured liver cells leak higher than normal amounts of certain chemicals, including liver enzymes, into the bloodstream, which can result in elevated liver enzymes on blood tests. The specific elevated liver enzymes most commonly found are: Alanine transaminase (ALT) Aspartate transaminase (AST)
+                                                    <p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li>
@@ -670,7 +671,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Inflamed or injured liver cells leak higher than normal amounts of certain chemicals, including liver enzymes, into the bloodstream, which can result in elevated liver enzymes on blood tests. The specific elevated liver enzymes most commonly found are: Alanine transaminase (ALT) Aspartate transaminase (AST)
+                                                    <p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li>
@@ -731,7 +732,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Inflamed or injured liver cells leak higher than normal amounts of certain chemicals, including liver enzymes, into the bloodstream, which can result in elevated liver enzymes on blood tests. The specific elevated liver enzymes most commonly found are: Alanine transaminase (ALT) Aspartate transaminase (AST)
+                                                    <p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li>
@@ -819,7 +820,8 @@ class LabView extends React.Component {
                                         {
                                             this.state.collapse[2] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Medical Definition of Lipid profile. Lipid profile: A pattern of lipids in the blood. A lipid profile usually includes the levels of total cholesterol, high-density lipoprotein (HDL) cholesterol, triglycerides, and the calculated low-density lipoprotein (LDL) 'cholesterol.
+                                                    <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>LDL Cholestrol</p></li>
@@ -833,7 +835,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Medical Definition of Lipid profile. Lipid profile: A pattern of lipids in the blood. A lipid profile usually includes the levels of total cholesterol, high-density lipoprotein (HDL) cholesterol, triglycerides, and the calculated low-density lipoprotein (LDL) 'cholesterol.
+                                                    <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>LDL Cholestrol</p></li>
@@ -847,7 +849,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Medical Definition of Lipid profile. Lipid profile: A pattern of lipids in the blood. A lipid profile usually includes the levels of total cholesterol, high-density lipoprotein (HDL) cholesterol, triglycerides, and the calculated low-density lipoprotein (LDL) 'cholesterol.
+                                                    <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>LDL Cholestrol</p></li>
@@ -888,7 +890,7 @@ class LabView extends React.Component {
                                         {
                                             this.state.collapse[3] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Kidney function tests are simple blood and urine tests that can help identify problems with your kidneys.
+                                                    <p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Creatinine</p></li>
@@ -899,7 +901,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Kidney function tests are simple blood and urine tests that can help identify problems with your kidneys.
+                                                    <p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Creatinine</p></li>
@@ -910,7 +912,7 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Kidney function tests are simple blood and urine tests that can help identify problems with your kidneys.
+                                                    <p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
                                                                         </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Creatinine</p></li>
@@ -1155,11 +1157,11 @@ class LabView extends React.Component {
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Homocysteine: An amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
+                                                    <p>Homocysteine is an amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
                                                                         </p>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Homocysteine: An amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
+                                                    <p>Homocysteine is an amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
                                                                         </p>
                                                 </div>
                                             </div> : ''
