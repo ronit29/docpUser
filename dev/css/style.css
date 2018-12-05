@@ -1633,8 +1633,7 @@ margin: 0px 10px;
 	max-height: 100%;
 }
 .fltr-crd-img-lab>div{
-	width: 70px;
-	height: 47px;
+	margin-bottom: 10px;
 }
 .fltr-rtng{
 	display: block;
