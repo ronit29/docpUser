@@ -3491,3 +3491,113 @@ border: 1px solid #aaaa;
     font-weight: 400 !important;
     font-size: 12px !important;
 }
+/* ========================= search design ========================= */
+.pt-0{
+padding-top: 0px !important;
+}
+.search-top-container{
+	padding: 12px;
+}
+.srch-heading{
+	font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.serch-nw-inputs{
+	position: relative;
+	margin-bottom: 15px;
+}
+.serch-nw-inputs input.new-srch-inp{
+	width: 100%;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    padding: 10px 135px 10px 30px;
+}
+.srch-inp-img{
+    position: absolute;
+    left: 10px;
+    margin: auto;
+    width: 12px;
+    top: 10px;
+}
+.srch-inp-btn-img{
+	position: absolute;
+    right: 0;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 10px 0 20px;
+    background: transparent;
+    border-top: transparent;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: 1px solid #dcd8d8;
+    cursor: pointer;
+    color: rgba(40, 40, 40, .8);
+    font-weight: 500;
+}
+.srch-inp-btn-img img{
+	width: 14px;
+    margin-left: 10px;
+}
+.new-srch-doc-lab{
+	padding: 10px 10px 10px 30px;
+	width: 100%;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+.srch-radio-btns{
+	display: flex;
+}
+.srch-radio-btns .dtl-radio{
+    margin-right: 18px;
+}
+.srch-radio-btns .container-radio{
+    font-size: 14px;
+    padding-left: 24px;
+}
+.srch-radio-btns .doc-checkmark{
+    top: 1px;
+}
+.common-search-container{
+	padding: 12px;
+}
+.common-listing-cont{
+    margin-top: 15px;
+}
+.common-listing-cont li{
+	display: flex;
+	border-bottom: 1px solid rgba(0, 0, 0, .12);
+	cursor: pointer;
+}
+.common-listing-cont li:last-child{
+	border-bottom: transparent;
+}
+.common-listing-cont li p.click-active{
+	color: #e46608;
+}
+.common-listing-cont li p{
+	width: 100%;
+    padding: 14px 5px;
+    font-weight: 500;
+    color: #757575;
+}
+.common-listing-cont li img{
+	width: 15px;
+	margin: auto;
+	margin-right: 10px;
+	flex-shrink: 0;
+	flex-grow: 0;
+}
+.mb-10{
+	margin-bottom: 10px !important;
+}
+.srch-view-all-btn{
+	float: right;
+    color: #f78631;
+    cursor: pointer;
+}
+
+/* ========================= search design ========================= */

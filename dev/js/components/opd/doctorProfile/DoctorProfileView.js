@@ -132,7 +132,92 @@ class DoctorProfileView extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12 col-md-7 col-lg-7 center-column pt-0">
+                            <section>
+                                <div className="container-fluid">
+                                    <div className="widget mb-10">
+                                        <div className="search-top-container">
+                                            <p className="srch-heading">Search</p>
+                                            <div className="serch-nw-inputs-container">
+                                                <div className="serch-nw-inputs">
+                                                    <input className="new-srch-inp" placeholder="location" />
+                                                    <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />
+                                                    <button className="srch-inp-btn-img">Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
+                                                </div>
+                                                <div className="serch-nw-inputs">
+                                                    <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" />
+                                                    <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                </div>
+                                                <div className="srch-radio-btns">
+                                                    <div className="dtl-radio">
+                                                        <label className="container-radio">Doctor
+                                                            <input type="radio" checked name="radio" />
+                                                            <span className="doc-checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div className="dtl-radio">
+                                                        <label className="container-radio">Test
+                                                            <input type="radio" checked name="radio" />
+                                                            <span className="doc-checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div className="dtl-radio">
+                                                        <label className="container-radio">Dental Treatments
+                                                            <input type="radio" checked name="radio" />
+                                                            <span className="doc-checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="widget mb-10">
+                                        <div className="common-search-container">
+                                            <p className="srch-heading">Commonly Searched <span className="srch-view-all-btn">View all</span></p>
+                                            <div className="common-listing-cont">
+                                                <ul>
+                                                    <li><p className="click-active">General Physician </p>
+                                                        <img style={{ width: '15px',display: 'none' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                                                    </li>
+                                                    <li><p className="click-active"> T3, Total Tri-iodothyronine </p>
+                                                        <img style={{ width: '15px',display: 'none' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                                                    </li>
+                                                    <li><p>Dengue NS1 antigen detection </p>
+                                                        <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                                                    </li>
+                                                    <li><p>General Physician </p>
+                                                        <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                                                    </li>
+                                                    <li><p>General Physician </p>
+                                                        <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                                                    </li>
+                                                    <li><p>General Physician </p>
+                                                        <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                                                    </li>
+                                                    <li><p>General Physician </p>
+                                                        <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="widget mb-10">
+                                        <div className="common-search-container">
+                                            <p className="srch-heading">Selected</p>
+                                            <div className="common-listing-cont">
+                                                <ul>
+                                                    <li><p>General Physician </p>
+                                                        <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
+                                                    </li>
+                                                    <li><p>Hypertension </p>
+                                                        <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                             {
                                 this.props.DOCTORS[doctor_id] ?
 
@@ -210,7 +295,7 @@ class DoctorProfileView extends React.Component {
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
-                                                            <a className="dpp-btn-view" href={'/'+search_data.url}>
+                                                            <a className="dpp-btn-view" href={'/' + search_data.url}>
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
@@ -223,7 +308,7 @@ class DoctorProfileView extends React.Component {
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
-                                                            <a className="dpp-btn-view" href={'/'+search_data.url}>
+                                                            <a className="dpp-btn-view" href={'/' + search_data.url}>
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
