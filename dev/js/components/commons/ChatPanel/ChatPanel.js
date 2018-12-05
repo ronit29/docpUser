@@ -273,6 +273,12 @@ class ChatPanel extends React.Component {
             iframe_url += `&msg=${this.state.initialMessage}`
         }
 
+        let botAgent = false
+        if (this.props.location.search.includes('botagent')) {
+            botAgent = true
+            iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
+        }
+
         return (
 
             <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : "col-md-5 mb-3"}>
