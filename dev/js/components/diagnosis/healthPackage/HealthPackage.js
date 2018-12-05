@@ -1372,17 +1372,15 @@ class LabView extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
+                            {/* <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="stc-scn-listing">
                                     <h5>Our Popular Comparison:</h5>
                                     <p>Top vitamin profile packages</p>
                                     <p>Top packages for senior citizens</p>
                                     <p> Popular low cost packages for diabetes</p>
                                 </div>
-                            </div>
-
+                            </div> */}
                         </div>
-
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
