@@ -1632,6 +1632,13 @@ margin: 0px 10px;
 	max-width: 100%;
 	max-height: 100%;
 }
+.lab-card-img-div{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 4px !important;
+}
 .fltr-crd-img-lab>div{
 	margin-bottom: 10px;
 }

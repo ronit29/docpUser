@@ -162,7 +162,7 @@ class LabResultCard extends React.Component {
                         </p>
                     </div>
                     <div className="row no-gutters mrt-10">
-                        <div className="col-3" style={{ paddingRight: '4px' }}>
+                        <div className="col-3 lab-card-img-div">
                             <div className="fltr-crd-img-lab text-center">
                                 <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
                                     <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
@@ -172,8 +172,8 @@ class LabResultCard extends React.Component {
                             {
                                 STORAGE.checkAuth() || price < 100 ?
                                     ''
-                                    : <div class="signup-off-container">
-                                        <span class="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b> </span>
+                                    : <div className="signup-off-container" style={{ marginBottom: 0 }} >
+                                        <span className="signup-off-doc" style={{ fontSize: 12 }} >+ ₹ 100 OFF <b>on Signup</b> </span>
                                     </div>
                             }
                         </div>
@@ -186,10 +186,10 @@ class LabResultCard extends React.Component {
                                 </div>
                             </div>
                             <div className="row no-gutters">
-                                <div className="col-6">
+                                <div className="col-6" style={{ paddingRight: 4 }}>
                                     {
                                         this.props.details.tests && this.props.details.tests.length == 1 ?
-                                            <p className="mrt-10" style={{ color: '#000', fontSize: 14, fontWeight: 400 }}>{this.props.details.tests[0].name}</p> : ''
+                                            <p style={{ color: '#000', fontSize: 14, fontWeight: 400, marginTop: 32 }}>{this.props.details.tests[0].name}</p> : ''
                                     }
                                 </div>
                                 <div className="col-6">
