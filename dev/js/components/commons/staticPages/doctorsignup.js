@@ -117,7 +117,7 @@ class Doctorsignup extends React.Component {
 								</div>
 								<div className="form-group dsp-city-mobile-div">
 									<div className="dsp-mobile-div">
-										<input type="number" name="mobile" max={9999999999} id="dsp-mobile" placeholder="Mobile Number" className="form-control" required min={7000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
+										<input type="number" name="mobile" max={9999999999} id="dsp-mobile" placeholder="Mobile Number" className="form-control" required min={5000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
 									</div>
 									<div className="dsp-city-div">
 										<input type="text" name="city_name" placeholder="City" maxLength={255} className="form-control" required id="dsp-city" value={this.state.city} onChange={(event) => this.changeHandler(event, 'city')} />
