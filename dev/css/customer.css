@@ -1564,3 +1564,17 @@ p.rt-doc-nm{
 .carousel-indicators .indicator-selected{
     background-color: grey;
 }
+
+.lc-filter-sort-div{
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.lc-filter-div, .lc-sort-div{
+    align-items: center;
+    cursor: pointer;
+}
+
+.lc-sort-div{
+    margin-left: 32px;
+}
