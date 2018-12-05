@@ -4,7 +4,7 @@ import SnackBar from 'node-snackbar'
 import Loader from '../../commons/Loader'
 import VisitTimeNew from './VisitTimeNew'
 import PickupAddress from './pickupAddress'
-import ChoosePatientNewView from './choosePatientNew'
+import ChoosePatientNewView from '../../opd/patientDetails/choosePatientNew'
 import InitialsPicture from '../../commons/initialsPicture'
 // const queryString = require('query-string');
 import STORAGE from '../../../helpers/storage'
@@ -34,7 +34,8 @@ class BookingSummaryViewNew extends React.Component {
             showAddressError: false,
             couponCode: '',
             couponId: '',
-            scrollPosition: ''
+            scrollPosition: '',
+            profileDataFilled: true
         }
     }
 
@@ -58,7 +59,11 @@ class BookingSummaryViewNew extends React.Component {
             }, 500)
             this.props.history.replace(this.props.location.pathname)
         }
-
+        let patient = null
+        if (this.props.selectedProfile && this.props.profiles && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+            patient = this.props.profiles[this.props.selectedProfile]
+            this.setState({profileDataFilled:true})
+        }
         if (document.getElementById('time-patient-details-widget')) {
             var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
             var elementHeight = document.getElementById('time-patient-details-widget').clientHeight;
@@ -208,7 +213,7 @@ class BookingSummaryViewNew extends React.Component {
             case "lab": {
                 return <div>
                     <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
                 </div>
             }
 
@@ -216,9 +221,17 @@ class BookingSummaryViewNew extends React.Component {
                 return <div>
                     <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
                 </div>
             }
+        }
+    }
+
+    profileDataCompleted(data){
+        if(data.name =='' || data.gender == '' || data.phoneNumber =='' || !data.otpVerifySuccess){
+            this.setState({profileDataFilled: false})
+        }else if(data.otpVerifySuccess){
+            this.setState({profileDataFilled: true})
         }
     }
 
@@ -243,6 +256,10 @@ class BookingSummaryViewNew extends React.Component {
             window.scrollTo(0, this.state.scrollPosition);
 
             return
+        }
+        if(!this.state.profileDataFilled){
+            SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
+            return   
         }
         if (e.target.dataset.disabled == true) {
             return
@@ -345,7 +362,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    render() {
+    render() {console.log('cccccccccccc');console.log(this.state);
         let tests = []
         let finalPrice = 0
         let finalMrp = 0

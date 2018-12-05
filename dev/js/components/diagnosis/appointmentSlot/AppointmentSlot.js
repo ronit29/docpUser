@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
+//import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
+import TimeSlotSelector from '../../commons/DateTimeSelector/index.js'
 import Loader from '../../commons/Loader'
 
 import LeftBar from '../../commons/LeftBar'
@@ -19,7 +20,9 @@ class AppointmentSlot extends React.Component {
             pickupType: this.props.location.search.includes('type=lab') ? 0 : 1,
             today_min: null,
             tomorrow_min: null,
-            today_max: null
+            today_max: null,
+            enableProceed: false,
+            selectedTimeSlot: {}
         }
     }
 
@@ -27,6 +30,9 @@ class AppointmentSlot extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         // in case of reschedule go back , else push
+        if(this.state.selectedTimeSlot){
+            this.selectTimeSlot(this.state.selectedTimeSlot)
+        }
         if (this.state.reschedule) {
             return this.props.history.go(-1)
         }
@@ -51,6 +57,18 @@ class AppointmentSlot extends React.Component {
             this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
         })
 
+    }
+
+    enableProceed(enable, slot={}){
+        if(enable){
+            this.setState({enableProceed: true})
+        }else{
+            if(Object.values(slot).length){
+                this.setState({enableProceed: true, selectedTimeSlot: slot})
+            }else{
+                this.setState({enableProceed: false})
+            }
+        }
     }
 
     render() {
@@ -98,6 +116,7 @@ class AppointmentSlot extends React.Component {
                                                                 today_min={this.state.today_min}
                                                                 tomorrow_min={this.state.tomorrow_min}
                                                                 today_max={this.state.today_max}
+                                                                enableProceed = {this.enableProceed.bind(this)}
                                                             /> : <Loader />
                                                     }
 
@@ -107,7 +126,7 @@ class AppointmentSlot extends React.Component {
                                     </section> : <Loader />
                             }
 
-                            <button disabled={!this.props.selectedSlot.date} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Select</button>
+                            <button disabled={!this.state.enableProceed} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Select</button>
 
                         </div>
                         <RightBar extraClass=" chat-float-btn-2" />

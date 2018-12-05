@@ -3491,3 +3491,197 @@ border: 1px solid #aaaa;
     font-weight: 400 !important;
     font-size: 12px !important;
 }
+
+
+/* ===================================== New journy styling ===================================== */
+.time-slot-container{
+    padding: 12px;
+}
+.vertical-date-select-container{
+    margin-bottom: 30px;
+}
+.slect-date-heading{
+
+}
+.slect-date-img-content{
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+.date-text-img{
+    display: flex;
+    align-items: center;
+}
+.date-text-img img{
+	width: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 20px;
+    margin-right: 8px;
+}
+.date-text-img p{
+	font-weight: 500;
+}
+.months-selctor{
+
+}
+.months-selctor span{
+    font-weight: 500;
+    margin: 0px 5px;
+    color: #757575;
+}
+.months-selctor span.mnth-selcted{
+    color: #f78631;
+    border-bottom: 2px solid #f78631;
+}
+.vertical-date-listing{
+	width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.ver-date-list-ul{
+    display: inline-block;
+}
+.ver-date-list-ul li:first-child{
+	padding-left: 0px;
+}
+.ver-date-list-ul li:last-child{
+	border-right: transparent;
+}
+.ver-date-list-ul li:nth-last-child(2){
+	border-right: transparent;
+}
+.ver-date-list-ul li{
+	display: inline-block;
+    border-right: 1px solid rgba(0, 0, 0, .12);
+    padding: 0 10px;
+}
+.ver-date-list-ul li p{
+	font-weight: 500;
+    text-align: center;
+    color: #f78631;
+	padding: 5px;
+}
+.date-list-active{
+    color: white !important;
+    background: #f78631;
+	border-radius: 10px;
+	min-width: 50px;
+}
+.ver-date-list-ul li p span{
+	display: block;
+    font-weight: 600;
+	margin-top: 3px;
+	color:black;
+}
+.ver-date-list-ul li p.date-list-active span{
+	color: white;
+}
+.scrll-date img {
+    position: relative;
+    top: 16px;
+	width: 10px;
+	cursor: pointer;
+}
+.select-time-slot-container{
+
+}
+.select-time-listing-container{
+    display: flex;
+}
+.time-shift{
+    font-weight: 600;
+    margin-right: 10px;
+    padding-top: 10px;
+}
+.time-slot-main-listing{
+
+}
+.time-slot-main-listing ul{
+
+}
+.time-slot-li-listing{
+    margin-bottom: 10px;
+    display: inline-block;
+    border-right: 1px solid rgba(0, 0, 0, .12);
+    text-align: center;
+    padding: 4px 6px;
+}
+.time-slot-timmings{
+    font-weight: 600;
+    min-width: 69px;
+	padding: 6px 0px;
+	user-select: none;
+	cursor: pointer;
+}
+.time-slot-timmings.time-active{
+	color: white;
+    background: #f78631;
+    border-radius: 4px;
+}
+.time-slot-timmings.time-disable{
+    color: #757575;
+    text-decoration: line-through;
+}
+.mrb-15{
+	margin-bottom: 15px;
+}
+.select-pt-form{
+
+    margin-top: 15px;
+}
+.slt-nw-input{
+    display: flex;
+	margin-bottom: 15px;
+	position: relative;
+	align-items: flex-end;
+}
+.slt-label{
+	width: 18%;
+    font-weight: 500;
+    color: #757575;
+}
+.slt-text-input{
+	width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, .13);
+    outline: none;
+    border-top: transparent;
+    border-right: transparent;
+	border-left: transparent;
+	font-weight: 500;
+	padding: 4px;
+}
+.slt-label-radio{
+
+}
+.slt-label-radio .dtl-radio {
+    display: inline-block;
+    margin-right: 10px;
+}
+.slt-label-radio .dtl-radio .container-radio{
+	margin-bottom: 0px;
+	font-size: 14px;
+}
+.slt-label-radio .dtl-radio .container-radio .doc-checkmark{
+	top: 0px;
+}
+.mobile-fill-btn{
+    position: absolute;
+    right: 15px;
+    background: #f78631;
+    color: white;
+    border-radius: 4px;
+    border: transparent;
+    padding: 3px 10px;
+    font-weight: 500;
+    top: 0;
+    cursor: pointer;
+}
+.resend-otp-btn{
+	color: #f78631;
+    font-weight: 500;
+    display: block;
+    cursor: pointer;
+    text-align: right;
+}
+/* ===================================== New journy styling ===================================== */

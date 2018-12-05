@@ -64,6 +64,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
                 error_message: "Invalid OTP"
             }
         })
+        if (cb) cb('error');
     })
 }
 

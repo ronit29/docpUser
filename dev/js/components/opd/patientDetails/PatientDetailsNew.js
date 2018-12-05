@@ -31,7 +31,8 @@ class PatientDetailsNew extends React.Component {
             error: "",
             openCancellation: false,
             order_id: false,
-            couponCode: ''
+            couponCode: '',
+            profileDataFilled: true
             // order_id: !!parsed.order_id
         }
     }
@@ -104,11 +105,23 @@ class PatientDetailsNew extends React.Component {
 
     }
 
+    profileDataCompleted(data){
+        if(data.name =='' || data.gender == '' || data.phoneNumber =='' || !data.otpVerifySuccess){
+            this.setState({profileDataFilled: false})
+        }else if(data.otpVerifySuccess){
+            this.setState({profileDataFilled: true})
+        }
+    }
+
     proceed(datePicked, e) {
 
         if (!datePicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
+        }
+        if(!this.state.profileDataFilled){
+            SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
+            return   
         }
         if (e.target.dataset.disabled == true) {
             return
@@ -288,7 +301,7 @@ class PatientDetailsNew extends React.Component {
                                                             <hr />
                                                             <div className="widget-content">
                                                                 <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
-                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} />
+                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
                                                                 {
                                                                     Object.values(selectedProcedures).length ?
                                                                         <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
