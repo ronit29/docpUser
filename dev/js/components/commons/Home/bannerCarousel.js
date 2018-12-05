@@ -8,6 +8,17 @@ class BannerCarousel extends React.Component {
         }
     }
 
+    componentDidMount() {
+        setInterval(() => {
+            let curr_index = this.state.index
+            curr_index = curr_index + 1
+            if (curr_index > 2) {
+                curr_index = 0
+            }
+            this.setState({ index: curr_index })
+        }, 5000)
+    }
+
     navigate() {
 
         if (this.state.index == 1) {
@@ -22,7 +33,7 @@ class BannerCarousel extends React.Component {
             let speciality = {}
             speciality.type = 'procedures_category'
             speciality.id = 2
-            let filters = {'sort_on':'fees'}
+            let filters = { 'sort_on': 'fees' }
             this.props.toggleOPDCriteria('procedures_category', speciality, true, filters)
             setTimeout(() => {
                 this.props.history.push('/opd/searchresults')
