@@ -206,6 +206,10 @@ export default function (state = defaultState, action) {
                     newState.currentLabSelectedTests.push(test)
 
                 })
+                if(newState.currentLabSelectedTests.length <5 ){
+                    //action.payload
+                }
+
             }else{
                 
             }

@@ -298,135 +298,130 @@ class PatientDetailsNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
                                                             <SelectedClinic
                                                                 boxShadowHide={true}
                                                                 selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                                 selectedClinic={this.state.selectedClinic}
                                                             />
-                                                            <hr />
-                                                            <div className="widget-content">
-                                                                <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
-                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
-                                                                {
-                                                                    Object.values(selectedProcedures).length ?
-                                                                        <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
-                                                                        : <div className="clearfix pb-list proc-padding-list">
-                                                                            <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {
-                                                        (priceData.deal_price + treatment_Price) != 0 ?
-                                                            <div className="col-12">
-                                                                <div className="widget mrt-10 ct-profile skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
-                                                                    {
-                                                                        doctorCoupons.length ?
-                                                                            <div className="widget-content d-flex jc-spaceb" >
-                                                                                <div className="d-flex">
-                                                                                    <span className="coupon-img">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
-                                                                                    </span>
-                                                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                        Coupon Applied
-                                                                                    </h4>
-                                                                                </div>
-                                                                                <div className=" d-flex">
-                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                        {doctorCoupons[0].code}
-                                                                                    </h4>
-                                                                                    <span className="visit-time-icon coupon-icon">
-                                                                                        <img onClick={(e) => {
-                                                                                            e.stopPropagation();
-                                                                                            let analyticData = {
-                                                                                                'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
-                                                                                                'couponId': doctorCoupons[0].coupon_id
-                                                                                            }
-                                                                                            GTM.sendEvent({ data: analyticData })
-                                                                                            this.props.removeCoupons(this.state.selectedDoctor, doctorCoupons[0].coupon_id)
-                                                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div> :
-                                                                            <div className="widget-content d-flex jc-spaceb" >
-                                                                                <div className="d-flex">
-                                                                                    <span className="coupon-img">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
-                                                                                    </span>
-                                                                                    <h4 className="title coupon-text">
-                                                                                        HAVE A COUPON?
-                                                                                    </h4>
-                                                                                </div>
-                                                                                <div className="visit-time-icon coupon-icon-arrow">
-                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-                                                                                </div>
-                                                                            </div>
-                                                                    }
+                                                            <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
                                                                 </div>
-                                                            </div> : ''
-                                                    }
-                                                    <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
+                                                            </div>
+                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
+                                                            {
+                                                                Object.values(selectedProcedures).length ?
+                                                                    <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
+                                                                    : ''/*<div className="clearfix pb-list proc-padding-list">
+                                                                        <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>*/
+                                                            }
 
-                                                            <div className="widget-content">
-                                                                <h4 className="title mb-20">Payment Summary</h4>
-                                                                <div className="payment-summary-content">
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>Subtotal</p>
-                                                                        <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
-                                                                    </div>
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>docprime discount</p>
-                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
-                                                                    </div>
-                                                                    {
-                                                                        this.props.disCountedOpdPrice
-                                                                            ? <div className="payment-detail d-flex">
-                                                                                <p style={{ color: 'green' }}>Coupon discount</p>
-                                                                                <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
-                                                                            </div>
-                                                                            : ''
-                                                                    }
-                                                                    {
-                                                                        /*    treatment_Price ?
-                                                                                <div className="payment-detail d-flex">
-                                                                                    <p>Treatment</p>
-                                                                                    <p> &#8377; {treatment_Price}</p>
+                                                            {
+                                                            (priceData.deal_price + treatment_Price) != 0 ?
+                                                                <div className="widget mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                                        {
+                                                                            doctorCoupons.length ?
+                                                                                <div className="widget-content d-flex jc-spaceb" >
+                                                                                    <div className="d-flex">
+                                                                                        <span className="coupon-img">
+                                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+                                                                                        </span>
+                                                                                        <h4 className="title coupon-text" style={{ color: 'green' }}>
+                                                                                            Coupon Applied
+                                                                                        </h4>
+                                                                                    </div>
+                                                                                    <div className=" d-flex">
+                                                                                        <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                            {doctorCoupons[0].code}
+                                                                                        </h4>
+                                                                                        <span className="visit-time-icon coupon-icon">
+                                                                                            <img onClick={(e) => {
+                                                                                                e.stopPropagation();
+                                                                                                let analyticData = {
+                                                                                                    'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
+                                                                                                    'couponId': doctorCoupons[0].coupon_id
+                                                                                                }
+                                                                                                GTM.sendEvent({ data: analyticData })
+                                                                                                this.props.removeCoupons(this.state.selectedDoctor, doctorCoupons[0].coupon_id)
+                                                                                            }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div> :
+                                                                                <div className="widget-content d-flex jc-spaceb" >
+                                                                                    <div className="d-flex">
+                                                                                        <span className="coupon-img">
+                                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                                                        </span>
+                                                                                        <h4 className="title coupon-text">
+                                                                                            HAVE A COUPON?
+                                                                                        </h4>
+                                                                                    </div>
+                                                                                    <div className="visit-time-icon coupon-icon-arrow">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                    </div>
                                                                                 </div>
-                                                                                : ''
-                                                                        
+                                                                        }
+                                                                    </div> : ''
+                                                            }
+
+                                                            <div className="widget mrb-15">
+
+                                                                <div className="widget-content">
+                                                                    <h4 className="title mb-20">Payment Summary</h4>
+                                                                    <div className="payment-summary-content">
                                                                         <div className="payment-detail d-flex">
                                                                             <p>Subtotal</p>
-                                                                            <p> &#8377; {finalPrice || 0}</p>
-                                                                        </div>*/
+                                                                            <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                        </div>
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>docprime discount</p>
+                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                        </div>
+                                                                        {
+                                                                            this.props.disCountedOpdPrice
+                                                                                ? <div className="payment-detail d-flex">
+                                                                                    <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                    <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
+                                                                                </div>
+                                                                                : ''
+                                                                        }
+                                                                        {
+                                                                            /*    treatment_Price ?
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p>Treatment</p>
+                                                                                        <p> &#8377; {treatment_Price}</p>
+                                                                                    </div>
+                                                                                    : ''
+                                                                            
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Subtotal</p>
+                                                                                <p> &#8377; {finalPrice || 0}</p>
+                                                                            </div>*/
+                                                                        }
+                                                                    </div>
+                                                                    <hr />
+
+                                                                    {
+                                                                        priceData ? <div className="test-report payment-detail mt-20">
+                                                                            <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                            <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
+                                                                        </div> : ""
                                                                     }
+
                                                                 </div>
-                                                                <hr />
-
-                                                                {
-                                                                    priceData ? <div className="test-report payment-detail mt-20">
-                                                                        <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                        <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
-                                                                    </div> : ""
-                                                                }
-
                                                             </div>
-                                                        </div>
-                                                    </div>
 
-                                                    <div className="col-12" style={{ marginTop: 10 }}>
-                                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-12">
-                                                        <a href="/terms" target="_blank">
-                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
-                                                                <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                                                <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                             </div>
-                                                        </a>
+
+                                                            <a href="/terms" target="_blank">
+                                                                <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
+                                                                    <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                                    <span className="errorMessage">{this.state.error}</span>
+                                                                </div>
+                                                            </a>
+
                                                     </div>
                                                 </div>
                                             </div>

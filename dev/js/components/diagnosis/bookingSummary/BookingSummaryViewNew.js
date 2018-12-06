@@ -457,7 +457,57 @@ class BookingSummaryViewNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile mb-0 skin-white">
+
+                                                        <div className="widget mrb-15">
+                                                            <div className="widget-content">
+                                                                <div className="lab-visit-time d-flex jc-spaceb">
+                                                                    <h4 className="title"><span>
+                                                                        <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                                                    </span>{labDetail.name}</h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="widget mrb-15">
+                                                            <div className="widget-content">
+                                                                <div className="lab-visit-time d-flex jc-spaceb">
+                                                                    <h4 className="title"><span>
+                                                                        <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                                                    </span>Test</h4>
+                                                                    <div className="float-right  mbl-view-formatting text-right">
+                                                                    {
+                                                                        !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a> : ""
+                                                                    }
+                                                                    </div>
+                                                                </div>
+                                                                {tests}
+                                                                {
+                                                                    is_home_collection_enabled ?
+                                                                        <div>
+                                                                            {/*<div style={{ paddingTop: 0 }} className="widget-content test-report lab-appointment-div lab-visit-time mb-0 row">
+                                                                                <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
+                                                                            </div>*/}
+                                                                            <div className="colorPink">
+                                                                                <div className="widget-content test-report lab-appointment-div row">
+
+                                                                                    <ul className="inline-list booking-type search-list-radio">
+                                                                                        <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li>
+                                                                                        {
+                                                                                            center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
+                                                                                        }
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> : ""
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="widget mrb-15">
+                                                            {this.getSelectors()}
+                                                        </div>
+
+                                                        {/*<div className="widget mrt-10 ct-profile mb-0 skin-white">
                                                             <div className="test-report widget-content">
                                                                 <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right">
                                                                     {
@@ -467,152 +517,130 @@ class BookingSummaryViewNew extends React.Component {
                                                                 {tests}
                                                             </div>
 
-                                                            {
-                                                                is_home_collection_enabled ?
-                                                                    <div>
-                                                                        <div style={{ paddingTop: 0 }} className="widget-content test-report lab-appointment-div lab-visit-time mb-0 row">
-                                                                            <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
-                                                                        </div>
-                                                                        <div className="colorPink">
-                                                                            <div className="widget-content test-report lab-appointment-div row">
-
-                                                                                <ul className="inline-list booking-type search-list-radio">
-                                                                                    <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li>
-                                                                                    {
-                                                                                        center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
-                                                                                    }
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div> : ""
-                                                            }
+                                                            
 
                                                             <div className="widget-content" id="time-patient-details-widget">
                                                                 {this.getSelectors()}
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    {
-                                                        amtBeforeCoupon != 0 ?
-                                                            <div className="col-12">
-                                                                <div className="widget mrt-10 ct-profile mb-0 skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
-                                                                    {
-                                                                        labCoupons.length ?
-                                                                            <div className="widget-content  d-flex jc-spaceb" >
-                                                                                <div className="d-flex">
-                                                                                    <span className="coupon-img">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
-                                                                                    </span>
-                                                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                        Coupon Applied
-                                                                                    </h4>
-                                                                                </div>
-                                                                                <div className=" d-flex">
-                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                        {labCoupons[0].code}
-                                                                                    </h4>
-                                                                                    {
-                                                                                        is_corporate ? "" : <span className="visit-time-icon coupon-icon"><img onClick={(e) => {
-                                                                                            e.stopPropagation();
-                                                                                            let analyticData = {
-                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
-                                                                                            }
-                                                                                            GTM.sendEvent({ data: analyticData })
-
-                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
-                                                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+*/} 
+                                                        {
+                                                            amtBeforeCoupon != 0 ?
+                                                                    <div className="widget mrt-10 ct-profile mb-0 skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                                        {
+                                                                            labCoupons.length ?
+                                                                                <div className="widget-content  d-flex jc-spaceb" >
+                                                                                    <div className="d-flex">
+                                                                                        <span className="coupon-img">
+                                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
                                                                                         </span>
-                                                                                    }
+                                                                                        <h4 className="title coupon-text" style={{ color: 'green' }}>
+                                                                                            Coupon Applied
+                                                                                        </h4>
+                                                                                    </div>
+                                                                                    <div className=" d-flex">
+                                                                                        <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                            {labCoupons[0].code}
+                                                                                        </h4>
+                                                                                        {
+                                                                                            is_corporate ? "" : <span className="visit-time-icon coupon-icon"><img onClick={(e) => {
+                                                                                                e.stopPropagation();
+                                                                                                let analyticData = {
+                                                                                                    'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
+                                                                                                }
+                                                                                                GTM.sendEvent({ data: analyticData })
+
+                                                                                                this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
+                                                                                            }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                                                            </span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div> :
+                                                                                <div className="widget-content d-flex jc-spaceb" >
+                                                                                    <div className="d-flex">
+                                                                                        <span className="coupon-img">
+                                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                                                        </span>
+                                                                                        <h4 className="title coupon-text">
+                                                                                            HAVE A COUPON?
+                                                                                    </h4>
+                                                                                    </div>
+                                                                                    <div className="visit-time-icon coupon-icon-arrow">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div> :
-                                                                            <div className="widget-content d-flex jc-spaceb" >
-                                                                                <div className="d-flex">
-                                                                                    <span className="coupon-img">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
-                                                                                    </span>
-                                                                                    <h4 className="title coupon-text">
-                                                                                        HAVE A COUPON?
-                                                                                </h4>
-                                                                                </div>
-                                                                                <div className="visit-time-icon coupon-icon-arrow">
-                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-                                                                                </div>
+                                                                        }
+                                                                    </div> : ''
+                                                        }
+
+                                                        {
+                                                            is_corporate ? ""
+                                                                :<div className="widget mrt-10 ct-profile mb-0 skin-white">
+
+                                                                    <div className="widget-content">
+                                                                        <h4 className="title mb-20">Payment Summary</h4>
+                                                                        <div className="payment-summary-content">
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Lab fees</p>
+                                                                                <p>&#8377; {finalMrp}</p>
                                                                             </div>
-                                                                    }
-                                                                </div>
-                                                            </div> : ''
-                                                    }
-
-                                                    {
-                                                        is_corporate ? "" : <div className="col-12">
-                                                            <div className="widget mrt-10 ct-profile mb-0 skin-white">
-
-                                                                <div className="widget-content">
-                                                                    <h4 className="title mb-20">Payment Summary</h4>
-                                                                    <div className="payment-summary-content">
-                                                                        <div className="payment-detail d-flex">
-                                                                            <p>Lab fees</p>
-                                                                            <p>&#8377; {finalMrp}</p>
-                                                                        </div>
-                                                                        {
-                                                                            (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
-                                                                                <p className="payment-content">Home Pickup Charges</p>
-                                                                                <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
-                                                                            </div> : ""
-                                                                        }
-                                                                        <div className="payment-detail d-flex">
-                                                                            <p>Docprime discount</p>
-                                                                            <p>- &#8377; {finalMrp - finalPrice}</p>
-                                                                        </div>
-                                                                        {
-                                                                            this.props.disCountedLabPrice
-                                                                                ? <div className="payment-detail d-flex">
-                                                                                    <p style={{ color: 'green' }}>Coupon discount</p>
-                                                                                    <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
-                                                                                </div>
-                                                                                : ''
-                                                                        }
-                                                                        {
-                                                                            (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
-                                                                                <p className="payment-content fw-500">Subtotal</p>
-                                                                                <p className="payment-content fw-500">&#8377; {finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)}</p>
-                                                                            </div> : <div className="payment-detail d-flex">
+                                                                            {
+                                                                                (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                    <p className="payment-content">Home Pickup Charges</p>
+                                                                                    <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
+                                                                                </div> : ""
+                                                                            }
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Docprime discount</p>
+                                                                                <p>- &#8377; {finalMrp - finalPrice}</p>
+                                                                            </div>
+                                                                            {
+                                                                                this.props.disCountedLabPrice
+                                                                                    ? <div className="payment-detail d-flex">
+                                                                                        <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                        <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
+                                                                                    </div>
+                                                                                    : ''
+                                                                            }
+                                                                            {
+                                                                                (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                     <p className="payment-content fw-500">Subtotal</p>
-                                                                                    <p className="payment-content fw-500">&#8377; {finalPrice - this.props.disCountedLabPrice || 0}</p>
-                                                                                </div>
-                                                                        }
+                                                                                    <p className="payment-content fw-500">&#8377; {finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)}</p>
+                                                                                </div> : <div className="payment-detail d-flex">
+                                                                                        <p className="payment-content fw-500">Subtotal</p>
+                                                                                        <p className="payment-content fw-500">&#8377; {finalPrice - this.props.disCountedLabPrice || 0}</p>
+                                                                                    </div>
+                                                                            }
+
+                                                                        </div>
+                                                                        <hr />
+
+                                                                        <div className="lab-visit-time test-report">
+                                                                            <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                            {
+                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0) - (this.props.disCountedLabPrice || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice - this.props.disCountedLabPrice || 0}</h5>
+                                                                            }
+
+                                                                        </div>
+
 
                                                                     </div>
-                                                                    <hr />
-
-                                                                    <div className="lab-visit-time test-report">
-                                                                        <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                        {
-                                                                            this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0) - (this.props.disCountedLabPrice || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice - this.props.disCountedLabPrice || 0}</h5>
-                                                                        }
-
-                                                                    </div>
-
-
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    }
+                                                        }
 
-
-                                                    <div className="col-12" style={{ marginTop: 10 }}>
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
-                                                    </div>
-                                                    <div className="col-12">
+
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                                 <span className="errorMessage">{this.state.error}</span>
                                                             </div>
                                                         </a>
+
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </section>
