@@ -91,7 +91,7 @@ class Careers extends React.Component {
 										<input type="text" id="name" className="form-control" placeholder="Your Name" value={this.state.name} onChange={(event) => this.changeHandler(event, 'name')} required />
 									</div>
 									<div className="form-group">
-										<input type="number" id="mobile" className="form-control" min={7000000000} max={9999999999} placeholder="Mobile Number" value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} required />
+										<input type="number" id="mobile" className="form-control" min={5000000000} max={9999999999} placeholder="Mobile Number" value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} required />
 									</div>
 									<div className="form-group">
 										<input type="email" id="email" className="form-control" placeholder="Email" value={this.state.email} onChange={(event) => this.changeHandler(event, 'email')} required />

@@ -113,7 +113,7 @@ class UserSignupView extends React.Component {
                         this.refs[prp].style.border = ''
                         return
                     } else {
-                        validated = this.refs[prp].value.match(/^[6789]{1}[0-9]{9}$/)
+                        validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
                     }
                     break
                 }
