@@ -67,7 +67,7 @@ class Careers extends React.Component {
 								<h1 className="hiring-heading">We Are Hiring !</h1>
 							</div>
 							<div className="hiring-desc-div">
-								<h3 className="hiring-desc">We are hiring for multiple positions, It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h3>
+								<h3 className="hiring-desc">We are hiring for multiple positions.</h3>
 							</div>
 							<img src="/assets/img/career/arrow.svg" className="careers-arrow-img absolute-images" />
 						</div>
@@ -91,7 +91,7 @@ class Careers extends React.Component {
 										<input type="text" id="name" className="form-control" placeholder="Your Name" value={this.state.name} onChange={(event) => this.changeHandler(event, 'name')} required />
 									</div>
 									<div className="form-group">
-										<input type="number" id="mobile" className="form-control" min={7000000000} max={9999999999} placeholder="Mobile Number" value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} required />
+										<input type="number" id="mobile" className="form-control" min={5000000000} max={9999999999} placeholder="Mobile Number" value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} required />
 									</div>
 									<div className="form-group">
 										<input type="email" id="email" className="form-control" placeholder="Email" value={this.state.email} onChange={(event) => this.changeHandler(event, 'email')} required />

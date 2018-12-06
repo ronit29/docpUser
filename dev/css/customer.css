@@ -297,7 +297,7 @@
 /*doctor profile screen*/
 .dr-profile-screen{padding-bottom: 50px;}
 .dr-qucik-info{display: flex; flex-wrap: wrap; align-items: flex-start}
-.dr-profile-screen .dr-qucik-info img{height: 80px; width: 80;}
+.dr-profile-screen .dr-qucik-info img{height: 70px; width: 70px;}
 .dr-qucik-info .dr-profile {padding-left: 12px; flex: 1}
 .dr-qucik-info .dr-profile .dr-name{font-size: 16px; font-weight: bold; margin: 6px 0;height: auto; max-height: 48px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical}
 .dr-qucik-info .dr-profile .desg{font-size: 14px; font-weight: 500; margin: 6px 0;}

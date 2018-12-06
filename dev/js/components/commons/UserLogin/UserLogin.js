@@ -32,7 +32,7 @@ class UserLoginView extends React.Component {
 
     submitOTPRequest(number) {
 
-        if (number.match(/^[789]{1}[0-9]{9}$/)) {
+        if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (error) => {
                 if (error) {
@@ -54,7 +54,7 @@ class UserLoginView extends React.Component {
             this.setState({ validationError: "Please enter OTP" })
             return
         }
-        if (this.state.phoneNumber.match(/^[789]{1}[0-9]{9}$/)) {
+        if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 const parsed = queryString.parse(this.props.location.search)

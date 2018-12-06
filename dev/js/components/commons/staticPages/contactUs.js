@@ -73,7 +73,7 @@ class ContactUs extends React.Component {
                                     <input type="email" className="form-control" placeholder="Email" value={this.state.email} onChange={(e) => { this.changeHandler(e, 'email') }} required />
                                 </div>
                                 <div className="contact-fields">
-                                    <input type="number" className="form-control" placeholder="Mobile Number" max={9999999999} min={7000000000} value={this.state.mobile} onChange={(e) => { this.changeHandler(e, 'mobile') }} required />
+                                    <input type="number" className="form-control" placeholder="Mobile Number" max={9999999999} min={5000000000} value={this.state.mobile} onChange={(e) => { this.changeHandler(e, 'mobile') }} required />
                                 </div>
                                 <div className="contact-fields">
                                     <textarea className="form-control" placeholder="Message" rows={3} value={this.state.message} onChange={(e) => { this.changeHandler(e, 'message') }} required />

@@ -161,43 +161,49 @@ class LabResultCard extends React.Component {
                             <span>&nbsp;|&nbsp;{distance} Km</span>
                         </p>
                     </div>
-                    <div className="row no-gutters mrt-20">
-                        <div className="col-8 fltr-crd-col">
+                    <div className="row no-gutters mrt-10">
+                        <div className="col-3 lab-card-img-div">
                             <div className="fltr-crd-img-lab text-center">
-                                <div>
-                                    <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-                                        <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
-                                    </InitialsPicture>
-                                </div>
+                                <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
+                                    <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
+                                </InitialsPicture>
                                 {/* <span className="fltr-rtng">Verified</span> */}
                             </div>
-                            <div className="fltr-name-dtls">
-                                <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
-                                    <h2 className="fltr-dc-name text-md" style={{ color: '#000' }}>{lab.name}</h2>
-                                </a>
-                                {
-                                    this.props.details.tests && this.props.details.tests.length == 1 ?
-                                        <p className="mrt-10" style={{ color: '#000', fontSize: 14, fontWeight: 400 }}>{this.props.details.tests[0].name}</p> : ''
-                                }
-                                {
-                                    STORAGE.checkAuth() || price < 100 ?
-                                        ''
-                                        : <div style={{ position: 'absolute', top: 75, left: 0 }} >
-                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                        </div>
-                                }
-                            </div>
+                            {
+                                STORAGE.checkAuth() || price < 100 ?
+                                    ''
+                                    : <div className="signup-off-container" style={{ marginBottom: 0 }} >
+                                        <span className="signup-off-doc" style={{ fontSize: 12 }} >+ ₹ 100 OFF <b>on Signup</b> </span>
+                                    </div>
+                            }
                         </div>
-                        <div className="col-4">
-                            <div className="fltr-bkng-section">
-                                {
-                                    offPercent && offPercent > 0 ?
-                                        <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
-                                }
-                                {
-                                    price ? <p className="fltr-prices">&#8377; {price}<span className="fltr-cut-price">&#8377; {mrp}</span></p> : ''
-                                }
-                                <button className="fltr-bkng-btn">Book Now</button>
+                        <div className="col-9">
+                            <div className="row no-gutters">
+                                <div className="col-12">
+                                    <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
+                                        <h2 className="fltr-dc-name text-md" style={{ color: '#000' }}>{lab.name}</h2>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="row no-gutters">
+                                <div className="col-6" style={{ paddingRight: 4 }}>
+                                    {
+                                        this.props.details.tests && this.props.details.tests.length == 1 ?
+                                            <p style={{ color: '#000', fontSize: 14, fontWeight: 400, marginTop: 32 }}>{this.props.details.tests[0].name}</p> : ''
+                                    }
+                                </div>
+                                <div className="col-6">
+                                    <div className="fltr-bkng-section">
+                                        {
+                                            offPercent && offPercent > 0 ?
+                                                <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
+                                        }
+                                        {
+                                            price ? <p className="fltr-prices">&#8377; {price}<span className="fltr-cut-price">&#8377; {mrp}</span></p> : ''
+                                        }
+                                        <button className="fltr-bkng-btn">Book Now</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,7 +237,7 @@ class LabResultCard extends React.Component {
                         }
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }
