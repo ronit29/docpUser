@@ -41,7 +41,7 @@ class ExpansionPanel extends React.Component {
                                     <ul className='lc-test-list'>
                                         {
                                             contentList.map((cont, i) => {
-                                                return <li key={i} onClick={}>
+                                                return <li key={i}>
                                                     <input className="lc-test-radio" type='radio' name='radio' />
                                                     <span className="doc-checkmark"></span>
                                                     {cont}
