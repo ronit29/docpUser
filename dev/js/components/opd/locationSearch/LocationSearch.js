@@ -8,6 +8,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId } from '../../../helpers/mapHelpers'
+import ExpansionPanel from '../../diagnosis/commons/labTests/expansionPanel';
 const queryString = require('query-string');
 
 class LocationSearch extends React.Component {
@@ -139,7 +140,7 @@ class LocationSearch extends React.Component {
                                                 </div>
                                                 <div className="detect-my-locaiton" onClick={this.detectLocation.bind(this)}>
                                                     <span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/gps.svg"} className="img-fluid" /></span>Detect My Location
-                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -166,6 +167,17 @@ class LocationSearch extends React.Component {
                                     </div>
                                 </div>
                             </section>
+                            {
+                                this.props.location.search && this.props.location.search === '?lab_card=true' ?
+                                    <section className="lc-select-test widget-panel">
+                                        <h4 className="panel-title">Select Test</h4>
+                                        <ExpansionPanel
+                                            locationSearch={true}
+                                            heading='blah'
+                                            contentList={['abc', 'def', 'ghi', 'jkl']}
+                                        />
+                                    </section> : ''
+                            }
                             <div id="map" style={{ display: 'none' }}></div>
                         </div>
 
