@@ -15,7 +15,7 @@ class DateTimeSelector extends React.Component{
             currentDay : props.selectedSlot && props.selectedSlot.date ?new Date(props.selectedSlot.date).getDay():new Date().getDay(),
             currentTimeSlot: props.selectedSlot && props.selectedSlot.time?props.selectedSlot.time:{},
             selectedSlot:props.selectedSlot && props.selectedSlot.slot?props.selectedSlot.slot:'',
-            selectedDateSpan: props.selectedSlot && props.selectedSlot.date ?new Date(props.selectedSlot.date).toDateString():new Date().toDateString(), 
+            selectedDateSpan: props.selectedSlot && props.selectedSlot.date ?new Date(props.selectedSlot.date):new Date(), 
             selectedMonth: props.selectedSlot && props.selectedSlot.date ?new Date(props.selectedSlot.date).getMonth():new Date().getMonth()
         }
     }
@@ -116,19 +116,19 @@ class DateTimeSelector extends React.Component{
         let tomorrow = new Date()
         tomorrow.setDate(tomorrow.getDate() + 1)
 
-        if (today.toDateString() == this.state.selectedDateSpan && this.props.today_min) {
+        if (today.toDateString() == this.state.selectedDateSpan.toDateString() && this.props.today_min) {
             if (this.props.today_max) {
                 return timeSlot.value > this.props.today_min && timeSlot.value < this.props.today_max
             }
             return timeSlot.value > this.props.today_min
         }
 
-        if (tomorrow.toDateString() == this.state.selectedDateSpan && this.props.tomorrow_min) {
+        if (tomorrow.toDateString() == this.state.selectedDateSpan.toDateString() && this.props.tomorrow_min) {
             return ts.value > this.props.tomorrow_min
         }
 
         // base case if nothing works :)
-        if (today.toDateString() == this.state.selectedDateSpan) {
+        if (today.toDateString() == this.state.selectedDateSpan.toDateString()) {
             return timeSlot.value > (today.getHours() + 1)
         }
 

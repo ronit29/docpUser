@@ -9,7 +9,8 @@ class ChoosePatientNewView extends React.Component {
             name:'',
             phoneNumber:'',
             gender:'',
-            age:20
+            age:20,
+            data:false
         }
     }
 
@@ -21,9 +22,15 @@ class ChoosePatientNewView extends React.Component {
 
     inputHandler(e) {
         if(e.target.name == 'phoneNumber'){
-            e.target.value.length<=10?this.setState({
-                [e.target.name]: e.target.value
-            }):this.setState({showVerify:true})    
+            e.target.value.length<=10 
+                ?e.target.value.length==10
+                    ?this.setState({
+                        [e.target.name]: e.target.value, showVerify:true
+                    })
+                    :this.setState({
+                        [e.target.name]: e.target.value
+                    })
+                :this.setState({showVerify:true})    
         }else{
             this.setState({ [e.target.name]: e.target.value })    
         }
@@ -53,7 +60,8 @@ class ChoosePatientNewView extends React.Component {
                 self.setState({otpVerifySuccess: true},()=>{
                     self.props.profileDataCompleted(this.state)
                     self.props.createProfile(this.state, (err, res) => {
-
+                        //self.setState({data:true})
+                        self.props.getUserProfile()
                     })
                 })
             }
