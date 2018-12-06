@@ -173,7 +173,7 @@ class ChatPanel extends React.Component {
                     if (data.message && data.message == 'focus') {
                         let iframe = this.refs.chat_frame
                         // iframe.scrollTop = iframe.scrollHeight
-                        if (this.props.homePage && window.innerWidth < 768 && !this.props.mobilechatview) {
+                        if (this.props.homePage && window.innerWidth < 768 && !this.props.history.location.pathname.includes('mobileviewchat')) {
                             this.props.history.push('/mobileviewchat')
                         }
                     }
