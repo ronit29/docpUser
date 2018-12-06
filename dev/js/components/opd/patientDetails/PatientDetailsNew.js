@@ -267,6 +267,10 @@ class PatientDetailsNew extends React.Component {
                 let slot = { time: {} }
                 this.props.selectOpdTimeSLot(slot, false)
             }
+        }else if(hospital){
+            priceData.mrp = hospital.mrp
+            priceData.deal_price = hospital.deal_price
+            priceData.payable_amount = hospital.deal_price
         }
         let treatment_Price = 0, treatment_mrp = 0
         let selectedProcedures = {}

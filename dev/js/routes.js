@@ -72,7 +72,7 @@ const routes = [
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/*-dpp', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
-    { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, private: true, component: PatientDetails },
+    { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
     { path: '/coupon/:type/:id/:cid', exact: true, private: true, component: CouponSelectNewView },
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },

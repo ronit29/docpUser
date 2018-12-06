@@ -85,7 +85,7 @@ class DoctorProfileView extends React.Component {
             GTM.sendEvent({ data: data })
             this.props.saveProfileProcedures(doctor_id, clinicId)
 
-            this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/book`)
+            this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/bookdetails`)
         }
     }
 
