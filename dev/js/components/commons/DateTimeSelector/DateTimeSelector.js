@@ -65,13 +65,16 @@ class DateTimeSelector extends React.Component{
 
     selectDateFromCalendar(event){
         let date = event?event.target.value:''
-        this.setState({pickedDate:date})
+        this.setState({pickedDate:date, selectedDateSpan: new Date(date)})
     }
 
     pickDate(){
         let selectedDate = new Date(this.state.pickedDate)
-        this.generateDays(true,selectedDate)
-        this.selectDate(selectedDate.getDate(), selectedDate.getDay(), selectedDate.toDateString(), selectedDate.getMonth())
+        if(selectedDate){
+
+            this.generateDays(true,selectedDate)
+            this.selectDate(selectedDate.getDate(), selectedDate.getDay(), new Date(selectedDate).toDateString(), selectedDate.getMonth(), selectedDate) 
+        }
     }
 
     selectTime(time,slot){
@@ -116,19 +119,19 @@ class DateTimeSelector extends React.Component{
         let tomorrow = new Date()
         tomorrow.setDate(tomorrow.getDate() + 1)
 
-        if (today.toDateString() == this.state.selectedDateSpan.toDateString() && this.props.today_min) {
+        if (today.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.today_min) {
             if (this.props.today_max) {
                 return timeSlot.value > this.props.today_min && timeSlot.value < this.props.today_max
             }
             return timeSlot.value > this.props.today_min
         }
 
-        if (tomorrow.toDateString() == this.state.selectedDateSpan.toDateString() && this.props.tomorrow_min) {
+        if (tomorrow.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.tomorrow_min) {
             return ts.value > this.props.tomorrow_min
         }
 
         // base case if nothing works :)
-        if (today.toDateString() == this.state.selectedDateSpan.toDateString()) {
+        if (today.toDateString() == new Date(this.state.selectedDateSpan).toDateString()) {
             return timeSlot.value > (today.getHours() + 1)
         }
 
@@ -136,7 +139,7 @@ class DateTimeSelector extends React.Component{
 
     }
 
-    render(){console.log(this.props);console.log(this.state)
+    render(){//console.log(this.props);console.log(this.state)
 
         let currentDate  = new Date().getDate()
 
