@@ -9,9 +9,7 @@ import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/ind
 class BookingSummary extends React.Component {
     constructor(props) {
         super(props)
-        if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=${this.props.location.pathname}&login=lab`)
-        }
+        
     }
 
     // static loadData(store, match) {
@@ -24,14 +22,14 @@ class BookingSummary extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-
-            let testIds = this.props.lab_test_data[this.props.match.params.id] || []
-            testIds = testIds.map(x => x.id)
-
-            this.props.getLabById(this.props.match.params.id, testIds)
             this.props.getUserProfile()
             this.props.getUserAddress()
         }
+    
+        let testIds = this.props.lab_test_data[this.props.match.params.id] || []
+        testIds = testIds.map(x => x.id)
+
+        this.props.getLabById(this.props.match.params.id, testIds)
     }
 
     render() {
