@@ -110,7 +110,7 @@ class LabTests extends React.Component {
             
             this.props.data.lab_tests.map((test, i) => {
 
-                if(selectedTestIds.indexOf(test.test_id)==-1 && defaultUnselectedTests.length<5){
+                if(selectedTestIds.indexOf(test.test_id)==-1 && selectedTestIds.length + defaultUnselectedTests.length<5){
 
                 defaultUnselectedTests.push(<li key={i + "srt"}>
                             <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
