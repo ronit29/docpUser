@@ -61,7 +61,7 @@ class EditProfile extends React.Component {
                         validated = true
                         return
                     } else {
-                        validated = this.state.profileData[field].toString().match(/^[6789]{1}[0-9]{9}$/)
+                        validated = this.state.profileData[field].toString().match(/^[56789]{1}[0-9]{9}$/)
                     }
                     break
                 }

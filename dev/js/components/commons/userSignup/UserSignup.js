@@ -55,7 +55,7 @@ class UserSignupView extends React.Component {
                 }
                 case "phone_number": {
                     if (!!this.refs[prp].value) {
-                        validated = this.refs[prp].value.match(/^[789]{1}[0-9]{9}$/)
+                        validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
                     } else {
                         validated = true
                     }
