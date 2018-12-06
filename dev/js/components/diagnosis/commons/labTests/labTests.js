@@ -30,7 +30,20 @@ class LabTests extends React.Component {
         this.setState({ [which]: !this.state[which], packageInfoTest: data })
     }
 
-    open
+    toggleTest(test_to_toggle) {
+        let test = Object.assign({}, test_to_toggle)
+        test.mrp = test_to_toggle.mrp
+        test.deal_price = test_to_toggle.deal_price
+        test.extra_test = true
+        test.lab_id = this.props.data.lab.id
+        test.id = test_to_toggle.test.id
+        test.name = test_to_toggle.test.name
+        test.pre_test_info = test_to_toggle.test.pre_test_info
+        test.why = test_to_toggle.test.why
+        test.add_to_common = true
+
+        this.props.toggleDiagnosisCriteria('test', test)
+    }
 
     render() {
         let tests = []
@@ -39,9 +52,10 @@ class LabTests extends React.Component {
         let defaultTests = []
         let showDefaultTests = false
         let hide_price = false
+        let selectedTestIds = []
 
-        if (this.props.data.tests && this.props.data.tests.length) {
-            tests = this.props.data.tests.map((test, i) => {
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            tests = this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
                     hide_price = true
                 }
@@ -54,13 +68,29 @@ class LabTests extends React.Component {
                 if (test.is_package) {
                     return <PackageTest i={i} test={test} toggle={this.toggle.bind(this)} />
                 } else {
-                    return <li className="clearfix" key={i}>
+                    return test.hide_price
+                            ?<li className="clearfix" key={i}>
+                               <span className="test-price">Free</span> 
+                             </li>
+                            :<li key={i + "srt"}>
+                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                    {test.test.name}
+                                    <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
+                                    <span className="checkmark" />
+                                </label>
+                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                            </li>
+
+/*
+                    <li className="clearfix" key={i}>
                         {
                             test.hide_price ? <span className="test-price">Free</span> : <span className="test-price">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                         }
-                        <span className="fw-500 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
+                        <span className="fw-500 text-md test-name-item ">{test.test.name}</span></li>*/
                 }
             })
+            selectedTestIds = this.props.currentLabSelectedTests.map(x => x.test_id)
+            
         }
 
         const parsed = queryString.parse(this.props.location.search)
@@ -69,10 +99,29 @@ class LabTests extends React.Component {
         }
 
         let totalAmount = 0;
-        if (this.props.data.tests && this.props.data.tests.length) {
-            for (var i = 0; i < this.props.data.tests.length; i++) {
-                totalAmount = totalAmount + this.props.data.tests[i].deal_price;
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            for (var i = 0; i < this.props.currentLabSelectedTests.length; i++) {
+                totalAmount = totalAmount + this.props.currentLabSelectedTests[i].deal_price;
             }
+        }
+
+        let defaultUnselectedTests = []
+        if (this.props.data.lab_tests && this.props.data.lab_tests.length) {
+            
+            this.props.data.lab_tests.map((test, i) => {
+
+                if(selectedTestIds.indexOf(test.test_id)==-1 && defaultUnselectedTests.length<5){
+
+                defaultUnselectedTests.push(<li key={i + "srt"}>
+                            <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                {test.test.name}
+                                <input type="checkbox" onChange={this.toggleTest.bind(this, test)} />
+                                <span className="checkmark" />
+                            </label>
+                            <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                        </li>)
+                }
+            })
         }
 
         if (this.props.data.lab_tests && this.props.data.lab_tests.length && showDefaultTests) {
@@ -114,7 +163,22 @@ class LabTests extends React.Component {
 
                     <ul className="list pb-list pb-test-list">
                         {tests}
+                        {defaultUnselectedTests}
                     </ul>
+                    {
+                        /*let selected_tests = labData.tests.map((test, i) => {
+                            if (selectedTestIds.indexOf(test.test.id) > -1) {
+                                return <li key={i + "st"}>
+                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                        {test.test.name}
+                                        <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
+                                        <span className="checkmark" />
+                                    </label>
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp ? test.mrp.split('.')[0] : ""}</span></span>
+                                </li>
+                            }
+                        })*/
+                    }
                     {
                         pickup_text ? <div className="clearfix">
 

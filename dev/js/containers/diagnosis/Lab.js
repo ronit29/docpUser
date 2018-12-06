@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData , getLabTests } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -100,7 +100,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedLocation,
         selectedCriterias,
         filterCriteria,
-        LOADED_SEARCH_CRITERIA_LAB
+        LOADED_SEARCH_CRITERIA_LAB,
+        currentLabSelectedTests
     } = state.SEARCH_CRITERIA_LABS
 
     let LABS = state.LABS
@@ -112,7 +113,8 @@ const mapStateToProps = (state, passedProps) => {
         LABS, initialServerData,
         rated_appoinments,
         profiles,
-        selectedProfile
+        selectedProfile,
+        currentLabSelectedTests
     }
 }
 
@@ -127,7 +129,8 @@ const mapDispatchToProps = (dispatch) => {
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
-        getFooterData: (url) => dispatch(getFooterData(url))
+        getFooterData: (url) => dispatch(getFooterData(url)),
+        getLabTests: (labId, testName) => dispatch(getLabTests(labId, testName))
     }
 }
 

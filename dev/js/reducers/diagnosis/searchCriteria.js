@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -20,7 +20,8 @@ const defaultState = {
     lab_test_data: {},
     locationType: 'geo',
     fetchNewResults: false,
-    corporateCoupon: ""
+    corporateCoupon: "",
+    currentLabSelectedTests: []
 }
 
 export default function (state = defaultState, action) {
@@ -49,7 +50,10 @@ export default function (state = defaultState, action) {
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
 
+                newState.currentLabSelectedTests = newState.currentLabSelectedTests || []
+
                 let found = false
+                let foundTest = false
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id].filter((curr) => {
                     if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
                         found = true
@@ -63,6 +67,24 @@ export default function (state = defaultState, action) {
                         ...action.payload.criteria,
                         type: action.payload.type
                     })
+                }
+
+                if(action.payload.criteria.add_to_common){
+
+                    newState.currentLabSelectedTests = newState.currentLabSelectedTests.filter((curr) => {
+                        if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
+                            foundTest = true
+                            return false
+                        }
+                        return true
+                    })
+
+                    if (!foundTest || action.payload.forceAdd) {
+                        newState.currentLabSelectedTests.push({
+                            ...action.payload.criteria,
+                            type: action.payload.type
+                        })
+                    }   
                 }
 
             } else {
@@ -161,6 +183,32 @@ export default function (state = defaultState, action) {
         case SET_CORPORATE_COUPON: {
             let newState = { ...state }
             newState.corporateCoupon = action.payload
+            return newState
+        }
+
+        case SAVE_CURRENT_LAB_PROFILE_TESTS: {
+            let newState = {
+                ...state
+            }
+            if(action.payload.tests && action.forceAdd){
+                newState.currentLabSelectedTests = []
+                action.payload.tests.map((test_to_toggle,i) => {
+
+                    let test = Object.assign({}, test_to_toggle)
+                    test.mrp = test_to_toggle.mrp
+                    test.deal_price = test_to_toggle.deal_price
+                    test.extra_test = true
+                    test.id = test_to_toggle.test.id
+                    test.name = test_to_toggle.test.name
+                    test.pre_test_info = test_to_toggle.test.pre_test_info
+                    test.why = test_to_toggle.test.why
+                    test.type ='test'
+                    newState.currentLabSelectedTests.push(test)
+
+                })
+            }else{
+                
+            }
             return newState
         }
 
