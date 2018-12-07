@@ -147,7 +147,7 @@ class TestSelectorView extends React.Component {
                                                 <div className="panel-content pd-0">
                                                     <ul className="list all-test-list" id="lab-tests-list">
                                                         {
-                                                            tests.map((test, i) => {
+                                                            this.state.searchString==''?tests.map((test, i) => {
                                                                 return <li key={i + "srt"}>
                                                                     <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                         {test.test.name}
@@ -157,6 +157,7 @@ class TestSelectorView extends React.Component {
                                                                     <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                 </li>
                                                             })
+                                                            :''
                                                         }
                                                         {
                                                             this.state.searchResults.length?

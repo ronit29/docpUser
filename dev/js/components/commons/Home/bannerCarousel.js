@@ -12,7 +12,7 @@ class BannerCarousel extends React.Component {
         setInterval(() => {
             let curr_index = this.state.index
             curr_index = curr_index + 1
-            if (curr_index > 2) {
+            if (curr_index > 3) {
                 curr_index = 0
             }
             this.setState({ index: curr_index })
@@ -21,7 +21,7 @@ class BannerCarousel extends React.Component {
 
     navigate() {
 
-        if (this.state.index == 1) {
+        if (this.state.index === 1) {
             let test = {}
             test.type = 'test'
             test.id = 12227
@@ -29,7 +29,17 @@ class BannerCarousel extends React.Component {
             setTimeout(() => {
                 this.props.history.push('/lab/searchresults')
             }, 100)
-        } else if (this.state.index === 2) {
+        }
+        else if (this.state.index === 2) {
+            let test = {}
+            test.type = 'test'
+            test.id = 11554
+            this.props.toggleDiagnosisCriteria('test', test, true)
+            setTimeout(() => {
+                this.props.history.push('/lab/searchresults')
+            }, 100)
+        }
+        else if (this.state.index === 3) {
             let speciality = {}
             speciality.type = 'procedures_category'
             speciality.id = 2

@@ -76,10 +76,11 @@ class DateTimeSelector extends React.Component{
         }
     }
 
-    selectTime(time,slot){
+    selectTime(time,slot,title){
         let self = this
-
-        this.setState({currentTimeSlot : time, selectedSlot: slot}, () => {
+        let timeSpan = Object.assign({}, time)
+        timeSpan.title = title
+        this.setState({currentTimeSlot : timeSpan, selectedSlot: slot}, () => {
             let data = {
                 date: self.state.selectedDateSpan,
                 month: MONTHS[self.state.selectedMonth],
@@ -138,7 +139,7 @@ class DateTimeSelector extends React.Component{
 
     }
 
-    render(){//console.log(this.props);console.log(this.state)
+    render(){
 
         let currentDate  = new Date().getDate()
 
@@ -204,8 +205,8 @@ class DateTimeSelector extends React.Component{
                                                     {
                                                         schedule.timing.map((time, i) => {
                                                             return <li key={i} className="time-slot-li-listing" onClick={
-                                                                this.selectTime.bind(this, time,i)}>
-                                                                    <p className={"time-slot-timmings"+(this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.selectedSlot == i?" time-active" :''
+                                                                this.selectTime.bind(this, time,i, schedule.title)}>
+                                                                    <p className={"time-slot-timmings"+(this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.selectedSlot == i && this.state.currentTimeSlot.title == schedule.title?" time-active" :''
                                                                         : " time-disable")}>{time.text}</p>
                                                                 </li>
                                                         })

@@ -30,7 +30,7 @@ class AppointmentSlot extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         // in case of reschedule go back , else push
-        if(this.state.selectedTimeSlot){
+        if(Object.values(this.state.selectedTimeSlot).length){
             this.selectTimeSlot(this.state.selectedTimeSlot)
         }
         if (this.state.reschedule) {
