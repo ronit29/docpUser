@@ -28,7 +28,7 @@ class ExpansionPanel extends React.Component {
             categoryId = this.props.categoryId
         }
         return (
-            <li className="expansion-panel-list-item" style={this.props.locationSearch ? { listStyle: 'none', cursor: 'auto' } : ''} >
+            <li className="expansion-panel-list-item" style={this.props.locationSearch ? { listStyle: 'none', cursor: 'auto' } : {}} >
                 <div>
                     <div className={this.props.locationSearch ? 'title lc-test-heading' : 'title'} onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0, fontSize: 15, fontWeight: 400, paddingRight: 30, position: 'relative' }} >
                         {heading}
