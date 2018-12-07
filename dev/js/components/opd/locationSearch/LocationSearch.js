@@ -8,6 +8,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId } from '../../../helpers/mapHelpers'
+import ExpansionPanel from '../../diagnosis/commons/labTests/expansionPanel';
 const queryString = require('query-string');
 
 class LocationSearch extends React.Component {
@@ -18,7 +19,10 @@ class LocationSearch extends React.Component {
             search: "",
             searchResults: [],
             detectLoading: false,
-            redirect_to: parsed.redirect_to
+            redirect_to: parsed.redirect_to,
+            defaultTest: [],
+            radioChecked: "",
+            testName: ''
         }
     }
 
@@ -75,6 +79,15 @@ class LocationSearch extends React.Component {
     componentDidMount() {
         let input = document.getElementById('topLocationSearch')
         input.focus()
+        if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
+            const parsed = queryString.parse(this.props.location.search)
+            let testIds = []
+            if (parsed.id) {
+                testIds = parsed.id.split(',').map(x => parseInt(x))
+                this.setState({ defaultTest: testIds })
+            }
+            this.props.fetchTestList(parsed.id || '');
+        }
     }
 
     detectLocation() {
@@ -118,10 +131,24 @@ class LocationSearch extends React.Component {
         router: () => null
     }
 
+    selectCategoryTests(catId, test) {
+        this.setState({ radioChecked: test.id, testName: test.name, defaultTest: [] })
+    }
+
+    doneBtnClick() {
+        var selectedTest = {}
+        if (this.state.radioChecked) {
+            selectedTest.name = this.state.testName;
+            selectedTest.id = this.state.radioChecked;
+            this.props.toggleDiagnosisCriteria('test', selectedTest, true);
+        }
+        this.props.history.go(-1);
+    }
+
     render() {
 
         return (
-            <div className="profile-body-wrap">
+            <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
                 <ProfileHeader />
                 <section className="container parent-section parent-section-temp">
                     <div className="row main-row parent-section-row">
@@ -139,7 +166,7 @@ class LocationSearch extends React.Component {
                                                 </div>
                                                 <div className="detect-my-locaiton" onClick={this.detectLocation.bind(this)}>
                                                     <span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/gps.svg"} className="img-fluid" /></span>Detect My Location
-                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -166,10 +193,36 @@ class LocationSearch extends React.Component {
                                     </div>
                                 </div>
                             </section>
+                            {
+                                this.props.location.search && this.props.location.search.includes('?lab_card=true') ?
+                                    <section className="lc-select-test widget-panel">
+                                        <h4 className="panel-title">Select Test</h4>
+                                        {
+                                            this.props.testList && this.props.testList.length ?
+                                                this.props.testList.filter(x => x.tests.length > 0).map((test, i) => {
+                                                    return <ExpansionPanel
+                                                        key={i}
+                                                        locationSearch={true}
+                                                        heading={test.category_name}
+                                                        contentList={test.tests}
+                                                        categoryId={test.category_id}
+                                                        radioChecked={this.state.radioChecked}
+                                                        selectCategory={this.selectCategoryTests.bind(this)}
+                                                        defaultTest={this.state.defaultTest}
+                                                    />
+                                                }) : ''
+                                        }
+                                        <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => this.doneBtnClick()}>Done</button>
+                                    </section> : ''
+                            }
                             <div id="map" style={{ display: 'none' }}></div>
                         </div>
 
-                        <RightBar />
+                        {
+                            this.props.location.search && this.props.location.search.includes('?lab_card=true') ?
+                                <RightBar extraClass=" chat-float-btn-2" /> :
+                                <RightBar />
+                        }
                     </div>
                 </section>
             </div>

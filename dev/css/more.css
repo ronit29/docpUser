@@ -454,9 +454,10 @@ ul.inline-list li {
 .expansion-panel-list-item{
     padding: 15px 10px !important;
     cursor: pointer;
+    border-bottom: 1px solid #d3d3d3;
 }
 
-.expansion-panel-list-item:last-child{
+.expansion-panel-list-item:last-of-type{
     border: none;
 }
 

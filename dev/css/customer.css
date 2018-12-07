@@ -1564,3 +1564,71 @@ p.rt-doc-nm{
 .carousel-indicators .indicator-selected{
     background-color: grey;
 }
+
+.lc-filter-sort-div{
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.lc-filter-div, .lc-sort-div{
+    align-items: center;
+    cursor: pointer;
+}
+
+.lc-sort-div{
+    margin-left: 32px;
+}
+
+.lc-select-test{
+    background-color: #ffffff;
+}
+
+.lc-test-list li{
+    position: relative;
+    padding-left: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.lc-test-list input:checked ~ .doc-checkmark{
+    background-color: #ffffff;
+    border: 2px solid #f78631;
+}
+
+.lc-test-list input:checked ~ .doc-checkmark:after{
+    display: block;
+}
+
+.lc-test-list .doc-checkmark:after {
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #f78631;
+}
+
+.lc-test-list .doc-checkmark{
+    position: absolute;
+    top: 1px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid #d8d5d5;
+}
+
+.lc-test-heading{
+    cursor: pointer;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+
+.lc-test-radio{
+    position: absolute;
+    right: 10px;
+    opacity: 0;
+}
