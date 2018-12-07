@@ -160,7 +160,12 @@ class TopBar extends React.Component {
                 selectedTests.push(this.props.selectedCriterias[i].id);
             }
         }
-        
+
+        let sortType = ''
+        if(this.state.sort_on){
+            sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
+        }
+
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
@@ -198,7 +203,7 @@ class TopBar extends React.Component {
                                                     <p className="fw-500 text-primary" style={{ marginLeft: 4 }}>Filter</p>
                                                 </div>
                                                 <div className="lc-sort-div d-flex" onClick={this.handleOpen.bind(this)}>
-                                                    <p className="fw-500 text-primary" style={{ marginRight: 4 }}>{this.state.sort_on === "" || !this.state.sort_on ? 'Relevance' : this.state.sort_on}</p>
+                                                    <p className="fw-500 text-primary" style={{ marginRight: 4 }}>{this.state.sort_on === "" || !this.state.sort_on ? 'Relevance' : sortType}</p>
                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/orange-down.svg"} style={{ width: 10 }} />
                                                 </div>
                                             </div>
