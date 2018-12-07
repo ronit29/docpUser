@@ -19,23 +19,23 @@ class PackageTest extends React.Component {
         let test_package = test.package || []
         return (
             <li key={i} style={{paddingRight: '0px'}} className="clearfix" key={i}>
-                <label className="ck-bx" style={{fontWeight: '400', fontSize: '14px'}} >
+                <label className="ck-bx" style={{fontWeight: '400', fontSize: '14px'}} onClick = {(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                }}>
                     <p style={{paddingRight: '120px'}} onClick={(e) => {
-                        this.props.toggleTest.bind(this, test)
-                        e.preventDefault()
-                        e.stopPropagation()
+                        this.props.toggleTest(test)
                         }}>
                     {test.test.name}
-                        <button className="pkg-info-btn" onClick={() => { toggle('showPackageInfo', test) }}>
+                        <button className="pkg-info-btn" onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation() 
+                         toggle('showPackageInfo', test) }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/info.svg"} />
                             </button>
                         
                     </p>
-                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
-                        this.props.toggleTest.bind(this, test)
-                        e.preventDefault()
-                        e.stopPropagation()
-                    }}/>
+                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} />
                     <span className="checkmark"></span>
 
                 </label>
