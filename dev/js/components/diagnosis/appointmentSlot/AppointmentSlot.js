@@ -30,7 +30,7 @@ class AppointmentSlot extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         // in case of reschedule go back , else push
-        if(this.state.selectedTimeSlot){
+        if(Object.values(this.state.selectedTimeSlot).length){
             this.selectTimeSlot(this.state.selectedTimeSlot)
         }
         if (this.state.reschedule) {
@@ -76,7 +76,7 @@ class AppointmentSlot extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section time-picker-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 

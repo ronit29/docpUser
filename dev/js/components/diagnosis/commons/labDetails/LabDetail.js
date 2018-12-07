@@ -14,6 +14,12 @@ class LabDetails extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     render() {
 
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
@@ -34,7 +40,7 @@ class LabDetails extends React.Component {
                                         </InitialsPicture>
                                     </div>
                                     <h1 className="widget-title pb-title">{name}</h1>
-                                    <p className="location">{locality} {city}
+                                    <p className="location text-black">{locality} {city}
                                         {/* <span className="ct-img ct-img-xs">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" />
                                     </span> */}

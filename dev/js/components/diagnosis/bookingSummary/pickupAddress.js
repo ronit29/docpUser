@@ -41,13 +41,13 @@ class PickupAddress extends React.Component {
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} />
-                        </span>Pickup Address</h4>
+                        </span>Select Pickup Address</h4>
                         <div className="float-right  mbl-view-formatting text-right">
                             <a href="" className="text-primary fw-700 text-sm" href="#" onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.navigateTo()
-                            }}>{addressStr ? "Change" : "Pick"}</a>
+                            }}>{addressStr ? "Change" : "Add"} Address</a>
                             <p className="date-time" style={{ position: 'relative' }}>{addressStr} {this.props.addressError == false || addressStr.length ? '' : <span className="fw-500" style={{ color: 'red', fontSize: 11, position: 'absolute', top: '-8px', right: 0 }}>Required</span>}</p>
                         </div>
                     </div>
