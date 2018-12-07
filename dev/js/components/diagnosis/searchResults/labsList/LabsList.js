@@ -97,7 +97,7 @@ class LabsList extends React.Component {
                                             labList.map((labId, i) => {
                                                 if (i == 1 && LABS[labId]) {
 
-                                                    return <div>
+                                                    return <div key={i}>
                                                         <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
                                                                 <div className="rsk-image">

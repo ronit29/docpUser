@@ -2,6 +2,7 @@ import React from 'react';
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage'
 import InitialsPicture from '../../../commons/initialsPicture'
+import { buildOpenBanner } from '../../../../helpers/utils.js'
 
 class LabResultCard extends React.Component {
     constructor(props) {
@@ -57,74 +58,6 @@ class LabResultCard extends React.Component {
         }
     }
 
-
-    buildLabTimingData(lab_timing, lab_timing_data = [], next_lab_timing, next_lab_timing_data = null) {
-        let is_open_now = false
-        let open_next_today = false
-
-        let time_now = new Date().getHours() + 0.5
-        for (let ltd of lab_timing_data) {
-            if (time_now <= ltd.end && time_now >= ltd.start) {
-                is_open_now = true
-                return <p style={{ fontSize: 12 }} >{lab_timing}</p>
-            }
-            if (time_now < ltd.start) {
-                open_next_today = ltd.start
-                open_next_today = this.decimalToTime(open_next_today)
-                break
-            }
-        }
-
-        if (open_next_today) {
-            return <p style={{ fontSize: 12 }} >Opens next at {open_next_today}, today</p>
-        }
-
-        const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        let next_open = false
-        let next_open_today = ""
-        if (next_lab_timing_data) {
-            let today = new Date()
-            let weekDayNumber = today.getDay()
-            weekDayNumber = weekDayNumber == 0 ? 6 : weekDayNumber - 1
-            for (let i in next_lab_timing_data) {
-                next_open = next_lab_timing_data[i][0].start
-                next_open = this.decimalToTime(next_open)
-                if (i - weekDayNumber == 1) {
-                    next_open_today = 'tomorrow'
-                } else {
-                    next_open_today = WEEK_DAYS[i]
-                }
-                break
-            }
-        }
-        if (next_open && next_open_today) {
-            return <p style={{ fontSize: 12 }} >Opens next at {next_open}, {next_open_today}</p>
-        }
-
-        return "Closed"
-
-    }
-
-
-    decimalToTime(time) {
-        time = time.toString()
-        let hours = time.split('.')[0]
-        let minutes = time.split('.')[1]
-        hours = parseInt(hours)
-        if (minutes == '5') {
-            minutes = ':30'
-        } else {
-            minutes = ""
-        }
-        let day_time = "AM"
-        if (hours >= 12) {
-            day_time = "PM"
-        }
-        hours = hours % 12
-        return `${hours}${minutes} ${day_time}`
-    }
-
-
     render() {
 
         let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges } = this.props.details;
@@ -167,7 +100,6 @@ class LabResultCard extends React.Component {
                                 <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
                                     <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                 </InitialsPicture>
-                                {/* <span className="fltr-rtng">Verified</span> */}
                             </div>
                             {
                                 STORAGE.checkAuth() || price < 100 ?
@@ -232,9 +164,7 @@ class LabResultCard extends React.Component {
                     }
                     <div className="text-right" style={{ marginLeft: 'auto' }}>
                         <img src="/assets/img/customer-icons/clock-black.svg" />
-                        {
-                            this.buildLabTimingData(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)
-                        }
+                        {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
                     </div>
                 </div>
             </div >
