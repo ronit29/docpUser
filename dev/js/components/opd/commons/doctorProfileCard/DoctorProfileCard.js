@@ -8,6 +8,12 @@ class DoctorProfileCard extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     getQualificationStr(qualificationSpecialization) {
         return qualificationSpecialization.reduce((str, curr, i) => {
             str += `${curr.name}`

@@ -219,7 +219,11 @@ class BookingSummaryViewNew extends React.Component {
 
             case "home": {
                 return <div>
-                    <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
+                    {
+                        patient?
+                        <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
+                        :''    
+                    }
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props}/>
                 </div>
@@ -235,11 +239,16 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
             return
+        }
+
+        if(!patient){
+            SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+            return   
         }
         if (!addressPicked) {
             this.setState({ showAddressError: true });
@@ -655,7 +664,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking ${finalDisplayPrice == 0 ? ' (₹ 0)' : finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
+                                }  onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${finalDisplayPrice == 0 ? ' (₹ 0)' : finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
                             }
 
 
