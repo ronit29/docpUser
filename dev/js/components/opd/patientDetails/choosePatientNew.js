@@ -11,7 +11,6 @@ class ChoosePatientNewView extends React.Component {
             name: '',
             phoneNumber: '',
             gender: '',
-            age: 20,
             data: false
         }
     }

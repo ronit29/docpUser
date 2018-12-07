@@ -63,21 +63,26 @@ class TestSelectorView extends React.Component {
         let selectedTests = this.props.lab_test_data[this.state.selectedLab] || []
         let selectedTestIds = selectedTests.map(x => x.id)
         let tests = []
+        let testIds = []
         let allTests = this.state.searchResults
-
+        let testVal = {}
         if (labData) {
 
             selectedTests.map((criteria) => {
                 let found = false
+                testVal = {}
                 for (let test of allTests) {
                     if (test.test.id == criteria.id) {
                         found = true
+                        testVal = test
                     }
                 }
                 if (!found) {
-                    tests.push({ ...criteria, test: criteria })
+                    testIds.push(criteria.id)
+                    tests.push({ ...criteria, test: criteria , ...testVal })
                 }
             })
+            tests = labData && labData.tests?labData.tests.filter((x=> testIds.indexOf(x.test.id)>-1)):[]
             /*selectedTests.map((criteria) => {
                 let found = false
                 for (let test of labData.tests) {
@@ -188,6 +193,18 @@ class TestSelectorView extends React.Component {
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
                                                     <ul className="list all-test-list" id="lab-tests-list">
+                                                        {
+                                                            tests.map((test, i) => {
+                                                                return <li key={i + "srt"}>
+                                                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                                                        {test.test.name}
+                                                                        <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
+                                                                        <span className="checkmark" />
+                                                                    </label>
+                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                </li>
+                                                            })
+                                                        }
                                                         {
                                                             this.state.searchResults.length?
                                                             this.state.searchResults.map((test, i) => {
