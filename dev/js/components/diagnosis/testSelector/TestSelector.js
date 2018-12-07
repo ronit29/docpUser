@@ -63,9 +63,21 @@ class TestSelectorView extends React.Component {
         let selectedTests = this.props.lab_test_data[this.state.selectedLab] || []
         let selectedTestIds = selectedTests.map(x => x.id)
         let tests = []
+        let allTests = this.state.searchResults
 
         if (labData) {
 
+            selectedTests.map((criteria) => {
+                let found = false
+                for (let test of allTests) {
+                    if (test.test.id == criteria.id) {
+                        found = true
+                    }
+                }
+                if (!found) {
+                    tests.push({ ...criteria, test: criteria })
+                }
+            })
             /*selectedTests.map((criteria) => {
                 let found = false
                 for (let test of labData.tests) {
@@ -111,12 +123,7 @@ class TestSelectorView extends React.Component {
                 </li>
             })*/
 
-            let tests = []
-
             //tests = [...selected_tests, ...searched_tests]
-            if (tests.length == 0) {
-                tests = <li>No Data Found</li>
-            }
 
         }
 

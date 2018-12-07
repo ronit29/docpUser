@@ -232,6 +232,7 @@ export default function (state = defaultState, action) {
                             test.type ='test'
                             test.lab_id = action.payload.lab.id
                             test.is_selected = false
+                            test.test = test_to_toggle.test
                             newState.currentLabSelectedTests.push(test)
                         }
                     })

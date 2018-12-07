@@ -198,7 +198,7 @@ class DateTimeSelector extends React.Component{
                                 return  schedule.timing.length?
                                         <div key={key} className="select-time-listing-container mt-20">
                                             <div className="time-shift">
-                                                {schedule.title =="Morning"?'AM':'PM'}
+                                                {schedule.title}
                                             </div>
                                             <div className="time-slot-main-listing">
                                                 <ul className="inline-list time-items">
@@ -207,7 +207,7 @@ class DateTimeSelector extends React.Component{
                                                             return <li key={i} className="time-slot-li-listing" onClick={
                                                                 this.selectTime.bind(this, time,i)}>
                                                                     <p className={"time-slot-timmings"+(this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.selectedSlot == i?" time-active" :''
-                                                                        : " time-disable")}>{time.text} </p>
+                                                                        : " time-disable")}>{time.text}</p>
                                                                 </li>
                                                         })
                                                     }
