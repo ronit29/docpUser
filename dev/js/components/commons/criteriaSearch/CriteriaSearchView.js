@@ -164,7 +164,7 @@ class CriteriaSearchView extends React.Component {
 
                             {
                                 // goback decides if search bar will be shown
-                                this.props.goBack ? "" : <div className="widget mb-10">
+                                this.props.goBack ? "" : <div className="widget mb-10 mrng-top-20">
                                     <div className="search-top-container">
                                         <p className="srch-heading">Search</p>
                                         <div className="serch-nw-inputs-container">

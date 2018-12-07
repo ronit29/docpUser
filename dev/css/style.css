@@ -1,6 +1,7 @@
 .chat-main-container {
 	position: relative;
 	top: -50px;
+
 }
 
 /*chat box style sheet*/
@@ -833,7 +834,7 @@ p.top-head-link.card-lab-link span {
 		position: relative;
 	}
 	.mrg-top {
-		margin-top: -1px;
+		margin-top: -26px;
 	}
 	.fltr-loc-txt{
 		max-width: 125px;
@@ -1053,6 +1054,10 @@ p.top-head-link.card-lab-link span {
 	}
 	.banner-content-home button.signup-btn-banner{
 		font-size:13px;
+	}
+	.chat-main-container {
+		position: relative;
+		top: -38px;
 	}
 }
 
@@ -3683,13 +3688,15 @@ padding-top: 0px !important;
 .ver-date-list-ul li{
 	display: inline-block;
     border-right: 1px solid rgba(0, 0, 0, .12);
-    padding: 0 10px;
+    padding: 0 6px;
 }
 .ver-date-list-ul li p{
 	font-weight: 500;
     text-align: center;
     color: #f78631;
-	padding: 5px;
+    padding: 5px;
+    min-width: 48px;
+    font-size: 12px;
 }
 .date-list-active{
     color: white !important;
@@ -3729,8 +3736,8 @@ padding-top: 0px !important;
 .time-slot-main-listing ul{
 
 }
-.time-slot-li-listing{
-    margin-bottom: 10px;
+ul li.time-slot-li-listing{
+    margin: 0 0 10px 0 !important;
     display: inline-block;
     border-right: 1px solid rgba(0, 0, 0, .12);
     text-align: center;
@@ -3753,7 +3760,7 @@ padding-top: 0px !important;
     text-decoration: line-through;
 }
 .mrb-15{
-	margin-bottom: 15px;
+	margin-bottom: 12px;
 }
 .select-pt-form{
 
@@ -3982,4 +3989,48 @@ ul.stc-data-ul-list li{
 .mrgn-top-12{
 	margin-top: 12px;
 }
+.header-search-full-widht{
+	display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.hed-links-search-flex{
+	flex:1;
+}
+.serch-nw-inputs.new-home-full-widht{
+	width: 100%;
+	margin-bottom: 0px !important;
+}
+.mrng-top-20{
+	margin-top:20px !important;
+}
+.mrng-top-12{
+	margin-top:12px !important;
+}
+.search-input-for-mobile{
+	margin-bottom: 0px!important; 
+}
 /* ================= Journey ui fix ====================== */
+/* ================= new search design ====================== */
+.container-top-margin{
+	margin-top: 100px;
+}
+.text-black{
+	color:#000000 !important;
+}
+@media(max-width: 992px) {
+.remove-header-height{
+	min-height: auto;
+    padding: 0px;
+}
+.container-top-margin{
+	margin-top: 70px;
+}
+}
+.nw-listing-pddng .all-test-list>li{
+padding-left: 0px;
+}
+.nw-listing-pddng ul.list{
+	margin-bottom: 10px;
+}
+/* ================= new search design ====================== */

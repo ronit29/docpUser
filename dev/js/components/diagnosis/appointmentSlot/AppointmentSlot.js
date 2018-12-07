@@ -76,7 +76,7 @@ class AppointmentSlot extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section time-picker-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 

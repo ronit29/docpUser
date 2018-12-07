@@ -40,7 +40,7 @@ export function buildOpenBanner(lab_timing, lab_timing_data = [], next_lab_timin
         }
     }
     if (next_open && next_open_today) {
-        return <p style={{ color: '#f78316', fontSize: 14 }} >Opens next at {next_open}, {next_open_today}</p>
+        return <p className="text-black" style={{ color: '#f78316', fontSize: 14 }} >Opens next at {next_open}, {next_open_today}</p>
     }
 
     return "Closed"

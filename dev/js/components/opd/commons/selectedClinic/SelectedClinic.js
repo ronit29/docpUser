@@ -31,7 +31,7 @@ class SelectedClinic extends React.Component {
         }
 
         return (
-            <div className="widget mrb-15">
+            <div className="widget mrb-15 mrng-top-12">
                 <div className="widget-header dr-qucik-info">
                     <div>
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
