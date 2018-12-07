@@ -31,7 +31,7 @@ require('../css/slider.css')
 require('../css/snackbar.css')
 require('../css/cropper.css')
 require('./helpers/lightbox/style.css')
-
+require('../css/date.css')
 require('../css/style.css')
 
 const logPageView = () => {
