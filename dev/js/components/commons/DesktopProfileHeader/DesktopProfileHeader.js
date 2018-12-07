@@ -68,8 +68,18 @@ class DesktopProfileHeader extends React.Component {
             location = this.props.selectedLocation.formatted_address.slice(0, 10)
         }
 
+        let headerClass = "doc-header header-overflow"
+
+        if(this.props.homePage){
+            headerClass = "doc-header header-relative"
+        }
+
+        if(!this.props.showSearch){
+            headerClass += " remove-header-height"
+        }
+
         return (
-            <header className={this.props.homePage ? "doc-header header-relative" : "doc-header header-overflow"} style={styles}>
+            <header className={headerClass} style={styles}>
 
                 <div className="ofr-top-header">
                     <div className="container">
@@ -100,13 +110,15 @@ class DesktopProfileHeader extends React.Component {
                             this.props.history.push('/')
                         }}>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
-                                <img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
+                                <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
+                                <img style={{width:'45px', marginBottom:'5px'}} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
                             </a>
                         </div>
 
 
                         <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
-                            <div className="head-links" onClick={() => {
+                            <div className="header-search-full-widht">
+                                {/* <div className="head-links" onClick={() => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
                                 }
@@ -125,14 +137,18 @@ class DesktopProfileHeader extends React.Component {
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
                                 <span>Book Test</span>
+                            </div> */}
+
+
+                            <div className="head-links hed-links-search-flex">
+                                <div className="serch-nw-inputs new-home-full-widht" onClick={this.openSearch.bind(this)}>
+                                    <input className="new-srch-inp" placeholder="Search" id="doc-input-field" />
+                                    <img style={{width: '18px'}} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                    <button style={{paddingLeft: '0'}} className="srch-inp-btn-img"><img style={{marginRight:'8px', width:'10px'}} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} /> Auto Detect </button>
+                                </div>
                             </div>
 
-                            {
-                                <div className="serch-nw-inputs" onClick={this.openSearch.bind(this)}>
-                                    <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" />
-                                    <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                </div>
-                            }
+
 
 
                             <div className="head-links">
@@ -177,12 +193,12 @@ class DesktopProfileHeader extends React.Component {
                                     </div>
                             }
 
-                            <div className="head-links location-item" onClick={() => {
+                            {/* <div className="head-links location-item" onClick={() => {
                                 this.goToLocation()
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>
-                                {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
+                            </div> */}
                             </div>
                         </div>
 
@@ -209,21 +225,24 @@ class DesktopProfileHeader extends React.Component {
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                     </div>
                             }
-                            <div className="head-links location-item" onClick={() => {
+                            {/* <div className="head-links location-item" onClick={() => {
                                 this.goToLocation()
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>
-                                {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
-                            </div>
+                            </div> */}
 
+
+
+                        </div>
+                        <div className="col-12 d-lg-none">
                             {
-                                this.props.showSearch ? <div className="serch-nw-inputs" onClick={this.openSearch.bind(this)}>
-                                    <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" />
-                                    <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
+                                    <input className="new-srch-inp" placeholder="Search" id="doc-input-field" />
+                                    <img style={{width: '18px'}} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                    <button style={{paddingLeft: '0'}} className="srch-inp-btn-img"><img style={{marginRight:'8px', width:'10px'}} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} /> Auto Detect </button>
                                 </div> : ""
                             }
-
                         </div>
 
 
