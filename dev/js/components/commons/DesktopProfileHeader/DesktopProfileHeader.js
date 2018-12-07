@@ -79,7 +79,7 @@ class DesktopProfileHeader extends React.Component {
         }
 
         let hideSearch = false
-        if (this.props.history.location.pathname.includes('/search')) {
+        if (this.props.history.location.pathname == '/search') {
             hideSearch = true
         }
 
@@ -211,9 +211,12 @@ class DesktopProfileHeader extends React.Component {
                             <div className="head-links">
                                 <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
                             </div>
-                            <div className="head-links" onClick={this.toggleHeaderButtons.bind(this)}>
-                                <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
-                            </div>
+                            {
+                                this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
+                                    <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
+                                </div>
+                            }
+
                             {
                                 profileData ? <div className="head-links" onClick={() => {
                                     this.props.history.push('/user')
