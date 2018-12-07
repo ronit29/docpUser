@@ -171,7 +171,7 @@ class DateTimeSelector extends React.Component {
                                         this.state.daySeries.map((day, key) => {
 
                                             return <li key={key} onClick={this.selectDate.bind(this, day.dateNumber, day.day, day.dateString, day.month, day.dateFormat)}>
-                                                <p className={day.dateNumber == this.state.currentDate ? 'date-list-active' : (this.props.timeSlots && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1] && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1].length > 0) ? 'abc' : "time-disable"}>{day.dateNumber}
+                                                <p className={day.dateNumber == this.state.currentDate? 'date-list-active' : (this.props.timeSlots && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1] && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1].length > 0)? '' : "time-disable"}>{day.dateNumber}
                                                     <span>{day.dateNumber == currentDate ? 'Today' : day.tag}</span>
                                                 </p>
                                             </li>
