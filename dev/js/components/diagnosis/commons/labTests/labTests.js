@@ -32,14 +32,14 @@ class LabTests extends React.Component {
 
     toggleTest(test_to_toggle) {
         let test = Object.assign({}, test_to_toggle)
-        test.mrp = test_to_toggle.mrp
+       /* test.mrp = test_to_toggle.mrp
         test.deal_price = test_to_toggle.deal_price
         test.extra_test = true
         test.lab_id = this.props.data.lab.id
         test.id = test_to_toggle.test.id
         test.name = test_to_toggle.test.name
         test.pre_test_info = test_to_toggle.test.pre_test_info
-        test.why = test_to_toggle.test.why
+        test.why = test_to_toggle.test.why*/
         test.add_to_common = true
 
         this.props.toggleDiagnosisCriteria('test', test)
@@ -75,7 +75,7 @@ class LabTests extends React.Component {
                             :<li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected?true:false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
@@ -106,7 +106,7 @@ class LabTests extends React.Component {
         }
 
         let defaultUnselectedTests = []
-        if (this.props.data.lab_tests && this.props.data.lab_tests.length) {
+        /*if (this.props.data.lab_tests && this.props.data.lab_tests.length) {
             
             this.props.data.lab_tests.map((test, i) => {
 
@@ -122,7 +122,7 @@ class LabTests extends React.Component {
                         </li>)
                 }
             })
-        }
+        }*/
 
         if (this.props.data.lab_tests && this.props.data.lab_tests.length && showDefaultTests) {
             defaultTests = this.props.data.lab_tests.map((test, i) => {
