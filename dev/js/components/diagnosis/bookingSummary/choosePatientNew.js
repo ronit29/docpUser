@@ -18,7 +18,7 @@ class ChoosePatientNewView extends React.Component {
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/icons/user.svg"} />
                         </span>Patient</h4>
                         <div className="float-right  mbl-view-formatting text-right">
-                            <h4 className="date-time mr-10 title">{this.props.patient ? this.props.patient.name : "No Selected Patient"}</h4>
+                            <h4 className="date-time  title">{this.props.patient ? this.props.patient.name : "No Selected Patient"}</h4>
                             <a href="" onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
