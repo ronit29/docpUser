@@ -26,7 +26,7 @@ class LabDetails extends React.Component {
                         <div className="col-12">
                             {this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} details={this.props.data.lab.unrated_appointment} /> : ""}
 
-                            <div className="widget profile-book border-bottom-radious">
+                            <div className="widget mrb-15">
                                 <div className="widget-header pb-header text-center">
                                     <div className="pb-logo">
                                         <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-lp">
@@ -54,18 +54,7 @@ class LabDetails extends React.Component {
 
                                 <LabTests {...this.props} />
 
-                                <div className="widget-content pb-details pb-location">
-                                    <h4 className="wc-title text-md fw-700">Location</h4>
-                                    <div className="address-details">
-                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700" target="_blank">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
-                                        </a>
-                                        <p className="add-info">{address}</p>
-                                    </div>
-                                    <div className="pb-view text-left">
-                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700 view-in-map" target="_blank">View in Google Map</a>
-                                    </div>
-                                </div>
+
                                 {/* <div className="widget-content pb-details pb-facility">
                                     <h4 className="wc-title text-md fw-700">Facility</h4>
                                     <ul className="list pb-list facilty-list">
@@ -75,11 +64,7 @@ class LabDetails extends React.Component {
                                         <li>Home Chekup Available</li>
                                     </ul>
                                 </div> */}
-                                <div className="widget-content pb-details pb-about">
-                                    <h4 className="wc-title text-md fw-700">About</h4>
-                                    <p>{about}
-                                    </p>
-                                </div>
+
                                 {this.props.data.lab.display_rating_widget ?
                                     <div className="widget-panel">
                                         <h4 className="panel-title mb-rmv">Patient Feedback</h4>
@@ -96,6 +81,29 @@ class LabDetails extends React.Component {
                                         </div>
                                     </div> : ""}
                             </div>
+                            <div className="widget mrb-15">
+                                <div className="widget-content pb-details pb-location">
+                                    <h4 className="wc-title text-md fw-700">Location</h4>
+                                    <div className="address-details">
+                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700" target="_blank">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
+                                        </a>
+                                        <p className="add-info">{address}</p>
+                                    </div>
+                                    <div className="pb-view text-left">
+                                        <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${long}`} className="link-text text-md fw-700 view-in-map" target="_blank">View in Google Map</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="widget mrb-15">
+                                <div className="widget-content pb-details pb-about">
+                                    <h4 className="wc-title text-md fw-700">About</h4>
+                                    <p>{about}
+                                    </p>
+                                </div>
+                            </div>
+
+
 
                         </div>
                     </div>

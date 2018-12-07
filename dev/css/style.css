@@ -3845,11 +3845,16 @@ ul.stc-data-ul-list li{
 }
 
 /* ================ static page style ================ */
+
 /* ================= Journey ui fix ====================== */
 .payment-detail.d-flex p {
     font-weight: 500;
 }
 .lab-visit-time.d-flex.jc-spaceb h4{
 	line-height: 1.7;
+}
+.lisitng-in-lab{
+    padding-left: 25px;
+    margin-top: 15px;
 }
 /* ================= Journey ui fix ====================== */

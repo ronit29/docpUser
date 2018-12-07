@@ -183,7 +183,7 @@ class LabTests extends React.Component {
                         is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests</h4>
                     }
 
-                    <ul className="list pb-list pb-test-list">
+                    <ul className="list all-test-list">
                         {selectedTests}
                         {selectedPackage}
                         {unSelectedTests}
