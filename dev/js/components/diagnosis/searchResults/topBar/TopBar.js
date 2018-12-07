@@ -188,7 +188,7 @@ class TopBar extends React.Component {
                                                         }
                                                     </p>
                                                 </div>
-                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true?${selectedTests}`)}>
+                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
                                                     <p className="fw-500 text-primary" style={{ fontSize: 14 }} >Change</p>
                                                 </div>
                                             </div>

@@ -20,7 +20,9 @@ class LocationSearch extends React.Component {
             searchResults: [],
             detectLoading: false,
             redirect_to: parsed.redirect_to,
-            radioChecked: {}
+            defaultTest: [],
+            radioChecked: "",
+            testName: ''
         }
     }
 
@@ -78,8 +80,13 @@ class LocationSearch extends React.Component {
         let input = document.getElementById('topLocationSearch')
         input.focus()
         if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
-            let testIds = this.props.location.search.split('?')[2];
-            this.props.fetchTestList(testIds);
+            const parsed = queryString.parse(this.props.location.search)
+            let testIds = []
+            if (parsed.id) {
+                testIds = parsed.id.split(',').map(x => parseInt(x))
+                this.setState({ defaultTest: testIds })
+            }
+            this.props.fetchTestList(parsed.id || '');
         }
     }
 
@@ -124,21 +131,22 @@ class LocationSearch extends React.Component {
         router: () => null
     }
 
-    selectCategoryTests(catId, testId, testName) {
-        let categoryTests = this.state.radioChecked
-        categoryTests[catId] = testId
-        this.setState({ radioChecked: categoryTests })
+    selectCategoryTests(catId, test) {
+        this.setState({ radioChecked: test.id, testName: test.name, defaultTest: [] })
     }
 
     doneBtnClick() {
-        let selectedTests = this.state.radioChecked
-        let testIds = []
-        for (var key in selectedTests) {
-            testIds.push(selectedTests[key]);
+        var selectedTest = {}
+        if (this.state.radioChecked) {
+            selectedTest.name = this.state.testName;
+            selectedTest.id = this.state.radioChecked;
+            this.props.toggleDiagnosisCriteria('test', selectedTest, true);
         }
+        this.props.history.go(-1);
     }
 
     render() {
+
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
                 <ProfileHeader />
@@ -200,6 +208,7 @@ class LocationSearch extends React.Component {
                                                         categoryId={test.category_id}
                                                         radioChecked={this.state.radioChecked}
                                                         selectCategory={this.selectCategoryTests.bind(this)}
+                                                        defaultTest={this.state.defaultTest}
                                                     />
                                                 }) : ''
                                         }

@@ -458,7 +458,7 @@ export const applyCoupons = (productId = '', couponData, couponId, hospitalId) =
 }
 
 export const fetchTestList = (testIds, cb) => (dispatch) => {
-	let url = `/api/v1/diagnostic/lab-test-category-list`
+	let url = `/api/v1/diagnostic/test/category`
 	if (testIds) {
 		url += `?lab_tests=${testIds}`
 	}

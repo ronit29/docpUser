@@ -1579,6 +1579,10 @@ p.rt-doc-nm{
     margin-left: 32px;
 }
 
+.lc-select-test{
+    background-color: #ffffff;
+}
+
 .lc-test-list li{
     position: relative;
     padding-left: 24px;

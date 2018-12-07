@@ -6,8 +6,7 @@ class ExpansionPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: false,
-            radioChecked: {}
+            open: false
         }
     }
 
@@ -15,11 +14,8 @@ class ExpansionPanel extends React.Component {
         this.setState({ open: !this.state.open })
     }
 
-    radioClick = (cat_id, test_id, test_name) => {
-        let test_selected = this.state.radioChecked
-        test_selected[cat_id] = test_id
-        this.props.selectCategory(cat_id, test_id, test_name)
-        this.setState({ radioChecked: test_selected })
+    radioClick = (cat_id, test) => {
+        this.props.selectCategory(cat_id, test)
     }
 
     render() {
@@ -52,8 +48,8 @@ class ExpansionPanel extends React.Component {
                                     <ul className='lc-test-list mrt-10'>
                                         {
                                             contentList.map((cont, i) => {
-                                                return <li key={i} onClick={() => this.radioClick(categoryId, cont.id, cont.name)}>
-                                                    <input className="lc-test-radio" type='radio' checked={this.state.radioChecked[categoryId] === cont.id} name={categoryId} />
+                                                return <li key={i} onClick={() => this.radioClick(categoryId, cont)}>
+                                                    <input className="lc-test-radio" type='radio' value={cont.id} checked={this.props.radioChecked === cont.id || this.props.defaultTest.includes(cont.id)} name='test' />
                                                     <span className="doc-checkmark"></span>
                                                     {cont.name}
                                                 </li>
