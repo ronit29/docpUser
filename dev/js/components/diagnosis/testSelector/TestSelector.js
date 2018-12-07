@@ -66,7 +66,7 @@ class TestSelectorView extends React.Component {
 
         if (labData) {
 
-            selectedTests.map((criteria) => {
+            /*selectedTests.map((criteria) => {
                 let found = false
                 for (let test of labData.tests) {
                     if (test.test.id == criteria.id) {
@@ -109,10 +109,11 @@ class TestSelectorView extends React.Component {
                     </label>
                     <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                 </li>
-            })
+            })*/
 
-            tests = [...selected_tests, ...searched_tests]
+            let tests = []
 
+            //tests = [...selected_tests, ...searched_tests]
             if (tests.length == 0) {
                 tests = <li>No Data Found</li>
             }
@@ -180,7 +181,20 @@ class TestSelectorView extends React.Component {
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
                                                     <ul className="list all-test-list" id="lab-tests-list">
-                                                        {tests}
+                                                        {
+                                                            this.state.searchResults.length?
+                                                            this.state.searchResults.map((test, i) => {
+                                                                return <li key={i + "srt"}>
+                                                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                                                        {test.test.name}
+                                                                        <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
+                                                                        <span className="checkmark" />
+                                                                    </label>
+                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                </li>
+                                                            })
+                                                            :''
+                                                        }
                                                     </ul>
                                                 </div>
                                             </div>
