@@ -83,53 +83,6 @@ class TestSelectorView extends React.Component {
                 }
             })
             tests = labData && labData.tests?labData.tests.filter((x=> testIds.indexOf(x.test.id)>-1)):[]
-            /*selectedTests.map((criteria) => {
-                let found = false
-                for (let test of labData.tests) {
-                    if (test.test.id == criteria.id) {
-                        found = true
-                    }
-                }
-                if (!found) {
-                    labData.tests.push({ ...criteria, test: criteria })
-                }
-            })
-
-            let selected_tests = labData.tests.map((test, i) => {
-                if (selectedTestIds.indexOf(test.test.id) > -1) {
-                    return <li key={i + "st"}>
-                        <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                            {test.test.name}
-                            <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
-                            <span className="checkmark" />
-                        </label>
-                        <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp ? test.mrp.split('.')[0] : ""}</span></span>
-                    </li>
-                }
-            })
-
-            let searched_tests = this.state.searchResults.filter((test) => {
-                let not_found = true
-                for (let criteria of selectedTests) {
-                    if (test.test.id == criteria.id) {
-                        not_found = false
-                        break
-                    }
-                }
-                return not_found
-            }).map((test, i) => {
-                return <li key={i + "srt"}>
-                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                        {test.test.name}
-                        <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
-                        <span className="checkmark" />
-                    </label>
-                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                </li>
-            })*/
-
-            //tests = [...selected_tests, ...searched_tests]
-
         }
 
         // hide and show "more" code below :

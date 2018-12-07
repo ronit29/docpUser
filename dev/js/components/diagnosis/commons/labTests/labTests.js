@@ -32,14 +32,6 @@ class LabTests extends React.Component {
 
     toggleTest(test_to_toggle) {
         let test = Object.assign({}, test_to_toggle)
-       /* test.mrp = test_to_toggle.mrp
-        test.deal_price = test_to_toggle.deal_price
-        test.extra_test = true
-        test.lab_id = this.props.data.lab.id
-        test.id = test_to_toggle.test.id
-        test.name = test_to_toggle.test.name
-        test.pre_test_info = test_to_toggle.test.pre_test_info
-        test.why = test_to_toggle.test.why*/
         test.add_to_common = true
 
         this.props.toggleDiagnosisCriteria('test', test)
@@ -103,12 +95,6 @@ class LabTests extends React.Component {
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                             </li>)
                     }
-/*
-                    <li className="clearfix" key={i}>
-                        {
-                            test.hide_price ? <span className="test-price">Free</span> : <span className="test-price">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                        }
-                        <span className="fw-500 text-md test-name-item ">{test.test.name}</span></li>*/
                 }
             })
             selectedTestIds = this.props.currentLabSelectedTests.map(x => x.test_id)
@@ -126,25 +112,6 @@ class LabTests extends React.Component {
                 totalAmount = totalAmount + this.props.currentLabSelectedTests[i].deal_price;
             }
         }
-
-        let defaultUnselectedTests = []
-        /*if (this.props.data.lab_tests && this.props.data.lab_tests.length) {
-            
-            this.props.data.lab_tests.map((test, i) => {
-
-                if(selectedTestIds.indexOf(test.test_id)==-1 && selectedTestIds.length + defaultUnselectedTests.length<5){
-
-                defaultUnselectedTests.push(<li key={i + "srt"}>
-                            <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                {test.test.name}
-                                <input type="checkbox" onChange={this.toggleTest.bind(this, test)} />
-                                <span className="checkmark" />
-                            </label>
-                            <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                        </li>)
-                }
-            })
-        }*/
 
         if (this.props.data.lab_tests && this.props.data.lab_tests.length && showDefaultTests) {
             defaultTests = this.props.data.lab_tests.map((test, i) => {
@@ -189,20 +156,6 @@ class LabTests extends React.Component {
                         {unSelectedTests}
                         {unSelectedPackage}
                     </ul>
-                    {
-                        /*let selected_tests = labData.tests.map((test, i) => {
-                            if (selectedTestIds.indexOf(test.test.id) > -1) {
-                                return <li key={i + "st"}>
-                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                        {test.test.name}
-                                        <input type="checkbox" checked={true} onChange={this.toggleTest.bind(this, test)} />
-                                        <span className="checkmark" />
-                                    </label>
-                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp ? test.mrp.split('.')[0] : ""}</span></span>
-                                </li>
-                            }
-                        })*/
-                    }
                     {
                         pickup_text ? <div className="clearfix">
 

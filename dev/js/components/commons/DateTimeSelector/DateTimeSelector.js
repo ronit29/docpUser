@@ -69,9 +69,8 @@ class DateTimeSelector extends React.Component{
     }
 
     pickDate(){
-        let selectedDate = new Date(this.state.pickedDate)
-        if(selectedDate){
-
+        if(this.state.pickedDate){
+            let selectedDate = new Date(this.state.pickedDate)
             this.generateDays(true,selectedDate)
             this.selectDate(selectedDate.getDate(), selectedDate.getDay(), new Date(selectedDate).toDateString(), selectedDate.getMonth(), selectedDate) 
         }
