@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLocation } from '../../actions/index.js'
+import { selectLocation, fetchTestList } from '../../actions/index.js'
 import LocationSearchView from '../../components/opd/locationSearch/index.js'
 
 class LocationSearch extends React.Component {
@@ -26,14 +26,19 @@ const mapStateToProps = (state) => {
         selectedLocation
     } = state.SEARCH_CRITERIA_OPD
 
+    const {
+        testList
+    } = state.USER
+
     return {
-        selectedLocation
+        selectedLocation, testList
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectLocation: (location,type) => dispatch(selectLocation(location,type))
+        selectLocation: (location, type) => dispatch(selectLocation(location, type)),
+        fetchTestList: (testIds) => dispatch(fetchTestList(testIds))
     }
 }
 

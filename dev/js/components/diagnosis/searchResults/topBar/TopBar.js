@@ -154,6 +154,13 @@ class TopBar extends React.Component {
 
     render() {
 
+        var selectedTests = []
+        if (this.props.selectedCriterias.length) {
+            for (var i = 0; i < this.props.selectedCriterias.length; i++) {
+                selectedTests.push(this.props.selectedCriterias[i].id);
+            }
+        }
+        
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
@@ -181,7 +188,7 @@ class TopBar extends React.Component {
                                                         }
                                                     </p>
                                                 </div>
-                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push('/locationsearch?lab_card=true')}>
+                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true?${selectedTests}`)}>
                                                     <p className="fw-500 text-primary" style={{ fontSize: 14 }} >Change</p>
                                                 </div>
                                             </div>

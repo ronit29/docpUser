@@ -19,7 +19,8 @@ class LocationSearch extends React.Component {
             search: "",
             searchResults: [],
             detectLoading: false,
-            redirect_to: parsed.redirect_to
+            redirect_to: parsed.redirect_to,
+            radioChecked: {}
         }
     }
 
@@ -76,6 +77,10 @@ class LocationSearch extends React.Component {
     componentDidMount() {
         let input = document.getElementById('topLocationSearch')
         input.focus()
+        if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
+            let testIds = this.props.location.search.split('?')[2];
+            this.props.fetchTestList(testIds);
+        }
     }
 
     detectLocation() {
@@ -119,10 +124,23 @@ class LocationSearch extends React.Component {
         router: () => null
     }
 
-    render() {
+    selectCategoryTests(catId, testId, testName) {
+        let categoryTests = this.state.radioChecked
+        categoryTests[catId] = testId
+        this.setState({ radioChecked: categoryTests })
+    }
 
+    doneBtnClick() {
+        let selectedTests = this.state.radioChecked
+        let testIds = []
+        for (var key in selectedTests) {
+            testIds.push(selectedTests[key]);
+        }
+    }
+
+    render() {
         return (
-            <div className="profile-body-wrap">
+            <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
                 <ProfileHeader />
                 <section className="container parent-section parent-section-temp">
                     <div className="row main-row parent-section-row">
@@ -168,20 +186,34 @@ class LocationSearch extends React.Component {
                                 </div>
                             </section>
                             {
-                                this.props.location.search && this.props.location.search === '?lab_card=true' ?
+                                this.props.location.search && this.props.location.search.includes('?lab_card=true') ?
                                     <section className="lc-select-test widget-panel">
                                         <h4 className="panel-title">Select Test</h4>
-                                        <ExpansionPanel
-                                            locationSearch={true}
-                                            heading='blah'
-                                            contentList={['abc', 'def', 'ghi', 'jkl']}
-                                        />
+                                        {
+                                            this.props.testList && this.props.testList.length ?
+                                                this.props.testList.filter(x => x.tests.length > 0).map((test, i) => {
+                                                    return <ExpansionPanel
+                                                        key={i}
+                                                        locationSearch={true}
+                                                        heading={test.category_name}
+                                                        contentList={test.tests}
+                                                        categoryId={test.category_id}
+                                                        radioChecked={this.state.radioChecked}
+                                                        selectCategory={this.selectCategoryTests.bind(this)}
+                                                    />
+                                                }) : ''
+                                        }
+                                        <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => this.doneBtnClick()}>Done</button>
                                     </section> : ''
                             }
                             <div id="map" style={{ display: 'none' }}></div>
                         </div>
 
-                        <RightBar />
+                        {
+                            this.props.location.search && this.props.location.search.includes('?lab_card=true') ?
+                                <RightBar extraClass=" chat-float-btn-2" /> :
+                                <RightBar />
+                        }
                     </div>
                 </section>
             </div>

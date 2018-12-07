@@ -6,7 +6,8 @@ class ExpansionPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: false
+            open: false,
+            radioChecked: {}
         }
     }
 
@@ -14,11 +15,21 @@ class ExpansionPanel extends React.Component {
         this.setState({ open: !this.state.open })
     }
 
-    render() {
+    radioClick = (cat_id, test_id, test_name) => {
+        let test_selected = this.state.radioChecked
+        test_selected[cat_id] = test_id
+        this.props.selectCategory(cat_id, test_id, test_name)
+        this.setState({ radioChecked: test_selected })
+    }
 
+    render() {
+        let categoryId = ''
         let { heading, contentList } = this.props
         if (contentList && contentList.length && !this.props.locationSearch) {
             heading += `  (includes ${contentList.length} tests)`
+        }
+        if (this.props.locationSearch) {
+            categoryId = this.props.categoryId
         }
         return (
             <li className="expansion-panel-list-item" style={this.props.locationSearch ? { listStyle: 'none', cursor: 'auto' } : ''} >
@@ -38,13 +49,13 @@ class ExpansionPanel extends React.Component {
                             }
                             {
                                 this.props.locationSearch ?
-                                    <ul className='lc-test-list'>
+                                    <ul className='lc-test-list mrt-10'>
                                         {
                                             contentList.map((cont, i) => {
-                                                return <li key={i}>
-                                                    <input className="lc-test-radio" type='radio' name='radio' />
+                                                return <li key={i} onClick={() => this.radioClick(categoryId, cont.id, cont.name)}>
+                                                    <input className="lc-test-radio" type='radio' checked={this.state.radioChecked[categoryId] === cont.id} name={categoryId} />
                                                     <span className="doc-checkmark"></span>
-                                                    {cont}
+                                                    {cont.name}
                                                 </li>
                                             })
                                         }
