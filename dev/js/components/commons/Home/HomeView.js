@@ -296,7 +296,7 @@ class HomeView extends React.Component {
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                 }} setDefault={true} />
 
-                <ProfileHeader homePage={true} />
+                <ProfileHeader homePage={true} showSearch={true} />
 
                 <div className="sub-header mrg-top"></div>
                 <div className="chat-main-container">
@@ -308,7 +308,7 @@ class HomeView extends React.Component {
                     <Accordian />
                 </div>
 
-                
+
 
                 <Footer specialityFooterData={this.state.specialityFooterData} />
 

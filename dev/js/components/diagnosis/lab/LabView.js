@@ -70,7 +70,7 @@ class LabView extends React.Component {
         }
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader />
+                <ProfileHeader showSearch={true} />
                 <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />

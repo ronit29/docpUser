@@ -81,21 +81,6 @@ class SearchCriteriaView extends React.Component {
                             toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                         />
 
-                        {/* <CommonlySearched
-                            heading="Common Conditions"
-                            type="condition"
-                            data={this.props.common_conditions}
-                            selected={this.props.selectedCriterias.filter(x => x.type == 'condition')}
-                            toggle={this.props.toggleDiagnosisCriteria.bind(this)}
-                        /> */}
-
-                        {/* <CommonlySearched
-                            heading="Common Labs"
-                            type="lab"
-                            data={this.props.preferred_labs}
-                        /> */}
-
-
                         <button onClick={this.showLabs.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn">Show Labs</button>
                     </section>
                 </CriteriaSearch>

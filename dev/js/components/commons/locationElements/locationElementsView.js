@@ -37,12 +37,24 @@ class LocationElementsView extends React.Component {
         if (!this.props.isTopbar) {
             if (document.getElementById('doc-input-field')) {
                 document.getElementById('doc-input-field').addEventListener('focusin', () => {
-                    this.props.getCityListLayout()
-                    this.setState({ location_object: null, search: '' })
+                    let search_val = ""
+                    if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+                        search_val = this.props.locationName || this.props.selectedLocation.formatted_address
+                    }
+                    if (this.state.search == search_val) {
+                        this.props.getCityListLayout()
+                        this.setState({ location_object: null, search: '' })
+                    }
                 })
 
                 document.getElementById('doc-input-field').addEventListener('focusout', () => {
-                    this.setState({ location_object: null, search: '' })
+                    if (!this.state.search) {
+                        if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+                            this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
+                        }
+                        this.props.getCityListLayout()
+                    }
+                    // this.setState({ location_object: null, search: '' })
                 })
             }
         }
@@ -70,6 +82,10 @@ class LocationElementsView extends React.Component {
     }
 
     inputHandler(e) {
+        if (!e.target.value) {
+            this.props.getCityListLayout()
+        }
+
         this.setState({
             search: e.target.value
         })
@@ -158,6 +174,14 @@ class LocationElementsView extends React.Component {
     }
 
     render() {
+
+        if (this.props.commonSearchPage) {
+            return <div className="serch-nw-inputs">
+                <input className="new-srch-inp" placeholder="location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" />
+                <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />
+                <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
+            </div>
+        }
 
         return (
             // toggle class : 'doc-select-none'

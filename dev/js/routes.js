@@ -34,13 +34,14 @@ import Lab from './containers/diagnosis/Lab.js'
 import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
 import TestSelector from './containers/diagnosis/TestSelector'
 import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
+import HealthPackage from './containers/diagnosis/HealthPackage';
 
 import AgentLogin from './containers/commons/agentLogin.js'
 import DirectBooking from './containers/commons/directBooking.js'
 import CouponSelectNewView from './containers/commons/CouponsView.js'
 import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
-import HealthPackage from './containers/diagnosis/HealthPackage';
+import Search from './containers/commons/search'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -64,6 +65,7 @@ const routes = [
     { path: `/all-medicines`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: '/payment/:id', exact: true, component: Payment },
     { path: '/mobileviewchat', exact: true, component: MobileViewChat },
+    { path: '/search', exact: true, component: Search },
 
     { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
@@ -99,15 +101,15 @@ const routes = [
     { path: '/careers', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/media', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/doctorsignup', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
-    { path: '/health-package-compare', exact: true, component: HealthPackage, RENDER_ON_SERVER: true },    
+    { path: '/health-package-compare', exact: true, component: HealthPackage, RENDER_ON_SERVER: true },
 
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },
 
-    { path: '/speciality-inventory', exact :true, component: SpecializationSiteMap , RENDER_ON_SERVER: true },
-    { path: '/speciality-inventory/:speciality', exact :true, component: SpecializationSiteMap , RENDER_ON_SERVER: true },
-    { path: '/city-inventory', exact :true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
-    { path: '/city-inventory/:city', exact:true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
+    { path: '/speciality-inventory', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
+    { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
+    { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
+    { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
 
     { path: '*', component: NotFound, NO_MATCH: true },
 ]

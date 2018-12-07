@@ -34,13 +34,13 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo']
+    whitelist: ['chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType']
 }
 
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults','getNewUrl','commonProcedurers']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers']
 }
 
 const LAB_SEARCH_PERSIST = {

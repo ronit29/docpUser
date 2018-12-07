@@ -30,7 +30,7 @@ class CommonlySearched extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
-        } else if(this.props.type == 'procedures_category'){
+        } else if (this.props.type == 'procedures_category') {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'CommonProcedureCategoriesSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedure-category-selected', 'selected': row.name || '', 'selectedId': row.id || ''
             }
@@ -43,24 +43,12 @@ class CommonlySearched extends React.Component {
     render() {
 
         let rows = this.props.data.map((row, i) => {
-            if (this.props.type == 'lab') {
+            if (this.props.selectedPills) {
                 return <li key={i}>
-                    <span
-                        className="ct-img lab-img"
-                        onClick={() => {
-
-                        }}
-                    >
-                        <img src={ASSETS_BASE_URL + "/img/customer-icons/lab1.png"} className="img-fluid" />
-                    </span>
-                    <p className="lab-name">SLR Dignostics</p>
-                </li>
-            } else if (this.props.selectedPills) {
-                return <li key={i} className="selected-content-list-item">
-                    <p className="fw-500">{row.name}</p>
-                    <img src={ASSETS_BASE_URL + "/img/icons/close-circle.png"} onClick={() => {
+                    <p>{row.name}</p>
+                    <img style={{ width: '15px' }} onClick={() => {
                         return this.props.toggle((this.props.type || row.type), row)
-                    }} />
+                    }} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
                 </li>
             } else {
                 let selected = false
@@ -70,37 +58,23 @@ class CommonlySearched extends React.Component {
                     }
                 })
                 return <li key={i}>
-                    <a
-                        className={selected ? "v-btn v-btn-primary tag-sm outline selected" : "v-btn v-btn-primary tag-sm outline"}
-                        onClick={this.toggle.bind(this, row)}
-                    >
-                        {row.name}
-                    </a>
+                    <p className={selected ? "click-active" : ""} onClick={this.toggle.bind(this, row)}>{row.name} </p>
+                    {
+                        selected ? "" : <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                    }
                 </li>
             }
         })
 
-        let divClass = `panel-content`
-        let ulClass = `inline-list`
-
-        if (this.props.type == 'lab') {
-            divClass = `panel-content total-labs`
-            ulClass = `inline-list lab-items`
-        }
-
-        if (this.props.selectedPills) {
-            divClass = ""
-            ulClass = "selected-content-list"
-        }
-
         return (
-
-            <div className="widget-panel">
-                <h4 className="panel-title mrb-0">{this.props.heading}</h4>
-                <div className={divClass}>
-                    <ul className={ulClass}>
-                        {rows}
-                    </ul>
+            <div className="widget mb-10">
+                <div className="common-search-container">
+                    <p className="srch-heading">{this.props.heading}</p>
+                    <div className="common-listing-cont">
+                        <ul>
+                            {rows}
+                        </ul>
+                    </div>
                 </div>
             </div>
         );

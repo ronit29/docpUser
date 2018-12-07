@@ -57,20 +57,27 @@ class CriteriaSearchView extends React.Component {
                     searchResults.conditions = searchResults.conditions.map(x => { return { ...x, type: 'condition' } })
                     searchResults.specializations = searchResults.specializations.map(x => { return { ...x, type: 'speciality' } })
                     searchResults.procedures = searchResults.procedures.map(x => { return { ...x, type: 'procedures' } }) || []
-                    let results = [
-                        {
-                            title: 'Conditions',
-                            values: searchResults.conditions
-                        },
-                        {
-                            title: 'Specializations',
-                            values: searchResults.specializations
-                        },
-                        {
-                            title: 'Procedures',
-                            values: searchResults.procedures
-                        }
-                    ]
+
+                    let results = []
+                    if (this.props.selected == 'opd') {
+                        results = [
+                            {
+                                title: 'Conditions',
+                                values: searchResults.conditions
+                            },
+                            {
+                                title: 'Specializations',
+                                values: searchResults.specializations
+                            }
+                        ]
+                    } else {
+                        results = [
+                            {
+                                title: 'Procedures',
+                                values: searchResults.procedures
+                            }
+                        ]
+                    }
                     this.setState({ searchResults: [...results], loading: false })
                 }
             })
@@ -105,7 +112,7 @@ class CriteriaSearchView extends React.Component {
                 }
                 GTM.sendEvent({ data: data })
             }
-            else if(docType == 'Procedures'){
+            else if (docType == 'Procedures') {
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.id || ''
                 }
@@ -129,7 +136,7 @@ class CriteriaSearchView extends React.Component {
         if (searchResults.length) {
             this.setState({ searchCities: searchResults })
         } else {
-            this.setState({ searchResults: [], searchValue: '' })
+            this.setState({ searchCities: [], searchValue: '' })
         }
     }
 
@@ -148,166 +155,122 @@ class CriteriaSearchView extends React.Component {
 
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader />
-                <section className="container parent-section condition-search-section">
+                <ProfileHeader showSearch={true} />
+                <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column criteria-search-header">
-                            <header style={{ zIndex: 1 }} className="skin-primary horizontal top mbl-stick search-book-header sticky-header">
-                                <div className="container-fluid">
-                                    {/* <div className="row">
-                                        <div className="col-12">
-                                            <div className="navigate-row">
-                                                <ul className="inline-list top-nav alpha-bx text-white"
-                                                    onClick={() => {
-                                                        this.props.history.go(-1)
-                                                    }}
-                                                >
-                                                    <li><span className="ct-img ct-img-sm arrow-img"><img src={ASSETS_BASE_URL + "/img/customer-icons/left-arrow.svg"} className="img-fluid" /></span></li>
-                                                    <li>
-                                                        <div className="screen-title">
-                                                            {this.props.goBack ? "Search" : ""}
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <ul className="inline-list top-nav beta-bx float-right text-right text-white"
-                                                    onClick={() => {
-                                                        this.props.history.push('/locationsearch')
-                                                    }}
-                                                >
-                                                    <li><div className="screen-title select-location-div"><span className="ct-img ct-img-sm map-marker-img"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" /></span> {location} <span><img src={ASSETS_BASE_URL + "/img/customer-icons/edit-loc.svg"} className="img-fluid" style={{width: 14, verticalAlign: '-2px', marginLeft: 4}} /></span></div></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                    {
-                                        // goback decides if search bar will be shown
-                                        this.props.goBack ? "" : <div className="row" style={{ paddingTop: 10 }}>
-                                            <div className="col-12">
-                                                <div className="search-row">
-                                                    <div className="adon-group">
-                                                        <input type="text" className="form-control input-md search-input" id="topCriteriaSearch" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                        <div className="col-12 col-md-7 col-lg-7 center-column pt-0">
+
+                            {
+                                // goback decides if search bar will be shown
+                                this.props.goBack ? "" : <div className="widget mb-10">
+                                    <div className="search-top-container">
+                                        <p className="srch-heading">Search</p>
+                                        <div className="serch-nw-inputs-container">
+
+                                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
+                                            {
+                                                this.state.searchCities.length > 0 ? "" : <div>
+                                                    <div className="serch-nw-inputs">
+                                                        <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
                                                         }} />
-                                                        <span className="ct-img ct-img-sm search-icon"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} /></span>
-                                                        {/* <div style={{display:'none'}} className="head-links location-item inner-location" onClick={() => {
-                                                            this.props.history.push('/locationsearch')
-                                                        }}>
-                                                            <img width="10px" className="m-0" src={ASSETS_BASE_URL + "/images/srch-loc.svg"} />
-                                                            <span className="loc-text-search mr-0">{location}</span>
-                                                            <img width="15px" src={ASSETS_BASE_URL + "/images/location.svg"} />
-                                                        </div> */}
+                                                        <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                    </div>
+                                                    <div className="srch-radio-btns">
+                                                        <div className="dtl-radio">
+                                                            <label className="container-radio">Doctor
+                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'opd')} checked={this.props.selected == 'opd'} name="radio" />
+                                                                <span className="doc-checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div className="dtl-radio">
+                                                            <label className="container-radio">Test
+                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'lab')} checked={this.props.selected == 'lab'} name="radio" />
+                                                                <span className="doc-checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div className="dtl-radio">
+                                                            <label className="container-radio">Dental Treatments
+                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'procedures')} checked={this.props.selected == 'procedures'} name="radio" />
+                                                                <span className="doc-checkmark"></span>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} />
-                                            </div>
+                                            }
                                         </div>
-                                    }
+                                    </div>
                                 </div>
-                            </header>
+                            }
+
                             {
                                 this.state.searchCities.length > 0 ?
                                     <section>
-                                        <div className="widget-panel">
-                                            <div className="panel-content">
-                                                <ul className="list search-result-list">
-                                                    {
-                                                        this.state.searchCities.map((result, i) => {
-                                                            return <li key={i} onClick={this.selectLocation.bind(this, result)} style={{ position: 'relative' }}>
-                                                                <a>{result.description}</a>
-                                                            </li>
-                                                        })
-                                                    }
-                                                </ul>
+                                        <div className="widget mb-10">
+                                            <div className="common-search-container">
+                                                <p className="srch-heading">Location Search</p>
+                                                <div className="common-listing-cont">
+                                                    <ul>
+                                                        {
+                                                            this.state.searchCities.map((result, i) => {
+                                                                return <li key={i}>
+                                                                    <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
+                                                                </li>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </section> : ''
                             }
                             {
-                                this.state.searchValue ?
+                                this.state.searchCities.length > 0 ? "" : <div>
+                                    {
+                                        this.state.searchValue ?
 
-                                    <section>
-                                        {
-                                            this.state.searchResults.map((cat, j) => {
-                                                if (cat.values && cat.values.length) {
-                                                    return <div className="widget-panel" key={j}>
-                                                        <h4 className="panel-title mrb-0">{cat.title}</h4>
-                                                        <div className="panel-content" style={{ padding: '0 15px' }} >
-                                                            <ul className="list search-result-list">
-                                                                {
-                                                                    cat.values.length < 1 ? <li><a>No Results Found ...</a></li> : ""
-                                                                }
-                                                                {
-                                                                    cat.values.map((curr, i) => {
-                                                                        return <li onClick={this.addCriteria.bind(this, curr, cat.title)} key={i} style={i < cat.values.length - 1 ? { borderBottom: '1px solid #d3d3d3' } : {}} >
-                                                                            <p>{curr.name}</p>
-                                                                            <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
-                                                                        </li>
-                                                                    })
-                                                                }
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                } else {
-                                                    return ""
+                                            <section>
+                                                {
+                                                    this.state.searchResults.map((cat, j) => {
+                                                        if (cat.values && cat.values.length) {
+                                                            return <div className="widget mb-10" key={j}>
+                                                                <div className="common-search-container">
+                                                                    <p className="srch-heading">{cat.title}</p>
+                                                                    <div className="common-listing-cont">
+                                                                        <ul>
+                                                                            {
+                                                                                cat.values.length < 1 ? <li>
+                                                                                    <p className="">No Results Found ...</p>
+                                                                                </li> : ""
+                                                                            }
+                                                                            {
+                                                                                cat.values.map((curr, i) => {
+                                                                                    return <li key={i}>
+                                                                                        <p className="" onClick={this.addCriteria.bind(this, curr, cat.title)}>{curr.name}</p>
+                                                                                    </li>
+                                                                                })
+                                                                            }
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        } else {
+                                                            return ""
+                                                        }
+                                                    })
                                                 }
-                                            })
-                                        }
 
-                                        {
-                                            this.props.type == 'opd' ? <div className="widget-panel">
-                                                <h4 className="panel-title mrb-0">Name Search</h4>
-                                                <div className="panel-content">
-                                                    <ul className="list search-result-list">
-                                                        <li style={{ borderBottom: '1px solid #d3d3d3' }} onClick={() => {
-
-                                                            let data = {
-                                                                'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || ''
-                                                            }
-                                                            GTM.sendEvent({ data: data })
-
-                                                            this.props.searchProceed(this.state.searchValue, "")
-                                                        }}><p>Search Doctors with name {this.state.searchValue}</p>
-                                                            <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
-                                                        </li>
-                                                        <li onClick={() => {
-
-                                                            let data = {
-                                                                'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || ''
-                                                            }
-                                                            GTM.sendEvent({ data: data })
-
-                                                            this.props.searchProceed("", this.state.searchValue)
-                                                        }}><p>Search Hospitals with name {this.state.searchValue}</p>
-                                                            <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div> : <div className="widget-panel">
-                                                    <h4 className="panel-title mrb-0">Name Search</h4>
-                                                    <div className="panel-content">
-                                                        <ul className="list search-result-list">
-                                                            <li style={{ borderBottom: '1px solid #d3d3d3' }} onClick={() => {
-
-                                                                let data = {
-                                                                    'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || ''
-                                                                }
-                                                                GTM.sendEvent({ data: data })
-
-                                                                this.props.searchProceed(this.state.searchValue)
-                                                            }}><p>Search Labs with name {this.state.searchValue}</p>
-                                                                <span style={{ height: 14 }} className="arrow-custom-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                        }
-                                    </section>
-                                    : (this.props.checkForLoad ? this.props.children : <Loader />)
+                                            </section>
+                                            : (this.props.checkForLoad ? this.props.children : <Loader />)
+                                    }
+                                </div>
                             }
+
 
                         </div>
                         {

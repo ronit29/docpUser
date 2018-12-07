@@ -42,6 +42,19 @@ class DesktopProfileHeader extends React.Component {
         this.props.history.push(location_url)
     }
 
+    openSearch() {
+        let search_back = false
+        if (this.props.location.state && this.props.location.state.search_back) {
+            search_back = true
+        }
+
+        if (search_back) {
+            this.props.history.go(-1)
+        } else {
+            this.props.history.push('/search')
+        }
+    }
+
     render() {
 
         let profileData = this.props.profiles[this.props.defaultProfile]
@@ -57,6 +70,7 @@ class DesktopProfileHeader extends React.Component {
 
         return (
             <header className={this.props.homePage ? "doc-header header-relative" : "doc-header header-overflow"} style={styles}>
+
                 <div className="ofr-top-header">
                     <div className="container">
                         <div className="d-flex justify-content-between">
@@ -73,19 +87,24 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                     </div>
                 </div>
+
+
                 <div className="smiley-img-div">
                     <img src={ASSETS_BASE_URL + "/img/customer-icons/smiley.png"} />
                 </div>
+
                 <div className="container">
                     <div className="row align-items-center">
+
                         <div className="col-lg-3 col-md-4 col-4 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
                                 <img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
                             </a>
-                            {/* <p className="d-none d-md-inline-block d-lg-inline-block lgo-text">Family Doctor <span>for Life</span></p> */}
                         </div>
+
+
                         <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
                             <div className="head-links" onClick={() => {
                                 let data = {
@@ -107,16 +126,15 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/images/flask.svg"} />
                                 <span>Book Test</span>
                             </div>
-                                {/*<div className="head-links" onClick={() => {
-                                    let data = {
-                                        'Category': 'ConsumerApp', 'Action': 'BookDentalTreatmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-dental-treatment-clicked'
-                                    }
-                                    GTM.sendEvent({ data: data })
-                                    this.props.history.push('/procedure')
-                                }}>
-                                    <img style={{ width: '17px' }} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} />
-                                    <span>Book Dental Treatment</span>
-                                </div>*/}
+
+                            {
+                                <div className="serch-nw-inputs" onClick={this.openSearch.bind(this)}>
+                                    <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" />
+                                    <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                </div>
+                            }
+
+
                             <div className="head-links">
                                 <div className="head-dropdowns">
                                     <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
@@ -167,6 +185,8 @@ class DesktopProfileHeader extends React.Component {
                                 {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
                         </div>
+
+
                         <div className="col-lg-9 col-md-8 col-8 ml-auto text-right d-lg-none pl-0">
                             <div className="head-links">
                                 <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
@@ -196,44 +216,19 @@ class DesktopProfileHeader extends React.Component {
                                 <span className="header-loc-text">{location}</span>
                                 {/* <img src={ASSETS_BASE_URL + "/images/edit.svg"} /> */}
                             </div>
+
+                            {
+                                this.props.showSearch ? <div className="serch-nw-inputs" onClick={this.openSearch.bind(this)}>
+                                    <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" />
+                                    <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                </div> : ""
+                            }
+
                         </div>
+
 
                     </div>
 
-                    {
-                        this.state.headerButtonsState ? <div className="search-show  d-lg-none">
-                            <div className="head-links" onClick={() => {
-                                let data = {
-                                    'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
-                                }
-                                GTM.sendEvent({ data: data })
-                                this.props.history.push('/opd')
-                            }}>
-                                <div className="mbl-view-drop-img"><img src={ASSETS_BASE_URL + "/images/doc.svg"} /></div>
-                                <span>Book Doctor</span>
-                            </div>
-                            <div className="head-links" onClick={() => {
-                                let data = {
-                                    'Category': 'ConsumerApp', 'Action': 'BookMedicalTestClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-medical-test-clicked'
-                                }
-                                GTM.sendEvent({ data: data })
-                                this.props.history.push('/lab')
-                            }}>
-                                <div className="mbl-view-drop-img"><img src={ASSETS_BASE_URL + "/images/flask.svg"} /></div>
-                                <span>Book Test</span>
-                            </div>
-                            {/*<div className="head-links" onClick={() => {
-                                let data = {
-                                    'Category': 'ConsumerApp', 'Action': 'BookDentalTreatmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-dental-treatment-clicked'
-                                }
-                                GTM.sendEvent({ data: data })
-                                this.props.history.push('/procedure')
-                            }}>
-                                <div className="mbl-view-drop-img"><img style={{ width: '17px' }} src={ASSETS_BASE_URL + "/img/customer-icons/white-teeth.svg"} /></div>
-                                <span>Book Dental Treatment</span>
-                            </div>*/}
-                        </div> : ""
-                    }
                     {
                         this.state.medicinePopup ?
                             <div className="search-show art-padding d-lg-none">
@@ -243,9 +238,7 @@ class DesktopProfileHeader extends React.Component {
                                 }}>
                                     <span>All Medicines</span>
                                 </a>
-                                {/* <div className="article-list mid-border">
-                                <span>All Articles</span>
-                            </div> */}
+
                                 <a className="article-list" href="/all-diseases" onClick={(e) => {
                                     e.preventDefault();
                                     this.props.history.push("/all-diseases")
