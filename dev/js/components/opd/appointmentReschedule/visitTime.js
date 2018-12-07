@@ -30,7 +30,7 @@ class VisitTime extends React.Component {
                     </a>
                 </span> */}
                 </h4>
-                <p className="date-time">{date || "No time selected"} {time.text ? "|" : ""} {time.text}</p>
+                <p className="date-time">{date || "No time selected"} {time.text ? "|" : ""} {time.text} {time.text?(time.value>=12?'PM':'AM'):''}</p>
             </div>
         );
     }
