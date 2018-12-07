@@ -38,6 +38,19 @@ class HomePageWidget extends React.Component {
                                 </div>
                             })
                         }
+
+                        {
+                            this.props.searchType ?
+                                <div className="col-4">
+                                    <div className="grid-img-cnt brdr-btm">
+                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, this.props.navTo)}>
+                                            <img className="img-fluid" src="/assets/images/vall.png" />
+                                            <span>Search more {this.props.searchType}</span>
+                                        </a>
+                                    </div>
+                                </div> : ''
+                        }
+
                     </div>
                 </div>
             </div>

@@ -14,6 +14,12 @@ class SearchView extends React.Component {
         this.state = {}
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     searchProceedOPD(doctor_name = "", hospital_name = "") {
         // handle doctor name, hospital name
         this.props.mergeOPDState({

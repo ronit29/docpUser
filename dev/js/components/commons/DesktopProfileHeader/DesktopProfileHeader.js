@@ -70,12 +70,17 @@ class DesktopProfileHeader extends React.Component {
 
         let headerClass = "doc-header header-overflow"
 
-        if(this.props.homePage){
+        if (this.props.homePage) {
             headerClass = "doc-header header-relative"
         }
 
-        if(!this.props.showSearch){
+        if (!this.props.showSearch) {
             headerClass += " remove-header-height"
+        }
+
+        let hideSearch = false
+        if (this.props.history.location.pathname.includes('/search')) {
+            hideSearch = true
         }
 
         return (
@@ -111,7 +116,7 @@ class DesktopProfileHeader extends React.Component {
                         }}>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
                                 <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
-                                <img style={{width:'45px', marginBottom:'5px'}} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
+                                <img style={{ width: '45px', marginBottom: '5px' }} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
                             </a>
                         </div>
 
@@ -139,61 +144,60 @@ class DesktopProfileHeader extends React.Component {
                                 <span>Book Test</span>
                             </div> */}
 
+                                {
+                                    hideSearch ? "" : <div className="head-links hed-links-search-flex">
+                                        <div className="serch-nw-inputs new-home-full-widht" onClick={this.openSearch.bind(this)}>
+                                            <input className="new-srch-inp" placeholder="Search ..." id="doc-input-field" />
+                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                            <button style={{ paddingLeft: '0' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} /> {location}</button>
+                                        </div>
+                                    </div>
+                                }
 
-                            <div className="head-links hed-links-search-flex">
-                                <div className="serch-nw-inputs new-home-full-widht" onClick={this.openSearch.bind(this)}>
-                                    <input className="new-srch-inp" placeholder="Search" id="doc-input-field" />
-                                    <img style={{width: '18px'}} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    <button style={{paddingLeft: '0'}} className="srch-inp-btn-img"><img style={{marginRight:'8px', width:'10px'}} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} /> Auto Detect </button>
+
+                                <div className="head-links">
+                                    <div className="head-dropdowns">
+                                        <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
+                                        <span>Articles</span>
+                                        <ul className="list-sub-menu">
+                                            <li><a href="/all-medicines" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/all-medicines")
+                                            }}>All Medicines</a></li>
+                                            {/* <li><a href="javascript:void(0);">All Articles</a></li> */}
+                                            <li><a href="/all-diseases" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/all-diseases")
+                                            }}>All Diseases</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
 
-
-
-
-                            <div className="head-links">
-                                <div className="head-dropdowns">
-                                    <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
-                                    <span>Articles</span>
-                                    <ul className="list-sub-menu">
-                                        <li><a href="/all-medicines" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-medicines")
-                                        }}>All Medicines</a></li>
-                                        {/* <li><a href="javascript:void(0);">All Articles</a></li> */}
-                                        <li><a href="/all-diseases" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-diseases")
-                                        }}>All Diseases</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            {
-                                profileData ? <div className="head-links">
-                                    <div className="head-links" onClick={() => {
-                                        this.props.history.push('/user')
+                                {
+                                    profileData ? <div className="head-links">
+                                        <div className="head-links" onClick={() => {
+                                            this.props.history.push('/user')
+                                        }}>
+                                            <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
+                                            <span className="username-overflow">{profileData.name}</span>
+                                        </div>
+                                        <div className="head-links" onClick={() => {
+                                            this.props.history.push('/notifications')
+                                        }}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
+                                            {
+                                                this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
+                                            }
+                                        </div>
+                                    </div> : <div className="head-links" onClick={() => {
+                                        this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
                                     }}>
-                                        <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
-                                        <span className="username-overflow">{profileData.name}</span>
-                                    </div>
-                                    <div className="head-links" onClick={() => {
-                                        this.props.history.push('/notifications')
-                                    }}>
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
-                                        {
-                                            this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
-                                        }
-                                    </div>
-                                </div> : <div className="head-links" onClick={() => {
-                                    this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
-                                }}>
-                                        <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
-                                        <span>Login</span>
-                                    </div>
-                            }
+                                            <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
+                                            <span>Login</span>
+                                        </div>
+                                }
 
-                            {/* <div className="head-links location-item" onClick={() => {
+                                {/* <div className="head-links location-item" onClick={() => {
                                 this.goToLocation()
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
@@ -238,9 +242,9 @@ class DesktopProfileHeader extends React.Component {
                         <div className="col-12 d-lg-none">
                             {
                                 this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
-                                    <input className="new-srch-inp" placeholder="Search" id="doc-input-field" />
-                                    <img style={{width: '18px'}} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    <button style={{paddingLeft: '0'}} className="srch-inp-btn-img"><img style={{marginRight:'8px', width:'10px'}} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} /> Auto Detect </button>
+                                    <input className="new-srch-inp" placeholder="Search ..." id="doc-input-field" />
+                                    <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                    <button style={{ paddingLeft: '0' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />{location}</button>
                                 </div> : ""
                             }
                         </div>
