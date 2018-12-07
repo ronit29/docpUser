@@ -55,6 +55,10 @@ class BannerCarousel extends React.Component {
                 'href': "/lab/searchresults?test_ids=12227&min_distance=0&lat=28.459131&long=77.072561&min_price=0&max_price=20000&sort_on=&max_distance=15&lab_name=&network_id="
             },
             {
+                'src': "/img/banners/banner_ultrasound.png",
+                'href': "/lab/searchresults?test_ids=11554"
+            },
+            {
                 'src': "/img/banners/banner_teeth.png",
                 'href': "/opd/searchresults?specializations=&conditions=&lat=28.459131&long=77.072561&min_fees=0&max_fees=1500&min_distance=0&max_distance=15&sort_on=fees&is_available=false&is_female=false&doctor_name=&hospital_name=&procedure_ids=&procedure_category_ids=2"
             }
