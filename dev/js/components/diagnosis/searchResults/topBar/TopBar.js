@@ -20,7 +20,8 @@ class TopBar extends React.Component {
             dropdown_visible: false,
             showLocationPopup: false,
             overlayVisible: false,
-            showPopupContainer: true
+            showPopupContainer: true,
+            sortText: 'Relevance'
         }
     }
 
@@ -59,7 +60,7 @@ class TopBar extends React.Component {
             sort_on: this.state.sort_on
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on==""?'relevance':this.state.sort_on
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -153,6 +154,18 @@ class TopBar extends React.Component {
 
     render() {
 
+        var selectedTests = []
+        if (this.props.selectedCriterias.length) {
+            for (var i = 0; i < this.props.selectedCriterias.length; i++) {
+                selectedTests.push(this.props.selectedCriterias[i].id);
+            }
+        }
+
+        let sortType = ''
+        if(this.state.sort_on){
+            sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
+        }
+
         let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
@@ -168,45 +181,73 @@ class TopBar extends React.Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
-                                <div className="filter-item">
-                                    <div className="action-filter">
-                                        <ul className="inline-list">
-                                            <li className="d-none d-md-inline-block">
-                                                <CopyToClipboard text={this.state.shortURL}
-                                                    onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
-                                                    <span style={{ cursor: 'pointer' }}>
-                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                                    </span>
-                                                </CopyToClipboard>
-                                            </li>
-                                            <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
-                                            <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
-                                                {
-                                                    this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
-                                                }
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div className="filter-title">
-                                        {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
+                                {
+                                    this.props.lab_card ?
+                                        <div style={{ padding: '10px 0px' }}>
+                                            <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
+                                                <div style={{ flex: 1 }}>
+                                                    <p>{this.props.count} Results found {criteriaStr ? "for" : ""}
+                                                        <span className="fw-700"> {criteriaStr}</span>
+                                                        {
+                                                            locationName ? ` in ${locationName}` : ''
+                                                        }
+                                                    </p>
+                                                </div>
+                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
+                                                    <p className="fw-500 text-primary" style={{ fontSize: 14 }} >Change</p>
+                                                </div>
+                                            </div>
+                                            <div className="d-flex lc-filter-sort-div mrt-10">
+                                                <div className="lc-filter-div d-flex" onClick={this.toggleFilter.bind(this)}>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/lc-filter.svg"} style={{ width: 18 }} />
+                                                    <p className="fw-500 text-primary" style={{ marginLeft: 4 }}>Filter</p>
+                                                </div>
+                                                <div className="lc-sort-div d-flex" onClick={this.handleOpen.bind(this)}>
+                                                    <p className="fw-500 text-primary" style={{ marginRight: 4 }}>{this.state.sort_on === "" || !this.state.sort_on ? 'Relevance' : sortType}</p>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/orange-down.svg"} style={{ width: 10 }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className="filter-item">
+                                            <div className="action-filter">
+                                                <ul className="inline-list">
+                                                    <li className="d-none d-md-inline-block">
+                                                        <CopyToClipboard text={this.state.shortURL}
+                                                            onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
+                                                            <span style={{ cursor: 'pointer' }}>
+                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                                            </span>
+                                                        </CopyToClipboard>
+                                                    </li>
+                                                    <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                                    <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
+                                                        {
+                                                            this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
+                                                        }
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div className="filter-title">
+                                                {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
 
-                                        <span onClick={() => {
-                                            this.setState({
-                                                showLocationPopup: !this.state.showLocationPopup,
-                                                searchCities: [],
-                                                showPopupContainer: true
-                                            })
-                                        }}>
+                                                <span onClick={() => {
+                                                    this.setState({
+                                                        showLocationPopup: !this.state.showLocationPopup,
+                                                        searchCities: [],
+                                                        showPopupContainer: true
+                                                    })
+                                                }}>
 
-                                            {
-                                                this.state.showLocationPopup && false ? ''
-                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
-                                            }
-                                            <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                        </span>
-
-                                    </div>
-                                </div>
+                                                    {
+                                                        this.state.showLocationPopup && false ? ''
+                                                            : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                    }
+                                                    <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                </span>
+                                            </div>
+                                        </div>
+                                }
                                 {
                                     this.state.dropdown_visible ?
                                         <div>

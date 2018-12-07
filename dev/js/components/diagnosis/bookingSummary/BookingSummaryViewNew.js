@@ -362,7 +362,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    render() {console.log('cccccccccccc');console.log(this.state);
+    render() {
         let tests = []
         let finalPrice = 0
         let finalMrp = 0

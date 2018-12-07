@@ -120,12 +120,12 @@ class ClinicSelector extends React.Component {
             //     </div>
             // </div>
             <div className="widget-panel">
-                <h4 className="panel-title mb-rmv">Dr. {name} Available at</h4>
+                <h2 className="panel-title mb-rmv">Dr. {name} Available at</h2>
                 {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.deal_price) }}>{hospital.hospital_name}
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.deal_price) }}><h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >{hospital.hospital_name}</h3>
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
@@ -158,7 +158,7 @@ class ClinicSelector extends React.Component {
                                     <div className="col-10">
                                         <div className="add-content">
                                             <span className="add-span">Address:</span>
-                                            <p>{hospital.address}</p>
+                                            <h4 className="fw-500" style={{ fontSize: 14 }}>{hospital.address}</h4>
                                         </div>
                                         <div className="add-content">
                                             <span className="add-span">Timings:</span>

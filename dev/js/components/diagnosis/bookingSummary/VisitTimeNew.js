@@ -20,7 +20,7 @@ class VisitTimeNew extends React.Component {
 
         return (
             <div className="widget mrb-15">
-                <div className="widget-content">
+                <div className="widget-content pos-relative">
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
@@ -32,11 +32,12 @@ class VisitTimeNew extends React.Component {
                             e.stopPropagation()
                             this.props.navigateTo('time')
                         }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Pick"} time slot</a>
-                        {
-                            this.props.timeError ? <span className="fw-500 time-error">Required</span> : ''
-                        }
+                        
                         </div>
                     </div>
+                        {
+                            this.props.timeError ? <span className="fw-500 time-error nw-error">Required</span> : ''
+                        }
                 </div>
             </div>
 /*

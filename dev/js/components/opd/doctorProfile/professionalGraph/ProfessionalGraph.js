@@ -17,7 +17,7 @@ class ProfessionalGraph extends React.Component {
 
         return (
             <div className="widget-panel">
-                <h2 className="panel-title" style={{ marginBottom: 0 }} >Professional Graph</h2>
+                <h2 className="panel-title" style={{ marginBottom: 0 }} >Professional Graph of Dr. {name}</h2>
                 <div className="panel-content expansion-content pd-0">
                     <ul className="list drop-down-list">
                         {

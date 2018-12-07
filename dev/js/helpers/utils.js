@@ -8,7 +8,7 @@ export function buildOpenBanner(lab_timing, lab_timing_data = [], next_lab_timin
     for (let ltd of lab_timing_data) {
         if (time_now <= ltd.end && time_now >= ltd.start) {
             is_open_now = true
-            return <p style={{ color: '#f78316', fontSize: 14 }} >{lab_timing} | <span style={{ color: 'green' }}> Open Today</span></p>
+            return <p style={{ fontSize: 12 }} >{lab_timing}</p>
         }
         if (time_now < ltd.start) {
             open_next_today = ltd.start
@@ -18,7 +18,7 @@ export function buildOpenBanner(lab_timing, lab_timing_data = [], next_lab_timin
     }
 
     if (open_next_today) {
-        return <p style={{ color: '#f78316', fontSize: 14 }} >Opens next at {open_next_today}, today</p>
+        return <p style={{ fontSize: 12 }} >Opens next at {open_next_today}, today</p>
     }
 
     const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -40,7 +40,7 @@ export function buildOpenBanner(lab_timing, lab_timing_data = [], next_lab_timin
         }
     }
     if (next_open && next_open_today) {
-        return <p className="text-black" style={{ color: '#f78316', fontSize: 14 }} >Opens next at {next_open}, {next_open_today}</p>
+        return <p style={{ fontSize: 12 }} >Opens next at {next_open}, {next_open_today}</p>
     }
 
     return "Closed"

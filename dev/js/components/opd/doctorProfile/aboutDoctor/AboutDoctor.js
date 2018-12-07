@@ -54,7 +54,7 @@ class AboutDoctor extends React.Component {
 
         return (
             <div className="widget-panel">
-                <h4 className="panel-title mb-rmv">About {name}</h4>
+                <h4 className="panel-title mb-rmv">About Dr. {name}</h4>
                 <div className="panel-content">
                     <p className="fw-10000 text-md">{this.state.lessAbout}
                         {button}
