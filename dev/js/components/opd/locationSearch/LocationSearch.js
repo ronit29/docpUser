@@ -22,7 +22,8 @@ class LocationSearch extends React.Component {
             redirect_to: parsed.redirect_to,
             defaultTest: [],
             radioChecked: "",
-            testName: ''
+            testName: '',
+            showLocationResult: true
         }
     }
 
@@ -44,7 +45,8 @@ class LocationSearch extends React.Component {
 
     inputHandler(e) {
         this.setState({
-            search: e.target.value
+            search: e.target.value,
+            showLocationResult: true
         })
         this.getLocation(e.target.value)
 
@@ -57,7 +59,7 @@ class LocationSearch extends React.Component {
                 SnackBar.show({ pos: 'bottom-center', text: "Could not select location." });
             }
         }, 5000)
-        this.setState({ detectLoading: true })
+        this.setState({ detectLoading: true, search: location.description, showLocationResult: false })
 
         _getLocationFromPlaceId(location.reference, (location_object) => {
             let data = {
@@ -67,9 +69,17 @@ class LocationSearch extends React.Component {
 
             this.props.selectLocation(location_object, 'autoComplete').then(() => {
                 if (this.state.redirect_to) {
-                    this.props.history.push(this.state.redirect_to)
+                    if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
+                        // do nothing
+                    } else {
+                        this.props.history.push(this.state.redirect_to)
+                    }
                 } else {
-                    this.props.history.go(-1)
+                    if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
+                        // do nothing
+                    } else {
+                        this.props.history.go(-1)
+                    }
                 }
                 this.setState({ detectLoading: false })
             })
@@ -106,9 +116,17 @@ class LocationSearch extends React.Component {
                     this.props.selectLocation(location_object, 'autoDetect').then(() => {
                         clearTimeout(timeout)
                         if (this.state.redirect_to) {
-                            this.props.history.push(this.state.redirect_to)
+                            if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
+                                // do nothing
+                            } else {
+                                this.props.history.push(this.state.redirect_to)
+                            }
                         } else {
-                            this.props.history.go(-1)
+                            if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
+                                // do nothing
+                            } else {
+                                this.props.history.go(-1)
+                            }
                         }
                         this.setState({ detectLoading: false })
                     })
@@ -136,11 +154,12 @@ class LocationSearch extends React.Component {
     }
 
     doneBtnClick() {
+        // debugger
         var selectedTest = {}
         if (this.state.radioChecked) {
             selectedTest.name = this.state.testName;
             selectedTest.id = this.state.radioChecked;
-            this.props.toggleDiagnosisCriteria('test', selectedTest, true);
+            this.props.toggleDiagnosisCriteria('test', selectedTest || {}, true);
         }
         this.props.history.go(-1);
     }
@@ -155,7 +174,7 @@ class LocationSearch extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 100 }}>
+                            <header className="skin-white location-detect-header" style={{ paddingTop: 90 }} >
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-12" style={{ paddingTop: 10 }}>
@@ -175,24 +194,27 @@ class LocationSearch extends React.Component {
                             {
                                 this.state.detectLoading ? <div className="fullscreen"><Loader /></div> : ""
                             }
-                            <section className="wrap locaton-detect-screen">
-                                <div className="widget-panel">
-                                    <h4 className="panel-title">Search Result</h4>
-                                    <div className="panel-content pd-0">
-                                        <ul className="list city-list">
-                                            {
-                                                this.state.searchResults.map((result, i) => {
-                                                    return <li key={i} onClick={this.selectLocation.bind(this, result)}>
-                                                        <a>{result.description}
-                                                            <span className="city-loc">City</span>
-                                                        </a>
-                                                    </li>
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </section>
+                            {
+                                this.state.searchResults && this.state.searchResults.length && this.state.showLocationResult ?
+                                    <section style={{ paddingBottom: 50, paddingTop: 0 }} className="locaton-detect-screen" >
+                                        <div className="widget-panel">
+                                            <h4 className="panel-title">Search Result</h4>
+                                            <div className="panel-content pd-0">
+                                                <ul className="list city-list">
+                                                    {
+                                                        this.state.searchResults.map((result, i) => {
+                                                            return <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                                <a>{result.description}
+                                                                    <span className="city-loc">City</span>
+                                                                </a>
+                                                            </li>
+                                                        })
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </section> : ''
+                            }
                             {
                                 this.props.location.search && this.props.location.search.includes('?lab_card=true') ?
                                     <section className="lc-select-test widget-panel">
