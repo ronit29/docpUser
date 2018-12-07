@@ -153,9 +153,9 @@ class DateTimeSelector extends React.Component{
                                         <img src={ASSETS_BASE_URL + "/img/new-cal.svg"} />
                                         <p>Select Appoinment Date</p>
                                     </div>
-                                    <div className="months-selctor">
+                                    {/* <div className="months-selctor">
                                         <span className="mnth-selcted">{this.state.daySeries && this.state.daySeries.length?MONTHS[this.state.daySeries[0].month]:''}</span>
-                                    </div> 
+                                    </div>  */}
                                 </div>
                                 <div className="vertical-date-listing">
                                     <ul className="ver-date-list-ul">
