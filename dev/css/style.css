@@ -3369,6 +3369,9 @@ border: 1px solid #aaaa;
 		margin-right: 4px;
 		border-right: 1.5px solid rgba(117, 117, 117, 0.8);
 	}
+	.mrgn-top-12{
+		margin-top: 0px !important;
+	}
 }
 
 .speciality-footer-list li:last-child{
@@ -3856,5 +3859,17 @@ ul.stc-data-ul-list li{
 .lisitng-in-lab{
     padding-left: 25px;
     margin-top: 15px;
+}
+.new-lab-test-list{
+	padding-left: 25px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.test-lab-radio{
+	padding-left: 0px;
+    margin-top: 20px;
+}
+.mrgn-top-12{
+	margin-top: 12px;
 }
 /* ================= Journey ui fix ====================== */

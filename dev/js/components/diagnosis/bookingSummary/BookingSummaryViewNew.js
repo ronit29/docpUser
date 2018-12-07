@@ -394,7 +394,7 @@ class BookingSummaryViewNew extends React.Component {
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label clearfix">
+                return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
                         is_corporate ? <span className="float-right fw-700">Free</span> : <span className="float-right fw-700">&#8377; {price}<span class="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
@@ -458,11 +458,11 @@ class BookingSummaryViewNew extends React.Component {
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
 
-                                                        <div className="widget mrb-15">
+                                                        <div className="widget mrb-15 mrgn-top-12">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title"><span>
-                                                                        <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                                                        <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>{labDetail.name}</h4>
                                                                 </div>
                                                             </div>
@@ -472,7 +472,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title"><span>
-                                                                        <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                                                        <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/flask.svg"} />
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                     {
@@ -487,8 +487,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                             {/*<div style={{ paddingTop: 0 }} className="widget-content test-report lab-appointment-div lab-visit-time mb-0 row">
                                                                                 <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
                                                                             </div>*/}
-                                                                            <div className="colorPink">
-                                                                                <div className="widget-content test-report lab-appointment-div row">
+                                                                            <div className="">
+                                                                                <div className="test-lab-radio widget-content test-report lab-appointment-div row">
 
                                                                                     <ul className="inline-list booking-type search-list-radio">
                                                                                         <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li>
@@ -503,7 +503,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </div>
 
-                                                        <div className="widget mrb-15">
+                                                        <div className="">
                                                             {this.getSelectors()}
                                                         </div>
 
@@ -526,7 +526,7 @@ class BookingSummaryViewNew extends React.Component {
 */} 
                                                         {
                                                             amtBeforeCoupon != 0 ?
-                                                                    <div className="widget mrt-10 ct-profile mb-0 skin-white cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                                    <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                         {
                                                                             labCoupons.length ?
                                                                                 <div className="widget-content  d-flex jc-spaceb" >
@@ -575,7 +575,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                         {
                                                             is_corporate ? ""
-                                                                :<div className="widget mrt-10 ct-profile mb-0 skin-white">
+                                                                :<div className="widget mrb-15">
 
                                                                     <div className="widget-content">
                                                                         <h4 className="title mb-20">Payment Summary</h4>
