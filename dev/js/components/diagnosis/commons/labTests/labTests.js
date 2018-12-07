@@ -30,18 +30,27 @@ class LabTests extends React.Component {
         this.setState({ [which]: !this.state[which], packageInfoTest: data })
     }
 
-    open
+    toggleTest(test_to_toggle) {
+        let test = Object.assign({}, test_to_toggle)
+        test.add_to_common = true
+
+        this.props.toggleDiagnosisCriteria('test', test)
+    }
 
     render() {
-        let tests = []
         let is_package = false
         let number_of_tests = 0
         let defaultTests = []
         let showDefaultTests = false
         let hide_price = false
-
-        if (this.props.data.tests && this.props.data.tests.length) {
-            tests = this.props.data.tests.map((test, i) => {
+        let selectedTestIds = []
+        let selectedTests = []
+        let selectedPackage = []
+        let unSelectedTests = []
+        let unSelectedPackage = []
+        
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
                     hide_price = true
                 }
@@ -52,15 +61,44 @@ class LabTests extends React.Component {
                 }
 
                 if (test.is_package) {
-                    return <PackageTest i={i} test={test} toggle={this.toggle.bind(this)} />
+                    if(test.is_selected){
+                        selectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)}/>)
+                    }else{
+                        unSelectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)}/>)
+                    }
+                    
                 } else {
-                    return <li className="clearfix" key={i}>
-                        {
-                            test.hide_price ? <span className="test-price">Free</span> : <span className="test-price">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                        }
-                        <span className="fw-500 text-md test-name-item /*lb-tst-cstm-pdng*/">{test.test.name}</span></li>
+                    if(test.is_selected){
+                        selectedTests.push(test.hide_price
+                            ?<li className="clearfix" key={i}>
+                               <span className="test-price">Free</span> 
+                             </li>
+                            :<li key={i + "srt"}>
+                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                    {test.test.name}
+                                    <input type="checkbox" checked={test.is_selected?true:false} onChange={this.toggleTest.bind(this, test)} />
+                                    <span className="checkmark" />
+                                </label>
+                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                            </li>)
+                    }else{
+                        unSelectedTests.push(test.hide_price
+                            ?<li className="clearfix" key={i}>
+                               <span className="test-price">Free</span> 
+                             </li>
+                            :<li key={i + "srt"}>
+                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                    {test.test.name}
+                                    <input type="checkbox" checked={test.is_selected?true:false} onChange={this.toggleTest.bind(this, test)} />
+                                    <span className="checkmark" />
+                                </label>
+                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                            </li>)
+                    }
                 }
             })
+            selectedTestIds = this.props.currentLabSelectedTests.map(x => x.test_id)
+            
         }
 
         const parsed = queryString.parse(this.props.location.search)
@@ -69,9 +107,9 @@ class LabTests extends React.Component {
         }
 
         let totalAmount = 0;
-        if (this.props.data.tests && this.props.data.tests.length) {
-            for (var i = 0; i < this.props.data.tests.length; i++) {
-                totalAmount = totalAmount + this.props.data.tests[i].deal_price;
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            for (var i = 0; i < this.props.currentLabSelectedTests.length; i++) {
+                totalAmount = totalAmount + this.props.currentLabSelectedTests[i].deal_price;
             }
         }
 
@@ -112,8 +150,11 @@ class LabTests extends React.Component {
                         is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests</h4>
                     }
 
-                    <ul className="list pb-list pb-test-list">
-                        {tests}
+                    <ul className="list all-test-list">
+                        {selectedTests}
+                        {selectedPackage}
+                        {unSelectedTests}
+                        {unSelectedPackage}
                     </ul>
                     {
                         pickup_text ? <div className="clearfix">

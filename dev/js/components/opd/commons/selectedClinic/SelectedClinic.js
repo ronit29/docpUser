@@ -31,15 +31,15 @@ class SelectedClinic extends React.Component {
         }
 
         return (
-            <div className="widget mrt-10 ct-profile skin-white" style={this.props.boxShadowHide ? { boxShadow: 'none' } : { boxShadow: '' }}>
+            <div className="widget mrb-15">
                 <div className="widget-header dr-qucik-info">
-                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
-                        <img src={thumbnail} className="img-fluid img-round" />
-                    </InitialsPicture>
-
+                    <div>
+                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
+                            <img src={thumbnail} className="img-fluid img-round" />
+                        </InitialsPicture>
+                    </div>
                     <div className="dr-profile mrt-10">
                         <h1 className="dr-name">{display_name}</h1>
-                        {/* {this.props.boxShadowHide ?'':<p className="desg">{this.getQualificationStr(general_specialization) || []}</p>} */}
                         <p className="clinic-name text-sm">{hospitalName}</p>
                     </div>
                 </div>

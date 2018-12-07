@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon } from '../../actions/index.js'
+import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon , createProfile, sendOTP, submitOTP} from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -9,9 +9,7 @@ import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/ind
 class BookingSummary extends React.Component {
     constructor(props) {
         super(props)
-        if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=${this.props.location.pathname}&login=lab`)
-        }
+        
     }
 
     // static loadData(store, match) {
@@ -24,14 +22,14 @@ class BookingSummary extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-
-            let testIds = this.props.lab_test_data[this.props.match.params.id] || []
-            testIds = testIds.map(x => x.id)
-
-            this.props.getLabById(this.props.match.params.id, testIds)
             this.props.getUserProfile()
             this.props.getUserAddress()
         }
+    
+        let testIds = this.props.lab_test_data[this.props.match.params.id] || []
+        testIds = testIds.map(x => x.id)
+
+        this.props.getLabById(this.props.match.params.id, testIds)
     }
 
     render() {
@@ -78,7 +76,10 @@ const mapDispatchToProps = (dispatch) => {
         resetLabCoupons: () => dispatch(resetLabCoupons()),
         getCoupons: (productId, deal_price, cb, lab_id, test_ids) => dispatch(getCoupons(productId, deal_price, cb, lab_id, test_ids)),
         applyCoupons: (productId, couponData, couponId, labId) => dispatch(applyCoupons(productId, couponData, couponId, labId)),
-        setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon))
+        setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
+        createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
+        sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
+        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb))
     }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 const queryString = require('query-string');
 
-import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
+import TimeSlotSelector from '../../commons/DateTimeSelector/index.js'
 import SelectedClinic from '../commons/selectedClinic/index.js'
 import Loader from '../../commons/Loader'
 
@@ -11,6 +11,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 
+//import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
 
 class AppointmentSlot extends React.Component {
     constructor(props) {
@@ -21,7 +22,9 @@ class AppointmentSlot extends React.Component {
             reschedule: this.props.location.search.includes('reschedule'),
             goback: this.props.location.search.includes('goback'),
             timeSlots: null,
-            doctor_leaves: []
+            doctor_leaves: [],
+            enableProceed: false,
+            selectedTimeSlot: {}
         }
     }
 
@@ -33,7 +36,9 @@ class AppointmentSlot extends React.Component {
             'Category':'ConsumerApp','Action':'UserCickedSelectedButton','CustomerID':GTM.getUserId()||'','leadid':0,'event':'user-clicked-select-button'}
         GTM.sendEvent({ data: data })
 
-
+        if(this.state.selectedTimeSlot){
+            this.selectTimeSlot(this.state.selectedTimeSlot)    
+        }
         // in case of reschedule go to reschedule page , else push
         if (this.state.reschedule) {
             const parsed = queryString.parse(this.props.location.search)
@@ -43,7 +48,7 @@ class AppointmentSlot extends React.Component {
         if (this.state.goback) {
             return this.props.history.go(-1)
         }
-        if (this.props.selectedSlot.date) {
+        if (this.state.selectedTimeSlot) {
             let data = {
             'Category':'ConsumerApp','Action':'OpdAppointmentDate','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-appointment-date','appointmentTime':this.props.selectedSlot.date}
             GTM.sendEvent({ data: data })
@@ -67,10 +72,26 @@ class AppointmentSlot extends React.Component {
             this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves })
         })
 
+        if(this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text){
+            this.setState({selectedTimeSlot:this.props.selectTimeSlot})
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
 
+    }
+
+    enableProceed(enable, slot={}){
+        if(enable){
+            this.setState({enableProceed: true})
+        }else{
+            if(Object.values(slot).length){
+                this.setState({enableProceed: true, selectedTimeSlot: slot})
+            }else{
+                this.setState({enableProceed: false})
+            }
+        }
     }
 
     render() {
@@ -118,6 +139,7 @@ class AppointmentSlot extends React.Component {
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 selectedSlot={this.state.reschedule ? this.props.rescheduleSlot : this.props.selectedSlot}
                                                                 doctor_leaves={this.state.doctor_leaves || []}
+                                                                enableProceed = {this.enableProceed.bind(this)}
                                                             /> : <Loader />
                                                     }
 
@@ -127,7 +149,7 @@ class AppointmentSlot extends React.Component {
                                     </section> : <Loader />
                             }
 
-                            <button disabled={!this.props.selectedSlot.date} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Select</button>
+                            <button disabled={!this.state.enableProceed} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Select</button>
                         </div>
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
