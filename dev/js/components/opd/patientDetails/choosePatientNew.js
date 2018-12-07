@@ -1,4 +1,6 @@
 import React from 'react';
+import SnackBar from 'node-snackbar'
+
 
 class ChoosePatientNewView extends React.Component {
     constructor(props) {
@@ -54,9 +56,7 @@ class ChoosePatientNewView extends React.Component {
         let self = this
         this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
 
-            if (exists == 'error') {
-                alert('invalid')
-            } else {
+            if (exists) {
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
                     self.props.createProfile(this.state, (err, res) => {
@@ -76,20 +76,41 @@ class ChoosePatientNewView extends React.Component {
     verify() {
         let self = this
 
+        if(this.state.name==''){
+
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter your Name" })
+            }, 500)
+            return 
+            //this.setState({ validationError: "Please provide a valid number (10 digits)" })
+        }
+
+        if(this.state.gender ==''){
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Select the Gender" })
+            }, 500)
+            return 
+        }
         if (this.state.phoneNumber.match(/^[789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.sendOTP(this.state.phoneNumber, (error) => {
                 if (error) {
-                    self.setState({ validationError: "Could not generate OTP." })
+                    setTimeout(() => {
+                        SnackBar.show({ pos: 'bottom-center', text: "Could not generate OTP." })
+                    }, 500)
+                    //self.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    self.setState({ showOtp: true })
+                    self.setState({ showOtp: true , showVerify: false})
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
                 }
             })
         } else {
-            this.setState({ validationError: "Please provide a valid number (10 digits)" })
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please provide a valid number (10 digits)" })
+            }, 500)
+            //this.setState({ validationError: "Please provide a valid number (10 digits)" })
         }
 
     }
