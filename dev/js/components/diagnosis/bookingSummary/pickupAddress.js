@@ -41,7 +41,7 @@ class PickupAddress extends React.Component {
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} />
-                        </span>Visit Time</h4>
+                        </span>Pickup Address</h4>
                         <div className="float-right  mbl-view-formatting text-right">
                             <a href="" className="text-primary fw-700 text-sm" href="#" onClick={(e) => {
                                 e.preventDefault()
