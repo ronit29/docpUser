@@ -3833,4 +3833,10 @@ ul.stc-data-ul-list li{
 .stc-no-cursor{
 	cursor: auto;
 }
+
 /* ================ static page style ================ */
+/* ================= Journey ui fix ====================== */
+.payment-detail.d-flex p {
+    font-weight: 500;
+}
+/* ================= Journey ui fix ====================== */
