@@ -5,7 +5,7 @@ class PackageTest extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            testListVisible: true
+            testListVisible: props.test.is_selected?true:false
         }
     }
 
@@ -26,6 +26,8 @@ class PackageTest extends React.Component {
                         }
                     </span>
                     <span className="test-name-item">
+                        <input type="checkbox" checked={this.props.test.is_selected?true:false} onChange={this.props.toggleTest.bind(this, test)} />
+                                    <span className="checkmark" />
                         <p className="pkg-info" onClick={() => this.packageNameClick()} >{test.test.name}
                             <button className="pkg-info-btn" onClick={() => { toggle('showPackageInfo', test) }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/info.svg"} />
