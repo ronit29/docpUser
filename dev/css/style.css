@@ -3872,4 +3872,21 @@ ul.stc-data-ul-list li{
 .mrgn-top-12{
 	margin-top: 12px;
 }
+.pos-relative{
+	position: relative;
+}
+.nw-error{
+	left: 15px;
+    bottom: 10px;
+    top: auto;
+}
+.info-san{
+	 margin-left: 35px;
+    font-weight: 500;
+    color: #f9783b;
+    margin-top: 5px;
+}
+.info-san span{
+	margin-right: 6px;
+}
 /* ================= Journey ui fix ====================== */
