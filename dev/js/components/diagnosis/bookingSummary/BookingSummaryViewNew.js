@@ -559,7 +559,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div className="widget-content d-flex jc-spaceb" >
                                                                                     <div className="d-flex">
                                                                                         <span className="coupon-img">
-                                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon.svg"} className="visit-time-icon" />
+                                                                                            <img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
                                                                                         </span>
                                                                                         <h4 className="title coupon-text">
                                                                                             HAVE A COUPON?

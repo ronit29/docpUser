@@ -1022,6 +1022,16 @@ p.top-head-link.card-lab-link span {
 	.banner-lft-content span.bn-down-offer {
 		margin-left: 25px !important;
 	}
+	.slt-nw-input.radio-mbl{
+		align-items: flex-start;
+	}
+	.slt-nw-input.radio-mbl label.slt-label{
+		margin-right: 10px;
+	}
+	.slt-nw-input.radio-mbl .dtl-radio{
+		display: block;
+		margin-bottom: 6px;
+	}
 }
 
 .sitemap-row{
@@ -3598,7 +3608,7 @@ border: 1px solid #aaaa;
 .time-shift{
     font-weight: 600;
     margin-right: 10px;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 .time-slot-main-listing{
 
@@ -3680,7 +3690,7 @@ border: 1px solid #aaaa;
     border: transparent;
     padding: 3px 10px;
     font-weight: 500;
-    top: 0;
+    top: -4px;
     cursor: pointer;
 }
 .resend-otp-btn{
@@ -3833,4 +3843,13 @@ ul.stc-data-ul-list li{
 .stc-no-cursor{
 	cursor: auto;
 }
+
 /* ================ static page style ================ */
+/* ================= Journey ui fix ====================== */
+.payment-detail.d-flex p {
+    font-weight: 500;
+}
+.lab-visit-time.d-flex.jc-spaceb h4{
+	line-height: 1.7;
+}
+/* ================= Journey ui fix ====================== */
