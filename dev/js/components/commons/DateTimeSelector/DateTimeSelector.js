@@ -66,8 +66,11 @@ class DateTimeSelector extends React.Component {
     }
 
     selectDate(date, day, dateString, month, dateFormat) {
-        this.setState({ currentDate: date, currentDay: day, selectedDateSpan: dateFormat, selectedMonth: month, currentTimeSlot: {} })
-        this.props.enableProceed(false, [])
+        if(date == this.state.currentDate  || (this.props.timeSlots && this.props.timeSlots[day == 0 ? 6 : day - 1] && this.props.timeSlots[day == 0 ? 6 : day - 1].length > 0) ){
+
+            this.setState({ currentDate: date, currentDay: day, selectedDateSpan: dateFormat, selectedMonth: month, currentTimeSlot: {} })
+            this.props.enableProceed(false, [])   
+        }
     }
 
     selectDateFromCalendar(date) {

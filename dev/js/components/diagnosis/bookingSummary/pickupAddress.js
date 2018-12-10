@@ -36,7 +36,7 @@ class PickupAddress extends React.Component {
         }
 
         return (
-            <div className="widget mrb-15">
+            <div className={`widget mrb-15 ${this.props.addressError == false || addressStr.length ?'':'rnd-error-nm'}`}>
                 <div className="widget-content">
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 style={{}} className="title d-flex"><span>

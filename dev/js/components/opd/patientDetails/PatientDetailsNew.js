@@ -205,13 +205,21 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
-    proceed(datePicked, e) {
+    proceed(datePicked, patient, e) {
 
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
         }
+
+        if(!patient){
+            //this.setState({ showTimeError: true });
+            SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+            return
+
+        }
+
         if(!this.state.profileDataFilled){
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return   
@@ -396,9 +404,8 @@ class PatientDetailsNew extends React.Component {
                                                                 selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                                 selectedClinic={this.state.selectedClinic}
                                                             />
-                                                            <div className="widget mrb-15">
-                                                                <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}/>
-                                                            </div>
+                                                            <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}/>
+                                                            
                                                             <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
                                                             {
                                                                 Object.values(selectedProcedures).length ?
@@ -528,7 +535,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
+                                }  onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
                             }
 
                         </div>
