@@ -18,33 +18,38 @@ class PackageTest extends React.Component {
         let { deal_price, mrp, pre_test_info } = test
         let test_package = test.package || []
         return (
-            <li key={i} style={{paddingRight: '0px'}} className="clearfix" key={i}>
-                <label className="ck-bx" style={{fontWeight: '400', fontSize: '14px'}} >
-                {test.test.name}
-                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false}  onClick={(e) => {
+            <li key={i} style={{ paddingRight: '0px' }} className="clearfix" key={i}>
+                <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
+                    <p style={{ paddingRight: '120px' }}>
+                        {test.test.name}
+                    </p>
+                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onClick={(e) => {
                         this.props.toggleTest(test)
-                        }}/>
+                    }} />
                     <span className="checkmark"></span>
 
                 </label>
-                 <p style={{paddingRight: '120px'}}>
-                    
+                <div className="pdng-left-pkg">
+                    <span style={{ paddingRight: '0px' }}>
+
                         <button className="pkg-info-btn" onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation() 
-                         toggle('showPackageInfo', test) }}>
-                                <img src={ASSETS_BASE_URL + "/img/customer-icons/info.svg"} />
-                            </button>
-                        
-                    </p>
-                <button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
-                        <span className="">{this.state.testListVisible?'Hide details':'View details'}</span>
+                            e.preventDefault()
+                            e.stopPropagation()
+                            toggle('showPackageInfo', test)
+                        }}>
+                            <img src={ASSETS_BASE_URL + "/img/customer-icons/info.svg"} />
+                        </button>
+
+                    </span>
+                    <button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
+                        <span className="">{this.state.testListVisible ? 'Hide details' : 'View details'}</span>
                     </button>
+                </div>
                 {
-                    test.hide_price ? "" :<span className="test-price text-sm">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span>
+                    test.hide_price ? "" : <span className="test-price text-sm">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span>
 
                 }
-{/*                 
+                {/*                 
                 <div>
                     <span className="test-price">
                         {

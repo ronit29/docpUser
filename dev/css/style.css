@@ -4063,7 +4063,7 @@ font-weight: 500;
     top: auto;
 }
 .info-san{
-	 margin-left: 35px;
+	 /* margin-left: 35px; */
     font-weight: 500;
     color: #f9783b;
     margin-top: 5px;
@@ -4117,6 +4117,9 @@ padding-right: 0px !important;
 }
 .family-list>li .member-details.padding-leftadjest{
 padding-left:30px !important;
+}
+.pdng-left-pkg{
+	margin-left: 27px;
 }
 /* ================= Journey ui fix ====================== */
 
