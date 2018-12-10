@@ -243,27 +243,30 @@ class DesktopProfileHeader extends React.Component {
 
                         </div>
 
-                        <div className='col-12 mrb-15'>
-                        {
-                        this.state.medicinePopup ?
-                            <div className="search-show art-padding d-lg-none">
-                                <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.props.history.push("/all-medicines")
-                                }}>
-                                    <span>All Medicines</span>
-                                </a>
 
-                                <a className="article-list" href="/all-diseases" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.props.history.push("/all-diseases")
-                                }}>
-                                    <span>All Diseases</span>
-                                </a>
-                            </div>
-                            : ''
-                    }
-                        </div>
+                        {
+
+                            this.state.medicinePopup ?
+                                <div className='col-12 mrb-15'>
+                                    <div className="search-show art-padding d-lg-none">
+                                        <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-medicines")
+                                        }}>
+                                            <span>All Medicines</span>
+                                        </a>
+
+                                        <a className="article-list" href="/all-diseases" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-diseases")
+                                        }}>
+                                            <span>All Diseases</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                : ''
+                        }
+
                         <div className="col-12 d-lg-none">
                             {
                                 this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
@@ -277,7 +280,7 @@ class DesktopProfileHeader extends React.Component {
 
                     </div>
 
-                    
+
 
                 </div>
             </header>

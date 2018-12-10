@@ -111,8 +111,8 @@ class CouponSelectionView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
-                    <div className="row main-row parent-section-row">
+                <section className="container container-top-margin">
+                    <div className="row main-row parent-section-row mrng-copn">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
