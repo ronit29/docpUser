@@ -68,7 +68,12 @@ class SearchView extends React.Component {
             this.props.filterSelectedCriteria(type)
         }
 
-        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias.filter(x => x.type.includes(type)))
+        if (type == 'opd') {
+            this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias.filter(x => !x.type.includes("procedures")))
+        } else {
+            this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias.filter(x => x.type.includes("procedures")))
+        }
+
         this.searchProceedOPD("", "")
     }
 
