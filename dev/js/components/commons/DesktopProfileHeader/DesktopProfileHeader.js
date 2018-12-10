@@ -147,7 +147,7 @@ class DesktopProfileHeader extends React.Component {
                                 {
                                     hideSearch ? "" : <div className="head-links hed-links-search-flex">
                                         <div className="serch-nw-inputs new-home-full-widht" onClick={this.openSearch.bind(this)}>
-                                            <input className="new-srch-inp" placeholder="Search ..." id="doc-input-field" />
+                                            <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" />
                                             <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                             <button style={{ paddingLeft: '0' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} /> {location}</button>
                                         </div>
@@ -245,7 +245,7 @@ class DesktopProfileHeader extends React.Component {
                         <div className="col-12 d-lg-none">
                             {
                                 this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
-                                    <input className="new-srch-inp" placeholder="Search ..." id="doc-input-field" />
+                                    <input className="new-srch-inp" placeholder="Search Doctors, Tests & Procedures" id="doc-input-field" />
                                     <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                     <button style={{ paddingLeft: '0' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />{location}</button>
                                 </div> : ""

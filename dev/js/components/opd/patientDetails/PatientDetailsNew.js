@@ -33,7 +33,8 @@ class PatientDetailsNew extends React.Component {
             order_id: false,
             couponCode: '',
             profileDataFilled: true,
-            showTimeError: false
+            showTimeError: false,
+            couponApplied: false
             // order_id: !!parsed.order_id
         }
     }
@@ -72,6 +73,14 @@ class PatientDetailsNew extends React.Component {
                     }
                 })
             }
+            if(Object.values(hospital).length){
+                this.setState({couponApplied : true})
+            }
+        }else if(this.props.selectedSlot && this.props.selectedSlot.time && Object.values(this.props.selectedSlot.time).length>0){
+            this.setState({couponApplied : true})
+        }else{
+            this.setState({couponApplied : false})
+            return 
         }
 
         if (this.props.doctorCoupons && this.props.doctorCoupons[this.state.selectedDoctor] && this.props.doctorCoupons[this.state.selectedDoctor].length) {
@@ -126,6 +135,66 @@ class PatientDetailsNew extends React.Component {
         }
 
 
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(!this.state.couponApplied && nextProps.DOCTORS[this.state.selectedDoctor]){
+            let hospital ={}
+            let doctorDetails = nextProps.DOCTORS[this.state.selectedDoctor]
+
+            if (doctorDetails) {
+                let { hospitals } = doctorDetails
+
+                if (hospitals && hospitals.length) {
+                    hospitals.map((hsptl) => {
+                        if (hsptl.hospital_id == this.state.selectedClinic) {
+                            hospital = hsptl
+                        }
+                    })
+                }
+            }
+
+            if (nextProps.doctorCoupons && nextProps.doctorCoupons[this.state.selectedDoctor] && nextProps.doctorCoupons[this.state.selectedDoctor].length) {
+                let doctorCoupons = nextProps.doctorCoupons[this.state.selectedDoctor]
+                
+                if(Object.values(hospital).length){
+                    let deal_price = hospital.deal_price
+                    this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' ,couponApplied: true})
+                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
+                }
+            } else {
+                let deal_price = 0
+                
+                if(Object.values(hospital).length){
+                    deal_price = hospital.deal_price
+                }
+
+                let treatment_Price = 0
+                if (nextProps.selectedDoctorProcedure[this.state.selectedDoctor] && nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+                    treatment_Price = nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+                }
+
+                deal_price += treatment_Price
+                //auto apply coupon if no coupon is apllied
+                if (this.state.selectedDoctor && deal_price && nextProps.couponAutoApply) {
+                    this.props.getCoupons(1, deal_price, (coupons) => {
+                        if (coupons && coupons[0]) {
+                            this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true })
+                            this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
+                            this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price)
+                        } else {
+                            this.setState({couponApplied: true})
+                            this.props.resetOpdCoupons()
+                        }
+                    })
+                } else {
+                    this.setState({couponApplied: true})
+                    this.props.resetOpdCoupons()
+                }
+            }
+
+        }
     }
 
     profileDataCompleted(data){
