@@ -44,10 +44,10 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     componentDidMount() {
-
+/*
         if (!STORAGE.checkAuth()) {
             return
-        }
+        }*/
 
         if (window) {
             window.scrollTo(0, 0)
@@ -74,9 +74,9 @@ class BookingSummaryViewNew extends React.Component {
 
 
     componentWillReceiveProps(nextProps) {
-        if (!STORAGE.checkAuth()) {
+        /*if (!STORAGE.checkAuth()) {
             return
-        }
+        }*/
 
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 

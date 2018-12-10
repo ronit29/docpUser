@@ -60,6 +60,7 @@ class DateTimeSelector extends React.Component {
                 year: offset.getFullYear(),
                 dateFormat: new Date(offset)
             })
+            offset = new Date(currentDate)
         }
         this.setState({ daySeries: daySeries })
     }

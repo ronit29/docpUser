@@ -55,7 +55,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
             payload: { token: response.token }
         })
 
-        if (cb) cb(response.user_exists);
+        if (cb) cb(response);
 
     }).catch(function (error) {
         dispatch({
@@ -64,6 +64,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
                 error_message: "Invalid OTP"
             }
         })
+        if (cb) cb(error);
     })
 }
 

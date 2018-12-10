@@ -44,6 +44,12 @@ class ChoosePatientNewView extends React.Component {
         }
     }
 
+    handleOtpContinuePress(e) {
+        if (e.key === 'Enter') {
+            this.submitOTPRequest()
+        }   
+    }
+
     submitOTPRequest(number) {
 
         if (!this.state.otp) {
@@ -51,15 +57,19 @@ class ChoosePatientNewView extends React.Component {
             return
         }
         let self = this
-        this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
-
-            self.setState({ otpVerifySuccess: true }, () => {
-                self.props.profileDataCompleted(this.state)
-                self.props.createProfile(this.state, (err, res) => {
-                    //self.setState({data:true})
-                    self.props.getUserProfile()
-                })
-            })
+        this.props.submitOTP(this.state.phoneNumber, this.state.otp, (response) => {
+            if(response.token){
+                self.setState({ otpVerifySuccess: true }, () => {
+                    self.props.profileDataCompleted(this.state)
+                    self.props.createProfile(this.state, (err, res) => {
+                        //self.setState({data:true})
+                        self.props.getUserProfile()
+                    })
+                })    
+            }else{
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Otp" })
+            }
+            
         })
 
     }
@@ -179,7 +189,7 @@ class ChoosePatientNewView extends React.Component {
                                         <div>
                                             <div className="slt-nw-input">
                                                 <label className="slt-label" htmlFor="male">OTP:</label>
-                                                <input className="slt-text-input" type="number" onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
+                                                <input className="slt-text-input" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
                                             <span className="resend-otp-btn" onClick={this.verify.bind(this)}>Resend OTP</span>
