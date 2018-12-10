@@ -155,7 +155,10 @@ class CriteriaSearchView extends React.Component {
 
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader showSearch={true} />
+                {
+                    this.props.hideHeaderOnMobile ? <div className="d-none d-lg-block"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
+                }
+
                 <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
@@ -235,6 +238,65 @@ class CriteriaSearchView extends React.Component {
 
                                             <section>
                                                 {
+                                                    this.state.searchValue.length > 2 ? <div>
+                                                        {
+                                                            this.props.type == 'opd' ?
+                                                                <div className="widget mb-10">
+                                                                    <div className="common-search-container">
+                                                                        <p className="srch-heading">Name Search</p>
+                                                                        <div className="common-listing-cont">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <p className="" onClick={() => {
+
+                                                                                        let data = {
+                                                                                            'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || ''
+                                                                                        }
+                                                                                        GTM.sendEvent({ data: data })
+
+                                                                                        this.props.searchProceed(this.state.searchValue, "")
+                                                                                    }}>Search Doctors with name {this.state.searchValue}</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p className="" onClick={() => {
+
+                                                                                        let data = {
+                                                                                            'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || ''
+                                                                                        }
+                                                                                        GTM.sendEvent({ data: data })
+
+                                                                                        this.props.searchProceed("", this.state.searchValue)
+                                                                                    }}>Search Hospitals with name {this.state.searchValue}</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> : <div className="widget mb-10">
+                                                                    <div className="common-search-container">
+                                                                        <p className="srch-heading">Name Search</p>
+                                                                        <div className="common-listing-cont">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <p className="" onClick={() => {
+
+                                                                                        let data = {
+                                                                                            'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || ''
+                                                                                        }
+                                                                                        GTM.sendEvent({ data: data })
+
+                                                                                        this.props.searchProceed(this.state.searchValue)
+                                                                                    }}>Search Labs with name {this.state.searchValue}</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        }
+                                                    </div> : ""
+                                                }
+
+
+                                                {
                                                     this.state.searchResults.map((cat, j) => {
                                                         if (cat.values && cat.values.length) {
                                                             return <div className="widget mb-10" key={j}>
@@ -264,6 +326,7 @@ class CriteriaSearchView extends React.Component {
                                                         }
                                                     })
                                                 }
+
 
                                             </section>
                                             : (this.props.checkForLoad ? this.props.children : <Loader />)

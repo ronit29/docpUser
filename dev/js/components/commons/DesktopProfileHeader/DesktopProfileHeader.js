@@ -273,7 +273,6 @@ class DesktopProfileHeader extends React.Component {
                                 </a>
                             </div>
                             : ''
-
                     }
 
                 </div>

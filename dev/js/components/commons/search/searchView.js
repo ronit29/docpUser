@@ -85,7 +85,7 @@ class SearchView extends React.Component {
                 <div className="container-fluid">
 
                     {
-                        this.props.selected == "opd" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput}>
+                        this.props.selected == "opd" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
@@ -137,10 +137,20 @@ class SearchView extends React.Component {
                                 <CommonlySearched
                                     heading="Common Test"
                                     type="test"
-                                    data={this.props.common_tests}
-                                    selected={this.props.selectedCriterias.filter(x => x.type == 'test')}
+                                    data={this.props.common_tests.filter(x => !x.is_package)}
+                                    selected={this.props.selectedCriterias.filter(x => x.type == 'test').filter(x => !x.is_package)}
                                     toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                                 />
+
+                                {
+                                    this.props.common_tests.filter(x => x.is_package).length ? <CommonlySearched
+                                        heading="Common Health Packages"
+                                        type="test"
+                                        data={this.props.common_tests.filter(x => x.is_package)}
+                                        selected={this.props.selectedCriterias.filter(x => x.type == 'test').filter(x => x.is_package)}
+                                        toggle={this.props.toggleDiagnosisCriteria.bind(this)}
+                                    /> : ""
+                                }
 
                                 <button onClick={this.showLabs.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
 
@@ -149,7 +159,7 @@ class SearchView extends React.Component {
                     }
 
                     {
-                        this.props.selected == "procedures" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput}>
+                        this.props.selected == "procedures" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for dental treatments" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput}>
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
