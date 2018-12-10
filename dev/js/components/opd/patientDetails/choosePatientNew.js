@@ -55,15 +55,13 @@ class ChoosePatientNewView extends React.Component {
         let self = this
         this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
 
-            if (exists) {
-                self.setState({ otpVerifySuccess: true }, () => {
-                    self.props.profileDataCompleted(this.state)
-                    self.props.createProfile(this.state, (err, res) => {
-                        //self.setState({data:true})
-                        self.props.getUserProfile()
-                    })
+            self.setState({ otpVerifySuccess: true }, () => {
+                self.props.profileDataCompleted(this.state)
+                self.props.createProfile(this.state, (err, res) => {
+                    //self.setState({data:true})
+                    self.props.getUserProfile()
                 })
-            }
+            })
         })
 
     }
