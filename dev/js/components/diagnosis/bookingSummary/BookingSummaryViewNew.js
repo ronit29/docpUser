@@ -78,6 +78,10 @@ class BookingSummaryViewNew extends React.Component {
             return
         }*/
 
+        if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length == 0) {
+            this.props.resetLabCoupons()
+            return 
+        }
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
             // bases cases
