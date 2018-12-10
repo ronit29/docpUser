@@ -95,7 +95,7 @@ class SearchView extends React.Component {
                 <div className="container-fluid">
 
                     {
-                        this.props.selected == "opd" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
+                        this.props.selected == "opd" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for doctor or disease" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {

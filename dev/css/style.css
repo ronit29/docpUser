@@ -2878,7 +2878,7 @@ ul.list-sub-menu a:hover {
 	z-index: -1;
 }
 .search-result-span{
-	padding-right: 26px;
+	/* padding-right: 26px; */
 	cursor: pointer;
 }
 
@@ -4096,8 +4096,11 @@ font-weight: 500;
 	padding-left: 35px;
 }
 .filter-pdng{
-	margin-bottom: 10px;
+	/* margin-bottom: 10px; */
 	padding: 10px 0;
+}
+.mrng-copn{
+	padding-top: 15px;
 }
 /* ================= Journey ui fix ====================== */
 
@@ -4142,5 +4145,8 @@ font-weight: 500;
     line-height: 1.5;
     width: 80%;
     margin: auto;
+}
+input.rc-calendar-input {
+    visibility: hidden;
 }
 

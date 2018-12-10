@@ -50,6 +50,9 @@ class AppointmentSlot extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         let selectedLab = this.props.match.params.id
 
         this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (data) => {

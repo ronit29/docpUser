@@ -27,6 +27,9 @@ class DateTimeSelector extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text) {
             this.props.enableProceed(true)
             this.generateDays(true, this.props.selectedSlot.date)
