@@ -4102,6 +4102,9 @@ font-weight: 500;
 .mrng-copn{
 	padding-top: 15px;
 }
+.p-0{
+	padding:0px!important;
+}
 /* ================= Journey ui fix ====================== */
 
 .date-picker-modal{
