@@ -209,7 +209,7 @@ class TopBar extends React.Component {
                                             </div>
                                         </div>
                                         :
-                                        <div className="filter-item">
+                                        <div className="filter-pdng">
                                             <div className="action-filter">
                                                 <ul className="inline-list">
                                                     <li className="d-none d-md-inline-block">

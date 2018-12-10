@@ -3,7 +3,9 @@
 	top: -50px;
 	margin-bottom:-50px;
 }
-
+body{
+	-webkit-tap-highlight-color: transparent;
+}
 /*chat box style sheet*/
 
 .chatbox-right {
@@ -2682,7 +2684,8 @@ ul.list-sub-menu a:hover {
     border-right: 12px solid transparent;
     border-top: 12px solid #f39551;
     margin: auto;
-    top: -12px;
+	top: -12px;
+	right:50px;
     transform: rotate(180deg);
     filter: drop-shadow(0px 1px 0px #ffffff);
 }
@@ -4087,6 +4090,14 @@ font-weight: 500;
 .cpn-mrgn{
 	margin-bottom: 10px;
     padding-left: 5px;
+}
+.serch-nw-inputs input.new-srch-inp.home-top-input{
+	border-radius: 10px;
+	padding-left: 35px;
+}
+.filter-pdng{
+	margin-bottom: 10px;
+	padding: 10px 0;
 }
 /* ================= Journey ui fix ====================== */
 
