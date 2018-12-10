@@ -297,7 +297,6 @@ class ChatPanel extends React.Component {
         }
 
         return (
-
             <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : "col-md-5 mb-3"}>
                 {
                     this.props.homePage || this.props.mobilechatview ? '' :
@@ -321,10 +320,18 @@ class ChatPanel extends React.Component {
                                 <div className="chat-head">
 
                                     <div className="hd-chat" style={{ flex: 1 }}>
-                                        <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                            <span className="hed-txt-lt">Get a </span>
-                                            Free Online Doctor Consultation!
-                                    </p>
+                                        {
+                                            this.props.location.search && this.props.location.search === "?botagent=true&force_start=true" ?
+                                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                    <span className="hed-txt-lt">Get </span>
+                                                    Help with Booking
+                                                </p>
+                                                :
+                                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                    <span className="hed-txt-lt">Get a </span>
+                                                    Free Online Doctor Consultation!
+                                                </p>
+                                        }
                                     </div>
 
                                     <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >

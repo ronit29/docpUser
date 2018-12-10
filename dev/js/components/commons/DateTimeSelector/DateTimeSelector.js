@@ -27,6 +27,9 @@ class DateTimeSelector extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text) {
             this.props.enableProceed(true)
             this.generateDays(true, this.props.selectedSlot.date)
@@ -146,7 +149,7 @@ class DateTimeSelector extends React.Component {
         }
 
         if (tomorrow.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.tomorrow_min) {
-            return ts.value > this.props.tomorrow_min
+            return timeSlot.value > this.props.tomorrow_min
         }
 
         // base case if nothing works :)

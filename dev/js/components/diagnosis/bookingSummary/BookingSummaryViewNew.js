@@ -50,7 +50,7 @@ class BookingSummaryViewNew extends React.Component {
         }*/
 
         if (window) {
-            window.scrollTo(0, 0)
+            window.scrollTo(0,0)
         }
 
         if (this.props.location.search.includes("error_code")) {
@@ -64,12 +64,12 @@ class BookingSummaryViewNew extends React.Component {
             patient = this.props.profiles[this.props.selectedProfile]
             this.setState({profileDataFilled:true})
         }
-        if (document.getElementById('time-patient-details-widget')) {
+        /*if (document.getElementById('time-patient-details-widget')) {
             var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
             var elementHeight = document.getElementById('time-patient-details-widget').clientHeight;
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
-        }
+        }*/
     }
 
 
@@ -78,6 +78,10 @@ class BookingSummaryViewNew extends React.Component {
             return
         }*/
 
+        if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length == 0) {
+            this.props.resetLabCoupons()
+            return 
+        }
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
             // bases cases
@@ -250,20 +254,21 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
 
-            window.scrollTo(0, this.state.scrollPosition);
+            window.scrollTo(0,0)// this.state.scrollPosition);
 
             return
         }
         
         if(!patient){
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+            window.scrollTo(0,0)
             return   
         }
         if (!addressPicked) {
             this.setState({ showAddressError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
 
-            window.scrollTo(0, this.state.scrollPosition);
+            window.scrollTo(0, 0)//this.state.scrollPosition);
 
             return
         }

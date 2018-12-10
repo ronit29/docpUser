@@ -40,7 +40,7 @@ class PackageTest extends React.Component {
 
                 </label>
                 <button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
-                        <span className="">{this.state.testListVisible?'hide details':'View details'}</span>
+                        <span className="">{this.state.testListVisible?'Hide details':'View details'}</span>
                     </button>
                 {
                     test.hide_price ? "" :<span className="test-price text-sm">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span>

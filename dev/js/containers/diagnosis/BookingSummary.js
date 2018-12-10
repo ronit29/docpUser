@@ -21,11 +21,15 @@ class BookingSummary extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
             this.props.getUserAddress()
         }
-    
+
         let testIds = this.props.lab_test_data[this.props.match.params.id] || []
         testIds = testIds.map(x => x.id)
 

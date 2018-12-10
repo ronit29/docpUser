@@ -23,6 +23,9 @@ class PatientDetails extends React.Component {
     }
 
     componentDidMount() {
+        if(window){
+            window.scrollTo(0,0)
+        }
         if (STORAGE.checkAuth()) {
 
             this.props.getUserProfile()

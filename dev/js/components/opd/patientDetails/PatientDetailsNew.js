@@ -210,18 +210,21 @@ class PatientDetailsNew extends React.Component {
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
+            window.scrollTo(0,0)
             return
         }
 
         if(!patient){
             //this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+            window.scrollTo(0,0)
             return
 
         }
 
         if(!this.state.profileDataFilled){
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
+            window.scrollTo(0,0)
             return   
         }
         if (e.target.dataset.disabled == true) {
