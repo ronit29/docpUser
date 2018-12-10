@@ -200,7 +200,7 @@ class TopBar extends React.Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
-                                <div className="filter-item">
+                                <div className="filter-pdng">
                                     <div className="action-filter">
                                         <ul className="inline-list">
                                             <li className="d-none d-md-inline-block">

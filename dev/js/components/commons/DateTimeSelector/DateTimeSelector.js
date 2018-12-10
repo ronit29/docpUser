@@ -60,13 +60,17 @@ class DateTimeSelector extends React.Component {
                 year: offset.getFullYear(),
                 dateFormat: new Date(offset)
             })
+            offset = new Date(currentDate)
         }
         this.setState({ daySeries: daySeries })
     }
 
     selectDate(date, day, dateString, month, dateFormat) {
-        this.setState({ currentDate: date, currentDay: day, selectedDateSpan: dateFormat, selectedMonth: month, currentTimeSlot: {} })
-        this.props.enableProceed(false, [])
+        if(date == this.state.currentDate  || (this.props.timeSlots && this.props.timeSlots[day == 0 ? 6 : day - 1] && this.props.timeSlots[day == 0 ? 6 : day - 1].length > 0) ){
+
+            this.setState({ currentDate: date, currentDay: day, selectedDateSpan: dateFormat, selectedMonth: month, currentTimeSlot: {} })
+            this.props.enableProceed(false, [])   
+        }
     }
 
     selectDateFromCalendar(date) {
@@ -88,19 +92,22 @@ class DateTimeSelector extends React.Component {
         }
     }
 
-    selectTime(time, slot, title) {
-        let self = this
-        let timeSpan = Object.assign({}, time)
-        timeSpan.title = title
-        this.setState({ currentTimeSlot: timeSpan, selectedSlot: slot }, () => {
-            let data = {
-                date: self.state.selectedDateSpan,
-                month: MONTHS[self.state.selectedMonth],
-                slot: self.state.selectedSlot,
-                time: self.state.currentTimeSlot
-            }
-            self.props.enableProceed(false, data)
-        })
+    selectTime(time, slot, title, isAvailable) {
+        if(isAvailable){
+            
+            let self = this
+            let timeSpan = Object.assign({}, time)
+            timeSpan.title = title
+            this.setState({ currentTimeSlot: timeSpan, selectedSlot: slot }, () => {
+                let data = {
+                    date: self.state.selectedDateSpan,
+                    month: MONTHS[self.state.selectedMonth],
+                    slot: self.state.selectedSlot,
+                    time: self.state.currentTimeSlot
+                }
+                self.props.enableProceed(false, data)
+            })   
+        }
     }
 
     isTimeSlotAvailable(timeSlot) {
@@ -233,7 +240,7 @@ class DateTimeSelector extends React.Component {
                                                     {
                                                         schedule.timing.map((time, i) => {
                                                             return <li key={i} className="time-slot-li-listing" onClick={
-                                                                this.selectTime.bind(this, time, i, schedule.title)}>
+                                                                this.selectTime.bind(this, time, i, schedule.title,this.isTimeSlotAvailable(time))}>
                                                                 <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.selectedSlot == i && this.state.currentTimeSlot.title == schedule.title ? " time-active" : ''
                                                                     : " time-disable")}>{time.text}</p>
                                                             </li>

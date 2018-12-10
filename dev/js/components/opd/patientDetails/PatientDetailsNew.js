@@ -32,7 +32,9 @@ class PatientDetailsNew extends React.Component {
             openCancellation: false,
             order_id: false,
             couponCode: '',
-            profileDataFilled: true
+            profileDataFilled: true,
+            showTimeError: false,
+            couponApplied: false
             // order_id: !!parsed.order_id
         }
     }
@@ -43,9 +45,9 @@ class PatientDetailsNew extends React.Component {
 
     componentDidMount() {
 
-        if (!STORAGE.checkAuth()) {
+        /*if (!STORAGE.checkAuth()) {
             return
-        }
+        }*/
 
         if (window) {
             window.scrollTo(0, 0)
@@ -56,6 +58,29 @@ class PatientDetailsNew extends React.Component {
                 SnackBar.show({ pos: 'bottom-center', text: "Could not complete payment, Try again!" })
             }, 500)
             this.props.history.replace(this.props.location.pathname)
+        }
+
+        let hospital ={}
+        let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
+
+        if (doctorDetails) {
+            let { hospitals } = doctorDetails
+
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
+                        hospital = hsptl
+                    }
+                })
+            }
+            if(Object.values(hospital).length){
+                this.setState({couponApplied : true})
+            }
+        }else if(this.props.selectedSlot && this.props.selectedSlot.time && Object.values(this.props.selectedSlot.time).length>0){
+            this.setState({couponApplied : true})
+        }else{
+            this.setState({couponApplied : false})
+            return 
         }
 
         if (this.props.doctorCoupons && this.props.doctorCoupons[this.state.selectedDoctor] && this.props.doctorCoupons[this.state.selectedDoctor].length) {
@@ -72,11 +97,18 @@ class PatientDetailsNew extends React.Component {
 
                 this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
+            }else if(hospital){
+                let deal_price = hospital.deal_price
+                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
+
             }
         } else {
             let deal_price = 0
             if (this.props.selectedSlot.time && this.props.selectedSlot.time.deal_price) {
                 deal_price = this.props.selectedSlot.time.deal_price
+            }else if(hospital){
+                deal_price = hospital.deal_price
             }
 
             let treatment_Price = 0
@@ -105,20 +137,89 @@ class PatientDetailsNew extends React.Component {
 
     }
 
-    profileDataCompleted(data){
-        if(data.name =='' || data.gender == '' || data.phoneNumber =='' || !data.otpVerifySuccess){
-            this.setState({profileDataFilled: false})
-        }else if(data.otpVerifySuccess){
-            this.setState({profileDataFilled: true})
+    componentWillReceiveProps(nextProps){
+        if(!this.state.couponApplied && nextProps.DOCTORS[this.state.selectedDoctor]){
+            let hospital ={}
+            let doctorDetails = nextProps.DOCTORS[this.state.selectedDoctor]
+
+            if (doctorDetails) {
+                let { hospitals } = doctorDetails
+
+                if (hospitals && hospitals.length) {
+                    hospitals.map((hsptl) => {
+                        if (hsptl.hospital_id == this.state.selectedClinic) {
+                            hospital = hsptl
+                        }
+                    })
+                }
+            }
+
+            if (nextProps.doctorCoupons && nextProps.doctorCoupons[this.state.selectedDoctor] && nextProps.doctorCoupons[this.state.selectedDoctor].length) {
+                let doctorCoupons = nextProps.doctorCoupons[this.state.selectedDoctor]
+                
+                if(Object.values(hospital).length){
+                    let deal_price = hospital.deal_price
+                    this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' ,couponApplied: true})
+                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
+                }
+            } else {
+                let deal_price = 0
+                
+                if(Object.values(hospital).length){
+                    deal_price = hospital.deal_price
+                }
+
+                let treatment_Price = 0
+                if (nextProps.selectedDoctorProcedure[this.state.selectedDoctor] && nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+                    treatment_Price = nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+                }
+
+                deal_price += treatment_Price
+                //auto apply coupon if no coupon is apllied
+                if (this.state.selectedDoctor && deal_price && nextProps.couponAutoApply) {
+                    this.props.getCoupons(1, deal_price, (coupons) => {
+                        if (coupons && coupons[0]) {
+                            this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true })
+                            this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
+                            this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price)
+                        } else {
+                            this.setState({couponApplied: true})
+                            this.props.resetOpdCoupons()
+                        }
+                    })
+                } else {
+                    this.setState({couponApplied: true})
+                    this.props.resetOpdCoupons()
+                }
+            }
+
         }
     }
 
-    proceed(datePicked, e) {
+    profileDataCompleted(data){
+        if(data.name =='' || data.gender == '' || data.phoneNumber =='' || !data.otpVerifySuccess){
+            this.setState({profileDataFilled: false, showTimeError: false})
+        }else if(data.otpVerifySuccess){
+            this.setState({profileDataFilled: true, showTimeError: false})
+        }
+    }
+
+    proceed(datePicked, patient, e) {
 
         if (!datePicked) {
+            this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
             return
         }
+
+        if(!patient){
+            //this.setState({ showTimeError: true });
+            SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+            return
+
+        }
+
         if(!this.state.profileDataFilled){
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return   
@@ -303,11 +404,8 @@ class PatientDetailsNew extends React.Component {
                                                                 selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                                 selectedClinic={this.state.selectedClinic}
                                                             />
-                                                            <div className="widget mrb-15">
-                                                                <div className="widget-content">
-                                                                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} />
-                                                                </div>
-                                                            </div>
+                                                            <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}/>
+                                                            
                                                             <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
                                                             {
                                                                 Object.values(selectedProcedures).length ?
@@ -437,7 +535,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } disabled={this.state.loading || !patient} onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date))}>{!patient ? 'Select Patient' : `Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
+                                }  onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
                             }
 
                         </div>
