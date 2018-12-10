@@ -16,9 +16,6 @@ class ChoosePatientNewView extends React.Component {
     }
 
     componentDidMount() {
-        if (window) {
-            window.scrollTo(0, 0)
-        }
         if (!this.props.patient) {
             this.profileValidation()
         }
