@@ -32,8 +32,8 @@ class UserCoupons extends React.Component {
 
         return (
             <div className="widget-content">
-                <div className="col-md-12 mt-21">
-                    <h5 className="all-offers">All offers</h5>
+                <div className="">
+                    <h5 className="all-offers cpn-mrgn">All offers</h5>
                     <div className="widget no-round no-shadow skin-transparent profile-nav">
                         <div className="widget-content padding-remove">
                             {

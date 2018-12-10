@@ -31,7 +31,7 @@ class NotificationsView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -57,7 +57,7 @@ class NotificationsView extends React.Component {
                                 </div>
                             </header> */}
 
-                            <section className="notification-page skin-white">
+                            <section className="notification-page skin-white new-profile-header-margin">
                                 <div className="notificatons">
                                     {
                                         (this.props.notifications && this.props.notifications.length == 0) ? <div className="text-center pd-20">
