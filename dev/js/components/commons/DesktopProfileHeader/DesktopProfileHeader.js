@@ -111,7 +111,7 @@ class DesktopProfileHeader extends React.Component {
                         }}>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
                                 <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
-                                <img style={{width:'45px', marginBottom:'5px'}} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
+                                <img style={{width:'45px', marginBottom:'5px'}} className="d-lg-none" src={ASSETS_BASE_URL + "/img/Logo_sm.svg"} alt="docprime" />
                             </a>
                         </div>
 
