@@ -279,14 +279,23 @@ class ChatPanel extends React.Component {
             iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
         }
 
+        let chatBtnContent1 = ''
+        let chatBtnContent2 = ''
+        if (this.props.articleData) {
+            chatBtnContent1 = 'Chat now with doctor'
+            chatBtnContent2 = 'about ' + this.props.articleData.title.split('|')[0] + ' and related queries'
+        } else if (this.props.newChatBtn) {
+            chatBtnContent1 = 'Need help with booking ?'
+        }
+
         return (
 
             <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : "col-md-5 mb-3"}>
                 {
                     this.props.homePage || this.props.mobilechatview ? '' :
-                        this.props.articleData ?
-                            <div class="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>Chat now with doctor
-                                <span>about {this.props.articleData.title.split('|')[0]} and related queries</span>
+                        this.props.articleData || this.props.newChatBtn ?
+                            <div class="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>{chatBtnContent1}
+                                <span>{chatBtnContent2}</span>
                             </div> :
                             <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
                                 <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
