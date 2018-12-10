@@ -210,7 +210,7 @@ class DateTimeSelector extends React.Component {
                     <div className="select-time-slot-container">
                         {
                             this.props.timeSlots && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1] && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].length ?
-                                <div className="slect-date-img-content">
+                                <div className="slect-date-img-content mb-0">
                                     <div className="date-text-img">
                                         <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
                                         <p>Select Time Slot</p>
@@ -224,7 +224,7 @@ class DateTimeSelector extends React.Component {
                                 this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].map((schedule, key) => {
 
                                     return schedule.timing.length ?
-                                        <div key={key} className="select-time-listing-container mt-20">
+                                        <div key={key} className="select-time-listing-container">
                                             <div className="time-shift">
                                                 {schedule.title}
                                             </div>

@@ -46,7 +46,7 @@ class ProfileData extends React.Component {
         }
 
         return (
-            <div className="widget no-round no-shadow skin-transparent profile-nav">
+            <div className="widget no-round no-shadow skin-transparent profile-nav new-profile-header-margin">
                 <div className="widget-content padding-remove">
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item padding-remove">

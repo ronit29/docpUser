@@ -3704,7 +3704,8 @@ padding-top: 0px !important;
     color: #f78631;
     padding: 5px;
     min-width: 48px;
-    font-size: 12px;
+	font-size: 12px;
+	cursor: pointer;
 }
 .date-list-active{
     color: white !important;
@@ -4042,12 +4043,19 @@ font-weight: 500;
 .nw-listing-pddng ul.list{
 	margin-bottom: 10px;
 }
+.ver-date-list-ul li p.time-disable{
+	color: #ababab;
+    cursor: no-drop;
+}
+.ver-date-list-ul li p.time-disable span{
+	color: #b5b4b4;
+}
 /* ================= new search design ====================== */
 .pos-relative{
 	position: relative;
 }
 .nw-error{
-	left: 15px;
+	left: 40px;
     bottom: 10px;
     top: auto;
 }
@@ -4066,6 +4074,19 @@ font-weight: 500;
     top: 20px !important;
     right: 0px !important;
     text-align: right !important;
+}
+.rnd-error-nm{
+	border: 1px solid #ff0000;
+}
+.new-profile-header-margin{
+	margin-top: 10px;
+}
+.mb-0{
+	margin-bottom: 0px !important;
+}
+.cpn-mrgn{
+	margin-bottom: 10px;
+    padding-left: 5px;
 }
 /* ================= Journey ui fix ====================== */
 
