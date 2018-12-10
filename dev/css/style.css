@@ -3,7 +3,9 @@
 	top: -50px;
 	margin-bottom:-50px;
 }
-
+body{
+	-webkit-tap-highlight-color: transparent;
+}
 /*chat box style sheet*/
 
 .chatbox-right {
