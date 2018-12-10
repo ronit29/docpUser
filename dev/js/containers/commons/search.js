@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType } from '../../actions/index.js'
+import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType, filterSelectedCriteria } from '../../actions/index.js'
 
 import SearchView from '../../components/commons/search'
 
@@ -115,7 +115,7 @@ const mapDispatchToProps = (dispatch) => {
         resetFilters: () => dispatch(resetFilters()),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
-
+        filterSelectedCriteria: (type) => dispatch(filterSelectedCriteria(type)),
         //lab
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
         toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
