@@ -17,10 +17,10 @@ export default ({ toggle, content }) => {
                 <img src={ASSETS_BASE_URL + "/img/icons/close.png"} className="close-modal" onClick={toggle} />
                 <hr />
             </div>
-            <div className="" style={{ padding:'0px 15px' }}>
+            <div className="" style={{ padding: '0px 15px' }}>
                 <div className="qa-container">
                     <h4 className="pkg-qus">What is this test?</h4>
-                    <p className="pkg-ans">{why}</p>
+                    <p className="pkg-ans" dangerouslySetInnerHTML={{ __html: why }}></p>
                 </div>
                 <div className="qa-container">
                     <h4 className="pkg-qus">What is the preparation needed for doing this test?</h4>
