@@ -55,7 +55,7 @@ class SearchView extends React.Component {
         })
     }
 
-    showDoctors() {
+    showDoctors(type) {
         if (this.props.locationType == "geo") {
             this.setState({ focusInput: 1 })
             if (window) {
@@ -63,7 +63,12 @@ class SearchView extends React.Component {
             }
             return null
         }
-        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias)
+
+        if (type) {
+            this.props.filterSelectedCriteria(type)
+        }
+
+        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias.filter(x => x.type.includes(type)))
         this.searchProceedOPD("", "")
     }
 
@@ -114,7 +119,7 @@ class SearchView extends React.Component {
                                     toggle={this.props.toggleOPDCriteria.bind(this)}
                                 />
 
-                                <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                                <button onClick={this.showDoctors.bind(this, 'opd')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                             </section>
                         </CriteriaSearch> : ""
@@ -180,7 +185,7 @@ class SearchView extends React.Component {
                                     toggle={this.props.toggleOPDCriteria.bind(this)}
                                 />
 
-                                <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                                <button onClick={this.showDoctors.bind(this, 'procedures')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                             </section>
                         </CriteriaSearch> : ""

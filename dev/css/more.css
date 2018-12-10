@@ -1437,6 +1437,7 @@ span.free-ofr-ribbon:after {
     font-size: 18px;
     line-height: 18px;
     padding: 8px;
+    cursor: pointer;
 }
 
 .chat-article-btn>span{

@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS , MERGE_SELECTED_CRITERIAS} from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -98,7 +98,7 @@ export default function (state = defaultState, action) {
             newState.selectedCriteriaType = action.payload.type
             newState.fetchNewResults = true
 
-            if(action.payload.filters && Object.values(action.payload.filters).length){
+            if (action.payload.filters && Object.values(action.payload.filters).length) {
                 newState.filterCriteria = Object.assign({}, newState.filterCriteria, action.payload.filters)
             }
 
@@ -152,9 +152,9 @@ export default function (state = defaultState, action) {
             }
             if (action.forceAdd) {
                 newState.getNewUrl = true
-                newState.commonSelectedCriterias = newState.commonSelectedCriterias.filter(x=>x.type!='procedures')
+                newState.commonSelectedCriterias = newState.commonSelectedCriterias.filter(x => x.type != 'procedures')
                 action.payload.map((procedure) => {
-                    newState.commonSelectedCriterias.push({ type: "procedures", id: procedure, name: "" })    
+                    newState.commonSelectedCriterias.push({ type: "procedures", id: procedure, name: "" })
                 })
 
             } else {
@@ -192,6 +192,19 @@ export default function (state = defaultState, action) {
 
             return newState
         }
+
+        case FILTER_SEARCH_CRITERIA_OPD: {
+            let newState = {
+                ...state,
+                selectedCriterias: [...state.selectedCriterias]
+            }
+
+            newState.selectedCriterias = newState.selectedCriterias.filter(x => x.type.includes(action.payload))
+
+            return newState
+        }
+
+
 
     }
     return state
