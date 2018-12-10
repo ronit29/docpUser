@@ -154,7 +154,6 @@ class LocationSearch extends React.Component {
     }
 
     doneBtnClick() {
-        // debugger
         var selectedTest = {}
         if (this.state.radioChecked) {
             selectedTest.name = this.state.testName;

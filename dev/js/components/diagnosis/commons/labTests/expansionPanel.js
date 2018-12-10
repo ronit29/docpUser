@@ -18,6 +18,16 @@ class ExpansionPanel extends React.Component {
         this.props.selectCategory(cat_id, test)
     }
 
+    componentWillReceiveProps() {
+        if (this.props.locationSearch) {
+            this.props.contentList.map((cont, i) => {
+                if (this.props.defaultTest.includes(cont.id)) {
+                    this.setState({ open: true });
+                }
+            })
+        }
+    }
+
     render() {
         let categoryId = ''
         let { heading, contentList } = this.props
