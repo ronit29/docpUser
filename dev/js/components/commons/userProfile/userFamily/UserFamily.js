@@ -42,7 +42,7 @@ class UserFamily extends React.Component {
         let { profiles, selectedProfile } = this.props.USER
 
         return (
-            <div className="widget-content p-0">
+            <div className="widget-content pl-0 pr-0">
                 <ul className="list family-list dp-user-list">
                     {
                         Object.keys(profiles).filter(x => !profiles[x].isDummyUser).map((id, key) => {
