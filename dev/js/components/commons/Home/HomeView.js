@@ -252,7 +252,7 @@ class HomeView extends React.Component {
                             searchFunc={(sp) => this.searchDoctor(sp)}
                             searchType="specializations"
                             {...this.props}
-                            navTo="/opd"
+                            navTo="/search"
                         />
 
                         <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
@@ -267,7 +267,7 @@ class HomeView extends React.Component {
                             searchFunc={(ct) => this.searchLab(ct, false)}
                             searchType="tests"
                             {...this.props}
-                            navTo="/lab"
+                            navTo="/search"
                         />
 
                         <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>

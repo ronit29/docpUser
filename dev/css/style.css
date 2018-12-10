@@ -757,6 +757,9 @@ p.top-head-link.card-lab-link span {
 /*header styling*/
 
 @media(max-width: 767px) {
+	.hide-762{
+		display: none;
+	}
 	.chat-load-mobile {
 		display: none;
 	}
@@ -807,8 +810,12 @@ p.top-head-link.card-lab-link span {
 	div.foot-with-img {
 		margin: 0px 0px;
 	}
-	 div.footer-doctor-listing ul li{
+	div.footer-doctor-listing ul li{
 		display: block;
+	}
+	.mp0{
+		margin-top: 0px !important;
+		padding-top:0px !important;
 	}
 
 }
