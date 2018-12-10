@@ -40,9 +40,7 @@ class ChoosePatientNewView extends React.Component {
 
     handleContinuePress(e) {
         if (e.key === 'Enter') {
-            if (!this.state.showOTP) {
-                this.submitOTPRequest(this.state.phoneNumber)
-            }
+            this.verify()
         }
     }
 
