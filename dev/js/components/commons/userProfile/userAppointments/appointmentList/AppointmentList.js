@@ -73,16 +73,16 @@ class AppointmentList extends React.Component {
                 <a>
                     <span className="icon consultant-dp">
                         <InitialsPicture name={(doctor_name || lab_name)} has_image={!!(doctor_thumbnail || lab_thumbnail)} className="initialsPicture-appointment">
-                            <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid img-round" />
+                            <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid img-round my-appont-img" />
                         </InitialsPicture>
                         {type == 'doctor' ? <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} className="appointment-icon" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/beaker.svg"} className="appointment-icon" />}
                     </span>
                     <div className="consultant-details">
                         <h4 className="title app-title" style={{marginBottom: 8}} >{display_name || lab_name}</h4>
                         <ul className="list">
-                            <li style={{marginBottom: 8}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{date.toDateString()} </li>
-                            <li style={{marginBottom: 8}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
-                            <li style={{marginBottom: 8}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/user.svg"} className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
+                            <li style={{marginBottom: 5}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{date.toDateString()} </li>
+                            <li style={{marginBottom: 5}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
+                            <li style={{marginBottom: 5}} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/user.svg"} className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
                         </ul>
                         {/* <div className="view-chat text-right">
                             {

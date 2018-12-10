@@ -26,7 +26,7 @@ class UserAppointmentsView extends React.Component {
         let { appointments, selectedProfile } = this.props.USER
 
         return (
-            <div className="widget-content">
+            <div className="widget-content pl-0 pr-0">
                 {
                     appointments[selectedProfile] ? <ul className="list online-consultant-list dp-user-list" style={{ marginTop: 15, marginBottom: 70 }}>
                         {
