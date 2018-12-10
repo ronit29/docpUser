@@ -42,13 +42,13 @@ class LabView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabBookingClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-booking-clicked'
         }
         GTM.sendEvent({ data: data })
-
+/*
         let testIds = this.props.LABS[this.props.selectedLab] || []
 
         testIds = testIds.tests.map(x => x.test_id)
 
         this.props.getLabById(this.props.selectedLab, testIds)
-
+*/
         this.props.history.push(`/lab/${this.props.selectedLab}/book`)
     }
 
