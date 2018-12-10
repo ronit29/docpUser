@@ -92,9 +92,10 @@ class DoctorProfileCard extends React.Component {
     }
 
     render() {
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema } = this.props.details
 
-        let enabled_for_online_booking = true
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema, enabled_for_online_booking } = this.props.details
+
+        let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
 
@@ -141,7 +142,7 @@ class DoctorProfileCard extends React.Component {
                 }
             }
 
-            enabled_for_online_booking = hospitals[0].enabled_for_online_booking
+            enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
 
             return (
 
@@ -175,7 +176,7 @@ class DoctorProfileCard extends React.Component {
                             <div className="col-3" style={{ paddingRight: 4 }}>
                                 <div className="fltr-crd-img text-center">
                                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} alt={display_name} title={display_name} /></InitialsPicture>
-                                    {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
+                                    {is_license_verified && enabled_for_online_booking ? <span className="fltr-rtng">Verified</span> : ''}
                                     {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
                                 </div>
                                 {
@@ -220,7 +221,7 @@ class DoctorProfileCard extends React.Component {
                                             {
                                                 STORAGE.checkAuth() || deal_price < 100 ?
                                                     ''
-                                                    : enabled_for_online_booking ?
+                                                    : enabled_for_hospital_booking ?
                                                         <div className="signup-off-container">
                                                             <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                                                         </div>
@@ -228,7 +229,7 @@ class DoctorProfileCard extends React.Component {
                                             }
 
                                             {
-                                                enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-cntct-btn">Contact</button>
+                                                enabled_for_hospital_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-cntct-btn">Contact</button>
                                             }
                                         </div>
                                     </div>
