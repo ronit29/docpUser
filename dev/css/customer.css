@@ -328,7 +328,7 @@
 .online-consultant-list>li:first-child{margin-top: -13px; padding: 10px;}
 .online-consultant-list>li>a{display: block;}
 .online-consultant-list>li .consultant-dp{width: 80px; float: left; position: relative;}
-.online-consultant-list>li .consultant-details{padding-left: 100px; font-weight: 500; font-size: 14px;}
+.online-consultant-list>li .consultant-details{padding-left: 90px; font-weight: 500; font-size: 14px;}
 .online-consultant-list>li .view-chat{padding:10px;}
 
 .appointment-icon{position: absolute;right: -2px;bottom: -4px;width: 30px;height: 30px}

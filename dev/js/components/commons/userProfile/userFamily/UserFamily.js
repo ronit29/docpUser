@@ -50,7 +50,7 @@ class UserFamily extends React.Component {
                                 <a>
                                     <span className="icon icon-lg member-icon">
                                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
-                                            <img src={profiles[id].profile_image} className="img-fluid img-round" />
+                                            <img style={{width:'60px', height:'60px'}} src={profiles[id].profile_image} className="img-fluid img-round" />
                                         </InitialsPicture>
                                     </span>
                                     <div className="member-details">

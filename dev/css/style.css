@@ -1650,8 +1650,8 @@ margin: 0px 10px;
 	flex-wrap: wrap;
 }
 .fltr-crd-img .fltr-usr-image{
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
 }
 .fltr-crd-img-lab .fltr-usr-image-lab{
 	max-width: 100%;
@@ -4111,7 +4111,13 @@ padding-left: 0px !important;
 .pr-0{
 padding-right: 0px !important;
 }
-
+.my-appont-img{
+	height: 60px;
+	width: 60px;
+}
+.family-list>li .member-details.padding-leftadjest{
+padding-left:30px !important;
+}
 /* ================= Journey ui fix ====================== */
 
 .date-picker-modal{

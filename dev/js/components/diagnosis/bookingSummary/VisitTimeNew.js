@@ -24,7 +24,7 @@ class VisitTimeNew extends React.Component {
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title d-flex"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
-                        </span>Select Visit Time</h4>
+                        </span>Visit Time</h4>
                         <div className="float-right  mbl-view-formatting text-right">
                             <h4 className="date-time mr-10 title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text?(time.value>=12?'PM':'AM'):''}</h4>
                             <a href="" onClick={(e) => {
