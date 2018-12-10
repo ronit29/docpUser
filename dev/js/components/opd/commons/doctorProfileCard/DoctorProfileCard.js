@@ -35,7 +35,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
         let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified } = this.props.details
-
+console.log('aaaaaaaa');console.log(this.props)
         let expStr = ""
 
         if (experiences && experiences.length) {
@@ -63,7 +63,7 @@ class DoctorProfileCard extends React.Component {
                     }
                     <h2 className="add-details">{expStr}</h2>
                     {
-                        this.props.details.enabled_for_online_booking || this.props.bookingEnabled ? '' : <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button>
+                        this.props.details.enabled_for_online_booking==false || this.props.bookingEnabled==false ?  <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button> : ''
                     }
                 </div>
             </div>
