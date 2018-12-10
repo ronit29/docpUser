@@ -20,7 +20,7 @@ class VisitTimeNew extends React.Component {
 
         return (
             <div className="lab-visit-time d-flex jc-spaceb">
-                <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="visit-time-icon" /></span>Select Visit Time</h4>
+                <h4 className="title d-flex"><span><img src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="visit-time-icon" /></span>Select Visit Time</h4>
                 <div className="float-right  mbl-view-formatting text-right">
                     <h4 className="date-time title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text?(time.value>=12?'PM':'AM'):''}</h4>
                     <a href="" onClick={(e) => {

@@ -22,7 +22,7 @@ class VisitTimeNew extends React.Component {
             <div className="widget mrb-15">
                 <div className="widget-content pos-relative">
                     <div className="lab-visit-time d-flex jc-spaceb">
-                        <h4 className="title"><span>
+                        <h4 className="title d-flex"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
                         </span>Select Visit Time</h4>
                         <div className="float-right  mbl-view-formatting text-right">

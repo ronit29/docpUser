@@ -1,7 +1,7 @@
 .chat-main-container {
 	position: relative;
 	top: -50px;
-
+	margin-bottom:-50px;
 }
 
 /*chat box style sheet*/
@@ -1065,6 +1065,7 @@ p.top-head-link.card-lab-link span {
 	.chat-main-container {
 		position: relative;
 		top: -38px;
+		margin-bottom: -38px;
 	}
 }
 
@@ -4036,6 +4037,7 @@ ul.stc-data-ul-list li{
 }
 .nw-listing-pddng .all-test-list>li{
 padding-left: 0px;
+font-weight: 500;
 }
 .nw-listing-pddng ul.list{
 	margin-bottom: 10px;
@@ -4057,6 +4059,13 @@ padding-left: 0px;
 }
 .info-san span{
 	margin-right: 6px;
+}
+.book-right-align-text{
+	position: absolute;
+    left: 10px;
+    top: 20px !important;
+    right: 0px !important;
+    text-align: right !important;
 }
 /* ================= Journey ui fix ====================== */
 
@@ -4084,7 +4093,6 @@ padding-left: 0px;
     overflow: auto;
     z-index: 100;
 }
-
 
 .rc-calendar {
     position: relative;

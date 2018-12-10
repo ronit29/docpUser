@@ -455,7 +455,7 @@ class BookingSummaryViewNew extends React.Component {
 
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
@@ -467,10 +467,10 @@ class BookingSummaryViewNew extends React.Component {
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
 
-                                                        <div className="widget mrb-15 mrgn-top-12">
+                                                        <div className="widget mrb-15 mrng-top-12">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
-                                                                    <h4 className="title"><span>
+                                                                    <h4 className="title d-flex"><span>
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>{labDetail.name}</h4>
                                                                 </div>
@@ -480,7 +480,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
-                                                                    <h4 className="title"><span>
+                                                                    <h4 className="title d-flex"><span>
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/flask.svg"} />
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
