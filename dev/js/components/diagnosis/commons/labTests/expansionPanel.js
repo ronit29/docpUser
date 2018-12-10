@@ -50,7 +50,7 @@ class ExpansionPanel extends React.Component {
                         this.state.open ? <div className="more-content">
                             {
                                 this.props.content ?
-                                    <span className="pkg-content">{this.props.content}</span>
+                                    <span className="pkg-content" dangerouslySetInnerHTML={{ __html: this.props.content }}></span>
                                     : ''
                             }
                             {
