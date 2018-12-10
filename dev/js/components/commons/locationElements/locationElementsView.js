@@ -34,28 +34,55 @@ class LocationElementsView extends React.Component {
         if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
         }
-        if (!this.props.isTopbar) {
-            if (document.getElementById('doc-input-field')) {
-                document.getElementById('doc-input-field').addEventListener('focusin', () => {
-                    let search_val = ""
-                    if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-                        search_val = this.props.locationName || this.props.selectedLocation.formatted_address
-                    }
-                    if (this.state.search == search_val) {
-                        this.props.getCityListLayout()
-                        this.setState({ location_object: null, search: '' })
-                    }
-                })
 
-                document.getElementById('doc-input-field').addEventListener('focusout', () => {
-                    if (!this.state.search) {
-                        if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-                            this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
-                        }
-                        this.props.getCityListLayout()
-                    }
-                    // this.setState({ location_object: null, search: '' })
-                })
+        // if (!this.props.isTopbar) {
+        //     setTimeout(() => {
+        //         if (document.getElementById('doc-input-field')) {
+        //             document.getElementById('doc-input-field').addEventListener('focusin', () => {
+        //                 let search_val = ""
+        //                 if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+        //                     search_val = this.props.locationName || this.props.selectedLocation.formatted_address
+        //                 }
+        //                 if (this.state.search == search_val) {
+        //                     this.props.getCityListLayout()
+        //                     this.setState({ location_object: null, search: '' })
+        //                 }
+        //             })
+
+        //             document.getElementById('doc-input-field').addEventListener('focusout', () => {
+        //                 if (!this.state.search) {
+        //                     if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+        //                         this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
+        //                     }
+        //                     this.props.getCityListLayout()
+        //                 }
+        //                 // this.setState({ location_object: null, search: '' })
+        //             })
+        //         }
+        //     }, 500)
+        // }
+    }
+
+    onfocus() {
+        if (!this.props.isTopbar) {
+            let search_val = ""
+            if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+                search_val = this.props.locationName || this.props.selectedLocation.formatted_address
+            }
+            if (this.state.search == search_val) {
+                this.props.getCityListLayout()
+                this.setState({ location_object: null, search: '' })
+            }
+        }
+    }
+
+    onblur() {
+        if (!this.props.isTopbar) {
+            if (!this.state.search) {
+                if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+                    this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
+                }
+                this.props.getCityListLayout()
             }
         }
     }
@@ -174,10 +201,9 @@ class LocationElementsView extends React.Component {
     }
 
     render() {
-
         if (this.props.commonSearchPage) {
             return <div className="serch-nw-inputs">
-                <input className="new-srch-inp" placeholder="location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" />
+                <input className="new-srch-inp" placeholder="location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} />
                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />
                 <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
             </div>
@@ -199,7 +225,7 @@ class LocationElementsView extends React.Component {
                 <div className="col-12" style={{ paddingBottom: 10 }}>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div" onClick={this.goToLocation.bind(this)}>
-                            <input type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality" value={this.state.search} onChange={this.inputHandler.bind(this)} />
+                            <input type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality" value={this.state.search} onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} onChange={this.inputHandler.bind(this)} />
                             <span className="doc-input-loc-icon">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
                             </span>
