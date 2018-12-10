@@ -173,7 +173,7 @@ class LocationSearch extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <header className="skin-white location-detect-header" style={{ paddingTop: 90 }} >
+                            <header className="skin-white location-detect-header" style={{ paddingTop: 70 }} >
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-12" style={{ paddingTop: 10 }}>
