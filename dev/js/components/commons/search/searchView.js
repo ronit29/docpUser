@@ -55,7 +55,7 @@ class SearchView extends React.Component {
         })
     }
 
-    showDoctors() {
+    showDoctors(type) {
         if (this.props.locationType == "geo") {
             this.setState({ focusInput: 1 })
             if (window) {
@@ -63,7 +63,12 @@ class SearchView extends React.Component {
             }
             return null
         }
-        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias)
+
+        if (type) {
+            this.props.filterSelectedCriteria(type)
+        }
+
+        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias.filter(x => x.type.includes(type)))
         this.searchProceedOPD("", "")
     }
 
@@ -114,14 +119,14 @@ class SearchView extends React.Component {
                                     toggle={this.props.toggleOPDCriteria.bind(this)}
                                 />
 
-                                <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                                <button onClick={this.showDoctors.bind(this, 'opd')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                             </section>
                         </CriteriaSearch> : ""
                     }
 
                     {
-                        this.props.selected == "lab" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for tests or lab" paddingTopClass={true} searchProceed={this.searchProceedLAB.bind(this)}>
+                        this.props.selected == "lab" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_LAB} title="Search for tests or lab" paddingTopClass={true} searchProceed={this.searchProceedLAB.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
@@ -159,7 +164,7 @@ class SearchView extends React.Component {
                     }
 
                     {
-                        this.props.selected == "procedures" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for dental treatments" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput}>
+                        this.props.selected == "procedures" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for dental treatments" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
@@ -180,7 +185,7 @@ class SearchView extends React.Component {
                                     toggle={this.props.toggleOPDCriteria.bind(this)}
                                 />
 
-                                <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                                <button onClick={this.showDoctors.bind(this, 'procedures')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                             </section>
                         </CriteriaSearch> : ""

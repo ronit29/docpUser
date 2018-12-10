@@ -1,7 +1,7 @@
 .chat-main-container {
 	position: relative;
 	top: -50px;
-
+	margin-bottom:-50px;
 }
 
 /*chat box style sheet*/
@@ -1065,6 +1065,7 @@ p.top-head-link.card-lab-link span {
 	.chat-main-container {
 		position: relative;
 		top: -38px;
+		margin-bottom: -38px;
 	}
 }
 
@@ -4036,6 +4037,7 @@ ul.stc-data-ul-list li{
 }
 .nw-listing-pddng .all-test-list>li{
 padding-left: 0px;
+font-weight: 500;
 }
 .nw-listing-pddng ul.list{
 	margin-bottom: 10px;
@@ -4058,6 +4060,13 @@ padding-left: 0px;
 .info-san span{
 	margin-right: 6px;
 }
+.book-right-align-text{
+	position: absolute;
+    left: 10px;
+    top: 20px !important;
+    right: 0px !important;
+    text-align: right !important;
+}
 /* ================= Journey ui fix ====================== */
 
 .date-picker-modal{
@@ -4079,9 +4088,27 @@ padding-left: 0px;
     bottom: 0;
     right: 0;
     margin: auto;
-    background: #00000080;
+    background: #000000c7;
     height: 100vh;
     overflow: auto;
+    z-index: 100;
 }
 
+.rc-calendar {
+    position: relative;
+    outline: none;
+    font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans-serif;
+    max-width: 318px;
+    list-style: none;
+    font-size: 12px;
+    text-align: left;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 5px #ccc;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    line-height: 1.5;
+    width: 80%;
+    margin: auto;
+}
 

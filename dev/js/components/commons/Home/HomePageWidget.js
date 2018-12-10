@@ -13,6 +13,9 @@ class HomePageWidget extends React.Component {
             e.preventDefault()
             e.stopPropagation()
         }
+        if (this.props.type) {
+            this.props.selectSearchType(this.props.type)
+        }
         this.props.history.push(where)
     }
 

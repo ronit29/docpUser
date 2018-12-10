@@ -67,7 +67,7 @@ const routes = [
     { path: '/mobileviewchat', exact: true, component: MobileViewChat },
     { path: '/search', exact: true, component: Search },
 
-    { path: '/opd', exact: true, component: SearchCriteria },
+    // { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/searchresults/location=*', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
@@ -80,7 +80,7 @@ const routes = [
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 
-    { path: '/lab', exact: true, component: DX_SearchCriteria },
+    // { path: '/lab', exact: true, component: DX_SearchCriteria },
     { path: '/lab/searchresults', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/lab/searchresults/location=*', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-lbcit', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },

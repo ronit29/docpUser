@@ -39,16 +39,16 @@ class PickupAddress extends React.Component {
             <div className="widget mrb-15">
                 <div className="widget-content">
                     <div className="lab-visit-time d-flex jc-spaceb">
-                        <h4 className="title"><span>
-                            <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} />
+                        <h4 style={{}} className="title d-flex"><span>
+                            <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/home-clean.svg"} />
                         </span>Select Pickup Address</h4>
-                        <div className="float-right  mbl-view-formatting text-right">
+                        <div className="mbl-view-formatting text-right">
+                            <p className="date-time" style={{ position: 'relative' }}>{addressStr} {this.props.addressError == false || addressStr.length ? '' : <span className="fw-500" style={{ color: 'red', fontSize: 11, position: 'absolute', top: '-8px', right: 0 }}>Required</span>}</p>
                             <a href="" className="text-primary fw-700 text-sm" href="#" onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.navigateTo()
                             }}>{addressStr ? "Change" : "Add"} Address</a>
-                            <p className="date-time" style={{ position: 'relative' }}>{addressStr} {this.props.addressError == false || addressStr.length ? '' : <span className="fw-500" style={{ color: 'red', fontSize: 11, position: 'absolute', top: '-8px', right: 0 }}>Required</span>}</p>
                         </div>
                     </div>
                 </div>

@@ -128,7 +128,7 @@ class ChoosePatientNewView extends React.Component {
                     this.props.patient ?
                         <div className="widget-content">
                             <div className="lab-visit-time d-flex jc-spaceb">
-                                <h4 className="title"><span>
+                                <h4 className="title d-flex"><span>
                                     <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                 </span>Patient</h4>
                                 <div className="float-right  mbl-view-formatting text-right">
@@ -143,7 +143,7 @@ class ChoosePatientNewView extends React.Component {
                         </div>
                         : <div className="widget-content">
                             <div className="lab-visit-time d-flex jc-spaceb">
-                                <h4 className="title"><span>
+                                <h4 className="title d-flex"><span>
                                     <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                 </span>Patient</h4>
                             </div>
