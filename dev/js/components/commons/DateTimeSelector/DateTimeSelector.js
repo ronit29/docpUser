@@ -1,10 +1,10 @@
 import React from 'react'
-import InfiniteCalendar from 'react-infinite-calendar';
+import Calendar from 'rc-calendar';
+const moment = require('moment');
 
 const DAYS_TO_SHOW = 40
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-
 
 class DateTimeSelector extends React.Component {
 
@@ -70,9 +70,14 @@ class DateTimeSelector extends React.Component {
     }
 
     selectDateFromCalendar(date) {
-        this.setState({ pickedDate: date, selectedDateSpan: new Date(date), dateModal: false }, () => {
-            this.pickDate()
-        })
+        if (date) {
+            date = date.toDate()
+            this.setState({ pickedDate: date, selectedDateSpan: new Date(date), dateModal: false }, () => {
+                this.pickDate()
+            })
+        } else {
+            this.setState({ dateModal: false })
+        }
     }
 
     pickDate() {
@@ -149,6 +154,7 @@ class DateTimeSelector extends React.Component {
     render() {
 
         let currentDate = new Date().getDate()
+        console.log(this.state.selectedDateSpan)
 
         return (
             <div className="widget">
@@ -171,7 +177,7 @@ class DateTimeSelector extends React.Component {
                                         this.state.daySeries.map((day, key) => {
 
                                             return <li key={key} onClick={this.selectDate.bind(this, day.dateNumber, day.day, day.dateString, day.month, day.dateFormat)}>
-                                                <p className={day.dateNumber == this.state.currentDate? 'date-list-active' : (this.props.timeSlots && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1] && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1].length > 0)? '' : "time-disable"}>{day.dateNumber}
+                                                <p className={day.dateNumber == this.state.currentDate ? 'date-list-active' : (this.props.timeSlots && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1] && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1].length > 0) ? '' : "time-disable"}>{day.dateNumber}
                                                     <span>{day.dateNumber == currentDate ? 'Today' : day.tag}</span>
                                                 </p>
                                             </li>
@@ -186,13 +192,14 @@ class DateTimeSelector extends React.Component {
 
                                 {
                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
-                                        <InfiniteCalendar
-                                            width={"100%"}
-                                            height={"70vh"}
-                                            selected={this.state.pickedDate || ""}
+                                        <Calendar
+                                            showWeekNumber={false}
+                                            defaultValue={moment(this.state.selectedDateSpan)}
+                                            disabledDate={(date) => {
+                                                return date.diff(moment((new Date)), 'days') < 0 || date.diff(moment((new Date)), 'days') > 40
+                                            }}
+                                            showToday
                                             onSelect={this.selectDateFromCalendar.bind(this)}
-                                            minDate={(new Date())}
-                                            min={(new Date())}
                                         />
                                     </div></div> : ""
                                 }
