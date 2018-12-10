@@ -246,6 +246,15 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        if (!datePicked) {
+            this.setState({ showTimeError: true });
+            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
+
+            window.scrollTo(0, this.state.scrollPosition);
+
+            return
+        }
+        
         if(!patient){
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
             return   
@@ -258,14 +267,7 @@ class BookingSummaryViewNew extends React.Component {
 
             return
         }
-        if (!datePicked) {
-            this.setState({ showTimeError: true });
-            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
-
-            window.scrollTo(0, this.state.scrollPosition);
-
-            return
-        }
+        
         if(!this.state.profileDataFilled){
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return   
