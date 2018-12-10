@@ -156,10 +156,10 @@ class CriteriaSearchView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 {
-                    this.props.hideHeaderOnMobile ? <div className="d-none d-lg-block"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
                 }
 
-                <section className="container parent-section book-appointment-section">
+                <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "")}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
