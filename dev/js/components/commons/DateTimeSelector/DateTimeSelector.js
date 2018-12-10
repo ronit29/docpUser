@@ -149,7 +149,7 @@ class DateTimeSelector extends React.Component {
         }
 
         if (tomorrow.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.tomorrow_min) {
-            return ts.value > this.props.tomorrow_min
+            return timeSlot.value > this.props.tomorrow_min
         }
 
         // base case if nothing works :)
