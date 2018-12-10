@@ -34,7 +34,7 @@ class WalletView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
@@ -55,7 +55,7 @@ class WalletView extends React.Component {
                             </header> */}
 
                             {
-                                this.state.loading ? <Loader /> : <div className="container-fluid transaction-column">
+                                this.state.loading ? <Loader /> : <div className="container-fluid transaction-column new-profile-header-margin">
                                     <div className="row refund-info-row">
                                         <div className="col-12 transactions-head-col text-center">
                                             <p className="transactions-head">Total Credits</p>

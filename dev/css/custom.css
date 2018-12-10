@@ -76,7 +76,7 @@
 .app-timeline li.active .dot{ color: #fff; background-color: #f78631}
 .app-timeline li.active:before{background-color:  #f78631}
 
-.title{font-size: 16px; font-weight: bold; margin-bottom: 5px;}
+.title{font-size: 14px; font-weight: bold; margin-bottom: 5px;}
 .title-div>h4{color: black;}
 /*side  panel*/
 .side-panel{width: 260px; left: 108px; top: 0; bottom: 0; position: fixed; background-color: #f7f7f7; padding-top: 50px; z-index: 8}

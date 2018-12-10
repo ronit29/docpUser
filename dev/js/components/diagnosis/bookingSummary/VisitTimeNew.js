@@ -19,7 +19,7 @@ class VisitTimeNew extends React.Component {
         }
 
         return (
-            <div className="widget mrb-15">
+            <div className={`widget mrb-15 ${this.props.timeError?'rnd-error-nm':''}`}>
                 <div className="widget-content pos-relative">
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title d-flex"><span>
