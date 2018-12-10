@@ -19,14 +19,16 @@ class PackageTest extends React.Component {
         let test_package = test.package || []
         return (
             <li key={i} style={{paddingRight: '0px'}} className="clearfix" key={i}>
-                <label className="ck-bx" style={{fontWeight: '400', fontSize: '14px'}} onClick = {(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                }}>
-                    <p style={{paddingRight: '120px'}} onClick={(e) => {
+                <label className="ck-bx" style={{fontWeight: '400', fontSize: '14px'}} >
+                {test.test.name}
+                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false}  onClick={(e) => {
                         this.props.toggleTest(test)
-                        }}>
-                    {test.test.name}
+                        }}/>
+                    <span className="checkmark"></span>
+
+                </label>
+                 <p style={{paddingRight: '120px'}}>
+                    
                         <button className="pkg-info-btn" onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation() 
@@ -35,10 +37,6 @@ class PackageTest extends React.Component {
                             </button>
                         
                     </p>
-                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} />
-                    <span className="checkmark"></span>
-
-                </label>
                 <button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
                         <span className="">{this.state.testListVisible?'Hide details':'View details'}</span>
                     </button>
