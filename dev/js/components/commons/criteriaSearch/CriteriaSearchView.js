@@ -175,14 +175,6 @@ class CriteriaSearchView extends React.Component {
                                             <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
                                             {
                                                 this.state.searchCities.length > 0 ? "" : <div>
-                                                    <div className="serch-nw-inputs">
-                                                        <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
-                                                            if (this.props.goBack) {
-                                                                this.props.history.go(-1)
-                                                            }
-                                                        }} />
-                                                        <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                    </div>
                                                     <div className="srch-radio-btns">
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Doctor
@@ -202,6 +194,14 @@ class CriteriaSearchView extends React.Component {
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
+                                                    </div>
+                                                    <div className="serch-nw-inputs">
+                                                        <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                            if (this.props.goBack) {
+                                                                this.props.history.go(-1)
+                                                            }
+                                                        }} />
+                                                        <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                     </div>
                                                 </div>
                                             }

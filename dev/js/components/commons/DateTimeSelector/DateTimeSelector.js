@@ -79,7 +79,7 @@ class DateTimeSelector extends React.Component {
     selectDateFromCalendar(date) {
         if (date) {
             date = date.toDate()
-            this.setState({ pickedDate: date, selectedDateSpan: new Date(date), dateModal: false }, () => {
+            this.setState({ pickedDate: date, selectedDateSpan: new Date(date), dateModal: false, currentDate: new Date(date).getDate() }, () => {
                 this.pickDate()
             })
         } else {
@@ -164,8 +164,7 @@ class DateTimeSelector extends React.Component {
     render() {
 
         let currentDate = new Date().getDate()
-        console.log(this.state.selectedDateSpan)
-
+    
         return (
             <div className="widget">
                 <div className="time-slot-container">
