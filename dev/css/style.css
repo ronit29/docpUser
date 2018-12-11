@@ -4099,8 +4099,9 @@ font-weight: 500;
     padding-left: 5px;
 }
 .serch-nw-inputs input.new-srch-inp.home-top-input{
-	border-radius: 10px;
+	border-radius: 5px;
 	padding-left: 35px;
+	border: none;
 }
 .filter-pdng{
 	/* margin-bottom: 10px; */
