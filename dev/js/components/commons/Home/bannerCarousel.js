@@ -61,7 +61,7 @@ class BannerCarousel extends React.Component {
                 'href': ''
             },
             {
-                'src': "/img/banners/banner_aarogyam.png",
+                'src': "/img/banners/banner_aarogyam_new.png",
                 'href': "/lab/searchresults?test_ids=12227&min_distance=0&lat=28.459131&long=77.072561&min_price=0&max_price=20000&sort_on=&max_distance=15&lab_name=&network_id="
             },
             {
