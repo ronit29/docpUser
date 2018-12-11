@@ -29,7 +29,7 @@ const STAGING_CONFIG = {
     API_BASE_URL: "https://liveqa.docprime.com",
     SOCKET_BASE_URL: "https://liveqa.docprime.com",
     SOCKET_BASE_PATH: "/io",
-    RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
+    RAVEN_DSN_KEY: "https://293dcc01cda545df925ccb2f7837b6a3@sentry.io/1341625",
     RAVEN_SERVER_DSN_KEY: "https://43567a5b14bb4aee988d45a95d55cc9c@sentry.io/1290589",
     PG_URL: "https://payqa.docprime.com/dp/pay/init",
     CHAT_URL: "https://chatqa.docprime.com/livechat",
