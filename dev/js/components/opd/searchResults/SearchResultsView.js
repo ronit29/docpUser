@@ -40,25 +40,25 @@ class SearchResultsView extends React.Component {
                 }
             })
         }
-        if (window) {
-            window.scrollTo(0, 0)
-        }
+        // if (window) {
+        //     window.scrollTo(0, 0)
+        // }
     }
 
     componentWillReceiveProps(props) {
         if(props.getNewUrl && props.getNewUrl != this.props.getNewUrl){
             if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
                 this.getDoctorList(props)
-                if (window) {
-                    window.scrollTo(0, 0)
-                }
+                // if (window) {
+                //     window.scrollTo(0, 0)
+                // }
             }
             this.buildURI(props)
         } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getDoctorList(props)
-            if (window) {
-                window.scrollTo(0, 0)
-            }
+            // if (window) {
+            //     window.scrollTo(0, 0)
+            // }
         } else {
             if (props.selectedLocation != this.props.selectedLocation) {
                 let new_url = this.buildURI(props)
