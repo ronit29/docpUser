@@ -10,7 +10,6 @@ class SearchTestView extends React.Component {
         }
     }
     ButtonHandler(field, event) {
-        console.log(field)
         let tabs = [].concat(this.state.tabsValue)
         let self = this
         let found = false
