@@ -1,5 +1,6 @@
 import React from 'react'
 import ProfileHeader from '../DesktopProfileHeader'
+import ChatPanel from '../ChatPanel'
 
 class SearchTestView extends React.Component {
     constructor(props) {
@@ -21,7 +22,10 @@ class SearchTestView extends React.Component {
     console.log(this.props.searchTestInfoData)
         if(this.props.searchTestInfoData.length >0){
             return(
-                <div>     
+                <div>
+                <div className="fade-enter-done">
+                <div className="profile-body-wrap">     
+                <section className="container parent-section book-appointment-section">
                 <ProfileHeader /> 
                 <section>
                    <h1>Test Information</h1>
@@ -37,7 +41,11 @@ class SearchTestView extends React.Component {
                             <p>{value.faqs}</p>
                         </div>
                 })}       
-                </section>                
+                </section>
+                <ChatPanel />      
+                </section>          
+                </div>
+                </div>
                 </div>
                 )
         }else{
