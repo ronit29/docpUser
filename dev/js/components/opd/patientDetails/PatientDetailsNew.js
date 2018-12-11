@@ -400,7 +400,7 @@ class PatientDetailsNew extends React.Component {
             selectedProcedures = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories
         }
 
-        let total_price = priceData.deal_price + treatment_Price
+        let total_price = parseInt(priceData.deal_price) + treatment_Price
         let finalPrice = total_price ? parseInt(total_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
 
         return (
@@ -433,7 +433,7 @@ class PatientDetailsNew extends React.Component {
                                                             }
 
                                                             {
-                                                            (priceData.deal_price + treatment_Price) != 0 ?
+                                                            (parseInt(priceData.deal_price) + treatment_Price) != 0 ?
                                                                 <div className="widget mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
                                                                         {
                                                                             doctorCoupons.length ?

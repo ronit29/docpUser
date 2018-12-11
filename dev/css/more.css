@@ -1085,18 +1085,18 @@ cursor: pointer;
 
 .dp-user-list{
     box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .dp-user-list>li:first-child{
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .dp-user-list>li:last-child{
     border:transparent;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .logout-div{
@@ -1360,7 +1360,7 @@ span.free-ofr-ribbon:after {
 
 .dp-accordian{
     padding: 10px 15px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
     background-color: #fff;
 }

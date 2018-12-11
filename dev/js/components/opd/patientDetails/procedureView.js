@@ -17,7 +17,7 @@ class ProcedureView extends React.Component {
                         <h4 className="title" style={{ fontSize: 14 }}><span><img src={ASSETS_BASE_URL + "/img/hand.svg"} className="visit-time-icon" style={{ width: 24, marginRight: 8 }} /></span>Services Included</h4>
                     </div>
                     
-                    <div className="clearfix pb-list proc-padding-list"><span className="test-price txt-ornage">₹ {this.props.priceData.deal_price}<span className="test-mrp">₹ {this.props.priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation </span></div>
+                    <div className="clearfix pb-list proc-padding-list"><span className="test-price txt-ornage">₹ {parseInt(this.props.priceData.deal_price)}<span className="test-mrp">₹ {parseInt(this.props.priceData.mrp)}</span></span><span className="fw-500 test-name-item">Doctor consultation </span></div>
                     
                     {
                         this.props.selectedProcedures ?

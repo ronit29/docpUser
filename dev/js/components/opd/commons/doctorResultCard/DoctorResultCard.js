@@ -195,7 +195,7 @@ class DoctorProfileCard extends React.Component {
                                     <div className="col-6 fltr-doc-details">
                                         <h3 className="fw-500">{this.getQualificationStr(general_specialization || [])}</h3>
                                         {
-                                            experience_years ? <p className="fw-500">{experience_years} Years of Experience</p> : ""
+                                            experience_years ? <h3 className="fw-500">{experience_years} Years of Experience</h3> : ""
                                         }
                                     </div>
                                     <div className="col-6">

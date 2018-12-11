@@ -77,7 +77,7 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
-                                        this.props.history.push(`/opd`)
+                                        this.props.history.push(`/search?from=profile_banner_click`)
                                     }}>
                                         <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
@@ -92,7 +92,7 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
-                                        this.props.history.push(`/lab`)
+                                        this.props.history.push(`/search?from=profile_banner_click`)
                                     }}>
                                         <a className="usr-dtls-anchor" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
