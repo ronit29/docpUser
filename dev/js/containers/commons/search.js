@@ -20,7 +20,7 @@ class Search extends React.Component {
         this.props.resetFilters()
         // lab
         this.props.loadLabCommonCriterias()
-        this.props.clearExtraTests()
+        // this.props.clearExtraTests()
     }
 
     static contextTypes = {
