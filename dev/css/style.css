@@ -3594,7 +3594,7 @@ padding-top: 0px !important;
 	display: flex;
 }
 .srch-radio-btns .dtl-radio{
-    margin-right: 18px;
+    margin-right: 10px;
 }
 .srch-radio-btns .container-radio{
     font-size: 14px;
@@ -4099,8 +4099,9 @@ font-weight: 500;
     padding-left: 5px;
 }
 .serch-nw-inputs input.new-srch-inp.home-top-input{
-	border-radius: 10px;
+	border-radius: 5px;
 	padding-left: 35px;
+	border: none;
 }
 .filter-pdng{
 	/* margin-bottom: 10px; */

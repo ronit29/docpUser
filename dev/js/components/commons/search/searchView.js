@@ -7,6 +7,7 @@ import GTM from '../../../helpers/gtm.js'
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
+const queryString = require('query-string');
 
 class SearchView extends React.Component {
     constructor(props) {
@@ -18,6 +19,14 @@ class SearchView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, from: parsed.from
+        }
+
+        GTM.sendEvent({ data: data })
     }
 
     searchProceedOPD(doctor_name = "", hospital_name = "") {
