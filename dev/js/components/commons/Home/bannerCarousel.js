@@ -23,7 +23,7 @@ class BannerCarousel extends React.Component {
     navigate(imgData) {
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'BannerCarouselClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'banner-carousel-clicked', 'selectedBanner': this.state.index+1, 'url': imgData[this.state.index].href || ''
+            'Category': 'ConsumerApp', 'Action': 'BannerCarouselClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'banner-carousel-clicked', 'selectedBanner': this.state.index + 1, 'url': imgData[this.state.index].href || ''
         }
         GTM.sendEvent({ data: data })
         if (imgData[this.state.index].href != '') {
