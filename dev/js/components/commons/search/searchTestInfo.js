@@ -46,6 +46,7 @@ class SearchTestView extends React.Component {
                 </section>          
                 </div>
                 </div>
+                
                 </div>
                 )
         }else{
