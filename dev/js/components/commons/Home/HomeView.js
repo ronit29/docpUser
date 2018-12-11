@@ -173,7 +173,7 @@ class HomeView extends React.Component {
                             searchFunc={(sp) => this.searchDoctor(sp)}
                             searchType="specializations"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                             type="opd"
                         />
 
@@ -194,7 +194,7 @@ class HomeView extends React.Component {
                             searchFunc={(ct) => this.searchLab(ct, false)}
                             searchType="tests"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                             type="lab"
                         />
 
@@ -255,7 +255,7 @@ class HomeView extends React.Component {
                             searchFunc={(sp) => this.searchDoctor(sp)}
                             searchType="specializations"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                             type="opd"
                         />
 
@@ -271,7 +271,7 @@ class HomeView extends React.Component {
                             searchFunc={(ct) => this.searchLab(ct, false)}
                             searchType="tests"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                             type="lab"
                         />
 

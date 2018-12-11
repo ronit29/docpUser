@@ -192,9 +192,9 @@ class LocationElementsView extends React.Component {
                 redirect_to = "/lab/searchresults"
             }
 
-            let location_url = '/search'
+            let location_url = '/search?from=popup'
             if (redirect_to) {
-                location_url += `?redirect_to=${redirect_to}`
+                location_url += `&redirect_to=${redirect_to}`
             }
             this.props.history.push(location_url)
         }

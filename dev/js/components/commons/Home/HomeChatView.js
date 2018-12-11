@@ -165,7 +165,7 @@ class HomeChatView extends React.Component {
                             searchFunc={(sp) => this.searchDoctor(sp)}
                             searchType="specializations"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                         />
 
                         <div className="fw-500 doc-lap-link d-md-none">
@@ -185,7 +185,7 @@ class HomeChatView extends React.Component {
                             searchFunc={(ct) => this.searchLab(ct, false)}
                             searchType="tests"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                         />
 
                         {
@@ -244,7 +244,7 @@ class HomeChatView extends React.Component {
                             searchFunc={(sp) => this.searchDoctor(sp)}
                             searchType="specializations"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                         />
 
                         <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
@@ -259,7 +259,7 @@ class HomeChatView extends React.Component {
                             searchFunc={(ct) => this.searchLab(ct, false)}
                             searchType="tests"
                             {...this.props}
-                            navTo="/search"
+                            navTo="/search?from=home"
                         />
 
                         <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
