@@ -148,7 +148,7 @@ class LabProfileCard extends React.Component {
             // </div>
 
 
-            <div className="filter-card-dl mb-3" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
+            <div className="filter-card-dl mb-3">
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
                         <p>
@@ -157,7 +157,7 @@ class LabProfileCard extends React.Component {
                             <span>&nbsp;|&nbsp;{distance} Km</span>
                         </p>
                     </div>
-                    <div className="row no-gutters mrt-10">
+                    <div className="row no-gutters mrt-10" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                         <div className="col-3 lab-card-img-div">
                             <div className="fltr-crd-img-lab text-center">
                                 <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
