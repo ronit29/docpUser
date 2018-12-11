@@ -4129,6 +4129,22 @@ padding-left:30px !important;
 .pdng-left-pkg{
 	margin-left: 27px;
 }
+.header-serach-input-div{
+	background: white;
+    width: 100%;
+    height: 36px;
+    padding: 9px 118px 10px 34px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+	overflow: hidden;
+	text-align: left;
+}
+.header-serach-input-div span{
+	color: #757575;
+    font-weight: 500;
+}
 /* ================= Journey ui fix ====================== */
 
 .date-picker-modal{
