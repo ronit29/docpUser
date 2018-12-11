@@ -11,7 +11,7 @@ class searchTestInfo extends React.Component {
     }
     render() {
         return(
-            <SearchTestView {...this.props}/>
+            <SearchTestView {...this.props} hideHeaderOnMobile={true}/>
             )
     }
 }

@@ -44,16 +44,18 @@ class SearchTestView extends React.Component {
         tabsDiv.push(field) 
         self.setState({tabsDiv:tabsDiv})       
     }  
-    render(){
+    render(){        
         if(this.props.searchTestInfoData.length >0){
             let self = this
             return(
                 <div>
                 <section className="fade-enter-done">
                 <div className="container-fluid">
-                <div className="profile-body-wrap">     
-                <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <div className="profile-body-wrap">
+                {
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
+                }
+                <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "")}>
                     <div className="row main-row parent-section-row">
                         <div className="col-12 col-md-7 col-lg-7 center-column">   
                         <div className="row mrb-20">
