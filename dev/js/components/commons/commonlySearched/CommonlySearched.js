@@ -39,11 +39,18 @@ class CommonlySearched extends React.Component {
         }
         this.props.toggle((this.props.type || row.type), row)
     }
-
+    testInfo(){
+        this.props.history.push('/search/testinfo')
+    }
     render() {
-
+        let test_info
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
+                if(Object.keys(row).length > 0){
+                  test_info = <p className="srch-heading" style={{float:'right'}} onClick={this.testInfo.bind(this)}> Test Info</p>
+                }else{
+                    test_info = ''
+                }
                 return <li key={i}>
                     <p>{row.name}</p>
                     <img style={{ width: '15px' }} onClick={() => {
@@ -70,6 +77,7 @@ class CommonlySearched extends React.Component {
             <div className="widget mb-10">
                 <div className="common-search-container">
                     <p className="srch-heading">{this.props.heading}</p>
+                    {test_info}
                     <div className="common-listing-cont">
                         <ul>
                             {rows}
