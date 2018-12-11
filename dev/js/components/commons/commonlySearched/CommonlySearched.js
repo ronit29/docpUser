@@ -40,7 +40,11 @@ class CommonlySearched extends React.Component {
         this.props.toggle((this.props.type || row.type), row)
     }
     testInfo(){
-        this.props.history.push('/search/testinfo')
+        let test_ids = []
+        this.props.data.map((row, i) => {
+            test_ids.push(row.id)
+        })
+        this.props.history.push('/search/testinfo?test_ids='+test_ids)
     }
     render() {
         let test_info

@@ -26,13 +26,10 @@ class SearchTestView extends React.Component {
         self.setState({ tabsValue: tabs })
     }
     componentDidMount() {
-        if (this.props.selectedCriterias.length > 0) {
-            let test_id = []
-            {
-                Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
-                    test_id.push(value.id)
-                })
-            }
+        var url_string = window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var test_id = url.searchParams.get("test_ids");
+        if(test_id != null){
             this.props.searchTestData(test_id)
         }
     }
