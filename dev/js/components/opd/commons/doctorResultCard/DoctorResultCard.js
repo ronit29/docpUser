@@ -15,9 +15,9 @@ class DoctorProfileCard extends React.Component {
     }
 
     componentDidMount() {
-        if (window) {
-            window.scrollTo(0, 0)
-        }
+        // if (window) {
+        //     window.scrollTo(0, 0)
+        // }
     }
 
     cardClick(id, url, hospital_id, e) {
