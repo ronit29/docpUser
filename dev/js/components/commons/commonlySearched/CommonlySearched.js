@@ -47,7 +47,7 @@ class CommonlySearched extends React.Component {
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
                 if(Object.keys(row).length > 0){
-                  test_info = <p className="srch-heading" style={{float:'right'}} onClick={this.testInfo.bind(this)}> Test Info</p>
+                  test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
                 }else{
                     test_info = ''
                 }
@@ -76,8 +76,8 @@ class CommonlySearched extends React.Component {
         return (
             <div className="widget mb-10">
                 <div className="common-search-container">
-                    <p className="srch-heading">{this.props.heading}</p>
-                    {test_info}
+                    <p className="srch-heading">{this.props.heading} {test_info}</p>
+                    
                     <div className="common-listing-cont">
                         <ul>
                             {rows}

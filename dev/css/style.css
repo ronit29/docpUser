@@ -4085,3 +4085,42 @@ padding-left: 0px;
 }
 
 
+/* ======================== Test Info ======================== */
+.test-top-main-haeding{
+	width: 100%;
+    border: none;
+    text-align: left;
+    background: rgba(242, 242, 242, .2);
+    padding: 10px 10px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+	font-size: 15px;
+	cursor: pointer;
+}
+.tst-sub-acrd-heading{
+	width: 100%;
+    border: none;
+    text-align: left;
+    padding: 10px 10px;
+    font-weight: 500;
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+}
+.acrd-sub-content{
+	padding: 10px;
+}
+.acrd-sub-content p, .acrd-sub-content p {
+    margin-bottom: 12px;
+    color: #757575;
+    font-weight: 500;
+}
+.acrd-sub-content ol, .acrd-sub-content li,{
+	list-style: disc;
+}
+.test-main-heding-h3{
+	padding-left: 10px;
+}
+/* ======================== Test Info ======================== */
