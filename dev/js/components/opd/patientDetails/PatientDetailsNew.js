@@ -99,6 +99,12 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
             }else if(hospital){
                 let deal_price = hospital.deal_price
+                let treatment_Price = 0
+                if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+                    treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+                }
+                deal_price += treatment_Price
                 this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
 
@@ -159,6 +165,15 @@ class PatientDetailsNew extends React.Component {
                 
                 if(Object.values(hospital).length){
                     let deal_price = hospital.deal_price
+
+                    let treatment_Price = 0
+                    if (nextProps.selectedDoctorProcedure[this.state.selectedDoctor] && nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+                        treatment_Price = nextProps.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+                    }
+
+                    deal_price += treatment_Price
+
                     this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' ,couponApplied: true})
                     this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
                 }

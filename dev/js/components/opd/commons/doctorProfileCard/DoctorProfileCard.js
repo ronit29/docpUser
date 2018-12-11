@@ -35,7 +35,6 @@ class DoctorProfileCard extends React.Component {
 
     render() {
         let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified } = this.props.details
-console.log('aaaaaaaa');console.log(this.props)
         let expStr = ""
 
         if (experiences && experiences.length) {
