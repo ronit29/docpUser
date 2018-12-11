@@ -4103,7 +4103,7 @@ padding-left: 0px;
     border: none;
     text-align: left;
     padding: 10px 10px;
-    font-weight: 500;
+    font-weight: 400;
     display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -4111,17 +4111,41 @@ padding-left: 0px;
 }
 .acrd-sub-content{
 	padding: 10px;
+	font-weight: 500;
+    color: #757575;
 }
-.acrd-sub-content p, .acrd-sub-content p {
+.acrd-sub-content p, .acrd-sub-content li {
     margin-bottom: 12px;
     color: #757575;
     font-weight: 500;
 }
-.acrd-sub-content ol, .acrd-sub-content li,{
-	list-style: disc;
+.acrd-sub-content ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+.acrd-sub-content ol {
+    list-style: disc;
+    padding-left: 20px;
 }
 .test-main-heding-h3{
 	padding-left: 10px;
+	display: flex;
+	align-items: center;
+    justify-content: space-between;
 }
-
+.acrd-sub-content.hide{
+	display: none;
+}
+.test-main-heding-h3 img{
+	width: 14px;
+	margin-right: 10px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	cursor: pointer;
+}
+.acrd-arw-rotate{
+	-ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
 /* ======================== Test Info ======================== */
