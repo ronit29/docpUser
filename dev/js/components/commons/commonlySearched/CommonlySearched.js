@@ -40,16 +40,22 @@ class CommonlySearched extends React.Component {
         this.props.toggle((this.props.type || row.type), row)
     }
     testInfo(){
-        this.props.history.push('/search/testinfo')
+        let test_ids = []
+        this.props.data.map((row, i) => {
+            test_ids.push(row.id)
+        })
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=search')
     }
     render() {
         let test_info
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
-                if(Object.keys(row).length > 0){
-                  test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
-                }else{
-                    test_info = ''
+                if(this.props.selectedSearchType == 'lab'){
+                    if(Object.keys(row).length > 0){
+                      test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
+                    }else{
+                        test_info = ''
+                    }
                 }
                 return <li key={i}>
                     <p>{row.name}</p>

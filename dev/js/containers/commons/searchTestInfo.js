@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchTestData,selectedCriterias,searchTestInfoData} from '../../actions/index.js'
+import { searchTestData,selectedCriterias,searchTestInfoData,toggleDiagnosisCriteria} from '../../actions/index.js'
 
 import SearchTestView from '../../components/commons/search/searchTestInfo.js'
 
@@ -27,7 +27,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        searchTestData: (test_ids) => dispatch(searchTestData(test_ids)),
+        searchTestData: (test_ids,callback) => dispatch(searchTestData(test_ids,callback)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         
     }
 }

@@ -4248,6 +4248,9 @@ input.rc-calendar-input {
 .acrd-sub-content.hide{
 	display: none;
 }
+.tst-main-acrd-data.hide{
+	display: none;
+}
 .test-main-heding-h3 img{
 	width: 14px;
 	margin-right: 10px;

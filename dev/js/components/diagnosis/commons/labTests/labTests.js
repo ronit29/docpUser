@@ -36,7 +36,13 @@ class LabTests extends React.Component {
 
         this.props.toggleDiagnosisCriteria('test', test)
     }
-
+    testInfo(){
+        let test_ids = []
+        this.props.currentLabSelectedTests.map((test, i) => {
+            test_ids.push(test.id)
+        })
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=lab_test')
+    }
     render() {
         let is_package = false
         let number_of_tests = 0
@@ -48,7 +54,7 @@ class LabTests extends React.Component {
         let selectedPackage = []
         let unSelectedTests = []
         let unSelectedPackage = []
-        
+        let test_info = []
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -69,6 +75,11 @@ class LabTests extends React.Component {
                     
                 } else {
                     if(test.is_selected){
+                        if(test.is_selected){
+                          test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
+                        }else{
+                            test_info = ''
+                        }
                         selectedTests.push(test.hide_price
                             ?<li className="clearfix" key={i}>
                                <span className="test-price">Free</span> 
@@ -147,7 +158,8 @@ class LabTests extends React.Component {
             <div>
                 <div className="widget-content pb-details pb-test nw-listing-pddng">
                     {
-                        is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests</h4>
+                        is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests {test_info}
+                        </h4>
                     }
 
                     <ul className="list all-test-list">

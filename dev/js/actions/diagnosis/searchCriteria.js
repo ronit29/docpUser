@@ -74,12 +74,14 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
         payload: coupon
     })
 }
-export const searchTestData = (test_ids) => (dispatch) => {
+export const searchTestData = (test_ids,callback) => (dispatch) => {
     return API_GET('/api/v1/diagnostic/test/details?test_ids='+test_ids).then(function (response) {
         dispatch({
             type: SEARCH_TEST_INFO,
             payload: response
+
         })
+        if(callback) callback(response);
     }).catch(function (error) {
         dispatch({
             type: SEARCH_TEST_INFO,
