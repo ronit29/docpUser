@@ -26,7 +26,7 @@ class SearchTestView extends React.Component {
         if (!found) {
             tabs.push(field)
         }
-        
+
         self.setState({ tabsValue: tabs })
     }
     componentDidMount() {
@@ -65,11 +65,12 @@ class SearchTestView extends React.Component {
     frequentlyAddTest(field, name, event) {
         let self = this
         let test = {}
-            if(this.state.lab_id != ''){
+            if(this.state.lab_id != null){
                 test.lab_id = this.state.lab_id
                 test.extra_test = true
                 test.type = 'test'
                 test.name = name
+                test.id = field
             }else{
                 test.type = 'test'
                 test.name = name
