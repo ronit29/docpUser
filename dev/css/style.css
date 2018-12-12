@@ -4287,7 +4287,8 @@ input.rc-calendar-input {
     border: transparent;
 	font-weight: 500;
 	width: 150px;
-    cursor: pointer;
+	cursor: pointer;
+	white-space: pre;
 }
 /* ======================== Test Info ======================== */
 /* =============== cashback-style =============== */
