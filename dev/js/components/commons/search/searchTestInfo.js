@@ -66,6 +66,9 @@ class SearchTestView extends React.Component {
             test.type = 'test'
             test.name = name
             test.id = field
+            test.lab_id = field
+            test.extra_test = true
+            test.hide_price = false
         self.props.toggleDiagnosisCriteria('test', test, false)
     }
     render() {
