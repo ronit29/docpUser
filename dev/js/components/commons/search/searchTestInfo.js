@@ -80,8 +80,6 @@ class SearchTestView extends React.Component {
     }
     render() {
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
-            console.log(this.state)
-            console.log(this.props.searchTestInfoData)
             let self = this
             return (
                 <div>
@@ -100,7 +98,6 @@ class SearchTestView extends React.Component {
                                                     <div className="widget mrb-15 mrng-top-12">
                                                         <div className="test-info-continer-block">
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {
-                                                                console.log(value.faqs)
                                                                 return <div className="test-info-acrd-head-main" id={value.id}>
                                                                     <button className="test-top-main-haeding" onClick={self.ButtonHandler.bind(self, 'test_' + value.id)}>{value.name}<span className={self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                     <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'hide' : ''}`}>
