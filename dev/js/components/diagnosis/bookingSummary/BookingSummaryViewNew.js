@@ -44,13 +44,13 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     componentDidMount() {
-
+/*
         if (!STORAGE.checkAuth()) {
             return
-        }
+        }*/
 
         if (window) {
-            window.scrollTo(0, 0)
+            window.scrollTo(0,0)
         }
 
         if (this.props.location.search.includes("error_code")) {
@@ -64,20 +64,24 @@ class BookingSummaryViewNew extends React.Component {
             patient = this.props.profiles[this.props.selectedProfile]
             this.setState({profileDataFilled:true})
         }
-        if (document.getElementById('time-patient-details-widget')) {
+        /*if (document.getElementById('time-patient-details-widget')) {
             var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
             var elementHeight = document.getElementById('time-patient-details-widget').clientHeight;
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
-        }
+        }*/
     }
 
 
     componentWillReceiveProps(nextProps) {
-        if (!STORAGE.checkAuth()) {
+        /*if (!STORAGE.checkAuth()) {
             return
-        }
+        }*/
 
+        if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length == 0) {
+            this.props.resetLabCoupons()
+            return 
+        }
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
             // bases cases
@@ -246,26 +250,29 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        if (!datePicked) {
+            this.setState({ showTimeError: true });
+            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
+
+            window.scrollTo(0,0)// this.state.scrollPosition);
+
+            return
+        }
+        
         if(!patient){
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+            window.scrollTo(0,0)
             return   
         }
         if (!addressPicked) {
             this.setState({ showAddressError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
 
-            window.scrollTo(0, this.state.scrollPosition);
+            window.scrollTo(0, 0)//this.state.scrollPosition);
 
             return
         }
-        if (!datePicked) {
-            this.setState({ showTimeError: true });
-            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
-
-            window.scrollTo(0, this.state.scrollPosition);
-
-            return
-        }
+        
         if(!this.state.profileDataFilled){
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return   
@@ -405,7 +412,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate ? <span className="float-right fw-700">Free</span> : <span className="float-right fw-700">&#8377; {price}<span class="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate ? <span className="float-right fw-700">Free</span> : <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
                     <span className="test-name-item">{twp.test.name}</span></p>
@@ -455,7 +462,7 @@ class BookingSummaryViewNew extends React.Component {
 
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
@@ -467,10 +474,10 @@ class BookingSummaryViewNew extends React.Component {
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
 
-                                                        <div className="widget mrb-15 mrgn-top-12">
+                                                        <div className="widget mrb-15 mrng-top-12">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
-                                                                    <h4 className="title"><span>
+                                                                    <h4 className="title d-flex"><span>
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>{labDetail.name}</h4>
                                                                 </div>
@@ -480,7 +487,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
-                                                                    <h4 className="title"><span>
+                                                                    <h4 className="title d-flex"><span>
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/flask.svg"} />
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">

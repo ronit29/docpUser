@@ -162,7 +162,7 @@ class TopBar extends React.Component {
         }
 
         let sortType = ''
-        if(this.state.sort_on){
+        if (this.state.sort_on) {
             sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
         }
 
@@ -187,10 +187,11 @@ class TopBar extends React.Component {
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
                                                     <p>{this.props.count} Results found {criteriaStr ? "for" : ""}
-                                                        <span className="fw-700"> {criteriaStr}</span>
-                                                        {
-                                                            locationName ? ` in ${locationName}` : ''
-                                                        }
+                                                        <span className="fw-700"> {criteriaStr}
+                                                            {
+                                                                locationName ? ` in ${locationName}` : ''
+                                                            }
+                                                        </span>
                                                     </p>
                                                 </div>
                                                 <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
@@ -209,7 +210,7 @@ class TopBar extends React.Component {
                                             </div>
                                         </div>
                                         :
-                                        <div className="filter-item">
+                                        <div className="filter-pdng">
                                             <div className="action-filter">
                                                 <ul className="inline-list">
                                                     <li className="d-none d-md-inline-block">

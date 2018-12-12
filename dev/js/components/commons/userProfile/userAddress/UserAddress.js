@@ -38,16 +38,16 @@ class UserAddress extends React.Component {
         let { address } = this.props.USER
 
         return (
-            <div className="widget-content">
+            <div className="widget-content pl-0 pr-0">
                 <ul className="list family-list dp-user-list">
                     {
                         (address && address.length) ? address.map((curr, key) => {
                             return <li key={key} style={{ cursor: 'unset' }}>
-                                <span className="icon icon-lg member-icon" onClick={this.updateAddress.bind(this, curr)} style={{ marginTop: -17, position: 'relative', cursor: 'pointer' }}>
+                                <span className="icon icon-lg member-icon" onClick={this.updateAddress.bind(this, curr)} style={{ top:'0px', position: 'absolute',left: '10px', height:'0px', width:'0px', cursor: 'pointer' }}>
                                     <input type="radio" value={curr.id.toString()} checked={curr.is_default} className="user-address-hidden-radio" />
                                     <span className="user-address-radio"></span>
                                 </span>
-                                <div className="member-details">
+                                <div className="member-details padding-leftadjest">
                                     <ul className="list">
                                         <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.address}</li>
                                         <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.land_mark}</li>

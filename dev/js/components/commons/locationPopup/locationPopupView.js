@@ -42,9 +42,9 @@ class LocationPopupView extends React.Component {
                 redirect_to = "/lab/searchresults"
             }
 
-            let location_url = '/locationsearch'
+            let location_url = '/search?from=popup'
             if (redirect_to) {
-                location_url += `?redirect_to=${redirect_to}`
+                location_url += `&redirect_to=${redirect_to}`
             }
 
             let data = {

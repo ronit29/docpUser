@@ -200,7 +200,7 @@ class TopBar extends React.Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
-                                <div className="filter-item">
+                                <div className="filter-pdng">
                                     <div className="action-filter">
                                         <ul className="inline-list">
                                             <li className="d-none d-md-inline-block">
@@ -238,7 +238,7 @@ class TopBar extends React.Component {
 
                                             </span>
                                         </h1>
-                                        <img className="location-edit-img" style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                     </div>
                                 </div>
                                 {

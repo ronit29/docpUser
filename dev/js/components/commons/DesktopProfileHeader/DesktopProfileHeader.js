@@ -51,7 +51,7 @@ class DesktopProfileHeader extends React.Component {
         if (search_back) {
             this.props.history.go(-1)
         } else {
-            this.props.history.push('/search')
+            this.props.history.push('/search?from=header')
         }
     }
 
@@ -147,9 +147,12 @@ class DesktopProfileHeader extends React.Component {
                                 {
                                     hideSearch ? "" : <div className="head-links hed-links-search-flex">
                                         <div className="serch-nw-inputs new-home-full-widht" onClick={this.openSearch.bind(this)}>
-                                            <input className="new-srch-inp" placeholder="Search ..." id="doc-input-field" />
+                                            <div className="header-serach-input-div">
+                                                <span>Search Doctors &amp; Tests</span>
+                                            </div>
+                                            {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
                                             <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                            <button style={{ paddingLeft: '0' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} /> {location}</button>
+                                            <button style={{ paddingLeft: '0', top:'0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
                                         </div>
                                     </div>
                                 }
@@ -242,12 +245,40 @@ class DesktopProfileHeader extends React.Component {
 
 
                         </div>
+
+
+                        {
+
+                            this.state.medicinePopup ?
+                                <div className='col-12 mrb-15'>
+                                    <div className="search-show art-padding d-lg-none">
+                                        <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-medicines")
+                                        }}>
+                                            <span>All Medicines</span>
+                                        </a>
+
+                                        <a className="article-list" href="/all-diseases" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-diseases")
+                                        }}>
+                                            <span>All Diseases</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                : ''
+                        }
+
                         <div className="col-12 d-lg-none">
                             {
                                 this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
-                                    <input className="new-srch-inp" placeholder="Search ..." id="doc-input-field" />
+                                    <div className="header-serach-input-div">
+                                        <span>Search Doctors &amp; Tests</span>
+                                    </div>
+                                    {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
                                     <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    <button style={{ paddingLeft: '0' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />{location}</button>
+                                    <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
                                 </div> : ""
                             }
                         </div>
@@ -255,25 +286,7 @@ class DesktopProfileHeader extends React.Component {
 
                     </div>
 
-                    {
-                        this.state.medicinePopup ?
-                            <div className="search-show art-padding d-lg-none">
-                                <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.props.history.push("/all-medicines")
-                                }}>
-                                    <span>All Medicines</span>
-                                </a>
 
-                                <a className="article-list" href="/all-diseases" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.props.history.push("/all-diseases")
-                                }}>
-                                    <span>All Diseases</span>
-                                </a>
-                            </div>
-                            : ''
-                    }
 
                 </div>
             </header>

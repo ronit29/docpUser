@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, APPEND_DOCTORS , SAVE_COMMON_PROCEDURES, RESET_PROCEDURE_URL, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS} from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, APPEND_DOCTORS, SAVE_COMMON_PROCEDURES, RESET_PROCEDURE_URL, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadOPDCommonCriteria = () => (dispatch) => {
@@ -18,7 +18,7 @@ export const loadOPDCommonCriteria = () => (dispatch) => {
 
 }
 
-export const toggleOPDCriteria = (type, criteria, forceAdd = false,filters={}) => (dispatch) => {
+export const toggleOPDCriteria = (type, criteria, forceAdd = false, filters = {}) => (dispatch) => {
     dispatch({
         type: TOGGLE_OPD_CRITERIA,
         payload: {
@@ -85,11 +85,11 @@ export const setFetchResults = (fetchNewResults = true) => (dispatch) => {
     })
 }
 
-export const saveCommonProcedures = (procedure_ids=[]) => (dispatch) => {
+export const saveCommonProcedures = (procedure_ids = []) => (dispatch) => {
     dispatch({
         type: SAVE_COMMON_PROCEDURES,
         payload: procedure_ids,
-        category_ids:[],
+        category_ids: [],
         forceAdd: true
     })
 }
@@ -111,5 +111,12 @@ export const mergeSelectedCriterias = () => (dispatch) => {
     dispatch({
         type: MERGE_SELECTED_CRITERIAS,
         payload: true
+    })
+}
+
+export const filterSelectedCriteria = (type) => (dispatch) => {
+    dispatch({
+        type: FILTER_SEARCH_CRITERIA_OPD,
+        payload: type
     })
 }

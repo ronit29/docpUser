@@ -137,7 +137,7 @@ class BookingView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -228,8 +228,8 @@ class BookingView extends React.Component {
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
                                                         <div className="test-report">
-                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
-                                                                width: 14, marginRight: 5, verticalAlign: -3
+                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/nw-usr.svg"} style={{
+                                                                width: 16, marginRight: 5, verticalAlign: -3
                                                             }} /></span>Patient Details</h4>
                                                             <p className="test-list fw-500">{profile.name}</p>
                                                             <p className="test-list fw-500">{profile.phone_number}</p>
@@ -278,7 +278,7 @@ class BookingView extends React.Component {
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
                                                         <div>
-                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} /></span>Clinic Visit Time
+                                                            <h4 className="title"><span><img style={{marginRight:'10px'}} className="visit-time-icon" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>Clinic Visit Time
 
                                                                 {
                                                                     actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""

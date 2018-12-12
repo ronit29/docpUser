@@ -40,25 +40,25 @@ class SearchResultsView extends React.Component {
                 }
             })
         }
-        if (window) {
-            window.scrollTo(0, 0)
-        }
+        // if (window) {
+        //     window.scrollTo(0, 0)
+        // }
     }
 
     componentWillReceiveProps(props) {
         if(props.getNewUrl && props.getNewUrl != this.props.getNewUrl){
             if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
                 this.getDoctorList(props)
-                if (window) {
-                    window.scrollTo(0, 0)
-                }
+                // if (window) {
+                //     window.scrollTo(0, 0)
+                // }
             }
             this.buildURI(props)
         } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getDoctorList(props)
-            if (window) {
-                window.scrollTo(0, 0)
-            }
+            // if (window) {
+            //     window.scrollTo(0, 0)
+            // }
         } else {
             if (props.selectedLocation != this.props.selectedLocation) {
                 let new_url = this.buildURI(props)
@@ -201,7 +201,7 @@ class SearchResultsView extends React.Component {
                     seoFriendly: this.state.seoFriendly
                 }} />
 
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
                             <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} clinic_card={!!this.state.clinic_card} />

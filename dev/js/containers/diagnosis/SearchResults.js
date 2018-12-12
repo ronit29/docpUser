@@ -84,7 +84,7 @@ const mapStateToProps = (state, passedProps) => {
         corporateCoupon
     } = state.SEARCH_CRITERIA_LABS
 
-    const LABS = state.LABS
+    const LABS = state.LAB_SEARCH_DATA
     const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER } = state.LAB_SEARCH
 
     return {
