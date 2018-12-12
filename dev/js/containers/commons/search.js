@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType, filterSelectedCriteria } from '../../actions/index.js'
+import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType, filterSelectedCriteria, getElasticCriteriaResults } from '../../actions/index.js'
 
 import SearchView from '../../components/commons/search'
+import SearchElasticView from '../../components/commons/searchElastic'
+import CONFIG from '../../config'
 
 class Search extends React.Component {
     constructor(props) {
@@ -29,24 +31,32 @@ class Search extends React.Component {
 
     render() {
 
-        if (this.props.selectedSearchType == 'opd') {
+        if(CONFIG.SEARCH_ELASTIC_VIEW){
             return (
-                <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
-            );
-        }
+                <SearchElasticView {...this.props} dataState = {this.props.selectedSearchType == 'opd' || this.props.selectedSearchType == 'procedures' ?this.props.OPD_STATE:this.props.LAB_STATE} selectedJourney = {this.props.selectedSearchType == 'opd' || this.props.selectedSearchType == 'procedures' ?'opd':'lab'} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                )
 
-        if (this.props.selectedSearchType == 'lab') {
-            return (
-                <SearchView {...this.props} {...this.props.LAB_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
-            );
-        }
+        }else{
 
-        if (this.props.selectedSearchType == 'procedures') {
-            return (
-                <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
-            );
-        }
+            if (this.props.selectedSearchType == 'opd') {
+                return (
+                    <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                );
+            }
 
+            if (this.props.selectedSearchType == 'lab') {
+                return (
+                    <SearchView {...this.props} {...this.props.LAB_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                );
+            }
+
+            if (this.props.selectedSearchType == 'procedures') {
+                return (
+                    <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                );
+            }
+
+        }
 
     }
 }
@@ -123,7 +133,8 @@ const mapDispatchToProps = (dispatch) => {
         clearExtraTests: () => dispatch(clearExtraTests()),
         clearAllTests: () => dispatch(clearAllTests()),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
-        selectSearchType: (type) => dispatch(selectSearchType(type))
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
+        getElasticCriteriaResults: (searchString, callback) => dispatch(getElasticCriteriaResults(searchString, callback))
     }
 }
 

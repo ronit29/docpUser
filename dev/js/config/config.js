@@ -51,7 +51,8 @@ const DEV_CONFIG = {
     CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
     env: "dev",
     UAID: 'UA-124740649-2',
-    Tracker: 'docqa'
+    Tracker: 'docqa',
+    SEARCH_ELASTIC_VIEW : true
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }

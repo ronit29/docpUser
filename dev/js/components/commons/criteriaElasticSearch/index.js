@@ -1,0 +1,3 @@
+import criteriaElasticSearchView from './criteriaElasticSearchView'
+
+export default criteriaElasticSearchView
