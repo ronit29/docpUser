@@ -4286,7 +4286,6 @@ input.rc-calendar-input {
     padding: 6px 20px;
     border: transparent;
 	font-weight: 500;
-	width: 150px;
 	cursor: pointer;
 	white-space: pre;
 }
