@@ -4263,4 +4263,116 @@ input.rc-calendar-input {
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
 }
+.test-duo-heding{
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.test-duo-listing li { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.test-duo-listing li p{ 
+	font-weight: 500;
+	padding: 8px 0px;
+}
+.test-duo-listing li button{
+	background: #f78631;
+    color: white;
+    border-radius: 4px;
+    padding: 6px 20px;
+    border: transparent;
+    font-weight: 500;
+}
 /* ======================== Test Info ======================== */
+/* =============== cashback-style =============== */
+.wallet-cashback-container{
+	padding-bottom: 15px;
+}
+.csh-wallet-bal{
+    text-align: center;
+    font-weight: 500;
+}
+.csh-wallet-val{
+    text-align: center;
+    display: block;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 10px 0 15px 0;
+}
+.cashback-balacne-val{
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    margin-bottom: 15px;
+    align-items: center;
+}
+.csh-rfnd-text{
+	font-weight: 500;
+}
+.csh-rfnd-text span{
+    font-weight: 600;
+}
+.cashback-withdraw{
+	border-radius: 15px;
+    background: #f78631;
+    color: white;
+    padding: 3px 12px;
+}
+.cashback-transactions-section{
+    border-top: 1px solid rgba(132, 124, 124, .12);
+}
+.csh-trns-heading{
+    font-weight: 500;
+    padding: 15px 0px 10px 12px;
+}
+
+.csh-heading-bg{
+	background: #f5f5f5;
+    padding: 5px 0 5px 12px;
+    font-size: 14px;
+}
+.csh-trns-data{
+	display: flex;
+    align-items: flex-start;
+    padding: 12px 12px;
+    justify-content: space-between;
+}
+.csh-content-with-img{
+	display: flex;
+    align-items: flex-start;
+}
+.csh-content-with-img img{
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-right: 12px;
+}
+.csh-booking-id-content{
+
+}
+.csh-booking-id-content p{
+	font-weight: 500;
+    margin-bottom: 3px;
+}
+.csh-booking-id-content span{
+	color: #f78631;
+    font-weight: 500;
+}
+.csh-trns-price{
+    font-weight: 500;
+}
+.pls-sgn{
+	color: #18da1d;
+}
+.mns-sgn{
+color: red;
+}
+.csh-content-with-img img.minus-img{
+	transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+/* =============== cashback-style =============== */
