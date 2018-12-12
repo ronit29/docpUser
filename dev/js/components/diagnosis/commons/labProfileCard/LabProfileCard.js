@@ -81,73 +81,12 @@ class LabProfileCard extends React.Component {
             price = price + pickup_charges
         }
 
-        // let hide_price = false
-        // if (this.props.selectedCriterias && this.props.selectedCriterias.length) {
-        //     this.props.selectedCriterias.map((x) => {
-        //         if (x.hide_price) {
-        //             hide_price = true
-        //         }
-        //     })
-        // }
-
         let offPercent = ''
         if (mrp && price && (price < mrp)) {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
 
         return (
-            // <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
-            //     <div className="widget card lab-rslt-card">
-            //         <div className="widget-content card-content book-card" style={{ paddingBottom: 0 }} >
-            //             <div className="logo-ratting">
-            //                 <span className="ct-img lab-icon">
-            //                     <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-            //                         <img src={lab.lab_thumbnail} className="img-fluid" style={{ maxWidth: 90, maxHeight: 60 }} />
-            //                     </InitialsPicture>
-            //                 </span>
-            //             </div>
-            //             <div className="book-card-content">
-            //                 <a href={this.props.details.lab.url ? `/${this.props.details.lab.url}` : `/lab/${this.props.details.lab.id}`}>
-            //                     <h2 className="book-cart-title">{lab.name}</h2>
-            //                 </a>
-            //                 <p className="fw-500" style={{ color: '#343434', fontSize: 14, marginBottom: 8 }} >Radiology | Pathology</p>
-            //                 <div style={{ display: 'flex', flexWrap: 'wrap', minWidth: 0 }} >
-            //                     <p className="lab-locality">
-
-            //                         {lab.locality} {lab.city}&nbsp;|
-            //                     </p>
-            //                     <div style={{ width: 60, marginLeft: 4, marginBottom: 8, alignSelf: 'center' }}>
-            //                         <span><img src={ASSETS_BASE_URL + "/img/icons/location-orange.svg"} style={{ marginRight: 4, verticalAlign: '-1px' }} /></span><span className="text-primary fw-500">{distance} KM</span>
-            //                     </div>
-            //                 </div>
-            //                 {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
-            //             </div>
-            //         </div>
-
-            //         <div className="widget-footer card-footer lab-search-card-footer">
-            //             <div className="row">
-            //                 <div className="col-12 text-right">
-            //                     {
-            //                         price && !hide_price ? <p className="lab-price mrb-10"> &#8377; {price} <span className="dp-dr-old-price fw-500" style={{ display: 'inline-block' }}>&#8377; {mrp}</span></p> : ""
-            //                     }
-            //                     {
-            //                         (STORAGE.checkAuth() || price < 100) || hide_price ?
-            //                             ''
-            //                             : <div className="signup-off-container lab-signup-offr">
-            //                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-            //                             </div>
-            //                     }
-            //                     {
-            //                         pickup_text ? <p className="features-dtls"><sup className="str-symbol">*</sup>{pickup_text}</p> : ""
-            //                     }
-            //                     <button className="v-btn v-btn-primary btn-md">Book Lab</button>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
-
-
             <div className="filter-card-dl mb-3">
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
@@ -158,48 +97,42 @@ class LabProfileCard extends React.Component {
                         </p>
                     </div>
                     <div className="row no-gutters mrt-10" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
-                        <div className="col-3 lab-card-img-div">
-                            <div className="fltr-crd-img-lab text-center">
-                                <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-                                    <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
-                                </InitialsPicture>
+                        <div className="col-12">
+                            <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
+                                <h2 className="lab-fltr-dc-name fw-500 text-md" style={{ color: '#000' }}>{lab.name}</h2>
+                            </a>
+                            {
+                                offPercent && offPercent > 0 ?
+                                    <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
+                            }
+                        </div>
+                        <div className="col-7 mrt-10">
+                            <div className="img-nd-dtls">
+                                <div className="text-center">
+                                    <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
+                                        <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
+                                    </InitialsPicture>
+                                </div>
+                                <div style={{ marginLeft: 8 }}>
+                                    {
+                                        this.props.details.tests && this.props.details.tests.length == 1 ?
+                                            <p style={{ color: '#000', fontSize: 14, fontWeight: 400 }}>{this.props.details.tests[0].name}</p> : ''
+                                    }
+                                </div>
                             </div>
+                        </div>
+                        <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
+                            {
+                                price ? <p className="text-primary fw-500 text-lg mrb-10">&#8377; {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }} >&#8377; {mrp}</span></p> : ''
+                            }
                             {
                                 STORAGE.checkAuth() || price < 100 ?
                                     ''
-                                    : <div className="signup-off-container" style={{ marginBottom: 0 }} >
+                                    : <div className="signup-off-container">
                                         <span className="signup-off-doc" style={{ fontSize: 12 }} >+ ₹ 100 OFF <b>on Signup</b> </span>
                                     </div>
                             }
-                        </div>
-                        <div className="col-9">
-                            <div className="row no-gutters">
-                                <div className="col-12">
-                                    <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
-                                        <h2 className="fltr-dc-name text-md" style={{ color: '#000' }}>{lab.name}</h2>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="row no-gutters">
-                                <div className="col-6" style={{ paddingRight: 4 }}>
-                                    {
-                                        this.props.details.tests && this.props.details.tests.length == 1 ?
-                                            <p style={{ color: '#000', fontSize: 14, fontWeight: 400, marginTop: 32 }}>{this.props.details.tests[0].name}</p> : ''
-                                    }
-                                </div>
-                                <div className="col-6">
-                                    <div className="fltr-bkng-section">
-                                        {
-                                            offPercent && offPercent > 0 ?
-                                                <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
-                                        }
-                                        {
-                                            price ? <p className="fltr-prices">&#8377; {price}<span className="fltr-cut-price">&#8377; {mrp}</span></p> : ''
-                                        }
-                                        <button className="fltr-bkng-btn">Book Now</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <button className="fltr-bkng-btn" style={{ width: '100%' }} >Book Now</button>
                         </div>
                     </div>
                     {
@@ -234,6 +167,5 @@ class LabProfileCard extends React.Component {
         );
     }
 }
-
 
 export default LabProfileCard

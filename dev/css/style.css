@@ -820,11 +820,7 @@ p.top-head-link.card-lab-link span {
 		padding-top:0px !important;
 	}
 	.sticky-pk-container{
-		position: sticky;
-		top: 79px;
-		background-color: #fff;
-		z-index: 1;
-		border-bottom: 1px solid #d3d3d3;
+		top: 79px !important;
 	}
 
 }
@@ -3853,7 +3849,7 @@ ul li.time-slot-li-listing{
 
 .sticky-pk-container{
 	position: sticky;
-    top: 107px !important;
+    top: 107px;
     background-color: #fff;
 	z-index: 1;
 	border-bottom: 1px solid #d3d3d3;

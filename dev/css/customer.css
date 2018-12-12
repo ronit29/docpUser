@@ -1598,3 +1598,26 @@ p.rt-doc-nm{
     right: 10px;
     opacity: 0;
 }
+
+.img-nd-dtls{
+    display: flex;
+    align-items: center;
+}
+
+.lab-fltr-dc-name{
+    margin-bottom: 5px;
+    width: 100%;
+    display: block;
+    padding-right: 50px;
+}
+
+.crd-dctr-dtls{
+    margin-left: 8px;
+}
+
+.crd-dctr-dtls h3{
+    width: 100%;
+    word-break: break-word;
+    color: #757575;
+    font-size: 13px;
+}
