@@ -58,32 +58,32 @@ class WalletView extends React.Component {
                                 this.state.loading ? <Loader /> : <div className="container-fluid  new-profile-header-margin">
                                     <div className="widget">
                                         <div className="widget-content">
-                                        <div className="row ">
-                                            <div className="col-12 transactions-head-col text-center">
-                                                <p className="transactions-head">Total Credits</p>
+                                            <div className="row ">
+                                                <div className="col-12 transactions-head-col text-center">
+                                                    <p className="transactions-head">Total Credits</p>
+                                                </div>
+                                                <div className="col-12 balance-info-col">
+                                                    <p className="current-balance fw-500">{userWalletBalance}</p>
+                                                </div>
+                                                <div className="col-12 credit-tip text-center">
+                                                    <p>You could use this credit to book Appointments with Doctors or Diagnostic Centers</p>
+                                                </div>
+                                                {
+                                                    (userWalletBalance > 0) ? <div className="refund-btn-div">
+                                                        <button className="refund-btn" onClick={this.refund.bind(this)}>Refund</button>
+                                                    </div> : ""
+                                                }
+                                                <div className="col-12 credit-tip text-center">
+                                                    <p>You can refund manually else your money will be automatically refunded to your bank account in 24 hours</p>
+                                                </div>
                                             </div>
-                                            <div className="col-12 balance-info-col">
-                                                <p className="current-balance fw-500">{userWalletBalance}</p>
-                                            </div>
-                                            <div className="col-12 credit-tip text-center">
-                                                <p>You could use this credit to book Appointments with Doctors or Diagnostic Centers</p>
-                                            </div>
-                                            {
-                                                (userWalletBalance > 0) ? <div className="refund-btn-div">
-                                                    <button className="refund-btn" onClick={this.refund.bind(this)}>Refund</button>
-                                                </div> : ""
-                                            }
-                                            <div className="col-12 credit-tip text-center">
-                                                <p>You can refund manually else your money will be automatically refunded to your bank account in 24 hours</p>
-                                            </div>
-                                        </div>
-                                        <p style={{
-                                            position: 'absolute',
-                                            bottom: -20,
-                                            right: 10,
-                                            fontSize: 12
-                                        }}>1 credit = 1 Rupee</p>
-                                        {/* <div className="row">
+                                            <p style={{
+                                                position: 'absolute',
+                                                bottom: -20,
+                                                right: 10,
+                                                fontSize: 12
+                                            }}>1 credit = 1 Rupee</p>
+                                            {/* <div className="row">
                                     <div className="col-12 transactions-head-col">
                                         <p className="transactions-head fw-500">Transactions</p>
                                     </div>
@@ -95,8 +95,97 @@ class WalletView extends React.Component {
                                 <Transactions />
                                 <Transactions /> */}
 
-                                            </div>
+                                        </div>
                                     </div>
+                                    <div className="widget mt-20">
+                                        <div className="widget-content">
+                                            <div className="wallet-cashback-container">
+                                                <p className="csh-wallet-bal">Wallet Balance</p>
+                                                <span className="csh-wallet-val">₹ 1,210</span>
+                                                <div className="cashback-balacne-val">
+                                                    <p className="csh-rfnd-text">Refundable Balance : <span>₹ 1,000</span></p>
+                                                    <span className="cashback-withdraw">Withdraw</span>
+                                                </div>
+                                                <div className="cashback-balacne-val">
+                                                    <p className="csh-rfnd-text">Pramotional Balance : <span>₹ 200</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="cashback-transactions-section">
+
+                                            <h4 className="csh-trns-heading">
+                                                Transactions
+                                                    </h4>
+                                            <div className="cash-all-transaction">
+                                                <h5 className="csh-heading-bg">17th December 2018</h5>
+                                                <div className="csh-trns-data">
+                                                    <div className="csh-content-with-img">
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <div className="csh-booking-id-content">
+                                                            <p>Paid for Doctor Appointment</p>
+                                                            <span>Booking id : 12345976RTBDP</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
+                                                </div>
+                                            </div>
+                                            <div className="cash-all-transaction">
+                                                <h5 className="csh-heading-bg">17th December 2018</h5>
+                                                <div className="csh-trns-data">
+                                                    <div className="csh-content-with-img">
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <div className="csh-booking-id-content">
+                                                            <p>Paid for Doctor Appointment</p>
+                                                            <span>Booking id : 12345976RTBDP</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
+                                                </div>
+                                            </div>
+                                            <div className="cash-all-transaction">
+                                                <h5 className="csh-heading-bg">17th December 2018</h5>
+                                                <div className="csh-trns-data">
+                                                    <div className="csh-content-with-img">
+                                                        <img className="minus-img" src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <div className="csh-booking-id-content">
+                                                            <p>Paid for Doctor Appointment</p>
+                                                            <span>Booking id : 12345976RTBDP</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="csh-trns-price"><b className="mns-sgn">-</b> ₹ 190</span>
+                                                </div>
+                                            </div>
+                                            <div className="cash-all-transaction">
+                                                <h5 className="csh-heading-bg">17th December 2018</h5>
+                                                <div className="csh-trns-data">
+                                                    <div className="csh-content-with-img">
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <div className="csh-booking-id-content">
+                                                            <p>Paid for Doctor Appointment</p>
+                                                            <span>Booking id : 12345976RTBDP</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
+                                                </div>
+                                            </div>
+                                            <div className="cash-all-transaction">
+                                                <h5 className="csh-heading-bg">17th December 2018</h5>
+                                                <div className="csh-trns-data">
+                                                    <div className="csh-content-with-img">
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <div className="csh-booking-id-content">
+                                                            <p>Paid for Doctor Appointment</p>
+                                                            <span>Booking id : 12345976RTBDP</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    
                                 </div>
                             }
 
