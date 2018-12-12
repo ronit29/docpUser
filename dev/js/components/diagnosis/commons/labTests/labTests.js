@@ -41,7 +41,7 @@ class LabTests extends React.Component {
         this.props.currentLabSelectedTests.map((test, i) => {
             test_ids.push(test.id)
         })
-        this.props.history.push('/search/testinfo?test_ids='+test_ids)
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=lab_test')
     }
     render() {
         let is_package = false

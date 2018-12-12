@@ -7,6 +7,7 @@ class SearchTestView extends React.Component {
         super(props)
         this.state = {
             tabsValue: [],
+            lastSource:''
         }
     }
     ButtonHandler(field, event) {
@@ -29,12 +30,18 @@ class SearchTestView extends React.Component {
         var url_string = window.location.href; //window.location.href
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids");
+        let last_page = url.searchParams.get("from");
+        this.setState({lastSource:last_page})
         if(test_id != null){
             this.props.searchTestData(test_id)
         }
     }
     closeTestInfo(){
-        this.props.history.push('/search')
+        if(this.state.lastSource == 'search'){
+            this.props.history.push('/search')
+        }else{
+            window.history.back()
+        }
     }
     render() {
         if (this.props.searchTestInfoData.length > 0) {
