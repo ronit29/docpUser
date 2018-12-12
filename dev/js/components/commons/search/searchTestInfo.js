@@ -8,7 +8,8 @@ class SearchTestView extends React.Component {
         this.state = {
             tabsValue: [],
             lastSource:'',
-            allFrequentlyTest:[]
+            allFrequentlyTest:[],
+            lab_id:''
         }
     }
     ButtonHandler(field, event) {
@@ -32,6 +33,7 @@ class SearchTestView extends React.Component {
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids");
         let last_page = url.searchParams.get("from");
+        let lab_id = url.searchParams.get("lab_id")
         let test_id_val=[]
         let allTest =[]
         this.setState({lastSource:last_page})
@@ -50,6 +52,7 @@ class SearchTestView extends React.Component {
                 })}
                 this.setState({ tabsValue: test_id_val})
                 this.setState({ allFrequentlyTest: allTest})
+                this.setState({ lab_id: lab_id})
             })
         }
     }
@@ -63,11 +66,16 @@ class SearchTestView extends React.Component {
     frequentlyAddTest(field,name,event){
         let self = this
         let test = {}
-            test.type = 'test'
-            test.name = name
-            test.id = field
-            test.lab_id = field
-            test.extra_test = true
+            if(this.state.lab_id != ''){
+                test.lab_id = this.state.lab_id
+                test.extra_test = true
+                test.type = 'test'
+                test.name = name
+            }else{
+                test.type = 'test'
+                test.name = name
+                test.id = field
+            }
             test.hide_price = false
         self.props.toggleDiagnosisCriteria('test', test, false)
     }

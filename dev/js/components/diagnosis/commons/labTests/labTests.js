@@ -38,10 +38,11 @@ class LabTests extends React.Component {
     }
     testInfo(){
         let test_ids = []
+        let lab_id = this.props.selectedLab
         this.props.currentLabSelectedTests.map((test, i) => {
             test_ids.push(test.id)
         })
-        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=lab_test')
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&lab_id='+lab_id+'&from=searchresults') 
     }
     render() {
         let is_package = false

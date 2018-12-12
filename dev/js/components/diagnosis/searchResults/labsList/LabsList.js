@@ -74,7 +74,12 @@ class LabsList extends React.Component {
             }, 1000)
         })
     }
-
+    testInfo(){
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var test_ids = url.searchParams.get("test_ids");
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=searchresults') 
+    }
     render() {
 
         let { LABS, labList } = this.props
@@ -85,8 +90,10 @@ class LabsList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             <div className="row">
+                            <div className="col-12">
+                                    <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
+                                    </div>
                                 <div className="col-12">
-
                                     <InfiniteScroll
                                         pageStart={0}
                                         loadMore={this.loadMore.bind(this)}

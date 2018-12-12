@@ -59,13 +59,6 @@ class LabProfileCard extends React.Component {
             }
         }
     }
-    testInfo(){
-        let test_ids = []
-        this.props.details.tests.map((test, i) => {
-            test_ids.push(test.id)
-        })
-        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=searchresults') 
-    }
     render() {
 
         let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges } = this.props.details;
@@ -155,9 +148,6 @@ class LabProfileCard extends React.Component {
 
 
             <div className="filter-card-dl mb-3">
-                    <div>
-                    <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
-                    </div>
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
                         <p>
