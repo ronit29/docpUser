@@ -77,7 +77,7 @@ class LabTests extends React.Component {
                 } else {
                     if(test.is_selected){
                         if(test.is_selected){
-                          test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
+                          test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span>
                         }else{
                             test_info = ''
                         }
