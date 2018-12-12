@@ -57,7 +57,7 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     is_package = true
-                    number_of_tests = test.number_of_tests
+                 //   number_of_tests = test.number_of_tests
                 }
 
                 if (test.is_package) {
@@ -147,7 +147,7 @@ class LabTests extends React.Component {
             <div>
                 <div className="widget-content pb-details pb-test nw-listing-pddng">
                     {
-                        is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests</h4>
+                        is_package ? '': <h4 className="wc-title text-md fw-700">Selected Tests</h4>
                     }
 
                     <ul className="list all-test-list">
