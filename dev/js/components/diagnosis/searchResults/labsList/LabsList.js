@@ -91,7 +91,7 @@ class LabsList extends React.Component {
                         <div className="container-fluid">
                             <div className="row">
                             <div className="col-12">
-                                    <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
+                                    <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span>
                                     </div>
                                 <div className="col-12">
                                     <InfiniteScroll
