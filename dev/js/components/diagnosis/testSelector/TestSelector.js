@@ -79,10 +79,10 @@ class TestSelectorView extends React.Component {
                 }
                 if (!found) {
                     testIds.push(criteria.id)
-                    tests.push({ ...criteria, test: criteria , ...testVal })
+                    tests.push({ ...criteria, test: criteria, ...testVal })
                 }
             })
-            tests = labData && labData.tests?labData.tests.filter((x=> testIds.indexOf(x.test.id)>-1)):[]
+            tests = labData && labData.tests ? labData.tests.filter((x => testIds.indexOf(x.test.id) > -1)) : []
         }
 
         // hide and show "more" code below :
@@ -111,7 +111,7 @@ class TestSelectorView extends React.Component {
                                 labData ?
 
                                     <div>
-                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 77 }}>
+                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 79 }}>
                                             <div className="container-fluid">
                                                 {/* <div className="row">
                                                     <div className="col-12">
@@ -127,14 +127,8 @@ class TestSelectorView extends React.Component {
                                                     <div className="col-12" style={{ paddingTop: 10, borderBottom: '1px solid #d3d3d3' }}>
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
-                                                                <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.getSearchList.bind(this)} />
-                                                                <span className="ct-img ct-img-sm map-marker-blue"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} className="img-fluid" /></span>
-                                                            </div>
-                                                            <div className="detect-my-locaiton rmv-pointer">
-                                                                <span className="ct-img ct-img-xs" />
-                                                                {
-                                                                    selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
-                                                                }
+                                                                <input className="new-srch-doc-lab" placeholder="Search tests" type="text" onChange={this.getSearchList.bind(this)} />
+                                                                <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: 15 }} />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -142,12 +136,17 @@ class TestSelectorView extends React.Component {
                                             </div>
                                         </header>
 
-                                        <section className="wrap">
+                                        <section className="wrap" style={{ paddingTop: 0 }}>
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
-                                                    <ul className="list all-test-list" id="lab-tests-list">
+                                                    <div className="detect-my-locaiton rmv-pointer mrt-10" style={{ textAlign: 'left', color: '#000000', paddingLeft: 20 }} >
                                                         {
-                                                            this.state.searchString==''?tests.map((test, i) => {
+                                                            selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
+                                                        }
+                                                    </div>
+                                                    <ul className="list all-test-list mrt-10" id="lab-tests-list">
+                                                        {
+                                                            this.state.searchString == '' ? tests.map((test, i) => {
                                                                 return <li key={i + "srt"}>
                                                                     <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                         {test.test.name}
@@ -157,21 +156,20 @@ class TestSelectorView extends React.Component {
                                                                     <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                 </li>
                                                             })
-                                                            :''
+                                                                : ''
                                                         }
                                                         {
-                                                            this.state.searchResults.length?
-                                                            this.state.searchResults.map((test, i) => {
-                                                                return <li key={i + "srt"}>
-                                                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                                                        {test.test.name}
-                                                                        <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
-                                                                        <span className="checkmark" />
-                                                                    </label>
-                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                                                                </li>
-                                                            })
-                                                            :''
+                                                            this.state.searchResults.length ?
+                                                                this.state.searchResults.map((test, i) => {
+                                                                    return <li key={i + "srt"}>
+                                                                        <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                                                            {test.test.name}
+                                                                            <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
+                                                                            <span className="checkmark" />
+                                                                        </label>
+                                                                        <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                    </li>
+                                                                }) : ''
                                                         }
                                                     </ul>
                                                 </div>

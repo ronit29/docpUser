@@ -48,7 +48,7 @@ class LabTests extends React.Component {
         let selectedPackage = []
         let unSelectedTests = []
         let unSelectedPackage = []
-        
+
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -61,35 +61,35 @@ class LabTests extends React.Component {
                 }
 
                 if (test.is_package) {
-                    if(test.is_selected){
-                        selectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)}/>)
-                    }else{
-                        unSelectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)}/>)
+                    if (test.is_selected) {
+                        selectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} />)
+                    } else {
+                        unSelectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} />)
                     }
-                    
+
                 } else {
-                    if(test.is_selected){
+                    if (test.is_selected) {
                         selectedTests.push(test.hide_price
-                            ?<li className="clearfix" key={i}>
-                               <span className="test-price">Free</span> 
-                             </li>
-                            :<li key={i + "srt"}>
+                            ? <li className="clearfix" key={i}>
+                                <span className="test-price">Free</span>
+                            </li>
+                            : <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected?true:false} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                             </li>)
-                    }else{
+                    } else {
                         unSelectedTests.push(test.hide_price
-                            ?<li className="clearfix" key={i}>
-                               <span className="test-price">Free</span> 
-                             </li>
-                            :<li key={i + "srt"}>
+                            ? <li className="clearfix" key={i}>
+                                <span className="test-price">Free</span>
+                            </li>
+                            : <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected?true:false} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
@@ -98,7 +98,7 @@ class LabTests extends React.Component {
                 }
             })
             selectedTestIds = this.props.currentLabSelectedTests.map(x => x.test_id)
-            
+
         }
 
         const parsed = queryString.parse(this.props.location.search)
@@ -157,7 +157,12 @@ class LabTests extends React.Component {
                         {unSelectedPackage}
                     </ul>
                     {
-                        pickup_text ? <div className="clearfix">
+                        hide_price ? "" : <div className="pb-view">
+                            <a href="javascript:;" className="link-text fw-700" style={{ fontSize: 14 }} onClick={this.openTests.bind(this)}>View more tests</a>
+                        </div>
+                    }
+                    {
+                        pickup_text ? <div className="clearfix mrt-10">
 
                             <p className="health-visit-charge">{pickup_text}</p>
 
@@ -177,11 +182,7 @@ class LabTests extends React.Component {
                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                             </div>
                     }
-                    {
-                        hide_price ? "" : <div className="pb-view text-right">
-                            <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
-                        </div>
-                    }
+
                     {
                         this.state.showPackageInfo ? <PackageInfo content={this.state.packageInfoTest} toggle={this.toggle.bind(this, 'showPackageInfo')} /> : ""
                     }
