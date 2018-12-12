@@ -1,4 +1,5 @@
 import React from 'react';
+import GTM from '../../../helpers/gtm.js'
 
 class BannerCarousel extends React.Component {
     constructor(props) {
@@ -19,38 +20,42 @@ class BannerCarousel extends React.Component {
         }, 5000)
     }
 
-    navigate() {
+    navigate(imgData) {
 
-        if (this.state.index === 1) {
-            let test = {}
-            test.type = 'test'
-            test.id = 12227
-            this.props.toggleDiagnosisCriteria('test', test, true)
-            setTimeout(() => {
-                this.props.history.push('/lab/searchresults')
-            }, 100)
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'BannerCarouselClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'banner-carousel-clicked', 'selectedBanner': this.state.index + 1, 'url': imgData[this.state.index].href || ''
         }
-        else if (this.state.index === 2) {
-            let test = {}
-            test.type = 'test'
-            test.id = 11554
-            this.props.toggleDiagnosisCriteria('test', test, true)
-            setTimeout(() => {
-                this.props.history.push('/lab/searchresults')
-            }, 100)
+        GTM.sendEvent({ data: data })
+        if (imgData[this.state.index].href != '') {
+            if (this.state.index === 1) {
+                let test = {}
+                test.type = 'test'
+                test.id = 12227
+                this.props.toggleDiagnosisCriteria('test', test, true)
+                setTimeout(() => {
+                    this.props.history.push('/lab/searchresults')
+                }, 100)
+            }
+            else if (this.state.index === 2) {
+                let test = {}
+                test.type = 'test'
+                test.id = 11554
+                this.props.toggleDiagnosisCriteria('test', test, true)
+                setTimeout(() => {
+                    this.props.history.push('/lab/searchresults')
+                }, 100)
+            }
+            else if (this.state.index === 3) {
+                let speciality = {}
+                speciality.type = 'procedures_category'
+                speciality.id = 2
+                let filters = { 'sort_on': 'fees' }
+                this.props.toggleOPDCriteria('procedures_category', speciality, true, filters)
+                setTimeout(() => {
+                    this.props.history.push('/opd/searchresults')
+                }, 100)
+            }
         }
-        else if (this.state.index === 3) {
-            let speciality = {}
-            speciality.type = 'procedures_category'
-            speciality.id = 2
-            let filters = { 'sort_on': 'fees' }
-            this.props.toggleOPDCriteria('procedures_category', speciality, true, filters)
-            setTimeout(() => {
-                this.props.history.push('/opd/searchresults')
-            }, 100)
-        }
-
-
     }
 
     render() {
@@ -61,7 +66,7 @@ class BannerCarousel extends React.Component {
                 'href': ''
             },
             {
-                'src': "/img/banners/banner_aarogyam.png",
+                'src': "/img/banners/banner_aarogyam_new.png",
                 'href': "/lab/searchresults?test_ids=12227&min_distance=0&lat=28.459131&long=77.072561&min_price=0&max_price=20000&sort_on=&max_distance=15&lab_name=&network_id="
             },
             {
@@ -76,7 +81,7 @@ class BannerCarousel extends React.Component {
 
         return (
             <div className="banner-carousel-div mrt-20">
-                <img src={ASSETS_BASE_URL + imgData[this.state.index].src} onClick={imgData[this.state.index].href != '' ? () => this.navigate() : ''} className={imgData[this.state.index].href != '' ? 'clickable-banner' : ''} />
+                <img src={ASSETS_BASE_URL + imgData[this.state.index].src} onClick={() => this.navigate(imgData)} className={imgData[this.state.index].href != '' ? 'clickable-banner' : ''} />
                 <div className="carousel-indicators mrt-10">
                     {
                         imgData.map((img, i) => {

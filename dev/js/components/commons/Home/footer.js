@@ -147,13 +147,13 @@ class Footer extends React.Component {
                                 <h3>For Patients</h3>
                                 {
                                     this.state.hideSource ? <ul>
-                                        <li><a href="/opd" onClick={(e) => {
+                                        <li><a href="/search?from=footer" onClick={(e) => {
                                             e.preventDefault();
-                                            this.navigateTo("/opd")
+                                            this.navigateTo("/search?from=footer")
                                         }}>Book Doctor Appointment</a></li>
-                                        <li><a href="/lab" onClick={(e) => {
+                                        <li><a href="/search?from=footer" onClick={(e) => {
                                             e.preventDefault();
-                                            this.navigateTo("/lab")
+                                            this.navigateTo("/search?from=footer")
                                         }}>Book a Medical Test</a></li>
                                         <li><a href="/mobileviewchat" onClick={(e) => {
                                             e.preventDefault();

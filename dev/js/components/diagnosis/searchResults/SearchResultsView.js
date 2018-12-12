@@ -47,9 +47,9 @@ class SearchResultsView extends React.Component {
     componentWillReceiveProps(props) {
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getLabList(props)
-            if (window) {
-                window.scrollTo(0, 0)
-            }
+            // if (window) {
+            //     window.scrollTo(0, 0)
+            // }
         } else {
             if (props.selectedLocation != this.props.selectedLocation) {
                 let new_url = this.buildURI(props)
@@ -183,7 +183,7 @@ class SearchResultsView extends React.Component {
                     description: this.getMetaTagsData(this.state.seoData).description
                 }} noIndex={!this.state.seoFriendly} />
 
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
                             <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
@@ -192,7 +192,7 @@ class SearchResultsView extends React.Component {
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
                         </div>
                         */}
-                            {
+                            {/* {
                                 this.state.showChatWithus ? <div className="container-fluid d-md-none">
                                     <div className="row">
                                         <div className="col-12">
@@ -203,7 +203,7 @@ class SearchResultsView extends React.Component {
                                         </div>
                                     </div>
                                 </div> : ""
-                            }
+                            } */}
 
                             <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                         </div>

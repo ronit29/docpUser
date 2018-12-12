@@ -52,7 +52,7 @@ class UserProfileView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 

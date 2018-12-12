@@ -192,9 +192,9 @@ class LocationElementsView extends React.Component {
                 redirect_to = "/lab/searchresults"
             }
 
-            let location_url = '/locationsearch'
+            let location_url = '/search?from=popup'
             if (redirect_to) {
-                location_url += `?redirect_to=${redirect_to}`
+                location_url += `&redirect_to=${redirect_to}`
             }
             this.props.history.push(location_url)
         }
@@ -204,7 +204,7 @@ class LocationElementsView extends React.Component {
         if (this.props.commonSearchPage) {
             return <div className="serch-nw-inputs">
                 <input className="new-srch-inp" placeholder="location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} />
-                <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />
+                <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                 <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
             </div>
         }

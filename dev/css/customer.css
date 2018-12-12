@@ -328,7 +328,7 @@
 .online-consultant-list>li:first-child{margin-top: -13px; padding: 10px;}
 .online-consultant-list>li>a{display: block;}
 .online-consultant-list>li .consultant-dp{width: 80px; float: left; position: relative;}
-.online-consultant-list>li .consultant-details{padding-left: 100px; font-weight: 500; font-size: 14px;}
+.online-consultant-list>li .consultant-details{padding-left: 90px; font-weight: 500; font-size: 14px;}
 .online-consultant-list>li .view-chat{padding:10px;}
 
 .appointment-icon{position: absolute;right: -2px;bottom: -4px;width: 30px;height: 30px}
@@ -606,8 +606,8 @@ text-align: left;
 .no-rsk{
     display: flex;
     align-items: center;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     background-color: #ffffff;
@@ -909,11 +909,7 @@ li.lst-bfr:before{
 .fltr-crd-top-container{
 	padding: 10px 10px 15px 10px;
 }
-.filter-card-dl{
-	background: white;
-    border-radius: 10px;
-	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
-}
+
 .fltr-lctn-dtls{
 	text-align: right;
     margin-bottom: 10px;
@@ -986,29 +982,7 @@ li.lst-bfr:before{
 	font-size: 10px;
     right: -18px;
 }
-.filtr-card-footer{
-	background-color: rgba(194, 194, 194, .2);
-	padding: 5px 10px;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
-	display: flex;
-	justify-content: space-between;
-}
-.filtr-card-footer div{
-    display: inline-flex;
-    align-items: end;
-} 
-.filtr-card-footer p {
-    display: inline-block;
-    text-align: start;
-    color: #686868;
-	margin-left: 5px;
-	font-size: 12px;
-    font-weight: 500;
-}
-.filtr-card-footer span {
-    display: block;
-}
+
 .fltr-slected-test{
     display: flex;
 	justify-content: space-between;
@@ -1051,9 +1025,6 @@ li.lst-bfr:before{
 	}
 }
 @media screen and (max-width: 352px) {
-	.filtr-card-footer p{
-		font-size:10px;
-    }
     .filtr-offer.ofr-ribbon{
         font-size: 9px;
         padding: 4px;
@@ -1292,12 +1263,7 @@ p.comment-para-status{
     background: #000000c9;
     z-index: 999;
 }
-.home-rating-card{
-    padding: 15px;
-    border-radius: 20px;
-    background-color: #ffffff;
-    width: 355px;
-}
+
 .rate-card-header{
 	text-align: center;
     position: relative;

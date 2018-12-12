@@ -19,6 +19,9 @@ class AppointmentSlot extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         this.props.getLabById(this.props.match.params.id)
     }
 

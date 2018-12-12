@@ -48,12 +48,12 @@ class LabView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <h4>Top full body checkup packages</h4>
+                            <h4 className="mrng-top-12">Top full body checkup packages</h4>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">

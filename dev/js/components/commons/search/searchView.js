@@ -7,6 +7,7 @@ import GTM from '../../../helpers/gtm.js'
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
+const queryString = require('query-string');
 
 class SearchView extends React.Component {
     constructor(props) {
@@ -18,6 +19,14 @@ class SearchView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, from: parsed.from
+        }
+
+        GTM.sendEvent({ data: data })
     }
 
     searchProceedOPD(doctor_name = "", hospital_name = "") {
@@ -55,7 +64,7 @@ class SearchView extends React.Component {
         })
     }
 
-    showDoctors() {
+    showDoctors(type) {
         if (this.props.locationType == "geo") {
             this.setState({ focusInput: 1 })
             if (window) {
@@ -63,7 +72,17 @@ class SearchView extends React.Component {
             }
             return null
         }
-        this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias)
+
+        if (type) {
+            this.props.filterSelectedCriteria(type)
+        }
+
+        if (type == 'opd') {
+            this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias.filter(x => !x.type.includes("procedures")))
+        } else {
+            this.props.cloneCommonSelectedCriterias(this.props.selectedCriterias.filter(x => x.type.includes("procedures")))
+        }
+
         this.searchProceedOPD("", "")
     }
 
@@ -85,7 +104,7 @@ class SearchView extends React.Component {
                 <div className="container-fluid">
 
                     {
-                        this.props.selected == "opd" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
+                        this.props.selected == "opd" ? <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for doctor or disease" type="opd" paddingTopClass={true} searchProceed={this.searchProceedOPD.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
@@ -114,7 +133,7 @@ class SearchView extends React.Component {
                                     toggle={this.props.toggleOPDCriteria.bind(this)}
                                 />
 
-                                <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                                <button onClick={this.showDoctors.bind(this, 'opd')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                             </section>
                         </CriteriaSearch> : ""
@@ -180,7 +199,7 @@ class SearchView extends React.Component {
                                     toggle={this.props.toggleOPDCriteria.bind(this)}
                                 />
 
-                                <button onClick={this.showDoctors.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
+                                <button onClick={this.showDoctors.bind(this, 'procedures')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Doctors</button>
 
                             </section>
                         </CriteriaSearch> : ""
