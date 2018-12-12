@@ -9,7 +9,8 @@ class SearchTestView extends React.Component {
             tabsValue: [],
             lastSource:'',
             allFrequentlyTest:[],
-            lab_id:''
+            lab_id:'',
+            frequently_heading:''
         }
     }
     ButtonHandler(field, event) {
@@ -37,6 +38,7 @@ class SearchTestView extends React.Component {
         let lab_id = url.searchParams.get("lab_id")
         let test_id_val=[]
         let allTest =[]
+        let ferq_heading
         this.setState({lastSource:last_page})
         if(test_id != null){
             this.props.searchTestData(test_id,(resp)=>{
@@ -46,11 +48,12 @@ class SearchTestView extends React.Component {
                         allTest = allTest.concat(value.frequently_booked_together.value)
                     }
                     if(resp.length >1 && key != 0){
+                        ferq_heading = value.frequently_booked_together.title
                         let test_id = 'test_'+value.id
                         test_id_val.push(test_id)
                     }
                 })}
-                this.setState({ tabsValue: test_id_val,allFrequentlyTest: allTest,lab_id: lab_id})
+                this.setState({ tabsValue: test_id_val,allFrequentlyTest: allTest,lab_id: lab_id,frequently_heading:ferq_heading})
             })
         }
     }
@@ -163,9 +166,11 @@ class SearchTestView extends React.Component {
                                                             })}
                                                         </div>
                                                     </div>
+                                                    {
+                                                        this.state.allFrequentlyTest.length >0?
                                                     <div className="widget mrb-15 mrng-top-12">
                                                         <div className="widget-content">
-                                                           <h5 className="test-duo-heding"> Frequently Booked Together</h5>
+                                                           <h5 className="test-duo-heding"> {this.state.frequently_heading}</h5>
                                                             <ul className="test-duo-listing">
                                                                 {Object.entries(this.state.allFrequentlyTest).map(function ([k, frequently]) {
                                                                     return <li><p>{frequently.lab_test}</p>
@@ -176,6 +181,8 @@ class SearchTestView extends React.Component {
 
                                                         </div>
                                                     </div>
+                                                    :''
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
