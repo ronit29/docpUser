@@ -7,7 +7,8 @@ class SearchTestView extends React.Component {
         super(props)
         this.state = {
             tabsValue: [],
-            lastSource:''
+            lastSource:'',
+            allFrequentlyTest:[]
         }
     }
     ButtonHandler(field, event) {
@@ -27,13 +28,29 @@ class SearchTestView extends React.Component {
         self.setState({ tabsValue: tabs })
     }
     componentDidMount() {
-        var url_string = window.location.href; //window.location.href
+        var url_string = window.location.href;
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids");
         let last_page = url.searchParams.get("from");
+        let test_id_val=[]
+        let allTest =[]
         this.setState({lastSource:last_page})
         if(test_id != null){
-            this.props.searchTestData(test_id)
+            this.props.searchTestData(test_id,(resp)=>{
+                {Object.entries(resp).map(function ([key, value]) { 
+
+                    let testIds = allTest.map(x=>x.id)
+                    if(testIds.indexOf(value.frequently_booked_together.id) == -1){
+                        allTest = allTest.concat(value.frequently_booked_together)
+                    }
+                    if(resp.length >1 && key != 0){
+                        let test_id = 'test_'+value.id
+                        test_id_val.push(test_id)
+                    }
+                })}
+                this.setState({ tabsValue: test_id_val})
+                this.setState({ allFrequentlyTest: allTest})
+            })
         }
     }
     closeTestInfo(){
@@ -43,8 +60,17 @@ class SearchTestView extends React.Component {
             window.history.back()
         }
     }
+    frequentlyAddTest(field,name,event){
+        let self = this
+        let test = {}
+            test.type = 'test'
+            test.name = name
+            test.id = field
+        self.props.toggleDiagnosisCriteria('test', test, false)
+    }
     render() {
-        if (this.props.searchTestInfoData.length > 0) {
+        if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
+            console.log(this.state)
             let self = this
             return (
                 <div>
@@ -100,7 +126,7 @@ class SearchTestView extends React.Component {
                                                                             <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_faq_'+value.id) > -1 ? 'hide' : ''}`}>
                                                                                 {Object.entries(value.faqs).map(function ([k, faq]) {
                                                                                     return <ul>
-                                                                                        <li>{faq.test_question}</li>
+                                                                                        <li>Q.{faq.test_question}</li>
                                                                                         <li>{faq.test_answer}</li>
                                                                                     </ul>
                                                                                 })}
@@ -109,6 +135,13 @@ class SearchTestView extends React.Component {
                                                                     </div>
                                                                 </div>
                                                             })}
+                                                        </div>
+                                                        <div>
+                                                            <ul>
+                                                                {Object.entries(this.state.allFrequentlyTest).map(function ([k, frequently]) {
+                                                                        return <li><button id={frequently.id} onClick={self.frequentlyAddTest.bind(self,frequently.id,frequently.lab_test)}>{frequently.lab_test}</button></li>
+                                                                    })}
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
