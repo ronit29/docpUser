@@ -33,7 +33,7 @@ class Search extends React.Component {
 
         if(CONFIG.SEARCH_ELASTIC_VIEW){
             return (
-                <SearchElasticView {...this.props} dataState = {this.props.selectedSearchType == 'opd' || this.props.selectedSearchType == 'procedures' ?this.props.OPD_STATE:this.props.LAB_STATE} selectedJourney = {this.props.selectedSearchType == 'opd' || this.props.selectedSearchType == 'procedures' ?'opd':'lab'} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                <SearchElasticView {...this.props} dataState = {this.props.selectedSearchType == 'opd' || this.props.selectedSearchType == 'procedures' ?this.props.OPD_STATE:this.props.LAB_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
                 )
 
         }else{

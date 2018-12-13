@@ -74,11 +74,11 @@ class SearchElasticView extends React.Component{
             this.props.filterSelectedCriteria(type)
         }*/
 
-        if (type == 'opd') {
+        /*if (type == 'opd') {
             this.props.cloneCommonSelectedCriterias(this.props.dataState.selectedCriterias.filter(x => !x.type.includes("procedures")))
         } else {
             this.props.cloneCommonSelectedCriterias(this.props.dataState.selectedCriterias.filter(x => x.type.includes("procedures")))
-        }
+        }*/
 
         this.searchProceedOPD("", "")
     }
@@ -96,22 +96,69 @@ class SearchElasticView extends React.Component{
 
 	render(){
 
+        let title=''
+        let searchProceed =''
+        let showResults =''
+        let commonSearched = ''
+
+        if(this.props.selectedSearchType.includes('opd')){
+            title="Search for doctor or disease"
+            searchProceed = this.searchProceedOPD.bind(this)
+            showResults = this.showDoctors.bind(this)
+
+            commonSearched = <CommonlySearched
+                                    heading="Common Specialities"
+                                    type="speciality"
+                                    data={this.props.dataState.specializations}
+                                    selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'speciality')*/}
+                                    toggle={this.props.toggleOPDCriteria.bind(this)}
+                                />
+
+        }else if(this.props.selectedSearchType.includes('lab')){
+            title="Search for tests or lab"
+            searchProceed = this.searchProceedLAB.bind(this)
+            showResults =  this.showLabs.bind(this)
+
+            commonSearched = <CommonlySearched
+                                    heading="Common Test"
+                                    type="test"
+                                    data={this.props.dataState.common_tests.filter(x => !x.is_package)}
+                                    selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test').filter(x => !x.is_package)}
+                                    toggle={this.props.toggleDiagnosisCriteria.bind(this)}
+                                />
+
+        }else{
+            title="Search for dental treatments"
+            searchProceed = this.searchProceedOPD.bind(this)
+            showResults = this.showDoctors.bind(this)
+
+            commonSearched = <CommonlySearched
+                                    heading="Common Dental Treatments"
+                                    type="procedures_category"
+                                    data={this.props.dataState.procedures}
+                                    selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
+                                    toggle={this.props.toggleOPDCriteria.bind(this)}
+                                />
+        }
+
 		return(
 			<section>
                 <div id="map" style={{ display: 'none' }}></div>
                 <div className="container-fluid">
-                	<CriteriaElasticSearch {...this.props} checkForLoad={true} title="Search for doctor or disease" type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={this.props.selectedJourney =='opd'?this.searchProceedOPD.bind(this):this.searchProceedLAB.bind(this)} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
+                	<CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults = {showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
-                                    (this.props.dataState.selectedCriterias.length>0 && this.props.dataState.selectedCriterias.filter(x => !x.type.includes("procedures").length > 0) ) ? <CommonlySearched
+                                    (this.props.selectedSearchType.includes('lab') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched
                                         heading={`View Selected (${this.props.dataState.selectedCriterias.length})`}
-                                        data={ this.props.dataState.selectedCriterias.filter(x => !x.type.includes("procedures") )}
-                                        selectedPills={true}
+                                        data={this.props.dataState.selectedCriterias}
                                         selected={[]}
-                                        toggle={this.props.selectedSearchType.includes('opd')?this.props.toggleOPDCriteria.bind(this):this.props.toggleDiagnosisCriteria.bind(this)}
+                                        selectedPills={true}
+                                        toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                                     /> : ""
                                 }
+
+                                {commonSearched}
 
                                 <button onClick={this.props.selectedJourney=='opd'?this.showDoctors.bind(this, 'opd'):this.showLabs.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">{this.props.selectedJourney=='opd'?'Show Doctors':'Show Labs'}</button>
 

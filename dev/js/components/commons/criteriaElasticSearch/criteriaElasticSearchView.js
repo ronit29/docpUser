@@ -63,25 +63,31 @@ class CriteriaElasticSearchView extends React.Component {
 
     addCriteria(criteria) {
 
+        criteria = Object.assign({},criteria)
+        
         if (this.props.type == 'opd') {
 
             let action = '', event = ''
-            /*if (criteria.type == 'practice_specialization') {
-                action = 'CommonSpecializationSearched'
-            }else if(criteria.type == 'procedure_category'){
+            if (criteria.action.param == 'specializations') {
 
-            }else if(criteria.type == 'procedure'){
-                
-            }else if(criteria.type == 'doctor'){
-                
-            }else if(criteria.type == 'hospital'){
-                
-            }else if(criteria.type == 'hospital'){
+                criteria.id = criteria.action.value.split(',')
+                criteria.type = 'speciality'
+            }else if(criteria.action.param == 'procedure_category'){
 
-            }*/
+            }else if(criteria.action.param == 'procedure'){
+                
+            }else if(criteria.action.param == 'doctor'){
+                
+            }else if(criteria.action.param == 'hospital_name'){
 
-            this.props.toggleOPDCriteria(criteria.type, criteria)
+                
+            }else if(criteria.action.param == 'hospital'){
+
+            }
+            this.props.cloneCommonSelectedCriterias(criteria)
+            //this.props.toggleOPDCriteria(criteria.type, criteria)
             this.setState({ searchValue: "" })
+            this.props.showResults('opd')
         
         } else {
             
@@ -196,9 +202,9 @@ class CriteriaElasticSearchView extends React.Component {
 
                                             <section>
                                                 {
-                                                    this.state.searchValue.length > 2  && this.props.type !='elastic'? <div>
+                                                    this.state.searchValue.length > 2 ?<div>
                                                         {
-                                                            this.props.type == 'opd' ?
+                                                            this.props.type == 'opd' || this.props.type == 'procedures' ?
                                                                 <div className="widget mb-10">
                                                                     <div className="common-search-container">
                                                                         <p className="srch-heading">Name Search</p>
@@ -254,23 +260,22 @@ class CriteriaElasticSearchView extends React.Component {
                                                 }
 
 
-                                                {
-                                                    this.state.searchResults.map((cat, j) => {
-                                                        return <div className="widget mb-10" key={j}>
-                                                            <div className="common-search-container">
-                                                                {/*<p className="srch-heading">{cat.name}</p>*/}
-                                                                <div className="common-listing-cont">
-                                                                    <ul>
-                                                                        <li key={j}>
-                                                                            <p className="" onClick={this.addCriteria.bind(this, cat)}>{cat.name}</p>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
+                                                <div className="widget mb-10" >
+                                                    <div className="common-search-container">
+                                                        {/*<p className="srch-heading">{cat.name}</p>*/}
+                                                        <div className="common-listing-cont">
+                                                            <ul>
+                                                            {
+                                                              this.state.searchResults.map((cat, j) => {
+                                                                 return <li key={j}>
+                                                                    <p className="" onClick={this.addCriteria.bind(this, cat)}>{cat.name}</p>
+                                                                </li>
+                                                              })
+                                                            }
+                                                            </ul>
                                                         </div>
-                                                    })
-                                                }
-
+                                                    </div>
+                                                </div>
 
                                             </section>
                                             : (this.props.checkForLoad ? this.props.children : <Loader />)
