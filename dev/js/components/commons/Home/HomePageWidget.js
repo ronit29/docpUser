@@ -20,6 +20,9 @@ class HomePageWidget extends React.Component {
     }
 
     render() {
+        console.log(this.props.searchType)
+        console.log('rishab')
+        console.log(this.props.list)
         return (
             <div className="card cstm-card mb-3">
                 <div className="card-header" style={{ justifyContent: 'normal' }}>

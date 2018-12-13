@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
-import SearchResultsView from '../../components/diagnosis/searchPackages/index.js'
+import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 
-class SearchResults extends React.Component {
+class SearchPackages extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -116,4 +116,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPackages);
