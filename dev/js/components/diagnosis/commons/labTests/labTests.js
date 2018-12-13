@@ -36,14 +36,11 @@ class LabTests extends React.Component {
 
         this.props.toggleDiagnosisCriteria('test', test)
     }
-    testInfo() {
-        let test_ids = []
-        console.log(this.props.selectedCriterias)
+    testInfo(){
         let lab_id = this.props.selectedLab
-        this.props.selectedCriterias.map((test, i) => {
-            test_ids.push(test.id)
-        })
-        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&lab_id=' + lab_id + '&from=searchbooknow')
+        let test_ids = this.props.lab_test_data[this.props.selectedLab] || []
+        test_ids = test_ids.map(x => x.id)        
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&lab_id='+lab_id+'&from=searchbooknow') 
     }
     render() {
         let is_package = false
@@ -66,42 +63,42 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     is_package = true
-                    //   number_of_tests = test.number_of_tests
+                    number_of_tests = test.number_of_tests
                 }
 
                 if (test.is_package) {
-                    if (test.is_selected) {
-                        selectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} />)
-                    } else {
-                        unSelectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} />)
+                    if(test.is_selected){
+                        selectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)}/>)
+                    }else{
+                        unSelectedPackage.push(<PackageTest i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)}/>)
                     }
-
+                    
                 } else {
                     if(test.is_selected){
                         if(test.test.show_details){
                           test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span>
                         }
                         selectedTests.push(test.hide_price
-                            ? <li className="clearfix" key={i}>
-                                <span className="test-price">Free</span>
-                            </li>
-                            : <li key={i + "srt"}>
+                            ?<li className="clearfix" key={i}>
+                               <span className="test-price">Free</span> 
+                             </li>
+                            :<li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected?true:false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                             </li>)
-                    } else {
+                    }else{
                         unSelectedTests.push(test.hide_price
-                            ? <li className="clearfix" key={i}>
-                                <span className="test-price">Free</span>
-                            </li>
-                            : <li key={i + "srt"}>
+                            ?<li className="clearfix" key={i}>
+                               <span className="test-price">Free</span> 
+                             </li>
+                            :<li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected?true:false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
@@ -110,7 +107,7 @@ class LabTests extends React.Component {
                 }
             })
             selectedTestIds = this.props.currentLabSelectedTests.map(x => x.test_id)
-
+            
         }
 
         const parsed = queryString.parse(this.props.location.search)
@@ -159,7 +156,8 @@ class LabTests extends React.Component {
             <div>
                 <div className="widget-content pb-details pb-test nw-listing-pddng">
                     {
-                        is_package ? '' : <h4 className="wc-title text-md fw-700">Selected Tests {test_info}</h4>
+                        is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests {test_info}
+                        </h4>
                     }
 
                     <ul className="list all-test-list">
@@ -169,12 +167,7 @@ class LabTests extends React.Component {
                         {unSelectedPackage}
                     </ul>
                     {
-                        hide_price ? "" : <div className="pb-view">
-                            <a href="javascript:;" className="link-text fw-700" style={{ fontSize: 14 }} onClick={this.openTests.bind(this)}>View more tests</a>
-                        </div>
-                    }
-                    {
-                        pickup_text ? <div className="clearfix mrt-10">
+                        pickup_text ? <div className="clearfix">
 
                             <p className="health-visit-charge">{pickup_text}</p>
 
@@ -194,7 +187,11 @@ class LabTests extends React.Component {
                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                             </div>
                     }
-
+                    {
+                        hide_price ? "" : <div className="pb-view text-right">
+                            <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
+                        </div>
+                    }
                     {
                         this.state.showPackageInfo ? <PackageInfo content={this.state.packageInfoTest} toggle={this.toggle.bind(this, 'showPackageInfo')} /> : ""
                     }

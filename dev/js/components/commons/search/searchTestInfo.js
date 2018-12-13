@@ -32,28 +32,30 @@ class SearchTestView extends React.Component {
         self.setState({ tabsValue: tabs })
     }
     componentDidMount() {
-        var url_string = window.location.href;
+        var url_string = window.location.href
         var url = new URL(url_string);
-        var test_id = url.searchParams.get("test_ids");
-        let last_page = url.searchParams.get("from");
-        let lab_id = url.searchParams.get("lab_id")
+        var test_id = url.searchParams.get("test_ids")
+        let last_page = url.searchParams.get("from")
+        let lab_id = ''
+        lab_id = url.searchParams.get("lab_id")
         let test_id_val=[]
         let allTest =[]
         let all_test_id =[]
         let ferq_heading
+        let url_test_ids = test_id.split(',')
+        all_test_id.push(url_test_ids)
         this.setState({lastSource:last_page})
         if(test_id != null){
-            this.props.searchTestData(test_id,(resp)=>{
+            this.props.searchTestData(test_id,lab_id,(resp)=>{
                 {Object.entries(resp).map(function ([key, value]) {
                     let testIds = allTest.map(x=>x.id)
                     if(testIds.indexOf(value.frequently_booked_together.value.id) == -1){
                         allTest = allTest.concat(value.frequently_booked_together.value)
                     }
-                    if(resp.length >1 && key != 0){
+                    if(resp.length >0){
                         ferq_heading = value.frequently_booked_together.title
-                            all_test_id.push(value.id)
+                        all_test_id.concat(value.id)
                         let why_get_tested,test_include,test_preparations,test_faq,selected_test_id
-                        selected_test_id = 'test_'+value.id 
                         why_get_tested = "why_get_tested_"+value.id
                         test_include = "test_include_"+value.id
                         test_preparations = "test_preparations_"+value.id
@@ -62,7 +64,10 @@ class SearchTestView extends React.Component {
                         test_id_val.push(test_include)
                         test_id_val.push(test_preparations)
                         test_id_val.push(test_faq)
-                        test_id_val.push(selected_test_id)
+                        if(key != 0){
+                            selected_test_id = 'test_'+value.id 
+                            test_id_val.push(selected_test_id)
+                        }
                     }
                 })}
                 this.setState({ tabsValue: test_id_val,allFrequentlyTest: allTest,lab_id: lab_id,frequently_heading:ferq_heading,disableAddTest:all_test_id})
@@ -79,7 +84,8 @@ class SearchTestView extends React.Component {
     frequentlyAddTest(field, name, event) {
         let self = this
         let test = {}
-        let added_test = [].concat(this.state.disableAddTest)
+        let old_ids = this.state.disableAddTest
+        let added_test = [].concat(old_ids[0])
         added_test.push(field)
         self.setState({ disableAddTest: added_test })
             if(this.state.lab_id != null){
@@ -97,6 +103,7 @@ class SearchTestView extends React.Component {
         self.props.toggleDiagnosisCriteria('test', test, false)
     }
     render() {
+        console.log(this.state.disableAddTest)
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
             let self = this
             return (
