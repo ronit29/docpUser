@@ -116,11 +116,11 @@ class SearchTestView extends React.Component {
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {
                                                                 return value.show_details?
                                                                  <div className="test-info-acrd-head-main" id={value.id}>
-                                                                    <button className="test-top-main-haeding" onClick={self.ButtonHandler.bind(self, 'test_' + value.id)}>{value.name}<span className={self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                    <button className="test-top-main-haeding" onClick={self.ButtonHandler.bind(self, 'test_' + value.id)}>{value.name}<span className={self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                     <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                         {value.about_test.value != ""?
                                                                         <div className="test-sub-accordion">
-                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'about_test_' + value.id)}>{value.about_test.title} <span className={self.state.tabsValue.indexOf('about_test_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'about_test_' + value.id)}>{value.about_test.title} <span className={self.state.tabsValue.indexOf('about_test_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                             <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('about_test_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                                 <div dangerouslySetInnerHTML={{ __html: value.about_test.value }}></div>
                                                                             </div>
@@ -129,7 +129,7 @@ class SearchTestView extends React.Component {
                                                                         }
                                                                         {value.why_get_tested.value != ""?
                                                                         <div className="test-sub-accordion">
-                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'why_get_tested_' + value.id)}>{value.why_get_tested.title} <span className={self.state.tabsValue.indexOf('why_get_tested_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'why_get_tested_' + value.id)}>{value.why_get_tested.title} <span className={self.state.tabsValue.indexOf('why_get_tested_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                             <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('why_get_tested_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                                 <div dangerouslySetInnerHTML={{ __html: value.why_get_tested.value }}></div>
                                                                             </div>
@@ -138,7 +138,7 @@ class SearchTestView extends React.Component {
                                                                         }
                                                                         {value.test_may_include.value.length > 0?
                                                                         <div className="test-sub-accordion">
-                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + value.id)}>{value.test_may_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + value.id)}>{value.test_may_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                             <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_include_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                                 <ul>
                                                                                     {Object.entries(value.test_may_include.value).map(function ([k, test_include]) {
@@ -151,7 +151,7 @@ class SearchTestView extends React.Component {
                                                                         }
                                                                         {value.preparations.value != ''?
                                                                         <div className="test-sub-accordion">
-                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_preparations_' + value.id)}>{value.preparations.title}<span className={self.state.tabsValue.indexOf('test_preparations_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_preparations_' + value.id)}>{value.preparations.title}<span className={self.state.tabsValue.indexOf('test_preparations_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                             <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_preparations_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                                 <div dangerouslySetInnerHTML={{ __html: value.preparations.value }}>
                                                                                 </div>
@@ -161,7 +161,7 @@ class SearchTestView extends React.Component {
                                                                         }
                                                                         {value.faqs.length > 0?
                                                                         <div className="test-sub-accordion">
-                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_faq_' + value.id)}>{value.faqs[0].title} <span className={self.state.tabsValue.indexOf('test_faq_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                            <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_faq_' + value.id)}>{value.faqs[0].title} <span className={self.state.tabsValue.indexOf('test_faq_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                             <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_faq_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                                 {value.faqs.length>0? Object.entries(value.faqs).map(function ([k, faq])
                                                                                 {
