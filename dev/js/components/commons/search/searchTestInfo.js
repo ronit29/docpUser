@@ -52,7 +52,8 @@ class SearchTestView extends React.Component {
                     if(resp.length >1 && key != 0){
                         ferq_heading = value.frequently_booked_together.title
                             all_test_id.push(value.id)
-                        let why_get_tested,test_include,test_preparations,test_faq
+                        let why_get_tested,test_include,test_preparations,test_faq,selected_test_id
+                        selected_test_id = 'test_'+value.id 
                         why_get_tested = "why_get_tested_"+value.id
                         test_include = "test_include_"+value.id
                         test_preparations = "test_preparations_"+value.id
@@ -61,6 +62,7 @@ class SearchTestView extends React.Component {
                         test_id_val.push(test_include)
                         test_id_val.push(test_preparations)
                         test_id_val.push(test_faq)
+                        test_id_val.push(selected_test_id)
                     }
                 })}
                 this.setState({ tabsValue: test_id_val,allFrequentlyTest: allTest,lab_id: lab_id,frequently_heading:ferq_heading,disableAddTest:all_test_id})
