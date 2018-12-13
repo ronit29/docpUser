@@ -187,7 +187,7 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="col-7 mrt-10">
                                 <div className="img-nd-dtls" style={{ alignItems: 'flex-start' }} >
-                                    <div className="fltr-crd-img text-center">
+                                    <div className="fltr-crd-img text-center" style={{ width: 60 }} >
                                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} alt={display_name} title={display_name} /></InitialsPicture>
                                         {is_license_verified && enabled_for_online_booking ? <span className="fltr-rtng">Verified</span> : ''}
                                         {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
