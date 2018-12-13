@@ -17,7 +17,8 @@ class TestSelectorView extends React.Component {
             searchResults: [],
             searchString: '',
             moreResultIndicator: true,
-            page: 1
+            page: 1,
+            itemSelectedVisible: true
         }
     }
 
@@ -60,7 +61,11 @@ class TestSelectorView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
+        if (e.target.value) {
+            this.setState({ itemSelectedVisible: false })
+        } else {
+            this.setState({ itemSelectedVisible: true })
+        }
     }
 
     getSearchList(search_string, page_no = 1, cb) {
@@ -160,7 +165,8 @@ class TestSelectorView extends React.Component {
                                                 <div className="panel-content pd-0">
                                                     <div className="detect-my-locaiton rmv-pointer mrt-10" style={{ textAlign: 'left', color: '#000', paddingLeft: "20px" }}>
                                                         {
-                                                            selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
+                                                            this.state.itemSelectedVisible ?
+                                                                selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected` : ''
                                                         }
                                                     </div>
                                                     <ul className="list all-test-list mrt-10" id="lab-tests-list">
