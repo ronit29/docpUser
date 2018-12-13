@@ -55,7 +55,7 @@ class LabTests extends React.Component {
         let selectedPackage = []
         let unSelectedTests = []
         let unSelectedPackage = []
-        let test_info = []
+        let test_info = ''
         let show_details
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
@@ -79,8 +79,6 @@ class LabTests extends React.Component {
                     if(test.is_selected){
                         if(test.test.show_details){
                           test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span>
-                        }else{
-                            test_info = ''
                         }
                         selectedTests.push(test.hide_price
                             ?<li className="clearfix" key={i}>
