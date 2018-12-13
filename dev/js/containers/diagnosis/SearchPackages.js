@@ -81,7 +81,8 @@ const mapStateToProps = (state, passedProps) => {
         LOADED_SEARCH_CRITERIA_LAB,
         locationType,
         fetchNewResults,
-        corporateCoupon
+        corporateCoupon,
+        searchPackagesData
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
@@ -99,7 +100,8 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData,
         locationType,
         fetchNewResults,
-        corporateCoupon
+        corporateCoupon,
+        searchPackagesData
     }
 
 }

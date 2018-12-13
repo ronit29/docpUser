@@ -270,12 +270,12 @@ export const resetLabCoupons = () => (dispatch) => {
 }
 export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
-	if (page == 1) {
-		dispatch({
-			type: SEARCH_HEALTH_PACKAGES,
-			payload: null
-		})
-	}
+	// if (page == 1) {
+	// 	dispatch({
+	// 		type: SEARCH_HEALTH_PACKAGES,
+	// 		payload: null
+	// 	})
+	// }
 	let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
 	let testIds = selectedCriterias.map((x) => x.id)
 
@@ -310,7 +310,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	// url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
-	url += `long=${long || ""}&lat=${lat || ""}`
+	// url += `long=${long || ""}&lat=${lat || ""}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
@@ -321,11 +321,16 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	return API_GET(url).then(function (response) {
-
-		let tests = response.tests.map((x) => {
-			x.type = 'test'
-			return x
-		})
+		if (response) {
+			dispatch({
+				type: SEARCH_HEALTH_PACKAGES,
+				payload: response
+			})
+		} 
+		// let tests = response.tests.map((x) => {
+		// 	x.type = 'test'
+		// 	return x
+		// })
 
 		// let selectedCriterias = tests || []
 

@@ -12,7 +12,8 @@ const defaultState = {
     SET_FROM_SERVER: false,
     labCoupons: {},
     disCountedLabPrice: 0,
-    couponAutoApply: true
+    couponAutoApply: true,
+    searchPackagesData:{}
 }
 
 export default function (state = defaultState, action) {
@@ -133,15 +134,13 @@ export default function (state = defaultState, action) {
             newState.disCountedLabPrice = 0
 
             return newState
-        }
+        } 
         case SEARCH_HEALTH_PACKAGES: {
-            let newState = {
-                ...state
-            }
-            console.log(action)
-            // newState.disCountedLabPrice = 0
-
-            // return newState
+            let newState = { ...state }
+            newState.searchPackagesData = action.payload
+            console.log(newState.searchPackagesData)
+            console.log('rishab')
+            return newState
         }
 
     }
