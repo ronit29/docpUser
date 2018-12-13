@@ -76,7 +76,7 @@ class SearchPackagesView extends React.Component {
             state = this.props
         }
 
-        this.props.getLabs(state, page, false, searchUrl, (...args) => {
+        this.props.getPackages(state, page, false, searchUrl, (...args) => {
             this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
