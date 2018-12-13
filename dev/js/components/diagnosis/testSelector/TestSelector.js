@@ -81,8 +81,21 @@ class TestSelectorView extends React.Component {
         this.setState({ hasMore: false, loading: true })
 
         this.getSearchList(this.state.searchString, page + 1, (searchResults) => {
+            searchResults = searchResults || []
             let results = this.state.searchResults.concat(searchResults)
-            this.setState({ loading: false, page: page + 1, searchResults: results, hasMore: searchResults.length >= 19 })
+            let dedupe = {}
+            results = results.filter((test) => {
+                if (!dedupe[test.test.id]) {
+                    dedupe[test.test.id] = true
+                    return true
+                }
+                return false
+            })
+            let more = false
+            if (results > this.state.searchResults) {
+                more = true
+            }
+            this.setState({ loading: false, page: page + 1, searchResults: results, hasMore: more })
         })
 
     }
@@ -133,14 +146,8 @@ class TestSelectorView extends React.Component {
                                                     <div className="col-12" style={{ paddingTop: 10, borderBottom: '1px solid #d3d3d3' }}>
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
-                                                                <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.inputHandler.bind(this)} />
-                                                                <span className="ct-img ct-img-sm map-marker-blue"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} className="img-fluid" /></span>
-                                                            </div>
-                                                            <div className="detect-my-locaiton rmv-pointer">
-                                                                <span className="ct-img ct-img-xs" />
-                                                                {
-                                                                    selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
-                                                                }
+                                                                <input type="text" className="new-srch-doc-lab" placeholder="Search Test" onChange={this.inputHandler.bind(this)} />
+                                                                <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: 15 }} />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -151,21 +158,11 @@ class TestSelectorView extends React.Component {
                                         <section className="wrap" style={{ paddingTop: 0 }}>
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
-                                                    {/* <div className="detect-my-locaiton rmv-pointer mrt-10" style={{ textAlign: 'left', color: '#000000', paddingLeft: 20 }} >
+                                                    <div className="detect-my-locaiton rmv-pointer mrt-10" style={{ textAlign: 'left', color: '#000', paddingLeft: "20px" }}>
                                                         {
-                                                            this.state.searchString == '' ? tests.map((test, i) => {
-                                                                return <li key={i + "srt"}>
-                                                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                                                        {test.test.name}
-                                                                        <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
-                                                                        <span className="checkmark" />
-                                                                    </label>
-                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                                                                </li>
-                                                            })
-                                                                : ''
+                                                            selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
                                                         }
-                                                    </div> */}
+                                                    </div>
                                                     <ul className="list all-test-list mrt-10" id="lab-tests-list">
                                                         {
                                                             this.state.searchResults.length ?
