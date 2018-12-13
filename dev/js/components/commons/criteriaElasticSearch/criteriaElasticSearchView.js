@@ -50,15 +50,30 @@ class CriteriaElasticSearchView extends React.Component {
 
     getSearchResults() {
         this.setState({ loading: true })
+        let lat = 28.644800
+        let long = 77.216721
+        let place_id = ""
 
-            this.props.getElasticCriteriaResults(this.state.searchValue, this.props.type,'',(searchResults) => {
+        if (this.props.dataState.selectedLocation) {
+            place_id = this.props.dataState.selectedLocation.place_id || ""
+            lat = this.props.dataState.selectedLocation.geometry.location.lat
+            long = this.props.dataState.selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+
+            lat = parseFloat(parseFloat(lat).toFixed(6))
+            long = parseFloat(parseFloat(long).toFixed(6))
+        }
+
+        let location = {lat: lat, long: long}
+
+            this.props.getElasticCriteriaResults(this.state.searchValue, this.props.type, location, (searchResults) => {
                 if (searchResults && searchResults.suggestion.length) {
-                    
 
-                    this.setState({ searchResults: searchResults.suggestion, loading: false })
-                    
-                }
-            })
+                this.setState({ searchResults: searchResults.suggestion, loading: false })
+
+            }
+        })
     }
 
     addCriteria(criteria) {
@@ -100,7 +115,7 @@ class CriteriaElasticSearchView extends React.Component {
             this.props.cloneCommonSelectedCriterias(criteria)
             this.setState({ searchValue: "" })
             this.props.showResults('opd')
-        
+
         } else {
             criteria.type = 'test'
             criteria.id = criteria.action.value
@@ -220,13 +235,30 @@ class CriteriaElasticSearchView extends React.Component {
                                                         {/*<p className="srch-heading">{cat.name}</p>*/}
                                                         <div className="common-listing-cont">
                                                             <ul>
-                                                            {
-                                                              this.state.searchResults.map((cat, j) => {
-                                                                 return <li key={j}>
-                                                                    <p className="" onClick={this.addCriteria.bind(this, cat)}>{cat.name}</p>
-                                                                </li>
-                                                              })
-                                                            }
+                                                                {
+                                                                    this.state.searchResults.map((cat, j) => {
+                                                                        return <li key={j}>
+                                                                            <div className="serach-rslt-with-img">
+                                                                                {
+                                                                                    cat.image_path?
+                                                                                    <span className="srch-rslt-wd-span usr-srch-img">
+                                                                                        <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
+                                                                                    </span>
+                                                                                    :<span className="srch-rslt-wd-span text-center srch-img">
+                                                                                        <img style={{ width: '22px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                    </span>
+                                                                                }
+                                                                                
+                                                                                
+                                                                                <p className="p-0" onClick={this.addCriteria.bind(this, cat)}>
+                                                                                    {cat.name}
+                                                                                    <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name)?cat.primary_name.slice(0,2).join(','):cat.visible_name}</span>
+                                                                                </p>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    })
+                                                                }
                                                             </ul>
                                                         </div>
                                                     </div>

@@ -4133,6 +4133,24 @@ padding-left:30px !important;
 .pdng-left-pkg{
 	margin-left: 27px;
 }
+.serach-rslt-with-img{
+	padding: 14px 5px;
+    display: flex;
+}
+span.search-span-sub {
+    color: #f78631;
+    margin-top: 2px;
+    display: block;
+}
+.srch-rslt-wd-span{
+	width: 50px;
+}
+.srch-img{
+
+}
+.usr-srch-img{
+
+}
 /* ================= Journey ui fix ====================== */
 
 .date-picker-modal{

@@ -70,16 +70,6 @@ class SearchElasticView extends React.Component{
             return null
         }
 
-        /*if (type) {
-            this.props.filterSelectedCriteria(type)
-        }*/
-
-        /*if (type == 'opd') {
-            this.props.cloneCommonSelectedCriterias(this.props.dataState.selectedCriterias.filter(x => !x.type.includes("procedures")))
-        } else {
-            this.props.cloneCommonSelectedCriterias(this.props.dataState.selectedCriterias.filter(x => x.type.includes("procedures")))
-        }*/
-
         this.searchProceedOPD("", "")
     }
 
