@@ -5,16 +5,19 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import InfiniteScroll from 'react-infinite-scroller';
 
 class TestSelectorView extends React.Component {
     constructor(props) {
         super(props)
         this.hideResultIndicator = this.hideResultIndicator.bind(this);
         this.state = {
+            hasMore: false,
             selectedLab: this.props.match.params.id,
             searchResults: [],
             searchString: '',
-            moreResultIndicator: true
+            moreResultIndicator: true,
+            page: 1
         }
     }
 
@@ -23,13 +26,17 @@ class TestSelectorView extends React.Component {
         testIds = testIds.map(x => x.id)
 
         this.props.getLabById(this.state.selectedLab, testIds)
-        this.getSearchList({ target: { value: "" } })
+        this.getSearchList("")
 
         if (window) {
             window.scrollTo(0, 0)
         }
 
         window.addEventListener('scroll', this.hideResultIndicator);
+
+        setTimeout(() => {
+            this.setState({ hasMore: true })
+        }, 0)
     }
 
     hideResultIndicator = () => {
@@ -46,15 +53,38 @@ class TestSelectorView extends React.Component {
         this.props.toggleDiagnosisCriteria('test', test)
     }
 
-    getSearchList(e) {
-        var search_string = e.target.value;
-        this.setState({ searchString: search_string });
+    inputHandler(e) {
+        this.setState({ searchString: e.target.value, hasMore: true, page: 1, searchResults: [] }, () => {
+            this.getSearchList(this.state.searchString)
+        })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+
+    }
+
+    getSearchList(search_string, page_no = 1, cb) {
         this.props.getLabTests(this.state.selectedLab, search_string, (searchResults) => {
             if (searchResults) {
-                this.setState({ searchResults: searchResults })
+                if (cb) {
+                    cb(searchResults)
+                } else {
+                    this.setState({ searchResults: searchResults })
+                }
             }
-        })
+        }, page_no)
         search_string ? this.setState({ moreResultIndicator: false }) : ""
+    }
+
+    loadMore() {
+        let page = this.state.page
+        this.setState({ hasMore: false, loading: true })
+
+        this.getSearchList(this.state.searchString, page + 1, (searchResults) => {
+            let results = this.state.searchResults.concat(searchResults)
+            this.setState({ loading: false, page: page + 1, searchResults: results, hasMore: searchResults.length >= 19 })
+        })
+
     }
 
 
@@ -85,20 +115,6 @@ class TestSelectorView extends React.Component {
             tests = labData && labData.tests ? labData.tests.filter((x => testIds.indexOf(x.test.id) > -1)) : []
         }
 
-        // hide and show "more" code below :
-        // if (document.getElementById('lab-tests-list')) {
-        //     var listTopOffset = document.getElementById('lab-tests-list').getBoundingClientRect().top;
-        //     var listHeight = document.getElementById('lab-tests-list').scrollHeight;
-        //     var windowHeight = window.innerHeight;
-        //     console.log('sgusauhufihaduihauisdhusahuiashisua');
-        //     console.log(listTopOffset);
-        //     console.log(listHeight);
-        //     console.log(windowHeight);
-        //     if ((listHeight - listTopOffset) > windowHeight) {
-        //         this.setState({ moreResultIndicator: true })
-        //     }
-        // }
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -113,22 +129,18 @@ class TestSelectorView extends React.Component {
                                     <div>
                                         <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 79 }}>
                                             <div className="container-fluid">
-                                                {/* <div className="row">
-                                                    <div className="col-12">
-                                                        <div className="select-location-row text-center">
-                                                            <span onClick={() => {
-                                                                this.props.history.go(-1)
-                                                            }} className="ct-img ct-img-md close"><img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" /></span>
-                                                            <h4 className="fw-700 text-md">All Test</h4>
-                                                        </div>
-                                                    </div>
-                                                </div> */}
                                                 <div className="row">
                                                     <div className="col-12" style={{ paddingTop: 10, borderBottom: '1px solid #d3d3d3' }}>
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
-                                                                <input className="new-srch-doc-lab" placeholder="Search tests" type="text" onChange={this.getSearchList.bind(this)} />
-                                                                <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: 15 }} />
+                                                                <input type="text" className="form-control input-md search-input no-shadow" placeholder="Search Test" onChange={this.inputHandler.bind(this)} />
+                                                                <span className="ct-img ct-img-sm map-marker-blue"><img src={ASSETS_BASE_URL + "/img/customer-icons/search-icon.svg"} className="img-fluid" /></span>
+                                                            </div>
+                                                            <div className="detect-my-locaiton rmv-pointer">
+                                                                <span className="ct-img ct-img-xs" />
+                                                                {
+                                                                    selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
@@ -139,12 +151,7 @@ class TestSelectorView extends React.Component {
                                         <section className="wrap" style={{ paddingTop: 0 }}>
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
-                                                    <div className="detect-my-locaiton rmv-pointer mrt-10" style={{ textAlign: 'left', color: '#000000', paddingLeft: 20 }} >
-                                                        {
-                                                            selectedTestIds.length > 1 ? `${selectedTestIds.length} Items Selected` : `${selectedTestIds.length} Item Selected`
-                                                        }
-                                                    </div>
-                                                    <ul className="list all-test-list mrt-10" id="lab-tests-list">
+                                                    {/* <div className="detect-my-locaiton rmv-pointer mrt-10" style={{ textAlign: 'left', color: '#000000', paddingLeft: 20 }} >
                                                         {
                                                             this.state.searchString == '' ? tests.map((test, i) => {
                                                                 return <li key={i + "srt"}>
@@ -158,18 +165,44 @@ class TestSelectorView extends React.Component {
                                                             })
                                                                 : ''
                                                         }
+                                                    </div> */}
+                                                    <ul className="list all-test-list mrt-10" id="lab-tests-list">
                                                         {
                                                             this.state.searchResults.length ?
-                                                                this.state.searchResults.map((test, i) => {
-                                                                    return <li key={i + "srt"}>
-                                                                        <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                                                            {test.test.name}
-                                                                            <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
-                                                                            <span className="checkmark" />
-                                                                        </label>
-                                                                        <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                                                                    </li>
-                                                                }) : ''
+                                                                <InfiniteScroll
+                                                                    pageStart={0}
+                                                                    loadMore={this.loadMore.bind(this)}
+                                                                    hasMore={this.state.hasMore}
+                                                                    useWindow={true}
+                                                                >
+                                                                    {
+                                                                        this.state.searchString == '' ? tests.map((test, i) => {
+                                                                            return <li key={i + "srt"}>
+                                                                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                                                                    {test.test.name}
+                                                                                    <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
+                                                                                    <span className="checkmark" />
+                                                                                </label>
+                                                                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                            </li>
+                                                                        })
+                                                                            : ''
+                                                                    }
+                                                                    {
+                                                                        this.state.searchResults.map((test, i) => {
+                                                                            return <li key={i + "srt"}>
+                                                                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                                                                    {test.test.name}
+                                                                                    <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
+                                                                                    <span className="checkmark" />
+                                                                                </label>
+                                                                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                            </li>
+                                                                        })
+                                                                    }
+
+                                                                </InfiniteScroll>
+                                                                : ''
                                                         }
                                                     </ul>
                                                 </div>

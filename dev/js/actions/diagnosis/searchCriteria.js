@@ -36,8 +36,8 @@ export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch
     })
 }
 
-export const getLabTests = (lab_id, searchString, callback) => (dispatch) => {
-    API_GET(`/api/v1/diagnostic/labtest/${lab_id}?test_name=${searchString}`).then(function (response) {
+export const getLabTests = (lab_id, searchString, callback, page = 1) => (dispatch) => {
+    API_GET(`/api/v1/diagnostic/labtest/${lab_id}?test_name=${searchString}&page=${page}`).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)

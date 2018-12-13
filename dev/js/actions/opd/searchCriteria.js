@@ -1,5 +1,6 @@
 import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, APPEND_DOCTORS, SAVE_COMMON_PROCEDURES, RESET_PROCEDURE_URL, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
+import GTM from '../../helpers/gtm'
 
 export const loadOPDCommonCriteria = () => (dispatch) => {
 
@@ -29,6 +30,37 @@ export const toggleOPDCriteria = (type, criteria, forceAdd = false, filters = {}
 }
 
 export const selectLocation = (location, type = 'geo', fetchNewResults = true) => (dispatch) => {
+
+    let lat = ""
+    let long = ""
+    let place_id = ""
+    let location_name = ""
+    let userAgent = ""
+
+    if (location) {
+        place_id = location.place_id || ""
+        lat = location.geometry.location.lat
+        long = location.geometry.location.lng
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+
+        lat = parseFloat(parseFloat(lat).toFixed(6))
+        long = parseFloat(parseFloat(long).toFixed(6))
+        location_name = location.name || location.formatted_address
+    }
+
+    if (navigator) {
+        userAgent = navigator.userAgent
+    }
+
+    let data = {
+        'Category': 'ConsumerApp', 'Action': 'ChangeLocation', 'event': 'change-location', location: {
+            lat, long, place_id, location_name, type
+        }, userAgent
+    }
+
+    GTM.sendEvent({ data: data })
+
     return Promise.all([
         dispatch({
             type: SELECT_LOCATION_OPD,

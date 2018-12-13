@@ -147,7 +147,7 @@
 .info-popup{margin-top: 20px;}
 
 /*All test screen 13*/
-.all-test-list>li{position: relative; padding: 15px 20px; border-bottom:1px solid #ddd; padding-right: 120px;}
+.all-test-list li{position: relative; padding: 15px 20px; border-bottom:1px solid #ddd; padding-right: 120px;}
 .all-test-list .test-price{position: absolute; top: 18px; right:10px;}
 .more-test-results-div{
 	position: sticky;
