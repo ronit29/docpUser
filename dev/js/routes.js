@@ -42,6 +42,7 @@ import CouponSelectNewView from './containers/commons/CouponsView.js'
 import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 import Search from './containers/commons/search'
+import searchTestInfo from './containers/commons/searchTestInfo'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -110,6 +111,7 @@ const routes = [
     { path: '/speciality-inventory/:speciality', exact :true, component: SpecializationSiteMap , RENDER_ON_SERVER: true },
     { path: '/city-inventory', exact :true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact:true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
+    { path: '/search/testinfo', exact: true, component: searchTestInfo },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
