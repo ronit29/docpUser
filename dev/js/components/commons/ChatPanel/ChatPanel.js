@@ -293,7 +293,7 @@ class ChatPanel extends React.Component {
             chatBtnContent1 = 'Chat now with doctor'
             chatBtnContent2 = 'about ' + this.props.articleData.title.split('|')[0] + ' and related queries'
         } else if (this.props.newChatBtn) {
-            chatBtnContent1 = 'Need help with booking ?'
+            chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
 
         return (
