@@ -21,7 +21,8 @@ const PROD_CONFIG = {
     CHAT_API_URL: "https://telemed.docprime.com/api/v1",
     env: "production",
     UAID: 'UA-124740649-1',
-    Tracker: 'docobj'
+    Tracker: 'docobj',
+    SEARCH_ELASTIC_VIEW : true
 
 }
 
@@ -36,7 +37,8 @@ const STAGING_CONFIG = {
     CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
     env: "staging",
     UAID: 'UA-124740649-2',
-    Tracker: 'docqa'
+    Tracker: 'docqa',
+    SEARCH_ELASTIC_VIEW : true
 }
 
 const DEV_CONFIG = {
