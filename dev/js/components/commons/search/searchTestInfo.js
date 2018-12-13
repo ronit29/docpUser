@@ -43,7 +43,9 @@ class SearchTestView extends React.Component {
         let all_test_id =[]
         let ferq_heading
         let url_test_ids = test_id.split(',')
-        all_test_id.push(url_test_ids)
+         {Object.entries(url_test_ids).map(function ([key, value]) {
+            all_test_id.push(parseInt(value))
+         })}
         this.setState({lastSource:last_page})
         if(test_id != null){
             this.props.searchTestData(test_id,lab_id,(resp)=>{
@@ -84,8 +86,7 @@ class SearchTestView extends React.Component {
     frequentlyAddTest(field, name, event) {
         let self = this
         let test = {}
-        let old_ids = this.state.disableAddTest
-        let added_test = [].concat(old_ids[0])
+        let added_test = [].concat(this.state.disableAddTest)
         added_test.push(field)
         self.setState({ disableAddTest: added_test })
             if(this.state.lab_id != null){
@@ -103,7 +104,6 @@ class SearchTestView extends React.Component {
         self.props.toggleDiagnosisCriteria('test', test, false)
     }
     render() {
-        console.log(this.state.disableAddTest)
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
             let self = this
             return (
