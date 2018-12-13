@@ -78,7 +78,7 @@ class TopBar extends React.Component {
             sits_at_hospital: this.state.sits_at_hospital
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'available_today': this.state.is_available, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital ,'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'is_female': this.state.is_female, 'sort_on': this.state.sort_on==""?'relevance':this.state.sort_on
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'available_today': this.state.is_available, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'is_female': this.state.is_female, 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -120,9 +120,9 @@ class TopBar extends React.Component {
 
     getCriteriaString(selectedCriterias) {
         if (selectedCriterias && selectedCriterias.length) {
-            let selectedProcedureCategory = selectedCriterias.filter(x=>x.type=='procedures_category')
-            let procedures = selectedCriterias.filter(x=>x.type=='procedures')
-        
+            let selectedProcedureCategory = selectedCriterias.filter(x => x.type == 'procedures_category')
+            let procedures = selectedCriterias.filter(x => x.type == 'procedures')
+
             return selectedCriterias.reduce((final, curr, i) => {
                 if (i != 0) {
                     final += ', '
@@ -235,10 +235,9 @@ class TopBar extends React.Component {
                                                     this.state.showLocationPopup && false ? ''
                                                         : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
                                                 }
-
+                                                <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                             </span>
                                         </h1>
-                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                     </div>
                                 </div>
                                 {
