@@ -59,7 +59,6 @@ class LabProfileCard extends React.Component {
             }
         }
     }
-
     render() {
 
         let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges } = this.props.details;
@@ -85,7 +84,6 @@ class LabProfileCard extends React.Component {
         if (mrp && price && (price < mrp)) {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
-
         return (
             <div className="filter-card-dl mb-3">
                 <div className="fltr-crd-top-container">

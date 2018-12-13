@@ -74,19 +74,31 @@ class LabsList extends React.Component {
             }, 1000)
         })
     }
-
+    testInfo(){
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var test_ids = url.searchParams.get("test_ids");
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=searchresults') 
+    }
     render() {
-
+        let show_details = false
         let { LABS, labList } = this.props
-
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             <div className="row">
+                                    {Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
+                                        if(value.show_details){
+                                            show_details = true
+                                        }
+                                    })}
+                                    {
+                                        show_details?<div className="col-12">
+                                        <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span></div>:''
+                                    }
                                 <div className="col-12">
-
                                     <InfiniteScroll
                                         pageStart={0}
                                         loadMore={this.loadMore.bind(this)}
