@@ -4202,7 +4202,7 @@ input.rc-calendar-input {
 	width: 100%;
     border: none;
     text-align: left;
-    background: rgba(242, 242, 242, .2);
+    background: #e4e4e4 !important;
     padding: 10px 10px;
     font-weight: 500;
     display: flex;
@@ -4220,6 +4220,7 @@ input.rc-calendar-input {
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
+	background:white;
 }
 .acrd-sub-content{
 	padding: 10px;
@@ -4288,6 +4289,9 @@ input.rc-calendar-input {
 	font-weight: 500;
 	cursor: pointer;
 	white-space: pre;
+}
+.test-sub-accordion {
+    border-bottom: 1px solid #d6d6d6;
 }
 /* ======================== Test Info ======================== */
 /* =============== cashback-style =============== */
