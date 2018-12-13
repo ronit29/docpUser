@@ -93,7 +93,6 @@ class LabProfileCard extends React.Component {
         if (mrp && price && (price < mrp)) {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
-
         return (
             // <div className="lab-rslt-card-link mrb-20" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
             //     <div className="widget card lab-rslt-card">

@@ -51,7 +51,7 @@ class CommonlySearched extends React.Component {
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
                 if(this.props.selectedSearchType == 'lab'){
-                    if(Object.keys(row).length > 0){
+                    if(Object.keys(row).length > 0 && row.show_details){
                       test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
                     }else{
                         test_info = ''

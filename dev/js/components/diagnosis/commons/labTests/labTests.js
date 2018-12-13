@@ -42,7 +42,7 @@ class LabTests extends React.Component {
         this.props.currentLabSelectedTests.map((test, i) => {
             test_ids.push(test.id)
         })
-        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&lab_id='+lab_id+'&from=searchresults') 
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&lab_id='+lab_id+'&from=searchbooknow') 
     }
     render() {
         let is_package = false
@@ -56,6 +56,7 @@ class LabTests extends React.Component {
         let unSelectedTests = []
         let unSelectedPackage = []
         let test_info = []
+        let show_details
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -76,7 +77,7 @@ class LabTests extends React.Component {
                     
                 } else {
                     if(test.is_selected){
-                        if(test.is_selected){
+                        if(test.test.show_details){
                           test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span>
                         }else{
                             test_info = ''

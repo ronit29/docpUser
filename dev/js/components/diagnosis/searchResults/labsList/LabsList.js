@@ -81,18 +81,23 @@ class LabsList extends React.Component {
         this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=searchresults') 
     }
     render() {
-
+        let show_details = false
         let { LABS, labList } = this.props
-
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             <div className="row">
-                            <div className="col-12">
-                                    <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span>
-                                    </div>
+                                    {Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
+                                        if(value.show_details){
+                                            show_details = true
+                                        }
+                                    })}
+                                    {
+                                        show_details?<div className="col-12">
+                                        <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span></div>:''
+                                    }
                                 <div className="col-12">
                                     <InfiniteScroll
                                         pageStart={0}
