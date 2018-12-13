@@ -116,13 +116,8 @@ class SearchTestView extends React.Component {
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {
                                                                 return value.show_details?
                                                                  <div className="test-info-acrd-head-main" id={value.id}>
-<<<<<<< HEAD
                                                                     <button className="test-top-main-haeding" onClick={self.ButtonHandler.bind(self, 'test_' + value.id)}>{value.name}<span className={self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                     <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'hide' : ''}`}>
-=======
-                                                                    <button className="test-top-main-haeding" onClick={self.ButtonHandler.bind(self, 'test_' + value.id)}>{value.name}<span className={self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'acrd-arw-rotate' : ''}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
-                                                                        <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'hide' : ''}`}>
->>>>>>> a5f2c3b4f650e098462239129df9c8fd5f9e82d1
                                                                         {value.about_test.value != ""?
                                                                         <div className="test-sub-accordion">
                                                                             <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'about_test_' + value.id)}>{value.about_test.title} <span className={self.state.tabsValue.indexOf('about_test_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
