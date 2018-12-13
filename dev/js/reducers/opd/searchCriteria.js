@@ -25,7 +25,8 @@ const defaultState = {
     selectedCriteriaType: '',
     commonProcedurers: [],
     getNewUrl: false,
-    commonSelectedCriterias: []
+    commonSelectedCriterias: [],
+    page: 1
 }
 
 export default function (state = defaultState, action) {

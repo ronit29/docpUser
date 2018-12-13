@@ -14,7 +14,8 @@ const defaultState = {
     selectedDoctorProcedure: {},
     profileCommonProcedures: [],
     commonProfileSelectedProcedures: [],
-    couponAutoApply: true
+    couponAutoApply: true,
+    curr_page: null
 }
 
 export default function (state = defaultState, action) {
@@ -45,9 +46,11 @@ export default function (state = defaultState, action) {
                         return dedupe.hasOwnProperty(item) ? false : (dedupe[item] = true)
                     })
             }
+
             newState.search_content = action.payload.search_content || ''
             newState.count = action.payload.count
             newState.LOADED_DOCTOR_SEARCH = true
+            newState.curr_page = action.payload.page
 
             return newState
         }
@@ -268,12 +271,12 @@ export default function (state = defaultState, action) {
                 ...state
             }
             let selectedProcedures = []
-            
-            if(action.forceAdd){
+
+            if (action.forceAdd) {
                 newState.commonProfileSelectedProcedures = action.selectedProcedures
                 return newState
             }
-            if(newState.selectedDoctorProcedure[action.doctor_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories){
+            if (newState.selectedDoctorProcedure[action.doctor_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id] && newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories) {
 
                 Object.values(newState.selectedDoctorProcedure[action.doctor_id][action.clinic_id].categories).map((procedure) => {
 

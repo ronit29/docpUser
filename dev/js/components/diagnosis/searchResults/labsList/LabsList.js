@@ -74,33 +74,43 @@ class LabsList extends React.Component {
             }, 1000)
         })
     }
-    testInfo(){
+    testInfo() {
         var url_string = window.location.href;
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
-        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=searchresults') 
+        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
     }
     render() {
         let show_details = false
         let { LABS, labList } = this.props
+
+        let start_page = 0
+        if (this.props.curr_page) {
+            start_page = Math.max(0, this.props.curr_page - 1)
+        } else {
+            if (this.props.page) {
+                start_page = Math.max(0, this.props.page - 1)
+            }
+        }
+
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             <div className="row">
-                                    {Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
-                                        if(value.show_details){
-                                            show_details = true
-                                        }
-                                    })}
-                                    {
-                                        show_details?<div className="col-12">
-                                        <span className="srch-heading" style={{float:'left', cursor:'pointer', color:'#e46608'}} onClick={this.testInfo.bind(this)}> Test Info</span></div>:''
+                                {Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
+                                    if (value.show_details) {
+                                        show_details = true
                                     }
+                                })}
+                                {
+                                    show_details ? <div className="col-12">
+                                        <span className="srch-heading" style={{ float: 'left', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span></div> : ''
+                                }
                                 <div className="col-12">
                                     <InfiniteScroll
-                                        pageStart={0}
+                                        pageStart={start_page}
                                         loadMore={this.loadMore.bind(this)}
                                         hasMore={this.state.hasMore}
                                         useWindow={true}

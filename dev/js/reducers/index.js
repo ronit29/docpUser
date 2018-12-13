@@ -41,13 +41,13 @@ const USER_PERSIST = {
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page']
 }
 
 const LAB_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_LABS',
     storage: storage,
-    blacklist: ['fetchNewResults']
+    blacklist: ['fetchNewResults', 'page']
 }
 
 const allReducers = combineReducers({

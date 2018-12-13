@@ -46,7 +46,7 @@ class SearchResultsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if(props.getNewUrl && props.getNewUrl != this.props.getNewUrl){
+        if (props.getNewUrl && props.getNewUrl != this.props.getNewUrl) {
             if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
                 this.getDoctorList(props)
                 // if (window) {
@@ -83,12 +83,12 @@ class SearchResultsView extends React.Component {
 
     buildURI(state) {
 
-        let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
+        let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType, page } = state
         let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
         let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
         let procedures_ids = commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
         let category_ids = commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-  
+
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
@@ -116,6 +116,10 @@ class SearchResultsView extends React.Component {
 
         let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}`
 
+        if (page > 1) {
+            url += `&page=${page}`
+        }
+
         if (this.state.clinic_card) {
             url += `&clinic_card=true`
         }
@@ -123,7 +127,7 @@ class SearchResultsView extends React.Component {
         return url
     }
 
-    getDoctorList(state = null, page = 1, cb = null) {
+    getDoctorList(state = null, page = null, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
             searchUrl = this.props.match.url.toLowerCase()
@@ -131,7 +135,9 @@ class SearchResultsView extends React.Component {
         if (!state) {
             state = this.props
         }
-
+        if (page === null) {
+            page = this.props.page
+        }
         this.props.getDoctors(state, page, false, searchUrl, (...args) => {
             this.setState({ seoData: args[1] })
             if (cb) {
@@ -190,6 +196,21 @@ class SearchResultsView extends React.Component {
     }
 
     render() {
+        let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`
+        url = url.replace(/&page=\d{1,}/, "")
+
+        let prev = ""
+        if (this.props.page > 1) {
+            prev = url
+            if (page > 2) {
+                prev += `&page=${this.props.page - 1}`
+            }
+        }
+        let next = ""
+        if (this.props.count > this.props.page * 20) {
+            next = url + `&page=${this.props.page + 1}`
+        }
+
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -198,7 +219,9 @@ class SearchResultsView extends React.Component {
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description,
                     schema: this.getMetaTagsData(this.state.seoData).schema,
-                    seoFriendly: this.state.seoFriendly
+                    seoFriendly: this.state.seoFriendly,
+                    prev: prev,
+                    next: next
                 }} />
 
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true}>

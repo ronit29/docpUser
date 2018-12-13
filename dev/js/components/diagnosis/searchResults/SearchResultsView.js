@@ -65,7 +65,7 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(state = null, page = 1, cb = null) {
+    getLabList(state = null, page = null, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url.toLowerCase()
@@ -73,7 +73,9 @@ class SearchResultsView extends React.Component {
         if (!state) {
             state = this.props
         }
-
+        if (page === null) {
+            page = this.props.page
+        }
         this.props.getLabs(state, page, false, searchUrl, (...args) => {
             this.setState({ seoData: args[1] })
             if (cb) {
@@ -95,7 +97,7 @@ class SearchResultsView extends React.Component {
     }
 
     buildURI(state) {
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+        let { selectedLocation, selectedCriterias, filterCriteria, locationType, page } = state
         let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
 
         let lat = 28.644800
@@ -125,6 +127,10 @@ class SearchResultsView extends React.Component {
 
         if (this.state.lab_card) {
             url += `&lab_card=true`
+        }
+
+        if (page > 1) {
+            url += `&page=${page}`
         }
 
         return url
@@ -173,6 +179,20 @@ class SearchResultsView extends React.Component {
     }
 
     render() {
+        let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`
+        url = url.replace(/&page=\d{1,}/, "")
+
+        let prev = ""
+        if (this.props.page > 1) {
+            prev = url
+            if (page > 2) {
+                prev += `&page=${this.props.page - 1}`
+            }
+        }
+        let next = ""
+        if (this.props.count > this.props.page * 20) {
+            next = url + `&page=${this.props.page + 1}`
+        }
 
         return (
             <div>
@@ -180,7 +200,9 @@ class SearchResultsView extends React.Component {
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
-                    description: this.getMetaTagsData(this.state.seoData).description
+                    description: this.getMetaTagsData(this.state.seoData).description,
+                    prev: prev,
+                    next: next
                 }} noIndex={!this.state.seoFriendly} />
 
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>

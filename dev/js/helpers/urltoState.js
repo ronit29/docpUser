@@ -29,6 +29,8 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let locationType = _getLocationParamBind('locationType') || "geo"
             let procedures_ids = _getLocationParamBind('procedure_ids') || ""
             let category_ids = _getLocationParamBind('procedure_category_ids') || ""
+            let page = _getLocationParamBind('page') || 1
+            page = parseInt(page)
 
             let spec = []
             let cond = []
@@ -134,7 +136,8 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                     resolve({
                         filterCriteria,
                         commonSelectedCriterias,
-                        selectedLocation
+                        selectedLocation,
+                        page
                     })
                 }).catch((e) => {
                     if (selectedLocation) {
@@ -148,12 +151,15 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                         resolve({
                             filterCriteria,
                             commonSelectedCriterias,
-                            selectedLocation
+                            selectedLocation,
+                            page
                         })
                     } else {
                         resolve({
                             filterCriteria,
-                            commonSelectedCriterias
+                            commonSelectedCriterias,
+                            pagepage,
+                            page
                         })
                     }
                 })
@@ -162,12 +168,14 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                     resolve({
                         filterCriteria,
                         commonSelectedCriterias,
-                        selectedLocation
+                        selectedLocation,
+                        page
                     })
                 } else {
                     resolve({
                         filterCriteria,
-                        commonSelectedCriterias
+                        commonSelectedCriterias,
+                        page
                     })
                 }
             }
@@ -200,6 +208,8 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let network_id = _getLocationParamBind('network_id') || ""
             network_id = network_id || ""
             let locationType = _getLocationParamBind('locationType') || "geo"
+            let page = _getLocationParamBind('page') || 1
+            page = parseInt(page)
 
             let selectedCriterias = []
             if (test_ids) {
@@ -270,7 +280,8 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                     resolve({
                         filterCriteria,
                         selectedCriterias,
-                        selectedLocation
+                        selectedLocation,
+                        page
                     })
                 }).catch((e) => {
                     if (selectedLocation) {
@@ -284,12 +295,14 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                         resolve({
                             filterCriteria,
                             selectedCriterias,
-                            selectedLocation
+                            selectedLocation,
+                            page
                         })
                     } else {
                         resolve({
                             filterCriteria,
-                            selectedCriterias
+                            selectedCriterias,
+                            page
                         })
                     }
                 })
@@ -298,12 +311,14 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                     resolve({
                         filterCriteria,
                         selectedCriterias,
-                        selectedLocation
+                        selectedLocation,
+                        page
                     })
                 } else {
                     resolve({
                         filterCriteria,
-                        selectedCriterias
+                        selectedCriterias,
+                        page
                     })
                 }
             }

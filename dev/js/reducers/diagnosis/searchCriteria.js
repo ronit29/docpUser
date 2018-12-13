@@ -22,7 +22,8 @@ const defaultState = {
     fetchNewResults: false,
     corporateCoupon: "",
     currentLabSelectedTests: [],
-    searchTestInfoData:{}
+    searchTestInfoData: {},
+    page: 1
 }
 
 export default function (state = defaultState, action) {
@@ -70,27 +71,27 @@ export default function (state = defaultState, action) {
                     })
                 }
 
-                if(action.payload.criteria.add_to_common){
+                if (action.payload.criteria.add_to_common) {
                     newState.currentLabSelectedTests.map((curr, key) => {
                         if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
                             curr.is_selected = !curr.is_selected
                         }
-                    })                  
-/*
-                    newState.currentLabSelectedTests = newState.currentLabSelectedTests.filter((curr) => {
-                        if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
-                            foundTest = true
-                            return false
-                        }
-                        return true
                     })
-
-                    if (!foundTest || action.payload.forceAdd) {
-                        newState.currentLabSelectedTests.push({
-                            ...action.payload.criteria,
-                            type: action.payload.type
-                        })
-                    }*/   
+                    /*
+                                        newState.currentLabSelectedTests = newState.currentLabSelectedTests.filter((curr) => {
+                                            if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
+                                                foundTest = true
+                                                return false
+                                            }
+                                            return true
+                                        })
+                    
+                                        if (!foundTest || action.payload.forceAdd) {
+                                            newState.currentLabSelectedTests.push({
+                                                ...action.payload.criteria,
+                                                type: action.payload.type
+                                            })
+                                        }*/
                 }
 
             } else {
@@ -199,9 +200,9 @@ export default function (state = defaultState, action) {
             let selectedTestsId = []
 
 
-            if(action.payload.tests && action.forceAdd){
+            if (action.payload.tests && action.forceAdd) {
                 newState.currentLabSelectedTests = []
-                action.payload.tests.map((test_to_toggle,i) => {
+                action.payload.tests.map((test_to_toggle, i) => {
 
                     let test = Object.assign({}, test_to_toggle)
                     test.mrp = test_to_toggle.mrp
@@ -211,17 +212,17 @@ export default function (state = defaultState, action) {
                     test.name = test_to_toggle.test.name
                     test.pre_test_info = test_to_toggle.test.pre_test_info
                     test.why = test_to_toggle.test.why
-                    test.type ='test'
+                    test.type = 'test'
                     test.lab_id = action.payload.lab.id
                     test.is_selected = true
                     newState.currentLabSelectedTests.push(test)
                     selectedTestsId.push(test_to_toggle.test.id)
 
                 })
-                if(newState.currentLabSelectedTests.length <5 ){
-                    action.payload.lab_tests.map((test_to_toggle, i) =>{
-                        if(selectedTestsId.indexOf(test_to_toggle.test_id)==-1 && newState.currentLabSelectedTests.length<5){
-                           
+                if (newState.currentLabSelectedTests.length < 5) {
+                    action.payload.lab_tests.map((test_to_toggle, i) => {
+                        if (selectedTestsId.indexOf(test_to_toggle.test_id) == -1 && newState.currentLabSelectedTests.length < 5) {
+
                             let test = Object.assign({}, test_to_toggle)
                             test.mrp = test_to_toggle.mrp
                             test.deal_price = test_to_toggle.deal_price
@@ -230,7 +231,7 @@ export default function (state = defaultState, action) {
                             test.name = test_to_toggle.test.name
                             test.pre_test_info = test_to_toggle.test.pre_test_info
                             test.why = test_to_toggle.test.why
-                            test.type ='test'
+                            test.type = 'test'
                             test.lab_id = action.payload.lab.id
                             test.is_selected = false
                             test.test = test_to_toggle.test
@@ -239,13 +240,13 @@ export default function (state = defaultState, action) {
                     })
                 }
 
-            }else{
-                
+            } else {
+
             }
             return newState
         }
-        case SEARCH_TEST_INFO:{
-             let newState = {
+        case SEARCH_TEST_INFO: {
+            let newState = {
                 ...state
             }
             newState.searchTestInfoData = action.payload
