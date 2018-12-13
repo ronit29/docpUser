@@ -206,6 +206,9 @@ class HomeView extends React.Component {
                                     list={this.props.common_package}
                                     searchFunc={(ct) => this.searchLab(ct, true)}
                                     type="lab"
+                                    searchType="packages"
+                                    {...this.props}
+                                    navTo="/searchpackages?from=home"
                                 /> : ""
                         }
 

@@ -28,6 +28,8 @@ class SearchPackagesView extends React.Component {
 
     componentDidMount() {
         if (this.props.fetchNewResults) {
+            console.log(this.props)
+            console.log('rishabjain')
             this.getLabList(this.props)
             if (window) {
                 window.scrollTo(0, 0)
