@@ -51,20 +51,20 @@ class CriteriaElasticSearchView extends React.Component {
     getSearchResults() {
         this.setState({ loading: true })
 
-            this.props.getElasticCriteriaResults(this.state.searchValue, (searchResults) => {
-                if (searchResults && searchResults.suggestion.length) {
-                    
+        this.props.getElasticCriteriaResults(this.state.searchValue, (searchResults) => {
+            if (searchResults && searchResults.suggestion.length) {
 
-                    this.setState({ searchResults: searchResults.suggestion, loading: false })
-                    
-                }
-            })
+
+                this.setState({ searchResults: searchResults.suggestion, loading: false })
+
+            }
+        })
     }
 
     addCriteria(criteria) {
 
-        criteria = Object.assign({},criteria)
-        
+        criteria = Object.assign({}, criteria)
+
         if (this.props.type == 'opd') {
 
             let action = '', event = ''
@@ -72,25 +72,25 @@ class CriteriaElasticSearchView extends React.Component {
 
                 criteria.id = criteria.action.value.split(',')
                 criteria.type = 'speciality'
-            }else if(criteria.action.param == 'procedure_category'){
+            } else if (criteria.action.param == 'procedure_category') {
 
-            }else if(criteria.action.param == 'procedure'){
-                
-            }else if(criteria.action.param == 'doctor'){
-                
-            }else if(criteria.action.param == 'hospital_name'){
+            } else if (criteria.action.param == 'procedure') {
 
-                
-            }else if(criteria.action.param == 'hospital'){
+            } else if (criteria.action.param == 'doctor') {
+
+            } else if (criteria.action.param == 'hospital_name') {
+
+
+            } else if (criteria.action.param == 'hospital') {
 
             }
             this.props.cloneCommonSelectedCriterias(criteria)
             //this.props.toggleOPDCriteria(criteria.type, criteria)
             this.setState({ searchValue: "" })
             this.props.showResults('opd')
-        
+
         } else {
-            
+
             this.props.toggleDiagnosisCriteria(criteria.type, criteria)
             this.setState({ searchValue: "" })
         }
@@ -202,7 +202,7 @@ class CriteriaElasticSearchView extends React.Component {
 
                                             <section>
                                                 {
-                                                    this.state.searchValue.length > 2 ?<div>
+                                                    this.state.searchValue.length > 2 ? <div>
                                                         {
                                                             this.props.type == 'opd' || this.props.type == 'procedures' ?
                                                                 <div className="widget mb-10">
@@ -265,13 +265,24 @@ class CriteriaElasticSearchView extends React.Component {
                                                         {/*<p className="srch-heading">{cat.name}</p>*/}
                                                         <div className="common-listing-cont">
                                                             <ul>
-                                                            {
-                                                              this.state.searchResults.map((cat, j) => {
-                                                                 return <li key={j}>
-                                                                    <p className="" onClick={this.addCriteria.bind(this, cat)}>{cat.name}</p>
-                                                                </li>
-                                                              })
-                                                            }
+                                                                {
+                                                                    this.state.searchResults.map((cat, j) => {
+                                                                        return <li key={j}>
+                                                                            <div className="serach-rslt-with-img">
+                                                                                <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                    <img style={{ width: '22px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} /></span>
+                                                                                <span className="srch-rslt-wd-span usr-srch-img">
+                                                                                    <img style={{ width: '35px', borderRadius: '50%' }} className="" src="https://cdn.docprime.com/media/doctor/images/80x80/afd51f20a6c2afdc9e25495ce983ab9f.jpg" />
+                                                                                </span>
+                                                                                <p className="p-0" onClick={this.addCriteria.bind(this, cat)}>
+                                                                                    {cat.name}
+                                                                                    <span className="search-span-sub">General Physician  |  Ortho</span>
+                                                                                </p>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    })
+                                                                }
                                                             </ul>
                                                         </div>
                                                     </div>
