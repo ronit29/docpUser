@@ -83,6 +83,13 @@ class SearchElasticView extends React.Component{
         this.searchProceedOPD("", "")
     }
 
+    setCommonSelectedCriterias(type,criteria){
+        criteria = Object.assign({}, criteria)
+        criteria.type = type
+        this.props.cloneCommonSelectedCriterias(criteria)
+        this.showDoctors()
+    }
+
     showLabs() {
         if (this.props.locationType == "geo") {
             this.setState({ focusInput: 1 })
@@ -111,7 +118,7 @@ class SearchElasticView extends React.Component{
                                     type="speciality"
                                     data={this.props.dataState.specializations}
                                     selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'speciality')*/}
-                                    toggle={this.props.toggleOPDCriteria.bind(this)}
+                                    toggle={this.setCommonSelectedCriterias.bind(this)}
                                 />
 
         }else if(this.props.selectedSearchType.includes('lab')){
@@ -135,9 +142,9 @@ class SearchElasticView extends React.Component{
             commonSearched = <CommonlySearched
                                     heading="Common Dental Treatments"
                                     type="procedures_category"
-                                    data={this.props.dataState.procedures}
+                                    data={this.props.dataState.procedure_categories}
                                     selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
-                                    toggle={this.props.toggleOPDCriteria.bind(this)}
+                                    toggle={this.setCommonSelectedCriterias.bind(this)}
                                 />
         }
 
@@ -160,7 +167,23 @@ class SearchElasticView extends React.Component{
 
                                 {commonSearched}
 
-                                <button onClick={this.props.selectedJourney=='opd'?this.showDoctors.bind(this, 'opd'):this.showLabs.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">{this.props.selectedJourney=='opd'?'Show Doctors':'Show Labs'}</button>
+                                {
+                                    this.props.selectedSearchType =='procedures'?
+                                    <CommonlySearched
+                                        heading="Procedures"
+                                        type="procedures"
+                                        data={this.props.dataState.procedures}
+                                        selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
+                                        toggle={this.setCommonSelectedCriterias.bind(this)}
+                                    />
+                                    :''
+                                }
+
+                                {
+                                    this.props.selectedSearchType=='lab'?
+                                    <button onClick={this.showLabs.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">{'Show Labs'}</button>
+                                    :''
+                                }
 
                             </section>
                     </CriteriaElasticSearch>

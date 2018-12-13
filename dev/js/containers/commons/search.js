@@ -71,7 +71,8 @@ const mapStateToProps = (state) => {
             selectedLocation,
             filterCriteria,
             locationType,
-            procedure_categories
+            procedure_categories,
+            procedures
         } = state.SEARCH_CRITERIA_OPD
 
         return {
@@ -82,7 +83,8 @@ const mapStateToProps = (state) => {
             selectedLocation,
             filterCriteria,
             locationType,
-            procedure_categories
+            procedure_categories,
+            procedures
         }
     })()
 
@@ -134,7 +136,7 @@ const mapDispatchToProps = (dispatch) => {
         clearAllTests: () => dispatch(clearAllTests()),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
-        getElasticCriteriaResults: (searchString, callback) => dispatch(getElasticCriteriaResults(searchString, callback))
+        getElasticCriteriaResults: (searchString, type, location, callback) => dispatch(getElasticCriteriaResults(searchString, type, location, callback))
     }
 }
 

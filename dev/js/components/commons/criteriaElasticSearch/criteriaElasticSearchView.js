@@ -51,7 +51,7 @@ class CriteriaElasticSearchView extends React.Component {
     getSearchResults() {
         this.setState({ loading: true })
 
-            this.props.getElasticCriteriaResults(this.state.searchValue, (searchResults) => {
+            this.props.getElasticCriteriaResults(this.state.searchValue, this.props.type,'',(searchResults) => {
                 if (searchResults && searchResults.suggestion.length) {
                     
 
@@ -65,33 +65,46 @@ class CriteriaElasticSearchView extends React.Component {
 
         criteria = Object.assign({},criteria)
         
-        if (this.props.type == 'opd') {
+        if (this.props.type == 'opd' || this.props.type=='procedures') {
 
             let action = '', event = ''
-            if (criteria.action.param == 'specializations') {
 
-                criteria.id = criteria.action.value.split(',')
+            if (criteria.action.param.includes('hospital_name')) {
+
+                this.props.searchProceed("", criteria.action.value[0])
+                return
+
+            }else if(criteria.action.param.includes('procedure_category_ids')){
+
+                criteria.id = criteria.action.value
+                criteria.type = 'procedures_category'
+            
+            }else if(criteria.action.param.includes('procedure_ids')){
+
+                criteria.id = criteria.action.value
+                criteria.type = 'procedures'
+
+            }else if(criteria.action.param.includes('specializations')){
+
+                criteria.id = criteria.action.value
                 criteria.type = 'speciality'
-            }else if(criteria.action.param == 'procedure_category'){
 
-            }else if(criteria.action.param == 'procedure'){
-                
-            }else if(criteria.action.param == 'doctor'){
-                
-            }else if(criteria.action.param == 'hospital_name'){
-
-                
-            }else if(criteria.action.param == 'hospital'){
-
+            }else if(criteria.action.param.includes('doctor_name')){
+            
+                this.props.searchProceed(criteria.action.value[0],"")
+                return
+            
             }
+
+
             this.props.cloneCommonSelectedCriterias(criteria)
-            //this.props.toggleOPDCriteria(criteria.type, criteria)
             this.setState({ searchValue: "" })
             this.props.showResults('opd')
         
         } else {
-            
-            this.props.toggleDiagnosisCriteria(criteria.type, criteria)
+            criteria.type = 'test'
+            criteria.id = criteria.action.value
+            this.props.toggleDiagnosisCriteria('test', criteria)
             this.setState({ searchValue: "" })
         }
     }
@@ -201,65 +214,7 @@ class CriteriaElasticSearchView extends React.Component {
                                         this.state.searchValue ?
 
                                             <section>
-                                                {
-                                                    this.state.searchValue.length > 2 ?<div>
-                                                        {
-                                                            this.props.type == 'opd' || this.props.type == 'procedures' ?
-                                                                <div className="widget mb-10">
-                                                                    <div className="common-search-container">
-                                                                        <p className="srch-heading">Name Search</p>
-                                                                        <div className="common-listing-cont">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <p className="" onClick={() => {
-
-                                                                                        let data = {
-                                                                                            'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || ''
-                                                                                        }
-                                                                                        GTM.sendEvent({ data: data })
-
-                                                                                        this.props.searchProceed(this.state.searchValue, "")
-                                                                                    }}>Search Doctors with name {this.state.searchValue}</p>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <p className="" onClick={() => {
-
-                                                                                        let data = {
-                                                                                            'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || ''
-                                                                                        }
-                                                                                        GTM.sendEvent({ data: data })
-
-                                                                                        this.props.searchProceed("", this.state.searchValue)
-                                                                                    }}>Search Hospitals with name {this.state.searchValue}</p>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> : <div className="widget mb-10">
-                                                                    <div className="common-search-container">
-                                                                        <p className="srch-heading">Name Search</p>
-                                                                        <div className="common-listing-cont">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <p className="" onClick={() => {
-
-                                                                                        let data = {
-                                                                                            'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || ''
-                                                                                        }
-                                                                                        GTM.sendEvent({ data: data })
-
-                                                                                        this.props.searchProceed(this.state.searchValue)
-                                                                                    }}>Search Labs with name {this.state.searchValue}</p>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                        }
-                                                    </div> : ""
-                                                }
-
-
+                                    
                                                 <div className="widget mb-10" >
                                                     <div className="common-search-container">
                                                         {/*<p className="srch-heading">{cat.name}</p>*/}
