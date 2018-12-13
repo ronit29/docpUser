@@ -4377,4 +4377,8 @@ color: red;
 	-ms-transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
 }
+.test-duo-listing .disable-btn{
+	background: #a09e9e;
+    cursor: not-allowed;
+}
 /* =============== cashback-style =============== */
