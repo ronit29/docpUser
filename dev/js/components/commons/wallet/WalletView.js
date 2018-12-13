@@ -120,7 +120,7 @@ class WalletView extends React.Component {
                                                 <h5 className="csh-heading-bg">17th December 2018</h5>
                                                 <div className="csh-trns-data">
                                                     <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
                                                         <div className="csh-booking-id-content">
                                                             <p>Paid for Doctor Appointment</p>
                                                             <span>Booking id : 12345976RTBDP</span>
@@ -133,7 +133,7 @@ class WalletView extends React.Component {
                                                 <h5 className="csh-heading-bg">17th December 2018</h5>
                                                 <div className="csh-trns-data">
                                                     <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
                                                         <div className="csh-booking-id-content">
                                                             <p>Paid for Doctor Appointment</p>
                                                             <span>Booking id : 12345976RTBDP</span>
@@ -146,7 +146,7 @@ class WalletView extends React.Component {
                                                 <h5 className="csh-heading-bg">17th December 2018</h5>
                                                 <div className="csh-trns-data">
                                                     <div className="csh-content-with-img">
-                                                        <img className="minus-img" src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <img className="minus-img" src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
                                                         <div className="csh-booking-id-content">
                                                             <p>Paid for Doctor Appointment</p>
                                                             <span>Booking id : 12345976RTBDP</span>
@@ -159,7 +159,7 @@ class WalletView extends React.Component {
                                                 <h5 className="csh-heading-bg">17th December 2018</h5>
                                                 <div className="csh-trns-data">
                                                     <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
                                                         <div className="csh-booking-id-content">
                                                             <p>Paid for Doctor Appointment</p>
                                                             <span>Booking id : 12345976RTBDP</span>
@@ -172,7 +172,7 @@ class WalletView extends React.Component {
                                                 <h5 className="csh-heading-bg">17th December 2018</h5>
                                                 <div className="csh-trns-data">
                                                     <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px'}} />
+                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
                                                         <div className="csh-booking-id-content">
                                                             <p>Paid for Doctor Appointment</p>
                                                             <span>Booking id : 12345976RTBDP</span>
@@ -185,7 +185,93 @@ class WalletView extends React.Component {
 
 
                                     </div>
-                                    
+                                    <div className="widget mt-20 mb-10">
+                                        <div className="widget-content">
+                                            <h4 className="title mb-20">Payment Summary</h4>
+                                            <div className="payment-summary-content">
+                                                <div className="payment-detail d-flex">
+                                                    <p>Subtotal</p>
+                                                    <p>₹ 500</p>
+                                                </div>
+                                                <div className="payment-detail d-flex">
+                                                    <p>docprime discount</p>
+                                                    <p>- ₹ 250</p>
+                                                </div>
+                                                <div className="payment-detail d-flex">
+                                                    <p style={{ color: 'green' }}>Coupon discount</p>
+                                                    <p style={{ color: 'green' }}>-₹ 30</p>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div className="test-report payment-detail mt-20">
+                                                <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                <h5 className="payment-amt-value">₹ 220</h5>
+                                            </div>
+                                            <div className="csh-back-applied-container">
+                                                <p className="csh-mny-applied">+ Rs 100 Cashback Applied</p>
+                                                <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointent completion</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="widget mb-10">
+                                        <div className="common-search-container">
+                                            <p className="srch-heading">
+                                                Wallet</p>
+                                            <div className="common-listing-cont">
+                                                <ul>
+                                                    <li className="align-items-center">
+                                                        <p className="flex-1">
+                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            Paytm</p>
+                                                        <span className="link-account-span">Link Account</span>
+                                                    </li>
+                                                    <li className="align-items-center">
+                                                        <p className="flex-1">
+                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            Paytm</p>
+                                                        <span className="link-account-span">Link Account</span>
+                                                    </li>
+                                                    <li className="align-items-center">
+                                                        <p className="flex-1">
+                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            Paytm</p>
+                                                        <span className="link-account-span">Link Account</span>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="widget mb-10">
+                                        <div className="common-search-container">
+                                            <p className="srch-heading">
+                                            Online Paymeny</p>
+                                            <div className="common-listing-cont">
+                                                <ul>
+                                                    <li className="align-items-center">
+                                                        <p className="flex-1">
+                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            Netbanking</p>
+                                                            <img style={{width: '8px'}} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                    </li>
+                                                    <li className="align-items-center">
+                                                        <p className="flex-1">
+                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            Debit Card</p>
+                                                            <img style={{width: '8px'}} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                    </li>
+                                                    <li className="align-items-center">
+                                                        <p className="flex-1">
+                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            Credit Card</p>
+                                                            <img style={{width: '8px'}} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             }
 
