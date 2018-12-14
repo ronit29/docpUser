@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
-import SearchResultsView from '../../components/diagnosis/searchPackages/index.js'
+import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 
 class SearchResults extends React.Component {
     constructor(props) {
