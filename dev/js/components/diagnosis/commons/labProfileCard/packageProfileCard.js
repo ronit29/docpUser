@@ -68,7 +68,7 @@ class LabProfileCard extends React.Component {
         }
     }
     render() {
-        let { deal_price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id } = this.props.details;
+        let { deal_price, lab, distance, pickup_available, lab_timing, lab_timing_data,  next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -84,7 +84,7 @@ class LabProfileCard extends React.Component {
 
         if (lab.is_home_collection_enabled && !distance_related_charges) {
             pickup_text = "Inclusive of home visit charges"
-            deal_price = deal_price + 0
+            deal_price = 4000
         }
 
         // let hide_price = false
@@ -95,7 +95,7 @@ class LabProfileCard extends React.Component {
         //         }
         //     })
         // }
-
+        let mrp = 8000
         let offPercent = ''
         if (mrp && deal_price && (deal_price < mrp)) {
             offPercent = parseInt(((mrp - deal_price) / mrp) * 100);
@@ -105,9 +105,9 @@ class LabProfileCard extends React.Component {
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
                         <p>
-                             <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-                                    <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={lab.lab_thumbnail} />
-                                </InitialsPicture>
+                             {/* <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls"> */}
+                                    <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                {/* </InitialsPicture> */}
                             <span className="fltr-loc-txt">{lab.locality} {lab.city}</span>
                             |
                             <span>{distance} Km</span>
