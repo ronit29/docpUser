@@ -96,8 +96,7 @@ class SearchPackagesView extends React.Component {
 
     buildURI(state) {
         let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
-        let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
-
+        // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
@@ -121,7 +120,9 @@ class SearchPackagesView extends React.Component {
         let lab_name = filterCriteria.lab_name || ""
         let network_id = filterCriteria.network_id || ""
 
-        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
+        // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
+
+        let url = `${window.location.pathname}?lat=${lat}&long=${long}`
 
         if (this.state.lab_card) {
             url += `&lab_card=true`
@@ -173,6 +174,8 @@ class SearchPackagesView extends React.Component {
     }
 
     render() {
+        let LOADED_LABS_SEARCH = true
+        console.log(this.props)
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -181,15 +184,10 @@ class SearchPackagesView extends React.Component {
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description
                 }} noIndex={!this.state.seoFriendly} />                
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
-                                    {   
-                
-                                        this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
-                                        </div>
-                                    }
+                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
+                                    
                                 </CriteriaSearch>
+                                <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                                 <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 <Footer footerData={this.state.footerData} />
             </div>
