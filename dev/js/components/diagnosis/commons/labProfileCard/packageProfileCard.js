@@ -105,9 +105,7 @@ class LabProfileCard extends React.Component {
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
                         <p>
-                             {/* <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls"> */}
-                                    <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                {/* </InitialsPicture> */}
+                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
                             <span className="fltr-loc-txt">{lab.locality} {lab.city}</span>
                             |
                             <span>{distance} Km</span>
@@ -127,9 +125,10 @@ class LabProfileCard extends React.Component {
                             <div className="col-7 mrt-10">
                                 <div className="img-nd-dtls" style={{ alignItems: 'flex-start;' }}>
                                     <div className="fltr-crd-img text-center" style={{ width: '60px' }}>
-                                        <div className="initialsPicture-ds fltr-initialPicture-ds" style={{ backgroundColor: 'rgb(244, 143, 177)' }}>
-                                            <span>SS</span>
-                                        </div>
+                                       
+                                        <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
+                                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={lab.lab_thumbnail} />
+                                        </InitialsPicture>
                                         {/*<span className="fltr-rtng">Verified</span>*/}
                                     </div>
                                     {/*<div className="crd-dctr-dtls">
