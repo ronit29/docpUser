@@ -180,8 +180,7 @@ class SearchPackagesView extends React.Component {
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description
-                }} noIndex={!this.state.seoFriendly} />
-                <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
+                }} noIndex={!this.state.seoFriendly} />                
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
                                     {   
                 
@@ -191,7 +190,7 @@ class SearchPackagesView extends React.Component {
                                         </div>
                                     }
                                 </CriteriaSearch>
-
+                                <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 <Footer footerData={this.state.footerData} />
             </div>
         );
