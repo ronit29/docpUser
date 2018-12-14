@@ -35,10 +35,10 @@ class SearchElasticView extends React.Component{
             }
         }, true)
 
-        let data = {
+/*        let data = {
             'Category': 'ConsumerApp', 'Action': 'ShowDoctorsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-doctors-clicked'
         }
-        GTM.sendEvent({ data: data })
+        GTM.sendEvent({ data: data })*/
 
         this.props.history.push({
             pathname: '/opd/searchresults',

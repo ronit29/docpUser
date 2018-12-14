@@ -28,7 +28,7 @@ class CriteriaElasticSearchView extends React.Component {
             searchResults: [],
             loading: false,
             searchCities: [],
-            currentTestType:0
+            currentTestType:[]
         }
     }
 
@@ -76,9 +76,9 @@ class CriteriaElasticSearchView extends React.Component {
         let location = {lat: lat, long: long}
 
             this.props.getElasticCriteriaResults(this.state.searchValue, this.props.type, location, (searchResults) => {
-                if (searchResults && searchResults.suggestion.length) {
+                if (searchResults) {
 
-                this.setState({ searchResults: searchResults.suggestion, loading: false })
+                this.setState({ searchResults: searchResults.suggestion,searchedCategories:searchResults.suggestedCategories, loading: false })
 
             }
         })
@@ -103,11 +103,19 @@ class CriteriaElasticSearchView extends React.Component {
                 criteria.type = 'procedures_category'
             
             }else if(criteria.action.param.includes('procedure_ids')){
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                }
+                GTM.sendEvent({ data: data })
 
                 criteria.id = criteria.action.value
                 criteria.type = 'procedures'
 
             }else if(criteria.action.param.includes('specializations')){
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                }
+                GTM.sendEvent({ data: data })
 
                 criteria.id = criteria.action.value
                 criteria.type = 'speciality'
@@ -132,6 +140,12 @@ class CriteriaElasticSearchView extends React.Component {
                 this.props.history.push(`/lab/${criteria.action.value[0]}`)
                 return
             }else if(criteria.type =="lab_test"){
+
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                }
+                GTM.sendEvent({ data: data })
+
                 let selectedTestIds = []
                 this.props.dataState.selectedCriterias.map((x) => {
                     if(x.action && x.action.test_type){
@@ -139,7 +153,7 @@ class CriteriaElasticSearchView extends React.Component {
                     }
                 })
                 if(selectedTestIds.indexOf(criteria.action.test_type[0]) >-1){
-                    this.setState({currentTestType:1})
+                    this.setState({currentTestType:criteria})
                 }
             }
             criteria.type = 'test'
@@ -163,12 +177,12 @@ class CriteriaElasticSearchView extends React.Component {
         })
     }
 
-    render() {
+    clickPopUp(type){
 
-        let location = "Delhi"
-        if (this.props.selectedLocation) {
-            location = this.props.selectedLocation.formatted_address.slice(0, 25)
-        }
+        this.setState({currentTestType:[]})
+    }
+
+    render() {
 
         return (
             <div className="profile-body-wrap">
@@ -293,9 +307,9 @@ class CriteriaElasticSearchView extends React.Component {
                                                 }
                                                 
                                                 {
-                                                    this.state.searchValue.length > 2 /*||  || this.state.searchResults.suggestedCategories.indexOf("doctor") > -1)*/? <div>
+                                                    this.state.searchValue.length > 2? <div>
                                                         {
-                                                            (this.props.type == 'opd') /*&& this.state.searchResults && this.state.searchResults.suggestedCategories.indexOf("doctor") > -1) */?
+                                                            (this.props.type == 'opd' && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1) ?
                                                                 <div className="widget mb-10">
                                                                     <div className="common-search-container">
                                                                         <p className="srch-heading">Name Search</p>
@@ -326,7 +340,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                             </ul>
                                                                         </div>
                                                                     </div>
-                                                                </div> : (this.state.searchResults) /*&& this.state.searchResults.suggestedCategories.indexOf("lab") > -1)*/
+                                                                </div> : (this.state.searchResults && this.state.searchedCategories.indexOf("lab") > -1)
                                                                     ?<div className="widget mb-10">
                                                                         <div className="common-search-container">
                                                                             <p className="srch-heading">Name Search</p>
