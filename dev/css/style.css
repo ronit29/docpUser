@@ -3645,6 +3645,13 @@ padding-top: 0px !important;
     color: #f78631;
     cursor: pointer;
 }
+.elasticInitalPic.initialsPicture-ds.fltr-initialPicture-ds{
+	height: 35px;
+	width: 35px;
+	font-size: 1.3em;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
 
 /* ========================= search design ========================= */
 

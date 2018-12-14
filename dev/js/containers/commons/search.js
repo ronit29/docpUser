@@ -97,7 +97,8 @@ const mapStateToProps = (state) => {
             selectedCriterias,
             selectedLocation,
             filterCriteria,
-            locationType
+            locationType,
+            common_package
         } = state.SEARCH_CRITERIA_LABS
 
         return {
@@ -108,7 +109,8 @@ const mapStateToProps = (state) => {
             selectedCriterias,
             selectedLocation,
             filterCriteria,
-            locationType
+            locationType,
+            common_package
         }
     })()
 

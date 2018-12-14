@@ -99,7 +99,7 @@ class SearchElasticView extends React.Component{
         let commonSearched = ''
 
         if(this.props.selectedSearchType.includes('opd')){
-            title="Search for doctor or disease"
+            title="speciality, doctor, hospital, disease etc."
             searchProceed = this.searchProceedOPD.bind(this)
             showResults = this.showDoctors.bind(this)
 
@@ -112,7 +112,7 @@ class SearchElasticView extends React.Component{
                                 />
 
         }else if(this.props.selectedSearchType.includes('lab')){
-            title="Search for tests or lab"
+            title="test, lab, health package etc."
             searchProceed = this.searchProceedLAB.bind(this)
             showResults =  this.showLabs.bind(this)
 
@@ -125,17 +125,27 @@ class SearchElasticView extends React.Component{
                                 />
 
         }else{
-            title="Search for dental treatments"
+            title="dental treatment, procedures etc."
             searchProceed = this.searchProceedOPD.bind(this)
             showResults = this.showDoctors.bind(this)
 
             commonSearched = <CommonlySearched
+                                        heading="Common Dental Treatments"
+                                        type="procedures"
+                                        data={this.props.dataState.procedures}
+                                        selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
+                                        toggle={this.setCommonSelectedCriterias.bind(this)}
+                                    />
+
+
+
+                        /*<CommonlySearched
                                     heading="Common Dental Treatments"
                                     type="procedures_category"
                                     data={this.props.dataState.procedure_categories}
-                                    selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
+                                    selected={[]}
                                     toggle={this.setCommonSelectedCriterias.bind(this)}
-                                />
+                                />*/
         }
 
 		return(
@@ -158,15 +168,14 @@ class SearchElasticView extends React.Component{
                                 {commonSearched}
 
                                 {
-                                    this.props.selectedSearchType =='procedures'?
-                                    <CommonlySearched
-                                        heading="Procedures"
-                                        type="procedures"
-                                        data={this.props.dataState.procedures}
-                                        selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
-                                        toggle={this.setCommonSelectedCriterias.bind(this)}
-                                    />
-                                    :''
+                                    this.props.selectedSearchType.includes('lab')?
+                                        <CommonlySearched
+                                        heading="Common Health Packages"
+                                        type="test"
+                                        data={this.props.dataState.common_package}
+                                        selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test').filter(x => x.is_package)}
+                                        toggle={this.props.toggleDiagnosisCriteria.bind(this)}
+                                    />:''
                                 }
 
                                 {
