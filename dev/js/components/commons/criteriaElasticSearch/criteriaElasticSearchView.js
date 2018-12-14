@@ -93,34 +93,43 @@ class CriteriaElasticSearchView extends React.Component {
             let action = '', event = ''
 
             if (criteria.action.param.includes('hospital_name')) {
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':'autosuggest'
+                }
+                GTM.sendEvent({ data: data })
 
                 this.props.searchProceed("", criteria.action.value[0])
                 return
 
             } else if (criteria.action.param.includes('procedure_category_ids')) {
 
-                criteria.id = criteria.action.value
+                criteria.id = criteria.action.value[0]
                 criteria.type = 'procedures_category'
             
             }else if(criteria.action.param.includes('procedure_ids')){
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest'
                 }
                 GTM.sendEvent({ data: data })
 
-                criteria.id = criteria.action.value
+                criteria.id = criteria.action.value[0]
                 criteria.type = 'procedures'
 
             }else if(criteria.action.param.includes('specializations')){
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest'
                 }
                 GTM.sendEvent({ data: data })
 
-                criteria.id = criteria.action.value
+                criteria.id = criteria.action.value[0]
                 criteria.type = 'speciality'
 
             } else if (criteria.action.param.includes('doctor_name')) {
+
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '',  'searched':'autosuggest', 'doctorId': criteria.action.value[0]
+                }
+                GTM.sendEvent({ data: data })
 
                 this.props.history.push(`/opd/doctor/${criteria.action.value[0]}?hide_search_data=true`)
 
@@ -155,12 +164,16 @@ class CriteriaElasticSearchView extends React.Component {
                 if(selectedTestIds.length && criteria.action.test_type && criteria.action.test_type.length){
                     if(selectedTestIds.indexOf(criteria.action.test_type[0]) ==-1){
                         this.setState({currentTestType:criteria, searchValue:""})
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                        }
+                        GTM.sendEvent({ data: data })
                         return
                     }    
                 }
             }
             criteria.type = 'test'
-            criteria.id = criteria.action.value
+            criteria.id = criteria.action.value[0]
             this.props.toggleDiagnosisCriteria('test', criteria)
             this.setState({ searchValue: "" })
         }
@@ -182,10 +195,18 @@ class CriteriaElasticSearchView extends React.Component {
 
     clickPopUp(type){
         if(type == 1){
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || ''
+            }
+            GTM.sendEvent({ data: data })
             let criteria = this.state.currentTestType
             criteria.type = 'test'
-            criteria.id = criteria.action.value
+            criteria.id = criteria.action.value[0]
             this.props.toggleDiagnosisCriteria('test', criteria, true)
+        }else{
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup'
+            }
         }
         this.setState({currentTestType:{}})
     }
@@ -323,12 +344,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 <p className="p-0" onClick={() => {
 
                                                                                     let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || ''
+                                                                                        'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '', 'searched':''
                                                                                     }
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed(this.state.searchValue, "")
-                                                                                }}>Search Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                }}>Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
                                                                         </li>
                                                                         :(this.state.searchValue.length > 2 && this.state.searchResults && this.state.searchedCategories.indexOf("lab") > -1)
@@ -340,12 +361,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 <p className="p-0" onClick={() => {
 
                                                                                     let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || ''
+                                                                                        'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || '', 'searched':''
                                                                                     }
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed(this.state.searchValue)
-                                                                                }}>Search Labs with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                }}>Search all Labs with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
                                                                         </li>:''
 
@@ -360,12 +381,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 <p className="p-0" onClick={() => {
 
                                                                                     let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || ''
+                                                                                        'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':''
                                                                                     }
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed("", this.state.searchValue)
-                                                                                }}>Search Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                }}>Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
                                                                         </li>:''
                                                                     }
