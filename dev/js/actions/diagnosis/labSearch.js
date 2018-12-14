@@ -310,7 +310,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	// url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
-	// url += `long=${long || ""}&lat=${lat || ""}`
+	url += `long=${long || ""}&lat=${lat || ""}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`

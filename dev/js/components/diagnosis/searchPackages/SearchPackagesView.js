@@ -28,8 +28,6 @@ class SearchPackagesView extends React.Component {
 
     componentDidMount() {
         if (this.props.fetchNewResults) {
-            console.log(this.props)
-            console.log('rishabjain')
             this.getLabList(this.props)
             if (window) {
                 window.scrollTo(0, 0)
@@ -175,7 +173,6 @@ class SearchPackagesView extends React.Component {
     }
 
     render() {
-
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -184,33 +181,16 @@ class SearchPackagesView extends React.Component {
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description
                 }} noIndex={!this.state.seoFriendly} />
-
+                <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
-                    {
-                        this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                            {/*
-                        <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
-                            <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
-                        </div>
-                        */}
-                            {/* {
-                                this.state.showChatWithus ? <div className="container-fluid d-md-none">
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="mrt-10 mrb-10 article-chat-div">
-                                                <p className="fw-500">Need help with booking?</p>
-                                                <button onClick={() => this.props.history.push('/mobileviewchat?botagent=true&force_start=true')} >Chat with us</button>
-                                            </div>
+                                    {   
+                
+                                        this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
+                                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
+                                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                                         </div>
-                                    </div>
-                                </div> : ""
-                            } */}
-
-                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
-                        </div>
-                    }
-                </CriteriaSearch>
+                                    }
+                                </CriteriaSearch>
 
                 <Footer footerData={this.state.footerData} />
             </div>
