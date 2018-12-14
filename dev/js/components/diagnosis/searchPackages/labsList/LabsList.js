@@ -96,7 +96,17 @@ class LabsList extends React.Component {
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
                                     >
-                                        {
+                                    {
+                                     this.props.searchPackagesData.map((packages,i) =>{
+                                        console.log(packages)
+                                         return <div>
+                                         <LabResultCard {...this.props} details={packages} key={i} rank={i} />
+                                         <LabProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                         </div>
+                                     })  
+                                    }
+                                  
+                                        {/*{
                                             labList.map((labId, i) => {
                                                 if (i == 1 && LABS[labId]) {
 
@@ -136,7 +146,7 @@ class LabsList extends React.Component {
                                                     }
                                                 }
                                             })
-                                        }
+                                        }*/}
                                     </InfiniteScroll>
                                 </div>
                             </div>
