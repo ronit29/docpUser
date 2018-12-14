@@ -811,7 +811,8 @@ li.lst-bfr:before{
     font-size: 15px !important;
 }
 .coupon-icon{
-	margin-top: 3px;
+    margin-top: 3px;
+    cursor: pointer;
 }
 .coupon-icon-arrow{
 	margin-top: 7px;

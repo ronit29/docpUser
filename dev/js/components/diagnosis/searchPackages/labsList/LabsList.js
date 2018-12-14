@@ -74,11 +74,11 @@ class LabsList extends React.Component {
             }, 1000)
         })
     }
-    testInfo(){
+    testInfo() {
         var url_string = window.location.href;
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
-        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=searchresults') 
+        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
     }
     render() {
         console.log(this.props.searchPackagesData)
@@ -90,22 +90,70 @@ class LabsList extends React.Component {
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-12">
+                                <div className="filter-card-dl mb-3">
+                                                        <div className="fltr-crd-top-container">
+                                                            <div className="fltr-lctn-dtls">
+                                                                <p><img className="fltr-loc-ico" width="12px" height="18px" src="https://qacdn.docprime.com/cp/assets/img/customer-icons/map-marker-blue.svg" />
+                                                                    <span className="fltr-loc-txt">Near Saitn Angel Public School, Senior Wing, Sector 45</span>  | <span>0.8 Km</span>
+                                                                </p>
+                                                            </div>
+                                                            <div className="row no-gutters" style={{ cursor: 'pointer' }}>
+                                                                <div className="col-12 mrt-10">
+                                                                    <a href="/dr-satvender-singh-general-physician-in-sector-45-gurgaon-dpp">
+                                                                        <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>Dr. Satvender Singh</h2>
+                                                                    </a><span className="filtr-offer ofr-ribbon fw-700">25% Off</span>
+                                                                </div>
+                                                                <div className="col-7 mrt-10">
+                                                                    <div className="img-nd-dtls" style={{ alignItems: 'flex-start;' }}>
+                                                                        <div className="fltr-crd-img text-center" style={{ width: '60px' }}>
+                                                                            <div className="initialsPicture-ds fltr-initialPicture-ds" style={{ backgroundColor: 'rgb(244, 143, 177)' }}>
+                                                                                <span>SS</span>
+                                                                            </div>
+                                                                            <span className="fltr-rtng">Verified</span>
+                                                                        </div>
+                                                                        <div className="crd-dctr-dtls">
+                                                                            <h3 className="fw-500">General Physician</h3>
+                                                                            <h3 className="fw-500">15 Years of Experience</h3>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
+                                                                    <p className="fltr-prices" style={{ marginTop: '4px' }}>₹ 300<span className="fltr-cut-price">₹ 400</span></p>
+                                                                    <div className="signup-off-container">
+                                                                        <span className="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b> </span>
+                                                                    </div><button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="filtr-card-footer">
+                                                            <div><img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/home.svg" />
+                                                                <h3 className="mrb-0">Dr. Satvender Singh Clinic</h3></div><div className="text-right"><img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/clock-black.svg" /><p>
+                                                                    <span>5:30 PM to 7:30 PM</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                     <InfiniteScroll
                                         pageStart={0}
                                         loadMore={this.loadMore.bind(this)}
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
                                     >
-                                    {
-                                     this.props.searchPackagesData.map((packages,i) =>{
-                                        console.log(packages)
-                                         return <div>
-                                         <LabResultCard {...this.props} details={packages} key={i} rank={i} />
-                                         <LabProfileCard {...this.props} details={packages} key={i} rank={i} />
-                                         </div>
-                                     })  
-                                    }
-                                  
+                                        {
+                                            this.props.searchPackagesData.map((packages, i) => {
+                                                console.log(packages)
+                                                return <div>
+
+                                                    
+
+
+
+                                                    <LabResultCard {...this.props} details={packages} key={i} rank={i} />
+                                                    <LabProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                                </div>
+                                            })
+                                        }
+
                                         {/*{
                                             labList.map((labId, i) => {
                                                 if (i == 1 && LABS[labId]) {
