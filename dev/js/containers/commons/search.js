@@ -132,7 +132,7 @@ const mapDispatchToProps = (dispatch) => {
         filterSelectedCriteria: (type) => dispatch(filterSelectedCriteria(type)),
         //lab
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
-        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         clearAllTests: () => dispatch(clearAllTests()),
