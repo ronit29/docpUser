@@ -92,6 +92,14 @@ class CriteriaElasticSearchView extends React.Component {
 
             let action = '', event = ''
 
+            if(criteria.type.includes('visit_reason')){
+
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched':'autosuggest'
+                }
+                GTM.sendEvent({ data: data })
+            }
+
             if (criteria.action.param.includes('hospital_name')) {
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':'autosuggest'
@@ -306,7 +314,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                 <ul>
                                                                     {
                                                                         this.state.searchResults.map((cat, j) => {
-                                                                            return <li key={j}>
+                                                                            return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
                                                                                 <div className="serach-rslt-with-img">
                                                                                     {
                                                                                         cat.type.includes('doctor') ?
@@ -325,7 +333,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     }
 
 
-                                                                                    <p className="p-0" onClick={this.addCriteria.bind(this, cat)}>
+                                                                                    <p className="p-0" >
                                                                                         {cat.name}
                                                                                         <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
                                                                                     </p>
@@ -336,12 +344,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                     }
                                                                     {
                                                                         (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
-                                                                        ?<li>
-                                                                            <div className="serach-rslt-with-img">
-                                                                                <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                </span>
-                                                                                <p className="p-0" onClick={() => {
+                                                                        ?<li onClick={() => {
 
                                                                                     let data = {
                                                                                         'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '', 'searched':''
@@ -349,16 +352,16 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed(this.state.searchValue, "")
-                                                                                }}>Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
-                                                                            </div>
-                                                                        </li>
-                                                                        :(this.state.searchValue.length > 2 && this.state.searchResults && this.state.searchedCategories.indexOf("lab") > -1)
-                                                                        ?<li>
+                                                                                }}>
                                                                             <div className="serach-rslt-with-img">
                                                                                 <span className="srch-rslt-wd-span text-center srch-img">
                                                                                     <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                                                 </span>
-                                                                                <p className="p-0" onClick={() => {
+                                                                                <p className="p-0" >Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                            </div>
+                                                                        </li>
+                                                                        :(this.state.searchValue.length > 2 && this.state.searchResults && this.state.searchedCategories.indexOf("lab") > -1)
+                                                                        ?<li onClick={() => {
 
                                                                                     let data = {
                                                                                         'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || '', 'searched':''
@@ -366,19 +369,19 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed(this.state.searchValue)
-                                                                                }}>Search all Labs with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                }}>
+                                                                            <div className="serach-rslt-with-img">
+                                                                                <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                </span>
+                                                                                <p className="p-0" >Search all Labs with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
                                                                         </li>:''
 
                                                                     }
                                                                     {
                                                                         (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
-                                                                        ?<li>
-                                                                            <div className="serach-rslt-with-img">
-                                                                                <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                </span>
-                                                                                <p className="p-0" onClick={() => {
+                                                                        ?<li onClick={() => {
 
                                                                                     let data = {
                                                                                         'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':''
@@ -386,7 +389,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed("", this.state.searchValue)
-                                                                                }}>Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                }}>
+                                                                            <div className="serach-rslt-with-img">
+                                                                                <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                </span>
+                                                                                <p className="p-0" >Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
                                                                         </li>:''
                                                                     }

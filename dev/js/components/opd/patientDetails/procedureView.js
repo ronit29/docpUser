@@ -14,7 +14,7 @@ class ProcedureView extends React.Component {
             <div className="widget mrb-15">
                 <div className="widget-content">
                     <div className="d-flex jc-spaceb">
-                        <h4 className="title" style={{ fontSize: 14 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/teeth.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 8 }} /></span>Services Included</h4>
+                        <h4 className="title" style={{ fontSize: 14 }}><span><img src={ASSETS_BASE_URL + "/img/hand.svg"} className="visit-time-icon" style={{ width: 24, marginRight: 8 }} /></span>Services Included</h4>
                     </div>
                     
                     <div className="clearfix pb-list proc-padding-list"><span className="test-price txt-ornage">₹ {parseInt(this.props.priceData.deal_price)}<span className="test-mrp">₹ {parseInt(this.props.priceData.mrp)}</span></span><span className="fw-500 test-name-item">Doctor consultation </span></div>

@@ -626,9 +626,9 @@ ul.inline-list li {
 }
 
 .initialsPicture-ds{
-    height: 65px;
+    height: 60px;
     margin-right: 4px;
-    width: 65px;
+    width: 60px;
     border-radius: 50%;
     display: inline-flex;
     vertical-align: middle;

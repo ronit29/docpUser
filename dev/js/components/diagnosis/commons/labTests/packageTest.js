@@ -21,7 +21,7 @@ class PackageTest extends React.Component {
             <li key={i} style={{ paddingRight: '0px' }} className="clearfix" key={i}>
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
-                        {test.test.name}
+                        {test.test.name} <span style={{fontSize:'12px', fontWeight:'600', color:'#757575'}}>{`(${test_package.length} Tests)`}</span>
                     </p>
                     <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onClick={(e) => {
                         this.props.toggleTest(test)

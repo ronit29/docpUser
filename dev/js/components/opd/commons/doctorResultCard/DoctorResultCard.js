@@ -145,7 +145,6 @@ class DoctorProfileCard extends React.Component {
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
 
             return (
-
                 <div className="filter-card-dl mb-3" >
                     {
                         schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -173,123 +172,112 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                         }
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
-                            <div className="col-3" style={{ paddingRight: 4 }}>
-                                <div className="fltr-crd-img text-center">
-                                    <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} alt={display_name} title={display_name} /></InitialsPicture>
-                                    {is_license_verified && enabled_for_online_booking ? <span className="fltr-rtng">Verified</span> : ''}
-                                    {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
-                                </div>
+                            <div className="col-12 mrt-10">
+                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
+                                    <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
+                                </a>
                                 {
-                                    enabled_for_online_booking ? '' : <button onClick={(e) => this.claimButtonClick(e)} className="fltr-bkng-btn claim-btn text-center" style={{ marginTop: 10 }}>Claim this profile</button>
+                                    discount && discount != 0 ?
+                                        <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
+                                }
+                                {
+                                    !deal_price && !is_procedure ?
+                                        <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                             </div>
-                            <div className="col-9">
-                                <div className="row no-gutters">
-                                    <div className="col-12">
-                                        <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
-                                            <h2 style={{ fontSize: 16 }} className="fltr-dc-name">{display_name}</h2>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="row no-gutters">
-                                    <div className="col-6 fltr-doc-details">
-                                        <h3 className="fw-500">{this.getQualificationStr(general_specialization || [])}</h3>
+                            <div className="col-7 mrt-10">
+                                <div className="img-nd-dtls" style={{ alignItems: 'flex-start' }} >
+                                    <div className="fltr-crd-img text-center" style={{ width: 60 }} >
+                                        <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} alt={display_name} title={display_name} /></InitialsPicture>
+                                        {is_license_verified && enabled_for_online_booking ? <span className="fltr-rtng">Verified</span> : ''}
+                                        {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}
                                         {
-                                            experience_years ? <p className="fw-500">{experience_years} Years of Experience</p> : ""
+                                            enabled_for_online_booking ? '' : <button onClick={(e) => this.claimButtonClick(e)} className="fltr-bkng-btn claim-btn text-center" style={{ marginTop: 10 }}>Claim this profile</button>
                                         }
                                     </div>
-                                    <div className="col-6">
-                                        <div className="fltr-bkng-section">
-                                            {
-                                                discount && discount != 0 ?
-                                                    <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
-                                            }
-
-                                            {
-                                                !deal_price && !is_procedure ?
-                                                    <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
-                                            }
-
-                                            <p className="fltr-prices" style={{ marginTop: 4 }}>
-                                                &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
-                                                {
-                                                    is_procedure
-                                                        ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                                                        : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
-                                                }
-                                            </p>
-                                            {
-                                                STORAGE.checkAuth() || deal_price < 100 ?
-                                                    ''
-                                                    : enabled_for_hospital_booking ?
-                                                        <div className="signup-off-container">
-                                                            <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                                        </div>
-                                                        : ''
-                                            }
-
-                                            {
-                                                enabled_for_hospital_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-cntct-btn">Contact</button>
-                                            }
-                                        </div>
+                                    <div className="crd-dctr-dtls">
+                                        <h3 className="fw-500">{this.getQualificationStr(general_specialization || [])}</h3>
+                                        {
+                                            experience_years ? <h3 className="fw-500">{experience_years} Years of Experience</h3> : ""
+                                        }
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        {
-                            hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
-                                <div className="procedure-checkboxes">
-                                    <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
-                                        <div className="clearfix">
-                                            <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                            <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
+                                <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                    &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
+                                    {
+                                        is_procedure
+                                            ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
+                                            : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                    }
+                                </p>
+                                {
+                                    STORAGE.checkAuth() || deal_price < 100 ?
+                                        ''
+                                        : enabled_for_hospital_booking ?
+                                            <div className="signup-off-container">
+                                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                            </div>
+                                            : ''
+                                }
+                                {
+                                    enabled_for_hospital_booking ? <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button> : <button className="fltr-cntct-btn" style={{ width: '100%' }}>Contact</button>
+                                }
+                            </div>
+                            {
+                                hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
+                                    <div className="procedure-checkboxes">
+                                        <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                            <div className="clearfix">
+                                                <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
-                                    <div className="insurance-checkboxes">
-                                        <ul className="procedure-list">
-                                            {
-                                                hospitals[0].procedure_categories.map((category) => {
+                                        <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
+                                        <div className="insurance-checkboxes">
+                                            <ul className="procedure-list">
+                                                {
+                                                    hospitals[0].procedure_categories.map((category) => {
 
 
-                                                    return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
+                                                        return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
 
-                                                        return <li key={i}>
-                                                            <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
-                                                                <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
-                                                                <span className="checkmark">
-                                                                </span>
-                                                            </label>
-                                                            {/* <div>
+                                                            return <li key={i}>
+                                                                <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
+                                                                    <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
+                                                                    <span className="checkmark">
+                                                                    </span>
+                                                                </label>
+                                                                {/* <div>
                                                                 <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
                                                                 <label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
                                                             </div> */}
-                                                            <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
-                                                        </li>
+                                                                <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                            </li>
 
+                                                        })
                                                     })
-                                                })
-                                            }
-                                            {
-                                                this.state.errorMessage ?
-                                                    <p>Please Select at least one Procedure</p>
-                                                    : ''
-                                            }
-                                            {
-                                                unselectedCount + selectedCount >= 1
-                                                    ? this.state.vieMoreProcedures
-                                                        ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
-                                                        : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
-                                                            + {unselectedCount} more
+                                                }
+                                                {
+                                                    this.state.errorMessage ?
+                                                        <p>Please Select at least one Procedure</p>
+                                                        : ''
+                                                }
+                                                {
+                                                    unselectedCount + selectedCount >= 1
+                                                        ? this.state.vieMoreProcedures
+                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
+                                                            : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
+                                                                + {unselectedCount} more
                                             </button> : ''
-                                                    : ''
-                                            }
-                                        </ul>
+                                                        : ''
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                : ''
-                        }
-
+                                    : ''
+                            }
+                        </div>
                     </div>
                     <div className="filtr-card-footer">
                         <div>
@@ -310,7 +298,6 @@ class DoctorProfileCard extends React.Component {
                         </div>
                     </div>
                 </div>
-
             );
         } else {
             return ""

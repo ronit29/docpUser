@@ -1,4 +1,4 @@
-import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
@@ -36,8 +36,8 @@ export const getDiagnosisCriteriaResults = (searchString, callback) => (dispatch
     })
 }
 
-export const getLabTests = (lab_id, searchString, callback) => (dispatch) => {
-    API_GET(`/api/v1/diagnostic/labtest/${lab_id}?test_name=${searchString}`).then(function (response) {
+export const getLabTests = (lab_id, searchString, callback, page = 1) => (dispatch) => {
+    API_GET(`/api/v1/diagnostic/labtest/${lab_id}?test_name=${searchString}&page=${page}`).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)
@@ -72,5 +72,25 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
     dispatch({
         type: SET_CORPORATE_COUPON,
         payload: coupon
+    })
+}
+export const searchTestData = (test_ids,lab_id,callback) => (dispatch) => {
+    let url = 'test_ids='+test_ids
+    if(lab_id != null){
+    url = 'test_ids='+test_ids+'&lab_id='+lab_id
+    }
+    return API_GET('/api/v1/diagnostic/test/details?'+url).then(function (response) {
+        dispatch({
+            type: SEARCH_TEST_INFO,
+            payload: response
+
+        })
+        if(callback) callback(response);
+    }).catch(function (error) {
+        dispatch({
+            type: SEARCH_TEST_INFO,
+            payload: null
+        })
+        throw error
     })
 }
