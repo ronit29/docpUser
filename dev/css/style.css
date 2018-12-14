@@ -892,8 +892,14 @@ p.top-head-link.card-lab-link span {
 	}
 	
 	.text-sm{
-		font-size: 11px;
+		font-size: 14px;
 
+	}
+	p.fltr-prices{
+		font-size:16px;
+	}
+	p.text-lg {
+		font-size: 16px;
 	}
 }
 
@@ -1797,7 +1803,7 @@ margin: 0px 10px;
 	font-weight: 500;
 }
 .fltr-slected-test label{
-	max-width: 250px;
+	max-width: 170px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
