@@ -53,7 +53,7 @@ class HelmetTags extends React.Component {
                         : ''
                 }
                 {
-                    noIndex ? <meta name="robots" content="noindex, notfollow" /> : ""
+                    noIndex ? <meta name="robots" content="noindex, nofollow" /> : ""
                 }
                 {
                     prev ?
