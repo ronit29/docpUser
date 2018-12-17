@@ -44,13 +44,13 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     componentDidMount() {
-/*
-        if (!STORAGE.checkAuth()) {
-            return
-        }*/
+        /*
+                if (!STORAGE.checkAuth()) {
+                    return
+                }*/
 
         if (window) {
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0)
         }
 
         if (this.props.location.search.includes("error_code")) {
@@ -62,7 +62,7 @@ class BookingSummaryViewNew extends React.Component {
         let patient = null
         if (this.props.selectedProfile && this.props.profiles && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
-            this.setState({profileDataFilled:true})
+            this.setState({ profileDataFilled: true })
         }
         /*if (document.getElementById('time-patient-details-widget')) {
             var elementTop = document.getElementById('time-patient-details-widget').getBoundingClientRect().top;
@@ -80,12 +80,12 @@ class BookingSummaryViewNew extends React.Component {
 
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
-            return 
+            return
         }
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
             // bases cases
-            if(this.props.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests == this.props.LABS[this.state.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType){
+            if (this.props.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests == this.props.LABS[this.state.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
                 return
             }
 
@@ -201,7 +201,11 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             case "address": {
-                this.props.history.push(`/user/address?pick=true`)
+                if (this.props.address && this.props.address.length) {
+                    this.props.history.push(`/user/address?pick=true`)
+                } else {
+                    this.props.history.push(`/user/address/add`)
+                }
                 return
             }
         }
@@ -217,29 +221,29 @@ class BookingSummaryViewNew extends React.Component {
             case "lab": {
                 return <div>
                     <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props}/>
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
 
             case "home": {
                 return <div>
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props}/>
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                     {
-                        patient?
-                        <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
-                        :''    
+                        patient ?
+                            <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
+                            : ''
                     }
                 </div>
             }
         }
     }
 
-    profileDataCompleted(data){
-        if(data.name =='' || data.gender == '' || data.phoneNumber =='' || !data.otpVerifySuccess){
-            this.setState({profileDataFilled: false})
-        }else if(data.otpVerifySuccess){
-            this.setState({profileDataFilled: true})
+    profileDataCompleted(data) {
+        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
+            this.setState({ profileDataFilled: false })
+        } else if (data.otpVerifySuccess) {
+            this.setState({ profileDataFilled: true })
         }
     }
 
@@ -254,15 +258,15 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
 
-            window.scrollTo(0,0)// this.state.scrollPosition);
+            window.scrollTo(0, 0)// this.state.scrollPosition);
 
             return
         }
-        
-        if(!patient){
+
+        if (!patient) {
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
-            window.scrollTo(0,0)
-            return   
+            window.scrollTo(0, 0)
+            return
         }
         if (!addressPicked) {
             this.setState({ showAddressError: true });
@@ -272,10 +276,10 @@ class BookingSummaryViewNew extends React.Component {
 
             return
         }
-        
-        if(!this.state.profileDataFilled){
+
+        if (!this.state.profileDataFilled) {
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
-            return   
+            return
         }
         if (e.target.dataset.disabled == true) {
             return
@@ -491,9 +495,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/flask.svg"} />
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
-                                                                    {
-                                                                        !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a> : ""
-                                                                    }
+                                                                        {
+                                                                            !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a> : ""
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 {tests}
@@ -539,59 +543,59 @@ class BookingSummaryViewNew extends React.Component {
                                                                 {this.getSelectors()}
                                                             </div>
                                                         </div>
-*/} 
+*/}
                                                         {
                                                             amtBeforeCoupon != 0 ?
-                                                                    <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
-                                                                        {
-                                                                            labCoupons.length ?
-                                                                                <div className="widget-content  d-flex jc-spaceb" >
-                                                                                    <div className="d-flex">
-                                                                                        <span className="coupon-img">
-                                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
-                                                                                        </span>
-                                                                                        <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                            Coupon Applied
+                                                                <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
+                                                                    {
+                                                                        labCoupons.length ?
+                                                                            <div className="widget-content  d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
+                                                                                        Coupon Applied
                                                                                         </h4>
-                                                                                    </div>
-                                                                                    <div className=" d-flex">
-                                                                                        <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                            {labCoupons[0].code}
-                                                                                        </h4>
-                                                                                        {
-                                                                                            is_corporate ? "" : <span className="visit-time-icon coupon-icon"><img onClick={(e) => {
-                                                                                                e.stopPropagation();
-                                                                                                let analyticData = {
-                                                                                                    'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
-                                                                                                }
-                                                                                                GTM.sendEvent({ data: analyticData })
-
-                                                                                                this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
-                                                                                            }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                                                            </span>
-                                                                                        }
-                                                                                    </div>
-                                                                                </div> :
-                                                                                <div className="widget-content d-flex jc-spaceb" >
-                                                                                    <div className="d-flex">
-                                                                                        <span className="coupon-img">
-                                                                                            <img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
-                                                                                        </span>
-                                                                                        <h4 className="title coupon-text">
-                                                                                            HAVE A COUPON?
-                                                                                    </h4>
-                                                                                    </div>
-                                                                                    <div className="visit-time-icon coupon-icon-arrow">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-                                                                                    </div>
                                                                                 </div>
-                                                                        }
-                                                                    </div> : ''
+                                                                                <div className=" d-flex">
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                        {labCoupons[0].code}
+                                                                                    </h4>
+                                                                                    {
+                                                                                        is_corporate ? "" : <span className="visit-time-icon coupon-icon"><img onClick={(e) => {
+                                                                                            e.stopPropagation();
+                                                                                            let analyticData = {
+                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
+                                                                                            }
+                                                                                            GTM.sendEvent({ data: analyticData })
+
+                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
+                                                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                                                        </span>
+                                                                                    }
+                                                                                </div>
+                                                                            </div> :
+                                                                            <div className="widget-content d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text">
+                                                                                        HAVE A COUPON?
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div className="visit-time-icon coupon-icon-arrow">
+                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                </div>
+                                                                            </div>
+                                                                    }
+                                                                </div> : ''
                                                         }
 
                                                         {
                                                             is_corporate ? ""
-                                                                :<div className="widget mrb-15">
+                                                                : <div className="widget mrb-15">
 
                                                                     <div className="widget-content">
                                                                         <h4 className="title mb-20">Payment Summary</h4>
@@ -656,7 +660,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         </a>
 
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </section>
@@ -671,7 +675,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                }  onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${finalDisplayPrice == 0 ? ' (₹ 0)' : finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${finalDisplayPrice == 0 ? ' (₹ 0)' : finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
                             }
 
 
