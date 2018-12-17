@@ -121,8 +121,12 @@ class DoctorProfileView extends React.Component {
         }
 
         let search_data = null
+        let seo_url = ""
         if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].search_data) {
             search_data = this.props.DOCTORS[doctor_id].search_data
+        }
+        if (this.props.DOCTORS[doctor_id]) {
+            seo_url = this.props.DOCTORS[doctor_id].seo_url || ""
         }
 
         return (
@@ -141,7 +145,7 @@ class DoctorProfileView extends React.Component {
                                         <HelmetTags tagsData={{
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
                                             description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description,
-                                            canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                                            canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`,
                                             schema: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).schema
                                         }} noIndex={!this.state.seoFriendly} />
 

@@ -112,6 +112,16 @@ class ArticleList extends React.Component {
 			placeHolder = placeHolder + this.props.articleListData.category.split(' ')[0]
 		}
 
+		let heading = ""
+		let url = this.props.match.url.toLowerCase()
+		if (url == '/all-diseases') {
+			heading = "All Diseases"
+		} else if (url == '/all-medicines') {
+			heading = "All Medicines"
+		} else {
+			heading = "All Articles"
+		}
+
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -152,9 +162,7 @@ class ArticleList extends React.Component {
 										</button>
 									</div>
 									<div className="col-12">
-										{
-											this.props.match.url.toLowerCase() === '/all-diseases' ? <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Diseases</h1> : <h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >All Medicines</h1>
-										}
+										<h1 className="fw-500 mrt-20" style={{ fontSize: 22 }} >{heading}</h1>
 									</div>
 								</div>
 								<div className="row mrt-20">

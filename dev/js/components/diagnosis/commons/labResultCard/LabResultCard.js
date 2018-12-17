@@ -90,7 +90,7 @@ class LabResultCard extends React.Component {
                     <div className="fltr-lctn-dtls">
                         <p>
                             <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src="/assets/img/customer-icons/map-marker-blue.svg" />
-                            <span className="fltr-loc-txt">{lab.locality} {lab.city}</span>
+                            <span className="fltr-loc-txt">{lab.locality}{lab.locality ? "," : ""} {lab.city}</span>
                             <span>&nbsp;|&nbsp;{distance} Km</span>
                         </p>
                     </div>

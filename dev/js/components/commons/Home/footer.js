@@ -62,7 +62,7 @@ class Footer extends React.Component {
                                             <ul className="speciality-footer-list">
                                                 {
                                                     footerData.urls.map((url, j) => {
-                                                        return <li key={"li"+ j}>
+                                                        return <li key={"li" + j}>
                                                             <a href={url.url}>{url.title}</a>
                                                         </li>
                                                     })
@@ -74,7 +74,7 @@ class Footer extends React.Component {
                             </div>
                         </div> : ''
                 }
-                
+
                 <section className="container-fluid mrt-20">
                     <div className="row">
                         <div className="col-12 col-md-2">
@@ -216,6 +216,10 @@ class Footer extends React.Component {
                             <div className="footer-links">
                                 <h3>Useful Resources</h3>
                                 <ul>
+                                    <li><a href="/all-articles" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/all-articles")
+                                    }}>All Articles</a></li>
                                     <li><a href="/all-diseases" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/all-diseases")
