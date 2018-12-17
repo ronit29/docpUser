@@ -35,7 +35,8 @@ class SearchView extends React.Component {
             filterCriteria: {
                 ...this.props.filterCriteria,
                 doctor_name, hospital_name
-            }
+            },
+            page: 1
         }, true)
 
         let data = {
@@ -55,7 +56,8 @@ class SearchView extends React.Component {
             filterCriteria: {
                 ...this.props.filterCriteria,
                 lab_name
-            }
+            },
+            page: 1
         }, true)
 
         this.props.history.push({
