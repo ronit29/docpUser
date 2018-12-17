@@ -112,14 +112,14 @@ class CriteriaElasticSearchView extends React.Component {
             if(criteria.type.includes('visit_reason')){
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched':'autosuggest'
+                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
             }
 
             if (criteria.action.param.includes('hospital_name')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':'autosuggest'
+                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -133,7 +133,7 @@ class CriteriaElasticSearchView extends React.Component {
             
             }else if(criteria.action.param.includes('procedure_ids')){
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest'
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -142,7 +142,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             }else if(criteria.action.param.includes('specializations')){
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest'
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -177,7 +177,7 @@ class CriteriaElasticSearchView extends React.Component {
 
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString':this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -191,7 +191,7 @@ class CriteriaElasticSearchView extends React.Component {
                     if(selectedTestIds.indexOf(criteria.action.test_type[0]) ==-1){
                         this.setState({currentTestType:criteria, searchValue:""})
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
+                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString':this.state.searchValue
                         }
                         GTM.sendEvent({ data: data })
                         return
@@ -225,7 +225,7 @@ class CriteriaElasticSearchView extends React.Component {
     clickPopUp(type){
         if(type == 1){
             let data = {
-                    'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || ''
+                    'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || '', 'searchString':this.state.searchValue
             }
             GTM.sendEvent({ data: data })
             let criteria = this.state.currentTestType
@@ -234,7 +234,7 @@ class CriteriaElasticSearchView extends React.Component {
             this.props.toggleDiagnosisCriteria('test', criteria, true)
         }else{
             let data = {
-                    'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup'
+                    'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup', 'searchString':this.state.searchValue
             }
         }
         if(document.getElementById('search_results_view')){
@@ -337,6 +337,36 @@ class CriteriaElasticSearchView extends React.Component {
                                                             <div className="common-listing-cont">
                                                                 <ul>
                                                                     {
+                                                                        this.state.searchResults.map((cat, j) => {
+                                                                            return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
+                                                                                <div className="serach-rslt-with-img">
+                                                                                    {
+                                                                                        cat.type.includes('doctor') ?
+                                                                                            /*<span className="srch-rslt-wd-span usr-srch-img">
+                                                                                                <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
+                                                                                            </span>*/
+                                                                                            <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
+                                                                                                <span className="srch-rslt-wd-span usr-srch-img">
+                                                                                                    <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
+                                                                                                </span>
+
+                                                                                            </InitialsPicture>
+                                                                                            : <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                                <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                            </span>
+                                                                                    }
+
+
+                                                                                    <p className="p-0" >
+                                                                                        {cat.name}
+                                                                                        <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                                    </p>
+
+                                                                                </div>
+                                                                            </li>
+                                                                        })
+                                                                    }
+                                                                    {
                                                                         (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
                                                                         ?<li onClick={() => {
 
@@ -391,36 +421,6 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 <p className="p-0" >Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
                                                                         </li>:''
-                                                                    }
-                                                                    {
-                                                                        this.state.searchResults.map((cat, j) => {
-                                                                            return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
-                                                                                <div className="serach-rslt-with-img">
-                                                                                    {
-                                                                                        cat.type.includes('doctor') ?
-                                                                                            /*<span className="srch-rslt-wd-span usr-srch-img">
-                                                                                                <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
-                                                                                            </span>*/
-                                                                                            <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
-                                                                                                <span className="srch-rslt-wd-span usr-srch-img">
-                                                                                                    <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
-                                                                                                </span>
-
-                                                                                            </InitialsPicture>
-                                                                                            : <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                                <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                            </span>
-                                                                                    }
-
-
-                                                                                    <p className="p-0" >
-                                                                                        {cat.name}
-                                                                                        <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
-                                                                                    </p>
-
-                                                                                </div>
-                                                                            </li>
-                                                                        })
                                                                     }
                                                                 </ul>
                                                             </div>

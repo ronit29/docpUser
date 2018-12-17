@@ -10,6 +10,9 @@ class CommonlySearched extends React.Component {
     }
 
     toggle(row) {
+        if(document.getElementById('search_results_view') && document.getElementById('search_bar')){
+            document.getElementById('search_results_view').scrollIntoView()
+        }
         if (this.props.type == 'condition') {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'CommonConditionSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-condition-selected', 'selected': row.name || '', 'selectedId': row.id || ''
