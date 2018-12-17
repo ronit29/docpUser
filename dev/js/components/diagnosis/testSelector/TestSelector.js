@@ -145,7 +145,7 @@ class TestSelectorView extends React.Component {
                                 labData ?
 
                                     <div>
-                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 79 }}>
+                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 78 }}>
                                             <div className="container-fluid">
                                                 <div className="row">
                                                     <div className="col-12" style={{ paddingTop: 10, borderBottom: '1px solid #d3d3d3' }}>

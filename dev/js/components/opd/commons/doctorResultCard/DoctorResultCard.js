@@ -174,7 +174,7 @@ class DoctorProfileCard extends React.Component {
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
                             <div className="col-12 mrt-10">
                                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
-                                    <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 110 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
+                                    <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
                                 </a>
                                 {
                                     discount && discount != 0 ?
@@ -187,7 +187,7 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="col-7 mrt-10">
                                 <div className="img-nd-dtls" style={{ alignItems: 'flex-start' }} >
-                                    <div className="fltr-crd-img text-center">
+                                    <div className="fltr-crd-img text-center" style={{ width: 60 }} >
                                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds"><img className="fltr-usr-image img-round" src={thumbnail} alt={display_name} title={display_name} /></InitialsPicture>
                                         {is_license_verified && enabled_for_online_booking ? <span className="fltr-rtng">Verified</span> : ''}
                                         {/* <span className="fltr-sub-rtng">4.5 <img src="/assets/img/customer-icons/star.svg" /></span> */}

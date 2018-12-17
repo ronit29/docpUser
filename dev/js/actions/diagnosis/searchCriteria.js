@@ -74,8 +74,12 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
         payload: coupon
     })
 }
-export const searchTestData = (test_ids,callback) => (dispatch) => {
-    return API_GET('/api/v1/diagnostic/test/details?test_ids='+test_ids).then(function (response) {
+export const searchTestData = (test_ids,lab_id,callback) => (dispatch) => {
+    let url = 'test_ids='+test_ids
+    if(lab_id != null){
+    url = 'test_ids='+test_ids+'&lab_id='+lab_id
+    }
+    return API_GET('/api/v1/diagnostic/test/details?'+url).then(function (response) {
         dispatch({
             type: SEARCH_TEST_INFO,
             payload: response

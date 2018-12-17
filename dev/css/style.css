@@ -892,8 +892,14 @@ p.top-head-link.card-lab-link span {
 	}
 	
 	.text-sm{
-		font-size: 11px;
+		font-size: 14px;
 
+	}
+	p.fltr-prices{
+		font-size:16px;
+	}
+	p.text-lg {
+		font-size: 16px;
 	}
 }
 
@@ -1797,7 +1803,7 @@ margin: 0px 10px;
 	font-weight: 500;
 }
 .fltr-slected-test label{
-	max-width: 250px;
+	max-width: 170px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -4198,7 +4204,7 @@ input.rc-calendar-input {
 	width: 100%;
     border: none;
     text-align: left;
-    background: rgba(242, 242, 242, .2);
+    background: #e4e4e4 !important;
     padding: 10px 10px;
     font-weight: 500;
     display: flex;
@@ -4216,6 +4222,7 @@ input.rc-calendar-input {
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
+	background:white;
 }
 .acrd-sub-content{
 	padding: 10px;
@@ -4255,6 +4262,9 @@ input.rc-calendar-input {
 	cursor: pointer;
 }
 .acrd-arw-rotate{
+	
+}
+.acrd-show{
 	-ms-transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
@@ -4285,6 +4295,10 @@ input.rc-calendar-input {
 	cursor: pointer;
 	white-space: pre;
 }
+.test-sub-accordion {
+    border-bottom: 1px solid #d6d6d6;
+}
+
 /* ======================== Test Info ======================== */
 /* =============== cashback-style =============== */
 .wallet-cashback-container{
@@ -4372,5 +4386,9 @@ color: red;
 	transform: rotate(180deg);
 	-ms-transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
+}
+.test-duo-listing .disable-btn{
+	background: #a09e9e;
+    cursor: not-allowed;
 }
 /* =============== cashback-style =============== */

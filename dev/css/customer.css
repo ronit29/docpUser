@@ -1621,3 +1621,10 @@ p.rt-doc-nm{
     color: #757575;
     font-size: 13px;
 }
+
+@media(max-width : 359px){
+    .home-card-col{
+        padding-right: 7px;
+        padding-left: 7px;
+    }
+}

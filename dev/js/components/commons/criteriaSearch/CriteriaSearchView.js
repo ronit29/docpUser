@@ -196,7 +196,7 @@ class CriteriaSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="serch-nw-inputs">
-                                                        <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input className="new-srch-doc-lab" autoComplete="off" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
