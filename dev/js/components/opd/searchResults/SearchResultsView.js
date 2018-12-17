@@ -202,7 +202,7 @@ class SearchResultsView extends React.Component {
         let prev = ""
         if (this.props.page > 1) {
             prev = url
-            if (page > 2) {
+            if (this.props.page > 2) {
                 prev += `&page=${this.props.page - 1}`
             }
         }
