@@ -63,9 +63,6 @@ class CriteriaElasticSearchView extends React.Component {
     inputHandler(e) {
         this.setState({ searchValue: e.target.value })
         let searchString = e.target.value.trim()
-        if(document.getElementById('search_results_view') && document.getElementById('search_bar')){
-            document.getElementById('search_results_view').scrollIntoView()
-        }
         if(searchString.length){
             this.getSearchResults()    
         }else{

@@ -129,6 +129,10 @@ class DoctorProfileView extends React.Component {
             seo_url = this.props.DOCTORS[doctor_id].seo_url || ""
         }
 
+        if(this.props.DOCTORS[doctor_id].url){
+            seo_url = this.props.DOCTORS[doctor_id].url
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
