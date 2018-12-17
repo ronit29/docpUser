@@ -179,26 +179,28 @@ class SearchResultsView extends React.Component {
     }
 
     render() {
-        let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`
+        let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
         url = url.replace(/&page=\d{1,}/, "")
+        let page = ""
 
         let prev = ""
         if (this.props.page > 1) {
+            page = `?page=${this.props.page}`
             prev = url
             if (this.props.page > 2) {
-                prev += `&page=${this.props.page - 1}`
+                prev += `?page=${this.props.page - 1}`
             }
         }
         let next = ""
         if (this.props.count > this.props.page * 20) {
-            next = url + `&page=${this.props.page + 1}`
+            next = url + `?page=${this.props.page + 1}`
         }
 
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
                     description: this.getMetaTagsData(this.state.seoData).description,
                     prev: prev,
@@ -228,6 +230,30 @@ class SearchResultsView extends React.Component {
                             } */}
 
                             <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
+
+                            <div className="art-pagination-div">
+                                {
+                                    prev ? <a href={prev} >
+                                        <div className="art-pagination-btn">
+                                            <span className="fw-500">{this.props.page - 1}</span>
+                                        </div>
+                                    </a> : ""
+                                }
+
+                                <div className="art-pagination-btn">
+                                    <span className="fw-500" style={{ color: '#000' }}>{this.props.page}</span>
+                                </div>
+
+                                {
+                                    next ? <a href={next} >
+                                        <div className="art-pagination-btn">
+                                            <span className="fw-500">{this.props.page + 1}</span>
+                                        </div>
+                                    </a> : ""
+                                }
+
+                            </div>
+
                         </div>
                     }
                 </CriteriaSearch>
