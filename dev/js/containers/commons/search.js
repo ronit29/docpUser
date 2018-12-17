@@ -17,6 +17,9 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scroll(0, 0)
+        }
         //opd
         this.props.loadOPDCommonCriteria()
         this.props.resetFilters()

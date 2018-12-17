@@ -35,6 +35,9 @@ class CriteriaElasticSearchView extends React.Component {
     componentDidMount() {
         this.getSearchResults = debouncer(this.getSearchResults.bind(this), 200)
         let input = document.getElementById('topCriteriaSearch')
+        if (window) {
+            window.scroll(0, 0)
+        }
         // if coming back or refresh focus on search bar
         if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
             // input.focus()
@@ -42,6 +45,12 @@ class CriteriaElasticSearchView extends React.Component {
         if (document.getElementById('topCriteriaSearch')) {
             document.getElementById('topCriteriaSearch').addEventListener('focusin', () => { this.setState({ searchCities: '' }) })
 
+        }
+
+        if(document.getElementById('search_results_view') && document.getElementById('search_bar')){
+            document.getElementById('search_bar').addEventListener('focusin', () => {
+                document.getElementById('search_results_view').scrollIntoView()
+            })
         }
     }
 
@@ -54,6 +63,9 @@ class CriteriaElasticSearchView extends React.Component {
     inputHandler(e) {
         this.setState({ searchValue: e.target.value })
         let searchString = e.target.value.trim()
+        if(document.getElementById('search_results_view') && document.getElementById('search_bar')){
+            document.getElementById('search_results_view').scrollIntoView()
+        }
         if(searchString.length){
             this.getSearchResults()    
         }else{
@@ -83,9 +95,6 @@ class CriteriaElasticSearchView extends React.Component {
 
             this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type, location, (searchResults) => {
                 if (searchResults) {
-                    if(document.getElementById('search_results_view')){
-                        document.getElementById('search_results_view').scrollIntoView()
-                    }
                     this.setState({ searchResults: searchResults.suggestion,searchedCategories:searchResults.suggestedCategories, loading: false })
 
             }
@@ -114,7 +123,7 @@ class CriteriaElasticSearchView extends React.Component {
                 }
                 GTM.sendEvent({ data: data })
 
-                this.props.searchProceed("", criteria.action.value[0])
+                this.props.searchProceed("", "", criteria.action.id)
                 return
 
             } else if (criteria.action.param.includes('procedure_category_ids')) {
@@ -258,7 +267,7 @@ class CriteriaElasticSearchView extends React.Component {
                                             <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
                                             {
                                                 this.state.searchCities.length > 0 ? "" : <div>
-                                                    <div className="srch-radio-btns">
+                                                    <div className="srch-radio-btns" id="search_results_view">
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Doctor
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'opd', this.state.searchValue)} checked={this.props.selected == 'opd'} name="radio" />
@@ -279,7 +288,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="serch-nw-inputs">
-                                                        <input className="new-srch-doc-lab" id="search_results_view" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input className="new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }

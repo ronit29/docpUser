@@ -14,7 +14,7 @@ class SearchElasticView extends React.Component{
 
     componentDidMount() {
         if (window) {
-            window.scrollTo(0, 0)
+            window.scroll(0, 0)
         }
 
         const parsed = queryString.parse(this.props.location.search)
@@ -26,12 +26,12 @@ class SearchElasticView extends React.Component{
         GTM.sendEvent({ data: data })
     }
 
-    searchProceedOPD(doctor_name = "", hospital_name = "") {
+    searchProceedOPD(doctor_name = "", hospital_name = "",hospital_id: "") {
         // handle doctor name, hospital name
         this.props.mergeOPDState({
             filterCriteria: {
                 ...this.props.dataState.filterCriteria,
-                doctor_name, hospital_name
+                doctor_name, hospital_name, hospital_id
             }
         }, true)
 
