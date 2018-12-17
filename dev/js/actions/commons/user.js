@@ -369,7 +369,7 @@ export const setUTMTags = (utmTags) => (dispatch) => {
 }
 
 export const getGeoIpLocation = () => (dispatch) => {
-	return API_GET(`/api/v1/geoip/details?detect_ip=1`)
+	return API_GET(`/api/v1/geoip/detect?detect_ip=1`)
 }
 
 export const saveDeviceInfo = (device) => (dispatch) => {
