@@ -33,7 +33,7 @@ class CriteriaElasticSearchView extends React.Component {
     }
 
     componentDidMount() {
-        this.getSearchResults = debouncer(this.getSearchResults.bind(this), 500)
+        this.getSearchResults = debouncer(this.getSearchResults.bind(this), 200)
         let input = document.getElementById('topCriteriaSearch')
         // if coming back or refresh focus on search bar
         if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
@@ -53,7 +53,13 @@ class CriteriaElasticSearchView extends React.Component {
 
     inputHandler(e) {
         this.setState({ searchValue: e.target.value })
-        this.getSearchResults()
+        let searchString = e.target.value.trim()
+        if(searchString.length){
+            this.getSearchResults()    
+        }else{
+            this.setState({searchResults:[]})
+        }
+        
     }
 
     getSearchResults() {
@@ -75,10 +81,12 @@ class CriteriaElasticSearchView extends React.Component {
 
         let location = { lat: lat, long: long }
 
-            this.props.getElasticCriteriaResults(this.state.searchValue, this.props.type, location, (searchResults) => {
+            this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type, location, (searchResults) => {
                 if (searchResults) {
-
-                this.setState({ searchResults: searchResults.suggestion,searchedCategories:searchResults.suggestedCategories, loading: false })
+                    if(document.getElementById('search_results_view')){
+                        document.getElementById('search_results_view').scrollIntoView()
+                    }
+                    this.setState({ searchResults: searchResults.suggestion,searchedCategories:searchResults.suggestedCategories, loading: false })
 
             }
         })
@@ -158,6 +166,7 @@ class CriteriaElasticSearchView extends React.Component {
                 return
             }else if(criteria.type =="lab_test"){
 
+
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || ''
                 }
@@ -179,6 +188,9 @@ class CriteriaElasticSearchView extends React.Component {
                         return
                     }    
                 }
+            }
+            if(document.getElementById('search_results_view')){
+                document.getElementById('search_results_view').scrollIntoView()
             }
             criteria.type = 'test'
             criteria.id = criteria.action.value[0]
@@ -215,6 +227,9 @@ class CriteriaElasticSearchView extends React.Component {
             let data = {
                     'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup'
             }
+        }
+        if(document.getElementById('search_results_view')){
+            document.getElementById('search_results_view').scrollIntoView()
         }
         this.setState({currentTestType:{}})
     }
@@ -264,7 +279,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="serch-nw-inputs">
-                                                        <input className="new-srch-doc-lab" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input className="new-srch-doc-lab" id="search_results_view" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
@@ -312,36 +327,6 @@ class CriteriaElasticSearchView extends React.Component {
                                                             {/*<p className="srch-heading">{cat.name}</p>*/}
                                                             <div className="common-listing-cont">
                                                                 <ul>
-                                                                    {
-                                                                        this.state.searchResults.map((cat, j) => {
-                                                                            return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
-                                                                                <div className="serach-rslt-with-img">
-                                                                                    {
-                                                                                        cat.type.includes('doctor') ?
-                                                                                            /*<span className="srch-rslt-wd-span usr-srch-img">
-                                                                                                <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
-                                                                                            </span>*/
-                                                                                            <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
-                                                                                                <span className="srch-rslt-wd-span usr-srch-img">
-                                                                                                    <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
-                                                                                                </span>
-
-                                                                                            </InitialsPicture>
-                                                                                            : <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                                <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                            </span>
-                                                                                    }
-
-
-                                                                                    <p className="p-0" >
-                                                                                        {cat.name}
-                                                                                        <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
-                                                                                    </p>
-
-                                                                                </div>
-                                                                            </li>
-                                                                        })
-                                                                    }
                                                                     {
                                                                         (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
                                                                         ?<li onClick={() => {
@@ -397,6 +382,36 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 <p className="p-0" >Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
                                                                         </li>:''
+                                                                    }
+                                                                    {
+                                                                        this.state.searchResults.map((cat, j) => {
+                                                                            return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
+                                                                                <div className="serach-rslt-with-img">
+                                                                                    {
+                                                                                        cat.type.includes('doctor') ?
+                                                                                            /*<span className="srch-rslt-wd-span usr-srch-img">
+                                                                                                <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
+                                                                                            </span>*/
+                                                                                            <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
+                                                                                                <span className="srch-rslt-wd-span usr-srch-img">
+                                                                                                    <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
+                                                                                                </span>
+
+                                                                                            </InitialsPicture>
+                                                                                            : <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                                <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                            </span>
+                                                                                    }
+
+
+                                                                                    <p className="p-0" >
+                                                                                        {cat.name}
+                                                                                        <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                                    </p>
+
+                                                                                </div>
+                                                                            </li>
+                                                                        })
                                                                     }
                                                                 </ul>
                                                             </div>
