@@ -225,59 +225,59 @@ class DoctorProfileCard extends React.Component {
                                     enabled_for_hospital_booking ? <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button> : <button className="fltr-cntct-btn" style={{ width: '100%' }}>Contact</button>
                                 }
                             </div>
-                            {
-                                hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
-                                    <div className="procedure-checkboxes">
-                                        <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
-                                            <div className="clearfix">
-                                                <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                                            </div>
+                        </div>
+                        {
+                            hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
+                                <div className="procedure-checkboxes">
+                                    <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                        <div className="clearfix">
+                                            <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
-                                        <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
-                                        <div className="insurance-checkboxes">
-                                            <ul className="procedure-list">
-                                                {
-                                                    hospitals[0].procedure_categories.map((category) => {
+                                    </div>
+                                    <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
+                                    <div className="insurance-checkboxes">
+                                        <ul className="procedure-list">
+                                            {
+                                                hospitals[0].procedure_categories.map((category) => {
 
 
-                                                        return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
+                                                    return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
 
-                                                            return <li key={i}>
-                                                                <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
-                                                                    <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
-                                                                    <span className="checkmark">
-                                                                    </span>
-                                                                </label>
-                                                                {/* <div>
+                                                        return <li key={i}>
+                                                            <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
+                                                                <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
+                                                                <span className="checkmark">
+                                                                </span>
+                                                            </label>
+                                                            {/* <div>
                                                                 <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
                                                                 <label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
                                                             </div> */}
-                                                                <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
-                                                            </li>
+                                                            <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                        </li>
 
-                                                        })
                                                     })
-                                                }
-                                                {
-                                                    this.state.errorMessage ?
-                                                        <p>Please Select at least one Procedure</p>
-                                                        : ''
-                                                }
-                                                {
-                                                    unselectedCount + selectedCount >= 1
-                                                        ? this.state.vieMoreProcedures
-                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
-                                                            : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
-                                                                + {unselectedCount} more
+                                                })
+                                            }
+                                            {
+                                                this.state.errorMessage ?
+                                                    <p>Please Select at least one Procedure</p>
+                                                    : ''
+                                            }
+                                            {
+                                                unselectedCount + selectedCount >= 1
+                                                    ? this.state.vieMoreProcedures
+                                                        ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
+                                                        : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
+                                                            + {unselectedCount} more
                                             </button> : ''
-                                                        : ''
-                                                }
-                                            </ul>
-                                        </div>
+                                                    : ''
+                                            }
+                                        </ul>
                                     </div>
-                                    : ''
-                            }
-                        </div>
+                                </div>
+                                : ''
+                        }
                     </div>
                     <div className="filtr-card-footer">
                         <div>
