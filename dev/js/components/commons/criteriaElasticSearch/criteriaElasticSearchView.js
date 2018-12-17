@@ -287,7 +287,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div className="serch-nw-inputs">
+                                                    <div className="serch-nw-inputs mb-0">
                                                         <input className="new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
@@ -379,7 +379,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 }}>
                                                                             <div className="serach-rslt-with-img">
                                                                                 <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                    <img style={{ width: '20px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                                                 </span>
                                                                                 <p className="p-0" >Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
@@ -416,7 +416,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 }}>
                                                                             <div className="serach-rslt-with-img">
                                                                                 <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                    <img style={{ width: '20px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                                                 </span>
                                                                                 <p className="p-0" >Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                             </div>
