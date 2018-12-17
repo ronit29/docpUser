@@ -96,7 +96,7 @@ class ChoosePatientNewView extends React.Component {
             }, 500)
             return 
         }
-        if (this.state.phoneNumber.match(/^[789]{1}[0-9]{9}$/)) {
+        if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.sendOTP(this.state.phoneNumber, (error) => {
                 if (error) {

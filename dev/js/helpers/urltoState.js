@@ -31,6 +31,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let category_ids = _getLocationParamBind('procedure_category_ids') || ""
             let page = _getLocationParamBind('page') || 1
             page = parseInt(page)
+            let hospital_id = _getLocationParamBind('hospital_id') || ""
 
             let spec = []
             let cond = []
@@ -88,6 +89,10 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
 
             if (hospital_name) {
                 filterCriteria.hospital_name = hospital_name
+            }
+
+            if(hospital_id){
+                filterCriteria.hospital_id = hospital_id
             }
 
             filterCriteria.priceRange = [0, 1500]

@@ -137,7 +137,13 @@ class ClinicSelector extends React.Component {
                                     ? ''
                                     : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
-                                            <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                            <span className="test-price txt-ornage">₹ {hospital.deal_price}
+                                            {
+                                                parseInt(hospital.deal_price) == parseInt(hospital.mrp)
+                                                ?''
+                                                :<span className="test-mrp">₹ {hospital.mrp}</span>
+                                            }
+                                            </span><span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
                             }
@@ -207,7 +213,13 @@ class ClinicSelector extends React.Component {
                                         </div>
                                         <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                             <div className="clearfix">
-                                                <span className="test-price txt-ornage">₹ {hospital.deal_price}<span className="test-mrp">₹ {hospital.mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                                <span className="test-price txt-ornage">₹ {hospital.deal_price}
+                                                {
+                                                   parseInt(hospital.deal_price) == parseInt(hospital.mrp)
+                                                    ?''
+                                                    :<span className="test-mrp">₹ {hospital.mrp}</span> 
+                                                }
+                                                </span><span className="fw-500 test-name-item">Consultation Fee</span>
                                             </div>
                                         </div>
 

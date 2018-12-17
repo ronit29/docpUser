@@ -73,6 +73,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url += `&hospital_name=${filterCriteria.hospital_name || ""}`
 	}
 
+	if(!!filterCriteria.hospital_id) {
+		url += `&hospital_id=${filterCriteria.hospital_id || ''}`
+	}
+
 	return API_GET(url).then(function (response) {
 
 		let specializations = response.specializations.map((x) => {

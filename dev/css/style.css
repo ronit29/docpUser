@@ -3389,6 +3389,10 @@ border: 1px solid #aaaa;
 	.chatbox-right {
 		height: 290px;
 	}
+	
+	div.search-el-popup{
+		width: 80%;
+	}
 }
 
 .speciality-footer-list li:last-child{
@@ -3635,7 +3639,60 @@ padding-top: 0px !important;
     color: #f78631;
     cursor: pointer;
 }
+.elasticInitalPic.initialsPicture-ds.fltr-initialPicture-ds{
+	height: 35px;
+	width: 35px;
+	font-size: 1.3em;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+}
+.search-el-popup-overlay{
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    left: 0;
+    right: 0;
+}
+.search-el-popup{
+	width: 40%;
+}
+.srch-el-conent{
+	text-align: center;
+    font-weight: 500;
+}
+.search-el-btn-container{
+	text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.search-el-btn-container button {
+    background: white;
+    border: transparent;
+    color: #f78631;
+    font-weight: 500;
+	font-size: 18px;
+	cursor: pointer;
+}
+.widget-content.padiing-srch-el{
+	padding:25px;
+}
+.src-el-btn-border{
+	width: 1px;
+    background: #bdbbbb;
+    height: 43px;
+}
+span.search-el-code-bold{
+	color: black;
+	margin-left: 4px;
 
+}
 /* ========================= search design ========================= */
 
 
@@ -4123,6 +4180,25 @@ padding-left:30px !important;
 .pdng-left-pkg{
 	margin-left: 27px;
 }
+.serach-rslt-with-img{
+	padding: 14px 5px;
+    display: flex;
+}
+span.search-span-sub {
+    color: #f78631;
+    margin-top: 2px;
+    display: block;
+}
+.srch-rslt-wd-span{
+	width: 50px;
+	flex:1;
+}
+.srch-img{
+
+}
+.usr-srch-img{
+}
+
 .header-serach-input-div{
 	background: white;
     width: 100%;
