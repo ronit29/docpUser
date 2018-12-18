@@ -52,18 +52,16 @@ class ContactPoupView extends React.Component{
 			<div>
 		        <div className="cancel-overlay" onClick={this.props.toggle}></div>
 		        <div className="widget cancel-appointment-div cancel-popup">
-		            <div className="widget-header text-center action-screen-header" style={{ position: 'relative' }} >
-		                <p className="fw-500 cancel-appointment-head">Submit Phone</p>
-		                <img src={ASSETS_BASE_URL + "/img/icons/close.png"} className="close-modal" onClick={this.props.toggle} />
-		                <hr />
+				<img src={ASSETS_BASE_URL + "/img/icons/close.png"} style={{cursor:'pointer', zIndex: '9'}} className="close-modal" onClick={this.props.toggle} />
+		            <div className="widget-header text-center action-screen-header" style={{ position: 'relative',paddingTop: '28px' }} >
+		                <p className="fw-500 cancel-appointment-head">Please enter your valid mobile number to view contact details</p>		                
 		            </div>
-		            <div className="cancel-policy-text">
-		                <div className="slt-nw-input">
-	                        <label className="slt-label" htmlFor="male">Mobile:</label>
-	                        <input className="slt-text-input" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} />
-	                        <button className="mobile-fill-btn" onClick={this.submit.bind(this)}>Submit</button>
-	                        
+		            <div className="">
+		                <div className="slt-nw-input policyNumbeInput">
+	                        <label className="numLabel" htmlFor="male">+91</label>
+	                        <input className="slt-text-input" type="number" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} />    
 	                    </div>
+						<button className="mobileNumber-fill-btn" onClick={this.submit.bind(this)}>Submit</button>
 		            </div>
 		        </div>
     		</div>

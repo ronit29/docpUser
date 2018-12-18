@@ -260,7 +260,7 @@ class DoctorProfileView extends React.Component {
                                                             </a> : ''
                                                     }
                                                     <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
-                                                        <p>{this.state.numberShown || "Contact"}</p>
+                                                        <p><img style={{width: '20px', marginRight: '4px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> {this.state.numberShown || "Contact"}</p>
                                                     </div>
                                                     {
                                                         this.state.openContactPopup?
