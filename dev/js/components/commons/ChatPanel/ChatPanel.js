@@ -256,6 +256,10 @@ class ChatPanel extends React.Component {
             this.setState({ showChatBlock: true, additionClasses: "" });
         } else if (this.props.newChatBtn) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+            let data = {
+                'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
         }
     }
 
