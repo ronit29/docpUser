@@ -356,7 +356,12 @@ class CriteriaElasticSearchView extends React.Component {
 
                                                                                     <p className="p-0" >
                                                                                         {cat.name}
-                                                                                        <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                                        {
+                                                                                            cat.type == "hospital"
+                                                                                            ?<span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
+                                                                                            :<span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                                        }
+                                                                                        
                                                                                     </p>
 
                                                                                 </div>

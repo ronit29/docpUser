@@ -267,7 +267,7 @@ class DoctorProfileView extends React.Component {
                                                             this.state.numberShown?
                                                             <img style={{width: '20px', marginRight: '4px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
                                                             :''
-                                                            }{this.state.numberShown || "Contact"}</p>
+                                                            }{this.state.numberShown || "View Contact"}</p>
                                                     </div>
                                                     {
                                                         this.state.openContactPopup?

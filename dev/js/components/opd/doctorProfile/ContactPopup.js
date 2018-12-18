@@ -54,7 +54,7 @@ class ContactPoupView extends React.Component{
 		        <div className="widget cancel-appointment-div cancel-popup">
 				<img src={ASSETS_BASE_URL + "/img/icons/close.png"} style={{cursor:'pointer', zIndex: '9'}} className="close-modal" onClick={this.props.toggle} />
 		            <div className="widget-header text-center action-screen-header" style={{ position: 'relative',paddingTop: '28px' }} >
-		                <p className="fw-500 cancel-appointment-head">Please enter your valid mobile number to view contact details</p>		                
+		                <p className="fw-500 cancel-appointment-head">Please enter your mobile number to view contact details</p>		                
 		            </div>
 		            <div className="">
 		                <div className="slt-nw-input policyNumbeInput">
