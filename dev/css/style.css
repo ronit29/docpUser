@@ -4466,3 +4466,43 @@ color: red;
     cursor: not-allowed;
 }
 /* =============== cashback-style =============== */
+
+/* =============== start lab-car-list-style =============== */
+.showBookTestList{
+    padding: 5px 10px;
+}
+.showBookTestList ul{
+
+}
+.showBookTestList li{
+	display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #d0cdcd;
+    padding: 8px 0px;
+}
+.showBookTestList li:last-child{
+	border-bottom: transparent;
+}
+.showBookTestListImg{
+    font-weight: 500;
+    display: flex;
+    align-items: end;
+    margin-right: 10px;
+} 
+.showBookTestListImg img{
+
+}
+.showBookTestListBtn{
+    white-space: pre;
+    background: #f78631;
+    color: white;
+    font-weight: 500;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 5px;
+}
+.showBookTestListContainer{
+	margin-top: 10px;
+}
+/* =============== end lab-car-list-style =============== */
