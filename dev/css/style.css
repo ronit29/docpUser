@@ -3393,6 +3393,12 @@ border: 1px solid #aaaa;
 	div.search-el-popup{
 		width: 80%;
 	}
+	header.searcLocationHeaderPadding{
+		padding-top: 70px !important;
+	}
+}
+header.searcLocationHeaderPadding{
+	padding-top: 0px;
 }
 
 .speciality-footer-list li:last-child{
@@ -4096,6 +4102,9 @@ ul.stc-data-ul-list li{
 }
 .container-top-margin{
 	margin-top: 70px;
+}
+.searcLocationHeaderPadding{
+	padding-top: 100px !important;
 }
 }
 .nw-listing-pddng .all-test-list li{

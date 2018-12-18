@@ -173,11 +173,18 @@ class LocationSearch extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <header className="skin-white location-detect-header" style={{ paddingTop: 70 }} >
+                            <header className="skin-white location-detect-header searcLocationHeaderPadding"  >
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-12" style={{ paddingTop: 10 }}>
-                                            <div className="search-row">
+
+                                            <div className="serch-nw-inputs">
+                                                <input className="new-srch-inp" autoComplete="off" placeholder="Select any city or locality" value={this.state.search} onChange={this.inputHandler.bind(this)} id="topLocationSearch" disabled={this.state.detectLoading} />
+                                                <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
+                                                <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
+                                            </div>
+
+                                            {/* <div className="search-row">
                                                 <div className="adon-group location-detect-field">
                                                     <input type="text" value={this.state.search} onChange={this.inputHandler.bind(this)} className="form-control input-md search-input no-shadow" placeholder="Select any city or locality" id="topLocationSearch" disabled={this.state.detectLoading} />
                                                     <span className="ct-img ct-img-sm map-marker-blue"><img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} className="img-fluid" /></span>
@@ -185,7 +192,7 @@ class LocationSearch extends React.Component {
                                                 <div className="detect-my-locaiton" onClick={this.detectLocation.bind(this)}>
                                                     <span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/gps.svg"} className="img-fluid" /></span>Detect My Location
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
