@@ -28,7 +28,7 @@ class CriteriaElasticSearchView extends React.Component {
             searchResults: [],
             loading: false,
             searchCities: [],
-            currentTestType:{}
+            currentTestType: {}
         }
     }
 
@@ -47,7 +47,7 @@ class CriteriaElasticSearchView extends React.Component {
 
         }
 
-        if(document.getElementById('search_results_view') && document.getElementById('search_bar')){
+        if (document.getElementById('search_results_view') && document.getElementById('search_bar')) {
             document.getElementById('search_bar').addEventListener('focusin', () => {
                 document.getElementById('search_results_view').scrollIntoView()
             })
@@ -63,12 +63,12 @@ class CriteriaElasticSearchView extends React.Component {
     inputHandler(e) {
         this.setState({ searchValue: e.target.value })
         let searchString = e.target.value.trim()
-        if(searchString.length){
-            this.getSearchResults()    
-        }else{
-            this.setState({searchResults:[]})
+        if (searchString.length) {
+            this.getSearchResults()
+        } else {
+            this.setState({ searchResults: [] })
         }
-        
+
     }
 
     getSearchResults() {
@@ -90,9 +90,9 @@ class CriteriaElasticSearchView extends React.Component {
 
         let location = { lat: lat, long: long }
 
-            this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type, location, (searchResults) => {
-                if (searchResults) {
-                    this.setState({ searchResults: searchResults.suggestion,searchedCategories:searchResults.suggestedCategories, loading: false })
+        this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type, location, (searchResults) => {
+            if (searchResults) {
+                this.setState({ searchResults: searchResults.suggestion, searchedCategories: searchResults.suggestedCategories, loading: false })
 
             }
         })
@@ -106,17 +106,17 @@ class CriteriaElasticSearchView extends React.Component {
 
             let action = '', event = ''
 
-            if(criteria.type.includes('visit_reason')){
+            if (criteria.type.includes('visit_reason')) {
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
             }
 
             if (criteria.action.param.includes('hospital_name')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -127,19 +127,19 @@ class CriteriaElasticSearchView extends React.Component {
 
                 criteria.id = criteria.action.value[0]
                 criteria.type = 'procedures_category'
-            
-            }else if(criteria.action.param.includes('procedure_ids')){
+
+            } else if (criteria.action.param.includes('procedure_ids')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
                 criteria.id = criteria.action.value[0]
                 criteria.type = 'procedures'
 
-            }else if(criteria.action.param.includes('specializations')){
+            } else if (criteria.action.param.includes('specializations')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched':'autosuggest', 'searchString':this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -149,7 +149,7 @@ class CriteriaElasticSearchView extends React.Component {
             } else if (criteria.action.param.includes('doctor_name')) {
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '',  'searched':'autosuggest', 'doctorId': criteria.action.value[0]
+                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '', 'searched': 'autosuggest', 'doctorId': criteria.action.value[0]
                 }
                 GTM.sendEvent({ data: data })
 
@@ -170,11 +170,11 @@ class CriteriaElasticSearchView extends React.Component {
             if (criteria.type == "lab") {
                 this.props.history.push(`/lab/${criteria.action.value[0]}`)
                 return
-            }else if(criteria.type =="lab_test"){
+            } else if (criteria.type == "lab_test") {
 
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString':this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -184,18 +184,18 @@ class CriteriaElasticSearchView extends React.Component {
                         selectedTestIds.push(x.action.test_type[0])
                     }
                 })
-                if(selectedTestIds.length && criteria.action.test_type && criteria.action.test_type.length){
-                    if(selectedTestIds.indexOf(criteria.action.test_type[0]) ==-1){
-                        this.setState({currentTestType:criteria, searchValue:""})
+                if (selectedTestIds.length && criteria.action.test_type && criteria.action.test_type.length) {
+                    if (selectedTestIds.indexOf(criteria.action.test_type[0]) == -1) {
+                        this.setState({ currentTestType: criteria, searchValue: "" })
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString':this.state.searchValue
+                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString': this.state.searchValue
                         }
                         GTM.sendEvent({ data: data })
                         return
-                    }    
+                    }
                 }
             }
-            if(document.getElementById('search_results_view')){
+            if (document.getElementById('search_results_view')) {
                 document.getElementById('search_results_view').scrollIntoView()
             }
             criteria.type = 'test'
@@ -219,25 +219,32 @@ class CriteriaElasticSearchView extends React.Component {
         })
     }
 
-    clickPopUp(type){
-        if(type == 1){
+    clickPopUp(type) {
+        if (type == 1) {
             let data = {
-                    'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || '', 'searchString':this.state.searchValue
+                'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || '', 'searchString': this.state.searchValue
             }
             GTM.sendEvent({ data: data })
             let criteria = this.state.currentTestType
             criteria.type = 'test'
             criteria.id = criteria.action.value[0]
             this.props.toggleDiagnosisCriteria('test', criteria, true)
-        }else{
+        } else {
             let data = {
-                    'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup', 'searchString':this.state.searchValue
+                'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup', 'searchString': this.state.searchValue
             }
         }
-        if(document.getElementById('search_results_view')){
+        if (document.getElementById('search_results_view')) {
             document.getElementById('search_results_view').scrollIntoView()
         }
-        this.setState({currentTestType:{}})
+        this.setState({ currentTestType: {} })
+    }
+
+    focusOut() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searchString': this.state.searchValue
+        }
+        GTM.sendEvent({ data: data })
     }
 
     render() {
@@ -289,7 +296,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
-                                                        }} />
+                                                        }} onBlur={() => this.focusOut()} />
                                                         <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                     </div>
                                                 </div>
@@ -323,132 +330,137 @@ class CriteriaElasticSearchView extends React.Component {
                             {
                                 this.state.searchCities.length > 0 ? "" : <div>
                                     {
-                                        this.state.searchValue || Object.values(this.state.currentTestType).length?
+                                        this.state.searchValue || Object.values(this.state.currentTestType).length ?
 
                                             <section>
                                                 {
                                                     this.state.searchResults.length ?
-                                                    <div className="widget mb-10" >
-                                                        <div className="common-search-container">
-                                                            {/*<p className="srch-heading">{cat.name}</p>*/}
-                                                            <div className="common-listing-cont">
-                                                                <ul>
-                                                                    {
-                                                                        this.state.searchResults.map((cat, j) => {
-                                                                            return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
-                                                                                <div className="serach-rslt-with-img">
-                                                                                    {
-                                                                                        cat.type.includes('doctor') ?
-                                                                                            /*<span className="srch-rslt-wd-span usr-srch-img">
-                                                                                                <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
-                                                                                            </span>*/
-                                                                                            <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
-                                                                                                <span className="srch-rslt-wd-span usr-srch-img">
-                                                                                                    <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
+                                                        <div className="widget mb-10" >
+                                                            <div className="common-search-container">
+                                                                {/*<p className="srch-heading">{cat.name}</p>*/}
+                                                                <div className="common-listing-cont">
+                                                                    <ul>
+                                                                        {
+                                                                            this.state.searchResults.map((cat, j) => {
+                                                                                return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
+                                                                                    <div className="serach-rslt-with-img">
+                                                                                        {
+                                                                                            cat.type.includes('doctor') ?
+                                                                                                /*<span className="srch-rslt-wd-span usr-srch-img">
+                                                                                                    <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
+                                                                                                </span>*/
+                                                                                                <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
+                                                                                                    <span className="srch-rslt-wd-span usr-srch-img">
+                                                                                                        <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
+                                                                                                    </span>
+
+                                                                                                </InitialsPicture>
+                                                                                                : <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                                                                 </span>
-
-                                                                                            </InitialsPicture>
-                                                                                            : <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                                <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                            </span>
-                                                                                    }
+                                                                                        }
 
 
-                                                                                    <p className="p-0" >
-                                                                                        {cat.name}
-                                                                                        <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
-                                                                                    </p>
+                                                                                        <p className="p-0" >
+                                                                                            {cat.name}
+                                                                                            {
+                                                                                                cat.type == "hospital"
+                                                                                                    ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
+                                                                                                    : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                                            }
 
-                                                                                </div>
-                                                                            </li>
-                                                                        })
-                                                                    }
-                                                                    {
-                                                                        (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
-                                                                        ?<li onClick={() => {
+                                                                                        </p>
+
+                                                                                    </div>
+                                                                                </li>
+                                                                            })
+                                                                        }
+                                                                        {
+                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
+                                                                                ? <li onClick={() => {
 
                                                                                     let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '', 'searched':''
+                                                                                        'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '', 'searched': ''
                                                                                     }
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed(this.state.searchValue, "")
                                                                                 }}>
-                                                                            <div className="serach-rslt-with-img">
-                                                                                <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                    <img style={{ width: '20px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                </span>
-                                                                                <p className="p-0" >Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
-                                                                            </div>
-                                                                        </li>
-                                                                        :(this.state.searchValue.length > 2 && this.state.searchResults && this.state.searchedCategories.indexOf("lab") > -1)
-                                                                        ?<li onClick={() => {
+                                                                                    <div className="serach-rslt-with-img">
+                                                                                        <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                            <img style={{ width: '20px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                        </span>
+                                                                                        <p className="p-0" >Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                    </div>
+                                                                                </li>
+                                                                                : (this.state.searchValue.length > 2 && this.state.searchResults && this.state.searchedCategories.indexOf("lab") > -1)
+                                                                                    ? <li onClick={() => {
+
+                                                                                        let data = {
+                                                                                            'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || '', 'searched': ''
+                                                                                        }
+                                                                                        GTM.sendEvent({ data: data })
+
+                                                                                        this.props.searchProceed(this.state.searchValue)
+                                                                                    }}>
+                                                                                        <div className="serach-rslt-with-img">
+                                                                                            <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                                <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                            </span>
+                                                                                            <p className="p-0" >Search all Labs with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                        </div>
+                                                                                    </li> : ''
+
+                                                                        }
+                                                                        {
+                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
+                                                                                ? <li onClick={() => {
 
                                                                                     let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || '', 'searched':''
-                                                                                    }
-                                                                                    GTM.sendEvent({ data: data })
-
-                                                                                    this.props.searchProceed(this.state.searchValue)
-                                                                                }}>
-                                                                            <div className="serach-rslt-with-img">
-                                                                                <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                </span>
-                                                                                <p className="p-0" >Search all Labs with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
-                                                                            </div>
-                                                                        </li>:''
-
-                                                                    }
-                                                                    {
-                                                                        (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
-                                                                        ?<li onClick={() => {
-
-                                                                                    let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched':''
+                                                                                        'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched': ''
                                                                                     }
                                                                                     GTM.sendEvent({ data: data })
 
                                                                                     this.props.searchProceed("", this.state.searchValue)
                                                                                 }}>
-                                                                            <div className="serach-rslt-with-img">
-                                                                                <span className="srch-rslt-wd-span text-center srch-img">
-                                                                                    <img style={{ width: '20px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                                                </span>
-                                                                                <p className="p-0" >Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
-                                                                            </div>
-                                                                        </li>:''
-                                                                    }
-                                                                </ul>
+                                                                                    <div className="serach-rslt-with-img">
+                                                                                        <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                            <img style={{ width: '20px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                        </span>
+                                                                                        <p className="p-0" >Search all Hospitals with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                    </div>
+                                                                                </li> : ''
+                                                                        }
+                                                                    </ul>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    : ''
+                                                        : ''
                                                 }
 
                                                 {
-                                                    Object.values(this.state.currentTestType).length?
-                                                    <div className="search-el-popup-overlay " >
-                                                        <div className="search-el-popup">
-                                                            <div className="widget">
-                                                                <div className="widget-content padiing-srch-el">
-                                                                    <p className="srch-el-conent">
-                                                                        {`Pathology and Radiology tests (lab visit
+                                                    Object.values(this.state.currentTestType).length ?
+                                                        <div className="search-el-popup-overlay " >
+                                                            <div className="search-el-popup">
+                                                                <div className="widget">
+                                                                    <div className="widget-content padiing-srch-el">
+                                                                        <p className="srch-el-conent">
+                                                                            {`Pathology and Radiology tests (lab visit
                                                                         required) cannot be booked together. Do you want to search ${this.state.currentTestType.name}  test instead ?`}</p>
-                                                                    <div className="search-el-btn-container">
-                                                                        <button onClick={this.clickPopUp.bind(this,1)}>Yes</button>
-                                                                        <span className="src-el-btn-border"></span>
-                                                                        <button onClick={this.clickPopUp.bind(this,2)}>No</button>
+                                                                        <div className="search-el-btn-container">
+                                                                            <button onClick={this.clickPopUp.bind(this, 1)}>Yes</button>
+                                                                            <span className="src-el-btn-border"></span>
+                                                                            <button onClick={this.clickPopUp.bind(this, 2)}>No</button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+
                                                             </div>
 
                                                         </div>
-
-                                                    </div>
-                                                    :''   
+                                                        : ''
                                                 }
-                                                 
+
                                             </section>
                                             : (this.props.checkForLoad ? this.props.children : <Loader />)
                                     }

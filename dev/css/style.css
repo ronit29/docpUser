@@ -4466,3 +4466,31 @@ color: red;
     cursor: not-allowed;
 }
 /* =============== cashback-style =============== */
+/* ============= contact PopUp Style ================= */
+.policyNumbeInput{
+	width: 80%;
+    margin: 30px auto;
+}
+.mobileNumber-fill-btn{
+    margin: auto;
+    display: block;
+    margin-bottom: 30px;
+    background: #f78631;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.numLabel{
+    position: absolute;
+    left: 30px;
+    top: 2px;
+    font-weight: 500;
+    border-right: 1px solid #cac6c6;
+    padding-right: 4px;
+}
+.policyNumbeInput .slt-text-input{
+    padding-left: 65px;
+}
+/* ============= contact PopUp Style ================= */

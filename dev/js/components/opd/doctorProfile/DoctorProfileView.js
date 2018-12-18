@@ -16,6 +16,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
 import Footer from '../../commons/Home/footer'
+import ContactPoupView from '../doctorProfile/ContactPopup.js'
 
 import GTM from '../../../helpers/gtm.js'
 
@@ -35,7 +36,8 @@ class DoctorProfileView extends React.Component {
             consultation_fee: 0,
             numberShown: "",
             searchShown: false,
-            searchDataHidden: this.props.location.search.includes('hide_search_data')
+            searchDataHidden: this.props.location.search.includes('hide_search_data'),
+            openContactPopup: false
         }
     }
 
@@ -89,6 +91,26 @@ class DoctorProfileView extends React.Component {
         }
     }
 
+    getDoctorNo(mobileNo){
+        let doctor_id = this.props.selectedDoctor
+        if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
+            doctor_id = this.props.initialServerData.doctor_id
+        }
+        let postData = {
+            "mobile": mobileNo,
+            "doctor": doctor_id,
+            "hospital": this.state.selectedClinic
+        }
+        this.props.getDoctorNo(postData, (err, data) => {
+            if(!err && data){
+                this.setState({
+                    numberShown: data.number,
+                    openContactPopup: false
+                })
+            }
+        })
+    }
+
     showNumber(id, e) {
         e.preventDefault()
         e.stopPropagation()
@@ -98,14 +120,19 @@ class DoctorProfileView extends React.Component {
         }
         if (!this.state.numberShown) {
             GTM.sendEvent({ data: data })
-            this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
+            /*this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
                 if (!err && data.number) {
                     this.setState({
                         numberShown: data.number
                     })
                 }
-            })
+            })*/
+            this.setState({openContactPopup: true})    
         }
+    }
+
+    toggle(which) {
+        this.setState({ [which]: !this.state[which] })
     }
 
     render() {
@@ -236,8 +263,17 @@ class DoctorProfileView extends React.Component {
                                                             </a> : ''
                                                     }
                                                     <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
-                                                        <p>{this.state.numberShown || "Contact"}</p>
+                                                        <p>{
+                                                            this.state.numberShown?
+                                                            <img style={{width: '20px', marginRight: '4px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
+                                                            :''
+                                                            }{this.state.numberShown || "View Contact"}</p>
                                                     </div>
+                                                    {
+                                                        this.state.openContactPopup?
+                                                        <ContactPoupView toggle={this.toggle.bind(this, 'openContactPopup')} mobileNo={this.props.primaryMobile} getDoctor = {this.getDoctorNo.bind(this)}/>
+                                                        :''
+                                                    }
                                                 </div>
                                         }
                                     </section> : <Loader />
