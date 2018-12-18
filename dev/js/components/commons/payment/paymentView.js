@@ -23,6 +23,8 @@ class PaymentView extends React.Component {
             paymentEnabled: false,
             photoIndex: 0,
             isOpen: false,
+            gateway: 'paytm',
+            mode: ''
         }
     }
 
@@ -39,7 +41,15 @@ class PaymentView extends React.Component {
     }
 
     selectPaymentType(e) {
-        this.setState({ selectedPayment: e.target.value })
+        let gateway = 'paytm';
+        let mode = '';
+        if (e.target.dataset && e.target.dataset.gateway) {
+            gateway = e.target.dataset.gateway
+        }
+        if (e.target.dataset && e.target.dataset.mode) {
+            mode = e.target.dataset.mode
+        }
+        this.setState({ selectedPayment: e.target.value, gateway, mode })
     }
 
     proceed() {
@@ -61,7 +71,9 @@ class PaymentView extends React.Component {
         }
 
         let form = document.getElementById('paymentForm')
-        form.submit()
+        if (this.state.mode != '') {
+            form.submit()
+        }
     }
 
     render() {
@@ -112,7 +124,7 @@ class PaymentView extends React.Component {
                                                                 totalAmount && totalAmount >= 100 ?
                                                                     <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>Flat 20% cashback upto &#8377; 50</span> : ''
                                                             }
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'PPI'} value="PPI" className="radio-inline" name="gender" id="pay" /></span>
+                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'PPI'} value="PPI" className="radio-inline" name="gender" id="pay" data-mode="PPI" /></span>
                                                         </li>
                                                         {/* <li id="oneclick-label">
                                                             <label htmlFor="click"> <img src={ASSETS_BASE_URL + "/img/customer-icons/oneclick-payment.png"} className="img-fluid" id="click-icon" /> One Click Pay</label>
@@ -120,15 +132,19 @@ class PaymentView extends React.Component {
                                                         </li> */}
                                                         <li>
                                                             <label htmlFor="NB"> <img src={ASSETS_BASE_URL + "/img/customer-icons/i-banking.svg"} className="img-fluid" /> Internet Banking</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'NB'} value="NB" className="radio-inline" name="gender" id="NB" /></span>
+                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'NB'} value="NB" className="radio-inline" name="gender" id="NB" data-mode="NB" /></span>
                                                         </li>
                                                         <li>
                                                             <label htmlFor="CC"> <img src={ASSETS_BASE_URL + "/img/customer-icons/credit-card.svg"} className="img-fluid" /> Credit Card</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'CC'} value="CC" className="radio-inline" name="gender" id="CC" /></span>
+                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'CC'} value="CC" className="radio-inline" name="gender" id="CC" data-mode="CC" /></span>
                                                         </li>
                                                         <li>
                                                             <label htmlFor="DC"> <img src={ASSETS_BASE_URL + "/img/customer-icons/debit-card.svg"} className="img-fluid" /> Debit Card</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'DC'} value="DC" className="radio-inline" name="gender" id="DC" /></span>
+                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'DC'} value="DC" className="radio-inline" name="gender" id="DC" data-mode="DC" /></span>
+                                                        </li>
+                                                        <li>
+                                                            <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/amazon_pay.png"} className="img-fluid" /> Amazon Pay</label>
+                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'AP'} value="AP" className="radio-inline" name="gender" id="AP" data-gateway="payu" data-mode="PPI" /></span>
                                                         </li>
                                                         {/* <li>
                                                             <label htmlFor="cdc"> <img src={ASSETS_BASE_URL + "/img/customer-icons/capa-1.jpg"} className="img-fluid" /> Pay in Cash</label>
@@ -197,7 +213,7 @@ class PaymentView extends React.Component {
                                 </div>
                             </section>
 
-                            <PaymentForm paymentData={this.state.paymentData} mode={this.state.selectedPayment} />
+                            <PaymentForm paymentData={this.state.paymentData} mode={this.state.mode} gateway={this.state.gateway} />
 
                             <button onClick={this.proceed.bind(this)} className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" disabled={!this.state.paymentEnabled}>Continue</button>
 
