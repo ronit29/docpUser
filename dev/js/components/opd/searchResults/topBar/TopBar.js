@@ -33,7 +33,7 @@ class TopBar extends React.Component {
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (props.seoData && props.seoData.location) {
+            if ((props.seoData && props.seoData.location) || props.seoFriendly) {
                 this.setState({ showLocationPopup: false })
             } else {
                 if (props.selectedLocation != this.props.selectedLocation) {
@@ -47,7 +47,7 @@ class TopBar extends React.Component {
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
-        if (this.props.seoData && this.props.seoData.location) {
+        if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
         } else {
             if (this.props.locationType.includes("geo")) {

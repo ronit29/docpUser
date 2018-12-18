@@ -42,6 +42,11 @@ const GTM = {
                 }
 
             }
+
+            if (navigator) {
+                data.userAgent = navigator.userAgent
+            }
+
             let visitor_info = STORAGE.getVisitorInfo()
 
             if (visitor_info) {
