@@ -125,9 +125,9 @@ class LabProfileCard extends React.Component {
                             <div className="col-7 mrt-10">
                                 <div className="img-nd-dtls" style={{ alignItems: 'flex-start;' }}>
                                     <div className="fltr-crd-img text-center" style={{ width: '60px' }}>
-                                       
+                                   
                                         <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-                                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={lab.lab_thumbnail} />
+                                            <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                         </InitialsPicture>
                                         {/*<span className="fltr-rtng">Verified</span>*/}
                                     </div>
