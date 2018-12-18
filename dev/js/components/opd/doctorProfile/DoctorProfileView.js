@@ -126,11 +126,10 @@ class DoctorProfileView extends React.Component {
             search_data = this.props.DOCTORS[doctor_id].search_data
         }
         if (this.props.DOCTORS[doctor_id]) {
-            seo_url = this.props.DOCTORS[doctor_id].seo_url || ""
-        }
-
-        if(this.props.DOCTORS[doctor_id].url){
-            seo_url = this.props.DOCTORS[doctor_id].url
+            seo_url = this.props.DOCTORS[doctor_id].url || ""
+            if (seo_url) {
+                seo_url = "/" + seo_url
+            }
         }
 
         return (

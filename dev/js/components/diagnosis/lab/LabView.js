@@ -70,7 +70,10 @@ class LabView extends React.Component {
         }
         let seo_url = ""
         if (this.props.LABS[lab_id]) {
-            seo_url = this.props.LABS[lab_id].url
+            seo_url = this.props.LABS[lab_id].lab.url
+            if (seo_url) {
+                seo_url = "/" + seo_url
+            }
         }
         return (
             <div className="profile-body-wrap">
