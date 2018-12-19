@@ -31,7 +31,7 @@ class HomePageWidget extends React.Component {
 
                         {
                             this.props.list.map((listItem, i) => {
-                                return <div className="col-4" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
+                                return <div className="col-4 home-card-col" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
                                     <div className="grid-img-cnt brdr-btm">
                                         <a href="javascript:void(0);">
                                             <img className="img-fluid" src={listItem.icon} />
@@ -44,7 +44,7 @@ class HomePageWidget extends React.Component {
 
                         {
                             this.props.searchType ?
-                                <div className="col-4">
+                                <div className="col-4 home-card-col">
                                     <div className="grid-img-cnt brdr-btm">
                                         <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, this.props.navTo)}>
                                             <img className="img-fluid" src="/assets/images/vall.png" />

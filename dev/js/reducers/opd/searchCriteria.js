@@ -9,7 +9,8 @@ const DEFAULT_FILTER_STATE = {
     is_female: false,
     is_available: false,
     doctor_name: "",
-    hospital_name: ""
+    hospital_name: "",
+    hospital_id: ""
 }
 
 const defaultState = {
@@ -25,7 +26,9 @@ const defaultState = {
     selectedCriteriaType: '',
     commonProcedurers: [],
     getNewUrl: false,
-    commonSelectedCriterias: []
+    commonSelectedCriterias: [],
+    page: 1,
+    procedures: []
 }
 
 export default function (state = defaultState, action) {
@@ -54,6 +57,7 @@ export default function (state = defaultState, action) {
 
             newState.filterCriteria.doctor_name = ""
             newState.filterCriteria.hospital_name = ""
+            newState.filterCriteria.hospital_id = ""
 
             let found = false
             newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {

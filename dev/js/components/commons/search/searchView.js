@@ -35,7 +35,8 @@ class SearchView extends React.Component {
             filterCriteria: {
                 ...this.props.filterCriteria,
                 doctor_name, hospital_name
-            }
+            },
+            page: 1
         }, true)
 
         let data = {
@@ -55,7 +56,8 @@ class SearchView extends React.Component {
             filterCriteria: {
                 ...this.props.filterCriteria,
                 lab_name
-            }
+            },
+            page: 1
         }, true)
 
         this.props.history.push({
@@ -108,7 +110,7 @@ class SearchView extends React.Component {
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
-                                    (this.props.selectedCriterias && this.props.selectedCriterias.filter(x => !x.type.includes("procedures")).length > 0) ? <CommonlySearched
+                                    (this.props.selectedCriterias && this.props.selectedCriterias.filter(x => !x.type.includes("procedures")).length > 0) ? <CommonlySearched {...this.props}
                                         heading={`View Selected (${this.props.selectedCriterias.length})`}
                                         data={this.props.selectedCriterias.filter(x => !x.type.includes("procedures"))}
                                         selectedPills={true}
@@ -117,7 +119,7 @@ class SearchView extends React.Component {
                                     /> : ""
                                 }
 
-                                <CommonlySearched
+                                <CommonlySearched {...this.props}
                                     heading="Common Specialities"
                                     type="speciality"
                                     data={this.props.specializations}
@@ -125,7 +127,7 @@ class SearchView extends React.Component {
                                     toggle={this.props.toggleOPDCriteria.bind(this)}
                                 />
 
-                                <CommonlySearched
+                                <CommonlySearched {...this.props}
                                     heading="Common Conditions"
                                     type="condition"
                                     data={this.props.conditions}
@@ -144,7 +146,7 @@ class SearchView extends React.Component {
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
-                                    (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched
+                                    (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) ? <CommonlySearched {...this.props}
                                         heading={`View Selected (${this.props.selectedCriterias.length})`}
                                         data={this.props.selectedCriterias}
                                         selected={[]}
@@ -153,7 +155,7 @@ class SearchView extends React.Component {
                                     /> : ""
                                 }
 
-                                <CommonlySearched
+                                <CommonlySearched {...this.props}
                                     heading="Common Test"
                                     type="test"
                                     data={this.props.common_tests.filter(x => !x.is_package)}
@@ -162,7 +164,7 @@ class SearchView extends React.Component {
                                 />
 
                                 {
-                                    this.props.common_tests.filter(x => x.is_package).length ? <CommonlySearched
+                                    this.props.common_tests.filter(x => x.is_package).length ? <CommonlySearched {...this.props}
                                         heading="Common Health Packages"
                                         type="test"
                                         data={this.props.common_tests.filter(x => x.is_package)}
@@ -182,7 +184,7 @@ class SearchView extends React.Component {
                             <section className="opd-search-section mbl-pdng-zero">
 
                                 {
-                                    (this.props.selectedCriterias && this.props.selectedCriterias.filter(x => x.type.includes("procedures")).length > 0) ? <CommonlySearched
+                                    (this.props.selectedCriterias && this.props.selectedCriterias.filter(x => x.type.includes("procedures")).length > 0) ? <CommonlySearched {...this.props}
                                         heading={`View Selected (${this.props.selectedCriterias.length})`}
                                         data={this.props.selectedCriterias.filter(x => x.type.includes("procedures"))}
                                         selectedPills={true}
@@ -191,7 +193,7 @@ class SearchView extends React.Component {
                                     /> : ""
                                 }
 
-                                <CommonlySearched
+                                <CommonlySearched {...this.props}
                                     heading="Common Dental Treatments"
                                     type="procedures_category"
                                     data={this.props.procedure_categories}

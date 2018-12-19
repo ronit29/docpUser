@@ -147,7 +147,7 @@
 .info-popup{margin-top: 20px;}
 
 /*All test screen 13*/
-.all-test-list>li{position: relative; padding: 15px 20px; border-bottom:1px solid #ddd; padding-right: 120px;}
+.all-test-list li{position: relative; padding: 15px 20px; border-bottom:1px solid #ddd; padding-right: 120px;}
 .all-test-list .test-price{position: absolute; top: 18px; right:10px;}
 .more-test-results-div{
 	position: sticky;
@@ -1597,4 +1597,34 @@ p.rt-doc-nm{
     position: absolute;
     right: 10px;
     opacity: 0;
+}
+
+.img-nd-dtls{
+    display: flex;
+    align-items: center;
+}
+
+.lab-fltr-dc-name{
+    margin-bottom: 5px;
+    width: 100%;
+    display: block;
+    padding-right: 50px;
+}
+
+.crd-dctr-dtls{
+    margin-left: 8px;
+}
+
+.crd-dctr-dtls h3{
+    width: 100%;
+    word-break: break-word;
+    color: #757575;
+    font-size: 13px;
+}
+
+@media(max-width : 359px){
+    .home-card-col{
+        padding-right: 7px;
+        padding-left: 7px;
+    }
 }

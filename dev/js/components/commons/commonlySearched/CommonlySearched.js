@@ -10,6 +10,9 @@ class CommonlySearched extends React.Component {
     }
 
     toggle(row) {
+        if(document.getElementById('search_results_view') && document.getElementById('search_bar')){
+            document.getElementById('search_results_view').scrollIntoView()
+        }
         if (this.props.type == 'condition') {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'CommonConditionSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-condition-selected', 'selected': row.name || '', 'selectedId': row.id || ''
@@ -39,11 +42,22 @@ class CommonlySearched extends React.Component {
         }
         this.props.toggle((this.props.type || row.type), row)
     }
-
+    testInfo(){
+        let test_ids = []
+        this.props.data.map((row, i) => {
+            test_ids.push(row.id)
+        })
+        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=search')
+    }
     render() {
-
+        let test_info =''
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
+                if(this.props.selectedSearchType == 'lab'){
+                    if(Object.keys(row).length > 0 && row.show_details){
+                      test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
+                    }
+                }
                 return <li key={i}>
                     <p>{row.name}</p>
                     <img style={{ width: '15px' }} onClick={() => {
@@ -69,7 +83,8 @@ class CommonlySearched extends React.Component {
         return (
             <div className="widget mb-10">
                 <div className="common-search-container">
-                    <p className="srch-heading">{this.props.heading}</p>
+                    <p className="srch-heading">{this.props.heading} {test_info}</p>
+                    
                     <div className="common-listing-cont">
                         <ul>
                             {rows}

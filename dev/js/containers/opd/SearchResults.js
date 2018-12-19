@@ -29,8 +29,11 @@ class SearchResults extends React.Component {
                     if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
                         searchUrl = match.url.toLowerCase()
                     }
-
-                    return store.dispatch(getDoctors(state, 1, true, searchUrl, (loadMore, seoData) => {
+                    let page = 1
+                    if (queryParams.page) {
+                        page = parseInt(queryParams.page)
+                    }
+                    return store.dispatch(getDoctors(state, page, true, searchUrl, (loadMore, seoData) => {
                         if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
@@ -81,11 +84,12 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         getNewUrl,
-        selectedCriterias
+        selectedCriterias,
+        page
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
-    let { doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content } = state.DOCTOR_SEARCH
+    let { doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -101,7 +105,9 @@ const mapStateToProps = (state, passedProps) => {
         search_content,
         getNewUrl,
         commonSelectedCriterias,
-        selectedCriterias
+        selectedCriterias,
+        page,
+        curr_page
     }
 }
 

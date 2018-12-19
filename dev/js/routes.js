@@ -42,6 +42,7 @@ import CouponSelectNewView from './containers/commons/CouponsView.js'
 import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 import Search from './containers/commons/search'
+import searchTestInfo from './containers/commons/searchTestInfo'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -61,8 +62,10 @@ const routes = [
     { path: '/wallet', exact: true, component: Wallet },
     { path: `/*-dsdp`, component: Article, RENDER_ON_SERVER: true },
     { path: `/*-mddp`, component: Article, RENDER_ON_SERVER: true },
+    { path: `/*-artdp`, component: Article, RENDER_ON_SERVER: true },
     { path: `/all-diseases`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: `/all-medicines`, component: ArticleList, RENDER_ON_SERVER: true },
+    { path: `/all-articles`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: '/payment/:id', exact: true, component: Payment },
     { path: '/mobileviewchat', exact: true, component: MobileViewChat },
     { path: '/search', exact: true, component: Search },
@@ -106,10 +109,11 @@ const routes = [
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },
 
-    { path: '/speciality-inventory', exact :true, component: SpecializationSiteMap , RENDER_ON_SERVER: true },
-    { path: '/speciality-inventory/:speciality', exact :true, component: SpecializationSiteMap , RENDER_ON_SERVER: true },
-    { path: '/city-inventory', exact :true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
-    { path: '/city-inventory/:city', exact:true, component: CitiesSiteMap , RENDER_ON_SERVER: true },
+    { path: '/speciality-inventory', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
+    { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
+    { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
+    { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
+    { path: '/search/testinfo', exact: true, component: searchTestInfo },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

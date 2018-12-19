@@ -12,7 +12,8 @@ const defaultState = {
     SET_FROM_SERVER: false,
     labCoupons: {},
     disCountedLabPrice: 0,
-    couponAutoApply: true
+    couponAutoApply: true,
+    curr_page: null
 }
 
 export default function (state = defaultState, action) {
@@ -46,7 +47,8 @@ export default function (state = defaultState, action) {
 
             newState.count = action.payload.count
             newState.LOADED_LABS_SEARCH = true
-
+            newState.curr_page = action.payload.page
+            
             return newState
         }
 

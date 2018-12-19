@@ -73,6 +73,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url += `&hospital_name=${filterCriteria.hospital_name || ""}`
 	}
 
+	if(!!filterCriteria.hospital_id) {
+		url += `&hospital_id=${filterCriteria.hospital_id || ''}`
+	}
+
 	return API_GET(url).then(function (response) {
 
 		let specializations = response.specializations.map((x) => {
@@ -330,5 +334,13 @@ export const saveProfileProcedures = (doctor_id='', clinic_id='', selectedProced
 		clinic_id: clinic_id,
 		forceAdd: forceAdd,
 		selectedProcedures: selectedProcedures
+	})
+}
+
+export const getDoctorNo = (postData, cb) => (dispatch) => {
+	return API_POST(`/api/v1/matrix/mask-number`, postData).then(function (response) {
+		cb(null, response)
+	}).catch(function (error) {
+		cb(error, null)
 	})
 }

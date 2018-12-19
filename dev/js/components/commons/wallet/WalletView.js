@@ -221,19 +221,19 @@ class WalletView extends React.Component {
                                                 <ul>
                                                     <li className="align-items-center">
                                                         <p className="flex-1">
-                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            <span><img style={{ width: '45px' }} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
                                                             Paytm</p>
                                                         <span className="link-account-span">Link Account</span>
                                                     </li>
                                                     <li className="align-items-center">
                                                         <p className="flex-1">
-                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            <span><img style={{ width: '45px' }} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
                                                             Paytm</p>
                                                         <span className="link-account-span">Link Account</span>
                                                     </li>
                                                     <li className="align-items-center">
                                                         <p className="flex-1">
-                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            <span><img style={{ width: '45px' }} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
                                                             Paytm</p>
                                                         <span className="link-account-span">Link Account</span>
                                                     </li>
@@ -245,26 +245,26 @@ class WalletView extends React.Component {
                                     <div className="widget mb-10">
                                         <div className="common-search-container">
                                             <p className="srch-heading">
-                                            Online Paymeny</p>
+                                                Online Paymeny</p>
                                             <div className="common-listing-cont">
                                                 <ul>
                                                     <li className="align-items-center">
                                                         <p className="flex-1">
-                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            <span><img style={{ width: '45px' }} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
                                                             Netbanking</p>
-                                                            <img style={{width: '8px'}} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                        <img style={{ width: '8px' }} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
                                                     </li>
                                                     <li className="align-items-center">
                                                         <p className="flex-1">
-                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            <span><img style={{ width: '45px' }} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
                                                             Debit Card</p>
-                                                            <img style={{width: '8px'}} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                        <img style={{ width: '8px' }} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
                                                     </li>
                                                     <li className="align-items-center">
                                                         <p className="flex-1">
-                                                            <span><img style={{width: '45px'}} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
+                                                            <span><img style={{ width: '45px' }} src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} /></span>
                                                             Credit Card</p>
-                                                            <img style={{width: '8px'}} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                        <img style={{ width: '8px' }} src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
                                                     </li>
 
                                                 </ul>

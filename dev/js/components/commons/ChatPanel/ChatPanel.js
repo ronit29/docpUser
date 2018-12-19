@@ -256,6 +256,10 @@ class ChatPanel extends React.Component {
             this.setState({ showChatBlock: true, additionClasses: "" });
         } else if (this.props.newChatBtn) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+            let data = {
+                'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
         }
     }
 
@@ -293,7 +297,7 @@ class ChatPanel extends React.Component {
             chatBtnContent1 = 'Chat now with doctor'
             chatBtnContent2 = 'about ' + this.props.articleData.title.split('|')[0] + ' and related queries'
         } else if (this.props.newChatBtn) {
-            chatBtnContent1 = 'Need help with booking ?'
+            chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
 
         return (

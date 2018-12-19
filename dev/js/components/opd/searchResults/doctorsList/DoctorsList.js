@@ -89,6 +89,15 @@ class DoctorsList extends React.Component {
 
         let { DOCTORS, doctorList } = this.props
 
+        let start_page = 0
+        if (this.props.curr_page) {
+            start_page = Math.max(0, this.props.curr_page - 1)
+        } else {
+            if (this.props.page) {
+                start_page = Math.max(0, this.props.page - 1)
+            }
+        }
+
         return (
             <section style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
@@ -116,10 +125,11 @@ class DoctorsList extends React.Component {
                             <div className="row">
                                 <div className="col-12">
                                     <InfiniteScroll
-                                        pageStart={0}
+                                        pageStart={start_page}
                                         loadMore={this.loadMore.bind(this)}
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
+                                        initialLoad={false}
                                     >
                                         {
                                             doctorList.map((docId, i) => {

@@ -33,7 +33,7 @@ class TopBar extends React.Component {
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (props.seoData && props.seoData.location) {
+            if ((props.seoData && props.seoData.location) || props.seoFriendly) {
                 this.setState({ showLocationPopup: false })
             } else {
                 if (props.selectedLocation != this.props.selectedLocation) {
@@ -47,7 +47,7 @@ class TopBar extends React.Component {
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
-        if (this.props.seoData && this.props.seoData.location) {
+        if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
         } else {
             if (this.props.locationType.includes("geo")) {
@@ -78,7 +78,7 @@ class TopBar extends React.Component {
             sits_at_hospital: this.state.sits_at_hospital
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'available_today': this.state.is_available, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital ,'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'is_female': this.state.is_female, 'sort_on': this.state.sort_on==""?'relevance':this.state.sort_on
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'available_today': this.state.is_available, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'is_female': this.state.is_female, 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -99,6 +99,10 @@ class TopBar extends React.Component {
     }
 
     handleClose(type) {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdSortFilterApplied', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-sort-filter-applied', 'url': window.location.pathname, 'sort_on': type === "" ? 'relevance' : type
+        }
+        GTM.sendEvent({ data: data })
         this.setState({ anchorEl: null, sort_on: type }, () => {
             if (type || type === "") {
                 this.applyFilters()
@@ -120,9 +124,9 @@ class TopBar extends React.Component {
 
     getCriteriaString(selectedCriterias) {
         if (selectedCriterias && selectedCriterias.length) {
-            let selectedProcedureCategory = selectedCriterias.filter(x=>x.type=='procedures_category')
-            let procedures = selectedCriterias.filter(x=>x.type=='procedures')
-        
+            let selectedProcedureCategory = selectedCriterias.filter(x => x.type == 'procedures_category')
+            let procedures = selectedCriterias.filter(x => x.type == 'procedures')
+
             return selectedCriterias.reduce((final, curr, i) => {
                 if (i != 0) {
                     final += ', '
@@ -235,10 +239,9 @@ class TopBar extends React.Component {
                                                     this.state.showLocationPopup && false ? ''
                                                         : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
                                                 }
-
+                                                <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                             </span>
                                         </h1>
-                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                     </div>
                                 </div>
                                 {

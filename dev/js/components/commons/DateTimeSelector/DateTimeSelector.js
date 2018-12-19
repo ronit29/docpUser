@@ -173,7 +173,7 @@ class DateTimeSelector extends React.Component {
                             <div className="slect-date-img-content">
                                 <div className="date-text-img">
                                     <img src={ASSETS_BASE_URL + "/img/new-cal.svg"} />
-                                    <p>Select Appoinment Date</p>
+                                    <p>Select Appointment Date</p>
                                 </div>
                                 {/* <div className="months-selctor">
                                         <span className="mnth-selcted">{this.state.daySeries && this.state.daySeries.length?MONTHS[this.state.daySeries[0].month]:''}</span>

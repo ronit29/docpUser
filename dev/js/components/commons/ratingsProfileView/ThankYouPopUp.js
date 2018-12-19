@@ -23,7 +23,7 @@ class ThankYouPopUp extends React.Component {
                         Your feedback matters!
                     </p>
                     <p className="thanks-sub-content">
-                        It helps our thousands / millions of users find the right healthcare solutions.
+                        It helps our users find the right healthcare solutions.
                     </p>
                     <button className="rate-submit-btn thnks-btn" onClick={this.props.submit}>Done</button>
                 </div>

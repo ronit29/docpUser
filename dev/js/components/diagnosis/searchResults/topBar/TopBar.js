@@ -33,7 +33,7 @@ class TopBar extends React.Component {
             if (props.seoData && props.seoData.location) {
                 this.setState({ showLocationPopup: false })
             } else {
-                if (props.selectedLocation != this.props.selectedLocation) {
+                if ((props.seoData && props.seoData.location) || props.seoFriendly) {
                     this.setState({ showLocationPopup: true, overlayVisible: true })
                 }
             }
@@ -44,7 +44,7 @@ class TopBar extends React.Component {
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
-        if (this.props.seoData && this.props.seoData.location) {
+        if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
         } else {
             if (this.props.locationType.includes("geo")) {
@@ -81,6 +81,10 @@ class TopBar extends React.Component {
     }
 
     handleClose(type) {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LabSortFilterApplied', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-sort-filter-applied', 'url': window.location.pathname, 'sort_on': type === "" ? 'relevance' : type
+        }
+        GTM.sendEvent({ data: data })
         this.setState({ anchorEl: null, sort_on: type }, () => {
             if (type || type === "") {
                 this.applyFilters()

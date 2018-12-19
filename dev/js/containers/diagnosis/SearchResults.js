@@ -29,8 +29,11 @@ class SearchResults extends React.Component {
                     if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                         searchUrl = match.url.toLowerCase()
                     }
-
-                    return store.dispatch(getLabs(state, 1, true, searchUrl, (loadMore, seoData) => {
+                    let page = 1
+                    if (queryParams.page) {
+                        page = parseInt(queryParams.page)
+                    }
+                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore, seoData) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
@@ -81,11 +84,12 @@ const mapStateToProps = (state, passedProps) => {
         LOADED_SEARCH_CRITERIA_LAB,
         locationType,
         fetchNewResults,
-        corporateCoupon
+        corporateCoupon,
+        page
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -99,7 +103,9 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData,
         locationType,
         fetchNewResults,
-        corporateCoupon
+        corporateCoupon,
+        page,
+        curr_page
     }
 
 }
