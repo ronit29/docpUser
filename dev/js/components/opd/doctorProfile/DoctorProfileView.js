@@ -120,14 +120,14 @@ class DoctorProfileView extends React.Component {
         }
         if (!this.state.numberShown) {
             GTM.sendEvent({ data: data })
-            /*this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
+            this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
                 if (!err && data.number) {
                     this.setState({
                         numberShown: data.number
                     })
                 }
-            })*/
-            this.setState({openContactPopup: true})    
+            })
+           // this.setState({openContactPopup: true})    
         }
     }
 
