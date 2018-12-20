@@ -260,6 +260,12 @@ class ChatPanel extends React.Component {
                 'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
             }
             GTM.sendEvent({ data: data })
+        } else if(this.props.newChatBtn && this.props.bookingsGA){
+            this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+            let data = {
+                'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
         }
     }
 

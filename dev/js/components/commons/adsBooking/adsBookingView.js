@@ -87,7 +87,7 @@ class AdsBookingView extends React.Component{
                                 {/* insurance input screen */}
                                 {/* ===============isurance 6th screen=============== */}
                             </div>
-                            <ChatPanel newChatBtn={true}/>
+                            <ChatPanel newChatBtn={true} bookingsGA={true}/>
                         </div>
                     </section>
                 </div>
