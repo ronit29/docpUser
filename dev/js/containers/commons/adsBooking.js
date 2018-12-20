@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsurance} from '../../actions/index.js'
+import { userCreate} from '../../actions/index.js'
 import AdsBookingView from '../../components/commons/adsBooking/adsBookingView.js'
 
 class adsBooking extends React.Component{
@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // getInsurance: (InsuranceId) => dispatch(getInsurance(InsuranceId)),
+        userCreate: (criteria,callback) => dispatch(userCreate(criteria,callback)),
     }
 }
 

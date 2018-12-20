@@ -1,4 +1,4 @@
-import { GET_INSURANCE} from '../../constants/types';
+import { ADS_BOOKING} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -15,8 +15,9 @@ const DUMMY_PROFILE = {
 export default function (state = defaultState, action) {
 
     switch (action.type) {
-        // case GET_INSURANCE: {
-        //     let newState = { ...state }
+        case ADS_BOOKING: {
+            let newState = { ...state }
+            console.log(action.payload)
         //     if(action.payload.length > 0){
         //         newState.insurnaceData = action.payload
         //         newState.LOAD_INSURANCE = true
@@ -24,7 +25,7 @@ export default function (state = defaultState, action) {
         //         newState.insurnaceData = action.payload
         //     }
         //     return newState
-        // }
+        }
         
     }
     return state

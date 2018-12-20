@@ -9,8 +9,9 @@ class AdsBookingView extends React.Component {
         this.state = {
             gender: '',
             name: '',
-            text: '',
-            phonenumber: ''
+            message: '',
+            phonenumber: '',
+            bookingsGA:false
         }
     }
     handleChange(feild, event) {
@@ -19,7 +20,18 @@ class AdsBookingView extends React.Component {
     }
 
     handleSubmit() {
-
+        let member_data = {}
+        if(this.state.gender != '' && this.state.name != '' && this.state.message != '' && this.state.phonenumber != ''){
+            member_data.gender = this.state.gender
+            member_data.name = this.state.name
+            member_data.message = this.state.message
+            member_data.phonenumber = this.state.phonenumber
+            this.props.userCreate(member_data,(resp)=>{
+                // this.setState({bookingsGA:true})    
+            })
+        }else{
+            SnackBar.show({ pos: 'bottom-center', text: "All feilds are manadtory" });
+        }
     }
     render() {
         console.log(this.state)
@@ -47,8 +59,8 @@ class AdsBookingView extends React.Component {
                                         <div className="insurance-member-details">
                                             <h4>Let us know what you are looking for?</h4>
                                             <div className="fkd-textarea">
-                                                <textarea placeholder="" value={this.state.text} data-param="name" onChange={this.handleChange.bind(this, 'text')}>
-</textarea>
+                                                <textarea placeholder="" value={this.state.message} data-param="message" onChange={this.handleChange.bind(this, 'message')}>
+                                                </textarea>
                                             </div>
                                             <h3 className="tell-hedng">Tell us about yourself</h3>
                                             <div className="row no-gutters">
@@ -72,14 +84,14 @@ class AdsBookingView extends React.Component {
                                                 </div>
                                                 <div className="col-12">
                                                     <div className="ins-form-group inp-margin-right ">
-                                                        <input type="text" id="name" className="form-control ins-form-control" required autoComplete="off" onChange={this.handleChange.bind(this, 'name')} value={this.state.name} />
+                                                        <input type="text" id="name" className="form-control ins-form-control" data-param="name" required autoComplete="off" onChange={this.handleChange.bind(this, 'name')} value={this.state.name} />
                                                         <label className="form-control-placeholder" htmlFor="name">Name</label>
                                                         <img className="ins-input-img" style={{ width: '19px' }} src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
                                                     </div>
                                                 </div>
                                                 <div className="col-12">
                                                     <div className="ins-form-group">
-                                                        <input type="number" id="number" className="form-control ins-form-control" required autoComplete="off" onChange={this.handleChange.bind(this, 'phonenumber')} value={this.state.phonenumber} />
+                                                        <input type="number" id="number" className="form-control ins-form-control" required autoComplete="off" data-param="phonenumber" onChange={this.handleChange.bind(this, 'phonenumber')} value={this.state.phonenumber} />
                                                         <label className="form-control-placeholder" htmlFor="number">Phone Number</label>
                                                         <span className="number-nine">+91</span>
                                                     </div>
@@ -92,7 +104,9 @@ class AdsBookingView extends React.Component {
                             {/* insurance input screen */}
                             {/* ===============isurance 6th screen=============== */}
                         </div>
-                        <ChatPanel newChatBtn={true} bookingsGA={true} />
+                        <div onClick={this.handleSubmit.bind(this)}>
+                        <ChatPanel newChatBtn={true} bookingsGA={this.state.bookingsGA} />
+                        </div>
                     </div>
                 </section>
             </div>
