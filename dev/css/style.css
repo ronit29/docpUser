@@ -498,7 +498,7 @@ background: black;
 	padding: 10px 0;
 	z-index: 9;
 	height: auto;
-	min-height: 100px;
+	/* min-height: 100px; */
 	padding-top: 0px;
 }
 
@@ -4101,7 +4101,7 @@ ul.stc-data-ul-list li{
     padding: 0px;
 }
 .container-top-margin{
-	margin-top: 70px;
+	margin-top: 34px;
 }
 .searcLocationHeaderPadding{
 	padding-top: 100px !important;
