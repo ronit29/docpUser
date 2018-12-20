@@ -35,7 +35,8 @@ class BookingSummaryViewNew extends React.Component {
             couponCode: '',
             couponId: '',
             scrollPosition: '',
-            profileDataFilled: true
+            profileDataFilled: true,
+            is_cashback: false
         }
     }
 
@@ -100,7 +101,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 if (!corporate) {
                     this.props.resetLabCoupons()
-                    this.setState({ couponCode: "", couponId: '' })
+                    this.setState({ couponCode: "", couponId: '', is_cashback: false })
                     if (nextProps.labCoupons[this.state.selectedLab]) {
                         this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
@@ -115,7 +116,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupon = nextProps.corporateCoupon
-                    this.setState({ couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
+                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
                     this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids)
                 }
@@ -130,7 +131,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.setState({ couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
                     this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids)
                 }
                 return
@@ -145,7 +146,7 @@ class BookingSummaryViewNew extends React.Component {
                         if (coupons && coupons[0]) {
                             this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
                             this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids)
-                            this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                         } else {
                             this.props.resetLabCoupons()
                         }
@@ -453,13 +454,16 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
-        let finalDisplayPrice = (finalPrice) ? (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? (finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)) : (finalPrice - (this.props.disCountedLabPrice || 0)) : 0
 
-        var amtBeforeCoupon = 0
+        let amtBeforeCoupon = 0
+        let total_price = finalPrice
         if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
-            amtBeforeCoupon = finalPrice + (labDetail.home_pickup_charges)
-        } else {
-            amtBeforeCoupon = finalPrice
+            total_price = finalPrice + (labDetail.home_pickup_charges || 0)
+        }
+        amtBeforeCoupon = total_price
+
+        if (!this.state.is_cashback) {
+            total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
 
         return (
@@ -555,7 +559,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
                                                                                     </span>
                                                                                     <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                        Coupon Applied
+                                                                                        {this.state.is_cashback ? "Cashback" : "Coupon"} Applied
                                                                                         </h4>
                                                                                 </div>
                                                                                 <div className=" d-flex">
@@ -615,7 +619,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <p>- &#8377; {finalMrp - finalPrice}</p>
                                                                             </div>
                                                                             {
-                                                                                this.props.disCountedLabPrice
+                                                                                this.props.disCountedLabPrice && !this.state.is_cashback
                                                                                     ? <div className="payment-detail d-flex">
                                                                                         <p style={{ color: 'green' }}>Coupon discount</p>
                                                                                         <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
@@ -625,10 +629,10 @@ class BookingSummaryViewNew extends React.Component {
                                                                             {
                                                                                 (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                     <p className="payment-content fw-500">Subtotal</p>
-                                                                                    <p className="payment-content fw-500">&#8377; {finalPrice + (labDetail.home_pickup_charges) - (this.props.disCountedLabPrice || 0)}</p>
+                                                                                    <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                 </div> : <div className="payment-detail d-flex">
                                                                                         <p className="payment-content fw-500">Subtotal</p>
-                                                                                        <p className="payment-content fw-500">&#8377; {finalPrice - this.props.disCountedLabPrice || 0}</p>
+                                                                                        <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                     </div>
                                                                             }
 
@@ -638,10 +642,17 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <div className="lab-visit-time test-report">
                                                                             <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                             {
-                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice + (labDetail.home_pickup_charges || 0) - (this.props.disCountedLabPrice || 0)}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {finalPrice - this.props.disCountedLabPrice || 0}</h5>
+                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5>
                                                                             }
 
                                                                         </div>
+
+                                                                        {
+                                                                            this.state.is_cashback && this.props.disCountedLabPrice ? <div className="csh-back-applied-container">
+                                                                                <p className="csh-mny-applied">+ Rs {this.props.disCountedLabPrice} Cashback Applied</p>
+                                                                                <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointent completion</p>
+                                                                            </div> : ""
+                                                                        }
 
 
                                                                     </div>
@@ -675,7 +686,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${finalDisplayPrice == 0 ? ' (₹ 0)' : finalDisplayPrice ? ` (₹ ${finalDisplayPrice})` : ''}`}</button>
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${total_price == 0 ? ' (₹ 0)' : total_price ? ` (₹ ${total_price})` : ''}`}</button>
                             }
 
 

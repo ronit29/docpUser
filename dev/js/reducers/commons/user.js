@@ -43,7 +43,8 @@ const defaultState = {
     unread_count: '',
     rated_appoinments: {},
     selectedSearchType: 'opd',
-    testList: {}
+    testList: {},
+    userCashbackBalance: 0
 }
 
 export default function (state = defaultState, action) {
@@ -166,6 +167,7 @@ export default function (state = defaultState, action) {
 
             newState.userTransactions = action.payload.user_transactions
             newState.userWalletBalance = action.payload.user_wallet_balance
+            newState.userCashbackBalance = action.payload.consumer_cashback
 
             return newState
 

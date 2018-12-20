@@ -2,17 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SnackBar from 'node-snackbar'
 
-import DoctorProfileCard from '../commons/doctorProfileCard'
 import Loader from '../../commons/Loader'
-import VisitTime from './visitTime'
-import ChoosePatient from './choosePatient'
-
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 
 import CancelationPolicy from './cancellation.js'
-import PaymentSummary from './paymentSummary.js'
+
+import SelectedClinic from '../commons/selectedClinic/index.js'
+import VisitTimeNew from '../patientDetails/VisitTimeNew'
 
 class AppointmentReschedule extends React.Component {
     constructor(props) {
@@ -60,19 +58,6 @@ class AppointmentReschedule extends React.Component {
                 if (data.payment_required) {
                     // send to payment selection page
                     this.props.history.push(`/payment/${data.data.orderId}`)
-
-                    // this.setState({
-                    //     paymentData: data.data
-                    // }, () => {
-                    //     setTimeout(() => {
-                    //         let form = document.getElementById('paymentForm')
-                    //         form.submit()
-                    //     }, 500)
-
-                    //     setTimeout(() => {
-                    //         this.setState({ loading: false })
-                    //     }, 5000)
-                    // })
                 } else {
                     SnackBar.show({ pos: 'bottom-center', text: "Appointment Reschduled." })
                     // send back to appointment page
@@ -92,11 +77,29 @@ class AppointmentReschedule extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                debugger
                 this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true`)
                 return
             }
         }
+    }
+
+    cancelAppointment() {
+        this.setState({ loading: true, showCancel: false })
+
+        let appointmentData = { id: this.state.data.id, status: 6, refund: 0 }
+        this.props.updateOPDAppointment(appointmentData, (err, data) => {
+            if (data) {
+                SnackBar.show({ pos: 'bottom-center', text: "Appointment Canceled." })
+                // send back to appointment page
+                this.props.history.replace(`/opd/appointment/${this.props.match.params.refId}`)
+            } else {
+                let message = "Could not cancel appointment. Try again later !"
+                if (err.message) {
+                    message = err.message
+                }
+                this.setState({ loading: false, error: message })
+            }
+        })
     }
 
     render() {
@@ -109,6 +112,8 @@ class AppointmentReschedule extends React.Component {
         let status = 1
         let priceData = {}
         let bookingEnabled = false
+        let procedures = false
+        let is_price_changed = false
 
         if (this.state.data) {
             doctor = this.state.data.doctor
@@ -118,21 +123,20 @@ class AppointmentReschedule extends React.Component {
             actions = this.state.data.allowed_action || []
             status = this.state.data.status
             doctor.thumbnail = this.state.data.doctor_thumbnail
+            doctor.hospitals = [hospital]
 
             if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
                 priceData = { ...this.props.rescheduleSlot.time }
                 priceData.old_deal_price = this.state.data.deal_price
                 priceData.payable_amount = priceData.deal_price - priceData.old_deal_price
             }
-            if(this.state.data.procedures.length){
-                priceData.payable_amount = 0/*
-                priceData.old_deal_price = this.state.data.deal_price
-                priceData.deal_price = this.state.data.deal_price
-                priceData.mrp =  0*/
+            if (this.state.data.procedures.length) {
+                procedures = true
+                priceData.payable_amount = 0
             }
         }
 
-        if(this.state.data && this.props.DOCTOR && this.props.DOCTOR[this.state.data.doctor.id]){
+        if (this.state.data && this.props.DOCTOR && this.props.DOCTOR[this.state.data.doctor.id]) {
             bookingEnabled = this.props.DOCTOR[this.state.data.doctor.id].enabled_for_online_booking;
         }
 
@@ -145,25 +149,6 @@ class AppointmentReschedule extends React.Component {
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
-                            {/* <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <ul className="inline-list">
-                                                <li onClick={() => {
-                                                    this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Reschedule Appointment</div>
-                                        </div>
-                                        <div className="col-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
-
                             {
                                 this.state.data ?
                                     <div>
@@ -171,54 +156,67 @@ class AppointmentReschedule extends React.Component {
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
 
-                                                <div className="row">
+                                                <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        <div className="widget mrt-10 ct-profile skin-white">
-                                                            <DoctorProfileCard
-                                                                details={doctor}
-                                                            />
+
+                                                        <SelectedClinic
+                                                            boxShadowHide={true}
+                                                            selectedDoctor={doctor}
+                                                            selectedClinic={hospital.id}
+                                                        />
+
+                                                        <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.rescheduleSlot} hideChangeTime={true} timeError={null} />
+
+                                                        {
+                                                            priceData.payable_amount != 0 ? <div className="csh-back-applied-container" style={{ marginBottom: 20 }}>
+                                                                <p className="csh-mny-applied-content">Amount for the appointment is changed, to proceed you need to cancel this order and place a new one.</p>
+                                                            </div> : ""
+                                                        }
+
+                                                        <div className="widget mrb-15">
                                                             <div className="widget-content">
-
-                                                                <div className="lab-visit-time">
-                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 6 }} /></span>{hospital.name} </h4>
-                                                                    <p className="date-time">{hospital.address}</p>
+                                                                <div className="lab-visit-time d-flex jc-spaceb">
+                                                                    <h4 className="title d-flex"><span>
+                                                                        <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+                                                                    </span>Patient</h4>
+                                                                    <div className="float-right  mbl-view-formatting text-right">
+                                                                        <h4 className="date-time title">{profile ? profile.name : ""} </h4>
+                                                                    </div>
                                                                 </div>
-
-                                                                <VisitTime navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.rescheduleSlot} />
-
-                                                                <ChoosePatient patient={profile} />
-
-                                                                <div className="lab-visit-time test-report">
-                                                                    <h4 className="title payment-amt-label">Total Payable Amount<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.toggle.bind(this, 'openPaymentSummary')} /></span></h4>
-                                                                    <h5 className="payment-amt-value">&#8377;  {priceData.payable_amount}</h5>
-                                                                </div>
-
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="col-12" style={{ marginTop: 10 }}>
-                                                        <div className="lab-visit-time test-report" style={{ textAlign: 'right' }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label">Cancellation Policy<span style={{ marginLeft: 5, cursor: 'pointer' }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                            <span className="errorMessage">{this.state.error}</span>
+
+
+                                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                                            <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
+
+                                                        <a href="/terms" target="_blank">
+                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
+                                                                <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                                <span className="errorMessage">{this.state.error}</span>
+                                                            </div>
+                                                        </a>
+
                                                     </div>
+
                                                 </div>
                                             </div>
+
+                                            {
+                                                this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                            }
+
+
                                         </section>
 
                                     </div> : <Loader />
                             }
 
                             {
-                                this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                priceData.payable_amount == 0 ? <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.proceed.bind(this)}>Confirm Reschedule</button> : <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.cancelAppointment.bind(this)}>Cancel and rebook</button>
                             }
 
-                            {
-                                (this.state.openPaymentSummary && !!priceData.payable_amount) ? <PaymentSummary toggle={this.toggle.bind(this, 'openPaymentSummary')} {...priceData} /> : ""
-                            }
-
-
-                            <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.proceed.bind(this)}>Reschedule</button>
 
                         </div>
 

@@ -4391,7 +4391,8 @@ input.rc-calendar-input {
 	border-radius: 15px;
     background: #f78631;
     color: white;
-    padding: 3px 12px;
+	padding: 3px 12px;
+	cursor: pointer;
 }
 .cashback-transactions-section{
     border-top: 1px solid rgba(132, 124, 124, .12);
@@ -4500,3 +4501,25 @@ color: red;
 }
 /* =============== cashback-style =============== */
 /* ============= contact PopUp Style ================= */
+/* popup style */
+.popUp-contetn{
+	text-align: center;
+    font-weight: 500;
+    padding: 35px 0;
+}
+.popUp-contetn b{
+font-weight: 700;
+}
+.PopUp-Btn{
+	margin: auto;
+    display: block;
+    background: #f78631;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+/* popup style */

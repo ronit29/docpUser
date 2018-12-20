@@ -34,7 +34,8 @@ class PatientDetailsNew extends React.Component {
             couponCode: '',
             profileDataFilled: true,
             showTimeError: false,
-            couponApplied: false
+            couponApplied: false,
+            is_cashback: false
             // order_id: !!parsed.order_id
         }
     }
@@ -60,7 +61,7 @@ class PatientDetailsNew extends React.Component {
             this.props.history.replace(this.props.location.pathname)
         }
 
-        let hospital ={}
+        let hospital = {}
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
 
         if (doctorDetails) {
@@ -73,14 +74,14 @@ class PatientDetailsNew extends React.Component {
                     }
                 })
             }
-            if(Object.values(hospital).length){
-                this.setState({couponApplied : true})
+            if (Object.values(hospital).length) {
+                this.setState({ couponApplied: true })
             }
-        }else if(this.props.selectedSlot && this.props.selectedSlot.time && Object.values(this.props.selectedSlot.time).length>0){
-            this.setState({couponApplied : true})
-        }else{
-            this.setState({couponApplied : false})
-            return 
+        } else if (this.props.selectedSlot && this.props.selectedSlot.time && Object.values(this.props.selectedSlot.time).length > 0) {
+            this.setState({ couponApplied: true })
+        } else {
+            this.setState({ couponApplied: false })
+            return
         }
 
         if (this.props.doctorCoupons && this.props.doctorCoupons[this.state.selectedDoctor] && this.props.doctorCoupons[this.state.selectedDoctor].length) {
@@ -95,9 +96,9 @@ class PatientDetailsNew extends React.Component {
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
 
-                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
-            }else if(hospital){
+            } else if (hospital) {
                 let deal_price = hospital.deal_price
                 let treatment_Price = 0
                 if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
@@ -105,7 +106,7 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 deal_price += treatment_Price
-                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
 
             }
@@ -113,7 +114,7 @@ class PatientDetailsNew extends React.Component {
             let deal_price = 0
             if (this.props.selectedSlot.time && this.props.selectedSlot.time.deal_price) {
                 deal_price = this.props.selectedSlot.time.deal_price
-            }else if(hospital){
+            } else if (hospital) {
                 deal_price = hospital.deal_price
             }
 
@@ -128,7 +129,7 @@ class PatientDetailsNew extends React.Component {
             if (this.state.selectedDoctor && deal_price && this.props.couponAutoApply) {
                 this.props.getCoupons(1, deal_price, (coupons) => {
                     if (coupons && coupons[0]) {
-                        this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                        this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                         this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
                         this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price)
                     } else {
@@ -143,9 +144,9 @@ class PatientDetailsNew extends React.Component {
 
     }
 
-    componentWillReceiveProps(nextProps){
-        if(!this.state.couponApplied && nextProps.DOCTORS[this.state.selectedDoctor]){
-            let hospital ={}
+    componentWillReceiveProps(nextProps) {
+        if (!this.state.couponApplied && nextProps.DOCTORS[this.state.selectedDoctor]) {
+            let hospital = {}
             let doctorDetails = nextProps.DOCTORS[this.state.selectedDoctor]
 
             if (doctorDetails) {
@@ -162,8 +163,8 @@ class PatientDetailsNew extends React.Component {
 
             if (nextProps.doctorCoupons && nextProps.doctorCoupons[this.state.selectedDoctor] && nextProps.doctorCoupons[this.state.selectedDoctor].length) {
                 let doctorCoupons = nextProps.doctorCoupons[this.state.selectedDoctor]
-                
-                if(Object.values(hospital).length){
+
+                if (Object.values(hospital).length) {
                     let deal_price = hospital.deal_price
 
                     let treatment_Price = 0
@@ -174,13 +175,13 @@ class PatientDetailsNew extends React.Component {
 
                     deal_price += treatment_Price
 
-                    this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' ,couponApplied: true})
+                    this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
                     this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price)
                 }
             } else {
                 let deal_price = 0
-                
-                if(Object.values(hospital).length){
+
+                if (Object.values(hospital).length) {
                     deal_price = hospital.deal_price
                 }
 
@@ -195,16 +196,16 @@ class PatientDetailsNew extends React.Component {
                 if (this.state.selectedDoctor && deal_price && nextProps.couponAutoApply) {
                     this.props.getCoupons(1, deal_price, (coupons) => {
                         if (coupons && coupons[0]) {
-                            this.setState({ couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true })
+                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true })
                             this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
                             this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price)
                         } else {
-                            this.setState({couponApplied: true})
+                            this.setState({ couponApplied: true })
                             this.props.resetOpdCoupons()
                         }
                     })
                 } else {
-                    this.setState({couponApplied: true})
+                    this.setState({ couponApplied: true })
                     this.props.resetOpdCoupons()
                 }
             }
@@ -212,11 +213,11 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
-    profileDataCompleted(data){
-        if(data.name =='' || data.gender == '' || data.phoneNumber =='' || !data.otpVerifySuccess){
-            this.setState({profileDataFilled: false, showTimeError: false})
-        }else if(data.otpVerifySuccess){
-            this.setState({profileDataFilled: true, showTimeError: false})
+    profileDataCompleted(data) {
+        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
+            this.setState({ profileDataFilled: false, showTimeError: false })
+        } else if (data.otpVerifySuccess) {
+            this.setState({ profileDataFilled: true, showTimeError: false })
         }
     }
 
@@ -225,22 +226,22 @@ class PatientDetailsNew extends React.Component {
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0)
             return
         }
 
-        if(!patient){
+        if (!patient) {
             //this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0)
             return
 
         }
 
-        if(!this.state.profileDataFilled){
+        if (!this.state.profileDataFilled) {
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
-            window.scrollTo(0,0)
-            return   
+            window.scrollTo(0, 0)
+            return
         }
         if (e.target.dataset.disabled == true) {
             return
@@ -386,7 +387,7 @@ class PatientDetailsNew extends React.Component {
                 let slot = { time: {} }
                 this.props.selectOpdTimeSLot(slot, false)
             }
-        }else if(hospital){
+        } else if (hospital) {
             priceData.mrp = hospital.mrp
             priceData.deal_price = hospital.deal_price
             priceData.payable_amount = hospital.deal_price
@@ -401,7 +402,11 @@ class PatientDetailsNew extends React.Component {
         }
 
         let total_price = parseInt(priceData.deal_price) + treatment_Price
-        let finalPrice = total_price ? parseInt(total_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
+        let finalPrice = total_price ? parseInt(total_price) : 0
+
+        if (!this.state.is_cashback) {
+            finalPrice = total_price ? parseInt(total_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
+        }
 
         return (
             <div className="profile-body-wrap">
@@ -417,126 +422,119 @@ class PatientDetailsNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                            <SelectedClinic
-                                                                boxShadowHide={true}
-                                                                selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                                selectedClinic={this.state.selectedClinic}
-                                                            />
-                                                            <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}/>
-                                                            
-                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)}/>
-                                                            {
-                                                                Object.values(selectedProcedures).length ?
-                                                                    <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
-                                                                    : ''/*<div className="clearfix pb-list proc-padding-list">
-                                                                        <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>*/
-                                                            }
+                                                        <SelectedClinic
+                                                            boxShadowHide={true}
+                                                            selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
+                                                            selectedClinic={this.state.selectedClinic}
+                                                        />
+                                                        <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
 
-                                                            {
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} />
+                                                        {
+                                                            Object.values(selectedProcedures).length ?
+                                                                <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
+                                                                : ''/*<div className="clearfix pb-list proc-padding-list">
+                                                                        <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>*/
+                                                        }
+
+                                                        {
                                                             (parseInt(priceData.deal_price) + treatment_Price) != 0 ?
                                                                 <div className="widget mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
-                                                                        {
-                                                                            doctorCoupons.length ?
-                                                                                <div className="widget-content d-flex jc-spaceb" >
-                                                                                    <div className="d-flex">
-                                                                                        <span className="coupon-img">
-                                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
-                                                                                        </span>
-                                                                                        <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                            Coupon Applied
-                                                                                        </h4>
-                                                                                    </div>
-                                                                                    <div className=" d-flex">
-                                                                                        <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                            {doctorCoupons[0].code}
-                                                                                        </h4>
-                                                                                        <span className="visit-time-icon coupon-icon">
-                                                                                            <img onClick={(e) => {
-                                                                                                e.stopPropagation();
-                                                                                                let analyticData = {
-                                                                                                    'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
-                                                                                                    'couponId': doctorCoupons[0].coupon_id
-                                                                                                }
-                                                                                                GTM.sendEvent({ data: analyticData })
-                                                                                                this.props.removeCoupons(this.state.selectedDoctor, doctorCoupons[0].coupon_id)
-                                                                                            }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div> :
-                                                                                <div className="widget-content d-flex jc-spaceb" >
-                                                                                    <div className="d-flex">
-                                                                                        <span className="coupon-img">
-                                                                                            <img style={{width: '24px'}} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
-                                                                                        </span>
-                                                                                        <h4 className="title coupon-text">
-                                                                                            HAVE A COUPON?
-                                                                                        </h4>
-                                                                                    </div>
-                                                                                    <div className="visit-time-icon coupon-icon-arrow">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-                                                                                    </div>
-                                                                                </div>
-                                                                        }
-                                                                    </div> : ''
-                                                            }
-
-                                                            <div className="widget mrb-15">
-
-                                                                <div className="widget-content">
-                                                                    <h4 className="title mb-20">Payment Summary</h4>
-                                                                    <div className="payment-summary-content">
-                                                                        <div className="payment-detail d-flex">
-                                                                            <p>Subtotal</p>
-                                                                            <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
-                                                                        </div>
-                                                                        <div className="payment-detail d-flex">
-                                                                            <p>docprime discount</p>
-                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
-                                                                        </div>
-                                                                        {
-                                                                            this.props.disCountedOpdPrice
-                                                                                ? <div className="payment-detail d-flex">
-                                                                                    <p style={{ color: 'green' }}>Coupon discount</p>
-                                                                                    <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
-                                                                                </div>
-                                                                                : ''
-                                                                        }
-                                                                        {
-                                                                            /*    treatment_Price ?
-                                                                                    <div className="payment-detail d-flex">
-                                                                                        <p>Treatment</p>
-                                                                                        <p> &#8377; {treatment_Price}</p>
-                                                                                    </div>
-                                                                                    : ''
-                                                                            
-                                                                            <div className="payment-detail d-flex">
-                                                                                <p>Subtotal</p>
-                                                                                <p> &#8377; {finalPrice || 0}</p>
-                                                                            </div>*/
-                                                                        }
-                                                                    </div>
-                                                                    <hr />
-
                                                                     {
-                                                                        priceData ? <div className="test-report payment-detail mt-20">
-                                                                            <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                            <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
-                                                                        </div> : ""
+                                                                        doctorCoupons.length ?
+                                                                            <div className="widget-content d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
+                                                                                        {this.state.is_cashback ? "Cashback" : "Coupon"} Applied
+                                                                                        </h4>
+                                                                                </div>
+                                                                                <div className=" d-flex">
+                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                        {doctorCoupons[0].code}
+                                                                                    </h4>
+                                                                                    <span className="visit-time-icon coupon-icon">
+                                                                                        <img onClick={(e) => {
+                                                                                            e.stopPropagation();
+                                                                                            let analyticData = {
+                                                                                                'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
+                                                                                                'couponId': doctorCoupons[0].coupon_id
+                                                                                            }
+                                                                                            GTM.sendEvent({ data: analyticData })
+                                                                                            this.props.removeCoupons(this.state.selectedDoctor, doctorCoupons[0].coupon_id)
+                                                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div> :
+                                                                            <div className="widget-content d-flex jc-spaceb" >
+                                                                                <div className="d-flex">
+                                                                                    <span className="coupon-img">
+                                                                                        <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
+                                                                                    </span>
+                                                                                    <h4 className="title coupon-text">
+                                                                                        HAVE A COUPON?
+                                                                                        </h4>
+                                                                                </div>
+                                                                                <div className="visit-time-icon coupon-icon-arrow">
+                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                </div>
+                                                                            </div>
                                                                     }
+                                                                </div> : ''
+                                                        }
 
+                                                        <div className="widget mrb-15">
+
+                                                            <div className="widget-content">
+                                                                <h4 className="title mb-20">Payment Summary</h4>
+                                                                <div className="payment-summary-content">
+                                                                    <div className="payment-detail d-flex">
+                                                                        <p>Subtotal</p>
+                                                                        <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                    </div>
+                                                                    <div className="payment-detail d-flex">
+                                                                        <p>docprime discount</p>
+                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                    </div>
+                                                                    {
+                                                                        this.props.disCountedOpdPrice && !this.state.is_cashback
+                                                                            ? <div className="payment-detail d-flex">
+                                                                                <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
+                                                                            </div>
+                                                                            : ''
+                                                                    }
                                                                 </div>
-                                                            </div>
+                                                                <hr />
 
-                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                                <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                            </div>
+                                                                {
+                                                                    priceData ? <div className="test-report payment-detail mt-20">
+                                                                        <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                        <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
+                                                                    </div> : ""
+                                                                }
+                                                                {
+                                                                    this.state.is_cashback && this.props.disCountedOpdPrice ? <div className="csh-back-applied-container">
+                                                                        <p className="csh-mny-applied">+ Rs {this.props.disCountedOpdPrice} Cashback Applied</p>
+                                                                        <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointent completion</p>
+                                                                    </div> : ""
+                                                                }
 
-                                                            <a href="/terms" target="_blank">
-                                                                <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
-                                                                    <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                    <span className="errorMessage">{this.state.error}</span>
-                                                                </div>
-                                                            </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                                            <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                        </div>
+
+                                                        <a href="/terms" target="_blank">
+                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
+                                                                <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                                <span className="errorMessage">{this.state.error}</span>
+                                                            </div>
+                                                        </a>
 
                                                     </div>
                                                 </div>
@@ -553,7 +551,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                }  onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
                             }
 
                         </div>
