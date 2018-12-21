@@ -77,7 +77,11 @@ class Article extends React.Component {
     }
 
     authorClick() {
-        this.props.history.push(`/opd/doctor/${this.state.articleData.author.id}`)
+        if (this.state.articleData.author.url) {
+            this.props.history.push(this.state.articleData.author.url)
+        } else {
+            this.props.history.push(`/opd/doctor/${this.state.articleData.author.id}`)
+        }
     }
 
     render() {
@@ -209,7 +213,7 @@ class Article extends React.Component {
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                     {
-                                        this.state.articleData ?
+                                        this.state.articleData && this.state.articleData.last_updated_at ?
                                             <div className="last-updated text-right">
                                                 <span>Last updated on : {this.state.articleData.last_updated_at}</span>
                                             </div> : ''
