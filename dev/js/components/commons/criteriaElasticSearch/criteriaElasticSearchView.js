@@ -298,7 +298,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="serch-nw-inputs mb-0">
-                                                        <input className="new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input type="text" autocomplete="off" className="new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
@@ -340,7 +340,7 @@ class CriteriaElasticSearchView extends React.Component {
 
                                             <section>
                                                 {
-                                                    this.state.searchResults.length ?
+                                                    this.state.searchResults.length || this.state.searchValue?
                                                         <div className="widget mb-10" >
                                                             <div className="common-search-container">
                                                                 {/*<p className="srch-heading">{cat.name}</p>*/}
@@ -382,7 +382,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                             })
                                                                         }
                                                                         {
-                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
+                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') )
                                                                                 ? <li onClick={() => {
 
                                                                                     let data = {
@@ -399,7 +399,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                         <p className="p-0" >Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                                     </div>
                                                                                 </li>
-                                                                                : (this.state.searchValue.length > 2 && this.state.searchResults && this.state.searchedCategories.indexOf("lab") > -1)
+                                                                                : (this.state.searchValue.length > 2)
                                                                                     ? <li onClick={() => {
 
                                                                                         let data = {
@@ -419,7 +419,7 @@ class CriteriaElasticSearchView extends React.Component {
 
                                                                         }
                                                                         {
-                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') && this.state.searchedCategories && this.state.searchedCategories.indexOf("doctor") > -1)
+                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') )
                                                                                 ? <li onClick={() => {
 
                                                                                     let data = {
