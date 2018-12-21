@@ -4493,4 +4493,99 @@ color: red;
 .policyNumbeInput .slt-text-input{
     padding-left: 65px;
 }
+.ins-form-group span.number-nine{
+	position: absolute;
+    top: 0;
+    width: 22px;
+    bottom: 0;
+    height: 20px;
+    display: inline-block;
+    font-weight: 500;
+    margin: auto;
+    left: 8px;
+    border-right: 1px solid rgba(0,0,0,.2);
+    padding-right: 6px;
+}
+.tell-hedng{
+	font-size: 15px;
+    font-weight: 500;
+    margin: 14px 3px;
+}
+.fkd-textarea textarea{
+	min-height: 100px;
+	width: 100%;
+    border-color: #d9d9d9;
+	border-radius: 4px;
+	outline: none;
+}
 /* ============= contact PopUp Style ================= */
+/* ============= temp style container ================= */
+.ins-card-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.ins-name-head {
+    display: flex;
+    align-items: center;
+}
+.ins-name-head p {
+    margin-left: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.ins-name-head p span {
+    font-weight: 600;
+    display: block;
+}
+.insurance-member-container {
+    padding: 15px;
+}
+.insurance-member-container h4 {
+    padding: 0;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.ins-form-radio {
+    display: flex;
+}
+.ins-form-radio .dtl-radio {
+    margin-right: 20px;
+}
+.ins-form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.ins-form-group input {
+    padding-left: 34px;
+}
+.form-control-placeholder {
+    position: absolute;
+    top: 4px;
+    padding: 4px 4px 0 4px;
+    transition: all .2s;
+    opacity: .5;
+    left: 30px;
+}
+.ins-form-control:focus+.form-control-placeholder, .ins-form-control:valid+.form-control-placeholder {
+    font-size: 85%;
+    transform: translate3d(0,-62%,0);
+    opacity: 1;
+    background: #fff;
+    color: #e4814f;
+    font-weight: 500;
+    top: 0;
+}
+.ins-form-group img {
+    position: absolute;
+    top: 0;
+    width: 22px;
+    bottom: 0;
+    margin: auto;
+    left: 8px;
+    border-right: 1px solid rgba(0,0,0,.2);
+    padding-right: 6px;
+}
+/* ============= temp style container ================= */
+

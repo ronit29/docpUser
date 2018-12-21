@@ -99,3 +99,7 @@ export const SAVE_CURRENT_LAB_PROFILE_TESTS = 'SAVE_CURRENT_LAB_PROFILE_TESTS'
 //Elastic Search
 export const GET_ELASTIC_RESULTS = 'GET_ELASTIC_RESULTS'
 export const SEARCH_TEST_INFO = 'SEARCH_TEST_INFO'
+
+
+//Ads bookings
+export const ADS_BOOKING = 'ADS_BOOKING'
