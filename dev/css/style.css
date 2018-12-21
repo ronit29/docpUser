@@ -4518,6 +4518,14 @@ color: red;
 	border-radius: 4px;
 	outline: none;
 }
+.adsBookingBtn{
+	background: #f78631;
+	color: white;
+	font-weight: 500;
+	border: none;
+	padding: 10px 20px;
+    border-radius: 4px;
+}
 /* ============= contact PopUp Style ================= */
 /* ============= temp style container ================= */
 .ins-card-head {

@@ -48,7 +48,7 @@ class AdsBookingView extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader />
 
-                <section className="container parent-section book-appointment-section">
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <div className="col-12 col-md-7 col-lg-7 ins-main-padding">
                             <div className="wedget mb-3">
@@ -61,7 +61,6 @@ class AdsBookingView extends React.Component {
 
                                 </div>
                             </div>
-                            {/* insurance input screen */}
                             <section className="section-margin-bottom">
                                 <div className="widget">
                                     <div className="insurance-member-container">
@@ -105,16 +104,18 @@ class AdsBookingView extends React.Component {
                                                         <span className="number-nine">+91</span>
                                                     </div>
                                                 </div>
+                                                <div className="text-center col-12">
+                                                    <button className="adsBookingBtn" onClick={this.handleSubmit.bind(this)}>Submit
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </section>
-                            {/* insurance input screen */}
-                            {/* ===============isurance 6th screen=============== */}
                         </div>
-                        <div onClick={this.handleSubmit.bind(this)}>
-                        <ChatPanel newChatBtnAds={true} bookingsGA={this.state.bookingsGA} />
+                        <div className="col-md-5 mb-3" onClick={this.handleSubmit.bind(this)}>
+                            <ChatPanel newChatBtnAds={true} />
                         </div>
                     </div>
                 </section>
