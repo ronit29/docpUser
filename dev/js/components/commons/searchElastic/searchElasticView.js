@@ -55,6 +55,13 @@ class SearchElasticView extends React.Component {
             }
         }, true)
 
+        let selectedTestIds = this.props.dataState.selectedCriterias.map(test=>test.id)
+        let selectedTestsName = this.props.dataState.selectedCriterias.map(test=>test.name)
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShowLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-lab-clicked', 'SelectedTestIds': selectedTestIds.join(',') || '', 'SelectedTestName': selectedTestsName.join(','), 'TestCount': selectedTestIds.length || 0
+        }
+        GTM.sendEvent({ data: data })
+
         this.props.history.push({
             pathname: '/lab/searchresults',
             state: { search_back: true }

@@ -130,7 +130,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('procedure_ids')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -139,7 +139,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('specializations')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -149,7 +149,7 @@ class CriteriaElasticSearchView extends React.Component {
             } else if (criteria.action.param.includes('doctor_name')) {
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '', 'searched': 'autosuggest', 'doctorId': criteria.action.value[0]
+                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched' , 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -168,13 +168,19 @@ class CriteriaElasticSearchView extends React.Component {
         } else {
 
             if (criteria.type == "lab") {
+
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                }
+                GTM.sendEvent({ data: data })
+
                 this.props.history.push(`/lab/${criteria.action.value[0]}`)
                 return
             } else if (criteria.type == "lab_test") {
 
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'TestSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-searched', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '','searched':'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -188,7 +194,7 @@ class CriteriaElasticSearchView extends React.Component {
                     if (selectedTestIds.indexOf(criteria.action.test_type[0]) == -1) {
                         this.setState({ currentTestType: criteria, searchValue: "" })
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searchString': this.state.searchValue
+                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTestError', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test-error', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '','searched':'autosuggest', 'searchString': this.state.searchValue
                         }
                         GTM.sendEvent({ data: data })
                         return
@@ -222,7 +228,7 @@ class CriteriaElasticSearchView extends React.Component {
     clickPopUp(type) {
         if (type == 1) {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || '', 'searchString': this.state.searchValue
+                'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || '','searched':'autosuggest', 'searchString': this.state.searchValue
             }
             GTM.sendEvent({ data: data })
             let criteria = this.state.currentTestType
@@ -231,7 +237,7 @@ class CriteriaElasticSearchView extends React.Component {
             this.props.toggleDiagnosisCriteria('test', criteria, true)
         } else {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup', 'searchString': this.state.searchValue
+                'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup','searched':'autosuggest', 'searchString': this.state.searchValue
             }
         }
         if (document.getElementById('search_results_view')) {
@@ -242,7 +248,7 @@ class CriteriaElasticSearchView extends React.Component {
 
     focusOut() {
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searchString': this.state.searchValue
+            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur','searched':'', 'searchString': this.state.searchValue
         }
         GTM.sendEvent({ data: data })
     }
@@ -397,7 +403,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     ? <li onClick={() => {
 
                                                                                         let data = {
-                                                                                            'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'SearchString': this.state.searchValue || '', 'searched': ''
+                                                                                            'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId':'',  'searched': '', 'searchString': this.state.searchValue || ''
                                                                                         }
                                                                                         GTM.sendEvent({ data: data })
 

@@ -37,7 +37,8 @@ class DoctorProfileView extends React.Component {
             numberShown: "",
             searchShown: false,
             searchDataHidden: this.props.location.search.includes('hide_search_data'),
-            openContactPopup: false
+            openContactPopup: false,
+            clinicPhoneNo:{}
         }
     }
 
@@ -68,7 +69,11 @@ class DoctorProfileView extends React.Component {
     }
 
     selectClinic(clinic_id, is_live, rank, consultation_fee) {
-        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee })
+        let clinicPhoneNo = this.state.clinicPhoneNo
+        if(!clinicPhoneNo[clinic_id]){
+            clinicPhoneNo[clinic_id] = ""
+        }
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo })
     }
 
     navigateToClinic(doctor_id, clinicId) {
@@ -96,6 +101,11 @@ class DoctorProfileView extends React.Component {
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
         }
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'SubmitPhoneNo', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'submit-phone-no', 'doctor_id': doctor_id, "hospital_id": this.state.selectedClinic, 'phoneNo': mobileNo
+        }
+        GTM.sendEvent({ data: data })
         let postData = {
             "mobile": mobileNo,
             "doctor": doctor_id,
@@ -103,9 +113,14 @@ class DoctorProfileView extends React.Component {
         }
         this.props.getDoctorNo(postData, (err, data) => {
             if(!err && data){
+
+                let clinicPhoneNo = this.state.clinicPhoneNo
+                clinicPhoneNo[this.state.selectedClinic] = data.number
+
                 this.setState({
                     numberShown: data.number,
-                    openContactPopup: false
+                    openContactPopup: false,
+                    clinicPhoneNo:clinicPhoneNo
                 })
             }
         })
@@ -118,7 +133,7 @@ class DoctorProfileView extends React.Component {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'doctor_id': id, "hospital_id": this.state.selectedClinic
         }
-        if (!this.state.numberShown) {
+        if (!this.state.clinicPhoneNo[this.state.selectedClinic]) {
             GTM.sendEvent({ data: data })
             /*this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
                 if (!err && data.number) {
@@ -262,13 +277,28 @@ class DoctorProfileView extends React.Component {
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     }
-                                                    <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
+                                                    {
+                                                        this.state.clinicPhoneNo[this.state.selectedClinic]
+                                                        ?<div className="dpp-btn-div fixed horizontal bottom sticky-btn">
+                                                            <a href={`tel:${this.state.clinicPhoneNo[this.state.selectedClinic]}`} className="dpp-btn-book d-lg-none d-flex">
+                                                                <p><img style={{width: '20px', marginRight: '4px', position: 'relative', left: '-3px', bottom: '-2px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
+                                                                   {this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
+                                                            </a>
+                                                            <div className="dpp-btn-book d-lg-flex d-none">
+                                                                <p>{this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
+                                                            </div>
+                                                        </div>   
+                                                        :<div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
+                                                            <p>View Contact</p>
+                                                        </div>
+                                                    }
+                                                    {/*<div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
                                                         <p>{
                                                             this.state.numberShown?
-                                                            <img style={{width: '20px', marginRight: '4px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
+                                                            <img style={{width: '20px', marginRight: '4px', position: 'relative', left: '-3px', bottom: '-2px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
                                                             :''
                                                             }{this.state.numberShown || "View Contact"}</p>
-                                                    </div>
+                                                    </div>*/}
                                                     {
                                                         this.state.openContactPopup?
                                                         <ContactPoupView toggle={this.toggle.bind(this, 'openContactPopup')} mobileNo={this.props.primaryMobile} getDoctor = {this.getDoctorNo.bind(this)}/>
