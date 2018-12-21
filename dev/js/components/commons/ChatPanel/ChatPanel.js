@@ -288,7 +288,11 @@ class ChatPanel extends React.Component {
         let botAgent = false
         if (this.props.location.search.includes('botagent')) {
             botAgent = true
-            iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
+            if (this.props.type && this.props.type == 'opd') {
+                iframe_url += `&botagent=DocPrimeSOT&source=doctorlistingchatnow`
+            } else {
+                iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
+            }
         }
 
         let chatBtnContent1 = ''
