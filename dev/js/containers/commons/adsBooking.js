@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        userCreate: (criteria,callback) => dispatch(userCreate(criteria,callback)),
+        userCreate: (criteria,callback) => dispatch(userCreate(criteria,callback))
     }
 }
 

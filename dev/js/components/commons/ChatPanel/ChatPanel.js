@@ -260,7 +260,7 @@ class ChatPanel extends React.Component {
                 'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
             }
             GTM.sendEvent({ data: data })
-        } else if(this.props.newChatBtn && this.props.bookingsGA){
+        } else if(this.props.newChatBtnAds && this.props.bookingsGA){
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
             let data = {
                 'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
@@ -295,6 +295,7 @@ class ChatPanel extends React.Component {
         if (this.props.location.search.includes('botagent')) {
             botAgent = true
             iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
+            //leadformchatnow
         }
 
         let chatBtnContent1 = ''
@@ -302,7 +303,7 @@ class ChatPanel extends React.Component {
         if (this.props.articleData) {
             chatBtnContent1 = 'Chat now with doctor'
             chatBtnContent2 = 'about ' + this.props.articleData.title.split('|')[0] + ' and related queries'
-        } else if (this.props.newChatBtn) {
+        } else if (this.props.newChatBtn || this.props.newChatBtnAds) {
             chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
 
@@ -310,7 +311,7 @@ class ChatPanel extends React.Component {
             <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : "col-md-5 mb-3"}>
                 {
                     this.props.homePage || this.props.mobilechatview ? '' :
-                        this.props.articleData || this.props.newChatBtn ?
+                        this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
                             <div className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
                             </div> :

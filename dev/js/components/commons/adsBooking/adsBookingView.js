@@ -22,19 +22,28 @@ class AdsBookingView extends React.Component {
     handleSubmit() {
         let member_data = {}
         if(this.state.gender != '' && this.state.name != '' && this.state.message != '' && this.state.phonenumber != ''){
-            member_data.gender = this.state.gender
-            member_data.name = this.state.name
-            member_data.message = this.state.message
-            member_data.phonenumber = this.state.phonenumber
-            this.props.userCreate(member_data,(resp)=>{
-                // this.setState({bookingsGA:true})    
-            })
+            if(this.state.phonenumber.length < 10){
+               SnackBar.show({ pos: 'bottom-center', text: "Enter Valid phone number" }); 
+            }else{
+                member_data.gender = this.state.gender
+                member_data.name = this.state.name
+                member_data.message = this.state.message
+                member_data.phone_number = this.state.phonenumber
+                console.log(member_data)
+                this.props.userCreate(member_data,(resp)=>{
+                    this.setState({bookingsGA:true})    
+                })
+            }
         }else{
-            SnackBar.show({ pos: 'bottom-center', text: "All feilds are manadtory" });
+            SnackBar.show({ pos: 'bottom-center', text: "All fields are manadtory" });
+        }
+    }
+    handlekey(event){
+        if(this.state.phonenumber.length == 10){
+            event.preventDefault();
         }
     }
     render() {
-        console.log(this.state)
         return <div>
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -46,7 +55,7 @@ class AdsBookingView extends React.Component {
                                 <div className="ins-card-head">
                                     <div className="ins-name-head">
                                         <p className="m-0">
-                                            Find best medical services near you
+                                            Get exclusive discounts on best medical services near you 
                                         </p>
                                     </div>
 
@@ -91,7 +100,7 @@ class AdsBookingView extends React.Component {
                                                 </div>
                                                 <div className="col-12">
                                                     <div className="ins-form-group">
-                                                        <input type="number" id="number" className="form-control ins-form-control" required autoComplete="off" data-param="phonenumber" onChange={this.handleChange.bind(this, 'phonenumber')} value={this.state.phonenumber} />
+                                                        <input type="number" id="number" className="form-control ins-form-control" required autoComplete="off" data-param="phonenumber" onChange={this.handleChange.bind(this, 'phonenumber')} value={this.state.phonenumber} onKeyPress={this.handlekey.bind(this)}/>
                                                         <label className="form-control-placeholder" htmlFor="number">Phone Number</label>
                                                         <span className="number-nine">+91</span>
                                                     </div>
@@ -105,7 +114,7 @@ class AdsBookingView extends React.Component {
                             {/* ===============isurance 6th screen=============== */}
                         </div>
                         <div onClick={this.handleSubmit.bind(this)}>
-                        <ChatPanel newChatBtn={true} bookingsGA={this.state.bookingsGA} />
+                        <ChatPanel newChatBtnAds={true} bookingsGA={this.state.bookingsGA} />
                         </div>
                     </div>
                 </section>
