@@ -50,7 +50,7 @@ class TopBar extends React.Component {
         if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (this.props.locationType.includes("geo")) {
+            if (this.props.locationType && this.props.locationType.includes("geo")) {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
             }
         }

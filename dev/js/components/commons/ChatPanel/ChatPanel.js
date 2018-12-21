@@ -293,7 +293,7 @@ class ChatPanel extends React.Component {
 
         let chatBtnContent1 = ''
         let chatBtnContent2 = ''
-        if (this.props.articleData) {
+        if (this.props.articleData && this.props.articleData.title) {
             chatBtnContent1 = 'Chat now with doctor'
             chatBtnContent2 = 'about ' + this.props.articleData.title.split('|')[0] + ' and related queries'
         } else if (this.props.newChatBtn) {

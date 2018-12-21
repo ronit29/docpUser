@@ -188,6 +188,7 @@ class App extends React.Component {
 
         return (
             <div>
+                <div id="map" style={{ display: 'none' }}></div>
                 <NotificationsBoot />
                 <BrowserRouter>
                     <div>
