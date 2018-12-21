@@ -900,6 +900,10 @@ figure>img{
     box-shadow: 0 2px 2px 0 rgba(211, 211, 211, 0.4);
 }
 
+.dp-article-heading>h1{
+    font-size: 30px;
+}
+
 .docprime-article p{
     font-size: 16px;
     margin-bottom: 10px;
@@ -1446,4 +1450,39 @@ span.free-ofr-ribbon:after {
 
 .docprime-article{
     word-break: break-word;
+}
+
+.article-author-div{
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.initialsPicture-author{
+    width: 40px;
+    height: 40px;
+    font-size: 1.3em;
+    margin-right: 8px;
+}
+
+.author-dtls{
+    flex: 1;
+}
+
+.author-name-div>h3{
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.author-exp-div{
+    display: flex;
+    align-items: center;
+}
+
+.author-exp-div>span, .article-date>span, .last-updated>span{
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+    line-height: 14px;
+    margin-bottom: 4px;
 }
