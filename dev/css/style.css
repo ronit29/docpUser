@@ -4432,7 +4432,9 @@ input.rc-calendar-input {
     font-weight: 500;
 }
 .csh-trns-price{
-    font-weight: 500;
+	font-weight: 500;
+	min-width: 90px;
+    text-align: right;
 }
 .pls-sgn{
 	color: #18da1d;

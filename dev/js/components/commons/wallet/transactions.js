@@ -61,13 +61,13 @@ class Transactions extends React.Component {
                 return "Added money to wallet"
             }
             case 2: {
-                return ""
+                return "Amount refunded to the payment source"
             }
             case 3: {
                 return `Paid for ${PRODUCT[product_id]} appointment`
             }
             case 4: {
-                return ""
+                return "Refund for rescheduled appointment"
             }
             case 5: {
                 return "Cashback credited for appointment"
