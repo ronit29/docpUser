@@ -174,6 +174,10 @@ class Article extends React.Component {
                                             </div> : ""
                                     }
 
+                                    {
+                                        this.state.articleData && this.state.articleData.heading_title ? <h1 style={{ fontWeight: 500 }}>{this.state.articleData.heading_title}</h1> : ""
+                                    }
+
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
                                 </div> : ""
