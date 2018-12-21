@@ -250,7 +250,7 @@ class LocationSearch extends React.Component {
                                         <button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={() => this.doneBtnClick()}>Done</button>
                                     </section> : ''
                             }
-                            
+                            <div id="map" style={{ display: 'none' }}></div>
                         </div>
 
                         {

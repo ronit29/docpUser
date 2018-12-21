@@ -169,7 +169,7 @@ class SearchResultsView extends React.Component {
                 }
                 var distance = 0
 
-                if (typeof google != undefined) {
+                if (google) {
                     var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
                 }
 
@@ -216,7 +216,7 @@ class SearchResultsView extends React.Component {
 
         return (
             <div>
-                
+                <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
