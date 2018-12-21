@@ -29,9 +29,14 @@ class AdsBookingView extends React.Component {
                 member_data.name = this.state.name
                 member_data.message = this.state.message
                 member_data.phone_number = this.state.phonenumber
-                console.log(member_data)
                 this.props.userCreate(member_data,(resp)=>{
-                    this.setState({bookingsGA:true})    
+                    if(resp.status){
+                        this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+                        let data = {
+                            'Category': 'Chat', 'Action': 'getHelpBtnClick-leadform', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked-leadform', "url": window.location.pathname
+                        }
+                        GTM.sendEvent({ data: data })    
+                    }
                 })
             }
         }else{
