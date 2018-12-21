@@ -33,7 +33,7 @@ class AdsBookingView extends React.Component {
                     if(resp.status){
                         this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
                         let data = {
-                            'Category': 'Chat', 'Action': 'getHelpBtnClick-leadform', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked-leadform', "url": window.location.pathname
+                            'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked-leadform', "url": window.location.pathname
                         }
                         GTM.sendEvent({ data: data })    
                     }
