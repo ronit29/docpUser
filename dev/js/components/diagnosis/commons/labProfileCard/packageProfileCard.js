@@ -68,7 +68,7 @@ class LabProfileCard extends React.Component {
         }
     }
     render() {
-        let { deal_price, lab, distance, pickup_available, lab_timing, lab_timing_data,  next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id } = this.props.details;
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data,  next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -84,7 +84,7 @@ class LabProfileCard extends React.Component {
 
         if (lab.is_home_collection_enabled && !distance_related_charges) {
             pickup_text = "Inclusive of home visit charges"
-            deal_price = 4000
+            price = parseInt(price) + parseInt(pickup_charges)
         }
 
         // let hide_price = false
@@ -95,10 +95,10 @@ class LabProfileCard extends React.Component {
         //         }
         //     })
         // }
-        let mrp = 8000
+        let mrp = price
         let offPercent = ''
-        if (mrp && deal_price && (deal_price < mrp)) {
-            offPercent = parseInt(((mrp - deal_price) / mrp) * 100);
+        if (mrp && price && (price < mrp)) {
+            offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
         return (
            <div className="filter-card-dl mb-3">
@@ -139,8 +139,9 @@ class LabProfileCard extends React.Component {
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
                                 {
-                                     deal_price ? <p className="fltr-prices" style={{ marginTop: '4px' }}>₹ {deal_price?deal_price:''}<span className="fltr-cut-price">₹ {mrp}</span></p> : ''
-                                        }
+                                     price ? <p className="fltr-prices" style={{ marginTop: '4px' }}>₹ {price}
+                                     <span className="fltr-cut-price">₹ {mrp}</span></p> : ''
+                                }
                                 <div className="signup-off-container">
                                     <span className="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b> </span>
                                 </div><button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
@@ -155,7 +156,7 @@ class LabProfileCard extends React.Component {
                                         this.props.details.tests.map((test, i) => {
                                             return <li className="fltr-slected-test" key={i}>
                                                 <label style={{ fontWeight: 400 }}>{test.name}</label>
-                                                <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                                <p style={{ fontWeight: 400 }}>&#x20B9; {test.price} <span>&#x20B9; {test.mrp}</span></p>
                                             </li>
                                         })
                                     }
