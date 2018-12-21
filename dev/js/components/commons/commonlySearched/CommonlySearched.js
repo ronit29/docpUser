@@ -22,14 +22,14 @@ class CommonlySearched extends React.Component {
         } else if (this.props.type == 'speciality') {
 
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+                'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': row.name || '', 'selectedId': row.id || '','searched': '', 'searchString': ''
             }
             GTM.sendEvent({ data: data })
 
         } else if (this.props.type == 'test') {
 
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+                'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || '','searched':'', 'searchString': ''
             }
             GTM.sendEvent({ data: data })
 
@@ -39,6 +39,11 @@ class CommonlySearched extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
+        }else if(this.props.type == 'procedures'){
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+            }
+            GTM.sendEvent({ data: data })            
         }
         this.props.toggle((this.props.type || row.type), row)
     }

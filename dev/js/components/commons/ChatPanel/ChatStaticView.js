@@ -125,7 +125,7 @@ class ChatStatic extends React.Component {
                                                     <div className="in-mssgs">
                                                         <div className="received-msg HS_font">
                                                             <p className="chat-text">
-                                                                Hi, Welcome to docprime!
+                                                                Hi, welcome to docprime. Briefly describe your symptom or health concern (e.g. I have a fever).
                                               <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                 }</span>
                                                             </p>
@@ -141,11 +141,11 @@ class ChatStatic extends React.Component {
                                                                     Start chat for an instant consultation and absolutely free prescription with our doctors.`}
                                                                     <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                     }</span>
-                                                                </p> : <p className="chat-text">
+                                                                </p> :'' /*<p className="chat-text">
                                                                         Briefly describe the symptom/health concern worrying you the most (e.g. I have a fever) or simply ask any query.
                                                                 <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                         }</span>
-                                                                    </p>
+                                                                    </p>*/
                                                             }
 
                                                         </div>
