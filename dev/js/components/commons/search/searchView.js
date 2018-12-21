@@ -102,7 +102,7 @@ class SearchView extends React.Component {
     render() {
         return (
             <section>
-                <div id="map" style={{ display: 'none' }}></div>
+                
                 <div className="container-fluid">
 
                     {

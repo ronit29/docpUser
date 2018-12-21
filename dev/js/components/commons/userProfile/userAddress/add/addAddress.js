@@ -244,7 +244,7 @@ class UserSignupView extends React.Component {
                 </header> */}
 
                 <section className="validation-book-screen" onClick={this.closeResults.bind(this)}>
-                    <div id="map" style={{ display: 'none' }}></div>
+                    
                     <div className="widget no-round no-shadow">
                         <div className="widget-content">
                             <form className="go-bottom">

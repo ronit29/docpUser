@@ -56,7 +56,7 @@ class SearchCriteriaView extends React.Component {
     render() {
         return (
             <div>
-                <div id="map" style={{ display: 'none' }}></div>
+                
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_SEARCH_CRITERIA_OPD} title="Search for disease or doctor" type="opd" paddingTopClass={true} searchProceed={this.searchProceed.bind(this)} focusInput={this.state.focusInput}>
                     <section className="opd-search-section mbl-pdng-zero">
                         {

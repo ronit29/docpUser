@@ -40,7 +40,10 @@ class UserProfile extends React.Component {
     }
 
     render() {
+        if (!STORAGE.checkAuth()) {
+            return ""
 
+        }
         return (
             <UserProfileView {...this.props} />
         );
