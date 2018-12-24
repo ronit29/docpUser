@@ -1,4 +1,4 @@
-import { AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -250,3 +250,13 @@ export function chat_utm(term) {
     let url = CONFIG.CHAT_API_URL + `/livechat/healthservices/intentresponse/BasicEnquiry?text=${term}`
     return Axios.get(url)
 }
+
+export const set_summary_utm = (toggle = false, validity = null) => (dispatch) => {
+    dispatch({
+        type: SET_SUMMARY_UTM,
+        payload: {
+            toggle,
+            validity
+        }
+    })
+} 

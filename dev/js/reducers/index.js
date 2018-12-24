@@ -51,6 +51,12 @@ const LAB_SEARCH_PERSIST = {
     blacklist: ['fetchNewResults', 'page']
 }
 
+const AUTH_PERSIST = {
+    key: 'AUTH',
+    storage: storage,
+    whitelist: ['summary_utm_validity', 'summary_utm']
+}
+
 const allReducers = combineReducers({
     SEARCH_CRITERIA_OPD: persistReducer(OPD_SEARCH_PERSIST, SEARCH_CRITERIA_OPD),
     SEARCH_CRITERIA_LABS: persistReducer(LAB_SEARCH_PERSIST, SEARCH_CRITERIA_LABS),
@@ -59,7 +65,7 @@ const allReducers = combineReducers({
     LABS,
     LAB_SEARCH: persistReducer(LAB_LIST_PRESIST, LAB_SEARCH),
     USER: persistReducer(USER_PERSIST, USER),
-    AUTH,
+    AUTH: persistReducer(AUTH_PERSIST, AUTH),
     SITE_MAP,
     DOCTOR_PROFILES,
     LAB_SEARCH_DATA,
