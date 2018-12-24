@@ -45,6 +45,9 @@ class SearchPackagesView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        console.log(props.fetchNewResults)
+        console.log('props')
+        console.log(this.props.fetchNewResults)
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getLabList(props)
             // if (window) {
@@ -93,6 +96,14 @@ class SearchPackagesView extends React.Component {
             window.scrollTo(0, 0)
         }
     }
+    applyCategories(categoryState) {
+        let newCategoryState = []
+        newCategoryState['catIds'] = categoryState
+        this.props.mergeLABState({ filterCriteria: newCategoryState })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
 
     buildURI(state) {
         let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
@@ -119,10 +130,10 @@ class SearchPackagesView extends React.Component {
         let sort_on = filterCriteria.sort_on || ""
         let lab_name = filterCriteria.lab_name || ""
         let network_id = filterCriteria.network_id || ""
-
+        let cat_ids = filterCriteria.catIds || ""
         // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
 
-        let url = `${window.location.pathname}?lat=${lat}&long=${long}`
+        let url = `${window.location.pathname}?lat=${lat}&long=${long}&cat_ids=${cat_ids}`
 
         if (this.state.lab_card) {
             url += `&lab_card=true`
@@ -175,7 +186,6 @@ class SearchPackagesView extends React.Component {
 
     render() {
         let LOADED_LABS_SEARCH = true
-        console.log(this.props)
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -185,7 +195,7 @@ class SearchPackagesView extends React.Component {
                     description: this.getMetaTagsData(this.state.seoData).description
                 }} noIndex={!this.state.seoFriendly} />                
                 <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
-                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                     <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />

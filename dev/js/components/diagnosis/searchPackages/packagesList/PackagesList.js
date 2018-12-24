@@ -90,11 +90,12 @@ class packagesList extends React.Component {
                             <div className="row">
                                 <div className="col-12">
                                 {
-                                    this.props.searchPackagesData.result.map((packages, i) => {
+                                    this.props.searchPackagesData.result ?this.props.searchPackagesData.result.map((packages, i) => {
                                     return <div>
                                             <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                         </div>
                                         })
+                                    :''
                                 }
 
                                     {/*<InfiniteScroll

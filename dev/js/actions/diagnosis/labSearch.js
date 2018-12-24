@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH,SEARCH_HEALTH_PACKAGES } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
@@ -292,12 +292,18 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		if (typeof long === 'function') long = long()
 
 	}
-	let min_distance = filterCriteria.distanceRange[0]
-	let max_distance = filterCriteria.distanceRange[1]
-	let min_price = filterCriteria.priceRange[0]
-	let max_price = filterCriteria.priceRange[1]
-	let sort_on = filterCriteria.sort_on || ""
-
+	let min_distance
+	let max_distance
+	let min_price
+	let max_price
+	let sort_on
+	if(filterCriteria.length>0){
+	min_distance = filterCriteria.distanceRange[0]
+	max_distance = filterCriteria.distanceRange[1]
+	min_price = filterCriteria.priceRange[0]
+	max_price = filterCriteria.priceRange[1]
+	sort_on = filterCriteria.sort_on || ""
+	}
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.lab_name) {
 		testIds = ""
@@ -310,7 +316,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	// url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
-	url += `long=${long || ""}&lat=${lat || ""}`
+	url += `long=${long || ""}&lat=${lat || ""}&cat_ids=`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
@@ -324,7 +330,8 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		if (response) {
 			dispatch({
 				type: SEARCH_HEALTH_PACKAGES,
-				payload: response
+				payload: response,
+				fetchNewResults: false
 			})
 		} 
 		// let tests = response.tests.map((x) => {
@@ -332,33 +339,33 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		// 	return x
 		// })
 
-		// let selectedCriterias = tests || []
+		let selectedCriterias = tests || []
 
-		// dispatch({
-		// 	type: MERGE_SEARCH_STATE_LAB,
-		// 	payload: {
-		// 		selectedCriterias
-		// 	},
-		// 	fetchNewResults: false
-		// })
+		dispatch({
+			type: MERGE_SEARCH_STATE_LAB,
+			payload: {
+				selectedCriterias
+			},
+			fetchNewResults: false
+		})
 
-		// dispatch({
-		// 	type: SET_FETCH_RESULTS_LAB,
-		// 	payload: false
-		// })
+		dispatch({
+			type: SET_FETCH_RESULTS_LAB,
+			payload: false
+		})
 
-		// dispatch({
-		// 	type: APPEND_LABS_SEARCH,
-		// 	payload: response.result
-		// })
+		dispatch({
+			type: APPEND_LABS_SEARCH,
+			payload: response.result
+		})
 
-		// dispatch({
-		// 	type: LAB_SEARCH,
-		// 	payload: {
-		// 		page, ...response
-		// 	}
+		dispatch({
+			type: LAB_SEARCH,
+			payload: {
+				page, ...response
+			}
 
-		// })
+		})
 
 		if (page == 1) {
 			let data = {
@@ -379,3 +386,4 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		throw error
 	})
 }
+

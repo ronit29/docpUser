@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, SEARCH_HEALTH_PACKAGES } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO} from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -22,8 +22,7 @@ const defaultState = {
     fetchNewResults: false,
     corporateCoupon: "",
     currentLabSelectedTests: [],
-    searchTestInfoData:{},
-    searchPackagesData:[]
+    searchTestInfoData:{}
 }
 
 export default function (state = defaultState, action) {
@@ -250,11 +249,6 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.searchTestInfoData = action.payload
-            return newState
-        }
-        case SEARCH_HEALTH_PACKAGES: {
-            let newState = { ...state }
-            newState.searchPackagesData = action.payload
             return newState
         }
 
