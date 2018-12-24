@@ -149,7 +149,7 @@ class CriteriaElasticSearchView extends React.Component {
             } else if (criteria.action.param.includes('doctor_name')) {
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched' , 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -180,7 +180,7 @@ class CriteriaElasticSearchView extends React.Component {
 
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '','searched':'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -194,7 +194,7 @@ class CriteriaElasticSearchView extends React.Component {
                     if (selectedTestIds.indexOf(criteria.action.test_type[0]) == -1) {
                         this.setState({ currentTestType: criteria, searchValue: "" })
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTestError', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test-error', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '','searched':'autosuggest', 'searchString': this.state.searchValue
+                            'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTestError', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test-error', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                         }
                         GTM.sendEvent({ data: data })
                         return
@@ -228,7 +228,7 @@ class CriteriaElasticSearchView extends React.Component {
     clickPopUp(type) {
         if (type == 1) {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || '','searched':'autosuggest', 'searchString': this.state.searchValue
+                'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
             }
             GTM.sendEvent({ data: data })
             let criteria = this.state.currentTestType
@@ -237,7 +237,7 @@ class CriteriaElasticSearchView extends React.Component {
             this.props.toggleDiagnosisCriteria('test', criteria, true)
         } else {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup','searched':'autosuggest', 'searchString': this.state.searchValue
+                'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup', 'searched': 'autosuggest', 'searchString': this.state.searchValue
             }
         }
         if (document.getElementById('search_results_view')) {
@@ -248,7 +248,7 @@ class CriteriaElasticSearchView extends React.Component {
 
     focusOut() {
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur','searched':'', 'searchString': this.state.searchValue
+            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue
         }
         GTM.sendEvent({ data: data })
     }
@@ -298,7 +298,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="serch-nw-inputs mb-0">
-                                                        <input type="text" autocomplete="off" className="new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input type="text" autocomplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                            if (this.props.goBack) {
+                                                                this.props.history.go(-1)
+                                                            }
+                                                        }} onBlur={() => this.focusOut()} />
+                                                        <input type="text" autocomplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
@@ -340,7 +345,7 @@ class CriteriaElasticSearchView extends React.Component {
 
                                             <section>
                                                 {
-                                                    this.state.searchResults.length || this.state.searchValue?
+                                                    this.state.searchResults.length || this.state.searchValue ?
                                                         <div className="widget mb-10" >
                                                             <div className="common-search-container">
                                                                 {/*<p className="srch-heading">{cat.name}</p>*/}
@@ -382,7 +387,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                             })
                                                                         }
                                                                         {
-                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') )
+                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures'))
                                                                                 ? <li onClick={() => {
 
                                                                                     let data = {
@@ -403,7 +408,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     ? <li onClick={() => {
 
                                                                                         let data = {
-                                                                                            'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId':'',  'searched': '', 'searchString': this.state.searchValue || ''
+                                                                                            'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || ''
                                                                                         }
                                                                                         GTM.sendEvent({ data: data })
 
@@ -419,7 +424,7 @@ class CriteriaElasticSearchView extends React.Component {
 
                                                                         }
                                                                         {
-                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures') )
+                                                                            (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures'))
                                                                                 ? <li onClick={() => {
 
                                                                                     let data = {
