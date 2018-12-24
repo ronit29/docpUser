@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LabsList from '../searchPackages/labsList/index.js'
+import LabsList from '../searchPackages/packagesList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
 import NAVIGATE from '../../../helpers/navigate/index.js';
