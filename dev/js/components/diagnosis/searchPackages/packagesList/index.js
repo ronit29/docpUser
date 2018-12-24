@@ -1,3 +1,3 @@
-import PackagesList from './PackagesList.js'
+import PackagesLists from './PackagesList.js'
 
-export default PackagesList
+export default PackagesLists

@@ -6,7 +6,7 @@ import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
 import LabResultCard from '../../commons/labResultCard'
 
-class PackagesList extends React.Component {
+class packagesList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -156,4 +156,4 @@ class PackagesList extends React.Component {
 }
 
 
-export default PackagesList
+export default packagesList

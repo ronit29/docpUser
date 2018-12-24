@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LabsList from '../searchPackages/packagesList/index.js'
+import PackagesLists from '../searchPackages/packagesList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
 import NAVIGATE from '../../../helpers/navigate/index.js';
@@ -186,7 +186,7 @@ class SearchPackagesView extends React.Component {
                 }} noIndex={!this.state.seoFriendly} />                
                 <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                    <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
+                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />
             </div>
