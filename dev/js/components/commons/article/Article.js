@@ -7,6 +7,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../Home/footer'
 import GTM from '../../../helpers/gtm'
+import InitialsPicture from '../initialsPicture';
 // import RelatedArticles from './RelatedArticles'
 
 class Article extends React.Component {
@@ -72,6 +73,15 @@ class Article extends React.Component {
     whatsappClick() {
         if (window) {
             window.open(`https://wa.me/?text=${document.URL}`);
+        }
+    }
+
+    authorClick(e) {
+        e.preventDefault()
+        if (this.state.articleData.author.url) {
+            this.props.history.push(this.state.articleData.author.url)
+        } else {
+            this.props.history.push(`/opd/doctor/${this.state.articleData.author.id}`)
         }
     }
 
@@ -153,7 +163,7 @@ class Article extends React.Component {
                                         </div>
                                     </div>
 
-                                    {
+                                    {/* {
                                         this.state.medicineURL ?
                                             <div className="mrt-20 mrb-10 article-chat-div d-md-none">
                                                 <p className="fw-500">Ask a doctor about {this.state.articleData.title.split('|')[0]} and any related queries.</p>
@@ -165,7 +175,7 @@ class Article extends React.Component {
                                                     this.props.history.push('/mobileviewchat')
                                                 }} >Chat Now</button>
                                             </div> : ''
-                                    }
+                                    } */}
 
                                     {
                                         this.state.articleData.header_image ?
@@ -174,8 +184,50 @@ class Article extends React.Component {
                                             </div> : ""
                                     }
 
+                                    {
+                                        this.state.articleData && this.state.articleData.heading_title ? <div className="dp-article-heading mrb-20">
+                                            <h1 className="fw-500">{this.state.articleData.heading_title}</h1>
+                                        </div> : ""
+                                    }
+
+
+                                    {
+                                        this.state.articleData && this.state.articleData.author ?
+                                            <div className="article-author-div mrb-20">
+                                                <InitialsPicture className="initialsPicture-ds initialsPicture-author" name={this.state.articleData.author.name} has_image={!!this.state.articleData.author.profile_img} >
+                                                    <img className="fltr-usr-image img-round" src={this.state.articleData.author.profile_img} alt={`Dr. ${this.state.articleData.author.name}`} title={`Dr. ${this.state.articleData.author.name}`} />
+                                                </InitialsPicture>
+                                                <div className="author-dtls">
+                                                    <div className="author-name-div">
+                                                        <span style={{ margin: '0 6px 0 0' }}>Written By :</span>
+                                                        {
+                                                            this.state.articleData.author.url ?
+                                                                <a href={`/${this.state.articleData.author.url}`} onClick={(e) => this.authorClick(e)}>
+                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
+                                                                </a> :
+                                                                <a href={`/opd/doctor/${this.state.articleData.author.id}`} onClick={(e) => this.authorClick(e)}>
+                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
+                                                                </a>
+                                                        }
+                                                    </div>
+                                                    <div className="author-exp-div">
+                                                        <span>{this.state.articleData.author.speciality[0].name} | {this.state.articleData.author.experience} years of experience</span>
+                                                    </div>
+                                                    <div className="article-date">
+                                                        <span>Published Date : {this.state.articleData.published_date}</span>
+                                                    </div>
+                                                </div>
+                                            </div> : ''
+                                    }
+
                                     <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>
+                                    {
+                                        this.state.articleData && this.state.articleData.last_updated_at ?
+                                            <div className="last-updated text-right">
+                                                <span>Last updated on : {this.state.articleData.last_updated_at}</span>
+                                            </div> : ''
+                                    }
                                 </div> : ""
                             }
                         </div>

@@ -134,8 +134,17 @@ class BookingView extends React.Component {
             doctor_thumbnail = this.state.data.doctor_thumbnail
         }
 
+        let summary_utm_tag = ""
+        if (this.state.data && this.props.summary_utm && this.props.summary_utm_validity) {
+            if ((new Date(this.props.summary_utm_validity)) > (new Date())) {
+                let src = `https://cplcps.com/p.ashx?o=116216&e=4531&f=img&t=${this.state.data.id}`
+                summary_utm_tag = <img src={src} width="1" height="1" border="0" />
+            }
+        }
+
         return (
             <div className="profile-body-wrap">
+                {summary_utm_tag}
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
@@ -260,25 +269,25 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div>
                                                     {
-                                                        this.state.data && this.state.data.procedures && this.state.data.procedures.length?
-                                                        <div className="widget-content pb-details pb-location">
-                                                            <h4 className="title" style={{ fontSize: 14 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/teeth.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 8 }} /></span>Services Included</h4>
-                                                            <div className="pb-view text-left proc-para-margin">
-                                                                <p>Doctor consultation </p>
-                                                                {
-                                                                   this.state.data.procedures.map((procedure) => {
-                                                                    return <p>{procedure.name}</p>
-                                                                   }) 
-                                                                }
+                                                        this.state.data && this.state.data.procedures && this.state.data.procedures.length ?
+                                                            <div className="widget-content pb-details pb-location">
+                                                                <h4 className="title" style={{ fontSize: 14 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/teeth.svg"} className="visit-time-icon" style={{ width: 17, marginRight: 8 }} /></span>Services Included</h4>
+                                                                <div className="pb-view text-left proc-para-margin">
+                                                                    <p>Doctor consultation </p>
+                                                                    {
+                                                                        this.state.data.procedures.map((procedure) => {
+                                                                            return <p>{procedure.name}</p>
+                                                                        })
+                                                                    }
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        :''
+                                                            : ''
                                                     }
                                                 </div>
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
                                                         <div>
-                                                            <h4 className="title"><span><img style={{marginRight:'10px'}} className="visit-time-icon" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>Clinic Visit Time
+                                                            <h4 className="title"><span><img style={{ marginRight: '10px' }} className="visit-time-icon" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>Clinic Visit Time
 
                                                                 {
                                                                     actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
@@ -289,7 +298,7 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>

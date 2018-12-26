@@ -1,4 +1,4 @@
-import { RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
+import { SET_SUMMARY_UTM, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL } from '../../constants/types';
 
 const defaultState = {
     token: null,
@@ -10,7 +10,9 @@ const defaultState = {
     phoneNumber: "",
     submit_otp: false,
     submit_otp_success: false,
-    submit_otp_fail: false
+    submit_otp_fail: false,
+    summary_utm: false,
+    summary_utm_validity: null
 }
 
 export default function (state = defaultState, action) {
@@ -73,6 +75,13 @@ export default function (state = defaultState, action) {
 
         case RESET_AUTH: {
             return defaultState
+        }
+
+        case SET_SUMMARY_UTM: {
+            let newState = { ...state }
+            newState.summary_utm = action.payload.toggle
+            newState.summary_utm_validity = action.payload.validity
+            return newState
         }
 
     }

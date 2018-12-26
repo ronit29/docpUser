@@ -47,7 +47,7 @@ class TopBar extends React.Component {
         if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (this.props.locationType.includes("geo")) {
+            if (this.props.locationType && this.props.locationType.includes("geo")) {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
             }
         }
@@ -156,14 +156,21 @@ class TopBar extends React.Component {
         this.setState({ showPopupContainer: false, showLocationPopup: false });
     }
 
-    render() {
-
-        var selectedTests = []
+    changeBtnClick() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'changeBtnOnLabCardClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-btn-on-lab-card-click'
+        }
+        GTM.sendEvent({ data: data })
+        let selectedTests = []
         if (this.props.selectedCriterias.length) {
             for (var i = 0; i < this.props.selectedCriterias.length; i++) {
                 selectedTests.push(this.props.selectedCriterias[i].id);
             }
         }
+        this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)
+    }
+
+    render() {
 
         let sortType = ''
         if (this.state.sort_on) {
@@ -198,7 +205,7 @@ class TopBar extends React.Component {
                                                         </span>
                                                     </p>
                                                 </div>
-                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
+                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.changeBtnClick()}>
                                                     <p className="fw-500 text-primary" style={{ fontSize: 14 }} >Change</p>
                                                 </div>
                                             </div>

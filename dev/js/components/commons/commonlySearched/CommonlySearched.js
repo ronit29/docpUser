@@ -10,7 +10,7 @@ class CommonlySearched extends React.Component {
     }
 
     toggle(row) {
-        if(document.getElementById('search_results_view') && document.getElementById('search_bar')){
+        if (document.getElementById('search_results_view') && document.getElementById('search_bar')) {
             document.getElementById('search_results_view').scrollIntoView()
         }
         if (this.props.type == 'condition') {
@@ -22,14 +22,14 @@ class CommonlySearched extends React.Component {
         } else if (this.props.type == 'speciality') {
 
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+                'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
             GTM.sendEvent({ data: data })
 
         } else if (this.props.type == 'test') {
 
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || ''
+                'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
             GTM.sendEvent({ data: data })
 
@@ -39,23 +39,32 @@ class CommonlySearched extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
+        } else if (this.props.type == 'procedures') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+            }
+            GTM.sendEvent({ data: data })
         }
         this.props.toggle((this.props.type || row.type), row)
     }
-    testInfo(){
+    testInfo() {
         let test_ids = []
         this.props.data.map((row, i) => {
             test_ids.push(row.id)
         })
-        this.props.history.push('/search/testinfo?test_ids='+test_ids+'&from=search')
+        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=search')
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'common-search-result-page'
+        }
+        GTM.sendEvent({ data: data })
     }
     render() {
-        let test_info =''
+        let test_info = ''
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
-                if(this.props.selectedSearchType == 'lab'){
-                    if(Object.keys(row).length > 0 && row.show_details){
-                      test_info = <span className="srch-heading" style={{float:'right', cursor:'pointer', color:'#e58950'}} onClick={this.testInfo.bind(this)}> Test Info</span>
+                if (this.props.selectedSearchType == 'lab') {
+                    if (Object.keys(row).length > 0 && row.show_details) {
+                        test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e58950' }} onClick={this.testInfo.bind(this)}> Test Info</span>
                     }
                 }
                 return <li key={i}>
@@ -84,7 +93,7 @@ class CommonlySearched extends React.Component {
             <div className="widget mb-10">
                 <div className="common-search-container">
                     <p className="srch-heading">{this.props.heading} {test_info}</p>
-                    
+
                     <div className="common-listing-cont">
                         <ul>
                             {rows}

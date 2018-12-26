@@ -43,6 +43,7 @@ import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 import Search from './containers/commons/search'
 import searchTestInfo from './containers/commons/searchTestInfo'
+import adsBooking from  './containers/commons/adsBooking.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -114,6 +115,7 @@ const routes = [
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/search/testinfo', exact: true, component: searchTestInfo },
+    { path: '/bookings', exact: true, component: adsBooking },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
