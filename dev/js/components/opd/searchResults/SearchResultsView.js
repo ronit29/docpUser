@@ -236,28 +236,30 @@ class SearchResultsView extends React.Component {
                             </div> */}
                             <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
 
-                            <div className="art-pagination-div">
-                                {
-                                    prev ? <a href={prev} >
-                                        <div className="art-pagination-btn">
-                                            <span className="fw-500">{this.props.page - 1}</span>
-                                        </div>
-                                    </a> : ""
-                                }
+                            {
+                                this.state.seoFriendly ? <div className="art-pagination-div">
+                                    {
+                                        prev ? <a href={prev} >
+                                            <div className="art-pagination-btn">
+                                                <span className="fw-500">{this.props.page - 1}</span>
+                                            </div>
+                                        </a> : ""
+                                    }
 
-                                <div className="art-pagination-btn">
-                                    <span className="fw-500" style={{ color: '#000' }}>{this.props.page}</span>
-                                </div>
+                                    <div className="art-pagination-btn">
+                                        <span className="fw-500" style={{ color: '#000' }}>{this.props.page}</span>
+                                    </div>
 
-                                {
-                                    next ? <a href={next} >
-                                        <div className="art-pagination-btn">
-                                            <span className="fw-500">{this.props.page + 1}</span>
-                                        </div>
-                                    </a> : ""
-                                }
+                                    {
+                                        next ? <a href={next} >
+                                            <div className="art-pagination-btn">
+                                                <span className="fw-500">{this.props.page + 1}</span>
+                                            </div>
+                                        </a> : ""
+                                    }
 
-                            </div>
+                                </div> : ""
+                            }
 
                         </div>
                     }
