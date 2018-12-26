@@ -21,7 +21,7 @@ export default class PopUpView extends React.Component {
 			selectedProcedures = selectedProcedures.concat(procedures)
 		})
 
-		let pids = this.props.details.commonSelectedCriterias.filter(x=> x.type=='procedures' && selectedProcedures.indexOf(x.id) == -1).map(x => x.id)
+		let pids = this.props.details.commonSelectedCriterias.filter(x => x.type == 'procedures' && selectedProcedures.indexOf(x.id) == -1).map(x => x.id)
 
 		selectedProcedures = selectedProcedures.concat(pids)
 
@@ -58,8 +58,8 @@ export default class PopUpView extends React.Component {
 
 		} else {
 			setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Select at least one Procedure" })
-            }, 500)
+				SnackBar.show({ pos: 'bottom-center', text: "Please Select at least one Procedure" })
+			}, 500)
 			return null
 		}
 	}
@@ -72,8 +72,8 @@ export default class PopUpView extends React.Component {
 				<div className="widget cancel-appointment-div cancel-popup">
 					<div className="pop-top-heading">
 						Select Treatment(s)
-						<img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} onClick={this.props.toggle}/>
-                </div>
+						<img src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} onClick={this.props.toggle} />
+					</div>
 					<div className="widget-header action-screen-header pop-padding">
 						<p className="fw-500 cancel-appointment-head">{this.props.heading}</p>
 					</div>
@@ -89,7 +89,7 @@ export default class PopUpView extends React.Component {
 											return <li key={`${i}_a`}>
 												<label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_`}>{procedure.procedure.name}
 													<input type="checkbox" checked={this.state.selectedProcedures.indexOf(procedure.procedure.id) == -1 ? false : true} id={`${procedure.procedure.id}_`} name="fruit-2" value=""
-														onChange={this.toggleData.bind(this, procedure)}/>
+														onChange={this.toggleData.bind(this, procedure)} />
 													<span className="checkmark">
 													</span>
 												</label>
@@ -98,7 +98,12 @@ export default class PopUpView extends React.Component {
 														onChange={this.toggleData.bind(this, procedure)}
 													/><label htmlFor={`${procedure.procedure.id}_`}>{procedure.procedure.name}</label>
 												</div> */}
-												<p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+												{
+													this.props.hospitalEnable ?
+														<p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+														:
+														<p className="pr-prices">₹ {procedure.mrp}</p>
+												}
 											</li>
 
 										})
