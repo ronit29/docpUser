@@ -68,8 +68,7 @@ class LabProfileCard extends React.Component {
         }
     }
     render() {
-        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data,  next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id } = this.props.details;
-
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id } = this.props.details;
         distance = Math.ceil(distance / 1000);
 
         var openingTime = ''
@@ -95,7 +94,6 @@ class LabProfileCard extends React.Component {
         //         }
         //     })
         // }
-        let mrp = price
         let offPercent = ''
         if (mrp && price && (price < mrp)) {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
@@ -140,7 +138,7 @@ class LabProfileCard extends React.Component {
                             <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
                                 {
                                      price ? <p className="fltr-prices" style={{ marginTop: '4px' }}>₹ {price}
-                                     <span className="fltr-cut-price">₹ {mrp}</span></p> : ''
+                                     <span className="fltr-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                                 }
                                 <div className="signup-off-container">
                                     <span className="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b> </span>
