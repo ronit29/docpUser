@@ -86,7 +86,7 @@ class DesktopProfileHeader extends React.Component {
         return (
             <header className={headerClass} style={styles}>
 
-                <div className="ofr-top-header d-none d-lg-block">
+                <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
                         <div className="d-flex justify-content-between">
                             <div className="d-none">
