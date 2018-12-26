@@ -58,7 +58,7 @@ class WalletView extends React.Component {
 
                                                 </div>
                                                 <div className="cashback-balacne-val">
-                                                    <p className="csh-rfnd-text">Pramotional Balance : <span>₹ {userCashbackBalance}</span></p>
+                                                    <p className="csh-rfnd-text">Promotional Balance : <span>₹ {userCashbackBalance}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -71,78 +71,13 @@ class WalletView extends React.Component {
 
                                                 {
                                                     userTransactions.map((transaction, i) => {
-                                                        return <Transactions key={i} data={transaction} />
+                                                        return <Transactions key={i} {...this.props} data={transaction} />
                                                     })
                                                 }
 
-                                                {/* <div className="cash-all-transaction">
-                                                <h5 className="csh-heading-bg">17th December 2018</h5>
-                                                <div className="csh-trns-data">
-                                                    <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
-                                                        <div className="csh-booking-id-content">
-                                                            <p>Paid for Doctor Appointment</p>
-                                                            <span>Booking id : 12345976RTBDP</span>
-                                                        </div>
-                                                    </div>
-                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
-                                                </div>
-                                            </div>
-                                            <div className="cash-all-transaction">
-                                                <h5 className="csh-heading-bg">17th December 2018</h5>
-                                                <div className="csh-trns-data">
-                                                    <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
-                                                        <div className="csh-booking-id-content">
-                                                            <p>Paid for Doctor Appointment</p>
-                                                            <span>Booking id : 12345976RTBDP</span>
-                                                        </div>
-                                                    </div>
-                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
-                                                </div>
-                                            </div>
-                                            <div className="cash-all-transaction">
-                                                <h5 className="csh-heading-bg">17th December 2018</h5>
-                                                <div className="csh-trns-data">
-                                                    <div className="csh-content-with-img">
-                                                        <img className="minus-img" src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
-                                                        <div className="csh-booking-id-content">
-                                                            <p>Paid for Doctor Appointment</p>
-                                                            <span>Booking id : 12345976RTBDP</span>
-                                                        </div>
-                                                    </div>
-                                                    <span className="csh-trns-price"><b className="mns-sgn">-</b> ₹ 190</span>
-                                                </div>
-                                            </div>
-                                            <div className="cash-all-transaction">
-                                                <h5 className="csh-heading-bg">17th December 2018</h5>
-                                                <div className="csh-trns-data">
-                                                    <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
-                                                        <div className="csh-booking-id-content">
-                                                            <p>Paid for Doctor Appointment</p>
-                                                            <span>Booking id : 12345976RTBDP</span>
-                                                        </div>
-                                                    </div>
-                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
-                                                </div>
-                                            </div>
-                                            <div className="cash-all-transaction">
-                                                <h5 className="csh-heading-bg">17th December 2018</h5>
-                                                <div className="csh-trns-data">
-                                                    <div className="csh-content-with-img">
-                                                        <img src={ASSETS_BASE_URL + "/img/csh-back.svg"} style={{ width: '30px' }} />
-                                                        <div className="csh-booking-id-content">
-                                                            <p>Paid for Doctor Appointment</p>
-                                                            <span>Booking id : 12345976RTBDP</span>
-                                                        </div>
-                                                    </div>
-                                                    <span className="csh-trns-price"><b className="pls-sgn">+</b> ₹ 190</span>
-                                                </div>
-                                            </div> */}
+
                                             </div> : ""
                                         }
-
 
 
                                     </div>

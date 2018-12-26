@@ -19,11 +19,15 @@ const PRODUCT = {
     2: 'Lab'
 }
 
-const SOURCE = {
-    1: 'Wallet',
-    2: 'Pramotional'
+const SOURCE_FROM = {
+    1: '',
+    2: 'from Promotional Balance'
 }
 
+const SOURCE_TO = {
+    1: '',
+    2: 'to Promotional Balance'
+}
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -64,22 +68,32 @@ class Transactions extends React.Component {
 
         switch (action) {
             case 0: {
-                return `Cancellation amount Credited to ${SOURCE[source]} balance`
+                return `Refund for ${PRODUCT[product_id]} Appointment ${SOURCE_TO[source]}`
             }
             case 1: {
-                return "Added money to wallet"
+                return "Added Money to Wallet"
             }
             case 2: {
-                return "Amount refunded to the payment source"
+                return "Amount Refunded to Payment Source"
             }
             case 3: {
-                return `Paid for ${PRODUCT[product_id]} appointment via ${SOURCE[source]} balance`
+                return `Paid for ${PRODUCT[product_id]} Appointment ${SOURCE_FROM[source]}`
             }
             case 4: {
                 return "Refund for rescheduled appointment"
             }
             case 5: {
-                return "Cashback credited for appointment"
+                return `Cashback Received for ${PRODUCT[product_id]} Appointment`
+            }
+        }
+    }
+
+    openAppointment(type, id) {
+        if (id) {
+            if (PRODUCT[type] == 'Doctor') {
+                this.props.history.push(`/opd/appointment/${id}`)
+            } else {
+                this.props.history.push(`/lab/appointment/${id}`)
             }
         }
     }
@@ -96,7 +110,7 @@ class Transactions extends React.Component {
                         <div className="csh-booking-id-content">
                             <p>{this.getTxMessage(this.props.data)}</p>
                             {
-                                reference_id ? <span>Booking id : {reference_id}</span> : ""
+                                reference_id ? <span onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking id : {reference_id}</span> : ""
                             }
                         </div>
                     </div>
