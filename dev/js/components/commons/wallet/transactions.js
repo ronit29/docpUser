@@ -19,6 +19,11 @@ const PRODUCT = {
     2: 'Lab'
 }
 
+const SOURCE = {
+    1: 'Wallet',
+    2: 'Pramotional'
+}
+
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -52,10 +57,10 @@ class Transactions extends React.Component {
     }
 
     getTxMessage(data) {
-        let { type, action, product_id } = data
+        let { type, action, product_id, source } = data
         switch (action) {
             case 0: {
-                return "Cancellation amount Credited to wallet"
+                return `Cancellation amount Credited to ${SOURCE[source]} balance`
             }
             case 1: {
                 return "Added money to wallet"
@@ -64,7 +69,7 @@ class Transactions extends React.Component {
                 return "Amount refunded to the payment source"
             }
             case 3: {
-                return `Paid for ${PRODUCT[product_id]} appointment`
+                return `Paid for ${PRODUCT[product_id]} appointment via ${SOURCE[source]} balance`
             }
             case 4: {
                 return "Refund for rescheduled appointment"
