@@ -559,7 +559,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
                                                                                     </span>
                                                                                     <h4 className="title coupon-text" style={{ color: 'green' }}>
-                                                                                        {this.state.is_cashback ? "Cashback" : "Coupon"} Applied
+                                                                                        {this.state.is_cashback ? "Coupon" : "Coupon"} Applied
                                                                                         </h4>
                                                                                 </div>
                                                                                 <div className=" d-flex">

@@ -110,7 +110,7 @@ class Transactions extends React.Component {
                         <div className="csh-booking-id-content">
                             <p>{this.getTxMessage(this.props.data)}</p>
                             {
-                                reference_id ? <span onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking id : {reference_id}</span> : ""
+                                reference_id ? <span onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking ID : {reference_id}</span> : ""
                             }
                         </div>
                     </div>
