@@ -649,7 +649,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                         {
                                                                             this.state.is_cashback && this.props.disCountedLabPrice ? <div className="csh-back-applied-container">
-                                                                                <p className="csh-mny-applied">+ Rs {this.props.disCountedLabPrice} Cashback Applied</p>
+                                                                                <p className="csh-mny-applied">+ &#8377; {this.props.disCountedLabPrice} Cashback Applied</p>
                                                                                 <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
                                                                             </div> : ""
                                                                         }
