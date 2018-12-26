@@ -518,7 +518,7 @@ class PatientDetailsNew extends React.Component {
                                                                 {
                                                                     this.state.is_cashback && this.props.disCountedOpdPrice ? <div className="csh-back-applied-container">
                                                                         <p className="csh-mny-applied">+ Rs {this.props.disCountedOpdPrice} Cashback Applied</p>
-                                                                        <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointent completion</p>
+                                                                        <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
                                                                     </div> : ""
                                                                 }
 
