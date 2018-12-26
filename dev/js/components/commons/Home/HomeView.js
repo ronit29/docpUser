@@ -324,7 +324,7 @@ class HomeView extends React.Component {
 								<div className="nw-img-with-content">
 									<img width="18px" src={ASSETS_BASE_URL + "/img/labtst.png"} />
 								</div>
-								<span>Lab Tests</span>
+								<span style={{padding:'0px 5px'}}>Lab Tests</span>
 							</div>
 							<div className="chat-div-containers" style={{width: "36%"}}>
 								<img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot.svg"} />
