@@ -166,7 +166,7 @@ class DateTimeSelector extends React.Component {
         let currentDate = new Date().getDate()
     
         return (
-            <div className="widget">
+            <div className="widget mrng-top-12">
                 <div className="time-slot-container">
                     <div className="vertical-date-select-container">
                         <div className="slect-date-heading">
