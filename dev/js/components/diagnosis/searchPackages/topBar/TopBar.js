@@ -178,7 +178,6 @@ class TopBar extends React.Component {
         this.setState({ openCategory: false })
     }
     render() {
-        
         var selectedTests = []
         if (this.props.selectedCriterias.length) {
             for (var i = 0; i < this.props.selectedCriterias.length; i++) {
@@ -211,7 +210,7 @@ class TopBar extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.count} Results found {criteriaStr ? "for" : ""}
+                                                    <p>{this.props.packagesList.count} Results found {criteriaStr ? "for" : ""}
                                                         <span className="fw-700"> {criteriaStr}
                                                             {
                                                                 locationName ? ` in ${locationName}` : ''
@@ -260,7 +259,7 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div>
                                             <div className="filter-title">
-                                                {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
+                                                {this.props.packagesList.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
 
                                                 <span onClick={() => {
                                                     this.setState({
@@ -377,7 +376,7 @@ class TopBar extends React.Component {
                                 <div className="ins-form-radio insradio-on-popup">
                                     <ul className="list all-test-list mrt-10">
                                     {
-                                    this.props.searchPackagesData.categories.map((categories, i) => {
+                                    this.props.packagesList.categories.map((categories, i) => {
                                     return  <li key={i}>
                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                     {categories.name}

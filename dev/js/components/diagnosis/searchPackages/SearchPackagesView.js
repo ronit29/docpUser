@@ -133,7 +133,7 @@ class SearchPackagesView extends React.Component {
         
         // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
 
-        let url = `${window.location.pathname}?lat=${lat}&long=${long}&cat_ids=${cat_ids}`
+        let url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
 
         if (this.state.lab_card) {
             url += `&lab_card=true`

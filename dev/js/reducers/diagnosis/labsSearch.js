@@ -14,7 +14,7 @@ const defaultState = {
     disCountedLabPrice: 0,
     couponAutoApply: true,
     curr_page: null,
-    searchPackagesData:[]
+    packagesList:[]
 }
 
 export default function (state = defaultState, action) {
@@ -139,7 +139,7 @@ export default function (state = defaultState, action) {
         }
         case SEARCH_HEALTH_PACKAGES: {
             let newState = { ...state }
-            newState.searchPackagesData = action.payload
+            newState.packagesList = action.payload
             return newState
         }
     }
