@@ -4622,6 +4622,7 @@ color: red;
     width: 16%;
 	margin: 0px 4px;
 	height: 70px;
+	cursor: pointer;
 }
 .nw-img-with-content {
     height: 28px;
@@ -4650,4 +4651,3 @@ color: red;
     border-bottom-left-radius: 10px;
 }
 /* ============= New chat container ================= */
-

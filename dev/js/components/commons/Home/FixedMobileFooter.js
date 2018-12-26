@@ -1,0 +1,67 @@
+import React from 'react';
+
+class FixedMobileFooter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+
+    navigateTo(where, type, e) {
+        if (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+        if (type) {
+            this.props.selectSearchType(type)
+        }
+        this.props.history.push(where)
+    }
+
+    render() {
+        return (
+            <div className="mobileViewStaticChat">
+                <div className="nw-chat-card">
+                    <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'opd')}>
+                        <div className="nw-img-with-content">
+                            <img width="22px" src={ASSETS_BASE_URL + "/img/user-pls.svg"} />
+                        </div>
+                        <span>Doctors Near You</span>
+                    </div>
+                    <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'lab')}>
+                        <div className="nw-img-with-content">
+                            <img width="18px" src={ASSETS_BASE_URL + "/img/labtst.png"} />
+                        </div>
+                        <span style={{ padding: '0px 5px' }}>Lab Tests</span>
+                    </div>
+                    <div className="chat-div-containers" style={{ width: "36%" }} onClick={() => this.navigateTo('/mobileviewchat')}>
+                        <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot.svg"} />
+                        <div className="nw-mid-container-with-img" style={{ zIndex: '1', color: 'white' }}>
+                            <span>Free Online</span>
+                            <div className="">
+                                <img width="35px" src={ASSETS_BASE_URL + "/img/chatbt.svg"} />
+                            </div>
+                            <span>Doctor Consult</span>
+                        </div>
+                    </div>
+                    <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'procedures')}>
+                        <div className="nw-img-with-content">
+                            <img width="22px" src={ASSETS_BASE_URL + "/img/tee.svg"} />
+                        </div>
+                        <span>Dental Treatments</span>
+                    </div>
+                    <div className="chat-div-containers">
+                        <div className="nw-img-with-content">
+                            <img width="18px" src={ASSETS_BASE_URL + "/img/hlth-pkg.png"} />
+                        </div>
+                        <span>Health Packages</span>
+                    </div>
+                </div>
+                <div className="nw-cht-border-btn"></div>
+            </div>
+        )
+    }
+}
+
+export default FixedMobileFooter
