@@ -123,7 +123,7 @@ class LabProfileCard extends React.Component {
                                 }
                             </div>
                             <div className="col-7 mrt-10">
-                                <div className="img-nd-dtls" style={{ alignItems: 'flex-start;' }}>
+                                <div className="img-nd-dtls" style={{ alignItems: 'flex-start' }}>
                                     <div className="fltr-crd-img text-center" style={{ width: '60px' }}>
                                    
                                         <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">

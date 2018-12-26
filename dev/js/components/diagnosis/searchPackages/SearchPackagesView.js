@@ -45,9 +45,6 @@ class SearchPackagesView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log(props.fetchNewResults)
-        console.log('props')
-        console.log(this.props.fetchNewResults)
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
             this.getLabList(props)
             // if (window) {
@@ -99,7 +96,9 @@ class SearchPackagesView extends React.Component {
     applyCategories(categoryState) {
         let newCategoryState = []
         newCategoryState['catIds'] = categoryState
-        this.props.mergeLABState({ filterCriteria: newCategoryState })
+        if(newCategoryState.catIds.length > 0){
+            this.props.mergeLABState({ filterCriteria: newCategoryState })
+        }
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -122,15 +121,16 @@ class SearchPackagesView extends React.Component {
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
         }
-
-        let min_distance = filterCriteria.distanceRange[0]
-        let max_distance = filterCriteria.distanceRange[1]
-        let min_price = filterCriteria.priceRange[0]
-        let max_price = filterCriteria.priceRange[1]
-        let sort_on = filterCriteria.sort_on || ""
-        let lab_name = filterCriteria.lab_name || ""
-        let network_id = filterCriteria.network_id || ""
         let cat_ids = filterCriteria.catIds || ""
+
+        // let min_distance = filterCriteria.distanceRange[0]
+        // let max_distance = filterCriteria.distanceRange[1]
+        // let min_price = filterCriteria.priceRange[0]
+        // let max_price = filterCriteria.priceRange[1]
+        // let sort_on = filterCriteria.sort_on || ""
+        // let lab_name = filterCriteria.lab_name || ""
+        // let network_id = filterCriteria.network_id || ""
+        
         // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
 
         let url = `${window.location.pathname}?lat=${lat}&long=${long}&cat_ids=${cat_ids}`

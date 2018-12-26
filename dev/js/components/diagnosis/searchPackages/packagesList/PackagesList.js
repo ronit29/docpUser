@@ -91,7 +91,7 @@ class packagesList extends React.Component {
                                 <div className="col-12">
                                 {
                                     this.props.searchPackagesData.result ?this.props.searchPackagesData.result.map((packages, i) => {
-                                    return <div>
+                                    return <div key={i}>
                                             <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                         </div>
                                         })
