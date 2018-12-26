@@ -58,6 +58,10 @@ class Transactions extends React.Component {
 
     getTxMessage(data) {
         let { type, action, product_id, source } = data
+        if (!source) {
+            source = 1
+        }
+
         switch (action) {
             case 0: {
                 return `Cancellation amount Credited to ${SOURCE[source]} balance`
