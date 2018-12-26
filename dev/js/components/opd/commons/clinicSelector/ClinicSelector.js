@@ -250,7 +250,12 @@ class ClinicSelector extends React.Component {
                                                                 {/* <div>
                                                                     <input type="checkbox" checked={true} className="ins-chk-bx" id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital={hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id)} /><label htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}</label>
                                                                 </div> */}
-                                                                <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                                {
+                                                                    hospital.enabled_for_online_booking ?
+                                                                        <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                                        :
+                                                                        <p className="pr-prices">₹ {category.mrp}</p>
+                                                                }
                                                             </li>
 
                                                         })
@@ -260,7 +265,7 @@ class ClinicSelector extends React.Component {
                                                 {
                                                     this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 1
                                                         ? this.state.vieMoreProcedures
-                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id={this.state.selectedId} doctor_id={id}  {...this.props} data={this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} />
+                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id={this.state.selectedId} doctor_id={id}  {...this.props} data={this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} hospitalEnable={hospital.enabled_for_online_booking} />
                                                             : this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures != this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures ? <button className="pr-plus-add-btn" onClick={this.procedurePopUp.bind(this, hospital.hospital_id)}>
                                                                 + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures} more
                                             </button> : ''
