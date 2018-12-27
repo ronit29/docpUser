@@ -231,7 +231,7 @@ class TopBar extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found {criteriaStr ? "for" : ""}
+                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for Health Packages in {criteriaStr ? "for" : ""}
                                                         <span className="fw-700"> {criteriaStr}
                                                             {
                                                                 locationName ? ` in ${locationName}` : ''
@@ -283,7 +283,7 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div>
                                             <div className="filter-title">
-                                                {this.props.packagesList?this.props.packagesList.count:''} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
+                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for Health Packages in {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
 
                                                 <span onClick={() => {
                                                     this.setState({
