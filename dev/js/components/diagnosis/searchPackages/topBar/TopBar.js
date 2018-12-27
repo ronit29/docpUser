@@ -23,7 +23,10 @@ class TopBar extends React.Component {
             showPopupContainer: true,
             sortText: 'Relevance',
             openCategory: false,
-            selectedCatIds:[]
+            selectedCatIds:[],
+            selectedAllCatIds:[],
+            selectedCatIdsLeng:'',
+            selectedAllCatIdsLeng:''
         }
     }
 
@@ -154,12 +157,12 @@ class TopBar extends React.Component {
         this.setState({ showPopupContainer: false, showLocationPopup: false });
     }
     toggleCategory(event) {
+        this.applyAllCategory()
         this.setState({
             openCategory: !this.state.openCategory
         })
     }
     toggleTest(category) {
-
         let selectedCategoryIds = this.state.selectedCatIds
         if(selectedCategoryIds){
             if(selectedCategoryIds.indexOf(category)>-1){
@@ -170,12 +173,27 @@ class TopBar extends React.Component {
         }else{
             selectedCategoryIds.push(category)
         }
-        this.setState({selectedCatIds: selectedCategoryIds})
+        this.setState({selectedCatIds: selectedCategoryIds,selectedAllCatIds:selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
     }
     applyCategories() {
         let categoryState = this.state.selectedCatIds
         this.props.applyCategories(categoryState)
         this.setState({ openCategory: false })
+    }
+    applyAllCategory(){
+        let selectedCategoryIds = this.state.selectedCatIds
+        this.props.packagesList.categories.map((categories, i) => {
+            if(selectedCategoryIds){
+                if(selectedCategoryIds.indexOf(categories.id)>-1){
+                    selectedCategoryIds = selectedCategoryIds.filter(x=>x!=categories.id)  
+                }else{
+                    selectedCategoryIds.push(categories.id)    
+                }
+            }else{
+                selectedCategoryIds.push(categories.id)
+            }
+        })
+        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length,selectedAllCatIdsLeng:selectedCategoryIds.length})
     }
     render() {
         var selectedTests = []
@@ -251,7 +269,7 @@ class TopBar extends React.Component {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                                         }
                                                     </li>
-                                                    <li onClick={this.toggleCategory.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter">Category<img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
+                                                    <li onClick={this.toggleCategory.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter">Category</span>
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                                         }
@@ -375,6 +393,13 @@ class TopBar extends React.Component {
                             <div className="col-12">
                                 <div className="ins-form-radio insradio-on-popup">
                                     <ul className="list all-test-list mrt-10">
+                                    <li>
+                                        <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                            SelectAll
+                                            <input type="checkbox" checked={this.state.selectedAllCatIdsLeng > 0 && this.state.selectedAllCatIdsLeng == this.state.selectedCatIdsLeng} onChange={this.applyAllCategory.bind(this)} />
+                                            <span className="checkmark" />
+                                        </label>
+                                    </li>
                                     {
                                     this.props.packagesList.categories.map((categories, i) => {
                                     return  <li key={i}>
