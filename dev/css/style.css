@@ -4687,6 +4687,7 @@ font-weight: 700;
 .cat-ico-text{
 	display: flex;
 	align-self: flex-start;
+	margin-left: 10px;
 
 }
 .cat-ico-text img{

@@ -274,7 +274,7 @@ class TopBar extends React.Component {
                                                     </li>
                                                     <li className="cat-ico-text" onClick={this.toggleCategory.bind(this)}>
                                                      <img src={ASSETS_BASE_URL + "/img/customer-icons/categories.svg"} className="img-fluid" />
-                                                    <span className="ct-img ct-img-sm filter-icon text-right applied-filter">Category
+                                                    <span style={{marginTop:'1px'}} className="ct-img ct-img-sm filter-icon text-right applied-filter">Category
                                                     </span>
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
@@ -387,11 +387,11 @@ class TopBar extends React.Component {
                     this.state.openCategory ? <div>
                         <div className="cancel-overlay"></div>
                         <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">    
-                            <div className="pop-top-heading">
+                            <div className="pop-top-heading mb-0">
                                     Select categories                       
                             </div>
                             
-                            <div className="terms-condition-div onscreen-scroll">
+                            <div className="terms-condition-div onscreen-scroll pt-0">
                              <div className="">
                                 <div className="ins-form-radio insradio-on-popup">
                                     <ul className="list all-test-list mrt-10">
