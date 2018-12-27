@@ -4684,3 +4684,12 @@ font-weight: 700;
 }
 /* ============= temp style container ================= */
 
+.cat-ico-text{
+	display: flex;
+	align-self: flex-start;
+
+}
+.cat-ico-text img{
+	width: 20px;
+	margin-right:5px;
+}

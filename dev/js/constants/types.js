@@ -107,3 +107,6 @@ export const SEARCH_TEST_INFO = 'SEARCH_TEST_INFO'
 
 //Ads bookings
 export const ADS_BOOKING = 'ADS_BOOKING'
+
+//Search Health packages
+export const SEARCH_HEALTH_PACKAGES = 'SEARCH_HEALTH_PACKAGES'
