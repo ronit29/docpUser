@@ -159,10 +159,10 @@ class LabTests extends React.Component {
         return (
             <div>
                 <div className="widget-content pb-details pb-test nw-listing-pddng">
-                    {
+                    {/* {
                         is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests {test_info}
                         </h4>
-                    }
+                    } */}
 
                     <ul className="list all-test-list">
                         {selectedTests}

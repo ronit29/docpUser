@@ -301,7 +301,6 @@ class ChatPanel extends React.Component {
             } else {
                 iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
             }
-
         }
 
         let chatBtnContent1 = ''
@@ -344,10 +343,10 @@ class ChatPanel extends React.Component {
                                                     Help with Booking
                                                 </p>
                                                 :
-                                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
                                                     <span className="hed-txt-lt">Get a </span>
                                                     Free Online Doctor Consultation!
-                                                </p>
+                                                </h1>
                                         }
                                     </div>
 
