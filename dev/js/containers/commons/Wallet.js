@@ -36,12 +36,14 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
     let {
         userTransactions,
-        userWalletBalance
+        userWalletBalance,
+        userCashbackBalance
     } = state.USER
 
     return {
         userTransactions,
-        userWalletBalance
+        userWalletBalance,
+        userCashbackBalance
     }
 }
 
