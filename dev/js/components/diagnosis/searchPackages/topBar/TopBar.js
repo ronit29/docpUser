@@ -26,7 +26,6 @@ class TopBar extends React.Component {
             selectedCatIds:[],
             selectedAllCatIds:[],
             selectedCatIdsLeng:'',
-            selectedAllCatIdsLeng:'',
             isSelectAll:''
         }
     }
@@ -194,7 +193,7 @@ class TopBar extends React.Component {
             selectedCategoryIds = this.state.selectedAllCatIds
             this.setState({isSelectAll:true})
         }
-        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length,selectedAllCatIdsLeng:selectedCategoryIds.length})
+        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
     }
     render() {
         var selectedTests = []
