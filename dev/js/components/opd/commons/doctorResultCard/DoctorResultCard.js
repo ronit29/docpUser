@@ -177,7 +177,7 @@ class DoctorProfileCard extends React.Component {
                                     <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
                                 </a>
                                 {
-                                    discount && discount != 0 ?
+                                    enabled_for_hospital_booking && discount && discount != 0 ?
                                         <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
                                 }
                                 {
