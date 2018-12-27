@@ -30,7 +30,7 @@ class SearchResults extends React.Component {
                         searchUrl = match.url.toLowerCase()
                     }
                     let clinic_card = false
-                    if (match.url.includes('clinic_card')) {
+                    if (queryParams.clinic_card) {
                         clinic_card = true
                     }
                     let page = 1

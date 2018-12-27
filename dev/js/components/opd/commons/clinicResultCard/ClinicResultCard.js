@@ -7,8 +7,12 @@ class ClinicResultCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            openSelectDoctor: false
         }
+    }
+
+    toggleSelectDoctor() {
+        this.setState({ openSelectDoctor: !this.state.openSelectDoctor })
     }
 
     cardClick(id, url, hospital_id, e) {
@@ -50,18 +54,6 @@ class ClinicResultCard extends React.Component {
         }
     }
 
-    bookNow(id, e) {
-        e.stopPropagation()
-        // this.props.history.push(`/doctorprofile/${id}/availability`)
-    }
-
-    getQualificationStr(qualificationSpecialization) {
-        return qualificationSpecialization.reduce((str, curr, i) => {
-            str += `${curr.name}`
-            if (i < qualificationSpecialization.length - 1) str += `, `;
-            return str
-        }, "")
-    }
 
     toggle(which, fetchResults = false, procedure_ids = []) {
 
@@ -77,32 +69,25 @@ class ClinicResultCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, enabled_for_online_booking, is_license_verified } = this.props.details
+        let { hospital_id, address, hospital_name, doctors, procedure_categories, short_address } = this.props.details
 
-        let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
-        let expStr = ""
+        let doctor = (doctors && doctors.length) ? doctors[0] : {}
 
-        if (experiences && experiences.length) {
-            expStr += "EXP - "
-            experiences.map((exp, i) => {
-                expStr += exp.hospital
-                if (i < experiences.length - 1) expStr += ', ';
-            })
-        }
+        if (doctors && doctors.length) {
+            let { distance, is_license_verified, deal_price, mrp } = doctor
 
-        var Distance = (Math.round(distance * 10) / 10).toFixed(1);
-        if (mrp != 0 && deal_price != 0) {
-            var discount = 100 - Math.round((deal_price * 100) / mrp);
-        }
+            distance = (Math.round(distance * 10) / 10).toFixed(1)
+            let discount = 0
+            if (mrp != 0 && deal_price != 0) {
+                discount = 100 - Math.round((deal_price * 100) / mrp)
+            }
 
-        let is_procedure = false
-
-        if (hospitals && hospitals.length) {
+            let is_procedure = false
             let selectedCount = 0
             let unselectedCount = 0
             let finalProcedureDealPrice = deal_price
             let finalProcedureMrp = mrp
-            hospitals[0].procedure_categories.map((x) => {
+            procedure_categories.map((x) => {
                 is_procedure = true
                 x.procedures.filter(x => x.is_selected).map((x) => {
                     finalProcedureDealPrice += x.deal_price
@@ -118,199 +103,74 @@ class ClinicResultCard extends React.Component {
                     discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
                 }
             }
+
             return (
 
                 <div class="filter-card-dl mb-3">
                     <div class="fltr-crd-top-container" style={{ position: 'relative' }}>
-                        <span class="clinic-fltr-rtng">Verified</span>
+                        {
+                            is_license_verified ? <span class="clinic-fltr-rtng">Verified</span> : ""
+                        }
                         <div class="fltr-lctn-dtls">
                             <p>
                                 <img class="fltr-loc-ico" width="12px" height="18px" src="/assets/img/customer-icons/map-marker-blue.svg" />
-                                <span>0.4 Km</span>
+                                <span>{distance} Km</span>
                             </p>
                         </div>
                         <div class="row no-gutters" style={{ cursor: 'pointer' }}>
                             <div class="col-8">
                                 <div class="clinic-fltr-name-dtls">
                                     <a href="/dr-rana-saleem-ahmed-dentist-in-sector-44-gurgaon-dpp">
-                                        <h5 class="fw-500 clinic-fltr-dc-name text-md mrb-10">Rana Dental Clinic</h5>
+                                        <h5 class="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital_name}</h5>
                                     </a>
-                                    <span class="clinic-fltr-loc-txt mrb-10">Sector 44, Gurgaon</span>
-                                    <p class="mrb-10">Dentist</p>
-                                    <p class="" style={{ color: '#008000', fontWeight: '500' }}>Open today</p>
+                                    <span class="clinic-fltr-loc-txt mrb-10">{address}</span>
+                                    {/* <p class="mrb-10">Dentist</p> */}
+                                    {/* <p class="" style={{ color: '#008000', fontWeight: '500' }}>Open today</p> */}
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="fltr-bkng-section">
-                                    <span class="filtr-offer ofr-ribbon fw-700">50% OFF</span>
-                                    <p class="fltr-prices">₹ 0<span class="fltr-cut-price">₹ 200</span>
-                                    </p><button class="fltr-bkng-btn">Select Doctor</button>
+                                    {
+                                        discount ? <span class="filtr-offer ofr-ribbon fw-700">{discount}% OFF</span> : ""
+                                    }
+
+                                    <p class="fltr-prices">₹ {finalProcedureDealPrice}<span class="fltr-cut-price">₹ {finalProcedureMrp}</span>
+                                    </p><button onClick={this.toggleSelectDoctor.bind(this)} class="fltr-bkng-btn">Select Doctor</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="showBookTestList">
-                        <ul>
-                            <li>
-                                <p class="showBookTestListImg">
-                                    Dr. Abhishek Kumar</p>
-                                <div className="doc-price-cont">
-                                    <p className="doc-price-cutt">₹ 360 <span>₹ 600</span></p><button class="showBookTestListBtn">Book Now</button>
-                                </div>
-                            </li>
-                            <li>
-                                <p class="showBookTestListImg">
-                                    Dr. Abhishek Kumar</p>
-                                <div className="doc-price-cont">
-                                    <p className="doc-price-cutt">₹ 360 <span>₹ 600</span></p><button class="showBookTestListBtn">Book Now</button>
-                                </div>
-                            </li>
-                            <li>
-                                <p class="showBookTestListImg">
-                                    Dr. Abhishek Kumar</p>
-                                <div className="doc-price-cont">
-                                    <p className="doc-price-cutt">₹ 360 <span>₹ 600</span></p><button class="showBookTestListBtn">Book Now</button>
-                                </div>
-                            </li>
-                            <li>
-                                <p class="showBookTestListImg">
-                                    Dr. Abhishek Kumar</p>
-                                <div className="doc-price-cont">
-                                    <p className="doc-price-cutt">₹ 360 <span>₹ 600</span></p><button class="showBookTestListBtn">Book Now</button>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="filtr-card-footer"><div style={{ paddingRight: '8px' }}><p>Hide</p>
-                    </div>
-                        <div class="text-right acrd-show">
-                            <img class="" src="/assets/img/customer-icons/dropdown-arrow.svg" /></div>
-                    </div>
+
+                    {
+                        doctors && doctors.length && this.state.openSelectDoctor ? <div class="showBookTestList">
+                            <ul>
+                                {
+                                    doctors.map((d, x) => {
+                                        return <li key={x}>
+                                            <p class="showBookTestListImg">
+                                                {d.name}</p>
+                                            <div className="doc-price-cont">
+                                                <p className="doc-price-cutt">₹ {d.deal_price} <span>₹ {d.mrp}</span></p><button onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} class="showBookTestListBtn">Book Now</button>
+                                            </div>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                        </div> : ""
+                    }
+
+                    {
+                        doctors && doctors.length && this.state.openSelectDoctor ? <div onClick={this.toggleSelectDoctor.bind(this)} class="filtr-card-footer">
+                            <div style={{ paddingRight: '8px' }}><p>Hide</p>
+                            </div>
+                            <div class="text-right acrd-show">
+                                <img class="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                            </div>
+                        </div> : ""
+                    }
+
                 </div>
-
-                // <div className="filter-card-dl mb-3">
-                //     <div className="fltr-crd-top-container" style={{ position: 'relative' }}>
-                //         {is_license_verified ? <span className="clinic-fltr-rtng">Verified</span> : ''}
-                //         <div className="fltr-lctn-dtls">
-                //             <p>
-                //                 <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                //                 <span>{Distance} Km</span>
-                //             </p>
-                //         </div>
-                //         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
-                //             <div className="col-8">
-                //                 <div className="clinic-fltr-name-dtls">
-                //                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
-                //                         <h5 className="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital.hospital_name}</h5>
-                //                     </a>
-                //                     <span className="clinic-fltr-loc-txt mrb-10">{hospital.short_address}</span>
-                //                     <p className="mrb-10">{this.getQualificationStr(general_specialization || [])}</p>
-                //                     {/* <p className="fw-500 clinic-status mrb-10">Open Today</p> */}
-                //                 </div>
-                //                 {
-                //                     discount && discount != 0 && deal_price && !!!STORAGE.checkAuth() ?
-                //                         <div className="mrt-20">
-                //                             <p className="fw-500 text-xs" style={{ color: 'red' }}>*Exclusive discount. Available only on prepaid bookings</p>
-                //                         </div> : ''
-                //                 }
-                //             </div>
-                //             <div className="col-4">
-                //                 <div className="fltr-bkng-section">
-                //                     {
-                //                         discount && discount != 0 ?
-                //                             <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off
-                //                                 {
-                //                                     discount && discount != 0 && deal_price && !!!STORAGE.checkAuth() ?
-                //                                         <span>*</span> : ''
-
-                //                                 }
-                //                             </span> : ''
-                //                     }
-
-                //                     {
-                //                         !deal_price && !is_procedure ?
-                //                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free</span> : ''
-                //                     }
-
-                //                     <p className="fltr-prices">
-                //                         &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
-                //                         {
-                //                             is_procedure
-                //                                 ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                //                                 : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
-                //                         }
-                //                     </p>
-
-                //                     {
-                //                         STORAGE.checkAuth() || deal_price < 100 ?
-                //                             ''
-                //                             : <div className="signup-off-container">
-                //                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                //                             </div>
-                //                     }
-
-                //                     {
-                //                         enabled_for_online_booking ? <button className="fltr-bkng-btn">Book Now</button> : <button className="fltr-bkng-btn">Contact</button>
-                //                     }
-                //                 </div>
-                //             </div>
-                //         </div>
-
-                //         {
-                //             hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
-                //                 <div className="procedure-checkboxes">
-                //                     <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
-                //                         <div className="clearfix">
-                //                             <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
-                //                         </div>
-                //                     </div>
-                //                     <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
-                //                     <div className="insurance-checkboxes">
-                //                         <ul className="procedure-list">
-                //                             {
-                //                                 hospitals[0].procedure_categories.map((category) => {
-
-
-                //                                     return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
-
-                //                                         return <li key={i}>
-                //                                             <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
-                //                                                 <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
-                //                                                 <span className="checkmark">
-                //                                                 </span>
-                //                                             </label>
-                //                                             {/* <div>
-                //                                                 <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
-                //                                                 <label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
-                //                                             </div> */}
-                //                                             <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
-                //                                         </li>
-
-                //                                     })
-                //                                 })
-                //                             }
-                //                             {
-                //                                 this.state.errorMessage ?
-                //                                     <p>Please Select at least one Procedure</p>
-                //                                     : ''
-                //                             }
-                //                             {
-                //                                 unselectedCount + selectedCount >= 1
-                //                                     ? this.state.vieMoreProcedures
-                //                                         ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
-                //                                         : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
-                //                                             + {unselectedCount} more
-                //                             </button> : ''
-                //                                     : ''
-                //                             }
-                //                         </ul>
-                //                     </div>
-                //                 </div>
-                //                 : ''
-                //         }
-                //     </div>
-                // </div>
-            );
+            )
         } else {
             return ""
         }

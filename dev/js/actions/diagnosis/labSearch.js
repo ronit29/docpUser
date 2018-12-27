@@ -47,7 +47,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	let url = `/api/v1/diagnostic/labnetworksearch?`
 
 	if (searchByUrl) {
-		url = `/api/v1/diagnostic/lablist_by_url?url=${searchByUrl.split('/')[1]}&`
+		url = `/api/v1/diagnostic/labnetworksearchbyurl?url=${searchByUrl.split('/')[1]}&`
 	}
 
 	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
