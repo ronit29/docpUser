@@ -22,6 +22,7 @@ const PROD_CONFIG = {
     env: "production",
     UAID: 'UA-124740649-1',
     Tracker: 'docobj',
+    API_BASE_URL_ELASTIC_SEARCH:'https://l74e1dhn67.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW : true
 
 }
@@ -38,6 +39,7 @@ const STAGING_CONFIG = {
     env: "staging",
     UAID: 'UA-124740649-2',
     Tracker: 'docqa',
+    API_BASE_URL_ELASTIC_SEARCH:'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW : true
 }
 
@@ -54,6 +56,7 @@ const DEV_CONFIG = {
     env: "dev",
     UAID: 'UA-124740649-2',
     Tracker: 'docqa',
+    API_BASE_URL_ELASTIC_SEARCH:'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW : true
 }
 
