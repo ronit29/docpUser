@@ -68,7 +68,7 @@ class LabProfileCard extends React.Component {
         }
     }
     render() {
-        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id } = this.props.details;
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id,number_of_tests } = this.props.details;
         distance = Math.ceil(distance / 1000);
 
         var openingTime = ''
@@ -113,6 +113,7 @@ class LabProfileCard extends React.Component {
                             <div className="col-12 mrt-10">
                                 <a href="/dr-satvender-singh-general-physician-in-sector-45-gurgaon-dpp">
                                 <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name}</h2>
+                                <h3 className="lab-fltr-dc-name fw-500" style={{ fontSize: '14px', paddingLeft: '8px', paddingRight: '110px', color:'#757575' }}>{number_of_tests?`${number_of_tests} Tests Included`:''} </h3>
                                     <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{lab.name}</h2>
                                 </a>
                                 {

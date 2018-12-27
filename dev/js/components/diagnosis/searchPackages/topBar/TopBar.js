@@ -182,7 +182,7 @@ class TopBar extends React.Component {
     applyCategories() {
         let categoryState = this.state.selectedCatIds
         this.props.applyCategories(categoryState)
-        this.setState({ openCategory: false })
+        this.setState({ openCategory: false, selectedCatIds:[] })
     }
     applyAllCategory(){
         let selectedCategoryIds = this.state.selectedCatIds
