@@ -249,14 +249,4 @@ export const closeAppointmentPopUp = (id, callback) => (dispatch) => {
 export function chat_utm(term) {
     let url = CONFIG.CHAT_API_URL + `/livechat/healthservices/intentresponse/BasicEnquiry?text=${term}`
     return Axios.get(url)
-}
-
-export const set_summary_utm = (toggle = false, validity = null) => (dispatch) => {
-    dispatch({
-        type: SET_SUMMARY_UTM,
-        payload: {
-            toggle,
-            validity
-        }
-    })
 } 

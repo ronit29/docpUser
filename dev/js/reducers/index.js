@@ -36,7 +36,7 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType']
 }
 
 const OPD_SEARCH_PERSIST = {
@@ -54,7 +54,7 @@ const LAB_SEARCH_PERSIST = {
 const AUTH_PERSIST = {
     key: 'AUTH',
     storage: storage,
-    whitelist: ['summary_utm_validity', 'summary_utm']
+    whitelist: []
 }
 
 const allReducers = combineReducers({
