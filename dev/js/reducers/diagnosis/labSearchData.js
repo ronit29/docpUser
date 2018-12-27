@@ -10,8 +10,8 @@ export default function (state = defaultState, action) {
         case APPEND_LABS_SEARCH: {
             let newState = { ...state }
             return action.payload.reduce((lapMap, lab) => {
-                lapMap[lab.lab.id] = lapMap[lab.lab.id] || {}
-                lapMap[lab.lab.id] = { ...lapMap[lab.lab.id], ...lab }
+                lapMap[lab.id] = lapMap[lab.id] || {}
+                lapMap[lab.id] = { ...lapMap[lab.id], ...lab }
                 return lapMap
             }, newState)
 

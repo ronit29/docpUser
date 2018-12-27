@@ -147,7 +147,7 @@ class SearchResultsView extends React.Component {
                 let new_url = this.buildURI(state)
                 this.props.history.replace(new_url)
             }
-        }).catch((e) => {
+        }, this.state.clinic_card).catch((e) => {
             this.setState({ showError: true })
         })
     }

@@ -44,7 +44,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		testIds = ""
 	}
 
-	let url = `/api/v1/diagnostic/lablist?`
+	let url = `/api/v1/diagnostic/labnetworksearch?`
 
 	if (searchByUrl) {
 		url = `/api/v1/diagnostic/lablist_by_url?url=${searchByUrl.split('/')[1]}&`

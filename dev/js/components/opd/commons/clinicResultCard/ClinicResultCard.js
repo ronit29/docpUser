@@ -96,6 +96,7 @@ class ClinicResultCard extends React.Component {
         }
 
         let is_procedure = false
+
         if (hospitals && hospitals.length) {
             let selectedCount = 0
             let unselectedCount = 0
@@ -128,7 +129,7 @@ class ClinicResultCard extends React.Component {
                                 <span>{Distance} Km</span>
                             </p>
                         </div>
-                        <div className="row no-gutters" style={{cursor:'pointer'}} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
+                        <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
                             <div className="col-8">
                                 <div className="clinic-fltr-name-dtls">
                                     <a href={url ? `/${url}` : `/opd/doctor/${id}`}>
@@ -159,7 +160,7 @@ class ClinicResultCard extends React.Component {
                                     }
 
                                     {
-                                        !deal_price && !is_procedure?
+                                        !deal_price && !is_procedure ?
                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free</span> : ''
                                     }
 
@@ -168,7 +169,7 @@ class ClinicResultCard extends React.Component {
                                         {
                                             is_procedure
                                                 ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                                            : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                                : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                         }
                                     </p>
 
@@ -210,10 +211,6 @@ class ClinicResultCard extends React.Component {
                                                                 <span className="checkmark">
                                                                 </span>
                                                             </label>
-                                                            {/* <div>
-                                                                <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
-                                                                <label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
-                                                            </div> */}
                                                             <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
                                                         </li>
 
@@ -240,23 +237,6 @@ class ClinicResultCard extends React.Component {
                                 : ''
                         }
                     </div>
-                    {/* <div className="filtr-card-footer">
-                        <div>
-                            <img src={ASSETS_BASE_URL + "/img/customer-icons/doctor.svg"} style={{width: 19}} />
-                            <div style={{ display: 'inline-block' }}>
-                                <p style={{ display: 'block' }}>{display_name}</p>
-                                {
-                                    experience_years ? <p style={{ display: 'block' }}>{experience_years} Years of Experience</p> : ""
-                                }
-                            </div>
-                        </div>
-                        <div className="text-right">
-                            <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />
-                            <p>
-                                <span>{Object.keys(hospital.timings).length > 0 ? hospital.timings[Object.keys(hospital.timings)[0]][0] : ""}</span>
-                            </p>
-                        </div>
-                    </div> */}
                 </div>
             );
         } else {

@@ -35,11 +35,11 @@ export default function (state = defaultState, action) {
             }
 
             if (action.payload.page === 1) {
-                newState.labList = action.payload.result.map(lab => lab.lab.id)
+                newState.labList = action.payload.result.map(lab => lab.id)
             } else {
                 let dedupe = {}
                 newState.labList = newState.labList
-                    .concat(action.payload.result.map(lab => lab.lab.id))
+                    .concat(action.payload.result.map(lab => lab.id))
                     .filter(function (item) {
                         return dedupe.hasOwnProperty(item) ? false : (dedupe[item] = true)
                     })
