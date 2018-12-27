@@ -26,7 +26,8 @@ class TopBar extends React.Component {
             selectedCatIds:[],
             selectedAllCatIds:[],
             selectedCatIdsLeng:'',
-            selectedAllCatIdsLeng:''
+            selectedAllCatIdsLeng:'',
+            isSelectAll:''
         }
     }
 
@@ -157,23 +158,27 @@ class TopBar extends React.Component {
         this.setState({ showPopupContainer: false, showLocationPopup: false });
     }
     toggleCategory(event) {
-        this.applyAllCategory()
+        this.toggleTest()
         this.setState({
             openCategory: !this.state.openCategory
         })
     }
     toggleTest(category) {
         let selectedCategoryIds = this.state.selectedCatIds
-        if(selectedCategoryIds){
+        if(category){
             if(selectedCategoryIds.indexOf(category)>-1){
                 selectedCategoryIds = selectedCategoryIds.filter(x=>x!=category)  
             }else{
                 selectedCategoryIds.push(category)    
             }
+            this.setState({isSelectAll:false})
         }else{
-            selectedCategoryIds.push(category)
+            this.props.packagesList.categories.map((categories, i) => {
+                selectedCategoryIds.push(categories.id)
+                this.setState({selectedAllCatIds:selectedCategoryIds,isSelectAll:true})
+            })
         }
-        this.setState({selectedCatIds: selectedCategoryIds,selectedAllCatIds:selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
+        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
     }
     applyCategories() {
         let categoryState = this.state.selectedCatIds
@@ -182,17 +187,13 @@ class TopBar extends React.Component {
     }
     applyAllCategory(){
         let selectedCategoryIds = this.state.selectedCatIds
-        this.props.packagesList.categories.map((categories, i) => {
-            if(selectedCategoryIds){
-                if(selectedCategoryIds.indexOf(categories.id)>-1){
-                    selectedCategoryIds = selectedCategoryIds.filter(x=>x!=categories.id)  
-                }else{
-                    selectedCategoryIds.push(categories.id)    
-                }
-            }else{
-                selectedCategoryIds.push(categories.id)
-            }
-        })
+        if(this.state.isSelectAll){
+            selectedCategoryIds = []
+            this.setState({isSelectAll:false})
+        }else{
+            selectedCategoryIds = this.state.selectedAllCatIds
+            this.setState({isSelectAll:true})
+        }
         this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length,selectedAllCatIdsLeng:selectedCategoryIds.length})
     }
     render() {
@@ -396,7 +397,7 @@ class TopBar extends React.Component {
                                     <li>
                                         <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                             SelectAll
-                                            <input type="checkbox" checked={this.state.selectedAllCatIdsLeng > 0 && this.state.selectedAllCatIdsLeng == this.state.selectedCatIdsLeng} onChange={this.applyAllCategory.bind(this)} />
+                                            <input type="checkbox" checked={this.props.packagesList.categories_count == this.state.selectedCatIdsLeng} onChange={this.applyAllCategory.bind(this)} />
                                             <span className="checkmark" />
                                         </label>
                                     </li>
