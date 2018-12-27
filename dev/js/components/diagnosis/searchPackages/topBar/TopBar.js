@@ -26,7 +26,8 @@ class TopBar extends React.Component {
             selectedCatIds:[],
             selectedAllCatIds:[],
             selectedCatIdsLeng:'',
-            isSelectAll:''
+            isSelectAll:'',
+            is_applied:true
         }
     }
 
@@ -172,17 +173,19 @@ class TopBar extends React.Component {
             }
             this.setState({isSelectAll:false})
         }else{
+            if(this.state.is_applied){
             this.props.packagesList.categories.map((categories, i) => {
                 selectedCategoryIds.push(categories.id)
                 this.setState({selectedAllCatIds:selectedCategoryIds,isSelectAll:true})
             })
+            }
         }
         this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
     }
     applyCategories() {
         let categoryState = this.state.selectedCatIds
         this.props.applyCategories(categoryState)
-        this.setState({ openCategory: false, selectedCatIds:[] })
+        this.setState({ openCategory: false,is_applied:false })
     }
     applyAllCategory(){
         let selectedCategoryIds = this.state.selectedCatIds
@@ -269,7 +272,10 @@ class TopBar extends React.Component {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                                         }
                                                     </li>
-                                                    <li onClick={this.toggleCategory.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter">Category</span>
+                                                    <li className="cat-ico-text" onClick={this.toggleCategory.bind(this)}>
+                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/categories.svg"} className="img-fluid" />
+                                                    <span className="ct-img ct-img-sm filter-icon text-right applied-filter">Category
+                                                    </span>
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                                         }
@@ -384,13 +390,9 @@ class TopBar extends React.Component {
                             <div className="pop-top-heading">
                                     Select categories                       
                             </div>
-                            <div className="widget-header action-screen-header pop-padding">
-                                <p className="fw-500 cancel-appointment-head"></p>
-                            </div>
-                            <div className="terms-condition-div onscreen-scroll">
-                            </div>
                             
-                            <div className="col-12">
+                            <div className="terms-condition-div onscreen-scroll">
+                             <div className="">
                                 <div className="ins-form-radio insradio-on-popup">
                                     <ul className="list all-test-list mrt-10">
                                     <li>
@@ -413,6 +415,7 @@ class TopBar extends React.Component {
                                     }
                                     </ul>
                                 </div>
+                            </div>
                             </div>
                             <div className="procedures-btn-pop">
                                 <button onClick={this.applyCategories.bind(this)}>Apply</button>
