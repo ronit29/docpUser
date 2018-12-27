@@ -86,7 +86,7 @@ class DesktopProfileHeader extends React.Component {
         return (
             <header className={headerClass} style={styles}>
 
-                <div className="ofr-top-header">
+                <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
                         <div className="d-flex justify-content-between">
                             <div className="d-none">
@@ -152,7 +152,7 @@ class DesktopProfileHeader extends React.Component {
                                             </div>
                                             {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
                                             <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                            <button style={{ paddingLeft: '0', top:'0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
+                                            <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
                                         </div>
                                     </div>
                                 }
@@ -211,14 +211,15 @@ class DesktopProfileHeader extends React.Component {
 
 
                         <div className="col-lg-9 col-md-8 col-8 ml-auto text-right d-lg-none pl-0">
-                            <div className="head-links">
-                                <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
-                            </div>
                             {
                                 this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
                                     <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
                                 </div>
                             }
+                            <div className="head-links">
+                                <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
+                            </div>
+
 
                             {
                                 profileData ? <div className="head-links" onClick={() => {

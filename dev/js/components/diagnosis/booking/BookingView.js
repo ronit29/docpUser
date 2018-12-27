@@ -159,8 +159,17 @@ class BookingView extends React.Component {
             reports = this.state.data.reports || []
         }
 
+        let summar_utm_tag = ""
+        if (this.state.data && this.props.summary_utm && this.props.summary_utm_validity) {
+            if ((new Date(this.props.summary_utm_validity)) > (new Date())) {
+                let src = `https://cplcps.com/p.ashx?o=116216&e=4531&f=img&t=${this.state.data.id}`
+                summar_utm_tag = <img src={src} width="1" height="1" border="0" />
+            }
+        }
+
         return (
             <div className="profile-body-wrap">
+                {summar_utm_tag}
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">

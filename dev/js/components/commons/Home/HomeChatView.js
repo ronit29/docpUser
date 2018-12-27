@@ -101,7 +101,7 @@ class HomeChatView extends React.Component {
                 }
                 var distance = 0
 
-                if (google) {
+                if (typeof google != undefined) {
                     var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
                 }
 

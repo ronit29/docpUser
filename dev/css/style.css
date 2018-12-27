@@ -498,7 +498,7 @@ background: black;
 	padding: 10px 0;
 	z-index: 9;
 	height: auto;
-	min-height: 100px;
+	/* min-height: 100px; */
 	padding-top: 0px;
 }
 
@@ -3157,15 +3157,7 @@ p.tbl-price {
 .trt-tabl table {
     width: 100%;
 }
-.trt-tabl{
 
-}
-.trt-tabl table{
-	
-}
-.trt-tabl table tr{
-	
-}
 .trt-tabl table td {
     padding: 4px 0;
 }
@@ -3732,9 +3724,7 @@ span.search-el-code-bold{
 .date-text-img p{
 	font-weight: 500;
 }
-.months-selctor{
 
-}
 .months-selctor span{
     font-weight: 500;
     margin: 0px 5px;
@@ -3807,12 +3797,7 @@ span.search-el-code-bold{
     margin-right: 10px;
     padding-top: 20px;
 }
-.time-slot-main-listing{
 
-}
-.time-slot-main-listing ul{
-
-}
 ul li.time-slot-li-listing{
     margin: 0 0 10px 0 !important;
     display: inline-block;
@@ -4101,7 +4086,7 @@ ul.stc-data-ul-list li{
     padding: 0px;
 }
 .container-top-margin{
-	margin-top: 70px;
+	margin-top: 34px;
 }
 .searcLocationHeaderPadding{
 	padding-top: 100px !important;
@@ -4406,7 +4391,8 @@ input.rc-calendar-input {
 	border-radius: 15px;
     background: #f78631;
     color: white;
-    padding: 3px 12px;
+	padding: 3px 12px;
+	cursor: pointer;
 }
 .cashback-transactions-section{
     border-top: 1px solid rgba(132, 124, 124, .12);
@@ -4436,9 +4422,7 @@ input.rc-calendar-input {
     flex-shrink: 0;
     margin-right: 12px;
 }
-.csh-booking-id-content{
 
-}
 .csh-booking-id-content p{
 	font-weight: 500;
     margin-bottom: 3px;
@@ -4448,7 +4432,9 @@ input.rc-calendar-input {
     font-weight: 500;
 }
 .csh-trns-price{
-    font-weight: 500;
+	font-weight: 500;
+	min-width: 90px;
+    text-align: right;
 }
 .pls-sgn{
 	color: #18da1d;
@@ -4521,3 +4507,180 @@ color: red;
     color: #757575;
     text-decoration: line-through;
 }
+/* ============= contact PopUp Style ================= */
+.policyNumbeInput{
+	width: 80%;
+    margin: 30px auto;
+}
+.mobileNumber-fill-btn{
+    margin: auto;
+    display: block;
+    margin-bottom: 30px;
+    background: #f78631;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.numLabel{
+    position: absolute;
+    left: 30px;
+    top: 2px;
+    font-weight: 500;
+    border-right: 1px solid #cac6c6;
+    padding-right: 4px;
+}
+.policyNumbeInput .slt-text-input{
+    padding-left: 65px;
+}
+.csh-back-applied-container{
+	border: 1px dashed #2f6704;
+    border-radius: 10px;
+    background: #d7fbe7;
+    padding: 8px 10px;
+}
+.csh-mny-applied{
+	font-weight: 500;
+    color: #2f6704;
+    margin-bottom: 4px;
+}
+.csh-mny-applied-content{
+    font-weight: 500;
+}
+.link-account-span{
+	color: #f78631;
+	font-weight: 500;
+	cursor: pointer;
+}
+.flex-1{
+	flex:1;
+}
+/* =============== cashback-style =============== */
+/* ============= contact PopUp Style ================= */
+/* popup style */
+.popUp-contetn{
+	text-align: center;
+    font-weight: 500;
+    padding: 35px 0;
+}
+.popUp-contetn b{
+font-weight: 700;
+}
+.PopUp-Btn{
+	margin: auto;
+    display: block;
+    background: #f78631;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+/* popup style */
+.ins-form-group span.number-nine{
+	position: absolute;
+    top: 0;
+    width: 22px;
+    bottom: 0;
+    height: 20px;
+    display: inline-block;
+    font-weight: 500;
+    margin: auto;
+    left: 8px;
+    border-right: 1px solid rgba(0,0,0,.2);
+    padding-right: 6px;
+}
+.tell-hedng{
+	font-size: 15px;
+    font-weight: 500;
+    margin: 14px 3px;
+}
+.fkd-textarea textarea{
+	min-height: 100px;
+	width: 100%;
+    border-color: #d9d9d9;
+	border-radius: 4px;
+	outline: none;
+}
+.adsBookingBtn{
+	background: #f78631;
+	color: white;
+	font-weight: 500;
+	border: none;
+	padding: 10px 20px;
+    border-radius: 4px;
+}
+/* ============= contact PopUp Style ================= */
+/* ============= temp style container ================= */
+.ins-card-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.ins-name-head {
+    display: flex;
+    align-items: center;
+}
+.ins-name-head p {
+    margin-left: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.ins-name-head p span {
+    font-weight: 600;
+    display: block;
+}
+.insurance-member-container {
+    padding: 15px;
+}
+.insurance-member-container h4 {
+    padding: 0;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.ins-form-radio {
+    display: flex;
+}
+.ins-form-radio .dtl-radio {
+    margin-right: 20px;
+}
+.ins-form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.ins-form-group input {
+    padding-left: 34px;
+}
+.form-control-placeholder {
+    position: absolute;
+    top: 4px;
+    padding: 4px 4px 0 4px;
+    transition: all .2s;
+    opacity: .5;
+    left: 30px;
+}
+.ins-form-control:focus+.form-control-placeholder, .ins-form-control:valid+.form-control-placeholder {
+    font-size: 85%;
+    transform: translate3d(0,-62%,0);
+    opacity: 1;
+    background: #fff;
+    color: #e4814f;
+    font-weight: 500;
+    top: 0;
+}
+.ins-form-group img {
+    position: absolute;
+    top: 0;
+    width: 22px;
+    bottom: 0;
+    margin: auto;
+    left: 8px;
+    border-right: 1px solid rgba(0,0,0,.2);
+    padding-right: 6px;
+}
+/* ============= temp style container ================= */
+

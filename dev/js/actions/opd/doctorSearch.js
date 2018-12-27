@@ -346,3 +346,11 @@ export const saveProfileProcedures = (doctor_id = '', clinic_id = '', selectedPr
 		selectedProcedures: selectedProcedures
 	})
 }
+
+export const getDoctorNo = (postData, cb) => (dispatch) => {
+	return API_POST(`/api/v1/matrix/mask-number`, postData).then(function (response) {
+		cb(null, response)
+	}).catch(function (error) {
+		cb(error, null)
+	})
+}

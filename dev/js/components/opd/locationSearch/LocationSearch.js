@@ -163,6 +163,13 @@ class LocationSearch extends React.Component {
         this.props.history.go(-1);
     }
 
+    focusOut() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'locationInputFocusOut', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'location-search-focus-out', 'searchString': this.state.search
+        }
+        GTM.sendEvent({ data: data })
+    }
+
     render() {
 
         return (
@@ -179,7 +186,7 @@ class LocationSearch extends React.Component {
                                         <div className="col-12" style={{ paddingTop: 10 }}>
 
                                             <div className="serch-nw-inputs">
-                                                <input className="new-srch-inp" autoComplete="off" placeholder="Select any city or locality" value={this.state.search} onChange={this.inputHandler.bind(this)} id="topLocationSearch" disabled={this.state.detectLoading} />
+                                                <input className="new-srch-inp" autoComplete="off" placeholder="Select any city or locality" value={this.state.search} onChange={this.inputHandler.bind(this)} id="topLocationSearch" disabled={this.state.detectLoading} onBlur={() => this.focusOut()} />
                                                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                                                 <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
                                             </div>

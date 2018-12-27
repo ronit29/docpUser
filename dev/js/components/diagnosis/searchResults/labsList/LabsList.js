@@ -79,6 +79,10 @@ class LabsList extends React.Component {
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
         this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-result-page'
+        }
+        GTM.sendEvent({ data: data })
     }
     render() {
         let show_details = false

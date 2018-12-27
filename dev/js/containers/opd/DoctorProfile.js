@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -113,7 +113,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let DOCTORS = state.DOCTOR_PROFILES
-    let { rated_appoinments, profiles, selectedProfile } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, primaryMobile } = state.USER
 
     const {
         selectedCriterias,
@@ -127,7 +127,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile
     }
 }
 
@@ -145,7 +145,8 @@ const mapDispatchToProps = (dispatch) => {
         getFooterData: (url) => dispatch(getFooterData(url)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         toggleProfileProcedures: (procedure_to_toggle, doctor_id, hospital_id) => dispatch(toggleProfileProcedures(procedure_to_toggle, doctor_id, hospital_id)),
-        saveProfileProcedures: (doctor_id, clinic_id) => dispatch(saveProfileProcedures(doctor_id, clinic_id))
+        saveProfileProcedures: (doctor_id, clinic_id) => dispatch(saveProfileProcedures(doctor_id, clinic_id)),
+        getDoctorNo: (doctorData, cb) => dispatch(getDoctorNo(doctorData, cb))
     }
 }
 

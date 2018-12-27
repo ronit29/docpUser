@@ -105,8 +105,8 @@ class RatingsPopUp extends React.Component {
             let pipe = ''
             let data_obj = {
                 'name': (this.state.data.doctor) ? this.state.data.doctor.name : this.state.data.lab.name,
-                'qualification': qualification_object ? qualification_object[0].qualification : '',
-                'specialization': qualification_object ? qualification_object[0].specialization : '',
+                'qualification': qualification_object && qualification_object.length ? qualification_object[0].qualification : '',
+                'specialization': qualification_object && qualification_object.length ? qualification_object[0].specialization : '',
                 'type': this.getAppointmentType(),
                 'thumbnail': this.state.data.doctor ? this.state.data.doctor_thumbnail : this.state.data.lab_thumbnail,
                 'pipe': pipe

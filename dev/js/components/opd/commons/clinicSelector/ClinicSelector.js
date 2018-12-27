@@ -46,7 +46,6 @@ class ClinicSelector extends React.Component {
     render() {
 
         let { id, name, hospitals, is_live, enabled_for_online_booking } = this.props.details
-
         let style = {}
         if (hospitals && hospitals.length == 1) {
             style['width'] = '98%'
@@ -57,7 +56,6 @@ class ClinicSelector extends React.Component {
                 this.props.selectClinic(hospitals[0].hospital_id, hospitals[0].enabled_for_online_booking, 0, hospitals[0].deal_price || 0)
             }
         }
-
 
         return (
             // <div className="widget-panel">
@@ -137,13 +135,18 @@ class ClinicSelector extends React.Component {
                                     ? ''
                                     : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
-                                            <span className="test-price txt-ornage">₹ {hospital.deal_price}
                                             {
-                                                parseInt(hospital.deal_price) == parseInt(hospital.mrp)
-                                                ?''
-                                                :<span className="test-mrp">₹ {hospital.mrp}</span>
+                                                hospital.enabled_for_online_booking ?
+                                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}
+                                                        {
+                                                            parseInt(hospital.deal_price) == parseInt(hospital.mrp)
+                                                                ? ''
+                                                                : <span className="test-mrp">₹ {hospital.mrp}</span>
+                                                        }
+                                                    </span> :
+                                                    <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
                                             }
-                                            </span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                            <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
                             }
@@ -213,13 +216,18 @@ class ClinicSelector extends React.Component {
                                         </div>
                                         <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                             <div className="clearfix">
-                                                <span className="test-price txt-ornage">₹ {hospital.deal_price}
                                                 {
-                                                   parseInt(hospital.deal_price) == parseInt(hospital.mrp)
-                                                    ?''
-                                                    :<span className="test-mrp">₹ {hospital.mrp}</span> 
+                                                    hospital.enabled_for_online_booking ?
+                                                        <span className="test-price txt-ornage">₹ {hospital.deal_price}
+                                                            {
+                                                                parseInt(hospital.deal_price) == parseInt(hospital.mrp)
+                                                                    ? ''
+                                                                    : <span className="test-mrp">₹ {hospital.mrp}</span>
+                                                            }
+                                                        </span> :
+                                                        <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
                                                 }
-                                                </span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                                <span className="fw-500 test-name-item">Consultation Fee</span>
                                             </div>
                                         </div>
 
@@ -242,7 +250,12 @@ class ClinicSelector extends React.Component {
                                                                 {/* <div>
                                                                     <input type="checkbox" checked={true} className="ins-chk-bx" id={`${category.procedure_id}_hos${category.hospital_id}`} name="fruit-1" value="" hospital={hospital.hospital_id} onChange={this.procedurePopUp.bind(this, category.hospital_id)} /><label htmlFor={`${category.procedure_id}_hos${category.hospital_id}`}>{category.procedure_name}</label>
                                                                 </div> */}
-                                                                <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                                {
+                                                                    hospital.enabled_for_online_booking ?
+                                                                        <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                                        :
+                                                                        <p className="pr-prices">₹ {category.mrp}</p>
+                                                                }
                                                             </li>
 
                                                         })
@@ -252,7 +265,7 @@ class ClinicSelector extends React.Component {
                                                 {
                                                     this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 1
                                                         ? this.state.vieMoreProcedures
-                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id={this.state.selectedId} doctor_id={id}  {...this.props} data={this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} />
+                                                            ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} hospital_id={this.state.selectedId} doctor_id={id}  {...this.props} data={this.props.selectedDoctorProcedure[id][this.state.selectedId].categories} hospitalEnable={hospital.enabled_for_online_booking} />
                                                             : this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures != this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures ? <button className="pr-plus-add-btn" onClick={this.procedurePopUp.bind(this, hospital.hospital_id)}>
                                                                 + {this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures} more
                                             </button> : ''

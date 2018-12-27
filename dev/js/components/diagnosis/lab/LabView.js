@@ -123,7 +123,7 @@ class LabView extends React.Component {
                                             title: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).title,
                                             description: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
-                                        }} noIndex={!this.state.seoFriendly} />
+                                        }} noIndex={false && !this.state.seoFriendly} />
 
                                         <LabDetails {...this.props} data={this.props.LABS[lab_id]} />
 

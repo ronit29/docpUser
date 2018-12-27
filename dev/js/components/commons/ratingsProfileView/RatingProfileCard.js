@@ -81,8 +81,8 @@ class RatingProfileCard extends React.Component {
             let pipe = ''
             let data_obj = {
                 'name': (this.props.details.doctor) ? this.props.details.doctor.name : this.props.details.lab_name,
-                'qualification': qualification_object ? qualification_object[0].qualification : '',
-                'specialization': qualification_object ? qualification_object[0].specialization : '',
+                'qualification': qualification_object && qualification_object.length ? qualification_object[0].qualification : '',
+                'specialization': qualification_object && qualification_object.length ? qualification_object[0].specialization : '',
                 'type': this.getAppointmentType(),
                 'thumbnail': this.props.details.doctor ? this.props.details.doctor_thumbnail : this.props.details.lab_thumbnail,
                 'pipe': pipe
