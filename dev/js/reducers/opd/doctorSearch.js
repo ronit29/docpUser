@@ -79,8 +79,11 @@ export default function (state = defaultState, action) {
                     })
             }
 
+            if (action.payload.page === 1) {
+                newState.count = action.payload.count
+            }
+
             newState.search_content = action.payload.search_content || ''
-            newState.count = action.payload.count
             newState.LOADED_DOCTOR_SEARCH = true
             newState.reviews = action.payload.reviews
             newState.ratings = action.payload.ratings

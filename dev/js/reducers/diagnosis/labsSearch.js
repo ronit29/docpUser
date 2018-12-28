@@ -1,5 +1,5 @@
 
-import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES} from '../../constants/types';
+import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -14,7 +14,7 @@ const defaultState = {
     disCountedLabPrice: 0,
     couponAutoApply: true,
     curr_page: null,
-    packagesList:[]
+    packagesList: []
 }
 
 export default function (state = defaultState, action) {
@@ -46,10 +46,12 @@ export default function (state = defaultState, action) {
                     })
             }
 
-            newState.count = action.payload.count
+            if (action.payload.page === 1) {
+                newState.count = action.payload.count
+            }
             newState.LOADED_LABS_SEARCH = true
             newState.curr_page = action.payload.page
-            
+
             return newState
         }
 
