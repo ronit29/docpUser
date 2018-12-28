@@ -1629,3 +1629,13 @@ p.rt-doc-nm{
         padding-left: 7px;
     }
 }
+
+.avg-rating{
+    padding-top: 20px;
+}
+
+.avg-rating p:last-child{
+    font-size: 12px;
+    color: #757575;
+    margin-top: 4px;
+}

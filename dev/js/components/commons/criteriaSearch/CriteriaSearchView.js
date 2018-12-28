@@ -327,6 +327,17 @@ class CriteriaSearchView extends React.Component {
                                     }
                                 </div>
                             }
+                            {
+                                this.props.ratings_title && this.props.ratings && this.props.reviews ?
+                                    <div className="container-fluid mrt-20">
+                                        <div className="row">
+                                            <div className="col-12 avg-rating">
+                                                <p className="fw-500">{this.props.ratings_title}</p>
+                                                <p className="fw-500">Average rating <span>{this.props.ratings} </span><span>({this.props.reviews} reviews)</span></p>
+                                            </div>
+                                        </div>
+                                    </div> : ''
+                            }
                         </div>
                         {
                             this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} />

@@ -95,7 +95,7 @@ const mapStateToProps = (state, passedProps) => {
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
-    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page } = state.DOCTOR_SEARCH
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -115,7 +115,7 @@ const mapStateToProps = (state, passedProps) => {
         page,
         curr_page,
         HOSPITALS,
-        hospitalList
+        hospitalList, ratings, reviews, ratings_title
     }
 }
 
