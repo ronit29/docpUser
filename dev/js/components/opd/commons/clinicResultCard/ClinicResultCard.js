@@ -105,38 +105,43 @@ class ClinicResultCard extends React.Component {
 
             return (
 
-                <div class="filter-card-dl mb-3">
-                    <div class="fltr-crd-top-container" style={{ position: 'relative' }}>
+                <div className="filter-card-dl mb-3">
+                    <div className="fltr-crd-top-container" style={{ position: 'relative' }}>
                         {
-                            is_license_verified ? <span class="clinic-fltr-rtng">Verified</span> : ""
+                            is_license_verified ? <span className="clinic-fltr-rtng">Verified</span> : ""
                         }
-                        <div class="fltr-lctn-dtls">
+                        <div className="fltr-lctn-dtls">
                             <p>
-                                <img class="fltr-loc-ico" width="12px" height="18px" src="/assets/img/customer-icons/map-marker-blue.svg" />
+                                <img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/new-loc-ico.svg" />
                                 <span>{distance} Km</span>
                             </p>
                         </div>
-                        <div class="row no-gutters" style={{ cursor: 'pointer' }}>
-                            <div class="col-8">
-                                <div class="clinic-fltr-name-dtls">
+                        <div className="row no-gutters" style={{ cursor: 'pointer' }}>
+                            <div className="col-8">
+                                <div className="clinic-fltr-name-dtls">
                                     <a href="/dr-rana-saleem-ahmed-dentist-in-sector-44-gurgaon-dpp">
-                                        <h5 class="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital_name}</h5>
+                                        <h5 className="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital_name}</h5>
                                     </a>
-                                    <span class="clinic-fltr-loc-txt mrb-10">{address}</span>
-                                    <p class="mrb-10">{specialization}</p>
-                                    {/* <p class="" style={{ color: '#008000', fontWeight: '500' }}>Open today</p> */}
+                                    <span className="clinic-fltr-loc-txt mrb-10">{address}</span>
+                                    <p className="mrb-10">{specialization}</p>
+                                    {/* <p className="" style={{ color: '#008000', fontWeight: '500' }}>Open today</p> */}
                                 </div>
+                                <div className="mrt-20"><p className="fw-500 text-xs" style={{color: 'red',paddingRight: '2px'}}>*Exclusive discount on clinic rates. Available only on prepaid bookings</p></div>
                             </div>
-                            <div class="col-4">
-                                <div class="fltr-bkng-section">
+                            <div className="col-4">
+                                <div className="fltr-bkng-section">
                                     {
-                                        discount ? <span class="filtr-offer ofr-ribbon fw-700">{discount}% OFF</span> : ""
+                                        discount ? <span className="filtr-offer ofr-ribbon fw-700">{discount}% OFF</span> : ""
                                     }
 
-                                    <p class="fltr-prices">₹ {finalProcedureDealPrice}<span class="fltr-cut-price">₹ {finalProcedureMrp}</span>
+                                    <p className="fltr-prices">₹ {finalProcedureDealPrice}<span className="fltr-cut-price">₹ {finalProcedureMrp}</span>
                                     </p>
+                                    <div className="signup-off-container">
+                                        <span className="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b>
+                                        </span>
+                                    </div>
                                     {
-                                        doctors && doctors.length == 1 ? <button onClick={this.cardClick.bind(this, doctor.id, doctor.url, hospital_id)} class="fltr-bkng-btn">Book Now</button> : <button onClick={this.toggleSelectDoctor.bind(this)} class="fltr-bkng-btn">Select Doctor</button>
+                                        doctors && doctors.length == 1 ? <button onClick={this.cardClick.bind(this, doctor.id, doctor.url, hospital_id)} className="fltr-bkng-btn">Book Now</button> : <button onClick={this.toggleSelectDoctor.bind(this)} className="fltr-bkng-btn">Select Doctor</button>
                                     }
 
                                 </div>
@@ -145,15 +150,15 @@ class ClinicResultCard extends React.Component {
                     </div>
 
                     {
-                        doctors && doctors.length >= 2 && this.state.openSelectDoctor ? <div class="showBookTestList">
+                        doctors && doctors.length >= 2 && this.state.openSelectDoctor ? <div className="showBookTestList">
                             <ul>
                                 {
                                     doctors.map((d, x) => {
                                         return <li key={x}>
-                                            <p class="showBookTestListImg">
+                                            <p className="showBookTestListImg">
                                                 Dr. {d.name}</p>
                                             <div className="doc-price-cont">
-                                                <p className="doc-price-cutt">₹ {d.deal_price} <span>₹ {d.mrp}</span></p><button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} class="showBookTestListBtn">Book Now</button>
+                                                <p className="doc-price-cutt">₹ {d.deal_price} <span>₹ {d.mrp}</span></p><button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn">Book Now</button>
                                             </div>
                                         </li>
                                     })
@@ -163,11 +168,11 @@ class ClinicResultCard extends React.Component {
                     }
 
                     {
-                        doctors && doctors.length && this.state.openSelectDoctor ? <div onClick={this.toggleSelectDoctor.bind(this)} class="filtr-card-footer">
+                        doctors && doctors.length && this.state.openSelectDoctor ? <div onClick={this.toggleSelectDoctor.bind(this)} className="filtr-card-footer" style={{ cursor: 'pointer',borderTop: '1px solid #e8e8e8' }}>
                             <div style={{ paddingRight: '8px' }}><p>Hide</p>
                             </div>
-                            <div class="text-right acrd-show">
-                                <img class="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                            <div className="text-right acrd-show">
+                                <img className="" style={{margin: '5px'}} src="/assets/img/customer-icons/dropdown-arrow.svg" />
                             </div>
                         </div> : ""
                     }
