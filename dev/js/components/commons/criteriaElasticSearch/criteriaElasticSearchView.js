@@ -114,7 +114,7 @@ class CriteriaElasticSearchView extends React.Component {
                 GTM.sendEvent({ data: data })
             }
 
-            if (criteria.action.param.includes('hospital_name')) {
+            else if (criteria.action.param.includes('hospital_name')) {
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': criteria.action.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
                 }
