@@ -70,7 +70,7 @@ const client_prod = {
             "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
         }),
         new HtmlWebpackPlugin({
-            filename: 'index.ejs',
+            filename: 'index.new.ejs',
             template: '!!raw-loader!./views/index.template.prod.ejs',
             excludeAssets: [/style.*.css/]
         }),
@@ -103,7 +103,7 @@ const client_staging = {
             "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
         }),
         new HtmlWebpackPlugin({
-            filename: 'index.ejs',
+            filename: 'index.new.ejs',
             template: '!!raw-loader!./views/index.template.ejs',
             excludeAssets: [/style.*.css/]
         }),
