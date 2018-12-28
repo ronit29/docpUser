@@ -4687,6 +4687,60 @@ font-weight: 700;
 }
 /* ============= temp style container ================= */
 
+/* ============= New chat container ================= */
+.mobileViewStaticChat {
+	margin: auto;
+    background: white;
+    position: fixed;
+    bottom: 12px;
+    z-index: 99;
+    left: 0;
+    width: 97%;
+    border-radius: 7px;
+    right: 0;
+    box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
+    padding-top: 10px;
+}
+.nw-chat-card{
+	display: flex;
+}
+.chat-div-containers {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 16%;
+	margin: 0px 4px;
+	height: 70px;
+	cursor: pointer;
+}
+.nw-img-with-content {
+    height: 28px;
+}
+.chat-div-containers span {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 0 1px;
+}
+.footbgRound{
+	position: absolute;
+    width: 155px;
+    top: -10px;
+}
+.nw-mid-container-with-img{
+    z-index: 1;
+    color: white;
+    position: relative;
+    top: -15px;
+}
+.nw-cht-border-btn{
+    width: 100%;
+    height: 7px;
+    background-image: linear-gradient(to left, #f78631, #ff6d00);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+/* ============= New chat container ================= */
 .cat-ico-text{
 	display: flex;
 	align-self: flex-start;

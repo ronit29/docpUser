@@ -8,6 +8,7 @@ import GTM from '../../../helpers/gtm.js'
 import CONFIG from '../../../config'
 import HomePageWidget from './HomePageWidget'
 import Accordian from './Accordian'
+import FixedMobileFooter from './FixedMobileFooter'
 const queryString = require('query-string');
 
 const GENDER = {
@@ -317,11 +318,13 @@ class HomeView extends React.Component {
 							{slabOrder}
 						</div>
 					</div>
+
 					<Accordian />
+
+					<FixedMobileFooter {...this.props} />
+
 				</div>
-
 				<Footer specialityFooterData={this.state.specialityFooterData} />
-
 			</div>
 		);
 	}
