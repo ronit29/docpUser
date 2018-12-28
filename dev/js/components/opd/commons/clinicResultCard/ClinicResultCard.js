@@ -145,7 +145,10 @@ class ClinicResultCard extends React.Component {
                                         enabled_for_online_booking && discount ? <span className="filtr-offer ofr-ribbon fw-700">{discount}% OFF</span> : ""
                                     }
 
-                                    <p className="fltr-prices">₹ {finalProcedureDealPrice}<span className="fltr-cut-price">₹ {finalProcedureMrp}</span>
+                                    <p className="fltr-prices">₹ {finalProcedureDealPrice}
+                                        {
+                                            finalProcedureMrp == finalProcedureDealPrice ? "" : <span className="fltr-cut-price">₹ {finalProcedureMrp}</span>
+                                        }
                                     </p>
                                     <div className="signup-off-container">
                                         {
@@ -175,9 +178,13 @@ class ClinicResultCard extends React.Component {
                                             <p className="showBookTestListImg">
                                                 Dr. {d.name}</p>
                                             <div className="doc-price-cont">
-                                                <p className="doc-price-cutt">₹ {d.deal_price} <span>₹ {d.mrp}</span></p>
+                                                <p className="doc-price-cutt">₹ {d.deal_price}
+                                                    {
+                                                        d.mrp == d.deal_price ? "" : <span>₹ {d.mrp}</span>
+                                                    }
+                                                </p>
                                                 {
-                                                    d.enabled_for_online_booking ? <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn">Book Now</button> : <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="fltr-cntct-btn showBookTestListBtn">Contact</button>
+                                                    d.enabled_for_online_booking ? <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn">Book Now</button> : <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn contact-small-btn">Contact</button>
 
                                                 }
                                             </div>

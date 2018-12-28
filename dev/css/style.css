@@ -4697,3 +4697,10 @@ font-weight: 700;
 	width: 20px;
 	margin-right:5px;
 }
+
+.contact-small-btn{
+	color: #f78631 !important;
+    background: white !important;
+    border: 1px solid #f78631;
+    padding: 4px 19px;
+}
