@@ -90,11 +90,11 @@ class LabProfileCard extends React.Component {
 
         return (
 
-            <div className="col-12">
+            <div className="">
                 <div className="filter-card-dl mb-3">
                     <div className="fltr-crd-top-container">
                         <div className="fltr-lctn-dtls" onClick={this.openLab.bind(this, id, url)} style={{ cursor: 'pointer' }}>
-                            <p><img className="fltr-loc-ico" src="/assets/img/customer-icons/map-marker-blue.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
+                            <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
                         </div>
                         <div style={{ cursor: 'pointer' }} className="row no-gutters mrt-10" onClick={this.openLab.bind(this, id, url)}>
                             <div className="col-12">
@@ -180,7 +180,7 @@ class LabProfileCard extends React.Component {
                         }
 
                         {
-                            other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer' }}>
+                            other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer',borderTop: '1px solid #e8e8e8' }}>
                                 {
                                     this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
                                         <p style={{ marginLeft: '0px;' }}>Show less</p>
@@ -191,7 +191,7 @@ class LabProfileCard extends React.Component {
 
                                 <div className="text-right" style={{ marginLeft: 'auto;' }}>
                                     {
-                                        this.state.openViewMore ? <img class="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img class="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                        this.state.openViewMore ? <img style={{margin: '5px'}} class="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{margin: '5px'}} class="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
                                     }
                                 </div>
                             </div> : ""
