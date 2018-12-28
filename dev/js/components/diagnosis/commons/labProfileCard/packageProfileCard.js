@@ -138,7 +138,7 @@ class LabProfileCard extends React.Component {
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
                                 {
-                                     price ? <p className="fltr-prices" style={{ marginTop: '4px' }}>₹ {price}
+                                     price ? <p className="fltr-prices" style={{ marginTop: '4px' }}>₹ {parseInt(price)}
                                      <span className="fltr-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                                 }
                                 {
