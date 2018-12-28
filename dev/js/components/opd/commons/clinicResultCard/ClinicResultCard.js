@@ -54,18 +54,14 @@ class ClinicResultCard extends React.Component {
         }
     }
 
-
-    toggle(which, fetchResults = false, procedure_ids = []) {
-
-        this.setState({ [which]: !this.state[which] })
-        if (fetchResults) {
-            if (procedure_ids.length) {
-                this.props.saveCommonProcedures(procedure_ids)
-                this.props.mergeOPDState('')
-                this.props.resetProcedureURl()
-            }
-        }
+    getQualificationStr(qualificationSpecialization) {
+        return qualificationSpecialization.reduce((str, curr, i) => {
+            str += `${curr.name}`
+            if (i < qualificationSpecialization.length - 1) str += `, `;
+            return str
+        }, "")
     }
+
 
     render() {
 
@@ -74,7 +70,7 @@ class ClinicResultCard extends React.Component {
         let doctor = (doctors && doctors.length) ? doctors[0] : {}
 
         if (doctors && doctors.length) {
-            let { distance, is_license_verified, deal_price, mrp } = doctor
+            let { distance, is_license_verified, deal_price, mrp, general_specialization } = doctor
 
             distance = (Math.round(distance * 10) / 10).toFixed(1)
             let discount = 0
@@ -124,7 +120,7 @@ class ClinicResultCard extends React.Component {
                                         <h5 class="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital_name}</h5>
                                     </a>
                                     <span class="clinic-fltr-loc-txt mrb-10">{address}</span>
-                                    {/* <p class="mrb-10">Dentist</p> */}
+                                    <p class="mrb-10">{this.getQualificationStr(general_specialization || [])}</p>
                                     {/* <p class="" style={{ color: '#008000', fontWeight: '500' }}>Open today</p> */}
                                 </div>
                             </div>
@@ -135,7 +131,8 @@ class ClinicResultCard extends React.Component {
                                     }
 
                                     <p class="fltr-prices">₹ {finalProcedureDealPrice}<span class="fltr-cut-price">₹ {finalProcedureMrp}</span>
-                                    </p><button onClick={this.toggleSelectDoctor.bind(this)} class="fltr-bkng-btn">Select Doctor</button>
+                                    </p>
+                                    <button onClick={this.toggleSelectDoctor.bind(this)} class="fltr-bkng-btn">Select Doctor</button>
                                 </div>
                             </div>
                         </div>
@@ -148,9 +145,9 @@ class ClinicResultCard extends React.Component {
                                     doctors.map((d, x) => {
                                         return <li key={x}>
                                             <p class="showBookTestListImg">
-                                                {d.name}</p>
+                                                Dr. {d.name}</p>
                                             <div className="doc-price-cont">
-                                                <p className="doc-price-cutt">₹ {d.deal_price} <span>₹ {d.mrp}</span></p><button onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} class="showBookTestListBtn">Book Now</button>
+                                                <p className="doc-price-cutt">₹ {d.deal_price} <span>₹ {d.mrp}</span></p><button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} class="showBookTestListBtn">Book Now</button>
                                             </div>
                                         </li>
                                     })
