@@ -220,11 +220,11 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let {
-        profiles, selectedProfile
+        profiles, selectedProfile, summary_utm, summary_utm_validity
     } = state.USER
 
     let {
-        token, summary_utm, summary_utm_validity
+        token
     } = state.AUTH
 
     return {

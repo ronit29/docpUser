@@ -206,7 +206,10 @@ class HomeView extends React.Component {
 									discount="50%"
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
-									type="lab"
+									type="lab"									
+									searchType="packages"
+									{...this.props}
+									navTo="/searchpackages?from=home"
 								/> : ""
 						}
 
@@ -272,7 +275,10 @@ class HomeView extends React.Component {
 									discount="50%"
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
-									type="lab"
+									type="lab"									
+									searchType="packages"
+									{...this.props}
+									navTo="/searchpackages?from=home"
 								/> : ""
 						}
 

@@ -1,8 +1,12 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES, HOSPITAL_SEARCH } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
+    hospitalList: [],
     count: 0,
+    ratings: null,
+    reviews: null,
+    ratings_title: '',
     LOADED_DOCTOR_SEARCH: false,
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
@@ -49,7 +53,38 @@ export default function (state = defaultState, action) {
 
             newState.search_content = action.payload.search_content || ''
             newState.count = action.payload.count
+            newState.reviews = action.payload.reviews
+            newState.ratings = action.payload.ratings
+            newState.ratings_title = action.payload.ratings_title
             newState.LOADED_DOCTOR_SEARCH = true
+            newState.curr_page = action.payload.page
+
+            return newState
+        }
+
+        case HOSPITAL_SEARCH: {
+            let newState = {
+                ...state,
+                hospitalList: [].concat(state.hospitalList)
+            }
+
+            if (action.payload.page === 1) {
+                newState.hospitalList = action.payload.result.map(hospital => hospital.hospital_id)
+            } else {
+                let dedupe = {}
+                newState.hospitalList = newState.hospitalList
+                    .concat(action.payload.result.map(hospital => hospital.hospital_id))
+                    .filter(function (item) {
+                        return dedupe.hasOwnProperty(item) ? false : (dedupe[item] = true)
+                    })
+            }
+
+            newState.search_content = action.payload.search_content || ''
+            newState.count = action.payload.count
+            newState.LOADED_DOCTOR_SEARCH = true
+            newState.reviews = action.payload.reviews
+            newState.ratings = action.payload.ratings
+            newState.ratings_title = action.payload.ratings_title
             newState.curr_page = action.payload.page
 
             return newState

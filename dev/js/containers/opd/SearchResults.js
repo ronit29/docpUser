@@ -29,6 +29,10 @@ class SearchResults extends React.Component {
                     if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
                         searchUrl = match.url.toLowerCase()
                     }
+                    let clinic_card = false
+                    if (queryParams.clinic_card) {
+                        clinic_card = true
+                    }
                     let page = 1
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
@@ -44,7 +48,7 @@ class SearchResults extends React.Component {
                         } else {
                             resolve({ seoData })
                         }
-                    }))
+                    }, clinic_card))
                 }).catch((e) => {
                     reject()
                 })
@@ -89,7 +93,9 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
-    let { doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page } = state.DOCTOR_SEARCH
+    let HOSPITALS = state.HOSPITALS
+
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -107,7 +113,9 @@ const mapStateToProps = (state, passedProps) => {
         commonSelectedCriterias,
         selectedCriterias,
         page,
-        curr_page
+        curr_page,
+        HOSPITALS,
+        hospitalList, ratings, reviews, ratings_title
     }
 }
 
@@ -116,7 +124,7 @@ const mapDispatchToProps = (dispatch) => {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
-        getDoctors: (state, page, from_server, searchByUrl, cb) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb)),
+        getDoctors: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb, clinic_card)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),

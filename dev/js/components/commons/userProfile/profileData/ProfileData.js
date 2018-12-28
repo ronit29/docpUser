@@ -230,7 +230,7 @@ class ProfileData extends React.Component {
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/rp-ico.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
-                                    <h4 className="title app-title">My Transactions</h4>
+                                    <h4 className="title app-title">My Wallet</h4>
                                 </div>
                             </a>
                         </li>

@@ -91,7 +91,7 @@ class ChatStatic extends React.Component {
             <div className={this.props.dataClass + (this.state.utm_term ? " utm_chatbox_right" : "")}>
                 <div className="chat-head">
                     <div className="hd-chat" style={{ flex: 1 }}>
-                        <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
+                        <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</h1>
                     </div>
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>
                         {

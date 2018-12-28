@@ -76,7 +76,8 @@ class Article extends React.Component {
         }
     }
 
-    authorClick() {
+    authorClick(e) {
+        e.preventDefault()
         if (this.state.articleData.author.url) {
             this.props.history.push(this.state.articleData.author.url)
         } else {
@@ -192,13 +193,22 @@ class Article extends React.Component {
 
                                     {
                                         this.state.articleData && this.state.articleData.author ?
-                                            <div className="article-author-div mrb-20" onClick={() => this.authorClick()}>
+                                            <div className="article-author-div mrb-20">
                                                 <InitialsPicture className="initialsPicture-ds initialsPicture-author" name={this.state.articleData.author.name} has_image={!!this.state.articleData.author.profile_img} >
-                                                    <img className="fltr-usr-image img-round" src={this.state.articleData.author.profile_img} alt={this.state.articleData.author.name} title={this.state.articleData.author.name} />
+                                                    <img className="fltr-usr-image img-round" src={this.state.articleData.author.profile_img} alt={`Dr. ${this.state.articleData.author.name}`} title={`Dr. ${this.state.articleData.author.name}`} />
                                                 </InitialsPicture>
                                                 <div className="author-dtls">
                                                     <div className="author-name-div">
-                                                        <h3 className="fw-500 text-primary">{this.state.articleData.author.name}</h3>
+                                                        <span style={{ margin: '0 6px 0 0' }}>Written By :</span>
+                                                        {
+                                                            this.state.articleData.author.url ?
+                                                                <a href={`/${this.state.articleData.author.url}`} onClick={(e) => this.authorClick(e)}>
+                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
+                                                                </a> :
+                                                                <a href={`/opd/doctor/${this.state.articleData.author.id}`} onClick={(e) => this.authorClick(e)}>
+                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
+                                                                </a>
+                                                        }
                                                     </div>
                                                     <div className="author-exp-div">
                                                         <span>{this.state.articleData.author.speciality[0].name} | {this.state.articleData.author.experience} years of experience</span>

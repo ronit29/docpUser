@@ -10,9 +10,7 @@ const defaultState = {
     phoneNumber: "",
     submit_otp: false,
     submit_otp_success: false,
-    submit_otp_fail: false,
-    summary_utm: false,
-    summary_utm_validity: null
+    submit_otp_fail: false
 }
 
 export default function (state = defaultState, action) {
@@ -75,13 +73,6 @@ export default function (state = defaultState, action) {
 
         case RESET_AUTH: {
             return defaultState
-        }
-
-        case SET_SUMMARY_UTM: {
-            let newState = { ...state }
-            newState.summary_utm = action.payload.toggle
-            newState.summary_utm_validity = action.payload.validity
-            return newState
         }
 
     }

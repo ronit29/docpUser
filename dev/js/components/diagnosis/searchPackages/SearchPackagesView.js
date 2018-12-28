@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LabsList from '../searchResults/labsList/index.js'
+import PackagesLists from '../searchPackages/packagesList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './topBar'
 import NAVIGATE from '../../../helpers/navigate/index.js';
@@ -8,7 +8,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 
-class SearchResultsView extends React.Component {
+class SearchPackagesView extends React.Component {
     constructor(props) {
         super(props)
         let seoData = null
@@ -65,7 +65,7 @@ class SearchResultsView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(state = null, page = null, cb = null) {
+    getLabList(state = null, page = 1, cb = null) {
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url.toLowerCase()
@@ -73,10 +73,8 @@ class SearchResultsView extends React.Component {
         if (!state) {
             state = this.props
         }
-        if (page === null) {
-            page = this.props.page
-        }
-        this.props.getLabs(state, page, false, searchUrl, (...args) => {
+
+        this.props.getPackages(state, page, false, searchUrl, (...args) => {
             this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
@@ -95,11 +93,18 @@ class SearchResultsView extends React.Component {
             window.scrollTo(0, 0)
         }
     }
+    applyCategories(categoryState) {
+        let newCategoryState = []
+        newCategoryState['catIds'] = categoryState
+        this.props.mergeLABState({ filterCriteria: newCategoryState })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
 
     buildURI(state) {
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType, page } = state
-        let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
-
+        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+        // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
@@ -114,23 +119,22 @@ class SearchResultsView extends React.Component {
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
         }
+        let cat_ids = filterCriteria.catIds || ""
 
-        let min_distance = filterCriteria.distanceRange[0]
-        let max_distance = filterCriteria.distanceRange[1]
-        let min_price = filterCriteria.priceRange[0]
-        let max_price = filterCriteria.priceRange[1]
-        let sort_on = filterCriteria.sort_on || ""
-        let lab_name = filterCriteria.lab_name || ""
-        let network_id = filterCriteria.network_id || ""
+        // let min_distance = filterCriteria.distanceRange[0]
+        // let max_distance = filterCriteria.distanceRange[1]
+        // let min_price = filterCriteria.priceRange[0]
+        // let max_price = filterCriteria.priceRange[1]
+        // let sort_on = filterCriteria.sort_on || ""
+        // let lab_name = filterCriteria.lab_name || ""
+        // let network_id = filterCriteria.network_id || ""
+        
+        // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
 
-        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
+        let url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
 
         if (this.state.lab_card) {
             url += `&lab_card=true`
-        }
-
-        if (page > 1) {
-            url += `&page=${page}`
         }
 
         return url
@@ -179,91 +183,23 @@ class SearchResultsView extends React.Component {
     }
 
     render() {
-        let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
-        url = url.replace(/&page=\d{1,}/, "")
-        let page = ""
-
-        let prev = ""
-        if (this.props.page > 1) {
-            page = `?page=${this.props.page}`
-            prev = url
-            if (this.props.page > 2) {
-                prev += `?page=${this.props.page - 1}`
-            }
-        }
-        let next = ""
-        if (this.props.count > this.props.page * 20) {
-            next = url + `?page=${this.props.page + 1}`
-        }
-
+        let LOADED_LABS_SEARCH = true
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.state.seoData).title,
-                    description: this.getMetaTagsData(this.state.seoData).description,
-                    prev: prev,
-                    next: next
-                }} noIndex={!this.state.seoFriendly} />
-
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
-                    {
-                        this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
-                            {/*
-                        <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
-                            <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
-                        </div>
-                        */}
-                            {/* {
-                                this.state.showChatWithus ? <div className="container-fluid d-md-none">
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="mrt-10 mrb-10 article-chat-div">
-                                                <p className="fw-500">Need help with booking?</p>
-                                                <button onClick={() => this.props.history.push('/mobileviewchat?botagent=true&force_start=true')} >Chat with us</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> : ""
-                            } */}
-
-                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
-
-                            {
-                                this.state.seoFriendly ? <div className="art-pagination-div">
-                                    {
-                                        prev ? <a href={prev} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{this.props.page - 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
-
-                                    <div className="art-pagination-btn">
-                                        <span className="fw-500" style={{ color: '#000' }}>{this.props.page}</span>
-                                    </div>
-
-                                    {
-                                        next ? <a href={next} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{this.props.page + 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
-
-                                </div> : ""
-                            }
-
-                        </div>
-                    }
+                    description: this.getMetaTagsData(this.state.seoData).description
+                }} noIndex={!this.state.seoFriendly} />                
+                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
+                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 </CriteriaSearch>
-
                 <Footer footerData={this.state.footerData} />
             </div>
         );
     }
 }
 
-export default SearchResultsView
+export default SearchPackagesView

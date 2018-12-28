@@ -19,8 +19,12 @@ const GENDER = {
 class HomeChatView extends React.Component {
     constructor(props) {
         super(props);
+        let footerData = null
+        if (this.props.initialServerData) {
+            footerData = this.props.initialServerData.footerData
+        }
         this.state = {
-
+            specialityFooterData: footerData
         }
     }
 
@@ -28,6 +32,10 @@ class HomeChatView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        this.props.getSpecialityFooterData((cb) => {
+            this.setState({ specialityFooterData: cb });
+        });
     }
 
     navigateTo(where, data, e) {
@@ -166,6 +174,7 @@ class HomeChatView extends React.Component {
                             searchType="specializations"
                             {...this.props}
                             navTo="/search?from=home"
+                            type="opd"
                         />
 
                         <div className="fw-500 doc-lap-link d-md-none">
@@ -186,6 +195,7 @@ class HomeChatView extends React.Component {
                             searchType="tests"
                             {...this.props}
                             navTo="/search?from=home"
+                            type="lab"
                         />
 
                         {
@@ -195,6 +205,7 @@ class HomeChatView extends React.Component {
                                     discount="50%"
                                     list={this.props.common_package}
                                     searchFunc={(ct) => this.searchLab(ct, true)}
+                                    type="lab"
                                 /> : ""
                         }
 
@@ -215,7 +226,7 @@ class HomeChatView extends React.Component {
                 <div className="col-md-5">
                     <div className="right-card-container">
 
-                        {
+                        {/* {
                             !!!profileData ?
                                 <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>
                                     <div className="banner-content-home">
@@ -225,7 +236,7 @@ class HomeChatView extends React.Component {
                                          </span>
                                             <p className="sign-up-offer">
                                                 ₹ 300 OFF
-                                         </p>
+                                            </p>
                                             <span className="bn-down-offer">
                                                 on bookings
                                          </span>
@@ -235,7 +246,7 @@ class HomeChatView extends React.Component {
                                         </button>
                                     </div>
                                 </div> : ''
-                        }
+                        } */}
 
                         <HomePageWidget
                             heading="Find a Doctor"
@@ -245,11 +256,28 @@ class HomeChatView extends React.Component {
                             searchType="specializations"
                             {...this.props}
                             navTo="/search?from=home"
+                            type="opd"
                         />
 
                         <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
                             <p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
                             <button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+                        </div>
+
+                        {
+                            this.props.common_package && this.props.common_package.length ?
+                                <HomePageWidget
+                                    heading="Health Packages"
+                                    discount="50%"
+                                    list={this.props.common_package}
+                                    searchFunc={(ct) => this.searchLab(ct, true)}
+                                    type="lab"
+                                /> : ""
+                        }
+
+                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
+                            <p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
+                            <button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
                         </div>
 
                         <HomePageWidget
@@ -260,22 +288,8 @@ class HomeChatView extends React.Component {
                             searchType="tests"
                             {...this.props}
                             navTo="/search?from=home"
+                            type="lab"
                         />
-
-                        <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
-                            <p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
-                            <button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-                        </div>
-
-                        {
-                            this.props.common_package && this.props.common_package.length ?
-                                <HomePageWidget
-                                    heading="Health Packages"
-                                    discount="50%"
-                                    list={this.props.common_package}
-                                    searchFunc={(ct) => this.searchLab(ct, true)}
-                                /> : ""
-                        }
 
                     </div>
                 </div>)
@@ -285,10 +299,12 @@ class HomeChatView extends React.Component {
             <div className="profile-body-wrap">
 
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
-                }} setDefault={true} />
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: 'Free Online Doctor Consultation: Ask a Doctor & Get Answers for free',
+                    description: 'Online Doctor Consultation: Chat with a verified doctor from anywhere for Free & get answers within minutes.'
+                }} />
 
-                <ProfileHeader homePage={true} />
+                <ProfileHeader homePage={true} showSearch={true} />
 
                 <div className="sub-header mrg-top"></div>
                 <div className="chat-main-container">
@@ -297,11 +313,10 @@ class HomeChatView extends React.Component {
                             {slabOrder}
                         </div>
                     </div>
+                    <Accordian />
                 </div>
 
-                <Accordian />
-
-                <Footer />
+                <Footer specialityFooterData={this.state.specialityFooterData} />
 
             </div>
         );

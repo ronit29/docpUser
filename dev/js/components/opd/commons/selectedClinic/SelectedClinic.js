@@ -24,8 +24,8 @@ class SelectedClinic extends React.Component {
 
         if (hospitals && hospitals.length) {
             hospitals.map((hospital) => {
-                if (hospital.hospital_id == this.props.selectedClinic) {
-                    hospitalName = hospital.hospital_name
+                if ((hospital.hospital_id || hospital.id) == this.props.selectedClinic) {
+                    hospitalName = hospital.hospital_name || hospital.name
                 }
             })
         }

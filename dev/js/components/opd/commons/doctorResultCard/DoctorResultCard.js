@@ -173,11 +173,11 @@ class DoctorProfileCard extends React.Component {
                         }
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
                             <div className="col-12 mrt-10">
-                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()}>
+                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()} title={display_name}>
                                     <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
                                 </a>
                                 {
-                                    discount && discount != 0 ?
+                                    enabled_for_hospital_booking && discount && discount != 0 ?
                                         <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
                                 }
                                 {
@@ -204,14 +204,21 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
-                                <p className="fltr-prices" style={{ marginTop: 4 }}>
-                                    &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
-                                    {
-                                        is_procedure
-                                            ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                                            : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
-                                    }
-                                </p>
+                                {
+                                    enabled_for_hospital_booking ?
+                                        <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                            &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
+                                            {
+                                                is_procedure
+                                                    ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
+                                                    : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                            }
+                                        </p>
+                                        :
+                                        <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                            &#x20B9;{is_procedure ? finalProcedureMrp : mrp}
+                                        </p>
+                                }
                                 {
                                     STORAGE.checkAuth() || deal_price < 100 ?
                                         ''
@@ -231,7 +238,13 @@ class DoctorProfileCard extends React.Component {
                                 <div className="procedure-checkboxes">
                                     <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
-                                            <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span><span className="fw-500 test-name-item">Consultation Fee</span>
+                                            {
+                                                enabled_for_hospital_booking ?
+                                                    <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span>
+                                                    :
+                                                    <span className="test-price txt-ornage">₹ {mrp}</span>
+                                            }
+                                            <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
                                     <h4 style={{ fontSize: '14px' }} className="procedure-out-heading-font">Treatment(s) <span>{this.props.selectedCriterias.filter(x => x.type == 'procedures_category').length > 0 ? ` in ${this.props.selectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.name).join(' | ')}` : 'Selected'} </span></h4>
@@ -239,10 +252,7 @@ class DoctorProfileCard extends React.Component {
                                         <ul className="procedure-list">
                                             {
                                                 hospitals[0].procedure_categories.map((category) => {
-
-
                                                     return category.procedures.filter(x => x.is_selected).map((procedure, i) => {
-
                                                         return <li key={i}>
                                                             <label className="procedure-check ck-bx" htmlFor={`${procedure.procedure.id}_doc_${id}`}>{procedure.procedure.name}
                                                                 <input type="checkbox" checked={true} className="proce-input" id={`${procedure.procedure.id}_doc_${id}`} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
@@ -253,9 +263,13 @@ class DoctorProfileCard extends React.Component {
                                                                 <input type="checkbox" checked={true} className="ins-chk-bx" id={procedure.procedure.id} name="fruit-1" value="" onChange={() => this.setState({ vieMoreProcedures: true })} />
                                                                 <label htmlFor={procedure.procedure.id}>{procedure.procedure.name}</label>
                                                             </div> */}
-                                                            <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                            {
+                                                                enabled_for_hospital_booking ?
+                                                                    <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                                    :
+                                                                    <p className="pr-prices">₹ {procedure.mrp}</p>
+                                                            }
                                                         </li>
-
                                                     })
                                                 })
                                             }
@@ -267,7 +281,7 @@ class DoctorProfileCard extends React.Component {
                                             {
                                                 unselectedCount + selectedCount >= 1
                                                     ? this.state.vieMoreProcedures
-                                                        ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} />
+                                                        ? <ProcedurePopup toggle={this.toggle.bind(this, 'vieMoreProcedures')} details={this.props} doctor_id={this.props.details.id} data={hospitals[0]} hospitalEnable={enabled_for_hospital_booking} />
                                                         : unselectedCount + selectedCount != selectedCount ? <button className="pr-plus-add-btn" onClick={() => this.setState({ vieMoreProcedures: true })}>
                                                             + {unselectedCount} more
                                             </button> : ''

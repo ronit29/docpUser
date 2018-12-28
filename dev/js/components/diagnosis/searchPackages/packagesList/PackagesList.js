@@ -1,12 +1,12 @@
 import React from 'react';
 
-import LabProfileCard from '../../commons/labProfileCard/index.js'
+import PackageProfileCard from '../../commons/labProfileCard/packageProfileCard.js'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
 import LabResultCard from '../../commons/labResultCard'
 
-class LabsList extends React.Component {
+class packagesList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -79,89 +79,73 @@ class LabsList extends React.Component {
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
         this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
-        let data = {
-            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-result-page'
-        }
-        GTM.sendEvent({ data: data })
     }
     render() {
-        let show_details = false
         let { LABS, labList } = this.props
-
-        let start_page = 0
-        if (this.props.curr_page) {
-            start_page = Math.max(0, this.props.curr_page - 1)
-        } else {
-            if (this.props.page) {
-                start_page = Math.max(0, this.props.page - 1)
-            }
-        }
-
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             <div className="row">
-
-                                {Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
-                                    if (value.show_details) {
-                                        show_details = true
-                                    }
-                                })}
-                                {
-                                    show_details ? <div className="col-12">
-                                        <span className="srch-heading" style={{ float: 'left', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span></div> : ''
-                                }
                                 <div className="col-12">
-                                    <InfiniteScroll
-                                        pageStart={start_page}
+                                {
+                                    this.props.packagesList && this.props.packagesList.result ?this.props.packagesList.result.map((packages, i) => {
+                                    return <div key={i}>
+                                            <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                        </div>
+                                        })
+                                    :''
+                                }
+
+                                    {/*<InfiniteScroll
+                                        pageStart={0}
                                         loadMore={this.loadMore.bind(this)}
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
                                     >
-                                        {
-                                            labList.map((labId, i) => {
-                                                if (i == 1 && LABS[labId]) {
+                                    {
+                                        labList.map((labId, i) => {
+                                            if (i == 1 && LABS[labId]) {
 
-                                                    return <div key={i}>
-                                                        <div className="no-risk-container mt-3">
-                                                            <div className="no-rsk">
-                                                                <div className="rsk-image">
-                                                                    <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
-                                                                </div>
-                                                                <div className="rsk-content">
-                                                                    <h4 className="rsk-hdng">Amazing Savings... No Risks!</h4>
-                                                                    <ul className="rsk-lstng ff">
-                                                                        <li className="lst-bfr">Upto 50% Off on doctor and lab bookings</li>
-                                                                        <li className="lst-bfr">100% money back guarantee -  No questions!</li>
-                                                                    </ul>
-                                                                </div>
+                                                return <div key={i}>
+                                                    <div className="no-risk-container mt-3">
+                                                        <div className="no-rsk">
+                                                            <div className="rsk-image">
+                                                                <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                            </div>
+                                                            <div className="rsk-content">
+                                                                <h4 className="rsk-hdng">Amazing Savings... No Risks!</h4>
+                                                                <ul className="rsk-lstng ff">
+                                                                    <li className="lst-bfr">Upto 50% Off on doctor and lab bookings</li>
+                                                                    <li className="lst-bfr">100% money back guarantee -  No questions!</li>
+                                                                </ul>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    {
+                                                        this.props.lab_card ?
+                                                            <LabResultCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                            : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                    }
+                                                </div>
+
+                                            } else {
+                                                if (LABS[labId]) {
+                                                    return <div key={i}>
                                                         {
                                                             this.props.lab_card ?
-                                                                <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                                <LabResultCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                                 : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                         }
                                                     </div>
-
                                                 } else {
-                                                    if (LABS[labId]) {
-                                                        return <div key={i}>
-                                                            {
-                                                                this.props.lab_card ?
-                                                                    <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
-                                                                    : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
-                                                            }
-                                                        </div>
-                                                    } else {
-                                                        return ""
-                                                    }
+                                                    return ""
                                                 }
-                                            })
+                                            }
+                                        })
                                         }
-                                    </InfiniteScroll>
+                                    </InfiniteScroll>*/}
                                 </div>
                             </div>
                             {this.state.loading ? <Loader classType="loaderPagination" /> : ""}
@@ -173,4 +157,4 @@ class LabsList extends React.Component {
 }
 
 
-export default LabsList
+export default packagesList

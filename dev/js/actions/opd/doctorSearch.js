@@ -1,9 +1,9 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 
-export const getDoctors = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
+export const getDoctors = (state = {}, page = 1, from_server = false, searchByUrl = false, cb, clinic_card = false) => (dispatch) => {
 
 	if (page == 1) {
 		dispatch({
@@ -63,6 +63,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearch_by_url?url=${searchByUrl.split('/')[1]}&`
 	}
 
+	if (clinic_card) {
+		url = `/api/v1/doctor/doctorsearchbyhospital?`
+	}
+
 	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}`
 
 	if (!!filterCriteria.doctor_name) {
@@ -73,7 +77,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url += `&hospital_name=${filterCriteria.hospital_name || ""}`
 	}
 
-	if(!!filterCriteria.hospital_id) {
+	if (!!filterCriteria.hospital_id) {
 		url += `&hospital_id=${filterCriteria.hospital_id || ''}`
 	}
 
@@ -108,32 +112,38 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			},
 			fetchNewResults: false
 		})
-		/*if (procedures.length || procedure_category.length) {
+
+		if (clinic_card) {
 			dispatch({
-				type: SAVE_COMMON_PROCEDURES,
-				payload: procedures,
-				category_ids: procedure_category,
-				forceAdd: false
+				type: APPEND_HOSPITALS,
+				payload: response.result || []
 			})
-		}*/
-		/*dispatch({
-			type: SET_FETCH_RESULTS_OPD,
-			payload: false
-		})*/
+		} else {
+			dispatch({
+				type: APPEND_DOCTORS,
+				payload: response.result || []
+			})
+		}
 
-		dispatch({
-			type: APPEND_DOCTORS,
-			payload: response.result || []
-		})
+		if (clinic_card) {
+			dispatch({
+				type: HOSPITAL_SEARCH,
+				payload: {
+					page,
+					...response
+				}
 
-		dispatch({
-			type: DOCTOR_SEARCH,
-			payload: {
-				page,
-				...response
-			}
+			})
+		} else {
+			dispatch({
+				type: DOCTOR_SEARCH,
+				payload: {
+					page,
+					...response
+				}
 
-		})
+			})
+		}
 
 		if (page == 1) {
 			let data = {
@@ -327,10 +337,10 @@ export const getSpecialityFooterData = (cb) => (dispatch) => {
 	})
 }
 
-export const saveProfileProcedures = (doctor_id='', clinic_id='', selectedProcedures = [], forceAdd = false) => (dispatch) => {
+export const saveProfileProcedures = (doctor_id = '', clinic_id = '', selectedProcedures = [], forceAdd = false) => (dispatch) => {
 	dispatch({
 		type: SAVE_PROFILE_PROCEDURES,
-		doctor_id : doctor_id,
+		doctor_id: doctor_id,
 		clinic_id: clinic_id,
 		forceAdd: forceAdd,
 		selectedProcedures: selectedProcedures
