@@ -90,15 +90,15 @@ class LabProfileCard extends React.Component {
 
         return (
 
-            <div className="col-12">
+            <div className="">
                 <div className="filter-card-dl mb-3">
                     <div className="fltr-crd-top-container">
-                        <div className="fltr-lctn-dtls">
-                            <p><img className="fltr-loc-ico" src="/assets/img/customer-icons/map-marker-blue.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
+                        <div className="fltr-lctn-dtls" onClick={this.openLab.bind(this, id, url)} style={{ cursor: 'pointer' }}>
+                            <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
                         </div>
-                        <div className="row no-gutters mrt-10">
+                        <div style={{ cursor: 'pointer' }} className="row no-gutters mrt-10" onClick={this.openLab.bind(this, id, url)}>
                             <div className="col-12">
-                                <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
+                                <a>
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
                                 </a>
                                 {
@@ -113,7 +113,12 @@ class LabProfileCard extends React.Component {
                                             <img className="fltr-usr-image-lab" src={lab_thumbnail} />
                                         </InitialsPicture>
                                     </div>
-                                    <div style={{ marginLeft: '8px' }}></div>
+                                    <div style={{ marginLeft: '8px' }}>
+                                        {
+                                            this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}</p> : ""
+                                        }
+
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
@@ -124,11 +129,11 @@ class LabProfileCard extends React.Component {
                                 {
                                     STORAGE.checkAuth() || price < 100 ? "" : <div className="signup-off-container"><span className="signup-off-doc" style={{ fontSize: '12px' }}>+ ₹ 100 OFF <b>on Signup</b> </span></div>
                                 }
-                                <button className="fltr-bkng-btn" style={{ width: '100%' }} onClick={this.openLab.bind(this, id, url)}>Book Now</button>
+                                <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
                             </div>
                         </div>
                         {
-                            this.props.details.tests && this.props.details.tests.length >= 1 ?
+                            this.props.details.tests && this.props.details.tests.length >= 2 ?
                                 <div>
                                     <ul className="fltr-labs-test-selected mrt-10">
                                         <span className="fltr-prv-selected-test">Tests Selected</span>
@@ -175,7 +180,7 @@ class LabProfileCard extends React.Component {
                         }
 
                         {
-                            other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)}>
+                            other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer',borderTop: '1px solid #e8e8e8' }}>
                                 {
                                     this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
                                         <p style={{ marginLeft: '0px;' }}>Show less</p>
@@ -186,7 +191,7 @@ class LabProfileCard extends React.Component {
 
                                 <div className="text-right" style={{ marginLeft: 'auto;' }}>
                                     {
-                                        this.state.openViewMore ? <img class="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img class="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                        this.state.openViewMore ? <img style={{margin: '5px'}} class="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{margin: '5px'}} class="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
                                     }
                                 </div>
                             </div> : ""
