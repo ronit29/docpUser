@@ -175,12 +175,19 @@ class TopBar extends React.Component {
         }else{
             if(this.state.is_applied){
             this.props.packagesList.categories.map((categories, i) => {
+                if(categories.is_selected){
                 selectedCategoryIds.push(categories.id)
+                }
                 this.setState({selectedAllCatIds:selectedCategoryIds,isSelectAll:true})
             })
             }
         }
         this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
+    }
+    closeCategory() {
+        this.setState({
+            openCategory: !this.state.openCategory
+        })
     }
     applyCategories() {
         let categoryState = this.state.selectedCatIds
@@ -231,7 +238,7 @@ class TopBar extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for Health Packages in {criteriaStr ? "for" : ""}
+                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for Health Packages
                                                         <span className="fw-700"> {criteriaStr}
                                                             {
                                                                 locationName ? ` in ${locationName}` : ''
@@ -283,7 +290,7 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div>
                                             <div className="filter-title">
-                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for Health Packages in {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
+                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for Health Packages
 
                                                 <span onClick={() => {
                                                     this.setState({
@@ -388,7 +395,8 @@ class TopBar extends React.Component {
                         <div className="cancel-overlay"></div>
                         <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">    
                             <div className="pop-top-heading mb-0">
-                                    Select categories                       
+                                    Select categories   
+                                    <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 18 }} /></span>                    
                             </div>
                             
                             <div className="terms-condition-div onscreen-scroll pt-0">
