@@ -186,7 +186,7 @@ class TopBar extends React.Component {
     }
     closeCategory() {
         this.setState({
-            openCategory: !this.state.openCategory
+            openCategory: !this.state.openCategory, is_applied:false
         })
     }
     applyCategories() {
