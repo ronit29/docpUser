@@ -7,10 +7,11 @@
     "start": "node server.js",
     "client": "webpack --progress --watch",
     "build-dev": "webpack --progress",
-    "build-prod": "webpack --env.production --progress && npm run minify && npm run upload",
-    "build-staging": "webpack --env.staging --progress && npm run minify && npm run upload",
-    "build": "webpack --progress && npm run minify && npm run upload",
+    "build-prod": "webpack --env.production --progress && npm run minify && npm run upload && npm run post-build",
+    "build-staging": "webpack --env.staging --progress && npm run minify && npm run upload && npm run post-build",
+    "build": "webpack --progress && npm run minify && npm run upload && npm run post-build",
     "upload": "node upload.js",
+    "post-build": "node post_build.js",
     "minify": "node minify_css.js"
   },
   "repository": {
