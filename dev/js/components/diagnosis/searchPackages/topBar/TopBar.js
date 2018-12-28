@@ -230,6 +230,11 @@ class TopBar extends React.Component {
         return (
             <div>
                 <section className="filter-row sticky-header mbl-stick">
+                 <div className="top-filter-tab-container">
+                    {/*<div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
+                    <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} />Filter</div>*/}
+                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} />Select Package Category</div>
+                </div>
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
@@ -263,7 +268,7 @@ class TopBar extends React.Component {
                                         </div>
                                         :
                                         <div className="filter-pdng">
-                                            <div className="action-filter">
+                                            {/* <div className="action-filter">
                                                 <ul className="inline-list">
                                                     <li className="d-none d-md-inline-block">
                                                         <CopyToClipboard text={this.state.shortURL}
@@ -288,7 +293,7 @@ class TopBar extends React.Component {
                                                         }
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div> */}
                                             <div className="filter-title">
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for Health Packages
 
@@ -396,7 +401,7 @@ class TopBar extends React.Component {
                         <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">    
                             <div className="pop-top-heading mb-0">
                                     Select categories   
-                                    <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 18 }} /></span>                    
+                                    <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
                             </div>
                             
                             <div className="terms-condition-div onscreen-scroll pt-0">
