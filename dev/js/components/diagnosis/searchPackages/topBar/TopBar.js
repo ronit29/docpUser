@@ -230,10 +230,10 @@ class TopBar extends React.Component {
         return (
             <div>
                 <section className="filter-row sticky-header mbl-stick">
-                <div className="top-filter-tab-container">
-                    <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
-                    <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} />Filter</div>
-                    <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} />Category</div>
+                 <div className="top-filter-tab-container">
+                    {/*<div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
+                    <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} />Filter</div>*/}
+                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} />Select Package Category</div>
                 </div>
                     <div className="container-fluid">
                         <div className="row">
