@@ -116,7 +116,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             if (criteria.action.param.includes('hospital_name')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': criteria.action.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -391,7 +391,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 ? <li onClick={() => {
 
                                                                                     let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'DoctorNameSearched': this.state.searchValue || '', 'searched': ''
+                                                                                        'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || ''
                                                                                     }
                                                                                     GTM.sendEvent({ data: data })
 
@@ -428,7 +428,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 ? <li onClick={() => {
 
                                                                                     let data = {
-                                                                                        'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'HospitalNameSearched': this.state.searchValue || '', 'searched': ''
+                                                                                        'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || ''
                                                                                     }
                                                                                     GTM.sendEvent({ data: data })
 
