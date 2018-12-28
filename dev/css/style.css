@@ -4697,3 +4697,35 @@ font-weight: 700;
 	width: 20px;
 	margin-right:5px;
 }
+
+/* ================= filter bar ================= */
+.top-filter-tab-container{
+	background: white;
+    display: flex;
+    justify-content: space-around;
+	padding: 7px 0;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+}
+.top-filter-tabs-select{
+	padding: 5px 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: #757575;
+    border-right: 1px solid rgba(0, 0, 0, .2);
+}
+.top-filter-tabs-select:last-child{
+	border-right: 1px solid transparent;
+}
+
+.top-filter-tabs-select img{
+	margin-right: 5px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+/* ================= filter bar ================= */
