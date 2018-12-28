@@ -21,7 +21,7 @@ class FixedMobileFooter extends React.Component {
 
     render() {
         return (
-            <div className="mobileViewStaticChat">
+            <div className="mobileViewStaticChat d-md-none">
                 <div className="nw-chat-card">
                     <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'opd')}>
                         <div className="nw-img-with-content">
@@ -51,7 +51,7 @@ class FixedMobileFooter extends React.Component {
                         </div>
                         <span>Dental Treatments</span>
                     </div>
-                    <div className="chat-div-containers">
+                    <div className="chat-div-containers" onClick={() => this.navigateTo('/searchpackages')}>
                         <div className="nw-img-with-content">
                             <img width="18px" src={ASSETS_BASE_URL + "/img/hlth-pkg.png"} />
                         </div>
