@@ -9,6 +9,7 @@ import CONFIG from '../../../config'
 import HomePageWidget from './HomePageWidget'
 import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
+import BannerCarousel from './bannerCarousel';
 const queryString = require('query-string');
 
 const GENDER = {
@@ -178,6 +179,8 @@ class HomeView extends React.Component {
 							type="opd"
 						/>
 
+						<BannerCarousel {...this.props} hideClass="d-md-none" />
+
 						<div className="fw-500 doc-lap-link d-md-none">
 							<span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or Hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} />  </span>
 						</div>
@@ -206,7 +209,7 @@ class HomeView extends React.Component {
 									discount="50%"
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
-									type="lab"									
+									type="lab"
 									searchType="packages"
 									{...this.props}
 									navTo="/searchpackages?from=home"
@@ -263,6 +266,8 @@ class HomeView extends React.Component {
 							type="opd"
 						/>
 
+						<BannerCarousel {...this.props} hideClass="d-md-none" />
+
 						<div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
 							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
@@ -275,7 +280,7 @@ class HomeView extends React.Component {
 									discount="50%"
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
-									type="lab"									
+									type="lab"
 									searchType="packages"
 									{...this.props}
 									navTo="/searchpackages?from=home"

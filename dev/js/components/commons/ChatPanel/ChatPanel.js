@@ -313,7 +313,7 @@ class ChatPanel extends React.Component {
         }
 
         return (
-            <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ?'' :"col-md-5 mb-3"}>
+            <div className={this.props.homePage ? "col-md-7 mb-3 d-none d-md-block" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ?'' :"col-md-5 mb-3"}>
                 {
                     this.props.homePage || this.props.mobilechatview ? '' :
                         this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?

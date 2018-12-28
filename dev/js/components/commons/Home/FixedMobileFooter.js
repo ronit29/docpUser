@@ -25,13 +25,13 @@ class FixedMobileFooter extends React.Component {
                 <div className="nw-chat-card">
                     <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'opd')}>
                         <div className="nw-img-with-content">
-                            <img width="22px" src={ASSETS_BASE_URL + "/img/user-pls.svg"} />
+                            <img width="22px" src={ASSETS_BASE_URL + "/img/general2.svg"} />
                         </div>
                         <span>Doctors Near You</span>
                     </div>
                     <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'lab')}>
                         <div className="nw-img-with-content">
-                            <img width="18px" src={ASSETS_BASE_URL + "/img/labtst.png"} />
+                            <img style={{width: '26px'}} src={ASSETS_BASE_URL + "/img/flask2.svg"} />
                         </div>
                         <span style={{ padding: '0px 5px' }}>Lab Tests</span>
                     </div>
@@ -47,13 +47,13 @@ class FixedMobileFooter extends React.Component {
                     </div>
                     <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'procedures')}>
                         <div className="nw-img-with-content">
-                            <img width="22px" src={ASSETS_BASE_URL + "/img/tee.svg"} />
+                            <img width="22px" src={ASSETS_BASE_URL + "/img/dentist2.svg"} />
                         </div>
                         <span>Dental Treatments</span>
                     </div>
                     <div className="chat-div-containers" onClick={() => this.navigateTo('/searchpackages')}>
                         <div className="nw-img-with-content">
-                            <img width="18px" src={ASSETS_BASE_URL + "/img/hlth-pkg.png"} />
+                            <img style={{width: '24px'}} src={ASSETS_BASE_URL + "/img/lab2.svg"} />
                         </div>
                         <span>Health Packages</span>
                     </div>

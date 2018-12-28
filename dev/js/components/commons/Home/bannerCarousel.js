@@ -80,7 +80,7 @@ class BannerCarousel extends React.Component {
         ]
 
         return (
-            <div className="banner-carousel-div mrt-20">
+            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-20 mrb-20`}>
                 <img src={ASSETS_BASE_URL + imgData[this.state.index].src} onClick={() => this.navigate(imgData)} className={imgData[this.state.index].href != '' ? 'clickable-banner' : ''} />
                 <div className="carousel-indicators mrt-10">
                     {
