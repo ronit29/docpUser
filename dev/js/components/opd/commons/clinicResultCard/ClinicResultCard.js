@@ -64,9 +64,12 @@ class ClinicResultCard extends React.Component {
 
 
     render() {
-
         let { hospital_id, address, hospital_name, doctors, procedure_categories, short_address } = this.props.details
-
+        let specialization = ""
+        let { commonSelectedCriterias } = this.props
+        if (commonSelectedCriterias && commonSelectedCriterias.length) {
+            specialization = commonSelectedCriterias[0].name
+        }
         let doctor = (doctors && doctors.length) ? doctors[0] : {}
 
         if (doctors && doctors.length) {
@@ -120,7 +123,7 @@ class ClinicResultCard extends React.Component {
                                         <h5 class="fw-500 clinic-fltr-dc-name text-md mrb-10">{hospital_name}</h5>
                                     </a>
                                     <span class="clinic-fltr-loc-txt mrb-10">{address}</span>
-                                    <p class="mrb-10">{this.getQualificationStr(general_specialization || [])}</p>
+                                    <p class="mrb-10">{specialization}</p>
                                     {/* <p class="" style={{ color: '#008000', fontWeight: '500' }}>Open today</p> */}
                                 </div>
                             </div>
@@ -132,14 +135,17 @@ class ClinicResultCard extends React.Component {
 
                                     <p class="fltr-prices">₹ {finalProcedureDealPrice}<span class="fltr-cut-price">₹ {finalProcedureMrp}</span>
                                     </p>
-                                    <button onClick={this.toggleSelectDoctor.bind(this)} class="fltr-bkng-btn">Select Doctor</button>
+                                    {
+                                        doctors && doctors.length == 1 ? <button onClick={this.cardClick.bind(this, doctor.id, doctor.url, hospital_id)} class="fltr-bkng-btn">Book Now</button> : <button onClick={this.toggleSelectDoctor.bind(this)} class="fltr-bkng-btn">Select Doctor</button>
+                                    }
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {
-                        doctors && doctors.length && this.state.openSelectDoctor ? <div class="showBookTestList">
+                        doctors && doctors.length >= 2 && this.state.openSelectDoctor ? <div class="showBookTestList">
                             <ul>
                                 {
                                     doctors.map((d, x) => {
