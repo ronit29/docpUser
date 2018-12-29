@@ -161,7 +161,7 @@ class HomeChatView extends React.Component {
 
         if (this.props.device_info != "desktop" && SlabSequence) {
 
-            slabOrder.push(<ChatPanel homePage={true} />)
+            slabOrder.push(<ChatPanel homePage={true} chatPage={true}/>)
             slabOrder.push(
                 <div className="col-md-5">
                     <div className="right-card-container">
@@ -220,8 +220,8 @@ class HomeChatView extends React.Component {
             }
 
         } else {
-
-            slabOrder.push(<ChatPanel homePage={true} />)
+ 
+            slabOrder.push(<ChatPanel homePage={true} chatPage={true}/>)
             slabOrder.push(
                 <div className="col-md-5">
                     <div className="right-card-container">

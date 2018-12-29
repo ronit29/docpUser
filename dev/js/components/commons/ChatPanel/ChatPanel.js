@@ -312,8 +312,12 @@ class ChatPanel extends React.Component {
             chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
 
+        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ?'' :"col-md-5 mb-3"
+        if (this.props.homePage && !this.props.chatPage)
+            ct_style = "col-md-7 mb-3 d-none d-md-block"
+
         return (
-            <div className={this.props.homePage ? "col-md-7 mb-3 d-none d-md-block" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ?'' :"col-md-5 mb-3"}>
+            <div className={ct_style}>
                 {
                     this.props.homePage || this.props.mobilechatview ? '' :
                         this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
