@@ -18,17 +18,17 @@ class PackageTest extends React.Component {
         let { deal_price, mrp, pre_test_info } = test
         let test_package = test.package || []
         return (
-            <li key={i} style={{ paddingRight: '0px' }} className="clearfix" key={i}>
+            <li key={i} style={{ paddingRight: '0px' }} className="clearfix">
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
                         {test.test.name}
                         {
                             test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575' }}>{
-                                `(${test.number_of_tests} Tests)`}
+                                `(includes ${test.number_of_tests} Tests)`}
                             </span> : ''
                         }
                     </p>
-                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onClick={(e) => {
+                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
                         this.props.toggleTest(test)
                     }} />
                     <span className="checkmark"></span>
@@ -51,7 +51,7 @@ class PackageTest extends React.Component {
                     </button>
                 </div>
                 {
-                    test.hide_price ? "" : <span className="test-price text-sm">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span>
+                    test.hide_price ? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
 
                 }
                 {/*                 

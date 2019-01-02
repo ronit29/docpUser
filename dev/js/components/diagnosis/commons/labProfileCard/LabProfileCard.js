@@ -153,12 +153,12 @@ class LabProfileCard extends React.Component {
                     <div className="filtr-card-footer" style={{ background: 'white' }}>
                         <div style={{ paddingRight: "8px" }}>
                             {
-                                pickup_text ? <p style={{ marginLeft: '0px;' }}>* {pickup_text}</p>
+                                pickup_text ? <p style={{ marginLeft: '0px' }}>* {pickup_text}</p>
                                     : ""
                             }
                         </div>
 
-                        <div className="text-right" style={{ marginLeft: 'auto;' }}>
+                        <div className="text-right" style={{ marginLeft: 'auto' }}>
                             <img src="/assets/img/customer-icons/clock-black.svg" />
                             <p style={{ fontSize: '12px' }}>{buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}</p>
                         </div>
@@ -183,15 +183,15 @@ class LabProfileCard extends React.Component {
                             other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer',borderTop: '1px solid #e8e8e8' }}>
                                 {
                                     this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
-                                        <p style={{ marginLeft: '0px;' }}>Show less</p>
+                                        <p style={{ marginLeft: '0px' }}>Show less</p>
                                     </div> : <div style={{ paddingRight: "8px" }}>
-                                            <p style={{ marginLeft: '0px;' }}>View {other_labs.length} more locations</p>
+                                            <p style={{ marginLeft: '0px' }}>View {other_labs.length} more locations</p>
                                         </div>
                                 }
 
-                                <div className="text-right" style={{ marginLeft: 'auto;' }}>
+                                <div className="text-right" style={{ marginLeft: 'auto' }}>
                                     {
-                                        this.state.openViewMore ? <img style={{margin: '5px'}} class="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{margin: '5px'}} class="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                        this.state.openViewMore ? <img style={{margin: '5px'}} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{margin: '5px'}} className="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
                                     }
                                 </div>
                             </div> : ""
