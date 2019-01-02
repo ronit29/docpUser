@@ -5,7 +5,7 @@ class CommonlySearched extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            currentTestType:{}
         }
     }
 
@@ -32,6 +32,11 @@ class CommonlySearched extends React.Component {
                 'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
             GTM.sendEvent({ data: data })
+
+            row = Object.assign({}, row)
+            row.type = 'test'
+            this.props.toggle((this.props.type || row.type), row)
+            return
 
         } else if (this.props.type == 'procedures_category') {
             let data = {
