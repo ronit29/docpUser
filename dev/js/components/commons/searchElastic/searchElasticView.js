@@ -174,7 +174,7 @@ class SearchElasticView extends React.Component {
                         <section className="opd-search-section mbl-pdng-zero">
 
                             {
-                                (this.props.selectedSearchType.includes('lab') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched
+                                (this.props.selectedSearchType.includes('lab') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched {...this.props}
                                     heading={`View Selected (${this.props.dataState.selectedCriterias.length})`}
                                     data={this.props.dataState.selectedCriterias}
                                     selectedSearchType = {this.props.selectedSearchType}
@@ -188,7 +188,7 @@ class SearchElasticView extends React.Component {
 
                             {
                                 this.props.selectedSearchType.includes('lab') ?
-                                    <CommonlySearched
+                                    <CommonlySearched {...this.props}
                                         heading="Common Health Packages"
                                         type="test"
                                         data={this.props.dataState.common_package}
