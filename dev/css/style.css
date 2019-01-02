@@ -4692,7 +4692,7 @@ font-weight: 700;
 	margin: auto;
     background: white;
     position: fixed;
-    bottom: 12px;
+    bottom: 0;
     z-index: 99;
     left: 0;
     width: 97%;
@@ -4711,11 +4711,11 @@ font-weight: 700;
     text-align: center;
     width: 16%;
 	margin: 0px 4px;
-	height: 70px;
+	height: 48px;
 	cursor: pointer;
 }
 .nw-img-with-content {
-    height: 28px;
+    height: 25px;
 }
 .chat-div-containers span {
     font-size: 11px;
@@ -4724,7 +4724,7 @@ font-weight: 700;
 }
 .footbgRound{
 	position: absolute;
-    width: 155px;
+    width: 150px;
     top: -10px;
 }
 .nw-mid-container-with-img{

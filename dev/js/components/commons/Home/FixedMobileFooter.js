@@ -27,11 +27,11 @@ class FixedMobileFooter extends React.Component {
                         <div className="nw-img-with-content">
                             <img width="22px" src={ASSETS_BASE_URL + "/img/general2.svg"} />
                         </div>
-                        <span>Doctors Near You</span>
+                        <span>Doctors</span>
                     </div>
                     <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'lab')}>
                         <div className="nw-img-with-content">
-                            <img style={{width: '26px'}} src={ASSETS_BASE_URL + "/img/flask2.svg"} />
+                            <img style={{ width: '26px' }} src={ASSETS_BASE_URL + "/img/flask2.svg"} />
                         </div>
                         <span style={{ padding: '0px 5px' }}>Lab Tests</span>
                     </div>
@@ -40,22 +40,22 @@ class FixedMobileFooter extends React.Component {
                         <div className="nw-mid-container-with-img" style={{ zIndex: '1', color: 'white' }}>
                             <span>Free Online</span>
                             <div className="">
-                                <img width="35px" src={ASSETS_BASE_URL + "/img/chatbt.svg"} />
+                                <img style={{ width: 24 }} src={ASSETS_BASE_URL + "/img/chatbt.svg"} />
                             </div>
                             <span>Doctor Consult</span>
                         </div>
                     </div>
-                    <div className="chat-div-containers" onClick={() => this.navigateTo('/search?from=home', 'procedures')}>
-                        <div className="nw-img-with-content">
-                            <img width="22px" src={ASSETS_BASE_URL + "/img/dentist2.svg"} />
-                        </div>
-                        <span>Dental Treatments</span>
-                    </div>
                     <div className="chat-div-containers" onClick={() => this.navigateTo('/searchpackages')}>
                         <div className="nw-img-with-content">
-                            <img style={{width: '24px'}} src={ASSETS_BASE_URL + "/img/lab2.svg"} />
+                            <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/lab2.svg"} />
                         </div>
-                        <span>Health Packages</span>
+                        <span>Packages</span>
+                    </div>
+                    <div className="chat-div-containers" onClick={() => this.navigateTo('/offers')}>
+                        <div className="nw-img-with-content">
+                            <img style={{ width: 22 }} src={ASSETS_BASE_URL + "/img/offers.svg"} />
+                        </div>
+                        <span>Offers</span>
                     </div>
                 </div>
                 <div className="nw-cht-border-btn"></div>

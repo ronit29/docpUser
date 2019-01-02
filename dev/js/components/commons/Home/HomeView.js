@@ -268,10 +268,10 @@ class HomeView extends React.Component {
 
 						<BannerCarousel {...this.props} hideClass="d-md-none" />
 
-						<div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
 							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div>
+						</div> */}
 
 						{
 							this.props.common_package && this.props.common_package.length ?
@@ -287,10 +287,10 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
-						<div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
 							<button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div>
+						</div> */}
 
 						<HomePageWidget
 							heading="Book a Test"
