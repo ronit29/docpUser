@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileHeader from '../DesktopProfileHeader';
 import RightBar from '../RightBar';
 import Footer from '../Home/footer'
+import { API_GET } from '../../../api/api';
 
 class OffersView extends React.Component {
 
@@ -32,6 +33,10 @@ class OffersView extends React.Component {
                 this.props.history.push('/opd/searchresults')
             }, 100)
         }
+    }
+
+    componentDidMount() {
+        API_GET(`/api/v1/banner/list`);
     }
 
     render() {
