@@ -110,3 +110,6 @@ export const ADS_BOOKING = 'ADS_BOOKING'
 
 //Search Health packages
 export const SEARCH_HEALTH_PACKAGES = 'SEARCH_HEALTH_PACKAGES'
+
+// Offers
+export const GET_OFFER_LIST = 'GET_OFFER_LIST'
