@@ -4721,6 +4721,7 @@ font-weight: 700;
     font-size: 11px;
     font-weight: 500;
     padding: 0 1px;
+	line-height: 12px;
 }
 .footbgRound{
 	position: absolute;
