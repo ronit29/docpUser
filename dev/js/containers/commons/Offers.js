@@ -15,10 +15,6 @@ class Offers extends React.Component {
     }
 }
 
-const mapStateToProps = (state, passedProps) => {
-
-}
-
 const mapDispatchToProps = (dispatch) => {
     return {
         toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
@@ -26,4 +22,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Offers);
+export default connect(null, mapDispatchToProps)(Offers);
