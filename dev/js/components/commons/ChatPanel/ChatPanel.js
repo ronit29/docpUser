@@ -312,7 +312,7 @@ class ChatPanel extends React.Component {
             chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
 
-        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ?'' :"col-md-5 mb-3"
+        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ? '' : "col-md-5 mb-3"
         if (this.props.homePage && !this.props.chatPage)
             ct_style = "col-md-7 mb-3 d-none d-md-block"
 
@@ -347,10 +347,16 @@ class ChatPanel extends React.Component {
                                                     Help with Booking
                                                 </p>
                                                 :
-                                                <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                                    <span className="hed-txt-lt">Get a </span>
-                                                    Free Online Doctor Consultation!
-                                                </h1>
+                                                this.props.chatPage ?
+                                                    <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <span className="hed-txt-lt">Get a </span>
+                                                        Free Online Doctor Consultation!
+                                                    </h1>
+                                                    :
+                                                    <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <span className="hed-txt-lt">Get a </span>
+                                                        Free Online Doctor Consultation!
+                                                    </p>
                                         }
                                     </div>
 
