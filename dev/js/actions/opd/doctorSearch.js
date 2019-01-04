@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -352,5 +352,21 @@ export const getDoctorNo = (postData, cb) => (dispatch) => {
 		cb(null, response)
 	}).catch(function (error) {
 		cb(error, null)
+	})
+}
+
+export const setSearchId = (searchId, filters, setDefault=true) => (dispatch) => {
+	dispatch({
+		type: SET_SEARCH_ID,
+		payload: filters,
+		searchId: searchId,
+		setDefault: setDefault
+	})
+}
+
+export const getSearchIdResults = (searchId) => (dispatch) => {
+	dispatch({
+		type: GET_SEARCH_ID_RESULTS,
+		searchId: searchId
 	})
 }

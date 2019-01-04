@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl } from '../../actions/index.js'
+import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -89,7 +89,8 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         getNewUrl,
         selectedCriterias,
-        page
+        page,
+        search_id_data
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -115,7 +116,8 @@ const mapStateToProps = (state, passedProps) => {
         page,
         curr_page,
         HOSPITALS,
-        hospitalList, ratings, reviews, ratings_title
+        hospitalList, ratings, reviews, ratings_title,
+        search_id_data
     }
 }
 
@@ -130,7 +132,9 @@ const mapDispatchToProps = (dispatch) => {
         getFooterData: (url) => dispatch(getFooterData(url)),
         saveCommonProcedures: (procedure_ids) => dispatch(saveCommonProcedures(procedure_ids)),
         resetProcedureURl: () => dispatch(resetProcedureURl()),
-        mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias())
+        mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias()),
+        setSearchId: (searchId, filters, setDefault) => dispatch(setSearchId(searchId, filters, setDefault)),
+        getSearchIdResults: (searchId) => dispatch(getSearchIdResults(searchId))
     }
 }
 

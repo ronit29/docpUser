@@ -110,3 +110,7 @@ export const ADS_BOOKING = 'ADS_BOOKING'
 
 //Search Health packages
 export const SEARCH_HEALTH_PACKAGES = 'SEARCH_HEALTH_PACKAGES'
+
+//Search via Search Id 
+export const SET_SEARCH_ID = 'SET_SEARCH_ID'
+export const GET_SEARCH_ID_RESULTS = 'GET_SEARCH_ID_RESULTS'

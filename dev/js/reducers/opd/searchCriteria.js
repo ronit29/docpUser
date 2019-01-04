@@ -1,4 +1,4 @@
-import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS } from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -28,7 +28,8 @@ const defaultState = {
     getNewUrl: false,
     commonSelectedCriterias: [],
     page: 1,
-    procedures: []
+    procedures: [],
+    search_id_data : {}
 }
 
 export default function (state = defaultState, action) {
@@ -205,6 +206,41 @@ export default function (state = defaultState, action) {
 
             newState.selectedCriterias = newState.selectedCriterias.filter(x => x.type.includes(action.payload))
 
+            return newState
+        }
+
+        case SET_SEARCH_ID: {
+            let newState = {
+                ...state,
+                commonSelectedCriterias:[...state.commonSelectedCriterias],
+                search_id_data: {...state.search_id_data}
+            }
+
+            if(action.setDefault){
+                
+                newState.search_id_data[action.searchId] = {}
+                newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
+                newState.search_id_data[action.searchId].filterCriteria = DEFAULT_FILTER_STATE
+                newState.commonSelectedCriterias = action.payload.commonSelectedCriterias
+                newState.filterCriteria = DEFAULT_FILTER_STATE
+
+            }else if(newState.search_id_data[action.searchId]){
+
+                newState.search_id_data[action.searchId].filterCriteria = action.payload
+            }
+            
+            return newState
+
+        }
+
+        case GET_SEARCH_ID_RESULTS: {
+            let newState = {
+                ...state
+            }
+            if(newState.search_id_data && newState.search_id_data[action.searchId]){
+                newState.commonSelectedCriterias = newState.search_id_data[action.searchId].commonSelectedCriterias
+                newState.filterCriteria = newState.search_id_data[action.searchId].filterCriteria
+            }
             return newState
         }
 

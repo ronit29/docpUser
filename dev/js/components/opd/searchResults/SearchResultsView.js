@@ -7,6 +7,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 import Footer from '../../commons/Home/footer'
+const queryString = require('query-string');
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -21,11 +22,29 @@ class SearchResultsView extends React.Component {
             seoData, footerData,
             seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
             clinic_card: this.props.location.search.includes('clinic_card') || null,
-            showError: false
+            showError: false,
+            search_id:''
         }
     }
 
     componentDidMount() {
+        
+        if(this.props.location.search.includes('search_id')){
+            const parsed = queryString.parse(this.props.location.search)
+            this.props.getSearchIdResults(parsed.search_id)
+            this.setState({search_id: parsed.search_id})
+           // this.getDoctorList(this.props)
+        }else{
+            let filters = {}
+            filters.commonSelectedCriterias = this.props.selectedCriterias
+            filters.filterCriteria = this.props.filterCriteria
+            let search_id = this.generateSearchId()
+            this.props.setSearchId(search_id, filters, true)
+            this.setState({search_id: search_id})
+         //   this.getDoctorList(this.props)
+        }
+
+
         if (this.props.fetchNewResults) {
             this.getDoctorList(this.props)
             if (window) {
@@ -67,6 +86,17 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    generateSearchId(uid_string) {
+        uid_string = 'xxyyxxxx-xxyx-4xxx-yxxx-xxxyyyxxxxxx'
+        var dt = new Date().getTime();
+        var uuid = uid_string.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
     getLocationParam(tag) {
         // this API assumes the context of react-router-4
         const paramString = this.props.location.search
@@ -76,6 +106,7 @@ class SearchResultsView extends React.Component {
 
     applyFilters(filterState) {
         this.props.mergeOPDState({ filterCriteria: filterState })
+        this.props.setSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -115,7 +146,7 @@ class SearchResultsView extends React.Component {
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
 
-        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}`
+        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&search_id=${this.state.search_id}`
 
         if (page > 1) {
             url += `&page=${page}`
@@ -143,6 +174,8 @@ class SearchResultsView extends React.Component {
             this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
+                let new_url = this.buildURI(state)
+                this.props.history.replace(new_url)
             } else {
                 let new_url = this.buildURI(state)
                 this.props.history.replace(new_url)
