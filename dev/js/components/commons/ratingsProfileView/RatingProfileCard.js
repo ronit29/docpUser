@@ -12,7 +12,8 @@ class RatingProfileCard extends React.Component {
             selectedRating: 0,
             rating_id: null,
             compliments: [],
-            rating_done: false
+            rating_done: false,
+            appointmentData:null
         }
     }
 
@@ -64,7 +65,7 @@ class RatingProfileCard extends React.Component {
         if (!flag) {
             this.props.updateAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
-                    this.setState({ data: null, rating_done: true })
+                    this.setState({ appointmentData:this.state.data, data: null, rating_done: true })
                 }
             })
         }
@@ -72,7 +73,7 @@ class RatingProfileCard extends React.Component {
 
     render() {
         if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
-            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} />);
+            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} appointmentData={this.state.appointmentData}/>);
         }
         let app_id = this.props.details.id
         let submitted_flag = !!this.props.rated_appoinments[app_id];
