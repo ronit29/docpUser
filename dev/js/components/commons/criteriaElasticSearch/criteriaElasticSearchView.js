@@ -112,6 +112,10 @@ class CriteriaElasticSearchView extends React.Component {
                     'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
+
+                criteria.id = criteria.action.value.join(',')
+                criteria.type = 'speciality'
+
             }
 
             else if (criteria.action.param.includes('hospital_name')) {
@@ -248,7 +252,7 @@ class CriteriaElasticSearchView extends React.Component {
 
     focusOut() {
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue
+            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue, 'type': this.props.type
         }
         GTM.sendEvent({ data: data })
     }
