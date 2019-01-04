@@ -63,7 +63,7 @@ class CategoryPopup extends React.Component {
     render() {
         return (<div>
             <div className="cancel-overlay"></div>
-            <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">    
+            <div className="widget cancel-appointment-div cancel-popup">    
                 <div className="pop-top-heading mb-0">
                         Select categories   
                         <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
