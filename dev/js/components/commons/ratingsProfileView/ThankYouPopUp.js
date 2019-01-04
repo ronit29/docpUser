@@ -1,9 +1,26 @@
 import React from "react";
+import GTM from '../../../helpers/gtm.js'
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share'
 
 class ThankYouPopUp extends React.Component {
 constructor(props) {
 super(props);
+}
+
+gaTracking(btnType,event){
+    let actionVal
+    let eventVal
+    if(btnType == 'fb'){
+        actionVal = 'BookingRatingFbShare' 
+        eventVal = 'booking-rating-fb-share'
+    }else{
+        actionVal = 'BookingRatingTwitterShare' 
+        eventVal = 'booking-rating-twitter-share'
+    }
+    let data = {
+        'Category': 'ConsumerApp', 'Action': actionVal, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': event, 
+    }
+    GTM.sendEvent({ data: data })
 }
 render() {
 let profileData = this.props.profiles[this.props.selectedProfile]
@@ -13,11 +30,11 @@ name = profileData.name
 }
 let social_message
 let doctor_name
-if(this.props.appointmentData.type == 'doctor'){
+if(this.props.appointmentData && this.props.appointmentData.type == 'doctor'){
     doctor_name = this.props.appointmentData.doctor.name
-    social_message = `Used docprime to book Dr. ${doctor_name}. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health.`
+    social_message = `Used docprime to book Dr. ${doctor_name}. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health!`
 }else{
-    social_message = `Used docprime to book a lab test/health package. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health.`
+    social_message = `Used docprime to book a lab test. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health!`
 }
 return (
 <div className="raiting-popup">
@@ -35,7 +52,7 @@ return (
         {
             this.props.selectedRating == 4 || this.props.selectedRating == 5 ?
             <div className="social-ico-styling d-flex align-items-center">
-                <div className="facebookIcon-styling">
+                <div className="facebookIcon-styling" onClick={this.gaTracking.bind(this,'fb')}>
                     <FacebookShareButton
                     url="https://docprime.com"
                     quote= {social_message}
@@ -47,7 +64,7 @@ return (
                     </FacebookShareButton>
                     <span>Facebook</span>
                 </div>
-                <div className="twitterIcon-styling">
+                <div className="twitterIcon-styling" onClick={this.gaTracking.bind(this,'twitter')}>
                     <TwitterShareButton
                     url="https://docprime.com"
                     title={social_message}
