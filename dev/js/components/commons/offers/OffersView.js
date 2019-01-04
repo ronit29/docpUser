@@ -151,7 +151,13 @@ class OffersView extends React.Component {
                             <div className="container">
                                 <div className="row">
                                     <div className="col-12">
-                                        <p className="fw-700 offer-heading mrt-20">Offers</p>
+                                        {
+                                            this.props.offerList ?
+                                                <p className="fw-700 offer-heading mrt-20">Offers</p>
+                                                :
+                                                <p className="fw-700 offer-heading mrt-20">No offers available</p>
+                                        }
+
                                     </div>
                                     <div className="col-12">
                                         {

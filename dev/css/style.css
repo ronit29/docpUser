@@ -330,10 +330,20 @@ textarea.form-control.chat-text-area {
 		font-weight: 500;
 		margin-bottom: 0;
 	}
+	.card.cstm-card .card-header>h2 {
+		font-size: 16px;
+		font-weight: 500;
+		margin-bottom: 0;
+	}
 }
 
 @media(max-width : 359px){
 	.card.cstm-card .card-header>h1 {
+		font-size: 14px;
+		font-weight: 500;
+		margin-bottom: 0;
+	}
+	.card.cstm-card .card-header>h2 {
 		font-size: 14px;
 		font-weight: 500;
 		margin-bottom: 0;
