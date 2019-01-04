@@ -147,7 +147,7 @@ class PaymentView extends React.Component {
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'AP'} value="AP" className="radio-inline" name="gender" id="AP" data-gateway="payu" data-mode="PPI" /></span>
                                                         </li>
                                                         <li>
-                                                            <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/ola_money.svg"} className="img-fluid" /> Ola Money</label>
+                                                            <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/ola_money.png"} className="img-fluid" /> Ola Money</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'OM'} value="OM" className="radio-inline" name="gender" id="OM" data-gateway="olamoney" data-mode="PPI" /></span>
                                                         </li>
                                                         {/* <li>
