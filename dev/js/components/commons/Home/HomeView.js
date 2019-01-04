@@ -256,7 +256,7 @@ class HomeView extends React.Component {
                         } */}
 
 						<HomePageWidget
-							heading="Find a Doctor"
+							heading="Book Doctor Appointment"
 							discount="50%"
 							list={this.props.specializations}
 							searchFunc={(sp) => this.searchDoctor(sp)}
