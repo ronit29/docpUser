@@ -165,7 +165,7 @@ class HomeView extends React.Component {
 
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
@@ -233,7 +233,7 @@ class HomeView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">

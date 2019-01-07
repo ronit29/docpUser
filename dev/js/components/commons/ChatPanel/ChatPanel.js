@@ -440,7 +440,7 @@ class ChatPanel extends React.Component {
                         </div> : ""
                 }
                 {
-                    this.props.homePage ?
+                    this.props.homePage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                         <BannerCarousel {...this.props} /> : ''
                 }
             </div>
