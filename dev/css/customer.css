@@ -1505,6 +1505,7 @@ p.rt-doc-nm{
 
 .banner-carousel-div>img{
     width: 100%;
+    cursor: pointer;
 }
 
 .banner-carousel-div .clickable-banner{
