@@ -162,9 +162,9 @@ class TopBar extends React.Component {
         }
         GTM.sendEvent({ data: data })
         let selectedTests = []
-        if (this.props.selectedCriterias.length) {
-            for (var i = 0; i < this.props.selectedCriterias.length; i++) {
-                selectedTests.push(this.props.selectedCriterias[i].id);
+        if (this.props.currentSearchedCriterias.length) {
+            for (var i = 0; i < this.props.currentSearchedCriterias.length; i++) {
+                selectedTests.push(this.props.currentSearchedCriterias[i].id);
             }
         }
         this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)
@@ -177,7 +177,7 @@ class TopBar extends React.Component {
             sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
         }
 
-        let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+        let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address

@@ -7,6 +7,7 @@ import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
+const queryString = require('query-string');
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -22,11 +23,26 @@ class SearchResultsView extends React.Component {
             seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
             lab_card: this.props.location.search.includes('lab_card') || null,
             showError: false,
-            showChatWithus: false
+            showChatWithus: false,
+            search_id:''
         }
     }
 
     componentDidMount() {
+
+        if(this.props.location.search.includes('search_id')){
+            const parsed = queryString.parse(this.props.location.search)
+            this.props.getLabSearchIdResults(parsed.search_id)
+            this.setState({search_id: parsed.search_id})
+        }else{
+            let filters = {}
+            filters.commonSelectedCriterias = this.props.nextSelectedCriterias
+            filters.filterCriteria = this.props.filterCriteria
+            let search_id = this.generateSearchId()
+            this.props.setLabSearchId(search_id, filters, true)
+            this.setState({search_id: search_id})
+        }
+
         if (this.props.fetchNewResults) {
             this.getLabList(this.props)
             if (window) {
@@ -56,6 +72,17 @@ class SearchResultsView extends React.Component {
                 this.props.history.replace(new_url)
             }
         }
+    }
+
+    generateSearchId(uid_string) {
+        uid_string = 'xxyyxxxx-xxyx-4xxx-yxxx-xxxyyyxxxxxx'
+        var dt = new Date().getTime();
+        var uuid = uid_string.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
     }
 
     getLocationParam(tag) {
@@ -91,14 +118,15 @@ class SearchResultsView extends React.Component {
 
     applyFilters(filterState) {
         this.props.mergeLABState({ filterCriteria: filterState })
+        this.props.setLabSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)
         }
     }
 
     buildURI(state) {
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType, page } = state
-        let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
+        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, page } = state
+        let testIds = currentSearchedCriterias.filter(x => x.type == 'test').map(x => x.id)
 
         let lat = 28.644800
         let long = 77.216721
@@ -123,7 +151,7 @@ class SearchResultsView extends React.Component {
         let lab_name = filterCriteria.lab_name || ""
         let network_id = filterCriteria.network_id || ""
 
-        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
+        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}`
 
         if (this.state.lab_card) {
             url += `&lab_card=true`

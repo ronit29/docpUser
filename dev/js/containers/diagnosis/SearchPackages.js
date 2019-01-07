@@ -82,6 +82,7 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         corporateCoupon,
+        currentSearchedCriterias
         
     } = state.SEARCH_CRITERIA_LABS
 
@@ -101,7 +102,8 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         corporateCoupon,
-        packagesList
+        packagesList,
+        currentSearchedCriterias
     }
 
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 
@@ -85,7 +85,10 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         corporateCoupon,
-        page
+        page,
+        search_id_data,
+        nextSelectedCriterias,
+        currentSearchedCriterias
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
@@ -105,7 +108,10 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         corporateCoupon,
         page,
-        curr_page
+        curr_page,
+        search_id_data,
+        nextSelectedCriterias,
+        currentSearchedCriterias
     }
 
 }
@@ -118,7 +124,9 @@ const mapDispatchToProps = (dispatch) => {
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
-        getFooterData: (url) => dispatch(getFooterData(url))
+        getFooterData: (url) => dispatch(getFooterData(url)),
+        setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
+        getLabSearchIdResults: (searchId) => dispatch(getLabSearchIdResults(searchId))
     }
 }
 

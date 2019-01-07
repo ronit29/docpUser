@@ -4,7 +4,6 @@ import PackageProfileCard from '../../commons/labProfileCard/packageProfileCard.
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
-import LabResultCard from '../../commons/labResultCard'
 
 class packagesList extends React.Component {
     constructor(props) {

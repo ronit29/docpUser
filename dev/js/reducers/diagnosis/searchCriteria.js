@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO} from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -23,7 +23,10 @@ const defaultState = {
     corporateCoupon: "",
     currentLabSelectedTests: [],
     searchTestInfoData: {},
-    page: 1
+    page: 1,
+    search_id_data : {},
+    nextSelectedCriterias: [],
+    currentSearchedCriterias: []
 }
 
 export default function (state = defaultState, action) {
@@ -109,8 +112,24 @@ export default function (state = defaultState, action) {
                         ...action.payload.criteria,
                         type: action.payload.type
                     }]
+                    newState.nextSelectedCriterias = [{
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    }]
+                    newState.currentSearchedCriterias = [{
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    }]
                 } else if (!found) {
                     newState.selectedCriterias.push({
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    })
+                    newState.nextSelectedCriterias.push({
+                        ...action.payload.criteria,
+                        type: action.payload.type
+                    })
+                    newState.currentSearchedCriterias.push({
                         ...action.payload.criteria,
                         type: action.payload.type
                     })
@@ -146,9 +165,9 @@ export default function (state = defaultState, action) {
                 fetchNewResults: !!action.fetchNewResults
             }
 
-            let extra_tests = state.selectedCriterias.filter(x => x.extra_test) || []
-            newState.selectedCriterias = newState.selectedCriterias || []
-            newState.selectedCriterias = newState.selectedCriterias.concat(extra_tests)
+            let extra_tests = state.currentSearchedCriterias.filter(x => x.extra_test) || []
+            newState.currentSearchedCriterias = newState.currentSearchedCriterias || []
+            newState.currentSearchedCriterias = newState.currentSearchedCriterias.concat(extra_tests)
             return newState
         }
 
@@ -250,6 +269,43 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.searchTestInfoData = action.payload
+            return newState
+        }
+
+        case SET_LAB_SEARCH_ID: {
+            let newState = {
+                ...state,
+                selectedCriterias:[...state.selectedCriterias],
+                search_id_data: {...state.search_id_data}
+            }
+
+            if(action.setDefault){
+                
+                newState.search_id_data[action.searchId] = {}
+                newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
+                newState.search_id_data[action.searchId].filterCriteria = DEFAULT_FILTER_STATE
+                newState.currentSearchedCriterias = action.payload.commonSelectedCriterias
+                newState.nextSelectedCriterias = []
+                newState.filterCriteria = DEFAULT_FILTER_STATE
+
+            }else if(newState.search_id_data[action.searchId]){
+
+                newState.search_id_data[action.searchId].filterCriteria = action.payload
+            }
+            
+            return newState
+
+        }
+
+        case GET_LAB_SEARCH_ID_RESULTS: {
+            let newState = {
+                ...state
+            }
+            if(newState.search_id_data && newState.search_id_data[action.searchId]){
+                newState.currentSearchedCriterias = newState.search_id_data[action.searchId].commonSelectedCriterias
+                newState.nextSelectedCriterias = []
+                newState.filterCriteria = newState.search_id_data[action.searchId].filterCriteria
+            }
             return newState
         }
 
