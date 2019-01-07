@@ -153,6 +153,27 @@ class CriteriaSearchView extends React.Component {
             location = this.props.selectedLocation.formatted_address.slice(0, 25)
         }
 
+        let rating = ''
+        if (this.props.ratings) {
+            rating = (Math.ceil(this.props.ratings * 2)) / 2;
+        }
+
+        let ratingArray = []
+        for (let i = 0; i < Math.floor(rating); i++) {
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} className="rating-star" />)
+        }
+
+        if (rating != Math.floor(rating)) {
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-half.svg'} className="rating-star" />)
+        }
+
+        let emptyStars = Math.floor(5 - rating);
+        if (emptyStars) {
+            for (let i = 0; i < emptyStars; i++) {
+                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="rating-star" />)
+            }
+        }
+
         return (
             <div className="profile-body-wrap">
                 {
@@ -333,7 +354,8 @@ class CriteriaSearchView extends React.Component {
                                         <div className="row">
                                             <div className="col-12 avg-rating">
                                                 <p className="fw-500">{this.props.ratings_title}</p>
-                                                <p className="fw-500">Average rating <span>{this.props.ratings} </span><span>({this.props.reviews} reviews)</span></p>
+                                                <p className="fw-500">Average rating {ratingArray}<span>&nbsp;{this.props.ratings} </span><span>({this.props.reviews} reviews)</span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div> : ''

@@ -1641,6 +1641,13 @@ p.rt-doc-nm{
     margin-top: 4px;
 }
 
+.rating-star{
+    display: inline-block;
+    vertical-align: -1px;
+    margin: 0 2px;
+    width: 12px;
+}
+
 /* offer page */
 
 .offer-heading{
