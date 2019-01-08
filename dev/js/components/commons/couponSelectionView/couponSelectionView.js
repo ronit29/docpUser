@@ -18,7 +18,9 @@ class CouponSelectionView extends React.Component {
             openTermsConditions: false,
             couponText: "",
             couponTextMessage: "",
-            test_ids: []
+            test_ids: null,
+            procedures_ids: null,
+            clinicId: null
         }
     }
 
@@ -37,6 +39,9 @@ class CouponSelectionView extends React.Component {
         let appointmentType = this.props.match.params.type;
         let id = this.props.match.params.id;
         let clinicId = this.props.match.params.cid
+        const parsed = queryString.parse(this.props.location.search)
+        let test_ids = null
+        let procedures_ids = null
 
         if (appointmentType == 'opd') {
             appointmentType = 1
@@ -46,18 +51,23 @@ class CouponSelectionView extends React.Component {
             appointmentType = ''
         }
 
-        let test_ids = []
         if (appointmentType == 2) {
-            const parsed = queryString.parse(this.props.location.search)
             if (parsed.test_ids) {
                 test_ids = parsed.test_ids
             }
-            this.props.getCoupons(appointmentType, null, (coupons) => { }, id, test_ids)
+            this.props.getCoupons({
+                productId: 2, lab_id: id, test_ids: test_ids, profile_id: this.props.selectedProfile
+            })
         } else {
-            this.props.getCoupons(appointmentType)
+            if (parsed.procedures_ids) {
+                procedures_ids = parsed.procedures_ids
+            }
+            this.props.getCoupons({
+                productId: 1, doctor_id: id, hospital_id: clinicId, profile_id: this.props.selectedProfile, procedures_ids
+            })
         }
 
-        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids })
+        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids })
     }
 
     toggleButtons(coupon, e) {
@@ -97,9 +107,18 @@ class CouponSelectionView extends React.Component {
                 }
             }
             if (this.state.appointmentType == 2) {
-                this.props.getCoupons(this.state.appointmentType, null, cb, this.state.id, this.state.test_ids, this.state.couponText, false)
+                this.props.getCoupons({
+                    productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText
+                })
+
+                // this.props.getCoupons(this.state.appointmentType, null, cb, this.state.id, this.state.test_ids, this.state.couponText, false)
             } else {
-                this.props.getCoupons(this.state.appointmentType, null, cb, null, null, this.state.couponText, false)
+                this.props.getCoupons({
+                    productId: 1, doctor_id: this.state.id, hospital_id: this.state.clinicId, profile_id: this.props.selectedProfile, procedures_ids: this.state.procedures_ids, save_in_store: false,
+                    coupon_code: this.state.couponText
+                })
+
+                // this.props.getCoupons(this.state.appointmentType, null, cb, null, null, this.state.couponText, false)
             }
         } else {
             this.setState({ couponTextMessage: "Please enter a coupon code" })

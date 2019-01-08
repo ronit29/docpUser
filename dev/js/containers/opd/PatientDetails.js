@@ -23,15 +23,15 @@ class PatientDetails extends React.Component {
     }
 
     componentDidMount() {
-        if(window){
-            window.scrollTo(0,0)
+        if (window) {
+            window.scrollTo(0, 0)
         }
         if (STORAGE.checkAuth()) {
 
             this.props.getUserProfile()
         }
         this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
-         
+
     }
 
     render() {
@@ -61,10 +61,10 @@ const mapDispatchToProps = (dispatch) => {
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
-        applyOpdCoupons: (productId, couponCode, couponId, hospitalId, dealPrice) => dispatch(applyOpdCoupons(productId, couponCode, couponId, hospitalId, dealPrice)),
+        applyOpdCoupons: (productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids) => dispatch(applyOpdCoupons(productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids)),
         applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId)),
         resetOpdCoupons: () => dispatch(resetOpdCoupons()),
-        getCoupons: (productId, deal_price, cb) => dispatch(getCoupons(productId, deal_price, cb)),
+        getCoupons: (data) => dispatch(getCoupons(data)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb))

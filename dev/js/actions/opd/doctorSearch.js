@@ -267,9 +267,17 @@ export const getDoctorNumber = (doctorId, hospital_id, callback) => (dispatch) =
 	})
 }
 
-export const applyOpdCoupons = (productId = '', couponCode, couponId, hospitalId, dealPrice) => (dispatch) => {
+export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id = null, procedures_ids = []) => (dispatch) => {
 
-	API_POST(`/api/v1/coupon/discount`, { coupon_code: [couponCode], deal_price: dealPrice, product_id: productId }).then(function (response) {
+	API_POST(`/api/v1/coupon/discount`, {
+		coupon_code: [couponCode],
+		deal_price: dealPrice,
+		product_id: productId,
+		doctor: doctor_id,
+		hospital: hospitalId,
+		profile: profile_id,
+		procedures: procedures_ids || []
+	}).then(function (response) {
 		let analyticData = {
 			'Category': 'ConsumerApp', 'Action': 'OpdCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupon-applied', 'couponId': couponId
 		}
@@ -282,14 +290,14 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, hospitalId
 		} else {
 			dispatch({
 				type: REMOVE_OPD_COUPONS,
-				hospitalId: hospitalId,
+				hospitalId: doctor_id,
 				couponId: couponId
 			})
 		}
 	}).catch(function (error) {
 		dispatch({
 			type: REMOVE_OPD_COUPONS,
-			hospitalId: hospitalId,
+			hospitalId: doctor_id,
 			couponId: couponId
 		})
 	})
