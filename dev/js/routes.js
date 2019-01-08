@@ -43,7 +43,7 @@ import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 import Search from './containers/commons/search'
 import searchTestInfo from './containers/commons/searchTestInfo'
-import adsBooking from  './containers/commons/adsBooking.js'
+import adsBooking from './containers/commons/adsBooking.js'
 import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
 import Offers from './containers/commons/Offers';
 
@@ -119,7 +119,8 @@ const routes = [
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/search/testinfo', exact: true, component: searchTestInfo },
     { path: '/bookings', exact: true, component: adsBooking },
-    { path: '/searchpackages', exact: true, component: DX_SearchPackages },
+    { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
+    { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: true, redirectTo: "full-body-checkup-health-packages" },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

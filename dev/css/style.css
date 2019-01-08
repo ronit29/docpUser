@@ -4869,3 +4869,6 @@ font-weight: 700;
     width: 100%;
 }
 /* ================= filter bar ================= */
+.acrd-stc-red{
+	color:red !important;
+}

@@ -191,6 +191,7 @@ class TopBar extends React.Component {
 
         return (
             <div>
+                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                  <div className="top-filter-tab-container">
                     {/*<div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
@@ -205,12 +206,15 @@ class TopBar extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for Health Packages
-                                                        <span className="fw-700"> {criteriaStr}
+                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
+                                                        <h1 className="search-result-heading">
+                                                        <span className="fw-700"> Full Body Checkup Packages</span>
+                                                        <span className="search-result-span"> {criteriaStr}
                                                             {
                                                                 locationName ? ` in ${locationName}` : ''
                                                             }
                                                         </span>
+                                                        </h1>
                                                     </p>
                                                 </div>
                                                 <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
@@ -257,9 +261,12 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div> */}
                                             <div className="filter-title">
-                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for Health Packages
+                                            
+                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for 
+                                                <h1 className="search-result-heading">
+                                                <span className="fw-700"> Full Body Checkup Packages</span>
 
-                                                <span onClick={() => {
+                                                <span className="search-result-span" onClick={() => {
                                                     this.setState({
                                                         showLocationPopup: !this.state.showLocationPopup,
                                                         searchCities: [],
@@ -273,6 +280,7 @@ class TopBar extends React.Component {
                                                     }
                                                     <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                 </span>
+                                                 </h1>
                                             </div>
                                         </div>
                                 }
