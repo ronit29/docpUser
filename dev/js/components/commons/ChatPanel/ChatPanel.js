@@ -319,7 +319,7 @@ class ChatPanel extends React.Component {
         return (
             <div className={ct_style}>
                 {
-                    this.props.homePage || this.props.mobilechatview ? '' :
+                    this.props.homePage || this.props.mobilechatview || this.props.offersPage ? '' :
                         this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
                             <div className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>

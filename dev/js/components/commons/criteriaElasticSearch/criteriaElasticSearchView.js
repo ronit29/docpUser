@@ -485,7 +485,7 @@ class CriteriaElasticSearchView extends React.Component {
 
                         </div>
                         {
-                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} />
+                            this.props.clinic_card || this.props.lab_card || this.props.searchElasticView ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} />
                         }
                     </div>
                 </section>

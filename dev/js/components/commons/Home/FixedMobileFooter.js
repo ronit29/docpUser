@@ -24,7 +24,7 @@ class FixedMobileFooter extends React.Component {
         return (
             <div className="mobileViewStaticChat d-md-none">
                 <div className="nw-chat-card">
-                    <div className="chat-div-containers" onClick={() => {
+                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #f78631' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookDoctorsClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-book-doctors-clicked'
                         }
@@ -76,7 +76,7 @@ class FixedMobileFooter extends React.Component {
                         </div>
                         <span>Packages</span>
                     </div>
-                    <div className="chat-div-containers" onClick={() => {
+                    <div className="chat-div-containers" style={this.props.offersPage ? { borderTop: '2px solid #f78631' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterOffersClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-offers-clicked'
                         }

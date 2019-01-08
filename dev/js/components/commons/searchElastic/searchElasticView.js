@@ -3,6 +3,7 @@ import React from 'react'
 import CommonlySearched from '../../commons/commonlySearched/index.js'
 import CriteriaElasticSearch from '../../commons/criteriaElasticSearch'
 import GTM from '../../../helpers/gtm.js'
+import FixedMobileFooter from '../Home/FixedMobileFooter.js';
 const queryString = require('query-string');
 
 
@@ -34,7 +35,7 @@ class SearchElasticView extends React.Component {
                 doctor_name, hospital_name, hospital_id
             }
         }
-        
+
 
         if (doctor_name || hospital_name || hospital_id) {
             state.selectedCriterias = []
@@ -167,7 +168,7 @@ class SearchElasticView extends React.Component {
             <section>
                 <div id="map" style={{ display: 'none' }}></div>
                 <div className="container-fluid">
-                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true}>
+                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} searchElasticView={true}  >
                         <section className="opd-search-section mbl-pdng-zero">
 
                             {
@@ -203,6 +204,10 @@ class SearchElasticView extends React.Component {
                     </CriteriaElasticSearch>
 
                 </div>
+                {
+                    this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ?
+                        <FixedMobileFooter {...this.props} /> : ''
+                }
             </section>
         )
     }

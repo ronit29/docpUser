@@ -3,6 +3,7 @@ import ProfileHeader from '../DesktopProfileHeader';
 import RightBar from '../RightBar';
 import Footer from '../Home/footer'
 import GTM from '../../../helpers/gtm';
+import FixedMobileFooter from '../Home/FixedMobileFooter';
 
 class OffersView extends React.Component {
 
@@ -173,10 +174,11 @@ class OffersView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar />
+                        <RightBar offersPage={true} />
                     </div>
                 </section>
                 <Footer />
+                <FixedMobileFooter offersPage={true} {...this.props} />
             </div>
         )
     }
