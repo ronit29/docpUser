@@ -463,7 +463,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let amtBeforeCoupon = 0
         let total_price = finalPrice
-        if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
+        if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home' && finalPrice) {
             total_price = finalPrice + (labDetail.home_pickup_charges || 0)
         }
         amtBeforeCoupon = total_price
@@ -615,7 +615,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <p>&#8377; {finalMrp}</p>
                                                                             </div>
                                                                             {
-                                                                                (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                (total_price && is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                     <p className="payment-content">Home Pickup Charges</p>
                                                                                     <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                 </div> : ""
