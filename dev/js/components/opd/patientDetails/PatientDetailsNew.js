@@ -371,7 +371,7 @@ class PatientDetailsNew extends React.Component {
     applyCoupons() {
         let procedure_ids = ""
         let proc_ids = this.getProcedureIds(this.props)
-        if (proc_ids.length) {
+        if (proc_ids && proc_ids.length) {
             procedure_ids = proc_ids.join(',')
         }
         let analyticData = {
