@@ -20,7 +20,8 @@ class CouponSelectionView extends React.Component {
             couponTextMessage: "",
             test_ids: null,
             procedures_ids: null,
-            clinicId: null
+            clinicId: null,
+            deal_price: null
         }
     }
 
@@ -32,14 +33,14 @@ class CouponSelectionView extends React.Component {
         this.setState({ couponText: e.target.value })
     }
 
-    componentDidMount() {
+    initialSetCoupons(props) {
         if (window) {
             window.scrollTo(0, 0)
         }
-        let appointmentType = this.props.match.params.type;
-        let id = this.props.match.params.id;
-        let clinicId = this.props.match.params.cid
-        const parsed = queryString.parse(this.props.location.search)
+        let appointmentType = props.match.params.type;
+        let id = props.match.params.id;
+        let clinicId = props.match.params.cid
+        const parsed = queryString.parse(props.location.search)
         let test_ids = null
         let procedures_ids = null
 
@@ -55,19 +56,29 @@ class CouponSelectionView extends React.Component {
             if (parsed.test_ids) {
                 test_ids = parsed.test_ids
             }
-            this.props.getCoupons({
-                productId: 2, lab_id: id, test_ids: test_ids, profile_id: this.props.selectedProfile
+            props.getCoupons({
+                productId: 2, lab_id: id, test_ids: test_ids, profile_id: props.selectedProfile
             })
         } else {
             if (parsed.procedures_ids) {
                 procedures_ids = parsed.procedures_ids
             }
-            this.props.getCoupons({
-                productId: 1, doctor_id: id, hospital_id: clinicId, profile_id: this.props.selectedProfile, procedures_ids
+            props.getCoupons({
+                productId: 1, doctor_id: id, hospital_id: clinicId, profile_id: props.selectedProfile, procedures_ids
             })
         }
 
         this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids })
+    }
+
+    componentDidMount() {
+        this.initialSetCoupons(this.props)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.selectedProfile != nextProps.selectedProfile) {
+            this.initialSetCoupons(nextProps)
+        }
     }
 
     toggleButtons(coupon, e) {
