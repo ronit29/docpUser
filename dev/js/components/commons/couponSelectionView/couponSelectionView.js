@@ -124,14 +124,14 @@ class CouponSelectionView extends React.Component {
             }
             if (this.state.appointmentType == 2) {
                 this.props.getCoupons({
-                    productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText, deal_price: this.state.deal_price
+                    productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb
                 })
 
                 // this.props.getCoupons(this.state.appointmentType, null, cb, this.state.id, this.state.test_ids, this.state.couponText, false)
             } else {
                 this.props.getCoupons({
                     productId: 1, doctor_id: this.state.id, hospital_id: this.state.clinicId, profile_id: this.props.selectedProfile, procedures_ids: this.state.procedures_ids, save_in_store: false,
-                    coupon_code: this.state.couponText, deal_price: this.state.deal_price
+                    coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb
                 })
 
                 // this.props.getCoupons(this.state.appointmentType, null, cb, null, null, this.state.couponText, false)
