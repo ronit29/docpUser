@@ -243,12 +243,15 @@ class TopBar extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for Health Packages
-                                                        <span className="fw-700"> {criteriaStr}
+                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
+                                                        <h1 className="search-result-heading">
+                                                        <span className="fw-700"> Full Body Checkup Packages</span>
+                                                        <span className="search-result-span"> {criteriaStr}
                                                             {
                                                                 locationName ? ` in ${locationName}` : ''
                                                             }
                                                         </span>
+                                                        </h1>
                                                     </p>
                                                 </div>
                                                 <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
@@ -295,9 +298,12 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div> */}
                                             <div className="filter-title">
-                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for Health Packages
+                                            
+                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for 
+                                                <h1 className="search-result-heading">
+                                                <span className="fw-700"> Full Body Checkup Packages</span>
 
-                                                <span onClick={() => {
+                                                <span className="search-result-span" onClick={() => {
                                                     this.setState({
                                                         showLocationPopup: !this.state.showLocationPopup,
                                                         searchCities: [],
@@ -311,6 +317,7 @@ class TopBar extends React.Component {
                                                     }
                                                     <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                 </span>
+                                                 </h1>
                                             </div>
                                         </div>
                                 }
