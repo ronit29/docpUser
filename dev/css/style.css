@@ -4821,4 +4821,54 @@ font-weight: 700;
 	flex-grow: 0;
 	flex-shrink: 0;
 }
+.social-ico-styling{
+    margin: 10px 0px;
+}
+.facebookIcon-styling{
+    flex: 1;
+    position: relative;
+    background: #3b5998;
+    margin: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.facebookIcon-styling span{
+	position: absolute;
+    top: 5px;
+    left: 40px;
+    font-weight: 500;
+    color: white;
+}
+.twitterIcon-styling{
+    flex: 1;
+    position: relative;
+    background: #00aced;
+    margin: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.twitterIcon-styling span{
+	position: absolute;
+    top: 5px;
+    left: 40px;
+    font-weight: 500;
+    color: white;
+}
+.SocialMediaShareButton{
+	display: flex;
+    flex: 1;
+    outline: none;
+    position: relative;
+    z-index: 99;
+}
+.later-btn-style{
+	    background: none;
+    border: none;
+    color: #f48254;
+    font-weight: 600;
+    width: 100%;
+}
 /* ================= filter bar ================= */
+.acrd-stc-red{
+	color:red !important;
+}

@@ -140,7 +140,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                            <p>
                                                     60
                                                                         </p>
                                             </div>
@@ -181,11 +181,14 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[0] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[0] ? 
+                                            <div>
+                                                <div><span>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.</span></div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
+                                                    {/*<p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
 
-                                                                        </p>
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
 
 
@@ -317,8 +320,9 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
-                                                                        </p>
+                                                    {/*<p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
+
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
 
 
@@ -450,8 +454,9 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
-                                                                        </p>
+                                                    {/*<p>Complete Blood Count (CBC) is a blood test that measures Red blood cells (RBC), White blood cells (WBC), Platelets (PLTs), Hemoglobin (Hb), and Hematocrit (Hct) in the blood. This test is used to determine the overall health and screen for any diseases that affect the blood cells.
+
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
 
 
@@ -582,6 +587,7 @@ class LabView extends React.Component {
                                                         </li>
                                                     </ul>
                                                 </div>
+                                            </div>
                                             </div> : ''
                                         }
                                     </div>
@@ -608,10 +614,15 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[1] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[1] ? 
+                                            <div>
+                                                <div>
+                                                    <span>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood.</span>
+                                                </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
-                                                                        </p>
+                                                    {/*<p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li>
                                                             <p>
@@ -671,8 +682,8 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
-                                                                        </p>
+                                                    {/*<p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li>
                                                             <p>
@@ -732,8 +743,8 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
-                                                                        </p>
+                                                    {/*<p>Liver function tests are blood tests used to help diagnose and monitor liver disease or damage. The tests measure the levels of certain enzymes and proteins in your blood. 
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li>
                                                             <p>
@@ -792,6 +803,7 @@ class LabView extends React.Component {
                                                         </li>
                                                     </ul>
                                                 </div>
+                                            </div> 
                                             </div> : ''
                                         }
                                     </div>
@@ -818,11 +830,14 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[2] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
-                                                <div className="acrd-stc-data">
-                                                    <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+                                            this.state.collapse[2] ? 
+                                            <div> <span>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).</span>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
 
-                                                                        </p>
+                                                <div className="acrd-stc-data">
+                                                   {/*} <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>LDL Cholestrol</p></li>
                                                         <li><p>Total Cholesterol</p></li>
@@ -835,8 +850,9 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
-                                                                        </p>
+                                                    {/*} <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>LDL Cholestrol</p></li>
                                                         <li><p>Total Cholesterol</p></li>
@@ -849,8 +865,9 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
-                                                                        </p>
+                                                   {/*} <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>LDL Cholestrol</p></li>
                                                         <li><p>Total Cholesterol</p></li>
@@ -862,6 +879,7 @@ class LabView extends React.Component {
                                                         <li><p>TC/HDL Cholesterol Ratio</p></li>
                                                     </ul>
                                                 </div>
+                                            </div>
                                             </div> : ''
                                         }
                                     </div>
@@ -888,10 +906,15 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[3] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[3] ? 
+                                            <div>
+                                                <div>
+                                                <span>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.</span>
+                                                </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
-                                                                        </p>
+                                                    {/*<p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Creatinine</p></li>
                                                         <li><p>Uric Acid (UA)</p></li>
@@ -901,8 +924,8 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
-                                                                        </p>
+                                                    {/*<p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Creatinine</p></li>
                                                         <li><p>Uric Acid (UA)</p></li>
@@ -912,8 +935,8 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
-                                                                        </p>
+                                                    {/*<p>Kidneys play an important role in the removal of waste products and maintenance of water and electrolyte balance in the body. Kidney Function Test (KFT) includes a group of blood tests to determine how well the kidneys are working.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Creatinine</p></li>
                                                         <li><p>Uric Acid (UA)</p></li>
@@ -922,6 +945,7 @@ class LabView extends React.Component {
                                                         <li><p>Calcium</p></li>
                                                     </ul>
                                                 </div>
+                                            </div>
                                             </div> : ''
                                         }
                                     </div>
@@ -948,10 +972,15 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[4] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[4] ? 
+                                            <div>
+                                            <div>
+                                                <span>Thyroid function tests (TFTs) is a collective term for blood tests used to check the function of the thyroid. A TFT panel typically includes thyroid hormones such as thyroid-stimulating hormone (TSH, thyrotropin) and thyroxine (T4), and triiodothyronine (T3).</span>
+                                            </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Thyroid function tests (TFTs) is a collective term for blood tests used to check the function of the thyroid. A TFT panel typically includes thyroid hormones such as thyroid-stimulating hormone (TSH, thyrotropin) and thyroxine (T4), and triiodothyronine (T3).
-                                                                        </p>
+                                                    {/*<p>Thyroid function tests (TFTs) is a collective term for blood tests used to check the function of the thyroid. A TFT panel typically includes thyroid hormones such as thyroid-stimulating hormone (TSH, thyrotropin) and thyroxine (T4), and triiodothyronine (T3).
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>TriIodothyronine (T3)</p></li>
                                                         <li><p>Thyroxine - T4 Total</p></li>
@@ -959,8 +988,8 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Thyroid function tests (TFTs) is a collective term for blood tests used to check the function of the thyroid. A TFT panel typically includes thyroid hormones such as thyroid-stimulating hormone (TSH, thyrotropin) and thyroxine (T4), and triiodothyronine (T3).
-                                                                        </p>
+                                                    {/*<p>Thyroid function tests (TFTs) is a collective term for blood tests used to check the function of the thyroid. A TFT panel typically includes thyroid hormones such as thyroid-stimulating hormone (TSH, thyrotropin) and thyroxine (T4), and triiodothyronine (T3).
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>TriIodothyronine (T3)</p></li>
                                                         <li><p>Thyroxine - T4 Total</p></li>
@@ -968,15 +997,16 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Thyroid function tests (TFTs) is a collective term for blood tests used to check the function of the thyroid. A TFT panel typically includes thyroid hormones such as thyroid-stimulating hormone (TSH, thyrotropin) and thyroxine (T4), and triiodothyronine (T3).
-                                                                        </p>
+                                                    {/*<p>Thyroid function tests (TFTs) is a collective term for blood tests used to check the function of the thyroid. A TFT panel typically includes thyroid hormones such as thyroid-stimulating hormone (TSH, thyrotropin) and thyroxine (T4), and triiodothyronine (T3).
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>TriIodothyronine (T3)</p></li>
                                                         <li><p>Thyroxine - T4 Total</p></li>
                                                         <li><p>TSH - Thyroid Stimulating Hormone</p></li>
                                                     </ul>
                                                 </div>
-                                            </div> : ''
+                                            </div> 
+                                            </div>: ''
                                         }
                                     </div>
                                     <div className="stc-accord-container">
@@ -1002,10 +1032,16 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[5] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[5] ? 
+                                            <div>
+                                            <div>
+                                                <span>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
+                                                </span>    
+                                            </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
-                                                                        </p>
+                                                    {/*<p>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Total Iron Binding Capacity (TIBC)</p></li>
                                                         <li><p>Iron</p></li>
@@ -1013,8 +1049,8 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
-                                                                        </p>
+                                                    {/*<p>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Total Iron Binding Capacity (TIBC)</p></li>
                                                         <li><p>Iron</p></li>
@@ -1022,15 +1058,16 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
-                                                                        </p>
+                                                    {/*<p>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Total Iron Binding Capacity (TIBC)</p></li>
                                                         <li><p>Iron</p></li>
                                                         <li><p>Transferrin Saturation</p></li>
                                                     </ul>
                                                 </div>
-                                            </div> : ''
+                                            </div> 
+                                            </div>: ''
                                         }
                                     </div>
                                     <div className="stc-accord-container">
@@ -1056,31 +1093,38 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[6] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[6] ? 
+                                            <div>
+                                            <div>
+                                                <span>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
+                                                </span>
+                                            </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
-                                                                        </p>
+                                                    {/*<p>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>HbA1c Glycated Haemoglobin</p></li>
                                                         <li><p>Average Blood Glucose (ABG)</p></li>
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
-                                                                        </p>
+                                                    {/*<p>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>HbA1c Glycated Haemoglobin</p></li>
                                                         <li><p>Average Blood Glucose (ABG)</p></li>
                                                     </ul>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
-                                                                        </p>
+                                                    {/*<p>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>HbA1c Glycated Haemoglobin</p></li>
                                                         <li><p>Average Blood Glucose (ABG)</p></li>
                                                     </ul>
                                                 </div>
+                                            </div>
                                             </div> : ''
                                         }
                                     </div>
@@ -1091,12 +1135,12 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1107,7 +1151,13 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[7] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[7] ? 
+                                            <div>
+                                            <div>
+                                                <span>A cardiac risk profile—or CRP—gives you information about some of the factors that can put you at risk for heart disease—things like elevated blood levels of cholesterol, triglycerides, and glucose (blood sugar).
+                                                </span>
+                                            </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
                                                     <p></p>
                                                 </div>
@@ -1115,8 +1165,8 @@ class LabView extends React.Component {
                                                     <p></p>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>A cardiac risk profile—or CRP—gives you information about some of the factors that can put you at risk for heart disease—things like elevated blood levels of cholesterol, triglycerides, and glucose (blood sugar).
-                                                                        </p>
+                                                    {/*<p>A cardiac risk profile—or CRP—gives you information about some of the factors that can put you at risk for heart disease—things like elevated blood levels of cholesterol, triglycerides, and glucose (blood sugar).
+                                                                        </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Lipoprotein (A)</p></li>
                                                         <li><p>Apolipoproteins A1</p></li>
@@ -1125,6 +1175,7 @@ class LabView extends React.Component {
                                                         <li><p>Apolipoproteins B/A1</p></li>
                                                     </ul>
                                                 </div>
+                                            </div>
                                             </div> : ''
                                         }
                                     </div>
@@ -1135,7 +1186,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1151,20 +1202,27 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[8] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[8] ? 
+                                            <div>
+                                            <div>
+                                                <span>Homocysteine is an amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
+                                                </span>    
+                                            </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
                                                     <p>
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Homocysteine is an amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
-                                                                        </p>
+                                                    {/*<p>Homocysteine is an amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
+                                                                        </p>*/}
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Homocysteine is an amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
-                                                                        </p>
+                                                    {/*<p>Homocysteine is an amino acid that is produced by the human body, usually as a byproduct of consuming meat. Homocysteine is normally converted into other amino acids. An abnormal accumulation of homocysteine, which can be measured in the blood, can be a marker for the development of heart disease.
+                                                                        </p>*/}
                                                 </div>
-                                            </div> : ''
+                                            </div> 
+                                            </div>: ''
                                         }
                                     </div>
                                     <div className="stc-accord-container">
@@ -1174,7 +1232,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1190,20 +1248,21 @@ class LabView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[9] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[9] ? 
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
                                                     <p>
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Vitamin D Total-25 Hydroxy
-                                                                        </p>
+                                                    {/*<p>Vitamin D Total-25 Hydroxy
+                                                                        </p>*/}
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Vitamin D Total-25 Hydroxy
-                                                                        </p>
+                                                    {/*<p>Vitamin D Total-25 Hydroxy
+                                                                        </p>*/}
                                                 </div>
-                                            </div> : ''
+                                            </div>: ''
                                         }
                                     </div>
                                     <div className="stc-accord-container">
@@ -1213,7 +1272,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                               <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1235,12 +1294,12 @@ class LabView extends React.Component {
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Vitamin B12, active Holo Transcobalamin
-                                                                        </p>
+                                                    {/*<p>Vitamin B12, active Holo Transcobalamin
+                                                                        </p>*/}
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    <p>Vitamin B12, active Holo Transcobalamin
-                                                                        </p>
+                                                    {/*<p>Vitamin B12, active Holo Transcobalamin
+                                                                        </p>*/}
                                                 </div>
                                             </div> : ''
                                         }
@@ -1252,7 +1311,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1262,7 +1321,7 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1295,7 +1354,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1305,7 +1364,7 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
@@ -1317,8 +1376,8 @@ class LabView extends React.Component {
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>
+                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>*/}
                                                 </div>
                                                 <div className="acrd-stc-data">
                                                     <p>
@@ -1334,7 +1393,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                             </p>
                                             </div>
@@ -1344,20 +1403,26 @@ class LabView extends React.Component {
                                                                             </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
+                                                <p className="acrd-stc-red">
                                                     X
                                                                             </p>
                                             </div>
                                         </div>
                                         {
-                                            this.state.collapse[13] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                            this.state.collapse[13] ? 
+                                            <div>
+                                            <div>
+                                                <span>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
+                                                </span>    
+                                            </div>
+                                            <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
                                                     <p>
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
-                                                                            </p>
+                                                    {/*<p>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
+                                                                            </p>*/}
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Amylase</p></li>
                                                         <li><p>Lipase</p></li>
@@ -1367,7 +1432,8 @@ class LabView extends React.Component {
                                                     <p>
                                                     </p>
                                                 </div>
-                                            </div> : ''
+                                            </div> 
+                                            </div>: ''
                                         }
                                     </div>
                                 </div>
