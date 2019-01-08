@@ -24,7 +24,7 @@ class PaymentView extends React.Component {
             photoIndex: 0,
             isOpen: false,
             gateway: 'paytm',
-            mode: ''
+            mode: 'DC'
         }
     }
 
