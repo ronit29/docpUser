@@ -382,7 +382,10 @@ class BookingSummaryViewNew extends React.Component {
             this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
                 test_ids.push(twp.test_id)
             })
-            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}`)
+
+            let { finalPrice } = this.getLabPriceData(this.props)
+
+            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}`)
         }
     }
 

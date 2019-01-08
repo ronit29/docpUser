@@ -374,11 +374,45 @@ class PatientDetailsNew extends React.Component {
         if (proc_ids && proc_ids.length) {
             procedure_ids = proc_ids.join(',')
         }
+
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'OpdCouponsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-clicked'
         }
+
         GTM.sendEvent({ data: analyticData })
-        this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}/${this.state.selectedClinic}?procedures_ids=${procedure_ids}`)
+        this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}/${this.state.selectedClinic}?procedures_ids=${procedure_ids}&deal_price=${this.getDealPrice()}`)
+    }
+
+    getDealPrice() {
+        let hospital = {}
+        let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
+
+        if (doctorDetails) {
+            let { hospitals } = doctorDetails
+
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
+                        hospital = hsptl
+                    }
+                })
+            }
+        }
+
+        let deal_price = 0
+
+        if (Object.values(hospital).length) {
+            deal_price = hospital.deal_price
+        }
+
+        let treatment_Price = 0
+        if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+
+            treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+        }
+
+        deal_price += treatment_Price
+        return deal_price
     }
 
     render() {

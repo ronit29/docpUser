@@ -43,6 +43,11 @@ class CouponSelectionView extends React.Component {
         const parsed = queryString.parse(props.location.search)
         let test_ids = null
         let procedures_ids = null
+        let deal_price = null
+
+        if (parsed.deal_price) {
+            deal_price = parseInt(parsed.deal_price)
+        }
 
         if (appointmentType == 'opd') {
             appointmentType = 1
@@ -57,18 +62,18 @@ class CouponSelectionView extends React.Component {
                 test_ids = parsed.test_ids
             }
             props.getCoupons({
-                productId: 2, lab_id: id, test_ids: test_ids, profile_id: props.selectedProfile
+                productId: 2, lab_id: id, test_ids: test_ids, profile_id: props.selectedProfile, deal_price: deal_price
             })
         } else {
             if (parsed.procedures_ids) {
                 procedures_ids = parsed.procedures_ids
             }
             props.getCoupons({
-                productId: 1, doctor_id: id, hospital_id: clinicId, profile_id: props.selectedProfile, procedures_ids
+                productId: 1, doctor_id: id, hospital_id: clinicId, profile_id: props.selectedProfile, procedures_ids, deal_price: deal_price
             })
         }
 
-        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids })
+        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids, deal_price })
     }
 
     componentDidMount() {
@@ -119,14 +124,14 @@ class CouponSelectionView extends React.Component {
             }
             if (this.state.appointmentType == 2) {
                 this.props.getCoupons({
-                    productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText
+                    productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText, deal_price: this.state.deal_price
                 })
 
                 // this.props.getCoupons(this.state.appointmentType, null, cb, this.state.id, this.state.test_ids, this.state.couponText, false)
             } else {
                 this.props.getCoupons({
                     productId: 1, doctor_id: this.state.id, hospital_id: this.state.clinicId, profile_id: this.props.selectedProfile, procedures_ids: this.state.procedures_ids, save_in_store: false,
-                    coupon_code: this.state.couponText
+                    coupon_code: this.state.couponText, deal_price: this.state.deal_price
                 })
 
                 // this.props.getCoupons(this.state.appointmentType, null, cb, null, null, this.state.couponText, false)
