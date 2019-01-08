@@ -6,6 +6,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
+import FixedMobileFooter from '../Home/FixedMobileFooter';
 
 
 const debouncer = (fn, delay) => {
@@ -362,10 +363,14 @@ class CriteriaSearchView extends React.Component {
                             }
                         </div>
                         {
-                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} />
+                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} searchPackagePage={true} />
                         }
                     </div>
                 </section>
+                {
+                    this.props.searchPackages ?
+                        <FixedMobileFooter searchPackagePage={true} {...this.props} /> : ''
+                }
             </div>
         );
     }

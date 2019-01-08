@@ -168,7 +168,7 @@ class SearchElasticView extends React.Component {
             <section>
                 <div id="map" style={{ display: 'none' }}></div>
                 <div className="container-fluid">
-                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} searchElasticView={true}  >
+                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} searchElasticView={true}>
                         <section className="opd-search-section mbl-pdng-zero">
 
                             {
@@ -196,7 +196,7 @@ class SearchElasticView extends React.Component {
 
                             {
                                 this.props.selectedSearchType == 'lab' ?
-                                    <button onClick={this.showLabs.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">{'Show Labs'}</button>
+                                    <button onClick={this.showLabs.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
                                     : ''
                             }
 
