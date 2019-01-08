@@ -232,9 +232,9 @@ class PatientDetailsNew extends React.Component {
             let procedure_ids = []
 
             Object.values(props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
-
-                procedure_ids = procedure.filter(x => x.is_selected).map(x => x.procedure_id)
+                procedure_ids = procedure_ids.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
             })
+
             if (procedure_ids.length) {
                 return procedure_ids
             }
