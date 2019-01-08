@@ -6,6 +6,7 @@ import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
 import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
+import CategoryPopup from './categoryPopup.js'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -23,11 +24,6 @@ class TopBar extends React.Component {
             showPopupContainer: true,
             sortText: 'Relevance',
             openCategory: false,
-            selectedCatIds:[],
-            selectedAllCatIds:[],
-            selectedCatIdsLeng:'',
-            isSelectAll:'',
-            is_applied:true
         }
     }
 
@@ -158,52 +154,18 @@ class TopBar extends React.Component {
         this.setState({ showPopupContainer: false, showLocationPopup: false });
     }
     toggleCategory(event) {
-        this.toggleTest()
         this.setState({
             openCategory: !this.state.openCategory
         })
     }
-    toggleTest(category) {
-        let selectedCategoryIds = this.state.selectedCatIds
-        if(category){
-            if(selectedCategoryIds.indexOf(category)>-1){
-                selectedCategoryIds = selectedCategoryIds.filter(x=>x!=category)  
-            }else{
-                selectedCategoryIds.push(category)    
-            }
-            this.setState({isSelectAll:false})
-        }else{
-            if(this.state.is_applied){
-            this.props.packagesList.categories.map((categories, i) => {
-                if(categories.is_selected){
-                selectedCategoryIds.push(categories.id)
-                }
-                this.setState({selectedAllCatIds:selectedCategoryIds,isSelectAll:true})
-            })
-            }
-        }
-        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
-    }
     closeCategory() {
         this.setState({
-            openCategory: !this.state.openCategory, is_applied:false
+            openCategory: !this.state.openCategory
         })
     }
-    applyCategories() {
-        let categoryState = this.state.selectedCatIds
+    applyCategories(categoryState) { 
         this.props.applyCategories(categoryState)
-        this.setState({ openCategory: false,is_applied:false })
-    }
-    applyAllCategory(){
-        let selectedCategoryIds = this.state.selectedCatIds
-        if(this.state.isSelectAll){
-            selectedCategoryIds = []
-            this.setState({isSelectAll:false})
-        }else{
-            selectedCategoryIds = this.state.selectedAllCatIds
-            this.setState({isSelectAll:true})
-        }
-        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
+        this.setState({ openCategory: false })
     }
     render() {
         var selectedTests = []
@@ -397,43 +359,7 @@ class TopBar extends React.Component {
                                 }*/}
                 {
                     this.state.openCategory ? <div>
-                        <div className="cancel-overlay"></div>
-                        <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">    
-                            <div className="pop-top-heading mb-0">
-                                    Select categories   
-                                    <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
-                            </div>
-                            
-                            <div className="terms-condition-div onscreen-scroll pt-0">
-                             <div className="">
-                                <div className="ins-form-radio insradio-on-popup">
-                                    <ul className="list all-test-list mrt-10">
-                                    <li>
-                                        <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                            SelectAll
-                                            <input type="checkbox" checked={this.props.packagesList.categories_count == this.state.selectedCatIdsLeng} onChange={this.applyAllCategory.bind(this)} />
-                                            <span className="checkmark" />
-                                        </label>
-                                    </li>
-                                    {
-                                    this.props.packagesList.categories.map((categories, i) => {
-                                    return  <li key={i}>
-                                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                                    {categories.name}
-                                                    <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
-                                                    <span className="checkmark" />
-                                                </label>
-                                            </li>
-                                        })
-                                    }
-                                    </ul>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="procedures-btn-pop">
-                                <button onClick={this.applyCategories.bind(this)}>Apply</button>
-                            </div>
-                        </div>
+                        <CategoryPopup {...this.props} applyCategories={this.applyCategories.bind(this)} closeCategory={this.closeCategory.bind(this)}/>
                     </div> : ""
                 }
             </div>

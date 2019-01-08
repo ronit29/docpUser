@@ -121,6 +121,7 @@ class SearchElasticView extends React.Component {
             commonSearched = <CommonlySearched
                 heading="Common Specialities"
                 type="speciality"
+                selectedSearchType = {this.props.selectedSearchType}
                 data={this.props.dataState.specializations}
                 selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'speciality')*/}
                 toggle={this.setCommonSelectedCriterias.bind(this)}
@@ -134,6 +135,7 @@ class SearchElasticView extends React.Component {
             commonSearched = <CommonlySearched
                 heading="Common Test"
                 type="test"
+                selectedSearchType = {this.props.selectedSearchType}
                 data={this.props.dataState.common_tests.filter(x => !x.is_package)}
                 selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test').filter(x => !x.is_package)}
                 toggle={this.props.toggleDiagnosisCriteria.bind(this)}
@@ -147,6 +149,7 @@ class SearchElasticView extends React.Component {
             commonSearched = <CommonlySearched
                 heading="Common Dental Treatments"
                 type="procedures"
+                selectedSearchType = {this.props.selectedSearchType}
                 data={this.props.dataState.procedures}
                 selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
                 toggle={this.setCommonSelectedCriterias.bind(this)}
@@ -171,9 +174,10 @@ class SearchElasticView extends React.Component {
                         <section className="opd-search-section mbl-pdng-zero">
 
                             {
-                                (this.props.selectedSearchType.includes('lab') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched
+                                (this.props.selectedSearchType.includes('lab') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched {...this.props}
                                     heading={`View Selected (${this.props.dataState.selectedCriterias.length})`}
                                     data={this.props.dataState.selectedCriterias}
+                                    selectedSearchType = {this.props.selectedSearchType}
                                     selected={[]}
                                     selectedPills={true}
                                     toggle={this.props.toggleDiagnosisCriteria.bind(this)}
@@ -184,10 +188,11 @@ class SearchElasticView extends React.Component {
 
                             {
                                 this.props.selectedSearchType.includes('lab') ?
-                                    <CommonlySearched
+                                    <CommonlySearched {...this.props}
                                         heading="Common Health Packages"
                                         type="test"
                                         data={this.props.dataState.common_package}
+                                        selectedSearchType = {this.props.selectedSearchType}
                                         selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test').filter(x => x.is_package)}
                                         toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                                     /> : ''
