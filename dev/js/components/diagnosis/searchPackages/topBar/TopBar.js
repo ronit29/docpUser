@@ -229,6 +229,7 @@ class TopBar extends React.Component {
 
         return (
             <div>
+                <div className="col-12 mrng-top-12"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                  <div className="top-filter-tab-container">
                     {/*<div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
