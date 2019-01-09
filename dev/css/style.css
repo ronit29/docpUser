@@ -4886,11 +4886,11 @@ font-weight: 700;
 .img-step img{height: 90px; width: 90px;}
 
 .text-step{display: inline-block;font-size: 16px; font-weight: 500; vertical-align: middle; padding-left: 50px;}
-.text-step-2{padding-right: 40px;padding-left: 0;}
+.text-step-2{padding-right: 40px;padding-left: 0;position: relative;}
 .badge.badge-refer{background: #f78631; color: #fff; font-size: 14px; font-weight: 500; height: 30px; width: 30px;border-radius: 20px;line-height: 18px;position: absolute;margin-left: -10px;padding: 6px 0;}
 .step-2 .badge.badge-refer{
-	margin-top: -55px;
-    margin-left: 20px;
+	right: 0;
+    top: -25px;
 }
 .icon-rupee{margin-top: 5px; height: 12px;}
 .multi-step-for-earn{border-bottom: 1px solid rgba(0,0,0,0.12);padding-bottom: 30px;}

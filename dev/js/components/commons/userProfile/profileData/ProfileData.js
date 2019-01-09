@@ -134,6 +134,25 @@ class ProfileData extends React.Component {
                             </li> : ""
                         }
 
+                        <li className="my-profile-item" style={{ cursor: 'auto' }}>
+                            <div className="usr-dtls-off-act">
+                                <p className="usr-dtls-strt-txt">
+                                    <img src="/assets/img/customer-icons/group-173.svg" className="img-fluid" />Refer</p>
+                            </div>
+                            <div className="ofr-img-txt">
+                                <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                <div className="ofr-contnt">
+                                    <p className="ofr-bkg">
+                                        Invite your friend to docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> in completion of first appoinment by your friend </p>
+                                    <div>
+                                        <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                            <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Terms &amp; Conditions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
                         {/* <li>
                             <a>
                                 <span className="icon icon-md nav-icon">
