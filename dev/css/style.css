@@ -4948,6 +4948,11 @@ margin: 10px 0px;
     display: block;
     font-weight: 600;
     font-size: 28px;
-    margin-top: 8px;	
+	margin-top: 8px;
+}
+	
+.rfrl-avl-balance{
+padding-left: 34px;
+font-size: 13px;
 }
 /* ================= Referral style ================= */

@@ -630,7 +630,19 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Hide the browser's default checkbox */
 .ck-bx input { position: absolute; opacity: 0; cursor: pointer;}
-.checkmark { position: absolute; top: 0; left: 0; height: 20px; width: 20px; background-color: #eee;}
+.checkmark { 
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 1px grey;
+  border-radius: 4px;
+}
+.checkmark:hover{
+  background-color: #fff;
+}
 .checkmark.circle{border-radius: 50%;}
 
 .ck-bx:hover input ~ .checkmark { background-color: #ccc;}
