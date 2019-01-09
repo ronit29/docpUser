@@ -46,6 +46,7 @@ import searchTestInfo from './containers/commons/searchTestInfo'
 import adsBooking from './containers/commons/adsBooking.js'
 import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
 import Offers from './containers/commons/Offers';
+import Referral from './containers/commons/referral'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -54,6 +55,7 @@ import Offers from './containers/commons/Offers';
 const routes = [
 
     { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
+    { path: '/referral', exact: true, component: Referral },
     { path: '/online-consultation', exact: true, component: HomeChat, RENDER_ON_SERVER: true },
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
