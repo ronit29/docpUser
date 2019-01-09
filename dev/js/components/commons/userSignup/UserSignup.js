@@ -123,7 +123,10 @@ class UserSignupView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            {/* <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-12">
+                                        {/* <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-2">
@@ -152,78 +155,96 @@ class UserSignupView extends React.Component {
                                 </div>
                             </header> */}
 
-                            <section className="validation-book-screen">
+                                        <section className="validation-book-screen">
 
-                                {/* <div style={stepperStyle}>
-                                    <div className="col-12">
-                                        <div className="app-timeline book-confirmed-timeline">
-                                            <ul className="inline-list">
-                                                <li className={!this.state.showMedical ? "active" : ""}>
-                                                    <span className="dot">1</span>
-                                                    <p className="text-sm fw-700 text-light">Details</p>
-                                                </li>
-                                                <li>
+                                            {/* <div style={stepperStyle}>
+    <div className="col-12">
+        <div className="app-timeline book-confirmed-timeline">
+            <ul className="inline-list">
+                <li className={!this.state.showMedical ? "active" : ""}>
+                    <span className="dot">1</span>
+                    <p className="text-sm fw-700 text-light">Details</p>
+                </li>
+                <li>
 
-                                                </li>
-                                                <li className={this.state.showMedical ? "active" : ""}>
-                                                    <span className="dot">2</span>
-                                                    <p className="text-sm fw-700 text-light">Medical</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div> */}
+                </li>
+                <li className={this.state.showMedical ? "active" : ""}>
+                    <span className="dot">2</span>
+                    <p className="text-sm fw-700 text-light">Medical</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> */}
 
-                                {
-                                    !this.state.showMedical ?
-                                        <div className="widget no-round no-shadow">
-                                            <div className="widget-content">
-                                                <form className="go-bottom" >
+                                            {
+                                                !this.state.showMedical ?
+                                                    <div className="widget mrng-top-12">
+                                                        <div className="widget-content">
+                                                            <form className="go-bottom" >
 
-                                                    <div className="labelWrap">
-                                                        <input id="number" name="phone_number" type="text" onChange={this.inputHandler.bind(this)} value={this.state.phone_number} required ref="phone_number" onKeyPress={this.handleEnterPress.bind(this)} />
-                                                        <label htmlFor="number">Mobile Number</label>
-                                                    </div>
-                                                    <div className="labelWrap">
-                                                        <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" onKeyPress={this.handleEnterPress.bind(this)} />
-                                                        <label htmlFor="fname">{this.state.existingUser ? "Member" : "Patient"} Name</label>
-                                                        <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
-                                                    </div>
-                                                    <div className="labelWrap">
-                                                        <input id="age" name="age" type="number" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" onKeyPress={this.handleEnterPress.bind(this)} />
-                                                        <label htmlFor="age">Age</label>
-                                                    </div>
-                                                    <div className="form-group input-group">
-                                                        <label className="inline input-label">Gender</label>
-                                                        <div className="choose-gender">
-                                                            <label className="radio-inline"><input value={'m'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'm'} type="radio" name="gender" />Male</label>
-                                                            <label className="radio-inline"><input value={'f'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'f'} type="radio" name="gender" />Female</label>
-                                                            <label className="radio-inline"><input value={'o'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'o'} type="radio" name="gender" />Other</label>
+                                                                <div className="labelWrap">
+                                                                    <input id="number" name="phone_number" type="text" onChange={this.inputHandler.bind(this)} value={this.state.phone_number} required ref="phone_number" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <label htmlFor="number">Mobile Number</label>
+                                                                </div>
+                                                                <div className="labelWrap">
+                                                                    <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <label htmlFor="fname">{this.state.existingUser ? "Member" : "Patient"} Name</label>
+                                                                    <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
+                                                                </div>
+                                                                <div className="labelWrap">
+                                                                    <input id="age" name="age" type="number" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <label htmlFor="age">Age</label>
+                                                                </div>
+                                                                <div className="form-group input-group">
+                                                                    <label className="inline input-label">Gender</label>
+                                                                    <div className="choose-gender slt-label-radio">
+                                                                        <div className="dtl-radio">
+                                                                            <label className="container-radio">Male<input value={'m'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'm'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
+                                                                        </div>
+                                                                        <div className="dtl-radio">
+                                                                            <label className="container-radio">Female<input value={'f'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'f'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
+                                                                        </div>
+                                                                        <div className="dtl-radio">
+                                                                            <label className="container-radio">Other<input value={'o'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'o'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="labelWrap">
+                                                                    <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <label htmlFor="email">Email</label>
+                                                                </div>
+                                                                <div className="referral-select">
+                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have referral code<input type="checkbox" value="on" /><span className="checkmark"></span></label>
+                                                                </div>
+                                                                <div className="referralContainer">
+                                                                <div className="slt-nw-input">
+                                                                    <input style={{paddingRight: '80px'}} type="text" className="slt-text-input" placeholder="Enter here"  name="phoneNumber" /><button className="mobile-fill-btn">Apply</button>
+                                                                    </div>
+                                                                    <p className="referralTerms">by creating an account, I am accepting <a href="">Terms and Conditions</a>
+                                                                    </p>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                    </div>
-                                                    <div className="labelWrap">
-                                                        <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" onKeyPress={this.handleEnterPress.bind(this)} />
-                                                        <label htmlFor="email">Email</label>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-                                        </div> : ""
-                                }
+                                                    </div> : ""
+                                            }
 
 
-                            </section>
+                                        </section>
 
-                            <span className="errorMessage">{this.state.err}</span>
-                            <span className="errorMessage">{this.props.error_message}</span>
+                                        <span className="errorMessage">{this.state.err}</span>
+                                        <span className="errorMessage">{this.props.error_message}</span>
 
-                            {
-                                this.state.showMedical ?
-                                    <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Done</button>
-                                    :
-                                    <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Next</button>
-                            }
+                                        {
+                                            this.state.showMedical ?
+                                                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Done</button>
+                                                :
+                                                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Next</button>
+                                        }
 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <RightBar />
