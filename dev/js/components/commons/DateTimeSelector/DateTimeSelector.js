@@ -164,7 +164,6 @@ class DateTimeSelector extends React.Component {
     render() {
 
         let currentDate = new Date().getDate()
-    
         return (
             <div className="widget mrng-top-12">
                 <div className="time-slot-container">
@@ -181,7 +180,14 @@ class DateTimeSelector extends React.Component {
                             </div>
                             <div className="vertical-date-listing">
                                 <ul className="ver-date-list-ul">
-
+                                    {
+                                        this.state.daySeries && this.state.daySeries .length && this.state.daySeries[0].dateFormat > new Date()
+                                        ?<li className="scrll-date" onClick={this.openDateModal.bind(this)}>
+                                            <img src={ASSETS_BASE_URL + "/img/right-sc.svg"} />
+                                        </li>
+                                        :''    
+                                    }
+                                    
                                     {
                                         this.state.daySeries.map((day, key) => {
 
