@@ -144,7 +144,7 @@ class Article extends React.Component {
                                             <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
                                         <li className="breadcrumb-list-item">
-                                            <span className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</span>
+                                            <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
                                         </li>
                                     </ul>
 
