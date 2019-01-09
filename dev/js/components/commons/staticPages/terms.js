@@ -14,9 +14,14 @@ class Terms extends React.Component {
     }
 
     render() {
-
+        let mainClass
+        if(this.props.fromApp){
+            mainClass = "container about-container appUrlPadding"
+        }else{
+            mainClass = 'container about-container'
+        }
         return (
-            <div className="container about-container">
+            <div className={mainClass}>
                 <HelmetTags tagsData={{
                     title: ('Terms & Conditions - Submission, Listings & Payment Terms'),
                     description: ('docprime: Read Terms & Conditions, details on Submission and Administration of Listings, Payment Terms.')
