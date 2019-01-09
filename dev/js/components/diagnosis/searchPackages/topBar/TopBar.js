@@ -6,6 +6,7 @@ import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
 import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
+import CategoryPopup from './categoryPopup.js'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -23,11 +24,6 @@ class TopBar extends React.Component {
             showPopupContainer: true,
             sortText: 'Relevance',
             openCategory: false,
-            selectedCatIds:[],
-            selectedAllCatIds:[],
-            selectedCatIdsLeng:'',
-            isSelectAll:'',
-            is_applied:true
         }
     }
 
@@ -158,52 +154,18 @@ class TopBar extends React.Component {
         this.setState({ showPopupContainer: false, showLocationPopup: false });
     }
     toggleCategory(event) {
-        this.toggleTest()
         this.setState({
             openCategory: !this.state.openCategory
         })
     }
-    toggleTest(category) {
-        let selectedCategoryIds = this.state.selectedCatIds
-        if(category){
-            if(selectedCategoryIds.indexOf(category)>-1){
-                selectedCategoryIds = selectedCategoryIds.filter(x=>x!=category)  
-            }else{
-                selectedCategoryIds.push(category)    
-            }
-            this.setState({isSelectAll:false})
-        }else{
-            if(this.state.is_applied){
-            this.props.packagesList.categories.map((categories, i) => {
-                if(categories.is_selected){
-                selectedCategoryIds.push(categories.id)
-                }
-                this.setState({selectedAllCatIds:selectedCategoryIds,isSelectAll:true})
-            })
-            }
-        }
-        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
-    }
     closeCategory() {
         this.setState({
-            openCategory: !this.state.openCategory, is_applied:false
+            openCategory: !this.state.openCategory
         })
     }
-    applyCategories() {
-        let categoryState = this.state.selectedCatIds
+    applyCategories(categoryState) { 
         this.props.applyCategories(categoryState)
-        this.setState({ openCategory: false,is_applied:false })
-    }
-    applyAllCategory(){
-        let selectedCategoryIds = this.state.selectedCatIds
-        if(this.state.isSelectAll){
-            selectedCategoryIds = []
-            this.setState({isSelectAll:false})
-        }else{
-            selectedCategoryIds = this.state.selectedAllCatIds
-            this.setState({isSelectAll:true})
-        }
-        this.setState({selectedCatIds: selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length})
+        this.setState({ openCategory: false })
     }
     render() {
         var selectedTests = []
@@ -229,6 +191,7 @@ class TopBar extends React.Component {
 
         return (
             <div>
+                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                  <div className="top-filter-tab-container">
                     {/*<div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
@@ -243,12 +206,15 @@ class TopBar extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for Health Packages
-                                                        <span className="fw-700"> {criteriaStr}
+                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
+                                                        <h1 className="search-result-heading">
+                                                        <span className="fw-700"> Full Body Checkup Packages</span>
+                                                        <span className="search-result-span"> {criteriaStr}
                                                             {
                                                                 locationName ? ` in ${locationName}` : ''
                                                             }
                                                         </span>
+                                                        </h1>
                                                     </p>
                                                 </div>
                                                 <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
@@ -295,9 +261,12 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div> */}
                                             <div className="filter-title">
-                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for Health Packages
+                                            
+                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for 
+                                                <h1 className="search-result-heading">
+                                                <span className="fw-700"> Full Body Checkup Packages</span>
 
-                                                <span onClick={() => {
+                                                <span className="search-result-span" onClick={() => {
                                                     this.setState({
                                                         showLocationPopup: !this.state.showLocationPopup,
                                                         searchCities: [],
@@ -311,6 +280,7 @@ class TopBar extends React.Component {
                                                     }
                                                     <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                 </span>
+                                                 </h1>
                                             </div>
                                         </div>
                                 }
@@ -397,43 +367,7 @@ class TopBar extends React.Component {
                                 }*/}
                 {
                     this.state.openCategory ? <div>
-                        <div className="cancel-overlay"></div>
-                        <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">    
-                            <div className="pop-top-heading mb-0">
-                                    Select categories   
-                                    <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
-                            </div>
-                            
-                            <div className="terms-condition-div onscreen-scroll pt-0">
-                             <div className="">
-                                <div className="ins-form-radio insradio-on-popup">
-                                    <ul className="list all-test-list mrt-10">
-                                    <li>
-                                        <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                            SelectAll
-                                            <input type="checkbox" checked={this.props.packagesList.categories_count == this.state.selectedCatIdsLeng} onChange={this.applyAllCategory.bind(this)} />
-                                            <span className="checkmark" />
-                                        </label>
-                                    </li>
-                                    {
-                                    this.props.packagesList.categories.map((categories, i) => {
-                                    return  <li key={i}>
-                                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                                    {categories.name}
-                                                    <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
-                                                    <span className="checkmark" />
-                                                </label>
-                                            </li>
-                                        })
-                                    }
-                                    </ul>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="procedures-btn-pop">
-                                <button onClick={this.applyCategories.bind(this)}>Apply</button>
-                            </div>
-                        </div>
+                        <CategoryPopup {...this.props} applyCategories={this.applyCategories.bind(this)} closeCategory={this.closeCategory.bind(this)}/>
                     </div> : ""
                 }
             </div>

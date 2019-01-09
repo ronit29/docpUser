@@ -219,14 +219,15 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
-export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = []) => (dispatch) => {
+export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = [], profile_id = null) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {
 		coupon_code: [couponCode],
 		deal_price: dealPrice,
 		product_id: productId,
 		tests: test_ids,
-		lab: labId
+		lab: labId,
+		profile: profile_id || null
 	}).then(function (response) {
 		let analyticData = {
 			'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied', 'couponId': couponId
@@ -298,7 +299,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	// let max_price = filterCriteria.priceRange[1]
 	// let sort_on = filterCriteria.sort_on || ""
 
-    // do not check specialization_ids if doctor_name || hospital_name search
+	// do not check specialization_ids if doctor_name || hospital_name search
 	// if (!!filterCriteria.lab_name) {
 	// 	testIds = ""
 	// }
@@ -322,11 +323,11 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	return API_GET(url).then(function (response) {
 		if (response) {
-		// let tests = response.tests.map((x) => {
-		// 	x.type = 'test'
-		// 	return x
-		// })
-			let tests=''
+			// let tests = response.tests.map((x) => {
+			// 	x.type = 'test'
+			// 	return x
+			// })
+			let tests = ''
 			let selectedCriterias = tests || []
 
 			dispatch({
@@ -341,7 +342,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 				type: SEARCH_HEALTH_PACKAGES,
 				payload: response,
 			})
-		} 
+		}
 
 		// dispatch({
 		// 	type: SET_FETCH_RESULTS_LAB,

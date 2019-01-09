@@ -38,7 +38,8 @@ class DoctorProfileView extends React.Component {
             searchShown: false,
             searchDataHidden: this.props.location.search.includes('hide_search_data'),
             openContactPopup: false,
-            clinicPhoneNo:{}
+            clinicPhoneNo:{},
+            show_contact:''
         }
     }
 
@@ -68,12 +69,12 @@ class DoctorProfileView extends React.Component {
         return { title, description, schema }
     }
 
-    selectClinic(clinic_id, is_live, rank, consultation_fee) {
+    selectClinic(clinic_id, is_live, rank, consultation_fee, show_contact) {
         let clinicPhoneNo = this.state.clinicPhoneNo
         if(!clinicPhoneNo[clinic_id]){
             clinicPhoneNo[clinic_id] = ""
         }
-        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo })
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
     }
 
     navigateToClinic(doctor_id, clinicId) {
@@ -288,9 +289,11 @@ class DoctorProfileView extends React.Component {
                                                                 <p>{this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
                                                             </div>
                                                         </div>   
-                                                        :<div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
-                                                            <p>View Contact</p>
-                                                        </div>
+                                                        :this.state.show_contact?
+                                                            <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
+                                                                <p>View Contact</p>
+                                                            </div>
+                                                            :''
                                                     }
                                                     {/*<div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
                                                         <p>{

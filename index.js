@@ -74,6 +74,12 @@ app.all('*', function (req, res) {
             if (match) {
                 route_matched = route
             }
+
+            // handle custome redirects
+            if (route.redirect && route.redirectTo) {
+                promises.push(Promise.reject({ url: route.redirectTo }))
+            }
+
             if (match && route.RENDER_ON_SERVER) {
                 if (route.component.loadData) {
                     promises.push(route.component.loadData(store, match, req.query))
