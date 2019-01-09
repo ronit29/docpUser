@@ -349,33 +349,26 @@ class CriteriaSearchView extends React.Component {
                                     }
                                 </div>
                             }
-                            {
-                                this.props.bottom_content && this.props.bottom_content.length ?
-                                    <div className="container-fluid mrt-20">
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <div className="widget">
-                                                    <p className="fw-500 text-sm" >{this.props.bottom_content}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> : ''
-                            }
-                            {
-                                this.props.ratings_title && this.props.ratings && this.props.reviews ?
-                                    <div className="container-fluid mrt-20">
-                                        <div className="row">
-                                            <div className="col-12 avg-rating">
-                                                <p className="fw-500">{this.props.ratings_title}</p>
-                                                <p className="fw-500">Average rating {ratingArray}<span>&nbsp;{this.props.ratings} </span><span>({this.props.reviews} reviews)</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div> : ''
-                            }
                         </div>
                         {
                             this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} searchPackagePage={this.props.searchPackages} />
+                        }
+                        {
+                            this.props.bottom_content && this.props.bottom_content.length ?
+                                <div className="col-12 mrt-20">
+                                    <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.bottom_content }}>
+                                    </div>
+                                </div>
+                                : ''
+                        }
+                        {
+                            this.props.ratings_title && this.props.ratings && this.props.reviews ?
+                                <div className="col-12 avg-rating mrt-20">
+                                    <p className="fw-500">{this.props.ratings_title}</p>
+                                    <p className="fw-500">Average rating {ratingArray}<span>&nbsp;{this.props.ratings} </span><span>({this.props.reviews} reviews)</span>
+                                    </p>
+                                </div>
+                                : ''
                         }
                     </div>
                 </section>
