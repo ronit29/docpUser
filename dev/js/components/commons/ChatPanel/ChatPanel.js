@@ -270,7 +270,7 @@ class ChatPanel extends React.Component {
     }
 
     newChatBtnClick() {
-        if (this.props.type && this.props.type == 'opd') {
+        if (this.props.type && (this.props.type == 'opd' || this.props.type == 'lab')) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
         }
         else {
