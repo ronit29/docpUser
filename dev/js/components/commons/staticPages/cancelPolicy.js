@@ -9,10 +9,6 @@ class CancelPolicy extends React.Component {
         }
     }
 
-    navigateTo(where) {
-        this.props.history.push(where)
-    }
-
     render() {
         let mainClass
         if(this.props.fromApp){
