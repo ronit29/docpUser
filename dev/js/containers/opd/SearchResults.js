@@ -90,7 +90,9 @@ const mapStateToProps = (state, passedProps) => {
         getNewUrl,
         selectedCriterias,
         page,
-        search_id_data
+        search_id_data,
+        nextSelectedCriterias,
+        nextFilterCriteria
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -111,13 +113,14 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         search_content,
         getNewUrl,
-        commonSelectedCriterias,
         selectedCriterias,
         page,
         curr_page,
         HOSPITALS,
         hospitalList, ratings, reviews, ratings_title,
-        search_id_data
+        search_id_data,
+        nextSelectedCriterias,
+        nextFilterCriteria
     }
 }
 
@@ -134,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
         resetProcedureURl: () => dispatch(resetProcedureURl()),
         mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias()),
         setSearchId: (searchId, filters, setDefault) => dispatch(setSearchId(searchId, filters, setDefault)),
-        getSearchIdResults: (searchId) => dispatch(getSearchIdResults(searchId))
+        getSearchIdResults: (searchId, searchResults) => dispatch(getSearchIdResults(searchId, searchResults))
     }
 }
 

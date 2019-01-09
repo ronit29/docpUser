@@ -23,34 +23,57 @@ class SearchResultsView extends React.Component {
             seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
             clinic_card: this.props.location.search.includes('clinic_card') || null,
             showError: false,
-            search_id:''
+            search_id:'',
+            setSearchId:false
         }
     }
 
     componentDidMount() {
         
+        let getSearchId = true
         if(this.props.location.search.includes('search_id')){
             const parsed = queryString.parse(this.props.location.search)
-            this.props.getSearchIdResults(parsed.search_id)
-            this.setState({search_id: parsed.search_id})
-           // this.getDoctorList(this.props)
-        }else{
+
+            if(this.props.search_id_data && this.props.search_id_data[parsed.search_id].data && this.props.search_id_data[parsed.search_id].data ){
+
+                getSearchId = false
+                if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length){
+                                
+                    this.setState({search_id: parsed.search_id}, ()=>{
+                        this.props.getSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
+                    })
+                    
+                }else{
+                    let filters = {}
+                    filters.commonSelectedCriterias = this.props.search_id_data[parsed.search_id].commonSelectedCriterias
+                    filters.filterCriteria = this.props.search_id_data[parsed.search_id].filterCriteria
+                    this.setState({search_id: parsed.search_id},()=>{
+                        this.props.setSearchId(parsed.search_id, filters, true)
+                    })
+                }
+                
+            }
+        }
+
+        if(getSearchId){
             let filters = {}
-            filters.commonSelectedCriterias = this.props.selectedCriterias
-            filters.filterCriteria = this.props.filterCriteria
+            filters.commonSelectedCriterias = this.props.nextSelectedCriterias
+            filters.filterCriteria = this.props.nextFilterCriteria
             let search_id = this.generateSearchId()
-            this.props.setSearchId(search_id, filters, true)
-            this.setState({search_id: search_id})
-         //   this.getDoctorList(this.props)
+            this.setState({search_id: search_id},()=>{
+                this.props.setSearchId(search_id, filters, true)
+            })
+            
         }
 
 
-        if (this.props.fetchNewResults) {
+        /*if (this.props.fetchNewResults) {
             this.getDoctorList(this.props)
             if (window) {
                 window.scrollTo(0, 0)
             }
-        }
+        }*/
+
         if (this.state.seoFriendly) {
             //this.props.mergeSelectedCriterias()
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
@@ -65,6 +88,12 @@ class SearchResultsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        let search_id = ''
+        if(this.props.location.search.includes('search_id')){
+            const parsed = queryString.parse(this.props.location.search)
+            search_id = parsed.search_id
+        }
+
         if (props.getNewUrl && props.getNewUrl != this.props.getNewUrl) {
             if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
                 this.getDoctorList(props)
@@ -78,7 +107,10 @@ class SearchResultsView extends React.Component {
             // if (window) {
             //     window.scrollTo(0, 0)
             // }
-        } else {
+        } else if(props.fetchNewResults && this.state.search_id == search_id && !this.state.setSearchId){
+                this.setState({setSearchId: true})
+                this.getDoctorList(props)
+        }else {
             if (props.selectedLocation != this.props.selectedLocation) {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
@@ -105,8 +137,14 @@ class SearchResultsView extends React.Component {
     }
 
     applyFilters(filterState) {
-        this.props.mergeOPDState({ filterCriteria: filterState })
-        this.props.setSearchId(this.state.search_id, filterState, false)
+        let search_id_data = Object.assign({}, this.props.search_id_data)
+        const parsed = queryString.parse(this.props.location.search)
+
+        if(this.props.search_id_data && this.props.search_id_data[parsed.search_id]){
+            search_id_data[parsed.search_id].filterCriteria = filterState
+        }
+        this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data })
+       // this.props.setSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)
         }

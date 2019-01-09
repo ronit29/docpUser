@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
@@ -75,6 +75,12 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 				currentSearchedCriterias
 			},
 			fetchNewResults: false
+		})
+
+		dispatch({
+			type: SAVE_LAB_RESULTS_WITH_SEARCHID,
+			payload: response,
+			page:1
 		})
 
 		dispatch({
@@ -390,11 +396,28 @@ export const setLabSearchId = (searchId, filters, setDefault=true) => (dispatch)
 	})
 }
 
-export const getLabSearchIdResults = (searchId) => (dispatch) => {
+export const getLabSearchIdResults = (searchId, data) => (dispatch) => {
 	dispatch({
 		type: GET_LAB_SEARCH_ID_RESULTS,
 		searchId: searchId
 	})
+	dispatch({
+		type: APPEND_LABS_SEARCH,
+		payload: data.result
+	})
+
+	dispatch({
+		type: LAB_SEARCH,
+		payload: {
+			page:1, ...data
+		}
+
+	})
+
 }
+
+
+
+
 
 

@@ -88,7 +88,8 @@ const mapStateToProps = (state, passedProps) => {
         page,
         search_id_data,
         nextSelectedCriterias,
-        currentSearchedCriterias
+        currentSearchedCriterias,
+        nextFilterCriteria
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
@@ -111,7 +112,8 @@ const mapStateToProps = (state, passedProps) => {
         curr_page,
         search_id_data,
         nextSelectedCriterias,
-        currentSearchedCriterias
+        currentSearchedCriterias,
+        nextFilterCriteria
     }
 
 }
@@ -126,7 +128,7 @@ const mapDispatchToProps = (dispatch) => {
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         getFooterData: (url) => dispatch(getFooterData(url)),
         setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
-        getLabSearchIdResults: (searchId) => dispatch(getLabSearchIdResults(searchId))
+        getLabSearchIdResults: (searchId, searchResults) => dispatch(getLabSearchIdResults(searchId, searchResults))
     }
 }
 
