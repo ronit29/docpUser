@@ -4756,6 +4756,11 @@ font-weight: 700;
     padding: 0 1px;
 	line-height: 12px;
 }
+@media(max-width:372px){
+	.chat-div-containers span {
+		font-size: 9px;
+	}
+}
 .footbgRound{
 	position: absolute;
     width: 150px;
