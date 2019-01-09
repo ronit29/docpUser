@@ -266,7 +266,8 @@ class DoctorProfileView extends React.Component {
                                                             </a> : ''
                                                     }
                                                     <div className="dpp-btn-book" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
-                                                        <p>{`Book Now (₹ ${final_price})`}</p>
+                                                        {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
+                                                        <p>Book Now</p>
                                                     </div>
                                                 </div>
                                                 :
