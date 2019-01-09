@@ -324,8 +324,11 @@ class ChatPanel extends React.Component {
                             <div className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
                             </div> :
-                            <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
-                                <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                            //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            // </div>
+                            <div className="new-chat-fixed-btn d-md-none" onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                                <img src={ASSETS_BASE_URL + '/img/customer-icons/new-chat-btn.svg'} />
                             </div>
                 }
 
