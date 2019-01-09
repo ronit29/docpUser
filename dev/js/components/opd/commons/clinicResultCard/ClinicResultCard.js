@@ -178,11 +178,13 @@ class ClinicResultCard extends React.Component {
                                             <p className="showBookTestListImg">
                                                 Dr. {d.name}</p>
                                             <div className="doc-price-cont">
-                                                <p className="doc-price-cutt">₹ {d.deal_price}
-                                                    {
-                                                        d.mrp == d.deal_price ? "" : <span>₹ {d.mrp}</span>
-                                                    }
-                                                </p>
+                                                {
+                                                    !is_procedure ? <p className="doc-price-cutt">₹ {d.deal_price}
+                                                        {
+                                                            d.mrp == d.deal_price ? "" : <span>₹ {d.mrp}</span>
+                                                        }
+                                                    </p> : ""
+                                                }
                                                 {
                                                     d.enabled_for_online_booking ? <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn">Book Now</button> : <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn contact-small-btn">Contact</button>
 

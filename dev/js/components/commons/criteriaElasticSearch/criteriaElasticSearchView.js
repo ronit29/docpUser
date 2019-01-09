@@ -112,6 +112,10 @@ class CriteriaElasticSearchView extends React.Component {
                     'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
+
+                criteria.id = criteria.action.value.join(',')
+                criteria.type = 'speciality'
+
             }
 
             else if (criteria.action.param.includes('hospital_name')) {
@@ -255,7 +259,7 @@ class CriteriaElasticSearchView extends React.Component {
 
     focusOut() {
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue
+            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue, 'type': this.props.type
         }
         GTM.sendEvent({ data: data })
     }
@@ -305,12 +309,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div className="serch-nw-inputs mb-0">
-                                                        <input type="text" autocomplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input type="text" autoComplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
                                                         }} onBlur={() => this.focusOut()} />
-                                                        <input type="text" autocomplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input type="text" autoComplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }

@@ -45,6 +45,7 @@ import Search from './containers/commons/search'
 import searchTestInfo from './containers/commons/searchTestInfo'
 import adsBooking from  './containers/commons/adsBooking.js'
 import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
+import Offers from './containers/commons/Offers';
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -71,6 +72,7 @@ const routes = [
     { path: '/payment/:id', exact: true, component: Payment },
     { path: '/mobileviewchat', exact: true, component: MobileViewChat },
     { path: '/search', exact: true, component: Search },
+    { path: '/offers', exact: true, component: Offers },
 
     // { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },

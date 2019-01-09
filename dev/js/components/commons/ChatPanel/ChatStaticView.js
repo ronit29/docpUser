@@ -91,7 +91,12 @@ class ChatStatic extends React.Component {
             <div className={this.props.dataClass + (this.state.utm_term ? " utm_chatbox_right" : "")}>
                 <div className="chat-head">
                     <div className="hd-chat" style={{ flex: 1 }}>
-                        <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</h1>
+                        {
+                            this.props.chatPage ?
+                                <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</h1>
+                                :
+                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
+                        }
                     </div>
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>
                         {
@@ -141,7 +146,7 @@ class ChatStatic extends React.Component {
                                                                     Start chat for an instant consultation and absolutely free prescription with our doctors.`}
                                                                     <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                     }</span>
-                                                                </p> :'' /*<p className="chat-text">
+                                                                </p> : '' /*<p className="chat-text">
                                                                         Briefly describe the symptom/health concern worrying you the most (e.g. I have a fever) or simply ask any query.
                                                                 <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                         }</span>

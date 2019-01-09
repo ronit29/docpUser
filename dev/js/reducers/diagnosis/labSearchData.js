@@ -11,7 +11,7 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
             return action.payload.reduce((lapMap, lab) => {
                 lapMap[lab.id] = lapMap[lab.id] || {}
-                lapMap[lab.id] = { ...lapMap[lab.id], ...lab }
+                lapMap[lab.id] = lab
                 return lapMap
             }, newState)
 

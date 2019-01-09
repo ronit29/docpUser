@@ -318,6 +318,38 @@ textarea.form-control.chat-text-area {
 	margin-bottom: 0;
 }
 
+.card.cstm-card .card-header>h1 {
+	font-size: 18px;
+	font-weight: 500;
+	margin-bottom: 0;
+}
+
+@media(max-width : 380px){
+	.card.cstm-card .card-header>h1 {
+		font-size: 16px;
+		font-weight: 500;
+		margin-bottom: 0;
+	}
+	.card.cstm-card .card-header>h2 {
+		font-size: 16px;
+		font-weight: 500;
+		margin-bottom: 0;
+	}
+}
+
+@media(max-width : 359px){
+	.card.cstm-card .card-header>h1 {
+		font-size: 14px;
+		font-weight: 500;
+		margin-bottom: 0;
+	}
+	.card.cstm-card .card-header>h2 {
+		font-size: 14px;
+		font-weight: 500;
+		margin-bottom: 0;
+	}
+}
+
 .card.cstm-card .card-body {
 	padding: 15px;
 	padding-top: 0px;
@@ -820,7 +852,7 @@ p.top-head-link.card-lab-link span {
 		padding-top:0px !important;
 	}
 	.sticky-pk-container{
-		top: 79px !important;
+		top: 44px !important;
 	}
 
 }
@@ -4692,7 +4724,7 @@ font-weight: 700;
 	margin: auto;
     background: white;
     position: fixed;
-    bottom: 12px;
+    bottom: 0;
     z-index: 99;
     left: 0;
     width: 97%;
@@ -4711,20 +4743,21 @@ font-weight: 700;
     text-align: center;
     width: 16%;
 	margin: 0px 4px;
-	height: 70px;
+	height: 50px;
 	cursor: pointer;
 }
 .nw-img-with-content {
-    height: 28px;
+    height: 25px;
 }
 .chat-div-containers span {
     font-size: 11px;
     font-weight: 500;
     padding: 0 1px;
+	line-height: 12px;
 }
 .footbgRound{
 	position: absolute;
-    width: 155px;
+    width: 150px;
     top: -10px;
 }
 .nw-mid-container-with-img{

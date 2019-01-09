@@ -13,8 +13,8 @@ class HomePageWidget extends React.Component {
             e.preventDefault()
             e.stopPropagation()
         }
-        let test={}
-        if(this.props.searchType == "packages"){
+        let test = {}
+        if (this.props.searchType == "packages") {
             test.type = 'test'
             this.props.toggleDiagnosisCriteria('test', test, true)
         }
@@ -28,7 +28,12 @@ class HomePageWidget extends React.Component {
         return (
             <div className="card cstm-card mb-3">
                 <div className="card-header" style={{ justifyContent: 'normal' }}>
-                    <h2>{this.props.heading}</h2>
+                    {
+                        this.props.type === 'opd' ?
+                            <h1>{this.props.heading}</h1>
+                            :
+                            <h2>{this.props.heading}</h2>
+                    }
                     <span className="ofr-ribbon home-ofr-ribbon">Upto {this.props.discount} Off</span>
                 </div>
                 <div className="card-body">

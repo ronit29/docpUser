@@ -1639,3 +1639,24 @@ p.rt-doc-nm{
     color: #757575;
     margin-top: 4px;
 }
+
+/* offer page */
+
+.offer-heading{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.offer-div{
+    padding: 10px;
+    margin-bottom: 30px;
+    border: 1px dashed #f78631;
+    border-radius: 5px;
+}
+
+.offer-div>img{
+    cursor: pointer;
+    width: 100%;
+}
+
+/* offer page ends */
