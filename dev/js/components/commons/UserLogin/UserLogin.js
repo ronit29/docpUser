@@ -9,17 +9,31 @@ import GTM from '../../../helpers/gtm.js'
 class UserLoginView extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
         this.state = {
             phoneNumber: '',
             validationError: '',
             showOTP: false,
             otp: "",
-            otpTimeout: false
+            otpTimeout: false,
+            referralCode: parsed.referral || null,
+            referralName: null
         }
     }
 
     componentDidMount() {
         this.props.resetAuth()
+        if (this.state.referralCode) {
+            this.props.fetchReferralCode(this.state.referralCode).then((res) => {
+                if (res && res.status) {
+                    this.setState({ referralName: res.name })
+                }
+            }).catch((e) => {
+
+            })
+        }
     }
 
     inputHandler(e) {
@@ -94,11 +108,16 @@ class UserLoginView extends React.Component {
                         }
                         GTM.sendEvent({ data: data })
                     }
+                    let replace_url = '/signup?'
                     if (parsed.callback) {
-                        this.props.history.replace(`/signup?callback=${parsed.callback}`)
-                    } else {
-                        this.props.history.replace('/signup')
+                        replace_url += `callback=${parsed.callback}&`
                     }
+
+                    if (this.state.referralName && this.state.referralCode) {
+                        replace_url += `referral=${this.state.referralCode}`
+                    }
+
+                    this.props.history.replace(replace_url)
                 }
             })
         } else {
@@ -114,7 +133,7 @@ class UserLoginView extends React.Component {
 
     _handleContinuePress(e) {
         if (e.key === 'Enter') {
-            if(!this.state.showOTP){
+            if (!this.state.showOTP) {
                 this.submitOTPRequest(this.state.phoneNumber)
             }
         }
@@ -149,7 +168,9 @@ class UserLoginView extends React.Component {
                             <section className="mobile-verification-screen p-3">
                                 <div className="widget no-shadow no-round sign-up-container">
                                     <div className="widget-header text-center mv-header">
-                                        <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 300!</span> </h3>
+                                        {
+                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Signup to claim your gift from<br /><span className="ft-25">{this.state.referralName}</span> </h3> : <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 300!</span> </h3>
+                                        }
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
                                     </div>
                                     <div className="widget-content text-center">

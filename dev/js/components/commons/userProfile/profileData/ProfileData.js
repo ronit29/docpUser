@@ -134,7 +134,9 @@ class ProfileData extends React.Component {
                             </li> : ""
                         }
 
-                        <li className="my-profile-item" style={{ cursor: 'auto' }}>
+                        <li className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => {
+                            this.props.history.push('/referral')
+                        }}>
                             <div className="usr-dtls-off-act">
                                 <p className="usr-dtls-strt-txt">
                                     <img src="/assets/img/customer-icons/group-173.svg" className="img-fluid" />Refer</p>
@@ -146,7 +148,7 @@ class ProfileData extends React.Component {
                                         Invite your friend to docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> in completion of first appoinment by your friend </p>
                                     <div>
                                         <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Terms &amp; Conditions</p>
+                                            <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
                                         </div>
                                     </div>
                                 </div>

@@ -9,12 +9,33 @@ class ReferralView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            referralCode: null
         }
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
 
+        this.props.fetchReferralCode().then((res) => {
+            if (res && res.code) {
+                this.setState({ referralCode: res.code })
+            }
+        }).catch((e) => {
+
+        })
+    }
+
+    share() {
+        // if (navigator.share && this.state.referralCode) {
+        navigator.share({
+            title: 'DocPrime Referral Code',
+            text: this.state.referralCode,
+            url: 'https://docprime.com/login',
+        }).then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
+        // }
     }
 
     render() {
@@ -40,14 +61,14 @@ class ReferralView extends React.Component {
                                                         </div>
                                                         <div className="text-step">
                                                             Invite your friend on <br /> docprime.com
-                                    </div>
+                                                        </div>
                                                     </div>
                                                     <div className="steps step-2">
                                                         <div className="text-step text-step-2">
                                                             Your friend gets <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on <br /> Signup in docprime wallet
                                                             <div className="badge badge-refer">2</div>
-                                    </div>
-                                                        
+                                                        </div>
+
                                                         <div className="img-step">
                                                             <img src={ASSETS_BASE_URL + "/img/step-2.png"} alt="img" className="" />
                                                         </div>
@@ -57,12 +78,13 @@ class ReferralView extends React.Component {
                                                             <img src={ASSETS_BASE_URL + "/img/step-3.png"} alt="img" className="" />
                                                             <div className="badge badge-refer">3</div>
                                                         </div>
-                                                        
+
                                                         <div className="text-step">
                                                             You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on completion of <br /> your friends first appointment <br /> in docprime wallet
-                                    </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>hare your invite code<span>{this.state.referralCode}</span></h4>
                                                 <div className="social-icon-referral">
                                                     <ul className="text-center">
                                                         <li><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></li>
@@ -71,7 +93,7 @@ class ReferralView extends React.Component {
                                                         <li><img src={ASSETS_BASE_URL + "/img/facebook-icon.png"} alt="facebook" /></li>
                                                     </ul>
                                                 </div>
-                                                <a href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Refral Link</a>
+                                                <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Refral Link</a>
                                                 <a href="javascript:void(0);" className="take-care">*T&amp;C Apply</a>
                                             </div>
 

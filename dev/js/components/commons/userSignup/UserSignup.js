@@ -22,6 +22,8 @@ class UserSignupView extends React.Component {
             existingUser = true
         }
 
+        const parsed = queryString.parse(this.props.location.search)
+
         this.state = {
             name: '',
             age: '',
@@ -30,12 +32,18 @@ class UserSignupView extends React.Component {
             phone_number: this.props.phoneNumber || '',
             existingUser,
             showMedical: false,
-            err: ""
+            err: "",
+            referralCode: parsed.referral || null,
+            have_referralCode: !!parsed.referral
         }
     }
 
     inputHandler(e) {
         this.setState({ [e.target.name]: e.target.value })
+    }
+
+    toggleReferral(e) {
+        this.setState({ have_referralCode: e.target.checked })
     }
 
     submitForm() {
@@ -87,7 +95,12 @@ class UserSignupView extends React.Component {
         })
 
         if (register) {
-            this.props.createProfile(this.state, (err, res) => {
+            let post_data = this.state
+            if (this.state.referralCode && this.state.have_referralCode) {
+                post_data["referral_code"] = this.state.referralCode
+            }
+
+            this.props.createProfile(post_data, (err, res) => {
                 if (!err) {
                     // this.setState({ showMedical: true })
                     const parsed = queryString.parse(this.props.location.search)
@@ -215,15 +228,15 @@ class UserSignupView extends React.Component {
                                                                     <label htmlFor="email">Email</label>
                                                                 </div>
                                                                 <div className="referral-select">
-                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have referral code<input type="checkbox" value="on" /><span className="checkmark"></span></label>
+                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
                                                                 </div>
-                                                                <div className="referralContainer">
-                                                                <div className="slt-nw-input">
-                                                                    <input style={{paddingRight: '80px'}} type="text" className="slt-text-input" placeholder="Enter here"  name="phoneNumber" /><button className="mobile-fill-btn">Apply</button>
-                                                                    </div>
-                                                                    <p className="referralTerms">by creating an account, I am accepting <a href="">Terms and Conditions</a>
-                                                                    </p>
-                                                                </div>
+                                                                {
+                                                                    this.state.have_referralCode ? <div className="referralContainer">
+                                                                        <div className="slt-nw-input">
+                                                                            <input style={{ paddingRight: '80px' }} type="text" className="slt-text-input" onChange={this.inputHandler.bind(this)} placeholder="Enter here" name="referralCode" value={this.state.referralCode} />
+                                                                        </div>
+                                                                    </div> : ""
+                                                                }
                                                             </form>
                                                         </div>
                                                     </div> : ""

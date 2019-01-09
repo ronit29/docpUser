@@ -4938,4 +4938,16 @@ margin: 10px 0px;
 	color: #f78631;
 	cursor: pointer;
 }
+.inviteCodeShare{
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    color: #3a3939;
+}
+.inviteCodeShare span{
+    display: block;
+    font-weight: 600;
+    font-size: 28px;
+    margin-top: 8px;	
+}
 /* ================= Referral style ================= */

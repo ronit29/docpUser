@@ -517,3 +517,11 @@ export const getOfferList = () => (dispatch) => {
 		})
 	})
 }
+
+export const fetchReferralCode = (code = null) => (dispatch) => {
+	let url = `/api/v1/user/referral`
+	if (code) {
+		url += `/${code}`
+	}
+	return API_GET(url)
+}

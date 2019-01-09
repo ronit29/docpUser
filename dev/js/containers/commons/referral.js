@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../../actions/index.js'
+import { fetchReferralCode } from '../../actions/index.js'
 
 import ReferralView from '../../components/commons/referral'
 
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        fetchReferralCode: () => dispatch(fetchReferralCode())
     }
 }
 
