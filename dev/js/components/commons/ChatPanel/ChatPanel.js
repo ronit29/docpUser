@@ -328,7 +328,7 @@ class ChatPanel extends React.Component {
                             //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
                             // </div>
                             <div className="new-chat-fixed-btn d-md-none" onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
-                                <img src={ASSETS_BASE_URL + '/img/customer-icons/new-chat-btn.svg'} />
+                                <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
                             </div>
                 }
 
