@@ -209,12 +209,12 @@ class TopBar extends React.Component {
                                                     <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
                                                         <h1 className="search-result-heading">
                                                         <span className="fw-700"> Full Body Checkup Packages</span>
+                                                        </h1>
                                                         <span className="search-result-span"> {criteriaStr}
                                                             {
                                                                 locationName ? ` in ${locationName}` : ''
                                                             }
                                                         </span>
-                                                        </h1>
                                                     </p>
                                                 </div>
                                                 <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
@@ -265,7 +265,7 @@ class TopBar extends React.Component {
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for 
                                                 <h1 className="search-result-heading">
                                                 <span className="fw-700"> Full Body Checkup Packages</span>
-
+                                                </h1>
                                                 <span className="search-result-span" onClick={() => {
                                                     this.setState({
                                                         showLocationPopup: !this.state.showLocationPopup,
@@ -280,7 +280,6 @@ class TopBar extends React.Component {
                                                     }
                                                     <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                 </span>
-                                                 </h1>
                                             </div>
                                         </div>
                                 }
