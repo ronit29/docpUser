@@ -314,7 +314,7 @@ class DoctorProfileView extends React.Component {
                             }
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" />
                     </div>
                 </section>
 

@@ -269,6 +269,15 @@ class ChatPanel extends React.Component {
         }
     }
 
+    newChatBtnClick() {
+        if (this.props.type && this.props.type == 'opd') {
+            this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+        }
+        else {
+            this.setState({ showChatBlock: true, additionClasses: "" });
+        }
+    }
+
     render() {
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
@@ -327,7 +336,7 @@ class ChatPanel extends React.Component {
                             // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
                             //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
                             // </div>
-                            <div className="new-chat-fixed-btn d-md-none" onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                            <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
                             </div>
                 }
