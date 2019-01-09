@@ -350,6 +350,18 @@ class CriteriaSearchView extends React.Component {
                                 </div>
                             }
                             {
+                                this.props.bottom_content && this.props.bottom_content.length ?
+                                    <div className="container-fluid mrt-20">
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="widget">
+                                                    <p className="fw-500 text-sm" >{this.props.bottom_content}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> : ''
+                            }
+                            {
                                 this.props.ratings_title && this.props.ratings && this.props.reviews ?
                                     <div className="container-fluid mrt-20">
                                         <div className="row">
