@@ -233,7 +233,7 @@ class ArticleList extends React.Component {
 							</div>
 
 						</div>
-						<RightBar />
+						<RightBar articleListPage={true} />
 					</div>
 				</section>
 				<Footer />
