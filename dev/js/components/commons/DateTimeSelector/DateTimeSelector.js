@@ -183,7 +183,7 @@ class DateTimeSelector extends React.Component {
                                     {
                                         this.state.daySeries && this.state.daySeries .length && this.state.daySeries[0].dateFormat > new Date()
                                         ?<li className="scrll-date" onClick={this.openDateModal.bind(this)}>
-                                            <img src={ASSETS_BASE_URL + "/img/right-sc.svg"} />
+                                            <img src={ASSETS_BASE_URL + "/img/right-sc.svg"} style={{transform:'rotate(180deg)'}} />
                                         </li>
                                         :''    
                                     }
