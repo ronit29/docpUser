@@ -174,7 +174,7 @@ class OffersView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar offersPage={true} />
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
                 <Footer />

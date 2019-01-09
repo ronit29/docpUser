@@ -203,7 +203,7 @@ class PaymentView extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" noChatButton={true} />
                     </div>
                 </section>
             </div>

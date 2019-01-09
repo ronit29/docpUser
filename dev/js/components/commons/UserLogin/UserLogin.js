@@ -225,7 +225,7 @@ class UserLoginView extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
             </div>
