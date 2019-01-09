@@ -32,29 +32,40 @@ class SearchResultsView extends React.Component {
     componentDidMount() {
 
         let getSearchId = true
-        let filterCriteria = this.props.nextFilterCriteria
         if(this.props.location.search.includes('search_id')){
             const parsed = queryString.parse(this.props.location.search)
 
-            if(this.props.search_id_data && this.props.search_id_data[parsed.search_id].data && this.props.search_id_data[parsed.search_id].data){
+            if(this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data && this.props.search_id_data[parsed.search_id].data){
 
+                 getSearchId = false
                 if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length){
-                    getSearchId = false            
                     this.props.getLabSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
                     this.setState({search_id: parsed.search_id})    
                 }else{
 
-                   filterCriteria = this.props.search_id_data[parsed.search_id].filterCriteria
+                    let filters = {}
+                    filters.commonSelectedCriterias = this.props.search_id_data[parsed.search_id].commonSelectedCriterias
+                    filters.filterCriteria = this.props.search_id_data[parsed.search_id].filterCriteria
+                    this.setState({search_id: parsed.search_id},()=> {
+                        /*let new_url = this.buildURI(this.props)
+                        this.props.history.replace(new_url)*/
+                        this.props.setLabSearchId(parsed.search_id, filters, true)
+                    })
+                   
                 }
             }
         }
         if(getSearchId){
             let filters = {}
             filters.commonSelectedCriterias = this.props.nextSelectedCriterias
-            filters.filterCriteria = filterCriteria
+            filters.filterCriteria = this.props.nextFilterCriteria
             let search_id = this.generateSearchId()
-            this.props.setLabSearchId(search_id, filters, true)
-            this.setState({search_id: search_id})
+            
+            this.setState({search_id: search_id},()=>{
+                let new_url = this.buildURI(this.props)
+                this.props.history.replace(new_url)
+                this.props.setLabSearchId(search_id, filters, true)  
+            })
         }
 
         if (this.props.fetchNewResults) {
@@ -76,16 +87,17 @@ class SearchResultsView extends React.Component {
 
     componentWillReceiveProps(props) {
         let search_id = ''
-        if(this.props.location.search.includes('search_id')){
-            const parsed = queryString.parse(this.props.location.search)
+        if(props.location.search.includes('search_id')){
+            const parsed = queryString.parse(props.location.search)
             search_id = parsed.search_id
         }
-        if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+
+        if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults) && this.state.search_id) {
             this.getLabList(props)
             // if (window) {
             //     window.scrollTo(0, 0)
             // }
-        }  else if(props.fetchNewResults && this.state.search_id == search_id && !this.state.setSearchId){
+        }  else if(props.fetchNewResults && this.state.search_id == search_id && !this.state.setSearchId && this.state.search_id){
                 this.setState({setSearchId: true})
                 this.getLabList(props)
         }else {
