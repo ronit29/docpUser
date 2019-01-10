@@ -84,7 +84,7 @@ class ReferralView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>hare your invite code<span>{this.state.referralCode}</span></h4>
+                                                <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>Share your invite code<span>{this.state.referralCode}</span></h4>
                                                 <div className="social-icon-referral">
                                                     <ul className="text-center">
                                                         <li><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></li>
@@ -93,7 +93,7 @@ class ReferralView extends React.Component {
                                                         <li><img src={ASSETS_BASE_URL + "/img/facebook-icon.png"} alt="facebook" /></li>
                                                     </ul>
                                                 </div>
-                                                <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Refral Link</a>
+                                                <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a>
                                                 <a href="javascript:void(0);" className="take-care">*T&amp;C Apply</a>
                                             </div>
 
