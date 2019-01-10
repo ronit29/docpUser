@@ -395,6 +395,23 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    getBookingButtonText(total_wallet_balance, price_to_pay) {
+        let price_from_wallet = 0
+        let price_from_pg = 0
+
+        if (this.state.use_wallet && total_wallet_balance) {
+            price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
+        }
+
+        price_from_pg = price_to_pay - price_from_wallet
+
+        if (price_from_pg) {
+            return `Continue to pay (₹ ${price_from_pg})`
+        }
+
+        return `Confirm Booking`
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -525,9 +542,6 @@ class BookingSummaryViewNew extends React.Component {
                                                                 {
                                                                     is_home_collection_enabled ?
                                                                         <div>
-                                                                            {/*<div style={{ paddingTop: 0 }} className="widget-content test-report lab-appointment-div lab-visit-time mb-0 row">
-                                                                                <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
-                                                                            </div>*/}
                                                                             <div className="">
                                                                                 <div className="test-lab-radio widget-content test-report lab-appointment-div row">
 
@@ -548,23 +562,6 @@ class BookingSummaryViewNew extends React.Component {
                                                             {this.getSelectors()}
                                                         </div>
 
-                                                        {/*<div className="widget mrt-10 ct-profile mb-0 skin-white">
-                                                            <div className="test-report widget-content">
-                                                                <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right">
-                                                                    {
-                                                                        !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a> : ""
-                                                                    }
-                                                                </span></h4>
-                                                                {tests}
-                                                            </div>
-
-                                                            
-
-                                                            <div className="widget-content" id="time-patient-details-widget">
-                                                                {this.getSelectors()}
-                                                            </div>
-                                                        </div>
-*/}
                                                         {
                                                             amtBeforeCoupon != 0 ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
@@ -723,7 +720,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${total_price == 0 ? ' (₹ 0)' : total_price ? ` (₹ ${total_price})` : ''}`}</button>
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                             }
 
 
