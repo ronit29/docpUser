@@ -4907,7 +4907,9 @@ font-weight: 700;
     box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.3);
     background: #fff;
     border-radius: 5px;
+    padding-bottom: 60px;
 }
+.error-msg-pop .error-head{font-size: 18px; color:#000; font-weight: 700; text-align: center;}
 .cross-btn img{
 	position: absolute;
 	top: 10px; 
@@ -4915,11 +4917,25 @@ font-weight: 700;
 	cursor: pointer;
 }
 .error-msg{
-	color: #f10000; 
+	color: #000; 
 	font-size: 14px;
 	font-weight: 500;
 	display: block;
-	margin-top: 20px;
+	margin-top: 40px;
+	text-align: center;
 }
 
-
+@media screen and (max-width: 480px){
+	/*10-01-2019*/
+	.popup-error{
+		position: fixed;
+	    top: 35%;
+	    left: 10px;
+	    right: 10px;
+	    width: auto;
+	    transform: translateY(8px);
+	}
+	.error-msg-pop .error-head{
+		font-size: 16px;
+	}
+}
