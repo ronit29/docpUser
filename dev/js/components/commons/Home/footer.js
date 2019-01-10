@@ -159,6 +159,10 @@ class Footer extends React.Component {
                                             e.preventDefault();
                                             this.navigateTo("/mobileviewchat")
                                         }}>Consult a doctor</a></li>
+                                        <li><a href="/referral" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo("/referral")
+                                        }}>Refer & Earn</a></li>
                                     </ul> : ""
                                 }
                                 <h3 className="foot-sub-lisitng">For Doctors</h3>

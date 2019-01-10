@@ -87,7 +87,7 @@ class Transactions extends React.Component {
                 return `Cashback Received for ${PRODUCT[product_id]} Appointment`
             }
             case 6: {
-                return `Referral Cashback received`
+                return `Referral Bonus`
             }
         }
     }

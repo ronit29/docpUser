@@ -475,7 +475,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         let total_wallet_balance = 0
-        if (this.props.userWalletBalance && this.props.userCashbackBalance) {
+        if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
 
