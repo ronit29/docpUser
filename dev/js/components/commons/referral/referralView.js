@@ -1,6 +1,8 @@
 import React from 'react';
 const queryString = require('query-string');
 
+import CONFIG from '../../../config'
+
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
@@ -27,15 +29,27 @@ class ReferralView extends React.Component {
         })
     }
 
+    getLink() {
+        return `${CONFIG.API_BASE_URL}/login?referral=${this.state.referralCode}`
+    }
+
+    getShareText() {
+        return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime with my code ${this.state.referralCode} and get Rs 50 in docprime wallet`
+    }
+
+    getFullText() {
+        return this.getShareText() + " " + this.getLink()
+    }
+
     share() {
-        // if (navigator.share && this.state.referralCode) {
-        navigator.share({
-            title: 'DocPrime Referral Code',
-            text: this.state.referralCode,
-            url: 'https://docprime.com/login',
-        }).then(() => console.log('Successful share'))
-            .catch((error) => console.log('Error sharing', error));
-        // }
+        if (navigator.share && this.state.referralCode) {
+            navigator.share({
+                title: 'DocPrime Referral Code',
+                text: this.getShareText(),
+                url: this.getLink(),
+            }).then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+        }
     }
 
     render() {
@@ -86,12 +100,14 @@ class ReferralView extends React.Component {
                                                 </div>
                                                 <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>Share your invite code<span>{this.state.referralCode}</span></h4>
                                                 <div className="social-icon-referral">
-                                                    <ul className="text-center">
-                                                        <li><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></li>
-                                                        <li><img src={ASSETS_BASE_URL + "/img/email-icon.png"} alt="email" /></li>
-                                                        <li><img src={ASSETS_BASE_URL + "/img/chat-icon.png"} alt="chat" /></li>
-                                                        <li><img src={ASSETS_BASE_URL + "/img/facebook-icon.png"} alt="facebook" /></li>
-                                                    </ul>
+                                                    {
+                                                        this.state.referralCode ? <ul className="text-center">
+                                                            <li><a href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></a></li>
+                                                            <li><a href={"mailto:?subject=DocPrime Refer&amp;body=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/email-icon.png"} alt="email" /></a></li>
+                                                            <li><a href={`sms://&body=/${this.getFullText()}/`}><img src={ASSETS_BASE_URL + "/img/chat-icon.png"} alt="chat" /></a></li>
+                                                            <li><a href={`https://www.facebook.com/sharer/sharer.php?u=${this.getFullText()}`}><img src={ASSETS_BASE_URL + "/img/facebook-icon.png"} alt="facebook" /></a></li>
+                                                        </ul> : ""
+                                                    }
                                                 </div>
                                                 <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a>
                                                 <a href="javascript:void(0);" className="take-care">*T&amp;C Apply</a>
