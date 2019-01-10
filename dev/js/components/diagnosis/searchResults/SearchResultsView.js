@@ -151,8 +151,14 @@ class SearchResultsView extends React.Component {
     }
 
     applyFilters(filterState) {
-        this.props.mergeLABState({ filterCriteria: filterState })
-        this.props.setLabSearchId(this.state.search_id, filterState, false)
+        let search_id_data = Object.assign({}, this.props.search_id_data)
+        const parsed = queryString.parse(this.props.location.search)
+
+        if(this.props.search_id_data && this.props.search_id_data[parsed.search_id]){
+            search_id_data[parsed.search_id].filterCriteria = filterState
+        }
+        this.props.mergeLABState({ filterCriteria: filterState, search_id_data: search_id_data })
+        //this.props.setLabSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)
         }
