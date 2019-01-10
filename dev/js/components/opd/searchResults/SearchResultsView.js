@@ -48,8 +48,8 @@ class SearchResultsView extends React.Component {
                     filters.commonSelectedCriterias = this.props.search_id_data[parsed.search_id].commonSelectedCriterias
                     filters.filterCriteria = this.props.search_id_data[parsed.search_id].filterCriteria
                     this.setState({search_id: parsed.search_id},()=>{
-                        let new_url = this.buildURI(this.props)
-                        this.props.history.replace(new_url)
+                        /*let new_url = this.buildURI(this.props)
+                        this.props.history.replace(new_url)*/
                         this.props.setSearchId(parsed.search_id, filters, true)
                     })
                 }
@@ -71,12 +71,12 @@ class SearchResultsView extends React.Component {
         }
 
 
-        /*if (this.props.fetchNewResults) {
-            this.getDoctorList(this.props)
+        if (this.props.fetchNewResults) {
+            //this.getDoctorList(this.props)
             if (window) {
                 window.scrollTo(0, 0)
             }
-        }*/
+        }
 
         if (this.state.seoFriendly) {
             //this.props.mergeSelectedCriterias()
@@ -114,6 +114,9 @@ class SearchResultsView extends React.Component {
         } else if(props.fetchNewResults && this.state.search_id == search_id && !this.state.setSearchId && this.state.search_id){
                 this.setState({setSearchId: true})
                 this.getDoctorList(props)
+                if (window) {
+                    window.scrollTo(0, 0)
+                }
         }else {
             if (props.selectedLocation != this.props.selectedLocation) {
                 let new_url = this.buildURI(props)

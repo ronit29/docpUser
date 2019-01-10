@@ -20,7 +20,8 @@ const defaultState = {
     profileCommonProcedures: [],
     commonProfileSelectedProcedures: [],
     couponAutoApply: true,
-    curr_page: null
+    curr_page: null,
+    breadcrumb:[]
 }
 
 export default function (state = defaultState, action) {
@@ -29,8 +30,11 @@ export default function (state = defaultState, action) {
 
         case DOCTOR_SEARCH_START: {
             let newState = { ...state }
-
-            newState.LOADED_DOCTOR_SEARCH = false
+            if(newState.doctorList.length){
+                
+            }else{
+                newState.LOADED_DOCTOR_SEARCH = false
+            }
 
             return newState
         }
@@ -60,6 +64,7 @@ export default function (state = defaultState, action) {
             newState.bottom_content = action.payload.bottom_content
             newState.LOADED_DOCTOR_SEARCH = true
             newState.curr_page = action.payload.page
+            newState.breadcrumb = action.payload.breadcrumb
 
             return newState
         }

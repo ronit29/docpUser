@@ -168,7 +168,8 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 ...action.payload,
-                fetchNewResults: !!action.fetchNewResults
+                fetchNewResults: !!action.fetchNewResults,
+                currentSearchedCriterias:state.selectedCriterias
             }
 
             let extra_tests = state.currentSearchedCriterias.filter(x => x.extra_test) || []
@@ -297,6 +298,7 @@ export default function (state = defaultState, action) {
                 newState.nextFilterCriteria = DEFAULT_FILTER_STATE
                 newState.filterCriteria = action.payload.filterCriteria
                 newState.currentSearchId = action.searchId
+                newState.fetchNewResults = true
 
             }/*else if(newState.search_id_data[action.searchId]){
 
@@ -327,10 +329,13 @@ export default function (state = defaultState, action) {
                 search_id_data: {...state.search_id_data}
             }
             if(newState.search_id_data && newState.search_id_data[newState.currentSearchId]){
-
+                newState.search_id_data[newState.currentSearchId] = Object.assign({},newState.search_id_data[newState.currentSearchId])
                 if(action.page ==1){
-                    newState.search_id_data[newState.currentSearchId] = Object.assign({},newState.search_id_data[newState.currentSearchId])
+                    
                     newState.search_id_data[newState.currentSearchId].data = action.payload
+                
+                }else if(newState.search_id_data[newState.currentSearchId].data){
+                    newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)
                 }
             }
 

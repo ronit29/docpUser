@@ -283,10 +283,10 @@ export default function (state = defaultState, action) {
                     newState.search_id_data[newState.currentSearchId].data = action.payload
                     newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
                     
-                }/*else if(newState.search_id_data[newState.currentSearchId].data){
+                }else if(newState.search_id_data[newState.currentSearchId].data){
                     
                     newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)
-                }*/
+                }
                 
             }
             return newState
