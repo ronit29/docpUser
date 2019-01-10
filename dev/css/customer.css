@@ -1505,6 +1505,7 @@ p.rt-doc-nm{
 
 .banner-carousel-div>img{
     width: 100%;
+    cursor: pointer;
 }
 
 .banner-carousel-div .clickable-banner{
@@ -1639,3 +1640,31 @@ p.rt-doc-nm{
     color: #757575;
     margin-top: 4px;
 }
+
+.rating-star{
+    display: inline-block;
+    vertical-align: -1px;
+    margin: 0 2px;
+    width: 12px;
+}
+
+/* offer page */
+
+.offer-heading{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.offer-div{
+    padding: 10px;
+    margin-bottom: 30px;
+    border: 1px dashed #f78631;
+    border-radius: 5px;
+}
+
+.offer-div>img{
+    cursor: pointer;
+    width: 100%;
+}
+
+/* offer page ends */

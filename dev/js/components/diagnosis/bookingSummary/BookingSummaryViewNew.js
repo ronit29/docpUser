@@ -118,7 +118,7 @@ class BookingSummaryViewNew extends React.Component {
                     let labCoupon = nextProps.corporateCoupon
                     this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
-                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids)
+                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
                 }
                 return
             }
@@ -132,7 +132,7 @@ class BookingSummaryViewNew extends React.Component {
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
                     this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
-                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids)
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
                 }
                 return
             }
@@ -142,15 +142,18 @@ class BookingSummaryViewNew extends React.Component {
                 if (nextProps.couponAutoApply) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
-                    this.props.getCoupons(2, finalPrice, (coupons) => {
-                        if (coupons && coupons[0]) {
-                            this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
-                            this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids)
-                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
-                        } else {
-                            this.props.resetLabCoupons()
+                    this.props.getCoupons({
+                        productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile,
+                        cb: (coupons) => {
+                            if (coupons && coupons[0]) {
+                                this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
+                                this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile)
+                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                            } else {
+                                this.props.resetLabCoupons()
+                            }
                         }
-                    }, this.state.selectedLab, test_ids)
+                    })
                 }
             }
         }
@@ -379,7 +382,10 @@ class BookingSummaryViewNew extends React.Component {
             this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
                 test_ids.push(twp.test_id)
             })
-            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}`)
+
+            let { finalPrice } = this.getLabPriceData(this.props)
+
+            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}`)
         }
     }
 
@@ -457,7 +463,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let amtBeforeCoupon = 0
         let total_price = finalPrice
-        if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') {
+        if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home' && finalPrice) {
             total_price = finalPrice + (labDetail.home_pickup_charges || 0)
         }
         amtBeforeCoupon = total_price
@@ -609,7 +615,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <p>&#8377; {finalMrp}</p>
                                                                             </div>
                                                                             {
-                                                                                (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                (total_price && is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                     <p className="payment-content">Home Pickup Charges</p>
                                                                                     <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                 </div> : ""
@@ -692,7 +698,7 @@ class BookingSummaryViewNew extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" type="lab" />
                     </div>
                 </section>
             </div>

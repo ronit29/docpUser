@@ -6,6 +6,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
+import FixedMobileFooter from '../Home/FixedMobileFooter';
 
 
 const debouncer = (fn, delay) => {
@@ -151,6 +152,27 @@ class CriteriaSearchView extends React.Component {
         let location = "Delhi"
         if (this.props.selectedLocation) {
             location = this.props.selectedLocation.formatted_address.slice(0, 25)
+        }
+
+        let rating = ''
+        if (this.props.ratings) {
+            rating = (Math.ceil(this.props.ratings * 2)) / 2;
+        }
+
+        let ratingArray = []
+        for (let i = 0; i < Math.floor(rating); i++) {
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} className="rating-star" />)
+        }
+
+        if (rating != Math.floor(rating)) {
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-half.svg'} className="rating-star" />)
+        }
+
+        let emptyStars = Math.floor(5 - rating);
+        if (emptyStars) {
+            for (let i = 0; i < emptyStars; i++) {
+                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="rating-star" />)
+            }
         }
 
         return (
@@ -327,23 +349,33 @@ class CriteriaSearchView extends React.Component {
                                     }
                                 </div>
                             }
-                            {
-                                this.props.ratings_title && this.props.ratings && this.props.reviews ?
-                                    <div className="container-fluid mrt-20">
-                                        <div className="row">
-                                            <div className="col-12 avg-rating">
-                                                <p className="fw-500">{this.props.ratings_title}</p>
-                                                <p className="fw-500">Average rating <span>{this.props.ratings} </span><span>({this.props.reviews} reviews)</span></p>
-                                            </div>
-                                        </div>
-                                    </div> : ''
-                            }
                         </div>
                         {
-                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} />
+                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} noChatButton={this.props.searchPackages} />
+                        }
+                        {
+                            this.props.bottom_content && this.props.bottom_content.length ?
+                                <div className="col-12 mrt-20">
+                                    <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.bottom_content }}>
+                                    </div>
+                                </div>
+                                : ''
+                        }
+                        {
+                            this.props.ratings_title && this.props.ratings && this.props.reviews ?
+                                <div className="col-12 avg-rating mrt-20">
+                                    <p className="fw-500">{this.props.ratings_title}</p>
+                                    <p className="fw-500">Average rating {ratingArray}<span>&nbsp;{this.props.ratings} </span><span>({this.props.reviews} reviews)</span>
+                                    </p>
+                                </div>
+                                : ''
                         }
                     </div>
                 </section>
+                {
+                    this.props.searchPackages ?
+                        <FixedMobileFooter searchPackagePage={true} {...this.props} /> : ''
+                }
             </div>
         );
     }

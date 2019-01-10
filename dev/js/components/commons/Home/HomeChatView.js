@@ -7,7 +7,6 @@ import HelmetTags from '../HelmetTags'
 import GTM from '../../../helpers/gtm.js'
 import CONFIG from '../../../config'
 import HomePageWidget from './HomePageWidget'
-import Accordian from './Accordian'
 const queryString = require('query-string');
 
 const GENDER = {
@@ -313,7 +312,6 @@ class HomeChatView extends React.Component {
                             {slabOrder}
                         </div>
                     </div>
-                    <Accordian />
                 </div>
 
                 <Footer specialityFooterData={this.state.specialityFooterData} />

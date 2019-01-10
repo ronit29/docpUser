@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon , createProfile, sendOTP, submitOTP} from '../../actions/index.js'
+import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -9,7 +9,7 @@ import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/ind
 class BookingSummary extends React.Component {
     constructor(props) {
         super(props)
-        
+
     }
 
     // static loadData(store, match) {
@@ -76,9 +76,9 @@ const mapDispatchToProps = (dispatch) => {
         createLABAppointment: (postData, callback) => dispatch(createLABAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeLabCoupons: (labId, couponId) => dispatch(removeLabCoupons(labId, couponId)),
-        applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids)),
+        applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id)),
         resetLabCoupons: () => dispatch(resetLabCoupons()),
-        getCoupons: (productId, deal_price, cb, lab_id, test_ids) => dispatch(getCoupons(productId, deal_price, cb, lab_id, test_ids)),
+        getCoupons: (data) => dispatch(getCoupons(data)),
         applyCoupons: (productId, couponData, couponId, labId) => dispatch(applyCoupons(productId, couponData, couponId, labId)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),

@@ -98,7 +98,7 @@ const mapStateToProps = (state, passedProps) => {
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
-    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title } = state.DOCTOR_SEARCH
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -120,7 +120,8 @@ const mapStateToProps = (state, passedProps) => {
         hospitalList, ratings, reviews, ratings_title,
         search_id_data,
         nextSelectedCriterias,
-        nextFilterCriteria
+        nextFilterCriteria,
+        bottom_content
     }
 }
 

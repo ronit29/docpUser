@@ -1,28 +1,11 @@
 import React from 'react';
-import GTM from '../../../helpers/gtm.js'
+import ProfileHeader from '../DesktopProfileHeader';
+import RightBar from '../RightBar';
+import Footer from '../Home/footer'
+import GTM from '../../../helpers/gtm';
+import FixedMobileFooter from '../Home/FixedMobileFooter';
 
-class BannerCarousel extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            index: 0
-        }
-    }
-
-    componentDidMount() {
-        let totalOffers = ''
-        if (this.props.offerList) {
-            totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
-            setInterval(() => {
-                let curr_index = this.state.index
-                curr_index = curr_index + 1
-                if (curr_index >= totalOffers) {
-                    curr_index = 0
-                }
-                this.setState({ index: curr_index })
-            }, 5000)
-        }
-    }
+class OffersView extends React.Component {
 
     navigateTo(offer) {
         if (offer.url_details && offer.url_details.test_ids) {
@@ -155,30 +138,50 @@ class BannerCarousel extends React.Component {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+        this.props.getOfferList();
+    }
+
     render() {
-
-        let offerVisible = {}
-        if (this.props.offerList) {
-            offerVisible = this.props.offerList.filter(x => x.slider_location === 'home_page')[this.state.index];
-        }
-
         return (
-            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-20 mrb-20`}>
-                {
-                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                        <img src={offerVisible.image} onClick={() => this.navigateTo(offerVisible)} />
-                        : ''
-                }
-                <div className="carousel-indicators mrt-10">
-                    {
-                        this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').map((offer, i) => {
-                            return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
-                        })
-                    }
-                </div>
+            <div className="profile-body-wrap" style={{ background: '#fff' }}>
+                <ProfileHeader showSearch={true} />
+                <section className="container parent-section book-appointment-section">
+                    <div className="row main-row parent-section-row">
+                        <div className="col-12 col-md-7 center-column">
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-12">
+                                        {
+                                            this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'offers_page').length ?
+                                                <p className="fw-700 offer-heading mrt-20">Offers</p>
+                                                :
+                                                <p className="fw-700 offer-heading mrt-20">No offers available</p>
+                                        }
+
+                                    </div>
+                                    <div className="col-12">
+                                        {
+                                            this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'offers_page').length ?
+                                                this.props.offerList.filter(x => x.slider_location === 'offers_page').map((offer, i) => {
+                                                    return <div className="offer-div" key={i} onClick={() => this.navigateTo(offer)} >
+                                                        <img src={offer.image} />
+                                                    </div>
+                                                }) : ''
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <RightBar noChatButton={true} />
+                    </div>
+                </section>
+                <Footer />
+                <FixedMobileFooter offersPage={true} {...this.props} />
             </div>
-        );
+        )
     }
 }
 
-export default BannerCarousel
+export default OffersView

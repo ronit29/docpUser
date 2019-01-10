@@ -13,7 +13,8 @@ class RatingsPopUp extends React.Component {
             selectedRating: 0,
             rating_id: null,
             compliments: [],
-            rating_done: false
+            rating_done: false,
+            appointmentData:null
         }
     }
 
@@ -89,7 +90,7 @@ class RatingsPopUp extends React.Component {
         else {
             this.props.updateAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
-                    this.setState({ data: null, rating_done: true })
+                    this.setState({ appointmentData:this.state.data,data: null, rating_done: true})
                 }
             })
         }
@@ -98,7 +99,7 @@ class RatingsPopUp extends React.Component {
     render() {
         console.log(this.state);
         if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
-            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} />)
+            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} appointmentData={this.state.appointmentData}/>)
         }
         if (typeof (this.state.data) != "undefined" && this.state.data != null && this.state.data.id) {
             let qualification_object = this.state.data.doctor ? this.state.data.doctor.qualifications : null;
@@ -141,7 +142,7 @@ class RatingsPopUp extends React.Component {
                                     })
                                 }
                             </div>
-                        </div >
+                        </div>
                     </div>
                 );
             }

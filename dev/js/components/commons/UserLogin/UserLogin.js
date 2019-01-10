@@ -31,6 +31,11 @@ class UserLoginView extends React.Component {
     }
 
     submitOTPRequest(number) {
+        const parsed = queryString.parse(this.props.location.search)
+        let analyticData = {
+        'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request','mobileNo':number,'pageSource':parsed.login||''
+        }
+        GTM.sendEvent({ data: analyticData })
 
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
@@ -57,16 +62,17 @@ class UserLoginView extends React.Component {
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+             if(exists.token){
                 const parsed = queryString.parse(this.props.location.search)
                 if (exists.user_exists) {
                     if (parsed.login) {
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success'
+                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo':this.state.phoneNumber
                         }
                         GTM.sendEvent({ data: data })
                     } else {
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success'
+                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo':this.state.phoneNumber
                         }
                         GTM.sendEvent({ data: data })
                     }
@@ -85,12 +91,12 @@ class UserLoginView extends React.Component {
 
                     if (parsed.login) {
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered'
+                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo':this.state.phoneNumber
                         }
                         GTM.sendEvent({ data: data })
                     } else {
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered'
+                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo':this.state.phoneNumber
                         }
                         GTM.sendEvent({ data: data })
                     }
@@ -100,6 +106,7 @@ class UserLoginView extends React.Component {
                         this.props.history.replace('/signup')
                     }
                 }
+             }
             })
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
@@ -218,7 +225,7 @@ class UserLoginView extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
             </div>

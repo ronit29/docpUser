@@ -16,7 +16,7 @@ class Coupons extends React.Component {
 
 const mapStateToProps = (state) => {
 	const {
-		applicableCoupons
+		applicableCoupons, selectedProfile, profiles
 	} = state.USER
 
 	let {
@@ -27,14 +27,15 @@ const mapStateToProps = (state) => {
 
 	return {
 		applicableCoupons,
-		selectedSlot
+		selectedSlot,
+		selectedProfile, profiles
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 
 	return {
-		getCoupons: (productId, deal_price, cb, lab_id, test_ids, coupon_code, save_in_store) => dispatch(getCoupons(productId, deal_price, cb, lab_id, test_ids, coupon_code, save_in_store)),
+		getCoupons: (data) => dispatch(getCoupons(data)),
 		applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId))
 
 	}

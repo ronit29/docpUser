@@ -224,7 +224,7 @@ class DoctorProfileCard extends React.Component {
                                         ''
                                         : enabled_for_hospital_booking ?
                                             <div className="signup-off-container">
-                                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                <span className="signup-off-doc" style={{ fontSize: 12 }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
                                             </div>
                                             : ''
                                 }

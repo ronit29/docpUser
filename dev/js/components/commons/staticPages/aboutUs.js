@@ -14,9 +14,15 @@ class AboutUs extends React.Component {
     }
 
     render() {
+        let mainClass
+        if(this.props.fromApp){
+            mainClass = "container about-container appUrlPadding"
+        }else{
+            mainClass = 'container about-container'
+        }
 
         return (
-            <div className="container about-container">
+            <div className={mainClass}>
                 <HelmetTags tagsData={{
                     title: ('About Us | docprime'),
                     description: ('docprime: docprime is one stop health care solution for patients and doctors. Patients can book doctors online and doctors can manage patients online.')

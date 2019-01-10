@@ -157,7 +157,6 @@ class DesktopProfileHeader extends React.Component {
                                     </div>
                                 }
 
-
                                 <div className="head-links">
                                     <div className="head-dropdowns">
                                         <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
@@ -216,10 +215,16 @@ class DesktopProfileHeader extends React.Component {
                                     <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
                                 </div>
                             }
+
+                            <div className="head-links" onClick={() => {
+                                this.props.history.push('/contact')
+                            }}>
+                                <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
+                            </div>
+
                             <div className="head-links">
                                 <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
                             </div>
-
 
                             {
                                 profileData ? <div className="head-links" onClick={() => {
