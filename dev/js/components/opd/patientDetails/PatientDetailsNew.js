@@ -17,6 +17,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import ProcedureView from './procedureView.js'
+import ErrorPopUp from './errorPopUp.js'
 
 
 class PatientDetailsNew extends React.Component {
@@ -613,6 +614,8 @@ class PatientDetailsNew extends React.Component {
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
                             }
+
+                            <ErrorPopUp/>
 
                         </div>
 
