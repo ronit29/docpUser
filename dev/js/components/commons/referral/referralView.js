@@ -6,6 +6,10 @@ import CONFIG from '../../../config'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SnackBar from 'node-snackbar'
+import STORAGE from '../../../helpers/storage'
+
 
 class ReferralView extends React.Component {
     constructor(props) {
@@ -20,13 +24,16 @@ class ReferralView extends React.Component {
             window.scrollTo(0, 0)
         }
 
-        this.props.fetchReferralCode().then((res) => {
-            if (res && res.code) {
-                this.setState({ referralCode: res.code })
-            }
-        }).catch((e) => {
+        if (STORAGE.checkAuth()) {
+            this.props.fetchReferralCode().then((res) => {
+                if (res && res.code) {
+                    this.setState({ referralCode: res.code })
+                }
+            }).catch((e) => {
 
-        })
+            })
+        }
+
     }
 
     getLink() {
@@ -34,7 +41,7 @@ class ReferralView extends React.Component {
     }
 
     getShareText() {
-        return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime with my code ${this.state.referralCode} and get Rs 50 in docprime wallet`
+        return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code {this.state.referralCode} and get Rs 50 - Referral Link`
     }
 
     getFullText() {
@@ -98,19 +105,35 @@ class ReferralView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>Share your invite code<span>{this.state.referralCode}</span></h4>
-                                                <div className="social-icon-referral">
-                                                    {
-                                                        this.state.referralCode ? <ul className="text-center">
-                                                            <li><a href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></a></li>
-                                                            <li><a href={"mailto:?subject=DocPrime Refer&amp;body=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/email-icon.png"} alt="email" /></a></li>
-                                                            <li><a href={`sms://&body=/${this.getFullText()}/`}><img src={ASSETS_BASE_URL + "/img/chat-icon.png"} alt="chat" /></a></li>
-                                                            <li><a href={`https://www.facebook.com/sharer/sharer.php?u=${this.getFullText()}`}><img src={ASSETS_BASE_URL + "/img/facebook-icon.png"} alt="facebook" /></a></li>
-                                                        </ul> : ""
-                                                    }
-                                                </div>
-                                                <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a>
-                                                <a href="javascript:void(0);" className="take-care">*T&amp;C Apply</a>
+                                                {
+                                                    STORAGE.checkAuth() ? <div>
+                                                        <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>Share your invite code<span>{this.state.referralCode}</span></h4>
+
+                                                        <div className="social-icon-referral">
+                                                            {
+                                                                this.state.referralCode ? <ul className="text-center">
+                                                                    <li><a href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></a></li>
+                                                                    <li><a href={`mailto:?subject=DocPrime Refer&body=${this.getFullText()}`}><img src={ASSETS_BASE_URL + "/img/email-icon.png"} alt="email" /></a></li>
+                                                                    <li><a href={`sms:?&body=${this.getLink()}`}><img src={ASSETS_BASE_URL + "/img/chat-icon.png"} alt="chat" /></a></li>
+                                                                    <li>
+                                                                        <a id="fb-share" type="icon_link" onClick={() => { window.open(`http://www.facebook.com/sharer.php?s=100&p[title]=DocPrime Refer&p[summary]=${this.getShareText()}&p[url]=${this.getLink()}','sharer','toolbar=0,status=0,width=580,height=325`) }} href="javascript: void(0)"><img src={ASSETS_BASE_URL + "/img/facebook-icon.png"} alt="facebook" /></a>
+                                                                    </li>
+                                                                </ul> : ""
+                                                            }
+                                                        </div>
+                                                        {
+                                                            navigator && navigator.share ? <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a> : <CopyToClipboard text={this.getLink()}
+                                                                onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Url Copied" }); }}>
+                                                                <span style={{ cursor: 'pointer' }}>
+                                                                    <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a>
+                                                                </span>
+                                                            </CopyToClipboard>
+                                                        }
+                                                    </div> : <a style={{ marginTop: 10 }} onClick={() => {
+                                                        this.props.history.push('/login')
+                                                    }} href="javascript:void(0);" className="btn-share">Login to see you invite code</a>
+                                                }
+
                                             </div>
 
                                         </div>
