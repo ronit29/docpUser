@@ -53,7 +53,7 @@ class ClinicSelector extends React.Component {
 
         if (!this.props.selectedClinic) {
             if (hospitals && hospitals.length) {
-                this.props.selectClinic(hospitals[0].hospital_id, hospitals[0].enabled_for_online_booking, 0, hospitals[0].deal_price || 0)
+                this.props.selectClinic(hospitals[0].hospital_id, hospitals[0].enabled_for_online_booking, 0, hospitals[0].deal_price || 0, hospitals[0].show_contact)
             }
         }
 
@@ -123,7 +123,7 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.deal_price) }}><h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >{hospital.hospital_name}</h3>
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.deal_price, hospital.show_contact) }}><h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >{hospital.hospital_name}</h3>
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }

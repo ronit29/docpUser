@@ -269,6 +269,15 @@ class ChatPanel extends React.Component {
         }
     }
 
+    newChatBtnClick() {
+        if (this.props.type && (this.props.type == 'opd' || this.props.type == 'lab')) {
+            this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+        }
+        else {
+            this.setState({ showChatBlock: true, additionClasses: "" });
+        }
+    }
+
     render() {
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
@@ -319,13 +328,16 @@ class ChatPanel extends React.Component {
         return (
             <div className={ct_style}>
                 {
-                    this.props.homePage || this.props.mobilechatview ? '' :
+                    this.props.homePage || this.props.mobilechatview || this.props.noChatButton ? '' :
                         this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
                             <div className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
                             </div> :
-                            <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
-                                <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                            //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            // </div>
+                            <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
+                                <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
                             </div>
                 }
 
@@ -440,7 +452,7 @@ class ChatPanel extends React.Component {
                         </div> : ""
                 }
                 {
-                    this.props.homePage ?
+                    this.props.homePage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                         <BannerCarousel {...this.props} /> : ''
                 }
             </div>
