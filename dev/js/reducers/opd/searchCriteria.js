@@ -277,19 +277,16 @@ export default function (state = defaultState, action) {
                 search_id_data: {...state.search_id_data}
             }
             if(newState.search_id_data && newState.search_id_data[newState.currentSearchId]){
-                //let resultIds = action.payload.result.map(x=>x.id)
+                
+                newState.search_id_data[newState.currentSearchId] = Object.assign(newState.search_id_data[newState.currentSearchId])
                 if(action.page == 1){
-                    newState.search_id_data[newState.currentSearchId] = Object.assign(newState.search_id_data[newState.currentSearchId])
                     newState.search_id_data[newState.currentSearchId].data = action.payload
                     newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
-                    /*
-                    newState.search_id_data[newState.currentSearchId].searchResults = action.payload.result
-                    newState.search_id_data[newState.currentSearchId].searchResultIds = action.payload.result.map(x=>x.id)*/
-                }else{
-                    /*
-                    newState.search_id_data[newState.currentSearchId].searchResults = newState.search_id_data[newState.currentSearchId].searchResults.concat(action.payload.result)
-                    newState.search_id_data[newState.currentSearchId].searchResultIds = newState.search_id_data[newState.currentSearchId].searchResultIds.concat(action.payload.result.map(x=>x.id))*/
-                }
+                    
+                }/*else if(newState.search_id_data[newState.currentSearchId].data){
+                    
+                    newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)
+                }*/
                 
             }
             return newState
