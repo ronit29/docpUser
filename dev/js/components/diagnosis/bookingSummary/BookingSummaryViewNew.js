@@ -36,12 +36,17 @@ class BookingSummaryViewNew extends React.Component {
             couponId: '',
             scrollPosition: '',
             profileDataFilled: true,
-            is_cashback: false
+            is_cashback: false,
+            use_wallet: true
         }
     }
 
     toggle(which) {
         this.setState({ [which]: !this.state[which] })
+    }
+
+    toggleWalletUse(e) {
+        this.setState({ use_wallet: e.target.checked })
     }
 
     componentDidMount() {
@@ -301,7 +306,8 @@ class BookingSummaryViewNew extends React.Component {
             test_ids: testIds,
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
-            payment_type: 1 // TODO : Select payment type
+            payment_type: 1, // TODO : Select payment type
+            use_wallet: this.state.use_wallet
         }
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -470,6 +476,11 @@ class BookingSummaryViewNew extends React.Component {
 
         if (!this.state.is_cashback) {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
+        }
+
+        let total_wallet_balance = 0
+        if (this.props.userWalletBalance && this.props.userCashbackBalance) {
+            total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
 
         return (
@@ -664,21 +675,27 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </div>
                                                                 </div>
                                                         }
-                                                        <div className="widget mrb-15">
-                                                            <div className="widget-content">
-                                                            <div className="lab-visit-time d-flex jc-spaceb">
-                                                            <h4 className="title d-flex"><span>
-                                                                <img src="/assets/img/docmoney.svg" style={{width: '20px', marginRight: '8px'}}/>
-                                                                </span>docprime Wallet</h4>
+
+
+                                                        {
+                                                            total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <div className="lab-visit-time d-flex jc-spaceb">
+                                                                        <h4 className="title d-flex"><span>
+                                                                            <img src="/assets/img/docmoney.svg" style={{ width: '20px', marginRight: '8px' }} />
+                                                                        </span>docprime Wallet</h4>
+                                                                    </div>
+                                                                    <div className="select-pt-form">
+                                                                        <div className="referral-select">
+                                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="select-pt-form">
-                                                                <div className="referral-select">
-                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" value="on" /><span className="checkmark"></span></label>
-                                                                    <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />945</span>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            </div> : ""
+                                                        }
+
+
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>

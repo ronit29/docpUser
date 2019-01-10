@@ -35,9 +35,14 @@ class PatientDetailsNew extends React.Component {
             profileDataFilled: true,
             showTimeError: false,
             couponApplied: false,
-            is_cashback: false
-            // order_id: !!parsed.order_id
+            is_cashback: false,
+            // order_id: !!parsed.order_id,
+            use_wallet: true
         }
+    }
+
+    toggleWalletUse(e) {
+        this.setState({ use_wallet: e.target.checked })
     }
 
     toggle(which) {
@@ -278,7 +283,8 @@ class PatientDetailsNew extends React.Component {
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
             start_date, start_time,
-            payment_type: 1
+            payment_type: 1,
+            use_wallet: this.state.use_wallet
         }
         if (this.props.disCountedOpdPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -468,6 +474,11 @@ class PatientDetailsNew extends React.Component {
             finalPrice = total_price ? parseInt(total_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
         }
 
+        let total_wallet_balance = 0
+        if (this.props.userWalletBalance && this.props.userCashbackBalance) {
+            total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -584,6 +595,24 @@ class PatientDetailsNew extends React.Component {
 
                                                             </div>
                                                         </div>
+
+                                                        {
+                                                            total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <div className="lab-visit-time d-flex jc-spaceb">
+                                                                        <h4 className="title d-flex"><span>
+                                                                            <img src="/assets/img/docmoney.svg" style={{ width: '20px', marginRight: '8px' }} />
+                                                                        </span>docprime Wallet</h4>
+                                                                    </div>
+                                                                    <div className="select-pt-form">
+                                                                        <div className="referral-select">
+                                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> : ""
+                                                        }
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>

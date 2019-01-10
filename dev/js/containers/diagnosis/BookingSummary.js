@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP } from '../../actions/index.js'
+import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -11,10 +11,6 @@ class BookingSummary extends React.Component {
         super(props)
 
     }
-
-    // static loadData(store, match) {
-    //     return Promise.all([store.dispatch(getLabById(match.params.id)), store.dispatch(getUserProfile())])
-    // }
 
     static contextTypes = {
         router: () => null
@@ -28,6 +24,7 @@ class BookingSummary extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
             this.props.getUserAddress()
+            this.props.fetchTransactions()
         }
 
         let testIds = this.props.lab_test_data[this.props.match.params.id] || []
@@ -51,7 +48,7 @@ const mapStateToProps = (state) => {
         lab_test_data,
         corporateCoupon
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles, address } = state.USER
+    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance } = state.USER
     let LABS = state.LABS
     let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply } = state.LAB_SEARCH
 
@@ -61,7 +58,7 @@ const mapStateToProps = (state) => {
         lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
-        couponAutoApply
+        couponAutoApply, userWalletBalance, userCashbackBalance
     }
 }
 
@@ -83,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb))
+        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        fetchTransactions: () => dispatch(fetchTransactions())
     }
 }
 

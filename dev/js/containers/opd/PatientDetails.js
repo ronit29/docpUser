@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP } from '../../actions/index.js'
+import { getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -9,14 +9,7 @@ import PatientDetailsView from '../../components/opd/patientDetails/index.js'
 class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
-        /*if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=${this.props.location.pathname}&login=opd`)
-        }*/
     }
-
-    // static loadData(store, match) {
-    //     return Promise.all([store.dispatch(getDoctorById(match.params.id)), store.dispatch(getUserProfile())])
-    // }
 
     static contextTypes = {
         router: () => null
@@ -26,10 +19,12 @@ class PatientDetails extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        if (STORAGE.checkAuth()) {
 
+        if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
+            this.props.fetchTransactions()
         }
+
         this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
 
     }
@@ -45,11 +40,11 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles } = state.USER
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures } = state.DOCTOR_SEARCH
 
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance
     }
 }
 
@@ -67,7 +62,8 @@ const mapDispatchToProps = (dispatch) => {
         getCoupons: (data) => dispatch(getCoupons(data)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb))
+        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        fetchTransactions: () => dispatch(fetchTransactions())
     }
 }
 
