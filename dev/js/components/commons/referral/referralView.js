@@ -77,16 +77,16 @@ class ReferralView extends React.Component {
                                                 <div className="multi-step-for-earn">
                                                     <div className="steps">
                                                         <div className="img-step">
-                                                            <img src={ASSETS_BASE_URL + "/img/step-1.png"} alt="img" className="" />
+                                                            <img src={ASSETS_BASE_URL + "/img/step-1.png"} alt="img" className="img-1" />
                                                             <div className="badge badge-refer">1</div>
                                                         </div>
                                                         <div className="text-step">
-                                                            Invite your friend on <br /> docprime.com
+                                                            Invite your friends on <br /> docprime.com
                                                         </div>
                                                     </div>
                                                     <div className="steps step-2">
                                                         <div className="text-step text-step-2">
-                                                            Your friend gets <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on <br /> Signup in docprime wallet
+                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on <br /> Signup 
                                                             <div className="badge badge-refer">2</div>
                                                         </div>
 
@@ -96,12 +96,12 @@ class ReferralView extends React.Component {
                                                     </div>
                                                     <div className="steps">
                                                         <div className="img-step">
-                                                            <img src={ASSETS_BASE_URL + "/img/step-3.png"} alt="img" className="" />
+                                                            <img src={ASSETS_BASE_URL + "/img/step-3.png"} alt="img" className="img-3" />
                                                             <div className="badge badge-refer">3</div>
                                                         </div>
 
                                                         <div className="text-step">
-                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on completion of <br /> your friends first appointment <br /> in docprime wallet
+                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on completion of <br /> their first order
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,7 +131,7 @@ class ReferralView extends React.Component {
                                                         }
                                                     </div> : <a style={{ marginTop: 10 }} onClick={() => {
                                                         this.props.history.push('/login')
-                                                    }} href="javascript:void(0);" className="btn-share">Login to see you invite code</a>
+                                                    }} href="javascript:void(0);" className="btn-share">Login to see your invite code</a>
                                                 }
 
                                             </div>
