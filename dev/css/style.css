@@ -4892,7 +4892,7 @@ font-weight: 700;
 .appUrlPadding{
 	padding: 20px 15px 20px !important;
 }
-.breadcrumb-list-ul{margin: 30px 0 0 30px;}
+.breadcrumb-list-ul{margin: 30px 0 0 0px;}
 .breadcrumb-mrgn{
     margin-top:130px;	
 }
@@ -4901,4 +4901,14 @@ font-weight: 700;
 	.breadcrumb-mrgn{
     margin-top:78px;	
 }
+}
+
+@media screen and (max-width: 992px){
+	.breadcrumb-mrgn{
+    margin-top:78px;	
+}
+}
+
+.d-inline-blck{
+	display: inline-block;
 }
