@@ -19,7 +19,8 @@ class SearchResultsView extends React.Component {
             footerData = this.props.initialServerData.footerData
         }
         this.state = {
-            seoData, footerData,
+           // seoData, 
+            footerData,
             seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
             lab_card: this.props.location.search.includes('lab_card') || null,
             showError: false,
@@ -40,6 +41,11 @@ class SearchResultsView extends React.Component {
                  getSearchId = false
                 if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length){
                     this.props.getLabSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
+                    this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                        if (footerData) {
+                            this.setState({ footerData: footerData })
+                        }
+                    })
                     this.setState({search_id: parsed.search_id})    
                 }else{
 
@@ -141,7 +147,7 @@ class SearchResultsView extends React.Component {
             page = this.props.page
         }
         this.props.getLabs(state, page, false, searchUrl, (...args) => {
-            this.setState({ seoData: args[1] })
+           // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
             } else {
@@ -272,8 +278,8 @@ class SearchResultsView extends React.Component {
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
-                    title: this.getMetaTagsData(this.state.seoData).title,
-                    description: this.getMetaTagsData(this.state.seoData).description,
+                    title: this.getMetaTagsData(this.props.seoData).title,
+                    description: this.getMetaTagsData(this.props.seoData).description,
                     prev: prev,
                     next: next
                 }} noIndex={!this.state.seoFriendly} />
@@ -281,7 +287,7 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
                             {/*
                         <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />

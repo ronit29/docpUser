@@ -19,7 +19,8 @@ class SearchResultsView extends React.Component {
             footerData = this.props.initialServerData.footerData
         }
         this.state = {
-            seoData, footerData,
+            //seoData, 
+            footerData,
             seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
             clinic_card: this.props.location.search.includes('clinic_card') || null,
             showError: false,
@@ -41,6 +42,11 @@ class SearchResultsView extends React.Component {
                                 
                     this.setState({search_id: parsed.search_id}, ()=>{
                         this.props.getSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
+                        this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                            if (footerData) {
+                                this.setState({ footerData: footerData })
+                            }
+                        })
                     })
                     
                 }else{
@@ -220,7 +226,7 @@ class SearchResultsView extends React.Component {
             page = this.props.page
         }
         this.props.getDoctors(state, page, false, searchUrl, (...args) => {
-            this.setState({ seoData: args[1] })
+           // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
                 let new_url = this.buildURI(state)
@@ -301,9 +307,9 @@ class SearchResultsView extends React.Component {
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
-                    title: this.getMetaTagsData(this.state.seoData).title,
-                    description: this.getMetaTagsData(this.state.seoData).description,
-                    schema: this.getMetaTagsData(this.state.seoData).schema,
+                    title: this.getMetaTagsData(this.props.seoData).title,
+                    description: this.getMetaTagsData(this.props.seoData).description,
+                    schema: this.getMetaTagsData(this.props.seoData).schema,
                     seoFriendly: this.state.seoFriendly,
                     prev: prev,
                     next: next
@@ -312,7 +318,7 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}

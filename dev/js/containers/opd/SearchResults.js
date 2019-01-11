@@ -37,16 +37,16 @@ class SearchResults extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    return store.dispatch(getDoctors(state, page, true, searchUrl, (loadMore, seoData) => {
+                    return store.dispatch(getDoctors(state, page, true, searchUrl, (loadMore) => {
                         if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
-                                resolve({ seoData, footerData })
+                                resolve({ footerData })
                             }).catch((e) => {
-                                resolve({ seoData })
+                                resolve({  })
                             })
                         } else {
-                            resolve({ seoData })
+                            resolve({  })
                         }
                     }, clinic_card))
                 }).catch((e) => {
@@ -98,7 +98,7 @@ const mapStateToProps = (state, passedProps) => {
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
-    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb } = state.DOCTOR_SEARCH
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -122,7 +122,8 @@ const mapStateToProps = (state, passedProps) => {
         nextSelectedCriterias,
         nextFilterCriteria,
         bottom_content,
-        breadcrumb
+        breadcrumb,
+        seoData
     }
 }
 

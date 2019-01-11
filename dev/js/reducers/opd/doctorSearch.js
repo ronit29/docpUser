@@ -21,7 +21,8 @@ const defaultState = {
     commonProfileSelectedProcedures: [],
     couponAutoApply: true,
     curr_page: null,
-    breadcrumb:[]
+    breadcrumb:[],
+    seoData:{}
 }
 
 export default function (state = defaultState, action) {
@@ -65,6 +66,7 @@ export default function (state = defaultState, action) {
             newState.LOADED_DOCTOR_SEARCH = true
             newState.curr_page = action.payload.page
             newState.breadcrumb = action.payload.breadcrumb
+            newState.seoData = action.payload.seo || {}
 
             return newState
         }

@@ -33,16 +33,16 @@ class SearchResults extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore, seoData) => {
+                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
-                                resolve({ seoData, footerData })
+                                resolve({ footerData })
                             }).catch((e) => {
-                                resolve({ seoData })
+                                resolve({  })
                             })
                         } else {
-                            resolve({ seoData })
+                            resolve({  })
                         }
                     }))
                 }).catch((e) => {
@@ -93,7 +93,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -113,7 +113,8 @@ const mapStateToProps = (state, passedProps) => {
         search_id_data,
         nextSelectedCriterias,
         currentSearchedCriterias,
-        nextFilterCriteria
+        nextFilterCriteria,
+        seoData
     }
 
 }

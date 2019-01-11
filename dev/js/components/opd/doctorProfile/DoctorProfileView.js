@@ -178,7 +178,7 @@ class DoctorProfileView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
-                <section className="container parent-section book-appointment-section">
+                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     <div className="col-12 mrng-top-12 d-none d-md-block">
                         <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{'wordBreak': 'breakWord'}}>
                             {

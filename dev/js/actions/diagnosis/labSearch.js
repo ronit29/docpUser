@@ -111,10 +111,10 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		if (cb) {
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
-				cb(true, response.seo)
+				cb(true)
 			}
 		}
-		cb(false, response.seo)
+		cb(false)
 
 	}).catch(function (error) {
 		throw error
