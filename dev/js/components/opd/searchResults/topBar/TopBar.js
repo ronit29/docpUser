@@ -200,6 +200,7 @@ class TopBar extends React.Component {
 
         return (
             <div>
+            {this.props.breadcrumb && this.props.breadcrumb.length?
                 <div className="col-12 mrng-top-12 d-none d-md-block">
                     <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{'wordBreak': 'breakWord'}}>
                         {
@@ -224,6 +225,8 @@ class TopBar extends React.Component {
                         }
                     </ul>
                 </div>
+                :''
+            }
                 
                 <section className="filter-row sticky-header mbl-stick">
                     <div className="container-fluid">
