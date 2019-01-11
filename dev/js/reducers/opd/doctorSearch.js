@@ -48,6 +48,7 @@ export default function (state = defaultState, action) {
 
             if (action.payload.page === 1) {
                 newState.doctorList = action.payload.result.map(doc => doc.id)
+                newState.count = action.payload.count
             } else {
                 let dedupe = {}
                 newState.doctorList = newState.doctorList
@@ -58,7 +59,6 @@ export default function (state = defaultState, action) {
             }
 
             newState.search_content = action.payload.search_content || ''
-            newState.count = action.payload.count
             newState.reviews = action.payload.reviews
             newState.ratings = action.payload.ratings
             newState.ratings_title = action.payload.ratings_title
