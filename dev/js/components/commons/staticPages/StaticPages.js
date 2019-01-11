@@ -25,7 +25,6 @@ class StaticPagesView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            urlString:''
         }
     }
 
@@ -33,15 +32,14 @@ class StaticPagesView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        const parsed = queryString.parse(window.location.search)
-        this.setState({urlString:parsed})
     }
 
     render() {
+        const parsed = queryString.parse(window.location.search)
         return (
             <div className="profile-body-wrap">
                 {
-                    this.state.urlString.fromApp?'':<ProfileHeader />
+                    parsed.fromApp?'':<ProfileHeader />
                 }
                 <div className="sub-header d-none d-lg-block" />
 
@@ -65,7 +63,7 @@ class StaticPagesView extends React.Component {
                 </div> */}
 
                 <Route exact path={'/about'} render={(props) => {
-                    return <AboutUs {...this.props} {...props} fromApp={this.state.urlString.fromApp?this.state.urlString.fromApp:false}/>
+                    return <AboutUs {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
                 }} />
 
                 <Route exact path={'/contact'} render={(props) => {
@@ -85,7 +83,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/terms'} render={(props) => {
-                    return <Terms {...this.props} {...props} fromApp={this.state.urlString.fromApp?this.state.urlString.fromApp:false}/>
+                    return <Terms {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
                 }} />
 
                 <Route exact path={'/careers'} render={(props) => {
@@ -101,7 +99,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/cancelpolicy'} render={(props) => {
-                    return <CancelPolicy {...this.props} {...props} fromApp={this.state.urlString.fromApp?this.state.urlString.fromApp:false}/>
+                    return <CancelPolicy {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
                 }} />
 
                 <Footer />

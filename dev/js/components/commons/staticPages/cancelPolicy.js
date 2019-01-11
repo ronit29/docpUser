@@ -19,7 +19,7 @@ class CancelPolicy extends React.Component {
         return (
             <div className={mainClass}>
                 <HelmetTags tagsData={{
-                    title: ('About Us | docprime'),
+                    title: ('Cancel Policy | docprime'),
                     description: ('docprime: docprime is one stop health care solution for patients and doctors. Patients can book doctors online and doctors can manage patients online.')
                 }} />
                 <div className="row">
