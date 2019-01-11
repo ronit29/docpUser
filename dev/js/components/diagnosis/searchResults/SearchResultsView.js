@@ -31,7 +31,7 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.setMergeState){
+        if(this.props.mergeUrlState){
             let getSearchId = true
             if(this.props.location.search.includes('search_id')){
                 const parsed = queryString.parse(this.props.location.search)
@@ -101,7 +101,7 @@ class SearchResultsView extends React.Component {
             search_id = parsed.search_id
         }
 
-        if(props.setMergeState && props.setMergeState != this.props.setMergeState){
+        if(props.mergeUrlState && props.mergeUrlState != this.props.mergeUrlState){
             let filters = {}
             filters.commonSelectedCriterias = props.currentSearchedCriterias
             filters.filterCriteria = props.filterCriteria

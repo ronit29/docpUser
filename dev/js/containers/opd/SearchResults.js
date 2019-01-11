@@ -93,7 +93,7 @@ const mapStateToProps = (state, passedProps) => {
         search_id_data,
         nextSelectedCriterias,
         nextFilterCriteria,
-        setMergeState
+        mergeUrlState
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -125,7 +125,7 @@ const mapStateToProps = (state, passedProps) => {
         bottom_content,
         breadcrumb,
         seoData,
-        setMergeState
+        mergeUrlState
     }
 }
 
