@@ -165,7 +165,7 @@ class CriteriaSearchView extends React.Component {
         }
 
         if (rating != Math.floor(rating)) {
-            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-half.svg'} className="rating-star" />)
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} className="rating-star" />)
         }
 
         let emptyStars = Math.floor(5 - rating);
