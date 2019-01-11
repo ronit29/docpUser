@@ -165,7 +165,7 @@ class CriteriaSearchView extends React.Component {
         }
 
         if (rating != Math.floor(rating)) {
-            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-half.svg'} className="rating-star" />)
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} className="rating-star" />)
         }
 
         let emptyStars = Math.floor(5 - rating);
@@ -351,7 +351,7 @@ class CriteriaSearchView extends React.Component {
                             }
                         </div>
                         {
-                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} noChatButton={this.props.searchPackages} />
+                            this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} noChatButton={this.props.searchPackages || this.props.searchDoctors || this.props.searchLabs} />
                         }
                         {
                             this.props.bottom_content && this.props.bottom_content.length ?
@@ -374,7 +374,10 @@ class CriteriaSearchView extends React.Component {
                 </section>
                 {
                     this.props.searchPackages ?
-                        <FixedMobileFooter searchPackagePage={true} {...this.props} /> : ''
+                        <FixedMobileFooter searchPackagePage={true} {...this.props} />
+                        :
+                        this.props.searchDoctors || this.props.searchLabs ?
+                            <FixedMobileFooter {...this.props} /> : ''
                 }
             </div>
         );

@@ -234,14 +234,19 @@ class TopBar extends React.Component {
                                                     showPopupContainer: true
                                                 })
                                             }}>
-
                                                 {
                                                     this.state.showLocationPopup && false ? ''
                                                         : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
                                                 }
-                                                <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                             </span>
                                         </h1>
+                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={() => {
+                                            this.setState({
+                                                showLocationPopup: !this.state.showLocationPopup,
+                                                searchCities: [],
+                                                showPopupContainer: true
+                                            })
+                                        }} />
                                     </div>
                                 </div>
                                 {

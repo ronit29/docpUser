@@ -86,6 +86,7 @@ class Article extends React.Component {
     }
 
     render() {
+
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
@@ -93,21 +94,6 @@ class Article extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-8 center-column">
-
-                            {/* <header className="wallet-header article-header sticky-header">
-                                <div className="container-fluid header-container">
-                                    <div className="row header-row">
-                                        <div className="col-2">
-                                            <img src={ASSETS_BASE_URL + "/img/icons/back-orange.svg"} className="back-icon-orange" onClick={() => {
-                                                this.props.history.go(-1)
-                                            }} />
-                                        </div>
-                                        <div className="col-8 logo-col">
-                                            <p className="wallet-title fw-500">{this.state.articleData ? this.state.articleData.title : "Article"}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
                             {
                                 this.state.articleData ? <div className="container-fluid article-column">
 
@@ -115,20 +101,67 @@ class Article extends React.Component {
                                         title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
                                         description: (this.state.articleData.seo ? this.state.articleData.seo.description : ""),
                                         keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : ""),
-                                        canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
+                                        canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                                        schema: this.state.articleData.title === 'Blood Pressure | Causes, Treatment, Tests & Vaccines' ?
+                                            {
+                                                "@context": "http://schema.org",
+                                                "@type": "MedicalCondition",
+                                                "alternateName": "Blood Pressure",
+                                                "associatedAnatomy": {
+                                                    "@type": "AnatomicalStructure",
+                                                    "name": "heart"
+                                                },
+                                                "cause": [
+                                                    {
+                                                        "@type": "MedicalCause",
+                                                        "name": "Smoking, Stress,Genetics,Heart arrhythmias,Blood vessel dilation,Heat stroke, Pregnancy,Liver Disease"
+                                                    }
+                                                ],
+                                                "code": {
+                                                    "@type": "MedicalCode",
+                                                    "code": "401",
+                                                    "codingSystem": "ICD-9-CM"
+                                                },
+                                                "differentialDiagnosis": {
+                                                    "@type": "DDxElement",
+                                                    "diagnosis": {
+                                                        "@type": "MedicalCondition",
+                                                        "name": "Low Blood Pressure & High Blood Presure"
+                                                    },
+                                                    "distinguishingSign": [
+                                                        {
+                                                            "@type": "MedicalSymptom",
+                                                            "name": "Severe headache,Fatigue,Mental Confusion,Pain in chest, Mental Confusion,Pale, damp, cold skin,Breathing difficulties, Weak Pulses"
+                                                        }
+                                                    ]
+                                                },
+                                                "name": "High & Low Blood Pressure",
+                                                "possibleTreatment": [
+                                                    {
+                                                        "@type": "drug",
+                                                        "name": "Consult Doctor"
+                                                    }
+                                                ],
+                                                "riskFactor": [
+                                                    {
+                                                        "@type": "MedicalRiskFactor",
+                                                        "name": "Age,Gender, Smoking, Total cholesterol"
+                                                    }
+                                                ],
+                                                "secondaryPrevention": [
+                                                    {
+                                                        "@type": "LifestyleModification",
+                                                        "name": "stopping smoking,weight management,increased physical activity"
+                                                    }
+                                                ],
+                                                "signOrSymptom": [
+                                                    {
+                                                        "@type": "MedicalSymptom",
+                                                        "name": "Light-headedness or wooziness, Fainting, Nausea, Exhaustion"
+                                                    }
+                                                ]
+                                            } : ''
                                     }} />
-
-                                    {/* <div itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="mrb-20" style={{ wordBreak: 'break-word' }}>
-                                        <a href="/" onClick={(e) => this.onHomeClick(e, "/")} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span></a>
-                                        <span className="breadcrumb-arrow">&gt;</span>
-                                        <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
-                                            <a href={`/${this.state.articleData.category.url}`} onClick={(e) => this.onHomeClick(e, `/${this.state.articleData.category.url}`)} itemProp="url"><span itemProp="title" className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span></a>
-                                        </div>
-                                        <span className="breadcrumb-arrow">&gt;</span>
-                                        <div itemProp="child" itemScope itemType="http://data-vocabulary.org/Breadcrumb" className="breadcrumb-link-div">
-                                            <span itemProp="title" className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</span>
-                                        </div>
-                                    </div> */}
 
                                     <ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
                                         <li className="breadcrumb-list-item">
@@ -163,20 +196,6 @@ class Article extends React.Component {
                                         </div>
                                     </div>
 
-                                    {/* {
-                                        this.state.medicineURL ?
-                                            <div className="mrt-20 mrb-10 article-chat-div d-md-none">
-                                                <p className="fw-500">Ask a doctor about {this.state.articleData.title.split('|')[0]} and any related queries.</p>
-                                                <button onClick={() => {
-                                                    let analyticData = {
-                                                        'Category': 'ChatNow', 'Action': 'ChatNow Click', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-now'
-                                                    }
-                                                    GTM.sendEvent({ data: analyticData })
-                                                    this.props.history.push('/mobileviewchat')
-                                                }} >Chat Now</button>
-                                            </div> : ''
-                                    } */}
-
                                     {
                                         this.state.articleData.header_image ?
                                             <div>
@@ -189,7 +208,6 @@ class Article extends React.Component {
                                             <h1 className="fw-500">{this.state.articleData.heading_title}</h1>
                                         </div> : ""
                                     }
-
 
                                     {
                                         this.state.articleData && this.state.articleData.author ?
