@@ -62,6 +62,9 @@ class SearchResultsView extends React.Component {
             filters.commonSelectedCriterias = this.props.nextSelectedCriterias
             filters.filterCriteria = this.props.nextFilterCriteria
             let search_id = this.generateSearchId()
+            if (window) {
+                window.scrollTo(0, 0)
+            }
             this.setState({search_id: search_id},()=>{
                 let new_url = this.buildURI(this.props)
                 this.props.history.replace(new_url)
@@ -107,6 +110,7 @@ class SearchResultsView extends React.Component {
             }
             this.buildURI(props)
         } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults && this.state.search_id)) {
+            this.setState({setSearchId: true})
             this.getDoctorList(props)
             // if (window) {
             //     window.scrollTo(0, 0)

@@ -200,6 +200,31 @@ class TopBar extends React.Component {
 
         return (
             <div>
+                <div className="col-12 mrng-top-12 d-none d-md-block">
+                    <ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}>
+                        {
+                            this.props.breadcrumb && this.props.breadcrumb.length?
+                            this.props.breadcrumb.map((data, key) => {
+                              return  <li className="breadcrumb-list-item" key={key}>
+                                {
+                                    key==this.props.breadcrumb.length-1?
+                                    <span>{data.title}</span>
+                                    :<a href={data.url} title ='' onClick={(e) => {e.preventDefault();
+                                            this.props.history.push(data.url)
+                                        }}><span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span></a>
+                                }   
+                                {
+                                    key!= this.props.breadcrumb.length-1?
+                                    <span className="breadcrumb-arrow">&gt;</span>
+                                    :''
+                                }
+                                </li>
+                            })
+                            :''
+                        }
+                    </ul>
+                </div>
+                
                 <section className="filter-row sticky-header mbl-stick">
                     <div className="container-fluid">
                         <div className="row">
