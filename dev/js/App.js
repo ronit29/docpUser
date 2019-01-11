@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, setResults, setLabFlag } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeStateData } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -181,21 +181,20 @@ class App extends React.Component {
         if (window.location.pathname.includes('/opd/searchresults')) {
             opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false, location_ms).then((state) => {
                 this.props.mergeOPDState(state, true)
-                this.props.setResults(true)
+                this.props.mergeStateData(true)
             })
         }
 
         if (window.location.pathname.includes('/lab/searchresults')) {
             labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false, location_ms).then((state) => {
                 this.props.mergeLABState(state, true)
-                this.props.setLabFlag(true)
+                this.props.mergeStateData(true)
             })
         }
 
         if (!window.location.pathname.includes('/opd/searchresults') && !window.location.pathname.includes('/lab/searchresults')) {
             this.props.setFetchResults(true)
-            this.props.setResults(true)
-            this.props.setLabFlag(true)
+            this.props.mergeStateData(true)
         }
 
     }
@@ -253,8 +252,7 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
         set_summary_utm: (toggle, validity) => dispatch(set_summary_utm(toggle, validity)),
-        setResults:(flag) => dispatch(setResults(flag)),
-        setLabFlag: (flag) => dispatch(setLabFlag(flag))
+        mergeStateData:(flag) => dispatch(mergeStateData(flag))
     }
 
 }

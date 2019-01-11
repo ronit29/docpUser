@@ -1,4 +1,4 @@
-import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, SET_FLAG } from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, SET_MERGE_DATA } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 1500],
@@ -33,7 +33,7 @@ const defaultState = {
     nextSelectedCriterias: [],
     nextFilterCriteria: DEFAULT_FILTER_STATE,
     currentSearchId:'',
-    setFlagValue:false
+    setMergeState:false
 }
 
 export default function (state = defaultState, action) {
@@ -299,12 +299,12 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case SET_FLAG: {
+        case SET_MERGE_DATA: {
             let newState = {
                 ...state
             }
 
-            newState.setFlagValue = action.payload
+            newState.setMergeState = action.payload
             return newState
         }
 

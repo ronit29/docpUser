@@ -89,12 +89,12 @@ const mapStateToProps = (state, passedProps) => {
         search_id_data,
         nextSelectedCriterias,
         currentSearchedCriterias,
-        nextFilterCriteria,
-        setFlagValue
+        nextFilterCriteria
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
     const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData } = state.LAB_SEARCH
+    const { setMergeState } = state.SEARCH_CRITERIA_OPD
 
     return {
         selectedLocation,
@@ -116,7 +116,7 @@ const mapStateToProps = (state, passedProps) => {
         currentSearchedCriterias,
         nextFilterCriteria,
         seoData,
-        setFlagValue
+        setMergeState
     }
 
 }
