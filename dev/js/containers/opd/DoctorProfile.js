@@ -53,7 +53,7 @@ class DoctorProfile extends React.Component {
     }
 
     componentDidMount() {
-        const parsed = queryString.parse(window.location.search)
+        const parsed = queryString.parse(this.props.location.search)
         let hospital_id = ''
         let is_procedure = false
         let category_ids = []
