@@ -7,6 +7,7 @@ const defaultState = {
     ratings: null,
     reviews: null,
     ratings_title: '',
+    bottom_content: '',
     LOADED_DOCTOR_SEARCH: false,
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
@@ -52,10 +53,13 @@ export default function (state = defaultState, action) {
             }
 
             newState.search_content = action.payload.search_content || ''
-            newState.count = action.payload.count
+            if (action.payload.page === 1) {
+                newState.count = action.payload.count
+            }
             newState.reviews = action.payload.reviews
             newState.ratings = action.payload.ratings
             newState.ratings_title = action.payload.ratings_title
+            newState.bottom_content = action.payload.bottom_content
             newState.LOADED_DOCTOR_SEARCH = true
             newState.curr_page = action.payload.page
 
@@ -88,6 +92,7 @@ export default function (state = defaultState, action) {
             newState.reviews = action.payload.reviews
             newState.ratings = action.payload.ratings
             newState.ratings_title = action.payload.ratings_title
+            newState.bottom_content = action.payload.bottom_content
             newState.curr_page = action.payload.page
 
             return newState

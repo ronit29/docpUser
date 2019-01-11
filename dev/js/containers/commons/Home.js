@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType } from '../../actions/index.js'
+import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -57,7 +57,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList
     } = state.USER
 
     const {
@@ -75,7 +75,7 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList
     }
 }
 
@@ -91,7 +91,8 @@ const mapDispatchToProps = (dispatch) => {
         resetFilters: () => dispatch(resetFilters()),
         clearExtraTests: () => dispatch(clearExtraTests()),
         getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
-        selectSearchType: (type) => dispatch(selectSearchType(type))
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
+        getOfferList: () => dispatch(getOfferList())
     }
 }
 

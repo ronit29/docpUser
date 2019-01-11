@@ -4731,7 +4731,7 @@ font-weight: 700;
     border-radius: 7px;
     right: 0;
     box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
-    padding-top: 10px;
+    padding-top: 0px;
 }
 .nw-chat-card{
 	display: flex;
@@ -4745,6 +4745,7 @@ font-weight: 700;
 	margin: 0px 4px;
 	height: 50px;
 	cursor: pointer;
+	padding-top: 6px;
 }
 .nw-img-with-content {
     height: 25px;
@@ -4755,16 +4756,21 @@ font-weight: 700;
     padding: 0 1px;
 	line-height: 12px;
 }
+@media(max-width:372px){
+	.chat-div-containers span {
+		font-size: 9px;
+	}
+}
 .footbgRound{
 	position: absolute;
     width: 150px;
-    top: -10px;
+    top: -14px;
 }
 .nw-mid-container-with-img{
     z-index: 1;
     color: white;
     position: relative;
-    top: -15px;
+    top: -16px;
 }
 .nw-cht-border-btn{
     width: 100%;
@@ -4862,13 +4868,24 @@ font-weight: 700;
     z-index: 99;
 }
 .later-btn-style{
-	    background: none;
+	background: none;
     border: none;
     color: #f48254;
     font-weight: 600;
     width: 100%;
 }
 /* ================= filter bar ================= */
+.new-chat-fixed-btn{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 9;
+	cursor: pointer;
+}
+
+.new-chat-fixed-btn>img{
+	width: 80px;
+}
 .acrd-stc-red{
 	color:red !important;
 }
@@ -4981,14 +4998,6 @@ font-size: 13px;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+.appUrlPadding{
+	padding: 20px 15px 20px !important;
+}

@@ -109,6 +109,7 @@ const routes = [
     { path: '/terms', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/careers', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/media', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/cancelpolicy', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/doctorsignup', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/health-package-compare', exact: true, component: HealthPackage, RENDER_ON_SERVER: true },
 

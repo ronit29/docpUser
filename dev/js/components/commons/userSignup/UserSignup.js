@@ -260,7 +260,7 @@ class UserSignupView extends React.Component {
                             </div>
                         </div>
 
-                        <RightBar />
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
             </div>

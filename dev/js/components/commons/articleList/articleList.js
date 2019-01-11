@@ -146,7 +146,7 @@ class ArticleList extends React.Component {
 										<ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
 											<li className="breadcrumb-list-item">
 												<a href="/" onClick={(e) => this.onHomeClick(e, "/")}>
-													<span className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span>
+													<span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span>
 												</a>
 											</li>
 											<span className="breadcrumb-arrow">&gt;</span>
@@ -233,7 +233,7 @@ class ArticleList extends React.Component {
 							</div>
 
 						</div>
-						<RightBar />
+						<RightBar noChatButton={true} />
 					</div>
 				</section>
 				<Footer />

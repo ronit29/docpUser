@@ -38,6 +38,8 @@ class HomeView extends React.Component {
 		this.props.getSpecialityFooterData((cb) => {
 			this.setState({ specialityFooterData: cb });
 		});
+
+		this.props.getOfferList();
 	}
 
 	navigateTo(where, data, e) {
@@ -163,7 +165,7 @@ class HomeView extends React.Component {
 
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
@@ -179,10 +181,13 @@ class HomeView extends React.Component {
 							type="opd"
 						/>
 
-						<BannerCarousel {...this.props} hideClass="d-md-none" />
+						{
+							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+								<BannerCarousel {...this.props} hideClass="d-md-none" /> : ''
+						}
 
 						<div className="fw-500 doc-lap-link d-md-none">
-							<span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or Hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} />  </span>
+							<span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or Hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} /></span>
 						</div>
 					</div>
 				</div>)
@@ -228,7 +233,7 @@ class HomeView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
@@ -266,7 +271,10 @@ class HomeView extends React.Component {
 							type="opd"
 						/>
 
-						<BannerCarousel {...this.props} hideClass="d-md-none" />
+						{
+							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+								<BannerCarousel {...this.props} hideClass="d-md-none" /> : ''
+						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>

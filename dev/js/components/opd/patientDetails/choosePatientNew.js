@@ -1,5 +1,6 @@
 import React from 'react';
 import SnackBar from 'node-snackbar'
+import GTM from '../../../helpers/gtm.js'
 
 
 class ChoosePatientNewView extends React.Component {
@@ -53,12 +54,18 @@ class ChoosePatientNewView extends React.Component {
     submitOTPRequest(number) {
 
         if (!this.state.otp) {
-            this.setState({ validationError: "Please enter OTP" })
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Otp" })
             return
         }
         let self = this
         this.props.submitOTP(this.state.phoneNumber, this.state.otp, (response) => {
             if(response.token){
+                
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'BookingPage', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo':this.state.phoneNumber
+                }
+                GTM.sendEvent({ data: data })
+                
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
                     self.props.createProfile(this.state, (err, res) => {
@@ -98,6 +105,12 @@ class ChoosePatientNewView extends React.Component {
         }
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
+            
+            let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request','mobileNo':this.state.phoneNumber,'pageSource': 'BookingPage'
+            }
+            GTM.sendEvent({ data: analyticData })
+            
             this.props.sendOTP(this.state.phoneNumber, (error) => {
                 if (error) {
                     setTimeout(() => {

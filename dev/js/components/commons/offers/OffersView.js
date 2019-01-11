@@ -3,6 +3,7 @@ import ProfileHeader from '../DesktopProfileHeader';
 import RightBar from '../RightBar';
 import Footer from '../Home/footer'
 import GTM from '../../../helpers/gtm';
+import FixedMobileFooter from '../Home/FixedMobileFooter';
 
 class OffersView extends React.Component {
 
@@ -153,7 +154,7 @@ class OffersView extends React.Component {
                                 <div className="row">
                                     <div className="col-12">
                                         {
-                                            this.props.offerList ?
+                                            this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'offers_page').length ?
                                                 <p className="fw-700 offer-heading mrt-20">Offers</p>
                                                 :
                                                 <p className="fw-700 offer-heading mrt-20">No offers available</p>
@@ -162,23 +163,22 @@ class OffersView extends React.Component {
                                     </div>
                                     <div className="col-12">
                                         {
-                                            this.props.offerList ?
-                                                this.props.offerList.map((offer, i) => {
-                                                    if (offer.slider_location === 'offers_page') {
-                                                        return <div className="offer-div" key={i} onClick={() => this.navigateTo(offer)} >
-                                                            <img src={offer.image} />
-                                                        </div>
-                                                    }
+                                            this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'offers_page').length ?
+                                                this.props.offerList.filter(x => x.slider_location === 'offers_page').map((offer, i) => {
+                                                    return <div className="offer-div" key={i} onClick={() => this.navigateTo(offer)} >
+                                                        <img src={offer.image} />
+                                                    </div>
                                                 }) : ''
                                         }
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <RightBar />
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
                 <Footer />
+                <FixedMobileFooter offersPage={true} {...this.props} />
             </div>
         )
     }
