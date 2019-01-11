@@ -228,7 +228,7 @@ class UserSignupView extends React.Component {
                                                                     <label htmlFor="email">Email</label>
                                                                 </div>
                                                                 <div className="referral-select">
-                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
+                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have a referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
                                                                 </div>
                                                                 {
                                                                     this.state.have_referralCode ? <div className="referralContainer">
