@@ -677,11 +677,6 @@ class BookingSummaryViewNew extends React.Component {
                                                         {
                                                             total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
-                                                                    <div className="lab-visit-time d-flex jc-spaceb">
-                                                                        <h4 className="title d-flex"><span>
-                                                                            <img src="/assets/img/docmoney.svg" style={{ width: '20px', marginRight: '8px' }} />
-                                                                        </span>docprime Wallet</h4>
-                                                                    </div>
                                                                     <div className="select-pt-form">
                                                                         <div className="referral-select">
                                                                             <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
