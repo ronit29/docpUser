@@ -43,13 +43,13 @@ const USER_PERSIST = {
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page','setFlagValue']
 }
 
 const LAB_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_LABS',
     storage: storage,
-    blacklist: ['fetchNewResults', 'page']
+    blacklist: ['fetchNewResults', 'page','setFlagValue']
 }
 
 const AUTH_PERSIST = {

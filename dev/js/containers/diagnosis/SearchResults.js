@@ -89,7 +89,8 @@ const mapStateToProps = (state, passedProps) => {
         search_id_data,
         nextSelectedCriterias,
         currentSearchedCriterias,
-        nextFilterCriteria
+        nextFilterCriteria,
+        setFlagValue
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
@@ -114,7 +115,8 @@ const mapStateToProps = (state, passedProps) => {
         nextSelectedCriterias,
         currentSearchedCriterias,
         nextFilterCriteria,
-        seoData
+        seoData,
+        setFlagValue
     }
 
 }

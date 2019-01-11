@@ -180,7 +180,7 @@ class DoctorProfileView extends React.Component {
                 <ProfileHeader showSearch={true} />
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                 { this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length?
-                    <div className="col-12 mrng-top-12 d-none d-md-block">
+                    <section className="col-12 mrng-top-12 d-none d-md-block">
                         <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{'wordBreak': 'breakWord'}}>
                             {
                                 this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length?
@@ -206,7 +206,7 @@ class DoctorProfileView extends React.Component {
                                 :''
                             }
                         </ul>
-                    </div>
+                    </section>
                     :''
                 }
                     <div className="row main-row parent-section-row">

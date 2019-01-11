@@ -92,7 +92,8 @@ const mapStateToProps = (state, passedProps) => {
         page,
         search_id_data,
         nextSelectedCriterias,
-        nextFilterCriteria
+        nextFilterCriteria,
+        setFlagValue
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
@@ -123,7 +124,8 @@ const mapStateToProps = (state, passedProps) => {
         nextFilterCriteria,
         bottom_content,
         breadcrumb,
-        seoData
+        seoData,
+        setFlagValue
     }
 }
 
