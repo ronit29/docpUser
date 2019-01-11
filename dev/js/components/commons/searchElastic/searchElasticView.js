@@ -36,6 +36,10 @@ class SearchElasticView extends React.Component {
             filterCriteria: {
                 ...this.props.dataState.filterCriteria,
                 doctor_name, hospital_name, hospital_id
+            },
+            nextFilterCriteria: {
+                ...this.props.dataState.filterCriteria,
+                doctor_name, hospital_name, hospital_id  
             }
         }
 
@@ -62,6 +66,10 @@ class SearchElasticView extends React.Component {
         // handle doctor name, hospital name
         this.props.mergeLABState({
             filterCriteria: {
+                ...this.props.dataState.filterCriteria,
+                lab_name
+            },
+            nextFilterCriteria: {
                 ...this.props.dataState.filterCriteria,
                 lab_name
             },
