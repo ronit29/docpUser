@@ -15,6 +15,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
+import ErrorPopUp from '../../opd/patientDetails/errorPopUp';
 
 
 class BookingSummaryViewNew extends React.Component {
@@ -389,6 +390,10 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -672,7 +677,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                                {/* <span className="errorMessage">{this.state.error}</span> */}
                                                             </div>
                                                         </a>
 
@@ -695,6 +700,10 @@ class BookingSummaryViewNew extends React.Component {
                                 } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${total_price == 0 ? ' (₹ 0)' : total_price ? ` (₹ ${total_price})` : ''}`}</button>
                             }
 
+                            {
+                                this.state.error ?
+                                    <ErrorPopUp message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                            }
 
                         </div>
 
