@@ -33,9 +33,14 @@ class ContactUs extends React.Component {
     }
 
     render() {
-
+        let mainClass
+        if(this.props.fromApp){
+            mainClass = "container about-container appUrlPadding"
+        }else{
+            mainClass = 'container about-container'
+        }
         return (
-            <div className="container about-container contact-container">
+            <div className={mainClass}>
                 <HelmetTags tagsData={{
                     title: ('Contact Us | docprime'),
                     description: ('Contact Us: Contact docprime for query related to booking, signup and more.')

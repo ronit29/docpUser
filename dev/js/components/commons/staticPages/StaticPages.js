@@ -67,7 +67,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/contact'} render={(props) => {
-                    return <ContactUs {...this.props} {...props} />
+                    return <ContactUs {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false} />
                 }} />
 
                 <Route exact path={'/privacy'} render={(props) => {
@@ -102,7 +102,9 @@ class StaticPagesView extends React.Component {
                     return <CancelPolicy {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
                 }} />
 
-                <Footer />
+                {
+                    parsed.fromApp?'':<Footer />
+                }
 
             </div>
         );
