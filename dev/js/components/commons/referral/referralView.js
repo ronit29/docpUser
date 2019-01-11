@@ -86,7 +86,7 @@ class ReferralView extends React.Component {
                                                     </div>
                                                     <div className="steps step-2">
                                                         <div className="text-step text-step-2">
-                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on <br /> Signup 
+                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 50 on <br /> Signup
                                                             <div className="badge badge-refer">2</div>
                                                         </div>
 
@@ -143,7 +143,7 @@ class ReferralView extends React.Component {
                             </div>
 
                         </div>
-                        <RightBar />
+                        <RightBar homePage={true} />
                     </div>
                 </section>
             </div>
