@@ -87,14 +87,11 @@ class UserLoginView extends React.Component {
 
                     if (parsed.ref) {
                         this.props.history.push('/user')
-                    }
-                    else if (parsed.callback) {
+                    } else if (parsed.callback) {
                         this.props.history.replace(parsed.callback)
-                    }
-                    else if (this.state.referralName && this.state.referralCode) {
-                        this.props.history.go('/user')
-                    }
-                    else {
+                    } else if (this.state.referralName && this.state.referralCode) {
+                        this.props.history.replace('/')
+                    } else {
                         this.props.history.go(-1)
                     }
                 } else {
