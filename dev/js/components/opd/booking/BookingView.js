@@ -300,31 +300,34 @@ class BookingView extends React.Component {
                                                 </div>
 
 
+                                                {
+                                                    status <= 5 ? <div className="widget mrb-10">
+                                                        <div className="widget-content">
+                                                            <div className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => {
+                                                                this.props.history.push('/referral')
+                                                            }}>
+                                                                <div className="usr-dtls-off-act">
+                                                                    <p className="wc-title text-md fw-700 card-nm-ovrlpng">
+                                                                        <img src="/assets/img/customer-icons/refer.svg" className="img-fluid  img-f-1" />Refer &amp; Earn</p>
+                                                                </div>
+                                                                <div className="ofr-img-txt">
+                                                                    <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                                                    <div className="ofr-contnt">
+                                                                        <p className="add-info fw-500 add-info-p">
+                                                                            Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> in completion of first appoinment by your friend </p>
+                                                                        <div>
+                                                                            <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                                                <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> : ""
+                                                }
 
-                                                   <div className="widget mrb-10">
-                                                    <div className="widget-content">
-                                                        <div className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => {
-                            this.props.history.push('/referral')
-                        }}>
-                            <div className="usr-dtls-off-act">
-                                <p className="wc-title text-md fw-700 card-nm-ovrlpng">
-                                    <img src="/assets/img/customer-icons/refer.svg" className="img-fluid  img-f-1" />Refer &amp; Earn</p>
-                            </div>
-                            <div className="ofr-img-txt">
-                                <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
-                                <div className="ofr-contnt">
-                                    <p className="add-info fw-500 add-info-p">
-                                        Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight:'0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> in completion of first appoinment by your friend </p>
-                                    <div>
-                                        <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                                    </div>
-                                                </div>
+
 
 
                                             </div>
