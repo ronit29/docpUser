@@ -178,7 +178,34 @@ class DoctorProfileView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
-                <section className="container parent-section book-appointment-section">
+                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
+                    <div className="col-12 mrng-top-12 d-none d-md-block">
+                        <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{'wordBreak': 'breakWord'}}>
+                            {
+                                this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length?
+                                this.props.DOCTORS[doctor_id].breadcrumb.map((data, key) => {
+                                  return  <li className="breadcrumb-list-item" key={key}>
+                                    {
+                                        key==this.props.DOCTORS[doctor_id].breadcrumb.length-1?
+                                        <span>{data.title}</span>
+                                        :<a href={data.url} title ='' onClick={(e) => {e.preventDefault();
+                                                this.props.history.push(data.url)
+                                            }}>{
+                                                key==0 || key== this.props.DOCTORS[doctor_id].breadcrumb.length-1
+                                                ?<span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
+                                                :<h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
+                                    }   
+                                    {
+                                        key!= this.props.DOCTORS[doctor_id].breadcrumb.length-1?
+                                        <span className="breadcrumb-arrow">&gt;</span>
+                                        :''
+                                    }
+                                    </li>
+                                })
+                                :''
+                            }
+                        </ul>
+                    </div>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 

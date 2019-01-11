@@ -11,7 +11,7 @@ class LabResultCard extends React.Component {
 
     openLab(id, url, e) {
         let dedupe_ids = {}
-        let testIds = this.props.selectedCriterias
+        let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
                 if (x.test && x.type == "condition") {

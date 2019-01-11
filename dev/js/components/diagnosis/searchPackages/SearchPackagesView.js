@@ -103,7 +103,7 @@ class SearchPackagesView extends React.Component {
     }
 
     buildURI(state) {
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType } = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721

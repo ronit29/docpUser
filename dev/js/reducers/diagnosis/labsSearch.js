@@ -14,7 +14,8 @@ const defaultState = {
     disCountedLabPrice: 0,
     couponAutoApply: true,
     curr_page: null,
-    packagesList: []
+    packagesList: [],
+    seoData:{}
 }
 
 export default function (state = defaultState, action) {
@@ -46,12 +47,12 @@ export default function (state = defaultState, action) {
                     })
             }
 
-            //if (action.payload.page === 1) {
+            if (action.payload.page === 1) {
                 newState.count = action.payload.count
-            //}
+            }
             newState.LOADED_LABS_SEARCH = true
             newState.curr_page = action.payload.page
-
+            newState.seoData = action.payload.seo
             return newState
         }
 

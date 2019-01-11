@@ -20,7 +20,9 @@ const defaultState = {
     profileCommonProcedures: [],
     commonProfileSelectedProcedures: [],
     couponAutoApply: true,
-    curr_page: null
+    curr_page: null,
+    breadcrumb: [],
+    seoData: {}
 }
 
 export default function (state = defaultState, action) {
@@ -29,9 +31,12 @@ export default function (state = defaultState, action) {
 
         case DOCTOR_SEARCH_START: {
             let newState = { ...state }
-
+            /*if(newState.doctorList.length){
+                
+            }else{
+                
+            }*/
             newState.LOADED_DOCTOR_SEARCH = false
-
             return newState
         }
 
@@ -43,6 +48,7 @@ export default function (state = defaultState, action) {
 
             if (action.payload.page === 1) {
                 newState.doctorList = action.payload.result.map(doc => doc.id)
+                newState.count = action.payload.count
             } else {
                 let dedupe = {}
                 newState.doctorList = newState.doctorList
@@ -62,6 +68,8 @@ export default function (state = defaultState, action) {
             newState.bottom_content = action.payload.bottom_content
             newState.LOADED_DOCTOR_SEARCH = true
             newState.curr_page = action.payload.page
+            newState.breadcrumb = action.payload.breadcrumb
+            newState.seoData = action.payload.seo || {}
 
             return newState
         }

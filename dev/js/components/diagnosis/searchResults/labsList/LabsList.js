@@ -104,7 +104,7 @@ class LabsList extends React.Component {
                         <div className="container-fluid">
                             <div className="row">
 
-                                {Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
+                                {Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
                                     if (value.show_details) {
                                         show_details = true
                                     }

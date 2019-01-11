@@ -7,6 +7,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 import Footer from '../../commons/Home/footer'
+const queryString = require('query-string');
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -18,20 +19,74 @@ class SearchResultsView extends React.Component {
             footerData = this.props.initialServerData.footerData
         }
         this.state = {
-            seoData, footerData,
+            //seoData, 
+            footerData,
             seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
             clinic_card: this.props.location.search.includes('clinic_card') || null,
-            showError: false
+            showError: false,
+            search_id:'',
+            setSearchId:false
         }
     }
 
     componentDidMount() {
+        
+        let getSearchId = true
+        if(this.props.location.search.includes('search_id')){
+            const parsed = queryString.parse(this.props.location.search)
+
+            if(this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data && this.props.search_id_data[parsed.search_id].data ){
+
+                getSearchId = false
+                if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length){
+                                
+                    this.setState({search_id: parsed.search_id}, ()=>{
+                        this.props.getSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
+                        /*this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                            if (footerData) {
+                                this.setState({ footerData: footerData })
+                            }
+                        })*/
+                    })
+                    
+                }else{
+                    let filters = {}
+                    filters.commonSelectedCriterias = this.props.search_id_data[parsed.search_id].commonSelectedCriterias
+                    filters.filterCriteria = this.props.search_id_data[parsed.search_id].filterCriteria
+                    this.setState({search_id: parsed.search_id},()=>{
+                        /*let new_url = this.buildURI(this.props)
+                        this.props.history.replace(new_url)*/
+                        this.props.setSearchId(parsed.search_id, filters, true)
+                    })
+                }
+                
+            }
+        }
+
+        if(getSearchId){
+            let filters = {}
+            filters.commonSelectedCriterias = this.props.nextSelectedCriterias
+            filters.filterCriteria = this.props.nextFilterCriteria
+            let search_id = this.generateSearchId()
+            if (window) {
+                window.scrollTo(0, 0)
+            }
+            this.setState({search_id: search_id},()=>{
+                let new_url = this.buildURI(this.props)
+                this.props.history.replace(new_url)
+                this.props.setSearchId(search_id, filters, true)
+            })
+            
+        }
+
+
         if (this.props.fetchNewResults) {
-            this.getDoctorList(this.props)
+            //this.getDoctorList(this.props)
             if (window) {
                 window.scrollTo(0, 0)
             }
         }
+
         if (this.state.seoFriendly) {
             //this.props.mergeSelectedCriterias()
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
@@ -46,7 +101,13 @@ class SearchResultsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props.getNewUrl && props.getNewUrl != this.props.getNewUrl) {
+        let search_id = ''
+        if(props.location.search.includes('search_id')){
+            const parsed = queryString.parse(props.location.search)
+            search_id = parsed.search_id
+        }
+
+        if (props.getNewUrl && props.getNewUrl != this.props.getNewUrl && this.state.search_id) {
             if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
                 this.getDoctorList(props)
                 // if (window) {
@@ -54,17 +115,35 @@ class SearchResultsView extends React.Component {
                 // }
             }
             this.buildURI(props)
-        } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults)) {
+        } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults && this.state.search_id)) {
+            this.setState({setSearchId: true})
             this.getDoctorList(props)
             // if (window) {
             //     window.scrollTo(0, 0)
             // }
-        } else {
+        } else if(props.fetchNewResults && this.state.search_id == search_id && !this.state.setSearchId && this.state.search_id){
+                this.setState({setSearchId: true})
+                this.getDoctorList(props)
+                if (window) {
+                    window.scrollTo(0, 0)
+                }
+        }else {
             if (props.selectedLocation != this.props.selectedLocation) {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
             }
         }
+    }
+
+    generateSearchId(uid_string) {
+        uid_string = 'xxyyxxxx-xxyx-4xxx-yxxx-xxxyyyxxxxxx'
+        var dt = new Date().getTime();
+        var uuid = uid_string.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
     }
 
     getLocationParam(tag) {
@@ -75,7 +154,14 @@ class SearchResultsView extends React.Component {
     }
 
     applyFilters(filterState) {
-        this.props.mergeOPDState({ filterCriteria: filterState })
+        let search_id_data = Object.assign({}, this.props.search_id_data)
+        const parsed = queryString.parse(this.props.location.search)
+
+        if(this.props.search_id_data && this.props.search_id_data[parsed.search_id]){
+            search_id_data[parsed.search_id].filterCriteria = filterState
+        }
+        this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data })
+       // this.props.setSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -115,7 +201,7 @@ class SearchResultsView extends React.Component {
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
 
-        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}`
+        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&search_id=${this.state.search_id}`
 
         if (page > 1) {
             url += `&page=${page}`
@@ -140,9 +226,11 @@ class SearchResultsView extends React.Component {
             page = this.props.page
         }
         this.props.getDoctors(state, page, false, searchUrl, (...args) => {
-            this.setState({ seoData: args[1] })
+           // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
+                let new_url = this.buildURI(state)
+                this.props.history.replace(new_url)
             } else {
                 let new_url = this.buildURI(state)
                 this.props.history.replace(new_url)
@@ -219,9 +307,9 @@ class SearchResultsView extends React.Component {
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
-                    title: this.getMetaTagsData(this.state.seoData).title,
-                    description: this.getMetaTagsData(this.state.seoData).description,
-                    schema: this.getMetaTagsData(this.state.seoData).schema,
+                    title: this.getMetaTagsData(this.props.seoData).title,
+                    description: this.getMetaTagsData(this.props.seoData).description,
+                    schema: this.getMetaTagsData(this.props.seoData).schema,
                     seoFriendly: this.state.seoFriendly,
                     prev: prev,
                     next: next
@@ -230,7 +318,7 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.state.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}

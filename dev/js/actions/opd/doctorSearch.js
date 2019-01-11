@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -113,6 +113,12 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			fetchNewResults: false
 		})
 
+		dispatch({
+			type: SAVE_RESULTS_WITH_SEARCHID,
+			payload: response,
+			page:page,
+			clinic_card: clinic_card
+		})
 		if (clinic_card) {
 			dispatch({
 				type: APPEND_HOSPITALS,
@@ -155,11 +161,11 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		if (cb) {
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
-				cb(true, response.seo)
+				cb(true)
 			}
 		}
 
-		cb(false, response.seo)
+		cb(false)
 
 	}).catch(function (error) {
 		throw error
@@ -361,4 +367,51 @@ export const getDoctorNo = (postData, cb) => (dispatch) => {
 	}).catch(function (error) {
 		cb(error, null)
 	})
+}
+
+export const setSearchId = (searchId, filters, setDefault=true) => (dispatch) => {
+	dispatch({
+		type: SET_SEARCH_ID,
+		payload: filters,
+		searchId: searchId,
+		setDefault: setDefault
+	})
+}
+
+export const getSearchIdResults = (searchId, data) => (dispatch) => {
+	dispatch({
+		type: GET_SEARCH_ID_RESULTS,
+		searchId: searchId
+	})
+	if(data.clinic_card){
+		dispatch({
+			type: APPEND_HOSPITALS,
+			payload: data.result || []
+		})
+	}else{	
+		dispatch({
+			type: APPEND_DOCTORS,
+			payload: data.result || []
+		})	
+	}
+
+	if(data.clinic_card){
+		dispatch({
+			type: HOSPITAL_SEARCH,
+			payload: {
+				page:1,
+				...data
+			}
+
+		})
+	}else{	
+		dispatch({
+			type: DOCTOR_SEARCH,
+			payload: {
+				page: 1,
+				...data
+			}
+
+		})	
+	}
 }

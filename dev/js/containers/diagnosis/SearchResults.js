@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 
@@ -33,16 +33,16 @@ class SearchResults extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore, seoData) => {
+                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
-                                resolve({ seoData, footerData })
+                                resolve({ footerData })
                             }).catch((e) => {
-                                resolve({ seoData })
+                                resolve({})
                             })
                         } else {
-                            resolve({ seoData })
+                            resolve({})
                         }
                     }))
                 }).catch((e) => {
@@ -85,11 +85,15 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         corporateCoupon,
-        page
+        page,
+        search_id_data,
+        nextSelectedCriterias,
+        currentSearchedCriterias,
+        nextFilterCriteria
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -105,7 +109,12 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         corporateCoupon,
         page,
-        curr_page
+        curr_page,
+        search_id_data,
+        nextSelectedCriterias,
+        currentSearchedCriterias,
+        nextFilterCriteria,
+        seoData
     }
 
 }
@@ -118,8 +127,10 @@ const mapDispatchToProps = (dispatch) => {
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
-        selectSearchType: (type) => dispatch(selectSearchType(type)),
-        getFooterData: (url) => dispatch(getFooterData(url))
+        getFooterData: (url) => dispatch(getFooterData(url)),
+        setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
+        getLabSearchIdResults: (searchId, searchResults) => dispatch(getLabSearchIdResults(searchId, searchResults)),
+        selectSearchType: (type) => dispatch(selectSearchType(type))
     }
 }
 

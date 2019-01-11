@@ -68,6 +68,7 @@ class LocationSearch extends React.Component {
             GTM.sendEvent({ data: data })
 
             this.props.selectLocation(location_object, 'autoComplete').then(() => {
+                this.setState({ detectLoading: false })
                 if (this.state.redirect_to) {
                     if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
                         // do nothing
@@ -81,7 +82,6 @@ class LocationSearch extends React.Component {
                         this.props.history.go(-1)
                     }
                 }
-                this.setState({ detectLoading: false })
             })
         })
     }
