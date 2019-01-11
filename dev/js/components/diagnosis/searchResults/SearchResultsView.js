@@ -36,7 +36,7 @@ class SearchResultsView extends React.Component {
             if(this.props.location.search.includes('search_id')){
                 const parsed = queryString.parse(this.props.location.search)
 
-                if(this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data && this.props.search_id_data[parsed.search_id].data){
+                if(this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data){
 
                      getSearchId = false
                     if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length){
