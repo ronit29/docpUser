@@ -41,11 +41,11 @@ class SearchResultsView extends React.Component {
                  getSearchId = false
                 if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length){
                     this.props.getLabSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
-                    this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                    /*this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
                         if (footerData) {
                             this.setState({ footerData: footerData })
                         }
-                    })
+                    })*/
                     this.setState({search_id: parsed.search_id})    
                 }else{
 

@@ -168,8 +168,7 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 ...action.payload,
-                fetchNewResults: !!action.fetchNewResults,
-                currentSearchedCriterias:state.selectedCriterias
+                fetchNewResults: !!action.fetchNewResults
             }
 
             let extra_tests = state.currentSearchedCriterias.filter(x => x.extra_test) || []
@@ -335,7 +334,13 @@ export default function (state = defaultState, action) {
                     newState.search_id_data[newState.currentSearchId].data = action.payload
                 
                 }else if(newState.search_id_data[newState.currentSearchId].data){
-                    newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)
+                    if(Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result){
+
+                        newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)    
+                    }else{
+                        newState.search_id_data[newState.currentSearchId].data = action.payload        
+                    }
+                    
                 }
             }
 

@@ -31,12 +31,12 @@ export default function (state = defaultState, action) {
 
         case DOCTOR_SEARCH_START: {
             let newState = { ...state }
-            if(newState.doctorList.length){
+            /*if(newState.doctorList.length){
                 
             }else{
-                newState.LOADED_DOCTOR_SEARCH = false
-            }
-
+                
+            }*/
+            newState.LOADED_DOCTOR_SEARCH = false
             return newState
         }
 

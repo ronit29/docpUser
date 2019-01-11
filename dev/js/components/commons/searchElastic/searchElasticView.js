@@ -65,6 +65,7 @@ class SearchElasticView extends React.Component {
                 ...this.props.dataState.filterCriteria,
                 lab_name
             },
+            currentSearchedCriterias:this.props.dataState.selectedCriterias,
             nextSelectedCriterias:this.props.dataState.selectedCriterias
         }, true)
 

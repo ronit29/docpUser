@@ -42,11 +42,11 @@ class SearchResultsView extends React.Component {
                                 
                     this.setState({search_id: parsed.search_id}, ()=>{
                         this.props.getSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
-                        this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+                        /*this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
                             if (footerData) {
                                 this.setState({ footerData: footerData })
                             }
-                        })
+                        })*/
                     })
                     
                 }else{

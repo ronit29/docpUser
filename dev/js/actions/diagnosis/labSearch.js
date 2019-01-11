@@ -76,10 +76,11 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 			},
 			fetchNewResults: false
 		})
-
+		let searchIdData = Object.assign({},response)
+		searchIdData.currentSearchedCriterias = currentSearchedCriterias
 		dispatch({
 			type: SAVE_LAB_RESULTS_WITH_SEARCHID,
-			payload: response,
+			payload: searchIdData,
 			page:page
 		})
 
