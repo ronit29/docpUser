@@ -416,6 +416,10 @@ class PatientDetailsNew extends React.Component {
         return deal_price
     }
 
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
+    }
+
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
@@ -593,7 +597,7 @@ class PatientDetailsNew extends React.Component {
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                                {/* <span className="errorMessage">{this.state.error}</span> */}
                                                             </div>
                                                         </a>
 
@@ -615,7 +619,10 @@ class PatientDetailsNew extends React.Component {
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
                             }
 
-                            <ErrorPopUp/>
+                            {
+                                this.state.error ?
+                                    <ErrorPopUp message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                            }
 
                         </div>
 

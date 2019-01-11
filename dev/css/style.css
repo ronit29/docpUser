@@ -4893,7 +4893,6 @@ font-weight: 700;
 	padding: 20px 15px 20px !important;
 }
 /* ================= Error Popup ================= */
-.error-msg-pop{display: none;}
 .popup-error{
 	overflow-y: auto;
     position: fixed;
