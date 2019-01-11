@@ -47,7 +47,7 @@ class UserLoginView extends React.Component {
     submitOTPRequest(number) {
         const parsed = queryString.parse(this.props.location.search)
         let analyticData = {
-        'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request','mobileNo':number,'pageSource':parsed.login||''
+            'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || ''
         }
         GTM.sendEvent({ data: analyticData })
 
@@ -76,56 +76,56 @@ class UserLoginView extends React.Component {
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
-             if(exists.token){
-                const parsed = queryString.parse(this.props.location.search)
-                if (exists.user_exists) {
-                    if (parsed.login) {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo':this.state.phoneNumber
+                if (exists.token) {
+                    const parsed = queryString.parse(this.props.location.search)
+                    if (exists.user_exists) {
+                        if (parsed.login) {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
+                        } else {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
                         }
-                        GTM.sendEvent({ data: data })
+
+                        if (parsed.ref) {
+                            this.props.history.push('/user')
+                        } else if (parsed.callback) {
+                            this.props.history.replace(parsed.callback)
+                        } else if (this.state.referralName && this.state.referralCode) {
+                            this.props.history.replace('/')
+                        } else {
+                            this.props.history.go(-1)
+                        }
                     } else {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo':this.state.phoneNumber
+                        // gtm event
+
+                        if (parsed.login) {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
+                        } else {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
                         }
-                        GTM.sendEvent({ data: data })
-                    }
-
-                    if (parsed.ref) {
-                        this.props.history.push('/user')
-                    } else if (parsed.callback) {
-                        this.props.history.replace(parsed.callback)
-                    } else if (this.state.referralName && this.state.referralCode) {
-                        this.props.history.replace('/')
-                    } else {
-                        this.props.history.go(-1)
-                    }
-                } else {
-                    // gtm event
-
-                    if (parsed.login) {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo':this.state.phoneNumber
+                        let replace_url = '/signup?'
+                        if (parsed.callback) {
+                            replace_url += `callback=${parsed.callback}&`
                         }
-                        GTM.sendEvent({ data: data })
-                    } else {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo':this.state.phoneNumber
+
+                        if (this.state.referralName && this.state.referralCode) {
+                            replace_url += `referral=${this.state.referralCode}`
                         }
-                        GTM.sendEvent({ data: data })
-                    }
-                    let replace_url = '/signup?'
-                    if (parsed.callback) {
-                        replace_url += `callback=${parsed.callback}&`
-                    }
 
-                    if (this.state.referralName && this.state.referralCode) {
-                        replace_url += `referral=${this.state.referralCode}`
+                        this.props.history.replace(replace_url)
                     }
-
-                    this.props.history.replace(replace_url)
                 }
-             }
             })
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
@@ -156,25 +156,12 @@ class UserLoginView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7  center-column">
-                            {/* <header className="skin-white fixed horizontal top bdr-1 light sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <ul className="inline-list">
-                                                <li onClick={() => { this.props.history.go(-1) }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Login/Registration</div>
-                                        </div>
-                                        <div className="col-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
                             <section className="mobile-verification-screen p-3">
                                 <div className="widget no-shadow no-round sign-up-container">
                                     <div className="widget-header text-center mv-header">
+                                        {
+                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Get &#8377; 50 in your wallet</h3> : ""
+                                        }
                                         {
                                             this.state.referralName ? <h3 className="sign-coupon fw-700">Signup to claim your gift from<br /><span className="ft-25">{this.state.referralName}</span> </h3> : <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 300!</span> </h3>
                                         }
