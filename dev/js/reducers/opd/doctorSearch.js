@@ -59,9 +59,11 @@ export default function (state = defaultState, action) {
             }
 
             newState.search_content = action.payload.search_content || ''
-            if (action.payload.page === 1) {
+
+            if (action.payload.page === 1 || (newState.count == 0 && action.payload.count)) {
                 newState.count = action.payload.count
             }
+
             newState.reviews = action.payload.reviews
             newState.ratings = action.payload.ratings
             newState.ratings_title = action.payload.ratings_title
@@ -91,7 +93,7 @@ export default function (state = defaultState, action) {
                     })
             }
 
-            if (action.payload.page === 1) {
+            if (action.payload.page === 1 || (newState.count == 0 && action.payload.count)) {
                 newState.count = action.payload.count
             }
 
