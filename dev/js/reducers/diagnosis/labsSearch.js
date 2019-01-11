@@ -46,9 +46,10 @@ export default function (state = defaultState, action) {
                     })
             }
 
-            //if (action.payload.page === 1) {
+            if (action.payload.page === 1 || (newState.count == 0 && action.payload.count)) {
                 newState.count = action.payload.count
-            //}
+            }
+
             newState.LOADED_LABS_SEARCH = true
             newState.curr_page = action.payload.page
 
