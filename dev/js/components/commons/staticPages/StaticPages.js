@@ -35,7 +35,9 @@ class StaticPagesView extends React.Component {
     }
 
     render() {
-        const parsed = queryString.parse(window.location.search)
+        //const parsed = queryString.parse(window.location.search)
+        const parsed = queryString.parse(this.props.location.search)
+
         return (
             <div className="profile-body-wrap">
                 {
