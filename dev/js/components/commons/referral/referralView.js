@@ -123,7 +123,7 @@ class ReferralView extends React.Component {
                                                         </div>
                                                         {
                                                             navigator && navigator.share ? <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a> : <CopyToClipboard text={this.getLink()}
-                                                                onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Url Copied" }); }}>
+                                                                onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Referral Link Copied" }); }}>
                                                                 <span style={{ cursor: 'pointer' }}>
                                                                     <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a>
                                                                 </span>
