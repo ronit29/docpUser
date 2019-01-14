@@ -111,7 +111,7 @@ class LabProfileCard extends React.Component {
                     </div>
                     <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url,id,name)}>
                             <div className="col-12 mrt-10">
-                                <a href="/dr-satvender-singh-general-physician-in-sector-45-gurgaon-dpp">
+                                <a>
                                 <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name}</h2>
                                 <h3 className="lab-fltr-dc-name fw-500" style={{ fontSize: '14px', paddingLeft: '8px', paddingRight: '110px', color:'#757575' }}>{number_of_tests?`${number_of_tests} Tests Included`:''} </h3>
                                     {/*<h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{lab.name}</h2>*/}
