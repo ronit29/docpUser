@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -286,24 +286,19 @@ export default function (state = defaultState, action) {
                 search_id_data: {...state.search_id_data}
             }
 
-            if(action.setDefault){
-                
-                newState.search_id_data[action.searchId] = {}
-                newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
-                newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
-                newState.search_id_data[action.searchId].data = {}
-                newState.currentSearchedCriterias = action.payload.commonSelectedCriterias
-                newState.nextSelectedCriterias = []
-                newState.nextFilterCriteria = DEFAULT_FILTER_STATE
-                newState.filterCriteria = action.payload.filterCriteria
-                newState.currentSearchId = action.searchId
-                newState.fetchNewResults = true
+            newState.search_id_data[action.searchId] = {}
+            newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
+            newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
+            newState.search_id_data[action.searchId].data = {}
+            newState.search_id_data[action.searchId].page = action.page
+            newState.currentSearchedCriterias = action.payload.commonSelectedCriterias
+            newState.nextSelectedCriterias = []
+            newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            newState.filterCriteria = action.payload.filterCriteria
+            newState.currentSearchId = action.searchId
+            newState.fetchNewResults = true
+            newState.page = action.page
 
-            }/*else if(newState.search_id_data[action.searchId]){
-
-                newState.search_id_data[action.searchId].filterCriteria = action.payload
-            }*/
-            
             return newState
 
         }
@@ -346,6 +341,14 @@ export default function (state = defaultState, action) {
 
             return newState
 
+        }
+
+        case SET_LAB_URL_PAGE: {
+            let newState = {
+                ...state
+            }
+            newState.page = action.payload
+            return newState
         }
 
     }

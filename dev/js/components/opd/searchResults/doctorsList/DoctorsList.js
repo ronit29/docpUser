@@ -115,7 +115,7 @@ class DoctorsList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.search_content && this.props.search_content != '' ?
+                                this.props.search_content && this.props.search_content != '' && parseInt(this.props.page)==1?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>

@@ -8,6 +8,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
+import STORAGE from '../../../helpers/storage'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -41,6 +42,21 @@ class BookingView extends React.Component {
         this.props.getOPDBookingSummary(appointmentId, (err, data) => {
             if (!err) {
                 this.setState({ data: data[0], loading: false })
+                let info = {}
+                info[appointmentId] = data.length?data[0].deal_price:''
+                info = JSON.stringify(info)
+                STORAGE.setAppointmentDetails(info).then((setCookie)=> {
+
+                    if (this.state.payment_success) {
+
+                        let analyticData = {
+                            'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked','deal_price': data[0].deal_price
+                        }
+                        GTM.sendEvent({ data: analyticData })
+                        this.props.history.replace(this.props.location.pathname + "?hide_button=true")
+                    }
+                })
+                
             } else {
                 this.setState({ data: null, loading: false })
             }
@@ -48,15 +64,6 @@ class BookingView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
-        }
-
-        if (this.state.payment_success) {
-
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
-            }
-            GTM.sendEvent({ data: data })
-            this.props.history.replace(this.props.location.pathname + "?hide_button=true")
         }
     }
 

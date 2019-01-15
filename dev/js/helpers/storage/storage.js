@@ -97,6 +97,10 @@ const STORAGE = {
     deleteVisitorInfo: () => {
         eraseCookie('visitinfo')
         return Promise.resolve(true)
+    },
+    setAppointmentDetails: (token) => {
+        setCookie('booking_info', token, 5)
+        return Promise.resolve(true)
     }
 
 }
