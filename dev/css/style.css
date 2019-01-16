@@ -312,41 +312,22 @@ textarea.form-control.chat-text-area {
 	border-radius: inherit;
 }
 
-.card.cstm-card .card-header>h2 {
+.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 	font-size: 18px;
 	font-weight: 500;
 	margin-bottom: 0;
-}
-
-.card.cstm-card .card-header>h1 {
-	font-size: 18px;
-	font-weight: 500;
-	margin-bottom: 0;
+	color: #000;
 }
 
 @media(max-width : 380px){
-	.card.cstm-card .card-header>h1 {
+	.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 		font-size: 16px;
-		font-weight: 500;
-		margin-bottom: 0;
-	}
-	.card.cstm-card .card-header>h2 {
-		font-size: 16px;
-		font-weight: 500;
-		margin-bottom: 0;
 	}
 }
 
 @media(max-width : 359px){
-	.card.cstm-card .card-header>h1 {
+	.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 		font-size: 14px;
-		font-weight: 500;
-		margin-bottom: 0;
-	}
-	.card.cstm-card .card-header>h2 {
-		font-size: 14px;
-		font-weight: 500;
-		margin-bottom: 0;
 	}
 }
 
