@@ -31,21 +31,16 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
+        const parsed = queryString.parse(this.props.location.search)
         if(this.props.mergeUrlState){
             let getSearchId = true
             if(this.props.location.search.includes('search_id')){
-                const parsed = queryString.parse(this.props.location.search)
 
                 if(this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data){
 
                      getSearchId = false
-                    if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length){
-                        this.props.getLabSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id].data)
-                        /*this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
-                            if (footerData) {
-                                this.setState({ footerData: footerData })
-                            }
-                        })*/
+                    if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length && !this.props.fetchNewResults){
+                        this.props.getLabSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id])
                         this.setState({search_id: parsed.search_id})    
                     }else{
 
@@ -55,7 +50,11 @@ class SearchResultsView extends React.Component {
                         this.setState({search_id: parsed.search_id},()=> {
                             /*let new_url = this.buildURI(this.props)
                             this.props.history.replace(new_url)*/
-                            this.props.setLabSearchId(parsed.search_id, filters, true)
+                            let page = 1
+                            if(!this.props.fetchNewResults){
+                                page = parsed.page
+                            }
+                            this.props.setLabSearchId(parsed.search_id, filters, page || 1)
                         })
                        
                     }
@@ -72,7 +71,7 @@ class SearchResultsView extends React.Component {
                 this.setState({search_id: search_id},()=>{
                     let new_url = this.buildURI(this.props)
                     this.props.history.replace(new_url)
-                    this.props.setLabSearchId(search_id, filters, true)  
+                    this.props.setLabSearchId(search_id, filters, parsed.page || 1)  
                 })
             }
 
@@ -96,9 +95,13 @@ class SearchResultsView extends React.Component {
 
     componentWillReceiveProps(props) {
         let search_id = ''
+        let page = 1
+        const parsed = queryString.parse(props.location.search)
         if(props.location.search.includes('search_id')){
-            const parsed = queryString.parse(props.location.search)
             search_id = parsed.search_id
+        }
+        if(parsed.page){
+            page = parsed.page || 1
         }
 
         if(props.mergeUrlState && props.mergeUrlState != this.props.mergeUrlState){
@@ -106,19 +109,24 @@ class SearchResultsView extends React.Component {
             filters.commonSelectedCriterias = props.currentSearchedCriterias
             filters.filterCriteria = props.filterCriteria
             if(search_id){
-
+                this.setState({search_id: search_id},()=>{
+                    let new_url = this.buildURI(props)
+                    this.props.history.replace(new_url)
+                    this.props.setLabSearchId(search_id, filters, page)  
+                })
             }else{
                 search_id = this.generateSearchId()
+                    this.setState({search_id: search_id},()=>{
+                    let new_url = this.buildURI(props)
+                    this.props.history.replace(new_url)
+                    this.props.setLabSearchId(search_id, filters, page)  
+                })
             }
             
             if (window) {
                 window.scrollTo(0, 0)
             }
-            this.setState({search_id: search_id},()=>{
-                let new_url = this.buildURI(this.props)
-                this.props.history.replace(new_url)
-                this.props.setLabSearchId(search_id, filters, true)  
-            })
+            
         }
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults) && this.state.search_id) {
             this.setState({setSearchId: true})
@@ -130,7 +138,7 @@ class SearchResultsView extends React.Component {
                 this.setState({setSearchId: true})
                 this.getLabList(props)
         }else {
-            if (props.selectedLocation != this.props.selectedLocation) {
+            if (props.selectedLocation != this.props.selectedLocation && props.mergeUrlState) {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
             }
@@ -160,11 +168,13 @@ class SearchResultsView extends React.Component {
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url.toLowerCase()
         }
-        if (!state) {
-            state = this.props
-        }
         if (page === null) {
             page = this.props.page
+        }
+        if (!state) {
+            state = this.props
+        }else if(state.page){
+            page = state.page
         }
         this.props.getLabs(state, page, false, searchUrl, (...args) => {
            // this.setState({ seoData: args[1] })
@@ -185,8 +195,9 @@ class SearchResultsView extends React.Component {
 
         if(this.props.search_id_data && this.props.search_id_data[parsed.search_id]){
             search_id_data[parsed.search_id].filterCriteria = filterState
+            search_id_data[parsed.search_id].page = 1
         }
-        this.props.mergeLABState({ filterCriteria: filterState, search_id_data: search_id_data })
+        this.props.mergeLABState({ filterCriteria: filterState, search_id_data: search_id_data, page: 1 })
         //this.props.setLabSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)

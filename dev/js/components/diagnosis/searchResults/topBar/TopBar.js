@@ -85,7 +85,7 @@ class TopBar extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabSortFilterApplied', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-sort-filter-applied', 'url': window.location.pathname, 'sort_on': type === "" ? 'relevance' : type
         }
         GTM.sendEvent({ data: data })
-        this.setState({ anchorEl: null, sort_on: type }, () => {
+        this.setState({ anchorEl: null, sort_on: type, dropdown_visible: false }, () => {
             if (type || type === "") {
                 this.applyFilters()
             }

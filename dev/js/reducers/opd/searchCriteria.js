@@ -1,7 +1,7 @@
-import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE } from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
-    priceRange: [0, 1500],
+    priceRange: [0, 3000],
     distanceRange: [0, 15],
     sort_on: null,
     sits_at_clinic: false,
@@ -237,23 +237,18 @@ export default function (state = defaultState, action) {
                 search_id_data: {...state.search_id_data}
             }
 
-            if(action.setDefault){
-                
-                newState.search_id_data[action.searchId] = {}
-                newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
-                newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
-                newState.search_id_data[action.searchId].data = {}
-                newState.nextSelectedCriterias = []
-                newState.nextFilterCriteria = DEFAULT_FILTER_STATE
-                newState.commonSelectedCriterias = action.payload.commonSelectedCriterias
-                newState.filterCriteria = action.payload.filterCriteria
-                newState.fetchNewResults = true
-                newState.currentSearchId = action.searchId
-            }/*else if(newState.search_id_data[action.searchId]){
-
-                newState.search_id_data[action.searchId].filterCriteria = action.payload
-            }
-            */
+           newState.search_id_data[action.searchId] = {}
+            newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
+            newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
+            newState.search_id_data[action.searchId].data = {}
+            newState.search_id_data[action.searchId].page = action.page
+            newState.nextSelectedCriterias = []
+            newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            newState.commonSelectedCriterias = action.payload.commonSelectedCriterias
+            newState.filterCriteria = action.payload.filterCriteria
+            newState.fetchNewResults = true
+            newState.currentSearchId = action.searchId
+            newState.page = action.page
             return newState
 
         }
@@ -283,14 +278,14 @@ export default function (state = defaultState, action) {
                 if(action.page == 1){
                     newState.search_id_data[newState.currentSearchId].data = action.payload
                     newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
-                    
+
                 }else if(newState.search_id_data[newState.currentSearchId].data){
                     if(Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result){
 
                         newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)    
                     }else{
                         newState.search_id_data[newState.currentSearchId].data = action.payload
-                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card    
+                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card  
                     }
                     
                 }
@@ -305,6 +300,14 @@ export default function (state = defaultState, action) {
             }
 
             newState.mergeUrlState = action.payload
+            return newState
+        }
+
+        case SET_URL_PAGE:{
+            let newState = {
+                ...state
+            }
+            newState.page = action.payload
             return newState
         }
 
