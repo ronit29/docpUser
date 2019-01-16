@@ -84,8 +84,8 @@ class LabResultCard extends React.Component {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
         let hide_price = false
-        if(this.props.details && this.props.details.tests){
-            this.props.details.tests.map((test) => {
+        if(this.props.test_data){
+            this.props.test_data.map((test) => {
                 if(test.hide_price){
                     hide_price = true
                 }

@@ -15,7 +15,8 @@ const defaultState = {
     couponAutoApply: true,
     curr_page: null,
     packagesList: [],
-    seoData:{}
+    seoData:{},
+    test_data:[]
 }
 
 export default function (state = defaultState, action) {
@@ -54,6 +55,7 @@ export default function (state = defaultState, action) {
             newState.LOADED_LABS_SEARCH = true
             newState.curr_page = action.payload.page
             newState.seoData = action.payload.seo
+            newState.test_data = action.payload.tests
             return newState
         }
 

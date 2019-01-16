@@ -82,14 +82,10 @@ class LabTests extends React.Component {
                         if (test.test.show_details) {
                             test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span>
                         }
-                        selectedTests.push(test.hide_price
-                            ? <li className="clearfix" key={i}>
-                                <span className="test-price">Free</span>
-                            </li>
-                            :hide_price? <li key={i + "srt"}>
+                        selectedTests.push(hide_price? <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected ? true : false} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">Free</span>
