@@ -767,6 +767,7 @@ p.top-head-link.card-lab-link span {
 	border-radius: 10px;
 	max-height: 165px;
 	overflow-x: auto;
+	cursor: pointer;
 }
 
 /*header styling*/
