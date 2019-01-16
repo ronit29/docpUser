@@ -58,7 +58,7 @@ class LabTests extends React.Component {
         let unSelectedTests = []
         let unSelectedPackage = []
         let test_info = ''
-        let show_details
+        let show_details=''
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -86,7 +86,15 @@ class LabTests extends React.Component {
                             ? <li className="clearfix" key={i}>
                                 <span className="test-price">Free</span>
                             </li>
-                            : <li key={i + "srt"}>
+                            :hide_price? <li key={i + "srt"}>
+                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                    {test.test.name}
+                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
+                                    <span className="checkmark" />
+                                </label>
+                                <span className="test-price text-sm">Free</span>
+                            </li>
+                            :<li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
@@ -167,8 +175,8 @@ class LabTests extends React.Component {
                     <ul className="list all-test-list">
                         {selectedTests}
                         {selectedPackage}
-                        {unSelectedTests}
-                        {unSelectedPackage}
+                        {hide_price?'':unSelectedTests}
+                        {hide_price?'':unSelectedPackage}
                     </ul>
                     {
                         pickup_text ? <div className="clearfix">
@@ -192,7 +200,7 @@ class LabTests extends React.Component {
                             </div>
                     }
                     {
-                        hide_price ? "" : <div className="pb-view text-right">
+                        hide_price? "" : <div className="pb-view text-right">
                             <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
                         </div>
                     }

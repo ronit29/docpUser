@@ -83,7 +83,14 @@ class LabResultCard extends React.Component {
         if (mrp && price && (price < mrp)) {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
-
+        let hide_price = false
+        if(this.props.details && this.props.details.tests){
+            this.props.details.tests.map((test) => {
+                if(test.hide_price){
+                    hide_price = true
+                }
+            })
+        }
         return (
             <div className="filter-card-dl mb-3">
                 <div className="fltr-crd-top-container">
@@ -121,7 +128,10 @@ class LabResultCard extends React.Component {
                         </div>
                         <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
                             {
-                                price ? <p className="text-primary fw-500 text-lg mrb-10">&#8377; {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }} >&#8377; {mrp}</span></p> : ''
+                                price && !hide_price? <p className="text-primary fw-500 text-lg mrb-10">&#8377; {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }} >&#8377; {mrp}</span></p> : ''
+                            }
+                            {
+                               hide_price? <p className="text-primary fw-500 text-lg mrb-10">Free</p>:''
                             }
                             {
                                 STORAGE.checkAuth() || price < 100 ?
@@ -142,7 +152,11 @@ class LabResultCard extends React.Component {
                                         this.props.details.tests.map((test, i) => {
                                             return <li className="fltr-slected-test" key={i}>
                                                 <label style={{ fontWeight: 400 }}>{test.name}</label>
-                                                <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                                {
+                                                    hide_price?
+                                                    <p style={{ fontWeight: 400 }}>Free</p>
+                                                    :<p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                                }
                                             </li>
                                         })
                                     }
