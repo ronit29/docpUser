@@ -1,6 +1,6 @@
-import React from 'React'
+import React from 'react';
 
-class ErrorPopUp extends React.Component {
+class BookingError extends React.Component {
     render() {
         return (
             <section className="error-msg-pop">
@@ -17,4 +17,4 @@ class ErrorPopUp extends React.Component {
     }
 }
 
-export default ErrorPopUp
+export default BookingError

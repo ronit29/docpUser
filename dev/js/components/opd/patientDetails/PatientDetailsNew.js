@@ -17,8 +17,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import ProcedureView from './procedureView.js'
-import ErrorPopUp from './errorPopUp.js'
-
+import BookingError from './bookingErrorPopUp.js'
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -662,7 +661,7 @@ class PatientDetailsNew extends React.Component {
 
                             {
                                 this.state.error ?
-                                    <ErrorPopUp message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                                    <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                             }
 
                         </div>

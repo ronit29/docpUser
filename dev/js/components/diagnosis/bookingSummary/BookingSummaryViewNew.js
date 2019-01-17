@@ -15,8 +15,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
-import ErrorPopUp from '../../opd/patientDetails/errorPopUp';
-
+import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -725,7 +724,7 @@ class BookingSummaryViewNew extends React.Component {
 
                             {
                                 this.state.error ?
-                                    <ErrorPopUp message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                                    <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                             }
 
                         </div>
