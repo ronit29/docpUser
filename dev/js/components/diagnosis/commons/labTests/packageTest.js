@@ -28,9 +28,15 @@ class PackageTest extends React.Component {
                             </span> : ''
                         }
                     </p>
-                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
-                        this.props.toggleTest(test)
-                    }} />
+                    {
+                        this.props.hide_price?
+                        <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} />
+                        :<input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
+                            this.props.toggleTest(test)
+                        }} />
+
+                    }
+                    
                     <span className="checkmark"></span>
 
                 </label>
