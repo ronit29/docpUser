@@ -43,7 +43,7 @@ class UserAddress extends React.Component {
                     {
                         (address && address.length) ? address.map((curr, key) => {
                             return <li key={key}>
-                                <span className="icon icon-lg member-icon" onClick={this.updateAddress.bind(this, curr)} style={{ top:'0px', position: 'absolute',left: '10px', height:'0px', width:'0px', cursor: 'pointer' }}>
+                                <span className="icon icon-lg member-icon" onClick={this.updateAddress.bind(this, curr)} style={{ top: '0px', position: 'absolute', left: '10px', height: '0px', width: '0px', cursor: 'pointer' }}>
                                     <input type="radio" value={curr.id.toString()} checked={curr.is_default} className="user-address-hidden-radio" />
                                     <span className="user-address-radio"></span>
                                 </span>
@@ -61,7 +61,10 @@ class UserAddress extends React.Component {
                             </div>
                     }
                 </ul>
-                <button onClick={this.addAddress.bind(this)} className="v-btn v-btn-primary btn-lg add-more-members-btn">+</button>
+                <div className="mrt-20">
+                    <p onClick={this.addAddress.bind(this)} className="text-primary fw-500" style={{ cursor: 'pointer', fontSize: 16 }} >Add new address</p>
+                </div>
+                {/* <button onClick={this.addAddress.bind(this)} className="v-btn v-btn-primary btn-lg add-more-members-btn">+</button> */}
             </div>
         );
     }
