@@ -24,7 +24,7 @@ class SearchElasticView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, from: parsed.from
+            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from
         }
 
         GTM.sendEvent({ data: data })
@@ -36,6 +36,10 @@ class SearchElasticView extends React.Component {
             filterCriteria: {
                 ...this.props.dataState.filterCriteria,
                 doctor_name, hospital_name, hospital_id
+            },
+            nextFilterCriteria: {
+                ...this.props.dataState.filterCriteria,
+                doctor_name, hospital_name, hospital_id  
             }
         }
 
@@ -64,7 +68,13 @@ class SearchElasticView extends React.Component {
             filterCriteria: {
                 ...this.props.dataState.filterCriteria,
                 lab_name
-            }
+            },
+            nextFilterCriteria: {
+                ...this.props.dataState.filterCriteria,
+                lab_name
+            },
+            currentSearchedCriterias:this.props.dataState.selectedCriterias,
+            nextSelectedCriterias:this.props.dataState.selectedCriterias
         }, true)
 
         let selectedTestIds = this.props.dataState.selectedCriterias.map(test => test.id)

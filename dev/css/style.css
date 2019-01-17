@@ -4889,6 +4889,115 @@ font-weight: 700;
 .acrd-stc-red{
 	color:red !important;
 }
+
+/* ================= Referral style ================= */
+.refer-earn{padding: 30px; background: #fff; margin: 15px;box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2); border-radius: 5px;}
+.ref-heading{font-size: 24px; font-weight: 700; color: #4b4b4b; text-align: center;margin-bottom: 30px;}
+
+.steps{position: relative;padding-bottom: 40px;    display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.img-step{display: inline-block; vertical-align: middle; position: relative;}
+.img-step img{height: 90px; width: 90px;}
+.img-1{margin-left: -85px;}
+.text-step{display: inline-block;font-size: 16px; font-weight: 500; vertical-align: middle; padding-left: 50px;}
+.text-step-2{padding-right: 40px;padding-left: 0;position: relative;}
+.badge.badge-refer{background: #f78631; color: #fff; font-size: 14px; font-weight: 500; height: 30px; width: 30px;border-radius: 20px;line-height: 18px;position: absolute;padding: 6px 0;}
+.step-2 .badge.badge-refer{
+	right: 0;
+    top: -25px;
+}
+.icon-rupee{margin-top: 5px; height: 10px;}
+.multi-step-for-earn{border-bottom: 1px solid rgba(0,0,0,0.12);padding-bottom: 30px;}
+.social-icon-referral ul li{display: inline-block;padding: 30px 40px;}
+.social-icon-referral ul li img{height: 36px;}
+.btn-share{
+	background: #f78631;
+    color: #fff;
+    font-size: 16px;
+    height: 48px;
+    display: flex;
+    line-height: 48px;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 500;
+    width: 240px;
+    border-radius: 5px;
+    justify-content: center;
+}
+.btn-share:hover,.btn-share:focus,.btn-share:active{background: #f78631; color: #fff; text-decoration: none;}
+.btn-share img{
+	width: 22px;
+	margin-right: 11px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.take-care{color: #f78631; font-size: 14px; text-align: center; display: block;padding: 20px;font-weight: 500;}
+.take-care:hover,.take-care:focus,.take-care:active{color:#f78631; text-decoration: none;}
+
+
+@media screen and (min-width: 0px) and (max-width: 480px){
+    .btn-share{width: 80%;}
+    .social-icon-referral ul li{padding: 26px 14px;}
+    .img-1{margin-left: -35px;}
+    .img-step img{height: 60px; width: 60px;}
+    .badge.badge-refer{height: 20px; width: 20px; line-height: 9px; font-size: 12px;}
+    .step-2 .badge.badge-refer {
+    right: -5px;
+    top: -15px;
+}
+.text-step{font-size: 14px;}
+.steps{padding-bottom: 30px;}
+.multi-step-for-earn{padding-bottom: 0;}
+.img-3{margin-left: 25px;}
+}
+.text-step{padding-left: 45px;}
+.text-step-2{padding-left: 0;}
+.referral-select{
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+.referralTerms{
+font-weight: 500;
+margin: 10px 0px;
+}
+.referralTerms a{
+	color: #f78631;
+	cursor: pointer;
+}
+.inviteCodeShare{
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    color: #3a3939;
+}
+.inviteCodeShare span{
+    display: block;
+    font-weight: 600;
+    font-size: 28px;
+	margin-top: 8px;
+}
+	
+.rfrl-avl-balance{
+padding-left: 34px;
+font-size: 13px;
+}
+/* ================= Referral style ================= */
+
+.img-fluid.img-f-1{
+	width: 19px;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.add-info-p{
+	margin-top: 15px;
+}
+
+
 .appUrlPadding{
 	padding: 20px 15px 20px !important;
 }
@@ -4938,4 +5047,28 @@ font-weight: 700;
 	.error-msg-pop .error-head{
 		font-size: 16px;
 	}
+}
+@media screen and (max-width: 992px){
+	.book-appointment-section-login{margin-top: 30px;}
+	.chat-load-mobile.mt-21{margin-top: 18px;}
+}
+.breadcrumb-list-ul{margin: 30px 0 0 0px;}
+.breadcrumb-mrgn{
+    margin-top:130px;	
+}
+@media screen and (max-width: 767px){
+	.breadcrumb-list-ul{display: none;}
+	.breadcrumb-mrgn{
+    margin-top:78px;	
+}
+}
+
+@media screen and (max-width: 992px){
+	.breadcrumb-mrgn{
+    margin-top:78px;	
+}
+}
+
+.d-inline-blck{
+	display: inline-block;
 }

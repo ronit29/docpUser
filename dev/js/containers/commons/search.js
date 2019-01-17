@@ -6,6 +6,7 @@ import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, 
 import SearchView from '../../components/commons/search'
 import SearchElasticView from '../../components/commons/searchElastic'
 import CONFIG from '../../config'
+import GTM from '../../helpers/gtm.js'
 
 class Search extends React.Component {
     constructor(props) {
@@ -13,6 +14,11 @@ class Search extends React.Component {
     }
 
     changeSelection(which) {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ToggleSearchType', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'toogle-search-type', 'type': which || ''
+        }
+
+        GTM.sendEvent({ data: data })
         this.props.selectSearchType(which)
     }
 

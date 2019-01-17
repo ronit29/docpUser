@@ -1,7 +1,7 @@
-import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS } from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
-    priceRange: [0, 1500],
+    priceRange: [0, 3000],
     distanceRange: [0, 15],
     sort_on: null,
     sits_at_clinic: false,
@@ -28,7 +28,12 @@ const defaultState = {
     getNewUrl: false,
     commonSelectedCriterias: [],
     page: 1,
-    procedures: []
+    procedures: [],
+    search_id_data : {},
+    nextSelectedCriterias: [],
+    nextFilterCriteria: DEFAULT_FILTER_STATE,
+    currentSearchId:'',
+    mergeUrlState:false
 }
 
 export default function (state = defaultState, action) {
@@ -52,12 +57,18 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 selectedCriterias: [].concat(state.selectedCriterias),
-                filterCriteria: { ...state.filterCriteria }
+                filterCriteria: { ...state.filterCriteria },
+                nextFilterCriteria: {...state.nextFilterCriteria}
             }
 
             newState.filterCriteria.doctor_name = ""
             newState.filterCriteria.hospital_name = ""
             newState.filterCriteria.hospital_id = ""
+
+            newState.nextFilterCriteria.doctor_name = ""
+            newState.nextFilterCriteria.hospital_name = ""
+            newState.nextFilterCriteria.hospital_id = ""
+
 
             let found = false
             newState.selectedCriterias = newState.selectedCriterias.filter((curr) => {
@@ -92,7 +103,12 @@ export default function (state = defaultState, action) {
                     ...action.payload.criteria,
                     type: action.payload.type
                 }]
+                newState.nextSelectedCriterias = [{
+                    ...action.payload.criteria,
+                    type: action.payload.type
+                }]
                 newState.filterCriteria = DEFAULT_FILTER_STATE
+                newState.nextFilterCriteria = DEFAULT_FILTER_STATE
             } else if (!found) {
                 newState.selectedCriterias.push({
                     ...action.payload.criteria,
@@ -104,6 +120,7 @@ export default function (state = defaultState, action) {
 
             if (action.payload.filters && Object.values(action.payload.filters).length) {
                 newState.filterCriteria = Object.assign({}, newState.filterCriteria, action.payload.filters)
+                newState.nextFilterCriteria = Object.assign({}, newState.filterCriteria, action.payload.filters)
             }
 
             return newState
@@ -140,6 +157,7 @@ export default function (state = defaultState, action) {
         case RESET_FILTER_STATE: {
             let newState = { ...state }
             newState.filterCriteria = DEFAULT_FILTER_STATE
+            newState.nextFilterCriteria = DEFAULT_FILTER_STATE
             // newState.fetchNewResults = true
             return newState
         }
@@ -159,6 +177,7 @@ export default function (state = defaultState, action) {
                 newState.commonSelectedCriterias = newState.commonSelectedCriterias.filter(x => x.type != 'procedures')
                 action.payload.map((procedure) => {
                     newState.commonSelectedCriterias.push({ type: "procedures", id: procedure, name: "" })
+                    newState.nextSelectedCriterias.push({ type: "procedures", id: procedure, name: "" })
                 })
 
             } else {
@@ -183,6 +202,7 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.commonSelectedCriterias = [].concat(action.payload)
+            newState.nextSelectedCriterias = [].concat(action.payload)
             return newState
         }
 
@@ -193,6 +213,8 @@ export default function (state = defaultState, action) {
 
             newState.commonSelectedCriterias = []
             newState.filterCriteria = DEFAULT_FILTER_STATE
+            newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            newState.nextSelectedCriterias = []
 
             return newState
         }
@@ -208,7 +230,86 @@ export default function (state = defaultState, action) {
             return newState
         }
 
+        case SET_SEARCH_ID: {
+            let newState = {
+                ...state,
+                commonSelectedCriterias:[...state.commonSelectedCriterias],
+                search_id_data: {...state.search_id_data}
+            }
 
+           newState.search_id_data[action.searchId] = {}
+            newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
+            newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
+            newState.search_id_data[action.searchId].data = {}
+            newState.search_id_data[action.searchId].page = action.page
+            newState.nextSelectedCriterias = []
+            newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            newState.commonSelectedCriterias = action.payload.commonSelectedCriterias
+            newState.filterCriteria = action.payload.filterCriteria
+            newState.fetchNewResults = true
+            newState.currentSearchId = action.searchId
+            newState.page = action.page
+            return newState
+
+        }
+
+        case GET_SEARCH_ID_RESULTS: {
+            let newState = {
+                ...state
+            }
+            if(newState.search_id_data && newState.search_id_data[action.searchId]){
+                newState.commonSelectedCriterias = newState.search_id_data[action.searchId].commonSelectedCriterias
+                newState.filterCriteria = newState.search_id_data[action.searchId].filterCriteria
+                newState.currentSearchId = action.searchId
+                newState.nextSelectedCriterias = []
+                newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            }
+            return newState
+        }
+
+        case SAVE_RESULTS_WITH_SEARCHID: {
+            let newState = {
+                ...state,
+                search_id_data: {...state.search_id_data}
+            }
+            if(newState.search_id_data && newState.search_id_data[newState.currentSearchId]){
+                
+                newState.search_id_data[newState.currentSearchId] = Object.assign(newState.search_id_data[newState.currentSearchId])
+                if(action.page == 1){
+                    newState.search_id_data[newState.currentSearchId].data = action.payload
+                    newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
+
+                }else if(newState.search_id_data[newState.currentSearchId].data){
+                    if(Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result){
+
+                        newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)    
+                    }else{
+                        newState.search_id_data[newState.currentSearchId].data = action.payload
+                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card  
+                    }
+                    
+                }
+                
+            }
+            return newState
+        }
+
+        case MERGE_URL_STATE: {
+            let newState = {
+                ...state
+            }
+
+            newState.mergeUrlState = action.payload
+            return newState
+        }
+
+        case SET_URL_PAGE:{
+            let newState = {
+                ...state
+            }
+            newState.page = action.payload
+            return newState
+        }
 
     }
     return state

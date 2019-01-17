@@ -36,9 +36,14 @@ class PatientDetailsNew extends React.Component {
             profileDataFilled: true,
             showTimeError: false,
             couponApplied: false,
-            is_cashback: false
-            // order_id: !!parsed.order_id
+            is_cashback: false,
+            // order_id: !!parsed.order_id,
+            use_wallet: true
         }
+    }
+
+    toggleWalletUse(e) {
+        this.setState({ use_wallet: e.target.checked })
     }
 
     toggle(which) {
@@ -279,7 +284,8 @@ class PatientDetailsNew extends React.Component {
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
             start_date, start_time,
-            payment_type: 1
+            payment_type: 1,
+            use_wallet: this.state.use_wallet
         }
         if (this.props.disCountedOpdPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -420,6 +426,23 @@ class PatientDetailsNew extends React.Component {
         this.setState({ error: '' })
     }
 
+    getBookingButtonText(total_wallet_balance, price_to_pay) {
+        let price_from_wallet = 0
+        let price_from_pg = 0
+
+        if (this.state.use_wallet && total_wallet_balance) {
+            price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
+        }
+
+        price_from_pg = price_to_pay - price_from_wallet
+
+        if (price_from_pg) {
+            return `Continue to pay (₹ ${price_from_pg})`
+        }
+
+        return `Confirm Booking`
+    }
+
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
@@ -471,6 +494,11 @@ class PatientDetailsNew extends React.Component {
 
         if (!this.state.is_cashback) {
             finalPrice = total_price ? parseInt(total_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0) : 0
+        }
+
+        let total_wallet_balance = 0
+        if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
+            total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
 
         return (
@@ -590,6 +618,19 @@ class PatientDetailsNew extends React.Component {
                                                             </div>
                                                         </div>
 
+                                                        {
+                                                            total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <div className="select-pt-form">
+                                                                        <div className="referral-select">
+                                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> : ""
+                                                        }
+
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
@@ -616,7 +657,7 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking  ${priceData.deal_price ? ` (₹ ${finalPrice || 0})` : ''}`}</button>
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
                             }
 
                             {

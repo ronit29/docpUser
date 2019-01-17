@@ -37,12 +37,17 @@ class BookingSummaryViewNew extends React.Component {
             couponId: '',
             scrollPosition: '',
             profileDataFilled: true,
-            is_cashback: false
+            is_cashback: false,
+            use_wallet: true
         }
     }
 
     toggle(which) {
         this.setState({ [which]: !this.state[which] })
+    }
+
+    toggleWalletUse(e) {
+        this.setState({ use_wallet: e.target.checked })
     }
 
     componentDidMount() {
@@ -302,7 +307,8 @@ class BookingSummaryViewNew extends React.Component {
             test_ids: testIds,
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
-            payment_type: 1 // TODO : Select payment type
+            payment_type: 1, // TODO : Select payment type
+            use_wallet: this.state.use_wallet
         }
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -394,6 +400,23 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ error: '' })
     }
 
+    getBookingButtonText(total_wallet_balance, price_to_pay) {
+        let price_from_wallet = 0
+        let price_from_pg = 0
+
+        if (this.state.use_wallet && total_wallet_balance) {
+            price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
+        }
+
+        price_from_pg = price_to_pay - price_from_wallet
+
+        if (price_from_pg) {
+            return `Continue to pay (₹ ${price_from_pg})`
+        }
+
+        return `Confirm Booking`
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -477,6 +500,11 @@ class BookingSummaryViewNew extends React.Component {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
 
+        let total_wallet_balance = 0
+        if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
+            total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
+        }
+
         return (
 
             <div className="profile-body-wrap">
@@ -519,9 +547,6 @@ class BookingSummaryViewNew extends React.Component {
                                                                 {
                                                                     is_home_collection_enabled ?
                                                                         <div>
-                                                                            {/*<div style={{ paddingTop: 0 }} className="widget-content test-report lab-appointment-div lab-visit-time mb-0 row">
-                                                                                <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/icons/home-orange.svg"} className="visit-time-icon homePickup" /></span>{labDetail.name}</h4>
-                                                                            </div>*/}
                                                                             <div className="">
                                                                                 <div className="test-lab-radio widget-content test-report lab-appointment-div row">
 
@@ -542,23 +567,6 @@ class BookingSummaryViewNew extends React.Component {
                                                             {this.getSelectors()}
                                                         </div>
 
-                                                        {/*<div className="widget mrt-10 ct-profile mb-0 skin-white">
-                                                            <div className="test-report widget-content">
-                                                                <h4 className="title" style={{ marginBottom: 2 }}><span><img src={ASSETS_BASE_URL + "/img/customer-icons/test.svg"} className="visit-time-icon" /></span>Tests <span className="float-right">
-                                                                    {
-                                                                        !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more tests</a> : ""
-                                                                    }
-                                                                </span></h4>
-                                                                {tests}
-                                                            </div>
-
-                                                            
-
-                                                            <div className="widget-content" id="time-patient-details-widget">
-                                                                {this.getSelectors()}
-                                                            </div>
-                                                        </div>
-*/}
                                                         {
                                                             amtBeforeCoupon != 0 ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
@@ -670,6 +678,21 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div>
                                                         }
 
+
+                                                        {
+                                                            total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <div className="select-pt-form">
+                                                                        <div className="referral-select">
+                                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> : ""
+                                                        }
+
+
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
@@ -697,7 +720,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{`Confirm Booking ${total_price == 0 ? ' (₹ 0)' : total_price ? ` (₹ ${total_price})` : ''}`}</button>
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                             }
 
                             {

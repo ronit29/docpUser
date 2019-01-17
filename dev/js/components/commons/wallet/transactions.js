@@ -11,7 +11,8 @@ const ACTION = {
     2: "REFUND",
     3: "SALE",
     4: "RESCHEDULE_PAYMENT",
-    5: "CASHBACK_CREDIT"
+    5: "CASHBACK_CREDIT",
+    7: "REFERRAL_CREDIT"
 }
 
 const PRODUCT = {
@@ -84,6 +85,9 @@ class Transactions extends React.Component {
             }
             case 5: {
                 return `Cashback Received for ${PRODUCT[product_id]} Appointment`
+            }
+            case 6: {
+                return `Referral Bonus`
             }
         }
     }

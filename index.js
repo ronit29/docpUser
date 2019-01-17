@@ -76,7 +76,7 @@ app.all('*', function (req, res) {
             }
 
             // handle custome redirects
-            if (route.redirect && route.redirectTo) {
+            if (match && route.redirect && route.redirectTo) {
                 promises.push(Promise.reject({ url: route.redirectTo }))
             }
 

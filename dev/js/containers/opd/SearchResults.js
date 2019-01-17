@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl } from '../../actions/index.js'
+import { getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 
@@ -37,16 +37,16 @@ class SearchResults extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    return store.dispatch(getDoctors(state, page, true, searchUrl, (loadMore, seoData) => {
+                    return store.dispatch(getDoctors(state, page, true, searchUrl, (loadMore) => {
                         if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
-                                resolve({ seoData, footerData })
+                                resolve({ footerData })
                             }).catch((e) => {
-                                resolve({ seoData })
+                                resolve({})
                             })
                         } else {
-                            resolve({ seoData })
+                            resolve({})
                         }
                     }, clinic_card))
                 }).catch((e) => {
@@ -89,13 +89,17 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         getNewUrl,
         selectedCriterias,
-        page
+        page,
+        search_id_data,
+        nextSelectedCriterias,
+        nextFilterCriteria,
+        mergeUrlState
     } = state.SEARCH_CRITERIA_OPD
 
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
-    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content } = state.DOCTOR_SEARCH
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData } = state.DOCTOR_SEARCH
 
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
@@ -110,12 +114,18 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         search_content,
         getNewUrl,
-        commonSelectedCriterias,
         selectedCriterias,
         page,
         curr_page,
         HOSPITALS,
-        hospitalList, ratings, reviews, ratings_title, bottom_content
+        hospitalList, ratings, reviews, ratings_title,
+        search_id_data,
+        nextSelectedCriterias,
+        nextFilterCriteria,
+        bottom_content,
+        breadcrumb,
+        seoData,
+        mergeUrlState
     }
 }
 
@@ -130,7 +140,10 @@ const mapDispatchToProps = (dispatch) => {
         getFooterData: (url) => dispatch(getFooterData(url)),
         saveCommonProcedures: (procedure_ids) => dispatch(saveCommonProcedures(procedure_ids)),
         resetProcedureURl: () => dispatch(resetProcedureURl()),
-        mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias())
+        mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias()),
+        setSearchId: (searchId, filters, setDefault) => dispatch(setSearchId(searchId, filters, setDefault)),
+        getSearchIdResults: (searchId, searchResults) => dispatch(getSearchIdResults(searchId, searchResults)),
+        selectSearchType: (type) => dispatch(selectSearchType(type))
     }
 }
 

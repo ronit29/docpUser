@@ -11,19 +11,22 @@ class CancelPolicy extends React.Component {
 
     render() {
         let mainClass
+        let headingClass
         if(this.props.fromApp){
             mainClass = "container about-container appUrlPadding"
+            headingClass = "col-12 text-center d-none d-md-block"
         }else{
             mainClass = 'container about-container'
+            headingClass = 'col-12 text-center'
         }
         return (
             <div className={mainClass}>
                 <HelmetTags tagsData={{
-                    title: ('About Us | docprime'),
+                    title: ('Cancel Policy | docprime'),
                     description: ('docprime: docprime is one stop health care solution for patients and doctors. Patients can book doctors online and doctors can manage patients online.')
                 }} />
                 <div className="row">
-                    <div className="col-12 text-center">
+                    <div className={headingClass}>
                         <p className="fw-500 about-heading">Cancel Policy</p>
                     </div>
                     <div className="col-12">

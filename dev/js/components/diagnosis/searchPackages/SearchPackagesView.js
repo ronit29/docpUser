@@ -103,7 +103,7 @@ class SearchPackagesView extends React.Component {
     }
 
     buildURI(state) {
-        let { selectedLocation, selectedCriterias, filterCriteria, locationType } = state
+        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType } = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
@@ -191,7 +191,7 @@ class SearchPackagesView extends React.Component {
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: 'Full Body Checkup - Book Health Checkup Packages & get 50% off - docprime',
                     description: 'Book Full Body Checkup Packages and get 50% off. Health Checkup packages includes &#10003 60Plus Tests & &#10003 Free Home Sample Collection starting at Rs. 499.'
-                }} noIndex={!this.state.seoFriendly} />                
+                }} noIndex={false} />                
                 <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} >
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                     <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
