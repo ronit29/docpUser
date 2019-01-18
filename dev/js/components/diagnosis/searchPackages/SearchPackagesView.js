@@ -94,7 +94,7 @@ class SearchPackagesView extends React.Component {
         }
     }
     applyCategories(categoryState) {
-        let newCategoryState = []
+        let newCategoryState = {}
         newCategoryState['catIds'] = categoryState
         this.props.mergeLABState({ filterCriteria: newCategoryState })
         if (window) {

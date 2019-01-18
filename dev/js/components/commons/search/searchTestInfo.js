@@ -11,7 +11,8 @@ class SearchTestView extends React.Component {
             allFrequentlyTest: [],
             lab_id: '',
             frequently_heading: '',
-            disableAddTest: []
+            disableAddTest: [],
+            search_id:''
         }
     }
     ButtonHandler(field, event) {
@@ -35,20 +36,22 @@ class SearchTestView extends React.Component {
         var url_string = window.location.href
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids")
+        var selected_test_ids = url.searchParams.get("selected_test_ids")
         let last_page = url.searchParams.get("from")
+        let search_id = url.searchParams.get("search_id")
         let lab_id = ''
         lab_id = url.searchParams.get("lab_id")
         let test_id_val = []
         let allTest = []
         let all_test_id = []
         let ferq_heading
-        let url_test_ids = test_id.split(',')
+        let url_test_ids = selected_test_ids.split(',')
         {
             Object.entries(url_test_ids).map(function ([key, value]) {
                 all_test_id.push(parseInt(value))
             })
         }
-        this.setState({ lastSource: last_page })
+        this.setState({ lastSource: last_page, search_id:search_id })
         if (test_id != null) {
             this.props.searchTestData(test_id, lab_id, (resp) => {
                 {
@@ -87,7 +90,7 @@ class SearchTestView extends React.Component {
             window.history.back()
         }
     }
-    frequentlyAddTest(field, name, event) {
+    frequentlyAddTest(field, name, show_details, event) {
         let self = this
         let test = {}
         let added_test = [].concat(this.state.disableAddTest)
@@ -99,12 +102,28 @@ class SearchTestView extends React.Component {
             test.type = 'test'
             test.name = name
             test.id = field
+            test.show_details = show_details
         } else {
             test.type = 'test'
             test.name = name
             test.id = field
+            test.show_details = show_details
         }
         test.hide_price = false
+        if(this.state.search_id !== null){
+        let newTestData = {}
+            newTestData.type= 'test'
+            newTestData.name= ''
+            newTestData.id = field
+            newTestData.show_details = show_details
+        let newSearchIdData=[]
+        newSearchIdData= this.props.search_id_data[this.state.search_id].commonSelectedCriterias
+        newSearchIdData.push(newTestData)
+        let filters = {}
+            filters.commonSelectedCriterias = newSearchIdData
+            filters.filterCriteria = this.props.search_id_data[this.state.search_id].filterCriteria
+        self.props.setLabSearchId(this.state.search_id, filters, true)  
+        }
         self.props.toggleDiagnosisCriteria('test', test, false)
     }
     render() {
@@ -200,7 +219,7 @@ class SearchTestView extends React.Component {
                                                                     <ul className="test-duo-listing">
                                                                         {Object.entries(this.state.allFrequentlyTest).map(function ([k, frequently]) {
                                                                             return <li><p>{frequently.lab_test}</p>
-                                                                                <button className={self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test)} disabled={self.state.disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
+                                                                                <button className={self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test,frequently.show_details)} disabled={self.state.disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
                                                                             </li>
                                                                         })}
                                                                     </ul>

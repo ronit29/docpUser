@@ -18,8 +18,10 @@ class ExpansionPanel extends React.Component {
 
 		let { heading, contentList, image } = this.props
 
+		let listId = heading.toLowerCase();
+
 		return (
-			<li className="expansion-panel-list-item">
+			<li className="expansion-panel-list-item" id={listId}>
 				<div>
 					<div className="title" onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0 }} >
 						<img src={image} style={{ verticalAlign: '-2px', marginRight: 8, display: 'inline-block' }} />
@@ -35,16 +37,19 @@ class ExpansionPanel extends React.Component {
 									return <div className="form-group expansion-label-div" key={i} style={{ marginTop: 10 }} >
 										<div>
 											<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.qualification}</p>
-											{cont.specialization ?
-												<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-												: ''
+											{
+												cont.specialization ?
+													<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span> : ''
 											}
 											<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.specialization}</p>
-											{cont.college ?
-												<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-												: ''
+											{
+												cont.college ?
+													<span className="fw-700 text-md text-light" style={{ verticalAlign: 'middle' }}>&nbsp;&nbsp;|&nbsp;&nbsp;</span> : ''
 											}
-											<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{cont.college}</p>
+											{
+												cont.passing_year ?
+													<p className="fw-700 text-md text-light" style={{ display: 'inline-block', verticalAlign: 'middle' }}>{`${cont.college} - ${cont.passing_year}`}</p> : ''
+											}
 										</div>
 									</div>
 								}) : contentList.map((cont, i) => {

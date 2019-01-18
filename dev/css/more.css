@@ -604,14 +604,15 @@ ul.inline-list li {
 }
 
 .initialsPicture-appointment{
-    height: 78px;
+    height: 64px;
     width: 100%;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3em;
+    font-size: 2.5em;
     color: #fff;
+    position: relative;
 }
 
 .initialsPicture-family{
