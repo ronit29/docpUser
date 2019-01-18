@@ -15,8 +15,8 @@ class HomePageWidget extends React.Component {
         }
         let test = {}
         if (this.props.searchType == "packages") {
-            test.type = 'test'
-            this.props.toggleDiagnosisCriteria('test', test, true)
+            // test.type = 'test'
+            // this.props.toggleDiagnosisCriteria('test', test, true)
         }
         if (this.props.type) {
             this.props.selectSearchType(this.props.type)
