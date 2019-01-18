@@ -61,7 +61,12 @@ class DoctorProfileCard extends React.Component {
     }
 
     getQualificationStr(qualificationSpecialization) {
-        return qualificationSpecialization[0].name;
+        if (qualificationSpecialization.length) {
+            return qualificationSpecialization[0].name;
+        } else {
+            return null
+        }
+
         // return qualificationSpecialization.reduce((str, curr, i) => {
         //     str += `${curr.name}`
         //     if (i < qualificationSpecialization.length - 1) str += `, `;
