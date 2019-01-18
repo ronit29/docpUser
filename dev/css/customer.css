@@ -327,11 +327,11 @@
 .consumer-report-list>li:first-child,
 .online-consultant-list>li:first-child{margin-top: -13px; padding: 10px;}
 .online-consultant-list>li>a{display: block;}
-.online-consultant-list>li .consultant-dp{width: 80px; float: left; position: relative;}
+.online-consultant-list>li .consultant-dp{width: 66px; float: left; position: relative;}
 .online-consultant-list>li .consultant-details{padding-left: 90px; font-weight: 500; font-size: 14px;}
 .online-consultant-list>li .view-chat{padding:10px;}
 
-.appointment-icon{position: absolute;right: -2px;bottom: -4px;width: 30px;height: 30px}
+.appointment-icon{position: absolute;right: -2px;bottom: -8px;width: 30px;height: 30px}
 
 /*consumer report list*/
 .consumer-report-list>li{background-color: #fff;}
@@ -1669,3 +1669,62 @@ p.rt-doc-nm{
 }
 
 /* offer page ends */
+
+.inline-head{
+    display: inline;
+    padding: 0 4px;
+    border-right: 2px solid #a2a2a2;
+}
+#inline-head-0{
+    padding-left: 0;
+}
+.inline-head:last-child{
+    border-right: none;
+    padding-right: 0;
+}
+
+.invoice-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.invoice-div>img{
+    width: 18px;
+    margin-right: 4px;
+}
+
+.invoice-div p{
+    font-size: 11px;
+    text-align: left;
+}
+
+.multiple-invoice-div{
+    padding: 0px 30px;
+}
+
+.multiple-invoice{
+    padding: 10px 0 0;
+    border-top: 1px solid #d3d3d3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.multiple-invoice .invoice-div{
+    width: 50%;
+}
+
+.multiple-invoice .invoice-div>img{
+    width: 20px;
+    margin-right: 6px;
+}
+
+.multiple-invoice .invoice-div p{
+    font-size: 12px;
+}
+
+.multiple-invoice .invoice-div:first-child{
+    border-right: 1px solid #d3d3d3;
+}

@@ -17,7 +17,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import ProcedureView from './procedureView.js'
-
+import BookingError from './bookingErrorPopUp.js'
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -421,6 +421,10 @@ class PatientDetailsNew extends React.Component {
         return deal_price
     }
 
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
+    }
+
     getBookingButtonText(total_wallet_balance, price_to_pay) {
         let price_from_wallet = 0
         let price_from_pg = 0
@@ -633,7 +637,7 @@ class PatientDetailsNew extends React.Component {
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                                {/* <span className="errorMessage">{this.state.error}</span> */}
                                                             </div>
                                                         </a>
 
@@ -653,6 +657,11 @@ class PatientDetailsNew extends React.Component {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
+                            }
+
+                            {
+                                this.state.error ?
+                                    <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                             }
 
                         </div>

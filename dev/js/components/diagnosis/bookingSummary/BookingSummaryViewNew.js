@@ -15,7 +15,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
-
+import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -395,6 +395,10 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
+    }
+
     getBookingButtonText(total_wallet_balance, price_to_pay) {
         let price_from_wallet = 0
         let price_from_pg = 0
@@ -695,7 +699,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                                {/* <span className="errorMessage">{this.state.error}</span> */}
                                                             </div>
                                                         </a>
 
@@ -718,6 +722,10 @@ class BookingSummaryViewNew extends React.Component {
                                 } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                             }
 
+                            {
+                                this.state.error ?
+                                    <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                            }
 
                         </div>
 

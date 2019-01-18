@@ -22,12 +22,12 @@ class PackageTest extends React.Component {
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
                         {test.test.name}
-                        {
+                    </p>
+                    {
                             test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575' }}>{
                                 `(includes ${test.number_of_tests} Tests)`}
                             </span> : ''
-                        }
-                    </p>
+                    }
                     <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
                         this.props.toggleTest(test)
                     }} />
@@ -37,13 +37,13 @@ class PackageTest extends React.Component {
                 <div className="pdng-left-pkg">
                     <span style={{ paddingRight: '0px' }}>
 
-                        <button className="pkg-info-btn" onClick={(e) => {
+                        {/*<button className="pkg-info-btn" onClick={(e) => {
                             e.preventDefault()
                             e.stopPropagation()
                             toggle('showPackageInfo', test)
                         }}>
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/info.svg"} />
-                        </button>
+                        </button>*/}
 
                     </span>
                     <button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
