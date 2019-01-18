@@ -208,7 +208,7 @@ class TopBar extends React.Component {
                                                 <div style={{ flex: 1 }}>
                                                     <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
                                                         <h1 className="search-result-heading">
-                                                        <span className="fw-700"> Full Body Checkup Packages</span>
+                                                        <span className="fw-700"> selected categories</span>
                                                         </h1>
                                                         <span className="search-result-span"> {criteriaStr}
                                                             {
@@ -264,7 +264,7 @@ class TopBar extends React.Component {
                                             
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for 
                                                 <h1 className="search-result-heading">
-                                                <span className="fw-700"> Full Body Checkup Packages</span>
+                                                <span className="fw-700"> selected categories</span>
                                                 </h1>
                                                 <span className="search-result-span" onClick={() => {
                                                     this.setState({

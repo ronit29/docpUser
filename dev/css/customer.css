@@ -1669,3 +1669,16 @@ p.rt-doc-nm{
 }
 
 /* offer page ends */
+
+.inline-head{
+    display: inline;
+    padding: 0 4px;
+    border-right: 2px solid #a2a2a2;
+}
+#inline-head-0{
+    padding-left: 0;
+}
+.inline-head:last-child{
+    border-right: none;
+    padding-right: 0;
+}
