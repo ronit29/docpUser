@@ -8,6 +8,7 @@ super(props);
 }
 
 gaTracking(btnType,event){
+
     let actionVal
     let eventVal
     if(btnType == 'fb'){
@@ -18,7 +19,7 @@ gaTracking(btnType,event){
         eventVal = 'booking-rating-twitter-share'
     }
     let data = {
-        'Category': 'ConsumerApp', 'Action': actionVal, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': event, 
+        'Category': 'ConsumerApp', 'Action': actionVal, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': eventVal, 
     }
     GTM.sendEvent({ data: data })
 }

@@ -52,12 +52,12 @@ class CommonlySearched extends React.Component {
         }
         this.props.toggle((this.props.type || row.type), row)
     }
-    testInfo() {
-        let test_ids = []
+    testInfo(test_id) {
+        let selected_test_ids = []
         this.props.data.map((row, i) => {
-            test_ids.push(row.id)
+            selected_test_ids.push(row.id)
         })
-        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=search')
+        this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search')
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'common-search-result-page'
         }
@@ -67,13 +67,20 @@ class CommonlySearched extends React.Component {
         let test_info = ''
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
-                if (this.props.selectedSearchType == 'lab') {
+                {/*if (this.props.selectedSearchType == 'lab') {
                     if (Object.keys(row).length > 0 && row.show_details) {
-                        test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e58950' }} onClick={this.testInfo.bind(this)}> Test Info</span>
+                        test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e58950' }} onClick={this.testInfo.bind(this)}></span>
                     }
-                }
+                }*/}
                 return <li key={i}>
-                    <p>{row.name}</p>
+                    <p>{row.name} 
+                    {row.show_details && this.props.selectedSearchType == 'lab'?
+                        <span style={{marginLeft:'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,row.id)}>
+                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                        </span>
+                    :''
+                    }
+                    </p>
                     <img style={{ width: '15px' }} onClick={() => {
                         return this.props.toggle((this.props.type || row.type), row)
                     }} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
@@ -97,7 +104,7 @@ class CommonlySearched extends React.Component {
         return (
             <div className="widget mb-10">
                 <div className="common-search-container">
-                    <p className="srch-heading">{this.props.heading} {test_info}</p>
+                    <p className="srch-heading">{this.props.heading}</p>
 
                     <div className="common-listing-cont">
                         <ul>
