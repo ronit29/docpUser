@@ -69,7 +69,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, reports } = this.props.data
+        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices } = this.props.data
 
         let date = new Date(time_slot_start)
 
@@ -81,7 +81,7 @@ class AppointmentList extends React.Component {
                         {type == 'doctor' ? <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} className="appointment-icon" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/beaker.svg"} className="appointment-icon" />}
                     </InitialsPicture>
                     {
-                        invoices && invoices.length === 1 && !reports.length ?
+                        invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?
                             <div className="mrt-10 invoice-div" onClick={() => this.invoiceClick(invoices[0])}>
                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/invoice.svg'} />
                                 <div>
@@ -111,7 +111,7 @@ class AppointmentList extends React.Component {
                 <span className="arrow-custom-right" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                 {this.getStatus(status)}
                 {
-                    invoices && invoices.length && reports.length ?
+                    invoices && invoices.length && this.props.data.reports && this.props.data.reports.length ?
                         <div className="mrt-20 multiple-invoice-div">
                             <div className="multiple-invoice">
                                 <div className="invoice-div" onClick={() => this.invoiceClick(invoices[0])}>
