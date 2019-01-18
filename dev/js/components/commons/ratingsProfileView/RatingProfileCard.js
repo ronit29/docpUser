@@ -12,7 +12,8 @@ class RatingProfileCard extends React.Component {
             selectedRating: 0,
             rating_id: null,
             compliments: [],
-            rating_done: false
+            rating_done: false,
+            appointmentData:null
         }
     }
 
@@ -64,7 +65,7 @@ class RatingProfileCard extends React.Component {
         if (!flag) {
             this.props.updateAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
-                    this.setState({ data: null, rating_done: true })
+                    this.setState({ appointmentData:this.state.data, data: null, rating_done: true })
                 }
             })
         }
@@ -72,7 +73,7 @@ class RatingProfileCard extends React.Component {
 
     render() {
         if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
-            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} />);
+            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} appointmentData={this.state.appointmentData}/>);
         }
         let app_id = this.props.details.id
         let submitted_flag = !!this.props.rated_appoinments[app_id];
@@ -81,8 +82,8 @@ class RatingProfileCard extends React.Component {
             let pipe = ''
             let data_obj = {
                 'name': (this.props.details.doctor) ? this.props.details.doctor.name : this.props.details.lab_name,
-                'qualification': qualification_object ? qualification_object[0].qualification : '',
-                'specialization': qualification_object ? qualification_object[0].specialization : '',
+                'qualification': qualification_object && qualification_object.length ? qualification_object[0].qualification : '',
+                'specialization': qualification_object && qualification_object.length ? qualification_object[0].specialization : '',
                 'type': this.getAppointmentType(),
                 'thumbnail': this.props.details.doctor ? this.props.details.doctor_thumbnail : this.props.details.lab_thumbnail,
                 'pipe': pipe

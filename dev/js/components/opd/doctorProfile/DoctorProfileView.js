@@ -16,6 +16,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
 import Footer from '../../commons/Home/footer'
+import ContactPoupView from '../doctorProfile/ContactPopup.js'
 
 import GTM from '../../../helpers/gtm.js'
 
@@ -35,7 +36,10 @@ class DoctorProfileView extends React.Component {
             consultation_fee: 0,
             numberShown: "",
             searchShown: false,
-            searchDataHidden: this.props.location.search.includes('hide_search_data')
+            searchDataHidden: this.props.location.search.includes('hide_search_data'),
+            openContactPopup: false,
+            clinicPhoneNo:{},
+            show_contact:''
         }
     }
 
@@ -65,8 +69,12 @@ class DoctorProfileView extends React.Component {
         return { title, description, schema }
     }
 
-    selectClinic(clinic_id, is_live, rank, consultation_fee) {
-        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee })
+    selectClinic(clinic_id, is_live, rank, consultation_fee, show_contact) {
+        let clinicPhoneNo = this.state.clinicPhoneNo
+        if(!clinicPhoneNo[clinic_id]){
+            clinicPhoneNo[clinic_id] = ""
+        }
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
     }
 
     navigateToClinic(doctor_id, clinicId) {
@@ -89,6 +97,36 @@ class DoctorProfileView extends React.Component {
         }
     }
 
+    getDoctorNo(mobileNo){
+        let doctor_id = this.props.selectedDoctor
+        if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
+            doctor_id = this.props.initialServerData.doctor_id
+        }
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'SubmitPhoneNo', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'submit-phone-no', 'doctor_id': doctor_id, "hospital_id": this.state.selectedClinic, 'phoneNo': mobileNo
+        }
+        GTM.sendEvent({ data: data })
+        let postData = {
+            "mobile": mobileNo,
+            "doctor": doctor_id,
+            "hospital": this.state.selectedClinic
+        }
+        this.props.getDoctorNo(postData, (err, data) => {
+            if(!err && data){
+
+                let clinicPhoneNo = this.state.clinicPhoneNo
+                clinicPhoneNo[this.state.selectedClinic] = data.number
+
+                this.setState({
+                    numberShown: data.number,
+                    openContactPopup: false,
+                    clinicPhoneNo:clinicPhoneNo
+                })
+            }
+        })
+    }
+
     showNumber(id, e) {
         e.preventDefault()
         e.stopPropagation()
@@ -96,16 +134,21 @@ class DoctorProfileView extends React.Component {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'ShowNoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-no-clicked', 'doctor_id': id, "hospital_id": this.state.selectedClinic
         }
-        if (!this.state.numberShown) {
+        if (!this.state.clinicPhoneNo[this.state.selectedClinic]) {
             GTM.sendEvent({ data: data })
-            this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
+            /*this.props.getDoctorNumber(id, this.state.selectedClinic, (err, data) => {
                 if (!err && data.number) {
                     this.setState({
                         numberShown: data.number
                     })
                 }
-            })
+            })*/
+           this.setState({openContactPopup: true})    
         }
+    }
+
+    toggle(which) {
+        this.setState({ [which]: !this.state[which] })
     }
 
     render() {
@@ -135,7 +178,37 @@ class DoctorProfileView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
-                <section className="container parent-section book-appointment-section">
+                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
+                { this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length?
+                    <section className="col-12 mrng-top-12 d-none d-md-block">
+                        <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{'wordBreak': 'breakWord'}}>
+                            {
+                                this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length?
+                                this.props.DOCTORS[doctor_id].breadcrumb.map((data, key) => {
+                                  return  <li className="breadcrumb-list-item" key={key}>
+                                    {
+                                        key==this.props.DOCTORS[doctor_id].breadcrumb.length-1?
+                                        <span>{data.title}</span>
+                                        :<a href={data.url} title ='' onClick={(e) => {e.preventDefault();
+                                                this.props.history.push(data.url)
+                                            }}>{
+                                                key==0 || key== this.props.DOCTORS[doctor_id].breadcrumb.length-1
+                                                ?<span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
+                                                :<h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
+                                    }   
+                                    {
+                                        key!= this.props.DOCTORS[doctor_id].breadcrumb.length-1?
+                                        <span className="breadcrumb-arrow">&gt;</span>
+                                        :''
+                                    }
+                                    </li>
+                                })
+                                :''
+                            }
+                        </ul>
+                    </section>
+                    :''
+                }
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -150,7 +223,7 @@ class DoctorProfileView extends React.Component {
                                             description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`,
                                             schema: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).schema
-                                        }} noIndex={!this.state.seoFriendly} />
+                                        }} noIndex={false && !this.state.seoFriendly} />
 
                                         <div className="container-fluid">
                                             <div className="row">
@@ -223,7 +296,8 @@ class DoctorProfileView extends React.Component {
                                                             </a> : ''
                                                     }
                                                     <div className="dpp-btn-book" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
-                                                        <p>{`Book Now (₹ ${final_price})`}</p>
+                                                        {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
+                                                        <p>Book Now</p>
                                                     </div>
                                                 </div>
                                                 :
@@ -235,16 +309,42 @@ class DoctorProfileView extends React.Component {
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     }
-                                                    <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
-                                                        <p>{this.state.numberShown || "Contact"}</p>
-                                                    </div>
+                                                    {
+                                                        this.state.clinicPhoneNo[this.state.selectedClinic]
+                                                        ?<div className="dpp-btn-div fixed horizontal bottom sticky-btn">
+                                                            <a href={`tel:${this.state.clinicPhoneNo[this.state.selectedClinic]}`} className="dpp-btn-book d-lg-none d-flex">
+                                                                <p><img style={{width: '20px', marginRight: '4px', position: 'relative', left: '-3px', bottom: '-2px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
+                                                                   {this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
+                                                            </a>
+                                                            <div className="dpp-btn-book d-lg-flex d-none">
+                                                                <p>{this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
+                                                            </div>
+                                                        </div>   
+                                                        :this.state.show_contact?
+                                                            <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
+                                                                <p>View Contact</p>
+                                                            </div>
+                                                            :''
+                                                    }
+                                                    {/*<div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
+                                                        <p>{
+                                                            this.state.numberShown?
+                                                            <img style={{width: '20px', marginRight: '4px', position: 'relative', left: '-3px', bottom: '-2px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
+                                                            :''
+                                                            }{this.state.numberShown || "View Contact"}</p>
+                                                    </div>*/}
+                                                    {
+                                                        this.state.openContactPopup?
+                                                        <ContactPoupView toggle={this.toggle.bind(this, 'openContactPopup')} mobileNo={this.props.primaryMobile} getDoctor = {this.getDoctorNo.bind(this)}/>
+                                                        :''
+                                                    }
                                                 </div>
                                         }
                                     </section> : <Loader />
                             }
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" />
                     </div>
                 </section>
 

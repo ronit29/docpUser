@@ -604,14 +604,15 @@ ul.inline-list li {
 }
 
 .initialsPicture-appointment{
-    height: 78px;
+    height: 64px;
     width: 100%;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3em;
+    font-size: 2.5em;
     color: #fff;
+    position: relative;
 }
 
 .initialsPicture-family{
@@ -900,6 +901,10 @@ figure>img{
     box-shadow: 0 2px 2px 0 rgba(211, 211, 211, 0.4);
 }
 
+.dp-article-heading>h1{
+    font-size: 30px;
+}
+
 .docprime-article p{
     font-size: 16px;
     margin-bottom: 10px;
@@ -1152,7 +1157,7 @@ cursor: pointer;
 span.ofr-ribbon{
     border-width: 1px 1px 2px;
     margin: 0;
-    padding: 4px 10px;
+    padding: 4px 6px;
     position: absolute;
     right: -8px;
     top: 8px;
@@ -1446,4 +1451,43 @@ span.free-ofr-ribbon:after {
 
 .docprime-article{
     word-break: break-word;
+}
+
+.article-author-div{
+    display: flex;
+    align-items: flex-start;
+}
+
+.initialsPicture-author{
+    width: 40px;
+    height: 40px;
+    font-size: 1.3em;
+    margin-right: 8px;
+}
+
+.author-dtls{
+    flex: 1;
+}
+
+.author-name-div{
+    display: flex;
+    align-items: center;
+}
+
+.author-name-div h3{
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.author-exp-div{
+    display: flex;
+    align-items: center;
+}
+
+.author-exp-div>span, .article-date>span, .last-updated>span, .author-name-div span{
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+    line-height: 14px;
+    margin-bottom: 4px;
 }

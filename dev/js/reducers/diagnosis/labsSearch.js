@@ -1,5 +1,5 @@
 
-import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS  } from '../../constants/types';
+import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -13,7 +13,9 @@ const defaultState = {
     labCoupons: {},
     disCountedLabPrice: 0,
     couponAutoApply: true,
-    curr_page: null
+    curr_page: null,
+    packagesList: [],
+    seoData:{}
 }
 
 export default function (state = defaultState, action) {
@@ -35,20 +37,23 @@ export default function (state = defaultState, action) {
             }
 
             if (action.payload.page === 1) {
-                newState.labList = action.payload.result.map(lab => lab.lab.id)
+                newState.labList = action.payload.result.map(lab => lab.id)
             } else {
                 let dedupe = {}
                 newState.labList = newState.labList
-                    .concat(action.payload.result.map(lab => lab.lab.id))
+                    .concat(action.payload.result.map(lab => lab.id))
                     .filter(function (item) {
                         return dedupe.hasOwnProperty(item) ? false : (dedupe[item] = true)
                     })
             }
 
-            newState.count = action.payload.count
+            if (action.payload.page === 1 || (newState.count == 0 && action.payload.count)) {
+                newState.count = action.payload.count
+            }
+
             newState.LOADED_LABS_SEARCH = true
             newState.curr_page = action.payload.page
-            
+            newState.seoData = action.payload.seo
             return newState
         }
 
@@ -136,7 +141,11 @@ export default function (state = defaultState, action) {
 
             return newState
         }
-
+        case SEARCH_HEALTH_PACKAGES: {
+            let newState = { ...state }
+            newState.packagesList = action.payload
+            return newState
+        }
     }
 
     return state

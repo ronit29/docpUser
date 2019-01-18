@@ -13,7 +13,8 @@ class RatingsPopUp extends React.Component {
             selectedRating: 0,
             rating_id: null,
             compliments: [],
-            rating_done: false
+            rating_done: false,
+            appointmentData: null
         }
     }
 
@@ -89,7 +90,7 @@ class RatingsPopUp extends React.Component {
         else {
             this.props.updateAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
-                    this.setState({ data: null, rating_done: true })
+                    this.setState({ appointmentData: this.state.data, data: null, rating_done: true })
                 }
             })
         }
@@ -98,15 +99,15 @@ class RatingsPopUp extends React.Component {
     render() {
         console.log(this.state);
         if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
-            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} />)
+            return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} appointmentData={this.state.appointmentData} />)
         }
         if (typeof (this.state.data) != "undefined" && this.state.data != null && this.state.data.id) {
             let qualification_object = this.state.data.doctor ? this.state.data.doctor.qualifications : null;
             let pipe = ''
             let data_obj = {
                 'name': (this.state.data.doctor) ? this.state.data.doctor.name : this.state.data.lab.name,
-                'qualification': qualification_object ? qualification_object[0].qualification : '',
-                'specialization': qualification_object ? qualification_object[0].specialization : '',
+                'qualification': qualification_object && qualification_object.length ? qualification_object[0].qualification : '',
+                'specialization': qualification_object && qualification_object.length ? qualification_object[0].specialization : '',
                 'type': this.getAppointmentType(),
                 'thumbnail': this.state.data.doctor ? this.state.data.doctor_thumbnail : this.state.data.lab_thumbnail,
                 'pipe': pipe
@@ -128,7 +129,11 @@ class RatingsPopUp extends React.Component {
                         <span><img onClick={this.declineRating.bind(this, data_obj.type, this.state.data.id)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
                             </div>
                             <div className="rate-card-doc-dtls">
-                                <img src={data_obj.thumbnail} className="img-fluid img-round " />
+                                {
+                                    this.state.data.type && this.state.data.type == "lab" ?
+                                        <img src={data_obj.thumbnail} className="img-fluid img-round " style={{ width: 60, height: 40 }} />
+                                        : <img src={data_obj.thumbnail} className="img-fluid img-round " style={{ width: 40, height: 40 }} />
+                                }
                                 <div className="rate-doc-dtl">
                                     <p className="rt-doc-nm">{data_obj.name}</p>
                                     <span>{data_obj.qualification} {data_obj.pipe} {data_obj.specialization}</span>
@@ -141,7 +146,7 @@ class RatingsPopUp extends React.Component {
                                     })
                                 }
                             </div>
-                        </div >
+                        </div>
                     </div>
                 );
             }

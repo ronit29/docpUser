@@ -14,15 +14,23 @@ class Terms extends React.Component {
     }
 
     render() {
-
+        let mainClass
+        let headingClass
+        if(this.props.fromApp){
+            mainClass = "container about-container appUrlPadding"
+            headingClass = "col-12 text-center d-none d-md-block"
+        }else{
+            mainClass = 'container about-container'
+            headingClass = "col-12 text-center"
+        }
         return (
-            <div className="container about-container">
+            <div className={mainClass}>
                 <HelmetTags tagsData={{
                     title: ('Terms & Conditions - Submission, Listings & Payment Terms'),
                     description: ('docprime: Read Terms & Conditions, details on Submission and Administration of Listings, Payment Terms.')
                 }} />
                 <div className="row">
-                    <div className="col-12 text-center">
+                    <div className={headingClass}>
                         <p className="fw-500 about-heading" style={{ marginBottom: 20 }}>Terms &amp; Conditions</p>
                     </div>
                 </div>

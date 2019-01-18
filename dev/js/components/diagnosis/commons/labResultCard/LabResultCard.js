@@ -11,7 +11,7 @@ class LabResultCard extends React.Component {
 
     openLab(id, url, e) {
         let dedupe_ids = {}
-        let testIds = this.props.selectedCriterias
+        let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
                 if (x.test && x.type == "condition") {
@@ -96,7 +96,7 @@ class LabResultCard extends React.Component {
                     </div>
                     <div className="row no-gutters mrt-10" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url)}>
                         <div className="col-12">
-                            <a href="/dr-gaurav-gupta-dentist-implantologist-general-physician-in-sector-11-gurgaon-dpp">
+                            <a>
                                 <h2 className="lab-fltr-dc-name fw-500 text-md" style={{ color: '#000' }}>{lab.name}</h2>
                             </a>
                             {

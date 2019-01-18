@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -127,6 +127,18 @@ class App extends React.Component {
             }
             this.props.setUTMTags(utm_tags)
 
+            // set summary page utm_source
+            if (parsed.utm_source == 'alpha_december_18') {
+                let validity = new Date()
+                validity.setDate(validity.getDate() + 7)
+                this.props.set_summary_utm(true, validity)
+            }
+            // remove if validity exceeded
+            if (this.props.summary_utm_validity && this.props.summary_utm) {
+                if ((new Date) > (new Date(this.props.summary_utm_validity))) {
+                    this.props.set_summary_utm(false, null)
+                }
+            }
         }
 
         let isMobile = false
@@ -169,17 +181,20 @@ class App extends React.Component {
         if (window.location.pathname.includes('/opd/searchresults')) {
             opdSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false, location_ms).then((state) => {
                 this.props.mergeOPDState(state, true)
+                this.props.mergeUrlState(true)
             })
         }
 
         if (window.location.pathname.includes('/lab/searchresults')) {
             labSearchStateBuilder(this.props.selectLocation.bind(this), window.location.search, false, location_ms).then((state) => {
                 this.props.mergeLABState(state, true)
+                this.props.mergeUrlState(true)
             })
         }
 
         if (!window.location.pathname.includes('/opd/searchresults') && !window.location.pathname.includes('/lab/searchresults')) {
             this.props.setFetchResults(true)
+            this.props.mergeUrlState(true)
         }
 
     }
@@ -208,7 +223,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let {
-        profiles, selectedProfile
+        profiles, selectedProfile, summary_utm, summary_utm_validity
     } = state.USER
 
     let {
@@ -216,7 +231,7 @@ const mapStateToProps = (state) => {
     } = state.AUTH
 
     return {
-        selectedLocation, profiles, selectedProfile, token
+        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity
     }
 }
 
@@ -235,7 +250,9 @@ const mapDispatchToProps = (dispatch) => {
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentRating: (appointmentData, callback) => dispatch(closeAppointmentRating(appointmentData, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
-        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback))
+        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
+        set_summary_utm: (toggle, validity) => dispatch(set_summary_utm(toggle, validity)),
+        mergeUrlState:(flag) => dispatch(mergeUrlState(flag))
     }
 
 }

@@ -91,7 +91,12 @@ class ChatStatic extends React.Component {
             <div className={this.props.dataClass + (this.state.utm_term ? " utm_chatbox_right" : "")}>
                 <div className="chat-head">
                     <div className="hd-chat" style={{ flex: 1 }}>
-                        <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
+                        {
+                            this.props.chatPage ?
+                                <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</h1>
+                                :
+                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
+                        }
                     </div>
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>
                         {
@@ -113,7 +118,7 @@ class ChatStatic extends React.Component {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <p className="ldng-text">Connecting to doctor...</p>
+                            <p className="ldng-text">Connecting to the agent...</p>
                         </div>
                     </div> : <div className="chat-body">
                             <div className="onload-chat">
@@ -125,7 +130,7 @@ class ChatStatic extends React.Component {
                                                     <div className="in-mssgs">
                                                         <div className="received-msg HS_font">
                                                             <p className="chat-text">
-                                                                Hi, Welcome to docprime!
+                                                                Hi, welcome to docprime. Briefly describe your symptom or health concern (e.g. I have a fever).
                                               <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                 }</span>
                                                             </p>
@@ -141,11 +146,11 @@ class ChatStatic extends React.Component {
                                                                     Start chat for an instant consultation and absolutely free prescription with our doctors.`}
                                                                     <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                     }</span>
-                                                                </p> : <p className="chat-text">
+                                                                </p> : '' /*<p className="chat-text">
                                                                         Briefly describe the symptom/health concern worrying you the most (e.g. I have a fever) or simply ask any query.
                                                                 <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                         }</span>
-                                                                    </p>
+                                                                    </p>*/
                                                             }
 
                                                         </div>

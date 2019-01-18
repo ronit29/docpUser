@@ -85,9 +85,13 @@ class DoctorsList extends React.Component {
         this.setState({ readMore: 'search-details-data-less' })
     }
 
+    getResultCard() {
+
+    }
+
     render() {
 
-        let { DOCTORS, doctorList } = this.props
+        let { HOSPITALS, DOCTORS, doctorList, hospitalList } = this.props
 
         let start_page = 0
         if (this.props.curr_page) {
@@ -98,13 +102,20 @@ class DoctorsList extends React.Component {
             }
         }
 
+        let result_list = doctorList
+        let result_data = DOCTORS
+        if (this.props.clinic_card) {
+            result_list = hospitalList
+            result_data = HOSPITALS
+        }
+
         return (
             <section style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.search_content && this.props.search_content != '' ?
+                                this.props.search_content && this.props.search_content != '' && parseInt(this.props.page)==1?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
@@ -132,8 +143,8 @@ class DoctorsList extends React.Component {
                                         initialLoad={false}
                                     >
                                         {
-                                            doctorList.map((docId, i) => {
-                                                if (i == 1 && DOCTORS[docId]) {
+                                            result_list.map((cardId, i) => {
+                                                if (i == 1 && result_data[cardId]) {
                                                     return <div key={i}>
                                                         <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
@@ -150,15 +161,15 @@ class DoctorsList extends React.Component {
                                                             </div>
                                                         </div>
                                                         {
-                                                            this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                            this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
                                                         }
                                                     </div>
 
                                                 } else {
-                                                    if (DOCTORS[docId]) {
+                                                    if (result_data[cardId]) {
                                                         return <div key={i} >
                                                             {
-                                                                this.props.clinic_card ? <ClinicResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={DOCTORS[docId]} key={i} rank={i} />
+                                                                this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
                                                             }
                                                         </div>
 

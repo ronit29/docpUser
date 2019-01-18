@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import SEARCH_CRITERIA_OPD from './opd/searchCriteria.js'
 import SEARCH_CRITERIA_LABS from './diagnosis/searchCriteria.js'
 import DOCTORS from './opd/doctors.js'
+import HOSPITALS from './opd/hospitals.js'
 import DOCTOR_PROFILES from './opd/doctorProfiles.js'
 import DOCTOR_SEARCH from './opd/doctorSearch.js'
 import LABS from './diagnosis/labs.js'
@@ -36,13 +37,13 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType']
 }
 
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page','mergeUrlState']
 }
 
 const LAB_SEARCH_PERSIST = {
@@ -51,15 +52,22 @@ const LAB_SEARCH_PERSIST = {
     blacklist: ['fetchNewResults', 'page']
 }
 
+const AUTH_PERSIST = {
+    key: 'AUTH',
+    storage: storage,
+    whitelist: []
+}
+
 const allReducers = combineReducers({
     SEARCH_CRITERIA_OPD: persistReducer(OPD_SEARCH_PERSIST, SEARCH_CRITERIA_OPD),
     SEARCH_CRITERIA_LABS: persistReducer(LAB_SEARCH_PERSIST, SEARCH_CRITERIA_LABS),
     DOCTORS,
+    HOSPITALS,
     DOCTOR_SEARCH: persistReducer(DOCTOR_LIST_PRESIST, DOCTOR_SEARCH),
     LABS,
     LAB_SEARCH: persistReducer(LAB_LIST_PRESIST, LAB_SEARCH),
     USER: persistReducer(USER_PERSIST, USER),
-    AUTH,
+    AUTH: persistReducer(AUTH_PERSIST, AUTH),
     SITE_MAP,
     DOCTOR_PROFILES,
     LAB_SEARCH_DATA,

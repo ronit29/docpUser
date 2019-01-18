@@ -125,7 +125,7 @@ class ArticleList extends React.Component {
 		return (
 			<div className="profile-body-wrap">
 				<ProfileHeader />
-				<section className="container parent-section book-appointment-section">
+				<section className="container container-top-margin">
 					<div className="row main-row parent-section-row">
 						<LeftBar />
 						<div className="col-12 col-md-7 col-lg-7 center-column">
@@ -142,11 +142,11 @@ class ArticleList extends React.Component {
 							}
 							<div className="container-fluid main-container">
 								<div className="row art-search-row">
-									<div className="col-12">
+									<div className="col-12 mrng-top-12">
 										<ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
 											<li className="breadcrumb-list-item">
 												<a href="/" onClick={(e) => this.onHomeClick(e, "/")}>
-													<span className="fw-500 breadcrumb-title breadcrumb-colored-title">Ask a Doctor</span>
+													<span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span>
 												</a>
 											</li>
 											<span className="breadcrumb-arrow">&gt;</span>
@@ -233,7 +233,7 @@ class ArticleList extends React.Component {
 							</div>
 
 						</div>
-						<RightBar />
+						<RightBar noChatButton={true} />
 					</div>
 				</section>
 				<Footer />

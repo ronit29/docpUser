@@ -216,9 +216,9 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let page = _getLocationParamBind('page') || 1
             page = parseInt(page)
 
-            let selectedCriterias = []
+            let currentSearchedCriterias = []
             if (test_ids) {
-                selectedCriterias = test_ids.split(',').map((x) => {
+                currentSearchedCriterias = test_ids.split(',').map((x) => {
                     return {
                         type: 'test',
                         name: "",
@@ -284,7 +284,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
 
                     resolve({
                         filterCriteria,
-                        selectedCriterias,
+                        currentSearchedCriterias,
                         selectedLocation,
                         page
                     })
@@ -299,14 +299,14 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                         }
                         resolve({
                             filterCriteria,
-                            selectedCriterias,
+                            currentSearchedCriterias,
                             selectedLocation,
                             page
                         })
                     } else {
                         resolve({
                             filterCriteria,
-                            selectedCriterias,
+                            currentSearchedCriterias,
                             page
                         })
                     }
@@ -315,14 +315,14 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
                 if (selectedLocation) {
                     resolve({
                         filterCriteria,
-                        selectedCriterias,
+                        currentSearchedCriterias,
                         selectedLocation,
                         page
                     })
                 } else {
                     resolve({
                         filterCriteria,
-                        selectedCriterias,
+                        currentSearchedCriterias,
                         page
                     })
                 }

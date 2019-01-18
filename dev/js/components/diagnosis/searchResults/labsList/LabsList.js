@@ -75,10 +75,14 @@ class LabsList extends React.Component {
         })
     }
     testInfo() {
-        var url_string = window.location.href;
+        {/*var url_string = window.location.href;
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
         this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-result-page'
+        }
+        GTM.sendEvent({ data: data })*/}
     }
     render() {
         let show_details = false
@@ -99,7 +103,8 @@ class LabsList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             <div className="row">
-                                {Object.entries(this.props.selectedCriterias).map(function ([key, value]) {
+
+                                {/*{Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
                                     if (value.show_details) {
                                         show_details = true
                                     }
@@ -107,7 +112,7 @@ class LabsList extends React.Component {
                                 {
                                     show_details ? <div className="col-12">
                                         <span className="srch-heading" style={{ float: 'left', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span></div> : ''
-                                }
+                                }*/}
                                 <div className="col-12">
                                     <InfiniteScroll
                                         pageStart={start_page}
@@ -136,7 +141,7 @@ class LabsList extends React.Component {
                                                         </div>
                                                         {
                                                             this.props.lab_card ?
-                                                                <LabResultCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                                <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                                 : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                         }
                                                     </div>
@@ -146,7 +151,7 @@ class LabsList extends React.Component {
                                                         return <div key={i}>
                                                             {
                                                                 this.props.lab_card ?
-                                                                    <LabResultCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                                    <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                                     : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                             }
                                                         </div>

@@ -9,17 +9,31 @@ import GTM from '../../../helpers/gtm.js'
 class UserLoginView extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
         this.state = {
             phoneNumber: '',
             validationError: '',
             showOTP: false,
             otp: "",
-            otpTimeout: false
+            otpTimeout: false,
+            referralCode: parsed.referral || null,
+            referralName: null
         }
     }
 
     componentDidMount() {
         this.props.resetAuth()
+        if (this.state.referralCode) {
+            this.props.fetchReferralCode(this.state.referralCode).then((res) => {
+                if (res && res.status) {
+                    this.setState({ referralName: res.name })
+                }
+            }).catch((e) => {
+
+            })
+        }
     }
 
     inputHandler(e) {
@@ -31,6 +45,11 @@ class UserLoginView extends React.Component {
     }
 
     submitOTPRequest(number) {
+        const parsed = queryString.parse(this.props.location.search)
+        let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || ''
+        }
+        GTM.sendEvent({ data: analyticData })
 
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
@@ -57,47 +76,54 @@ class UserLoginView extends React.Component {
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
-                const parsed = queryString.parse(this.props.location.search)
-                if (exists.user_exists) {
-                    if (parsed.login) {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success'
+                if (exists.token) {
+                    const parsed = queryString.parse(this.props.location.search)
+                    if (exists.user_exists) {
+                        if (parsed.login) {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
+                        } else {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
                         }
-                        GTM.sendEvent({ data: data })
-                    } else {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success'
-                        }
-                        GTM.sendEvent({ data: data })
-                    }
 
-                    if (parsed.ref) {
-                        this.props.history.push('/user')
-                    }
-                    else if (parsed.callback) {
-                        this.props.history.replace(parsed.callback)
-                    }
-                    else {
-                        this.props.history.go(-1)
-                    }
-                } else {
-                    // gtm event
+                        if (parsed.ref) {
+                            this.props.history.push('/user')
+                        } else if (parsed.callback) {
+                            this.props.history.replace(parsed.callback)
+                        } else if (this.state.referralName && this.state.referralCode) {
+                            this.props.history.replace('/')
+                        } else {
+                            this.props.history.go(-1)
+                        }
+                    } else {
+                        // gtm event
 
-                    if (parsed.login) {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered'
+                        if (parsed.login) {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': parsed.login, 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
+                        } else {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered', 'mobileNo': this.state.phoneNumber
+                            }
+                            GTM.sendEvent({ data: data })
                         }
-                        GTM.sendEvent({ data: data })
-                    } else {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'UserRegistered', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'user-registered'
+                        let replace_url = '/signup?'
+                        if (parsed.callback) {
+                            replace_url += `callback=${parsed.callback}&`
                         }
-                        GTM.sendEvent({ data: data })
-                    }
-                    if (parsed.callback) {
-                        this.props.history.replace(`/signup?callback=${parsed.callback}`)
-                    } else {
-                        this.props.history.replace('/signup')
+
+                        if (this.state.referralName && this.state.referralCode) {
+                            replace_url += `referral=${this.state.referralCode}`
+                        }
+
+                        this.props.history.replace(replace_url)
                     }
                 }
             })
@@ -114,7 +140,7 @@ class UserLoginView extends React.Component {
 
     _handleContinuePress(e) {
         if (e.key === 'Enter') {
-            if(!this.state.showOTP){
+            if (!this.state.showOTP) {
                 this.submitOTPRequest(this.state.phoneNumber)
             }
         }
@@ -130,26 +156,15 @@ class UserLoginView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7  center-column">
-                            {/* <header className="skin-white fixed horizontal top bdr-1 light sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <ul className="inline-list">
-                                                <li onClick={() => { this.props.history.go(-1) }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">Login/Registration</div>
-                                        </div>
-                                        <div className="col-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
                             <section className="mobile-verification-screen p-3">
                                 <div className="widget no-shadow no-round sign-up-container">
                                     <div className="widget-header text-center mv-header">
-                                        <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 300!</span> </h3>
+                                        {
+                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Get &#8377; 50 in your wallet</h3> : ""
+                                        }
+                                        {
+                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Signup to claim your gift from<br /><span className="ft-25">{this.state.referralName}</span> </h3> : <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 300!</span> </h3>
+                                        }
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
                                     </div>
                                     <div className="widget-content text-center">
@@ -218,7 +233,7 @@ class UserLoginView extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
             </div>

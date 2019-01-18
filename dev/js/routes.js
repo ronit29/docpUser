@@ -43,6 +43,10 @@ import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 import Search from './containers/commons/search'
 import searchTestInfo from './containers/commons/searchTestInfo'
+import adsBooking from './containers/commons/adsBooking.js'
+import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
+import Offers from './containers/commons/Offers';
+import Referral from './containers/commons/referral'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -51,6 +55,7 @@ import searchTestInfo from './containers/commons/searchTestInfo'
 const routes = [
 
     { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
+    { path: '/referral', exact: true, component: Referral },
     { path: '/online-consultation', exact: true, component: HomeChat, RENDER_ON_SERVER: true },
     { path: '/user', component: UserProfile },
     { path: '/locationsearch', exact: true, component: LocationSearch },
@@ -69,6 +74,7 @@ const routes = [
     { path: '/payment/:id', exact: true, component: Payment },
     { path: '/mobileviewchat', exact: true, component: MobileViewChat },
     { path: '/search', exact: true, component: Search },
+    { path: '/offers', exact: true, component: Offers },
 
     // { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
@@ -103,6 +109,7 @@ const routes = [
     { path: '/terms', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/careers', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/media', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
+    { path: '/cancelpolicy', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/doctorsignup', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/health-package-compare', exact: true, component: HealthPackage, RENDER_ON_SERVER: true },
 
@@ -114,6 +121,9 @@ const routes = [
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/search/testinfo', exact: true, component: searchTestInfo },
+    { path: '/bookings', exact: true, component: adsBooking },
+    { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
+    { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: true, redirectTo: "full-body-checkup-health-packages" },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

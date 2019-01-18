@@ -33,9 +33,14 @@ class ContactUs extends React.Component {
     }
 
     render() {
-
+        let mainClass
+        if(this.props.fromApp){
+            mainClass = "container about-container appUrlPadding"
+        }else{
+            mainClass = 'container about-container'
+        }
         return (
-            <div className="container about-container contact-container">
+            <div className={mainClass}>
                 <HelmetTags tagsData={{
                     title: ('Contact Us | docprime'),
                     description: ('Contact Us: Contact docprime for query related to booking, signup and more.')
@@ -48,7 +53,7 @@ class ContactUs extends React.Component {
                 <div className="row">
                     <div className="col-md-6 col-12 contact-background">
                         <div className="contact-text">
-                            Feel like contacting us? Submit your queries here and we will try to get back you as soon as possible. You can also mail us at customercare@docprime.com or call our customer care executive on 0124-3852415.
+                            Feel like contacting us? Submit your queries here and we will try to get back you as soon as possible. You can also mail us at customercare@docprime.com or call our customer care executive on 1800-123-9419.
                         </div>
                         <div className="gps">
                             <div className="contact-location">

@@ -117,7 +117,12 @@ export default class PopUpView extends React.Component {
                                                             {/* <div>
                                                                 <input type="checkbox" checked={procedure_ids.indexOf(procedure.procedure_id) != -1 ? true : false} className="ins-chk-bx" id={`${procedure.procedure_id}_`} name="fruit-2" value="" onChange={this.toggleData.bind(this, procedure)}{this.toggleProcedure.bind(this, procedure, this.props.doctor_id, this.props.hospital_id)} /><label htmlFor={`${procedure.procedure_id}_`}>{procedure.procedure_name}</label>
                                                             </div> */}
-                                                            <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                            {
+                                                                this.props.hospitalEnable ?
+                                                                    <p className="pr-prices">₹ {procedure.deal_price}<span className="pr-cut-price">₹ {procedure.mrp}</span></p>
+                                                                    :
+                                                                    <p className="pr-prices">₹ {procedure.mrp}</p>
+                                                            }
                                                         </li>
                                                     })
                                                 }

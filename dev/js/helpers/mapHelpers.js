@@ -1,5 +1,5 @@
 export function _getlocationFromLatLong(lat, long, location_type = 'locality', cb) {
-    if (google && lat && long) {
+    if (typeof google != undefined && lat && long) {
         var latlng = { lat: parseFloat(parseFloat(lat).toFixed(6)), lng: parseFloat(parseFloat(long).toFixed(6)) };
 
         let geocoder = new google.maps.Geocoder
@@ -39,7 +39,7 @@ export function _getlocationFromLatLong(lat, long, location_type = 'locality', c
 }
 
 export function _getLocationFromPlaceId(placeId, cb) {
-    if (google) {
+    if (typeof google != undefined) {
         let map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 28, lng: 77 },
             zoom: 15

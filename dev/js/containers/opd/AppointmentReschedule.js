@@ -12,7 +12,7 @@ class AppointmentReschedule extends React.Component {
 
     componentDidMount() {
         if ((this.props.match.params.refId != this.props.appointmentId) || !this.props.rescheduleSlot.date) {
-            this.props.history.go(-1)
+            // this.props.history.go(-1)
         }
     }
 
@@ -27,7 +27,7 @@ class AppointmentReschedule extends React.Component {
                 <AppointmentRescheduleView {...this.props} />
             );
         } else {
-            return <div></div>
+            return <AppointmentRescheduleView {...this.props} />
         }
 
 

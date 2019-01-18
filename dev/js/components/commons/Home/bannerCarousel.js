@@ -10,82 +10,169 @@ class BannerCarousel extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(() => {
-            let curr_index = this.state.index
-            curr_index = curr_index + 1
-            if (curr_index > 3) {
-                curr_index = 0
-            }
-            this.setState({ index: curr_index })
-        }, 5000)
+        let totalOffers = ''
+        if (this.props.offerList) {
+            totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+            setInterval(() => {
+                let curr_index = this.state.index
+                curr_index = curr_index + 1
+                if (curr_index >= totalOffers) {
+                    curr_index = 0
+                }
+                this.setState({ index: curr_index })
+            }, 5000)
+        }
     }
 
-    navigate(imgData) {
+    navigateTo(offer) {
+        if (offer.url_details && offer.url_details.test_ids) {
+            let test = {}
 
-        let data = {
-            'Category': 'ConsumerApp', 'Action': 'BannerCarouselClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'banner-carousel-clicked', 'selectedBanner': this.state.index + 1, 'url': imgData[this.state.index].href || ''
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'lab_name': offer.url_details.lab_name || '', 'network_id': offer.url_details.network_id || '' }
+
+            test.type = 'test'
+            test.id = []
+
+            let testIdArray = offer.url_details.test_ids.split(',');
+            for (let id in testIdArray) {
+                test.id.push(parseInt(testIdArray[id]))
+            }
+
+            this.props.toggleDiagnosisCriteria('test', test, true, filters)
+            setTimeout(() => {
+                this.props.history.push('/lab/searchresults')
+            }, 100)
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
+            }
+            GTM.sendEvent({ data: data })
         }
-        GTM.sendEvent({ data: data })
-        if (imgData[this.state.index].href != '') {
-            if (this.state.index === 1) {
-                let test = {}
-                test.type = 'test'
-                test.id = 12227
-                this.props.toggleDiagnosisCriteria('test', test, true)
-                setTimeout(() => {
-                    this.props.history.push('/lab/searchresults')
-                }, 100)
+
+        else if (offer.url_details && offer.url_details.specializations && offer.url_details.specializations != '') {
+            let speciality = {}
+
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+
+            speciality.type = 'speciality'
+            speciality.id = []
+
+            let specialityIdArray = offer.url_details.specializations.split(',');
+            for (let id in specialityIdArray) {
+                speciality.id.push(parseInt(specialityIdArray[id]))
             }
-            else if (this.state.index === 2) {
-                let test = {}
-                test.type = 'test'
-                test.id = 11554
-                this.props.toggleDiagnosisCriteria('test', test, true)
-                setTimeout(() => {
-                    this.props.history.push('/lab/searchresults')
-                }, 100)
+
+            this.props.toggleOPDCriteria('speciality', speciality, true, filters)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
             }
-            else if (this.state.index === 3) {
-                let speciality = {}
-                speciality.type = 'procedures_category'
-                speciality.id = 2
-                let filters = { 'sort_on': 'fees' }
-                this.props.toggleOPDCriteria('procedures_category', speciality, true, filters)
-                setTimeout(() => {
-                    this.props.history.push('/opd/searchresults')
-                }, 100)
+            GTM.sendEvent({ data: data })
+        }
+
+        else if (offer.url_details && offer.url_details.procedure_ids && offer.url_details.procedure_ids != '') {
+            let speciality = {}
+
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+
+            speciality.type = 'procedures'
+            speciality.id = []
+
+            let specialityIdArray = offer.url_details.procedure_ids.split(',');
+            for (let id in specialityIdArray) {
+                speciality.id.push(parseInt(specialityIdArray[id]))
             }
+
+            this.props.toggleOPDCriteria('procedures', speciality, true, filters)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
+            }
+            GTM.sendEvent({ data: data })
+        }
+
+        else if (offer.url_details && offer.url_details.procedure_category_ids && offer.url_details.procedure_category_ids != '') {
+            let speciality = {}
+
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+
+            speciality.type = 'procedures_category'
+            speciality.id = []
+
+            let specialityIdArray = offer.url_details.procedure_category_ids.split(',');
+            for (let id in specialityIdArray) {
+                speciality.id.push(parseInt(specialityIdArray[id]))
+            }
+
+            this.props.toggleOPDCriteria('procedures_category', speciality, true, filters)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
+            }
+            GTM.sendEvent({ data: data })
+        }
+
+        else if (offer.url_details && offer.url_details.conditions && offer.url_details.conditions != '') {
+            let speciality = {}
+
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+
+            speciality.type = 'condition'
+            speciality.id = []
+
+            let specialityIdArray = offer.url_details.conditions.split(',');
+            for (let id in specialityIdArray) {
+                speciality.id.push(parseInt(specialityIdArray[id]))
+            }
+
+            this.props.toggleOPDCriteria('condition', speciality, true, filters)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
+            }
+            GTM.sendEvent({ data: data })
+        }
+
+        else if (offer.url) {
+            this.props.history.push(offer.url)
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
+            }
+            GTM.sendEvent({ data: data })
         }
     }
 
     render() {
 
-        var imgData = [
-            {
-                'src': "/img/banners/banner_paytm.png",
-                'href': ''
-            },
-            {
-                'src': "/img/banners/banner_aarogyam_new.png",
-                'href': "/lab/searchresults?test_ids=12227&min_distance=0&lat=28.459131&long=77.072561&min_price=0&max_price=20000&sort_on=&max_distance=15&lab_name=&network_id="
-            },
-            {
-                'src': "/img/banners/banner_ultrasound.png",
-                'href': "/lab/searchresults?test_ids=11554"
-            },
-            {
-                'src': "/img/banners/banner_teeth.png",
-                'href': "/opd/searchresults?specializations=&conditions=&lat=28.459131&long=77.072561&min_fees=0&max_fees=1500&min_distance=0&max_distance=15&sort_on=fees&is_available=false&is_female=false&doctor_name=&hospital_name=&procedure_ids=&procedure_category_ids=2"
-            }
-        ]
+        let offerVisible = {}
+        if (this.props.offerList) {
+            offerVisible = this.props.offerList.filter(x => x.slider_location === 'home_page')[this.state.index];
+        }
 
         return (
-            <div className="banner-carousel-div mrt-20">
-                <img src={ASSETS_BASE_URL + imgData[this.state.index].src} onClick={() => this.navigate(imgData)} className={imgData[this.state.index].href != '' ? 'clickable-banner' : ''} />
+            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-20 mrb-20`}>
+                {
+                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                        <img src={offerVisible.image} onClick={() => this.navigateTo(offerVisible)} />
+                        : ''
+                }
                 <div className="carousel-indicators mrt-10">
                     {
-                        imgData.map((img, i) => {
-                            return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''}></span>
+                        this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').map((offer, i) => {
+                            return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
                         })
                     }
                 </div>

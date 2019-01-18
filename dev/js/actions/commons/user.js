@@ -1,4 +1,4 @@
-import { SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -391,7 +391,8 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 	})
 }
 
-export const getCoupons = (productId = '', deal_price = 0, cb, lab_id = null, test_ids = [], coupon_code = null, save_in_store = true) => (dispatch) => {
+export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id = null, test_ids = null, coupon_code = null, save_in_store = true, profile_id = null, doctor_id = null, hospital_id = null, procedures_ids = null }) => (dispatch) => {
+
 	let url = `/api/v1/coupon/applicablecoupons?`
 	if (productId) {
 		url += `product_id=${productId}`
@@ -406,6 +407,22 @@ export const getCoupons = (productId = '', deal_price = 0, cb, lab_id = null, te
 
 	if (coupon_code) {
 		url += `&coupon_code=${coupon_code}`
+	}
+
+	if (profile_id) {
+		url += `&profile_id=${profile_id}`
+	}
+
+	if (doctor_id) {
+		url += `&doctor_id=${doctor_id}`
+	}
+
+	if (hospital_id) {
+		url += `&hospital_id=${hospital_id}`
+	}
+
+	if (procedures_ids) {
+		url += `&procedures_ids=${procedures_ids}`
 	}
 
 	API_GET(url).then(function (response) {
@@ -480,4 +497,31 @@ export const fetchTestList = (testIds, cb) => (dispatch) => {
 	}).catch(function (error) {
 		if (cb) cb(error, null);
 	})
+}
+
+export const set_summary_utm = (toggle = false, validity = null) => (dispatch) => {
+	dispatch({
+		type: SET_SUMMARY_UTM,
+		payload: {
+			toggle,
+			validity
+		}
+	})
+}
+
+export const getOfferList = () => (dispatch) => {
+	API_GET(`/api/v1/banner/list`).then(function (response) {
+		dispatch({
+			type: GET_OFFER_LIST,
+			payload: response
+		})
+	})
+}
+
+export const fetchReferralCode = (code = null) => (dispatch) => {
+	let url = `/api/v1/user/referral`
+	if (code) {
+		url += `/${code}`
+	}
+	return API_GET(url)
 }

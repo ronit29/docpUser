@@ -22,11 +22,11 @@ const mapStateToProps = (state) => {
     let { rescheduleSlot } = state.LAB_SEARCH
 
     let {
-        newNotification, notifications, rated_appoinments, profiles, selectedProfile
+        summary_utm, summary_utm_validity, newNotification, notifications, rated_appoinments, profiles, selectedProfile
     } = state.USER
 
     return {
-        rescheduleSlot, newNotification, notifications, rated_appoinments, profiles, selectedProfile
+        rescheduleSlot, newNotification, notifications, rated_appoinments, profiles, selectedProfile, summary_utm, summary_utm_validity
     }
 }
 

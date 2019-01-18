@@ -256,6 +256,25 @@ class ChatPanel extends React.Component {
             this.setState({ showChatBlock: true, additionClasses: "" });
         } else if (this.props.newChatBtn) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+            let data = {
+                'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
+        } else if (this.props.newChatBtnAds && this.props.bookingsGA) {
+            this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+            let data = {
+                'Category': 'Chat', 'Action': 'getHelpBtnClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-button-clicked', "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
+        }
+    }
+
+    newChatBtnClick() {
+        if (this.props.type && (this.props.type == 'opd' || this.props.type == 'lab')) {
+            this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+        }
+        else {
+            this.setState({ showChatBlock: true, additionClasses: "" });
         }
     }
 
@@ -284,28 +303,41 @@ class ChatPanel extends React.Component {
         let botAgent = false
         if (this.props.location.search.includes('botagent')) {
             botAgent = true
-            iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
+            if (this.props.type && this.props.type == 'opd') {
+                iframe_url += `&botagent=DocPrimeSOT&source=doctorlistingchatnow`
+            } else if (this.props.newChatBtnAds) {
+                iframe_url += `&botagent=DocPrimeSOT&source=leadformchatnow`
+            } else {
+                iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
+            }
         }
 
         let chatBtnContent1 = ''
         let chatBtnContent2 = ''
-        if (this.props.articleData) {
+        if (this.props.articleData && this.props.articleData.title) {
             chatBtnContent1 = 'Chat now with doctor'
             chatBtnContent2 = 'about ' + this.props.articleData.title.split('|')[0] + ' and related queries'
-        } else if (this.props.newChatBtn) {
+        } else if (this.props.newChatBtn || this.props.newChatBtnAds) {
             chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
 
+        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ? '' : "col-md-5 mb-3"
+        if (this.props.homePage && !this.props.chatPage)
+            ct_style = "col-md-7 mb-3 d-none d-md-block"
+
         return (
-            <div className={this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : "col-md-5 mb-3"}>
+            <div className={ct_style}>
                 {
-                    this.props.homePage || this.props.mobilechatview ? '' :
-                        this.props.articleData || this.props.newChatBtn ?
+                    this.props.homePage || this.props.mobilechatview || this.props.noChatButton ? '' :
+                        this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
                             <div className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
                             </div> :
-                            <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
-                                <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                            //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            // </div>
+                            <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
+                                <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
                             </div>
                 }
 
@@ -327,10 +359,16 @@ class ChatPanel extends React.Component {
                                                     Help with Booking
                                                 </p>
                                                 :
-                                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                                    <span className="hed-txt-lt">Get a </span>
-                                                    Free Online Doctor Consultation!
-                                                </p>
+                                                this.props.chatPage ?
+                                                    <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <span className="hed-txt-lt">Get a </span>
+                                                        Free Online Doctor Consultation!
+                                                    </h1>
+                                                    :
+                                                    <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <span className="hed-txt-lt">Get a </span>
+                                                        Free Online Doctor Consultation!
+                                                    </p>
                                         }
                                     </div>
 
@@ -382,7 +420,7 @@ class ChatPanel extends React.Component {
                                                     <span></span>
                                                     <span></span>
                                                 </div>
-                                                <p className="ldng-text">Connecting to doctor...</p>
+                                                <p className="ldng-text">Connecting to the agent...</p>
                                             </div>
                                             : ""
                                     }
@@ -414,7 +452,7 @@ class ChatPanel extends React.Component {
                         </div> : ""
                 }
                 {
-                    this.props.homePage ?
+                    this.props.homePage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                         <BannerCarousel {...this.props} /> : ''
                 }
             </div>

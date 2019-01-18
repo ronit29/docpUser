@@ -105,7 +105,17 @@ class TestSelectorView extends React.Component {
 
     }
 
-
+    testInfo(test_id,event) {
+        let lab_id = this.state.selectedLab
+        let selected_test_ids = this.props.selectedCriterias || []
+        selected_test_ids = selected_test_ids.map(x => x.id)
+        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchbooknow')
+        event.stopPropagation()
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
+        }
+        GTM.sendEvent({ data: data })
+    }
     render() {
         let labData = this.props.LABS[this.state.selectedLab]
         let selectedTests = this.props.lab_test_data[this.state.selectedLab] || []
@@ -145,7 +155,7 @@ class TestSelectorView extends React.Component {
                                 labData ?
 
                                     <div>
-                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 78 }}>
+                                        <header className="skin-white fixed horizontal top location-detect-header sticky-header" style={{ top: 44 }}>
                                             <div className="container-fluid">
                                                 <div className="row">
                                                     <div className="col-12" style={{ paddingTop: 10, borderBottom: '1px solid #d3d3d3' }}>
@@ -183,6 +193,10 @@ class TestSelectorView extends React.Component {
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
+                                                                                    {test.test.show_details?
+                                                                                    <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id)}>
+                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                                                                        </span>:''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
@@ -196,6 +210,10 @@ class TestSelectorView extends React.Component {
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
+                                                                                    {test.test.show_details?
+                                                                                    <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id)}>
+                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                                                                        </span>:''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
@@ -230,7 +248,7 @@ class TestSelectorView extends React.Component {
                             } */}
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" type="lab" />
                     </div>
                 </section>
             </div>

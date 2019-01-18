@@ -34,13 +34,16 @@ class UserProfile extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
             this.props.getUserAddress()
-            this.props.getCoupons()
+            this.props.getCoupons({})
         }
 
     }
 
     render() {
+        if (!STORAGE.checkAuth()) {
+            return <div></div>
 
+        }
         return (
             <UserProfileView {...this.props} />
         );

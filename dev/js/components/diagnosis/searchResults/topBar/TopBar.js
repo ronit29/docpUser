@@ -33,7 +33,7 @@ class TopBar extends React.Component {
             if (props.seoData && props.seoData.location) {
                 this.setState({ showLocationPopup: false })
             } else {
-                if (props.selectedLocation != this.props.selectedLocation) {
+                if ((props.seoData && props.seoData.location) || props.seoFriendly) {
                     this.setState({ showLocationPopup: true, overlayVisible: true })
                 }
             }
@@ -44,10 +44,10 @@ class TopBar extends React.Component {
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
-        if (this.props.seoData && this.props.seoData.location) {
+        if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (this.props.locationType.includes("geo")) {
+            if (this.props.locationType && this.props.locationType.includes("geo")) {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
             }
         }
@@ -85,7 +85,7 @@ class TopBar extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabSortFilterApplied', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-sort-filter-applied', 'url': window.location.pathname, 'sort_on': type === "" ? 'relevance' : type
         }
         GTM.sendEvent({ data: data })
-        this.setState({ anchorEl: null, sort_on: type }, () => {
+        this.setState({ anchorEl: null, sort_on: type, dropdown_visible: false }, () => {
             if (type || type === "") {
                 this.applyFilters()
             }
@@ -156,21 +156,28 @@ class TopBar extends React.Component {
         this.setState({ showPopupContainer: false, showLocationPopup: false });
     }
 
-    render() {
-
-        var selectedTests = []
-        if (this.props.selectedCriterias.length) {
-            for (var i = 0; i < this.props.selectedCriterias.length; i++) {
-                selectedTests.push(this.props.selectedCriterias[i].id);
+    changeBtnClick() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'changeBtnOnLabCardClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-btn-on-lab-card-click'
+        }
+        GTM.sendEvent({ data: data })
+        let selectedTests = []
+        if (this.props.currentSearchedCriterias.length) {
+            for (var i = 0; i < this.props.currentSearchedCriterias.length; i++) {
+                selectedTests.push(this.props.currentSearchedCriterias[i].id);
             }
         }
+        this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)
+    }
+
+    render() {
 
         let sortType = ''
         if (this.state.sort_on) {
             sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
         }
 
-        let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+        let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
@@ -198,7 +205,7 @@ class TopBar extends React.Component {
                                                         </span>
                                                     </p>
                                                 </div>
-                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
+                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.changeBtnClick()}>
                                                     <p className="fw-500 text-primary" style={{ fontSize: 14 }} >Change</p>
                                                 </div>
                                             </div>

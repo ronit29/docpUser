@@ -8,6 +8,8 @@ import GTM from '../../../helpers/gtm.js'
 import CONFIG from '../../../config'
 import HomePageWidget from './HomePageWidget'
 import Accordian from './Accordian'
+import FixedMobileFooter from './FixedMobileFooter'
+import BannerCarousel from './bannerCarousel';
 const queryString = require('query-string');
 
 const GENDER = {
@@ -36,6 +38,8 @@ class HomeView extends React.Component {
 		this.props.getSpecialityFooterData((cb) => {
 			this.setState({ specialityFooterData: cb });
 		});
+
+		this.props.getOfferList();
 	}
 
 	navigateTo(where, data, e) {
@@ -109,7 +113,7 @@ class HomeView extends React.Component {
 				}
 				var distance = 0
 
-				if (google) {
+				if (typeof google != undefined) {
 					var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
 				}
 
@@ -161,7 +165,7 @@ class HomeView extends React.Component {
 
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
@@ -177,8 +181,13 @@ class HomeView extends React.Component {
 							type="opd"
 						/>
 
+						{
+							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+								<BannerCarousel {...this.props} hideClass="d-md-none" /> : ''
+						}
+
 						<div className="fw-500 doc-lap-link d-md-none">
-							<span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or Hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} />  </span>
+							<span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or Hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} /></span>
 						</div>
 					</div>
 				</div>)
@@ -206,6 +215,9 @@ class HomeView extends React.Component {
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="lab"
+									searchType="packages"
+									{...this.props}
+									navTo="/full-body-checkup-health-packages?from=home"
 								/> : ""
 						}
 
@@ -221,7 +233,7 @@ class HomeView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
@@ -249,7 +261,7 @@ class HomeView extends React.Component {
                         } */}
 
 						<HomePageWidget
-							heading="Find a Doctor"
+							heading="Book Doctor Appointment"
 							discount="50%"
 							list={this.props.specializations}
 							searchFunc={(sp) => this.searchDoctor(sp)}
@@ -259,10 +271,15 @@ class HomeView extends React.Component {
 							type="opd"
 						/>
 
-						<div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
+						{
+							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+								<BannerCarousel {...this.props} hideClass="d-md-none" /> : ''
+						}
+
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
 							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div>
+						</div> */}
 
 						{
 							this.props.common_package && this.props.common_package.length ?
@@ -272,13 +289,16 @@ class HomeView extends React.Component {
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="lab"
+									searchType="packages"
+									{...this.props}
+									navTo="/full-body-checkup-health-packages?from=home"
 								/> : ""
 						}
 
-						<div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
 							<button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div>
+						</div> */}
 
 						<HomePageWidget
 							heading="Book a Test"
@@ -311,11 +331,13 @@ class HomeView extends React.Component {
 							{slabOrder}
 						</div>
 					</div>
+
 					<Accordian />
+
+					<FixedMobileFooter {...this.props} />
+
 				</div>
-
 				<Footer specialityFooterData={this.state.specialityFooterData} />
-
 			</div>
 		);
 	}

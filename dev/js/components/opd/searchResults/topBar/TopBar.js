@@ -13,7 +13,7 @@ class TopBar extends React.Component {
         this.state = {
             anchorEl: null,
             openFilter: false,
-            priceRange: [0, 1500],
+            priceRange: [0, 3000],
             distanceRange: [0, 15],
             sort_on: null,
             sits_at_clinic: false,
@@ -33,7 +33,7 @@ class TopBar extends React.Component {
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (props.seoData && props.seoData.location) {
+            if ((props.seoData && props.seoData.location) || props.seoFriendly) {
                 this.setState({ showLocationPopup: false })
             } else {
                 if (props.selectedLocation != this.props.selectedLocation) {
@@ -47,10 +47,10 @@ class TopBar extends React.Component {
     componentDidMount() {
         this.setState({ ...this.props.filterCriteria })
         this.shortenUrl()
-        if (this.props.seoData && this.props.seoData.location) {
+        if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
         } else {
-            if (this.props.locationType.includes("geo")) {
+            if (this.props.locationType && this.props.locationType.includes("geo")) {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
             }
         }
@@ -103,7 +103,7 @@ class TopBar extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'OpdSortFilterApplied', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-sort-filter-applied', 'url': window.location.pathname, 'sort_on': type === "" ? 'relevance' : type
         }
         GTM.sendEvent({ data: data })
-        this.setState({ anchorEl: null, sort_on: type }, () => {
+        this.setState({ anchorEl: null, sort_on: type, dropdown_visible: false }, () => {
             if (type || type === "") {
                 this.applyFilters()
             }
@@ -139,7 +139,7 @@ class TopBar extends React.Component {
 
     isFilterApplied() {
         const def = {
-            priceRange: [0, 1500],
+            priceRange: [0, 3000],
             distanceRange: [0, 15],
             sits_at_clinic: false,
             sits_at_hospital: false,
@@ -200,6 +200,34 @@ class TopBar extends React.Component {
 
         return (
             <div>
+            {this.props.breadcrumb && this.props.breadcrumb.length?
+                <div className="col-12 mrng-top-12 d-none d-md-block">
+                    <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{'wordBreak': 'breakWord'}}>
+                        {
+                            this.props.breadcrumb && this.props.breadcrumb.length?
+                            this.props.breadcrumb.map((data, key) => {
+                              return  <li className="breadcrumb-list-item" key={key}>
+                                {
+                                    key==this.props.breadcrumb.length-1?
+                                    <span>{data.title}</span>
+                                    :<a href={data.url} title ='' onClick={(e) => {e.preventDefault();
+                                            this.props.history.push(data.url)
+                                        }}>{key== 0 || key== this.props.breadcrumb.length-1?<span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>:<h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
+                                }   
+                                {
+                                    key!= this.props.breadcrumb.length-1?
+                                    <span className="breadcrumb-arrow">&gt;</span>
+                                    :''
+                                }
+                                </li>
+                            })
+                            :''
+                        }
+                    </ul>
+                </div>
+                :''
+            }
+                
                 <section className="filter-row sticky-header mbl-stick">
                     <div className="container-fluid">
                         <div className="row">
@@ -234,14 +262,19 @@ class TopBar extends React.Component {
                                                     showPopupContainer: true
                                                 })
                                             }}>
-
                                                 {
                                                     this.state.showLocationPopup && false ? ''
                                                         : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
                                                 }
-                                                <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                             </span>
                                         </h1>
+                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={() => {
+                                            this.setState({
+                                                showLocationPopup: !this.state.showLocationPopup,
+                                                searchCities: [],
+                                                showPopupContainer: true
+                                            })
+                                        }} />
                                     </div>
                                 </div>
                                 {
@@ -318,11 +351,11 @@ class TopBar extends React.Component {
                                     <span className="tl">Fees</span>
                                     <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
                                     <span className="bl">&#8377; 0</span>
-                                    <span className="br">&#8377; 2000</span>
+                                    <span className="br">&#8377; 3000</span>
 
                                     <Range
                                         min={0}
-                                        max={2000}
+                                        max={3000}
                                         value={this.state.priceRange}
                                         step={100}
                                         className="range"

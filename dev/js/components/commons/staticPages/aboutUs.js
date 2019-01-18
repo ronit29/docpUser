@@ -14,15 +14,24 @@ class AboutUs extends React.Component {
     }
 
     render() {
+        let mainClass
+        let headingClass
+        if(this.props.fromApp){
+            mainClass = "container about-container appUrlPadding"
+            headingClass = "col-12 text-center d-none d-md-block"
+        }else{
+            mainClass = 'container about-container'
+            headingClass = "col-12 text-center"
+        }
 
         return (
-            <div className="container about-container">
+            <div className={mainClass}>
                 <HelmetTags tagsData={{
                     title: ('About Us | docprime'),
                     description: ('docprime: docprime is one stop health care solution for patients and doctors. Patients can book doctors online and doctors can manage patients online.')
                 }} />
                 <div className="row">
-                    <div className="col-12 text-center">
+                    <div className={headingClass}>
                         <p className="fw-500 about-heading">About Us</p>
                     </div>
                     <div className="col-12">
@@ -163,7 +172,7 @@ class AboutUs extends React.Component {
                         <p className="fw-500 about-content">We aim to tap the latest technology to find solutions to various issues in order to disrupt the global healthcare delivery system. Our innovative healthcare solutions are a step towards bridging the gap between healthcare experts and the patients.</p>
                     </div>
                     <div className="col-12">
-                        <button onClick={() => { this.navigateTo("/contact") }} className="contact-btn">Contact Us</button>
+                        <button onClick={() => { this.props.fromApp?this.navigateTo("/contact?fromApp=true"):this.navigateTo("/contact") }} className="contact-btn">Contact Us</button>
                     </div>
                 </div>
             </div>

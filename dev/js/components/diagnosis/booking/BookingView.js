@@ -10,6 +10,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
+import STORAGE from '../../../helpers/storage'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -68,6 +69,30 @@ class BookingView extends React.Component {
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
+                    let info = {}
+                    info[appointmentId] = {}
+                    let mrp = 0
+                    let deal_price = 0
+                    if(data.length && data[0].lab_test){
+                        data[0].lab_test.map((test) => {
+                            mrp+= parseInt(test.mrp)
+                            deal_price+= parseInt(test.deal_price)
+                        })
+                    }
+                    info[appointmentId].mrp = mrp
+                    info[appointmentId].deal_price = deal_price
+                    info = JSON.stringify(info)
+                    STORAGE.setAppointmentDetails(info).then((setCookie)=> {
+
+                        if (this.state.payment_success) {
+
+                            let analyticData = {
+                                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked','deal_price': deal_price, 'mrp': mrp
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            this.props.history.replace(this.props.location.pathname + "?hide_button=true")
+                        }
+                    })
                 } else {
                     this.setState({ data: null, loading: false })
                 }
@@ -76,14 +101,6 @@ class BookingView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
-        }
-
-        if (this.state.payment_success) {
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
-            }
-            GTM.sendEvent({ data: data })
-            this.props.history.replace(this.props.location.pathname + "?hide_button=true")
         }
     }
 
@@ -159,8 +176,17 @@ class BookingView extends React.Component {
             reports = this.state.data.reports || []
         }
 
+        let summar_utm_tag = ""
+        if (this.state.data && this.props.summary_utm && this.props.summary_utm_validity) {
+            if ((new Date(this.props.summary_utm_validity)) > (new Date())) {
+                let src = `https://cplcps.com/p.ashx?o=116216&e=4531&f=img&t=${this.state.data.id}`
+                summar_utm_tag = <img src={src} width="1" height="1" border="0" />
+            }
+        }
+
         return (
             <div className="profile-body-wrap">
+                {summar_utm_tag}
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
@@ -334,6 +360,33 @@ class BookingView extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    {
+                                                        status <= 5 ? <div className="widget mrb-10" style={{ marginTop: 10 }}>
+                                                            <div className="widget-content">
+                                                                <div className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => {
+                                                                    this.props.history.push('/referral')
+                                                                }}>
+                                                                    <div className="usr-dtls-off-act">
+                                                                        <p className="wc-title text-md fw-700 card-nm-ovrlpng">
+                                                                            <img src="/assets/img/customer-icons/refer.svg" className="img-fluid  img-f-1" />Refer &amp; Earn</p>
+                                                                    </div>
+                                                                    <div className="ofr-img-txt">
+                                                                        <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                                                        <div className="ofr-contnt">
+                                                                            <p className="add-info fw-500 add-info-p">
+                                                                                Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>
+                                                                            <div>
+                                                                                <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                                                    <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> : ""
+                                                    }
 
                                                 </div>
                                             </div>

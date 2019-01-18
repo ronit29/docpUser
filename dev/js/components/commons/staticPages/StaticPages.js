@@ -9,11 +9,15 @@ import Terms from './terms'
 import Careers from './careers'
 import Media from './media'
 import Doctorsignup from './doctorsignup'
+import CancelPolicy from './cancelPolicy.js'
 
 import Footer from '../../commons/Home/footer'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import Loader from '../../commons/Loader'
 import { Route } from 'react-router-dom'
+
+const queryString = require('query-string');
+
 
 
 
@@ -21,7 +25,6 @@ class StaticPagesView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
         }
     }
 
@@ -32,9 +35,14 @@ class StaticPagesView extends React.Component {
     }
 
     render() {
+        //const parsed = queryString.parse(window.location.search)
+        const parsed = queryString.parse(this.props.location.search)
+
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader />
+                {
+                    parsed.fromApp?'':<ProfileHeader />
+                }
                 <div className="sub-header d-none d-lg-block" />
 
                 {/* <div className="d-lg-none">
@@ -57,11 +65,11 @@ class StaticPagesView extends React.Component {
                 </div> */}
 
                 <Route exact path={'/about'} render={(props) => {
-                    return <AboutUs {...this.props} {...props} />
+                    return <AboutUs {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
                 }} />
 
                 <Route exact path={'/contact'} render={(props) => {
-                    return <ContactUs {...this.props} {...props} />
+                    return <ContactUs {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false} />
                 }} />
 
                 <Route exact path={'/privacy'} render={(props) => {
@@ -77,7 +85,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/terms'} render={(props) => {
-                    return <Terms {...this.props} {...props} />
+                    return <Terms {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
                 }} />
 
                 <Route exact path={'/careers'} render={(props) => {
@@ -92,7 +100,13 @@ class StaticPagesView extends React.Component {
                     return <Doctorsignup {...this.props} {...props} />
                 }} />
 
-                <Footer />
+                <Route exact path={'/cancelpolicy'} render={(props) => {
+                    return <CancelPolicy {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
+                }} />
+
+                {
+                    parsed.fromApp?'':<Footer />
+                }
 
             </div>
         );

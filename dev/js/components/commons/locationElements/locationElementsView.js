@@ -184,17 +184,17 @@ class LocationElementsView extends React.Component {
     goToLocation() {
         if (this.props.isTopbar) {
             let redirect_to = ""
-            if (window.location.pathname.includes('sptcit') || window.location.pathname.includes('sptlitcit')) {
+            /*if (window.location.pathname.includes('sptcit') || window.location.pathname.includes('sptlitcit')) {
                 redirect_to = "/opd/searchresults"
             }
 
             if (window.location.pathname.includes('lbcit') || window.location.pathname.includes('lblitcit')) {
                 redirect_to = "/lab/searchresults"
-            }
+            }*/
 
             let location_url = '/locationsearch'
             if (redirect_to) {
-                location_url += `&redirect_to=${redirect_to}`
+                location_url += `?redirect_to=${redirect_to}`
             }
             this.props.history.push(location_url)
         }
