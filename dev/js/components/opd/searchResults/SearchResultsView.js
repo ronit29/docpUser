@@ -186,8 +186,9 @@ class SearchResultsView extends React.Component {
 
         if(this.props.search_id_data && this.props.search_id_data[parsed.search_id]){
             search_id_data[parsed.search_id].filterCriteria = filterState
+            search_id_data[parsed.search_id].page = 1
         }
-        this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data })
+        this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data, page: 1 })
        // this.props.setSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)
@@ -309,6 +310,9 @@ class SearchResultsView extends React.Component {
             title = seoData.title || ""
             description = seoData.description || ""
             schema = seoData.schema
+        }
+        if(parseInt(this.props.page) != 1){
+            title = 'Page  '+this.props.page+' - '+title
         }
         return { title, description, schema }
     }
