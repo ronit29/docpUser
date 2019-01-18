@@ -36,7 +36,7 @@ class PaymentForm extends React.Component {
                     <input type="text" name="txAmount" value={this.props.paymentData['txAmount']} />
                     <input type="text" name="orderId" value={this.props.paymentData['orderId']} />
                     <input type="text" name="hash" value={this.props.paymentData['hash']} />
-                    <input type="text" name="gateway" value={'paytm'} />
+                    <input type="text" name="gateway" value={this.props.gateway || 'paytm'} />
                     <input type="text" name="mode" value={this.props.mode} />
                 </form>
 
