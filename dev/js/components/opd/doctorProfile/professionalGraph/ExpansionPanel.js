@@ -22,7 +22,7 @@ class ExpansionPanel extends React.Component {
 			<li className="expansion-panel-list-item">
 				<div>
 					<div className="title" onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0 }} >
-						<img src={image} style={{ verticalAlign: '-2px', marginRight: 8, display: 'inline-block' }} />
+						<img src={image} style={{ verticalAlign: '-2px', marginRight: 8, display: 'inline-block', width:'22px' }} />
 						<h3 className="fw-500 text-md mrb-0" style={{ display: 'inline-block' }}>{heading}</h3>
 						{
 							this.state.open ? <img className="titlearrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /> : <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
