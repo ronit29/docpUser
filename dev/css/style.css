@@ -5011,38 +5011,39 @@ font-size: 13px;
     right: unset;
     transform: translate(-50%, -50%);
     z-index: 100;
-    width: 500px;
-    padding: 8px;
+    max-width: 500px;
+    padding: 15px;
     box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.3);
     background: #fff;
     border-radius: 5px;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
 }
 .error-msg-pop .error-head{font-size: 18px; color:#000; font-weight: 700; text-align: center;}
-.cross-btn img{
+.cross-btn {
 	position: absolute;
-	top: 10px; 
-	right: 10px; 
+	top: 8px;
+	right: 8px;
 	cursor: pointer;
+	width: 16px;
+	height: 16px;
+}
+.cross-btn img{
+	width: 100%;
 }
 .error-msg{
 	color: #000; 
 	font-size: 14px;
 	font-weight: 500;
 	display: block;
-	margin-top: 40px;
+	margin-top: 30px;
 	text-align: center;
 }
 
 @media screen and (max-width: 480px){
 	/*10-01-2019*/
 	.popup-error{
-		position: fixed;
-	    top: 35%;
-	    left: 10px;
-	    right: 10px;
+		max-width: 350px;
 	    width: auto;
-	    transform: translateY(8px);
 	}
 	.error-msg-pop .error-head{
 		font-size: 16px;
