@@ -171,19 +171,19 @@ class TopBar extends React.Component {
     }
 
     goToLocation() {
-        this.setState({
+       this.setState({
             searchCities: [],
         })
-        let redirect_to = ""
+        /*let redirect_to = ""
         if (window.location.pathname.includes('lbcit') || window.location.pathname.includes('lblitcit')) {
             redirect_to = "/lab/searchresults"
         }
-
+*/
         let location_url = '/locationsearch'
-        if (redirect_to) {
+/*        if (redirect_to) {
             location_url += `?redirect_to=${redirect_to}`
         }
-
+*/
         let data = {
             'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
         }
