@@ -20,7 +20,7 @@ class BannerCarousel extends React.Component {
             totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
             setInterval(() => {
                 let curr_index = this.state.index
-                if(this.state.intervalFlag){console.log('a')
+                if(this.state.intervalFlag){
                     curr_index = curr_index + 1
                     if (curr_index >= totalOffers) {
                         curr_index = 0
