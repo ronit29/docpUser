@@ -9,7 +9,8 @@ class BannerCarousel extends React.Component {
             startX:0,
             startY:0,
             distX:0,
-            distY:0
+            distY:0,
+            intervalFlag:false
         }
     }
 
@@ -19,11 +20,13 @@ class BannerCarousel extends React.Component {
             totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
             setInterval(() => {
                 let curr_index = this.state.index
-                curr_index = curr_index + 1
-                if (curr_index >= totalOffers) {
-                    curr_index = 0
+                if(this.state.intervalFlag){console.log('a')
+                    curr_index = curr_index + 1
+                    if (curr_index >= totalOffers) {
+                        curr_index = 0
+                    }
                 }
-                this.setState({ index: curr_index })
+                this.setState({ index: curr_index,intervalFlag:!this.state.intervalFlag })
             }, 5000)
         }
     }
@@ -165,48 +168,48 @@ class BannerCarousel extends React.Component {
         let startTime = new Date().getTime()
     }
     onTouchMove(event){
-    let touchobj = event.changedTouches[0];
-    this.state.distX = touchobj.pageX - this.state.startX;
-    this.state.distY = touchobj.pageY - this.state.startY; 
-    if (this.state.startX - touchobj.pageX > 5 || touchobj.pageX - this.state.startX > 5) {
-        if (event.preventDefault)
-            event.preventDefault();
-        event.returnValue = false;
-    }
+        let touchobj = event.changedTouches[0];
+        this.state.distX = touchobj.pageX - this.state.startX;
+        this.state.distY = touchobj.pageY - this.state.startY; 
+        if (this.state.startX - touchobj.pageX > 5 || touchobj.pageX - this.state.startX > 5) {
+            if (event.preventDefault)
+                event.preventDefault();
+                event.returnValue = false;
+        }
     }
     onTouchEnd(event){
-    let startTime = new Date().getTime()
-    let touchobj = event.changedTouches[0]
-    let totalOffers = ''
-    let curr_index
-    this.state.distX = touchobj.pageX - this.state.startX
-    this.state.distY = touchobj.pageY - this.state.startY
-    let elapsedTime = new Date().getTime() - startTime
-    if(elapsedTime<=400){
-        if(Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100){
-            if(this.state.distX<0){
-                if (this.props.offerList) {
-                    totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
-                    curr_index = this.state.index
-                    curr_index = curr_index + 1
-                    if (curr_index >= totalOffers) {
-                        curr_index = 0
+        let startTime = new Date().getTime()
+        let touchobj = event.changedTouches[0]
+        let totalOffers = ''
+        let curr_index
+        this.state.distX = touchobj.pageX - this.state.startX
+        this.state.distY = touchobj.pageY - this.state.startY
+        let elapsedTime = new Date().getTime() - startTime
+        if(elapsedTime<=400){
+            if(Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100){
+                if(this.state.distX<0){
+                    if (this.props.offerList) {
+                        totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+                        curr_index = this.state.index
+                        curr_index = curr_index + 1
+                        if (curr_index >= totalOffers) {
+                            curr_index = 0
+                        }
+                        this.setState({ index: curr_index,intervalFlag:!this.state.intervalFlag })
                     }
-                    this.setState({ index: curr_index })
-                }
-            }else{
-                if (this.props.offerList) {
-                    totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
-                    curr_index = this.state.index
-                    curr_index = curr_index - 1
-                    if(curr_index < 0){
-                        curr_index = totalOffers -1
+                }else{
+                    if (this.props.offerList) {
+                        totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+                        curr_index = this.state.index
+                        curr_index = curr_index - 1
+                        if(curr_index < 0){
+                            curr_index = totalOffers -1
+                        }
+                        this.setState({ index: curr_index,intervalFlag:!this.state.intervalFlag })
                     }
-                    this.setState({ index: curr_index })
                 }
             }
         }
-    }
     }
     render() {
 
