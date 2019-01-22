@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 
@@ -524,4 +524,36 @@ export const fetchReferralCode = (code = null) => (dispatch) => {
 		url += `/${code}`
 	}
 	return API_GET(url)
+}
+
+export const getCartItems = () => (dispatch) => {
+	return API_GET('/api/v1/cart/all').then(function (response) {
+		dispatch({
+			type: APPEND_CART,
+			payload: response
+		})
+
+	}).catch(function (error) {
+
+	})
+}
+
+export const addToCart = (product_id, data) => (dispatch) => {
+	return API_POST('/api/v1/cart/add', {
+		product_id, data
+	})
+}
+
+export const removeFromCart = (id) => (dispatch) => {
+	return API_POST('/api/v1/cart/remove', {
+		id
+	}).then((res) => {
+		return getCartItems()(dispatch)
+	}).catch((e) => {
+
+	})
+}
+
+export const processCartItems = () => (dispatch) => {
+	return API_GET('/api/v1/cart/process')
 }

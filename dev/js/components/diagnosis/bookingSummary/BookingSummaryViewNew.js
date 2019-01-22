@@ -256,7 +256,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -313,6 +313,15 @@ class BookingSummaryViewNew extends React.Component {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
 
+        if (addToCart) {
+            this.props.addToCart(2, postData).then((res) => {
+                this.props.history.push('/cart')
+            }).catch((e) => {
+                SnackBar.show({ pos: 'bottom-center', text: "Error adding to cart" });
+            })
+            return
+        }
+
         let data = {
             'Category': 'ConsumerApp', 'Action': 'LabProceedClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-proceed-clicked'
         }
@@ -355,7 +364,7 @@ class BookingSummaryViewNew extends React.Component {
                     // })
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/lab/appointment/${data.data.id}?payment_success=true`)
+                    this.props.history.replace(`/user/appointments`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
@@ -711,11 +720,21 @@ class BookingSummaryViewNew extends React.Component {
                                 this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                             }
 
-                            {
+                            {/* {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
-                            }
+                            } */}
+
+                            <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                <button className="add-shpng-cart-btn" data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}><img src={ASSETS_BASE_URL + "/img/cartico.svg"} />Add to Cart</button>
+                                <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+
+                            </div>
 
 
                         </div>
