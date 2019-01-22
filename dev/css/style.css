@@ -5055,3 +5055,7 @@ font-size: 13px;
 .d-inline-blck{
 	display: inline-block;
 }
+
+.imptnt-cls{
+	padding-left:66px!important
+}
