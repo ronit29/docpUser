@@ -247,7 +247,7 @@ class PatientDetailsNew extends React.Component {
         return null
     }
 
-    proceed(datePicked, patient, e) {
+    proceed(datePicked, patient, addToCart, e) {
 
         if (!datePicked) {
             this.setState({ showTimeError: true });
@@ -301,6 +301,14 @@ class PatientDetailsNew extends React.Component {
                 postData['procedure_ids'] = procedure_ids || []
             }
         }
+        if (addToCart) {
+            this.props.addToCart(1, postData).then((res) => {
+                this.props.history.push('/cart')
+            }).catch((e) => {
+                SnackBar.show({ pos: 'bottom-center', text: "Error adding to cart" });
+            })
+            return
+        }
 
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'OpdProceedButtonClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-proceed-button-clicked'
@@ -323,22 +331,9 @@ class PatientDetailsNew extends React.Component {
                     GTM.sendEvent({ data: analyticData })
                     this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
 
-                    // this.setState({
-                    //     paymentData: data.data
-                    // }, () => {
-                    //     setTimeout(() => {
-                    //         let form = document.getElementById('paymentForm')
-                    //         form.submit()
-                    //     }, 500)
-
-                    //     setTimeout(() => {
-                    //         this.setState({ loading: false })
-                    //     }, 5000)
-                    // })
-
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/opd/appointment/${data.data.id}?payment_success=true`)
+                    this.props.history.replace(`/user/appointments`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
@@ -510,108 +505,7 @@ class PatientDetailsNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        {/* ===================== start shopping card static html ===================== */}
-                                                        <h4 className="shoping-cart-main-heading">My Cart</h4>
-                                                        <div className="widget mrb-15 mrng-top-12 p-relative">
-                                                            <div className="shopng-cart-price">
-                                                                <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 120 <span className="shopng-cart-price-cut"><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />400</span></p>
-                                                            </div>
-                                                            <div className="widget-header dr-qucik-info">
-                                                                <div>
-                                                                    <div>
-                                                                        <img src="https://cdn.docprime.com/media/doctor/images/80x80/dc9a4df9c60d1dd3e34e199ae0a2aa61.jpg" className="img-fluid img-round" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="dr-profile mrt-10">
-                                                                    <h1 className="dr-name">Dr. Satish Kumar Gadi</h1>
-                                                                    <p className="clinic-name text-sm">Dr. Satish Kumar Gadis Clinic</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="shopping-card-details-list">
-                                                                <ul>
-                                                                    <li>
-                                                                        <p>
-                                                                            <span className="shpng-dtls-ico"><img style={{ marginTop: '2px', width: '15px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>15th  November |  3:30 PM
-                                                                        </p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>
-                                                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>Mayank Yadav
-                                                                        </p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>
-                                                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} /></span>
-                                                                            Coupon Applied: <span className="coupon-applies-shpngcard">CRED 20</span>
-                                                                        </p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div className="shpng-card-btns">
-                                                                <button>Remove</button>
-                                                                <button>Edit</button>
-                                                            </div>
-                                                        </div>
 
-                                                        {/* ============lab shopping cart ============= */}
-                                                        <div className="widget mrb-15 mrng-top-12 p-relative">
-                                                            <div className="shopng-cart-price">
-                                                                <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 120 <span className="shopng-cart-price-cut"><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />400</span></p>
-                                                            </div>
-                                                            <div className="widget-header dr-qucik-info align-flex-end">
-                                                                <div>
-                                                                    <div>
-                                                                        <img style={{ width: '30px', height: 'auto' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} className="img-fluid" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="dr-profile mrt-10">
-                                                                    <h1 className="dr-name">Apollo Diagnostics</h1>
-                                                                </div>
-                                                            </div>
-                                                            <div className="shopping-card-details-list">
-                                                                <ul>
-                                                                    <li>
-                                                                        <p>
-                                                                            <span className="shpng-dtls-ico"><img style={{ marginTop: '2px', width: '15px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>15th  November |  3:30 PM
-                                                                        </p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>
-                                                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>Mayank Yadav
-                                                                        </p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>
-                                                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} /></span>
-                                                                            Coupon Applied: <span className="coupon-applies-shpngcard">CRED 20</span>
-                                                                        </p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div className="widget-content">
-                                                                <div className="shoping-cart-test-list">
-                                                                    <div className="p-relative">
-                                                                        <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/flask.svg"} />
-                                                                        <p className="test-list test-list-label clearfix new-lab-test-list">
-                                                                            <span className="float-right fw-700">₹ 360<span className="test-mrp">₹ 600</span>
-                                                                            </span>
-                                                                            <span className="test-name-item">Liver Function Test</span>
-                                                                        </p>
-                                                                    </div>
-                                                                    <p className="test-list test-list-label clearfix new-lab-test-list">
-                                                                        <span className="float-right fw-700">₹ 360<span className="test-mrp">₹ 600</span>
-                                                                        </span>
-                                                                        <span className="test-name-item">CBC</span>
-                                                                    </p>
-                                                                </div>
-
-                                                            </div>
-                                                            <div className="shpng-card-btns">
-                                                                <button>Remove</button>
-                                                                <button>Edit</button>
-                                                            </div>
-                                                        </div>
-                                                        {/* ===================== End shopping card static html ===================== */}
                                                         <SelectedClinic
                                                             boxShadowHide={true}
                                                             selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
@@ -756,9 +650,14 @@ class PatientDetailsNew extends React.Component {
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
                             } */}
+
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                                <button className="add-shpng-cart-btn"><img src={ASSETS_BASE_URL + "/img/cartico.svg"} />Add to Cart</button>
-                                <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled="true">Book Now (₹ 300)</button>
+                                <button className="add-shpng-cart-btn" data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}><img src={ASSETS_BASE_URL + "/img/cartico.svg"} />Add to Cart</button>
+                                <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
 
                             </div>
                         </div>

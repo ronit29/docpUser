@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
+import { addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -63,7 +63,8 @@ const mapDispatchToProps = (dispatch) => {
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
-        fetchTransactions: () => dispatch(fetchTransactions())
+        fetchTransactions: () => dispatch(fetchTransactions()),
+        addToCart: (product_id, data) => dispatch(addToCart(product_id, data))
     }
 }
 
