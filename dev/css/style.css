@@ -5110,6 +5110,7 @@ font-size: 13px;
     margin: 7px 0;
 	cursor: pointer;
 	font-size: 15px;
+	background-color: white;
 }
 .shpng-card-btns button:last-child {
 	border-right: none;

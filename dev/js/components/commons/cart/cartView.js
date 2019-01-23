@@ -10,7 +10,7 @@ class CartView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            use_wallet: true
         }
     }
 
@@ -18,6 +18,10 @@ class CartView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+    }
+
+    toggleWalletUse(e) {
+        this.setState({ use_wallet: e.target.checked })
     }
 
     getPriceBreakup(cart_items) {
@@ -64,6 +68,23 @@ class CartView extends React.Component {
         })
     }
 
+    getBookingButtonText(total_wallet_balance, price_to_pay) {
+        let price_from_wallet = 0
+        let price_from_pg = 0
+
+        if (this.state.use_wallet && total_wallet_balance) {
+            price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
+        }
+
+        price_from_pg = price_to_pay - price_from_wallet
+
+        if (price_from_pg) {
+            return `Continue to pay (₹ ${price_from_pg})`
+        }
+
+        return `Confirm Booking`
+    }
+
     render() {
 
         let { cart } = this.props
@@ -76,6 +97,11 @@ class CartView extends React.Component {
             coupon_breakup,
         } = this.getPriceBreakup(cart)
 
+        let total_wallet_balance = 0
+        if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
+            total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -84,18 +110,18 @@ class CartView extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <div>
-                                <section className="dr-profile-screen booking-confirm-screen">
-                                    <div className="container-fluid">
-                                        <div className="row mrb-20">
-                                            <div className="col-12">
-                                                <h4 className="shoping-cart-main-heading">My Cart</h4>
-                                                {
-                                                    cart.map((cart_item, i) => {
-                                                        return <CartItem key={i} {...this.props} {...cart_item} />
-                                                    })
-                                                }
-                                                {
-                                                    cart && cart.length ? <div className="widget mrb-15">
+                                {
+                                    cart && cart.length ? <section className="dr-profile-screen booking-confirm-screen">
+                                        <div className="container-fluid">
+                                            <div className="row mrb-20">
+                                                <div className="col-12">
+                                                    <h4 className="shoping-cart-main-heading">My Cart</h4>
+                                                    {
+                                                        cart.map((cart_item, i) => {
+                                                            return <CartItem key={i} {...this.props} {...cart_item} />
+                                                        })
+                                                    }
+                                                    <div className="widget mrb-15">
                                                         <div className="widget-content">
                                                             <h4 className="title mb-20">Payment Summary</h4>
                                                             <div className="payment-summary-content">
@@ -141,22 +167,34 @@ class CartView extends React.Component {
                                                             }
 
                                                         </div>
-                                                    </div> : ""
-                                                }
+                                                    </div>
 
+                                                    {
+                                                        total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                            <div className="widget-content">
+                                                                <div className="select-pt-form">
+                                                                    <div className="referral-select">
+                                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                        <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> : ""
+                                                    }
 
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                        <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                            <button className="add-shpng-cart-btn" onClick={() => {
+                                                this.props.history.push('/search?from=cart')
+                                            }}>Continue Booking</button>
+                                            <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                        </div>
 
-                                    <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                                        <button className="add-shpng-cart-btn" onClick={() => {
-                                            this.props.history.push('/search?from=cart')
-                                        }}>Continue Booking</button>
-                                        <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>Book Now</button>
-                                    </div>
-                                </section>
+                                    </section> : ""
+                                }
                             </div>
                         </div>
                         <RightBar noChatButton={true} />

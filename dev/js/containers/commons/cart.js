@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria } from '../../actions/index.js'
+import { getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria, fetchTransactions } from '../../actions/index.js'
 
 import CartView from '../../components/commons/cart'
 import STORAGE from '../../helpers/storage'
@@ -22,6 +22,7 @@ class Cart extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
             this.props.getCartItems()
+            this.props.fetchTransactions()
         }
     }
 
@@ -35,11 +36,11 @@ class Cart extends React.Component {
 
 const mapStateToProps = (state) => {
     let {
-        cart
+        cart, userWalletBalance, userCashbackBalance
     } = state.USER
 
     return {
-        cart
+        cart, userWalletBalance, userCashbackBalance
     }
 }
 
@@ -52,10 +53,11 @@ const mapDispatchToProps = (dispatch) => {
         selectProfile: (id) => dispatch(selectProfile(id)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures , forceAdd)),
+        saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures, forceAdd)),
         clearAllTests: () => dispatch(clearAllTests()),
         applyCoupons: (productId, couponData, couponId, doctor_id) => dispatch(applyCoupons(productId, couponData, couponId, doctor_id)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd))
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
+        fetchTransactions: () => dispatch(fetchTransactions())
     }
 }
 
