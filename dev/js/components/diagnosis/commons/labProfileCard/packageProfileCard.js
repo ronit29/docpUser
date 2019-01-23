@@ -67,8 +67,20 @@ class LabProfileCard extends React.Component {
             }
         }
     }
+    testInfo(test_id,event) {
+        let lab_id = this.props.details.lab.id
+        // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
+        // selected_test_ids = selected_test_ids.map(x => x.id)
+        let selected_test_ids = test_id
+        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow')
+        event.stopPropagation()
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
+        }
+        GTM.sendEvent({ data: data })
+    }
     render() {
-        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id,number_of_tests } = this.props.details;
+        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id,number_of_tests,show_details } = this.props.details;
         distance = Math.ceil(distance / 1000);
 
         var openingTime = ''
@@ -112,7 +124,10 @@ class LabProfileCard extends React.Component {
                     <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url,id,name)}>
                             <div className="col-12 mrt-10">
                                 <a>
-                                <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name}</h2>
+                                <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name}</h2> {show_details?
+                                    <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,id)}>
+                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                        </span>:''}
                                 <h3 className="lab-fltr-dc-name fw-500" style={{ fontSize: '14px', paddingLeft: '8px', paddingRight: '110px', color:'#757575' }}>{number_of_tests?`${number_of_tests} Tests Included`:''} </h3>
                                     {/*<h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{lab.name}</h2>*/}
                                 </a>
