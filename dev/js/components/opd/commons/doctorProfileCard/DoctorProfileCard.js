@@ -51,21 +51,21 @@ class DoctorProfileCard extends React.Component {
         let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified } = this.props.details
         let expStr = ""
 
-        let qualificationStr = ''
-        if (general_specialization && general_specialization.length) {
-            if (general_specialization.length <= 3) {
-                for (let i = 0; i < general_specialization.length; i++) {
-                    qualificationStr += general_specialization[i].name;
-                    if (i < general_specialization.length - 1) qualificationStr += `, `;
-                }
-            }
-            else {
-                for (let i = 0; i < 3; i++) {
-                    qualificationStr += general_specialization[i].name;
-                    if (i < general_specialization.length - 1) qualificationStr += `, `;
-                }
-            }
-        }
+        // let qualificationStr = ''
+        // if (general_specialization && general_specialization.length) {
+        //     if (general_specialization.length <= 3) {
+        //         for (let i = 0; i < general_specialization.length; i++) {
+        //             qualificationStr += general_specialization[i].name;
+        //             if (i < general_specialization.length - 1) qualificationStr += `, `;
+        //         }
+        //     }
+        //     else {
+        //         for (let i = 0; i < 3; i++) {
+        //             qualificationStr += general_specialization[i].name;
+        //             if (i < general_specialization.length - 1) qualificationStr += `, `;
+        //         }
+        //     }
+        // }
 
         if (experiences && experiences.length) {
             expStr += `EXP - ${experiences[0].hospital}`
@@ -86,12 +86,13 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
-                    {
+                    <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
+                    {/* {
                         general_specialization && general_specialization.length > 3 ?
                             <h2 className="desg">{qualificationStr} & <span style={{ cursor: 'pointer', color: '#f78631' }} onClick={() => this.moreQualificationClick()}>{general_specialization.length - 3} more</span></h2>
                             :
                             <h2 className="desg">{qualificationStr}</h2>
-                    }
+                    } */}
                     {
                         experience_years ? <h2 className="add-details">{experience_years} Years of Experience</h2> : ""
                     }
