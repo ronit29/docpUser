@@ -14,23 +14,105 @@ class CartItem extends React.Component {
     }
 
     edit(item) {
-        let { valid, product_id, mrp, deal_price, id } = this.props
+        let { valid, product_id, mrp, deal_price, id, data } = this.props
         let { lab, test_ids, doctor, hospital, coupon_code, profile, procedure_ids, is_home_pickup, address, start_date, start_time } = this.props.actual_data
 
         // doctor
         if (product_id == 1) {
+            this.setOpdBooking(this.props)
             return
         }
 
         // lab
         if (product_id == 2) {
+            this.setLabBooking(this.props)
             return
         }
 
     }
 
-    applyCoupon() {
+    buildOpdTimeSlot(data) {
 
+        let time = {
+            text: new Date(data.data.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+            deal_price: data.consultation.deal_price,
+            is_available: true,
+            mrp: data.consultation.mrp,
+            price: data.consultation.deal_price,
+            title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
+            value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
+        }
+
+        return time
+
+    }
+
+    buildLabTimeSlot(data) {
+
+        let time = {
+            text: new Date(data.data.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+            deal_price: data.deal_price,
+            is_available: true,
+            mrp: data.mrp,
+            price: data.deal_price,
+            title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
+            value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
+        }
+
+        return time
+
+    }
+
+    setOpdBooking(data) {
+
+        if (data.valid) {
+
+            let time_slot = this.buildOpdTimeSlot(data)
+            let timeSlot = {
+                date: new Date(data.data.date),
+                slot: '',
+                time: time_slot,
+                selectedDoctor: data.actual_data.doctor,
+                selectedClinic: data.actual_data.hospital
+            }
+            this.props.selectOpdTimeSLot(timeSlot, false)
+
+            if (data.actual_data.coupon_code) {
+                this.props.applyCoupons('1', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id }, data.data.coupons[0].id, data.actual_data.doctor)
+            }
+        }
+
+        this.props.selectProfile(data.actual_data.profile)
+        if (data.actual_data.procedure_ids && data.actual_data.procedure_ids.length) {
+            this.props.saveProfileProcedures('', '', data.actual_data.procedure_ids, true)
+        }
+        this.props.history.push(`/opd/doctor/${data.actual_data.doctor}/${data.actual_data.hospital}/bookdetails`)
+    }
+
+    setLabBooking(data) {
+        this.props.clearAllTests()
+        for (let curr_test of data.actual_data.test_ids) {
+            let curr = {}
+            curr.id = curr_test
+            curr.extra_test = true
+            curr.lab_id = data.actual_data.lab
+            this.props.toggleDiagnosisCriteria('test', curr, true)
+        }
+
+        this.props.selectProfile(data.actual_data.profile)
+        if (data.valid) {
+            let time_slot = this.buildLabTimeSlot(data)
+            let timeSlot = {
+                date: new Date(data.data.date),
+                time: time_slot
+            }
+            this.props.selectLabTimeSLot(timeSlot, false)
+            if (data.actual_data.coupon_code) {
+                this.props.applyCoupons('2', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id }, data.data.coupons[0].id, data.actual_data.lab)
+            }
+        }
+
+        this.props.history.push(`/lab/${data.actual_data.lab}/book`)
     }
 
     render() {

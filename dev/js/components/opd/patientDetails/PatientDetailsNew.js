@@ -37,7 +37,8 @@ class PatientDetailsNew extends React.Component {
             couponApplied: false,
             is_cashback: false,
             // order_id: !!parsed.order_id,
-            use_wallet: true
+            use_wallet: true,
+            profileError: false
         }
     }
 
@@ -226,9 +227,9 @@ class PatientDetailsNew extends React.Component {
 
     profileDataCompleted(data) {
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
-            this.setState({ profileDataFilled: false, showTimeError: false })
+            this.setState({ profileDataFilled: false, showTimeError: false})
         } else if (data.otpVerifySuccess) {
-            this.setState({ profileDataFilled: true, showTimeError: false })
+            this.setState({ profileDataFilled: true, showTimeError: false, profileError: false })
         }
     }
 
@@ -257,7 +258,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         if (!patient) {
-            //this.setState({ showTimeError: true });
+            this.setState({ profileError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
             window.scrollTo(0, 0)
             return
@@ -513,7 +514,7 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
 
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} />
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError}/>
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />

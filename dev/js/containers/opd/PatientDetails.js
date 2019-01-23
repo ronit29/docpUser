@@ -24,7 +24,6 @@ class PatientDetails extends React.Component {
             this.props.getUserProfile()
             this.props.fetchTransactions()
         }
-
         this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
 
     }
