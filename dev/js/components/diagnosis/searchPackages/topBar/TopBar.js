@@ -85,7 +85,7 @@ class TopBar extends React.Component {
     }
 
     handleClose(type) {
-        this.setState({ anchorEl: null, sort_on: type }, () => {
+        this.setState({ anchorEl: null, sort_on: type ,dropdown_visible:false}, () => {
             if (type || type === "") {
                 this.applyFilters()
             }
@@ -194,12 +194,34 @@ class TopBar extends React.Component {
 
         return (
             <div>
+                {
+                    this.state.dropdown_visible ?
+                     <div>
+                        <div className="cancel-overlay" onClick={this.hideSortDiv.bind(this)}>
+                        </div>
+                        <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
+                            <div className="pop-top-heading">
+                                Sort                        
+                            </div>
+                            <div className="col-12">
+                                <div className="ins-form-radio insradio-on-popup">
+                                <ul>
+                                <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
+                                <li className={`sort-dropdown-list-item ${this.state.sort_on == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
+                                <li className={`sort-dropdown-list-item ${this.state.sort_on == 'distance' ? 'sort-item-selected' : ''} `} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
+                                </ul>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div> : ""
+                }
                 <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{parsed.fromFooter?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                  <div className="top-filter-tab-container">
-                    {/*<div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
-                    <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} />Filter</div>*/}
-                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} />Select Package Category</div>
+                    <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
+                    <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} />Filter</div>
+                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} />Category</div>
                 </div>
                     <div className="container-fluid">
                         <div className="row">
@@ -286,7 +308,7 @@ class TopBar extends React.Component {
                                             </div>
                                         </div>
                                 }
-                                {
+                                {/*{
                                     this.state.dropdown_visible ?
                                         <div>
                                             <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
@@ -298,7 +320,7 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div>
                                         </div> : ""
-                                }
+                                }*/}
                             </div>
                         </div>
                         {
@@ -323,50 +345,50 @@ class TopBar extends React.Component {
                     </div>
 
                 </section>
-                {/*{
-                                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
-                                        <div className="widget filter-popup" onClick={(e) => {
-                                            e.stopPropagation()
-                                            e.preventDefault()
-                                        }}>
-                                            <div className="widget-content">
-                                                <div className="filterRow">
-                                                    <span className="tl">Price</span>
-                                                    <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
-                                                    <span className="bl">&#8377; 0</span>
-                                                    <span className="br">&#8377; 20000</span>
-                
-                                                    <Range
-                                                        min={0}
-                                                        max={20000}
-                                                        value={this.state.priceRange}
-                                                        step={100}
-                                                        className="range"
-                                                        onChange={this.handleRange.bind(this, 'priceRange')}
-                                                    />
-                                                </div>
-                                                <div className="filterRow">
-                                                    <span className="tl">Distance</span>
-                                                    <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
-                                                    <span className="bl">0 KM</span>
-                                                    <span className="br">50 KM</span>
-                
-                                                    <Range
-                                                        min={0}
-                                                        max={50}
-                                                        value={this.state.distanceRange}
-                                                        step={1}
-                                                        className="range"
-                                                        onChange={this.handleRange.bind(this, 'distanceRange')}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="widget-footer pd-0">
-                                                <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
-                                            </div>
-                                        </div>
-                                    </div> : ""
-                                }*/}
+                {
+                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
+                        <div className="widget filter-popup" onClick={(e) => {
+                            e.stopPropagation()
+                            e.preventDefault()
+                        }}>
+                            <div className="widget-content">
+                                <div className="filterRow">
+                                    <span className="tl">Price</span>
+                                    <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
+                                    <span className="bl">&#8377; 0</span>
+                                    <span className="br">&#8377; 20000</span>
+
+                                    <Range
+                                        min={0}
+                                        max={20000}
+                                        value={this.state.priceRange}
+                                        step={100}
+                                        className="range"
+                                        onChange={this.handleRange.bind(this, 'priceRange')}
+                                    />
+                                </div>
+                                <div className="filterRow">
+                                    <span className="tl">Distance</span>
+                                    <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
+                                    <span className="bl">0 KM</span>
+                                    <span className="br">50 KM</span>
+
+                                    <Range
+                                        min={0}
+                                        max={50}
+                                        value={this.state.distanceRange}
+                                        step={1}
+                                        className="range"
+                                        onChange={this.handleRange.bind(this, 'distanceRange')}
+                                    />
+                                </div>
+                            </div>
+                            <div className="widget-footer pd-0">
+                                <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
+                            </div>
+                        </div>
+                    </div> : ""
+                }
                 {
                     this.state.openCategory ? <div>
                         <CategoryPopup {...this.props} applyCategories={this.applyCategories.bind(this)} closeCategory={this.closeCategory.bind(this)}/>

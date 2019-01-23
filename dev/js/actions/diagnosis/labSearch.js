@@ -300,11 +300,11 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		if (typeof long === 'function') long = long()
 
 	}
-	// let min_distance = filterCriteria.distanceRange[0]
-	// let max_distance = filterCriteria.distanceRange[1]
-	// let min_price = filterCriteria.priceRange[0]
-	// let max_price = filterCriteria.priceRange[1]
-	// let sort_on = filterCriteria.sort_on || ""
+	let min_distance = filterCriteria.distanceRange[0]
+	let max_distance = filterCriteria.distanceRange[1]
+	let min_price = filterCriteria.priceRange[0]
+	let max_price = filterCriteria.priceRange[1]
+	let sort_on = filterCriteria.sort_on || ""
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	// if (!!filterCriteria.lab_name) {
@@ -317,8 +317,8 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	// url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
-	url += `long=${long || ""}&lat=${lat || ""}&category_ids=${catIds || ""}`
+	url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
+	// url += `long=${long || ""}&lat=${lat || ""}&category_ids=${catIds || ""}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`

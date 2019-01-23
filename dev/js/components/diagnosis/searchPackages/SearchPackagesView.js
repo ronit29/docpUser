@@ -123,21 +123,21 @@ class SearchPackagesView extends React.Component {
         }
         let cat_ids = filterCriteria.catIds || ""
 
-        // let min_distance = filterCriteria.distanceRange[0]
-        // let max_distance = filterCriteria.distanceRange[1]
-        // let min_price = filterCriteria.priceRange[0]
-        // let max_price = filterCriteria.priceRange[1]
-        // let sort_on = filterCriteria.sort_on || ""
-        // let lab_name = filterCriteria.lab_name || ""
-        // let network_id = filterCriteria.network_id || ""
+        let min_distance = filterCriteria.distanceRange[0]
+        let max_distance = filterCriteria.distanceRange[1]
+        let min_price = filterCriteria.priceRange[0]
+        let max_price = filterCriteria.priceRange[1]
+        let sort_on = filterCriteria.sort_on || ""
+        let lab_name = filterCriteria.lab_name || ""
+        let network_id = filterCriteria.network_id || ""
         
-        // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
         const parsed = queryString.parse(this.props.location.search)
         let url
         if(parsed.fromFooter){
             url = `${window.location.pathname}?fromFooter=true`
         }else{
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
+            // url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}`
         }
 
         if (this.state.lab_card) {
