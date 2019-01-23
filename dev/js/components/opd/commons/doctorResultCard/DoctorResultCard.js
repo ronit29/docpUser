@@ -61,11 +61,17 @@ class DoctorProfileCard extends React.Component {
     }
 
     getQualificationStr(qualificationSpecialization) {
-        return qualificationSpecialization.reduce((str, curr, i) => {
-            str += `${curr.name}`
-            if (i < qualificationSpecialization.length - 1) str += `, `;
-            return str
-        }, "")
+        if (qualificationSpecialization.length) {
+            return qualificationSpecialization[0].name;
+        } else {
+            return null
+        }
+
+        // return qualificationSpecialization.reduce((str, curr, i) => {
+        //     str += `${curr.name}`
+        //     if (i < qualificationSpecialization.length - 1) str += `, `;
+        //     return str
+        // }, "")
     }
 
     claimButtonClick(e) {
@@ -197,6 +203,18 @@ class DoctorProfileCard extends React.Component {
                                     </div>
                                     <div className="crd-dctr-dtls">
                                         <h3 className="fw-500">{this.getQualificationStr(general_specialization || [])}</h3>
+                                        {
+                                            this.props.details.qualifications && this.props.details.qualifications.length ?
+                                                <div style={{ marginTop: 2, height: 16 }}>
+                                                    {
+                                                        this.props.details.qualifications.filter(x => x.qualification.length <= 6).map((qualification, i) => {
+                                                            if (i <= 1) {
+                                                                return <h3 className="fw-500 inline-head" id={`inline-head-${i}`} key={i}>{qualification.qualification}</h3>
+                                                            }
+                                                        })
+                                                    }
+                                                </div> : ''
+                                        }
                                         {
                                             experience_years ? <h3 className="fw-500">{experience_years} Years of Experience</h3> : ""
                                         }

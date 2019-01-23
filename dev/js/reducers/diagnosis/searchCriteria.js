@@ -181,6 +181,7 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
             newState.filterCriteria = DEFAULT_FILTER_STATE
             newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            // newState.fetchNewResults = true
             return newState
         }
 

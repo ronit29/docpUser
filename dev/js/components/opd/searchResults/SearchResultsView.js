@@ -186,8 +186,9 @@ class SearchResultsView extends React.Component {
 
         if(this.props.search_id_data && this.props.search_id_data[parsed.search_id]){
             search_id_data[parsed.search_id].filterCriteria = filterState
+            search_id_data[parsed.search_id].page = 1
         }
-        this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data })
+        this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data, page: 1 })
        // this.props.setSearchId(this.state.search_id, filterState, false)
         if (window) {
             window.scrollTo(0, 0)
@@ -310,6 +311,9 @@ class SearchResultsView extends React.Component {
             description = seoData.description || ""
             schema = seoData.schema
         }
+        if(parseInt(this.props.page) != 1){
+            title = 'Page  '+this.props.page+' - '+title
+        }
         return { title, description, schema }
     }
 
@@ -358,19 +362,19 @@ class SearchResultsView extends React.Component {
                                     {
                                         prev ? <a href={prev} >
                                             <div className="art-pagination-btn">
-                                                <span className="fw-500">{this.props.page - 1}</span>
+                                                <span className="fw-500">{parseInt(this.props.page) - 1}</span>
                                             </div>
                                         </a> : ""
                                     }
 
                                     <div className="art-pagination-btn">
-                                        <span className="fw-500" style={{ color: '#000' }}>{this.props.page}</span>
+                                        <span className="fw-500" style={{ color: '#000' }}>{parseInt(this.props.page)}</span>
                                     </div>
 
                                     {
                                         next ? <a href={next} >
                                             <div className="art-pagination-btn">
-                                                <span className="fw-500">{this.props.page + 1}</span>
+                                                <span className="fw-500">{parseInt(this.props.page) + 1}</span>
                                             </div>
                                         </a> : ""
                                     }

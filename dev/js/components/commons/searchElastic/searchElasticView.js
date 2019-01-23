@@ -255,7 +255,7 @@ class SearchElasticView extends React.Component {
                                         type="test"
                                         data={this.props.dataState.common_package}
                                         selectedSearchType = {this.props.selectedSearchType}
-                                        selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test').filter(x => x.is_package)}
+                                        selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test')}
                                         toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                                     /> : ''
                             }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -92,7 +92,8 @@ const mapDispatchToProps = (dispatch) => {
         clearExtraTests: () => dispatch(clearExtraTests()),
         getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
-        getOfferList: () => dispatch(getOfferList())
+        getOfferList: () => dispatch(getOfferList()),
+        clearAllTests: () => dispatch(clearAllTests())
     }
 }
 

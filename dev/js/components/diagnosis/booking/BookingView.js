@@ -70,14 +70,24 @@ class BookingView extends React.Component {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
                     let info = {}
-                    info[appointmentId] = data.length?data[0].deal_price:''
+                    info[appointmentId] = {}
+                    let mrp = 0
+                    let deal_price = 0
+                    if(data.length && data[0].lab_test){
+                        data[0].lab_test.map((test) => {
+                            mrp+= parseInt(test.mrp)
+                            deal_price+= parseInt(test.deal_price)
+                        })
+                    }
+                    info[appointmentId].mrp = mrp
+                    info[appointmentId].deal_price = deal_price
                     info = JSON.stringify(info)
                     STORAGE.setAppointmentDetails(info).then((setCookie)=> {
 
                         if (this.state.payment_success) {
 
                             let analyticData = {
-                                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked','deal_price': data[0].deal_price
+                                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
                             }
                             GTM.sendEvent({ data: analyticData })
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")

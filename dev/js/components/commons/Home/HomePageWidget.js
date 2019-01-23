@@ -15,8 +15,8 @@ class HomePageWidget extends React.Component {
         }
         let test = {}
         if (this.props.searchType == "packages") {
-            test.type = 'test'
-            this.props.toggleDiagnosisCriteria('test', test, true)
+            // test.type = 'test'
+            // this.props.toggleDiagnosisCriteria('test', test, true)
         }
         if (this.props.type) {
             this.props.selectSearchType(this.props.type)
@@ -31,8 +31,16 @@ class HomePageWidget extends React.Component {
                     {
                         this.props.type === 'opd' ?
                             <h1>{this.props.heading}</h1>
-                            :
-                            <h2>{this.props.heading}</h2>
+                            : this.props.searchType && this.props.searchType === 'packages' ?
+                                <a style={{ cursor: 'pointer' }} title="Full Body Checkup Packages" href="/full-body-checkup-health-packages"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo(this.props.navTo)
+                                    }}
+                                >
+                                    <h2 className="home-widget-heading">{this.props.heading}</h2>
+                                </a>
+                                : <h2>{this.props.heading}</h2>
                     }
                     <span className="ofr-ribbon home-ofr-ribbon">Upto {this.props.discount} Off</span>
                 </div>
