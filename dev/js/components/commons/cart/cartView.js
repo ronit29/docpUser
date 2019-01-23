@@ -193,7 +193,7 @@ class CartView extends React.Component {
                                             <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                         </div>
 
-                                    </section> : ""
+                                    </section> : <span>NO ITEMS ADDED TO CART</span>
                                 }
                             </div>
                         </div>

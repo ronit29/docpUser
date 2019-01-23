@@ -118,15 +118,13 @@ class CartItem extends React.Component {
     render() {
 
         let { valid, product_id, mrp, deal_price, id } = this.props
-        let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail } = this.props.data
+        let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
         if (date) {
             date = new Date(date)
         }
 
         return (
             <div>
-                {/* ===================== start shopping card static html ===================== */}
-
                 <div className="widget mrb-15 mrng-top-12 p-relative">
                     <div className="shopng-cart-price">
                         {
@@ -193,6 +191,26 @@ class CartItem extends React.Component {
                                                 <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
                                                 </span>
                                                 <span className="test-name-item">{test.test_name}</span>
+                                            </p>
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </div> : ""
+                    }
+
+                    {
+                        procedures && procedures.length ? <div className="widget-content">
+                            <div className="shoping-cart-test-list">
+                                <div className="p-relative">
+                                    <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/hand.svg"} />
+                                    {
+                                        procedures.map((proc, i) => {
+                                            return <p className="test-list test-list-label clearfix new-lab-test-list">
+
+                                                <span className="float-right fw-700">₹ {proc.deal_price}<span className="test-mrp">₹ {proc.mrp}</span>
+                                                </span>
+                                                <span className="test-name-item">{proc.name}</span>
                                             </p>
                                         })
                                     }
