@@ -1162,7 +1162,7 @@
 	left: 0;
 	bottom: 0;
 	background-color: rgba(0,0,0,0.6);
-	z-index: 99;
+	z-index: 999;
 	-webkit-animation: FadeIn 0.5s;
     -moz-animation: FadeIn 0.5s;
     -ms-animation: FadeIn 0.5s;
@@ -1178,7 +1178,7 @@
 	left: 50%;
 	right: unset;
 	transform: translate(-50%, -50%);
-	z-index: 100;
+	z-index: 999;
 	width: 500px;	
 	padding: 8px;
 	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.3);
