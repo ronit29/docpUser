@@ -123,7 +123,7 @@ const routes = [
     { path: '/search/testinfo', exact: true, component: searchTestInfo },
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
-    { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: true, redirectTo: "full-body-checkup-health-packages" },
+    { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: false, redirectTo: "full-body-checkup-health-packages" },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

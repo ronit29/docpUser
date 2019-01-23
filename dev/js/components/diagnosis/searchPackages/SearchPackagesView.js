@@ -8,6 +8,8 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 
+const queryString = require('query-string')
+
 class SearchPackagesView extends React.Component {
     constructor(props) {
         super(props)
@@ -130,8 +132,13 @@ class SearchPackagesView extends React.Component {
         // let network_id = filterCriteria.network_id || ""
         
         // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
-
-        let url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
+        const parsed = queryString.parse(this.props.location.search)
+        let url
+        if(parsed.fromFooter){
+            url = `${window.location.pathname}?fromFooter=true`
+        }else{
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
+        }
 
         if (this.state.lab_card) {
             url += `&lab_card=true`

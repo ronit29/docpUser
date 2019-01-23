@@ -217,7 +217,7 @@ class HomeView extends React.Component {
 									type="lab"
 									searchType="packages"
 									{...this.props}
-									navTo="/full-body-checkup-health-packages?from=home"
+									navTo="/searchpackages?from=home"
 								/> : ""
 						}
 
@@ -291,7 +291,7 @@ class HomeView extends React.Component {
 									type="lab"
 									searchType="packages"
 									{...this.props}
-									navTo="/full-body-checkup-health-packages?from=home"
+									navTo="/searchpackages?from=home"
 								/> : ""
 						}
 
