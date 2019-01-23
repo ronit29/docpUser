@@ -205,97 +205,110 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>
                             </div> */}
+                                <div className="head-links" >
+                                    <div className="p-relative">
+                                    <img src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: 24 }} />
+                                    <span className="cart-count-notify">2</span>
+                                </div>
+                                <span>Cart</span>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 ml-auto text-right d-lg-none pl-0">
-                            {
-                                this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
-                                    <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
-                                </div>
-                            }
+                    <div className="col-lg-9 col-md-8 col-8 ml-auto text-right d-lg-none pl-0">
+                        {
+                            this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
+                                <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
+                            </div>
+                        }
 
-                            <div className="head-links" onClick={() => {
-                                this.props.history.push('/contact')
+                        <div className="head-links" onClick={() => {
+                            this.props.history.push('/contact')
+                        }}>
+                            <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
+                        </div>
+
+                        <div className="head-links">
+                            <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
+                        </div>
+
+                        {
+                            profileData ? <div className="head-links" onClick={() => {
+                                this.props.history.push('/user')
                             }}>
-                                <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
-                            </div>
-
-                            <div className="head-links">
-                                <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
-                            </div>
-
-                            {
-                                profileData ? <div className="head-links" onClick={() => {
-                                    this.props.history.push('/user')
-                                }}>
-                                    {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
+                                {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                     </InitialsPicture> */}
-                                    <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
-                                </div> : <div className="head-links" onClick={() => {
-                                    this.props.homePage ? this.props.history.push('/user?ref=home') :
-                                        this.props.history.push('/user')
-                                }}>
-                                        <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
-                                    </div>
-                            }
-                            {/* <div className="head-links location-item" onClick={() => {
+                                <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
+                            </div> : <div className="head-links" onClick={() => {
+                                this.props.homePage ? this.props.history.push('/user?ref=home') :
+                                    this.props.history.push('/user')
+                            }}>
+                                    <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
+                                </div>
+                        }
+                        {/* <div className="head-links location-item" onClick={() => {
                                 this.goToLocation()
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
                                 <span className="header-loc-text">{location}</span>
                             </div> */}
-
-
-
+                        <div className="head-links" >
+                            <div className="p-relative">
+                                <img src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: 24 }} />
+                                <span className="cart-count-notify">2</span>
+                            </div>
                         </div>
 
-
-                        {
-
-                            this.state.medicinePopup ?
-                                <div className='col-12 mrb-15'>
-                                    <div className="search-show art-padding d-lg-none">
-                                        <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-medicines")
-                                        }}>
-                                            <span>All Medicines</span>
-                                        </a>
-
-                                        <a className="article-list" href="/all-diseases" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-diseases")
-                                        }}>
-                                            <span>All Diseases</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                : ''
-                        }
-
-                        <div className="col-12 d-lg-none">
-                            {
-                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
-                                    <div className="header-serach-input-div">
-                                        <span>Search Doctors &amp; Tests</span>
-                                    </div>
-                                    {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-                                    <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
-                                </div> : ""
-                            }
-                        </div>
 
 
                     </div>
 
 
+                    {
+
+                        this.state.medicinePopup ?
+                            <div className='col-12 mrb-15'>
+                                <div className="search-show art-padding d-lg-none">
+                                    <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.history.push("/all-medicines")
+                                    }}>
+                                        <span>All Medicines</span>
+                                    </a>
+
+                                    <a className="article-list" href="/all-diseases" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.history.push("/all-diseases")
+                                    }}>
+                                        <span>All Diseases</span>
+                                    </a>
+                                </div>
+                            </div>
+                            : ''
+                    }
+
+                    <div className="col-12 d-lg-none">
+                        {
+                            this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
+                                <div className="header-serach-input-div">
+                                    <span>Search Doctors &amp; Tests</span>
+                                </div>
+                                {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                            </div> : ""
+                        }
+                    </div>
+
 
                 </div>
-            </header>
+
+
+
+                </div>
+            </header >
         );
     }
 }
