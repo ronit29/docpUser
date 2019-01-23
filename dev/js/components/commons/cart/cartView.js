@@ -36,7 +36,7 @@ class CartView extends React.Component {
                     total_coupon_discount += item.coupon_discount
                     total_coupon_cashback += item.coupon_cashback
                     coupon_breakup.push({
-                        code: item.data.coupons[0],
+                        code: item.data.coupons[0].code,
                         value: item.coupon_discount
                     })
                 }

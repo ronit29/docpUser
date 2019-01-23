@@ -124,3 +124,4 @@ export const GET_OFFER_LIST = 'GET_OFFER_LIST'
 export const MERGE_URL_STATE = 'MERGE_URL_STATE'
 export const SET_URL_PAGE = 'SET_URL_PAGE'
 export const SET_LAB_URL_PAGE = 'SET_LAB_URL_PAGE'
+
