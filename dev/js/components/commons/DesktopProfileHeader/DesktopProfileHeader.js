@@ -57,7 +57,11 @@ class DesktopProfileHeader extends React.Component {
 
     render() {
 
-        let profileData = this.props.profiles[this.props.defaultProfile]
+        let profileData = ''
+        if (this.props.profiles && this.props.defaultProfile) {
+            profileData = this.props.profiles[this.props.defaultProfile]
+        }
+
         let styles = {}
         // if (this.props.homePage) {
         //     styles = { display: 'block' }
