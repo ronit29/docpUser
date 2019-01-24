@@ -290,6 +290,9 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
+	let url_string = window.location.href
+    let new_url = new URL(url_string)
+    let parsed = new_url.searchParams.get("fromFooter")
 
 	if (selectedLocation) {
 		lat = selectedLocation.geometry.location.lat
@@ -316,8 +319,9 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	if (searchByUrl) {
 		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
-
-	url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
+	if(!parsed){
+		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
+	}
 	// url += `long=${long || ""}&lat=${lat || ""}&category_ids=${catIds || ""}`
 
 	if (!!filterCriteria.lab_name) {

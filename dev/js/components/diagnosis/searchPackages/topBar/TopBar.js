@@ -194,7 +194,6 @@ class TopBar extends React.Component {
         if (this.props.seoData && this.props.seoData.location) {
             locationName = this.props.seoData.location
         }
-
         return (
             <div>
                 {
@@ -219,7 +218,7 @@ class TopBar extends React.Component {
                         </div>
                     </div> : ""
                 }
-                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.fromFooter?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
+                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forSeo?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                  <div className="top-filter-tab-container">
                     <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
@@ -236,7 +235,7 @@ class TopBar extends React.Component {
                                                 <div style={{ flex: 1 }}>
                                                     <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
                                                         <h1 className="search-result-heading">
-                                                        <span className="fw-700"> {this.props.fromFooter?'Full Body Checkup Packages':'selected categories'}</span>
+                                                        <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':'selected categories'}</span>
                                                         </h1>
                                                         <span className="search-result-span"> {criteriaStr}
                                                             {
@@ -292,7 +291,7 @@ class TopBar extends React.Component {
                                             
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for 
                                                 <h1 className="search-result-heading">
-                                                <span className="fw-700"> {this.props.fromFooter?'Full Body Checkup Packages':'selected categories'}</span>
+                                                <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':'selected categories'}</span>
                                                 </h1>
                                                 <span className="search-result-span" onClick={() => {
                                                     this.setState({
