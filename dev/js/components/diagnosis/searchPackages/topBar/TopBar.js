@@ -166,7 +166,12 @@ class TopBar extends React.Component {
         })
     }
     applyCategories(categoryState) { 
-        this.props.applyCategories(categoryState)
+        let filterState = {
+            priceRange: this.state.priceRange,
+            distanceRange: this.state.distanceRange,
+            sort_on: this.state.sort_on
+        }
+        this.props.applyCategories(categoryState,filterState)
         this.setState({ openCategory: false })
     }
     render() {

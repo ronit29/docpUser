@@ -95,8 +95,11 @@ class SearchPackagesView extends React.Component {
             window.scrollTo(0, 0)
         }
     }
-    applyCategories(categoryState) {
+    applyCategories(categoryState,filterstate) {
         let newCategoryState = {}
+        newCategoryState['distanceRange']=filterstate.distanceRange
+        newCategoryState['priceRange']=filterstate.priceRange
+        newCategoryState['sort_on']=filterstate.sort_on
         newCategoryState['catIds'] = categoryState
         this.props.mergeLABState({ filterCriteria: newCategoryState })
         if (window) {
