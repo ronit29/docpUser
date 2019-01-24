@@ -57,14 +57,16 @@ class TopBar extends React.Component {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
             }
         }
-        var url_string = window.location.href
-        var url = new URL(url_string);
-        var cat_ids = url.searchParams.get("category_ids")
-        cat_ids = cat_ids.split(',')
-        if(cat_ids.length > 0){
-            this.setState({
-                appliedCategoryCount:cat_ids.length,isCategoryApplied:true
-            })
+        if(!this.props.forSeo){
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var cat_ids = url.searchParams.get("category_ids")
+            cat_ids = cat_ids.split(',')
+            if(cat_ids.length > 0){
+                this.setState({
+                    appliedCategoryCount:cat_ids.length,isCategoryApplied:true
+                })
+            }
         }
     }
 
