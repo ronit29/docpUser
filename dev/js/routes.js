@@ -169,4 +169,3 @@ class RouterConfig extends Component {
 
 
 export default RouterConfig
-
