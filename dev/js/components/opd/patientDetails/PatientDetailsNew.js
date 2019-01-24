@@ -22,7 +22,7 @@ import ProcedureView from './procedureView.js'
 class PatientDetailsNew extends React.Component {
     constructor(props) {
         super(props)
-        // const parsed = queryString.parse(this.props.location.search)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
@@ -38,7 +38,8 @@ class PatientDetailsNew extends React.Component {
             is_cashback: false,
             // order_id: !!parsed.order_id,
             use_wallet: true,
-            profileError: false
+            profileError: false,
+            cart_item: parsed.cart_item
         }
     }
 
@@ -227,7 +228,7 @@ class PatientDetailsNew extends React.Component {
 
     profileDataCompleted(data) {
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
-            this.setState({ profileDataFilled: false, showTimeError: false})
+            this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
             this.setState({ profileDataFilled: true, showTimeError: false, profileError: false })
         }
@@ -285,7 +286,8 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: 1,
-            use_wallet: this.state.use_wallet
+            use_wallet: this.state.use_wallet,
+            cart_item: this.state.cart_item
         }
         if (this.props.disCountedOpdPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -302,11 +304,17 @@ class PatientDetailsNew extends React.Component {
                 postData['procedure_ids'] = procedure_ids || []
             }
         }
+
         if (addToCart) {
             this.props.addToCart(1, postData).then((res) => {
                 this.props.history.push('/cart')
-            }).catch((e) => {
-                SnackBar.show({ pos: 'bottom-center', text: "Error adding to cart" });
+            }).catch((err) => {
+                let message = "Error adding to cart!"
+                if (err.message) {
+                    message = err.message
+                }
+                this.setState({ loading: false, error: message })
+                SnackBar.show({ pos: 'bottom-center', text: message });
             })
             return
         }
@@ -514,7 +522,7 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
 
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError}/>
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />

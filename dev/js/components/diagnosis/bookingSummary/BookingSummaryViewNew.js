@@ -6,7 +6,7 @@ import VisitTimeNew from './VisitTimeNew'
 import PickupAddress from './pickupAddress'
 import ChoosePatientNewView from '../../opd/patientDetails/choosePatientNew'
 import InitialsPicture from '../../commons/initialsPicture'
-// const queryString = require('query-string');
+const queryString = require('query-string');
 import STORAGE from '../../../helpers/storage'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -20,7 +20,7 @@ import GTM from '../../../helpers/gtm.js'
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
         super(props)
-        // const parsed = queryString.parse(this.props.location.search)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedLab: this.props.match.params.id,
             paymentData: {},
@@ -37,7 +37,8 @@ class BookingSummaryViewNew extends React.Component {
             scrollPosition: '',
             profileDataFilled: true,
             is_cashback: false,
-            use_wallet: true
+            use_wallet: true,
+            cart_item: parsed.cart_item
         }
     }
 
@@ -307,8 +308,10 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: this.state.use_wallet
+            use_wallet: this.state.use_wallet,
+            cart_item: this.state.cart_item
         }
+
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
@@ -317,7 +320,12 @@ class BookingSummaryViewNew extends React.Component {
             this.props.addToCart(2, postData).then((res) => {
                 this.props.history.push('/cart')
             }).catch((e) => {
-                SnackBar.show({ pos: 'bottom-center', text: "Error adding to cart" });
+                let message = "Error adding to cart!"
+                if (err.message) {
+                    message = err.message
+                }
+                this.setState({ loading: false, error: message })
+                SnackBar.show({ pos: 'bottom-center', text: message });
             })
             return
         }

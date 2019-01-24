@@ -86,7 +86,7 @@ class CartItem extends React.Component {
         if (data.actual_data.procedure_ids && data.actual_data.procedure_ids.length) {
             this.props.saveProfileProcedures('', '', data.actual_data.procedure_ids, true)
         }
-        this.props.history.push(`/opd/doctor/${data.actual_data.doctor}/${data.actual_data.hospital}/bookdetails`)
+        this.props.history.push(`/opd/doctor/${data.actual_data.doctor}/${data.actual_data.hospital}/bookdetails?cart_item=${this.props.id}`)
     }
 
     setLabBooking(data) {
@@ -112,7 +112,7 @@ class CartItem extends React.Component {
             }
         }
 
-        this.props.history.push(`/lab/${data.actual_data.lab}/book`)
+        this.props.history.push(`/lab/${data.actual_data.lab}/book?cart_item=${this.props.id}`)
     }
 
     render() {
