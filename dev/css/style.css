@@ -5055,3 +5055,73 @@ font-size: 13px;
 .d-inline-blck{
 	display: inline-block;
 }
+/* ============================ comment section  ============================  */
+.comments-main-heading{
+
+}
+.comments-section-form{
+	margin: 10px 0px;
+}
+.usr-comments-para{
+	color: black;
+    font-weight: 500;
+    padding: 10px 0;
+}
+.comments-rply{
+	cursor: pointer;
+	font-weight: 500;
+color: 	#fe7108;
+}
+.commnets-sbmt-btn{
+	text-align: center;
+}
+.cmnts-btn{
+	background: #fe7108;
+    padding: 8px 30px;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+}
+.sub-comments-section{
+	padding-left: 15px;
+    border-top: 1px solid #f3f0f0;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+.reply-comments-container{
+    margin: 15px 0px;
+}
+.comments-post-input{
+	display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.comments-post-input input{
+    padding: 10px 15px;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    outline: 0;
+    line-height: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    border: 1px solid #d3d3d3;
+    background: white;
+}
+	.comments-post-input .comments-post-btns{
+		background: #fe7108;
+		color: white;
+		font-weight: 500;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		padding: 0 20px;
+		cursor: pointer;
+		border: 1px solid #fe7108;
+	}
+/* ============================ comment section  ============================  */
