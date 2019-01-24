@@ -5055,3 +5055,18 @@ font-size: 13px;
 .d-inline-blck{
 	display: inline-block;
 }
+li.drop-list-styling {
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+	font-size: 15px;
+	cursor: pointer;
+}
+li.drop-list-styling.drop-icon-selecter img.drop-icon-selecter-selected{
+	visibility: visible;
+}
+img.drop-icon-selecter-selected {
+	margin-right: 10px;
+	visibility: hidden;
+}
