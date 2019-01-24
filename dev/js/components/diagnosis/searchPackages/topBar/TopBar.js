@@ -25,6 +25,9 @@ class TopBar extends React.Component {
             showPopupContainer: true,
             sortText: 'Relevance',
             openCategory: false,
+            isCategoryApplied:false,
+            appliedCategoryCount:'',
+            initialSelectedCatIds:''
         }
     }
 
@@ -170,8 +173,15 @@ class TopBar extends React.Component {
             distanceRange: this.state.distanceRange,
             sort_on: this.state.sort_on
         }
+        let isCategory = false 
+        if(this.state.initialSelectedCatIds != categoryState.length){
+            isCategory = true
+        }
         this.props.applyCategories(categoryState,filterState)
-        this.setState({ openCategory: false })
+        this.setState({ openCategory: false ,isCategoryApplied:isCategory,appliedCategoryCount:categoryState.length>0?categoryState.length:''})
+    }
+    initialSelectedCategory(selectedcategory){
+        this.setState({initialSelectedCatIds:selectedcategory.length})
     }
     render() {
         var selectedTests = []
@@ -221,9 +231,18 @@ class TopBar extends React.Component {
                 <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forSeo?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                  <div className="top-filter-tab-container">
-                    <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
-                    <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} />Filter</div>
-                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} />Category</div>
+                    <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort
+                        {
+                            this.state.sort_on != null? <span className="applied-filter-noti-new" /> : ""
+                        }
+                    </div>
+                    <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} />Filter
+                        {
+                            this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
+                        }
+                    </div>
+                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.isCategoryApplied?'Category ('+this.state.appliedCategoryCount+')':'Category'}
+                    </div>
                 </div>
                     <div className="container-fluid">
                         <div className="row">
@@ -393,7 +412,7 @@ class TopBar extends React.Component {
                 }
                 {
                     this.state.openCategory ? <div>
-                        <CategoryPopup {...this.props} applyCategories={this.applyCategories.bind(this)} closeCategory={this.closeCategory.bind(this)}/>
+                        <CategoryPopup {...this.props} applyCategories={this.applyCategories.bind(this)} closeCategory={this.closeCategory.bind(this)} initialSelectedCategory={this.initialSelectedCategory.bind(this)}/>
                     </div> : ""
                 }
             </div>

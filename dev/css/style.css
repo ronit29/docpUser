@@ -4799,6 +4799,7 @@ font-weight: 700;
     font-weight: 500;
     color: #757575;
     border-right: 1px solid rgba(0, 0, 0, .2);
+    position: relative;
 }
 .top-filter-tabs-select:last-child{
 	border-right: 1px solid transparent;
@@ -5069,4 +5070,29 @@ li.drop-list-styling.drop-icon-selecter img.drop-icon-selecter-selected{
 img.drop-icon-selecter-selected {
 	margin-right: 10px;
 	visibility: hidden;
+}
+
+.catg-count{
+    position: absolute;
+    background: #f78631;
+    height: 20px;
+    width: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    top: -2px;
+    right: 11px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.applied-filter-noti-new{
+	    position: absolute;
+    top: 3px;
+    right: 36px;
+    height: 10px;
+    width: 10px;
+    background-color: orange;
+    border-radius: 50%;
 }
