@@ -20,6 +20,7 @@ class LabProfileCard extends React.Component {
 
     openLab(id, url, e) {
         let dedupe_ids = {}
+        this.props.clearExtraTests()
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
@@ -132,7 +133,7 @@ class LabProfileCard extends React.Component {
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
                                 </a>
                                 {
-                                    offPercent && offPercent > 0 ?
+                                    !hide_price && offPercent && offPercent> 0 ?
                                         <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                                 }
                             </div>
