@@ -5,6 +5,8 @@ import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDi
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
+const queryString = require('query-string')
+
 class SearchPackages extends React.Component {
     constructor(props) {
         super(props)
@@ -57,9 +59,10 @@ class SearchPackages extends React.Component {
     }
 
     render() {
+        const parsed = queryString.parse(this.props.location.search)
 
         return (
-            <SearchPackagesView {...this.props} />
+            <SearchPackagesView {...this.props} forSeo={parsed.fromFooter?true:false}/>
         );
     }
 }

@@ -8,8 +8,6 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 
-const queryString = require('query-string')
-
 class SearchPackagesView extends React.Component {
     constructor(props) {
         super(props)
@@ -134,9 +132,8 @@ class SearchPackagesView extends React.Component {
         let lab_name = filterCriteria.lab_name || ""
         let network_id = filterCriteria.network_id || ""
         
-        const parsed = queryString.parse(this.props.location.search)
         let url
-        if(parsed.fromFooter){
+        if(this.props.forSeo){
             url = `${window.location.pathname}?fromFooter=true`
         }else{
             // url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
