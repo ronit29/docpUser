@@ -19,48 +19,48 @@ class SearchResultsView extends React.Component {
             footerData = this.props.initialServerData.footerData
         }
         this.state = {
-           // seoData, 
+            // seoData, 
             footerData,
             seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
             lab_card: this.props.location.search.includes('lab_card') || null,
             showError: false,
             showChatWithus: false,
-            search_id:'',
-            setSearchId:false
+            search_id: '',
+            setSearchId: false
         }
     }
 
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
-        if(this.props.mergeUrlState){
+        if (this.props.mergeUrlState) {
             let getSearchId = true
-            if(this.props.location.search.includes('search_id')){
+            if (this.props.location.search.includes('search_id')) {
 
-                if(this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data){
+                if (this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data) {
 
-                     getSearchId = false
-                    if(this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length && !this.props.fetchNewResults){
+                    getSearchId = false
+                    if (this.props.search_id_data[parsed.search_id].data.result && this.props.search_id_data[parsed.search_id].data.result.length && !this.props.fetchNewResults) {
                         this.props.getLabSearchIdResults(parsed.search_id, this.props.search_id_data[parsed.search_id])
-                        this.setState({search_id: parsed.search_id})    
-                    }else{
+                        this.setState({ search_id: parsed.search_id })
+                    } else {
 
                         let filters = {}
                         filters.commonSelectedCriterias = this.props.search_id_data[parsed.search_id].commonSelectedCriterias
                         filters.filterCriteria = this.props.search_id_data[parsed.search_id].filterCriteria
-                        this.setState({search_id: parsed.search_id},()=> {
+                        this.setState({ search_id: parsed.search_id }, () => {
                             /*let new_url = this.buildURI(this.props)
                             this.props.history.replace(new_url)*/
                             let page = 1
-                            if(!this.props.fetchNewResults){
+                            if (!this.props.fetchNewResults) {
                                 page = parsed.page
                             }
                             this.props.setLabSearchId(parsed.search_id, filters, page || 1)
                         })
-                       
+
                     }
                 }
             }
-            if(getSearchId){
+            if (getSearchId) {
                 let filters = {}
                 filters.commonSelectedCriterias = this.props.nextSelectedCriterias
                 filters.filterCriteria = this.props.nextFilterCriteria
@@ -68,10 +68,10 @@ class SearchResultsView extends React.Component {
                 if (window) {
                     window.scrollTo(0, 0)
                 }
-                this.setState({search_id: search_id},()=>{
+                this.setState({ search_id: search_id }, () => {
                     let new_url = this.buildURI(this.props)
                     this.props.history.replace(new_url)
-                    this.props.setLabSearchId(search_id, filters, parsed.page || 1)  
+                    this.props.setLabSearchId(search_id, filters, parsed.page || 1)
                 })
             }
 
@@ -97,47 +97,47 @@ class SearchResultsView extends React.Component {
         let search_id = ''
         let page = 1
         const parsed = queryString.parse(props.location.search)
-        if(props.location.search.includes('search_id')){
+        if (props.location.search.includes('search_id')) {
             search_id = parsed.search_id
         }
-        if(parsed.page){
+        if (parsed.page) {
             page = parsed.page || 1
         }
 
-        if(props.mergeUrlState && props.mergeUrlState != this.props.mergeUrlState){
+        if (props.mergeUrlState && props.mergeUrlState != this.props.mergeUrlState) {
             let filters = {}
             filters.commonSelectedCriterias = props.currentSearchedCriterias
             filters.filterCriteria = props.filterCriteria
-            if(search_id){
-                this.setState({search_id: search_id},()=>{
+            if (search_id) {
+                this.setState({ search_id: search_id }, () => {
                     let new_url = this.buildURI(props)
                     this.props.history.replace(new_url)
-                    this.props.setLabSearchId(search_id, filters, page)  
+                    this.props.setLabSearchId(search_id, filters, page)
                 })
-            }else{
+            } else {
                 search_id = this.generateSearchId()
-                    this.setState({search_id: search_id},()=>{
+                this.setState({ search_id: search_id }, () => {
                     let new_url = this.buildURI(props)
                     this.props.history.replace(new_url)
-                    this.props.setLabSearchId(search_id, filters, page)  
+                    this.props.setLabSearchId(search_id, filters, page)
                 })
             }
-            
+
             if (window) {
                 window.scrollTo(0, 0)
             }
-            
+
         }
         if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults) && this.state.search_id) {
-            this.setState({setSearchId: true})
+            this.setState({ setSearchId: true })
             this.getLabList(props)
             // if (window) {
             //     window.scrollTo(0, 0)
             // }
-        }  else if(props.fetchNewResults && this.state.search_id == search_id && !this.state.setSearchId && this.state.search_id){
-                this.setState({setSearchId: true})
-                this.getLabList(props)
-        }else {
+        } else if (props.fetchNewResults && this.state.search_id == search_id && !this.state.setSearchId && this.state.search_id) {
+            this.setState({ setSearchId: true })
+            this.getLabList(props)
+        } else {
             if (props.selectedLocation != this.props.selectedLocation && props.mergeUrlState) {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
@@ -173,11 +173,11 @@ class SearchResultsView extends React.Component {
         }
         if (!state) {
             state = this.props
-        }else if(state.page){
+        } else if (state.page) {
             page = state.page
         }
         this.props.getLabs(state, page, false, searchUrl, (...args) => {
-           // this.setState({ seoData: args[1] })
+            // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
             } else {
@@ -193,7 +193,7 @@ class SearchResultsView extends React.Component {
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
-        if(this.props.search_id_data && this.props.search_id_data[parsed.search_id]){
+        if (this.props.search_id_data && this.props.search_id_data[parsed.search_id]) {
             search_id_data[parsed.search_id].filterCriteria = filterState
             search_id_data[parsed.search_id].page = 1
         }
@@ -287,21 +287,22 @@ class SearchResultsView extends React.Component {
     }
 
     render() {
+        let show_pagination = this.props.labList && this.props.labList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
         url = url.replace(/&page=\d{1,}/, "")
         let page = ""
-
+        let curr_page = parseInt(this.props.page)
         let prev = ""
-        if (this.props.page > 1) {
-            page = `?page=${this.props.page}`
+        if (curr_page > 1) {
+            page = `?page=${curr_page}`
             prev = url
-            if (this.props.page > 2) {
-                prev += `?page=${this.props.page - 1}`
+            if (curr_page > 2) {
+                prev += `?page=${curr_page - 1}`
             }
         }
         let next = ""
-        if (this.props.count > this.props.page * 20) {
-            next = url + `?page=${this.props.page + 1}`
+        if (this.props.count > curr_page * 20) {
+            next = url + `?page=${curr_page + 1}`
         }
 
         return (
@@ -340,23 +341,23 @@ class SearchResultsView extends React.Component {
                             <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
 
                             {
-                                this.state.seoFriendly ? <div className="art-pagination-div">
+                                this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
                                     {
                                         prev ? <a href={prev} >
                                             <div className="art-pagination-btn">
-                                                <span className="fw-500">{parseInt(this.props.page) - 1}</span>
+                                                <span className="fw-500">{curr_page - 1}</span>
                                             </div>
                                         </a> : ""
                                     }
 
                                     <div className="art-pagination-btn">
-                                        <span className="fw-500" style={{ color: '#000' }}>{parseInt(this.props.page)}</span>
+                                        <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
                                     </div>
 
                                     {
                                         next ? <a href={next} >
                                             <div className="art-pagination-btn">
-                                                <span className="fw-500">{parseInt(this.props.page) + 1}</span>
+                                                <span className="fw-500">{curr_page + 1}</span>
                                             </div>
                                         </a> : ""
                                     }

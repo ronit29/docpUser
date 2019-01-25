@@ -172,12 +172,12 @@ class CriteriaElasticSearchView extends React.Component {
         } else {
 
             if (criteria.type == "lab") {
-
+                this.props.clearExtraTests()
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
                 }
                 GTM.sendEvent({ data: data })
-
+                
                 this.props.history.push(`/lab/${criteria.action.value[0]}`)
                 return
             } else if (criteria.type == "lab_test") {

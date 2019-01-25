@@ -91,6 +91,7 @@ class BookingView extends React.Component {
                             }
                             GTM.sendEvent({ data: analyticData })
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
+                            this.props.setCorporateCoupon(null)
                         }
                     })
                 } else {
