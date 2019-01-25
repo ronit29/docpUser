@@ -358,21 +358,9 @@ class BookingSummaryViewNew extends React.Component {
                     GTM.sendEvent({ data: analyticData })
                     this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
 
-                    // this.setState({
-                    //     paymentData: data.data
-                    // }, () => {
-                    //     setTimeout(() => {
-                    //         let form = document.getElementById('paymentForm')
-                    //         form.submit()
-                    //     }, 500)
-
-                    //     setTimeout(() => {
-                    //         this.setState({ loading: false })
-                    //     }, 5000)
-                    // })
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/user/appointments`)
+                    this.props.history.replace(`/order/summary/${data.data.orderId}`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"

@@ -48,6 +48,7 @@ import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
 import Offers from './containers/commons/Offers';
 import Referral from './containers/commons/referral'
 import Cart from './containers/commons/cart'
+import OrderSummary from './containers/commons/OrderSummary'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -73,6 +74,7 @@ const routes = [
     { path: `/all-medicines`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: `/all-articles`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: '/payment/:id', exact: true, component: Payment },
+    { path: '/order/summary/:id', exact: true, component: OrderSummary },
     { path: '/mobileviewchat', exact: true, component: MobileViewChat },
     { path: '/search', exact: true, component: Search },
     { path: '/offers', exact: true, component: Offers },

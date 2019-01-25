@@ -77,8 +77,8 @@ class CartItem extends React.Component {
             }
             this.props.selectOpdTimeSLot(timeSlot, false)
 
-            if(data.actual_data.coupon_code){
-                this.props.applyCoupons('1', {code: data.actual_data.coupon_code[0],coupon_id:data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback?true:false}, data.data.coupons[0].id, data.actual_data.doctor)
+            if (data.actual_data.coupon_code) {
+                this.props.applyCoupons('1', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.doctor)
             }
         }
 
@@ -107,15 +107,15 @@ class CartItem extends React.Component {
                 time: time_slot
             }
             this.props.selectLabTimeSLot(timeSlot, false)
-            if(data.actual_data.coupon_code){
-                this.props.applyCoupons('2', {code: data.actual_data.coupon_code[0],coupon_id:data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback?true:false}, data.data.coupons[0].id, data.actual_data.lab)
+            if (data.actual_data.coupon_code) {
+                this.props.applyCoupons('2', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.lab)
             }
-            if(data.actual_data.is_home_pickup){
+            if (data.actual_data.is_home_pickup) {
                 this.props.selectLabAppointmentType('home')
-            }else{
+            } else {
                 this.props.selectLabAppointmentType('lab')
             }
-            
+
         }
 
         this.props.history.push(`/lab/${data.actual_data.lab}/book?cart_item=${this.props.id}`)
@@ -132,98 +132,101 @@ class CartItem extends React.Component {
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
-                    <div className="shopng-cart-price">
-                        {
-                            mrp ? <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {deal_price} <span className="shopng-cart-price-cut"><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />{mrp}</span></p> : ""
-                        }
 
-                    </div>
-                    <div className="widget-header dr-qucik-info">
-                        <div>
+                    <div className={valid ? "" : "cart-card-blur-opacity"}>
+                        <div className="shopng-cart-price">
+                            {
+                                mrp ? <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {deal_price} <span className="shopng-cart-price-cut"><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />{mrp}</span></p> : ""
+                            }
+
+                        </div>
+                        <div className="widget-header dr-qucik-info">
                             <div>
-                                <InitialsPicture name={doctor ? doctor.name : lab.name} has_image={!!thumbnail} className="initialsPicture-dbd mt-0">
-                                    <img src={thumbnail} style={{ width: 50 }} className="img-fluid img-round" />
-                                </InitialsPicture>
+                                <div>
+                                    <InitialsPicture name={doctor ? doctor.name : lab.name} has_image={!!thumbnail} className="initialsPicture-dbd mt-0">
+                                        <img src={thumbnail} style={{ width: 50 }} className="img-fluid img-round" />
+                                    </InitialsPicture>
+                                </div>
                             </div>
+                            {
+                                doctor ? <div className="dr-profile mrt-10">
+                                    <h1 className="dr-name">Dr. {doctor.name}</h1>
+                                    <p className="clinic-name text-sm">{hospital.name}</p>
+                                </div> : <div className="dr-profile mrt-10">
+                                        <h1 className="dr-name">{lab.name}</h1>
+                                    </div>
+                            }
+
+                        </div>
+                        <div className="shopping-card-details-list">
+                            <ul>
+                                {
+                                    date ? <li>
+                                        <p>
+                                            <span className="shpng-dtls-ico"><img style={{ marginTop: '2px', width: '15px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>{date.toDateString()} | {date.toLocaleTimeString()}
+                                        </p>
+                                    </li> : ""
+                                }
+
+                                {
+                                    profile ? <li>
+                                        <p>
+                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name}
+                                        </p>
+                                    </li> : ""
+                                }
+
+                                {
+                                    coupons && coupons.length ? <li>
+                                        <p>
+                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} /></span>
+                                            Coupon Applied: <span className="coupon-applies-shpngcard">{coupons[0].code}</span>
+                                        </p>
+                                    </li> : ""
+                                }
+
+                            </ul>
                         </div>
                         {
-                            doctor ? <div className="dr-profile mrt-10">
-                                <h1 className="dr-name">Dr. {doctor.name}</h1>
-                                <p className="clinic-name text-sm">{hospital.name}</p>
-                            </div> : <div className="dr-profile mrt-10">
-                                    <h1 className="dr-name">{lab.name}</h1>
+                            tests && tests.length ? <div className="widget-content">
+                                <div className="shoping-cart-test-list">
+                                    <div className="p-relative">
+                                        <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/flask.svg"} />
+                                        {
+                                            tests.map((test, i) => {
+                                                return <p className="test-list test-list-label clearfix new-lab-test-list">
+
+                                                    <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
+                                                    </span>
+                                                    <span className="test-name-item">{test.test_name}</span>
+                                                </p>
+                                            })
+                                        }
+                                    </div>
                                 </div>
+                            </div> : ""
                         }
 
-                    </div>
-                    <div className="shopping-card-details-list">
-                        <ul>
-                            {
-                                date ? <li>
-                                    <p>
-                                        <span className="shpng-dtls-ico"><img style={{ marginTop: '2px', width: '15px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>{date.toDateString()} | {date.toLocaleTimeString()}
-                                    </p>
-                                </li> : ""
-                            }
+                        {
+                            procedures && procedures.length ? <div className="widget-content">
+                                <div className="shoping-cart-test-list">
+                                    <div className="p-relative">
+                                        <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/hand.svg"} />
+                                        {
+                                            procedures.map((proc, i) => {
+                                                return <p className="test-list test-list-label clearfix new-lab-test-list">
 
-                            {
-                                profile ? <li>
-                                    <p>
-                                        <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name}
-                                    </p>
-                                </li> : ""
-                            }
-
-                            {
-                                coupons && coupons.length ? <li>
-                                    <p>
-                                        <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} /></span>
-                                        Coupon Applied: <span className="coupon-applies-shpngcard">{coupons[0].code}</span>
-                                    </p>
-                                </li> : ""
-                            }
-
-                        </ul>
-                    </div>
-                    {
-                        tests && tests.length ? <div className="widget-content">
-                            <div className="shoping-cart-test-list">
-                                <div className="p-relative">
-                                    <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/flask.svg"} />
-                                    {
-                                        tests.map((test, i) => {
-                                            return <p className="test-list test-list-label clearfix new-lab-test-list">
-
-                                                <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
-                                                </span>
-                                                <span className="test-name-item">{test.test_name}</span>
-                                            </p>
-                                        })
-                                    }
+                                                    <span className="float-right fw-700">₹ {proc.deal_price}<span className="test-mrp">₹ {proc.mrp}</span>
+                                                    </span>
+                                                    <span className="test-name-item">{proc.name}</span>
+                                                </p>
+                                            })
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                        </div> : ""
-                    }
-
-                    {
-                        procedures && procedures.length ? <div className="widget-content">
-                            <div className="shoping-cart-test-list">
-                                <div className="p-relative">
-                                    <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/hand.svg"} />
-                                    {
-                                        procedures.map((proc, i) => {
-                                            return <p className="test-list test-list-label clearfix new-lab-test-list">
-
-                                                <span className="float-right fw-700">₹ {proc.deal_price}<span className="test-mrp">₹ {proc.mrp}</span>
-                                                </span>
-                                                <span className="test-name-item">{proc.name}</span>
-                                            </p>
-                                        })
-                                    }
-                                </div>
-                            </div>
-                        </div> : ""
-                    }
+                            </div> : ""
+                        }
+                    </div>
 
                     <div className="shpng-card-btns">
                         <button onClick={this.removeFromCart.bind(this, id)}>Remove</button>

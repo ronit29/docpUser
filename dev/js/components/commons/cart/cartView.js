@@ -61,7 +61,7 @@ class CartView extends React.Component {
             if (data.payment_required) {
                 this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
             } else {
-                this.props.history.replace(`/user/appointments`)
+                this.props.history.replace(`/order/summary/${data.data.orderId}`)
             }
         }).catch((e) => {
             SnackBar.show({ pos: 'bottom-center', text: "Error Processing cart" });
@@ -102,6 +102,15 @@ class CartView extends React.Component {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
 
+        let invalid_items = false
+        if (cart && cart.length) {
+            cart.map((cart_item, i) => {
+                if (!cart_item.valid) {
+                    invalid_items = true
+                }
+            })
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -116,6 +125,12 @@ class CartView extends React.Component {
                                             <div className="row mrb-20">
                                                 <div className="col-12">
                                                     <h4 className="shoping-cart-main-heading">My Cart</h4>
+
+                                                    {
+                                                        invalid_items ? <h4 className="cart-warnig-icon-text"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} /><span>Some appointments in your cart has become invalid. Please Edit/Remove them from cart </span></h4> : ""
+                                                    }
+
+
                                                     {
                                                         cart.map((cart_item, i) => {
                                                             return <CartItem key={i} {...this.props} {...cart_item} />

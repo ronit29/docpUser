@@ -557,3 +557,7 @@ export const removeFromCart = (id) => (dispatch) => {
 export const processCartItems = (use_wallet = true) => (dispatch) => {
 	return API_GET(`/api/v1/cart/process?use_wallet=${use_wallet}`)
 }
+
+export const fetchOrderSummary = (order_id) => (dispatch) => {
+	return API_GET(`/api/v1/user/order/summary/${order_id}`)
+}
