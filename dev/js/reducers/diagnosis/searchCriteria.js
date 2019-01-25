@@ -8,6 +8,20 @@ const DEFAULT_FILTER_STATE = {
     network_id: ""
 }
 
+const DEFAULT_FILTER_STATE_PACKAGES = {
+    priceRange: [0, 20000],
+    distanceRange: [0, 15],
+    sort_on: null,
+    lab_name: "",
+    network_id: "",
+    catIds:[],
+    max_age:'',
+    min_age:'',
+    gender:'',
+    packageType:'',
+    test_ids:''
+}
+
 const defaultState = {
     LOADED_SEARCH_CRITERIA_LAB: false,
     common_tests: [],
@@ -29,6 +43,7 @@ const defaultState = {
     currentSearchedCriterias: [],
     currentSearchId: '',
     nextFilterCriteria: DEFAULT_FILTER_STATE,
+    filterCriteriaPackages: DEFAULT_FILTER_STATE_PACKAGES,
     recommended_package:[]
 }
 
@@ -50,7 +65,8 @@ export default function (state = defaultState, action) {
                 selectedCriterias: [].concat(state.selectedCriterias),
                 lab_test_data: { ...state.lab_test_data },
                 filterCriteria: { ...state.filterCriteria },
-                nextFilterCriteria: {...state.nextFilterCriteria}
+                nextFilterCriteria: {...state.nextFilterCriteria},
+                filterCriteriaPackages: {...state.filterCriteriaPackages}
             }
 
             newState.filterCriteria.lab_name = ""
@@ -58,6 +74,9 @@ export default function (state = defaultState, action) {
 
             newState.nextFilterCriteria.lab_name = ""
             newState.nextFilterCriteria.network_id = ""
+
+            newState.filterCriteriaPackages.lab_name = ""
+            newState.filterCriteriaPackages.network_id = ""
 
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
@@ -182,6 +201,7 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
             newState.filterCriteria = DEFAULT_FILTER_STATE
             newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            newState.filterCriteriaPackages = DEFAULT_FILTER_STATE_PACKAGES
             // newState.fetchNewResults = true
             return newState
         }

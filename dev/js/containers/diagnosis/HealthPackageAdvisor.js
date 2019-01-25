@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {getUserProfile,toggleDiagnosisCriteria} from '../../actions/index.js'
+import {getUserProfile,toggleDiagnosisCriteria,mergeLABState} from '../../actions/index.js'
 import HealthPackageAdvisorView from '../../components/diagnosis/HealthPackageAdvisorView.js'
 import STORAGE from '../../helpers/storage'
 
@@ -46,6 +46,7 @@ const mapStateToProps = (state, passedProps) => {
         recommended_package
     } = state.SEARCH_CRITERIA_LABS
     let filterCriteria_lab = state.SEARCH_CRITERIA_LABS.filterCriteria
+    let filterCriteria_packages = state.SEARCH_CRITERIA_LABS.filterCriteriaPackages
 
     const {
         LOADED_SEARCH_CRITERIA_OPD,
@@ -54,13 +55,14 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, recommended_package:recommended_package || []
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, recommended_package:recommended_package || [], filterCriteria_packages
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         toggleDiagnosisCriteria: (type, test, forceAdd) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd)),
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
     }
 }
 

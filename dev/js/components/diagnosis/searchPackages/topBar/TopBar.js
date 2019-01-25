@@ -27,12 +27,18 @@ class TopBar extends React.Component {
             openCategory: false,
             isCategoryApplied:false,
             appliedCategoryCount:'',
-            initialSelectedCatIds:''
+            initialSelectedCatIds:'',
+            max_age:'',
+            min_age:'',
+            packageType:'',
+            gender:'',
+            catIds:[],
+            test_ids:''
         }
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ ...props.filterCriteria })
+        this.setState({ ...props.filterCriteriaPackages })
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
@@ -48,7 +54,7 @@ class TopBar extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ ...this.props.filterCriteria })
+        this.setState({ ...this.props.filterCriteriaPackages })
         this.shortenUrl()
         if (this.props.seoData && this.props.seoData.location) {
             this.setState({ showLocationPopup: false })
@@ -61,11 +67,13 @@ class TopBar extends React.Component {
             var url_string = window.location.href
             var url = new URL(url_string);
             var cat_ids = url.searchParams.get("category_ids")
-            cat_ids = cat_ids.split(',')
-            if(cat_ids.length > 0){
-                this.setState({
-                    appliedCategoryCount:cat_ids.length,isCategoryApplied:true
-                })
+            if(cat_ids != null){
+                cat_ids = cat_ids.split(',')
+                if(cat_ids.length > 0){
+                    this.setState({
+                        appliedCategoryCount:cat_ids.length,isCategoryApplied:true
+                    })
+                }
             }
         }
     }
@@ -74,7 +82,13 @@ class TopBar extends React.Component {
         let filterState = {
             priceRange: this.state.priceRange,
             distanceRange: this.state.distanceRange,
-            sort_on: this.state.sort_on
+            sort_on: this.state.sort_on,
+            max_age: this.state.max_age,
+            min_age: this.state.min_age,
+            gender: this.state.gender,
+            packageType: this.state.packageType,
+            catIds:this.state.catIds,
+            test_ids:this.state.test_ids
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
@@ -182,7 +196,12 @@ class TopBar extends React.Component {
         let filterState = {
             priceRange: this.state.priceRange,
             distanceRange: this.state.distanceRange,
-            sort_on: this.state.sort_on
+            sort_on: this.state.sort_on,
+            max_age:this.state.max_age,
+            min_age: this.state.min_age,
+            gender:this.state.gender,
+            packageType: this.state.packageType,
+            test_ids:this.state.test_ids
         }
         let isCategory = false 
         if(this.state.initialSelectedCatIds != categoryState.length){

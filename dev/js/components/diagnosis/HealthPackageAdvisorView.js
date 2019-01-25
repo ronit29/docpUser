@@ -1,5 +1,6 @@
 import React from 'react';
-import ProfileHeader from '../commons/DesktopProfileHeader/DesktopProfileHeader';
+import ProfileHeader from '../commons/DesktopProfileHeader/DesktopProfileHeader'
+import LocationElements from '../../containers/commons/locationElements'
 
 class HealthPackageAdvisorView extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class HealthPackageAdvisorView extends React.Component {
             gender:'',
             age:'',
             min_age:'',
-            max_age:''
+            max_age:'',
+            searchCities: []
         }
     }
 
@@ -97,22 +99,33 @@ class HealthPackageAdvisorView extends React.Component {
                 }
             })
         }
-        let data={}
-        data.test_ids=this.state.selectedTestIds
-        data.category_ids=cat_ids
-        data.max_age=this.state.max_age
-        data.min_age=this.state.min_age
-        data.gender=this.state.gender
-        data.package_type=this.state.packageType
-        console.log(data)
-        // console.log(this.state.selectedTestIds)
-        // console.log('sss')
-        // console.log(this.state.selectCatIDs)
-        // console.log('pacakage='+this.state.packageType)
-        // console.log('gender='+this.state.gender)
-        // console.log('age='+this.state.age)
-        // console.log('minage='+this.state.min_age)
-        // console.log('maxage='+this.state.max_age)
+        let newCategoryState = {}
+        let filterstate={...this.props.filterCriteria_packages}
+        newCategoryState['catIds'] = cat_ids
+        newCategoryState['distanceRange']=filterstate.distanceRange
+        newCategoryState['priceRange']=filterstate.priceRange
+        newCategoryState['sort_on']=filterstate.sort_on
+        newCategoryState['max_age'] = this.state.max_age
+        newCategoryState['min_age'] = this.state.min_age
+        newCategoryState['gender'] = this.state.gender
+        newCategoryState['packageType'] = this.state.packageType
+        console.log(newCategoryState)
+        this.props.mergeLABState({ filterCriteriaPackages: newCategoryState })
+        setTimeout(() => {
+            this.props.history.push('/searchpackages')
+        }, 100)
+    }
+    getCityListLayout(searchResults = []) {
+        if (searchResults.length) {
+            this.setState({ searchCities: searchResults })
+        } else {
+            this.setState({ searchCities: [], searchValue: '' })
+        }
+    }
+    selectLocation(city) {
+        this.child.selectLocation((city), () => {
+            this.setState({ searchCities: [] })
+        })
     }
     render() {
         let self = this
@@ -133,10 +146,11 @@ class HealthPackageAdvisorView extends React.Component {
                         <div className="widget mb-10 mrt-10 hpa-widget">
                             <div className="search-top-container">
                                 <div className="serch-nw-inputs">
-                                    <input className="new-srch-inp" autoComplete="off" placeholder="Location" value="Delhi" />
+                                    {/*<input className="new-srch-inp" autoComplete="off" placeholder="Location" value="Delhi" />
                                     <img className="srch-inp-img" src="/assets/img/new-loc-ico.svg" />
-                                    <button className="srch-inp-btn-img">Auto Detect <img src="/assets/img/loc-track.svg" /></button>
-                                </div>
+                                    <button className="srch-inp-btn-img">Auto Detect <img src="/assets/img/loc-track.svg" /></button>*/}
+                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
+                                 </div>
                                 <div className="hpa-flex mrb-20">
                                     <div className="hpa-flex hpa-age">
                                         <label className="fw-500">Age :</label>
@@ -187,6 +201,27 @@ class HealthPackageAdvisorView extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            {
+                                this.state.searchCities.length > 0 ?
+                                    <section>
+                                        <div className="widget mb-10">
+                                            <div className="common-search-container">
+                                                <p className="srch-heading">Location Search</p>
+                                                <div className="common-listing-cont">
+                                                    <ul>
+                                                        {
+                                                            this.state.searchCities.map((result, i) => {
+                                                                return <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                                    <p className="" >{result.description}</p>
+                                                                </li>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section> : ''
+                            }
                         </div>
                         {this.props.recommended_package.length >0?
                             <div>
