@@ -229,7 +229,7 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <h4 className="cart-warnig-icon-text"><img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} /><spna>Some appointments in your cart has become invalid. Please Edit/Remove them from cart </spna></h4>
+                                                    <h4 className="cart-warnig-icon-text"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} /><spna>Some appointments in your cart has become invalid. Please Edit/Remove them from cart </spna></h4>
                                                     <h4 className="shoping-cart-main-heading">Your Appointments</h4>
                                                     <div className="widget mrb-15 mrng-top-12 p-relative pb-5">
                                                         <div>

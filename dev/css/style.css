@@ -5189,11 +5189,14 @@ font-size: 13px;
     align-items: flex-start;
     color: #aa6e27;
     font-weight: 500;
-    font-size: 15px;
+	font-size: 15px;
+	margin: 10px 0px;
 
 }
 .cart-warnig-icon-text img{
 	flex-grow: 0;
-	flex-shrink: 0;
+    flex-shrink: 0;
+    height: 20px;
+    margin-right: 10px;
 }
 /* ================= shopping cart style ================= */
