@@ -53,18 +53,9 @@ class HomePageWidget extends React.Component {
                                     <div className="grid-img-cnt brdr-btm">
                                         <a href="javascript:void(0);">
                                             <img className="img-fluid" src={listItem.icon} />
-                                            {
-                                                this.props.searchType && this.props.searchType === 'packages' ?
-                                                    <span style={{ border: '1px solid #f78631', padding: 6, marginTop: 4, borderRadius: 5 }}>{listItem.name}</span>
-                                                    :
-                                                    <span>{listItem.name}</span>
-                                            }
+                                            <span>{listItem.name}</span>
                                         </a>
                                     </div>
-                                    {
-                                        i == 0 || i == 1 ?
-                                            <div className="white-circle"></div> : ''
-                                    }
                                 </div>
                             })
                         }

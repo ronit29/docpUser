@@ -1728,26 +1728,3 @@ p.rt-doc-nm{
 .multiple-invoice .invoice-div:first-child{
     border-right: 1px solid #d3d3d3;
 }
-
-.home-card-col{
-    border-right: 1px solid #d3d3d3;
-    border-bottom: 1px solid #d3d3d3;
-}
-
-.home-card-col:nth-child(3n){
-    border-right: none;
-}
-
-.home-card-col:nth-child(4), .home-card-col:nth-child(5), .home-card-col:nth-child(6){
-    border-bottom: none;
-}
-
-.white-circle{
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    background-color: #fff;
-    right: -12px;
-    bottom: -10px;
-    z-index: 1;
-}
