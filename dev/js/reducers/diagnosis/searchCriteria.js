@@ -28,7 +28,8 @@ const defaultState = {
     nextSelectedCriterias: [],
     currentSearchedCriterias: [],
     currentSearchId: '',
-    nextFilterCriteria: DEFAULT_FILTER_STATE
+    nextFilterCriteria: DEFAULT_FILTER_STATE,
+    recommended_package:[]
 }
 
 export default function (state = defaultState, action) {
