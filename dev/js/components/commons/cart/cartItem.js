@@ -77,8 +77,8 @@ class CartItem extends React.Component {
             }
             this.props.selectOpdTimeSLot(timeSlot, false)
 
-            if (data.actual_data.coupon_code) {
-                this.props.applyCoupons('1', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id }, data.data.coupons[0].id, data.actual_data.doctor)
+            if(data.actual_data.coupon_code){
+                this.props.applyCoupons('1', {code: data.actual_data.coupon_code[0],coupon_id:data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback?true:false}, data.data.coupons[0].id, data.actual_data.doctor)
             }
         }
 
@@ -107,9 +107,15 @@ class CartItem extends React.Component {
                 time: time_slot
             }
             this.props.selectLabTimeSLot(timeSlot, false)
-            if (data.actual_data.coupon_code) {
-                this.props.applyCoupons('2', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id }, data.data.coupons[0].id, data.actual_data.lab)
+            if(data.actual_data.coupon_code){
+                this.props.applyCoupons('2', {code: data.actual_data.coupon_code[0],coupon_id:data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback?true:false}, data.data.coupons[0].id, data.actual_data.lab)
             }
+            if(data.actual_data.is_home_pickup){
+                this.props.selectLabAppointmentType('home')
+            }else{
+                this.props.selectLabAppointmentType('lab')
+            }
+            
         }
 
         this.props.history.push(`/lab/${data.actual_data.lab}/book?cart_item=${this.props.id}`)
