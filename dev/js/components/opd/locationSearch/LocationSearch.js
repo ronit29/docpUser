@@ -73,6 +73,10 @@ class LocationSearch extends React.Component {
                     if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
                         // do nothing
                     } else {
+                        if(this.state.redirect_to.includes('searchresults')){
+                            this.props.history.replace(this.state.redirect_to)
+                            return    
+                        }
                         this.props.history.push(this.state.redirect_to)
                     }
                 } else {
