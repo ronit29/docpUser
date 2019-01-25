@@ -124,7 +124,7 @@ class BookingSummaryViewNew extends React.Component {
                     let labCoupon = nextProps.corporateCoupon
                     this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
-                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
+                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
                 }
                 return
             }
@@ -138,7 +138,7 @@ class BookingSummaryViewNew extends React.Component {
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
                     this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
-                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
                 }
                 return
             }
@@ -153,7 +153,7 @@ class BookingSummaryViewNew extends React.Component {
                         cb: (coupons) => {
                             if (coupons && coupons[0]) {
                                 this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
-                                this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile)
+                                this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
                                 this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                             } else {
                                 this.props.resetLabCoupons()
@@ -737,7 +737,7 @@ class BookingSummaryViewNew extends React.Component {
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                 <button className="add-shpng-cart-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}><img src={ASSETS_BASE_URL + "/img/cartico.svg"} />Add to Cart</button>
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}><img src={ASSETS_BASE_URL + "/img/cartico.svg"} />{this.state.cart_item ? "Edit Item" : "Add to Cart"}</button>
                                 <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>

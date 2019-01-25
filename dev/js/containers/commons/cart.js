@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserProfile: () => dispatch(getUserProfile()),
         getCartItems: () => dispatch(getCartItems()),
         removeFromCart: (id) => dispatch(removeFromCart(id)),
-        processCartItems: () => dispatch(processCartItems()),
+        processCartItems: (use_wallet) => dispatch(processCartItems(use_wallet)),
         selectProfile: (id) => dispatch(selectProfile(id)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
