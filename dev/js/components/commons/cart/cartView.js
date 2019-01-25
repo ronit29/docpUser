@@ -208,7 +208,7 @@ class CartView extends React.Component {
                                             <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                         </div>
 
-                                    </section> : <span>NO ITEMS ADDED TO CART</span>
+                                    </section> : <div className="norf widget" style={{marginTop: '10px', height:'74vh'}}><div className=""><img style={{ }} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} /></div></div> 
                                 }
                             </div>
                         </div>
