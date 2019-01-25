@@ -38,8 +38,8 @@ class DoctorProfileView extends React.Component {
             searchShown: false,
             searchDataHidden: this.props.location.search.includes('hide_search_data'),
             openContactPopup: false,
-            clinicPhoneNo:{},
-            show_contact:''
+            clinicPhoneNo: {},
+            show_contact: ''
         }
     }
 
@@ -71,7 +71,7 @@ class DoctorProfileView extends React.Component {
 
     selectClinic(clinic_id, is_live, rank, consultation_fee, show_contact) {
         let clinicPhoneNo = this.state.clinicPhoneNo
-        if(!clinicPhoneNo[clinic_id]){
+        if (!clinicPhoneNo[clinic_id]) {
             clinicPhoneNo[clinic_id] = ""
         }
         this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
@@ -97,7 +97,7 @@ class DoctorProfileView extends React.Component {
         }
     }
 
-    getDoctorNo(mobileNo){
+    getDoctorNo(mobileNo) {
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
@@ -113,7 +113,7 @@ class DoctorProfileView extends React.Component {
             "hospital": this.state.selectedClinic
         }
         this.props.getDoctorNo(postData, (err, data) => {
-            if(!err && data){
+            if (!err && data) {
 
                 let clinicPhoneNo = this.state.clinicPhoneNo
                 clinicPhoneNo[this.state.selectedClinic] = data.number
@@ -121,7 +121,7 @@ class DoctorProfileView extends React.Component {
                 this.setState({
                     numberShown: data.number,
                     openContactPopup: false,
-                    clinicPhoneNo:clinicPhoneNo
+                    clinicPhoneNo: clinicPhoneNo
                 })
             }
         })
@@ -143,7 +143,7 @@ class DoctorProfileView extends React.Component {
                     })
                 }
             })*/
-           this.setState({openContactPopup: true})    
+            this.setState({ openContactPopup: true })
         }
     }
 
@@ -179,36 +179,37 @@ class DoctorProfileView extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
-                { this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length?
-                    <section className="col-12 mrng-top-12 d-none d-md-block">
-                        <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{'wordBreak': 'breakWord'}}>
-                            {
-                                this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length?
-                                this.props.DOCTORS[doctor_id].breadcrumb.map((data, key) => {
-                                  return  <li className="breadcrumb-list-item" key={key}>
-                                    {
-                                        key==this.props.DOCTORS[doctor_id].breadcrumb.length-1?
-                                        <span>{data.title}</span>
-                                        :<a href={data.url} title ='' onClick={(e) => {e.preventDefault();
-                                                this.props.history.push(data.url)
-                                            }}>{
-                                                key==0 || key== this.props.DOCTORS[doctor_id].breadcrumb.length-1
-                                                ?<span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
-                                                :<h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
-                                    }   
-                                    {
-                                        key!= this.props.DOCTORS[doctor_id].breadcrumb.length-1?
-                                        <span className="breadcrumb-arrow">&gt;</span>
-                                        :''
-                                    }
-                                    </li>
-                                })
-                                :''
-                            }
-                        </ul>
-                    </section>
-                    :''
-                }
+                    {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
+                        <section className="col-12 mrng-top-12 d-none d-md-block">
+                            <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
+                                {
+                                    this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
+                                        this.props.DOCTORS[doctor_id].breadcrumb.map((data, key) => {
+                                            return <li className="breadcrumb-list-item" key={key}>
+                                                {
+                                                    key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1 ?
+                                                        <span>{data.title}</span>
+                                                        : <a href={data.url} title='' onClick={(e) => {
+                                                            e.preventDefault();
+                                                            this.props.history.push(data.url)
+                                                        }}>{
+                                                                key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1
+                                                                    ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
+                                                                    : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
+                                                }
+                                                {
+                                                    key != this.props.DOCTORS[doctor_id].breadcrumb.length - 1 ?
+                                                        <span className="breadcrumb-arrow">&gt;</span>
+                                                        : ''
+                                                }
+                                            </li>
+                                        })
+                                        : ''
+                                }
+                            </ul>
+                        </section>
+                        : ''
+                    }
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -228,6 +229,97 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+                                                    <h4 className="cart-warnig-icon-text"><img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} /><spna>Some appointments in your cart has become invalid. Please Edit/Remove them from cart </spna></h4>
+                                                    <h4 className="shoping-cart-main-heading">Your Appointments</h4>
+                                                    <div className="widget mrb-15 mrng-top-12 p-relative pb-5">
+                                                        <div>
+                                                            <p className="cart-appntmnt">Appointment Booked </p>
+                                                            <p className="cartBooking">Booking ID : DP123456BFT90</p>
+                                                        </div>
+                                                        <div>
+
+                                                            <div className="shopng-cart-price">
+                                                                <p><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" /> 500 <span className="shopng-cart-price-cut"><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />650</span>
+                                                                </p>
+                                                            </div>
+                                                            <div className="widget-header dr-qucik-info">
+                                                                <div>
+                                                                    <div>
+                                                                        <img src="https://cdn.docprime.com/media/doctor/images/80x80/74de4dc791e026fae31910a1167d569a.jpg" className="img-fluid img-round" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="dr-profile mrt-10"><h1 className="dr-name">Dr. Rashmi Mitttal</h1>
+                                                                    <p className="clinic-name text-sm">Synergy Physiotherapy &amp; Nursing Home</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="shopping-card-details-list">
+                                                                <ul>
+                                                                    <li className="cart-viewdtls-container"><p><span className="shpng-dtls-ico"><img src="/assets/img/watch-date.svg" style={{ marginTop: '2px', width: '15px' }} /></span>Fri Jan 25 2019 | 13:30:00</p>
+                                                                        <span className="float-right cart-viewdtls-btn">View Detail</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="widget mrb-15 mrng-top-12 p-relative pb-5">
+                                                        <div>
+                                                            <p className="cart-appntmnt-failed">Appointment Booking Fail </p>
+                                                        </div>
+                                                        <div className="cart-card-blur-opacity">
+
+                                                            <div className="shopng-cart-price">
+                                                                <p><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" /> 500 <span className="shopng-cart-price-cut"><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />650</span>
+                                                                </p>
+                                                            </div>
+                                                            <div className="widget-header dr-qucik-info">
+                                                                <div>
+                                                                    <div>
+                                                                        <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} className="img-fluid" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="dr-profile mrt-10"><h1 className="dr-name">Dr. Rashmi Mitttal</h1>
+                                                                    <p className="clinic-name text-sm">Synergy Physiotherapy &amp; Nursing Home</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="shopping-card-details-list">
+                                                                <ul>
+                                                                    <li className="cart-viewdtls-container"><p><span className="shpng-dtls-ico"><img src="/assets/img/watch-date.svg" style={{ marginTop: '2px', width: '15px' }} /></span>Fri Jan 25 2019 | 13:30:00</p>
+                                                                        <span className="float-right cart-viewdtls-btn">View Detail</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="widget mrb-15 mrng-top-12 p-relative pb-5">
+                                                        <div>
+                                                            <p className="cart-appntmnt">Appointment Booked </p>
+                                                            <p className="cartBooking">Booking ID : DP123456BFT90</p>
+                                                        </div>
+                                                        <div>
+
+                                                            <div className="shopng-cart-price">
+                                                                <p><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" /> 500 <span className="shopng-cart-price-cut"><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />650</span>
+                                                                </p>
+                                                            </div>
+                                                            <div className="widget-header dr-qucik-info">
+                                                                <div>
+                                                                    <div>
+                                                                        <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} className="img-fluid" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="dr-profile mrt-10"><h1 className="dr-name">Dr. Rashmi Mitttal</h1>
+                                                                    <p className="clinic-name text-sm">Synergy Physiotherapy &amp; Nursing Home</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="shopping-card-details-list">
+                                                                <ul>
+                                                                    <li className="cart-viewdtls-container"><p><span className="shpng-dtls-ico"><img src="/assets/img/watch-date.svg" style={{ marginTop: '2px', width: '15px' }} /></span>Fri Jan 25 2019 | 13:30:00</p>
+                                                                        <span className="float-right cart-viewdtls-btn">View Detail</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
@@ -311,20 +403,20 @@ class DoctorProfileView extends React.Component {
                                                     }
                                                     {
                                                         this.state.clinicPhoneNo[this.state.selectedClinic]
-                                                        ?<div className="dpp-btn-div fixed horizontal bottom sticky-btn">
-                                                            <a href={`tel:${this.state.clinicPhoneNo[this.state.selectedClinic]}`} className="dpp-btn-book d-lg-none d-flex">
-                                                                <p><img style={{width: '20px', marginRight: '4px', position: 'relative', left: '-3px', bottom: '-2px'}} src={ASSETS_BASE_URL + "/img/call-ico.svg"} /> 
-                                                                   {this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
-                                                            </a>
-                                                            <div className="dpp-btn-book d-lg-flex d-none">
-                                                                <p>{this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
+                                                            ? <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
+                                                                <a href={`tel:${this.state.clinicPhoneNo[this.state.selectedClinic]}`} className="dpp-btn-book d-lg-none d-flex">
+                                                                    <p><img style={{ width: '20px', marginRight: '4px', position: 'relative', left: '-3px', bottom: '-2px' }} src={ASSETS_BASE_URL + "/img/call-ico.svg"} />
+                                                                        {this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
+                                                                </a>
+                                                                <div className="dpp-btn-book d-lg-flex d-none">
+                                                                    <p>{this.state.clinicPhoneNo[this.state.selectedClinic]}</p>
+                                                                </div>
                                                             </div>
-                                                        </div>   
-                                                        :this.state.show_contact?
-                                                            <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
-                                                                <p>View Contact</p>
-                                                            </div>
-                                                            :''
+                                                            : this.state.show_contact ?
+                                                                <div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
+                                                                    <p>View Contact</p>
+                                                                </div>
+                                                                : ''
                                                     }
                                                     {/*<div className="dpp-btn-book" onClick={this.showNumber.bind(this, doctor_id)}>
                                                         <p>{
@@ -334,9 +426,9 @@ class DoctorProfileView extends React.Component {
                                                             }{this.state.numberShown || "View Contact"}</p>
                                                     </div>*/}
                                                     {
-                                                        this.state.openContactPopup?
-                                                        <ContactPoupView toggle={this.toggle.bind(this, 'openContactPopup')} mobileNo={this.props.primaryMobile} getDoctor = {this.getDoctorNo.bind(this)}/>
-                                                        :''
+                                                        this.state.openContactPopup ?
+                                                            <ContactPoupView toggle={this.toggle.bind(this, 'openContactPopup')} mobileNo={this.props.primaryMobile} getDoctor={this.getDoctorNo.bind(this)} />
+                                                            : ''
                                                     }
                                                 </div>
                                         }
