@@ -554,6 +554,6 @@ export const removeFromCart = (id) => (dispatch) => {
 	})
 }
 
-export const processCartItems = () => (dispatch) => {
-	return API_GET('/api/v1/cart/process')
+export const processCartItems = (use_wallet = true) => (dispatch) => {
+	return API_GET(`/api/v1/cart/process?use_wallet=${use_wallet}`)
 }

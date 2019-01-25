@@ -57,7 +57,7 @@ class CartView extends React.Component {
     }
 
     processCart() {
-        this.props.processCartItems().then((data) => {
+        this.props.processCartItems(this.state.use_wallet).then((data) => {
             if (data.payment_required) {
                 this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
             } else {
