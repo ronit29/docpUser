@@ -5,6 +5,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
+import InitialsPicture from '../../commons/initialsPicture'
 
 class OrderSummaryView extends React.Component {
     constructor(props) {
@@ -79,7 +80,9 @@ class OrderSummaryView extends React.Component {
                                                             <div className="widget-header dr-qucik-info">
                                                                 <div>
                                                                     <div>
-                                                                        <img src="https://cdn.docprime.com/media/doctor/images/80x80/74de4dc791e026fae31910a1167d569a.jpg" className="img-fluid img-round" />
+                                                                        <InitialsPicture name={item.data.doctor ? item.data.doctor.name : item.data.lab.name} has_image={!!item.data.thumbnail} className="initialsPicture-dbd mt-0">
+                                                                            <img src={item.data.thumbnail} style={{ width: 50 }} className="img-fluid img-round" />
+                                                                        </InitialsPicture>
                                                                     </div>
                                                                 </div>
                                                                 <div className="dr-profile mrt-10">
