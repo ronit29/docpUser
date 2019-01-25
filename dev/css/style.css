@@ -4810,17 +4810,18 @@ font-weight: 700;
 	flex-shrink: 0;
 }
 .social-ico-styling{
-    margin: 10px 0px;
+	margin: 10px 0px;
+	flex-direction: column;
 }
 .facebookIcon-styling{
     flex: 1;
     position: relative;
     background: #3b5998;
-    margin: 0 10px;
+    margin: 10px;
     border-radius: 4px;
     cursor: pointer;
 }
-.facebookIcon-styling span{
+.facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
 	position: absolute;
     top: 5px;
     left: 40px;
@@ -4831,16 +4832,29 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #00aced;
-    margin: 0 10px;
+    margin: 10px;
     border-radius: 4px;
     cursor: pointer;
 }
-.twitterIcon-styling span{
+.emailIcon-styling{
+    flex: 1;
+    position: relative;
+    background: #7f7f7f;
+    margin: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.typ-close{
 	position: absolute;
-    top: 5px;
-    left: 40px;
-    font-weight: 500;
-    color: white;
+	right: 15px;
+	top: 15px;
+	width: 10px;
+	height: 10px;
+	z-index: 1;
+	cursor: pointer;
+}
+.typ-close>img{
+	width: 100%;
 }
 .SocialMediaShareButton{
 	display: flex;
