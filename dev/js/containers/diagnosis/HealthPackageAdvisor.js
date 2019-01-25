@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../../actions/index.js'
-import HealthPackageAdvisorView from '../../components/diagnosis/HealthPackageAdvisorView.js';
+import {getUserProfile,toggleDiagnosisCriteria} from '../../actions/index.js'
+import HealthPackageAdvisorView from '../../components/diagnosis/HealthPackageAdvisorView.js'
+import STORAGE from '../../helpers/storage'
 
 class HealthPackageAdvisor extends React.Component {
     constructor(props) {
@@ -11,7 +12,11 @@ class HealthPackageAdvisor extends React.Component {
 
         }
     }
-
+    componentDidMount() {
+        if (STORAGE.checkAuth()) {
+            this.props.getUserProfile()
+        }
+    }
     render() {
         return (
             <HealthPackageAdvisorView {...this.props} />
@@ -20,14 +25,42 @@ class HealthPackageAdvisor extends React.Component {
 }
 
 const mapStateToProps = (state, passedProps) => {
-    return {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    let initialServerData = null
+    let { staticContext } = passedProps
+    if (staticContext && staticContext.data) {
+        initialServerData = staticContext.data
+    }
 
+    let {
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList
+    } = state.USER
+
+    const {
+        LOADED_SEARCH_CRITERIA_LAB,
+        common_tests,
+        common_package,
+        selectedLocation,
+        recommended_package
+    } = state.SEARCH_CRITERIA_LABS
+    let filterCriteria_lab = state.SEARCH_CRITERIA_LABS.filterCriteria
+
+    const {
+        LOADED_SEARCH_CRITERIA_OPD,
+        specializations
+    } = state.SEARCH_CRITERIA_OPD
+    let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
+
+    return {
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, recommended_package:recommended_package || []
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        toggleDiagnosisCriteria: (type, test, forceAdd) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd)),
     }
 }
 

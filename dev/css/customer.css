@@ -1738,6 +1738,7 @@ p.rt-doc-nm{
     padding: 10px 15px;
     align-items: center;
     cursor: pointer;
+    background: #f8f8f8;
 }
 
 .hpa-header .d-flex img{
