@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria, fetchTransactions } from '../../actions/index.js'
+import { getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria, fetchTransactions, selectLabAppointmentType } from '../../actions/index.js'
 
 import CartView from '../../components/commons/cart'
 import STORAGE from '../../helpers/storage'
@@ -57,7 +57,8 @@ const mapDispatchToProps = (dispatch) => {
         clearAllTests: () => dispatch(clearAllTests()),
         applyCoupons: (productId, couponData, couponId, doctor_id) => dispatch(applyCoupons(productId, couponData, couponId, doctor_id)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
-        fetchTransactions: () => dispatch(fetchTransactions())
+        fetchTransactions: () => dispatch(fetchTransactions()),
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type))
     }
 }
 
