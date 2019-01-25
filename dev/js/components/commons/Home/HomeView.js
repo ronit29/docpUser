@@ -218,7 +218,7 @@ class HomeView extends React.Component {
 									searchType="packages"
 									{...this.props}
 									// navTo="/full-body-checkup-health-packages?from=home"
-									navTo="/health-package-advisor?from=home"
+									navTo="/health-package-advisor"
 								/> : ""
 						}
 
@@ -293,7 +293,7 @@ class HomeView extends React.Component {
 									searchType="packages"
 									{...this.props}
 									// navTo="/full-body-checkup-health-packages?from=home"
-									navTo="/health-package-advisor?from=home"
+									navTo="/health-package-advisor"
 								/> : ""
 						}
 
