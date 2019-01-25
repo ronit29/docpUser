@@ -146,60 +146,63 @@ class HealthPackageAdvisorView extends React.Component {
                         <div className="widget mb-10 mrt-10 hpa-widget">
                             <div className="search-top-container">
                                 <div className="serch-nw-inputs">
-                                    {/*<input className="new-srch-inp" autoComplete="off" placeholder="Location" value="Delhi" />
-                                    <img className="srch-inp-img" src="/assets/img/new-loc-ico.svg" />
-                                    <button className="srch-inp-btn-img">Auto Detect <img src="/assets/img/loc-track.svg" /></button>*/}
                                     <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
                                  </div>
-                                <div className="hpa-flex mrb-20">
-                                    <div className="hpa-flex hpa-age">
-                                        <label className="fw-500">Age :</label>
-                                        <select id="selectage" value={this.state.age} onChange={this.selectAge.bind(this)}>
-                                            <option hidden disabled id={0}>Select Age</option>
-                                            <option id={1} value={1}> 0-20</option>
-                                            <option id={2} value={2}> 21-50</option>
-                                            <option id={3} value={3}> >50</option>
-                                        </select>
-                                    </div>
-                                    <div className="hpa-flex hpa-gender">
-                                        <label className="fw-500">Gender :</label>
-                                        <div className="d-flex">
-                                            <div className="dtl-radio">
-                                                <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 16 }} onChange={this.selectGender.bind(this,'m')}>M
-                                                <input type="radio" name="radio" checked={this.state.gender == 'm'?true:false}/>
-                                                    <span className="doc-checkmark hpa-radio"></span>
-                                                </label>
+                                {
+                                    this.state.searchCities.length == 0?
+                                    <div>
+                                        <div className="hpa-flex mrb-20">
+                                            <div className="hpa-flex hpa-age">
+                                                <label className="fw-500">Age :</label>
+                                                <select id="selectage" value={this.state.age} onChange={this.selectAge.bind(this)}>
+                                                    <option hidden disabled id={0}>Select Age</option>
+                                                    <option id={1} value={1}> 0-20</option>
+                                                    <option id={2} value={2}> 21-50</option>
+                                                    <option id={3} value={3}> >50</option>
+                                                </select>
                                             </div>
-                                            <div className="dtl-radio">
-                                                <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectGender.bind(this,'f')}>F
-                                                <input type="radio" name="radio" checked={this.state.gender == 'f'?true:false}/>
-                                                    <span className="doc-checkmark hpa-radio"></span>
-                                                </label>
+                                            <div className="hpa-flex hpa-gender">
+                                                <label className="fw-500">Gender :</label>
+                                                <div className="d-flex">
+                                                    <div className="dtl-radio">
+                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 16 }} onChange={this.selectGender.bind(this,'m')}>M
+                                                        <input type="radio" name="radio" checked={this.state.gender == 'm'?true:false}/>
+                                                            <span className="doc-checkmark hpa-radio"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div className="dtl-radio">
+                                                        <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectGender.bind(this,'f')}>F
+                                                        <input type="radio" name="radio" checked={this.state.gender == 'f'?true:false}/>
+                                                            <span className="doc-checkmark hpa-radio"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="hpa-flex">
+                                            <div className="hpa-flex">
+                                                <label className="fw-500">Package Type :</label>
+                                                <div className="d-flex">
+                                                    <div className="dtl-radio">
+                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 8 }} onChange={this.selectPackage.bind(this,1)}>Screening
+                                                            <input type="radio" name="radio2" checked={this.state.packageType == 1?true:false}/>
+                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
+                                                            <span className="doc-checkmark hpa-radio"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div className="dtl-radio">
+                                                        <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectPackage.bind(this,2)}>Physical
+                                                            <input type="radio" name="radio2" checked={this.state.packageType == 2?true:false}/>
+                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
+                                                            <span className="doc-checkmark hpa-radio"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="hpa-flex">
-                                    <div className="hpa-flex">
-                                        <label className="fw-500">Package Type :</label>
-                                        <div className="d-flex">
-                                            <div className="dtl-radio">
-                                                <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 8 }} onChange={this.selectPackage.bind(this,1)}>Screening
-                                                    <input type="radio" name="radio2" checked={this.state.packageType == 1?true:false}/>
-                                                    <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
-                                                    <span className="doc-checkmark hpa-radio"></span>
-                                                </label>
-                                            </div>
-                                            <div className="dtl-radio">
-                                                <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectPackage.bind(this,2)}>Physical
-                                                    <input type="radio" name="radio2" checked={this.state.packageType == 2?true:false}/>
-                                                    <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
-                                                    <span className="doc-checkmark hpa-radio"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    :''
+                                } 
                             </div>
                             {
                                 this.state.searchCities.length > 0 ?
@@ -210,11 +213,11 @@ class HealthPackageAdvisorView extends React.Component {
                                                 <div className="common-listing-cont">
                                                     <ul>
                                                         {
-                                                            this.state.searchCities.map((result, i) => {
-                                                                return <li key={i} onClick={this.selectLocation.bind(this, result)}>
-                                                                    <p className="" >{result.description}</p>
-                                                                </li>
-                                                            })
+                                                        this.state.searchCities.map((result, i) => {
+                                                            return <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                                <p className="" >{result.description}</p>
+                                                            </li>
+                                                        })
                                                         }
                                                     </ul>
                                                 </div>
@@ -223,7 +226,8 @@ class HealthPackageAdvisorView extends React.Component {
                                     </section> : ''
                             }
                         </div>
-                        {this.props.recommended_package.length >0?
+
+                        {this.props.recommended_package.length >0 &&  this.state.searchCities.length == 0 ?
                             <div>
                                 <div className="hpa-heading mrt-10 mrb-10">
                                     <p className="fw-500">Select Categories</p>
@@ -281,7 +285,7 @@ class HealthPackageAdvisorView extends React.Component {
                             </div>
                         :''}
                         {
-                            this.props.common_package.length > 0?
+                            this.props.common_package.length > 0 &&  this.state.searchCities.length == 0 ?
                             <div>
                                 <div className="hpa-heading mrt-10 mrb-10">
                                     <p className="fw-500">Top Selling Health Packages</p>
