@@ -102,6 +102,7 @@ class HealthPackageAdvisorView extends React.Component {
         let newCategoryState = {}
         let filterstate={...this.props.filterCriteria_packages}
         newCategoryState['catIds'] = cat_ids
+        newCategoryState['test_ids'] = this.state.selectedTestIds
         newCategoryState['distanceRange']=filterstate.distanceRange
         newCategoryState['priceRange']=filterstate.priceRange
         newCategoryState['sort_on']=filterstate.sort_on
@@ -165,14 +166,14 @@ class HealthPackageAdvisorView extends React.Component {
                                                 <label className="fw-500">Gender :</label>
                                                 <div className="d-flex">
                                                     <div className="dtl-radio">
-                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 16 }} onChange={this.selectGender.bind(this,'m')}>M
-                                                        <input type="radio" name="radio" checked={this.state.gender == 'm'?true:false}/>
+                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 16 }} onChange={this.selectGender.bind(this,1)}>M
+                                                        <input type="radio" name="radio" checked={this.state.gender == 1?true:false}/>
                                                             <span className="doc-checkmark hpa-radio"></span>
                                                         </label>
                                                     </div>
                                                     <div className="dtl-radio">
-                                                        <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectGender.bind(this,'f')}>F
-                                                        <input type="radio" name="radio" checked={this.state.gender == 'f'?true:false}/>
+                                                        <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectGender.bind(this,2)}>F
+                                                        <input type="radio" name="radio" checked={this.state.gender == 2?true:false}/>
                                                             <span className="doc-checkmark hpa-radio"></span>
                                                         </label>
                                                     </div>
