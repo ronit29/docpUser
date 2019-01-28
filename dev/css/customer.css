@@ -1852,6 +1852,10 @@ p.rt-doc-nm{
     z-index: 1;
 }
 
+.dtl-radio{
+    margin-right: 10px;
+}
+
 @media(max-width:767px){
     .hpa-widget{
         margin-top: 50px !important;
@@ -1861,6 +1865,9 @@ p.rt-doc-nm{
 @media(max-width:374px){
     .hpa-flex label{
         font-size: 13px;
+    }
+    .hpa-radio-gender{
+        top: 1px !important;
     }
 }
 
@@ -1887,5 +1894,8 @@ p.rt-doc-nm{
     }
     .container-radio.hpa-container-radio{
         padding-left: 18px;
+    }
+    .hpa-info-icon{
+        margin-left: 2px;
     }
 }
