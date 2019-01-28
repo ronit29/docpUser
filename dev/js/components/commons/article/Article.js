@@ -8,6 +8,12 @@ import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../Home/footer'
 import GTM from '../../../helpers/gtm'
 import InitialsPicture from '../initialsPicture';
+import STORAGE from '../../../helpers/storage';
+import CommentBox from './ArticleCommentBox.js'
+import SnackBar from 'node-snackbar'
+import CommentView from './CommentView.js'
+
+
 // import RelatedArticles from './RelatedArticles'
 
 class Article extends React.Component {
@@ -21,22 +27,13 @@ class Article extends React.Component {
         this.state = {
             articleData: articleData,
             medicineURL: false,
+            parentCommentId: '',
+            comment: ''
         }
     }
 
     componentDidMount() {
-        let articleId = this.props.match.url
-        if (articleId) {
-            articleId = articleId.toLowerCase().substring(1, articleId.length)
-            this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
-                if (!err && !this.state.articleData) {
-                    this.setState({ articleData: data })
-                } else {
-
-                }
-            })
-        }
-
+        this.getArticleData()
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -45,6 +42,20 @@ class Article extends React.Component {
             // this.setState({ medicineURL: true });
         }
 
+    }
+
+    getArticleData(){
+        let articleId = this.props.match.url
+        if (articleId) {
+            articleId = articleId.toLowerCase().substring(1, articleId.length)
+            this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
+                if (!err && !this.state.articleData) {
+                    this.setState({ articleData: data})
+                } else {
+
+                }
+            })
+        }
     }
 
     onHomeClick(event, link) {
@@ -85,7 +96,39 @@ class Article extends React.Component {
         }
     }
 
+    commentReplyClicked(id){
+        this.setState({parentCommentId: id})
+    }
+
+    postReply(e){
+        e.preventDefault()
+        let postData = {
+            article: this.state.articleData.id,
+            comment: this.state.comment,
+            name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].name:'',
+            email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].email:'',
+            parent: this.state.parentCommentId?this.state.parentCommentId:this.state.articleData.id 
+        }
+        this.props.postComment(postData, (error, data)=> {
+            if(data){
+                this.setState({comment:'',parentCommentId:'' })
+                this.getArticleData()
+            }else{
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Could not post your comment, Try again!" })
+                }, 500)
+            }
+        })
+        return
+    }
+
+    handleInputComment(e){
+        this.setState({comment: e.target.value})
+    }
+
     render() {
+
+        let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -251,6 +294,27 @@ class Article extends React.Component {
                         </div>
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
+
+                    <div className="row">
+                        {
+                            this.state.articleData && this.state.articleData.comments.length?
+                            <div className="col-12">
+                                <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
+                                {
+                                this.state.articleData.comments.map((comment, key) => {
+                                        return <CommentView commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment}/>
+                                })}
+                            </div>
+                            :<div className="col-12">
+                                <div className="widget mrb-15 mrng-top-12">
+                                    <div className="widget-content">         
+                                        <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)}/>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                    </div>
+
                 </section>
                 <Footer />
             </div>
