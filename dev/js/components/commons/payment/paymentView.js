@@ -18,13 +18,14 @@ class PaymentView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedPayment: "DC",
+            selectedPayment: "",
             paymentData: {},
             paymentEnabled: false,
             photoIndex: 0,
             isOpen: false,
-            gateway: 'paytm',
-            mode: 'DC'
+            gateway: '',
+            mode: '',
+            payment_options: []
         }
     }
 
@@ -36,6 +37,13 @@ class PaymentView extends React.Component {
         this.props.fetchPgData(orderId, (err, data) => {
             if (data && data.status) {
                 this.setState({ paymentEnabled: true, paymentData: data.data })
+            }
+        })
+
+        this.props.fetchPaymentOptions((err, data)=> {
+            if(data){
+                let selectedPayment = data.filter(x=>x.is_selected)
+                this.setState({payment_options: data, selectedPayment: selectedPayment.length?selectedPayment[0].action:'', gateway: selectedPayment.length?selectedPayment[0].payment_gateway:'', mode:selectedPayment.length?selectedPayment[0].action:''})
             }
         })
     }
@@ -117,19 +125,25 @@ class PaymentView extends React.Component {
                                             <div className="widget mrt-10">
                                                 <div className="widget-content">
                                                     <ul className="list payment-method">
-                                                        <li style={{ position: 'relative' }}>
-                                                            <label htmlFor="pay" className="paytm-label"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm
-                                                            </label>
-                                                            {
-                                                                totalAmount && totalAmount >= 100 ?
-                                                                    <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>Flat 20% cashback upto &#8377; 50</span> : ''
-                                                            }
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'PPI'} value="PPI" className="radio-inline" name="gender" id="pay" data-mode="PPI" /></span>
-                                                        </li>
+                                                        {
+                                                            this.state.payment_options.map((paymentType, key) => {
+                                                            
+                                                                return <li key={key} style={{ position: 'relative' }}>
+                                                                    <label htmlFor={`S{paymentType.action}_${paymentType.payment_gateway}`} className="paytm-label"> <img src={paymentType.image} className="img-fluid" /> {paymentType.name}
+                                                                    </label>
+                                                                    {
+                                                                        totalAmount && totalAmount >= 100 ?
+                                                                            <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>{paymentType.description}</span> : ''
+                                                                    }
+                                                                    <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={!!(this.state.selectedPayment == paymentType.action && this.state.gateway == paymentType.payment_gateway)} value={paymentType.action} className="radio-inline" name="gender" id={`S{paymentType.action}_${paymentType.payment_gateway}`} data-mode={paymentType.action} data-gateway={paymentType.payment_gateway}/></span>
+                                                                </li>        
+                                                            })
+                                                        }
+                                                        
                                                         {/* <li id="oneclick-label">
                                                             <label htmlFor="click"> <img src={ASSETS_BASE_URL + "/img/customer-icons/oneclick-payment.png"} className="img-fluid" id="click-icon" /> One Click Pay</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="click"/></span>
-                                                        </li> */}
+                                                        </li> 
                                                         <li>
                                                             <label htmlFor="NB"> <img src={ASSETS_BASE_URL + "/img/customer-icons/i-banking.svg"} className="img-fluid" /> Internet Banking</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'NB'} value="NB" className="radio-inline" name="gender" id="NB" data-mode="NB" /></span>
@@ -149,8 +163,8 @@ class PaymentView extends React.Component {
                                                         {/* <li>
                                                             <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/ola_money.png"} className="img-fluid" /> Ola Money</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'OM'} value="OM" className="radio-inline" name="gender" id="OM" data-gateway="olamoney" data-mode="PPI" /></span>
-                                                        </li> */}
-                                                        {/* <li>
+                                                        </li> */
+                                                        /* <li>
                                                             <label htmlFor="cdc"> <img src={ASSETS_BASE_URL + "/img/customer-icons/capa-1.jpg"} className="img-fluid" /> Pay in Cash</label>
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="cdc" /></span>
                                                         </li> */}
