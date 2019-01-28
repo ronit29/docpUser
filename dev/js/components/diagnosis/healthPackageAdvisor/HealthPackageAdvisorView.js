@@ -140,6 +140,10 @@ class HealthPackageAdvisorView extends React.Component {
     }
     render() {
         let self = this
+        let show_info = false
+        if(Object.keys(this.props.package_information).length > 0){
+            show_info = true
+        }
         return (
         <div className="profile-body-wrap">
             <div className="d-none d-md-block">
@@ -197,14 +201,18 @@ class HealthPackageAdvisorView extends React.Component {
                                                     <div className="dtl-radio">
                                                         <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 8 }} onChange={this.selectPackage.bind(this,1)}>Screening
                                                             <input type="radio" name="radio2" checked={this.state.packageType == 1?true:false}/>
-                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.showInfo.bind(this,1)} />
+                                                            {
+                                                                show_info?<img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.showInfo.bind(this,1)} />:''
+                                                            }
                                                             <span className="doc-checkmark hpa-radio"></span>
                                                         </label>
                                                     </div>
                                                     <div className="dtl-radio">
                                                         <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectPackage.bind(this,2)}>Physical
                                                             <input type="radio" name="radio2" checked={this.state.packageType == 2?true:false}/>
-                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.showInfo.bind(this,2)} />
+                                                            {
+                                                                show_info?<img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.showInfo.bind(this,2)} />:''
+                                                            }
                                                             <span className="doc-checkmark hpa-radio"></span>
                                                         </label>
                                                     </div>
@@ -322,7 +330,7 @@ class HealthPackageAdvisorView extends React.Component {
             <button className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showPackage.bind(this)}>Show Packages</button>
             {
                 this.state.showInfo?
-                    <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText}/>:''
+                    <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText} package_information={this.props.package_information}/>:''
             }
         </div>
         )
