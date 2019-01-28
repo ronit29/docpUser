@@ -314,7 +314,7 @@ class HealthPackageAdvisorView extends React.Component {
                                     <div className="search-top-container">
                                         <ul className="list hpa-list-2">
                                             {Object.entries(this.props.common_package).map(function ([key, value]) {
-                                                return <li key={key} id={value.id} onChange={self.searchLab.bind(self,value)}>
+                                                return <li key={key} id={value.id} onClick={self.searchLab.bind(self,value)}>
                                                         <p>{value.name}</p>
                                                         <img src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} style={{ width: 15 }} />
                                                     </li>
