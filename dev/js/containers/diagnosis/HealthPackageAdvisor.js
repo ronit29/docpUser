@@ -62,6 +62,7 @@ const mapStateToProps = (state, passedProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getUserProfile: () => dispatch(getUserProfile()),
         toggleDiagnosisCriteria: (type, test, forceAdd) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd)),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
     }
