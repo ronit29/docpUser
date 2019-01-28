@@ -1,6 +1,7 @@
 import React from 'react';
-import ProfileHeader from '../commons/DesktopProfileHeader/DesktopProfileHeader'
-import LocationElements from '../../containers/commons/locationElements'
+import ProfileHeader from '../../commons/DesktopProfileHeader/DesktopProfileHeader'
+import LocationElements from '../../../containers/commons/locationElements'
+import InfoPopup from './healthPackageInfoPopup.js'
 
 class HealthPackageAdvisorView extends React.Component {
     constructor(props) {
@@ -14,7 +15,9 @@ class HealthPackageAdvisorView extends React.Component {
             age:'',
             min_age:'',
             max_age:'',
-            searchCities: []
+            searchCities: [],
+            showInfo:false,
+            showInfoText:''
         }
     }
 
@@ -128,6 +131,13 @@ class HealthPackageAdvisorView extends React.Component {
             this.setState({ searchCities: [] })
         })
     }
+    showInfo(infoId,event){
+        this.setState({showInfoText:infoId,showInfo:true})
+        event.stopPropagation()
+    }
+    closeInfo() {
+        this.setState({ showInfo: false })
+    }
     render() {
         let self = this
         return (
@@ -187,14 +197,14 @@ class HealthPackageAdvisorView extends React.Component {
                                                     <div className="dtl-radio">
                                                         <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 8 }} onChange={this.selectPackage.bind(this,1)}>Screening
                                                             <input type="radio" name="radio2" checked={this.state.packageType == 1?true:false}/>
-                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
+                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.showInfo.bind(this,1)} />
                                                             <span className="doc-checkmark hpa-radio"></span>
                                                         </label>
                                                     </div>
                                                     <div className="dtl-radio">
                                                         <label className="container-radio mb-0 hpa-container-radio" onChange={this.selectPackage.bind(this,2)}>Physical
                                                             <input type="radio" name="radio2" checked={this.state.packageType == 2?true:false}/>
-                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
+                                                            <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={this.showInfo.bind(this,2)} />
                                                             <span className="doc-checkmark hpa-radio"></span>
                                                         </label>
                                                     </div>
@@ -310,6 +320,10 @@ class HealthPackageAdvisorView extends React.Component {
                 </div>
             </section>
             <button className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showPackage.bind(this)}>Show Packages</button>
+            {
+                this.state.showInfo?
+                    <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText}/>:''
+            }
         </div>
         )
     }

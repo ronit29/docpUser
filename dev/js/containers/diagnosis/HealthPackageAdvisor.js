@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {getUserProfile,toggleDiagnosisCriteria,mergeLABState} from '../../actions/index.js'
-import HealthPackageAdvisorView from '../../components/diagnosis/HealthPackageAdvisorView.js'
+import HealthPackageAdvisorView from '../../components/diagnosis/healthPackageAdvisor/HealthPackageAdvisorView.js'
 import STORAGE from '../../helpers/storage'
 
 class HealthPackageAdvisor extends React.Component {
