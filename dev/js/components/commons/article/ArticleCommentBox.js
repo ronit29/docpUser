@@ -24,7 +24,7 @@ class CommmentView extends React.Component{
 			comment: this.state.comment,
 			name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].name:this.state.name,
 			email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].email:this.state.email,
-			parent: this.props.parentCommentId?this.props.parentCommentId:this.props.articleData.id 
+			parent: this.props.parentCommentId 
 		}
 		this.props.postComment(postData, (error, data)=> {
 			if(data){

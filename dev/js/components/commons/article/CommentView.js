@@ -15,7 +15,7 @@ class CommentDialogView extends React.Component{
 	}
 
     getCommentView(comment){
-        return(<div className="reply-comments-container">
+        return(<div className="reply-comments-container" key={comment.id}>
                 <div className="sub-comments-section">
                     <div className="dr-qucik-info doc-gold-">
                         <div className="fltr-crd-img text-center">
@@ -52,7 +52,7 @@ class CommentDialogView extends React.Component{
 		return(
 			<div className="widget mrb-15 mrng-top-12">
                 <div className="widget-content">
-                    <div className="dr-qucik-info doc-gold-">
+                    <div className="dr-qucik-info doc-gold-" key={this.props.commentData.id}>
                         <div className="fltr-crd-img text-center">
                             <div>
                                 <img style={{ width: '50px' }} src="https://cdn.docprime.com/media/doctor/images/80x80/528763db88e24caa2af9d6e38047e285.jpg" className="img-fluid img-round" />
@@ -60,7 +60,7 @@ class CommentDialogView extends React.Component{
                         </div>
                         <div className="dr-profile">
                             <h1 className="dr-name">{this.props.commentData.user_name||""}</h1>
-                            <h2 className="add-details">{this.props.commentData.submit_date||""}</h2>
+                            <h2 className="add-details">{this.props.commentData.submit_date?new Date(this.props.commentData.submit_date).toDateString():""}</h2>
                         </div>
                     </div>
                     <p className="usr-comments-para">
@@ -80,7 +80,8 @@ class CommentDialogView extends React.Component{
                         :''   
                     }
     				{
-    					this.getAllComments(this.props.commentData)
+    					this.props.commentData.children && this.props.commentData.children.length?
+                        this.getAllComments(this.props.commentData.children):''
     				}
                 </div>
 			</div>

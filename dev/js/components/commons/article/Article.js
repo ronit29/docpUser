@@ -27,7 +27,7 @@ class Article extends React.Component {
         this.state = {
             articleData: articleData,
             medicineURL: false,
-            parentCommentId: '',
+            parentCommentId: null,
             comment: ''
         }
     }
@@ -107,7 +107,7 @@ class Article extends React.Component {
             comment: this.state.comment,
             name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].name:'',
             email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].email:'',
-            parent: this.state.parentCommentId?this.state.parentCommentId:this.state.articleData.id 
+            parent: this.state.parentCommentId 
         }
         this.props.postComment(postData, (error, data)=> {
             if(data){
@@ -302,7 +302,7 @@ class Article extends React.Component {
                                 <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                 {
                                 this.state.articleData.comments.map((comment, key) => {
-                                        return <CommentView commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment}/>
+                                        return <CommentView key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment}/>
                                 })}
                             </div>
                             :<div className="col-12">
