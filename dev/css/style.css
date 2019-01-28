@@ -3624,6 +3624,7 @@ padding-top: 0px !important;
 	display: flex;
 	border-bottom: 1px solid rgba(0, 0, 0, .12);
 	cursor: pointer;
+	position: relative;
 }
 .common-listing-cont li:last-child{
 	border-bottom: transparent;
@@ -3644,6 +3645,20 @@ padding-top: 0px !important;
 	margin-right: 10px;
 	flex-shrink: 0;
 	flex-grow: 0;
+}
+.popular-txt{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 2px 4px;
+	background-color: #fc092b;
+	border-radius: 5px;
+	height: 22px;
+}
+.popular-txt span{
+	font-size: 12px;
+	color: #ffffff;
 }
 .mb-10{
 	margin-bottom: 10px !important;
