@@ -138,6 +138,9 @@ class HealthPackageAdvisorView extends React.Component {
     closeInfo() {
         this.setState({ showInfo: false })
     }
+    goBack(){
+        this.props.history.push('/')
+    }
     render() {
         let self = this
         let show_info = false
@@ -154,7 +157,7 @@ class HealthPackageAdvisorView extends React.Component {
                     <div className="col-12 col-md-7 col-lg-7 pt-0">
                         <div className="sticky-header fixed top hpa-header">
                             <div className="d-flex">
-                                <img src={ASSETS_BASE_URL + '/img/icons/back-arrow.png'} onClick={()=> this.props.history.push(-1)}/>
+                                <img src={ASSETS_BASE_URL + '/img/icons/back-arrow.png'} onClick={this.goBack.bind(this)}/>
                                 <h1 className="fw-500">Health Package Advisor</h1>
                             </div>
                         </div>
