@@ -21,14 +21,17 @@ class Article extends React.Component {
         super(props)
         let footerData = null
         let articleData = null
+        let articleLoaded = false
         if (this.props.initialServerData) {
             articleData = this.props.initialServerData.articleData
+            articleLoaded = true
         }
         this.state = {
             articleData: articleData,
             medicineURL: false,
             parentCommentId: null,
-            comment: ''
+            comment: '',
+            articleLoaded: articleLoaded
         }
     }
 
@@ -50,7 +53,7 @@ class Article extends React.Component {
             articleId = articleId.toLowerCase().substring(1, articleId.length)
             this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
                 if (!err && !this.state.articleData) {
-                    this.setState({ articleData: data})
+                    this.setState({ articleData: data, articleLoaded: true})
                 } else {
 
                 }
@@ -113,6 +116,9 @@ class Article extends React.Component {
             if(data){
                 this.setState({comment:'',parentCommentId:'' })
                 this.getArticleData()
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation" })
+                }, 500)
             }else{
                 setTimeout(() => {
                     SnackBar.show({ pos: 'bottom-center', text: "Could not post your comment, Try again!" })
@@ -297,21 +303,23 @@ class Article extends React.Component {
 
                     <div className="row">
                         {
-                            this.state.articleData && this.state.articleData.comments.length?
-                            <div className="col-12">
-                                <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
-                                {
-                                this.state.articleData.comments.map((comment, key) => {
-                                        return <CommentView key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment}/>
-                                })}
-                            </div>
-                            :<div className="col-12">
-                                <div className="widget mrb-15 mrng-top-12">
-                                    <div className="widget-content">         
-                                        <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)}/>
+                            this.state.articleLoaded?
+                                this.state.articleData && this.state.articleData.comments.length?
+                                <div className="col-12">
+                                    <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
+                                    {
+                                    this.state.articleData.comments.map((comment, key) => {
+                                            return <CommentView key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment}/>
+                                    })}
+                                </div>
+                                :<div className="col-12">
+                                    <div className="widget mrb-15 mrng-top-12">
+                                        <div className="widget-content">         
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)}/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            :''
                             }
                     </div>
 

@@ -1,16 +1,19 @@
 import React from 'react'
 import CommentBox from './ArticleCommentBox.js'
+import InitialsPicture from '../initialsPicture'
 
 class CommentDialogView extends React.Component{
 
-	getAllComments(comment){
+	getAllComments(childComment){
         let self = this
-        if(comment.children && comment.children.length>0){
-            return comment.children.map((childComment, key) => {
-                return self.getAllComments(childComment)  
+        if(childComment && childComment.length>0){
+            return childComment.map((subChild, key) => {
+                if(subChild && subChild.children){
+                    return self.getAllComments(subChild.children)
+                }else{
+                    return this.getCommentView(subChild)        
+                }  
             })
-        }else{
-            return this.getCommentView(comment)
         }
 	}
 
@@ -20,7 +23,7 @@ class CommentDialogView extends React.Component{
                     <div className="dr-qucik-info doc-gold-">
                         <div className="fltr-crd-img text-center">
                             <div>
-                                <img style={{ width: '50px' }} src="https://cdn.docprime.com/media/doctor/images/80x80/528763db88e24caa2af9d6e38047e285.jpg" className="img-fluid img-round" />
+                                <InitialsPicture  name={comment.user_name} has_image={!!comment.image} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '50px' }} className="img-fluid img-round" src={comment.image} alt={comment.user_name} title={comment.user_name} /></InitialsPicture>
                             </div>
                         </div>
                         <div className="dr-profile">
@@ -55,7 +58,7 @@ class CommentDialogView extends React.Component{
                     <div className="dr-qucik-info doc-gold-" key={this.props.commentData.id}>
                         <div className="fltr-crd-img text-center">
                             <div>
-                                <img style={{ width: '50px' }} src="https://cdn.docprime.com/media/doctor/images/80x80/528763db88e24caa2af9d6e38047e285.jpg" className="img-fluid img-round" />
+                                <InitialsPicture  name={this.props.commentData.user_name} has_image={!!this.props.commentData.image} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '50px' }} className="img-fluid img-round" src={this.props.commentData.image} alt={this.props.commentData.user_name} title={this.props.commentData.user_name} /></InitialsPicture>
                             </div>
                         </div>
                         <div className="dr-profile">
@@ -74,7 +77,7 @@ class CommentDialogView extends React.Component{
                         this.props.isUserLogin?
                             <div className="comments-post-input">
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
-                                <button classNsame="comments-post-btns" onClick={this.props.postReply.bind(this)}>Post</button>
+                                <button className="comments-post-btns" onClick={this.props.postReply.bind(this)}>Post</button>
                             </div>
                             :<CommentBox {...this.props} {...this.state} getArticleData={this.props.getArticleData.bind(this)} />
                         :''   
