@@ -230,7 +230,7 @@ class ArticleList extends React.Component {
 											</div> : <Loader />
 									}
 								</div>
-								{/* ============================comments section================================== */}
+								{/* ============================comments section================================== 
 								<div className="row">
 									<div className="col-12">
 										<h4 className="comments-main-heading">User Comments (212)</h4>
