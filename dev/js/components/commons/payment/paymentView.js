@@ -128,7 +128,7 @@ class PaymentView extends React.Component {
                                                         {
                                                             this.state.payment_options.map((paymentType, key) => {
                                                             
-                                                                return <li key={key} style={{ position: 'relative' }}>
+                                                                return <li key= {key} style={{ position: 'relative' }}>
                                                                     <label htmlFor={`S{paymentType.action}_${paymentType.payment_gateway}`} className="paytm-label"> <img src={paymentType.image} className="img-fluid" /> {paymentType.name}
                                                                     </label>
                                                                     {
