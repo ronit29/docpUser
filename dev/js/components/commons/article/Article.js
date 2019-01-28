@@ -52,8 +52,8 @@ class Article extends React.Component {
         if (articleId) {
             articleId = articleId.toLowerCase().substring(1, articleId.length)
             this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
-                if (!err && !this.state.articleData) {
-                    this.setState({ articleData: data, articleLoaded: true})
+                if (!err /*&& !this.state.articleData*/) {
+                    this.setState({ articleData: data, articleLoaded: true, parentCommentId:''})
                 } else {
 
                 }
@@ -114,7 +114,7 @@ class Article extends React.Component {
         }
         this.props.postComment(postData, (error, data)=> {
             if(data){
-                this.setState({comment:'',parentCommentId:'' })
+                this.setState({comment:''})
                 this.getArticleData()
                 setTimeout(() => {
                     SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation" })

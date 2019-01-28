@@ -28,8 +28,11 @@ class CommmentView extends React.Component{
 		}
 		this.props.postComment(postData, (error, data)=> {
 			if(data){
-				this.setState({comment:'',parentCommentId:'' })
+				this.setState({comment:''})
 				this.props.getArticleData()
+				setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation" })
+                }, 500)
 			}else{
 				setTimeout(() => {
 	                SnackBar.show({ pos: 'bottom-center', text: "Could not post your comment, Try again!" })
