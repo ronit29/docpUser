@@ -281,6 +281,14 @@ textarea.form-control.chat-text-area {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
+.wrng-mssg-pop img {
+	height: 24px;
+	width: 24px;
+	display: block;
+	margin-right: 9px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
 
 .wrng-mssg span {
 	color: #282427;
@@ -2240,16 +2248,20 @@ p.rt-doc-nm{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    background: #00000061;
+    background: #a0a0a0;
     border-radius: 10px;
     height: auto;
     width: 88%;
 }
-.toast-tip-icon .wrng-mssg span {
+.toast-tip-icon .wrng-mssg-pop span {
     color: white;
 }
-.toast-tip-icon .wrng-mssg{
-	background-color: #00000012;
+.toast-tip-icon .wrng-mssg-pop{
+	border-radius: 10px;
+	background-color: #a0a0a0;
+	display: flex;
+	align-items: end;
+	padding: 10px;
 }
 .toast-close-btn{
 	position: absolute;
