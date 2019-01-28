@@ -328,10 +328,10 @@ class HealthPackageAdvisorView extends React.Component {
                             </div>
                         :""
                         }
+                        <button className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showPackage.bind(this)}>Show Packages</button>
                     </div>
                 </div>
             </section>
-            <button className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" onClick={this.showPackage.bind(this)}>Show Packages</button>
             {
                 this.state.showInfo?
                     <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText} package_information={this.props.package_information}/>:''
