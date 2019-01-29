@@ -5120,3 +5120,32 @@ font-size: 13px;
 .imptnt-cls{
 	padding-left:66px!important
 }
+
+.dpp-btn-book-custom {
+	flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: #f78631;
+    cursor: pointer;
+}
+
+.booknow-span{
+	margin-top: 10px !important;
+    display: inline-block;
+}
+
+.cp-auto{
+	display: block;
+    flex: 1;
+    font-size: 12px !important; 
+}
+
+.coupon-auto-applied-lab{
+	font-size: 11px;
+    bottom: 2px;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
