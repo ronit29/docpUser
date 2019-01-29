@@ -253,54 +253,52 @@ class HealthPackageAdvisorView extends React.Component {
                                     <div className="hpa-heading mrt-10 mrb-10">
                                         <p className="fw-500">Select Categories</p>
                                     </div>
-                                    <div className="widget mb-10 mrt-10">
-                                        <div className="search-top-container">
-                                            {Object.entries(this.props.recommended_package).map(function ([key, rPackages]) {
-                                                return <div key={key}>
-                                                    <div className="d-flex justify-content-between" style={{ alignItems: 'center' }} >
-                                                        <label className="container-radio mb-0 hpa-container-radio" onChange={self.selectCategory.bind(self, rPackages.id, false)}>{rPackages.name}
-                                                            <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
-                                                            <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>
-                                                        </label>
-                                                        <label className="container-radio mb-0 hpa-container-radio" onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select subset <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
-                                                            <span className="doc-checkmark hpa-radio" style={{ top: 4 }}></span>
-                                                        </label>
-                                                    </div>
-                                                    <div>
-                                                        <ul className="list hpa-list">
-                                                            {
-                                                                Object.entries(rPackages.tests).map(function ([k, test]) {
-                                                                    return <li key={k}>
-                                                                        <div style={{ display: 'block', position: 'relative' }}>
+                                    {Object.entries(this.props.recommended_package).map(function ([key, rPackages]) {
+                                        return <div className="widget mb-10 mrt-10" key={key}>
+                                                    <div className="search-top-container">
+                                                        <div className="d-flex justify-content-between" style={{ alignItems: 'center' }} >
+                                                            <label className="container-radio mb-0 hpa-container-radio" onChange={self.selectCategory.bind(self, rPackages.id, false)}>{rPackages.name}
+                                                                <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
+                                                                <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>
+                                                            </label>
+                                                            <label className="container-radio mb-0 hpa-container-radio" onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select subset <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
+                                                                <span className="doc-checkmark hpa-radio" style={{ top: 4 }}></span>
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <ul className="list hpa-list">
+                                                                {
+                                                                    Object.entries(rPackages.tests).map(function ([k, test]) {
+                                                                        return <li key={k}>
+                                                                            <div style={{ display: 'block', position: 'relative' }}>
+                                                                                {
+                                                                                    self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ?
+                                                                                        <label className="ck-bx fw-500" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
+                                                                                            <input type="checkbox" value="on" checked={self.state.selectedTestIds.indexOf(test.id) > -1 ? true : false} />
+                                                                                            <span className="checkmark hpa-checkmark"></span>
+                                                                                        </label>
+                                                                                        : <p className="fw-500" style={{ paddingLeft: 24, lineHeight: '20px' }}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}</p>
+                                                                                }
+                                                                                {
+                                                                                    test.parameters.length > 0 ? <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} onClick={self.toggleInfo.bind(self, test.id)} /> : ''
+                                                                                }
+                                                                            </div>
                                                                             {
-                                                                                self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ?
-                                                                                    <label className="ck-bx fw-500" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
-                                                                                        <input type="checkbox" value="on" checked={self.state.selectedTestIds.indexOf(test.id) > -1 ? true : false} />
-                                                                                        <span className="checkmark hpa-checkmark"></span>
-                                                                                    </label>
-                                                                                    : <p className="fw-500" style={{ paddingLeft: 24, lineHeight: '20px' }}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}</p>
+                                                                                self.state.testInfoIds.indexOf(test.id) > -1 ?
+                                                                                    <div className="mrt-10" style={{ display: 'block', paddingLeft: 30 }}>
+                                                                                        {Object.entries(test.parameters).map(function ([param_k, paramter]) {
+                                                                                            return <p key={param_k}>{paramter}</p>
+                                                                                        })}
+                                                                                    </div> : ''
                                                                             }
-                                                                            {
-                                                                                test.parameters.length > 0 ? <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} onClick={self.toggleInfo.bind(self, test.id)} /> : ''
-                                                                            }
-                                                                        </div>
-                                                                        {
-                                                                            self.state.testInfoIds.indexOf(test.id) > -1 ?
-                                                                                <div className="mrt-10" style={{ display: 'block', paddingLeft: 30 }}>
-                                                                                    {Object.entries(test.parameters).map(function ([param_k, paramter]) {
-                                                                                        return <p key={param_k}>{paramter}</p>
-                                                                                    })}
-                                                                                </div> : ''
-                                                                        }
-                                                                    </li>
-                                                                })
-                                                            }
-                                                        </ul>
+                                                                        </li>
+                                                                    })
+                                                                }
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            })}
-                                        </div>
-                                    </div>
+                                    })}
                                 </div> : ''
                             }
                             {
