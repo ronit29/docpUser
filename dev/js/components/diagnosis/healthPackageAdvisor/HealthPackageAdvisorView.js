@@ -285,11 +285,11 @@ class HealthPackageAdvisorView extends React.Component {
                                                                     <div style={{ display: 'block', position: 'relative' }}>
                                                                         {
                                                                             self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ?
-                                                                                <label className="ck-bx fw-500" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
+                                                                                <label className="ck-bx fw-400" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
                                                                                     <input type="checkbox" value="on" checked={self.state.selectedTestIds.indexOf(test.id) > -1 ? true : false} />
                                                                                     <span className="checkmark hpa-checkmark"></span>
                                                                                 </label>
-                                                                                : <p className="fw-500" style={{ paddingLeft: 24, lineHeight: '20px' }}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}</p>
+                                                                                : <p className="fw-400" style={{ paddingLeft: 24, lineHeight: '20px' }}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}</p>
                                                                         }
                                                                         {
                                                                             test.parameters.length > 0 ? <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} onClick={self.toggleInfo.bind(self, test.id)} /> : ''
