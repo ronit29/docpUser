@@ -1906,7 +1906,8 @@ width: 55%;
     border: 1px dashed #2f6704;
     border-radius: 4px;
     margin-top: 5px;
-    color: #2f6704;
+	color: #2f6704;
+	text-align: center;
 }
 .signup-off-doc b{
 	color: #757575;
