@@ -80,7 +80,7 @@ class ThankYouPopUp extends React.Component {
 							<p>Thanks {name}</p>
 						</div>
 						<p className="thnks-content">Your feedback matters!</p>
-						<p className="thnks-content">SHARE &amp; EARN!</p>
+						<p className="thnks-content fw-500">REFER &amp; EARN!</p>
 						<p className="thanks-sub-content mrb-10">Refer your friends & earn ₹ 50</p>
 						{
 							this.props.selectedRating == 4 || this.props.selectedRating == 5 ?
