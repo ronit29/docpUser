@@ -4,14 +4,14 @@ import InitialsPicture from '../initialsPicture'
 
 class CommentDialogView extends React.Component{
 
-	getAllComments(childComment){
+	getAllComments(childComment, parentComment){
         let self = this
         if(childComment && childComment.length>0){
             return childComment.map((subChild, key) => {
                 if(subChild && subChild.children){
-                    return self.getAllComments(subChild.children)
+                    return self.getAllComments(subChild.children, subChild)
                 }else{
-                    return this.getCommentView(subChild)        
+                    return this.getCommentView(subChild, parentComment)        
                 }  
             })
         }
@@ -29,7 +29,13 @@ class CommentDialogView extends React.Component{
         }
     }
 
-    getCommentView(comment){
+    getCommentView(comment, parentComment){
+        let parentName = ''
+        if(parentComment.author){
+            parentName = parentComment.name
+        }else{
+            parentName = parentComment.user_name
+        }
         return(<div className="reply-comments-container" key={comment.id}>
                 <div className="sub-comments-section">
                     <div className="dr-qucik-info doc-gold-">
@@ -39,7 +45,7 @@ class CommentDialogView extends React.Component{
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <h1 className={`dr-name ${comment.author?'cursor-pointer-v':''}`} onClick={(e) => this.authorClick(comment)}>{comment.author?comment.author.name:comment.user_name}</h1>
+                            <h1 className={`dr-name ${comment.author?'comments-rply':''}`} onClick={(e) => this.authorClick(comment)}>{comment.author?comment.author.name:comment.user_name}<span> to {parentName}</span></h1>
                             <h2 className="add-details">{comment.submit_date?new Date(comment.submit_date).toDateString():'No Date Available'}</h2>
                         </div>
                     </div>
@@ -74,7 +80,7 @@ class CommentDialogView extends React.Component{
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <h1 className={`dr-name ${this.props.commentData.author?'cursor-pointer-v':''}`} onClick={(e) => this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</h1>
+                            <h1 className={`dr-name ${this.props.commentData.author?'comments-rply':''}`} onClick={(e) => this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</h1>
                             <h2 className="add-details">{this.props.commentData.submit_date?new Date(this.props.commentData.submit_date).toDateString():""}</h2>
                         </div>
                     </div>
@@ -96,7 +102,7 @@ class CommentDialogView extends React.Component{
                     }
     				{
     					this.props.commentData.children && this.props.commentData.children.length?
-                        this.getAllComments(this.props.commentData.children):''
+                        this.getAllComments(this.props.commentData.children, this.props.commentData):''
     				}
                 </div>
 			</div>
