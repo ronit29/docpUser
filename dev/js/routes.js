@@ -47,6 +47,7 @@ import adsBooking from './containers/commons/adsBooking.js'
 import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
 import Offers from './containers/commons/Offers';
 import Referral from './containers/commons/referral'
+import LeftMenu from './components/commons/LeftMenu/LeftMenu.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -124,6 +125,7 @@ const routes = [
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
     { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: true, redirectTo: "full-body-checkup-health-packages" },
+    { path: '/leftMenu', exact: true, component: LeftMenu, redirect: true},
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
