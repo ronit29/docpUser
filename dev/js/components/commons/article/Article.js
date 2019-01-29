@@ -141,6 +141,7 @@ class Article extends React.Component {
     render() {
 
         let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
+        let commentsExists = this.state.articleData && this.state.articleData.comments.length?this.state.articleData.comments.length:null
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -315,13 +316,13 @@ class Article extends React.Component {
                                     <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                     {
                                     this.state.articleData.comments.map((comment, key) => {
-                                            return <CommentView key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment}/>
+                                            return <CommentView key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists}/>
                                     })}
                                 </div>
                                 :<div className="col-12">
                                     <div className="widget mrb-15 mrng-top-12">
                                         <div className="widget-content">         
-                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)}/>
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists}/>
                                         </div>
                                     </div>
                                 </div>

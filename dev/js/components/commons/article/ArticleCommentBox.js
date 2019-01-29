@@ -69,6 +69,14 @@ class CommmentView extends React.Component{
 							<div className="col-12">
 								<h1 className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</h1>
 								<div className="labelWrap">
+									<div className="labelWrap">
+										<textarea style={{ height: '100px' }} id="ftext" className="fc-input" name="comment" type="text" value = {this.state.comment} required  onChange={this.inputHandler.bind(this)}></textarea>
+										<label htmlFor="ftext">Your Comment</label>
+									</div>
+								</div>
+							</div>
+							<div className="col-12">
+								<div className="labelWrap">
 									<input id="fname" className="fc-input" name="name" value = {this.state.name} type="text" required onChange={this.inputHandler.bind(this)}/>
 									<label htmlFor="fname">Name</label>
 								</div>
@@ -79,18 +87,10 @@ class CommmentView extends React.Component{
 									<label htmlFor="fmail">Email</label>
 								</div>
 							</div>
-							<div className="col-12">
-								<div className="labelWrap">
-									<div className="labelWrap">
-										<textarea style={{ height: '100px' }} id="ftext" className="fc-input" name="comment" type="text" value = {this.state.comment} required  onChange={this.inputHandler.bind(this)}></textarea>
-										<label htmlFor="ftext">Your Comment</label>
-									</div>
-								</div>
-							</div>
 						</div>	
 					}
 					<div className="commnets-sbmt-btn">
-						<button className="cmnts-btn" onClick= {this.postReply.bind(this)}>Reply</button>
+						<button className="cmnts-btn" onClick= {this.postReply.bind(this)}>{this.props.commentsExists?'Reply':'Post Comment'}</button>
 					</div>
 				</div>
 			</form>
