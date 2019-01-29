@@ -237,15 +237,13 @@ class DoctorProfileCard extends React.Component {
                                             &#x20B9;{is_procedure ? finalProcedureMrp : mrp}
                                         </p>
                                 }
+
                                 {
-                                    true || STORAGE.checkAuth() || discounted_price < 100 ?
-                                        ''
-                                        : enabled_for_hospital_booking ?
-                                            <div className="signup-off-container">
-                                                <span className="signup-off-doc" style={{ fontSize: 12 }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                            </div>
-                                            : ''
+                                    deal_price != discounted_price ? <div className="signup-off-container">
+                                        <span className="signup-off-doc" style={{ fontSize: 12 }} >Includes coupon discount</span>
+                                    </div> : ''
                                 }
+
                                 {
                                     enabled_for_hospital_booking ? <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button> : <button className="fltr-cntct-btn" style={{ width: '100%' }}>Contact</button>
                                 }

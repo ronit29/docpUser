@@ -142,11 +142,9 @@ class LabProfileCard extends React.Component {
                                     <span className="fltr-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                             }
                             {
-                                true || STORAGE.checkAuth() || discounted_price < 100 ?
-                                    ''
-                                    : <div className="signup-off-container">
-                                        <span className="signup-off-doc" style={{ fontSize: 12 }} >+ ₹ 100 OFF <b>on Signup</b> </span>
-                                    </div>
+                                discounted_price != price ? <div className="signup-off-container">
+                                    <span className="signup-off-doc" style={{ fontSize: 12 }} >Includes coupon discount</span>
+                                </div> : ""
                             }
                             <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
                         </div>

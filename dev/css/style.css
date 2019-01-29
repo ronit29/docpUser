@@ -1899,14 +1899,14 @@ width: 55%;
     text-align: right;
 }
 .signup-off-doc{
-    border-radius: 5px;
-    border: 1px dashed;
     display: block;
     padding: 0 5px;
-    font-size: 14px;
-	text-align: center;
-	color: #f07939;
     font-weight: 500;
+    background: #d7fbe7;
+    border: 1px dashed #2f6704;
+    border-radius: 4px;
+    margin-top: 5px;
+    color: #2f6704;
 }
 .signup-off-doc b{
 	color: #757575;

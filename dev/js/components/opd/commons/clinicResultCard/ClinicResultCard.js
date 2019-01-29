@@ -152,8 +152,7 @@ class ClinicResultCard extends React.Component {
                                     </p>
                                     <div className="signup-off-container">
                                         {
-                                            false && (!STORAGE.checkAuth() && discounted_price >= 100 && enabled_for_online_booking && discount) ? <span className="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b>
-                                            </span> : ""
+                                            discounted_price != deal_price ? <span className="signup-off-doc" style={{ fontSize: 12 }} >Includes coupon discount</span> : ""
                                         }
                                         {
                                             !discounted_price && !is_procedure ?
