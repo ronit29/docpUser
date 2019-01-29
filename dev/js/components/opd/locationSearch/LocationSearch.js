@@ -73,6 +73,10 @@ class LocationSearch extends React.Component {
                     if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
                         // do nothing
                     } else {
+                        if(this.state.redirect_to.includes('searchresults')){
+                            this.props.history.replace(this.state.redirect_to)
+                            return    
+                        }
                         this.props.history.push(this.state.redirect_to)
                     }
                 } else {
@@ -186,7 +190,7 @@ class LocationSearch extends React.Component {
                                         <div className="col-12" style={{ paddingTop: 10 }}>
 
                                             <div className="serch-nw-inputs">
-                                                <input className="new-srch-inp" autoComplete="off" placeholder="Select any city or locality" value={this.state.search} onChange={this.inputHandler.bind(this)} id="topLocationSearch" disabled={this.state.detectLoading} onBlur={() => this.focusOut()} />
+                                                <input className="new-srch-inp" autoComplete="off" placeholder="Enter any city or locality" value={this.state.search} onChange={this.inputHandler.bind(this)} id="topLocationSearch" disabled={this.state.detectLoading} onBlur={() => this.focusOut()} />
                                                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                                                 <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
                                             </div>

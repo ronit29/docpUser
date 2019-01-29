@@ -5,6 +5,8 @@ const moment = require('moment');
 const DAYS_TO_SHOW = 40
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
 
 class DateTimeSelector extends React.Component {
 
@@ -164,6 +166,11 @@ class DateTimeSelector extends React.Component {
     render() {
 
         let currentDate = new Date().getDate()
+        const parsed = queryString.parse(this.props.location.search)
+        let type = 1
+        if(parsed.type && parsed.type == 'opd'){
+            type = 0
+        }
         return (
             <div className="widget mrng-top-12">
                 <div className="time-slot-container">
@@ -238,7 +245,8 @@ class DateTimeSelector extends React.Component {
                             this.props.timeSlots && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1] && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].length ?
                                 this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].map((schedule, key) => {
 
-                                    return schedule.timing.length ?
+                                    return type == 1 || STORAGE.isAgent()?
+                                    schedule.timing.length ?
                                         <div key={key} className="select-time-listing-container">
                                             <div className="time-shift">
                                                 {schedule.title}
@@ -250,6 +258,26 @@ class DateTimeSelector extends React.Component {
                                                             return <li key={i} className="time-slot-li-listing" onClick={
                                                                 this.selectTime.bind(this, time, time.value, schedule.title,this.isTimeSlotAvailable(time))}>
                                                                 <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.value == time.value? " time-active" : ''
+                                                                    : " time-disable")}>{time.text}</p>
+                                                            </li>
+                                                        })
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        : ''
+                                    :schedule.timing.filter(x=>x.value>=10.5 && x.value<=19.75).length ?
+                                        <div key={key} className="select-time-listing-container">
+                                            <div className="time-shift">
+                                                {schedule.title}
+                                            </div>
+                                            <div className="time-slot-main-listing">
+                                                <ul className="inline-list time-items">
+                                                    {
+                                                        schedule.timing.filter(x=>x.value>=10.5 && x.value<=19.75).map((time, i) => {
+                                                            return <li key={i} className="time-slot-li-listing" onClick={
+                                                                this.selectTime.bind(this, time, i, schedule.title,this.isTimeSlotAvailable(time))}>
+                                                                <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.selectedSlot == i && this.state.currentTimeSlot.title == schedule.title ? " time-active" : ''
                                                                     : " time-disable")}>{time.text}</p>
                                                             </li>
                                                         })

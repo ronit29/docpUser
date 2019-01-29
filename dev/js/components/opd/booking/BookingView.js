@@ -52,7 +52,7 @@ class BookingView extends React.Component {
                     if (this.state.payment_success) {
 
                         let analyticData = {
-                            'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked','deal_price': data[0].deal_price
+                            'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
                         }
                         GTM.sendEvent({ data: analyticData })
                         this.props.history.replace(this.props.location.pathname + "?hide_button=true")
@@ -115,7 +115,7 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
-        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=${this.props.match.params.refId}`)
+        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=${this.props.match.params.refId}&type=opd`)
     }
 
     navigateTo(where, e) {

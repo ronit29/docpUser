@@ -27,7 +27,7 @@ class SearchPackagesView extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.fetchNewResults) {
+        if (true) {
             this.getLabList(this.props)
             if (window) {
                 window.scrollTo(0, 0)
@@ -94,7 +94,7 @@ class SearchPackagesView extends React.Component {
         }
     }
     applyCategories(categoryState) {
-        let newCategoryState = []
+        let newCategoryState = {}
         newCategoryState['catIds'] = categoryState
         this.props.mergeLABState({ filterCriteria: newCategoryState })
         if (window) {

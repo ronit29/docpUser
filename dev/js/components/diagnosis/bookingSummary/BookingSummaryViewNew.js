@@ -15,7 +15,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
-
+import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -400,6 +400,10 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
+    }
+
     getBookingButtonText(total_wallet_balance, price_to_pay) {
         let price_from_wallet = 0
         let price_from_pg = 0
@@ -428,7 +432,6 @@ class BookingSummaryViewNew extends React.Component {
         let address_picked_verified = false
         let center_visit_enabled = true
         let is_corporate = false
-
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
@@ -499,7 +502,7 @@ class BookingSummaryViewNew extends React.Component {
         if (!this.state.is_cashback) {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
-
+        total_price = is_corporate ? 0 : total_price
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
@@ -699,7 +702,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                                {/* <span className="errorMessage">{this.state.error}</span> */}
                                                             </div>
                                                         </a>
 
@@ -732,6 +735,10 @@ class BookingSummaryViewNew extends React.Component {
 
                             </div>
 
+                            {
+                                this.state.error ?
+                                    <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                            }
 
                         </div>
 

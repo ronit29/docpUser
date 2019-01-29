@@ -20,6 +20,7 @@ class LabProfileCard extends React.Component {
 
     openLab(id, url, e) {
         let dedupe_ids = {}
+        this.props.clearExtraTests()
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
@@ -66,9 +67,24 @@ class LabProfileCard extends React.Component {
             }
         }
     }
+    testInfo(test_id, lab_id, event) {
+        let selected_test_ids = []
+        Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
+            selected_test_ids.push(value.id)
+        })
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var search_id = url.searchParams.get("search_id");
+        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults')
+        event.stopPropagation()
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-result-page'
+        }
+        GTM.sendEvent({ data: data })
+    }
 
     render() {
-
+        let self = this
         let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
@@ -87,7 +103,22 @@ class LabProfileCard extends React.Component {
         if (mrp && price && (price < mrp)) {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
-
+        let hide_price = false
+        if (this.props.test_data) {
+            this.props.test_data.map((test) => {
+                if (test.hide_price) {
+                    hide_price = true
+                }
+            })
+        }
+        let show_detailsIds = []
+        {
+            Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
+                if (value.show_details) {
+                    show_detailsIds.push(value.id)
+                }
+            })
+        }
         return (
 
             <div className="">
@@ -102,7 +133,7 @@ class LabProfileCard extends React.Component {
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
                                 </a>
                                 {
-                                    offPercent && offPercent > 0 ?
+                                    !hide_price && offPercent && offPercent> 0 ?
                                         <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                                 }
                             </div>
@@ -115,7 +146,13 @@ class LabProfileCard extends React.Component {
                                     </div>
                                     <div style={{ marginLeft: '8px' }}>
                                         {
-                                            this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}</p> : ""
+                                            this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
+                                                {
+                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id)}>
+                                                        <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                                    </span> : ''
+                                                }
+                                            </p> : ""
                                         }
 
                                     </div>
@@ -123,7 +160,10 @@ class LabProfileCard extends React.Component {
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
                                 {
-                                    price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
+                                    price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
+                                }
+                                {
+                                    hide_price ? <p className="text-primary fw-500 text-lg mrb-10">Free</p> : ""
                                 }
 
                                 {
@@ -140,8 +180,20 @@ class LabProfileCard extends React.Component {
                                         {
                                             this.props.details.tests.map((test, i) => {
                                                 return <li className="fltr-slected-test" key={i}>
-                                                    <label style={{ fontWeight: 400 }}>{test.name}</label>
-                                                    <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                                    <label style={{ fontWeight: 400 }}>{test.name}
+                                                        {
+
+                                                            show_detailsIds.indexOf(test.id) > -1 ?
+                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id)}>
+                                                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                                                </span> : ''
+                                                        }
+                                                    </label>
+                                                    {
+                                                        hide_price ?
+                                                            <p style={{ fontWeight: 400 }}>Free</p>
+                                                            : <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                                    }
                                                 </li>
                                             })
                                         }
@@ -180,7 +232,7 @@ class LabProfileCard extends React.Component {
                         }
 
                         {
-                            other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer',borderTop: '1px solid #e8e8e8' }}>
+                            other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
                                 {
                                     this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
                                         <p style={{ marginLeft: '0px' }}>Show less</p>
@@ -191,7 +243,7 @@ class LabProfileCard extends React.Component {
 
                                 <div className="text-right" style={{ marginLeft: 'auto' }}>
                                     {
-                                        this.state.openViewMore ? <img style={{margin: '5px'}} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{margin: '5px'}} className="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                        this.state.openViewMore ? <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{ margin: '5px' }} className="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
                                     }
                                 </div>
                             </div> : ""

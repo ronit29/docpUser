@@ -167,6 +167,19 @@ class TopBar extends React.Component {
         this.props.applyCategories(categoryState)
         this.setState({ openCategory: false })
     }
+
+    goToLocation() {
+        this.setState({
+            searchCities: []
+        })
+        let location_url = '/locationsearch'
+        let data = {
+            'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push(location_url)
+    }
+
     render() {
         var selectedTests = []
         if (this.props.currentSearchedCriterias.length) {
@@ -191,7 +204,7 @@ class TopBar extends React.Component {
 
         return (
             <div>
-                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
+                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Health Packages</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                  <div className="top-filter-tab-container">
                     {/*<div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} />Sort</div>
@@ -208,7 +221,7 @@ class TopBar extends React.Component {
                                                 <div style={{ flex: 1 }}>
                                                     <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
                                                         <h1 className="search-result-heading">
-                                                        <span className="fw-700"> Full Body Checkup Packages</span>
+                                                        <span className="fw-700"> selected categories</span>
                                                         </h1>
                                                         <span className="search-result-span"> {criteriaStr}
                                                             {
@@ -264,15 +277,9 @@ class TopBar extends React.Component {
                                             
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for 
                                                 <h1 className="search-result-heading">
-                                                <span className="fw-700"> Full Body Checkup Packages</span>
+                                                <span className="fw-700"> selected categories</span>
                                                 </h1>
-                                                <span className="search-result-span" onClick={() => {
-                                                    this.setState({
-                                                        showLocationPopup: !this.state.showLocationPopup,
-                                                        searchCities: [],
-                                                        showPopupContainer: true
-                                                    })
-                                                }}>
+                                                <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 
                                                     {
                                                         this.state.showLocationPopup && false ? ''

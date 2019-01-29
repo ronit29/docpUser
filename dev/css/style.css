@@ -281,6 +281,14 @@ textarea.form-control.chat-text-area {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
+.wrng-mssg-pop img {
+	height: 24px;
+	width: 24px;
+	display: block;
+	margin-right: 9px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
 
 .wrng-mssg span {
 	color: #282427;
@@ -312,41 +320,22 @@ textarea.form-control.chat-text-area {
 	border-radius: inherit;
 }
 
-.card.cstm-card .card-header>h2 {
+.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 	font-size: 18px;
 	font-weight: 500;
 	margin-bottom: 0;
-}
-
-.card.cstm-card .card-header>h1 {
-	font-size: 18px;
-	font-weight: 500;
-	margin-bottom: 0;
+	color: #000;
 }
 
 @media(max-width : 380px){
-	.card.cstm-card .card-header>h1 {
+	.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 		font-size: 16px;
-		font-weight: 500;
-		margin-bottom: 0;
-	}
-	.card.cstm-card .card-header>h2 {
-		font-size: 16px;
-		font-weight: 500;
-		margin-bottom: 0;
 	}
 }
 
 @media(max-width : 359px){
-	.card.cstm-card .card-header>h1 {
+	.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 		font-size: 14px;
-		font-weight: 500;
-		margin-bottom: 0;
-	}
-	.card.cstm-card .card-header>h2 {
-		font-size: 14px;
-		font-weight: 500;
-		margin-bottom: 0;
 	}
 }
 
@@ -786,6 +775,7 @@ p.top-head-link.card-lab-link span {
 	border-radius: 10px;
 	max-height: 165px;
 	overflow-x: auto;
+	cursor: pointer;
 }
 
 /*header styling*/
@@ -2120,7 +2110,7 @@ p.comment-para-status{
     padding: 15px;
     border-radius: 5px;
     background-color: #ffffff;
-    width: 355px;
+    width: 300px;
 }
 .rate-card-header{
 	text-align: center;
@@ -2258,16 +2248,20 @@ p.rt-doc-nm{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    background: #00000061;
+    background: #a0a0a0;
     border-radius: 10px;
     height: auto;
     width: 88%;
 }
-.toast-tip-icon .wrng-mssg span {
+.toast-tip-icon .wrng-mssg-pop span {
     color: white;
 }
-.toast-tip-icon .wrng-mssg{
-	background-color: #00000012;
+.toast-tip-icon .wrng-mssg-pop{
+	border-radius: 10px;
+	background-color: #a0a0a0;
+	display: flex;
+	align-items: end;
+	padding: 10px;
 }
 .toast-close-btn{
 	position: absolute;
@@ -3642,6 +3636,7 @@ padding-top: 0px !important;
 	display: flex;
 	border-bottom: 1px solid rgba(0, 0, 0, .12);
 	cursor: pointer;
+	position: relative;
 }
 .common-listing-cont li:last-child{
 	border-bottom: transparent;
@@ -3662,6 +3657,20 @@ padding-top: 0px !important;
 	margin-right: 10px;
 	flex-shrink: 0;
 	flex-grow: 0;
+}
+.popular-txt{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 2px 4px;
+	background-color: #fc092b;
+	border-radius: 5px;
+	height: 22px;
+}
+.popular-txt span{
+	font-size: 12px;
+	color: #ffffff;
 }
 .mb-10{
 	margin-bottom: 10px !important;
@@ -4828,17 +4837,18 @@ font-weight: 700;
 	flex-shrink: 0;
 }
 .social-ico-styling{
-    margin: 10px 0px;
+	margin: 10px 0px;
+	flex-direction: column;
 }
 .facebookIcon-styling{
     flex: 1;
     position: relative;
     background: #3b5998;
-    margin: 0 10px;
+    margin: 10px;
     border-radius: 4px;
     cursor: pointer;
 }
-.facebookIcon-styling span{
+.facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
 	position: absolute;
     top: 5px;
     left: 40px;
@@ -4849,16 +4859,29 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #00aced;
-    margin: 0 10px;
+    margin: 10px;
     border-radius: 4px;
     cursor: pointer;
 }
-.twitterIcon-styling span{
+.emailIcon-styling{
+    flex: 1;
+    position: relative;
+    background: #7f7f7f;
+    margin: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.typ-close{
 	position: absolute;
-    top: 5px;
-    left: 40px;
-    font-weight: 500;
-    color: white;
+	right: 12px;
+	top: 12px;
+	width: 10px;
+	height: 10px;
+	z-index: 1;
+	cursor: pointer;
+}
+.typ-close>img{
+	width: 100%;
 }
 .SocialMediaShareButton{
 	display: flex;
@@ -5001,7 +5024,54 @@ font-size: 13px;
 .appUrlPadding{
 	padding: 20px 15px 20px !important;
 }
+/* ================= Error Popup ================= */
+.popup-error{
+	overflow-y: auto;
+    position: fixed;
+    bottom: unset;
+    top: 50%;
+    left: 50%;
+    right: unset;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    max-width: 500px;
+    padding: 15px;
+    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.3);
+    background: #fff;
+    border-radius: 5px;
+    padding-bottom: 30px;
+}
+.error-msg-pop .error-head{font-size: 18px; color:#000; font-weight: 700; text-align: center;}
+.cross-btn {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+}
+.cross-btn img{
+	width: 100%;
+}
+.error-msg{
+	color: #000; 
+	font-size: 14px;
+	font-weight: 500;
+	display: block;
+	margin-top: 30px;
+	text-align: center;
+}
 
+@media screen and (max-width: 480px){
+	/*10-01-2019*/
+	.popup-error{
+		max-width: 350px;
+	    width: auto;
+	}
+	.error-msg-pop .error-head{
+		font-size: 16px;
+	}
+}
 @media screen and (max-width: 992px){
 	.book-appointment-section-login{margin-top: 30px;}
 	.chat-load-mobile.mt-21{margin-top: 18px;}
@@ -5200,3 +5270,6 @@ font-size: 13px;
     margin-right: 10px;
 }
 /* ================= shopping cart style ================= */
+.imptnt-cls{
+	padding-left:66px!important
+}

@@ -25,14 +25,14 @@ class ProfessionalGraph extends React.Component {
                                 heading={"Qualification"}
                                 contentList={qualifications}
                                 qulification={true}
-                                image={"/assets/img/customer-icons/education.svg"}
+                                image={"/assets/img/customer-icons/Education-01.svg"}
                             /> : ""
                         }
 
                         {
                             languages && languages.length ? <ExpansionPanel
                                 heading={"Language"}
-                                image={"/assets/img/customer-icons/language.svg"}
+                                image={"/assets/img/customer-icons/Language-01.svg"}
                                 contentList={[
                                     {
                                         heading: "", content: languages.reduce((final, curr, i) => {
@@ -48,7 +48,7 @@ class ProfessionalGraph extends React.Component {
                         {
                             awards && awards.length ? <ExpansionPanel
                                 heading={"Awards"}
-                                image={"/assets/img/customer-icons/awards.svg"}
+                                image={"/assets/img/customer-icons/Award-01.svg"}
                                 contentList={
                                     awards.map((award) => {
                                         award.year = award.year || ""
@@ -65,7 +65,7 @@ class ProfessionalGraph extends React.Component {
                         {
                             associations && associations.length ? <ExpansionPanel
                                 heading={"Associate Membership"}
-                                image={"/assets/img/customer-icons/associate-member.svg"}
+                                image={"/assets/img/customer-icons/AssociateMembership.svg"}
                                 contentList={
                                     associations.map((association) => {
                                         return { heading: "", content: `${association.name}` }
@@ -77,7 +77,7 @@ class ProfessionalGraph extends React.Component {
                         {
                             experiences && experiences.length ? <ExpansionPanel
                                 heading={"Experience"}
-                                image={"/assets/img/customer-icons/experience.svg"}
+                                image={"/assets/img/customer-icons/Experienced-01.svg"}
                                 contentList={
                                     experiences.map((experience) => {
                                         return { heading: "", content: `${experience.hospital}, ${experience.start_year} - ${experience.end_year}` }
@@ -89,7 +89,7 @@ class ProfessionalGraph extends React.Component {
                         {
                             medical_services && medical_services.length ? <ExpansionPanel
                                 heading={"Subscribed Services"}
-                                image={"/assets/img/customer-icons/subscribed-service.svg"}
+                                image={"/assets/img/customer-icons/SubscribedServices-01.svg"}
                                 contentList={
                                     medical_services.map((service) => {
                                         return { heading: "", content: `${service.name}` }

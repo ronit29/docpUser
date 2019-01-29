@@ -33,16 +33,23 @@ class DoctorProfileCard extends React.Component {
         this.props.history.push('/doctorsignup');
     }
 
+    moreExpClick() {
+        var elementTop = document.getElementById('experience').getBoundingClientRect().top;
+        var elementHeight = document.getElementById('experience').clientHeight;
+        var scrollPosition = elementTop - elementHeight;
+        window.scrollTo(0, scrollPosition);
+    }
+
     render() {
         let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified } = this.props.details
         let expStr = ""
 
         if (experiences && experiences.length) {
-            expStr += "EXP - "
-            experiences.map((exp, i) => {
-                expStr += exp.hospital
-                if (i < experiences.length - 1) expStr += ', '
-            })
+            expStr += `EXP - ${experiences[0].hospital}`
+            // experiences.map((exp, i) => {
+            //     expStr += exp.hospital
+            //     if (i < experiences.length - 1) expStr += ', '
+            // })
         }
 
         return (
@@ -60,9 +67,13 @@ class DoctorProfileCard extends React.Component {
                     {
                         experience_years ? <h2 className="add-details">{experience_years} Years of Experience</h2> : ""
                     }
-                    <h2 className="add-details">{expStr}</h2>
                     {
-                        this.props.details.enabled_for_online_booking==false || this.props.bookingEnabled==false ?  <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button> : ''
+                        experiences && experiences.length > 1 ?
+                            <h2 className="add-details">{expStr} & <span style={{ cursor: 'pointer', color: '#f78631' }} onClick={() => this.moreExpClick()}>{experiences.length - 1} more</span></h2>
+                            : experiences ? <h2 className="add-details">{expStr}</h2> : ''
+                    }
+                    {
+                        this.props.details.enabled_for_online_booking == false || this.props.bookingEnabled == false ? <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button> : ''
                     }
                 </div>
             </div>

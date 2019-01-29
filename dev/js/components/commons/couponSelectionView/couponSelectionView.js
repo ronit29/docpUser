@@ -193,7 +193,7 @@ class CouponSelectionView extends React.Component {
                                                                                 <p>{coupons.desc}</p>
                                                                                 {
                                                                                     coupons.coupon_count > 1 ? <div className="coupon-timeline book-confirmed-timeline">
-                                                                                        <p className="text-sm text-primary">can be used {coupons.coupon_count - coupons.used_count} times per user</p>
+                                                                                        <p className="text-sm text-primary">can be used {coupons.coupon_count - coupons.used_count} more times</p>
                                                                                         <ul className="coupon-inline-list">
                                                                                             {
                                                                                                 this.getDots(coupons.coupon_count, coupons.used_count)

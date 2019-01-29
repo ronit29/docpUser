@@ -181,6 +181,7 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
             newState.filterCriteria = DEFAULT_FILTER_STATE
             newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            // newState.fetchNewResults = true
             return newState
         }
 
@@ -188,7 +189,9 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 selectedCriterias: [].concat(state.selectedCriterias),
-                lab_test_data: {}
+                lab_test_data: {},
+                currentLabSelectedTests:[],
+                currentSearchedCriterias:[]
             }
 
             newState.selectedCriterias = newState.selectedCriterias.filter((x) => {

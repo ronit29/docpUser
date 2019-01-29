@@ -87,10 +87,11 @@ class BookingView extends React.Component {
                         if (this.state.payment_success) {
 
                             let analyticData = {
-                                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked','deal_price': deal_price, 'mrp': mrp
+                                'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
                             }
                             GTM.sendEvent({ data: analyticData })
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
+                            this.props.setCorporateCoupon(null)
                         }
                     })
                 } else {

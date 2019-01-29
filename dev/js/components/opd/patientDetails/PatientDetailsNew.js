@@ -17,7 +17,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import ProcedureView from './procedureView.js'
-
+import BookingError from './bookingErrorPopUp.js'
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -357,7 +357,7 @@ class PatientDetailsNew extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true`)
+                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true&type=opd`)
                 return
             }
 
@@ -423,6 +423,10 @@ class PatientDetailsNew extends React.Component {
 
         deal_price += treatment_Price
         return deal_price
+    }
+
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
     }
 
     getBookingButtonText(total_wallet_balance, price_to_pay) {
@@ -638,7 +642,7 @@ class PatientDetailsNew extends React.Component {
                                                         <a href="/terms" target="_blank">
                                                             <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
                                                                 <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                                {/* <span className="errorMessage">{this.state.error}</span> */}
                                                             </div>
                                                         </a>
 
@@ -670,6 +674,11 @@ class PatientDetailsNew extends React.Component {
 
                             </div>
                         </div>
+
+                        {
+                            this.state.error ?
+                                <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                        }
 
                         <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} />
                     </div>

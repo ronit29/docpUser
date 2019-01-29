@@ -65,7 +65,7 @@ class CategoryPopup extends React.Component {
             <div className="cancel-overlay"></div>
             <div className="widget cancel-appointment-div cancel-popup">    
                 <div className="pop-top-heading mb-0">
-                        Select categories   
+                        Select Categories   
                         <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
                 </div>
                 <div className="terms-condition-div onscreen-scroll pt-0">
@@ -74,7 +74,7 @@ class CategoryPopup extends React.Component {
                         <ul className="list all-test-list mrt-10">
                         <li>
                             <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                SelectAll
+                                Select All
                                 <input type="checkbox" checked={this.props.packagesList.categories_count == this.state.selectedCatIdsLeng} onChange={this.applyAllCategory.bind(this)} />
                                 <span className="checkmark" />
                             </label>
