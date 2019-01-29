@@ -128,8 +128,8 @@ class ThankYouPopUp extends React.Component {
 							</div>
 						</CopyToClipboard>
 					</div>
-					<div className="text-center mrt-20" style={{ backgroundColor: 'rgba(247, 134, 49, 0.2)', padding: 10, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, cursor: 'pointer' }} onClick={() => this.props.history.push('/referral')}>
-						<span className="fw-500 text-primary">How referral works?</span>
+					<div className="text-center mrt-20" style={{ backgroundColor: 'rgba(247, 134, 49, 0.2)', padding: 10, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, cursor: 'pointer' }}>
+						<a href="/referral" className="fw-500 text-primary">How referral works?</a>
 					</div>
 				</div>
 			</div>

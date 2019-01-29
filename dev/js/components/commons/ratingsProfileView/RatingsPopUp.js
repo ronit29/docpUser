@@ -97,7 +97,6 @@ class RatingsPopUp extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         if (this.state.rating_done && ((this.state.data == null) || (this.state.data && this.state.data.length == 0))) {
             return (<ThankYouPopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} appointmentData={this.state.appointmentData} />)
         }
