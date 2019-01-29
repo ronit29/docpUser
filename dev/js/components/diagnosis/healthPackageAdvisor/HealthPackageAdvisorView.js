@@ -65,13 +65,13 @@ class HealthPackageAdvisorView extends React.Component {
 
         if (ids.length) {
             selected_catIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
-            selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset })
+            selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest:[] })
         } else {
-            selected_catIds.push({ cat_id: cat_id, isSubset: isSubset })
-        }
+            selected_catIds.push({ cat_id: cat_id, isSubset: isSubset,subSetTest:[] })
+        } 
         this.setState({ selectCatIDs: selected_catIds })
     }
-    selectTest(test_id) {
+    selectTest(test_id,package_id) {
         let test_ids = [].concat(this.state.selectedTestIds)
         let self = this
         let found = false
@@ -85,7 +85,22 @@ class HealthPackageAdvisorView extends React.Component {
         if (!found) {
             test_ids.push(test_id)
         }
-        self.setState({ selectedTestIds: test_ids })
+        let package_ids = []
+        let selectedIds = []
+        let finalIds = []
+        if(this.state.selectCatIDs.length>0){
+            selectedIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) == parseInt(package_id))
+            package_ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(package_id))
+        if(selectedIds.length > 0){
+            Object.entries(selectedIds).map(function ([key, value]) {
+                if (value.isSubset) {
+                    value.subSetTest.push(test_id)
+                }
+            })
+        }
+        finalIds = [...package_ids, ...selectedIds]
+        }
+        self.setState({ selectedTestIds: test_ids, selectCatIDs:finalIds })
     }
     selectAge(event) {
         var event = document.getElementById("selectage")
@@ -105,10 +120,18 @@ class HealthPackageAdvisorView extends React.Component {
     }
     showPackage() {
         let cat_ids = []
+        let test_ids = []
         if (this.state.selectCatIDs.length > 0) {
             Object.entries(this.state.selectCatIDs).map(function ([key, value]) {
                 if (!value.isSubset) {
                     cat_ids.push(value.cat_id)
+                }else{
+                    if(value.subSetTest.length >0){
+                        Object.entries(value.subSetTest).map(function ([k, val]) {
+                            test_ids.push(val)    
+                        }) 
+                    }
+                    
                 }
             })
         }
@@ -116,7 +139,7 @@ class HealthPackageAdvisorView extends React.Component {
         let filterstate = { ...this.props.filterCriteriaPackages }
         newCategoryState['catIds'] = cat_ids
         newCategoryState['selectCatIDs'] = this.state.selectCatIDs
-        newCategoryState['test_ids'] = this.state.selectedTestIds
+        newCategoryState['test_ids'] = test_ids
         newCategoryState['distanceRange'] = [0, 15]
         newCategoryState['priceRange'] = [0, 20000]
         newCategoryState['sort_on'] = null
@@ -284,7 +307,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                                     <div style={{ display: 'block', position: 'relative' }}>
                                                                         {
                                                                             self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ?
-                                                                                <label className="ck-bx fw-400" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
+                                                                                <label className="ck-bx fw-400" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id,rPackages.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
                                                                                     <input type="checkbox" value="on" checked={self.state.selectedTestIds.indexOf(test.id) > -1 ? true : false} />
                                                                                     <span className="checkmark hpa-checkmark"></span>
                                                                                 </label>
