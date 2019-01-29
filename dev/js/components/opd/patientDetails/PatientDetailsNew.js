@@ -322,9 +322,8 @@ class PatientDetailsNew extends React.Component {
                         'Category': 'ConsumerApp', 'Action': 'DoctorOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    if(this.state.couponInfo.payment_option){
-                        this.props.setCouponsSpecificPaymentOption(data.data.orderId, this.state.couponInfo.payment_option)
-                    }
+                    this.props.setCouponsSpecificPaymentOption(data.data.orderId, this.state.couponInfo.payment_option || null)
+                    
                     this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
 
                     // this.setState({
