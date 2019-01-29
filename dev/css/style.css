@@ -1898,7 +1898,24 @@ width: 55%;
 	width: 158px;
     text-align: right;
 }
+
 .signup-off-doc{
+    border-radius: 5px;
+    border: 1px dashed;
+    display: block;
+    padding: 0 5px;
+    font-size: 14px;
+    text-align: center;
+    color: #f07939;
+    font-weight: 500;
+}
+
+.signup-off-doc b{
+	color: #757575;
+    font-weight: 500;
+}
+
+.signup-off-doc-green{
     display: block;
     padding: 0 5px;
     font-weight: 500;
@@ -1909,10 +1926,12 @@ width: 55%;
 	color: #2f6704;
 	text-align: center;
 }
-.signup-off-doc b{
+
+.signup-off-doc-green b{
 	color: #757575;
     font-weight: 500;
 }
+
 .ratng-doc-price{
     color: #f78631;
 }

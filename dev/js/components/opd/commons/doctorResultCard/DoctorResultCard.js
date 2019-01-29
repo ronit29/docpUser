@@ -240,7 +240,7 @@ class DoctorProfileCard extends React.Component {
 
                                 {
                                     deal_price != discounted_price ? <div className="signup-off-container">
-                                        <span className="signup-off-doc" style={{ fontSize: 12 }} >Includes coupon discount</span>
+                                        <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                     </div> : ''
                                 }
 

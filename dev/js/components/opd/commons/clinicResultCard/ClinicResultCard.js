@@ -152,7 +152,7 @@ class ClinicResultCard extends React.Component {
                                     </p>
                                     <div className="signup-off-container">
                                         {
-                                            discounted_price != deal_price ? <span className="signup-off-doc" style={{ fontSize: 12 }} >Includes coupon discount</span> : ""
+                                            discounted_price != deal_price ? <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span> : ""
                                         }
                                         {
                                             !discounted_price && !is_procedure ?
