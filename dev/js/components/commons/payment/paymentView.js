@@ -139,35 +139,6 @@ class PaymentView extends React.Component {
                                                                 </li>        
                                                             })
                                                         }
-                                                        
-                                                        {/* <li id="oneclick-label">
-                                                            <label htmlFor="click"> <img src={ASSETS_BASE_URL + "/img/customer-icons/oneclick-payment.png"} className="img-fluid" id="click-icon" /> One Click Pay</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="click"/></span>
-                                                        </li> 
-                                                        <li>
-                                                            <label htmlFor="NB"> <img src={ASSETS_BASE_URL + "/img/customer-icons/i-banking.svg"} className="img-fluid" /> Internet Banking</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'NB'} value="NB" className="radio-inline" name="gender" id="NB" data-mode="NB" /></span>
-                                                        </li>
-                                                        <li>
-                                                            <label htmlFor="CC"> <img src={ASSETS_BASE_URL + "/img/customer-icons/credit-card.svg"} className="img-fluid" /> Credit Card</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'CC'} value="CC" className="radio-inline" name="gender" id="CC" data-mode="CC" /></span>
-                                                        </li>
-                                                        <li>
-                                                            <label htmlFor="DC"> <img src={ASSETS_BASE_URL + "/img/customer-icons/debit-card.svg"} className="img-fluid" /> Debit Card</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'DC'} value="DC" className="radio-inline" name="gender" id="DC" data-mode="DC" /></span>
-                                                        </li>
-                                                        <li>
-                                                            <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/amazon_pay.png"} className="img-fluid" /> Amazon Pay</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'AP'} value="AP" className="radio-inline" name="gender" id="AP" data-gateway="payu" data-mode="PPI" /></span>
-                                                        </li>
-                                                        {/* <li>
-                                                            <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/ola_money.png"} className="img-fluid" /> Ola Money</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'OM'} value="OM" className="radio-inline" name="gender" id="OM" data-gateway="olamoney" data-mode="PPI" /></span>
-                                                        </li> */
-                                                        /* <li>
-                                                            <label htmlFor="cdc"> <img src={ASSETS_BASE_URL + "/img/customer-icons/capa-1.jpg"} className="img-fluid" /> Pay in Cash</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="cdc" /></span>
-                                                        </li> */}
                                                     </ul>
                                                 </div>
                                             </div>

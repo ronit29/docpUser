@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
+import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, setCouponsSpecificPaymentOption } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -81,7 +81,8 @@ const mapDispatchToProps = (dispatch) => {
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
-        fetchTransactions: () => dispatch(fetchTransactions())
+        fetchTransactions: () => dispatch(fetchTransactions()),
+        setCouponsSpecificPaymentOption: (orderId, paymentOption) => dispatch(setCouponsSpecificPaymentOption(orderId, paymentOption))
     }
 }
 
