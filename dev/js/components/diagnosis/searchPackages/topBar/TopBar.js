@@ -203,12 +203,14 @@ class TopBar extends React.Component {
             packageType: this.state.packageType,
             test_ids:this.state.test_ids
         }
-        let isCategory = false 
-        if(this.state.initialSelectedCatIds != categoryState.length){
-            isCategory = true
-        }
+        // let isCategory = false 
+        // if(this.state.initialSelectedCatIds != categoryState.length){
+        //     isCategory = true
+        // }
         this.props.applyCategories(categoryState,filterState)
-        this.setState({ openCategory: false ,isCategoryApplied:isCategory,appliedCategoryCount:categoryState.length>0?categoryState.length:''})
+        // this.setState({ openCategory: false ,isCategoryApplied:isCategory,appliedCategoryCount:categoryState.length>0?categoryState.length:''})
+        this.setState({ openCategory: false,catIds:categoryState.length})
+
     }
     initialSelectedCategory(selectedcategory){
         this.setState({initialSelectedCatIds:selectedcategory.length})
@@ -271,7 +273,7 @@ class TopBar extends React.Component {
                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
                         }
                     </div>
-                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.isCategoryApplied && this.state.appliedCategoryCount !== '' ?'Category ('+this.state.appliedCategoryCount+')':'Category'}
+                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                     </div>
                 </div>
                     <div className="container-fluid">

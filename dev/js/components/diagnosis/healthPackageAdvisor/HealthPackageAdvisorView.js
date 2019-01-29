@@ -261,7 +261,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                                 <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                                 <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>
                                                             </label>
-                                                            <label className="container-radio mb-0 hpa-container-radio" onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select subset <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
+                                                            <label className="container-radio mb-0 hpa-container-radio" onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
                                                                 <span className="doc-checkmark hpa-radio" style={{ top: 4 }}></span>
                                                             </label>
                                                         </div>
