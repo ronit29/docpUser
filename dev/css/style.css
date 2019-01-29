@@ -2102,7 +2102,7 @@ p.comment-para-status{
     padding: 15px;
     border-radius: 5px;
     background-color: #ffffff;
-    width: 355px;
+    width: 300px;
 }
 .rate-card-header{
 	text-align: center;
@@ -4861,8 +4861,8 @@ font-weight: 700;
 }
 .typ-close{
 	position: absolute;
-	right: 15px;
-	top: 15px;
+	right: 12px;
+	top: 12px;
 	width: 10px;
 	height: 10px;
 	z-index: 1;
