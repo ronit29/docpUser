@@ -265,7 +265,7 @@ class CriteriaElasticSearchView extends React.Component {
     }
 
     render() {
-        console.log('hufgadsugudasuydasuydsag'); console.log(this.state.searchResults);
+
         return (
             <div className="profile-body-wrap">
                 {
