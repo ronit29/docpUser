@@ -22,6 +22,16 @@ class HealthPackageAdvisorView extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({ ...this.props.filterCriteriaPackages },() =>{
+            this.setState({selectedTestIds:this.props.filterCriteriaPackages.test_ids})
+            if(this.state.max_age == 20){
+                this.setState({age:1})
+            }else if(this.state.min_age == 20){
+                this.setState({age:2})
+            }else if(this.state.max_age == 20){
+                this.setState({age:3})
+            }
+        })
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -103,8 +113,9 @@ class HealthPackageAdvisorView extends React.Component {
             })
         }
         let newCategoryState = {}
-        let filterstate = { ...this.props.filterCriteria_packages }
+        let filterstate = { ...this.props.filterCriteriaPackages }
         newCategoryState['catIds'] = cat_ids
+        newCategoryState['selectCatIDs'] = this.state.selectCatIDs
         newCategoryState['test_ids'] = this.state.selectedTestIds
         newCategoryState['distanceRange'] = filterstate.distanceRange
         newCategoryState['priceRange'] = filterstate.priceRange
@@ -142,6 +153,7 @@ class HealthPackageAdvisorView extends React.Component {
         this.props.history.push('/')
     }
     render() {
+        console.log(this.state)
         let self = this
         let show_info = false
         if (Object.keys(this.props.package_information).length > 0) {

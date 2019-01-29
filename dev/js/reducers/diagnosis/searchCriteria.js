@@ -19,7 +19,8 @@ const DEFAULT_FILTER_STATE_PACKAGES = {
     min_age:'',
     gender:'',
     packageType:'',
-    test_ids:''
+    test_ids:'',
+    selectCatIDs:[]
 }
 
 const defaultState = {
