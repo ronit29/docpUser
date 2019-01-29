@@ -237,13 +237,13 @@ class BookingSummaryViewNew extends React.Component {
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
                             : ''
                     }
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
         }
@@ -340,7 +340,9 @@ class BookingSummaryViewNew extends React.Component {
                         'Category': 'ConsumerApp', 'Action': 'LabOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.setCouponsSpecificPaymentOption(data.data.orderId, this.state.couponInfo)
+                    if(this.state.couponInfo.payment_option){
+                        this.props.setCouponsSpecificPaymentOption(data.data.orderId, this.state.couponInfo.payment_option)
+                    }
                     this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
 
                     // this.setState({
