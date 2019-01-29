@@ -17,27 +17,39 @@ class CommentDialogView extends React.Component{
         }
 	}
 
+    authorClick(data) {
+        if (data.author) {
+        
+            if(data.author.url){
+                this.props.history.push(data.author.url)    
+            }else{
+                this.props.history.push(`/opd/doctor/${data.author.id}`)    
+            }
+            
+        }
+    }
+
     getCommentView(comment){
         return(<div className="reply-comments-container" key={comment.id}>
                 <div className="sub-comments-section">
                     <div className="dr-qucik-info doc-gold-">
                         <div className="fltr-crd-img text-center">
                             <div>
-                                <InitialsPicture  name={comment.user_name} has_image={!!comment.image} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '50px' }} className="img-fluid img-round" src={comment.image} alt={comment.user_name} title={comment.user_name} /></InitialsPicture>
+                                <InitialsPicture  name={comment.author?comment.author.name:comment.user_name} has_image={comment.author?comment.author.profile_img:comment.profile_img} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '40px' }} className="img-fluid img-round" src={comment.author?comment.author.profile_img:comment.profile_img} alt={comment.author?comment.author.name:comment.user_name} title={comment.author?comment.author.name:comment.user_name} /></InitialsPicture>
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <h1 className="dr-name">{comment.user_name?comment.user_name:'User_name  here'}</h1>
+                            <h1 className={`dr-name ${comment.author?'cursor-pointer-v':''}`} onClick={(e) => this.authorClick(comment)}>{comment.author?comment.author.name:comment.user_name}</h1>
                             <h2 className="add-details">{comment.submit_date?new Date(comment.submit_date).toDateString():'No Date Available'}</h2>
                         </div>
                     </div>
                     <p className="usr-comments-para">{comment.comment}
                     </p>
-                    <div className="text-right" onClick = {this.props.commentReplyClicked.bind(this,comment.id)}>
+                    <div className="text-right" onClick = {this.props.commentReplyClicked.bind(this,comment.author?comment.author.id:comment.id)}>
                         <span className="comments-rply">Reply</span>
                     </div>
                     {
-                        this.props.parentCommentId == comment.id?
+                        this.props.parentCommentId == (comment.author?comment.author.id:comment.id)?
                         this.props.isUserLogin?
                             <div className="comments-post-input">
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
@@ -58,22 +70,22 @@ class CommentDialogView extends React.Component{
                     <div className="dr-qucik-info doc-gold-" key={this.props.commentData.id}>
                         <div className="fltr-crd-img text-center">
                             <div>
-                                <InitialsPicture  name={this.props.commentData.user_name} has_image={!!this.props.commentData.image} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '50px' }} className="img-fluid img-round" src={this.props.commentData.image} alt={this.props.commentData.user_name} title={this.props.commentData.user_name} /></InitialsPicture>
+                                <InitialsPicture  name={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} has_image={this.props.commentData.author?this.props.commentData.author.profile_img:this.props.commentData.profile_img} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '50px' }} className="img-fluid img-round" src={this.props.commentData.author?this.props.commentData.author.profile_img:this.props.commentData.profile_img} alt={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} title={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} /></InitialsPicture>
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <h1 className="dr-name">{this.props.commentData.user_name||""}</h1>
+                            <h1 className={`dr-name ${this.props.commentData.author?'cursor-pointer-v':''}`} onClick={(e) => this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</h1>
                             <h2 className="add-details">{this.props.commentData.submit_date?new Date(this.props.commentData.submit_date).toDateString():""}</h2>
                         </div>
                     </div>
                     <p className="usr-comments-para">
                     {this.props.commentData.comment}
                     </p>
-                    <div className="text-right" onClick = {this.props.commentReplyClicked.bind(this,this.props.commentData.id)}>
+                    <div className="text-right" onClick = {this.props.commentReplyClicked.bind(this,this.props.commentData.author?this.props.commentData.author.id:this.props.commentData.id)}>
                         <span className="comments-rply">Reply</span>
                     </div>
                     {
-                        this.props.parentCommentId == this.props.commentData.id?
+                        this.props.parentCommentId == (this.props.commentData.author?this.props.commentData.author.id:this.props.commentData.id)?
                         this.props.isUserLogin?
                             <div className="comments-post-input">
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
