@@ -73,18 +73,18 @@ class ClinicResultCard extends React.Component {
         let doctor = (doctors && doctors.length) ? doctors[0] : {}
 
         if (doctors && doctors.length) {
-            let { distance, is_license_verified, deal_price, mrp, general_specialization, enabled_for_online_booking } = doctor
+            let { discounted_price, distance, is_license_verified, deal_price, mrp, general_specialization, enabled_for_online_booking } = doctor
 
             distance = (Math.round(distance * 10) / 10).toFixed(1)
             let discount = 0
-            if (mrp != 0 && deal_price != 0) {
-                discount = 100 - Math.round((deal_price * 100) / mrp)
+            if (mrp != 0 && discounted_price != 0) {
+                discount = 100 - Math.round((discounted_price * 100) / mrp)
             }
 
             let is_procedure = false
             let selectedCount = 0
             let unselectedCount = 0
-            let finalProcedureDealPrice = deal_price
+            let finalProcedureDealPrice = discounted_price
             let finalProcedureMrp = mrp
             procedure_categories.map((x) => {
                 is_procedure = true
@@ -152,11 +152,11 @@ class ClinicResultCard extends React.Component {
                                     </p>
                                     <div className="signup-off-container">
                                         {
-                                            !STORAGE.checkAuth() && deal_price >= 100 && enabled_for_online_booking && discount ? <span className="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b>
+                                            false && (!STORAGE.checkAuth() && discounted_price >= 100 && enabled_for_online_booking && discount) ? <span className="signup-off-doc">+ ₹ 100 OFF <b>on Signup</b>
                                             </span> : ""
                                         }
                                         {
-                                            !deal_price && !is_procedure ?
+                                            !discounted_price && !is_procedure ?
                                                 <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free</span> : ''
                                         }
                                     </div>
@@ -179,9 +179,9 @@ class ClinicResultCard extends React.Component {
                                                 Dr. {d.name}</p>
                                             <div className="doc-price-cont">
                                                 {
-                                                    !is_procedure ? <p className="doc-price-cutt">₹ {d.deal_price}
+                                                    !is_procedure ? <p className="doc-price-cutt">₹ {d.discounted_price}
                                                         {
-                                                            d.mrp == d.deal_price ? "" : <span>₹ {d.mrp}</span>
+                                                            d.mrp == d.discounted_price ? "" : <span>₹ {d.mrp}</span>
                                                         }
                                                     </p> : ""
                                                 }
