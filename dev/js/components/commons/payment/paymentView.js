@@ -44,6 +44,9 @@ class PaymentView extends React.Component {
             if(data){
                 let couponsSpecificPaymentOptions = this.props.couponSpecificPayment && this.props.couponSpecificPayment[orderId]?this.props.couponSpecificPayment[orderId]:null
 
+                if(couponsSpecificPaymentOptions){
+                    data = data.filter(x=>x.id == couponsSpecificPaymentOptions.id)
+                }
                 let selectedPayment = data.filter(x=>x.is_selected)
                 this.setState({payment_options: data, selectedPayment: selectedPayment.length?selectedPayment[0].action:'', gateway: selectedPayment.length?selectedPayment[0].payment_gateway:'', mode:selectedPayment.length?selectedPayment[0].action:''})
             }
