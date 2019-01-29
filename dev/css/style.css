@@ -5128,4 +5128,34 @@ color: 	#fe7108;
 	cursor: pointer;
 	color: #fe7108;
 }*/
+.img-rply{
+    width: 18px;
+    vertical-align: middle;
+    padding: 4px;
+}
+.rply-spn{
+	font-style: italic;
+    font-size: 11px;
+    vertical-align: middle;
+    font-weight: 400;
+    color: #767676;
+    position: relative;
+    top: -1px;
+}
+
+.rply-sndr{
+	font-size: 12px;
+    vertical-align: middle;
+    color: #767676;
+    font-weight: 400;
+}
+.cmnt-static{
+	font-size: 16px;
+	font-weight: 700;
+}
+.cmnt-static img{
+	width: 34px;
+	padding: 0 10px 0 0;
+	margin-bottom: 15px;
+}
 /* ============================ comment section  ============================  */
