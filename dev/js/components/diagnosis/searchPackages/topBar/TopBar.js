@@ -271,7 +271,7 @@ class TopBar extends React.Component {
                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
                         }
                     </div>
-                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.isCategoryApplied?'Category ('+this.state.appliedCategoryCount+')':'Category'}
+                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.isCategoryApplied && this.state.appliedCategoryCount !== '' ?'Category ('+this.state.appliedCategoryCount+')':'Category'}
                     </div>
                 </div>
                     <div className="container-fluid">

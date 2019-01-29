@@ -11,7 +11,8 @@ class SearchPackages extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            setForSeo:true,
+            forSeo:false
         }
     }
 
@@ -60,9 +61,12 @@ class SearchPackages extends React.Component {
 
     render() {
         const parsed = queryString.parse(this.props.location.search)
-
+        if(parsed.fromFooter && this.state.setForSeo){
+            this.setState({forSeo:parsed.fromFooter,setForSeo:false})
+        }
+        
         return (
-            <SearchPackagesView {...this.props} forSeo={parsed.fromFooter?true:false}/>
+            <SearchPackagesView {...this.props} forSeo={this.state.forSeo}/>
         );
     }
 }

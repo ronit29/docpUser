@@ -208,7 +208,7 @@ class SearchPackagesView extends React.Component {
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}/full-body-checkup-health-packages`,
                     title: 'Full Body Checkup - Book Health Checkup Packages & get 50% off - docprime',
                     description: 'Book Full Body Checkup Packages and get 50% off. Health Checkup packages includes &#10003 60Plus Tests & &#10003 Free Home Sample Collection starting at Rs. 499.'
                 }} noIndex={false} />                
