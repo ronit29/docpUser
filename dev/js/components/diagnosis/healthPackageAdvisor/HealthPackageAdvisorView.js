@@ -23,7 +23,7 @@ class HealthPackageAdvisorView extends React.Component {
 
     componentDidMount() {
         this.setState({ ...this.props.filterCriteriaPackages },() =>{
-            this.setState({selectedTestIds:this.props.filterCriteriaPackages.test_ids})
+            this.setState({selectedTestIds:this.props.filterCriteriaPackages.test_ids !== ''?this.props.filterCriteriaPackages.test_ids:[]})
             if(this.state.max_age == 20){
                 this.setState({age:1})
             }else if(this.state.min_age == 20){
@@ -117,9 +117,9 @@ class HealthPackageAdvisorView extends React.Component {
         newCategoryState['catIds'] = cat_ids
         newCategoryState['selectCatIDs'] = this.state.selectCatIDs
         newCategoryState['test_ids'] = this.state.selectedTestIds
-        newCategoryState['distanceRange'] = filterstate.distanceRange
-        newCategoryState['priceRange'] = filterstate.priceRange
-        newCategoryState['sort_on'] = filterstate.sort_on
+        newCategoryState['distanceRange'] = [0, 15]
+        newCategoryState['priceRange'] = [0, 20000]
+        newCategoryState['sort_on'] = null
         newCategoryState['max_age'] = this.state.max_age
         newCategoryState['min_age'] = this.state.min_age
         newCategoryState['gender'] = this.state.gender
@@ -153,7 +153,6 @@ class HealthPackageAdvisorView extends React.Component {
         this.props.history.push('/')
     }
     render() {
-        console.log(this.state)
         let self = this
         let show_info = false
         if (Object.keys(this.props.package_information).length > 0) {
