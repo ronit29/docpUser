@@ -53,7 +53,7 @@ class ContactUs extends React.Component {
                 <div className="row">
                     <div className="col-12">
                         <div className="contact-text">
-                            <p className="fw-500">Feel like contacting us? Submit your queries here and we will try to get back you as soon as possible.</p>
+                            <p className="fw-500">Feel like contacting us? Submit your queries here and we will get back to you as soon as possible.</p>
                         </div>
                         {/* <div className="gps">
                             <div className="contact-location">
@@ -67,7 +67,7 @@ class ContactUs extends React.Component {
                             </div>
                         </div> */}
                     </div>
-                    <div className="col-12 offset-md-3 col-md-6 mrt-20">
+                    <div className="col-12 col-md-6 mrt-20">
                         <div className="shadow">
                             <div className="form-title" style={{ fontSize: 16 }} >Send Us a Message</div>
                             <form onSubmit={this.onSubmitData.bind(this)}>
@@ -89,7 +89,7 @@ class ContactUs extends React.Component {
                             </form>
                         </div>
                     </div>
-                    <div className="col-12 mrt-20">
+                    <div className="col-12 offset-md-1 col-md-5 mrt-20">
                         <div className="contact-text">
                             <p className="fw-500 mrb-10">You can also contact us via :</p>
                             <p className="fw-500 mrb-10"><span className="fw-700">E-mail :</span> customercare@docprime.com</p>

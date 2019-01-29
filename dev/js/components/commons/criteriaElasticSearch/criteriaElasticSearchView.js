@@ -395,7 +395,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     {
                                                                                         cat.popularity && cat.popularity >= 5000 ?
                                                                                             <div className="popular-txt">
-                                                                                                <span className="fw-500">popular</span>
+                                                                                                <span className="fw-500">Popular</span>
                                                                                             </div> : ''
                                                                                     }
                                                                                 </li>

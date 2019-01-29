@@ -64,9 +64,9 @@ class ThankYouPopUp extends React.Component {
 		let doctor_name
 		if (this.props.appointmentData && this.props.appointmentData.type == 'doctor') {
 			doctor_name = this.props.appointmentData.doctor.name
-			social_message = `Used docprime to book Dr. ${doctor_name}. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health! You can also get ₹ 50 if you signup with my referral code ${this.state.referralCode}`
+			social_message = `Used docprime to book Dr. ${doctor_name}. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health! You can also get ₹ 50 if you signup with my referral code ${this.state.referralCode}.`
 		} else {
-			social_message = `Used docprime to book a lab test. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health! You can also get ₹ 50 if you signup with my referral code ${this.state.referralCode}`
+			social_message = `Used docprime to book a lab test. Had an excellent experience. I love how convenient and easy to use it is. On top of it, you get so many discounts. Who thought healthcare can be so affordable. My first choice for my good health! You can also get ₹ 50 if you signup with my referral code ${this.state.referralCode}.`
 		}
 		return (
 			<div className="raiting-popup">
@@ -80,7 +80,8 @@ class ThankYouPopUp extends React.Component {
 							<p>Thanks {name}</p>
 						</div>
 						<p className="thnks-content">Your feedback matters!</p>
-						<p className="thanks-sub-content mrb-10">It helps our users find the right healthcare solutions.</p>
+						<p className="thnks-content">SHARE &amp; EARN!</p>
+						<p className="thanks-sub-content mrb-10">Refer your friends & earn ₹ 50</p>
 						{
 							this.props.selectedRating == 4 || this.props.selectedRating == 5 ?
 								<div className="social-ico-styling d-flex">
@@ -93,7 +94,7 @@ class ThankYouPopUp extends React.Component {
 												size={32}
 												round={false} />
 										</FacebookShareButton>
-										<span>Facebook</span>
+										<span>Share referral link</span>
 									</div>
 									<div className="twitterIcon-styling" onClick={this.gaTracking.bind(this, 'twitter')}>
 										<TwitterShareButton
@@ -104,7 +105,7 @@ class ThankYouPopUp extends React.Component {
 												size={32}
 												round={false} />
 										</TwitterShareButton>
-										<span>Twitter</span>
+										<span>Tweet referral link</span>
 									</div>
 									<div className="emailIcon-styling" onClick={this.gaTracking.bind(this, 'email')}>
 										<EmailShareButton
@@ -116,7 +117,7 @@ class ThankYouPopUp extends React.Component {
 												size={32}
 												round={false} />
 										</EmailShareButton>
-										<span>Email</span>
+										<span>Email referral link</span>
 									</div>
 								</div>
 								: ""
