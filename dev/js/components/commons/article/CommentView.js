@@ -30,7 +30,7 @@ class CommentDialogView extends React.Component{
     }
 
     replyClicked(comment){
-        this.props.commentReplyClicked(comment.author?comment.author.id:comment.id)
+        this.props.commentReplyClicked(comment.id)
     }
 
     getCommentView(comment, parentComment){
@@ -49,17 +49,21 @@ class CommentDialogView extends React.Component{
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <h1 className={`dr-name ${comment.author?'comments-rply':''}`} onClick={(e) => this.authorClick(comment)}>{comment.author?comment.author.name:comment.user_name }<span className="rply-spn">(author)</span><img className="img-rply" src={ASSETS_BASE_URL + "/img/reply.svg"} /><span className="rply-sndr">{ parentName}</span></h1>
+                            <h1 className={`dr-name ${comment.author?'comments-rply':''}`} onClick={(e) => this.authorClick(comment)}>{comment.author?`Dr. ${comment.author.name}`:comment.user_name }<span className="rply-spn">(author)</span><img className="img-rply" src={ASSETS_BASE_URL + "/img/reply.svg"} /><span className="rply-sndr">{ parentName}</span></h1>
                             <h2 className="add-details">{comment.submit_date?new Date(comment.submit_date).toDateString():'No Date Available'}</h2>
                         </div>
                     </div>
                     <p className="usr-comments-para">{comment.comment}
                     </p>
-                    <div className="text-right" onClick = {this.replyClicked.bind(this,comment)}>
-                        <span className="comments-rply">Reply</span>
-                    </div>
                     {
-                        this.props.parentCommentId == (comment.author?comment.author.id:comment.id)?
+                        this.props.parentCommentId == comment.id?''
+                        :<div className="text-right" onClick = {this.replyClicked.bind(this,comment)}>
+                            <span className="comments-rply">Reply</span>
+                        </div>
+                    }
+                    
+                    {
+                        this.props.parentCommentId == comment.id?
                         this.props.isUserLogin?
                             <div className="comments-post-input">
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
@@ -91,11 +95,14 @@ class CommentDialogView extends React.Component{
                     <p className="usr-comments-para">
                     {this.props.commentData.comment}
                     </p>
-                    <div className="text-right" onClick = {this.replyClicked.bind(this,this.props.commentData)}>
-                        <span className="comments-rply">Reply</span>
-                    </div>
                     {
-                        this.props.parentCommentId == (this.props.commentData.author?this.props.commentData.author.id:this.props.commentData.id)?
+                        this.props.parentCommentId == this.props.commentData.id?''
+                        :<div className="text-right" onClick = {this.replyClicked.bind(this,this.props.commentData)}>
+                            <span className="comments-rply">Reply</span>
+                        </div>      
+                    }
+                    {
+                        this.props.parentCommentId == this.props.commentData.id?
                         this.props.isUserLogin?
                             <div className="comments-post-input">
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />

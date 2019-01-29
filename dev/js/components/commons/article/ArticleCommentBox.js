@@ -19,6 +19,12 @@ class CommmentView extends React.Component{
 
 	postReply(e){
 		e.preventDefault()
+		if(!this.state.comment){
+            setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Please write valid comment" })
+                }, 500)
+            return
+        }
 		let postData = {
 			article: this.props.articleData.id,
 			comment: this.state.comment,

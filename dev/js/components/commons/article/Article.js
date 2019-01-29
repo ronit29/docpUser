@@ -105,6 +105,12 @@ class Article extends React.Component {
 
     postReply(e){
         e.preventDefault()
+        if(!this.state.comment){
+            setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Please write valid comment" })
+                }, 500)
+            return
+        }
         let postData = {
             article: this.state.articleData.id,
             comment: this.state.comment,
@@ -305,7 +311,7 @@ class Article extends React.Component {
                         {
                             this.state.articleLoaded?
                                 this.state.articleData && this.state.articleData.comments.length?
-                                <div className="col-12">
+                                <div className="col-12 col-md-7 col-lg-8 center-column">
                                     <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                     {
                                     this.state.articleData.comments.map((comment, key) => {
