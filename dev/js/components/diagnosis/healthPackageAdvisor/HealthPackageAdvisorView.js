@@ -173,7 +173,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                     <div className="hpa-flex hpa-age">
                                                         <label className="fw-500">Age :</label>
                                                         <select id="selectage" value={this.state.age} onChange={this.selectAge.bind(this)}>
-                                                            <option hidden disabled id={0}>Select Age</option>
+                                                            <option id={0} value={0}>Select</option>
                                                             <option id={1} value={1}> 0-20</option>
                                                             <option id={2} value={2}> 21-50</option>
                                                             <option id={3} value={3}> >50</option>
