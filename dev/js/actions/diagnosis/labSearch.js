@@ -290,9 +290,17 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
-	let url_string = window.location.href
-    let new_url = new URL(url_string)
-    let parsed = new_url.searchParams.get("fromFooter")
+	let url_string
+	let new_url
+	let parsed
+
+	if(typeof window == "object"){
+		url_string = window.location.href
+    	new_url = new URL(url_string)
+    	parsed = new_url.searchParams.get("fromFooter")
+	} else {
+		parsed = true
+	}
 
 	if (selectedLocation) {
 		lat = selectedLocation.geometry.location.lat
@@ -321,8 +329,8 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let max_price = filterCriteriaPackages.priceRange[1]
 	let sort_on = filterCriteriaPackages.sort_on || ""
 	let catIds = filterCriteriaPackages.catIds || ""
-	let lab_name = filterCriteriaPackages.lab_name || ""
-    let network_id = filterCriteriaPackages.network_id || ""
+	// let lab_name = filterCriteriaPackages.lab_name || ""
+ //    let network_id = filterCriteriaPackages.network_id || ""
     let max_age= filterCriteriaPackages.max_age || ""
     let min_age= filterCriteriaPackages.min_age || ""
     let gender= filterCriteriaPackages.gender || ""
@@ -334,6 +342,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	if (searchByUrl) {
 		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
+
 	if(!parsed){
 		// url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
 
@@ -341,11 +350,11 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 	// url += `long=${long || ""}&lat=${lat || ""}&category_ids=${catIds || ""}`
 
-	if (!!filterCriteria.lab_name) {
+	if (!!filterCriteriaPackages.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
 	}
 
-	if (!!filterCriteria.network_id) {
+	if (!!filterCriteriaPackages.network_id) {
 		url += `&network_id=${filterCriteria.network_id || ""}`
 	}
 

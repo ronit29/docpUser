@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
+import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
 const queryString = require('query-string')
@@ -24,7 +24,7 @@ class SearchPackages extends React.Component {
                     location_ms = parseInt(location_ms)
                 }
 
-                labSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
+                PackageSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
                     store.dispatch(mergeLABState(state))
 
                     let searchUrl = null
