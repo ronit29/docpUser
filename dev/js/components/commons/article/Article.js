@@ -311,7 +311,7 @@ class Article extends React.Component {
                     <div className="row">
                         {
                             this.state.articleLoaded?
-                                this.state.articleData && this.state.articleData.comments.length?
+                                this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length?
                                 <div className="col-12 col-md-7 col-lg-8 center-column">
                                     <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                     {
