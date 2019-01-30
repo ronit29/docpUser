@@ -187,7 +187,7 @@ class DoctorProfileCard extends React.Component {
                                         <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
                                 }
                                 {
-                                    !discounted_price && !is_procedure ?
+                                    !discounted_price && !is_procedure && enabled_for_hospital_booking ?
                                         <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                             </div>
@@ -239,7 +239,7 @@ class DoctorProfileCard extends React.Component {
                                 }
 
                                 {
-                                    deal_price != discounted_price ? <div className="signup-off-container">
+                                    deal_price != discounted_price && enabled_for_hospital_booking ? <div className="signup-off-container">
                                         <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                     </div> : ''
                                 }
