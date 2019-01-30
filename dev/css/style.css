@@ -5158,4 +5158,8 @@ color: 	#fe7108;
 	padding: 0 10px 0 0;
 	margin-bottom: 15px;
 }
+.cmnt-rply-txt{
+	display: inline-block;
+    cursor: initial;
+}
 /* ============================ comment section  ============================  */
