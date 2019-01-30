@@ -86,7 +86,7 @@ class AppointmentList extends React.Component {
                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/invoice.svg'} />
                                 <div>
                                     <p className="text-primary fw-500">Download</p>
-                                    <p className="text-primary fw-500">Invoice</p>
+                                    <p className="text-primary fw-500">Payment Receipt</p>
                                 </div>
                             </div> : ''
                     }
@@ -118,7 +118,7 @@ class AppointmentList extends React.Component {
                                     <img src={ASSETS_BASE_URL + '/img/customer-icons/invoice.svg'} />
                                     <div>
                                         <p className="text-primary fw-500">Download</p>
-                                        <p className="text-primary fw-500">Invoice</p>
+                                        <p className="text-primary fw-500">Payment Receipt</p>
                                     </div>
                                 </div>
                                 <div className="invoice-div" onClick={() => {
