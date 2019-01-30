@@ -47,20 +47,20 @@ class Comment extends React.Component{
                     <p className="usr-comments-para">{comment.comment}
                     </p>
                     {
-                        this.props.parentCommentId == comment.id?''
+                        this.props.replyOpenFor == comment.id?''
                         :<div className="text-right" onClick = {this.replyClicked.bind(this,comment)}>
                             <span className="comments-rply">Reply</span>
                         </div>
                     }
                     
                     {
-                        this.props.parentCommentId == comment.id?
+                        this.props.replyOpenFor == comment.id?
                         this.props.isUserLogin?
                             <div className="comments-post-input">
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
                                 <button className="comments-post-btns" onClick={this.props.postReply.bind(this)}>Post</button>
                             </div>
-                            :<CommentBox {...this.props} {...this.state} getArticleData={this.props.getArticleData.bind(this)} />
+                            :<CommentBox {...this.props} {...this.state} parentCommentId = {comment.id} getArticleData={this.props.getArticleData.bind(this)} />
                         :''   
                     }
                     

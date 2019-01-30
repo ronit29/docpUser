@@ -29,7 +29,7 @@ class Article extends React.Component {
         this.state = {
             articleData: articleData,
             medicineURL: false,
-            parentCommentId: null,
+            replyOpenFor: null,
             comment: '',
             articleLoaded: articleLoaded
         }
@@ -53,7 +53,7 @@ class Article extends React.Component {
             articleId = articleId.toLowerCase().substring(1, articleId.length)
             this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
                 if (!err /*&& !this.state.articleData*/) {
-                    this.setState({ articleData: data, articleLoaded: true, parentCommentId:''})
+                    this.setState({ articleData: data, articleLoaded: true, replyOpenFor:''})
                 } else {
 
                 }
@@ -100,7 +100,7 @@ class Article extends React.Component {
     }
 
     commentReplyClicked(id){
-        this.setState({parentCommentId: id})
+        this.setState({replyOpenFor: id})
     }
 
     postReply(e){
@@ -116,7 +116,7 @@ class Article extends React.Component {
             comment: this.state.comment,
             name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].name:'',
             email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].email:'',
-            parent: this.state.parentCommentId 
+            parent: this.state.replyOpenFor 
         }
         this.props.postComment(postData, (error, data)=> {
             if(data){
@@ -322,7 +322,7 @@ class Article extends React.Component {
                                 :<div className="col-12 col-md-7 col-lg-8 center-column">
                                     <div className="widget mrb-15 mrng-top-12">
                                         <div className="widget-content">         
-                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists}/>
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId = {this.state.replyOpenFor}/>
                                         </div>
                                     </div>
                                 </div>

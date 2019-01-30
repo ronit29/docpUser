@@ -42,19 +42,19 @@ class ReplyView extends React.Component{
                     {this.props.commentData.comment}
                     </p>
                     {
-                        this.props.parentCommentId == this.props.commentData.id?''
+                        this.props.replyOpenFor == this.props.commentData.id?''
                         :<div className="text-right" onClick = {this.replyClicked.bind(this,this.props.commentData)}>
                             <span className="comments-rply">Reply</span>
                         </div>      
                     }
                     {
-                        this.props.parentCommentId == this.props.commentData.id?
+                        this.props.replyOpenFor == this.props.commentData.id?
                         this.props.isUserLogin?
                             <div className="comments-post-input">
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
                                 <button className="comments-post-btns" onClick={this.props.postReply.bind(this)}>Post</button>
                             </div>
-                            :<CommentBox {...this.props} {...this.state} getArticleData={this.props.getArticleData.bind(this)} />
+                            :<CommentBox {...this.props} {...this.state} getArticleData={this.props.getArticleData.bind(this)} parentCommentId = {this.props.commentData.id}/>
                         :''   
                     }
     				{
