@@ -18,13 +18,15 @@ class PaymentView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedPayment: "DC",
+            selectedPayment: "",
             paymentData: {},
             paymentEnabled: false,
             photoIndex: 0,
             isOpen: false,
-            gateway: 'paytm',
-            mode: 'DC'
+            gateway: '',
+            mode: '',
+            payment_options: [],
+            selectedId: ''
         }
     }
 
@@ -38,9 +40,30 @@ class PaymentView extends React.Component {
                 this.setState({ paymentEnabled: true, paymentData: data.data })
             }
         })
+
+        const parsed = queryString.parse(window.location.search)
+        let couponSpecificPaymentOptionId = ''
+        if(parsed.payment_options){
+            couponSpecificPaymentOptionId = parseInt(parsed.payment_options)
+        }
+        this.props.fetchPaymentOptions((err, data)=> {
+            if(data){
+
+                let selectedPayment = []
+                if(couponSpecificPaymentOptionId){
+                    data = data.filter(x=>x.id == couponSpecificPaymentOptionId)
+                    selectedPayment = data
+                }else{
+                    selectedPayment = data.filter(x=>x.is_selected)
+                }
+                
+                this.setState({payment_options: data, selectedPayment: selectedPayment.length?selectedPayment[0].action:'', gateway: selectedPayment.length?selectedPayment[0].payment_gateway:'', mode:selectedPayment.length?selectedPayment[0].action:'',
+                selectedId:selectedPayment.length?selectedPayment[0].id:'' })
+            }
+        })
     }
 
-    selectPaymentType(e) {
+    selectPaymentType(id, e) {
         let gateway = 'paytm';
         let mode = '';
         if (e.target.dataset && e.target.dataset.gateway) {
@@ -49,7 +72,7 @@ class PaymentView extends React.Component {
         if (e.target.dataset && e.target.dataset.mode) {
             mode = e.target.dataset.mode
         }
-        this.setState({ selectedPayment: e.target.value, gateway, mode })
+        this.setState({ selectedPayment: e.target.value,selectedId: id, gateway, mode })
     }
 
     proceed() {
@@ -117,47 +140,20 @@ class PaymentView extends React.Component {
                                             <div className="widget mrt-10">
                                                 <div className="widget-content">
                                                     <ul className="list payment-method">
-                                                        <li style={{ position: 'relative' }}>
-                                                            <label htmlFor="pay" className="paytm-label"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm
-                                                            </label>
-                                                            {
-                                                                totalAmount && totalAmount >= 100 ?
-                                                                    <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>Flat 20% cashback upto &#8377; 50</span> : ''
-                                                            }
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'PPI'} value="PPI" className="radio-inline" name="gender" id="pay" data-mode="PPI" /></span>
-                                                        </li>
-                                                        {/* <li id="oneclick-label">
-                                                            <label htmlFor="click"> <img src={ASSETS_BASE_URL + "/img/customer-icons/oneclick-payment.png"} className="img-fluid" id="click-icon" /> One Click Pay</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="click"/></span>
-                                                        </li> */}
-                                                        <li>
-                                                            <label htmlFor="NB"> <img src={ASSETS_BASE_URL + "/img/customer-icons/i-banking.svg"} className="img-fluid" /> Internet Banking</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'NB'} value="NB" className="radio-inline" name="gender" id="NB" data-mode="NB" /></span>
-                                                        </li>
-                                                        <li>
-                                                            <label htmlFor="CC"> <img src={ASSETS_BASE_URL + "/img/customer-icons/credit-card.svg"} className="img-fluid" /> Credit Card</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'CC'} value="CC" className="radio-inline" name="gender" id="CC" data-mode="CC" /></span>
-                                                        </li>
-                                                        <li>
-                                                            <label htmlFor="DC"> <img src={ASSETS_BASE_URL + "/img/customer-icons/debit-card.svg"} className="img-fluid" /> Debit Card</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'DC'} value="DC" className="radio-inline" name="gender" id="DC" data-mode="DC" /></span>
-                                                        </li>
-                                                        <li>
-                                                            <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/amazon_pay.png"} className="img-fluid" /> Amazon Pay</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'AP'} value="AP" className="radio-inline" name="gender" id="AP" data-gateway="payu" data-mode="PPI" /></span>
-                                                        </li>
-                                                        {/* <li>
-                                                            <label htmlFor="OM"> <img src={ASSETS_BASE_URL + "/img/customer-icons/ola_money.png"} className="img-fluid" /> Ola Money</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'OM'} value="OM" className="radio-inline" name="gender" id="OM" data-gateway="olamoney" data-mode="PPI" /></span>
-                                                        </li> */}
-                                                        <li>
-                                                            <label htmlFor="UPI"> <img src={ASSETS_BASE_URL + "/img/customer-icons/upi.png"} className="img-fluid" /> Bhim UPI</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'UPI'} value="UPI" className="radio-inline" name="gender" id="UPI" data-gateway="payu" data-mode="UPI" /></span>
-                                                        </li>
-                                                        {/* <li>
-                                                            <label htmlFor="cdc"> <img src={ASSETS_BASE_URL + "/img/customer-icons/capa-1.jpg"} className="img-fluid" /> Pay in Cash</label>
-                                                            <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == ''} value="" className="radio-inline" name="gender" id="cdc" /></span>
-                                                        </li> */}
+                                                        {
+                                                            this.state.payment_options.map((paymentType, key) => {
+                                                            
+                                                                return <li key= {key} style={{ position: 'relative' }}>
+                                                                    <label htmlFor={`S{paymentType.action}_${paymentType.payment_gateway}`} className="paytm-label"> <img src={paymentType.image} className="img-fluid" /> {paymentType.name}
+                                                                    </label>
+                                                                    {
+                                                                        totalAmount && totalAmount >= 100 ?
+                                                                            <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>{paymentType.description}</span> : ''
+                                                                    }
+                                                                    <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this, paymentType.id)} checked={!!(this.state.selectedId == paymentType.id)} value={paymentType.action} className="radio-inline" name="gender" id={`${paymentType.action}_${paymentType.payment_gateway}`} data-mode={paymentType.action} data-pay = {paymentType.id} data-gateway={paymentType.payment_gateway}/></span>
+                                                                </li>        
+                                                            })
+                                                        }
                                                     </ul>
                                                 </div>
                                             </div>

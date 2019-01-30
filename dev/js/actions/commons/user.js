@@ -526,6 +526,14 @@ export const fetchReferralCode = (code = null) => (dispatch) => {
 	return API_GET(url)
 }
 
+export const fetchPaymentOptions = (cb) => (dispatch) => {
+	API_GET(`/api/v1/common/payment-options`).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
 export const postComment = (postData, cb) => (dispatch) => {
 	
 	API_POST("/api/v1/article/comment/post", postData).then(function (response) {
