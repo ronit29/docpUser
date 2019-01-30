@@ -85,7 +85,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -96,6 +96,11 @@ class LabProfileCard extends React.Component {
 
         if (is_home_collection_enabled && !distance_related_charges) {
             pickup_text = "Inclusive of home visit charges"
+            price = price + pickup_charges
+        }
+
+        if (is_home_collection_enabled && !distance_related_charges && home_pickup_charges == 0) {
+            pickup_text = "Free home visit"
             price = price + pickup_charges
         }
 
@@ -133,7 +138,7 @@ class LabProfileCard extends React.Component {
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
                                 </a>
                                 {
-                                    !hide_price && offPercent && offPercent> 0 ?
+                                    !hide_price && offPercent && offPercent > 0 ?
                                         <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                                 }
                             </div>
