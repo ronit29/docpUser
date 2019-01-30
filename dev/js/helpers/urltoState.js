@@ -350,6 +350,8 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
             let sort_on = _getLocationParamBind('sort_on') || null
             let lab_name = _getLocationParamBind('lab_name') || ""
+            // let test_ids = _getLocationParamBind('test_ids') || ""
+            let category_ids = _getLocationParamBind('category_ids') || ""
             lab_name = lab_name || ""
             let network_id = _getLocationParamBind('network_id') || ""
             network_id = network_id || ""
@@ -359,21 +361,21 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             let max_age= _getLocationParamBind('max_age') || ""
             let min_age= _getLocationParamBind('min_age') || ""
             let gender= _getLocationParamBind('gender') || ""
-            let packageType= _getLocationParamBind('packageType') || ""
+            let packageType= _getLocationParamBind('package_type') || ""
 
             let currentSearchedCriterias = []
-            if (test_ids) {
-                currentSearchedCriterias = test_ids.split(',').map((x) => {
-                    return {
-                        type: 'test',
-                        name: "",
-                        id: parseInt(x)
-                    }
-                })
-            }
+            // if (test_ids) {
+            //     currentSearchedCriterias = test_ids.split(',').map((x) => {
+            //         return {
+            //             type: 'test',
+            //             name: "",
+            //             id: parseInt(x)
+            //         }
+            //     })
+            // }
 
             let filterCriteriaPackages = {
-                min_price, max_price, min_distance, max_distance, sort_on, max_age, min_age, packageType, gender
+                min_price, max_price, min_distance, max_distance, sort_on, max_age, min_age, packageType, gender, category_ids, test_ids
             }
 
             if (lab_name) {
