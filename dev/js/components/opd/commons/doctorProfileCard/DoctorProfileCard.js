@@ -61,8 +61,8 @@ class DoctorProfileCard extends React.Component {
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                     {
                         rating_graph && rating_graph.avg_rating ?
-                            <div className="d-flex align-items-center justify-content-center" style={{ marginTop: 5 }} >
-                                <span className="text-primary fw-500" style={{ fontSize: 12, marginRight: 2 }} >{rating_graph.avg_rating}</span>
+                            <div className="d-flex justify-content-center" style={{ marginTop: 5, alignItems: 'baseline' }} >
+                                <span className="text-primary fw-500" style={{ fontSize: 12, marginRight: 4 }} >{parseFloat(rating_graph.avg_rating).toFixed(1)}</span>
                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/star.svg'} style={{ width: 10, height: 'auto' }} />
                             </div> : ''
                     }

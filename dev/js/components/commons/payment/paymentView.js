@@ -117,7 +117,7 @@ class PaymentView extends React.Component {
                                             <div className="widget mrt-10">
                                                 <div className="widget-content">
                                                     <ul className="list payment-method">
-                                                        <li style={{ position: 'relative' }}>
+                                                        <li>
                                                             <label htmlFor="pay" className="paytm-label"> <img src={ASSETS_BASE_URL + "/img/customer-icons/paytm-logo.png"} className="img-fluid" /> Paytm
                                                             </label>
                                                             {
@@ -144,6 +144,10 @@ class PaymentView extends React.Component {
                                                         </li>
                                                         <li>
                                                             <label htmlFor="AP"> <img src={ASSETS_BASE_URL + "/img/customer-icons/amazon_pay.png"} className="img-fluid" /> Amazon Pay</label>
+                                                            {
+                                                                totalAmount && totalAmount >= 100 ?
+                                                                    <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>Flat 15% cashback upto &#8377; 125</span> : ''
+                                                            }
                                                             <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this)} checked={this.state.selectedPayment == 'AP'} value="AP" className="radio-inline" name="gender" id="AP" data-gateway="payu" data-mode="PPI" /></span>
                                                         </li>
                                                         {/* <li>
