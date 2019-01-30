@@ -191,7 +191,7 @@ class DoctorProfileView extends React.Component {
                                                         <span>{data.title}</span>
                                                         : <a href={data.url} title='' onClick={(e) => {
                                                             e.preventDefault();
-                                                            this.props.history.push(`/${data.url}`)
+                                                            this.props.history.push((key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1)?data.url:`/${data.url}`)
                                                         }}>{
                                                                 key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1
                                                                     ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
