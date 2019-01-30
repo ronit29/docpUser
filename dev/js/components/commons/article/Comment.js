@@ -4,7 +4,8 @@ import InitialsPicture from '../initialsPicture'
 
 class Comment extends React.Component{
 
-	authorClick(data) {
+	authorClick(data, e) {
+        e.preventDefault()
         if (data.author) {
         
             if(data.author.url){
@@ -40,7 +41,11 @@ class Comment extends React.Component{
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <h1 className={`dr-name ${comment.author?'comments-rply':''}`} onClick={(e) => this.authorClick(comment)}>{comment.author?`Dr. ${comment.author.name}`:comment.user_name }<div className="cmnt-rply-txt" onClick={(e)=>e.stopPropagation()}><span className="rply-spn">{comment.author?'(author)':''}</span><img className="img-rply" src={ASSETS_BASE_URL + "/img/reply.svg"} /><span className="rply-sndr">{ parentName}</span></div></h1>
+                            {
+                                comment.author?
+                                <a className="dr-name" href={comment.author && comment.author.url?`/${comment.author.url}`:`/opd/doctor/${comment.author.id}`} onClick={(e) => this.authorClick(comment, e) }><h1 className={`dr-name ${comment.author?'comments-rply':''}`} >{comment.author?`Dr. ${comment.author.name}`:comment.user_name }<div className="cmnt-rply-txt" onClick={(e)=>e.stopPropagation()}><span onClick={(e)=>e.preventDefault()} className="rply-spn">{comment.author?'(author)':''}</span><img onClick={(e)=>e.preventDefault()} className="img-rply" src={ASSETS_BASE_URL + "/img/reply.svg"} /><span onClick={(e)=>e.preventDefault()} className="rply-sndr">{ parentName}</span></div></h1></a>
+                                :<h1 className="dr-name" onClick={(e) => this.authorClick(comment, e)}>{comment.user_name }<div className="cmnt-rply-txt" onClick={(e)=>e.stopPropagation()}><img className="img-rply" src={ASSETS_BASE_URL + "/img/reply.svg"} /><span className="rply-sndr">{ parentName}</span></div></h1>   
+                            }
                             <h2 className="add-details">{comment.submit_date?new Date(comment.submit_date).toDateString():'No Date Available'}</h2>
                         </div>
                     </div>
