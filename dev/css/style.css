@@ -5109,7 +5109,7 @@ font-size: 13px;
 	align-items: center;
 	justify-content: center;
     flex: 1;
-    font-size: 15px;
+    font-size: 14px;
     position: relative;
     background-color: white;
     padding: 10px 3px;
@@ -5125,6 +5125,7 @@ font-size: 13px;
 	margin-left: -1px;
 	border: 1px solid #f78631;
 	cursor: pointer;
+	font-size: 14px;
 }
 .p-relative{
 	position: relative;
@@ -5135,13 +5136,14 @@ font-size: 13px;
     right: 6px;
 }
 .shopng-cart-price p{
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 16px;
 }
 .shopng-cart-price-cut{
     text-decoration: line-through;
     color: #757575;
-    margin-left: 5px;
+	margin-left: 5px;
+	font-weight: 400;
 }
 .shopng-cart-price p img{
 	height: 11px;
@@ -5150,7 +5152,7 @@ font-size: 13px;
 	fill: #000;
   }
   .shopping-card-details-list{
-    padding: 0 15px;
+    padding: 0 12px;
     margin-top: 6px;
   }
   .shopping-card-details-list ul li {
@@ -5257,10 +5259,14 @@ font-size: 13px;
 .cart-warnig-icon-text{
 	display: flex;
     align-items: flex-start;
-    color: #aa6e27;
+    color: #707062;
     font-weight: 500;
-	font-size: 15px;
-	margin: 10px 0px;
+    font-size: 15px;
+    margin: 10px 0px;
+    background: #f7e6ad;
+    border: 1px solid #707062;
+    border-radius: 10px;
+    padding: 5px 10px;
 
 }
 .cart-warnig-icon-text img{
@@ -5268,6 +5274,13 @@ font-size: 13px;
     flex-shrink: 0;
     height: 20px;
     margin-right: 10px;
+}
+.initialsPicture-dbd.cart-initialspic{
+    height: 40px;
+    margin-right: 4px;
+    font-size: 18px !important;
+    width: 40px;
+    margin-top: 15px !important;
 }
 /* ================= shopping cart style ================= */
 .imptnt-cls{

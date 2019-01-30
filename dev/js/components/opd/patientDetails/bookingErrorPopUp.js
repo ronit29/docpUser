@@ -5,7 +5,7 @@ class BookingError extends React.Component {
         return (
             <section className="error-msg-pop">
                 <div className="cancel-overlay"></div>
-                <div className="popup-error">
+                <div className="popup-error" style={{width: '300px'}}>
                     <div className="error-head">{this.props.heading || "Invalid Booking"}</div>
                     <div className="cross-btn">
                         <img src="/assets/img/icons/close.png" alt="close" onClick={this.props.closeErrorPopup} />

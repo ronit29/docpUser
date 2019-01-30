@@ -130,7 +130,7 @@ class CartView extends React.Component {
                                                     <h4 className="shoping-cart-main-heading">My Cart</h4>
 
                                                     {
-                                                        invalid_items ? <h4 className="cart-warnig-icon-text"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} /><span>Some appointments in your cart has become invalid. Please Edit/Remove them from cart </span></h4> : ""
+                                                        invalid_items ? <h4 className="cart-warnig-icon-text"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/capaWarning.png"} /><span>Some appointments in your cart has become invalid. Please Edit/Remove them from cart </span></h4> : ""
                                                     }
 
 

@@ -667,7 +667,7 @@ class PatientDetailsNew extends React.Component {
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                 <button className="add-shpng-cart-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}><img src={ASSETS_BASE_URL + "/img/cartico.svg"} />{this.state.cart_item ? "Edit Item" : "Add to Cart"}</button>
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}><img src={ASSETS_BASE_URL + "/img/cartico.svg"} />{this.state.cart_item ? "Update" : "Add to Cart"}</button>
                                 <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>

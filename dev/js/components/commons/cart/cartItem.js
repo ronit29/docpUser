@@ -143,8 +143,8 @@ class CartItem extends React.Component {
                         <div className="widget-header dr-qucik-info">
                             <div>
                                 <div>
-                                    <InitialsPicture name={doctor ? doctor.name : lab.name} has_image={!!thumbnail} className="initialsPicture-dbd mt-0">
-                                        <img src={thumbnail} style={{ width: 50 }} className="img-fluid img-round" />
+                                    <InitialsPicture name={doctor ? doctor.name : lab.name} has_image={!!thumbnail} className="initialsPicture-dbd cart-initialspic">
+                                        <img src={thumbnail} style={{ width: '50px', height: '50px' }} className="img-fluid img-round" />
                                     </InitialsPicture>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@ class CartItem extends React.Component {
                             </ul>
                         </div>
                         {
-                            tests && tests.length ? <div className="widget-content">
+                            tests && tests.length ? <div className="widget-content pt-0">
                                 <div className="shoping-cart-test-list">
                                     <div className="p-relative">
                                         <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/flask.svg"} />
@@ -208,7 +208,7 @@ class CartItem extends React.Component {
                         }
 
                         {
-                            procedures && procedures.length ? <div className="widget-content">
+                            procedures && procedures.length ? <div className="widget-content pt-0">
                                 <div className="shoping-cart-test-list">
                                     <div className="p-relative">
                                         <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/hand.svg"} />
