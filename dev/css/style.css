@@ -5149,3 +5149,6 @@ font-size: 13px;
     left: 0;
     right: 0;
 }
+.searchMargin{
+	margin-bottom: 80px !important;
+}
