@@ -11,7 +11,7 @@ import InitialsPicture from '../initialsPicture';
 import STORAGE from '../../../helpers/storage';
 import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
-import CommentView from './CommentView.js'
+import Reply from './Reply.js'
 
 
 // import RelatedArticles from './RelatedArticles'
@@ -316,7 +316,7 @@ class Article extends React.Component {
                                     <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                     {
                                     this.state.articleData.comments.map((comment, key) => {
-                                            return <CommentView key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists}/>
+                                            return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists}/>
                                     })}
                                 </div>
                                 :<div className="col-12 col-md-7 col-lg-8 center-column">
