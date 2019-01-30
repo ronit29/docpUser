@@ -25,7 +25,7 @@ class Comment extends React.Component{
         let parentName = ''
         let comment = this.props.childData
         if(this.props.parentComment.author){
-            parentName = this.props.parentComment.author.name
+            parentName = "Dr. "+this.props.parentComment.author.name
         }else{
             parentName = this.props.parentComment.user_name
         }
