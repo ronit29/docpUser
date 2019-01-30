@@ -47,6 +47,7 @@ button:hover {
     -webkit-transition:all .3s ease-out;
        -moz-transition:all .3s ease-out;
             transition:all .3s ease-out;
+            cursor: pointer;
 }
 
 a:focus,
@@ -592,7 +593,7 @@ form .labelWrap input:focus + label {
   padding: 0 5px;
   color: #f78631;
 }
-form .labelWrap textarea:focus + label {
+form .labelWrap textarea + label {
   padding: 0;
   top: -4px;
   left: 10px;
