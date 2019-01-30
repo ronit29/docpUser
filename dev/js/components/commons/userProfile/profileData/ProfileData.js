@@ -25,6 +25,7 @@ class ProfileData extends React.Component {
 
     searchLab(coupon) {
         this.props.setCorporateCoupon(coupon)
+        this.props.clearExtraTests()
 
         let test_ids = []
         let network_id = ""

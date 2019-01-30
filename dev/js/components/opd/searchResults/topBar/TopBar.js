@@ -187,6 +187,27 @@ class TopBar extends React.Component {
         this.setState({ showPopupContainer: false, showLocationPopup: false });
     }
 
+    goToLocation() {
+        this.setState({
+            searchCities: []
+        })
+        let redirect_to = ""
+        if (window.location.pathname.includes('sptcit') || window.location.pathname.includes('sptlitcit')) {
+            redirect_to = "/opd/searchresults"
+        }
+
+        let location_url = '/locationsearch'
+        if (redirect_to) {
+            location_url += `?redirect_to=${redirect_to}`
+        }
+        this.props.setNextSearchCriteria()
+        let data = {
+            'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push(location_url)
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
@@ -211,7 +232,7 @@ class TopBar extends React.Component {
                                     key==this.props.breadcrumb.length-1?
                                     <span>{data.title}</span>
                                     :<a href={data.url} title ='' onClick={(e) => {e.preventDefault();
-                                            this.props.history.push(data.url)
+                                            this.props.history.push((key== 0 || key== this.props.breadcrumb.length-1)?data.url:`/${data.url}`)
                                         }}>{key== 0 || key== this.props.breadcrumb.length-1?<span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>:<h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
                                 }   
                                 {
@@ -255,26 +276,16 @@ class TopBar extends React.Component {
                                         {this.props.count} Results found {criteriaStr ? "for" : ""}
                                         <h1 className="search-result-heading">
                                             <span className="fw-700"> {criteriaStr} </span>
-                                            <span className="search-result-span" onClick={() => {
-                                                this.setState({
-                                                    showLocationPopup: !this.state.showLocationPopup,
-                                                    searchCities: [],
-                                                    showPopupContainer: true
-                                                })
-                                            }}>
+                                            <span className="search-result-span" onClick={
+                                                this.goToLocation.bind(this)}>
                                                 {
                                                     this.state.showLocationPopup && false ? ''
                                                         : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
                                                 }
                                             </span>
                                         </h1>
-                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={() => {
-                                            this.setState({
-                                                showLocationPopup: !this.state.showLocationPopup,
-                                                searchCities: [],
-                                                showPopupContainer: true
-                                            })
-                                        }} />
+                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={
+                                            this.goToLocation.bind(this)} />
                                     </div>
                                 </div>
                                 {

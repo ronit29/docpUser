@@ -427,7 +427,6 @@ class BookingSummaryViewNew extends React.Component {
         let address_picked_verified = false
         let center_visit_enabled = true
         let is_corporate = false
-
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
@@ -498,7 +497,7 @@ class BookingSummaryViewNew extends React.Component {
         if (!this.state.is_cashback) {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
-
+        total_price= is_corporate?0:total_price
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance

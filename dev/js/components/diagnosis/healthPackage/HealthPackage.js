@@ -60,21 +60,21 @@ class LabView extends React.Component {
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B
                                                                 (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 499 <span>₹ 700</span></p>
+                                            <p className="stc-price-cut">₹ 630 <span>₹ 700</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Pro Aarogyam 1.3
-                                                                (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 999 <span>₹ 1,450</span></p>
+                                            <p className="stc-sub-para">MET Healthy Youth (25 YRS & Above)
+                                            </p>
+                                            <p className="stc-price-cut">₹ 999 <span>₹ 3,640</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam 3
                                                                 (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 1,199 <span>₹ 2,000</span></p>
+                                            <p className="stc-price-cut">₹ 1,800 <span>₹ 2,000</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -82,27 +82,24 @@ class LabView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                30% OFF + ₹ 100
+                                                10% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12227" className="stc-book-btn">Book Now</a>
                                     </div>
-                                    <div className="static-pkg-top-column stc-mid-mrgn">
+                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">
-                                                30% OFF + ₹ 100
-                                                OFF Coupon
-                                                                </p>
+                                            <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12221" className="stc-book-btn">Book Now</a>
+                                        <a href="/lab/searchresults?test_ids=11722" className="stc-book-btn">Book Now</a>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                40% OFF + ₹ 100
+                                                10% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -146,7 +143,7 @@ class LabView extends React.Component {
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
                                                 <p>
-                                                    68
+                                                    56
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -951,7 +948,7 @@ class LabView extends React.Component {
                                     </div>
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 4)}>
-                                            <p>Thyroid Profile</p>
+                                            <p>Thyroid Panel 1</p>
                                             <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
@@ -1021,8 +1018,8 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    3
+                                                <p className="acrd-stc-red">
+                                                    X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -1082,8 +1079,8 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    2
+                                                <p className="acrd-stc-red">
+                                                    X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -1237,8 +1234,8 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    1
+                                                <p className="acrd-stc-red">
+                                                    X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -1277,8 +1274,8 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    1
+                                                <p className="acrd-stc-red">
+                                                    X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -1316,8 +1313,8 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    2
+                                                <p className="acrd-stc-red">
+                                                    X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -1359,8 +1356,8 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    1
+                                                <p className="acrd-stc-red">
+                                                    X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -1398,9 +1395,9 @@ class LabView extends React.Component {
                                                                             </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    2
-                                                                            </p>
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p className="acrd-stc-red">
@@ -1435,6 +1432,34 @@ class LabView extends React.Component {
                                             </div> 
                                             </div>: ''
                                         }
+                                    </div>
+                                </div>
+                                <div className="static-pk-container">
+                                    <div className="static-pkg-top-column">
+                                        <div className="stc-offr-cpn">
+                                            <p className="stc-off-para">
+                                                10% OFF + ₹ 100
+                                                OFF Coupon</p>
+                                        </div>
+                                        <p className="stc-free-pick">Free Home Pickup</p>
+                                        <a href="/lab/searchresults?test_ids=12227" className="stc-book-btn">Book Now</a>
+                                    </div>
+                                     <div className="static-pkg-top-column stc-mid-mrgn">
+                                        <div className="stc-offr-cpn">
+                                            <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
+                                        </div>
+                                        <p className="stc-free-pick">Free Home Pickup</p>
+                                        <a href="/lab/searchresults?test_ids=11722" className="stc-book-btn">Book Now</a>
+                                    </div>
+                                    <div className="static-pkg-top-column">
+                                        <div className="stc-offr-cpn">
+                                            <p className="stc-off-para">
+                                                10% OFF + ₹ 100
+                                                OFF Coupon
+                                                                </p>
+                                        </div>
+                                        <p className="stc-free-pick">Free Home Pickup</p>
+                                        <a href="/lab/searchresults?test_ids=12229" className="stc-book-btn">Book Now</a>
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE } from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 3000],
@@ -308,6 +308,14 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.page = action.payload
+            return newState
+        }
+
+        case SET_NEXT_SEARCH_CRITERIA: {
+            let newState = {
+                ...state
+            }
+            newState.nextSelectedCriterias = newState.commonSelectedCriterias
             return newState
         }
 

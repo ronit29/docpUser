@@ -93,7 +93,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData, test_data } = state.LAB_SEARCH
     const { mergeUrlState } = state.SEARCH_CRITERIA_OPD
 
     return {
@@ -116,7 +116,8 @@ const mapStateToProps = (state, passedProps) => {
         currentSearchedCriterias,
         nextFilterCriteria,
         seoData,
-        mergeUrlState
+        mergeUrlState,
+        test_data
     }
 
 }
