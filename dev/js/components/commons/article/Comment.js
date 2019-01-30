@@ -30,7 +30,7 @@ class Comment extends React.Component{
             parentName = this.props.parentComment.user_name
         }
         return(
-        	<div>
+        	<div key={comment.id}>
         	<div className="reply-comments-container" key={comment.id}>
                 <div className="sub-comments-section">
                     <div className="dr-qucik-info doc-gold-">
@@ -69,7 +69,7 @@ class Comment extends React.Component{
         	{
 				comment.children && comment.children.length?
 					comment.children.map((child, key) =>{
-						return <Comment {...self.props} childData = {child} parentComment={comment}/>
+						return <Comment key={child.id} {...self.props} childData = {child} parentComment={comment}/>
 					})
 					:''
 			}

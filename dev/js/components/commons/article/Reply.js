@@ -60,7 +60,7 @@ class ReplyView extends React.Component{
     				{
     					this.props.commentData.children && this.props.commentData.children.length?
     						this.props.commentData.children.map((child, key) =>{
-    							return <Comment {...self.props} childData = {child} parentComment={this.props.commentData}/>
+    							return <Comment key={child.id} {...self.props} childData = {child} parentComment={this.props.commentData}/>
     						})
     						:''
     				}
