@@ -37,8 +37,7 @@ class BookingSummaryViewNew extends React.Component {
             scrollPosition: '',
             profileDataFilled: true,
             is_cashback: false,
-            use_wallet: true,
-            couponInfo: {}
+            use_wallet: true
         }
     }
 
@@ -107,7 +106,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 if (!corporate) {
                     this.props.resetLabCoupons()
-                    this.setState({ couponCode: "", couponId: '', is_cashback: false, couponInfo:{} })
+                    this.setState({ couponCode: "", couponId: '', is_cashback: false })
                     if (nextProps.labCoupons[this.state.selectedLab]) {
                         this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
@@ -122,7 +121,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupon = nextProps.corporateCoupon
-                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '', couponInfo: labCoupon })
+                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
                     this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
                 }
@@ -137,7 +136,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '', couponInfo: labCoupons[0] })
+                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
                     this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
                 }
                 return
@@ -154,7 +153,7 @@ class BookingSummaryViewNew extends React.Component {
                             if (coupons && coupons[0]) {
                                 this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
                                 this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile)
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponInfo: coupons[0] })
+                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                             } else {
                                 this.props.resetLabCoupons()
                             }
@@ -340,7 +339,6 @@ class BookingSummaryViewNew extends React.Component {
                         'Category': 'ConsumerApp', 'Action': 'LabOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.setCouponsSpecificPaymentOption(data.data.orderId, this.state.couponInfo.payment_option || null)
                     this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
 
                     // this.setState({

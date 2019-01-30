@@ -39,12 +39,8 @@ class Payment extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let {
-        couponSpecificPayment
-    } = state.USER
+    return {
 
-    return{
-        couponSpecificPayment
     }
 }
 
