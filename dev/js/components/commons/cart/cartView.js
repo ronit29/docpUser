@@ -103,10 +103,13 @@ class CartView extends React.Component {
         }
 
         let invalid_items = false
+        let valid_items = false
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
                 if (!cart_item.valid) {
                     invalid_items = true
+                } else {
+                    valid_items = true
                 }
             })
         }
@@ -136,56 +139,59 @@ class CartView extends React.Component {
                                                             return <CartItem key={i} {...this.props} {...cart_item} />
                                                         })
                                                     }
-                                                    <div className="widget mrb-15">
-                                                        <div className="widget-content">
-                                                            <h4 className="title mb-20">Payment Summary</h4>
-                                                            <div className="payment-summary-content">
-                                                                <div className="payment-detail d-flex">
-                                                                    <p>Total fees</p>
-                                                                    <p>&#8377; {parseInt(total_mrp)}</p>
+                                                    {
+                                                        valid_items ? <div className="widget mrb-15">
+                                                            <div className="widget-content">
+                                                                <h4 className="title mb-20">Payment Summary</h4>
+                                                                <div className="payment-summary-content">
+                                                                    <div className="payment-detail d-flex">
+                                                                        <p>Total fees</p>
+                                                                        <p>&#8377; {parseInt(total_mrp)}</p>
+                                                                    </div>
+                                                                    <div className="payment-detail d-flex">
+                                                                        <p>docprime discount</p>
+                                                                        <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
+                                                                    </div>
+                                                                    {
+                                                                        total_home_pickup_charges ? <div className="payment-detail d-flex">
+                                                                            <p>Home pickup charges</p>
+                                                                            <p>- &#8377; {parseInt(total_home_pickup_charges)}</p>
+                                                                        </div> : ""
+                                                                    }
+
+                                                                    {
+                                                                        total_coupon_discount ? <div>
+                                                                            {coupon_breakup.map((cp, j) => {
+                                                                                return <div className="payment-detail d-flex">
+                                                                                    <p style={{ color: 'green' }}>Coupon Discount ({cp.code})</p>
+                                                                                    <p style={{ color: 'green' }}>-&#8377; {cp.value}</p>
+                                                                                </div>
+                                                                            })}
+                                                                        </div> : ''
+                                                                    }
                                                                 </div>
-                                                                <div className="payment-detail d-flex">
-                                                                    <p>docprime discount</p>
-                                                                    <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
+                                                                <hr />
+
+
+                                                                <div className="test-report payment-detail mt-20">
+                                                                    <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                    <h5 className="payment-amt-value">&#8377; {total_deal_price - total_coupon_discount}</h5>
                                                                 </div>
+
                                                                 {
-                                                                    total_home_pickup_charges ? <div className="payment-detail d-flex">
-                                                                        <p>Home pickup charges</p>
-                                                                        <p>- &#8377; {parseInt(total_home_pickup_charges)}</p>
+                                                                    total_coupon_cashback ? <div className="csh-back-applied-container">
+                                                                        <p className="csh-mny-applied">+ &#8377; {total_coupon_cashback} Cashback Applied</p>
+                                                                        <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
                                                                     </div> : ""
                                                                 }
 
-                                                                {
-                                                                    total_coupon_discount ? <div>
-                                                                        {coupon_breakup.map((cp, j) => {
-                                                                            return <div className="payment-detail d-flex">
-                                                                                <p style={{ color: 'green' }}>Coupon Discount ({cp.code})</p>
-                                                                                <p style={{ color: 'green' }}>-&#8377; {cp.value}</p>
-                                                                            </div>
-                                                                        })}
-                                                                    </div> : ''
-                                                                }
                                                             </div>
-                                                            <hr />
+                                                        </div> : ""
+                                                    }
 
-
-                                                            <div className="test-report payment-detail mt-20">
-                                                                <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                <h5 className="payment-amt-value">&#8377; {total_deal_price - total_coupon_discount}</h5>
-                                                            </div>
-
-                                                            {
-                                                                total_coupon_cashback ? <div className="csh-back-applied-container">
-                                                                    <p className="csh-mny-applied">+ &#8377; {total_coupon_cashback} Cashback Applied</p>
-                                                                    <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
-                                                                </div> : ""
-                                                            }
-
-                                                        </div>
-                                                    </div>
 
                                                     {
-                                                        total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                        valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="select-pt-form">
                                                                     <div className="referral-select">
@@ -200,15 +206,17 @@ class CartView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        {
+                                            valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                                <button className="add-shpng-cart-btn" onClick={() => {
+                                                    this.props.history.push('/search?from=cart')
+                                                }}>Continue Booking</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                            </div> : ""
+                                        }
 
-                                        <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                                            <button className="add-shpng-cart-btn" onClick={() => {
-                                                this.props.history.push('/search?from=cart')
-                                            }}>Continue Booking</button>
-                                            <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
-                                        </div>
 
-                                    </section> : <div className="norf widget" style={{marginTop: '10px', height:'74vh'}}><div className=""><img style={{ }} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} /></div></div> 
+                                    </section> : <div className="norf widget" style={{ marginTop: '10px', height: '74vh' }}><div className=""><img style={{}} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} /></div></div>
                                 }
                             </div>
                         </div>

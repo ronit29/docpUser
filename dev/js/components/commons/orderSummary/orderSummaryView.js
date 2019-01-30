@@ -66,7 +66,7 @@ class OrderSummaryView extends React.Component {
                                                     return <div className="widget mrb-15 mrng-top-12 p-relative pb-5">
                                                         <div>
                                                             {
-                                                                item.booking_id ? <p className="cart-appntmnt">Appointment Booked </p> : <p className="cart-appntmnt-failed">Appointment Booking Fail </p>
+                                                                item.booking_id ? <p className="cart-appntmnt">Transaction success </p> : <p className="cart-appntmnt-failed">Transaction Failed </p>
                                                             }
                                                             {
                                                                 item.booking_id ? <p className="cartBooking">Booking ID : {item.booking_id}</p> : ""
