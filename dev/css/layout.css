@@ -47,6 +47,7 @@ button:hover {
     -webkit-transition:all .3s ease-out;
        -moz-transition:all .3s ease-out;
             transition:all .3s ease-out;
+            cursor: pointer;
 }
 
 a:focus,
@@ -553,7 +554,7 @@ form .labelWrap label {
   position: absolute;
 }
 form .labelWrap label:hover {
-  color: #75C883;
+  color: #fe7108;
 }
 form .labelWrap input {
   padding: 10px 15px;
@@ -579,6 +580,20 @@ form .labelWrap input:focus {
   cursor: text;
 }
 form .labelWrap input:focus + label {
+  padding: 0;
+  top: -4px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  height: 12px;
+  line-height: 12px;
+  background: white;
+  box-shadow: 0 0 5px 0 white;
+  width: auto;
+  padding: 0 5px;
+  color: #f78631;
+}
+form .labelWrap textarea + label {
   padding: 0;
   top: -4px;
   left: 10px;
