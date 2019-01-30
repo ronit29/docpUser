@@ -62,13 +62,18 @@ class HealthPackageAdvisorView extends React.Component {
     selectCategory(cat_id, isSubset) {
         let ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) == parseInt(cat_id))
         let selected_catIds = [].concat(this.state.selectCatIDs)
-
         if (ids.length) {
-            selected_catIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
-            selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest:[] })
+            if(ids[0].isSubset != isSubset){
+                selected_catIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
+                selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest:[] })
+            }else{
+                if(ids[0].cat_id == cat_id){
+                    selected_catIds = selected_catIds.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
+                }
+            }
         } else {
             selected_catIds.push({ cat_id: cat_id, isSubset: isSubset,subSetTest:[] })
-        } 
+        }
         this.setState({ selectCatIDs: selected_catIds })
     }
     selectTest(test_id,package_id) {
@@ -291,12 +296,17 @@ class HealthPackageAdvisorView extends React.Component {
                                         return <div className="widget mb-10 mrt-10" key={key}>
                                             <div className="search-top-container">
                                                 <div className="d-flex justify-content-between" style={{ alignItems: 'center' }} >
-                                                    <label className="container-radio mb-0 hpa-container-radio" onChange={self.selectCategory.bind(self, rPackages.id, false)}>{rPackages.name}
-                                                        <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
-                                                        <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>
+                                                    <label className="ck-bx" onChange={self.selectCategory.bind(self, rPackages.id, false)}>{rPackages.name}
+                                                        {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
+                                                        <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>*/}
+                                                        <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
+                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
-                                                    <label className="container-radio mb-0 hpa-container-radio" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test <input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
-                                                        <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>
+                                                    <label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test 
+                                                        {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
+                                                        <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>*/}
+                                                        <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
+                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
                                                 </div>
                                                 <div>
