@@ -285,7 +285,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	// 	})
 	// }
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType,filterCriteriaPackages } = state
-	let testIds = currentSearchedCriterias.map((x) => x.id)
+	// let testIds = currentSearchedCriterias.map((x) => x.id)
 
 	let lat = 28.644800
 	let long = 77.216721
@@ -299,7 +299,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
     	new_url = new URL(url_string)
     	parsed = new_url.searchParams.get("fromFooter")
 	} else {
-		parsed = true
+		parsed = false
 	}
 
 	if (selectedLocation) {
@@ -334,7 +334,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
     let max_age= filterCriteriaPackages.max_age || ""
     let min_age= filterCriteriaPackages.min_age || ""
     let gender= filterCriteriaPackages.gender || ""
-    let packageType= filterCriteriaPackages.packageType || ""
+    let package_type= filterCriteriaPackages.packageType || ""
     let test_ids= filterCriteriaPackages.test_ids || ""
 
 	let url = `/api/v1/diagnostic/packagelist?`
@@ -346,7 +346,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	if(!parsed){
 		// url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
 
-		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender|| ""}&package_type=${packageType || ""}&test_ids=${test_ids || ""}`
+		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender|| ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}`
 	}
 	// url += `long=${long || ""}&lat=${lat || ""}&category_ids=${catIds || ""}`
 

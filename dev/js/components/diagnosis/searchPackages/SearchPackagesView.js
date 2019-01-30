@@ -143,15 +143,16 @@ class SearchPackagesView extends React.Component {
         let max_age=filterCriteriaPackages.max_age || ""
         let min_age=filterCriteriaPackages.min_age || ""
         let gender=filterCriteriaPackages.gender || ""
-        let packageType=filterCriteriaPackages.packageType || ""
-        let testIds = filterCriteriaPackages.test_ids || ""
+        let package_type=filterCriteriaPackages.packageType || ""
+        let test_ids = filterCriteriaPackages.test_ids || ""
+        let page=1
         
         let url
         if(this.props.forSeo){
             url = `${window.location.pathname}`
         }else{
             // url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
-            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${packageType}&test_ids=${testIds}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}`
         }
         
         if (this.state.lab_card) {
