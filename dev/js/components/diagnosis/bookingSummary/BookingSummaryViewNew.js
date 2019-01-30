@@ -149,7 +149,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     this.props.getCoupons({
-                        productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile,
+                        productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
                         cb: (coupons) => {
                             if (coupons && coupons[0]) {
                                 this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
@@ -396,7 +396,7 @@ class BookingSummaryViewNew extends React.Component {
 
             let { finalPrice } = this.getLabPriceData(this.props)
 
-            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}`)
+            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}&cart_item=${this.state.cart_item || ""}`)
         }
     }
 
