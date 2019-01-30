@@ -319,7 +319,7 @@ class Article extends React.Component {
                                             return <CommentView key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment ={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists}/>
                                     })}
                                 </div>
-                                :<div className="col-12">
+                                :<div className="col-12 col-md-7 col-lg-8 center-column">
                                     <div className="widget mrb-15 mrng-top-12">
                                         <div className="widget-content">         
                                             <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists}/>

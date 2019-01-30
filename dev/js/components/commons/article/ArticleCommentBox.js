@@ -57,6 +57,10 @@ class CommmentView extends React.Component{
 						Object.values(this.props.profiles).length || STORAGE.checkAuth()?
 						<div className="row no-gutters">
 							<div className="col-12">
+								{
+									this.props.commentsExists?''
+									:<h1 className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</h1>	
+								}
 								<div className="labelWrap">
 									<div className="labelWrap">
 										<textarea style={{ height: '100px' }} id="ftext" className="fc-input" name="comment" type="text" required value = {this.state.comment} onChange={this.inputHandler.bind(this)}></textarea>
@@ -67,7 +71,11 @@ class CommmentView extends React.Component{
 						</div>
 						:<div className="row no-gutters">
 							<div className="col-12">
-								<h1 className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</h1>
+								{
+									this.props.commentsExists?''
+									:<h1 className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</h1>	
+								}
+								
 								<div className="labelWrap">
 									<div className="labelWrap">
 										<textarea style={{ height: '100px' }} id="ftext" className="fc-input" name="comment" type="text" value = {this.state.comment} required  onChange={this.inputHandler.bind(this)}></textarea>
