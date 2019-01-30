@@ -319,7 +319,7 @@ class BookingSummaryViewNew extends React.Component {
         if (addToCart) {
             this.props.addToCart(2, postData).then((res) => {
                 this.props.history.push('/cart')
-            }).catch((e) => {
+            }).catch((err) => {
                 let message = "Error adding to cart!"
                 if (err.message) {
                     message = err.message
