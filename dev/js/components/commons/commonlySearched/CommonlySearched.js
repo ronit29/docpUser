@@ -57,7 +57,7 @@ class CommonlySearched extends React.Component {
         this.props.data.map((row, i) => {
             selected_test_ids.push(row.id)
         })
-        this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search')
+        this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search&isSeo=false')
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'common-search-result-page'
         }

@@ -40,7 +40,7 @@ class LabTests extends React.Component {
         let lab_id = this.props.selectedLab
         let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
         selected_test_ids = selected_test_ids.map(x => x.id)
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow')
+        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow&isSeo=false')
         event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'

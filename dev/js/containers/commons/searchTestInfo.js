@@ -17,9 +17,9 @@ class searchTestInfo extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let { selectedCriterias,searchTestInfoData,search_id_data, } = state.SEARCH_CRITERIA_LABS
+    let { selectedCriterias,searchTestInfoData,search_id_data,selectedLocation,locationType } = state.SEARCH_CRITERIA_LABS
     return {
-        selectedCriterias,searchTestInfoData,search_id_data,
+        selectedCriterias,searchTestInfoData,search_id_data,selectedLocation,locationType
 
     }
 

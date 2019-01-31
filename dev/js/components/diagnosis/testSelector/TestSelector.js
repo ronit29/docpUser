@@ -109,7 +109,7 @@ class TestSelectorView extends React.Component {
         let lab_id = this.state.selectedLab
         let selected_test_ids = this.props.selectedCriterias || []
         selected_test_ids = selected_test_ids.map(x => x.id)
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchbooknow')
+        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchbooknow&isSeo=false')
         event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'

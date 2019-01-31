@@ -1,10 +1,16 @@
 import React from 'react'
 import ProfileHeader from '../DesktopProfileHeader'
 import ChatPanel from '../ChatPanel'
+import LocationElements from '../../../containers/commons/locationElements'
+import GTM from '../../../helpers/gtm.js'
+import LocationPopup from '../../../containers/commons/locationPopup'
+const queryString = require('query-string');
+
 
 class SearchTestView extends React.Component {
     constructor(props) {
         super(props)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             tabsValue: [],
             lastSource: '',
@@ -14,7 +20,11 @@ class SearchTestView extends React.Component {
             disableAddTest: [],
             search_id:'',
             searchCities:[],
-            showLocationPopup: false,
+            showLocationPopup: true,
+            showPopupContainer: true,
+            overlayVisible:true,
+            lab_card: this.props.location.search.includes('lab_card') || null,
+            isSeo:parsed.isSeo?false:true
         }
     }
     ButtonHandler(field, event) {
@@ -84,7 +94,28 @@ class SearchTestView extends React.Component {
                 this.setState({ tabsValue: test_id_val, allFrequentlyTest: allTest, lab_id: lab_id, frequently_heading: ferq_heading, disableAddTest: all_test_id })
             })
         }
+        // if (this.props.seoData && this.props.seoData.location) {
+        //     this.setState({ showLocationPopup: false })
+        // } else {
+        //     if (this.props.locationType.includes("geo")) {
+        //         this.setState({ showLocationPopup: true, overlayVisible: true })
+        //     }
+        // }
     }
+    // componentWillReceiveProps(props) {
+    //     this.setState({ ...props.filterCriteria })
+    //     if (props.locationType && !props.locationType.includes("geo")) {
+    //         this.setState({ showLocationPopup: false })
+    //     } else {
+    //         if (props.seoData && props.seoData.location) {
+    //             this.setState({ showLocationPopup: false })
+    //         } else {
+    //             if (props.selectedLocation != this.props.selectedLocation) {
+    //                 this.setState({ showLocationPopup: true, overlayVisible: true })
+    //             }
+    //         }
+    //     }
+    // }
     closeTestInfo() {
         if (this.state.lastSource == 'search') {
             this.props.history.push('/search')
@@ -139,6 +170,19 @@ class SearchTestView extends React.Component {
         GTM.sendEvent({ data: data })
         this.props.history.push(location_url)
     }
+
+    // hideLocationPopup() {
+    //     this.setState({ showLocationPopup: false });
+    // }
+
+    // popupContainer() {
+    //     this.setState({ showPopupContainer: false, showLocationPopup: false });
+    // }
+
+    // overlayClick() {
+    //     this.setState({ overlayVisible: false, searchCities: [] });
+    // }
+
     render() {
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
@@ -231,11 +275,13 @@ class SearchTestView extends React.Component {
                                                             })}
                                                         </div>
                                                     </div>
-                                                    <div className="filter-title">
+                                                    {this.state.isSeo?<div>
+                                                    <div className="filter-title" 
+                                                    style={{height:'auto',marginBottom:'10px'}}>
                                             
-                                                        {/*this.props.packagesList?this.props.packagesList.count:''*/} Results found for 
+                                                        {/*this.props.packagesList?this.props.packagesList.count:''*/}  5 Results found for 
                                                         <h1 className="search-result-heading">
-                                                        <span className="fw-700"> selected categories</span>
+                                                        <span className="fw-700"> CBC</span>
                                                         </h1>
                                                         <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 
@@ -246,6 +292,24 @@ class SearchTestView extends React.Component {
                                                             <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                         </span>
                                                     </div>
+                                                    {/*{
+                                                        this.state.showLocationPopup ?
+                                                            this.state.lab_card && this.state.showPopupContainer ?
+                                                                <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
+                                                                : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                                                            : ''
+                                                    }
+
+                                                    {
+                                                        this.state.showLocationPopup && this.state.overlayVisible && !this.state.lab_card ?
+                                                            <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
+                                                    }
+
+                                                    {
+                                                        this.state.showLocationPopup && this.state.lab_card && this.state.showPopupContainer ?
+                                                            <div className="popupContainer-overlay"></div>
+                                                            : ''
+                                                    }*/}
                                                     <div className="filter-card-dl mb-3">
                                                        <div className="fltr-crd-top-container">
                                                           <div className="fltr-lctn-dtls">
@@ -287,6 +351,7 @@ class SearchTestView extends React.Component {
                                                           </div>
                                                        </div>
                                                     </div>
+                                                    </div>:''}
                                                     {
                                                         this.state.allFrequentlyTest.length > 0 ?
                                                             <div className="widget mrb-15 mrng-top-12">
