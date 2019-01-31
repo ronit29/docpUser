@@ -254,7 +254,7 @@ class TopBar extends React.Component {
                 {
                     this.state.dropdown_visible ?
                      <div>
-                        <div className="cancel-overlay" onClick={this.hideSortDiv.bind(this)}>
+                        <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
                         </div>
                         <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
                             <div className="pop-top-heading">
