@@ -126,7 +126,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
+                        <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
                             <div className="header-search-full-widht">
                                 {/* <div className="head-links" onClick={() => {
                                 let data = {
@@ -260,7 +260,7 @@ class DesktopProfileHeader extends React.Component {
                                     this.props.history.push('/cart')
                                 }}>
                                     <div className="p-relative">
-                                        <img src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: 24 }} />
+                                        <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: '24px',marginRight:'8px'}} />
                                         {
                                             cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
                                         }
