@@ -1688,6 +1688,8 @@ p.rt-doc-nm{
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border-top: 1px solid #d3d3d3;
+    padding: 10px 0 0;
 }
 
 .invoice-div>img{
@@ -1696,7 +1698,7 @@ p.rt-doc-nm{
 }
 
 .invoice-div p{
-    font-size: 11px;
+    font-size: 12px;
     text-align: left;
 }
 
@@ -1714,6 +1716,8 @@ p.rt-doc-nm{
 
 .multiple-invoice .invoice-div{
     width: 50%;
+    border-top: none;
+    padding: 0;
 }
 
 .multiple-invoice .invoice-div>img{

@@ -80,16 +80,6 @@ class AppointmentList extends React.Component {
                         <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid img-round my-appont-img" />
                         {type == 'doctor' ? <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} className="appointment-icon" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/beaker.svg"} className="appointment-icon" />}
                     </InitialsPicture>
-                    {
-                        invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?
-                            <div className="mrt-10 invoice-div" onClick={() => this.invoiceClick(invoices[0])}>
-                                <img src={ASSETS_BASE_URL + '/img/customer-icons/invoice.svg'} />
-                                <div>
-                                    <p className="text-primary fw-500">Download</p>
-                                    <p className="text-primary fw-500">Invoice</p>
-                                </div>
-                            </div> : ''
-                    }
                 </span>
                 <div className="consultant-details" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}>
                     <h4 className="title app-title" style={{ marginBottom: 8 }} >{display_name || lab_name}</h4>
@@ -110,6 +100,17 @@ class AppointmentList extends React.Component {
                 </div>
                 <span className="arrow-custom-right" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                 {this.getStatus(status)}
+                {
+                    invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?
+                        <div className="mrt-20" style={{ padding: '0 30px' }} onClick={() => this.invoiceClick(invoices[0])}>
+                            <div className="invoice-div">
+                                <img src={ASSETS_BASE_URL + '/img/customer-icons/invoice.svg'} />
+                                <div>
+                                    <p className="text-primary fw-500">Download Invoice</p>
+                                </div>
+                            </div>
+                        </div> : ''
+                }
                 {
                     invoices && invoices.length && this.props.data.reports && this.props.data.reports.length ?
                         <div className="mrt-20 multiple-invoice-div">

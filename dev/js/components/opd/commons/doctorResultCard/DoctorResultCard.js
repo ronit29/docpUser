@@ -187,7 +187,7 @@ class DoctorProfileCard extends React.Component {
                                         <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
                                 }
                                 {
-                                    !deal_price && !is_procedure ?
+                                    !deal_price && !is_procedure && enabled_for_hospital_booking ?
                                         <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                             </div>
@@ -232,10 +232,14 @@ class DoctorProfileCard extends React.Component {
                                                     : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                             }
                                         </p>
-                                        :
-                                        <p className="fltr-prices" style={{ marginTop: 4 }}>
-                                            &#x20B9;{is_procedure ? finalProcedureMrp : mrp}
-                                        </p>
+                                        : is_procedure ?
+                                            <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                &#x20B9;{finalProcedureMrp}
+                                            </p>
+                                            : mrp ?
+                                                <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                    &#x20B9;{mrp}
+                                                </p> : ''
                                 }
                                 {
                                     STORAGE.checkAuth() || deal_price < 100 ?
