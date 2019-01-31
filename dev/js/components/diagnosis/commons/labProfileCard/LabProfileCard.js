@@ -85,7 +85,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -102,11 +102,12 @@ class LabProfileCard extends React.Component {
                 pickup_text = "Inclusive of home visit charges"
             }
             price = price + pickup_charges
+            discounted_price = discounted_price + pickup_charges
         }
 
         let offPercent = ''
-        if (mrp && price && (price < mrp)) {
-            offPercent = parseInt(((mrp - price) / mrp) * 100);
+        if (mrp && discounted_price && (discounted_price < mrp)) {
+            offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
         }
         let hide_price = false
         if (this.props.test_data) {
@@ -165,14 +166,16 @@ class LabProfileCard extends React.Component {
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
                                 {
-                                    price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
+                                    discounted_price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {discounted_price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
                                 }
                                 {
                                     hide_price ? <p className="text-primary fw-500 text-lg mrb-10">Free</p> : ""
                                 }
 
                                 {
-                                    STORAGE.checkAuth() || price < 100 ? "" : <div className="signup-off-container"><span className="signup-off-doc" style={{ fontSize: '12px' }}>+ ₹ 100 OFF <b>on Signup</b> </span></div>
+                                    discounted_price != price ? <div className="signup-off-container">
+                                        <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
+                                    </div> : ""
                                 }
                                 <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
                             </div>

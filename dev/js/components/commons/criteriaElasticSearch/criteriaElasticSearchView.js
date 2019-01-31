@@ -331,7 +331,7 @@ class CriteriaElasticSearchView extends React.Component {
                             {
                                 this.state.searchCities.length > 0 ?
                                     <section>
-                                        <div className="widget mb-10">
+                                        <div className="widget searchMargin">
                                             <div className="common-search-container">
                                                 <p className="srch-heading">Location Search</p>
                                                 <div className="common-listing-cont">
@@ -357,7 +357,7 @@ class CriteriaElasticSearchView extends React.Component {
                                             <section>
                                                 {
                                                     this.state.searchResults.length || this.state.searchValue ?
-                                                        <div className="widget mb-10" >
+                                                        <div className="widget searchMargin" >
                                                             <div className="common-search-container">
                                                                 {/*<p className="srch-heading">{cat.name}</p>*/}
                                                                 <div className="common-listing-cont">

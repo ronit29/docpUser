@@ -99,7 +99,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema, enabled_for_online_booking } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema, enabled_for_online_booking, discounted_price } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -114,8 +114,8 @@ class DoctorProfileCard extends React.Component {
         }
 
         var Distance = (Math.round(distance * 10) / 10).toFixed(1);
-        if (mrp != 0 && deal_price != 0) {
-            var discount = 100 - Math.round((deal_price * 100) / mrp);
+        if (mrp != 0 && discounted_price != 0) {
+            var discount = 100 - Math.round((discounted_price * 100) / mrp);
         }
 
         try {
@@ -129,7 +129,7 @@ class DoctorProfileCard extends React.Component {
         if (hospitals && hospitals.length) {
             let selectedCount = 0
             let unselectedCount = 0
-            let finalProcedureDealPrice = deal_price
+            let finalProcedureDealPrice = discounted_price
             let finalProcedureMrp = mrp
             hospitals[0].procedure_categories.map((x) => {
                 is_procedure = true
@@ -187,7 +187,7 @@ class DoctorProfileCard extends React.Component {
                                         <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
                                 }
                                 {
-                                    !deal_price && !is_procedure && enabled_for_hospital_booking ?
+                                    !discounted_price && !is_procedure && enabled_for_hospital_booking ?
                                         <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                             </div>
@@ -225,11 +225,11 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     enabled_for_hospital_booking ?
                                         <p className="fltr-prices" style={{ marginTop: 4 }}>
-                                            &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
+                                            &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}
                                             {
                                                 is_procedure
                                                     ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                                                    : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                                    : mrp != discounted_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                             }
                                         </p>
                                         : is_procedure ?
@@ -241,15 +241,13 @@ class DoctorProfileCard extends React.Component {
                                                     &#x20B9;{mrp}
                                                 </p> : ''
                                 }
+
                                 {
-                                    STORAGE.checkAuth() || deal_price < 100 ?
-                                        ''
-                                        : enabled_for_hospital_booking ?
-                                            <div className="signup-off-container">
-                                                <span className="signup-off-doc" style={{ fontSize: 12 }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                            </div>
-                                            : ''
+                                    deal_price != discounted_price && enabled_for_hospital_booking ? <div className="signup-off-container">
+                                        <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
+                                    </div> : ''
                                 }
+
                                 {
                                     enabled_for_hospital_booking ? <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button> : <button className="fltr-cntct-btn" style={{ width: '100%' }}>Contact</button>
                                 }
@@ -262,7 +260,7 @@ class DoctorProfileCard extends React.Component {
                                         <div className="clearfix">
                                             {
                                                 enabled_for_hospital_booking ?
-                                                    <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span>
+                                                    <span className="test-price txt-ornage">₹ {discounted_price}<span className="test-mrp">₹ {mrp}</span></span>
                                                     :
                                                     <span className="test-price txt-ornage">₹ {mrp}</span>
                                             }
