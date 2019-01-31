@@ -37,7 +37,8 @@ class BookingSummaryViewNew extends React.Component {
             scrollPosition: '',
             profileDataFilled: true,
             is_cashback: false,
-            use_wallet: true
+            use_wallet: true,
+            couponInfo: {}
         }
     }
 
@@ -106,7 +107,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 if (!corporate) {
                     this.props.resetLabCoupons()
-                    this.setState({ couponCode: "", couponId: '', is_cashback: false })
+                    this.setState({ couponCode: "", couponId: '', is_cashback: false, couponInfo: {} })
                     if (nextProps.labCoupons[this.state.selectedLab]) {
                         this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
@@ -121,7 +122,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupon = nextProps.corporateCoupon
-                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
+                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '', couponInfo: labCoupon })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
                     this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
                 }
@@ -136,7 +137,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '', couponInfo: labCoupons[0] })
                     this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
                 }
                 return
@@ -153,7 +154,7 @@ class BookingSummaryViewNew extends React.Component {
                             if (coupons && coupons[0]) {
                                 this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
                                 this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile)
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponInfo: coupons[0] })
                             } else {
                                 this.props.resetLabCoupons()
                             }
@@ -236,13 +237,13 @@ class BookingSummaryViewNew extends React.Component {
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
                             : ''
                     }
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
         }
@@ -338,8 +339,9 @@ class BookingSummaryViewNew extends React.Component {
                     let analyticData = {
                         'Category': 'ConsumerApp', 'Action': 'LabOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab_order_created'
                     }
+                    let payment_option = this.state.couponInfo && this.state.couponInfo.payment_option && this.state.couponInfo.payment_option.id ?this.state.couponInfo.payment_option.id:''
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab&payment_options=${payment_option}`)
 
                     // this.setState({
                     //     paymentData: data.data
@@ -427,7 +429,6 @@ class BookingSummaryViewNew extends React.Component {
         let address_picked_verified = false
         let center_visit_enabled = true
         let is_corporate = false
-
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
@@ -498,7 +499,7 @@ class BookingSummaryViewNew extends React.Component {
         if (!this.state.is_cashback) {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
-
+        total_price= is_corporate?0:total_price
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance

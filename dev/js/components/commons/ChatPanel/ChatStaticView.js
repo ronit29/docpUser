@@ -118,7 +118,7 @@ class ChatStatic extends React.Component {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <p className="ldng-text">Connecting to the agent...</p>
+                            <p className="ldng-text">Connecting to the doctor...</p>
                         </div>
                     </div> : <div className="chat-body">
                             <div className="onload-chat">
@@ -191,7 +191,7 @@ class ChatStatic extends React.Component {
                         <span className="toast-close-btn" onClick={() => {
                             this.setState({ openBanner: false })
                         }}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} /></span>
-                        <div className="wrng-mssg">
+                        <div className="wrng-mssg-pop">
                             <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
                             <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
                         </div>

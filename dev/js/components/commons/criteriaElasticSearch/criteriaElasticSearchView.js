@@ -172,26 +172,26 @@ class CriteriaElasticSearchView extends React.Component {
         } else {
 
             if (criteria.type == "lab") {
-
+                this.props.clearExtraTests()
                 let data = {
                     'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
                 }
                 GTM.sendEvent({ data: data })
-
+                
                 this.props.history.push(`/lab/${criteria.action.value[0]}`)
                 return
             } else if (criteria.type == "lab_test") {
 
                 criteria.type = 'test'
                 criteria.id = criteria.action.value[0]
-                if(criteria.action.test_type && criteria.action.test_type.length) {
+                if (criteria.action.test_type && criteria.action.test_type.length) {
                     criteria.test_type = criteria.action.test_type[0]
-                }else{
+                } else {
                     criteria.test_type = ''
                 }
                 this.setState({ searchValue: "" })
-                this.props.toggleLabTests('test',criteria, this.state.searchValue)
-                
+                this.props.toggleLabTests('test', criteria, this.state.searchValue)
+
                 /*let data = {
                     'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
@@ -331,7 +331,7 @@ class CriteriaElasticSearchView extends React.Component {
                             {
                                 this.state.searchCities.length > 0 ?
                                     <section>
-                                        <div className="widget mb-10">
+                                        <div className="widget searchMargin">
                                             <div className="common-search-container">
                                                 <p className="srch-heading">Location Search</p>
                                                 <div className="common-listing-cont">
@@ -357,7 +357,7 @@ class CriteriaElasticSearchView extends React.Component {
                                             <section>
                                                 {
                                                     this.state.searchResults.length || this.state.searchValue ?
-                                                        <div className="widget mb-10" >
+                                                        <div className="widget searchMargin" >
                                                             <div className="common-search-container">
                                                                 {/*<p className="srch-heading">{cat.name}</p>*/}
                                                                 <div className="common-listing-cont">
@@ -383,17 +383,21 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                         }
 
 
-                                                                                        <p className="p-0" >
+                                                                                        <p style={{ padding: '0 50px 0 0' }} >
                                                                                             {cat.name}
                                                                                             {
                                                                                                 cat.type == "hospital"
                                                                                                     ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
                                                                                                     : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
                                                                                             }
-
                                                                                         </p>
-
                                                                                     </div>
+                                                                                    {
+                                                                                        cat.popularity && cat.popularity >= 5000 ?
+                                                                                            <div className="popular-txt">
+                                                                                                <span className="fw-500">Popular</span>
+                                                                                            </div> : ''
+                                                                                    }
                                                                                 </li>
                                                                             })
                                                                         }

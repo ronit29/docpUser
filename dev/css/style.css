@@ -281,6 +281,14 @@ textarea.form-control.chat-text-area {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
+.wrng-mssg-pop img {
+	height: 24px;
+	width: 24px;
+	display: block;
+	margin-right: 9px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
 
 .wrng-mssg span {
 	color: #282427;
@@ -1890,20 +1898,40 @@ width: 55%;
 	width: 158px;
     text-align: right;
 }
+
 .signup-off-doc{
     border-radius: 5px;
     border: 1px dashed;
     display: block;
     padding: 0 5px;
     font-size: 14px;
-	text-align: center;
-	color: #f07939;
+    text-align: center;
+    color: #f07939;
     font-weight: 500;
 }
+
 .signup-off-doc b{
 	color: #757575;
     font-weight: 500;
 }
+
+.signup-off-doc-green{
+    display: block;
+    padding: 0 5px;
+    font-weight: 500;
+    background: #d7fbe7;
+    border: 1px dashed #2f6704;
+    border-radius: 4px;
+    margin-top: 5px;
+	color: #2f6704;
+	text-align: center;
+}
+
+.signup-off-doc-green b{
+	color: #757575;
+    font-weight: 500;
+}
+
 .ratng-doc-price{
     color: #f78631;
 }
@@ -2102,7 +2130,7 @@ p.comment-para-status{
     padding: 15px;
     border-radius: 5px;
     background-color: #ffffff;
-    width: 355px;
+    width: 300px;
 }
 .rate-card-header{
 	text-align: center;
@@ -2240,16 +2268,20 @@ p.rt-doc-nm{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    background: #00000061;
+    background: #a0a0a0;
     border-radius: 10px;
     height: auto;
     width: 88%;
 }
-.toast-tip-icon .wrng-mssg span {
+.toast-tip-icon .wrng-mssg-pop span {
     color: white;
 }
-.toast-tip-icon .wrng-mssg{
-	background-color: #00000012;
+.toast-tip-icon .wrng-mssg-pop{
+	border-radius: 10px;
+	background-color: #a0a0a0;
+	display: flex;
+	align-items: end;
+	padding: 10px;
 }
 .toast-close-btn{
 	position: absolute;
@@ -3624,6 +3656,7 @@ padding-top: 0px !important;
 	display: flex;
 	border-bottom: 1px solid rgba(0, 0, 0, .12);
 	cursor: pointer;
+	position: relative;
 }
 .common-listing-cont li:last-child{
 	border-bottom: transparent;
@@ -3644,6 +3677,20 @@ padding-top: 0px !important;
 	margin-right: 10px;
 	flex-shrink: 0;
 	flex-grow: 0;
+}
+.popular-txt{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 2px 4px;
+	background-color: #fc092b;
+	border-radius: 5px;
+	height: 22px;
+}
+.popular-txt span{
+	font-size: 12px;
+	color: #ffffff;
 }
 .mb-10{
 	margin-bottom: 10px !important;
@@ -4811,17 +4858,18 @@ font-weight: 700;
 	flex-shrink: 0;
 }
 .social-ico-styling{
-    margin: 10px 0px;
+	margin: 10px 0px;
+	flex-direction: column;
 }
 .facebookIcon-styling{
     flex: 1;
     position: relative;
     background: #3b5998;
-    margin: 0 10px;
+    margin: 10px;
     border-radius: 4px;
     cursor: pointer;
 }
-.facebookIcon-styling span{
+.facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
 	position: absolute;
     top: 5px;
     left: 40px;
@@ -4832,16 +4880,29 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #00aced;
-    margin: 0 10px;
+    margin: 10px;
     border-radius: 4px;
     cursor: pointer;
 }
-.twitterIcon-styling span{
+.emailIcon-styling{
+    flex: 1;
+    position: relative;
+    background: #7f7f7f;
+    margin: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.typ-close{
 	position: absolute;
-    top: 5px;
-    left: 40px;
-    font-weight: 500;
-    color: white;
+	right: 12px;
+	top: 12px;
+	width: 10px;
+	height: 10px;
+	z-index: 1;
+	cursor: pointer;
+}
+.typ-close>img{
+	width: 100%;
 }
 .SocialMediaShareButton{
 	display: flex;
@@ -5092,5 +5153,149 @@ img.drop-icon-selecter-selected {
     height: 10px;
     width: 10px;
     background-color: orange;
-    border-radius: 50%;
+	border-radius: 50%;
+}
+/* ============================ comment section  ============================  */
+.comments-main-heading{
+
+}
+.comments-section-form{
+	margin: 10px 0px;
+}
+.usr-comments-para{
+	color: black;
+    font-weight: 500;
+    padding: 10px 0;
+}
+.comments-rply{
+	cursor: pointer;
+	font-weight: 500;
+color: 	#fe7108;
+}
+.commnets-sbmt-btn{
+	text-align: center;
+}
+.cmnts-btn{
+	background: #fe7108;
+    padding: 8px 30px;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+}
+.sub-comments-section{
+	padding-left: 15px;
+    border-top: 1px solid #f3f0f0;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+.reply-comments-container{
+    margin: 15px 0px;
+}
+.comments-post-input{
+	display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.comments-post-input input{
+    padding: 10px 15px;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    outline: 0;
+    line-height: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    border: 1px solid #d3d3d3;
+    background: white;
+}
+	.comments-post-input .comments-post-btns{
+		background: #fe7108;
+		color: white;
+		font-weight: 500;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		padding: 0 20px;
+		cursor: pointer;
+		border: 1px solid #fe7108;
+	}
+/*.cursor-pointer-v{
+	cursor: pointer;
+	color: #fe7108;
+}*/
+.img-rply{
+    width: 18px;
+    vertical-align: middle;
+    padding: 4px;
+}
+.rply-spn{
+	font-style: italic;
+    font-size: 11px;
+    vertical-align: middle;
+    font-weight: 400;
+    color: #767676;
+    position: relative;
+    top: -1px;
+}
+
+.rply-sndr{
+	font-size: 12px;
+    vertical-align: middle;
+    color: #767676;
+    font-weight: 400;
+}
+.cmnt-static{
+	font-size: 16px;
+	font-weight: 700;
+}
+.cmnt-static img{
+	width: 34px;
+	padding: 0 10px 0 0;
+	margin-bottom: 15px;
+}
+.cmnt-rply-txt{
+	display: inline-block;
+    cursor: initial;
+}
+/* ============================ comment section  ============================  */
+
+.imptnt-cls{
+	padding-left:66px!important
+}
+
+.dpp-btn-book-custom {
+	flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: #f78631;
+    cursor: pointer;
+}
+
+.booknow-span{
+	margin-top: 10px !important;
+    display: inline-block;
+}
+
+.cp-auto{
+	display: block;
+    flex: 1;
+    font-size: 12px !important; 
+}
+
+.coupon-auto-applied-lab{
+	font-size: 11px;
+    bottom: 2px;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.searchMargin{
+	margin-bottom: 80px !important;
 }

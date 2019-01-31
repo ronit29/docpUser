@@ -37,7 +37,8 @@ class PatientDetailsNew extends React.Component {
             couponApplied: false,
             is_cashback: false,
             // order_id: !!parsed.order_id,
-            use_wallet: true
+            use_wallet: true,
+            couponInfo: {}
         }
     }
 
@@ -101,7 +102,7 @@ class PatientDetailsNew extends React.Component {
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
 
-                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
+                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback, couponInfo: doctorCoupons[0] })
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props))
             } else if (hospital) {
                 let deal_price = hospital.deal_price
@@ -111,7 +112,7 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 deal_price += treatment_Price
-                this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponInfo: doctorCoupons[0] })
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props))
 
             }
@@ -136,7 +137,7 @@ class PatientDetailsNew extends React.Component {
                     productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props),
                     cb: (coupons) => {
                         if (coupons && coupons[0]) {
-                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponInfo: coupons[0] })
                             this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
                             this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props))
                         } else {
@@ -183,7 +184,7 @@ class PatientDetailsNew extends React.Component {
 
                     deal_price += treatment_Price
 
-                    this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
+                    this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true, couponInfo: doctorCoupons[0] })
                     this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps))
                 }
             } else {
@@ -206,7 +207,7 @@ class PatientDetailsNew extends React.Component {
                         productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps),
                         cb: (coupons) => {
                             if (coupons && coupons[0]) {
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true })
+                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true, couponInfo: coupons[0] })
                                 this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
                                 this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps))
                             } else {
@@ -320,8 +321,9 @@ class PatientDetailsNew extends React.Component {
                     let analyticData = {
                         'Category': 'ConsumerApp', 'Action': 'DoctorOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor_order_created'
                     }
+                    let payment_option = this.state.couponInfo && this.state.couponInfo.payment_option && this.state.couponInfo.payment_option.id ?this.state.couponInfo.payment_option.id:''
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
+                    this.props.history.push(`/payment/${data.data.orderId}?refs=opd&payment_options=${payment_option}`)
 
                     // this.setState({
                     //     paymentData: data.data
@@ -353,7 +355,7 @@ class PatientDetailsNew extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true`)
+                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true&type=opd`)
                 return
             }
 

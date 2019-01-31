@@ -215,6 +215,19 @@ class TopBar extends React.Component {
     initialSelectedCategory(selectedcategory){
         this.setState({initialSelectedCatIds:selectedcategory.length})
     }
+
+    goToLocation() {
+        this.setState({
+            searchCities: []
+        })
+        let location_url = '/locationsearch'
+        let data = {
+            'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push(location_url)
+    }
+
     render() {
         var selectedTests = []
         if (this.props.currentSearchedCriterias.length) {
@@ -344,13 +357,7 @@ class TopBar extends React.Component {
                                                 <h1 className="search-result-heading">
                                                 <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':'selected categories'}</span>
                                                 </h1>
-                                                <span className="search-result-span" onClick={() => {
-                                                    this.setState({
-                                                        showLocationPopup: !this.state.showLocationPopup,
-                                                        searchCities: [],
-                                                        showPopupContainer: true
-                                                    })
-                                                }}>
+                                                <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 
                                                     {
                                                         this.state.showLocationPopup && false ? ''

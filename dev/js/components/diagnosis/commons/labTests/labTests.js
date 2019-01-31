@@ -59,7 +59,7 @@ class LabTests extends React.Component {
         let unSelectedTests = []
         let unSelectedPackage = []
         let test_info = ''
-        let show_details
+        let show_details=''
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -73,9 +73,9 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     if (test.is_selected) {
-                        selectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)}/>)
+                        selectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price}/>)
                     } else {
-                        unSelectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} />)
+                        unSelectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price}/>)
                     }
 
                 } else {
@@ -86,11 +86,15 @@ class LabTests extends React.Component {
                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                             </span>
                         }
-                        selectedTests.push(test.hide_price
-                            ? <li className="clearfix" key={i}>
-                                <span className="test-price">Free</span>
+                        selectedTests.push(hide_price? <li key={i + "srt"}>
+                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                    {test.test.name}
+                                    <input type="checkbox" checked={test.is_selected ? true : false} />
+                                    <span className="checkmark" />
+                                </label>
+                                <span className="test-price text-sm">Free</span>
                             </li>
-                            : <li key={i + "srt"}>
+                            :<li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name} {test.test.show_details?test_info:''}
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
@@ -171,8 +175,8 @@ class LabTests extends React.Component {
                     <ul className="list all-test-list">
                         {selectedTests}
                         {selectedPackage}
-                        {unSelectedTests}
-                        {unSelectedPackage}
+                        {hide_price?'':unSelectedTests}
+                        {hide_price?'':unSelectedPackage}
                     </ul>
                     {
                         pickup_text ? <div className="clearfix">
@@ -196,7 +200,7 @@ class LabTests extends React.Component {
                             </div>
                     }
                     {
-                        hide_price ? "" : <div className="pb-view text-right">
+                        hide_price? "" : <div className="pb-view text-right">
                             <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
                         </div>
                     }

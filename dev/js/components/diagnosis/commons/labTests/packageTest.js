@@ -31,13 +31,19 @@ class PackageTest extends React.Component {
                     </p>
                     {test.test.show_details?test_info:''}
                     {
-                            test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575' }}> {
-                                `(includes ${test.number_of_tests} Tests)`}
-                            </span> : ''
+                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575' }}>{
+                            `(includes ${test.number_of_tests} Tests)`}
+                        </span> : ''
                     }
-                    <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
-                        this.props.toggleTest(test)
-                    }} />
+                    {
+                        this.props.hide_price ?
+                            <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} />
+                            : <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
+                                this.props.toggleTest(test)
+                            }} />
+
+                    }
+
                     <span className="checkmark"></span>
 
                 </label>
