@@ -45,8 +45,7 @@ const defaultState = {
     currentSearchId: '',
     nextFilterCriteria: DEFAULT_FILTER_STATE,
     filterCriteriaPackages: DEFAULT_FILTER_STATE_PACKAGES,
-    recommended_package:[],
-    information:[]
+    recommended_package:[]
 }
 
 export default function (state = defaultState, action) {

@@ -182,7 +182,7 @@ class HealthPackageAdvisorView extends React.Component {
     render() {
         let self = this
         let show_info = false
-        if (Object.keys(this.props.package_information).length > 0) {
+        if (Object.keys(this.props.recommended_package.information).length > 0) {
             show_info = true
         }
         return (
@@ -286,12 +286,12 @@ class HealthPackageAdvisorView extends React.Component {
                                     }
                                 </div>
                             </div>
-                            {this.props.recommended_package.length > 0 && this.state.searchCities.length == 0 ?
+                            {Object.keys(this.props.recommended_package).length > 0 && this.state.searchCities.length == 0 ?
                                 <div>
                                     <div className="hpa-heading mrt-10 mrb-10">
                                         <p className="fw-500">Select Categories</p>
                                     </div>
-                                    {Object.entries(this.props.recommended_package).map(function ([key, rPackages]) {
+                                    {Object.entries(this.props.recommended_package.result).map(function ([key, rPackages]) {
                                         return <div className="widget mb-10 mrt-10" key={key}>
                                             <div className="search-top-container">
                                                 <div className="d-flex justify-content-between" style={{ alignItems: 'center' }} >
@@ -370,7 +370,7 @@ class HealthPackageAdvisorView extends React.Component {
                 </section>
                 {
                     this.state.showInfo ?
-                        <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText} package_information={this.props.package_information} /> : ''
+                        <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText} package_information={this.props.recommended_package.information} /> : ''
                 }
             </div>
         )
