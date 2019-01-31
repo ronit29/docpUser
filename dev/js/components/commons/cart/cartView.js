@@ -129,16 +129,27 @@ class CartView extends React.Component {
                                                 <div className="col-12">
                                                     <h4 className="shoping-cart-main-heading">My Cart</h4>
 
+
+                                                    {
+                                                        cart.filter(x => x.valid).map((cart_item, i) => {
+                                                            return <CartItem key={i + "v"} {...this.props} {...cart_item} />
+                                                        })
+                                                    }
+
+
                                                     {
                                                         invalid_items ? <h4 className="cart-warnig-icon-text"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/capaWarning.png"} /><span>Some appointments in your cart has become invalid. Please Edit/Remove them from cart </span></h4> : ""
                                                     }
 
 
+
                                                     {
-                                                        cart.map((cart_item, i) => {
-                                                            return <CartItem key={i} {...this.props} {...cart_item} />
+                                                        cart.filter(x => !x.valid).map((cart_item, i) => {
+                                                            return <CartItem key={i + "iv"} {...this.props} {...cart_item} />
                                                         })
                                                     }
+
+
                                                     {
                                                         valid_items ? <div className="widget mrb-15">
                                                             <div className="widget-content">

@@ -125,6 +125,8 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
+        let { is_home_pickup } = this.props.actual_data
+
         if (date) {
             date = new Date(date)
         }
@@ -171,7 +173,7 @@ class CartItem extends React.Component {
                                 {
                                     profile ? <li>
                                         <p>
-                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name}
+                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name} | {is_home_pickup ? "Home pickup" : ""}
                                         </p>
                                     </li> : ""
                                 }
@@ -194,7 +196,7 @@ class CartItem extends React.Component {
                                         <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/flask.svg"} />
                                         {
                                             tests.map((test, i) => {
-                                                return <p className="test-list test-list-label clearfix new-lab-test-list">
+                                                return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
 
                                                     <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
                                                     </span>
@@ -214,7 +216,7 @@ class CartItem extends React.Component {
                                         <img className="shpng-cart-tst-lst-img" src={ASSETS_BASE_URL + "/img/hand.svg"} />
                                         {
                                             procedures.map((proc, i) => {
-                                                return <p className="test-list test-list-label clearfix new-lab-test-list">
+                                                return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
 
                                                     <span className="float-right fw-700">₹ {proc.deal_price}<span className="test-mrp">₹ {proc.mrp}</span>
                                                     </span>
