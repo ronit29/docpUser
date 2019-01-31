@@ -95,12 +95,12 @@ class LabProfileCard extends React.Component {
         }
 
         if (is_home_collection_enabled && !distance_related_charges) {
-            pickup_text = "Inclusive of home visit charges"
-            price = price + pickup_charges
-        }
-
-        if (is_home_collection_enabled && !distance_related_charges && home_pickup_charges == 0) {
-            pickup_text = "Free home visit"
+            if (home_pickup_charges == 0) {
+                pickup_text = "Free home visit"
+            }
+            else {
+                pickup_text = "Inclusive of home visit charges"
+            }
             price = price + pickup_charges
         }
 
