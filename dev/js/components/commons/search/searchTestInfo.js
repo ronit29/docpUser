@@ -12,7 +12,9 @@ class SearchTestView extends React.Component {
             lab_id: '',
             frequently_heading: '',
             disableAddTest: [],
-            search_id:''
+            search_id:'',
+            searchCities:[],
+            showLocationPopup: false,
         }
     }
     ButtonHandler(field, event) {
@@ -126,7 +128,25 @@ class SearchTestView extends React.Component {
         }
         self.props.toggleDiagnosisCriteria('test', test, false)
     }
+    goToLocation() {
+        this.setState({
+            searchCities: []
+        })
+        let location_url = '/locationsearch'
+        let data = {
+            'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push(location_url)
+    }
     render() {
+        let locationName = ""
+        if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+            locationName = this.props.selectedLocation.formatted_address
+        }
+        if (this.props.seoData && this.props.seoData.location) {
+            locationName = this.props.seoData.location
+        }
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
             let self = this
             return (
@@ -210,6 +230,62 @@ class SearchTestView extends React.Component {
                                                                     </div> : ''
                                                             })}
                                                         </div>
+                                                    </div>
+                                                    <div className="filter-title">
+                                            
+                                                        {/*this.props.packagesList?this.props.packagesList.count:''*/} Results found for 
+                                                        <h1 className="search-result-heading">
+                                                        <span className="fw-700"> selected categories</span>
+                                                        </h1>
+                                                        <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
+
+                                                            {
+                                                                this.state.showLocationPopup && false ? ''
+                                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                            }
+                                                            <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                        </span>
+                                                    </div>
+                                                    <div className="filter-card-dl mb-3">
+                                                       <div className="fltr-crd-top-container">
+                                                          <div className="fltr-lctn-dtls">
+                                                            <p>
+                                                                <img className="fltr-loc-ico" src="https://cdn.docprime.com/cp/assets/img/customer-icons/map-marker-blue.svg" style={{width: '12px', height: '18px'}}/>
+                                                                    <span className="fltr-loc-txt">Sadar Bazaar New Delhi</span> | <span>2 Km</span>
+                                                            </p>
+                                                          </div>
+                                                          <div className="row no-gutters" style={{cursor: 'pointer'}}>
+                                                             <div className="col-12 mrt-10">
+                                                                <a>
+                                                                   <h2 className="lab-fltr-dc-name fw-500" style={{fontSize: '16px', paddingLeft: '8px', paddingRight: '110px'}}>Thyrocare Aarogyam 3 Package</h2>
+                                                                   <h3 className="lab-fltr-dc-name fw-500" style={{fontSize: '14px', paddingLeft: '8px',paddingRight: '110px', color: 'rgb(117, 117, 117)'}}>68 Tests Included </h3>
+                                                                </a>
+                                                                <span className="filtr-offer ofr-ribbon fw-700">25% OFF</span>
+                                                             </div>
+                                                             <div className="col-7 mrt-10">
+                                                                <div className="img-nd-dtls" style={{'alignItems': 'flex-start'}}>
+                                                                   <div className="fltr-crd-img text-center" style={{width: '60px'}}>
+                                                                      <div><img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg"/></div>
+                                                                   </div>
+                                                                </div>
+                                                             </div>
+                                                             <div className="col-5 mrt-10 text-right" style={{paddingLeft: '8px'}}>
+                                                                <p className="fltr-prices" style={{marginTop: '4px'}}>₹ 1500<span className="fltr-cut-price">₹ 2000</span></p>
+                                                                <div className="signup-off-container"><span className="signup-off-doc-green" style={{fontSize: '12px'}}>Includes coupon discount</span></div>
+                                                                <button className="fltr-bkng-btn" style={{width: '100%'}}>Book Now</button>
+                                                             </div>
+                                                          </div>
+                                                       </div>
+                                                       <div className="filtr-card-footer">
+                                                          <div>
+                                                             <img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/home.svg"/>
+                                                             <h3 className="mrb-0">Inclusive of home visit charges</h3>
+                                                          </div>
+                                                          <div className="text-right">
+                                                             <img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/clock-black.svg" />
+                                                             <p><span>Closed</span></p>
+                                                          </div>
+                                                       </div>
                                                     </div>
                                                     {
                                                         this.state.allFrequentlyTest.length > 0 ?
