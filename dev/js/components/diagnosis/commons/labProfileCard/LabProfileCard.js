@@ -69,7 +69,7 @@ class LabProfileCard extends React.Component {
             }
         }
     }
-    testInfo(test_id, lab_id, event) {
+    testInfo(test_id, lab_id, test_url,event) {
         let selected_test_ids = []
         Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
             selected_test_ids.push(value.id)
@@ -77,7 +77,11 @@ class LabProfileCard extends React.Component {
         var url_string = window.location.href;
         var url = new URL(url_string);
         var search_id = url.searchParams.get("search_id");
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false')
+        if(test_url && test_url !=''){
+            this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false')
+        }else{
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false&searchById=true')
+        }
         event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-result-page'
@@ -150,7 +154,7 @@ class LabProfileCard extends React.Component {
                                         {
                                             this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
                                                 {
-                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id)}>
+                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id,this.props.details.tests[0].url)}>
                                                         <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                     </span> : ''
                                                 }

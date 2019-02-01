@@ -52,12 +52,17 @@ class CommonlySearched extends React.Component {
         }
         this.props.toggle((this.props.type || row.type), row)
     }
-    testInfo(test_id) {
+    testInfo(test_id,url) {
         let selected_test_ids = []
         this.props.data.map((row, i) => {
             selected_test_ids.push(row.id)
         })
-        this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search&isSeo=false')
+        if(url &&  url !=''){
+            this.props.history.push('/'+url+'?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search&isSeo=false')    
+        }else{
+            this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search&isSeo=false&searchById=true')
+        }
+        
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'common-search-result-page'
         }
@@ -75,7 +80,7 @@ class CommonlySearched extends React.Component {
                 return <li key={i}>
                     <p>{row.name} 
                     {row.show_details && this.props.selectedSearchType == 'lab'?
-                        <span style={{marginLeft:'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,row.id)}>
+                        <span style={{marginLeft:'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,row.id,row.url)}>
                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                         </span>
                     :''

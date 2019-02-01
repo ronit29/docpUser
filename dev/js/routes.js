@@ -124,6 +124,7 @@ const routes = [
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
     { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: true, redirectTo: "full-body-checkup-health-packages" },
+    { path: `/*-ltpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

@@ -49,6 +49,7 @@ class SearchTestView extends React.Component {
         var url_string = window.location.href
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids")
+        let searchById = url.searchParams.get("searchById")
         var selected_test_ids = url.searchParams.get("selected_test_ids")
         let last_page = url.searchParams.get("from")
         let search_id = url.searchParams.get("search_id")
@@ -59,6 +60,7 @@ class SearchTestView extends React.Component {
         let all_test_id = []
         let ferq_heading
         let url_test_ids = selected_test_ids.split(',')
+        let test_url
         {
             Object.entries(url_test_ids).map(function ([key, value]) {
                 all_test_id.push(parseInt(value))
@@ -66,7 +68,16 @@ class SearchTestView extends React.Component {
         }
         this.setState({ lastSource: last_page, search_id:search_id })
         if (test_id != null) {
-            this.props.searchTestData(test_id, lab_id, (resp) => {
+            if(searchById){
+                test_url = ''
+            }else{
+                test_url = this.props.match.url
+                test_id = ''
+                if (test_url) {
+                    test_url = test_url.split("/")[1]
+                }
+            }
+            this.props.searchTestData(test_id,test_url, lab_id, (resp) => {
                 {
                     Object.entries(resp).map(function ([key, value]) {
                         let testIds = allTest.map(x => x.id)
