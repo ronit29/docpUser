@@ -4,6 +4,7 @@ import ChatPanel from '../ChatPanel'
 import LocationElements from '../../../containers/commons/locationElements'
 import GTM from '../../../helpers/gtm.js'
 import LocationPopup from '../../../containers/commons/locationPopup'
+import LabProfileCard from '../../diagnosis/commons/labProfileCard/LabProfileCard.js'
 const queryString = require('query-string');
 
 
@@ -183,7 +184,23 @@ class SearchTestView extends React.Component {
     //     this.setState({ overlayVisible: false, searchCities: [] });
     // }
 
+    searchProceedLAB(lab_name = "") {
+        // handle doctor name, hospital name
+        this.props.mergeLABState({
+            filterCriteria: {
+                ...this.props.filterCriteria,
+                lab_name
+            },
+            page: 1
+        }, true)
+
+        this.props.history.push({
+            pathname: '/lab/searchresults',
+            state: { search_back: true }
+        })
+    }
     render() {
+        // console.log(this.props)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
@@ -192,6 +209,7 @@ class SearchTestView extends React.Component {
             locationName = this.props.seoData.location
         }
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
+            let {labs} = this.props.searchTestInfoData[0]
             let self = this
             return (
                 <div>
@@ -211,7 +229,7 @@ class SearchTestView extends React.Component {
                                                         <div className="test-info-continer-block">
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {
                                                                 return value.show_details ?
-                                                                    <div className="test-info-acrd-head-main" id={value.id}>
+                                                                    <div className="test-info-acrd-head-main" id={value.id} key={key}>
                                                                         <button className="test-top-main-haeding" onClick={self.ButtonHandler.bind(self, 'test_' + value.id)}>{value.name}<span className={self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                         <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                             {value.about_test.value != "" ?
@@ -238,7 +256,7 @@ class SearchTestView extends React.Component {
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_include_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                                         <ul>
                                                                                             {Object.entries(value.test_may_include.value).map(function ([k, test_include]) {
-                                                                                                return <li>{test_include}</li>
+                                                                                                return <li key={k}>{test_include}</li>
                                                                                             })}
                                                                                         </ul>
                                                                                     </div>
@@ -310,47 +328,13 @@ class SearchTestView extends React.Component {
                                                             <div className="popupContainer-overlay"></div>
                                                             : ''
                                                     }*/}
-                                                    <div className="filter-card-dl mb-3">
-                                                       <div className="fltr-crd-top-container">
-                                                          <div className="fltr-lctn-dtls">
-                                                            <p>
-                                                                <img className="fltr-loc-ico" src="https://cdn.docprime.com/cp/assets/img/customer-icons/map-marker-blue.svg" style={{width: '12px', height: '18px'}}/>
-                                                                    <span className="fltr-loc-txt">Sadar Bazaar New Delhi</span> | <span>2 Km</span>
-                                                            </p>
-                                                          </div>
-                                                          <div className="row no-gutters" style={{cursor: 'pointer'}}>
-                                                             <div className="col-12 mrt-10">
-                                                                <a>
-                                                                   <h2 className="lab-fltr-dc-name fw-500" style={{fontSize: '16px', paddingLeft: '8px', paddingRight: '110px'}}>Thyrocare Aarogyam 3 Package</h2>
-                                                                   <h3 className="lab-fltr-dc-name fw-500" style={{fontSize: '14px', paddingLeft: '8px',paddingRight: '110px', color: 'rgb(117, 117, 117)'}}>68 Tests Included </h3>
-                                                                </a>
-                                                                <span className="filtr-offer ofr-ribbon fw-700">25% OFF</span>
-                                                             </div>
-                                                             <div className="col-7 mrt-10">
-                                                                <div className="img-nd-dtls" style={{'alignItems': 'flex-start'}}>
-                                                                   <div className="fltr-crd-img text-center" style={{width: '60px'}}>
-                                                                      <div><img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg"/></div>
-                                                                   </div>
-                                                                </div>
-                                                             </div>
-                                                             <div className="col-5 mrt-10 text-right" style={{paddingLeft: '8px'}}>
-                                                                <p className="fltr-prices" style={{marginTop: '4px'}}>₹ 1500<span className="fltr-cut-price">₹ 2000</span></p>
-                                                                <div className="signup-off-container"><span className="signup-off-doc-green" style={{fontSize: '12px'}}>Includes coupon discount</span></div>
-                                                                <button className="fltr-bkng-btn" style={{width: '100%'}}>Book Now</button>
-                                                             </div>
-                                                          </div>
-                                                       </div>
-                                                       <div className="filtr-card-footer">
-                                                          <div>
-                                                             <img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/home.svg"/>
-                                                             <h3 className="mrb-0">Inclusive of home visit charges</h3>
-                                                          </div>
-                                                          <div className="text-right">
-                                                             <img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/clock-black.svg" />
-                                                             <p><span>Closed</span></p>
-                                                          </div>
-                                                       </div>
-                                                    </div>
+                                                    {
+                                                        Object.entries(labs.result).map(function ([k, lab]) {
+                                                            return <div key={k}>
+                                                            <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true}/>
+                                                            </div>
+                                                        })
+                                                    }
                                                     </div>:''}
                                                     {
                                                         this.state.allFrequentlyTest.length > 0 ?
@@ -359,7 +343,7 @@ class SearchTestView extends React.Component {
                                                                     <h5 className="test-duo-heding"> {this.state.frequently_heading}</h5>
                                                                     <ul className="test-duo-listing">
                                                                         {Object.entries(this.state.allFrequentlyTest).map(function ([k, frequently]) {
-                                                                            return <li><p>{frequently.lab_test}</p>
+                                                                            return <li key={k}><p>{frequently.lab_test}</p>
                                                                                 <button className={self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test,frequently.show_details)} disabled={self.state.disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
                                                                             </li>
                                                                         })}

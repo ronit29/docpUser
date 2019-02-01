@@ -20,7 +20,9 @@ class LabProfileCard extends React.Component {
 
     openLab(id, url, e) {
         let dedupe_ids = {}
-        this.props.clearExtraTests()
+        if(!this.props.noClearTest){
+            this.props.clearExtraTests()
+        }
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
