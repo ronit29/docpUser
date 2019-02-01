@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchPgData, fetchPaymentOptions } from '../../actions/index.js'
+import { fetchPgData } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PaymentView from '../../components/commons/payment/index.js'
@@ -46,9 +46,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchPgData: (id, cb) => dispatch(fetchPgData(id, cb)),
-        fetchPaymentOptions: (cb) => dispatch(fetchPaymentOptions(cb))
-
+        fetchPgData: (id, cb) => dispatch(fetchPgData(id, cb))
     }
 }
 
