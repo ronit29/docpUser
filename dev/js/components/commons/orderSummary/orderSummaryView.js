@@ -74,7 +74,9 @@ class OrderSummaryView extends React.Component {
                                                         </div>
                                                         <div className={item.booking_id ? "" : "cart-card-blur-opacity"}>
                                                             <div className="shopng-cart-price">
-                                                                <p><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" /> {item.deal_price} <span className="shopng-cart-price-cut"><img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />{item.mrp}</span>
+                                                                <p>
+                                                                    <img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />
+                                                                    {" " + item.effective_price}
                                                                 </p>
                                                             </div>
                                                             <div className="widget-header dr-qucik-info">
