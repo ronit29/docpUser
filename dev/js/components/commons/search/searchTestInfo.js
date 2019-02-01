@@ -293,48 +293,53 @@ class SearchTestView extends React.Component {
                                                             })}
                                                         </div>
                                                     </div>
-                                                    {this.state.isSeo?<div>
-                                                    <div className="filter-title" 
-                                                    style={{height:'auto',marginBottom:'10px'}}>
-                                            
-                                                        {/*this.props.packagesList?this.props.packagesList.count:''*/}  5 Results found for 
-                                                        <h1 className="search-result-heading">
-                                                        <span className="fw-700"> CBC</span>
-                                                        </h1>
-                                                        <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
+                                                    {this.state.isSeo
+                                                    ?<div>
+                                                        <div className="filter-title" 
+                                                        style={{height:'auto',marginBottom:'10px'}}>
+                                                
+                                                            {/*this.props.packagesList?this.props.packagesList.count:''*/}  5 Results found for 
+                                                            <h1 className="search-result-heading">
+                                                            <span className="fw-700"> CBC</span>
+                                                            </h1>
+                                                            <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 
-                                                            {
-                                                                this.state.showLocationPopup && false ? ''
-                                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
-                                                            }
-                                                            <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                                        </span>
-                                                    </div>
-                                                    {/*{
-                                                        this.state.showLocationPopup ?
-                                                            this.state.lab_card && this.state.showPopupContainer ?
-                                                                <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
-                                                                : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                                                            : ''
-                                                    }
+                                                                {
+                                                                    this.state.showLocationPopup && false ? ''
+                                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                                }
+                                                                <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                            </span>
+                                                        </div>
+                                                        {/*{
+                                                            this.state.showLocationPopup ?
+                                                                this.state.lab_card && this.state.showPopupContainer ?
+                                                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
+                                                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                                                                : ''
+                                                        }
 
-                                                    {
-                                                        this.state.showLocationPopup && this.state.overlayVisible && !this.state.lab_card ?
-                                                            <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
-                                                    }
+                                                        {
+                                                            this.state.showLocationPopup && this.state.overlayVisible && !this.state.lab_card ?
+                                                                <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
+                                                        }
 
-                                                    {
-                                                        this.state.showLocationPopup && this.state.lab_card && this.state.showPopupContainer ?
-                                                            <div className="popupContainer-overlay"></div>
-                                                            : ''
-                                                    }*/}
-                                                    {
-                                                        Object.entries(labs.result).map(function ([k, lab]) {
-                                                            return <div key={k}>
-                                                            <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true}/>
-                                                            </div>
-                                                        })
-                                                    }
+                                                        {
+                                                            this.state.showLocationPopup && this.state.lab_card && this.state.showPopupContainer ?
+                                                                <div className="popupContainer-overlay"></div>
+                                                                : ''
+                                                        }*/}
+                                                        {
+                                                            labs.result.length>0?
+                                                            Object.entries(labs.result).map(function ([k, lab]) {
+                                                                return <div key={k}>
+                                                                <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true}/>
+                                                                </div>
+                                                            }):''
+                                                        }
+                                                        <div>
+                                                        <button onClick={this.searchProceedLAB.bind(this)}> View all labs</button>
+                                                        </div>
                                                     </div>:''}
                                                     {
                                                         this.state.allFrequentlyTest.length > 0 ?
