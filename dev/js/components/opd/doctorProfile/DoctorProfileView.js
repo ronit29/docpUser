@@ -191,11 +191,14 @@ class DoctorProfileView extends React.Component {
                                                         <span>{data.title}</span>
                                                         : <a href={data.url} title='' onClick={(e) => {
                                                             e.preventDefault();
-                                                            this.props.history.push((key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1)?data.url:`/${data.url}`)
-                                                        }}>{
+                                                            this.props.history.push((key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1) ? data.url : `/${data.url}`)
+                                                        }}>
+                                                            {
                                                                 key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1
                                                                     ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
-                                                                    : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
+                                                                    : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>
+                                                            }
+                                                        </a>
                                                 }
                                                 {
                                                     key != this.props.DOCTORS[doctor_id].breadcrumb.length - 1 ?
@@ -346,7 +349,7 @@ class DoctorProfileView extends React.Component {
                             }
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" type="opd" />
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} />
                     </div>
                 </section>
 
