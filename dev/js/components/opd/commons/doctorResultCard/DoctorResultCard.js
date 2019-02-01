@@ -99,7 +99,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema, enabled_for_online_booking, discounted_price } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema, enabled_for_online_booking, discounted_price, parent_url } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -167,14 +167,31 @@ class DoctorProfileCard extends React.Component {
                         {
                             this.props.seoFriendly ?
                                 <div className="fltr-lctn-dtls" style={{ paddingLeft: 45 }}>
-                                    <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                    <p>
+                                        <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
                                         <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
                                     </p>
                                 </div>
                                 : <div className="fltr-lctn-dtls">
-                                    <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                        <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
-                                    </p>
+                                    {
+                                        parent_url && parent_url.length ?
+                                            <a href={parent_url} onClick={
+                                                (e) => {
+                                                    e.preventDefault()
+                                                    this.props.history.push(`/${parent_url}`)
+                                                }
+                                            }>
+                                                <p>
+                                                    <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                    <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                                </p>
+                                            </a>
+                                            :
+                                            <p>
+                                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                            </p>
+                                    }
                                 </div>
                         }
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
@@ -322,7 +339,6 @@ class DoctorProfileCard extends React.Component {
                                         <span> &amp; {hospital_count - 1} More </span> : ''
                                 }
                             </h3>
-
                         </div>
                         <div className="text-right">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />
