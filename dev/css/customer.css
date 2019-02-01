@@ -1754,7 +1754,7 @@ p.rt-doc-nm{
 
 .hpa-flex{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex: 1;
 }
 
