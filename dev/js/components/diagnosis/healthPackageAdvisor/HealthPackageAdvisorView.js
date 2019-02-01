@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileHeader from '../../commons/DesktopProfileHeader/DesktopProfileHeader'
+import ProfileHeader from '../../commons/DesktopProfileHeader'
 import LocationElements from '../../../containers/commons/locationElements'
 import InfoPopup from './healthPackageInfoPopup.js'
 
@@ -184,7 +184,7 @@ class HealthPackageAdvisorView extends React.Component {
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
                 <div className="d-none d-md-block">
-                    <ProfileHeader {...this.props} />
+                    <ProfileHeader/>
                 </div>
                 <section className="container parent-section book-appointment-section mp0">
                     <div className="row main-row parent-section-row">
