@@ -191,14 +191,27 @@ class SearchTestView extends React.Component {
                 ...this.props.filterCriteria,
                 lab_name
             },
-            page: 1
+            nextFilterCriteria: {
+                ...this.props.filterCriteria,
+                lab_name
+            },
+            currentSearchedCriterias:this.props.selectedCriterias,
+            nextSelectedCriterias:this.props.selectedCriterias
         }, true)
+
+        // let selectedTestIds = this.props.selectedCriterias.map(test => test.id)
+        // let selectedTestsName = this.props.selectedCriterias.map(test => test.name)
+        // let data = {
+        //     'Category': 'ConsumerApp', 'Action': 'ShowLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-lab-clicked', 'SelectedTestIds': selectedTestIds.join(',') || '', 'SelectedTestName': selectedTestsName.join(','), 'TestCount': selectedTestIds.length || 0
+        // }
+        // GTM.sendEvent({ data: data })
 
         this.props.history.push({
             pathname: '/lab/searchresults',
             state: { search_back: true }
         })
     }
+
     render() {
         // console.log(this.props)
         let locationName = ""
@@ -338,7 +351,7 @@ class SearchTestView extends React.Component {
                                                             }):''
                                                         }
                                                         <div>
-                                                        <button onClick={this.searchProceedLAB.bind(this)}> View all labs</button>
+                                                        <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this)}> View all labs</a>
                                                         </div>
                                                     </div>:''}
                                                     {
