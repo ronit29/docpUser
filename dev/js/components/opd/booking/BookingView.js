@@ -10,6 +10,7 @@ import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 
+
 const STATUS_MAP = {
     CREATED: 1,
     BOOKED: 2,
