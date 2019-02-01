@@ -48,7 +48,7 @@ class DoctorProfileCard extends React.Component {
     }
 
     render() {
-        let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified } = this.props.details
+        let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified, rating_graph } = this.props.details
         let expStr = ""
 
         // let qualificationStr = ''
@@ -82,6 +82,13 @@ class DoctorProfileCard extends React.Component {
                         <img src={thumbnail} className="img-fluid img-round" alt={display_name} title={display_name} />
                     </InitialsPicture>
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
+                    {
+                        rating_graph && rating_graph.avg_rating ?
+                            <div className="d-flex justify-content-center" style={{ marginTop: 5, alignItems: 'baseline' }} >
+                                <span className="text-primary fw-500" style={{ fontSize: 12, marginRight: 4 }} >{parseFloat(rating_graph.avg_rating).toFixed(1)}</span>
+                                <img src={ASSETS_BASE_URL + '/img/customer-icons/star.svg'} style={{ width: 10, height: 'auto' }} />
+                            </div> : ''
+                    }
                 </div>
 
                 <div className="dr-profile">

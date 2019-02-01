@@ -4865,14 +4865,15 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #3b5998;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
 	position: absolute;
-    top: 5px;
-    left: 40px;
+    top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
     font-weight: 500;
     color: white;
 }
@@ -4880,16 +4881,16 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #00aced;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .emailIcon-styling{
     flex: 1;
     position: relative;
     background: #7f7f7f;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .typ-close{

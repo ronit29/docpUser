@@ -227,7 +227,7 @@
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
 .booking-confirm-screen .lab-visit-time>p{margin-bottom: 10px; margin-top: 5px; word-wrap: break-word;padding-left: 22px;}
 
-.payment-method>li{padding: 10px; vertical-align: middle; height: 60px;}
+.payment-method>li{padding: 10px; vertical-align: middle; height: 60px;position: relative;}
 .payment-method>li>label{font-size: 14px; font-weight: bold; vertical-align: middle}
 .payment-method>li>label img{width: 40px; margin-right: 20px; vertical-align: middle;}
 .payment-method .radio-inline{width: 20px; height: 20px; margin-top: 6px;}
@@ -1688,6 +1688,8 @@ p.rt-doc-nm{
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border-top: 1px solid #d3d3d3;
+    padding: 10px 0 0;
 }
 
 .invoice-div>img{
@@ -1696,7 +1698,7 @@ p.rt-doc-nm{
 }
 
 .invoice-div p{
-    font-size: 11px;
+    font-size: 12px;
     text-align: left;
 }
 
@@ -1714,6 +1716,8 @@ p.rt-doc-nm{
 
 .multiple-invoice .invoice-div{
     width: 50%;
+    border-top: none;
+    padding: 0;
 }
 
 .multiple-invoice .invoice-div>img{
