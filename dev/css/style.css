@@ -5282,6 +5282,9 @@ font-size: 13px;
     width: 40px;
     margin-top: 15px !important;
 }
+.head-links img.cart-icon-mbl{
+	margin-right: 8px !important;
+}
 /* ================= shopping cart style ================= */
 .imptnt-cls{
 	padding-left:66px!important
