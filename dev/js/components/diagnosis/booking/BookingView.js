@@ -73,16 +73,16 @@ class BookingView extends React.Component {
                     info[appointmentId] = {}
                     let mrp = 0
                     let deal_price = 0
-                    if(data.length && data[0].lab_test){
+                    if (data.length && data[0].lab_test) {
                         data[0].lab_test.map((test) => {
-                            mrp+= parseInt(test.mrp)
-                            deal_price+= parseInt(test.deal_price)
+                            mrp += parseInt(test.mrp)
+                            deal_price += parseInt(test.deal_price)
                         })
                     }
                     info[appointmentId].mrp = mrp
                     info[appointmentId].deal_price = deal_price
                     info = JSON.stringify(info)
-                    STORAGE.setAppointmentDetails(info).then((setCookie)=> {
+                    STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
                         if (this.state.payment_success) {
 
@@ -190,6 +190,73 @@ class BookingView extends React.Component {
                 {summar_utm_tag}
                 <ProfileHeader />
                 <section className="container container-top-margin">
+                    <div className="cancelPopupContainerOverlay">
+                        {/* <div className="cancelPopupContainer">
+                            <div className="cancel-Heading">
+                                <h4>Cancel Appointment</h4>
+                                <button className="cn-btn-head"><img style={{width: 10}} src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" /></button>
+                            </div>
+                            <div className="cnct-select-cont">
+                                <ul>
+                                    <li>
+                                        <button>Cancel and Rebook</button>
+                                    </li>
+                                    <li>
+                                        <button>Cancel and Refund</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> */}
+                        <div className="cancelPopupContainer">
+                            <div className="cancel-Heading">
+                                <h4>Cancel Appointment</h4>
+                                <button className="cn-btn-head"><img style={{ width: 10 }} src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" /></button>
+                            </div>
+                            <div className="cancel-wid-radio">
+                                <div className="dtl-radio">
+                                    <label className="container-radio">
+                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >aorem ipsum dolor sit amet, consectetur  adipiscing elit.</h3>
+                                        <input type="radio" name="radio" />
+                                        <span className="doc-checkmark"></span>
+                                    </label>
+                                </div>
+                                <div className="dtl-radio">
+                                    <label className="container-radio">
+                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >test orem ipsum dolor sit amet, consectetur  adipiscing elit.</h3>
+                                        <input type="radio" name="radio" />
+                                        <span className="doc-checkmark"></span>
+                                    </label>
+                                </div>
+                                <div className="dtl-radio">
+                                    <label className="container-radio">
+                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} > ipsum dolor sit amet, consectetur  adipiscing elit.</h3>
+                                        <input type="radio" name="radio" />
+                                        <span className="doc-checkmark"></span>
+                                    </label>
+                                </div>
+                                <div className="dtl-radio">
+                                    <label className="container-radio">
+                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >Lor sit amet, consectetur  adipiscing elit.</h3>
+                                        <input type="radio" name="radio" />
+                                        <span className="doc-checkmark"></span>
+                                    </label>
+                                </div>
+                                <div className="dtl-radio">
+                                    <label className="container-radio">
+                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >other</h3>
+                                        <input type="radio" name="radio" />
+                                        <span className="doc-checkmark"></span>
+                                    </label>
+                                </div> 
+                            </div>
+                            <div className="cancelationReson">
+                                    <textarea placeholder="Write reason for cancellation"></textarea>
+                                </div>
+                            <div className="cancelationBtn">
+                                <button>Submit</button>
+                            </div>
+                        </div>
+                    </div>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
