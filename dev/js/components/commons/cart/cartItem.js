@@ -172,9 +172,13 @@ class CartItem extends React.Component {
 
                                 {
                                     profile ? <li>
-                                        <p>
-                                            <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name} | {is_home_pickup ? "Home pickup" : ""}
-                                        </p>
+                                        {
+                                            doctor ? <p>
+                                                <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name}
+                                            </p> : <p>
+                                                    <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name} {is_home_pickup ? " | Home pickup" : " | Center visit"}
+                                                </p>
+                                        }
                                     </li> : ""
                                 }
 
