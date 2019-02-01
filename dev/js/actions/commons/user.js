@@ -569,3 +569,12 @@ export const processCartItems = (use_wallet = true) => (dispatch) => {
 export const fetchOrderSummary = (order_id) => (dispatch) => {
 	return API_GET(`/api/v1/user/order/summary/${order_id}`)
 }
+
+export const postComment = (postData, cb) => (dispatch) => {
+
+	API_POST("/api/v1/article/comment/post", postData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}

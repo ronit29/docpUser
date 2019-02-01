@@ -191,7 +191,7 @@ class DoctorProfileView extends React.Component {
                                                         <span>{data.title}</span>
                                                         : <a href={data.url} title='' onClick={(e) => {
                                                             e.preventDefault();
-                                                            this.props.history.push(data.url)
+                                                            this.props.history.push((key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1) ? data.url : `/${data.url}`)
                                                         }}>{
                                                                 key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1
                                                                     ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
@@ -297,9 +297,10 @@ class DoctorProfileView extends React.Component {
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     }
-                                                    <div className="dpp-btn-book" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
+                                                    <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
-                                                        <p>Book Now</p>
+                                                        <p style={{ flex: 2 }}><span className="booknow-span">Book Now</span></p>
+                                                        <p className="cp-auto">*Coupon auto applied on checkout</p>
                                                     </div>
                                                 </div>
                                                 :

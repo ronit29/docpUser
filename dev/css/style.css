@@ -1898,20 +1898,40 @@ width: 55%;
 	width: 158px;
     text-align: right;
 }
+
 .signup-off-doc{
     border-radius: 5px;
     border: 1px dashed;
     display: block;
     padding: 0 5px;
     font-size: 14px;
-	text-align: center;
-	color: #f07939;
+    text-align: center;
+    color: #f07939;
     font-weight: 500;
 }
+
 .signup-off-doc b{
 	color: #757575;
     font-weight: 500;
 }
+
+.signup-off-doc-green{
+    display: block;
+    padding: 0 5px;
+    font-weight: 500;
+    background: #d7fbe7;
+    border: 1px dashed #2f6704;
+    border-radius: 4px;
+    margin-top: 5px;
+	color: #2f6704;
+	text-align: center;
+}
+
+.signup-off-doc-green b{
+	color: #757575;
+    font-weight: 500;
+}
+
 .ratng-doc-price{
     color: #f78631;
 }
@@ -5096,6 +5116,114 @@ font-size: 13px;
 .d-inline-blck{
 	display: inline-block;
 }
+/* ============================ comment section  ============================  */
+.comments-main-heading{
+
+}
+.comments-section-form{
+	margin: 10px 0px;
+}
+.usr-comments-para{
+	color: black;
+    font-weight: 500;
+    padding: 10px 0;
+}
+.comments-rply{
+	cursor: pointer;
+	font-weight: 500;
+color: 	#fe7108;
+}
+.commnets-sbmt-btn{
+	text-align: center;
+}
+.cmnts-btn{
+	background: #fe7108;
+    padding: 8px 30px;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+}
+.sub-comments-section{
+	padding-left: 15px;
+    border-top: 1px solid #f3f0f0;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+.reply-comments-container{
+    margin: 15px 0px;
+}
+.comments-post-input{
+	display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.comments-post-input input{
+    padding: 10px 15px;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    outline: 0;
+    line-height: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    border: 1px solid #d3d3d3;
+    background: white;
+}
+	.comments-post-input .comments-post-btns{
+		background: #fe7108;
+		color: white;
+		font-weight: 500;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		padding: 0 20px;
+		cursor: pointer;
+		border: 1px solid #fe7108;
+	}
+/*.cursor-pointer-v{
+	cursor: pointer;
+	color: #fe7108;
+}*/
+.img-rply{
+    width: 18px;
+    vertical-align: middle;
+    padding: 4px;
+}
+.rply-spn{
+	font-style: italic;
+    font-size: 11px;
+    vertical-align: middle;
+    font-weight: 400;
+    color: #767676;
+    position: relative;
+    top: -1px;
+}
+
+.rply-sndr{
+	font-size: 12px;
+    vertical-align: middle;
+    color: #767676;
+    font-weight: 400;
+}
+.cmnt-static{
+	font-size: 16px;
+	font-weight: 700;
+}
+.cmnt-static img{
+	width: 34px;
+	padding: 0 10px 0 0;
+	margin-bottom: 15px;
+}
+.cmnt-rply-txt{
+	display: inline-block;
+    cursor: initial;
+}
+/* ============================ comment section  ============================  */
 
 /* ================= shopping cart style ================= */
 .buttons-addcart-container{
@@ -5288,4 +5416,36 @@ font-size: 13px;
 /* ================= shopping cart style ================= */
 .imptnt-cls{
 	padding-left:66px!important
+}
+
+.dpp-btn-book-custom {
+	flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: #f78631;
+    cursor: pointer;
+}
+
+.booknow-span{
+	margin-top: 10px !important;
+    display: inline-block;
+}
+
+.cp-auto{
+	display: block;
+    flex: 1;
+    font-size: 12px !important; 
+}
+
+.coupon-auto-applied-lab{
+	font-size: 11px;
+    bottom: 2px;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.searchMargin{
+	margin-bottom: 80px !important;
 }
