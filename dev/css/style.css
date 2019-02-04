@@ -5307,6 +5307,7 @@ color: 	#fe7108;
     border: transparent;
     padding: 10px 5px;
     font-weight: 500;
+    background: white;
 }
 .cnct-select-cont li:last-child{
 	border-bottom: none;
@@ -5325,6 +5326,7 @@ color: 	#fe7108;
 }
 .cancel-wid-radio .dtl-radio .container-radio{
 	padding: 5px 0px 5px 29px;
+	margin-bottom: 0px;
 }
 .cancelationReson textarea{
     width: 100%;

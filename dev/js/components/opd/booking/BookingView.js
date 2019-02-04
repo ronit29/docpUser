@@ -78,10 +78,10 @@ class BookingView extends React.Component {
         }, "")
     }
 
-    cancelAppointment(type) {
+    cancelAppointment(cancelData) {
         this.setState({ loading: true, showCancel: false })
         let data;
-        if (type) {
+        if (cancelData.cancelStatus) {
 
             data = {
                 'Category': 'ConsumerApp', 'Action': 'CancelOpdAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-opd-appointment-Refund', 'appointmentId': this.state.data.id
@@ -95,7 +95,7 @@ class BookingView extends React.Component {
 
         GTM.sendEvent({ data: data })
 
-        let appointmentData = { id: this.state.data.id, status: 6, refund: type }
+        let appointmentData = { id: this.state.data.id, status: 6, refund: cancelData.cancelStatus, cancel_reason: cancelData.cancelText, cancel_id: cancelData.cancelId }
 
         this.props.updateOPDAppointment(appointmentData, (err, data) => {
             if (data) {
@@ -352,7 +352,7 @@ class BookingView extends React.Component {
                             }
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments = {this.state.data && this.state.data.cancellation_reason?this.state.data.cancellation_reason:[]} /> : ""
                             }
 
                         </div>

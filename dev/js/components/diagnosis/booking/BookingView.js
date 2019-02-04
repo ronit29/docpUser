@@ -105,10 +105,10 @@ class BookingView extends React.Component {
         }
     }
 
-    cancelAppointment(type) {
+    cancelAppointment(cancelData) {
         this.setState({ loading: true, showCancel: false })
         let data;
-        if (type) {
+        if (cancelData.cancelStatus) {
 
             data = {
                 'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Refund', 'appointmentId': this.state.data.id
@@ -123,7 +123,7 @@ class BookingView extends React.Component {
         GTM.sendEvent({ data: data })
 
 
-        let appointmentData = { id: this.state.data.id, status: 6, refund: type }
+        let appointmentData = { id: this.state.data.id, status: 6, refund: cancelData.cancelStatus, cancel_reason: cancelData.cancelText, cancel_id: cancelData.cancelId }
 
         this.props.updateLabAppointment(appointmentData, (err, data) => {
             if (data) {
@@ -190,73 +190,6 @@ class BookingView extends React.Component {
                 {summar_utm_tag}
                 <ProfileHeader />
                 <section className="container container-top-margin">
-                    <div className="cancelPopupContainerOverlay">
-                        {/* <div className="cancelPopupContainer">
-                            <div className="cancel-Heading">
-                                <h4>Cancel Appointment</h4>
-                                <button className="cn-btn-head"><img style={{width: 10}} src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" /></button>
-                            </div>
-                            <div className="cnct-select-cont">
-                                <ul>
-                                    <li>
-                                        <button>Cancel and Rebook</button>
-                                    </li>
-                                    <li>
-                                        <button>Cancel and Refund</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> */}
-                        <div className="cancelPopupContainer">
-                            <div className="cancel-Heading">
-                                <h4>Cancel Appointment</h4>
-                                <button className="cn-btn-head"><img style={{ width: 10 }} src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" /></button>
-                            </div>
-                            <div className="cancel-wid-radio">
-                                <div className="dtl-radio">
-                                    <label className="container-radio">
-                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >aorem ipsum dolor sit amet, consectetur  adipiscing elit.</h3>
-                                        <input type="radio" name="radio" />
-                                        <span className="doc-checkmark"></span>
-                                    </label>
-                                </div>
-                                <div className="dtl-radio">
-                                    <label className="container-radio">
-                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >test orem ipsum dolor sit amet, consectetur  adipiscing elit.</h3>
-                                        <input type="radio" name="radio" />
-                                        <span className="doc-checkmark"></span>
-                                    </label>
-                                </div>
-                                <div className="dtl-radio">
-                                    <label className="container-radio">
-                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} > ipsum dolor sit amet, consectetur  adipiscing elit.</h3>
-                                        <input type="radio" name="radio" />
-                                        <span className="doc-checkmark"></span>
-                                    </label>
-                                </div>
-                                <div className="dtl-radio">
-                                    <label className="container-radio">
-                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >Lor sit amet, consectetur  adipiscing elit.</h3>
-                                        <input type="radio" name="radio" />
-                                        <span className="doc-checkmark"></span>
-                                    </label>
-                                </div>
-                                <div className="dtl-radio">
-                                    <label className="container-radio">
-                                        <h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >other</h3>
-                                        <input type="radio" name="radio" />
-                                        <span className="doc-checkmark"></span>
-                                    </label>
-                                </div> 
-                            </div>
-                            <div className="cancelationReson">
-                                    <textarea placeholder="Write reason for cancellation"></textarea>
-                                </div>
-                            <div className="cancelationBtn">
-                                <button>Submit</button>
-                            </div>
-                        </div>
-                    </div>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -470,7 +403,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments = {this.state.data && this.state.data.cancellation_reason?this.state.data.cancellation_reason:[]} /> : ""
                             }
 
                         </div>
