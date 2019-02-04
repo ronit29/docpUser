@@ -21,8 +21,16 @@ class CancelPopUp extends React.Component{
                 }, 200)
             return
         }else{
+
+            let otherReason = this.props.comments.filter(x=>x.id == this.state.selectedCancelReasonId)
+            if(otherReason.length && otherReason[0].is_comment_needed){
+                otherReason = this.state.cancelText
+            }else{
+                otherReason = ''
+            }
+
             let cancelData = {
-                cancelText: this.state.selectedCancelReasonId==4?this.state.cancelText:'',
+                cancelText: otherReason,
                 cancelId: this.state.selectedCancelReasonId,
                 cancelStatus: this.state.cancelStatus
             }
@@ -37,6 +45,13 @@ class CancelPopUp extends React.Component{
     }
 
     render(){
+        let otherType = this.props.comments.filter(x=>x.id == this.state.selectedCancelReasonId)
+        if(otherType.length && otherType[0].is_comment_needed){
+            otherType = true
+        }else{
+            otherType = false
+        }
+
 
         return(
             <div>
@@ -63,7 +78,7 @@ class CancelPopUp extends React.Component{
                                 } 
                             </div>
                             {
-                                this.state.selectedCancelReasonId == 4?
+                                otherType?
                                 <div className="cancelationReson">
                                     <textarea placeholder="Write reason for cancellation" onChange ={this.handleInputHandler.bind(this)} onClick={(e)=>{e.stopPropagation()}} value={this.state.cancelText}></textarea>
                                 </div>
