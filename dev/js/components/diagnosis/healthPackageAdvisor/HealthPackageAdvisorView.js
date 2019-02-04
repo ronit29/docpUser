@@ -22,14 +22,14 @@ class HealthPackageAdvisorView extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ ...this.props.filterCriteriaPackages },() =>{
-            this.setState({selectedTestIds:this.props.filterCriteriaPackages.test_ids !== ''?this.props.filterCriteriaPackages.test_ids:[]})
-            if(this.state.max_age == 20){
-                this.setState({age:1})
-            }else if(this.state.min_age == 20){
-                this.setState({age:2})
-            }else if(this.state.max_age == 20){
-                this.setState({age:3})
+        this.setState({ ...this.props.filterCriteriaPackages }, () => {
+            this.setState({ selectedTestIds: this.props.filterCriteriaPackages.test_ids !== '' ? this.props.filterCriteriaPackages.test_ids : [] })
+            if (this.state.max_age == 20) {
+                this.setState({ age: 1 })
+            } else if (this.state.min_age == 20) {
+                this.setState({ age: 2 })
+            } else if (this.state.max_age == 20) {
+                this.setState({ age: 3 })
             }
         })
         if (window) {
@@ -63,20 +63,20 @@ class HealthPackageAdvisorView extends React.Component {
         let ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) == parseInt(cat_id))
         let selected_catIds = [].concat(this.state.selectCatIDs)
         if (ids.length) {
-            if(ids[0].isSubset != isSubset){
+            if (ids[0].isSubset != isSubset) {
                 selected_catIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
-                selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest:[] })
-            }else{
-                if(ids[0].cat_id == cat_id){
+                selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest: [] })
+            } else {
+                if (ids[0].cat_id == cat_id) {
                     selected_catIds = selected_catIds.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
                 }
             }
         } else {
-            selected_catIds.push({ cat_id: cat_id, isSubset: isSubset,subSetTest:[] })
+            selected_catIds.push({ cat_id: cat_id, isSubset: isSubset, subSetTest: [] })
         }
         this.setState({ selectCatIDs: selected_catIds })
     }
-    selectTest(test_id,package_id) {
+    selectTest(test_id, package_id) {
         let test_ids = [].concat(this.state.selectedTestIds)
         let self = this
         let found = false
@@ -93,19 +93,19 @@ class HealthPackageAdvisorView extends React.Component {
         let package_ids = []
         let selectedIds = []
         let finalIds = []
-        if(this.state.selectCatIDs.length>0){
+        if (this.state.selectCatIDs.length > 0) {
             selectedIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) == parseInt(package_id))
             package_ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(package_id))
-        if(selectedIds.length > 0){
-            Object.entries(selectedIds).map(function ([key, value]) {
-                if (value.isSubset) {
-                    value.subSetTest.push(test_id)
-                }
-            })
+            if (selectedIds.length > 0) {
+                Object.entries(selectedIds).map(function ([key, value]) {
+                    if (value.isSubset) {
+                        value.subSetTest.push(test_id)
+                    }
+                })
+            }
+            finalIds = [...package_ids, ...selectedIds]
         }
-        finalIds = [...package_ids, ...selectedIds]
-        }
-        self.setState({ selectedTestIds: test_ids, selectCatIDs:finalIds })
+        self.setState({ selectedTestIds: test_ids, selectCatIDs: finalIds })
     }
     selectAge(event) {
         var event = document.getElementById("selectage")
@@ -130,13 +130,13 @@ class HealthPackageAdvisorView extends React.Component {
             Object.entries(this.state.selectCatIDs).map(function ([key, value]) {
                 if (!value.isSubset) {
                     cat_ids.push(value.cat_id)
-                }else{
-                    if(value.subSetTest.length >0){
+                } else {
+                    if (value.subSetTest.length > 0) {
                         Object.entries(value.subSetTest).map(function ([k, val]) {
-                            test_ids.push(val)    
-                        }) 
+                            test_ids.push(val)
+                        })
                     }
-                    
+
                 }
             })
         }
@@ -184,18 +184,16 @@ class HealthPackageAdvisorView extends React.Component {
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
                 <div className="d-none d-md-block">
-                    <ProfileHeader/>
+                    <ProfileHeader />
                 </div>
                 <section className="container parent-section book-appointment-section mp0">
                     <div className="row main-row parent-section-row">
                         <div className="col-12 col-md-7 col-lg-7 pt-0">
-                            <div className="sticky-header fixed top hpa-header">
-                                <div className="d-flex">
+                            <div className="widget mb-10 mrng-top-20">
+                                <div className="d-flex advisorContainer">
                                     <img src={ASSETS_BASE_URL + '/img/icons/back-arrow.png'} onClick={this.goBack.bind(this)} />
                                     <h1 className="fw-500">Health Package Advisor</h1>
                                 </div>
-                            </div>
-                            <div className="widget mb-10 mrt-10 hpa-widget">
                                 <div className="search-top-container">
                                     <div className="serch-nw-inputs">
                                         <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
@@ -234,21 +232,21 @@ class HealthPackageAdvisorView extends React.Component {
                                                 <div className="hpa-flex">
                                                     <div className="hpa-flex">
                                                         <label className="fw-500">Package Type :</label>
-                                                        <div className="d-flex" style={{flexWrap: 'wrap'}}>
-                                                            {this.props.recommended_package.filters.length>0?
+                                                        <div className="d-flex" style={{ flexWrap: 'wrap' }}>
+                                                            {this.props.recommended_package.filters.length > 0 ?
                                                                 Object.entries(this.props.recommended_package.filters).map(function ([key, filter]) {
-                                                                    return <div className="dtl-radio d-flex align-items-center" key={key}>
-                                                                    <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
-                                                                        <input type="radio" name= {`radio2_${filter.id}`} checked={self.state.packageType == filter.id ? true : false} style={{ left: 0 }} />
-                                                                        <span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
-                                                                    </label>
-                                                                    {
-                                                                        filter.information !='' ? <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={self.showInfo.bind(self, filter.id)} /> : ''
-                                                                    }
+                                                                    return <div className="dtl-radio d-flex align-items-center dtl-margin-lg" key={key}>
+                                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
+                                                                            <input type="radio" name={`radio2_${filter.id}`} checked={self.state.packageType == filter.id ? true : false} style={{ left: 0 }} />
+                                                                            <span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+                                                                        </label>
+                                                                        {
+                                                                            filter.information != '' ? <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={self.showInfo.bind(self, filter.id)} /> : ''
+                                                                        }
                                                                     </div>
                                                                 })
 
-                                                                :''}
+                                                                : ''}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -291,13 +289,13 @@ class HealthPackageAdvisorView extends React.Component {
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>*/}
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
-                                                         <span className="checkmark hpa-checkmark"></span>
+                                                        <span className="checkmark hpa-checkmark"></span>
                                                     </label>
-                                                    <label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test 
+                                                    <label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>*/}
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
-                                                         <span className="checkmark hpa-checkmark"></span>
+                                                        <span className="checkmark hpa-checkmark"></span>
                                                     </label>
                                                 </div>
                                                 <div>
@@ -308,7 +306,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                                     <div style={{ display: 'block', position: 'relative' }}>
                                                                         {
                                                                             self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ?
-                                                                                <label className="ck-bx fw-400" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id,rPackages.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
+                                                                                <label className="ck-bx fw-400" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id, rPackages.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
                                                                                     <input type="checkbox" value="on" checked={self.state.selectedTestIds.indexOf(test.id) > -1 ? true : false} />
                                                                                     <span className="checkmark hpa-checkmark"></span>
                                                                                 </label>
@@ -362,7 +360,7 @@ class HealthPackageAdvisorView extends React.Component {
                 </section>
                 {
                     this.state.showInfo ?
-                        <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText} package_information={this.props.recommended_package.filters.length>0?this.props.recommended_package.filters:''} /> : ''
+                        <InfoPopup closeInfo={this.closeInfo.bind(this)} infoTextId={this.state.showInfoText} package_information={this.props.recommended_package.filters.length > 0 ? this.props.recommended_package.filters : ''} /> : ''
                 }
             </div>
         )

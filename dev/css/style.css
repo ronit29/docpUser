@@ -1088,6 +1088,9 @@ p.top-head-link.card-lab-link span {
 		top: -38px;
 		margin-bottom: -38px;
 	}
+	.dtl-margin-lg{
+		margin-right: 10px !important;
+	}
 }
 
 @media (max-height: 355px) {
@@ -5299,4 +5302,20 @@ color: 	#fe7108;
 }
 .searchMargin{
 	margin-bottom: 80px !important;
+}
+.advisorContainer{
+    padding-top: 12px;
+    padding-left: 12px;
+}
+.advisorContainer img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.advisorContainer h1{
+    font-size: 15px;
+}
+
+.dtl-margin-lg{
+	margin-right: 20px;
 }
