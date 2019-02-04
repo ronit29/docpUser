@@ -1088,6 +1088,9 @@ p.top-head-link.card-lab-link span {
 		top: -38px;
 		margin-bottom: -38px;
 	}
+	.dtl-margin-lg{
+		margin-right: 10px !important;
+	}
 }
 
 @media (max-height: 355px) {
@@ -4846,6 +4849,7 @@ font-weight: 700;
     font-weight: 500;
     color: #757575;
     border-right: 1px solid rgba(0, 0, 0, .2);
+    position: relative;
 }
 .top-filter-tabs-select:last-child{
 	border-right: 1px solid transparent;
@@ -4864,14 +4868,15 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #3b5998;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
 	position: absolute;
-    top: 5px;
-    left: 40px;
+    top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
     font-weight: 500;
     color: white;
 }
@@ -4879,16 +4884,16 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #00aced;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .emailIcon-styling{
     flex: 1;
     position: relative;
     background: #7f7f7f;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .typ-close{
@@ -5115,6 +5120,44 @@ font-size: 13px;
 
 .d-inline-blck{
 	display: inline-block;
+}
+li.drop-list-styling {
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+	font-size: 15px;
+	cursor: pointer;
+}
+li.drop-list-styling.drop-icon-selecter img.drop-icon-selecter-selected{
+	visibility: visible;
+}
+img.drop-icon-selecter-selected {
+	margin-right: 10px;
+	visibility: hidden;
+}
+
+.catg-count{
+    position: absolute;
+    background: #f78631;
+    height: 20px;
+    width: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    top: -2px;
+    right: 11px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.applied-filter-noti-new{
+	align-self: flex-start;
+    height: 10px;
+    width: 10px;
+    background-color: orange;
+	border-radius: 50%;
 }
 /* ============================ comment section  ============================  */
 .comments-main-heading{
@@ -5349,3 +5392,19 @@ color: 	#fe7108;
     padding: 10px 30px;
 }
 /* ================ cancel popup ================ */
+.advisorContainer{
+    padding-top: 12px;
+    padding-left: 12px;
+}
+.advisorContainer img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.advisorContainer h1{
+    font-size: 15px;
+}
+
+.dtl-margin-lg{
+	margin-right: 20px;
+}

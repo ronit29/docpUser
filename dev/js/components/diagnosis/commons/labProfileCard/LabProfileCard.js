@@ -85,7 +85,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { discounted_price, price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -95,7 +95,13 @@ class LabProfileCard extends React.Component {
         }
 
         if (is_home_collection_enabled && !distance_related_charges) {
-            pickup_text = "Inclusive of home visit charges"
+            if (home_pickup_charges == 0) {
+                pickup_text = "Free home visit"
+            }
+            else {
+                pickup_text = "Inclusive of home visit charges"
+            }
+            price = price + pickup_charges
             discounted_price = discounted_price + pickup_charges
         }
 

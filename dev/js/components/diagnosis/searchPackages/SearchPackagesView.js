@@ -88,22 +88,34 @@ class SearchPackagesView extends React.Component {
     }
 
     applyFilters(filterState) {
-        this.props.mergeLABState({ filterCriteria: filterState })
+        // this.props.mergeLABState({ filterCriteria: filterState })
+        this.props.mergeLABState({ filterCriteriaPackages: filterState })
         if (window) {
             window.scrollTo(0, 0)
         }
     }
-    applyCategories(categoryState) {
+    applyCategories(categoryState,filterstate) {
         let newCategoryState = {}
         newCategoryState['catIds'] = categoryState
-        this.props.mergeLABState({ filterCriteria: newCategoryState })
+        newCategoryState['distanceRange']=filterstate.distanceRange
+        newCategoryState['priceRange']=filterstate.priceRange
+        newCategoryState['sort_on']=filterstate.sort_on
+        newCategoryState['max_age'] = filterstate.max_age
+        newCategoryState['max_price'] = filterstate.max_price
+        newCategoryState['min_age'] = filterstate.min_age
+        newCategoryState['gender'] = filterstate.gender
+        newCategoryState['packageType'] = filterstate.packageType
+        newCategoryState['test_ids'] = filterstate.test_ids
+
+        // this.props.mergeLABState({ filterCriteria: newCategoryState })
+        this.props.mergeLABState({ filterCriteriaPackages: newCategoryState })
         if (window) {
             window.scrollTo(0, 0)
         }
     }
 
     buildURI(state) {
-        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType } = state
+        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
@@ -119,20 +131,30 @@ class SearchPackagesView extends React.Component {
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
         }
-        let cat_ids = filterCriteria.catIds || ""
+        let cat_ids = filterCriteriaPackages.catIds || ""
 
-        // let min_distance = filterCriteria.distanceRange[0]
-        // let max_distance = filterCriteria.distanceRange[1]
-        // let min_price = filterCriteria.priceRange[0]
-        // let max_price = filterCriteria.priceRange[1]
-        // let sort_on = filterCriteria.sort_on || ""
-        // let lab_name = filterCriteria.lab_name || ""
-        // let network_id = filterCriteria.network_id || ""
+        let min_distance = filterCriteriaPackages.distanceRange[0]
+        let max_distance = filterCriteriaPackages.distanceRange[1]
+        let min_price = filterCriteriaPackages.priceRange[0]
+        let max_price = filterCriteriaPackages.priceRange[1]
+        let sort_on = filterCriteriaPackages.sort_on || ""
+        let lab_name = filterCriteriaPackages.lab_name || ""
+        let network_id = filterCriteriaPackages.network_id || ""
+        let max_age=filterCriteriaPackages.max_age || ""
+        let min_age=filterCriteriaPackages.min_age || ""
+        let gender=filterCriteriaPackages.gender || ""
+        let package_type=filterCriteriaPackages.packageType || ""
+        let test_ids = filterCriteriaPackages.test_ids || ""
+        let page=1
         
-        // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
-
-        let url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
-
+        let url
+        if(this.props.forSeo){
+            url = `${window.location.pathname}`
+        }else{
+            // url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}`
+        }
+        
         if (this.state.lab_card) {
             url += `&lab_card=true`
         }
@@ -188,7 +210,7 @@ class SearchPackagesView extends React.Component {
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}/full-body-checkup-health-packages`,
                     title: 'Full Body Checkup - Book Health Checkup Packages & get 50% off - docprime',
                     description: 'Book Full Body Checkup Packages and get 50% off. Health Checkup packages includes &#10003 60Plus Tests & &#10003 Free Home Sample Collection starting at Rs. 499.'
                 }} noIndex={false} />                

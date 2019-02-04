@@ -47,6 +47,7 @@ import adsBooking from './containers/commons/adsBooking.js'
 import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
 import Offers from './containers/commons/Offers';
 import Referral from './containers/commons/referral'
+import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -123,7 +124,8 @@ const routes = [
     { path: '/search/testinfo', exact: true, component: searchTestInfo },
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
-    { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: true, redirectTo: "full-body-checkup-health-packages" },
+    { path: '/health-package-advisor', exact: true, component: HealthPackageAdvisor, RENDER_ON_SERVER: true },
+    { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: false, redirectTo: "full-body-checkup-health-packages", RENDER_ON_SERVER: true },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
@@ -167,4 +169,3 @@ class RouterConfig extends Component {
 
 
 export default RouterConfig
-
