@@ -123,7 +123,7 @@ class BookingView extends React.Component {
         GTM.sendEvent({ data: data })
 
 
-        let appointmentData = { id: this.state.data.id, status: 6, refund: cancelData.cancelStatus, cancel_reason: cancelData.cancelText, cancel_id: cancelData.cancelId }
+        let appointmentData = { id: this.state.data.id, status: 6, refund: cancelData.cancelStatus, cancellation_comment: cancelData.cancelText, cancellation_reason: cancelData.cancelId }
 
         this.props.updateLabAppointment(appointmentData, (err, data) => {
             if (data) {
