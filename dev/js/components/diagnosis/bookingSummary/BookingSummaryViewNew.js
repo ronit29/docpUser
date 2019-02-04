@@ -16,6 +16,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
+import TimeslotPopup from './TimeslotPopup.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -707,6 +708,7 @@ class BookingSummaryViewNew extends React.Component {
                                                 </div>
                                             </div>
                                         </section>
+                                        <TimeslotPopup />
 
                                     </div> : <Loader />
                             }
