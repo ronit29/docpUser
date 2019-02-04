@@ -5363,6 +5363,11 @@ color: 	#fe7108;
 }
 .cancel-wid-radio .dtl-radio h3{
 	font-size: 14px !important;
+	padding-top: 2px;
+    display: inline-block !important;
+}
+.cancel-wid-radio .doc-checkmark{
+	top: 7px !important;
 }
 .cancel-wid-radio .dtl-radio:last-child{
 	border-bottom: none;
