@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, SAVE_PINCODE } from '../../constants/types';
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -28,7 +28,8 @@ const defaultState = {
     nextSelectedCriterias: [],
     currentSearchedCriterias: [],
     currentSearchId: '',
-    nextFilterCriteria: DEFAULT_FILTER_STATE
+    nextFilterCriteria: DEFAULT_FILTER_STATE,
+    pincode: null
 }
 
 export default function (state = defaultState, action) {
@@ -351,6 +352,14 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.page = action.payload
+            return newState
+        }
+
+        case SAVE_PINCODE: {
+            let newState = {
+                ...state
+            }
+            newState.pincode = action.payload
             return newState
         }
 

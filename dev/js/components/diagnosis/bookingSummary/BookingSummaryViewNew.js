@@ -16,7 +16,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
-import TimeslotPopup from './TimeslotPopup.js'
+import PincodePopup from './PincodePopup.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -38,7 +38,8 @@ class BookingSummaryViewNew extends React.Component {
             scrollPosition: '',
             profileDataFilled: true,
             is_cashback: false,
-            use_wallet: true
+            use_wallet: true,
+            showPincodePopup: false
         }
     }
 
@@ -201,8 +202,14 @@ class BookingSummaryViewNew extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true`)
-                return
+                if(this.props.pincode){
+                    this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true`)
+                    return    
+                }else{
+                    this.setState({showPincodePopup: true})
+                    return
+                }
+                
             }
 
             case "patient": {
@@ -415,6 +422,12 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         return `Confirm Booking`
+    }
+
+    setPincode(pincode){
+        this.props.savePincode(pincode)
+        this.setState({showPincodePopup: false})
+        this.navigateTo('time')
     }
 
     render() {
@@ -708,7 +721,11 @@ class BookingSummaryViewNew extends React.Component {
                                                 </div>
                                             </div>
                                         </section>
-                                        <TimeslotPopup />
+                                        {
+                                            this.state.showPincodePopup?
+                                            <PincodePopup setPincode= {this.setPincode.bind(this)} toggle={this.toggle.bind(this, 'showPincodePopup')}/>
+                                            :''
+                                        }
 
                                     </div> : <Loader />
                             }
