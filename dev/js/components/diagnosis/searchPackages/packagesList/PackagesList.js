@@ -73,12 +73,6 @@ class packagesList extends React.Component {
             }, 1000)
         })
     }
-    testInfo() {
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var test_ids = url.searchParams.get("test_ids");
-        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
-    }
     render() {
         let { LABS, labList } = this.props
         return (
