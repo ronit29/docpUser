@@ -233,7 +233,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                     <div className="hpa-flex">
                                                         <label className="fw-500">Package Type :</label>
                                                         <div className="d-flex" style={{ flexWrap: 'wrap' }}>
-                                                            {this.props.recommended_package.filters.length > 0 ?
+                                                            {this.props.recommended_package.filters && this.props.recommended_package.filters.length > 0 ?
                                                                 Object.entries(this.props.recommended_package.filters).map(function ([key, filter]) {
                                                                     return <div className="dtl-radio d-flex align-items-center dtl-margin-lg" key={key}>
                                                                         <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
