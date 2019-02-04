@@ -30,7 +30,7 @@ class CartView extends React.Component {
         let total_home_pickup_charges = 0
         let total_coupon_discount = 0
         let total_coupon_cashback = 0
-        let coupon_breakup = []
+        let coupon_breakup = {}
         for (let item of cart_items) {
             if (item.valid) {
                 total_mrp += item.mrp
@@ -39,10 +39,11 @@ class CartView extends React.Component {
                 if (item.data.coupons && item.data.coupons.length) {
                     total_coupon_discount += item.coupon_discount
                     total_coupon_cashback += item.coupon_cashback
-                    coupon_breakup.push({
-                        code: item.data.coupons[0].code,
-                        value: item.coupon_discount
-                    })
+                    if (coupon_breakup[item.data.coupons[0].code]) {
+                        coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                    } else {
+                        coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
+                    }
                 }
             }
         }
@@ -172,12 +173,14 @@ class CartView extends React.Component {
 
                                                                     {
                                                                         total_coupon_discount ? <div>
-                                                                            {coupon_breakup.map((cp, j) => {
-                                                                                return <div className="payment-detail d-flex">
-                                                                                    <p style={{ color: 'green' }}>Coupon Discount ({cp.code})</p>
-                                                                                    <p style={{ color: 'green' }}>-&#8377; {cp.value}</p>
-                                                                                </div>
-                                                                            })}
+                                                                            {
+                                                                                Object.keys(coupon_breakup).map((cp, j) => {
+                                                                                    return <div className="payment-detail d-flex">
+                                                                                        <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
+                                                                                        <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
+                                                                                    </div>
+                                                                                })
+                                                                            }
                                                                         </div> : ''
                                                                     }
                                                                 </div>
