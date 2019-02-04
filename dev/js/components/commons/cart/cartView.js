@@ -5,12 +5,18 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CartItem from './cartItem'
+import BookingError from '../../opd/patientDetails/bookingErrorPopUp'
+const queryString = require('query-string');
 
 class CartView extends React.Component {
     constructor(props) {
+
+        const parsed = queryString.parse(props.location.search)
+
         super(props)
         this.state = {
-            use_wallet: true
+            use_wallet: true,
+            error: parsed.error_message || ""
         }
     }
 
@@ -18,6 +24,10 @@ class CartView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+    }
+
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
     }
 
     toggleWalletUse(e) {
@@ -31,6 +41,7 @@ class CartView extends React.Component {
         let total_coupon_discount = 0
         let total_coupon_cashback = 0
         let coupon_breakup = {}
+        let cashback_breakup = {}
         for (let item of cart_items) {
             if (item.valid) {
                 total_mrp += item.mrp
@@ -39,10 +50,18 @@ class CartView extends React.Component {
                 if (item.data.coupons && item.data.coupons.length) {
                     total_coupon_discount += item.coupon_discount
                     total_coupon_cashback += item.coupon_cashback
-                    if (coupon_breakup[item.data.coupons[0].code]) {
-                        coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                    if (item.coupon_cashback <= 0) {
+                        if (coupon_breakup[item.data.coupons[0].code]) {
+                            coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                        } else {
+                            coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
+                        }
                     } else {
-                        coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
+                        if (cashback_breakup[item.data.coupons[0].code]) {
+                            cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
+                        } else {
+                            cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
+                        }
                     }
                 }
             }
@@ -54,6 +73,7 @@ class CartView extends React.Component {
             total_coupon_discount,
             total_coupon_cashback,
             coupon_breakup,
+            cashback_breakup
         }
     }
 
@@ -96,6 +116,7 @@ class CartView extends React.Component {
             total_coupon_discount,
             total_coupon_cashback,
             coupon_breakup,
+            cashback_breakup
         } = this.getPriceBreakup(cart)
 
         let total_wallet_balance = 0
@@ -194,7 +215,11 @@ class CartView extends React.Component {
 
                                                                 {
                                                                     total_coupon_cashback ? <div className="csh-back-applied-container">
-                                                                        <p className="csh-mny-applied">+ &#8377; {total_coupon_cashback} Cashback Applied</p>
+                                                                        {
+                                                                            Object.keys(cashback_breakup).map((key, i) => {
+                                                                                return <p className="csh-mny-applied">+ &#8377; {cashback_breakup[key]} Cashback Applied ({key})</p>
+                                                                            })
+                                                                        }
                                                                         <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
                                                                     </div> : ""
                                                                 }
@@ -227,6 +252,10 @@ class CartView extends React.Component {
                                                 }}>Continue Booking</button>
                                                 <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                             </div> : ""
+                                        }
+
+                                        {
+                                            this.state.error ? <BookingError heading={"Transaction Error"} message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                                         }
 
 
