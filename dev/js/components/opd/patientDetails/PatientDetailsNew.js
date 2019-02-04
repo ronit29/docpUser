@@ -18,6 +18,7 @@ import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import ProcedureView from './procedureView.js'
 import BookingError from './bookingErrorPopUp.js'
+import TimeslotPopup from './TimeslotPopup.js'
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -645,6 +646,8 @@ class PatientDetailsNew extends React.Component {
                                                 </div>
                                             </div>
                                         </section>
+
+                                        <TimeslotPopup />
 
                                     </div> : <Loader />
                             }
