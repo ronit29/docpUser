@@ -80,6 +80,7 @@ class HealthPackageAdvisorView extends React.Component {
         let test_ids = [].concat(this.state.selectedTestIds)
         let self = this
         let found = false
+
         test_ids = test_ids.filter((x) => {
             if (x == test_id) {
                 found = true
@@ -87,9 +88,11 @@ class HealthPackageAdvisorView extends React.Component {
             }
             return true
         })
+
         if (!found) {
             test_ids.push(test_id)
         }
+
         let package_ids = []
         let selectedIds = []
         let finalIds = []
@@ -99,7 +102,18 @@ class HealthPackageAdvisorView extends React.Component {
             if (selectedIds.length > 0) {
                 Object.entries(selectedIds).map(function ([key, value]) {
                     if (value.isSubset) {
-                        value.subSetTest.push(test_id)
+                        let found = false
+                        value.subSetTest = value.subSetTest.filter((x) => {
+                            if (x == test_id) {
+                                found = true
+                                return false
+                            }
+                            return true
+                        })
+                        if (!found) {
+                            value.subSetTest.push(test_id)
+                        }
+                        // value.subSetTest.push(test_id)
                     }
                 })
             }
@@ -233,7 +247,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                     <div className="hpa-flex">
                                                         <label className="fw-500">Package Type :</label>
                                                         <div className="d-flex" style={{ flexWrap: 'wrap' }}>
-                                                            {this.props.recommended_package.filters.length > 0 ?
+                                                            {this.props.recommended_package.filters && this.props.recommended_package.filters.length > 0 ?
                                                                 Object.entries(this.props.recommended_package.filters).map(function ([key, filter]) {
                                                                     return <div className="dtl-radio d-flex align-items-center dtl-margin-lg" key={key}>
                                                                         <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
