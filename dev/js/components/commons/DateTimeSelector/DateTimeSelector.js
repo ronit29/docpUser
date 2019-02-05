@@ -117,6 +117,13 @@ class DateTimeSelector extends React.Component {
 
     isTimeSlotAvailable(timeSlot) {
 
+        let today = new Date()
+        let tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        if(timeSlot.on_call && today.toDateString() == new Date(this.state.selectedDateSpan).toDateString()){
+            return false
+        }
         if (this.props.doctor_leaves && this.props.doctor_leaves.length) {
 
             let blocked = false
@@ -138,10 +145,6 @@ class DateTimeSelector extends React.Component {
                 return false
             }
         }
-
-        let today = new Date()
-        let tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
 
         if (today.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.today_min) {
             if (this.props.today_max) {
