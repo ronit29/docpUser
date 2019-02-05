@@ -60,7 +60,7 @@ class CancelPopUp extends React.Component{
                     <div className="cancelPopupContainerOverlay" onClick={(e)=>this.props.toggle(e)}>
                         <div className="cancelPopupContainer">
                             <div className="cancel-Heading">
-                                <h4>Cancel Appointment</h4>
+                                <h4>Reason for Cancellation</h4>
                                 <button className="cn-btn-head"><img style={{ width: 10 }} src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} className="img-fluid" onClick={(e)=>this.props.toggle(e)}/></button>
                             </div>
                             <div className="cancel-wid-radio">
