@@ -35,6 +35,9 @@ class CartView extends React.Component {
     }
 
     getPriceBreakup(cart_items) {
+        if (!cart_items) {
+            cart_items = []
+        }
         let total_mrp = 0
         let total_deal_price = 0
         let total_home_pickup_charges = 0
@@ -264,7 +267,14 @@ class CartView extends React.Component {
                                         }
 
 
-                                    </section> : <div className="norf widget" style={{ marginTop: '10px', height: '74vh' }}><div className=""><img style={{}} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} /><p className="emptyCardText">Your Cart is Empty!</p></div></div>
+                                    </section> : <div className="norf widget" style={{ marginTop: '10px', height: '74vh' }}>
+                                            {
+                                                cart == null ? "" : <div className="">
+                                                    <img style={{}} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} />
+                                                    <p className="emptyCardText">Your Cart is Empty!</p>
+                                                </div>
+                                            }
+                                        </div>
                                 }
                             </div>
                         </div>

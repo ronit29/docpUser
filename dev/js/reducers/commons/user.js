@@ -48,7 +48,7 @@ const defaultState = {
     summary_utm: false,
     summary_utm_validity: null,
     offerList: null,
-    cart: []
+    cart: null
 }
 
 export default function (state = defaultState, action) {
