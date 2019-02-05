@@ -546,22 +546,23 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 {tests}
-                                                                {
-                                                                    is_home_collection_enabled ?
-                                                                        <div>
-                                                                            <div className="">
-                                                                                <div className="test-lab-radio widget-content test-report lab-appointment-div row">
+                                                                <div>
+                                                                    <div className="">
+                                                                        <div className="test-lab-radio widget-content test-report lab-appointment-div row">
 
-                                                                                    <ul className="inline-list booking-type search-list-radio">
-                                                                                        <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li>
-                                                                                        {
-                                                                                            center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
-                                                                                        }
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div> : ""
-                                                                }
+                                                                            <ul className="inline-list booking-type search-list-radio">
+                                                                                {
+                                                                                    is_home_collection_enabled?
+                                                                                    <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li> :""   
+                                                                                }
+                                                                                
+                                                                                {
+                                                                                    center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
+                                                                                }
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
 

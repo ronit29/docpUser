@@ -147,7 +147,7 @@ class SearchTestView extends React.Component {
                                                         <div className="test-info-continer-block">
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {
                                                                 return value.show_details ?
-                                                                    <div className="test-info-acrd-head-main" id={value.id}>
+                                                                    <div className="test-info-acrd-head-main" id={value.id} key={key}>
                                                                         <button className="test-top-main-haeding" onClick={self.ButtonHandler.bind(self, 'test_' + value.id)}>{value.name}<span className={self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
                                                                         <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + value.id) > -1 ? 'hide' : ''}`}>
                                                                             {value.about_test.value != "" ?
