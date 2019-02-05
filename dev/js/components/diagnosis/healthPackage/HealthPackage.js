@@ -44,6 +44,17 @@ class LabView extends React.Component {
         }
     }
 
+    bookNowClicked(url, trackingName){
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': trackingName, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': trackingName
+        }
+        GTM.sendEvent({ data: data })
+        if(window){
+            window.location.href = url
+        }
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
@@ -93,14 +104,19 @@ class LabView extends React.Component {
                                                                 </p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12227" className="stc-book-btn">Book Now</a>
+                                        <a href="/lab/searchresults?test_ids=12227" onClick ={(e)=>{
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12227', 'TopbookNowClickedBlock1')} } className="stc-book-btn">Book Now</a>
                                     </div>
                                      <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=11722" className="stc-book-btn">Book Now</a>
+                                        <a href="/lab/searchresults?test_ids=11722" onClick ={(e)=>{
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=11722', 'TopbookNowClickedBlock2')} }
+                                            className="stc-book-btn">Book Now</a>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
@@ -110,7 +126,9 @@ class LabView extends React.Component {
                                                                 </p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12229" className="stc-book-btn">Book Now</a>
+                                        <a href="/lab/searchresults?test_ids=12229" onClick ={(e)=>{
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12229', 'TopbookNowClickedBlock3')} } className="stc-book-btn">Book Now</a>
                                     </div>
                                 </div>
                                 <div className="stc-acrdn-contaniner">
@@ -1448,14 +1466,18 @@ class LabView extends React.Component {
                                                 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12227" className="stc-book-btn">Book Now</a>
+                                        <a href="/lab/searchresults?test_ids=12227" onClick ={(e)=>{
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12227', 'BottombookNowClickedBlock1')} } className="stc-book-btn">Book Now</a>
                                     </div>
                                      <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=11722" className="stc-book-btn">Book Now</a>
+                                        <a href="/lab/searchresults?test_ids=11722" onClick ={(e)=>{
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=11722', 'BottombookNowClickedBlock2')} } className="stc-book-btn">Book Now</a>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
@@ -1465,7 +1487,9 @@ class LabView extends React.Component {
                                                                 </p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12229" className="stc-book-btn">Book Now</a>
+                                        <a href="/lab/searchresults?test_ids=12229" onClick ={(e)=>{
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12229', 'BottombookNowClickedBlock3')} } className="stc-book-btn">Book Now</a>
                                     </div>
                                 </div>
                             </div>
