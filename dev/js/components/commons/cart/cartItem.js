@@ -147,7 +147,7 @@ class CartItem extends React.Component {
 
                         <div className="shopng-cart-price">
                             {
-                                mrp ? <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {deal_price} <span className="shopng-cart-price-cut"><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />{mrp}</span></p> : ""
+                                mrp ? <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {deal_price} <span className="shopng-cart-price-cut">₹{mrp}</span></p> : ""
                             }
 
                         </div>

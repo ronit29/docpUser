@@ -5304,7 +5304,7 @@ color: 	#fe7108;
 .shopng-cart-price{
     position: absolute;
     top: 6px;
-    right: 6px;
+    right: 12px;
 }
 .shopng-cart-price p{
 	font-weight: 600;
@@ -5430,13 +5430,13 @@ color: 	#fe7108;
 .cart-warnig-icon-text{
 	display: flex;
     align-items: flex-start;
-    color: #707062;
+    color: #b06e2e;
     font-weight: 500;
     font-size: 15px;
     margin: 10px 0px;
     background: #f7e6ad;
-    border: 1px solid #707062;
-    border-radius: 10px;
+    border: 1px solid #b06e2e;
+    border-radius: 5px;
     padding: 5px 10px;
 
 }
