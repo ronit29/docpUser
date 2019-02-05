@@ -142,7 +142,7 @@ class CartItem extends React.Component {
                     <div className={valid ? "" : "cart-card-blur-opacity"}>
 
                         {
-                            valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
+                            !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         }
 
                         <div className="shopng-cart-price">

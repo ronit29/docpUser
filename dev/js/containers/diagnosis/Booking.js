@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon } from '../../actions/index.js'
-
+import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/diagnosis/booking/BookingView.js'
 
 class Booking extends React.Component {
