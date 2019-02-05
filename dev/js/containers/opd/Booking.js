@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp } from '../../actions/index.js'
+import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp } from '../../actions/index.js'
 
 import BookingView from '../../components/opd/booking/BookingView.js'
 
@@ -12,6 +12,12 @@ class Booking extends React.Component {
 
     static contextTypes = {
         router: () => null
+    }
+
+    componentDidMount() {
+        if (STORAGE.checkAuth()) {
+            this.props.getCartItems()
+        }
     }
 
     render() {
@@ -44,6 +50,7 @@ const mapDispatchToProps = (dispatch) => {
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
+        getCartItems: () => dispatch(getCartItems()),
     }
 }
 

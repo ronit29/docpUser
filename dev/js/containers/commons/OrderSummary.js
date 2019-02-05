@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchOrderSummary } from '../../actions/index.js'
+import { fetchOrderSummary, getCartItems } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import OrderSummaryView from '../../components/commons/orderSummary'
@@ -17,7 +17,7 @@ class OrderSummary extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-
+            this.props.getCartItems()
         }
     }
 
@@ -38,7 +38,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchOrderSummary: (order_id) => dispatch(fetchOrderSummary(order_id))
+        fetchOrderSummary: (order_id) => dispatch(fetchOrderSummary(order_id)),
+        getCartItems: () => dispatch(getCartItems()),
     }
 }
 

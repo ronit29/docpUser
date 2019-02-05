@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -25,6 +25,7 @@ class BookingSummary extends React.Component {
             this.props.getUserProfile()
             this.props.getUserAddress()
             this.props.fetchTransactions()
+            this.props.getCartItems()
         }
 
         let testIds = this.props.lab_test_data[this.props.match.params.id] || []
@@ -82,7 +83,8 @@ const mapDispatchToProps = (dispatch) => {
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
-        addToCart: (product_id, data) => dispatch(addToCart(product_id, data))
+        addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
+        getCartItems: () => dispatch(getCartItems()),
     }
 }
 

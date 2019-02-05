@@ -121,6 +121,10 @@ class CartItem extends React.Component {
         this.props.history.push(`/lab/${data.actual_data.lab}/book?cart_item=${this.props.id}`)
     }
 
+    is_item_old(date) {
+        return (new Date()) > (new Date(date))
+    }
+
     render() {
 
         let { valid, product_id, mrp, deal_price, id } = this.props
