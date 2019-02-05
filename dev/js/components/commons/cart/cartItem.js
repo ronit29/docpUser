@@ -140,7 +140,11 @@ class CartItem extends React.Component {
                 <div className="widget mrb-15 mrng-top-12 p-relative">
 
                     <div className={valid ? "" : "cart-card-blur-opacity"}>
-                    <p className="appointmentPassed">Your appointment date and time has passed.</p>
+
+                        {
+                            valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
+                        }
+
                         <div className="shopng-cart-price">
                             {
                                 mrp ? <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {deal_price} <span className="shopng-cart-price-cut"><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />{mrp}</span></p> : ""
