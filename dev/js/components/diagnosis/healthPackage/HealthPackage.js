@@ -163,7 +163,7 @@ class LabView extends React.Component {
                                         <div className="stc-acrd-content text-center">
                                             <div className="acrd-stc-data">
                                             <p>
-                                                    60
+                                                    35
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -620,8 +620,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    11
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -836,8 +835,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    8
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -912,8 +910,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    5
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -978,8 +975,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    3
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1038,18 +1034,16 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    3
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    3
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    3
+                                               <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                         </div>
@@ -1099,18 +1093,16 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    2
+                                               <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    2
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    2
+                                               <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                         </div>
@@ -1167,8 +1159,7 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    5
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                         </div>
@@ -1213,8 +1204,7 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
-                                                <p>
-                                                    1
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
@@ -1264,8 +1254,7 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    1
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                         </div>
@@ -1304,8 +1293,7 @@ class LabView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
-                                                <p>
-                                                    1
+                                                <p className="acrd-stc-red">X
                                                                         </p>
                                             </div>
                                         </div>
