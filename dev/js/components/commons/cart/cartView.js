@@ -250,7 +250,7 @@ class CartView extends React.Component {
                                             valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={() => {
                                                     this.props.history.push('/search?from=cart')
-                                                }}>Continue Booking</button>
+                                                }}>Add more to cart</button>
                                                 <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                             </div> : ""
                                         }

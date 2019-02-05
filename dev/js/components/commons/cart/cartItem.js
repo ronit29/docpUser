@@ -175,6 +175,11 @@ class CartItem extends React.Component {
                                     date ? <li>
                                         <p>
                                             <span className="shpng-dtls-ico"><img style={{ marginTop: '2px', width: '15px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>{date.toDateString()} | {date.toLocaleTimeString()}
+                                            {
+                                                doctor ? "" : <span>
+                                                    {is_home_pickup ? " | Home pickup" : " | Center visit"}
+                                                </span>
+                                            }
                                         </p>
                                     </li> : ""
                                 }
@@ -185,7 +190,7 @@ class CartItem extends React.Component {
                                             doctor ? <p>
                                                 <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name}
                                             </p> : <p>
-                                                    <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name} {is_home_pickup ? " | Home pickup" : " | Center visit"}
+                                                    <span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} /></span>{profile.name}
                                                 </p>
                                         }
                                     </li> : ""

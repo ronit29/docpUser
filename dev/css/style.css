@@ -5433,6 +5433,10 @@ button.add-shpng-cart-btn.update-btn {
     right: 0;
     margin-top: 2px;
 }
+.errorInfoImg{
+	width: 20px;
+    margin: 2px 6px 0 0;
+}
 /* ================= shopping cart style ================= */
 .imptnt-cls{
 	padding-left:66px!important
