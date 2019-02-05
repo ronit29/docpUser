@@ -149,15 +149,15 @@ class CartView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row mrb-20">
                                                 <div className="col-12">
-                                                {
+
+                                                    {
                                                         invalid_items ? <h4 className="cart-warnig-icon-text"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/capaWarning.png"} />
                                                             <span>
                                                                 {cart.filter(x => !x.valid).length} appointment{cart.filter(x => !x.valid).length > 1 ? "s" : ''} in your cart have become invalid. Please Edit/Remove {cart.filter(x => !x.valid).length > 1 ? "them" : 'it'}.
                                                         </span></h4> : ""
                                                     }
-                                                    <h4 className="shoping-cart-main-heading">My Cart</h4>
 
-                                                    
+                                                    <h4 className="shoping-cart-main-heading">My Cart</h4>
 
                                                     {
                                                         cart.filter(x => x.valid).map((cart_item, i) => {
@@ -165,6 +165,9 @@ class CartView extends React.Component {
                                                         })
                                                     }
 
+                                                    {
+                                                        invalid_items ? <h4 className="shoping-cart-main-heading">Invalid Items</h4> : ""
+                                                    }
 
                                                     {
                                                         cart.filter(x => !x.valid).map((cart_item, i) => {
@@ -205,6 +208,7 @@ class CartView extends React.Component {
                                                                             }
                                                                         </div> : ''
                                                                     }
+
                                                                 </div>
                                                                 <hr />
 
