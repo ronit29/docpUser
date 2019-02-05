@@ -149,14 +149,15 @@ class CartView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row mrb-20">
                                                 <div className="col-12">
-                                                    <h4 className="shoping-cart-main-heading">My Cart</h4>
-
-                                                    {
+                                                {
                                                         invalid_items ? <h4 className="cart-warnig-icon-text"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/capaWarning.png"} />
                                                             <span>
                                                                 {cart.filter(x => !x.valid).length} appointment{cart.filter(x => !x.valid).length > 1 ? "s" : ''} in your cart have become invalid. Please Edit/Remove {cart.filter(x => !x.valid).length > 1 ? "them" : 'it'}.
                                                         </span></h4> : ""
                                                     }
+                                                    <h4 className="shoping-cart-main-heading">My Cart</h4>
+
+                                                    
 
                                                     {
                                                         cart.filter(x => x.valid).map((cart_item, i) => {
@@ -259,7 +260,7 @@ class CartView extends React.Component {
                                         }
 
 
-                                    </section> : <div className="norf widget" style={{ marginTop: '10px', height: '74vh' }}><div className=""><img style={{}} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} /></div></div>
+                                    </section> : <div className="norf widget" style={{ marginTop: '10px', height: '74vh' }}><div className=""><img style={{}} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} /><p className="emptyCardText">Your Cart is Empty!</p></div></div>
                                 }
                             </div>
                         </div>

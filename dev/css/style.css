@@ -5413,6 +5413,26 @@ color: 	#fe7108;
 .head-links img.cart-icon-mbl{
 	margin-right: 8px !important;
 }
+.emptyCardText{
+	color: #757575;
+    margin-top: 12px;
+	font-size: 16px;
+	font-weight: 500;
+}
+button.add-shpng-cart-btn.update-btn {
+    color: #ffffff;
+	background-color: #f78631;
+	font-weight: 500;
+}
+.appointmentPassed{
+	color: red;
+    font-weight: 500;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin-top: 2px;
+}
 /* ================= shopping cart style ================= */
 .imptnt-cls{
 	padding-left:66px!important
