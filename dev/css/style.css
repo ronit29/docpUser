@@ -5271,7 +5271,20 @@ font-size: 13px;
     text-align: center;
     font-weight: 500;
 }
-
+.ham-menu{
+	float: left;
+}
+.ham-menu img{
+	height: 16px;
+    margin-top: 24px;
+    margin-right: 12px;
+}
+@media screen and (max-width: 991px){
+	.ham-menu img{
+		margin-top: 15px;
+		height: 13px;
+	}
+}
 
 
 

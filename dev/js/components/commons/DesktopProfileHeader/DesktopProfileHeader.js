@@ -114,6 +114,9 @@ class DesktopProfileHeader extends React.Component {
                         <div className="col-lg-3 col-md-4 col-4 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
+                            <div className="ham-menu">
+                                <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
+                            </div>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
                                 <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
                                 <img style={{ width: '45px', marginBottom: '5px' }} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
