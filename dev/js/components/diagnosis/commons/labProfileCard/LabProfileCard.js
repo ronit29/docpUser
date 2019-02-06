@@ -192,7 +192,7 @@ class LabProfileCard extends React.Component {
                                                         {
 
                                                             show_detailsIds.indexOf(test.id) > -1 ?
-                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id)}>
+                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id,test.url)}>
                                                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                                 </span> : ''
                                                         }

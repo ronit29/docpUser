@@ -77,34 +77,36 @@ class SearchTestView extends React.Component {
                     test_url = test_url.split("/")[1]
                 }
             }
-            this.props.searchTestData(test_id,test_url, lab_id, (resp) => {
-                {
-                    Object.entries(resp).map(function ([key, value]) {
-                        let testIds = allTest.map(x => x.id)
-                        if (testIds.indexOf(value.frequently_booked_together.value.id) == -1) {
-                            allTest = allTest.concat(value.frequently_booked_together.value)
-                        }
-                        if (resp.length > 0) {
-                            ferq_heading = value.frequently_booked_together.title
-                            all_test_id.concat(value.id)
-                            let why_get_tested, test_include, test_preparations, test_faq, selected_test_id
-                            why_get_tested = "why_get_tested_" + value.id
-                            test_include = "test_include_" + value.id
-                            test_preparations = "test_preparations_" + value.id
-                            test_faq = "test_faq_" + value.id
-                            test_id_val.push(why_get_tested)
-                            test_id_val.push(test_include)
-                            test_id_val.push(test_preparations)
-                            test_id_val.push(test_faq)
-                            if (key != 0) {
-                                selected_test_id = 'test_' + value.id
-                                test_id_val.push(selected_test_id)
-                            }
-                        }
-                    })
-                }
-                this.setState({ tabsValue: test_id_val, allFrequentlyTest: allTest, lab_id: lab_id, frequently_heading: ferq_heading, disableAddTest: all_test_id })
-            })
+            this.props.searchTestData(test_id,test_url, lab_id)
+            // this.props.searchTestData(test_id,test_url, lab_id, (resp) => {
+            //     {
+            //         Object.entries(resp).map(function ([key, value]) {
+            //             let testIds = allTest.map(x => x.id)
+            //             if (testIds.indexOf(value.frequently_booked_together.value.id) == -1) {
+            //                 allTest = allTest.concat(value.frequently_booked_together.value)
+            //             }
+            //             if (resp.length > 0) {
+            //                 ferq_heading = value.frequently_booked_together.title
+            //                 all_test_id.concat(value.id)
+            //                 let why_get_tested, test_include, test_preparations, test_faq, selected_test_id
+            //                 why_get_tested = "why_get_tested_" + value.id
+            //                 test_include = "test_include_" + value.id
+            //                 test_preparations = "test_preparations_" + value.id
+            //                 test_faq = "test_faq_" + value.id
+            //                 test_id_val.push(why_get_tested)
+            //                 test_id_val.push(test_include)
+            //                 test_id_val.push(test_preparations)
+            //                 test_id_val.push(test_faq)
+            //                 if (key != 0) {
+            //                     selected_test_id = 'test_' + value.id
+            //                     test_id_val.push(selected_test_id)
+            //                 }
+            //             }
+            //         })
+            //     }
+            //     // this.setState({ tabsValue: test_id_val, allFrequentlyTest: allTest, lab_id: lab_id, frequently_heading: ferq_heading, disableAddTest: all_test_id })
+            //     this.setState({ allFrequentlyTest: allTest, frequently_heading: ferq_heading, disableAddTest: all_test_id })
+            // })
         }
         // if (this.props.seoData && this.props.seoData.location) {
         //     this.setState({ showLocationPopup: false })
@@ -137,11 +139,15 @@ class SearchTestView extends React.Component {
     }
     frequentlyAddTest(field, name, show_details, event) {
         let self = this
+        let url_string = window.location.href
+        let url = new URL(url_string);
+        let lab_id = ''
+        lab_id = url.searchParams.get("lab_id")
         let test = {}
         let added_test = [].concat(this.state.disableAddTest)
         added_test.push(field)
         self.setState({ disableAddTest: added_test })
-        if (this.state.lab_id != null) {
+        if (lab_id != null) {
             test.lab_id = this.state.lab_id
             test.extra_test = true
             test.type = 'test'
@@ -224,7 +230,16 @@ class SearchTestView extends React.Component {
     }
 
     render() {
-        // console.log(this.props)
+        let  url_string = window.location.href
+        let  url = new URL(url_string);
+        var selected_test_ids = url.searchParams.get("selected_test_ids")
+        let url_test_ids = selected_test_ids.split(',')
+        let disableAddTest = [].concat(this.state.disableAddTest)
+        {
+            Object.entries(url_test_ids).map(function ([key, value]) {
+                disableAddTest.push(parseInt(value))
+            })
+        }
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
@@ -366,14 +381,14 @@ class SearchTestView extends React.Component {
                                                         </div>
                                                     </div>:''}
                                                     {
-                                                        this.state.allFrequentlyTest.length > 0 ?
+                                                        this.props.searchTestInfoData[0].frequently_booked_together && this.props.searchTestInfoData[0].frequently_booked_together.value.length > 0 ?
                                                             <div className="widget mrb-15 mrng-top-12">
                                                                 <div className="widget-content">
-                                                                    <h5 className="test-duo-heding"> {this.state.frequently_heading}</h5>
+                                                                    <h5 className="test-duo-heding"> {this.props.searchTestInfoData[0].frequently_booked_together.title}</h5>
                                                                     <ul className="test-duo-listing">
-                                                                        {Object.entries(this.state.allFrequentlyTest).map(function ([k, frequently]) {
+                                                                        {Object.entries(this.props.searchTestInfoData[0].frequently_booked_together.value).map(function ([k, frequently]) {
                                                                             return <li key={k}><p>{frequently.lab_test}</p>
-                                                                                <button className={self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test,frequently.show_details)} disabled={self.state.disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{self.state.disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
+                                                                                <button className={disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test,frequently.show_details)} disabled={disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
                                                                             </li>
                                                                         })}
                                                                     </ul>
