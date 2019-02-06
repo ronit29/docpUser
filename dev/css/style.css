@@ -5626,3 +5626,9 @@ button.add-shpng-cart-btn.update-btn {
 .dtl-margin-lg{
 	margin-right: 20px;
 }
+.requiredAst{
+	display: inline-block;
+    color: orange;
+    position: relative;
+    top: -4px;
+}

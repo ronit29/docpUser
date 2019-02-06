@@ -227,7 +227,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     profileDataCompleted(data) {
-        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
+        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
             this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
             this.setState({ profileDataFilled: true, showTimeError: false, profileError: false })
