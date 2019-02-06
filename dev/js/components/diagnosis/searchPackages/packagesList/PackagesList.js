@@ -90,7 +90,7 @@ class packagesList extends React.Component {
                             {
                                 this.props.forSeo?
                                     <div className="search-result-card-collpase">
-                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
+                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.packagesList.search_content }} >
                                         </div>
 
                                         {this.state.readMore && this.state.readMore != '' ?
