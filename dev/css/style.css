@@ -5118,6 +5118,8 @@ font-size: 13px;
     color: #fff;
     padding-left: 15px;
     font-size: 18px;
+    display: inline-block;
+    margin-top: 25px;
 }
 .drop-list-menu li a{
     font-size: 16px;
@@ -5189,6 +5191,7 @@ font-size: 13px;
 .wallet-amnt img{
   height: 12px;
   margin-right: 5px; 
+  vertical-align: middle;
  
 }
 .right-arrow {
