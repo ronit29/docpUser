@@ -150,7 +150,7 @@ class LabProfileCard extends React.Component {
                                             <img className="fltr-usr-image-lab" src={lab_thumbnail} />
                                         </InitialsPicture>
                                     </div>
-                                    <div style={{ marginLeft: '8px' }}>
+                                    <div style={{ marginLeft: '8px',marginRight: '8px' }}>
                                         {
                                             this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
                                                 {

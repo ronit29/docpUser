@@ -592,13 +592,13 @@ class PatientDetailsNew extends React.Component {
                                                                         <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                     </div>
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>docprime discount</p>
+                                                                        <p>Docprime Discount</p>
                                                                         <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                     </div>
                                                                     {
                                                                         this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                             ? <div className="payment-detail d-flex">
-                                                                                <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                 <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
                                                                             </div>
                                                                             : ''

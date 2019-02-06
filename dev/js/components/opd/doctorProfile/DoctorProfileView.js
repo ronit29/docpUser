@@ -302,8 +302,8 @@ class DoctorProfileView extends React.Component {
                                                     }
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
-                                                        <p style={{ flex: 2 }}><span className="booknow-span">Book Now</span></p>
-                                                        <p className="cp-auto">*Coupon auto applied on checkout</p>
+                                                        <p style={{ flex: 2 }}><span style={{marginTop: '5px',display:'inline-block'}} className="">Book Now</span></p>
+                                                        <p className="cp-auto" style={{marginBottom: '8px'}}>*Coupon auto applied on checkout</p>
                                                     </div>
                                                 </div>
                                                 :

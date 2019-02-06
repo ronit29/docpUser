@@ -627,7 +627,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
-                                                                                <p>Lab fees</p>
+                                                                                <p>Lab Fees</p>
                                                                                 <p>&#8377; {finalMrp}</p>
                                                                             </div>
                                                                             {
@@ -637,13 +637,13 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 </div> : ""
                                                                             }
                                                                             <div className="payment-detail d-flex">
-                                                                                <p>Docprime discount</p>
+                                                                                <p>Docprime Discount</p>
                                                                                 <p>- &#8377; {finalMrp - finalPrice}</p>
                                                                             </div>
                                                                             {
                                                                                 this.props.disCountedLabPrice && !this.state.is_cashback
                                                                                     ? <div className="payment-detail d-flex">
-                                                                                        <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                        <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                         <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
                                                                                     </div>
                                                                                     : ''

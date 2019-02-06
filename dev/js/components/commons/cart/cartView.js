@@ -185,11 +185,11 @@ class CartView extends React.Component {
                                                                 <h4 className="title mb-20">Payment Summary</h4>
                                                                 <div className="payment-summary-content">
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>Total fees</p>
+                                                                        <p>Total Fees</p>
                                                                         <p>&#8377; {parseInt(total_mrp)}</p>
                                                                     </div>
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>docprime discount</p>
+                                                                        <p>Docprime Discount</p>
                                                                         <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
                                                                     </div>
                                                                     {
@@ -267,13 +267,16 @@ class CartView extends React.Component {
                                         }
 
 
-                                    </section> : <div className="norf widget" style={{ marginTop: '10px', height: '74vh' }}>
-                                            {
-                                                cart == null ? "" : <div className="">
-                                                    <img style={{}} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} />
-                                                    <p className="emptyCardText">Your Cart is Empty!</p>
-                                                </div>
-                                            }
+                                    </section> : <div className="container-fluid">
+                                            <div className="norf widget" style={{ marginTop: '10px', height: '40vh' }}>
+                                                {
+                                                    cart == null ? "" : <div className="text-center">
+                                                        <img style={{width: '150px'}} src={ASSETS_BASE_URL + "/img/emptyCart.png"} />
+                                                        <p className="emptyCardText">Your Cart is Empty!</p>
+                                                        <button onClick={() => {this.props.history.push('/search')}} className="emptyCartRedirect">Book Appointments Now</button>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
                                 }
                             </div>
