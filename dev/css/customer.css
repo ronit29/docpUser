@@ -1904,3 +1904,13 @@ p.rt-doc-nm{
         margin-left: 2px;
     }
 }
+
+.dp-container-div{
+    padding-top: 44px;
+}
+
+@media(min-width:992px){
+    .dp-container-div{
+        padding-top: 107px;
+    }
+}
