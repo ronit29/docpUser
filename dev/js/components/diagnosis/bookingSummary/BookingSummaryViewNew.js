@@ -6,7 +6,7 @@ import VisitTimeNew from './VisitTimeNew'
 import PickupAddress from './pickupAddress'
 import ChoosePatientNewView from '../../opd/patientDetails/choosePatientNew'
 import InitialsPicture from '../../commons/initialsPicture'
-// const queryString = require('query-string');
+const queryString = require('query-string');
 import STORAGE from '../../../helpers/storage'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
@@ -20,7 +20,7 @@ import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
         super(props)
-        // const parsed = queryString.parse(this.props.location.search)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedLab: this.props.match.params.id,
             paymentData: {},
@@ -38,7 +38,7 @@ class BookingSummaryViewNew extends React.Component {
             profileDataFilled: true,
             is_cashback: false,
             use_wallet: true,
-            couponInfo: {}
+            cart_item: parsed.cart_item
         }
     }
 
@@ -107,7 +107,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 if (!corporate) {
                     this.props.resetLabCoupons()
-                    this.setState({ couponCode: "", couponId: '', is_cashback: false, couponInfo: {} })
+                    this.setState({ couponCode: "", couponId: '', is_cashback: false })
                     if (nextProps.labCoupons[this.state.selectedLab]) {
                         this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
@@ -122,9 +122,9 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupon = nextProps.corporateCoupon
-                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '', couponInfo: labCoupon })
+                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
-                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
+                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
                 }
                 return
             }
@@ -137,8 +137,8 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '', couponInfo: labCoupons[0] })
-                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile)
+                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
                 }
                 return
             }
@@ -149,12 +149,12 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     this.props.getCoupons({
-                        productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile,
+                        productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
                         cb: (coupons) => {
                             if (coupons && coupons[0]) {
                                 this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
-                                this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile)
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponInfo: coupons[0] })
+                                this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
+                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                             } else {
                                 this.props.resetLabCoupons()
                             }
@@ -257,7 +257,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -308,10 +308,26 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: this.state.use_wallet
+            use_wallet: this.state.use_wallet,
+            cart_item: this.state.cart_item
         }
+
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
+        }
+
+        if (addToCart) {
+            this.props.addToCart(2, postData).then((res) => {
+                this.props.history.push('/cart')
+            }).catch((err) => {
+                let message = "Error adding to cart!"
+                if (err.message) {
+                    message = err.message
+                }
+                this.setState({ loading: false, error: message })
+                SnackBar.show({ pos: 'bottom-center', text: message });
+            })
+            return
         }
 
         let data = {
@@ -339,25 +355,12 @@ class BookingSummaryViewNew extends React.Component {
                     let analyticData = {
                         'Category': 'ConsumerApp', 'Action': 'LabOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab_order_created'
                     }
-                    let payment_option = this.state.couponInfo && this.state.couponInfo.payment_option && this.state.couponInfo.payment_option.id ?this.state.couponInfo.payment_option.id:''
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab&payment_options=${payment_option}`)
+                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
 
-                    // this.setState({
-                    //     paymentData: data.data
-                    // }, () => {
-                    //     setTimeout(() => {
-                    //         let form = document.getElementById('paymentForm')
-                    //         form.submit()
-                    //     }, 500)
-
-                    //     setTimeout(() => {
-                    //         this.setState({ loading: false })
-                    //     }, 5000)
-                    // })
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/lab/appointment/${data.data.id}?payment_success=true`)
+                    this.props.history.replace(`/order/summary/${data.data.orderId}`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
@@ -393,7 +396,7 @@ class BookingSummaryViewNew extends React.Component {
 
             let { finalPrice } = this.getLabPriceData(this.props)
 
-            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}`)
+            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}&cart_item=${this.state.cart_item || ""}`)
         }
     }
 
@@ -499,7 +502,7 @@ class BookingSummaryViewNew extends React.Component {
         if (!this.state.is_cashback) {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
-        total_price= is_corporate?0:total_price
+        total_price = is_corporate ? 0 : total_price
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
@@ -520,7 +523,6 @@ class BookingSummaryViewNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-
                                                         <div className="widget mrb-15 mrng-top-12">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
@@ -718,11 +720,22 @@ class BookingSummaryViewNew extends React.Component {
                                 this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                             }
 
-                            {
-                                this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
+
+                            <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
-                            }
+                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
+                                    {
+                                        this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
+                                    }
+                                    {this.state.cart_item ? "Update" : "Add to Cart"}
+                                </button>
+                                {
+                                    this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                }
+                            </div>
 
                             {
                                 this.state.error ?
@@ -731,7 +744,7 @@ class BookingSummaryViewNew extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" type="lab" />
+                        <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} />
                     </div>
                 </section>
             </div>

@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, TOGGLE_404 } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -105,6 +105,12 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 
 		let commonSelectedCriterias = [...specializations, ...conditions, ...procedure_category, ...procedures]
 
+		let show404 = false
+		// show 404 on server when no resultd
+		if (response.result && response.result.length == 0 && from_server && searchByUrl) {
+			show404 = true
+		}
+
 		dispatch({
 			type: MERGE_SEARCH_STATE_OPD,
 			payload: {
@@ -116,7 +122,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		dispatch({
 			type: SAVE_RESULTS_WITH_SEARCHID,
 			payload: response,
-			page:page,
+			page: page,
 			clinic_card: clinic_card
 		})
 		if (clinic_card) {
@@ -135,6 +141,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			dispatch({
 				type: HOSPITAL_SEARCH,
 				payload: {
+					show404,
 					page,
 					...response
 				}
@@ -144,6 +151,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			dispatch({
 				type: DOCTOR_SEARCH,
 				payload: {
+					show404,
 					page,
 					...response
 				}
@@ -159,6 +167,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		}
 
 		if (cb) {
+			// if no results redirect to 404 page
+			if (response.result && response.result.length == 0) {
+				cb(false, true)
+			}
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
 				cb(true)
@@ -273,7 +285,7 @@ export const getDoctorNumber = (doctorId, hospital_id, callback) => (dispatch) =
 	})
 }
 
-export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id = null, procedures_ids = []) => (dispatch) => {
+export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id = null, procedures_ids = [], cart_item = null) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {
 		coupon_code: [couponCode],
@@ -282,7 +294,8 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id,
 		doctor: doctor_id,
 		hospital: hospitalId,
 		profile: profile_id,
-		procedures: procedures_ids || []
+		procedures: procedures_ids || [],
+		cart_item
 	}).then(function (response) {
 		let analyticData = {
 			'Category': 'ConsumerApp', 'Action': 'OpdCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupon-applied', 'couponId': couponId
@@ -369,7 +382,7 @@ export const getDoctorNo = (postData, cb) => (dispatch) => {
 	})
 }
 
-export const setSearchId = (searchId, filters, page=1) => (dispatch) => {
+export const setSearchId = (searchId, filters, page = 1) => (dispatch) => {
 	dispatch({
 		type: SET_SEARCH_ID,
 		payload: filters,
@@ -383,31 +396,31 @@ export const getSearchIdResults = (searchId, response) => (dispatch) => {
 		type: GET_SEARCH_ID_RESULTS,
 		searchId: searchId
 	})
-	if(response.data.clinic_card){
+	if (response.data.clinic_card) {
 		dispatch({
 			type: APPEND_HOSPITALS,
 			payload: response.data.result || []
 		})
-	}else{	
+	} else {
 		dispatch({
 			type: APPEND_DOCTORS,
 			payload: response.data.result || []
-		})	
+		})
 	}
 	dispatch({
 		type: SET_URL_PAGE,
 		payload: response.page || 1
 	})
-	if(response.data.clinic_card){
+	if (response.data.clinic_card) {
 		dispatch({
 			type: HOSPITAL_SEARCH,
 			payload: {
-				page:response.page || 1,
+				page: response.page || 1,
 				...response.data
 			}
 
 		})
-	}else{	
+	} else {
 		dispatch({
 			type: DOCTOR_SEARCH,
 			payload: {
@@ -415,7 +428,7 @@ export const getSearchIdResults = (searchId, response) => (dispatch) => {
 				...response.data
 			}
 
-		})	
+		})
 	}
 }
 
@@ -429,5 +442,12 @@ export const mergeUrlState = (flag = false) => (dispatch) => {
 export const setNextSearchCriteria = () => (dispatch) => {
 	dispatch({
 		type: SET_NEXT_SEARCH_CRITERIA
+	})
+}
+
+export const toggle404 = (status = false) => (dispatch) => {
+	dispatch({
+		type: TOGGLE_404,
+		payload: status
 	})
 }

@@ -1,26 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchPgData, getCartItems } from '../../actions/index.js'
+import { fetchOrderSummary, getCartItems } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
-import PaymentView from '../../components/commons/payment/index.js'
+import OrderSummaryView from '../../components/commons/orderSummary'
 
 
-class Payment extends React.Component {
+class OrderSummary extends React.Component {
     constructor(props) {
         super(props)
         if (!STORAGE.checkAuth()) {
             this.props.history.replace(`/login?callback=/`)
         }
-    }
-
-    // static loadData(store) {
-    //     return store.dispatch(getUserProfile())
-    // }
-
-    static contextTypes = {
-        router: () => null
     }
 
     componentDidMount() {
@@ -32,7 +24,7 @@ class Payment extends React.Component {
     render() {
 
         return (
-            <PaymentView {...this.props} />
+            <OrderSummaryView {...this.props} />
         );
     }
 }
@@ -46,10 +38,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchPgData: (id, cb) => dispatch(fetchPgData(id, cb)),
+        fetchOrderSummary: (order_id) => dispatch(fetchOrderSummary(order_id)),
         getCartItems: () => dispatch(getCartItems()),
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Payment);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderSummary);
