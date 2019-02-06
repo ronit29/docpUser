@@ -310,6 +310,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/speciality-inventory")
                                     }}>All Specialities</a></li>
+                                    <li><a href="/doctors-near-me" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/doctors-near-me")
+                                    }}>Find a Doctor Near You</a></li>
                                 </ul>
                             </div>
                         </div>
