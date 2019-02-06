@@ -71,7 +71,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 
 		let show404 = false
 		// show 404 on server when no resultd
-		if (response.result && response.result.length == 0 && from_server) {
+		if (response.result && response.result.length == 0 && from_server && searchByUrl) {
 			show404 = true
 		}
 

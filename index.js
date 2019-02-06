@@ -169,7 +169,7 @@ app.all('*', function (req, res) {
                 } else {
 
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
-                        Sentry.captureException(error)
+                        // Sentry.captureException(error)
                     }
 
                     res.status(404)
