@@ -14,7 +14,7 @@ class LabView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            collapse: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            collapse: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             expandClick: true,
             expandText: 'Expand All'
         }
@@ -112,9 +112,9 @@ class LabView extends React.Component {
                                             <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=11722" onClick ={(e)=>{
+                                        <a href="/lab/searchresults?test_ids=12227" onClick ={(e)=>{
                                             e.preventDefault()
-                                            this.bookNowClicked('/lab/searchresults?test_ids=11722', 'TopbookNowClickedBlock2')} }
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12227', 'TopbookNowClickedBlock2')} }
                                             className="stc-book-btn">Book Now</a>
                                     </div>
                                     <div className="static-pkg-top-column">
@@ -125,10 +125,10 @@ class LabView extends React.Component {
                                                                 </p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12229" 
+                                        <a href="/lab/searchresults?test_ids=11722" 
                                         onClick ={(e)=>{
                                             e.preventDefault()
-                                            this.bookNowClicked('/lab/searchresults?test_ids=12229', 'TopbookNowClickedBlock3')} }
+                                            this.bookNowClicked('/lab/searchresults?test_ids=11722', 'TopbookNowClickedBlock3')} }
                                         className="stc-book-btn">Book Now</a>
                                     </div>
                                 </div>
@@ -610,6 +610,162 @@ class LabView extends React.Component {
                                                     </ul>
                                                 </div>
                                             </div>
+                                            </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 15)}>
+                                            <p>Cholesterol-Total Serum</p>
+                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[15] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                                <div className="acrd-stc-data mid-border-mrgn">
+                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>*/}
+                                                </div>
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 16)}>
+                                            <p>SGPT ALT</p>
+                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[16] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                                <div className="acrd-stc-data mid-border-mrgn">
+                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>*/}
+                                                </div>
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 17)}>
+                                            <p>Routine Urine Analysis (RUA)</p>
+                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[17] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                                <div className="acrd-stc-data mid-border-mrgn">
+                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>*/}
+                                                </div>
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 18)}>
+                                            <p>Serum Creatinine</p>
+                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[18] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                                <div className="acrd-stc-data mid-border-mrgn">
+                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>*/}
+                                                </div>
+                                                <div className="acrd-stc-data">
+                                                    <p>
+                                                    </p>
+                                                </div>
                                             </div> : ''
                                         }
                                     </div>
@@ -1444,201 +1600,6 @@ class LabView extends React.Component {
                                                 </div>
                                             </div> 
                                             </div>: ''
-                                        }
-                                    </div>
-                                    <div className="stc-accord-container">
-                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 14)}>
-                                            <p>MER</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
-                                        </div>
-                                        <div className="stc-acrd-content pb-0 text-center">
-                                            <div className="acrd-stc-data">
-                                                <p>
-                                                    1
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data mid-border-mrgn">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                        </div>
-                                        {
-                                            this.state.collapse[14] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                                <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
-                                                </div>
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                            </div> : ''
-                                        }
-                                    </div>
-                                    <div className="stc-accord-container">
-                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 15)}>
-                                            <p>Cholesterol-Total Serum</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
-                                        </div>
-                                        <div className="stc-acrd-content pb-0 text-center">
-                                            <div className="acrd-stc-data">
-                                                <p>
-                                                    1
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data mid-border-mrgn">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                        </div>
-                                        {
-                                            this.state.collapse[15] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                                <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
-                                                </div>
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                            </div> : ''
-                                        }
-                                    </div>
-                                    <div className="stc-accord-container">
-                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 16)}>
-                                            <p>SGPT ALT</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
-                                        </div>
-                                        <div className="stc-acrd-content pb-0 text-center">
-                                            <div className="acrd-stc-data">
-                                                <p>
-                                                    1
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data mid-border-mrgn">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                        </div>
-                                        {
-                                            this.state.collapse[16] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                                <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
-                                                </div>
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                            </div> : ''
-                                        }
-                                    </div>
-                                    <div className="stc-accord-container">
-                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 17)}>
-                                            <p>Routine Urine Analysis (RUA)</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
-                                        </div>
-                                        <div className="stc-acrd-content pb-0 text-center">
-                                            <div className="acrd-stc-data">
-                                                <p>
-                                                    1
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data mid-border-mrgn">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                        </div>
-                                        {
-                                            this.state.collapse[17] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                                <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
-                                                </div>
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                            </div> : ''
-                                        }
-                                    </div>
-                                    <div className="stc-accord-container">
-                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 18)}>
-                                            <p>Serum Creatinine</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
-                                        </div>
-                                        <div className="stc-acrd-content pb-0 text-center">
-                                            <div className="acrd-stc-data">
-                                                <p>
-                                                    1
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data mid-border-mrgn">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                            <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
-                                                                        </p>
-                                            </div>
-                                        </div>
-                                        {
-                                            this.state.collapse[18] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                                <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
-                                                </div>
-                                                <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                            </div> : ''
                                         }
                                     </div>
                                 </div>
