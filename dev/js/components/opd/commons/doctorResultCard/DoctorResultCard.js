@@ -167,10 +167,25 @@ class DoctorProfileCard extends React.Component {
                         {
                             this.props.seoFriendly ?
                                 <div className="fltr-lctn-dtls" style={{ paddingLeft: 45 }}>
-                                    <p>
-                                        <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                        <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
-                                    </p>
+                                    {
+                                        parent_url && parent_url.length ?
+                                            <a href={parent_url} onClick={
+                                                (e) => {
+                                                    e.preventDefault()
+                                                    this.props.history.push(`/${parent_url}`)
+                                                }
+                                            }>
+                                                <p>
+                                                    <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                    <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                                </p>
+                                            </a>
+                                            :
+                                            <p>
+                                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                            </p>
+                                    }
                                 </div>
                                 : <div className="fltr-lctn-dtls">
                                     {

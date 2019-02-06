@@ -25,7 +25,7 @@ class CitiesRoutes extends React.Component {
         return (
             <div className="profile-body-wrap sitemap-body">
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section">
+                <section className="container dp-container-div">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
