@@ -162,7 +162,7 @@ class LabProfileCard extends React.Component {
                                         }
                                     </div>
                                 </div>
-                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests !=null ? <h3 className="lab-fltr-dc-name fw-500" style={{ fontSize: '14px', paddingLeft: '8px', color: '#757575' }}>{this.props.details.tests[0].number_of_tests} Tests Included</h3>
+                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests !=null ? <div style={{marginTop:'10px'}}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
                                 :''}
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
