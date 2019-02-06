@@ -306,6 +306,11 @@ class PatientDetailsNew extends React.Component {
         }
 
         if (addToCart) {
+            let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-add-to-cart-clicked'
+            }
+
+            GTM.sendEvent({ data: data })
             this.props.addToCart(1, postData).then((res) => {
                 this.props.history.push('/cart')
             }).catch((err) => {
@@ -322,6 +327,11 @@ class PatientDetailsNew extends React.Component {
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'OpdProceedButtonClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-proceed-button-clicked'
         }
+        GTM.sendEvent({ data: analyticData })
+
+        analyticData = {
+                'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
+            }
         GTM.sendEvent({ data: analyticData })
 
         this.props.createOPDAppointment(postData, (err, data) => {
