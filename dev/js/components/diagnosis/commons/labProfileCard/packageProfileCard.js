@@ -127,7 +127,7 @@ class LabProfileCard extends React.Component {
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                         </span>:''}
                                 </h2>
-                                <h3 className="lab-fltr-dc-name fw-500" style={{ fontSize: '14px', paddingLeft: '8px', paddingRight: '110px', color: '#757575' }}>{number_of_tests ? `${number_of_tests} Tests Included` : ''} </h3>
+                                <h3 className="lab-fltr-dc-name fw-500 pkg-include">{number_of_tests ? `${number_of_tests} Tests Included` : ''} </h3>
                                 {/*<h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{lab.name}</h2>*/}
                             </a>
                             {
@@ -150,11 +150,16 @@ class LabProfileCard extends React.Component {
                                     </div>*/}
                             </div>
                             {categories.length > 0 ?
-                                categories.map((category, k) => {
-                                    return <p key={k} id={category.id}>
-                                        {category.name}
-                                    </p>    
-                                })
+                                <ul style={{marginTop:'5px'}}>
+                                {
+                                    categories.map((category, k) => {
+                                        return <li key={k} id={category.id}>
+                                            <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px',marginTop:'6px' }} /> 
+                                            {category.name}
+                                        </li>    
+                                    })
+                                }
+                                </ul>
                             :''}
                         </div>
                         <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>

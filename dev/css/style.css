@@ -5626,3 +5626,13 @@ button.add-shpng-cart-btn.update-btn {
 .dtl-margin-lg{
 	margin-right: 20px;
 }
+
+h3.pkg-include{
+	font-size: 14px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: rgb(117, 117, 117);
+    border: 1px dashed #f78631;
+    border-radius: 4px;
+    display: inline;
+}
