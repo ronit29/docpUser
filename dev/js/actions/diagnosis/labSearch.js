@@ -69,6 +69,12 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 
 		let currentSearchedCriterias = tests || []
 
+		let show404 = false
+		// show 404 on server when no resultd
+		if (response.result && response.result.length == 0 && from_server && searchByUrl) {
+			show404 = true
+		}
+
 		dispatch({
 			type: MERGE_SEARCH_STATE_LAB,
 			payload: {
@@ -97,7 +103,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		dispatch({
 			type: LAB_SEARCH,
 			payload: {
-				page, ...response
+				show404, page, ...response
 			}
 
 		})
@@ -110,6 +116,10 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		}
 
 		if (cb) {
+			// if no results redirect to 404 page
+			if (response.result && response.result.length == 0) {
+				cb(false, true)
+			}
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
 				cb(true)
@@ -285,7 +295,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	// 		payload: null
 	// 	})
 	// }
-	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType,filterCriteriaPackages } = state
+	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
 	// let testIds = currentSearchedCriterias.map((x) => x.id)
 
 	let lat = 28.644800
@@ -295,10 +305,10 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let new_url
 	let parsed
 
-	if(typeof window == "object"){
+	if (typeof window == "object") {
 		url_string = window.location.href
-    	new_url = new URL(url_string)
-    	parsed = new_url.searchParams.get("fromFooter")
+		new_url = new URL(url_string)
+		parsed = new_url.searchParams.get("fromFooter")
 	} else {
 		parsed = false
 	}
@@ -331,12 +341,12 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let sort_on = filterCriteriaPackages.sort_on || ""
 	let catIds = filterCriteriaPackages.catIds || ""
 	// let lab_name = filterCriteriaPackages.lab_name || ""
- //    let network_id = filterCriteriaPackages.network_id || ""
-    let max_age= filterCriteriaPackages.max_age || ""
-    let min_age= filterCriteriaPackages.min_age || ""
-    let gender= filterCriteriaPackages.gender || ""
-    let package_type= filterCriteriaPackages.packageType || ""
-    let test_ids= filterCriteriaPackages.test_ids || ""
+	//    let network_id = filterCriteriaPackages.network_id || ""
+	let max_age = filterCriteriaPackages.max_age || ""
+	let min_age = filterCriteriaPackages.min_age || ""
+	let gender = filterCriteriaPackages.gender || ""
+	let package_type = filterCriteriaPackages.packageType || ""
+	let test_ids = filterCriteriaPackages.test_ids || ""
 
 	let url = `/api/v1/diagnostic/packagelist?`
 
@@ -344,10 +354,10 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	if(!parsed){
+	if (!parsed) {
 		// url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
 
-		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender|| ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}`
+		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}`
 	}
 	// url += `long=${long || ""}&lat=${lat || ""}&category_ids=${catIds || ""}`
 

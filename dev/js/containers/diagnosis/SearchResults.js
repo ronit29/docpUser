@@ -1,15 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType } from '../../actions/index.js'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
+import NotFoundView from '../../components/commons/notFound'
 
 class SearchResults extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            show404: false
+        }
+    }
 
+    componentDidMount() {
+        if (this.props.show404) {
+            this.setState({ show404: true })
+            this.props.toggle404(false)
         }
     }
 
@@ -33,7 +41,10 @@ class SearchResults extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore) => {
+                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore, noResults = false) => {
+                        if (noResults) {
+                            resolve({ status: 404 })
+                        }
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
@@ -60,6 +71,10 @@ class SearchResults extends React.Component {
     }
 
     render() {
+
+        if (this.props.show404 || this.state.show404) {
+            return <NotFoundView {...this.props} />
+        }
 
         return (
             <SearchResultsView {...this.props} />
@@ -93,7 +108,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData, test_data } = state.LAB_SEARCH
+    const { show404, labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData, test_data } = state.LAB_SEARCH
     const { mergeUrlState } = state.SEARCH_CRITERIA_OPD
 
     return {
@@ -117,7 +132,8 @@ const mapStateToProps = (state, passedProps) => {
         nextFilterCriteria,
         seoData,
         mergeUrlState,
-        test_data
+        test_data,
+        show404
     }
 
 }
@@ -133,7 +149,8 @@ const mapDispatchToProps = (dispatch) => {
         getFooterData: (url) => dispatch(getFooterData(url)),
         setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
         getLabSearchIdResults: (searchId, searchResults) => dispatch(getLabSearchIdResults(searchId, searchResults)),
-        selectSearchType: (type) => dispatch(selectSearchType(type))
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
+        toggle404: (status) => dispatch(toggle404(status))
     }
 }
 
