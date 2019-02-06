@@ -59,7 +59,7 @@ class CommmentView extends React.Component{
 							<div className="col-12">
 								{
 									this.props.commentsExists?''
-									:<h1 className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</h1>	
+									:<a href="" onClick={(e)=>e.preventDefault()} className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</a>	
 								}
 								<div className="labelWrap">
 									<div className="labelWrap">
@@ -73,7 +73,7 @@ class CommmentView extends React.Component{
 							<div className="col-12">
 								{
 									this.props.commentsExists?''
-									:<h1 className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</h1>	
+									:<a href="" onClick={(e)=>e.preventDefault()} className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</a>	
 								}
 								
 								<div className="labelWrap">

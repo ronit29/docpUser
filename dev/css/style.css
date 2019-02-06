@@ -5255,6 +5255,7 @@ color: 	#fe7108;
 }
 .cmnt-static{
 	font-size: 16px;
+	cursor: default;
 	font-weight: 700;
 }
 .cmnt-static img{
