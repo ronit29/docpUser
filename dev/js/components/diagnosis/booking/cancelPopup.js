@@ -14,15 +14,23 @@ class CancelPopUp extends React.Component{
     }
 
     submitClicked(e){
-        if( (this.state.selectedCancelReasonId == 4 && !this.state.cancelText) || (!this.state.selectedCancelReasonId) ){
+        let otherReason = this.props.comments.filter(x=>x.id == this.state.selectedCancelReasonId)
+        
+        if(!this.state.selectedCancelReasonId){
             e.stopPropagation()
             setTimeout(() => {
-                    SnackBar.show({ pos: 'bottom-center', text: "Please select the reason for cancellation to help you serve better" })
+                    SnackBar.show({ pos: 'bottom-center', text: "Please select valid reason" })
+                }, 200)
+            return
+
+        }else if( otherReason.length && otherReason[0].is_comment_needed && !this.state.cancelText ){
+            e.stopPropagation()
+            setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Please enter comment" })
                 }, 200)
             return
         }else{
 
-            let otherReason = this.props.comments.filter(x=>x.id == this.state.selectedCancelReasonId)
             if(otherReason.length && otherReason[0].is_comment_needed){
                 otherReason = this.state.cancelText
             }else{

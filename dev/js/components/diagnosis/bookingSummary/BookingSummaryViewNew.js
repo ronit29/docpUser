@@ -317,6 +317,11 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         if (addToCart) {
+            let data = {
+            'Category': 'ConsumerApp', 'Action': 'LabAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-add-to-cart-clicked'
+            }
+
+            GTM.sendEvent({ data: data })
             this.props.addToCart(2, postData).then((res) => {
                 this.props.history.push('/cart')
             }).catch((err) => {
@@ -341,6 +346,12 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         GTM.sendEvent({ data: data })
+
+
+        let analyticData = {
+                'Category': 'ConsumerApp', 'Action': 'LabConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-confirm-booking-clicked'
+            }
+        GTM.sendEvent({ data: analyticData })
 
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
