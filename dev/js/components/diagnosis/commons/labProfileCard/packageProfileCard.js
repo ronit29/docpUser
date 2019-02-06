@@ -80,9 +80,8 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
     render() {
-        let {discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id,number_of_tests,show_details } = this.props.details;
+        let {discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id,number_of_tests,show_details,categories } = this.props.details;
         distance = Math.ceil(distance / 1000);
-
         var openingTime = ''
         if (this.props.details.lab_timing) {
             openingTime = this.props.details.lab_timing.split('-')[0];
@@ -116,16 +115,15 @@ class LabProfileCard extends React.Component {
                     <div className="fltr-lctn-dtls">
                         <p>
                             <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                            <span className="fltr-loc-txt">{lab.locality} {lab.city}</span>
-                            |
-                            <span>{distance} Km</span>
+                            <span className="fltr-loc-txt">{lab.locality} {lab.city} </span> | 
+                            <span> {distance} Km</span>
                         </p>
                     </div>
                     <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                         <div className="col-12 mrt-10">
                             <a>
                                 <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name} {show_details?
-                                    <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,id)}>
+                                    <span style={{'marginLeft':'5px',marginTop:'4px',display:'inline-block'}} onClick={this.testInfo.bind(this,id)}>
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                         </span>:''}
                                 </h2>
@@ -151,6 +149,13 @@ class LabProfileCard extends React.Component {
                                         <h3 className="fw-500">15 Years of Experience</h3>
                                     </div>*/}
                             </div>
+                            {categories.length > 0 ?
+                                categories.map((category, k) => {
+                                    return <p key={k} id={category.id}>
+                                        {category.name}
+                                    </p>    
+                                })
+                            :''}
                         </div>
                         <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
                             {
