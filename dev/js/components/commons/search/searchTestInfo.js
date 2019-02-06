@@ -230,9 +230,8 @@ class SearchTestView extends React.Component {
     }
 
     render() {
-        let  url_string = window.location.href
-        let  url = new URL(url_string);
-        var selected_test_ids = url.searchParams.get("selected_test_ids")
+        const parsed = queryString.parse(this.props.location.search)
+        var selected_test_ids = parsed.selected_test_ids?parsed.selected_test_ids:''
         let url_test_ids = selected_test_ids.split(',')
         let disableAddTest = [].concat(this.state.disableAddTest)
         {

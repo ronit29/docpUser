@@ -6,9 +6,26 @@ import { searchTestData,selectedCriterias,searchTestInfoData,toggleDiagnosisCrit
 import SearchTestView from '../../components/commons/search/searchTestInfo.js'
 
 class searchTestInfo extends React.Component {
+    
     constructor(props) {
         super(props)
     }
+
+    static loadData(store, match, query) {
+
+        let url = match.url
+        if (url) {
+            url = url.split("/")[1]
+        }
+        url = ''
+        return new Promise((resolve, reject) => {
+            store.dispatch(searchTestData(query.test_ids || '', url, query.lab_id || '', (data)=>{
+                resolve({ })
+
+            } ))
+        })
+    }
+
     render() {
         return(
             <SearchTestView {...this.props} hideHeaderOnMobile={true}/>

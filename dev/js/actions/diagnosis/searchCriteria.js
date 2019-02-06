@@ -76,14 +76,14 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
 }
 export const searchTestData = (test_ids,test_url,lab_id,callback) => (dispatch) => {
     let url
-    if(test_url !=''){
+    if(test_url !='' && test_url){
         url = '/api/v1/diagnostic/test/details_by_url?url='+test_url
         if(lab_id != null){
             url = '/api/v1/diagnostic/test/details_by_url?url='+test_url+'&lab_id='+lab_id
         }
     }else{
         url = '/api/v1/diagnostic/test/details?test_ids='+test_ids
-        if(lab_id != null){
+        if(lab_id != null && lab_id!=""){
             url = '/api/v1/diagnostic/test/details?test_ids='+test_ids+'&lab_id='+lab_id
         }
     }
