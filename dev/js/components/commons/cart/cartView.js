@@ -271,7 +271,7 @@ class CartView extends React.Component {
                                             <div className="norf widget" style={{ marginTop: '10px', height: '69vh' }}>
                                                 {
                                                     cart == null ? "" : <div className="text-center">
-                                                        <img style={{width: '150px'}} src={ASSETS_BASE_URL + "/img/emptyCart.png"} />
+                                                        <img style={{width: '150px'}} src={ASSETS_BASE_URL + "/img/emptyCart1.png"} />
                                                         <p className="emptyCardText">Your Cart is Empty!</p>
                                                         <button onClick={() => {this.props.history.push('/search')}} className="emptyCartRedirect">Book Appointments Now</button>
                                                     </div>
