@@ -113,6 +113,10 @@ app.all('*', function (req, res) {
                         context.data = data[0]
                     }
 
+                    if (context.data && context.data.status && context.data.status == 404) {
+                        res.status(404)
+                    }
+
                     const storeData = JSON.stringify(store.getState())
                     const html = ReactDOMServer.renderToString(
                         <Provider store={store}>
@@ -160,7 +164,8 @@ app.all('*', function (req, res) {
                  * If a new url is sent via any API call, then redirect client.
                  */
                 if (error && error.url) {
-                    res.redirect(301, `/${error.url}`);
+                    let status = error.status || 301
+                    res.redirect(status, `/${error.url}`);
                 } else {
 
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
