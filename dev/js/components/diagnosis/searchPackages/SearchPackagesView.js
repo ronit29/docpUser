@@ -148,8 +148,11 @@ class SearchPackagesView extends React.Component {
         let page=1
         
         let url
+        alert(this.props.forTaxSaver)
         if(this.props.forSeo){
             url = `${window.location.pathname}`
+        }else if(this.props.forTaxSaver){
+            url = `${window.location.pathname}?forTaxSaver=true&lat=${lat}&long=${long}&category_ids=${cat_ids}`
         }else{
             // url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
             url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}`
