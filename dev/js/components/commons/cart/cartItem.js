@@ -147,16 +147,20 @@ class CartItem extends React.Component {
 
                         <div className="shopng-cart-price">
                             {
-                                mrp ? <p><img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {deal_price} <span className="shopng-cart-price-cut">₹{mrp}</span></p> : ""
+                                mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                             }
 
                         </div>
-                        <div className="widget-header dr-qucik-info">
+                        <div className="widget-header dr-qucik-info widgetHeaderPaddingTop">
                             <div>
                                 <div>
-                                    <InitialsPicture name={doctor ? doctor.name : lab.name} has_image={!!thumbnail} className="initialsPicture-dbd cart-initialspic">
-                                        <img src={thumbnail} style={{ width: '50px', height: '50px' }} className="img-fluid img-round" />
-                                    </InitialsPicture>
+                                    {
+                                        doctor ? <InitialsPicture name={doctor.name} has_image={!!thumbnail} className="initialsPicture-dbd cart-initialspic">
+                                            <img src={thumbnail} style={{ width: '50px', height: '50px', marginTop: '8px' }} className="img-fluid img-round" />
+                                        </InitialsPicture> : <InitialsPicture name={lab.name} has_image={!!thumbnail} className="initialsPicture-xs-cart">
+                                                <img style={{height:'auto', width:'auto', marginTop: '15px'}} src={thumbnail} className="fltr-usr-image-lab" />
+                                            </InitialsPicture>
+                                    }
                                 </div>
                             </div>
                             {

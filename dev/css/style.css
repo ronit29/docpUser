@@ -5255,6 +5255,7 @@ color: 	#fe7108;
 }
 .cmnt-static{
 	font-size: 16px;
+	cursor: default;
 	font-weight: 700;
 }
 .cmnt-static img{
@@ -5314,7 +5315,7 @@ color: 	#fe7108;
     text-decoration: line-through;
     color: #757575;
 	margin-left: 5px;
-	font-weight: 400;
+	font-weight: 500;
 }
 .shopng-cart-price p img{
 	height: 11px;
@@ -5479,6 +5480,31 @@ button.add-shpng-cart-btn.update-btn {
 .errorInfoImg{
 	width: 20px;
     margin: 2px 6px 0 0;
+}
+.initialsPicture-xs-cart{
+    height: 40px;
+    margin-right: 4px;
+    width: 40px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+	border-radius: 5px;
+	margin-top: 8px;
+}
+.widgetHeaderPaddingTop{
+	padding-top: 14px;
+}
+.emptyCartRedirect{
+	background: #f78631;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 8px 30px;
+    cursor: pointer;
 }
 /* ================= shopping cart style ================= */
 .imptnt-cls{
