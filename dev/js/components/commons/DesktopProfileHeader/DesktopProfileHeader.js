@@ -1,13 +1,15 @@
 import React from 'react';
 import InitialsPicture from '../initialsPicture'
 import GTM from '../../../helpers/gtm'
+import LeftMenu from '../LeftMenu/LeftMenu.js'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             headerButtonsState: false,
-            medicinePopup: false
+            medicinePopup: false,
+            toggleHamburger: false
         }
     }
 
@@ -109,12 +111,24 @@ class DesktopProfileHeader extends React.Component {
                 </div>
 
                 <div className="container">
+                    {
+                        this.state.toggleHamburger?
+                        <div>
+                            <div className="cancel-overlay" onClick={(e) => {
+                                e.stopPropagation()
+                                this.setState({toggleHamburger: !this.state.toggleHamburger})}}></div>
+                            <LeftMenu {...this.props}/>
+                        </div>
+                        :''
+                    }
                     <div className="row align-items-center">
 
-                        <div className="col-lg-3 col-md-4 col-4 align-items-center pr-0" onClick={() => {
+                        <div className="col-lg-3 col-md-4 col-5 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
-                            <div className="ham-menu">
+                            <div className="ham-menu" onClick={(e) => {
+                                e.stopPropagation()
+                                this.setState({toggleHamburger: !this.state.toggleHamburger})}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
@@ -124,7 +138,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
+                        <div className="col-lg-9 col-md-8 col-7 d-none d-lg-block ml-auto text-right pl-0">
                             <div className="header-search-full-widht">
                                 {/* <div className="head-links" onClick={() => {
                                 let data = {
@@ -212,7 +226,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 ml-auto text-right d-lg-none pl-0">
+                        <div className="col-lg-9 col-md-8 col-7 ml-auto text-right d-lg-none pl-0">
                             {
                                 this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
                                     <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
