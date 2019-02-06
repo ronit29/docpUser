@@ -47,6 +47,54 @@ class LeftMenu extends React.Component {
                     </div>
                   </div>
               </div>
+              <div className="container">
+                  <div className="row">
+                     <div className="col-xs-12 col-d-width">
+                       <div className="lm-card clearfix">
+                          <div className="float-l">
+                            <h2>Call</h2>
+                            <p>Lorem Ipsum is simply dummy text</p>
+                          </div>
+                          <div className="float-r">
+                            <img src="/assets/images/ic-tele.png" alt="" />
+                          </div>
+                       </div>
+                       <div className="lm-card clearfix">
+                          <div className="float-l">
+                            <h2>Chat with us</h2>
+                            <p>Lorem Ipsum is simply dummy text</p>
+                          </div>
+                          <div className="float-r">
+                            <img src="/assets/images/ic-chat.png" alt="" />
+                          </div>
+                       </div>
+                       <div className="lm-card clearfix">
+                          <div className="float-l">
+                            <h2>Write to us</h2>
+                            <p>Lorem Ipsum is simply dummy text</p>
+                          </div>
+                          <div className="float-r">
+                            <img src="/assets/images/ic-edit.png" alt="" />
+                          </div>
+                          <div className="wrtus-frm clearfix">
+                            <div className="form-group">
+                                <input type="text" className="form-write" placeholder="Name" />
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-write" placeholder="E-mail" />
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-write" placeholder="Mobile number" />
+                            </div>
+                            <div className="form-group">
+                                <textarea className="form-write" placeholder="Message"></textarea>
+                            </div>
+                            <a href="javascript:void(0);" className="btn-wrt-submit">Submit</a>
+                          </div>
+                       </div>
+                     </div>
+                  </div>
+              </div>
             </section>
   
       )
