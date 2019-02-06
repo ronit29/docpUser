@@ -268,7 +268,7 @@ class CartView extends React.Component {
 
 
                                     </section> : <div className="container-fluid">
-                                            <div className="norf widget" style={{ marginTop: '10px', height: '40vh' }}>
+                                            <div className="norf widget" style={{ marginTop: '10px', height: '69vh' }}>
                                                 {
                                                     cart == null ? "" : <div className="text-center">
                                                         <img style={{width: '150px'}} src={ASSETS_BASE_URL + "/img/emptyCart.png"} />
