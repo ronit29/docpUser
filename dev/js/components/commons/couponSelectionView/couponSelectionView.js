@@ -5,6 +5,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import TermsConditions from './termsConditions.js'
 const queryString = require('query-string');
+import BookingError from '../../opd/patientDetails/bookingErrorPopUp'
 
 class CouponSelectionView extends React.Component {
     constructor(props) {
@@ -21,8 +22,14 @@ class CouponSelectionView extends React.Component {
             test_ids: null,
             procedures_ids: null,
             clinicId: null,
-            deal_price: null
+            deal_price: null,
+            cart_item: null,
+            error: null
         }
+    }
+
+    closeErrorPopup = () => {
+        this.setState({ error: '' })
     }
 
     toggle(which, tnc = '') {
@@ -44,6 +51,7 @@ class CouponSelectionView extends React.Component {
         let test_ids = null
         let procedures_ids = null
         let deal_price = null
+        let cart_item = parsed.cart_item || null
 
         if (parsed.deal_price) {
             deal_price = parseInt(parsed.deal_price)
@@ -62,18 +70,18 @@ class CouponSelectionView extends React.Component {
                 test_ids = parsed.test_ids
             }
             props.getCoupons({
-                productId: 2, lab_id: id, test_ids: test_ids, profile_id: props.selectedProfile, deal_price: deal_price
+                productId: 2, lab_id: id, test_ids: test_ids, profile_id: props.selectedProfile, deal_price: deal_price, cart_item
             })
         } else {
             if (parsed.procedures_ids) {
                 procedures_ids = parsed.procedures_ids
             }
             props.getCoupons({
-                productId: 1, doctor_id: id, hospital_id: clinicId, profile_id: props.selectedProfile, procedures_ids, deal_price: deal_price
+                productId: 1, doctor_id: id, hospital_id: clinicId, profile_id: props.selectedProfile, procedures_ids, deal_price: deal_price, cart_item
             })
         }
 
-        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids, deal_price })
+        this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids, deal_price, cart_item })
     }
 
     componentDidMount() {
@@ -87,9 +95,14 @@ class CouponSelectionView extends React.Component {
     }
 
     toggleButtons(coupon, e) {
-        this.setState({ coupon: coupon.coupon_id, couponName: coupon.code, errorMsg: '' })
-        this.props.applyCoupons(this.state.appointmentType, coupon, coupon.coupon_id, this.state.id)
-        this.props.history.go(-1)
+        if (coupon.valid) {
+            this.setState({ coupon: coupon.coupon_id, couponName: coupon.code, errorMsg: '' })
+            this.props.applyCoupons(this.state.appointmentType, coupon, coupon.coupon_id, this.state.id)
+            this.props.history.go(-1)
+        } else {
+            // open popup
+            this.setState({ error: coupon.invalidating_message })
+        }
     }
 
     applyCoupon() {
@@ -116,7 +129,7 @@ class CouponSelectionView extends React.Component {
         this.setState({ couponTextMessage: "" })
         if (this.state.couponText) {
             let cb = (coupon) => {
-                if (coupon && coupon[0]) {
+                if (coupon && coupon[0] && coupon[0].valid) {
                     this.toggleButtons(coupon[0], e)
                 } else {
                     this.setState({ couponTextMessage: "Please enter a valid coupon code" })
@@ -124,17 +137,13 @@ class CouponSelectionView extends React.Component {
             }
             if (this.state.appointmentType == 2) {
                 this.props.getCoupons({
-                    productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb
+                    productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb, cart_item: this.state.cart_item
                 })
-
-                // this.props.getCoupons(this.state.appointmentType, null, cb, this.state.id, this.state.test_ids, this.state.couponText, false)
             } else {
                 this.props.getCoupons({
                     productId: 1, doctor_id: this.state.id, hospital_id: this.state.clinicId, profile_id: this.props.selectedProfile, procedures_ids: this.state.procedures_ids, save_in_store: false,
-                    coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb
+                    coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb, cart_item: this.state.cart_item
                 })
-
-                // this.props.getCoupons(this.state.appointmentType, null, cb, null, null, this.state.couponText, false)
             }
         } else {
             this.setState({ couponTextMessage: "Please enter a coupon code" })
@@ -157,23 +166,6 @@ class CouponSelectionView extends React.Component {
                                         <div className="col-12">
                                             <div className="widget mrt-10 ct-profile skin-white">
 
-                                                {/*<div className="widget-content">
-                                                    <h4 className="title">Apply Coupon</h4> 
-                                                    {
-                                                        this.state.errorMsg?
-                                                        <p style={{color:'red'}}>{this.state.errorMsg}</p>
-                                                        :''
-                                                    }
-                                                    <div className="search-coupon-input">
-                                                        <input type="text" id="disease-search"  className="coupon-searchbar" placeholder={this.state.couponName} value = {this.state.couponName}/>           
-                                                        <p className="text-sm text-primary apply-button" onClick={this.applyCoupon.bind(this)}>Apply</p>
-                                                    </div>
-
-                                                              
-                                                </div>*/}
-
-
-
                                                 <div className="coupons-list">
                                                     <p className="pd-12 select-coupon-heading">Select Coupon</p>
                                                     <div className="coupon-search-input">
@@ -186,7 +178,7 @@ class CouponSelectionView extends React.Component {
                                                             <ul>
                                                                 {
                                                                     this.props.applicableCoupons.map((coupons, index) => {
-                                                                        return <li key={index} className="coupon-style search-list-radio pd-12">
+                                                                        return <li key={index} className={"coupon-style search-list-radio pd-12"}>
                                                                             <input type="radio" id={coupons.coupon_id} name="radio-group" checked={this.state.coupon === coupons.coupon_id} value={coupons.code} onClick={this.toggleButtons.bind(this, coupons)} />
                                                                             <label className="fw-700 text-md" htmlFor={coupons.coupon_id}>{coupons.code}</label>
                                                                             <div className="coupon-input col-12">
@@ -227,6 +219,9 @@ class CouponSelectionView extends React.Component {
                                             </div>
                                         </div>
 
+                                        {
+                                            this.state.error ? <BookingError heading={"Invalid Coupon"} message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                                        }
 
                                     </div>
                                 </div>

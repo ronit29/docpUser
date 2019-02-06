@@ -76,12 +76,12 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 			},
 			fetchNewResults: false
 		})
-		let searchIdData = Object.assign({},response)
+		let searchIdData = Object.assign({}, response)
 		searchIdData.currentSearchedCriterias = currentSearchedCriterias
 		dispatch({
 			type: SAVE_LAB_RESULTS_WITH_SEARCHID,
 			payload: searchIdData,
-			page:page
+			page: page
 		})
 
 		dispatch({
@@ -226,7 +226,7 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
-export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = [], profile_id = null) => (dispatch) => {
+export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = [], profile_id = null, cart_item = null) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {
 		coupon_code: [couponCode],
@@ -234,7 +234,8 @@ export const applyLabCoupons = (productId = '', couponCode, couponId, labId = nu
 		product_id: productId,
 		tests: test_ids,
 		lab: labId,
-		profile: profile_id || null
+		profile: profile_id || null,
+		cart_item
 	}).then(function (response) {
 		let analyticData = {
 			'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied', 'couponId': couponId
@@ -360,11 +361,11 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	return API_GET(url).then(function (response) {
 		if (response) {
-		// let tests = response.tests.map((x) => {
-		// 	x.type = 'test'
-		// 	return x
-		// })
-			let tests=''
+			// let tests = response.tests.map((x) => {
+			// 	x.type = 'test'
+			// 	return x
+			// })
+			let tests = ''
 			let currentSearchedCriterias = tests || []
 
 			dispatch({
@@ -419,7 +420,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	})
 }
 
-export const setLabSearchId = (searchId, filters, page=1) => (dispatch) => {
+export const setLabSearchId = (searchId, filters, page = 1) => (dispatch) => {
 	dispatch({
 		type: SET_LAB_SEARCH_ID,
 		payload: filters,
@@ -434,7 +435,7 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 		searchId: searchId
 	})
 	dispatch({
-		type:SET_LAB_URL_PAGE,
+		type: SET_LAB_URL_PAGE,
 		payload: response.page
 	})
 	dispatch({
@@ -445,7 +446,7 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 	dispatch({
 		type: LAB_SEARCH,
 		payload: {
-			page:response.page, ...response.data
+			page: response.page, ...response.data
 		}
 
 	})

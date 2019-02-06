@@ -22,7 +22,7 @@ import BookingError from './bookingErrorPopUp.js'
 class PatientDetailsNew extends React.Component {
     constructor(props) {
         super(props)
-        // const parsed = queryString.parse(this.props.location.search)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
@@ -38,7 +38,8 @@ class PatientDetailsNew extends React.Component {
             is_cashback: false,
             // order_id: !!parsed.order_id,
             use_wallet: true,
-            couponInfo: {}
+            profileError: false,
+            cart_item: parsed.cart_item
         }
     }
 
@@ -102,8 +103,8 @@ class PatientDetailsNew extends React.Component {
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
 
-                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback, couponInfo: doctorCoupons[0] })
-                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props))
+                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
             } else if (hospital) {
                 let deal_price = hospital.deal_price
                 let treatment_Price = 0
@@ -112,8 +113,8 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 deal_price += treatment_Price
-                this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponInfo: doctorCoupons[0] })
-                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props))
+                this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
 
             }
         } else {
@@ -134,12 +135,12 @@ class PatientDetailsNew extends React.Component {
             //auto apply coupon if no coupon is apllied
             if (this.state.selectedDoctor && deal_price && this.props.couponAutoApply) {
                 this.props.getCoupons({
-                    productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props),
+                    productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
                     cb: (coupons) => {
                         if (coupons && coupons[0]) {
-                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponInfo: coupons[0] })
+                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
                             this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
-                            this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props))
+                            this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
                         } else {
                             this.props.resetOpdCoupons()
                         }
@@ -184,8 +185,8 @@ class PatientDetailsNew extends React.Component {
 
                     deal_price += treatment_Price
 
-                    this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true, couponInfo: doctorCoupons[0] })
-                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps))
+                    this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
+                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
                 }
             } else {
                 let deal_price = 0
@@ -204,12 +205,12 @@ class PatientDetailsNew extends React.Component {
                 //auto apply coupon if no coupon is apllied
                 if (this.state.selectedDoctor && deal_price && nextProps.couponAutoApply) {
                     this.props.getCoupons({
-                        productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps),
+                        productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps), cart_item: this.state.cart_item,
                         cb: (coupons) => {
                             if (coupons && coupons[0]) {
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true, couponInfo: coupons[0] })
+                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true })
                                 this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
-                                this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps))
+                                this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
                             } else {
                                 this.setState({ couponApplied: true })
                                 this.props.resetOpdCoupons()
@@ -229,7 +230,7 @@ class PatientDetailsNew extends React.Component {
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
             this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
-            this.setState({ profileDataFilled: true, showTimeError: false })
+            this.setState({ profileDataFilled: true, showTimeError: false, profileError: false })
         }
     }
 
@@ -248,7 +249,7 @@ class PatientDetailsNew extends React.Component {
         return null
     }
 
-    proceed(datePicked, patient, e) {
+    proceed(datePicked, patient, addToCart, e) {
 
         if (!datePicked) {
             this.setState({ showTimeError: true });
@@ -258,7 +259,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         if (!patient) {
-            //this.setState({ showTimeError: true });
+            this.setState({ profileError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
             window.scrollTo(0, 0)
             return
@@ -285,7 +286,8 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: 1,
-            use_wallet: this.state.use_wallet
+            use_wallet: this.state.use_wallet,
+            cart_item: this.state.cart_item
         }
         if (this.props.disCountedOpdPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -301,6 +303,20 @@ class PatientDetailsNew extends React.Component {
             if (procedure_ids.length) {
                 postData['procedure_ids'] = procedure_ids || []
             }
+        }
+
+        if (addToCart) {
+            this.props.addToCart(1, postData).then((res) => {
+                this.props.history.push('/cart')
+            }).catch((err) => {
+                let message = "Error adding to cart!"
+                if (err.message) {
+                    message = err.message
+                }
+                this.setState({ loading: false, error: message })
+                SnackBar.show({ pos: 'bottom-center', text: message });
+            })
+            return
         }
 
         let analyticData = {
@@ -321,26 +337,12 @@ class PatientDetailsNew extends React.Component {
                     let analyticData = {
                         'Category': 'ConsumerApp', 'Action': 'DoctorOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor_order_created'
                     }
-                    let payment_option = this.state.couponInfo && this.state.couponInfo.payment_option && this.state.couponInfo.payment_option.id ?this.state.couponInfo.payment_option.id:''
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=opd&payment_options=${payment_option}`)
-
-                    // this.setState({
-                    //     paymentData: data.data
-                    // }, () => {
-                    //     setTimeout(() => {
-                    //         let form = document.getElementById('paymentForm')
-                    //         form.submit()
-                    //     }, 500)
-
-                    //     setTimeout(() => {
-                    //         this.setState({ loading: false })
-                    //     }, 5000)
-                    // })
+                    this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
 
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/opd/appointment/${data.data.id}?payment_success=true`)
+                    this.props.history.replace(`/order/summary/${data.data.orderId}`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
@@ -388,7 +390,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         GTM.sendEvent({ data: analyticData })
-        this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}/${this.state.selectedClinic}?procedures_ids=${procedure_ids}&deal_price=${this.getDealPrice()}`)
+        this.props.history.push(`/coupon/opd/${this.state.selectedDoctor}/${this.state.selectedClinic}?procedures_ids=${procedure_ids}&deal_price=${this.getDealPrice()}&cart_item=${this.state.cart_item || ""}`)
     }
 
     getDealPrice() {
@@ -516,6 +518,7 @@ class PatientDetailsNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
+
                                                         <SelectedClinic
                                                             boxShadowHide={true}
                                                             selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
@@ -523,7 +526,7 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
 
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} />
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
@@ -655,20 +658,37 @@ class PatientDetailsNew extends React.Component {
                                 this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                             }
 
-                            {
+                            {/* {
                                 this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
-                            }
+                            } */}
 
-                            {
-                                this.state.error ?
-                                    <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
-                            }
+                            <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
 
+                                <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
+                                    {
+                                        this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
+                                    }
+                                    {this.state.cart_item ? "Update" : "Add to Cart"}
+                                </button>
+
+                                {
+                                    this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
+                                }
+                            </div>
                         </div>
 
-                        <RightBar extraClass="chat-float-btn-2" type="opd" />
+                        {
+                            this.state.error ?
+                                <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
+                        }
+
+                        <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} />
                     </div>
                 </section>
             </div>

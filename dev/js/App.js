@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, loadLabCommonCriterias } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -62,6 +62,7 @@ class App extends React.Component {
 
         const parsed = queryString.parse(window.location.search)
         if (STORAGE.checkAuth()) {
+            this.props.getCartItems()
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
                     API_POST('/api/v1/user/api-token-refresh', {
@@ -256,6 +257,7 @@ const mapDispatchToProps = (dispatch) => {
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
         set_summary_utm: (toggle, validity) => dispatch(set_summary_utm(toggle, validity)),
         mergeUrlState: (flag) => dispatch(mergeUrlState(flag)),
+        getCartItems: () => dispatch(getCartItems()),
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias())
     }
 

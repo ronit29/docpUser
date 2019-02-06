@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests } from '../../actions/index.js'
+import { getCartItems, setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
@@ -35,6 +35,7 @@ class UserProfile extends React.Component {
             this.props.getUserProfile()
             this.props.getUserAddress()
             this.props.getCoupons({})
+            this.props.getCartItems()
         }
 
     }
@@ -79,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
         getUserPrescription: (mobileNo) => dispatch(getUserPrescription(mobileNo)),
         getCoupons: (productId) => dispatch(getCoupons(productId)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
-        clearExtraTests: () => dispatch(clearExtraTests())
+        clearExtraTests: () => dispatch(clearExtraTests()),
+        getCartItems: () => dispatch(getCartItems()),
     }
 }
 

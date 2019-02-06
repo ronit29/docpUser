@@ -37,30 +37,17 @@ class PaymentView extends React.Component {
         let orderId = this.props.match.params.id
         this.props.fetchPgData(orderId, (err, data) => {
             if (data && data.status) {
-                this.setState({ paymentEnabled: true, paymentData: data.data })
-            }
-        })
-
-        const parsed = queryString.parse(window.location.search)
-        let couponSpecificPaymentOptionId = ''
-        if(parsed.payment_options){
-            couponSpecificPaymentOptionId = parseInt(parsed.payment_options)
-        }
-        this.props.fetchPaymentOptions((err, data)=> {
-            if(data){
-
                 let selectedPayment = []
-                if(couponSpecificPaymentOptionId){
-                    data = data.filter(x=>x.id == couponSpecificPaymentOptionId)
-                    selectedPayment = data
-                }else{
-                    selectedPayment = data.filter(x=>x.is_selected)
+                if (data.payment_options) {
+                    selectedPayment = data.payment_options.filter(x => x.is_selected)
                 }
-                
-                this.setState({payment_options: data, selectedPayment: selectedPayment.length?selectedPayment[0].action:'', gateway: selectedPayment.length?selectedPayment[0].payment_gateway:'', mode:selectedPayment.length?selectedPayment[0].action:'',
-                selectedId:selectedPayment.length?selectedPayment[0].id:'' })
+                this.setState({
+                    paymentEnabled: true, paymentData: data.data, payment_options: data.payment_options || [], selectedPayment: selectedPayment.length ? selectedPayment[0].action : '', gateway: selectedPayment.length ? selectedPayment[0].payment_gateway : '', mode: selectedPayment.length ? selectedPayment[0].action : '',
+                    selectedId: selectedPayment.length ? selectedPayment[0].id : ''
+                })
             }
         })
+
     }
 
     selectPaymentType(id, e) {
@@ -72,7 +59,7 @@ class PaymentView extends React.Component {
         if (e.target.dataset && e.target.dataset.mode) {
             mode = e.target.dataset.mode
         }
-        this.setState({ selectedPayment: e.target.value,selectedId: id, gateway, mode })
+        this.setState({ selectedPayment: e.target.value, selectedId: id, gateway, mode })
     }
 
     proceed() {
@@ -142,16 +129,16 @@ class PaymentView extends React.Component {
                                                     <ul className="list payment-method">
                                                         {
                                                             this.state.payment_options.map((paymentType, key) => {
-                                                            
-                                                                return <li key= {key} style={{ position: 'relative' }}>
+
+                                                                return <li key={key} style={{ position: 'relative' }}>
                                                                     <label htmlFor={`S{paymentType.action}_${paymentType.payment_gateway}`} className="paytm-label"> <img src={paymentType.image} className="img-fluid" /> {paymentType.name}
                                                                     </label>
                                                                     {
                                                                         totalAmount && totalAmount >= 100 ?
                                                                             <span className="fw-500" style={{ position: 'absolute', color: 'green', fontSize: 12, top: 35, left: 74 }}>{paymentType.description}</span> : ''
                                                                     }
-                                                                    <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this, paymentType.id)} checked={!!(this.state.selectedId == paymentType.id)} value={paymentType.action} className="radio-inline" name="gender" id={`${paymentType.action}_${paymentType.payment_gateway}`} data-mode={paymentType.action} data-pay = {paymentType.id} data-gateway={paymentType.payment_gateway}/></span>
-                                                                </li>        
+                                                                    <span className="float-right"><input type="radio" onChange={this.selectPaymentType.bind(this, paymentType.id)} checked={!!(this.state.selectedId == paymentType.id)} value={paymentType.action} className="radio-inline" name="gender" id={`${paymentType.action}_${paymentType.payment_gateway}`} data-mode={paymentType.action} data-pay={paymentType.id} data-gateway={paymentType.payment_gateway} /></span>
+                                                                </li>
                                                             })
                                                         }
                                                     </ul>

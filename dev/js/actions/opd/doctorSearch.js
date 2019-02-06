@@ -116,7 +116,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		dispatch({
 			type: SAVE_RESULTS_WITH_SEARCHID,
 			payload: response,
-			page:page,
+			page: page,
 			clinic_card: clinic_card
 		})
 		if (clinic_card) {
@@ -273,7 +273,7 @@ export const getDoctorNumber = (doctorId, hospital_id, callback) => (dispatch) =
 	})
 }
 
-export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id = null, procedures_ids = []) => (dispatch) => {
+export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id = null, procedures_ids = [], cart_item = null) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {
 		coupon_code: [couponCode],
@@ -282,7 +282,8 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id,
 		doctor: doctor_id,
 		hospital: hospitalId,
 		profile: profile_id,
-		procedures: procedures_ids || []
+		procedures: procedures_ids || [],
+		cart_item
 	}).then(function (response) {
 		let analyticData = {
 			'Category': 'ConsumerApp', 'Action': 'OpdCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupon-applied', 'couponId': couponId
@@ -369,7 +370,7 @@ export const getDoctorNo = (postData, cb) => (dispatch) => {
 	})
 }
 
-export const setSearchId = (searchId, filters, page=1) => (dispatch) => {
+export const setSearchId = (searchId, filters, page = 1) => (dispatch) => {
 	dispatch({
 		type: SET_SEARCH_ID,
 		payload: filters,
@@ -383,31 +384,31 @@ export const getSearchIdResults = (searchId, response) => (dispatch) => {
 		type: GET_SEARCH_ID_RESULTS,
 		searchId: searchId
 	})
-	if(response.data.clinic_card){
+	if (response.data.clinic_card) {
 		dispatch({
 			type: APPEND_HOSPITALS,
 			payload: response.data.result || []
 		})
-	}else{	
+	} else {
 		dispatch({
 			type: APPEND_DOCTORS,
 			payload: response.data.result || []
-		})	
+		})
 	}
 	dispatch({
 		type: SET_URL_PAGE,
 		payload: response.page || 1
 	})
-	if(response.data.clinic_card){
+	if (response.data.clinic_card) {
 		dispatch({
 			type: HOSPITAL_SEARCH,
 			payload: {
-				page:response.page || 1,
+				page: response.page || 1,
 				...response.data
 			}
 
 		})
-	}else{	
+	} else {
 		dispatch({
 			type: DOCTOR_SEARCH,
 			payload: {
@@ -415,7 +416,7 @@ export const getSearchIdResults = (searchId, response) => (dispatch) => {
 				...response.data
 			}
 
-		})	
+		})
 	}
 }
 
