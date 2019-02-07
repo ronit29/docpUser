@@ -57,6 +57,10 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
+    toggleLeftMenu(){
+        this.setState({toggleHamburger: !this.state.toggleHamburger})
+    }
+
     render() {
 
         let profileData = this.props.profiles[this.props.defaultProfile]
@@ -113,14 +117,14 @@ class DesktopProfileHeader extends React.Component {
                 <div className="container">
                     {
                         this.state.toggleHamburger?
-                        <div>
-                            <div className="cancel-overlay" onClick={(e) => {
-                                e.stopPropagation()
-                                this.setState({toggleHamburger: !this.state.toggleHamburger})}}></div>
-                            <LeftMenu {...this.props}/>
-                        </div>
+                        <div className="cancel-overlay" onClick={(e) => {
+                        e.stopPropagation()
+                        this.toggleLeftMenu() }}></div>
                         :''
                     }
+
+                    <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)}/>
+
                     <div className="row align-items-center">
 
                         <div className="col-lg-3 col-md-4 col-5 align-items-center pr-0" onClick={() => {
@@ -128,7 +132,7 @@ class DesktopProfileHeader extends React.Component {
                         }}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
-                                this.setState({toggleHamburger: !this.state.toggleHamburger})}}>
+                                this.setState({toggleHamburger: true})}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>

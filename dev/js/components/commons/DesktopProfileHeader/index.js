@@ -35,20 +35,20 @@ class DesktopProfileHeader extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let { profiles, selectedProfile, defaultProfile, notifications, newNotification } = state.USER
+    let { profiles, selectedProfile, defaultProfile, notifications, newNotification, currentRoomId } = state.USER
 
     let {
         selectedLocation
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation
+        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation, currentRoomId
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => dispatch(logout()),
+        logout: (chatRoomId) => dispatch(logout(chatRoomId)),
         fetchNotifications: (cb) => dispatch(fetchNotifications(cb)),
         getUserProfile: () => dispatch(getUserProfile())
     }
