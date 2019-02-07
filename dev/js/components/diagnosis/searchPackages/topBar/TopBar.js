@@ -275,20 +275,23 @@ class TopBar extends React.Component {
                 }
                 <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forSeo?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
-                 <div className="top-filter-tab-container">
-                    <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
-                        {
-                            this.state.sort_on != null? <span className="applied-filter-noti-new" /> : ""
-                        }
+                {
+                    this.props.forTaxSaver?'':
+                    <div className="top-filter-tab-container">
+                        <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
+                            {
+                                this.state.sort_on != null? <span className="applied-filter-noti-new" /> : ""
+                            }
+                        </div>
+                        <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
+                            {
+                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
+                            }
+                        </div>
+                        <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
+                        </div>
                     </div>
-                    <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
-                        {
-                            this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
-                        }
-                    </div>
-                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
-                    </div>
-                </div>
+                }
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">

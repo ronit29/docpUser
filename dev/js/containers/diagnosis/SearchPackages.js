@@ -13,7 +13,8 @@ class SearchPackages extends React.Component {
         this.state = {
             setForSeo:true,
             forSeo:false,
-            forTaxSaver:true,
+            forTaxSaver:false,
+            setForTaxSaver:true
         }
     }
 
@@ -66,12 +67,12 @@ class SearchPackages extends React.Component {
             this.setState({forSeo:parsed.fromFooter,setForSeo:false})
         }
 
-        if(parsed.forTaxSaver && this.state.forTaxSaver){
-            this.setState({forTaxSaver:parsed.forTaxSaver,setForSeo:false})
+        if(parsed.forTaxSaver && this.state.setForTaxSaver){
+            this.setState({forTaxSaver:parsed.forTaxSaver,setForTaxSaver:false})
         }
         
         return (
-            <SearchPackagesView {...this.props} forSeo={this.state.forSeo} forTaxSaver={this.state.forTaxSaver}/>
+            <SearchPackagesView {...this.props} forSeo={this.state.forSeo} forTaxSaver={parsed.forTaxSaver?parsed.forTaxSaver:null}/>
         );
     }
 }
