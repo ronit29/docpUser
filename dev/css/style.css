@@ -5095,10 +5095,7 @@ font-size: 13px;
     left: -100%;
     transition: all ease-in-out .5s;
 }
-.col-d-width-ease{
-	left: 0;
-	transition: all ease-in-out .5s;
-}
+
 .left-menu{
     width: 100%;
     box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.3);
@@ -5300,6 +5297,9 @@ font-size: 13px;
     margin-top: 10px;
     margin-right: 0;
 }
+.cl-overlay{
+	display: none;
+}
 @media screen and (max-width: 991px){
 	.ham-menu img{
 		margin-top: 15px;
@@ -5313,6 +5313,13 @@ font-size: 13px;
 	.doc-header{
 		z-index: 999;
 	}
+	.col-d-width-ease{
+		left: 0;
+		transition: all ease-in-out .5s;
+   }
+   .cl-overlay{
+   	display: block;
+   }
 }
 
 

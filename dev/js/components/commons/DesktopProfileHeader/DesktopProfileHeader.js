@@ -117,7 +117,7 @@ class DesktopProfileHeader extends React.Component {
                 <div className="container">
                     {
                         this.state.toggleHamburger?
-                        <div className="cancel-overlay" onClick={(e) => {
+                        <div className="cancel-overlay cl-overlay" onClick={(e) => {
                         e.stopPropagation()
                         this.toggleLeftMenu() }}></div>
                         :''
