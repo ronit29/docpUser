@@ -118,12 +118,14 @@ class LabProfileCard extends React.Component {
             })
         }
         let show_detailsIds = []
-        {
-            Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
-                if (value.show_details) {
-                    show_detailsIds.push(value.id)
-                }
-            })
+        if(!this.props.isTestInfo){
+            {
+                Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
+                    if (value.show_details) {
+                        show_detailsIds.push(value.id)
+                    }
+                })
+            }
         }
         return (
 

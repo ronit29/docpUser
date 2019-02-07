@@ -378,7 +378,7 @@ class SearchTestView extends React.Component {
                                                             labs.result.length>0?
                                                             Object.entries(labs.result).map(function ([k, lab]) {
                                                                 return <div key={k}>
-                                                                <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true}/>
+                                                                <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true} isTestInfo={true}/>
                                                                 </div>
                                                             }):''
                                                         }
