@@ -161,7 +161,8 @@ class SearchTestView extends React.Component {
             test.show_details = show_details
         }
         test.hide_price = false
-        if(this.state.search_id !== null){
+
+        if(this.state.search_id !== null && this.state.lastSource != 'search'){
         let newTestData = {}
             newTestData.type= 'test'
             newTestData.name= ''
@@ -175,7 +176,9 @@ class SearchTestView extends React.Component {
             filters.filterCriteria = this.props.search_id_data[this.state.search_id].filterCriteria
         self.props.setLabSearchId(this.state.search_id, filters, true)  
         }
-        self.props.toggleDiagnosisCriteria('test', test, false)
+        if(this.state.lastSource == 'search'){
+            self.props.toggleDiagnosisCriteria('test', test, false)
+        }
     }
     goToLocation() {
         this.setState({
