@@ -400,7 +400,9 @@ class SearchTestView extends React.Component {
                                                 </div>
                                             </div>
                                             {this.state.isSeo?
-                                            <button onClick={this.searchProceedLAB.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now</button>
+                                            <button onClick={this.searchProceedLAB.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now 
+                                                <span className="text-xs selected-option static-btn book-right-align-text" style={{verticalAlign: 2, marginRight: 8}}> {`(${disableAddTest.length} Selected)`}</span>
+                                            </button>
                                             :''}
                                         </div>
                                         <ChatPanel noChatButton={true} />
