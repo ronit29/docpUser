@@ -246,8 +246,11 @@ class SearchTestView extends React.Component {
         if (this.props.seoData && this.props.seoData.location) {
             locationName = this.props.seoData.location
         }
+        
+        let SearchedCritera
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
             let {labs} = this.props.searchTestInfoData[0]
+            SearchedCritera = labs.tests[0].name
             let self = this
             return (
                 <div>
@@ -339,7 +342,7 @@ class SearchTestView extends React.Component {
                                                             {/*this.props.packagesList?this.props.packagesList.count:''*/}  
                                                             {labs.count} Results found for 
                                                             <h1 className="search-result-heading">
-                                                            <span className="fw-700"> CBC</span>
+                                                            <span className="fw-700"> {SearchedCritera}</span>
                                                             </h1>
                                                             <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 
