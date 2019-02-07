@@ -23,6 +23,19 @@ class LabProfileCard extends React.Component {
         if(!this.props.noClearTest){
             this.props.clearExtraTests()
         }
+        if(this.props.noClearTest){
+            let test={} 
+            let data = this.props.details
+            test.type = 'test'
+            test.name = data.tests[0].name
+            test.id = data.tests[0].id
+            test.deal_price = data.tests[0].deal_price
+            test.mrp = data.tests[0].mrp
+            test.url = data.tests[0].url
+            test.lab_id = data.id
+            test.extra_test = true
+            this.props.toggleDiagnosisCriteria('test', test, true)
+        }
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
