@@ -318,7 +318,7 @@ class BookingSummaryViewNew extends React.Component {
 
         if (addToCart) {
             let data = {
-            'Category': 'ConsumerApp', 'Action': 'LabAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-add-to-cart-clicked'
+                'Category': 'ConsumerApp', 'Action': 'LabAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-add-to-cart-clicked'
             }
 
             GTM.sendEvent({ data: data })
@@ -349,8 +349,8 @@ class BookingSummaryViewNew extends React.Component {
 
 
         let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'LabConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-confirm-booking-clicked'
-            }
+            'Category': 'ConsumerApp', 'Action': 'LabConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-confirm-booking-clicked'
+        }
         GTM.sendEvent({ data: analyticData })
 
         this.props.createLABAppointment(postData, (err, data) => {
@@ -563,10 +563,10 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                             <ul className="inline-list booking-type search-list-radio">
                                                                                 {
-                                                                                    is_home_collection_enabled?
-                                                                                    <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li> :""   
+                                                                                    is_home_collection_enabled ?
+                                                                                        <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li> : ""
                                                                                 }
-                                                                                
+
                                                                                 {
                                                                                     center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
                                                                                 }
@@ -742,7 +742,7 @@ class BookingSummaryViewNew extends React.Component {
                                     {this.state.cart_item ? "Update" : "Add to Cart"}
                                 </button>
                                 {
-                                    this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                     } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }

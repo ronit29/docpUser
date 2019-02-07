@@ -7,6 +7,8 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CartItem from './cartItem'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp'
 const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
+import SnackBar from 'node-snackbar'
 
 class CartView extends React.Component {
     constructor(props) {
@@ -107,6 +109,16 @@ class CartView extends React.Component {
         }
 
         return `Confirm Booking`
+    }
+
+    sendAgentBookingURL() {
+        this.props.sendAgentBookingURL(null, 'sms', (err, res) => {
+            if (err) {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+            } else {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+            }
+        })
     }
 
     render() {
@@ -254,11 +266,17 @@ class CartView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                            !STORAGE.isAgent() && valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={() => {
                                                     this.props.history.push('/search?from=cart')
                                                 }}>Add more to cart</button>
                                                 <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                            </div> : ""
+                                        }
+
+                                        {
+                                            STORAGE.isAgent() ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                                <button className="add-shpng-cart-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS EMAIL</button>
                                             </div> : ""
                                         }
 
@@ -271,9 +289,9 @@ class CartView extends React.Component {
                                             <div className="norf widget" style={{ marginTop: '10px', height: '69vh' }}>
                                                 {
                                                     cart == null ? "" : <div className="text-center">
-                                                        <img style={{width: '150px'}} src={ASSETS_BASE_URL + "/img/emptyCart1.png"} />
+                                                        <img style={{ width: '150px' }} src={ASSETS_BASE_URL + "/img/emptyCart1.png"} />
                                                         <p className="emptyCardText">Your Cart is Empty!</p>
-                                                        <button onClick={() => {this.props.history.push('/search')}} className="emptyCartRedirect">Book Appointments Now</button>
+                                                        <button onClick={() => { this.props.history.push('/search') }} className="emptyCartRedirect">Book Appointments Now</button>
                                                     </div>
                                                 }
                                             </div>
