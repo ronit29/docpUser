@@ -5528,6 +5528,7 @@ button.add-shpng-cart-btn.update-btn {
     top: 0;
     left: -100%;
     transition: all ease-in-out .5s;
+    width: 80%;
 }
 
 .left-menu{
@@ -5563,7 +5564,7 @@ button.add-shpng-cart-btn.update-btn {
     margin-top: 25px;
 }
 .drop-list-menu li a{
-    font-size: 16px;
+    font-size: 14px;
     padding: 20px 15px;
     display: block;
     color: #000;
@@ -5614,7 +5615,7 @@ button.add-shpng-cart-btn.update-btn {
 .drop-list-menu img{
     height: 24px;
     margin-right: 15px;
-    margin-top: -1px;
+    margin-top: -3px;
 }
 .wallet-amnt{
     color: #f78631;
