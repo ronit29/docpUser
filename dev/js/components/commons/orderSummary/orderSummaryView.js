@@ -85,7 +85,7 @@ class OrderSummaryView extends React.Component {
 
                                             {
                                                 this.state.items.map((item, i) => {
-                                                    return <div className="widget mrb-15 mrng-top-12 p-relative pb-5">
+                                                    return <div key={i} className="widget mrb-15 mrng-top-12 p-relative pb-5">
                                                         <div>
                                                             {
                                                                 item.booking_id ? <p className="cart-appntmnt">Transaction success </p> : <p className="cart-appntmnt-failed">Transaction Failed </p>
