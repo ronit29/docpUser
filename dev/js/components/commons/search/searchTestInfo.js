@@ -336,7 +336,8 @@ class SearchTestView extends React.Component {
                                                         <div className="filter-title" 
                                                         style={{height:'auto',marginBottom:'10px'}}>
                                                 
-                                                            {/*this.props.packagesList?this.props.packagesList.count:''*/}  5 Results found for 
+                                                            {/*this.props.packagesList?this.props.packagesList.count:''*/}  
+                                                            {labs.count} Results found for 
                                                             <h1 className="search-result-heading">
                                                             <span className="fw-700"> CBC</span>
                                                             </h1>
