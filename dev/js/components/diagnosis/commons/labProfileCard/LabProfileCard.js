@@ -203,10 +203,6 @@ class LabProfileCard extends React.Component {
                                                             <p style={{ fontWeight: 400 }}>Free</p>
                                                             : <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
                                                     }
-                                                    {test.number_of_tests && test.number_of_tests !=null ? <h3 className="lab-fltr-dc-name fw-500" style={{ fontSize: '14px', paddingLeft: '8px', color: '#757575' }}>
-                                                        {test.number_of_tests} Tests Included
-                                                        </h3>
-                                                    :''}
                                                 </li>
                                             })
                                         }
