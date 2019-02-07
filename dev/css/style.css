@@ -5092,6 +5092,11 @@ font-size: 13px;
     position: absolute;
     z-index: 99;
     top: 0;
+    left: -100%;
+}
+.col-d-width-ease{
+	left: 0;
+	transition: all ease-in-out .5s;
 }
 .left-menu{
     width: 100%;
