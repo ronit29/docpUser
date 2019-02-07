@@ -5089,7 +5089,7 @@ font-size: 13px;
     margin: 0 auto;
     font-size: 14px;
     font-weight: 500;
-    position: absolute;
+    position: fixed;
     z-index: 99;
     top: 0;
     left: -100%;
@@ -5107,7 +5107,7 @@ font-size: 13px;
     overflow: auto;
 }
 .header-box{
-    /*background: url(../images/doc-logo.png) no-repeat top right;*/
+    background: #f78631 url(/assets/images/doc-logo.png) no-repeat top right;
     padding: 15px 15px 30px;
     position: relative;
     border-radius: 50%/30px;
@@ -5115,7 +5115,7 @@ font-size: 13px;
     border-top-right-radius: 0;
     box-shadow: 1px 1.7px 4px 0 rgba(0, 0, 0, 0.15);
     background-size: 34%;
-    background: #f78631;
+    /*background: #f78631;*/
     cursor: pointer;
 }
 .user-profile-img{
@@ -5189,7 +5189,7 @@ font-size: 13px;
 .drop-list-menu img{
     height: 24px;
     margin-right: 15px;
-    margin-top: -4px;
+    margin-top: -1px;
 }
 .wallet-amnt{
     color: #f78631;
