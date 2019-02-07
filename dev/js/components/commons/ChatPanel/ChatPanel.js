@@ -420,7 +420,7 @@ class ChatPanel extends React.Component {
                                                     <span></span>
                                                     <span></span>
                                                 </div>
-                                                <p className="ldng-text">Connecting to the agent...</p>
+                                                <p className="ldng-text">Connecting to the doctor...</p>
                                             </div>
                                             : ""
                                     }

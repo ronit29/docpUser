@@ -2,14 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
+import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
+
+const queryString = require('query-string')
 
 class SearchPackages extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            setForSeo:true,
+            forSeo:false
         }
     }
 
@@ -22,7 +25,7 @@ class SearchPackages extends React.Component {
                     location_ms = parseInt(location_ms)
                 }
 
-                labSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
+                PackageSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
                     store.dispatch(mergeLABState(state))
 
                     let searchUrl = null
@@ -57,9 +60,13 @@ class SearchPackages extends React.Component {
     }
 
     render() {
-
+        const parsed = queryString.parse(this.props.location.search)
+        if(parsed.fromFooter && this.state.setForSeo){
+            this.setState({forSeo:parsed.fromFooter,setForSeo:false})
+        }
+        
         return (
-            <SearchPackagesView {...this.props} />
+            <SearchPackagesView {...this.props} forSeo={this.state.forSeo}/>
         );
     }
 }
@@ -82,7 +89,8 @@ const mapStateToProps = (state, passedProps) => {
         locationType,
         fetchNewResults,
         corporateCoupon,
-        currentSearchedCriterias
+        currentSearchedCriterias,
+        filterCriteriaPackages
         
     } = state.SEARCH_CRITERIA_LABS
 
@@ -103,7 +111,8 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         corporateCoupon,
         packagesList,
-        currentSearchedCriterias
+        currentSearchedCriterias,
+        filterCriteriaPackages
     }
 
 }

@@ -164,11 +164,15 @@ class Footer extends React.Component {
                                         <li><a href="/mobileviewchat" onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/mobileviewchat")
-                                        }}>Consult a doctor</a></li>
+                                        }}>Consult a Doctor</a></li>
                                         <li><a href="/referral" onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/referral")
                                         }}>Refer & Earn</a></li>
+                                        <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo("/full-body-checkup-health-packages?fromFooter=true")
+                                        }}>Book Full Body Packages</a></li>
                                     </ul> : ""
                                 }
                                 <h3 className="foot-sub-lisitng">For Doctors</h3>
@@ -306,6 +310,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/speciality-inventory")
                                     }}>All Specialities</a></li>
+                                    <li><a href="/doctors-near-me" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/doctors-near-me")
+                                    }}>Find a Doctor Near You</a></li>
                                 </ul>
                             </div>
                         </div>

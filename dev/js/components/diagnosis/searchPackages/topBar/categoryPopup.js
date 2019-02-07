@@ -35,6 +35,7 @@ class CategoryPopup extends React.Component {
             selectAllcategoryIds.push(categories.id)
             this.setState({selectedAllCatIdsIntial:selectedCategoryIds,selectedCatIdsLeng:selectedCategoryIds.length, selectAllcategory:selectAllcategoryIds})
         })
+        this.props.initialSelectedCategory(selectedCategoryIds)
     }
     applyAllCategory(){
         let selectedCategoryIds = this.state.selectAllcategory
