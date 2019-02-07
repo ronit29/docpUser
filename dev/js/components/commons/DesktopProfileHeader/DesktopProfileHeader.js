@@ -58,7 +58,13 @@ class DesktopProfileHeader extends React.Component {
     }
 
     toggleLeftMenu(){
-        this.setState({toggleHamburger: !this.state.toggleHamburger})
+        this.setState({toggleHamburger: !this.state.toggleHamburger},()=>{
+            if(this.state.toggleHamburger){
+                document.body.style.overflow="hidden"
+            }else{
+                document.body.style.overflow=""
+            }
+        })
     }
 
     render() {
@@ -119,7 +125,8 @@ class DesktopProfileHeader extends React.Component {
                         this.state.toggleHamburger?
                         <div className="cancel-overlay cl-overlay" onClick={(e) => {
                         e.stopPropagation()
-                        this.toggleLeftMenu() }}></div>
+                        this.toggleLeftMenu() }}>
+                        </div>
                         :''
                     }
 
@@ -132,6 +139,7 @@ class DesktopProfileHeader extends React.Component {
                         }}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
+                                document.body.style.overflow="hidden"
                                 this.setState({toggleHamburger: true})}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
@@ -243,7 +251,7 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
                             </div>
 
-                            <div className="head-links">
+                            <div className="head-links d-none">
                                 <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
                             </div>
 
