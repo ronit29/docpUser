@@ -262,7 +262,7 @@ class SearchTestView extends React.Component {
                                         <div className="col-12 col-md-7 col-lg-7 center-column">
                                             <div className="row mrb-20">
                                                 <div className="col-12">
-                                                    <h3 className="test-main-heding-h3 mrng-top-12">{this.props.searchTestInfoData[0].name} <img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} /></h3>
+                                                    <h3 className="testInfoHeadTitle mrng-top-12"><img style={{width: '20px'}} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
                                                     <div className="widget mrb-15 mrng-top-12">
                                                         <div className="test-info-continer-block">
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {

@@ -243,9 +243,9 @@ class LabProfileCard extends React.Component {
                             other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
                                 {
                                     this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
-                                        <p style={{ marginLeft: '0px' }}>Show less</p>
+                                        <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
                                     </div> : <div style={{ paddingRight: "8px" }}>
-                                            <p style={{ marginLeft: '0px' }}>View {other_labs.length} more locations</p>
+                                            <p className="appBaseColor" style={{ marginLeft: '0px' }}>View {other_labs.length} more locations</p>
                                         </div>
                                 }
 

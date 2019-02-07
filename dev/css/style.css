@@ -4338,7 +4338,7 @@ input.rc-calendar-input {
     border: none;
     text-align: left;
     padding: 10px 10px;
-    font-weight: 400;
+    font-weight: 500;
     display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -5270,4 +5270,16 @@ color: 	#fe7108;
     font-weight: 500;
     color: #f6873a;
     border-radius: 5px
+}
+.testInfoHeadTitle{
+	font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.testInfoHeadTitle img{
+	margin-right: 14px;
+}
+.appBaseColor{
+	color:#f78631 !important;
 }
