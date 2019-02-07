@@ -11,7 +11,8 @@ class OrderSummaryView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: []
+            items: [],
+            payment_success: this.props.location.search.includes('payment_success')
         }
     }
 
@@ -24,6 +25,27 @@ class OrderSummaryView extends React.Component {
             this.props.fetchOrderSummary(this.props.match.params.id).then((res) => {
                 if (res.data && res.data.length) {
                     this.setState({ items: res.data })
+                    
+                    let orderId = this.props.match.params.id
+                    let info = {}
+                    info[orderId] = []
+                    res.data.map((data)=>{
+                        info[orderId].push({'booking_id': data.booking_id, 'mrp': data.mrp, 'deal_price': data.deal_price})
+                    })
+                    info = JSON.stringify(info)
+
+                    STORAGE.setAppointmentDetails(info).then((setCookie) => {
+
+                        if (this.state.payment_success) {
+
+                            let analyticData = {
+                                'Category': 'ConsumerApp', 'Action': 'OrderPlaced', 'CustomerID': GTM.getUserId(), 'leadid': orderId, 'event': 'order-booked'
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            this.props.history.replace(this.props.location.pathname + "?hide_button=true")
+                        }
+                    })
+
                 }
             }).catch((e) => {
 
