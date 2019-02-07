@@ -260,11 +260,11 @@ class SearchTestView extends React.Component {
                                 <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "")}>
                                     <div className="row main-row parent-section-row">
                                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                                            <div className="row mrb-20">
+                                            <div className="row mrb-20 bottomMargin">
                                                 <div className="col-12">
                                                     <h3 className="testInfoHeadTitle mrng-top-12"><img style={{width: '20px'}} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
                                                     <div className="widget mrb-15 mrng-top-12">
-                                                        <div className="test-info-continer-block">
+                                                        <div className="test-info-continer-block border-radius">
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {
                                                                 return value.show_details ?
                                                                     <div className="test-info-acrd-head-main" id={value.id} key={key}>
@@ -398,6 +398,7 @@ class SearchTestView extends React.Component {
                                                     }
                                                 </div>
                                             </div>
+                                            <button onClick={this.searchProceedLAB.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now</button>
                                         </div>
                                         <ChatPanel />
                                     </div>

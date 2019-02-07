@@ -5283,3 +5283,10 @@ color: 	#fe7108;
 .appBaseColor{
 	color:#f78631 !important;
 }
+.border-radius{
+	border-radius: 10px;
+	overflow: hidden;
+}
+.bottomMargin{
+	margin-bottom: 50px;
+}
