@@ -42,9 +42,7 @@ class DesktopProfileHeader extends React.Component {
       const translateY = currentY - this.state.startY; // distance moved in the y axis
 
 
-      if(translateX > 0){
-
-      }else{
+      if(translateX <-100){
         this.setState({toggleHamburger: false})
       }
     }
