@@ -5662,3 +5662,140 @@ h3.pkg-include{
     border-radius: 4px;
     display: inline;
 }
+
+/* ================= docSliderStyling ================= */
+.docScrollSliderContainer{
+	padding: 12px;
+}
+.docSlideCard{
+	background: white;
+    border-radius: 5px;
+	max-width: 200px;
+	min-width: 200px;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+	box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.2);
+	margin-right: 12px;
+	cursor:pointer;
+}
+.docSlideHead{
+	position: relative;
+    background: rgba(247, 134, 49, 0.3);
+    height: 55px;
+    text-align: right;
+}
+.slideDocRating{
+    position: relative;
+    top: 2px;
+    right: 8px;
+    font-weight: 500;
+	color: #f78637;
+	font-size: 16px;
+}
+.slideDocRating img{
+	margin-top:4px;
+}
+.slideDocMainImg{
+	position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 18px;
+}
+.slideDocContent{
+	margin-top: 35px;
+}
+.slideDocName{
+	padding: 10px;
+	width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+
+}
+.ct-profile p.slideDocExp{
+    padding: 0 10px;
+    color: #757373;
+    font-weight: 400;
+}
+.ct-profile p.slideDocdeg{
+    padding: 0 10px;
+    color: #757373;
+    font-weight: 400;
+}
+.slideDocPrice {
+    background: white;
+    border: 1px solid #f78631;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 8px 0;
+    padding: 5px 40px;
+}
+span.slideNamePrc {
+    color: #f78631;
+    font-size: 16px;
+    font-weight: 500;
+}
+span.slideCutPrc{
+	color: #757575;
+    font-weight: 500;
+    margin-left: 7px;
+    font-size: 14px;
+    margin-top: 2px;
+    display: inline-block;
+    text-decoration: line-through;
+}
+.docScrollSliderContainer{
+	background: #f8f8f8;
+	white-space: nowrap;
+    overflow-y: auto;
+}
+
+.offerBanner{
+    background: #55a740;
+    position: absolute;
+    top: -6px;
+    right: 10px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    padding: 4px 7px;
+}
+.offerBanner::before{
+    border-width: 3px;
+    border-style: solid;
+    border-color: #2197d200 #466d30 #377228 #00000000;
+    top: 0px;
+    content: "";
+    position: absolute;
+    left: -6px;
+}
+.offerBanner::after{
+    border-width: 3px;
+    border-style: solid;
+    border-color: #73818800 #ed3f3a00 #377228 #377228;
+    top: 0px;
+    content: "";
+    position: absolute;
+    right: -6px;
+}
+.docScrollSearchAll{
+    height: 216px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+.docScrollSearchAll img{
+	width: 40px;
+}
+.docScrollSearchAll p{
+	color: #f78621;
+	margin-top: 12px;
+}
+.docSlideCard:last-child{
+	margin-right: 0px;
+}
+/* ================= docSliderStyling ================= */

@@ -249,6 +249,79 @@ class DoctorProfileView extends React.Component {
                                                             {...this.props}
                                                         />
                                                         <div className="widge-content pd-0">
+                                                            <div className="widget-panel">
+                                                                <h4 className="panel-title mb-rmv p-relative">Book Top Dentist Nearby <span className="offerBanner">Save <br />Upto 50%</span></h4>
+                                                                <div className="panel-content pd-0 border-bottom-panel">
+                                                                    <div className="docScrollSliderContainer">
+                                                                        <div className="docSlideCard">
+                                                                            <div className="docSlideHead">
+                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
+                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
+                                                                            </div>
+                                                                            <div className="slideDocContent">
+                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
+                                                                                <p className="slideDocExp">44 Years of Experience</p>
+                                                                                <p className="slideDocdeg">MBBS | MD</p>
+                                                                                <div className="slideDocPrice">
+                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="docSlideCard">
+                                                                            <div className="docSlideHead">
+                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
+                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
+                                                                            </div>
+                                                                            <div className="slideDocContent">
+                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
+                                                                                <p className="slideDocExp">44 Years of Experience</p>
+                                                                                <p className="slideDocdeg">MBBS | MD</p>
+                                                                                <div className="slideDocPrice">
+                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="docSlideCard">
+                                                                            <div className="docSlideHead">
+                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
+                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
+                                                                            </div>
+                                                                            <div className="slideDocContent">
+                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
+                                                                                <p className="slideDocExp">44 Years of Experience</p>
+                                                                                <p className="slideDocdeg">MBBS | MD</p>
+                                                                                <div className="slideDocPrice">
+                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="docSlideCard">
+                                                                            <div className="docSlideHead">
+                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
+                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
+                                                                            </div>
+                                                                            <div className="slideDocContent">
+                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
+                                                                                <p className="slideDocExp">44 Years of Experience</p>
+                                                                                <p className="slideDocdeg">MBBS | MD</p>
+                                                                                <div className="slideDocPrice">
+                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="docSlideCard">
+                                                                            <div className="docScrollSearchAll">
+                                                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                                <p>View all 340 Dentist<br/> in Sector 44 Gurgaon </p>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="widge-content pd-0">
                                                             {
                                                                 this.props.DOCTORS[doctor_id].about ? <AboutDoctor
                                                                     details={this.props.DOCTORS[doctor_id]}
@@ -302,8 +375,8 @@ class DoctorProfileView extends React.Component {
                                                     }
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
-                                                        <p style={{ flex: 2 }}><span style={{marginTop: '5px',display:'inline-block'}} className="">Book Now</span></p>
-                                                        <p className="cp-auto" style={{marginBottom: '8px'}}>*Coupon auto applied on checkout</p>
+                                                        <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }} className="">Book Now</span></p>
+                                                        <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
                                                     </div>
                                                 </div>
                                                 :
