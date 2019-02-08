@@ -15,7 +15,7 @@ class TaxSaverTC extends React.Component {
         }
     }
     goBack(){
-        this.props.history.push('/')
+        window.history.go(-1)
     }
     render() {
         let LOADED_LABS_SEARCH = true
