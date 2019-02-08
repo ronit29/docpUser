@@ -272,6 +272,10 @@ class ChatPanel extends React.Component {
     newChatBtnClick() {
         if (this.props.type && (this.props.type == 'opd' || this.props.type == 'lab')) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+            let data = {
+                'Category': 'Chat', 'Action': 'needHelpBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'need-help-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
         }
         else {
             this.setState({ showChatBlock: true, additionClasses: "" });
