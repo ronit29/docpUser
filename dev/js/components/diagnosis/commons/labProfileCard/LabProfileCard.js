@@ -20,9 +20,7 @@ class LabProfileCard extends React.Component {
 
     openLab(id, url, e) {
         let dedupe_ids = {}
-        if(!this.props.noClearTest){
-            this.props.clearExtraTests()
-        }
+        this.props.clearExtraTests()
         if(this.props.noClearTest){
             let test={} 
             let data = this.props.details
@@ -35,7 +33,7 @@ class LabProfileCard extends React.Component {
             test.lab_id = data.id
             test.extra_test = true
             this.props.toggleDiagnosisCriteria('test', test, true)
-        }
+        }else{
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
@@ -60,6 +58,7 @@ class LabProfileCard extends React.Component {
                 new_test.lab_id = id
                 this.props.toggleDiagnosisCriteria('test', new_test, true)
             })
+        }
         let data = {
             'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
         }
