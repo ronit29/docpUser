@@ -69,8 +69,9 @@ class BookingView extends React.Component {
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
+                    
                     let info = {}
-                    info[appointmentId] = {}
+                    info[appointmentId] = []
                     let mrp = 0
                     let deal_price = 0
                     if (data.length && data[0].lab_test) {
@@ -79,8 +80,7 @@ class BookingView extends React.Component {
                             deal_price += parseInt(test.deal_price)
                         })
                     }
-                    info[appointmentId].mrp = mrp
-                    info[appointmentId].deal_price = deal_price
+                    info[appointmentId].push({'booking_id': appointmentId, 'mrp': mrp, 'deal_price': deal_price})
                     info = JSON.stringify(info)
                     STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
