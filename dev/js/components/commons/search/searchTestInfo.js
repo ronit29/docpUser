@@ -162,7 +162,7 @@ class SearchTestView extends React.Component {
         }
         test.hide_price = false
 
-        if(this.state.search_id !== null && this.state.lastSource != 'search'){
+        if(this.state.search_id !== null){
         let newTestData = {}
             newTestData.type= 'test'
             newTestData.name= ''
