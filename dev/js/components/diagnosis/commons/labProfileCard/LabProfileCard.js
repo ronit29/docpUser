@@ -18,19 +18,27 @@ class LabProfileCard extends React.Component {
         this.setState({ openViewMore: !this.state.openViewMore })
     }
 
+
     openLab(id, url, e) {
         let dedupe_ids = {}
         this.props.clearExtraTests()
         if(this.props.noClearTest){
+            let lab_id
             let test={} 
             let data = this.props.details
+            if(data.id != id){
+                lab_id = id
+            }else{
+                lab_id = data.id
+            }
             test.type = 'test'
             test.name = data.tests[0].name
             test.id = data.tests[0].id
             test.deal_price = data.tests[0].deal_price
             test.mrp = data.tests[0].mrp
             test.url = data.tests[0].url
-            test.lab_id = data.id
+
+            test.lab_id = lab_id
             test.extra_test = true
             this.props.toggleDiagnosisCriteria('test', test, true)
         }else{
