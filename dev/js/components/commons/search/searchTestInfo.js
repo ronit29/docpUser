@@ -176,7 +176,7 @@ class SearchTestView extends React.Component {
             filters.filterCriteria = this.props.search_id_data[this.state.search_id].filterCriteria
         self.props.setLabSearchId(this.state.search_id, filters, true)  
         }
-        if(this.state.lastSource == 'search'){
+        if(this.state.lastSource == 'search' || !this.state.search_id){
             self.props.toggleDiagnosisCriteria('test', test, false)
         }
     }
@@ -233,6 +233,7 @@ class SearchTestView extends React.Component {
     }
 
     render() {
+        console.log(this.state.lastSource)
         const parsed = queryString.parse(this.props.location.search)
         var selected_test_ids = parsed.selected_test_ids?parsed.selected_test_ids:''
         let url_test_ids = selected_test_ids.split(',')

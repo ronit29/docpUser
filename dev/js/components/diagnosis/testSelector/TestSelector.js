@@ -110,9 +110,9 @@ class TestSelectorView extends React.Component {
         let selected_test_ids = this.props.selectedCriterias || []
         selected_test_ids = selected_test_ids.map(x => x.id)
         if(url && url !=''){
-            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchbooknow&isSeo=false')
+            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false')
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchbooknow&isSeo=false&searchById=true')
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false&searchById=true')
         }
         event.stopPropagation()
         let data = {
