@@ -107,7 +107,11 @@ class UserSignupView extends React.Component {
                     if (parsed.callback) {
                         this.props.history.replace(parsed.callback)
                     } else {
-                        this.props.history.go(-1)
+                        if (this.state.referralCode && this.state.have_referralCode) {
+                            this.props.history.replace('/user')
+                        } else {
+                            this.props.history.go(-1)
+                        }
                     }
                 } else {
                     let message = "Error signing up user."

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, savePincode } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, savePincode } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -25,6 +25,7 @@ class BookingSummary extends React.Component {
             this.props.getUserProfile()
             this.props.getUserAddress()
             this.props.fetchTransactions()
+            this.props.getCartItems()
         }
 
         let testIds = this.props.lab_test_data[this.props.match.params.id] || []
@@ -74,7 +75,7 @@ const mapDispatchToProps = (dispatch) => {
         createLABAppointment: (postData, callback) => dispatch(createLABAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeLabCoupons: (labId, couponId) => dispatch(removeLabCoupons(labId, couponId)),
-        applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id)),
+        applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item)),
         resetLabCoupons: () => dispatch(resetLabCoupons()),
         getCoupons: (data) => dispatch(getCoupons(data)),
         applyCoupons: (productId, couponData, couponId, labId) => dispatch(applyCoupons(productId, couponData, couponId, labId)),
@@ -83,7 +84,9 @@ const mapDispatchToProps = (dispatch) => {
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
-        savePincode: (pincode) => dispatch(savePincode(pincode))
+        savePincode: (pincode) => dispatch(savePincode(pincode)),
+        addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
+        getCartItems: () => dispatch(getCartItems()),
     }
 }
 

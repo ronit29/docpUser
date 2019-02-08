@@ -135,7 +135,7 @@ class ChoosePatientNewView extends React.Component {
     render() {
 
         return (
-            <div className="widget mrb-15">
+            <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
                     this.props.patient ?
                         <div className="widget-content">

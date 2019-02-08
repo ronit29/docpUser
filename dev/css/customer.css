@@ -227,7 +227,7 @@
 .booking-confirm-screen .lab-visit-time .title{font-size: 14px;}
 .booking-confirm-screen .lab-visit-time>p{margin-bottom: 10px; margin-top: 5px; word-wrap: break-word;padding-left: 22px;}
 
-.payment-method>li{padding: 10px; vertical-align: middle; height: 60px;}
+.payment-method>li{padding: 10px; vertical-align: middle; height: 60px;position: relative;}
 .payment-method>li>label{font-size: 14px; font-weight: bold; vertical-align: middle}
 .payment-method>li>label img{width: 40px; margin-right: 20px; vertical-align: middle;}
 .payment-method .radio-inline{width: 20px; height: 20px; margin-top: 6px;}
@@ -1688,6 +1688,8 @@ p.rt-doc-nm{
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border-top: 1px solid #d3d3d3;
+    padding: 10px 0 0;
 }
 
 .invoice-div>img{
@@ -1696,7 +1698,7 @@ p.rt-doc-nm{
 }
 
 .invoice-div p{
-    font-size: 11px;
+    font-size: 12px;
     text-align: left;
 }
 
@@ -1714,6 +1716,8 @@ p.rt-doc-nm{
 
 .multiple-invoice .invoice-div{
     width: 50%;
+    border-top: none;
+    padding: 0;
 }
 
 .multiple-invoice .invoice-div>img{
@@ -1727,4 +1731,186 @@ p.rt-doc-nm{
 
 .multiple-invoice .invoice-div:first-child{
     border-right: 1px solid #d3d3d3;
+}
+
+.hpa-header{
+    left: 0;
+    right: 0;
+}
+
+.hpa-header .d-flex{
+    padding: 10px 15px;
+    align-items: center;
+    cursor: pointer;
+    background: #f8f8f8;
+}
+
+.hpa-header .d-flex img{
+    width: 20px;
+    margin-right: 12px;
+}
+
+.hpa-header .d-flex h1{
+    font-size: 18px;
+    flex: 1;
+    color: #626262;
+}
+
+.hpa-flex{
+    display: flex;
+    align-items: flex-start;
+    flex: 1;
+}
+
+.hpa-flex .hpa-age{
+    flex: 2 !important;
+}
+
+.hpa-flex .hpa-gender{
+    flex: 3 !important;
+}
+
+.hpa-flex label{
+    color: #757575;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+.hpa-flex select{
+    width: 60px;
+    border: 1px solid #d3d3d3;
+    outline: none !important;
+    border-radius: 5px;
+    padding: 2px 6px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.hpa-flex select::-ms-expand{
+    display: none;
+}
+
+.container-radio.hpa-container-radio{
+    padding-left: 20px;
+    color: #000;
+    font-size: 14px;
+}
+
+.doc-checkmark.hpa-radio{
+    width: 16px;
+    height: 16px;
+}
+
+.hpa-info-icon{
+    width: 12px;
+    vertical-align: middle;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+.container-radio.hpa-container-radio .doc-checkmark.hpa-radio:after{
+    width: 8px;
+    height: 8px;
+}
+
+.hpa-heading p{
+    color: #626262;
+    font-size: 16px;
+}
+
+.hpa-checkmark{
+    width: 16px;
+    height: 16px;
+    top: 2px;
+}
+
+.ck-bx .checkmark.hpa-checkmark:after{
+    left: 6px;
+    top: 3px;
+}
+
+.hpa-list li{
+    padding: 8px 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.hpa-list li img{
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    right: -15px;
+    z-index: 1;
+}
+
+.hpa-list-2 li{
+    padding: 8px 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.hpa-list-2 li img{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(-100deg);
+    right: 0;
+    z-index: 1;
+}
+
+.dtl-radio{
+    margin-right: 10px;
+}
+
+@media(max-width:767px){
+    .hpa-widget{
+        margin-top: 50px !important;
+    }
+}
+
+@media(max-width:374px){
+    .hpa-flex label{
+        font-size: 12px;
+    }
+    .hpa-radio-gender{
+        top: 1px !important;
+    }
+}
+
+@media(max-width:360px){
+    .container-radio.hpa-container-radio{
+        padding-left: 20px;
+    }
+    .hpa-flex label{
+        font-size: 11px;
+    }
+}
+
+@media(max-width:340px){
+    .hpa-flex label{
+        font-size: 11px;
+    }
+    .doc-checkmark.hpa-radio{
+        width: 14px;
+        height: 14px;
+    }
+    .container-radio.hpa-container-radio .doc-checkmark.hpa-radio:after{
+        width: 6px;
+        height: 6px;
+    }
+    .container-radio.hpa-container-radio{
+        padding-left: 18px;
+    }
+    .hpa-info-icon{
+        margin-left: 2px;
+    }
+}
+
+.dp-container-div{
+    padding-top: 44px;
+}
+
+@media(min-width:992px){
+    .dp-container-div{
+        padding-top: 107px;
+    }
 }
