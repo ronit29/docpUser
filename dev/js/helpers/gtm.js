@@ -72,6 +72,7 @@ const GTM = {
             let updated_cookie_val = JSON.stringify(visitor_info)
             STORAGE.setVisitorInfo(updated_cookie_val)
             data.visitor_info = visitor_info
+            data.created_at = new Date().getTime() / 1000
             setGTMSession(data);
 
         } catch (e) {
