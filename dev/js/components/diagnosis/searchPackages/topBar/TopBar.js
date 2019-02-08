@@ -302,7 +302,7 @@ class TopBar extends React.Component {
                                                 <div style={{ flex: 1 }}>
                                                     <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
                                                         <h1 className="search-result-heading">
-                                                        <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':'selected categories'}</span>
+                                                        <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
                                                         </h1>
                                                         <span className="search-result-span"> {criteriaStr}
                                                             {
@@ -358,7 +358,7 @@ class TopBar extends React.Component {
                                             
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for 
                                                 <h1 className="search-result-heading">
-                                                <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':'selected categories'}</span>
+                                                <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
                                                 </h1>
                                                 <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 
