@@ -25,7 +25,7 @@ class LeftMenu extends React.Component {
                               user?
                               <div className="header-box" onClick={()=>{
                                 this.props.toggleLeftMenu()
-                                this.props.history.push(`/user/edit/${this.props.defaultProfile}`)} }>
+                                this.props.history.push(`/user`)} }>
                                 {/*<img src="/assets/images/profile-photo.jpeg" alt="profile-photo" className="user-profile-img" />*/}
                                 <InitialsPicture name={user.name} has_image={!!thumbnail} className="initialsPicture-dp">
                                     <img src={thumbnail} className="img-fluid img-round" alt={user.name} title={user.name} />
@@ -104,7 +104,7 @@ class LeftMenu extends React.Component {
                             <ul className="drop-list-menu list_2">
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
-                                this.setState({toggleArticles:!this.state.toggleArticles })} } href="#" ><img src="/assets/images/myprofile.png" alt="" className="" />Articles
+                                this.setState({toggleArticles:!this.state.toggleArticles })} } href="#" ><img src="/assets/images/articles.png" alt="" className="" />Articles
                                 {
                                   this.state.toggleArticles?
                                   <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="docprime" />

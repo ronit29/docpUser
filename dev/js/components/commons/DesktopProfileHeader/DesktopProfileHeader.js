@@ -9,8 +9,50 @@ class DesktopProfileHeader extends React.Component {
         this.state = {
             headerButtonsState: false,
             medicinePopup: false,
-            toggleHamburger: false
+            toggleHamburger: false,
+            touchingElement:false,
+            startX: 0,
+            startY: 0
+
         }
+    }
+
+    componentDidMount(){
+
+      document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
+      document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
+      document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
+    }
+
+    onTouchStart(evt) {
+        let startX = evt.touches[0].pageX;
+        let startY = evt.touches[0].pageY;
+
+        this.setState({ startX : startX, startY: startY, touchingElement:true })
+    }
+
+    onTouchMove(evt) {
+      if (!this.state.touchingElement)
+        return;
+
+      let currentX = evt.touches[0].pageX;
+      let currentY = evt.touches[0].pageY;
+
+      const translateX = currentX - this.state.startX; // distance moved in the x axis
+      const translateY = currentY - this.state.startY; // distance moved in the y axis
+
+
+      if(translateX > 0){
+
+      }else{
+        this.setState({toggleHamburger: false})
+      }
+    }
+
+    onTouchEnd(evt) {
+
+      if (!this.state.touchingElement)
+        return;
     }
 
     navigateTo(where, e) {
@@ -58,13 +100,7 @@ class DesktopProfileHeader extends React.Component {
     }
 
     toggleLeftMenu(){
-        this.setState({toggleHamburger: !this.state.toggleHamburger},()=>{
-            if(this.state.toggleHamburger){
-                document.body.style.overflow="hidden"
-            }else{
-                document.body.style.overflow=""
-            }
-        })
+        this.setState({toggleHamburger: !this.state.toggleHamburger })
     }
 
     render() {
@@ -148,7 +184,6 @@ class DesktopProfileHeader extends React.Component {
                         }}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
-                                document.body.style.overflow="hidden"
                                 this.setState({toggleHamburger: true})}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
@@ -262,7 +297,7 @@ class DesktopProfileHeader extends React.Component {
                                 </div>
                             }
 
-                            <div className="head-links" onClick={() => {
+                            <div className="head-links d-none" onClick={() => {
                                 this.props.history.push('/contact')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
@@ -273,14 +308,14 @@ class DesktopProfileHeader extends React.Component {
                             </div>
 
                             {
-                                profileData ? <div className="head-links" onClick={() => {
+                                profileData ? <div className="head-links d-none" onClick={() => {
                                     this.props.history.push('/user')
                                 }}>
                                     {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                     </InitialsPicture> */}
                                     <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
-                                </div> : <div className="head-links" onClick={() => {
+                                </div> : <div className="head-links " onClick={() => {
                                     this.props.homePage ? this.props.history.push('/user?ref=home') :
                                         this.props.history.push('/user')
                                 }}>
