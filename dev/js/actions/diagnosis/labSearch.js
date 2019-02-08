@@ -463,6 +463,15 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 
 }
 
+export const getNewLabTimeSlots = (labId, pickup, pincode, date, callback) => (dispatch) => {
+	let url = `/api/v1/diagnostic/labtimingslot?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
+	return API_GET(url).then(function (response) {
+		callback(response)
+	}).catch(function (error) {
+
+	})
+}
+
 
 
 

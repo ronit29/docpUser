@@ -23,7 +23,7 @@ class PincodePoupupView extends React.Component {
             this.props.setPincode(this.state.pincode)
         }else{
             setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid OTP" })
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Pincode" })
             }, 500)
         }
     }

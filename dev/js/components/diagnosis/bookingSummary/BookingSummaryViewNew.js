@@ -40,7 +40,8 @@ class BookingSummaryViewNew extends React.Component {
             is_cashback: false,
             use_wallet: true,
             showPincodePopup: false,
-            cart_item: parsed.cart_item
+            cart_item: parsed.cart_item,
+            pincode: this.props.pincode
         }
     }
 
@@ -203,7 +204,7 @@ class BookingSummaryViewNew extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                if(this.props.pincode){
+                if(this.state.pincode || (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare) ){
                     this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true`)
                     return    
                 }else{
@@ -442,8 +443,11 @@ class BookingSummaryViewNew extends React.Component {
 
     setPincode(pincode){
         this.props.savePincode(pincode)
-        this.setState({showPincodePopup: false})
-        this.navigateTo('time')
+
+        this.setState({showPincodePopup: false, pincode: pincode}, ()=>{
+            this.navigateTo('time')    
+        })
+        
     }
 
     render() {

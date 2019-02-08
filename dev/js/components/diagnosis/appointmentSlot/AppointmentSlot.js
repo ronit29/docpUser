@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 //import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
-import TimeSlotSelector from '../../commons/DateTimeSelector/index.js'
+import TimeSlotSelector from '../LabDateTimeSelector.js'
 import Loader from '../../commons/Loader'
 
 import LeftBar from '../../commons/LeftBar'
@@ -55,11 +55,41 @@ class AppointmentSlot extends React.Component {
         }
         let selectedLab = this.props.match.params.id
 
-        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, this.props.pincode, (data) => {
+        /*this.props.getLabTimeSlots(selectedLab, this.state.pickupType, this.props.pincode, (data) => {
+            let { time_slots, today_min, tomorrow_min, today_max } = data
+            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
+        })*/
+
+        this.getTimeSlots()
+
+    }
+
+    getTimeSlots(){
+
+        let date = this.getFormattedDate(new Date())
+        this.props.getNewLabTimeSlots(2325, 1, this.props.pincode, date, (data) => {
             let { time_slots, today_min, tomorrow_min, today_max } = data
             this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
         })
+    }
 
+    getFormattedDate(date){
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = dd+'-'+mm+'-'+yyyy;
+        return today
     }
 
     enableProceed(enable, slot={}){
@@ -121,6 +151,8 @@ class AppointmentSlot extends React.Component {
                                                                 tomorrow_min={this.state.tomorrow_min}
                                                                 today_max={this.state.today_max}
                                                                 enableProceed = {this.enableProceed.bind(this)}
+                                                                getFormattedDate={this.getFormattedDate.bind(this)}
+                                                                getTimeSlots= {this.getTimeSlots.bind(this)}
                                                             /> : <Loader />
                                                     }
 

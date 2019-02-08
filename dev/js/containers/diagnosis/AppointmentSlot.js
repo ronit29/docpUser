@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, getLabTimeSlots, selectLabTimeSLot } from '../../actions/index.js'
+import { getLabById, getLabTimeSlots, selectLabTimeSLot, getNewLabTimeSlots } from '../../actions/index.js'
 
 import AppointmentSlotView from '../../components/diagnosis/appointmentSlot'
 
@@ -48,7 +48,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getLabById: (labId) => dispatch(getLabById(labId)),
         getLabTimeSlots: (labId, pickup, pincode,  callback) => dispatch(getLabTimeSlots(labId, pickup, pincode, callback)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        getNewLabTimeSlots: (labId, pickup, pincode, date, callback) => dispatch(getNewLabTimeSlots(labId, pickup, pincode, date, callback))
     }
 }
 
