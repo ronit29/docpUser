@@ -5729,6 +5729,9 @@ button.add-shpng-cart-btn.update-btn {
 .cl-overlay{
 	display: none;
 }
+.pos-rel{
+	position: relative;
+}
 @media screen and (max-width: 991px){
 	.ham-menu img{
 		margin-top: 15px;

@@ -66,16 +66,17 @@ class LeftMenu extends React.Component {
                                 this.props.toggleLeftMenu()
                                 this.props.history.push('/referral')} }  href="#"><img src="/assets/images/refer-and-earn.png" alt="" className="" />Refer and Earn</a></li>
 
-                              <li><a onClick={(e)=>{
+                              <li className="pos-rel"><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
-                                this.props.history.push('/notifications')} } href="#"><img src="/assets/images/notification.png" alt="" className="" />Notification</a></li>
+                                this.props.history.push('/notifications')} } href="#"><img src="/assets/images/notification.png" alt="" className="" />Notification</a>
                                 {
                                     this.props.unread_count ?
                                         <div className="notification-count">
                                             <span className="fw-500 text-xs">{this.props.unread_count}</span>
                                         </div> : ''
                                 }
+                                </li>
                             </ul>
                             
                             <ul className="drop-list-menu list_2">
