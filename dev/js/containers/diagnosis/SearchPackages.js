@@ -64,6 +64,9 @@ class SearchPackages extends React.Component {
         if(parsed.fromFooter && this.state.setForSeo){
             this.setState({forSeo:parsed.fromFooter,setForSeo:false})
         }
+        if(parsed.forSeo && this.state.setForSeo){
+            this.setState({forSeo:parsed.forSeo,setForSeo:false})
+        }
         
         return (
             <SearchPackagesView {...this.props} forSeo={this.state.forSeo}/>
