@@ -75,14 +75,18 @@ class LabDateTimeSelector extends React.Component {
     }
 
     selectDate(date, formattedDate, dateString, month, dateFormat) {
-        if(/*date == this.state.currentDate  || */(this.props.timeSlots && this.props.timeSlots[formattedDate] && this.props.timeSlots[formattedDate].length > 0) ){
+        /*if(date == this.state.currentDate  || (this.props.timeSlots && this.props.timeSlots[formattedDate] && this.props.timeSlots[formattedDate].length > 0) ){
    
-        }else{
-            this.props.getTimeSlots()
+        }*/
+
+        if(this.props.timeSlots && this.props.timeSlots[formattedDate]){
+
+        } else{
+            this.props.getTimeSlots(dateFormat)
 
         }
         this.setState({ currentDate: date, currentFormattedDate: formattedDate, selectedDateSpan: dateFormat, selectedMonth: month, currentTimeSlot: {} })
-            this.props.enableProceed(false, [])
+        this.props.enableProceed(false, [])
     }
 
     selectDateFromCalendar(date) {
@@ -216,7 +220,7 @@ console.log('ccccccccccccccc')
                                         this.state.daySeries.map((day, key) => {
 
                                             return <li key={key} onClick={this.selectDate.bind(this, day.dateNumber, day.formattedDate, day.dateString, day.month, day.dateFormat)}>
-                                                <p className={day.formattedDate == this.state.currentFormattedDate ? 'date-list-active' : (this.props.timeSlots && this.props.timeSlots[day.formattedDate] && this.props.timeSlots[day.formattedDate].length > 0) ? '' : "time-disable"}>{day.dateNumber}
+                                                <p className={day.formattedDate == this.state.currentFormattedDate ? 'date-list-active' : (this.props.timeSlots && this.props.timeSlots[day.formattedDate] && this.props.timeSlots[day.formattedDate].length > 0) ? '' : ""}>{day.dateNumber}
                                                     <span>{day.formattedDate == currentDate ? 'Today' : day.tag}</span>
                                                 </p>
                                             </li>
