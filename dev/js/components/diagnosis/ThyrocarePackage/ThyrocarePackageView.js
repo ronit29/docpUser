@@ -85,7 +85,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                10% OFF + ₹ 100
+                                                20% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -97,7 +97,7 @@ class ThyrocarePackageView extends React.Component {
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
@@ -970,11 +970,6 @@ class ThyrocarePackageView extends React.Component {
                                                                         % Transerrin Saturation
                                                                         </p>
                                                                 </li>
-                                                                <li>
-                                                                    <p>
-                                                                        FERRITIN
-                                                                        </p>
-                                                                </li>
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data mid-border-mrgn">
@@ -994,11 +989,6 @@ class ThyrocarePackageView extends React.Component {
                                                                         % Transerrin Saturation
                                                                         </p>
                                                                 </li>
-                                                                <li>
-                                                                    <p>
-                                                                        FERRITIN
-                                                                        </p>
-                                                                </li>
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data">
@@ -1016,11 +1006,6 @@ class ThyrocarePackageView extends React.Component {
                                                                 <li>
                                                                     <p>
                                                                         % Transerrin Saturation
-                                                                        </p>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        FERRITIN
                                                                         </p>
                                                                 </li>
                                                             </ul>
@@ -1393,6 +1378,47 @@ class ThyrocarePackageView extends React.Component {
                                                     </div>
                                                 </div> : ''
                                         } */}
+                                    </div>
+                                </div>
+                                <div className="static-pk-container">
+                                    <div className="static-pkg-top-column">
+                                        <div className="stc-offr-cpn">
+                                            <p className="stc-off-para">
+                                                20% OFF + ₹ 100
+                                                OFF Coupon
+                                                                </p>
+                                        </div>
+                                        <p className="stc-free-pick">Free Home Pickup</p>
+                                        <a href="/lab/searchresults?test_ids=12227" onClick={(e) => {
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12227', 'TopbookNowClickedBlock1')
+                                        }} className="stc-book-btn">Book Now</a>
+                                    </div>
+                                    <div className="static-pkg-top-column stc-mid-mrgn">
+                                        <div className="stc-offr-cpn">
+                                            <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
+                                        </div>
+                                        <p className="stc-free-pick">Free Home Pickup</p>
+                                        <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
+                                            e.preventDefault()
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12213', 'TopbookNowClickedBlock2')
+                                        }}
+                                            className="stc-book-btn">Book Now</a>
+                                    </div>
+                                    <div className="static-pkg-top-column">
+                                        <div className="stc-offr-cpn">
+                                            <p className="stc-off-para">
+                                                20% OFF + ₹ 100
+                                                OFF Coupon
+                                                                </p>
+                                        </div>
+                                        <p className="stc-free-pick">Free Home Pickup</p>
+                                        <a href="/lab/searchresults?test_ids=12229"
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                this.bookNowClicked('/lab/searchresults?test_ids=12229', 'TopbookNowClickedBlock3')
+                                            }}
+                                            className="stc-book-btn">Book Now</a>
                                     </div>
                                 </div>
                             </div>
