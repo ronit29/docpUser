@@ -233,7 +233,11 @@ class Article extends React.Component {
                                             <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
                                         <li className="breadcrumb-list-item">
-                                            <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
+                                            {
+                                                this.props.match.path.split('-')[1] === 'nmdp' ?
+                                                    <h2 className="fw-500 breadcrumb-title">{this.state.articleData.heading_title}</h2>
+                                                    : <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
+                                            }
                                         </li>
                                     </ul>
 

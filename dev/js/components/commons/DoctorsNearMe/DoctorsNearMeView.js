@@ -66,7 +66,7 @@ class DoctorsNearMeView extends React.Component {
                                                             this.props.history.push(`/${property.url}`);
                                                         }
                                                     }>
-                                                        <h2 style={{ fontSize: 14 }}>{property.title}</h2>
+                                                        <h2 style={{ fontSize: 14 }}>{property.title.split('|')[0]}</h2>
                                                     </a>
                                                     <span className="sitemap-right-arrow">
                                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
