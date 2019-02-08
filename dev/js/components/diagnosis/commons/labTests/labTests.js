@@ -75,7 +75,7 @@ class LabTests extends React.Component {
                     if (test.is_selected) {
                         selectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price}/>)
                     } else {
-                        unSelectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price}/>)
+                        unSelectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)}/>)
                     }
 
                 } else {
@@ -97,7 +97,7 @@ class LabTests extends React.Component {
                             :<li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name} {test.test.show_details?test_info:''}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this)} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
@@ -110,7 +110,7 @@ class LabTests extends React.Component {
                             : <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
+                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this)} />
                                     <span className="checkmark" />
                                 </label>
                                 <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>

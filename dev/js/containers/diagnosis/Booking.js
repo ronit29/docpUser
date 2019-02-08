@@ -1,13 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon } from '../../actions/index.js'
-
+import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon } from '../../actions/index.js'
+import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/diagnosis/booking/BookingView.js'
 
 class Booking extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    componentDidMount() {
+        if (STORAGE.checkAuth()) {
+            this.props.getCartItems()
+        }
     }
 
     render() {
@@ -41,7 +47,8 @@ const mapDispatchToProps = (dispatch) => {
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
-        setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon))
+        setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
+        getCartItems: () => dispatch(getCartItems()),
     }
 }
 

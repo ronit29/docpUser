@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import ArticleListView from '../../components/commons/articleList'
 import { getArticleList, getSpecialityFooterData } from '../../actions/index.js'
+import DoctorsNearMeView from '../../components/commons/DoctorsNearMe/DoctorsNearMeView';
 const queryString = require('query-string');
 
 
@@ -39,7 +40,12 @@ class ArticleList extends React.Component {
 
     render() {
         return (
-            <ArticleListView {...this.props} />
+            <div>
+                {
+                    this.props.match.url === "/doctors-near-me" ?
+                        <DoctorsNearMeView {...this.props} /> : <ArticleListView {...this.props} />
+                }
+            </div>
         );
     }
 }
