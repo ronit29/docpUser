@@ -550,3 +550,11 @@ export const getAllRatings = (content_type, object_id, cb) => (dispatch) => {
 		if (cb) cb(error, null);
 	})
 }
+
+export const getUserReviews = (cb) => (dispatch) => {
+	API_GET("/api/v1/user/myratings").then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}

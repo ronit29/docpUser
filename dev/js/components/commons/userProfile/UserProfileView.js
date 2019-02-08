@@ -15,6 +15,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import UserPrescription from './userPrescriptions'
 import UserCoupons from './userCoupons'
 import Loader from '../../commons/Loader'
+import UserReview from '../../commons/userProfile/userReviews'
 
 import { Route } from 'react-router-dom'
 
@@ -109,9 +110,11 @@ class UserProfileView extends React.Component {
                                         <Route exact path={`${this.props.match.url}/onlinePrescriptions`} render={(props) => {
                                             return <UserPrescription {...this.props} {...props} />
                                         }} />
-
                                         <Route exact path={`${this.props.match.url}/coupons`} render={(props) => {
                                             return <UserCoupons {...this.props} {...props} />
+                                        }} />
+                                        <Route exact path={`${this.props.match.url}/myratings`} render={(props) => {
+                                            return <UserReview {...this.props} {...props} />
                                         }} />
 
                                     </div> : ""

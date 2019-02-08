@@ -5300,3 +5300,93 @@ color: 	#fe7108;
 .searchMargin{
 	margin-bottom: 80px !important;
 }
+
+
+
+.rev-txt{
+	font-size: 16px;
+	font-weight: 500;
+	margin: 15px;
+}
+.review-card{
+	border-radius: 10px;
+  box-shadow: -0.5px 0.9px 3px 0 rgba(0, 0, 0, 0.17);
+  background-color: #ffffff;
+  padding: 15px;
+  margin: 15px;
+}
+.first-sec{
+	float: left;
+	width: 20%;
+}
+.last-sec{
+	width: 69%;
+	float: left;
+	margin-left: 15px;
+}
+.c-date{
+	color: #000;
+	font-size: 10px;
+	font-weight: 500;
+	margin-top: 2px;
+}
+.clnc-nam{
+	color: #000;
+	font-size: 14px;
+	font-weight: 700;
+}
+.clnc-add{
+	color: #767676;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.pad-t10{
+	padding-top: 10px;
+}
+.rating-sec{
+	clear: both;
+	padding:15px 0;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+.rating-sec span.rating-img{
+	border-radius: 5px;
+    background-color: #55a740;
+    color: #fff;
+    padding: 0 5px 0 5px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+}
+.rating-sec span>img {
+    width: 11px;
+    height: 11px;
+    position: relative;
+    top: -1px;
+    margin-left: 3px;
+    margin-right: 10px;
+    display: block;
+}
+.btn-div ul li{
+	display: inline-block;
+	width: 50%;
+	padding-top: 15px;
+}
+.btn-div ul li a{
+	display: block;
+	border-right: 1px solid rgba(0,0,0,0.12);
+	color: #f78631;
+	text-decoration: none;
+	text-align: center;
+	
+}
+.btn-div ul li:last-child a{
+	border-right: 0;
+}
+
+@media screen and (max-width: 330px){
+	.first-sec{
+		width: 25%;
+	}
+	
+}
