@@ -387,7 +387,7 @@ class ChatPanel extends React.Component {
                                                     }, 10000)
                                                 }
                                             }}>
-                                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />
+                                                {/*<img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />*/}
 
                                             </span> : ""
                                         }

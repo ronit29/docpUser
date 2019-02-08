@@ -69,20 +69,20 @@ class BookingView extends React.Component {
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
+                    
                     let info = {}
-                    info[appointmentId] = {}
+                    info[appointmentId] = []
                     let mrp = 0
                     let deal_price = 0
-                    if(data.length && data[0].lab_test){
+                    if (data.length && data[0].lab_test) {
                         data[0].lab_test.map((test) => {
-                            mrp+= parseInt(test.mrp)
-                            deal_price+= parseInt(test.deal_price)
+                            mrp += parseInt(test.mrp)
+                            deal_price += parseInt(test.deal_price)
                         })
                     }
-                    info[appointmentId].mrp = mrp
-                    info[appointmentId].deal_price = deal_price
+                    info[appointmentId].push({'booking_id': appointmentId, 'mrp': mrp, 'deal_price': deal_price})
                     info = JSON.stringify(info)
-                    STORAGE.setAppointmentDetails(info).then((setCookie)=> {
+                    STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
                         if (this.state.payment_success) {
 
@@ -105,10 +105,10 @@ class BookingView extends React.Component {
         }
     }
 
-    cancelAppointment(type) {
+    cancelAppointment(cancelData) {
         this.setState({ loading: true, showCancel: false })
         let data;
-        if (type) {
+        if (cancelData.cancelStatus) {
 
             data = {
                 'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Refund', 'appointmentId': this.state.data.id
@@ -123,7 +123,7 @@ class BookingView extends React.Component {
         GTM.sendEvent({ data: data })
 
 
-        let appointmentData = { id: this.state.data.id, status: 6, refund: type }
+        let appointmentData = { id: this.state.data.id, status: 6, refund: cancelData.cancelStatus, cancellation_comment: cancelData.cancelText, cancellation_reason: cancelData.cancelId }
 
         this.props.updateLabAppointment(appointmentData, (err, data) => {
             if (data) {
@@ -403,7 +403,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments = {this.state.data && this.state.data.cancellation_reason?this.state.data.cancellation_reason:[]} /> : ""
                             }
 
                         </div>

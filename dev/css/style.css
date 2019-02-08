@@ -1088,6 +1088,9 @@ p.top-head-link.card-lab-link span {
 		top: -38px;
 		margin-bottom: -38px;
 	}
+	.dtl-margin-lg{
+		margin-right: 10px !important;
+	}
 }
 
 @media (max-height: 355px) {
@@ -2960,7 +2963,7 @@ ul.list-sub-menu a:hover {
     margin-bottom: 20px;
     border-radius: 10px;
 	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
-	padding-block-end: 30px;
+	padding-bottom: 30px;
 }
 .search-result-card-collpase h5{
 	font-size: 16px;
@@ -4846,6 +4849,7 @@ font-weight: 700;
     font-weight: 500;
     color: #757575;
     border-right: 1px solid rgba(0, 0, 0, .2);
+    position: relative;
 }
 .top-filter-tabs-select:last-child{
 	border-right: 1px solid transparent;
@@ -4864,14 +4868,15 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #3b5998;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
 	position: absolute;
-    top: 5px;
-    left: 40px;
+    top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
     font-weight: 500;
     color: white;
 }
@@ -4879,16 +4884,16 @@ font-weight: 700;
     flex: 1;
     position: relative;
     background: #00aced;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .emailIcon-styling{
     flex: 1;
     position: relative;
     background: #7f7f7f;
-    margin: 10px;
-    border-radius: 4px;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .typ-close{
@@ -5116,6 +5121,44 @@ font-size: 13px;
 .d-inline-blck{
 	display: inline-block;
 }
+li.drop-list-styling {
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+	font-size: 15px;
+	cursor: pointer;
+}
+li.drop-list-styling.drop-icon-selecter img.drop-icon-selecter-selected{
+	visibility: visible;
+}
+img.drop-icon-selecter-selected {
+	margin-right: 10px;
+	visibility: hidden;
+}
+
+.catg-count{
+    position: absolute;
+    background: #f78631;
+    height: 20px;
+    width: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    top: -2px;
+    right: 11px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.applied-filter-noti-new{
+	align-self: flex-start;
+    height: 10px;
+    width: 10px;
+    background-color: orange;
+	border-radius: 50%;
+}
 /* ============================ comment section  ============================  */
 .comments-main-heading{
 
@@ -5212,6 +5255,7 @@ color: 	#fe7108;
 }
 .cmnt-static{
 	font-size: 16px;
+	cursor: default;
 	font-weight: 700;
 }
 .cmnt-static img{
@@ -5225,6 +5269,244 @@ color: 	#fe7108;
 }
 /* ============================ comment section  ============================  */
 
+/* ================= shopping cart style ================= */
+.buttons-addcart-container{
+	display: flex;
+    background: white;
+    width: 100%;
+}
+.add-shpng-cart-btn{
+	color: #f78631;
+    display: flex;
+	align-items: center;
+	justify-content: center;
+    flex: 1;
+    font-size: 14px;
+    position: relative;
+    background-color: white;
+    padding: 10px 3px;
+	border: 2px solid #f78631;
+	cursor: pointer;
+}
+.add-shpng-cart-btn img{
+    width: 20px;
+    margin: 0 10px;
+}
+.book-btn-mrgn-adjust{
+	flex: 1;
+	margin-left: -1px;
+	border: 1px solid #f78631;
+	cursor: pointer;
+	font-size: 14px;
+}
+.p-relative{
+	position: relative;
+}
+.shopng-cart-price{
+    position: absolute;
+    top: 6px;
+    right: 12px;
+}
+.shopng-cart-price p{
+	font-weight: 600;
+	font-size: 16px;
+}
+.shopng-cart-price-cut{
+    text-decoration: line-through;
+    color: #757575;
+	margin-left: 5px;
+	font-weight: 500;
+}
+.shopng-cart-price p img{
+	height: 11px;
+}
+.shopng-cart-price-cut img {
+	fill: #000;
+  }
+  .shopping-card-details-list{
+    padding: 0 12px;
+    margin-top: 6px;
+  }
+  .shopping-card-details-list ul li {
+    margin-bottom: 7px;
+}
+  .shopping-card-details-list ul li p{
+	font-weight: 500;
+}
+
+.shopping-card-details-list .shpng-dtls-ico img{
+	width: 17px;
+    max-width: 100%;
+    margin-right: 8px;
+} 
+.shopping-card-details-list ul li .coupon-applies-shpngcard{
+	color: #55a740;
+}
+.shpng-card-btns {
+    border-top: 1px solid #efecec;
+    margin: 10px 10px 0 10px;
+    display: flex;
+}
+.shpng-card-btns button {
+    flex: 1;
+    border: none;
+    padding: 7px 0;
+    color: #f78631;
+    font-weight: 500;
+    border-right: 1px solid #efecec;
+    margin: 7px 0;
+	cursor: pointer;
+	font-size: 15px;
+	background-color: white;
+}
+.shpng-card-btns button:last-child {
+	border-right: none;
+}
+.align-flex-end{
+	align-items: flex-end;
+}
+.shpng-cart-tst-lst-img{
+	position: absolute;
+    left: 0;
+    top: 4px;
+    width: 18px;
+}
+.shoping-cart-main-heading{
+	font-weight: 600;
+    margin: 10px 0px;
+}
+.mt-0{
+	margin-top: 0px !important;
+}
+.cart-count-notify{
+	text-align: center;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    background: white;
+    top: -5px;
+    color: #f78631;
+    border: 2px solid #f78631;
+    border-radius: 10px;
+    padding: 8px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.cart-appntmnt{
+	color: #11b619;
+    font-size: 15px;
+    padding: 10px;
+    font-weight: 500;
+}
+.cart-appntmnt-failed{
+	color: #e72020;
+    font-size: 15px;
+    padding: 10px;
+    font-weight: 500;
+}
+.cartBooking{
+    padding: 0px 0px 5px 10px;
+    font-weight: 500;
+}
+.pb-5{
+	padding-bottom: 5px;
+}
+.cart-viewdtls-btn{
+	color: #f78631;
+	font-weight: 500;
+	cursor: pointer;
+}
+.cart-viewdtls-container{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-card-blur-opacity{
+	opacity: .4;
+}
+.cart-warnig-icon-text{
+	display: flex;
+    align-items: flex-start;
+    color: #b06e2e;
+    font-weight: 500;
+    font-size: 15px;
+    margin: 10px 0px;
+    background: #f7e6ad;
+    border: 1px solid #b06e2e;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+}
+.cart-warnig-icon-text img{
+	flex-grow: 0;
+    flex-shrink: 0;
+    height: 20px;
+    margin-right: 10px;
+}
+.initialsPicture-dbd.cart-initialspic{
+    height: 40px;
+    margin-right: 4px;
+    font-size: 18px !important;
+    width: 40px;
+    margin-top: 15px !important;
+}
+.head-links img.cart-icon-mbl{
+	margin-right: 8px !important;
+}
+.emptyCardText{
+	color: #757575;
+    margin-top: 12px;
+	font-size: 16px;
+	font-weight: 500;
+}
+button.add-shpng-cart-btn.update-btn {
+    color: #ffffff;
+	background-color: #f78631;
+	font-weight: 500;
+}
+.appointmentPassed{
+	color: red;
+    font-weight: 500;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin-top: 2px;
+}
+.errorInfoImg{
+	width: 20px;
+    margin: 2px 6px 0 0;
+}
+.initialsPicture-xs-cart{
+    height: 40px;
+    margin-right: 4px;
+    width: 40px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+	border-radius: 5px;
+	margin-top: 8px;
+}
+.widgetHeaderPaddingTop{
+	padding-top: 14px;
+}
+.emptyCartRedirect{
+	background: #f78631;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 8px 30px;
+    cursor: pointer;
+}
+/* ================= shopping cart style ================= */
 .imptnt-cls{
 	padding-left:66px!important
 }
@@ -5289,4 +5571,124 @@ color: 	#fe7108;
 }
 .bottomMargin{
 	margin-bottom: 50px;
+}
+/* ================ cancel popup ================ */
+.cancelPopupContainerOverlay{
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #00000099;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cancelPopupContainer{
+	width: 90%;
+    background: white;
+    padding: 10px;
+	border-radius: 4px;
+	max-width: 500px;
+}
+.cancel-Heading{
+	display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 8px;
+}
+.cancel-Heading h4{
+	flex: 1;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+}
+.cn-btn-head{
+	background:transparent;
+	border: none;
+}
+
+.cnct-select-cont li {
+	border-bottom: 1px solid #e6e6e6;
+}
+.cnct-select-cont li button{
+	width: 100%;
+    text-align: left;
+    border: transparent;
+    padding: 10px 5px;
+    font-weight: 500;
+    background: white;
+}
+.cnct-select-cont li:last-child{
+	border-bottom: none;
+}
+.cnct-select-cont li button:focus, .cnct-select-cont li button:hover{
+	color: #f78631;
+}
+.cancel-wid-radio .dtl-radio{
+	border-bottom: 1px solid #e6e6e6;
+}
+.cancel-wid-radio .dtl-radio h3{
+	font-size: 14px !important;
+	padding-top: 2px;
+    display: inline-block !important;
+}
+.cancel-wid-radio .doc-checkmark{
+	top: 7px !important;
+}
+.cancel-wid-radio .dtl-radio:last-child{
+	border-bottom: none;
+}
+.cancel-wid-radio .dtl-radio .container-radio{
+	padding: 5px 0px 5px 29px;
+	margin-bottom: 0px;
+}
+.cancelationReson textarea{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e6e6e6;
+    outline: none;
+}
+.cancelationReson {
+    padding-left: 29px;
+}
+.cancelationBtn{
+    margin-top: 26px;
+    text-align: center;
+}
+.cancelationBtn button{
+    background: #f78631;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 30px;
+}
+/* ================ cancel popup ================ */
+.advisorContainer{
+    padding-top: 12px;
+    padding-left: 12px;
+}
+.advisorContainer img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.advisorContainer h1{
+    font-size: 15px;
+}
+
+.dtl-margin-lg{
+	margin-right: 20px;
+}
+
+h3.pkg-include{
+	font-size: 14px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: rgb(117, 117, 117);
+    border: 1px dashed #f78631;
+    border-radius: 4px;
+    display: inline;
 }

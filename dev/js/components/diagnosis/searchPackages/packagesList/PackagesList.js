@@ -12,7 +12,8 @@ class packagesList extends React.Component {
             hasMore: false,
             loading: false,
             renderBlock: false,
-            page: 0
+            page: 0,
+            readMore: 'search-details-data-less'
         }
     }
 
@@ -79,6 +80,12 @@ class packagesList extends React.Component {
         var test_ids = url.searchParams.get("test_ids");
         this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults&isSeo=false')
     }
+    toggleScroll() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        this.setState({ readMore: 'search-details-data-less' })
+    }
     render() {
         let { LABS, labList } = this.props
         return (
@@ -86,6 +93,25 @@ class packagesList extends React.Component {
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
+                            {
+                                this.props.forSeo?
+                                    <div className="search-result-card-collpase">
+                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.packagesList.search_content }} >
+                                        </div>
+
+                                        {this.state.readMore && this.state.readMore != '' ?
+                                            <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
+                                            : ''
+                                        }
+
+                                        {this.state.readMore == '' ?
+                                            <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                                            : ''
+                                        }
+
+                                    </div>
+                                    : ''
+                            }
                             <div className="row">
                                 <div className="col-12">
                                 {
