@@ -47,7 +47,7 @@ class LeftMenu extends React.Component {
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
-                                this.props.history.push('/user/onlinePrescriptions')} } href="#"><img src="/assets/images/online-prescription.png" alt="" className="" />My Online Prescription</a></li>
+                                this.props.history.push('/user/onlinePrescriptions')} } href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />My Online Prescription</a></li>
 
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
@@ -57,7 +57,7 @@ class LeftMenu extends React.Component {
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
-                                this.props.history.push('/wallet')} } href="#"><img src="/assets/images/my-wallet.png" alt="" className="" />My Wallet</a>
+                                this.props.history.push('/wallet')} } href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rp-ico.png" alt="" className="" />My Wallet</a>
                                   {/*<span className="wallet-amnt"><img src="/assets/images/rupees-icon.png" />212</span>*/}
                               </li>
 
