@@ -308,14 +308,9 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (typeof window == "object") {
 		url_string = window.location.href
-<<<<<<< HEAD
     	new_url = new URL(url_string)
     	parsed = new_url.searchParams.get("fromFooter")
     	forTaxSaver = new_url.searchParams.get("forTaxSaver")
-=======
-		new_url = new URL(url_string)
-		parsed = new_url.searchParams.get("fromFooter")
->>>>>>> 11-jan-search
 	} else {
 		parsed = false
 		forTaxSaver = false

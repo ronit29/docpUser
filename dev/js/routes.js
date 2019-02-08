@@ -50,6 +50,7 @@ import Referral from './containers/commons/referral'
 import Cart from './containers/commons/cart'
 import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
+import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -133,6 +134,7 @@ const routes = [
     { path: '/health-package-advisor', exact: true, component: HealthPackageAdvisor, RENDER_ON_SERVER: true },
     { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: false, redirectTo: "full-body-checkup-health-packages", RENDER_ON_SERVER: true },
     { path: '/tax-saver-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
+    { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

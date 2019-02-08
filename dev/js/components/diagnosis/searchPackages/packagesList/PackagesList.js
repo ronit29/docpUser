@@ -80,6 +80,9 @@ class packagesList extends React.Component {
         }
         this.setState({ readMore: 'search-details-data-less' })
     }
+    showTc(){
+        this.props.history.push('/tax-saver-health-packages-tc')
+    }
     render() {
         let { LABS, labList } = this.props
         return (
@@ -105,6 +108,15 @@ class packagesList extends React.Component {
 
                                     </div>
                                     : ''
+                            }
+                            {
+                                this.props.forTaxSaver?<div className="rishab">
+                                    <img className="" src={ASSETS_BASE_URL + "/images/layer-2898.png"} />
+                                    <div>
+                                        <p onClick={this.showTc.bind(this)}>click here</p>
+                                    </div>
+                                </div>
+                                :''
                             }
                             <div className="row">
                                 <div className="col-12">
