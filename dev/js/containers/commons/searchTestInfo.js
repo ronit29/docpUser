@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        searchTestData: (test_ids,test_url,lab_id,callback) => dispatch(searchTestData(test_ids,test_url,lab_id,callback)),
+        searchTestData: (test_ids,test_url,lab_id,state,callback) => dispatch(searchTestData(test_ids,test_url,lab_id,state,callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),

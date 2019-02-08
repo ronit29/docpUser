@@ -77,7 +77,7 @@ class SearchTestView extends React.Component {
                     test_url = test_url.split("/")[1]
                 }
             }
-            this.props.searchTestData(test_id,test_url, lab_id)
+            this.props.searchTestData(test_id,test_url, lab_id,this.props)
             // this.props.searchTestData(test_id,test_url, lab_id, (resp) => {
             //     {
             //         Object.entries(resp).map(function ([key, value]) {
@@ -383,7 +383,7 @@ class SearchTestView extends React.Component {
                                                             }):''
                                                         }
                                                         <div>
-                                                        <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this)}> View all labs</a>
+                                                        <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this,'')}> View all labs</a>
                                                         </div>
                                                     </div>:''}
                                                     {
@@ -406,7 +406,7 @@ class SearchTestView extends React.Component {
                                                 </div>
                                             </div>
                                             {this.state.isSeo?
-                                            <button onClick={this.searchProceedLAB.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now 
+                                            <button onClick={this.searchProceedLAB.bind(this,'')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now 
                                                 <span className="text-xs selected-option static-btn book-right-align-text" style={{verticalAlign: 2, marginRight: 8}}> {`(${disableAddTest.length} Selected)`}</span>
                                             </button>
                                             :''}
