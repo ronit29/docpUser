@@ -5682,5 +5682,32 @@ h3.pkg-include{
 	font-size: 15px;
 	cursor: pointer;
 }
+.taxFullContent{
+
+}
+
+.taxFullContent h4{
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.taxFullContent p{
+	margin-bottom: 10px;
+}
+.taxFullContent ul {
+    list-style: disc !important;
+    padding-left: 18px;
+}
+.taxFullContent ul li{
+    margin-bottom: 10px;
+}
+.taxFullContent ul li b{
+    font-weight: 500;
+}
+.textInfoHeadTitle{
+	font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
 
 /* ==================== tax panel ==================== */
