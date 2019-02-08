@@ -90,10 +90,16 @@ class LabProfileCard extends React.Component {
         var url_string = window.location.href;
         var url = new URL(url_string);
         var search_id = url.searchParams.get("search_id");
+        let lat = 28.644800
+        let long = 77.216721
+        if(this.props.selectedLocation !== null){
+            lat = this.props.selectedLocation.geometry.location.lat
+            long = this.props.selectedLocation.geometry.location.lng
+        }
         if(test_url && test_url !=''){
-            this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false')
+            this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false'+'&lat='+lat+'&long='+long)
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false&searchById=true')
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false&searchById=true'+'&lat='+lat+'&long='+long)
         }
         event.stopPropagation()
         let data = {

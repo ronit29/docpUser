@@ -53,14 +53,20 @@ class CommonlySearched extends React.Component {
         this.props.toggle((this.props.type || row.type), row)
     }
     testInfo(test_id,url) {
+        let lat = 28.644800
+        let long = 77.216721
+        if(this.props.dataState.selectedLocation !== null){
+            lat = this.props.dataState.selectedLocation.geometry.location.lat
+            long = this.props.dataState.selectedLocation.geometry.location.lng
+        }
         let selected_test_ids = []
         this.props.data.map((row, i) => {
             selected_test_ids.push(row.id)
         })
         if(url &&  url !=''){
-            this.props.history.push('/'+url+'?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search&isSeo=false')    
+            this.props.history.push('/'+url+'?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&lat='+lat+'&long='+long+'&from=search&isSeo=false')    
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search&isSeo=false&searchById=true')
+            this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long+'&from=search&isSeo=false&searchById=true')
         }
         
         let data = {

@@ -109,10 +109,16 @@ class TestSelectorView extends React.Component {
         let lab_id = this.state.selectedLab
         let selected_test_ids = this.props.selectedCriterias || []
         selected_test_ids = selected_test_ids.map(x => x.id)
+        let lat = 28.644800
+        let long = 77.216721
+        if(this.props.selectedLocation !== null){
+            lat = this.props.selectedLocation.geometry.location.lat
+            long = this.props.selectedLocation.geometry.location.lng
+        }
         if(url && url !=''){
-            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false')
+            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false'+'&lat='+lat+'&long='+long)
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false&searchById=true')
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false&searchById=true'+'&lat='+lat+'&long='+long)
         }
         event.stopPropagation()
         let data = {

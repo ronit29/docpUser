@@ -40,10 +40,16 @@ class LabTests extends React.Component {
         let lab_id = this.props.selectedLab
         let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
         selected_test_ids = selected_test_ids.map(x => x.id)
+            let lat = 28.644800
+            let long = 77.216721
+            if(this.props.selectedLocation !== null){
+                lat = this.props.selectedLocation.geometry.location.lat
+                long = this.props.selectedLocation.geometry.location.lng
+            }
         if(url && url !=''){
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow&isSeo=false')
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow&isSeo=false'+'&lat='+lat+'&long='+long)
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow&isSeo=false&searchById=true')
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow&isSeo=false&searchById=true'+'&lat='+lat+'&long='+long)
         }
         event.stopPropagation()
         let data = {

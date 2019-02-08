@@ -18,8 +18,11 @@ class searchTestInfo extends React.Component {
             url = url.split("/")[1]
         }
         url = ''
+        let lat = 28.644800
+        let long = 77.216721
         return new Promise((resolve, reject) => {
-            store.dispatch(searchTestData(query.test_ids || '', url, query.lab_id || '', (data)=>{
+            store.dispatch(searchTestData(query.test_ids || '', url, query.lab_id || '',query.lat || lat,
+                query.long || long, (data)=>{
                 resolve({ })
 
             } ))

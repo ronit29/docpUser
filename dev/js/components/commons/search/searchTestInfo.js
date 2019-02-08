@@ -233,7 +233,6 @@ class SearchTestView extends React.Component {
     }
 
     render() {
-        console.log(this.state.lastSource)
         const parsed = queryString.parse(this.props.location.search)
         var selected_test_ids = parsed.selected_test_ids?parsed.selected_test_ids:''
         let url_test_ids = selected_test_ids.split(',')
