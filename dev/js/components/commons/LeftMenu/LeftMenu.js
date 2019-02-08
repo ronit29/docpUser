@@ -70,6 +70,12 @@ class LeftMenu extends React.Component {
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
                                 this.props.history.push('/notifications')} } href="#"><img src="/assets/images/notification.png" alt="" className="" />Notification</a></li>
+                                {
+                                    this.props.unread_count ?
+                                        <div className="notification-count">
+                                            <span className="fw-500 text-xs">{this.props.unread_count}</span>
+                                        </div> : ''
+                                }
                             </ul>
                             
                             <ul className="drop-list-menu list_2">
