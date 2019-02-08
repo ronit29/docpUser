@@ -44,9 +44,9 @@ class BookingView extends React.Component {
             if (!err) {
                 this.setState({ data: data[0], loading: false })
                 let info = {}
-                info[appointmentId] = {}
-                info[appointmentId].deal_price = data.length?data[0].deal_price:''
-                info[appointmentId].mrp = data.length?data[0].mrp:''
+                info[appointmentId] = []
+                info[appointmentId].push({'booking_id': appointmentId, 'mrp': data.length?data[0].mrp:'', 'deal_price': data.length?data[0].deal_price:''})
+                    
                 info = JSON.stringify(info)
                 STORAGE.setAppointmentDetails(info).then((setCookie)=> {
 

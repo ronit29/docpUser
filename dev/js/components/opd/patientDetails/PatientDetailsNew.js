@@ -307,7 +307,7 @@ class PatientDetailsNew extends React.Component {
 
         if (addToCart) {
             let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpdAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-add-to-cart-clicked'
+                'Category': 'ConsumerApp', 'Action': 'OpdAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-add-to-cart-clicked'
             }
 
             GTM.sendEvent({ data: data })
@@ -330,8 +330,8 @@ class PatientDetailsNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
 
         analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
-            }
+            'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
+        }
         GTM.sendEvent({ data: analyticData })
 
         this.props.createOPDAppointment(postData, (err, data) => {
@@ -352,7 +352,7 @@ class PatientDetailsNew extends React.Component {
 
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/order/summary/${data.data.orderId}`)
+                    this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
@@ -686,7 +686,7 @@ class PatientDetailsNew extends React.Component {
                                 </button>
 
                                 {
-                                    this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                     } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
                                 }
