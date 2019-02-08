@@ -371,7 +371,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/order/summary/${data.data.orderId}`)
+                    this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
