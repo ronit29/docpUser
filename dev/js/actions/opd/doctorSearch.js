@@ -159,9 +159,13 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			})
 		}
 
+		let specialization_ids = specializations && specializations.length?specializations.map(x=>x.id).join(','):''
+		let condition_ids = conditions && conditions.length?conditions.map(x=>x.id).join(','):''
+		let procedure_ids = procedures&& procedures.length?procedures.map(x=>x.id).join(','):''
+		let procedure_category_ids = procedure_category && procedure_category.length?procedure_category.map(x=>x.id).join(','):''
 		if (page == 1) {
 			let data = {
-				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0
+				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': procedure_category_ids , 'doctor_name': filterCriteria.doctor_name || '', 'hospital_name': filterCriteria.hospital_name||'', 'hospital_id': filterCriteria.hospital_id||''
 			}
 			GTM.sendEvent({ data: data })
 		}
