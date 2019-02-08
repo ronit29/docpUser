@@ -98,7 +98,13 @@ class DesktopProfileHeader extends React.Component {
     }
 
     toggleLeftMenu(){
-        this.setState({toggleHamburger: !this.state.toggleHamburger })
+        this.setState({toggleHamburger: !this.state.toggleHamburger }, ()=>{
+            if(this.state.toggleHamburger){
+                document.body.style.overflow="hidden"
+            }else{
+                document.body.style.overflow=""
+            }
+        })
     }
 
     render() {
@@ -182,6 +188,7 @@ class DesktopProfileHeader extends React.Component {
                         }}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
+                                document.body.style.overflow="hidden"
                                 this.setState({toggleHamburger: true})}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
