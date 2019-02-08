@@ -80,7 +80,7 @@ class packagesList extends React.Component {
         }
         this.setState({ readMore: 'search-details-data-less' })
     }
-    showTc(){
+    showTc() {
         this.props.history.push('/tax-saver-health-packages-tc')
     }
     render() {
@@ -91,7 +91,7 @@ class packagesList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.forSeo?
+                                this.props.forSeo ?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.packagesList.search_content }} >
                                         </div>
@@ -110,24 +110,27 @@ class packagesList extends React.Component {
                                     : ''
                             }
                             {
-                                this.props.forTaxSaver?<div className="rishab">
-                                    <img className="" src={ASSETS_BASE_URL + "/images/layer-2898.png"} />
-                                    <div>
-                                        <p onClick={this.showTc.bind(this)}>click here</p>
+                                this.props.forTaxSaver ? <div>
+                                    <div className="taxBanner">
+                                        <img className="img-fluid" src="https://cdn.docprime.com/images/layer-2898.png" />
+                                    </div>
+                                    <div className="taxContent">
+                                        <img style={{ cursor: 'pointer',marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
+                                        <p className="taxContentPara">Book Preventive Health Packages for yourself and your family and save tax upto 5000 under section 80D. To know more <span onClick={this.showTc.bind(this)}> click here</span></p>
                                     </div>
                                 </div>
-                                :''
+                                    : ''
                             }
                             <div className="row">
                                 <div className="col-12">
-                                {
-                                    this.props.packagesList && this.props.packagesList.result ?this.props.packagesList.result.map((packages, i) => {
-                                    return <div key={i}>
-                                            <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
-                                        </div>
+                                    {
+                                        this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
+                                            return <div key={i}>
+                                                <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                            </div>
                                         })
-                                    :''
-                                }
+                                            : ''
+                                    }
 
                                     {/*<InfiniteScroll
                                         pageStart={0}

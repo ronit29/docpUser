@@ -5662,3 +5662,25 @@ h3.pkg-include{
     border-radius: 4px;
     display: inline;
 }
+/* ==================== tax panel ==================== */
+.taxContent{
+	margin: 5px 0 12px 0;
+    background: #f7f1d3;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+.taxContentPara{
+	font-weight: 500;
+    margin-left: 5px;
+}
+.taxContentPara span{
+    color: #f6832c;
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+/* ==================== tax panel ==================== */
