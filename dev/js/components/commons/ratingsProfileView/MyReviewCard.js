@@ -9,24 +9,29 @@ class MyReviewCard extends React.Component {
             selectedRating: this.props.details ? this.props.details.ratings : 0,
             type: 1,
             compliments: [],
-            review_field: '',
+            review_field: this.props.details.review,
             selected_compliments: this.props.details.compliments_list ? this.props.details.compliments_list : []
         }
     }
 
     componentDidMount() {
-        order_by
         this.setState({ data: this.props.details })
         this.setState({ compliments: this.props.comp })
+        if (this.props.sms_id !== null && (this.state.data.id == this.props.sms_id)) {
+            this.setState({ type: 0 })
+        }
     }
 
     selectRating(x) {
         this.setState({ selectedRating: x })
+        this.setState({ selected_compliments: [] });
+
     }
 
     editRating(id) {
         this.setState({ type: 0 })
     }
+
     handleReviewChange(e) {
         this.setState({ review_field: e.target.value });
     }
@@ -39,7 +44,7 @@ class MyReviewCard extends React.Component {
 
     cancelUpdate() {
         this.setState({
-            type: 1, selected_compliments: this.props.details.compliments_list ? this.props.details.compliments_list : [], selectedRating: this.props.details ? this.props.details.ratings : 0,
+            type: 1, selected_compliments: this.props.details.compliments_list ? this.props.details.compliments_list : [], selectedRating: this.props.details ? this.props.details.ratings : 0, review_field: this.props.details.review,
 
         })
     }
@@ -48,7 +53,7 @@ class MyReviewCard extends React.Component {
         let post_data = { 'id': this.props.details.id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments, 'appointment_id': this.props.details.appointment_id };
         this.props.updateAppointmentRating(post_data, (err, data) => {
             if (!err && data) {
-                this.setState({ type: 1, data: { ...this.state.data, rating: this.state.selectedRating, review: this.state.review_field } })
+                this.setState({ type: 1, data: data })
             }
         })
         this.props.submit(post_data, 0)
@@ -56,7 +61,6 @@ class MyReviewCard extends React.Component {
 
 
     render() {
-        console.log(this.state)
         if (this.state.type == 1) {
             return (
                 <div className="review-card clearfix" key={this.state.data.id}>
@@ -109,7 +113,7 @@ class MyReviewCard extends React.Component {
                         }
                     </ul>
                     <div className="rate-submit-cmnnt-box">
-                        <textarea maxLength="5000" placeholder="Leave a review" rows="2" value={this.state.data.review} onChange={this.handleReviewChange.bind(this)}>
+                        <textarea maxLength="5000" placeholder="Leave a review" rows="2" value={this.state.review_field} onChange={this.handleReviewChange.bind(this)}>
                         </textarea>
 
                         {/* <button className="rate-submit-btn" onClick={this.submitRating.bind(this)}>Update</button> */}
