@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews } from '../../actions/index.js'
+import { OTTLogin, setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
@@ -79,6 +79,9 @@ const mapDispatchToProps = (dispatch) => {
         getUserPrescription: (mobileNo) => dispatch(getUserPrescription(mobileNo)),
         getCoupons: (productId) => dispatch(getCoupons(productId)),
         getUserReviews: (cb) => dispatch(getUserReviews(cb)),
+        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
+        updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
+        OTTLogin: (ott) => dispatch(OTTLogin(ott)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         clearExtraTests: () => dispatch(clearExtraTests())
     }
