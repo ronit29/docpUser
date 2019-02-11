@@ -844,6 +844,9 @@ p.top-head-link.card-lab-link span {
 	.sticky-pk-container{
 		top: 44px !important;
 	}
+	.sticky-pk-container-2{
+		top: 129px !important;
+	}
 
 }
 @media(max-width: 470px) {
@@ -3955,12 +3958,15 @@ ul li.time-slot-li-listing{
     text-align: center;
 }
 
-.sticky-pk-container{
+.sticky-pk-container, .sticky-pk-container-2{
 	position: sticky;
     top: 107px;
     background-color: #fff;
 	z-index: 1;
+}
+.sticky-pk-container-2{
 	border-bottom: 1px solid #d3d3d3;
+	top: 192px;
 }
 .stc-no-cursor{
 	cursor: auto;
