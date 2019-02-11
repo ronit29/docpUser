@@ -51,7 +51,9 @@ class DoctorsNearMeView extends React.Component {
                             </ul>
                         </div>
                         <div className="col-12">
-                            <div className="fw-500 sitemap-title mrt-20">{this.props.articleListData.category}</div>
+                            <div>
+                                <h1 className="fw-500 sitemap-title">{this.props.articleListData.category}</h1>
+                            </div>
                             <div className="row sitemap-row">
                                 {
                                     this.props.articleList.length ?
@@ -63,7 +65,9 @@ class DoctorsNearMeView extends React.Component {
                                                             e.preventDefault();
                                                             this.props.history.push(`/${property.url}`);
                                                         }
-                                                    }>{property.title}</a>
+                                                    }>
+                                                        <h2 style={{ fontSize: 14 }}>{property.title.split('|')[0]}</h2>
+                                                    </a>
                                                     <span className="sitemap-right-arrow">
                                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} />
                                                     </span>
