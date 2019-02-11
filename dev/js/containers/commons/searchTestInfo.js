@@ -21,8 +21,7 @@ class searchTestInfo extends React.Component {
         let lat = 28.644800
         let long = 77.216721
         return new Promise((resolve, reject) => {
-            store.dispatch(searchTestData(query.test_ids || '', url, query.lab_id || '',query.lat || lat,
-                query.long || long, (data)=>{
+            store.dispatch(searchTestData(query.test_ids || '', url, query.lab_id || '', store, (data)=>{
                 resolve({ })
 
             } ))

@@ -50,7 +50,7 @@ class SearchTestView extends React.Component {
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids")
         let searchById = url.searchParams.get("searchById")
-        var selected_test_ids = url.searchParams.get("selected_test_ids")
+        var selected_test_ids = url.searchParams.get("selected_test_ids")?url.searchParams.get("selected_test_ids"):''
         let last_page = url.searchParams.get("from")
         let search_id = url.searchParams.get("search_id")
         let lab_id = ''
@@ -71,11 +71,11 @@ class SearchTestView extends React.Component {
             if(searchById){
                 test_url = ''
             }else{
-                test_url = this.props.match.url
-                test_id = ''
+                test_url = ''//this.props.match.url
+                /*test_id = ''
                 if (test_url) {
                     test_url = test_url.split("/")[1]
-                }
+                }*/
             }
             this.props.searchTestData(test_id,test_url, lab_id,this.props)
             // this.props.searchTestData(test_id,test_url, lab_id, (resp) => {
