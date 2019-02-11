@@ -92,19 +92,21 @@ class LocationElementsView extends React.Component {
     }
 
     getLocation(location) {
-        var auto = new google.maps.places.AutocompleteService()
+        if (typeof google != undefined) {
+            var auto = new google.maps.places.AutocompleteService()
 
-        var request = {
-            input: location,
-            types: ['geocode'],
-            componentRestrictions: { country: 'in' }
-        };
-        if (location) {
-            auto.getPlacePredictions(request, function (results, status) {
-                results = results || []
-                this.setState({ searchResults: results })
-                this.props.getCityListLayout(results)
-            }.bind(this))
+            var request = {
+                input: location,
+                types: ['geocode'],
+                componentRestrictions: { country: 'in' }
+            };
+            if (location) {
+                auto.getPlacePredictions(request, function (results, status) {
+                    results = results || []
+                    this.setState({ searchResults: results })
+                    this.props.getCityListLayout(results)
+                }.bind(this))
+            }
         }
     }
 
