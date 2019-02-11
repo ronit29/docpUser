@@ -156,7 +156,7 @@ export const OTTLogin = (ott) => (dispatch) => {
                         type: APPEND_USER_PROFILES,
                         payload: response
                     })
-                    resolve(data.order_id)
+                    resolve()
                 }).catch(function (error) {
                     reject(err)
                 })

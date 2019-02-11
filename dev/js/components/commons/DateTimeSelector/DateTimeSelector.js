@@ -17,7 +17,7 @@ class DateTimeSelector extends React.Component {
             currentDate: props.selectedSlot && props.selectedSlot.date ? new Date(props.selectedSlot.date).getDate() : new Date().getDate(),
             currentDay: props.selectedSlot && props.selectedSlot.date ? new Date(props.selectedSlot.date).getDay() : new Date().getDay(),
             currentTimeSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time : {},
-            selectedSlot: props.selectedSlot && props.selectedSlot.slot ? props.selectedSlot.slot : '',
+            selectedSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time.value: '',
             selectedDateSpan: props.selectedSlot && props.selectedSlot.date ? new Date(props.selectedSlot.date) : new Date(),
             selectedMonth: props.selectedSlot && props.selectedSlot.date ? new Date(props.selectedSlot.date).getMonth() : new Date().getMonth(),
             dateModal: false
@@ -117,6 +117,13 @@ class DateTimeSelector extends React.Component {
 
     isTimeSlotAvailable(timeSlot) {
 
+        let today = new Date()
+        let tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        if(timeSlot.on_call && today.toDateString() == new Date(this.state.selectedDateSpan).toDateString()){
+            return false
+        }
         if (this.props.doctor_leaves && this.props.doctor_leaves.length) {
 
             let blocked = false
@@ -138,10 +145,6 @@ class DateTimeSelector extends React.Component {
                 return false
             }
         }
-
-        let today = new Date()
-        let tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
 
         if (today.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.today_min) {
             if (this.props.today_max) {
@@ -256,8 +259,8 @@ class DateTimeSelector extends React.Component {
                                                     {
                                                         schedule.timing.map((time, i) => {
                                                             return <li key={i} className="time-slot-li-listing" onClick={
-                                                                this.selectTime.bind(this, time, i, schedule.title,this.isTimeSlotAvailable(time))}>
-                                                                <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.selectedSlot == i && this.state.currentTimeSlot.title == schedule.title ? " time-active" : ''
+                                                                this.selectTime.bind(this, time, time.value, schedule.title,this.isTimeSlotAvailable(time))}>
+                                                                <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.value == time.value? " time-active" : ''
                                                                     : " time-disable")}>{time.text}</p>
                                                             </li>
                                                         })

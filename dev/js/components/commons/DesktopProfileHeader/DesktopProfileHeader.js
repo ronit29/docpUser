@@ -87,6 +87,11 @@ class DesktopProfileHeader extends React.Component {
             hideSearch = true
         }
 
+        let cart_count = 0
+        if (this.props.cart && this.props.cart.length) {
+            cart_count = this.props.cart.length
+        }
+
         return (
             <header className={headerClass} style={styles}>
 
@@ -125,7 +130,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right pl-0">
+                        <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
                             <div className="header-search-full-widht">
                                 {/* <div className="head-links" onClick={() => {
                                 let data = {
@@ -203,12 +208,20 @@ class DesktopProfileHeader extends React.Component {
                                         </div>
                                 }
 
-                                {/* <div className="head-links location-item" onClick={() => {
-                                this.goToLocation()
-                            }}>
-                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
-                                <span className="header-loc-text">{location}</span>
-                            </div> */}
+                                {
+                                    profileData ? <div className="head-links" onClick={() => {
+                                        this.props.history.push('/cart')
+                                    }}>
+                                        <div className="p-relative">
+                                            <img src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: 24 }} />
+                                            {
+                                                cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
+                                            }
+                                        </div>
+                                        <span>Cart</span>
+                                    </div> : ""
+                                }
+
                             </div>
                         </div>
 
@@ -245,13 +258,19 @@ class DesktopProfileHeader extends React.Component {
                                         <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                     </div>
                             }
-                            {/* <div className="head-links location-item" onClick={() => {
-                                this.goToLocation()
-                            }}>
-                                <img src={ASSETS_BASE_URL + "/img/customer-icons/location-white.svg"} style={{ marginRight: 0, width: 12 }} />
-                                <span className="header-loc-text">{location}</span>
-                            </div> */}
 
+                            {
+                                profileData ? <div className="head-links" onClick={() => {
+                                    this.props.history.push('/cart')
+                                }}>
+                                    <div className="p-relative">
+                                        <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: '24px',marginRight:'8px'}} />
+                                        {
+                                            cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
+                                        }
+                                    </div>
+                                </div> : ""
+                            }
 
 
                         </div>
@@ -299,7 +318,7 @@ class DesktopProfileHeader extends React.Component {
 
 
                 </div>
-            </header>
+            </header >
         );
     }
 }

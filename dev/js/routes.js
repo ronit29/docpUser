@@ -48,7 +48,10 @@ import adsBooking from './containers/commons/adsBooking.js'
 import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
 import Offers from './containers/commons/Offers';
 import Referral from './containers/commons/referral'
+import Cart from './containers/commons/cart'
+import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
+import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -70,13 +73,17 @@ const routes = [
     { path: `/*-dsdp`, component: Article, RENDER_ON_SERVER: true },
     { path: `/*-mddp`, component: Article, RENDER_ON_SERVER: true },
     { path: `/*-artdp`, component: Article, RENDER_ON_SERVER: true },
+    { path: `/*-nmdp`, component: Article, RENDER_ON_SERVER: true },
     { path: `/all-diseases`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: `/all-medicines`, component: ArticleList, RENDER_ON_SERVER: true },
     { path: `/all-articles`, component: ArticleList, RENDER_ON_SERVER: true },
+    { path: '/doctors-near-me', exact: true, component: ArticleList, RENDER_ON_SERVER: true },
     { path: '/payment/:id', exact: true, component: Payment },
+    { path: '/order/summary/:id', exact: true, component: OrderSummary },
     { path: '/mobileviewchat', exact: true, component: MobileViewChat },
     { path: '/search', exact: true, component: Search },
     { path: '/offers', exact: true, component: Offers },
+    { path: '/cart', exact: true, component: Cart },
 
     // { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
@@ -114,6 +121,7 @@ const routes = [
     { path: '/cancelpolicy', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/doctorsignup', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/health-package-compare', exact: true, component: HealthPackage, RENDER_ON_SERVER: true },
+    { path: '/thyrocare-aarogyam-packages', exact: true, component: ThyrocarePackage, RENDER_ON_SERVER: true },
 
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },

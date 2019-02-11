@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { OTTLogin, setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, } from '../../actions/index.js'
+
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems } from '../../actions/index.js'
+
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
@@ -35,6 +37,7 @@ class UserProfile extends React.Component {
             this.props.getUserProfile()
             this.props.getUserAddress()
             this.props.getCoupons({})
+            this.props.getCartItems()
         }
 
     }
@@ -83,7 +86,8 @@ const mapDispatchToProps = (dispatch) => {
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         OTTLogin: (ott) => dispatch(OTTLogin(ott)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
-        clearExtraTests: () => dispatch(clearExtraTests())
+        clearExtraTests: () => dispatch(clearExtraTests()),
+        getCartItems: () => dispatch(getCartItems()),
     }
 }
 

@@ -232,6 +232,7 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+
                                                     {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
                                                             ? <RatingProfileCard {...this.props} details={this.props.DOCTORS[doctor_id].unrated_appointment} /> : ""
@@ -295,22 +296,36 @@ class DoctorProfileView extends React.Component {
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
-                                                            <a className="dpp-btn-view" href={'/' + search_data.url}>
+                                                            <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
+                                                                e.preventDefault()
+                                                                this.props.history.push(`/${search_data.url}`)
+                                                                let data = {
+                                                                    'Category': 'ConsumerApp', 'Action': 'viewMoreDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-more-doctors-click'
+                                                                }
+                                                                GTM.sendEvent({ data: data })
+                                                            }} >
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     }
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
-                                                        <p style={{ flex: 2 }}><span className="booknow-span">Book Now</span></p>
-                                                        <p className="cp-auto">*Coupon auto applied on checkout</p>
+                                                        <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }} className="">Book Now</span></p>
+                                                        <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
                                                     </div>
                                                 </div>
                                                 :
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
-                                                            <a className="dpp-btn-view" href={'/' + search_data.url}>
+                                                            <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
+                                                                e.preventDefault()
+                                                                this.props.history.push(`/${search_data.url}`)
+                                                                let data = {
+                                                                    'Category': 'ConsumerApp', 'Action': 'viewMoreDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-more-doctors-click'
+                                                                }
+                                                                GTM.sendEvent({ data: data })
+                                                            }} >
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''

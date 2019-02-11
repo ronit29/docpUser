@@ -150,7 +150,7 @@ class LabProfileCard extends React.Component {
                                             <img className="fltr-usr-image-lab" src={lab_thumbnail} />
                                         </InitialsPicture>
                                     </div>
-                                    <div style={{ marginLeft: '8px' }}>
+                                    <div style={{ marginLeft: '8px',marginRight: '8px' }}>
                                         {
                                             this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
                                                 {
@@ -160,9 +160,10 @@ class LabProfileCard extends React.Component {
                                                 }
                                             </p> : ""
                                         }
-
                                     </div>
                                 </div>
+                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests !=null ? <div style={{marginTop:'10px'}}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
+                                :''}
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
                                 {

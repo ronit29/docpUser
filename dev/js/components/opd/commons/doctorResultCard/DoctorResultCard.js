@@ -27,8 +27,12 @@ class DoctorProfileCard extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
+        let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
+        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
+        let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
+        let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
         data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count,   'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids 
         }
         GTM.sendEvent({ data: data })
 
@@ -36,8 +40,6 @@ class DoctorProfileCard extends React.Component {
 
         } else {
             e.preventDefault();
-            let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-            let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 
             if (url) {
                 if (category_ids.length || procedure_ids.length) {
@@ -167,10 +169,25 @@ class DoctorProfileCard extends React.Component {
                         {
                             this.props.seoFriendly ?
                                 <div className="fltr-lctn-dtls" style={{ paddingLeft: 45 }}>
-                                    <p>
-                                        <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                        <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
-                                    </p>
+                                    {
+                                        parent_url && parent_url.length ?
+                                            <a href={parent_url} onClick={
+                                                (e) => {
+                                                    e.preventDefault()
+                                                    this.props.history.push(`/${parent_url}`)
+                                                }
+                                            }>
+                                                <p>
+                                                    <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                    <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                                </p>
+                                            </a>
+                                            :
+                                            <p>
+                                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                            </p>
+                                    }
                                 </div>
                                 : <div className="fltr-lctn-dtls">
                                     {
