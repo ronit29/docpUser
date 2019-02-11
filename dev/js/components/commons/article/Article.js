@@ -233,7 +233,11 @@ class Article extends React.Component {
                                             <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
                                         <li className="breadcrumb-list-item">
-                                            <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
+                                            {
+                                                this.props.match.path.split('-')[1] === 'nmdp' ?
+                                                    <h2 className="fw-500 breadcrumb-title">{this.state.articleData.heading_title}</h2>
+                                                    : <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
+                                            }
                                         </li>
                                     </ul>
 
@@ -310,7 +314,7 @@ class Article extends React.Component {
 
                     <div className="row">
                         {
-                            this.state.articleLoaded ?
+                            this.state.articleLoaded && this.props.match.path.split('-')[1] != 'nmdp' ?
                                 this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length ?
                                     <div className="col-12 col-md-7 col-lg-8 center-column">
                                         <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
