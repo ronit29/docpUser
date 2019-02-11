@@ -308,9 +308,9 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (typeof window == "object") {
 		url_string = window.location.href
-    	new_url = new URL(url_string)
-    	parsed = new_url.searchParams.get("fromFooter")
-    	forTaxSaver = new_url.searchParams.get("forTaxSaver")
+		new_url = new URL(url_string)
+		parsed = new_url.searchParams.get("fromFooter")
+		forTaxSaver = window.location.pathname.includes("tax-saver-health-packages")
 	} else {
 		parsed = false
 		forTaxSaver = false
@@ -352,14 +352,14 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let test_ids = filterCriteriaPackages.test_ids || ""
 
 	let url = `/api/v1/diagnostic/packagelist?`
-
+	
 	if (searchByUrl) {
 		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
-	if(forTaxSaver){
+	if (forTaxSaver) {
 		url += `long=${long || ""}&lat=${lat || ""}&category_ids=5025`
 	}
-	if(!parsed && !forTaxSaver){
+	if (!parsed && !forTaxSaver) {
 		// url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
 
 		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}`
