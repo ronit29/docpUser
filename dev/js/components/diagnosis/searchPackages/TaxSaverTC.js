@@ -38,7 +38,7 @@ class TaxSaverTC extends React.Component {
                                                         <p>Preventive health care checkup means identification and minimization of disease risk factors, existing disease course improvement, and early disease detection through screening. This has become crucial since it allows people to know about their health issues well within time. You may be sitting on a health landmine and have no inkling of it. Diagnosis of cancer in later stages is completely ineffectual and heart disease may translate into instant death. These are silent killers and the only way to deal with them is to remain aware of the issues through regular checkups and taking preventive care.</p>
                                                     </div>
                                                     <div className="taxFullContent">
-                                                    <h4>You can avail tax benefit up to INR 5000 on preventive health care packages under Section 80D. </h4>
+                                                    <h4>You can avail tax benefit up to ₹ 5000 on preventive health care packages under Section 80D. </h4>
                                                         <h4>Preventive healthcare packages:</h4>
                                                         <ul>
                                                             <li><b>Regular checkups - </b> Under this preventive care plan the policyholder can go for regular checkups at specific hospitals to know if all is right with their current health.</li>
