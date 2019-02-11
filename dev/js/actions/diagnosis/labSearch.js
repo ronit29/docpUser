@@ -357,7 +357,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
 	if (forTaxSaver) {
-		url += `long=${long || ""}&lat=${lat || ""}&category_ids=5025`
+		url += `long=${long || ""}&lat=${lat || ""}&category_ids=41`
 	}
 	if (!parsed && !forTaxSaver) {
 		// url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}`
