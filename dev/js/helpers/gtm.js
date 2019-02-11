@@ -47,37 +47,42 @@ const GTM = {
                 data.userAgent = navigator.userAgent
             }
 
-            let visitor_info = STORAGE.getVisitorInfo()
-
-            if (visitor_info) {
-                visitor_info = JSON.parse(visitor_info)
-                let last_visit_difference = new Date().getTime() - visitor_info.last_visit_time;
-
-                if (last_visit_difference > 1800000) {
-                    visitor_info.visit_id = getVisitId()
-                }
-                visitor_info.last_visit_time = new Date().getTime()
-
-            } else {
-
-                let visitor_id = getVisitorId();
-                let visit_id = getVisitId();
-                visitor_info = {
-                    visit_id: visit_id,
-                    visitor_id: visitor_id,
-                    last_visit_time: new Date().getTime()
-                }
-            }
-
-            let updated_cookie_val = JSON.stringify(visitor_info)
-            STORAGE.setVisitorInfo(updated_cookie_val)
-            data.visitor_info = visitor_info
-            data.created_at = new Date().getTime() / 1000
+            data.visitor_info = GTM.getVisitorInfo()
+            data.triggered_at = Math.floor((new Date()).getTime() / 1000)
             setGTMSession(data);
 
         } catch (e) {
             //
         }
+    },
+
+    getVisitorInfo: () => {
+        let visitor_info = STORAGE.getVisitorInfo()
+
+        if (visitor_info) {
+            visitor_info = JSON.parse(visitor_info)
+            let last_visit_difference = new Date().getTime() - visitor_info.last_visit_time;
+
+            if (last_visit_difference > 1800000) {
+                visitor_info.visit_id = getVisitId()
+            }
+            visitor_info.last_visit_time = new Date().getTime()
+
+        } else {
+
+            let visitor_id = getVisitorId();
+            let visit_id = getVisitId();
+            visitor_info = {
+                visit_id: visit_id,
+                visitor_id: visitor_id,
+                last_visit_time: new Date().getTime()
+            }
+        }
+
+        let updated_cookie_val = JSON.stringify(visitor_info)
+        STORAGE.setVisitorInfo(updated_cookie_val)
+
+        return visitor_info
     },
 
     getUserId: () => {

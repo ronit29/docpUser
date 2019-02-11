@@ -55,7 +55,7 @@ class BookingView extends React.Component {
                         let analyticData = {
                             'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
                         }
-                        GTM.sendEvent({ data: analyticData })
+                        // GTM.sendEvent({ data: analyticData })
                         this.props.history.replace(this.props.location.pathname + "?hide_button=true")
                     }
                 })

@@ -246,6 +246,7 @@ export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
 }
 
 export const createOPDAppointment = (postData, callback) => (dispatch) => {
+	postData['visitor_info'] = GTM.getVisitorInfo()
 	return API_POST(`/api/v1/doctor/appointment/create`, postData).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
