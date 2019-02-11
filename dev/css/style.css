@@ -5662,3 +5662,52 @@ h3.pkg-include{
     border-radius: 4px;
     display: inline;
 }
+/* ==================== tax panel ==================== */
+.taxContent{
+	margin: 5px 0 12px 0;
+    background: #f7f1d3;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+.taxContentPara{
+	font-weight: 500;
+    margin-left: 5px;
+}
+.taxContentPara span{
+    color: #f6832c;
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 15px;
+	cursor: pointer;
+}
+.taxFullContent{
+
+}
+
+.taxFullContent h4{
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.taxFullContent p{
+	margin-bottom: 10px;
+}
+.taxFullContent ul {
+    list-style: disc !important;
+    padding-left: 18px;
+}
+.taxFullContent ul li{
+    margin-bottom: 10px;
+}
+.taxFullContent ul li b{
+    font-weight: 500;
+}
+.textInfoHeadTitle{
+	font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+/* ==================== tax panel ==================== */
