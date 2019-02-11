@@ -115,8 +115,8 @@ class packagesList extends React.Component {
                                         <img className="img-fluid" src="https://cdn.docprime.com/images/layer-2898.png" />
                                     </div>
                                     <div className="taxContent">
-                                        <img style={{ cursor: 'pointer',marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
-                                        <p className="taxContentPara">Book Preventive Health Packages for yourself and your family and save tax upto 5000 under section 80D. To know more <span onClick={this.showTc.bind(this)}> click here</span></p>
+                                        {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
+                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and save up to INR 5000 under section 80D <span onClick={this.showTc.bind(this)}> click here</span></p>
                                     </div>
                                 </div>
                                     : ''
