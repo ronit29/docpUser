@@ -2613,7 +2613,7 @@ font-weight: 500;
 	padding: 10px 50px 10px 10px;
 	cursor: pointer;
 }
-.anchor-data-style>a{
+.anchor-data-style>a, .anchor-data-style h2{
 	display: block;
 	width: 100%;
 	overflow: hidden;
@@ -2621,7 +2621,7 @@ font-weight: 500;
 	white-space: nowrap;
 }
 span.anch-page-cnt{
-	       z-index: 2;
+	z-index: 2;
     color: #fff;
     cursor: default;
     background-color: #f97a3b;
