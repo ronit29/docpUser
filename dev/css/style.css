@@ -5675,7 +5675,7 @@ h3.pkg-include{
 	font-weight: 500;
     margin-left: 5px;
 }
-.taxContentPara span{
+.taxContentPara .taxClickbtn{
     color: #f6832c;
 	display: inline-block;
 	text-transform: uppercase;
@@ -5695,10 +5695,11 @@ h3.pkg-include{
 }
 .taxFullContent ul {
     list-style: disc !important;
-    padding-left: 18px;
+    padding-left: 30px;
 }
 .taxFullContent ul li{
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+	font-weight: 500;
 }
 .taxFullContent ul li b{
     font-weight: 500;
@@ -5708,6 +5709,14 @@ h3.pkg-include{
     font-size: 16px;
     display: flex;
     align-items: center;
+}
+.pkg-listing-tick{
+	display: flex;
+	align-items: start;
+}
+.pkg-listing-tick img{
+	flex-grow: 0;
+	flex-shrink: 0;
 }
 
 /* ==================== tax panel ==================== */
