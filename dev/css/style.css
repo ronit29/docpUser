@@ -5547,7 +5547,7 @@ button.add-shpng-cart-btn.update-btn {
 .rev-txt{
 	font-size: 16px;
 	font-weight: 500;
-	margin: 15px;
+	margin: 12px 0px;
 }
 .review-card{
 	border-radius: 10px;
@@ -5570,6 +5570,7 @@ button.add-shpng-cart-btn.update-btn {
 	font-size: 10px;
 	font-weight: 500;
 	margin-top: 2px;
+	text-align: center;
 }
 .clnc-nam{
 	color: #000;
@@ -5619,6 +5620,7 @@ button.add-shpng-cart-btn.update-btn {
 	color: #f78631;
 	text-decoration: none;
 	text-align: center;
+	font-weight: 500;
 	
 }
 .btn-div ul li:last-child a{
@@ -5799,3 +5801,19 @@ h3.pkg-include{
 }
 
 /* ==================== tax panel ==================== */
+
+
+/* ==================== ratingUi Update ==================== */
+.rateViewAll{
+	float: right;
+    color: #f78631;
+}
+.rateViewAll:hover{
+    color: #f78631;
+}
+.rate-mg-top{
+	margin-top: 8px;
+}
+/* ==================== ratingUi Update ==================== */
+
+

@@ -237,7 +237,7 @@ class ProfileData extends React.Component {
                         <li onClick={() => this.props.history.push(`/myratings`)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/fmly.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/review.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Reviews</h4>

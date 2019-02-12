@@ -54,7 +54,7 @@ class UserReview extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
-                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
+                <section className="container parent-section book-appointment-section">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
