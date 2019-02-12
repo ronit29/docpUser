@@ -11,8 +11,10 @@ class SearchPackages extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            setForSeo:true,
-            forSeo:false
+            setForSeo: true,
+            forSeo: false,
+            forTaxSaver: props.location.pathname.includes("tax-saver-health-packages"),
+            setForTaxSaver: true
         }
     }
 
@@ -61,15 +63,11 @@ class SearchPackages extends React.Component {
 
     render() {
         const parsed = queryString.parse(this.props.location.search)
-        if(parsed.fromFooter && this.state.setForSeo){
-            this.setState({forSeo:parsed.fromFooter,setForSeo:false})
+        if (parsed.fromFooter && this.state.setForSeo) {
+            this.setState({ forSeo: parsed.fromFooter, setForSeo: false })
         }
-        if(parsed.forSeo && this.state.setForSeo){
-            this.setState({forSeo:parsed.forSeo,setForSeo:false})
-        }
-        
         return (
-            <SearchPackagesView {...this.props} forSeo={this.state.forSeo}/>
+            <SearchPackagesView {...this.props} forSeo={this.state.forSeo} forTaxSaver={this.state.forTaxSaver} />
         );
     }
 }
@@ -94,7 +92,7 @@ const mapStateToProps = (state, passedProps) => {
         corporateCoupon,
         currentSearchedCriterias,
         filterCriteriaPackages
-        
+
     } = state.SEARCH_CRITERIA_LABS
 
     const LABS = state.LAB_SEARCH_DATA
