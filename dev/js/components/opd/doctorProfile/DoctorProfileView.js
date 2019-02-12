@@ -19,6 +19,7 @@ import Footer from '../../commons/Home/footer'
 import ContactPoupView from '../doctorProfile/ContactPopup.js'
 
 import GTM from '../../../helpers/gtm.js'
+import InitialsPicture from '../../commons/initialsPicture';
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -175,6 +176,11 @@ class DoctorProfileView extends React.Component {
             }
         }
 
+        let nearbyDoctors = {}
+        if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].doctors && Object.keys(this.props.DOCTORS[doctor_id].doctors).length) {
+            nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -248,79 +254,54 @@ class DoctorProfileView extends React.Component {
                                                             getDoctorNumber={this.props.getDoctorNumber}
                                                             {...this.props}
                                                         />
-                                                        <div className="widge-content pd-0">
-                                                            <div className="widget-panel">
-                                                                <h4 className="panel-title mb-rmv p-relative">Book Top Dentist Nearby <span className="offerBanner">Save <br />Upto 50%</span></h4>
-                                                                <div className="panel-content pd-0 border-bottom-panel">
-                                                                    <div className="docScrollSliderContainer">
-                                                                        <div className="docSlideCard">
-                                                                            <div className="docSlideHead">
-                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
-                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
-                                                                            </div>
-                                                                            <div className="slideDocContent">
-                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
-                                                                                <p className="slideDocExp">44 Years of Experience</p>
-                                                                                <p className="slideDocdeg">MBBS | MD</p>
-                                                                                <div className="slideDocPrice">
-                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="docSlideCard">
-                                                                            <div className="docSlideHead">
-                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
-                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
-                                                                            </div>
-                                                                            <div className="slideDocContent">
-                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
-                                                                                <p className="slideDocExp">44 Years of Experience</p>
-                                                                                <p className="slideDocdeg">MBBS | MD</p>
-                                                                                <div className="slideDocPrice">
-                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="docSlideCard">
-                                                                            <div className="docSlideHead">
-                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
-                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
-                                                                            </div>
-                                                                            <div className="slideDocContent">
-                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
-                                                                                <p className="slideDocExp">44 Years of Experience</p>
-                                                                                <p className="slideDocdeg">MBBS | MD</p>
-                                                                                <div className="slideDocPrice">
-                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
-                                                                                </div>
+                                                        {
+                                                            nearbyDoctors && Object.keys(nearbyDoctors).length ?
+                                                                <div className="widge-content pd-0">
+                                                                    <div className="widget-panel">
+                                                                        <h4 className="panel-title mb-rmv p-relative">Book Top Dentist Nearby <span className="offerBanner">Save <br />Upto 50%</span></h4>
+                                                                        <div className="panel-content pd-0 border-bottom-panel">
+                                                                            <div className="docScrollSliderContainer">
+                                                                                {
+                                                                                    nearbyDoctors.result && nearbyDoctors.result.length ?
+                                                                                        nearbyDoctors.result.map((doctor, id) => {
+                                                                                            return <div className="docSlideCard" key={id} onClick={() => this.props.history.push(doctor.url)}>
+                                                                                                <div className="docSlideHead">
+                                                                                                    {
+                                                                                                        doctor.rating_graph.avg_rating ?
+                                                                                                            <span className="slideDocRating">{doctor.rating_graph.avg_rating} <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span> : ''
+                                                                                                    }
+                                                                                                    <InitialsPicture name={doctor.name} has_image={!!doctor.thumbnail} className="initialsPicture-ds slideDocMainImg" style={{ width: 80, height: 80, fontSize: '2.5rem' }} >
+                                                                                                        <img className="fltr-usr-image img-round slideDocMainImg" src={doctor.thumbnail} alt={doctor.display_name} title={doctor.display_name} />
+                                                                                                    </InitialsPicture>
+                                                                                                </div>
+                                                                                                <div className="slideDocContent">
+                                                                                                    <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                    <p className="slideDocExp">{doctor.experience_years} Years of Experience</p>
+                                                                                                    {
+                                                                                                        nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
+                                                                                                            <p className="slideDocdeg">{nearbyDoctors.specializations[0].name}</p> : ''
+                                                                                                    }
+                                                                                                    <div className="slideDocPrice">
+                                                                                                        <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        }) : ''
+                                                                                }
+                                                                                {
+                                                                                    nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation.formatted_address != '' ?
+                                                                                        <div className="docSlideCard" onClick={() => this.props.history.push(`/${search_data.url}`)}>
+                                                                                            <div className="docScrollSearchAll">
+                                                                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                                                <p>View all {nearbyDoctors.count} {nearbyDoctors.specializations[0].name}<br /> in {this.props.selectedLocation.formatted_address} </p>
+                                                                                            </div>
+                                                                                        </div> : ''
+                                                                                }
                                                                             </div>
                                                                         </div>
-                                                                        <div className="docSlideCard">
-                                                                            <div className="docSlideHead">
-                                                                                <span className="slideDocRating">4.5 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
-                                                                                <img className="fltr-usr-image img-round slideDocMainImg" src="https://cdn.docprime.com/media/doctor/images/80x80/20503ecd1ff344086c3dadf4506c1941.jpg" />
-                                                                            </div>
-                                                                            <div className="slideDocContent">
-                                                                                <p className="slideDocName">Dr. Preeta Mathur Singh</p>
-                                                                                <p className="slideDocExp">44 Years of Experience</p>
-                                                                                <p className="slideDocdeg">MBBS | MD</p>
-                                                                                <div className="slideDocPrice">
-                                                                                    <span className="slideNamePrc">₹ 399</span><span className="slideCutPrc">₹ 599</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="docSlideCard">
-                                                                            <div className="docScrollSearchAll">
-                                                                                <img className="img-fluid" src="/assets/images/vall.png" />
-                                                                                <p>View all 340 Dentist<br/> in Sector 44 Gurgaon </p>
-                                                                            </div>
-                                                                        </div>
-
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
+                                                                </div> : ''
+                                                        }
                                                         <div className="widge-content pd-0">
                                                             {
                                                                 this.props.DOCTORS[doctor_id].about ? <AboutDoctor
