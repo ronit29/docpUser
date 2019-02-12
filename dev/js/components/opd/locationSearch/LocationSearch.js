@@ -28,6 +28,9 @@ class LocationSearch extends React.Component {
     }
 
     getLocation(location) {
+        if (typeof google == undefined) {
+            return
+        }
         var auto = new google.maps.places.AutocompleteService()
 
         var request = {
@@ -73,9 +76,9 @@ class LocationSearch extends React.Component {
                     if (this.props.location.search && this.props.location.search.includes('?lab_card=true')) {
                         // do nothing
                     } else {
-                        if(this.state.redirect_to.includes('searchresults')){
+                        if (this.state.redirect_to.includes('searchresults')) {
                             this.props.history.replace(this.state.redirect_to)
-                            return    
+                            return
                         }
                         this.props.history.push(this.state.redirect_to)
                     }
