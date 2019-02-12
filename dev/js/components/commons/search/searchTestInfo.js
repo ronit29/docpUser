@@ -19,13 +19,13 @@ class SearchTestView extends React.Component {
             lab_id: '',
             frequently_heading: '',
             disableAddTest: [],
-            search_id:'',
-            searchCities:[],
+            search_id: '',
+            searchCities: [],
             showLocationPopup: true,
             showPopupContainer: true,
-            overlayVisible:true,
+            overlayVisible: true,
             lab_card: this.props.location.search.includes('lab_card') || null,
-            isSeo:parsed.isSeo?false:true
+            isSeo: parsed.isSeo ? false : true
         }
     }
     ButtonHandler(field, event) {
@@ -50,7 +50,7 @@ class SearchTestView extends React.Component {
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids")
         let searchById = url.searchParams.get("searchById")
-        var selected_test_ids = url.searchParams.get("selected_test_ids")?url.searchParams.get("selected_test_ids"):''
+        var selected_test_ids = url.searchParams.get("selected_test_ids") ? url.searchParams.get("selected_test_ids") : ''
         let last_page = url.searchParams.get("from")
         let search_id = url.searchParams.get("search_id")
         let lab_id = ''
@@ -66,70 +66,19 @@ class SearchTestView extends React.Component {
                 all_test_id.push(parseInt(value))
             })
         }
-        this.setState({ lastSource: last_page, search_id:search_id })
+        this.setState({ lastSource: last_page, search_id: search_id })
         if (test_id != null) {
-            if(searchById){
+            if (searchById) {
                 test_url = ''
-            }else{
-                test_url = ''//this.props.match.url
-                /*test_id = ''
-                if (test_url) {
-                    test_url = test_url.split("/")[1]
-                }*/
+            } else {
+                test_url = ''
             }
-            this.props.searchTestData(test_id,test_url, lab_id,this.props)
-            // this.props.searchTestData(test_id,test_url, lab_id, (resp) => {
-            //     {
-            //         Object.entries(resp).map(function ([key, value]) {
-            //             let testIds = allTest.map(x => x.id)
-            //             if (testIds.indexOf(value.frequently_booked_together.value.id) == -1) {
-            //                 allTest = allTest.concat(value.frequently_booked_together.value)
-            //             }
-            //             if (resp.length > 0) {
-            //                 ferq_heading = value.frequently_booked_together.title
-            //                 all_test_id.concat(value.id)
-            //                 let why_get_tested, test_include, test_preparations, test_faq, selected_test_id
-            //                 why_get_tested = "why_get_tested_" + value.id
-            //                 test_include = "test_include_" + value.id
-            //                 test_preparations = "test_preparations_" + value.id
-            //                 test_faq = "test_faq_" + value.id
-            //                 test_id_val.push(why_get_tested)
-            //                 test_id_val.push(test_include)
-            //                 test_id_val.push(test_preparations)
-            //                 test_id_val.push(test_faq)
-            //                 if (key != 0) {
-            //                     selected_test_id = 'test_' + value.id
-            //                     test_id_val.push(selected_test_id)
-            //                 }
-            //             }
-            //         })
-            //     }
-            //     // this.setState({ tabsValue: test_id_val, allFrequentlyTest: allTest, lab_id: lab_id, frequently_heading: ferq_heading, disableAddTest: all_test_id })
-            //     this.setState({ allFrequentlyTest: allTest, frequently_heading: ferq_heading, disableAddTest: all_test_id })
-            // })
+            this.props.searchTestData(test_id, test_url, lab_id, this.props)
+
         }
-        // if (this.props.seoData && this.props.seoData.location) {
-        //     this.setState({ showLocationPopup: false })
-        // } else {
-        //     if (this.props.locationType.includes("geo")) {
-        //         this.setState({ showLocationPopup: true, overlayVisible: true })
-        //     }
-        // }
     }
-    // componentWillReceiveProps(props) {
-    //     this.setState({ ...props.filterCriteria })
-    //     if (props.locationType && !props.locationType.includes("geo")) {
-    //         this.setState({ showLocationPopup: false })
-    //     } else {
-    //         if (props.seoData && props.seoData.location) {
-    //             this.setState({ showLocationPopup: false })
-    //         } else {
-    //             if (props.selectedLocation != this.props.selectedLocation) {
-    //                 this.setState({ showLocationPopup: true, overlayVisible: true })
-    //             }
-    //         }
-    //     }
-    // }
+
+
     closeTestInfo() {
         if (this.state.lastSource == 'search') {
             this.props.history.push('/search')
@@ -137,6 +86,8 @@ class SearchTestView extends React.Component {
             window.history.back()
         }
     }
+
+
     frequentlyAddTest(field, name, show_details, event) {
         let self = this
         let url_string = window.location.href
@@ -162,21 +113,21 @@ class SearchTestView extends React.Component {
         }
         test.hide_price = false
 
-        if(this.state.search_id !== null){
-        let newTestData = {}
-            newTestData.type= 'test'
-            newTestData.name= ''
+        if (this.state.search_id !== null) {
+            let newTestData = {}
+            newTestData.type = 'test'
+            newTestData.name = ''
             newTestData.id = field
             newTestData.show_details = show_details
-        let newSearchIdData=[]
-        newSearchIdData= this.props.search_id_data[this.state.search_id].commonSelectedCriterias
-        newSearchIdData.push(newTestData)
-        let filters = {}
+            let newSearchIdData = []
+            newSearchIdData = this.props.search_id_data[this.state.search_id].commonSelectedCriterias
+            newSearchIdData.push(newTestData)
+            let filters = {}
             filters.commonSelectedCriterias = newSearchIdData
             filters.filterCriteria = this.props.search_id_data[this.state.search_id].filterCriteria
-        self.props.setLabSearchId(this.state.search_id, filters, true)  
+            self.props.setLabSearchId(this.state.search_id, filters, true)
         }
-        if(this.state.lastSource == 'search' || !this.state.search_id){
+        if (this.state.lastSource == 'search' || !this.state.search_id) {
             self.props.toggleDiagnosisCriteria('test', test, false)
         }
     }
@@ -192,18 +143,6 @@ class SearchTestView extends React.Component {
         this.props.history.push(location_url)
     }
 
-    // hideLocationPopup() {
-    //     this.setState({ showLocationPopup: false });
-    // }
-
-    // popupContainer() {
-    //     this.setState({ showPopupContainer: false, showLocationPopup: false });
-    // }
-
-    // overlayClick() {
-    //     this.setState({ overlayVisible: false, searchCities: [] });
-    // }
-
     searchProceedLAB(lab_name = "") {
         // handle doctor name, hospital name
         this.props.mergeLABState({
@@ -215,16 +154,10 @@ class SearchTestView extends React.Component {
                 ...this.props.filterCriteria,
                 lab_name
             },
-            currentSearchedCriterias:this.props.selectedCriterias,
-            nextSelectedCriterias:this.props.selectedCriterias
+            currentSearchedCriterias: this.props.selectedCriterias,
+            nextSelectedCriterias: this.props.selectedCriterias
         }, true)
 
-        // let selectedTestIds = this.props.selectedCriterias.map(test => test.id)
-        // let selectedTestsName = this.props.selectedCriterias.map(test => test.name)
-        // let data = {
-        //     'Category': 'ConsumerApp', 'Action': 'ShowLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-lab-clicked', 'SelectedTestIds': selectedTestIds.join(',') || '', 'SelectedTestName': selectedTestsName.join(','), 'TestCount': selectedTestIds.length || 0
-        // }
-        // GTM.sendEvent({ data: data })
 
         this.props.history.push({
             pathname: '/lab/searchresults',
@@ -234,7 +167,7 @@ class SearchTestView extends React.Component {
 
     render() {
         const parsed = queryString.parse(this.props.location.search)
-        var selected_test_ids = parsed.selected_test_ids?parsed.selected_test_ids:''
+        var selected_test_ids = parsed.selected_test_ids ? parsed.selected_test_ids : ''
         let url_test_ids = selected_test_ids.split(',')
         let disableAddTest = [].concat(this.state.disableAddTest)
         {
@@ -249,11 +182,13 @@ class SearchTestView extends React.Component {
         if (this.props.seoData && this.props.seoData.location) {
             locationName = this.props.seoData.location
         }
-        
+
         let SearchedCritera
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
-            let {labs} = this.props.searchTestInfoData[0]
-            SearchedCritera = labs.tests[0].name
+            let { labs } = this.props.searchTestInfoData[0]
+            if (labs && labs.tests) {
+                SearchedCritera = labs.tests[0].name
+            }
             let self = this
             return (
                 <div>
@@ -268,7 +203,7 @@ class SearchTestView extends React.Component {
                                         <div className="col-12 col-md-7 col-lg-7 center-column">
                                             <div className="row mrb-20 bottomMargin">
                                                 <div className="col-12">
-                                                    <h3 className="testInfoHeadTitle mrng-top-12"><img style={{width: '20px'}} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
+                                                    <h3 className="testInfoHeadTitle mrng-top-12"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
                                                     <div className="widget mrb-15 mrng-top-12">
                                                         <div className="test-info-continer-block border-radius">
                                                             {Object.entries(this.props.searchTestInfoData).map(function ([key, value]) {
@@ -338,25 +273,25 @@ class SearchTestView extends React.Component {
                                                         </div>
                                                     </div>
                                                     {this.state.isSeo
-                                                    ?<div>
-                                                        <div className="filter-title" 
-                                                        style={{height:'auto',marginBottom:'10px'}}>
-                                                
-                                                            {/*this.props.packagesList?this.props.packagesList.count:''*/}  
-                                                            {labs.count} Results found for 
-                                                            <h1 className="search-result-heading">
-                                                            <span className="fw-700"> {SearchedCritera}</span>
-                                                            </h1>
-                                                            <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
+                                                        ? <div>
+                                                            <div className="filter-title"
+                                                                style={{ height: 'auto', marginBottom: '10px' }}>
 
-                                                                {
-                                                                    this.state.showLocationPopup && false ? ''
-                                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
-                                                                }
-                                                                <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                                            </span>
-                                                        </div>
-                                                        {/*{
+                                                                {/*this.props.packagesList?this.props.packagesList.count:''*/}
+                                                                {labs.count} Results found for
+                                                            <h1 className="search-result-heading">
+                                                                    <span className="fw-700"> {SearchedCritera}</span>
+                                                                </h1>
+                                                                <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
+
+                                                                    {
+                                                                        this.state.showLocationPopup && false ? ''
+                                                                            : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                                    }
+                                                                    <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                                </span>
+                                                            </div>
+                                                            {/*{
                                                             this.state.showLocationPopup ?
                                                                 this.state.lab_card && this.state.showPopupContainer ?
                                                                     <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
@@ -374,18 +309,18 @@ class SearchTestView extends React.Component {
                                                                 <div className="popupContainer-overlay"></div>
                                                                 : ''
                                                         }*/}
-                                                        {
-                                                            labs.result.length>0?
-                                                            Object.entries(labs.result).map(function ([k, lab]) {
-                                                                return <div key={k}>
-                                                                <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true} isTestInfo={true}/>
-                                                                </div>
-                                                            }):''
-                                                        }
-                                                        <div>
-                                                        <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this,'')}> View all labs</a>
-                                                        </div>
-                                                    </div>:''}
+                                                            {
+                                                                labs.result.length > 0 ?
+                                                                    Object.entries(labs.result).map(function ([k, lab]) {
+                                                                        return <div key={k}>
+                                                                            <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true} isTestInfo={true} />
+                                                                        </div>
+                                                                    }) : ''
+                                                            }
+                                                            <div>
+                                                                <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
+                                                            </div>
+                                                        </div> : ''}
                                                     {
                                                         this.props.searchTestInfoData[0].frequently_booked_together && this.props.searchTestInfoData[0].frequently_booked_together.value.length > 0 ?
                                                             <div className="widget mrb-15 mrng-top-12">
@@ -394,7 +329,7 @@ class SearchTestView extends React.Component {
                                                                     <ul className="test-duo-listing">
                                                                         {Object.entries(this.props.searchTestInfoData[0].frequently_booked_together.value).map(function ([k, frequently]) {
                                                                             return <li key={k}><p>{frequently.lab_test}</p>
-                                                                                <button className={disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test,frequently.show_details)} disabled={disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
+                                                                                <button className={disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test, frequently.show_details)} disabled={disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
                                                                             </li>
                                                                         })}
                                                                     </ul>
@@ -405,11 +340,11 @@ class SearchTestView extends React.Component {
                                                     }
                                                 </div>
                                             </div>
-                                            {this.state.isSeo?
-                                            <button onClick={this.searchProceedLAB.bind(this,'')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now 
-                                                <span className="text-xs selected-option static-btn book-right-align-text" style={{verticalAlign: 2, marginRight: 8}}> {`(${disableAddTest.length} Selected)`}</span>
-                                            </button>
-                                            :''}
+                                            {this.state.isSeo ?
+                                                <button onClick={this.searchProceedLAB.bind(this, '')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now
+                                                <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 }}> {`(${disableAddTest.length} Selected)`}</span>
+                                                </button>
+                                                : ''}
                                         </div>
                                         <ChatPanel noChatButton={true} />
                                     </div>

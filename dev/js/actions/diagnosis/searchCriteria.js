@@ -74,7 +74,7 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
         payload: coupon
     })
 }
-export const searchTestData = (test_ids,test_url,lab_id,state,callback) => (dispatch) => {
+export const searchTestData = (test_ids, test_url, lab_id, state, callback) => (dispatch) => {
     let url
     let lat = 28.644800
     let long = 77.216721
@@ -87,15 +87,15 @@ export const searchTestData = (test_ids,test_url,lab_id,state,callback) => (disp
         if (typeof long === 'function') long = long()
 
     }
-    if(test_url !='' && test_url){
-        url = '/api/v1/diagnostic/test/details_by_url?url='+test_url+'&long='+long+'&lat='+lat
-        if(lab_id != null){
-            url = '/api/v1/diagnostic/test/details_by_url?url='+test_url+'&lab_id='+lab_id+'&long='+long+'&lat='+lat
+    if (test_url != '' && test_url) {
+        url = '/api/v1/diagnostic/test/details_by_url?url=' + test_url + '&long=' + long + '&lat=' + lat
+        if (lab_id != null) {
+            url = '/api/v1/diagnostic/test/details_by_url?url=' + test_url + '&lab_id=' + lab_id + '&long=' + long + '&lat=' + lat
         }
-    }else{
-        url = '/api/v1/diagnostic/test/details?test_ids='+test_ids+'&long='+long+'&lat='+lat
-        if(lab_id != null && lab_id!=""){
-            url = '/api/v1/diagnostic/test/details?test_ids='+test_ids+'&lab_id='+lab_id+'&long='+long+'&lat='+lat
+    } else {
+        url = '/api/v1/diagnostic/test/details?test_ids=' + test_ids + '&long=' + long + '&lat=' + lat
+        if (lab_id != null && lab_id != "") {
+            url = '/api/v1/diagnostic/test/details?test_ids=' + test_ids + '&lab_id=' + lab_id + '&long=' + long + '&lat=' + lat
         }
     }
     return API_GET(url).then(function (response) {
@@ -104,7 +104,7 @@ export const searchTestData = (test_ids,test_url,lab_id,state,callback) => (disp
             payload: response
 
         })
-        if(callback) callback(response);
+        if (callback) callback(response);
     }).catch(function (error) {
         dispatch({
             type: SEARCH_TEST_INFO,
