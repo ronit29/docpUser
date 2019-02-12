@@ -9,49 +9,21 @@ class DesktopProfileHeader extends React.Component {
         this.state = {
             headerButtonsState: false,
             medicinePopup: false,
-            toggleHamburger: false,
-            touchingElement:false,
-            startX: 0,
-            startY: 0
-
+            toggleHamburger: this.props.toggleLeftMenu || false
         }
     }
 
-    componentDidMount(){
-
-      document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
-      document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
-      document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
-    }
-
-    onTouchStart(evt) {
-        let startX = evt.touches[0].pageX;
-        let startY = evt.touches[0].pageY;
-
-        this.setState({ startX : startX, startY: startY, touchingElement:true })
-    }
-
-    onTouchMove(evt) {
-      if (!this.state.touchingElement)
-        return;
-
-      let currentX = evt.touches[0].pageX;
-      let currentY = evt.touches[0].pageY;
-
-      const translateX = currentX - this.state.startX; // distance moved in the x axis
-      const translateY = currentY - this.state.startY; // distance moved in the y axis
-
-
-      if(translateX <-100){
-        this.setState({toggleHamburger: false})
-      }
-    }
-
-    onTouchEnd(evt) {
-
-      if (!this.state.touchingElement)
-        return;
-    }
+   componentWillReceiveProps(nextProps){
+        if(this.state.toggleHamburger != nextProps.toggleLeftMenu){
+            this.setState({toggleHamburger: nextProps.toggleLeftMenu}, ()=>{
+                if(this.state.toggleHamburger){
+                    document.body.style.overflow="hidden"
+                }else{
+                    document.body.style.overflow=""
+                }
+            })
+        }
+   }
 
     navigateTo(where, e) {
         e.preventDefault()
@@ -98,13 +70,7 @@ class DesktopProfileHeader extends React.Component {
     }
 
     toggleLeftMenu(){
-        this.setState({toggleHamburger: !this.state.toggleHamburger }, ()=>{
-            if(this.state.toggleHamburger){
-                document.body.style.overflow="hidden"
-            }else{
-                document.body.style.overflow=""
-            }
-        })
+        this.props.toggleLeftMenuBar()
     }
 
     render() {
@@ -145,7 +111,7 @@ class DesktopProfileHeader extends React.Component {
         }
 
         return (
-            <header className={headerClass} style={styles}>
+            <header id="is_header" className={headerClass} style={styles}>
 
                 <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
@@ -189,7 +155,7 @@ class DesktopProfileHeader extends React.Component {
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow="hidden"
-                                this.setState({toggleHamburger: true})}}>
+                                this.toggleLeftMenu()}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
