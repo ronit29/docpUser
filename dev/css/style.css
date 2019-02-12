@@ -5537,6 +5537,7 @@ button.add-shpng-cart-btn.update-btn {
     background: #fff;
     height: 100vh;
     overflow: auto;
+    padding-bottom: 30px;
 }
 .header-box{
     background: #f78631 url(/assets/images/doc-logo.png) no-repeat top right;
