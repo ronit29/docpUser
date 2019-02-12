@@ -234,7 +234,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
-                        <li onClick={this.gotTo.bind(this, 'myratings')} className="my-profile-item lst-spcng">
+                        <li onClick={() => this.props.history.push(`/myratings`)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/fmly.svg"} className="img-fluid" />

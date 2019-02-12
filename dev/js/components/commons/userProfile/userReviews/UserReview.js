@@ -1,5 +1,10 @@
 import React from 'react';
+import ProfileHeader from '../../DesktopProfileHeader'
+import LeftBar from '../../LeftBar'
+import RightBar from '../../RightBar'
+import Footer from '../../Home/footer'
 import MyReviewCard from '../../ratingsProfileView/MyReviewCard.js';
+const queryString = require('query-string');
 
 class UserReview extends React.Component {
     constructor(props) {
@@ -7,7 +12,12 @@ class UserReview extends React.Component {
         this.state = {
             data: null,
             compliments: [],
+            sms_id: null
         }
+    }
+
+    static contextTypes = {
+        router: () => null
     }
 
     componentDidMount() {
@@ -16,7 +26,7 @@ class UserReview extends React.Component {
         let sms_id = parsed.id ? parsed.id : null;
         if (sms_token) {
             this.props.OTTLogin(sms_token).then((order_id) => {
-                // return this.props.fetchOrderById(order_id)
+                this.setState({ sms_id })
             })
         }
 
@@ -36,9 +46,25 @@ class UserReview extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2 className="rev-txt">Your Reviews</h2>
-                {this.state.data ? this.state.data.map(rating => <MyReviewCard {...this.props} details={rating} comp={this.state.compliments} key={rating.id} />) : ""}
+            <div className="profile-body-wrap">
+                <ProfileHeader showSearch={true} />
+                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
+                    <div className="row main-row parent-section-row">
+                        <LeftBar />
+                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-12">
+                                        <h2 className="rev-txt">Your Reviews</h2>
+                                        {this.state.data ? this.state.data.map(rating => <MyReviewCard {...this.props} sms_id={this.state.sms_id} details={rating} comp={this.state.compliments} key={rating.id} />) : ""}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <RightBar />
+                    </div>
+                </section>
+                <Footer footerData={this.state.footerData} />
             </div>
         );
     }

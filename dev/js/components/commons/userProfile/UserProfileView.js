@@ -113,9 +113,9 @@ class UserProfileView extends React.Component {
                                         <Route exact path={`${this.props.match.url}/coupons`} render={(props) => {
                                             return <UserCoupons {...this.props} {...props} />
                                         }} />
-                                        <Route exact path={`${this.props.match.url}/myratings`} render={(props) => {
+                                        {/* <Route exact path={`${this.props.match.url}/myratings`} render={(props) => {
                                             return <UserReview {...this.props} {...props} />
-                                        }} />
+                                        }} /> */}
 
                                     </div> : ""
                             }
