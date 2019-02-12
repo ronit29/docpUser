@@ -42,9 +42,7 @@ class HomeView extends React.Component {
 
 		this.props.getOfferList();
 
-		let data = 
-			[{'event': "setEmail", 'email': ''},
-			{ 'event': "viewHome"}]
+		let data = { 'event': "viewHome"}
 
 		CRITEO.sendData(data)
 

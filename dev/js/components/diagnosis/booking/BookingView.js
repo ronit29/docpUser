@@ -92,12 +92,10 @@ class BookingView extends React.Component {
                             }
                             GTM.sendEvent({ data: analyticData })
 
-                            let criteo_data = [
-                            { 'event': "setEmail", 'email': "" },
+                            let criteo_data = 
                             { 'event': "trackTransaction", 'id': appointmentId, 'item': [
                                 {'id': "1", 'price': data.length?data[0].deal_price:'', 'quantity': 1 }
                             ]}
-                            ]
 
                             CRITEO.sendData(criteo_data)
 

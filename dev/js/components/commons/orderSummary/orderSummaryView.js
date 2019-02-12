@@ -47,12 +47,10 @@ class OrderSummaryView extends React.Component {
                             GTM.sendEvent({ data: analyticData })
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
 
-                            let criteo_data = [
-                            { 'event': "setEmail", 'email': "" },
+                            let criteo_data = 
                             { 'event': "trackTransaction", 'id': orderId, 'item': [
                                 {'id': "1", 'price': deal_price, 'quantity': 1 }
                             ]}
-                            ]
 
                             CRITEO.sendData(criteo_data)
                         }
