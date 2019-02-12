@@ -153,7 +153,7 @@ class LabProfileCard extends React.Component {
                                 <ul style={{marginTop:'5px'}}>
                                 {
                                     categories.map((category, k) => {
-                                        return <li key={k} id={category.id}>
+                                        return <li className="pkg-listing-tick" key={k} id={category.id}>
                                             <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px',marginTop:'6px' }} /> 
                                             {category.name}
                                         </li>    
