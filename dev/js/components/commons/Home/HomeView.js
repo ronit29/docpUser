@@ -11,6 +11,7 @@ import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
 const queryString = require('query-string');
+import CRITEO from '../../../helpers/criteo.js'
 
 const GENDER = {
 	"m": "Male",
@@ -40,6 +41,13 @@ class HomeView extends React.Component {
 		});
 
 		this.props.getOfferList();
+
+		let data = 
+			[{'event': "setEmail", 'email': ''},
+			{ 'event': "viewHome"}]
+
+		CRITEO.sendData(data)
+
 	}
 
 	navigateTo(where, data, e) {

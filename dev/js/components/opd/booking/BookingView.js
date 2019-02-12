@@ -9,7 +9,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
-
+import CRITEO from '../../../helpers/criteo.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -56,6 +56,16 @@ class BookingView extends React.Component {
                             'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
                         }
                         GTM.sendEvent({ data: analyticData })
+
+                        let criteo_data = [
+                            { 'event': "setEmail", 'email': "" },
+                            { 'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                {'id': "1", 'price': data.length?data[0].deal_price:'', 'quantity': 1 }
+                            ]}
+                            ]
+
+                        CRITEO.sendData(criteo_data)
+
                         this.props.history.replace(this.props.location.pathname + "?hide_button=true")
                     }
                 })

@@ -6,6 +6,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 import InitialsPicture from '../../commons/initialsPicture'
+import CRITEO from '../../../helpers/criteo.js'
 
 class OrderSummaryView extends React.Component {
     constructor(props) {
@@ -27,10 +28,12 @@ class OrderSummaryView extends React.Component {
                     this.setState({ items: res.data })
                     
                     let orderId = this.props.match.params.id
+                    let deal_price = 0
                     let info = {}
                     info[orderId] = []
                     res.data.map((data)=>{
                         info[orderId].push({'booking_id': data.booking_id, 'mrp': data.mrp, 'deal_price': data.deal_price})
+                        deal_price+=parseInt(data.deal_price)
                     })
                     info = JSON.stringify(info)
 
@@ -43,6 +46,15 @@ class OrderSummaryView extends React.Component {
                             }
                             GTM.sendEvent({ data: analyticData })
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
+
+                            let criteo_data = [
+                            { 'event': "setEmail", 'email': "" },
+                            { 'event': "trackTransaction", 'id': orderId, 'item': [
+                                {'id': "1", 'price': deal_price, 'quantity': 1 }
+                            ]}
+                            ]
+
+                            CRITEO.sendData(criteo_data)
                         }
                     })
 
