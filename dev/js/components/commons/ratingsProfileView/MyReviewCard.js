@@ -5,6 +5,7 @@ class MyReviewCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            sms_id: this.props.sms_id ? this.props.sms_id :  null,
             data: this.props.details,
             selectedRating: this.props.details ? this.props.details.ratings : 0,
             type: 1,
@@ -17,7 +18,10 @@ class MyReviewCard extends React.Component {
     componentDidMount() {
         this.setState({ data: this.props.details })
         this.setState({ compliments: this.props.comp })
-        if (this.props.sms_id !== null && (this.state.data.id == this.props.sms_id)) {
+        this.setState({ sms_id: this.props.sms_id })
+        console.log(this.props);
+        if (this.state.sms_id !== null && (this.props.details.id == this.state.sms_id)) {
+            console.log('innnn');
             this.setState({ type: 0 })
         }
     }

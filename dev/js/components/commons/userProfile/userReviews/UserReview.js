@@ -12,7 +12,8 @@ class UserReview extends React.Component {
         this.state = {
             data: null,
             compliments: [],
-            sms_id: null
+            sms_id: null,
+            footerData: null
         }
     }
 
@@ -20,16 +21,7 @@ class UserReview extends React.Component {
         router: () => null
     }
 
-    componentDidMount() {
-        const parsed = queryString.parse(this.props.location.search)
-        let sms_token = parsed.token ? parsed.token : null;
-        let sms_id = parsed.id ? parsed.id : null;
-        if (sms_token) {
-            this.props.OTTLogin(sms_token).then((order_id) => {
-                this.setState({ sms_id })
-            })
-        }
-
+    performLoginOps = () => {
         this.props.getRatingCompliments((err, compliments) => {
             if (!err && compliments) {
                 this.setState({ compliments })
@@ -42,7 +34,21 @@ class UserReview extends React.Component {
         })
     }
 
+    componentDidMount() {
+        const parsed = queryString.parse(this.props.location.search)
+        let sms_token = parsed.token ? parsed.token : null;
+        let sms_id = parsed.id ? parsed.id : null;
 
+        if (sms_token) {
+            this.props.OTTLogin(sms_token).then((order_id) => {
+                this.setState({ sms_id })
+                this.performLoginOps()
+            })
+        } else {
+            this.performLoginOps()
+        }
+
+    }
 
     render() {
         return (
