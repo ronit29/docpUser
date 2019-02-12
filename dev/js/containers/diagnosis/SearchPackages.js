@@ -14,6 +14,7 @@ class SearchPackages extends React.Component {
             setForSeo: true,
             forSeo: false,
             forTaxSaver: props.location.pathname.includes("tax-saver-health-packages"),
+            forOrganicSearch: props.location.pathname.includes("full-body-checkup-health-packages"),
             setForTaxSaver: true
         }
     }
@@ -67,7 +68,7 @@ class SearchPackages extends React.Component {
             this.setState({ forSeo: parsed.fromFooter, setForSeo: false })
         }
         return (
-            <SearchPackagesView {...this.props} forSeo={this.state.forSeo} forTaxSaver={this.state.forTaxSaver} />
+            <SearchPackagesView {...this.props} forSeo={this.state.forSeo} forTaxSaver={this.state.forTaxSaver} forOrganicSearch={this.state.forOrganicSearch} />
         );
     }
 }
