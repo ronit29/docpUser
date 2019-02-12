@@ -75,10 +75,13 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
     })
 }
 export const searchTestData = (test_ids, test_url, lab_id, state, callback) => (dispatch) => {
+
     let url
     let lat = 28.644800
     let long = 77.216721
-    let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType } = state
+
+    let { selectedLocation } = state
+
     if (selectedLocation) {
         lat = selectedLocation.geometry.location.lat
         long = selectedLocation.geometry.location.lng
@@ -87,17 +90,19 @@ export const searchTestData = (test_ids, test_url, lab_id, state, callback) => (
         if (typeof long === 'function') long = long()
 
     }
-    if (test_url != '' && test_url) {
+
+
+    if (test_url) {
         url = '/api/v1/diagnostic/test/details_by_url?url=' + test_url + '&long=' + long + '&lat=' + lat
-        if (lab_id != null) {
-            url = '/api/v1/diagnostic/test/details_by_url?url=' + test_url + '&lab_id=' + lab_id + '&long=' + long + '&lat=' + lat
-        }
     } else {
         url = '/api/v1/diagnostic/test/details?test_ids=' + test_ids + '&long=' + long + '&lat=' + lat
-        if (lab_id != null && lab_id != "") {
-            url = '/api/v1/diagnostic/test/details?test_ids=' + test_ids + '&lab_id=' + lab_id + '&long=' + long + '&lat=' + lat
-        }
     }
+
+    if (lab_id) {
+        url += '&lab_id=' + lab_id
+    }
+
+
     return API_GET(url).then(function (response) {
         dispatch({
             type: SEARCH_TEST_INFO,

@@ -47,9 +47,9 @@ class LabTests extends React.Component {
                 long = this.props.selectedLocation.geometry.location.lng
             }
         if(url && url !=''){
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow&isSeo=false'+'&lat='+lat+'&long='+long)
+            this.props.history.push('/'+url+'?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow&isSeo=false&searchById=true'+'&lat='+lat+'&long='+long)
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
         }
         event.stopPropagation()
         let data = {

@@ -116,9 +116,9 @@ class TestSelectorView extends React.Component {
             long = this.props.selectedLocation.geometry.location.lng
         }
         if(url && url !=''){
-            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false'+'&lat='+lat+'&long='+long)
+            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long)
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchtestselector&isSeo=false&searchById=true'+'&lat='+lat+'&long='+long)
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long)
         }
         event.stopPropagation()
         let data = {

@@ -104,9 +104,9 @@ class LabProfileCard extends React.Component {
             long = this.props.selectedLocation.geometry.location.lng
         }
         if(test_url && test_url !=''){
-            this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false'+'&lat='+lat+'&long='+long)
+            this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat='+lat+'&long='+long)
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults&isSeo=false&searchById=true'+'&lat='+lat+'&long='+long)
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
         }
         event.stopPropagation()
         let data = {

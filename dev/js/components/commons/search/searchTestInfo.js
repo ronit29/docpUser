@@ -11,7 +11,9 @@ const queryString = require('query-string');
 class SearchTestView extends React.Component {
     constructor(props) {
         super(props)
+
         const parsed = queryString.parse(this.props.location.search)
+
         this.state = {
             tabsValue: [],
             lastSource: '',
@@ -24,10 +26,10 @@ class SearchTestView extends React.Component {
             showLocationPopup: true,
             showPopupContainer: true,
             overlayVisible: true,
-            lab_card: this.props.location.search.includes('lab_card') || null,
-            isSeo: parsed.isSeo ? false : true
+            isSeo: !this.props.location.pathname.includes("search/testinfo")
         }
     }
+
     ButtonHandler(field, event) {
         let tabs = [].concat(this.state.tabsValue)
         let self = this
@@ -45,11 +47,12 @@ class SearchTestView extends React.Component {
 
         self.setState({ tabsValue: tabs })
     }
+
     componentDidMount() {
         var url_string = window.location.href
         var url = new URL(url_string);
         var test_id = url.searchParams.get("test_ids")
-        let searchById = url.searchParams.get("searchById")
+        let searchById = url_string.includes("search/testinfo")
         var selected_test_ids = url.searchParams.get("selected_test_ids") ? url.searchParams.get("selected_test_ids") : ''
         let last_page = url.searchParams.get("from")
         let search_id = url.searchParams.get("search_id")
@@ -60,26 +63,26 @@ class SearchTestView extends React.Component {
         let all_test_id = []
         let ferq_heading
         let url_test_ids = selected_test_ids.split(',')
-        let test_url
+        let test_url = ""
         {
             Object.entries(url_test_ids).map(function ([key, value]) {
                 all_test_id.push(parseInt(value))
             })
         }
         this.setState({ lastSource: last_page, search_id: search_id })
-        if (test_id != null) {
-            if (searchById) {
-                test_url = ''
-            } else {
-                test_url = this.props.match.url
-                test_id =''
-                if(test_url){
-                    test_url = test_url.split("/")[1]
-                }
-            }
-            this.props.searchTestData(test_id, test_url, lab_id, this.props)
 
+        if (!test_id && searchById) {
+            //  TODO - default
+            return
         }
+
+        if (!searchById) {
+            test_url = this.props.match.url
+            test_url = test_url.split("/")[1]
+            test_id = ''
+        }
+
+        this.props.searchTestData(test_id, test_url, lab_id, this.props)
     }
 
 
@@ -90,7 +93,6 @@ class SearchTestView extends React.Component {
             window.history.back()
         }
     }
-
 
     frequentlyAddTest(field, name, show_details, event) {
         let self = this
@@ -135,6 +137,7 @@ class SearchTestView extends React.Component {
             self.props.toggleDiagnosisCriteria('test', test, false)
         }
     }
+
     goToLocation() {
         this.setState({
             searchCities: []
@@ -295,24 +298,7 @@ class SearchTestView extends React.Component {
                                                                     <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                                 </span>
                                                             </div>
-                                                            {/*{
-                                                            this.state.showLocationPopup ?
-                                                                this.state.lab_card && this.state.showPopupContainer ?
-                                                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
-                                                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                                                                : ''
-                                                        }
 
-                                                        {
-                                                            this.state.showLocationPopup && this.state.overlayVisible && !this.state.lab_card ?
-                                                                <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
-                                                        }
-
-                                                        {
-                                                            this.state.showLocationPopup && this.state.lab_card && this.state.showPopupContainer ?
-                                                                <div className="popupContainer-overlay"></div>
-                                                                : ''
-                                                        }*/}
                                                             {
                                                                 labs.result.length > 0 ?
                                                                     Object.entries(labs.result).map(function ([k, lab]) {
@@ -325,6 +311,7 @@ class SearchTestView extends React.Component {
                                                                 <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
                                                             </div>
                                                         </div> : ''}
+
                                                     {
                                                         this.props.searchTestInfoData[0].frequently_booked_together && this.props.searchTestInfoData[0].frequently_booked_together.value.length > 0 ?
                                                             <div className="widget mrb-15 mrng-top-12">

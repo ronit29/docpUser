@@ -78,7 +78,7 @@ class packagesList extends React.Component {
         var url_string = window.location.href;
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
-        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults&isSeo=false')
+        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
     }
     toggleScroll() {
         if (window) {

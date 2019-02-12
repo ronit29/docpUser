@@ -64,9 +64,9 @@ class CommonlySearched extends React.Component {
             selected_test_ids.push(row.id)
         })
         if(url &&  url !=''){
-            this.props.history.push('/'+url+'?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&lat='+lat+'&long='+long+'&from=search&isSeo=false')    
+            this.props.history.push('/'+url+'?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&lat='+lat+'&long='+long+'&from=search')    
         }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long+'&from=search&isSeo=false&searchById=true')
+            this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long+'&from=search')
         }
         
         let data = {

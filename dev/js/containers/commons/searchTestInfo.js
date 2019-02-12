@@ -12,15 +12,15 @@ class searchTestInfo extends React.Component {
     }
 
     static loadData(store, match, query) {
+        let seo_url = ""
+        let searchById = match.url.includes("search/testinfo")
 
-        let url = match.url
-        if (url) {
-            url = url.split("/")[1]
+        if (!searchById) {
+            seo_url = match.url.split("/")[1]
         }
-        url = ''
 
         return new Promise((resolve, reject) => {
-            store.dispatch(searchTestData(query.test_ids || '', url, query.lab_id || '', store, (data) => {
+            store.dispatch(searchTestData(query.test_ids || '', seo_url, query.lab_id || '', {}, (data) => {
                 resolve({})
             }))
         })
