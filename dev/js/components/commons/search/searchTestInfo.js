@@ -5,6 +5,7 @@ import LocationElements from '../../../containers/commons/locationElements'
 import GTM from '../../../helpers/gtm.js'
 import LocationPopup from '../../../containers/commons/locationPopup'
 import LabProfileCard from '../../diagnosis/commons/labProfileCard/LabProfileCard.js'
+import Loader from '../../commons/Loader'
 const queryString = require('query-string');
 
 
@@ -354,7 +355,9 @@ class SearchTestView extends React.Component {
                                                 <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 }}> {`(${disableAddTest.length} Selected)`}</span>
                                                     </button>
                                                     : ''}
-                                            </div> : <div className="col-12 col-md-7 col-lg-7 center-column"></div>
+                                            </div> : <div className="col-12 col-md-7 col-lg-7 center-column">
+                                                    <Loader />
+                                                </div>
                                         }
                                         <ChatPanel noChatButton={true} />
                                     </div>
