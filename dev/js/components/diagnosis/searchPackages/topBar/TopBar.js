@@ -328,7 +328,7 @@ class TopBar extends React.Component {
                                         </div>
                                         :
                                         <div className="filter-pdng">
-                                            {/* <div className="action-filter">
+                                             <div className="action-filter d-none d-md-block alignShareBtn">
                                                 <ul className="inline-list">
                                                     <li className="d-none d-md-inline-block">
                                                         <CopyToClipboard text={this.state.shortURL}
@@ -338,7 +338,7 @@ class TopBar extends React.Component {
                                                             </span>
                                                         </CopyToClipboard>
                                                     </li>
-                                                    <li style={{display:'none'}} onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                                    {/*<li style={{display:'none'}} onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
                                                     <li style={{display:'none'}} onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
@@ -351,9 +351,9 @@ class TopBar extends React.Component {
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                                         }
-                                                    </li>
+                                                    </li>*/}
                                                 </ul>
-                                            </div> */}
+                                            </div> 
                                             <div className="filter-title">
                                             
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for 
