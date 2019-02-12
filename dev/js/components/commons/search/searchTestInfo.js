@@ -186,13 +186,25 @@ class SearchTestView extends React.Component {
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
         }
-        
+
         if (this.props.seoData && this.props.seoData.location) {
             locationName = this.props.seoData.location
         }
 
         let SearchedCritera
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
+
+            let showInfo = true
+            if (this.props.location.pathname.includes("search/testinfo")) {
+                if (this.props.searchTestInfoData[0].id != parsed.test_ids) {
+                    showInfo = false
+                }
+            } else {
+                if (!this.props.location.pathname.includes(this.props.searchTestInfoData[0].url)) {
+                    showInfo = false
+                }
+            }
+
             let { labs } = this.props.searchTestInfoData[0]
             if (labs && labs.tests) {
                 SearchedCritera = labs.tests[0].name
@@ -200,7 +212,7 @@ class SearchTestView extends React.Component {
             let self = this
             let about_test = this.props.searchTestInfoData[0].about_test
             let why_get_tested = this.props.searchTestInfoData[0].why_get_tested
-            let test_may_include = this.props.searchTestInfoData[0].test_may_include 
+            let test_may_include = this.props.searchTestInfoData[0].test_may_include
             let preparations = this.props.searchTestInfoData[0].preparations
             let faqs = this.props.searchTestInfoData[0].faqs
             let resp_test_id = this.props.searchTestInfoData[0].id
@@ -214,13 +226,14 @@ class SearchTestView extends React.Component {
                                 }
                                 <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "")}>
                                     <div className="row main-row parent-section-row">
-                                        <div className="col-12 col-md-7 col-lg-7 center-column">
-                                            <div className="row mrb-20 bottomMargin">
-                                                <div className="col-12">
-                                                    <h3 className="testInfoHeadTitle mrng-top-12"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
-                                                    <div className="widget mrb-15 mrng-top-12">
-                                                        <div className="test-info-continer-block border-radius">
-                                                            {this.props.searchTestInfoData[0].show_details?
+                                        {
+                                            showInfo ? <div className="col-12 col-md-7 col-lg-7 center-column">
+                                                <div className="row mrb-20 bottomMargin">
+                                                    <div className="col-12">
+                                                        <h3 className="testInfoHeadTitle mrng-top-12"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
+                                                        <div className="widget mrb-15 mrng-top-12">
+                                                            <div className="test-info-continer-block border-radius">
+                                                                {this.props.searchTestInfoData[0].show_details ?
                                                                     <div className="test-info-acrd-head-main" id={resp_test_id}>
                                                                         <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                             {about_test.value != "" ?
@@ -281,67 +294,68 @@ class SearchTestView extends React.Component {
                                                                             }
                                                                         </div>
                                                                     </div> : ''
-                                                            }
+                                                                }
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    {this.state.isSeo
-                                                        ? <div>
-                                                            <div className="filter-title"
-                                                                style={{ height: 'auto', marginBottom: '10px' }}>
+                                                        {this.state.isSeo
+                                                            ? <div>
+                                                                <div className="filter-title"
+                                                                    style={{ height: 'auto', marginBottom: '10px' }}>
 
-                                                                {/*this.props.packagesList?this.props.packagesList.count:''*/}
-                                                                {labs.count} Results found for
+                                                                    {/*this.props.packagesList?this.props.packagesList.count:''*/}
+                                                                    {labs.count} Results found for
                                                             <h1 className="search-result-heading">
-                                                                    <span className="fw-700"> {SearchedCritera}</span>
-                                                                </h1>
-                                                                <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
+                                                                        <span className="fw-700"> {SearchedCritera}</span>
+                                                                    </h1>
+                                                                    <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 
-                                                                    {
-                                                                        this.state.showLocationPopup && false ? ''
-                                                                            : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
-                                                                    }
-                                                                    <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                                                </span>
-                                                            </div>
-
-                                                            {
-                                                                labs.result.length > 0 ?
-                                                                    Object.entries(labs.result).map(function ([k, lab]) {
-                                                                        return <div key={k}>
-                                                                            <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true} isTestInfo={true} />
-                                                                        </div>
-                                                                    }) : ''
-                                                            }
-                                                            <div>
-                                                                <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
-                                                            </div>
-                                                        </div> : ''}
-
-                                                    {
-                                                        this.props.searchTestInfoData[0].frequently_booked_together && this.props.searchTestInfoData[0].frequently_booked_together.value.length > 0 ?
-                                                            <div className="widget mrb-15 mrng-top-12">
-                                                                <div className="widget-content">
-                                                                    <h5 className="test-duo-heding"> {this.props.searchTestInfoData[0].frequently_booked_together.title}</h5>
-                                                                    <ul className="test-duo-listing">
-                                                                        {Object.entries(this.props.searchTestInfoData[0].frequently_booked_together.value).map(function ([k, frequently]) {
-                                                                            return <li key={k}><p>{frequently.lab_test}</p>
-                                                                                <button className={disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test, frequently.show_details)} disabled={disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
-                                                                            </li>
-                                                                        })}
-                                                                    </ul>
-
+                                                                        {
+                                                                            this.state.showLocationPopup && false ? ''
+                                                                                : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                                        }
+                                                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                                    </span>
                                                                 </div>
-                                                            </div>
-                                                            : ''
-                                                    }
+
+                                                                {
+                                                                    labs.result.length > 0 ?
+                                                                        Object.entries(labs.result).map(function ([k, lab]) {
+                                                                            return <div key={k}>
+                                                                                <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true} isTestInfo={true} />
+                                                                            </div>
+                                                                        }) : ''
+                                                                }
+                                                                <div>
+                                                                    <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
+                                                                </div>
+                                                            </div> : ''}
+
+                                                        {
+                                                            this.props.searchTestInfoData[0].frequently_booked_together && this.props.searchTestInfoData[0].frequently_booked_together.value.length > 0 ?
+                                                                <div className="widget mrb-15 mrng-top-12">
+                                                                    <div className="widget-content">
+                                                                        <h5 className="test-duo-heding"> {this.props.searchTestInfoData[0].frequently_booked_together.title}</h5>
+                                                                        <ul className="test-duo-listing">
+                                                                            {Object.entries(this.props.searchTestInfoData[0].frequently_booked_together.value).map(function ([k, frequently]) {
+                                                                                return <li key={k}><p>{frequently.lab_test}</p>
+                                                                                    <button className={disableAddTest.indexOf(frequently.id) > -1 ? 'disable-btn' : ''} id={frequently.id} onClick={self.frequentlyAddTest.bind(self, frequently.id, frequently.lab_test, frequently.show_details)} disabled={disableAddTest.indexOf(frequently.id) > -1 ? true : ''}>{disableAddTest.indexOf(frequently.id) > -1 ? 'Test Added' : 'Add Test'}</button>
+                                                                                </li>
+                                                                            })}
+                                                                        </ul>
+
+                                                                    </div>
+                                                                </div>
+                                                                : ''
+                                                        }
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            {this.state.isSeo ?
-                                                <button onClick={this.searchProceedLAB.bind(this, '')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now
+                                                {this.state.isSeo ?
+                                                    <button onClick={this.searchProceedLAB.bind(this, '')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now
                                                 <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 }}> {`(${disableAddTest.length} Selected)`}</span>
-                                                </button>
-                                                : ''}
-                                        </div>
+                                                    </button>
+                                                    : ''}
+                                            </div> : <div className="col-12 col-md-7 col-lg-7 center-column"></div>
+                                        }
                                         <ChatPanel noChatButton={true} />
                                     </div>
                                 </section>
