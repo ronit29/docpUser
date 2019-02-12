@@ -1459,3 +1459,6 @@
 	z-index: 5;
 	background: linear-gradient(#4568dc , #b06ab3);
 }
+.cancel-overlay-zindex{
+	z-index: 999 !important;
+}
