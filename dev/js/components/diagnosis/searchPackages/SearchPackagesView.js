@@ -19,8 +19,6 @@ class SearchPackagesView extends React.Component {
         }
         this.state = {
             seoData, footerData,
-            seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
-            lab_card: this.props.location.search.includes('lab_card') || null,
             showError: false,
             showChatWithus: false
         }
@@ -66,15 +64,11 @@ class SearchPackagesView extends React.Component {
     }
 
     getLabList(state = null, page = 1, cb = null) {
-        let searchUrl = null
-        if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
-            searchUrl = this.props.match.url.toLowerCase()
-        }
         if (!state) {
             state = this.props
         }
 
-        this.props.getPackages(state, page, false, searchUrl, (...args) => {
+        this.props.getPackages(state, page, false, null, (...args) => {
             this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
@@ -131,8 +125,8 @@ class SearchPackagesView extends React.Component {
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
         }
-        let cat_ids = filterCriteriaPackages.catIds || ""
 
+        let cat_ids = filterCriteriaPackages.catIds || ""
         let min_distance = filterCriteriaPackages.distanceRange[0]
         let max_distance = filterCriteriaPackages.distanceRange[1]
         let min_price = filterCriteriaPackages.priceRange[0]
@@ -148,17 +142,11 @@ class SearchPackagesView extends React.Component {
         let page=1
         
         let url
-        if(this.props.forSeo){
-            url = `${window.location.pathname}`
-        }else if(this.props.forTaxSaver){
+
+        if(this.props.forTaxSaver){
             url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=41`
-        }else{
-            // url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
+        } else{
             url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}`
-        }
-        
-        if (this.state.lab_card) {
-            url += `&lab_card=true`
         }
 
         return url
