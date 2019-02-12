@@ -27,13 +27,13 @@ function getVisitId() {
 }
 
 const GTM = {
-    sendEvent: ({ data }) => {
+    sendEvent: ({ data }, send_to_GA = true, send_to_backend = true) => {
         try {
             /**
              * dataLayer is expected to be a global variable set by gtm - not to be used on server-side
              */
 
-            if (dataLayer) {
+            if (dataLayer && send_to_GA) {
                 data.UAID = CONFIG.UAID
                 data.Tracker = CONFIG.Tracker
                 let gtmData = JSON.parse(JSON.stringify(data))
@@ -49,7 +49,9 @@ const GTM = {
 
             data.visitor_info = GTM.getVisitorInfo()
             data.triggered_at = Math.floor((new Date()).getTime() / 1000)
-            setGTMSession(data);
+            if (send_to_backend) {
+                setGTMSession(data);
+            }
 
         } catch (e) {
             //
