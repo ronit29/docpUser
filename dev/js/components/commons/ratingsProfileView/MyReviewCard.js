@@ -5,7 +5,7 @@ class MyReviewCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            sms_id: this.props.sms_id ? this.props.sms_id :  null,
+            sms_id: this.props.sms_id ? this.props.sms_id : null,
             data: this.props.details,
             selectedRating: this.props.details ? this.props.details.ratings : 0,
             type: 1,
@@ -67,67 +67,71 @@ class MyReviewCard extends React.Component {
     render() {
         if (this.state.type == 1) {
             return (
-                <div className="review-card clearfix" key={this.state.data.id}>
-                    <div className="first-sec">
-                        <img src={this.state.data.icon} className="img-fluid" />
-                        <div className="c-date">{this.state.data.date}</div>
-                    </div>
-                    <div className="last-sec">
-                        <div className="clnc-nam">{this.state.data.entity_name}</div>
-                        <div className="clnc-add">{this.state.data.address}</div>
-                    </div>
-                    <div className="rating-sec">
-                        <span className="rating-img"><img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /> {this.state.data.ratings} </span>
-                        <span className="clnc-nam">{this.state.data.compliments}</span>
-                        <div className="clnc-nam pad-t6">{this.state.data.review}</div>
-                    </div>
-                    <div className="btn-div">
-                        <ul>
-                            <li><a href="javascript:void(0);" onClick={this.editRating.bind(this)}>Edit</a></li>
-                            {this.state.data.ratings > 3 ? <li><a href="javascript:void(0);">Share</a></li> : ""}
-                        </ul>
+                <div className="widget mrb-15" key={this.state.data.id}>
+                    <div className="widget-content">
+                        <div className="first-sec">
+                            <img src={this.state.data.icon} className="img-fluid" />
+                            <div className="c-date">{this.state.data.date}</div>
+                        </div>
+                        <div className="last-sec">
+                            <div className="clnc-nam">{this.state.data.entity_name}</div>
+                            <div className="clnc-add">{this.state.data.address}</div>
+                        </div>
+                        <div className="rating-sec">
+                            <span className="rating-img"><img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /> {this.state.data.ratings} </span>
+                            <span className="clnc-nam">{this.state.data.compliments}</span>
+                            <div className="clnc-nam pad-t6 rate-mg-top">{this.state.data.review}</div>
+                        </div>
+                        <div className="btn-div">
+                            <ul>
+                                <li><a href="javascript:void(0);" onClick={this.editRating.bind(this)}>Edit</a></li>
+                                {this.state.data.ratings > 3 ? <li><a href="javascript:void(0);">Share</a></li> : ""}
+                            </ul>
+                        </div>
                     </div>
                 </div>);
         }
         else {
-            return (<div>
-                <div className="rate-star-icon">
-                    {
-                        [1, 2, 3, 4, 5].map((x, i) => {
-                            return <img key={i} onClick={this.selectRating.bind(this, x)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
-                        })
-                    }
-                </div>
-                <div className="rate-compliment-section">
-                    <p className="cmplmnt-para">Give your compliment</p>
-                    <ul className="compliment-lising">
-                        {this.state.compliments.map(comp => {
-                            if (comp.type == this.state.data.appointment_type && this.state.selectedRating == comp.rating_level) {
-                                let check = this.state.selected_compliments.includes(comp.id);
-                                return <li key={comp.id}>
-                                    <label className="ck-bx">
-                                        <span className="rate-feed-text">{comp.message}</span>
-                                        <input type="checkbox" defaultChecked={check} onChange={this.handleComplimentChange.bind(this, comp.id)} />
-                                        <span className="checkmark" />
-                                    </label>
-                                </li>
-                            }
+            return (<div className="widget mrb-15">
+                <div className="widget-content">
+                    <div className="rate-star-icon" style={{width:'70%', margin:'auto'}}>
+                        {
+                            [1, 2, 3, 4, 5].map((x, i) => {
+                                return <img key={i} onClick={this.selectRating.bind(this, x)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
+                            })
                         }
-                        )
-                        }
-                    </ul>
-                    <div className="rate-submit-cmnnt-box">
-                        <textarea maxLength="5000" placeholder="Leave a review" rows="2" value={this.state.review_field} onChange={this.handleReviewChange.bind(this)}>
-                        </textarea>
-
-                        {/* <button className="rate-submit-btn" onClick={this.submitRating.bind(this)}>Update</button> */}
                     </div>
-                </div>
-                <div className="btn-div">
-                    <ul>
-                        <li><a href='javascript:void(0);' onClick={this.submitRating.bind(this)}>Update</a></li>
-                        <li><a href='javascript:void(0);' onClick={this.cancelUpdate.bind(this)}>Cancel</a></li>
-                    </ul>
+                    <div className="rate-compliment-section">
+                        <p className="cmplmnt-para">Give your compliment</p>
+                        <ul className="compliment-lising">
+                            {this.state.compliments.map(comp => {
+                                if (comp.type == this.state.data.appointment_type && this.state.selectedRating == comp.rating_level) {
+                                    let check = this.state.selected_compliments.includes(comp.id);
+                                    return <li key={comp.id}>
+                                        <label className="ck-bx">
+                                            <span className="rate-feed-text">{comp.message}</span>
+                                            <input type="checkbox" defaultChecked={check} onChange={this.handleComplimentChange.bind(this, comp.id)} />
+                                            <span className="checkmark" />
+                                        </label>
+                                    </li>
+                                }
+                            }
+                            )
+                            }
+                        </ul>
+                        <div className="rate-submit-cmnnt-box">
+                            <textarea maxLength="5000" placeholder="Leave a review" rows="2" value={this.state.review_field} onChange={this.handleReviewChange.bind(this)}>
+                            </textarea>
+
+                            {/* <button className="rate-submit-btn" onClick={this.submitRating.bind(this)}>Update</button> */}
+                        </div>
+                    </div>
+                    <div className="btn-div">
+                        <ul>
+                            <li><a href='javascript:void(0);' onClick={this.submitRating.bind(this)}>Update</a></li>
+                            <li><a href='javascript:void(0);' onClick={this.cancelUpdate.bind(this)}>Cancel</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>);
         }
