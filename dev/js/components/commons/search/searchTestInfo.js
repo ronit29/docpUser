@@ -6,6 +6,8 @@ import GTM from '../../../helpers/gtm.js'
 import LocationPopup from '../../../containers/commons/locationPopup'
 import LabProfileCard from '../../diagnosis/commons/labProfileCard/LabProfileCard.js'
 import Loader from '../../commons/Loader'
+import HelmetTags from '../../commons/HelmetTags'
+import CONFIG from '../../../config'
 const queryString = require('query-string');
 
 
@@ -276,8 +278,21 @@ class SearchTestView extends React.Component {
             let preparations = this.props.searchTestInfoData[0].preparations
             let faqs = this.props.searchTestInfoData[0].faqs
             let resp_test_id = this.props.searchTestInfoData[0].id
+            let canonicalUrl = ''
+            let title = ''
+            let description = ''
+            if(this.props.searchTestInfoData[0].seo){
+                canonicalUrl = this.props.searchTestInfoData[0].url
+                title = this.props.searchTestInfoData[0].seo.title
+                description = this.props.searchTestInfoData[0].seo.description
+            }
             return (
                 <div>
+                    <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}/${canonicalUrl}`,
+                    title: title,
+                    description: description,
+                    }} />
                     <section className="fade-enter-done">
                         <div className="container-fluid">
                             <div className="profile-body-wrap">
