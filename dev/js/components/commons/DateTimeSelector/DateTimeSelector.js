@@ -117,11 +117,23 @@ class DateTimeSelector extends React.Component {
 
     isTimeSlotAvailable(timeSlot) {
 
+        const parsed = queryString.parse(this.props.location.search)
+        let type = 1
+        if(parsed.type && parsed.type == 'opd'){
+            type = 0
+        }
+
         let today = new Date()
         let tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
+        tomorrow.setDate(today.getDate() + 1)
+
+        let dateAfterOneHour = new Date(this.state.selectedDateSpan).setHours(today.getHours()+1)
 
         if(timeSlot.on_call && today.toDateString() == new Date(this.state.selectedDateSpan).toDateString()){
+            return false
+        }
+
+        if(!type && new Date(dateAfterOneHour).toDateString() == today.toDateString() && new Date(dateAfterOneHour).getHours()>timeSlot.value){
             return false
         }
         if (this.props.doctor_leaves && this.props.doctor_leaves.length) {
