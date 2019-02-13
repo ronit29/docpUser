@@ -1167,7 +1167,8 @@
     -moz-animation: FadeIn 0.5s;
     -ms-animation: FadeIn 0.5s;
     -o-animation: FadeIn 0.5s;
-    animation: FadeIn 0.5s;
+	animation: FadeIn 0.5s;
+	height:10000px;
 }
 
 .cancel-appointment-div{
