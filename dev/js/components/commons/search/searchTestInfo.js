@@ -72,6 +72,11 @@ class SearchTestView extends React.Component {
                 all_test_id.push(parseInt(value))
             })
         }
+        const parsed = queryString.parse(this.props.location.search)
+        let no_labs = false
+        if(parsed.test_ids){
+          no_labs = true
+        }
         this.setState({ lastSource: last_page, search_id: search_id })
 
         if (!test_id && searchById) {
@@ -85,7 +90,7 @@ class SearchTestView extends React.Component {
             test_id = ''
         }
 
-        this.props.searchTestData(test_id, test_url, lab_id, this.props)
+        this.props.searchTestData(test_id, test_url, lab_id, this.props,no_labs)
     }
 
 

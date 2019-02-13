@@ -74,7 +74,7 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
         payload: coupon
     })
 }
-export const searchTestData = (test_ids, test_url, lab_id, state, callback) => (dispatch) => {
+export const searchTestData = (test_ids, test_url, lab_id, state,no_labs, callback) => (dispatch) => {
 
     let url
     let lat = 28.644800
@@ -102,6 +102,9 @@ export const searchTestData = (test_ids, test_url, lab_id, state, callback) => (
         url += '&lab_id=' + lab_id
     }
 
+    if(no_labs){
+        url += '&no_labs=true'
+    }
 
     return API_GET(url).then(function (response) {
         dispatch({
