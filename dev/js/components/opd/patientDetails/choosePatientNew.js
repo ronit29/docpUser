@@ -48,7 +48,7 @@ class ChoosePatientNewView extends React.Component {
     handleOtpContinuePress(e) {
         if (e.key === 'Enter') {
             this.submitOTPRequest()
-        }   
+        }
     }
 
     submitOTPRequest(number) {
@@ -59,24 +59,24 @@ class ChoosePatientNewView extends React.Component {
         }
         let self = this
         this.props.submitOTP(this.state.phoneNumber, this.state.otp, (response) => {
-            if(response.token){
-                
+            if (response.token) {
+
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'BookingPage', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo':this.state.phoneNumber
+                    'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'BookingPage', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo': this.state.phoneNumber
                 }
                 GTM.sendEvent({ data: data })
-                
+
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
                     self.props.createProfile(this.state, (err, res) => {
                         //self.setState({data:true})
                         self.props.getUserProfile()
                     })
-                })    
-            }else{
+                })
+            } else {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Otp" })
             }
-            
+
         })
 
     }
@@ -88,29 +88,31 @@ class ChoosePatientNewView extends React.Component {
     verify() {
         let self = this
 
-        if(this.state.name==''){
-
+        if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
             setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Enter your Name" })
+                if (!this.state.name) {
+                    SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
+                } else {
+                    SnackBar.show({ pos: 'bottom-center', text: "Name should only contain alphabets." })
+                }
             }, 500)
-            return 
-            //this.setState({ validationError: "Please provide a valid number (10 digits)" })
+            return
         }
 
-        if(this.state.gender ==''){
+        if (this.state.gender == '') {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Select the Gender" })
             }, 500)
-            return 
+            return
         }
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            
+
             let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request','mobileNo':this.state.phoneNumber,'pageSource': 'BookingPage'
+                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
             }
             GTM.sendEvent({ data: analyticData })
-            
+
             this.props.sendOTP(this.state.phoneNumber, (error) => {
                 if (error) {
                     setTimeout(() => {
@@ -118,7 +120,7 @@ class ChoosePatientNewView extends React.Component {
                     }, 500)
                     //self.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    self.setState({ showOtp: true , showVerify: false})
+                    self.setState({ showOtp: true, showVerify: false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
