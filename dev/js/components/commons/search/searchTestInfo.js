@@ -383,7 +383,7 @@ class SearchTestView extends React.Component {
                                                                     style={{ height: 'auto', marginBottom: '10px' }}>
 
                                                                     {/*this.props.packagesList?this.props.packagesList.count:''*/}
-                                                                    {labs.count} Results found for
+                                                                    {labs && labs.count ?labs.count:''} Results found for
                                                             <h1 className="search-result-heading">
                                                                         <span className="fw-700"> {SearchedCritera}</span>
                                                                     </h1>
@@ -398,7 +398,7 @@ class SearchTestView extends React.Component {
                                                                 </div>
 
                                                                 {
-                                                                    labs.result.length > 0 ?
+                                                                    labs && labs.result.length > 0 ?
                                                                         Object.entries(labs.result).map(function ([k, lab]) {
                                                                             return <div key={k}>
                                                                                 <LabProfileCard {...self.props} details={lab} key={k} rank={k} noClearTest={true} isTestInfo={true} />
@@ -406,7 +406,7 @@ class SearchTestView extends React.Component {
                                                                         }) : ''
                                                                 }
                                                                 {
-                                                                  labs.count>0?
+                                                                  labs && labs.count>0?
                                                                     <div>
                                                                         <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
                                                                     </div>
