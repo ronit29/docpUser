@@ -30,36 +30,34 @@ class TaxSaverTC extends React.Component {
                                 <div className="container-fluid">
                                     <div className="row mrb-20">
                                         <div className="col-12">
-                                            <h3 className="textInfoHeadTitle mrng-top-12"><img onClick={this.goBack.bind()} src={ASSETS_BASE_URL + '/img/icons/back-arrow.png'} className="img-fluid" style={{ width: '20px', marginRight: '10px',cursor:'pointer' }} />About Preventive Health Package </h3>
+                                            <h3 className="textInfoHeadTitle mrng-top-12"><img onClick={this.goBack.bind()} src={ASSETS_BASE_URL + '/img/icons/back-arrow.png'} className="img-fluid" style={{ width: '20px', marginRight: '10px', cursor: 'pointer' }} />About Preventive Health Package </h3>
                                             <div className="widget mrb-15 mrng-top-12">
                                                 <div className="widget-content">
                                                     <div className="taxFullContent">
-                                                        <h4>What is preventive health care?</h4>
+                                                        <h4>You can avail tax benefit up to ₹ 5000 on preventive health care packages under Section 80D</h4>
+                                                        <h4>Preventive healthcare packages:</h4>
+                                                        <p>In today’s lifestyle, stress has become a constant companion. Long hours spent at the office meeting deadlines, interpersonal conflicts, and keeping up with regularly changing technology is becoming too much to bear. No wonder, health problems are ubiquitous. While development in medical science allows professionals to combat various ailments, awareness among common people is crucial.</p>
                                                         <p>Preventive health care checkup means identification and minimization of disease risk factors, existing disease course improvement, and early disease detection through screening. This has become crucial since it allows people to know about their health issues well within time. You may be sitting on a health landmine and have no inkling of it. Diagnosis of cancer in later stages is completely ineffectual and heart disease may translate into instant death. These are silent killers and the only way to deal with them is to remain aware of the issues through regular checkups and taking preventive care.</p>
                                                     </div>
                                                     <div className="taxFullContent">
-                                                    <h4>You can avail tax benefit up to ₹ 5000 on preventive health care packages under Section 80D. </h4>
-                                                        <h4>Preventive healthcare packages:</h4>
+                                                        <h4>The most common tests under preventive healthcare packages are:  </h4>
                                                         <ul>
-                                                            <li><b>Regular checkups - </b> Under this preventive care plan the policyholder can go for regular checkups at specific hospitals to know if all is right with their current health.</li>
-
-                                                            <li><b>Family plans -</b> Family plans bring every member of the family into the preventive healthcare safety net. From adults to kids everybody can enjoy the benefits on offer.</li>
-
-
-                                                            <li><b>Executive plans -</b> This preventive plan gives cover to employees of various organizations so that they can go for regular checkups and the like in the hospitals mentioned in the policy. </li>
-
-                                                            <li><b>Child plans -</b> Child preventive healthcare insurance plans allow parents to go for regular checkups for their children between zero and thirteen years of age who are covered under this policy.</li>
-
-                                                            <li><b>Diabetes plans -</b> Diabetes may affect the vital organs of the body including brain, kidney, liver, and heart. Therefore, regular checkup of patients is necessary. Diabetes plan gives you coverage in this regard.</li>
-
-
+                                                            <li>Liver</li>
+                                                            <li>Thyroid </li>
+                                                            <li>Blood test </li>
+                                                            <li>Sugar </li>
+                                                            <li>Cholesterol </li>
+                                                            <li>Vitamin profile </li>
+                                                            <li>Full body check-up</li>
+                                                            <li>Stool tests </li>
+                                                            <li>Cardiac (Heart) </li>
+                                                            <li>Cancer Screening </li>
+                                                            <li>Pap smear </li>
+                                                            <li>HIV  </li>
+                                                            <li>Genetic testing etc. </li>
                                                         </ul>
-                                                        <p>Consider your specific situation and then choose the plan that suits your needs. It is also possible to go for custom plans, which are ideal for a specific scenario. The main aim of this is to keep people aware of their health issues and deal with them in a proper manner. Neglecting a disease and allowing it to fester may lead to fatal or irreversible conditions and the preventive care plans does not let this happen</p>
-                                                    </div>
-                                                    <div className="taxFullContent">
-                                                        <h4>Preventive healthcare packages</h4>
-                                                        <p>Preventive plans include various tests such as a blood test for sugar and cholesterol, pressure monitoring, cancer screening, Pap smear, HIV and genetic testing.</p>
-                                                        <p>In today’s lifestyle, stress has become a constant companion. Long hours spent at the office meeting deadlines, interpersonal conflicts, and keeping up with regularly changing technology is becoming too much to bear. No wonder, health problems are ubiquitous. While development in medical science allows professionals to combat various ailments, awareness among common people is crucial. Preventive medical care insurance surely offers a way out. So, do not ignore this pressing issue, because it may become too late very soon!</p>
+                                                        <p>As people are becoming more health conscious, an increasing number of people are going for preventive healthcare packages. You can choose the healthcare plan that is most suited to your specific needs. The benefit can be availed for the individual, spouse, children or parent depending on the package undertaken. </p>
+                                                        <p>Basically, consider your specific situation and then choose the plan that suits your needs. It is also possible to go for custom plans, which are ideal for a specific scenario. The main aim of this is to keep people aware of their health issues and deal with them in a proper manner. Neglecting a disease and allowing it to fester may lead to fatal or irreversible conditions and the preventive care plans does not let this happen</p>
                                                     </div>
                                                 </div>
                                             </div>
