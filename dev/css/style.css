@@ -2613,7 +2613,7 @@ font-weight: 500;
 	padding: 10px 50px 10px 10px;
 	cursor: pointer;
 }
-.anchor-data-style>a{
+.anchor-data-style>a, .anchor-data-style h2{
 	display: block;
 	width: 100%;
 	overflow: hidden;
@@ -2621,7 +2621,7 @@ font-weight: 500;
 	white-space: nowrap;
 }
 span.anch-page-cnt{
-	       z-index: 2;
+	z-index: 2;
     color: #fff;
     cursor: default;
     background-color: #f97a3b;
@@ -5511,6 +5511,252 @@ button.add-shpng-cart-btn.update-btn {
 	padding-left:66px!important
 }
 
+.mrg-B15{margin-bottom: 15px}
+.pos-rel{position: relative;}
+.border-all{border: 1px solid #f78631;}
+.mrg-B5{margin-bottom: 5px;}
+.mrg-B20{margin-bottom: 20px;}
+.pad-all-10{padding: 10px;}
+.pad-B0{padding-bottom: 0 !important;}
+
+.col-d-width{
+    margin: 0 auto;
+    font-size: 14px;
+    font-weight: 500;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: -100%;
+    transition: all ease-in-out .5s;
+    width: 80%;
+}
+
+.left-menu{
+    width: 100%;
+    box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.3);
+    background: #fff;
+    height: 100vh;
+    overflow: auto;
+    padding-bottom: 30px;
+}
+.header-box{
+    background: #f78631 url(/assets/images/doc-logo.png) no-repeat top right;
+    padding: 15px 15px 30px;
+    position: relative;
+    border-radius: 50%/30px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 1px 1.7px 4px 0 rgba(0, 0, 0, 0.15);
+    background-size: 34%;
+    /*background: #f78631;*/
+    cursor: pointer;
+}
+.user-profile-img{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+}
+.user-name{
+    color: #fff;
+    padding-left: 15px;
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 25px;
+}
+.drop-list-menu li a{
+    font-size: 14px;
+    padding: 20px 15px;
+    display: block;
+    color: #000;
+}
+.drop-list-menu li a:hover{
+    color: #000;
+    text-decoration: none;
+}
+.drop-list-menu.list_1 li:first-child{
+    padding-top: 15px;
+}
+
+.drop-list-menu.list_2 li:first-child{
+    padding-left: 0px;
+}
+
+.drop-list-menu li a.btn-buy-now{
+    line-height: 3px;
+    color: #fff;
+    background: #f78631;
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 14px;
+    float: right;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+
+.final-list li a{
+    color: #757575;
+    font-size: 14px;
+    padding: 15px 15px 0px;
+    display: block;
+}
+.final-list li a:hover{
+    color: #757575;
+    text-decoration: none;
+}
+.final-list li.logout a{
+    color: #f78631;
+    text-align: center;
+    padding-bottom: 15px;
+}
+.final-list li.logout a:hover{
+    color: #f78631;
+    text-decoration: none;
+}
+.drop-list-menu img{
+    height: 24px;
+    margin-right: 15px;
+    margin-top: -3px;
+}
+.wallet-amnt{
+    color: #f78631;
+    font-size: 16px;
+    float: right;
+    padding-top: 15px;
+    padding-right: 15px;
+}
+.wallet-amnt img{
+  height: 12px;
+  margin-right: 5px; 
+  vertical-align: middle;
+ 
+}
+.right-arrow {
+    width: 10px;
+    height: 10px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    border-right: 1px solid rgba(255,255,255,1);
+    border-bottom: 1px solid rgba(255,255,255,1);
+    float: right;
+    margin-top: 34px;
+    margin-right: 10px;
+}
+
+.float-l{
+	float: left;
+}
+.float-r{
+	float: right;
+}
+.lm-card{
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: -0.5px 0.9px 3px 0 rgba(0, 0, 0, 0.17);
+	padding:15px;
+	margin: 10px;
+	cursor: pointer;
+}
+.lm-card h2{
+	font-size: 18px;
+	font-weight: 500;
+	padding-bottom: 10px;
+}
+.lm-card p{
+	color: rgba(65, 65, 65, 0.69);
+	font-size: 14px;
+	font-weight: 500;
+}
+.lm-card img{
+	margin-top: 15px;
+	height: 24px;
+}
+.wrtus-frm{
+	clear: both;
+	float: left;
+	width: 100%;
+	margin-top: 30px;
+	display: none;
+}
+.form-write{
+	border:0;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	box-shadow: none;
+	width: 100%;
+	outline: 0;
+	padding: 8px 2px;
+}
+.form-write:focus{
+	box-shadow: none;
+	outline: 0;
+}
+.wrtus-frm .form-group{
+	margin-bottom: 30px;
+}
+.btn-wrt-submit{
+	width: 230px;
+    height: 42px;
+    line-height: 42px;
+    color: #fff;
+    background: #f78631;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-top: 15px;
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 500;
+}
+.ham-menu{
+	float: left;
+	display: none;
+	cursor: pointer;
+}
+.ham-menu img{
+	height: 16px;
+    margin-top: 24px;
+    margin-right: 11px;
+}
+
+.drop-list-menu .profile-list li a{color: rgba(0,0,0,0.54); padding-left: 65px;}
+
+.drop-list-menu img.up-down-arw{
+	height: 8px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 0;
+}
+.cl-overlay{
+	display: none;
+}
+.pos-rel{
+	position: relative;
+}
+@media screen and (max-width: 991px){
+	.ham-menu img{
+		margin-top: 15px;
+		height: 13px;
+	}
+}
+@media screen and (max-width: 767px){
+	.ham-menu{
+		display: block;
+	}
+	.doc-header{
+		z-index: 999;
+	}
+	.col-d-width-ease{
+		left: 0;
+		transition: all ease-in-out .5s;
+   }
+   .cl-overlay{
+   	display: block;
+   }
+}
+
+
+
 .dpp-btn-book-custom {
 	flex-direction: column;
     display: flex;
@@ -5692,3 +5938,61 @@ h3.pkg-include{
     border-radius: 4px;
     display: inline;
 }
+/* ==================== tax panel ==================== */
+.taxContent{
+	margin: 5px 0 12px 0;
+    background: #f7f1d3;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+.taxContentPara{
+	font-weight: 500;
+    margin-left: 5px;
+}
+.taxContentPara .taxClickbtn{
+    color: #f6832c;
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 15px;
+	cursor: pointer;
+}
+.taxFullContent{
+
+}
+
+.taxFullContent h4{
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.taxFullContent p{
+	margin-bottom: 10px;
+}
+.taxFullContent ul {
+    list-style: disc !important;
+    padding-left: 30px;
+}
+.taxFullContent ul li{
+	margin-bottom: 10px;
+	font-weight: 500;
+}
+.taxFullContent ul li b{
+    font-weight: 500;
+}
+.textInfoHeadTitle{
+	font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.pkg-listing-tick{
+	display: flex;
+	align-items: start;
+}
+.pkg-listing-tick img{
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+/* ==================== tax panel ==================== */

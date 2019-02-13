@@ -35,29 +35,31 @@ class UserSignupView extends React.Component {
     }
 
     getLocation(location, resultField) {
-        var auto = new google.maps.places.AutocompleteService()
+        if (typeof google != undefined) {
+            var auto = new google.maps.places.AutocompleteService()
 
-        var request = {
-            input: location,
-            types: ['establishment'],
-            componentRestrictions: { country: 'in' }
-        };
-
-        if (resultField == 'locality_results') {
-            request = {
+            var request = {
                 input: location,
-                types: ['(regions)'],
+                types: ['establishment'],
                 componentRestrictions: { country: 'in' }
             };
-        }
 
-        if (location) {
-            auto.getPlacePredictions(request, function (results, status) {
-                results = results || []
-                this.setState({ [resultField]: results })
-            }.bind(this))
-        } else {
-            this.setState({ [resultField]: [] })
+            if (resultField == 'locality_results') {
+                request = {
+                    input: location,
+                    types: ['(regions)'],
+                    componentRestrictions: { country: 'in' }
+                };
+            }
+
+            if (location) {
+                auto.getPlacePredictions(request, function (results, status) {
+                    results = results || []
+                    this.setState({ [resultField]: results })
+                }.bind(this))
+            } else {
+                this.setState({ [resultField]: [] })
+            }
         }
     }
 
@@ -173,6 +175,9 @@ class UserSignupView extends React.Component {
     }
 
     selectLocation(location, type) {
+        if (typeof google == undefined) {
+            return
+        }
         let map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 28, lng: 77 },
             zoom: 15

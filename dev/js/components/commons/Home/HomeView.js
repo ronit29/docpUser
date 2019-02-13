@@ -39,6 +39,11 @@ class HomeView extends React.Component {
 			this.setState({ specialityFooterData: cb });
 		});
 
+		let data = {
+			'Category': 'ConsumerApp', 'Action': 'HomePageRender', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-page-render'
+		}
+		GTM.sendEvent({ data: data })
+
 		this.props.getOfferList();
 	}
 
