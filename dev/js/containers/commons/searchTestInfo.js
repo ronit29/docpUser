@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState } from '../../actions/index.js'
+import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState, clearAllTests } from '../../actions/index.js'
 
 import SearchTestView from '../../components/commons/search/searchTestInfo.js'
 
@@ -48,7 +48,8 @@ const mapDispatchToProps = (dispatch) => {
         clearExtraTests: () => dispatch(clearExtraTests()),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
-        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults))
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
+        clearAllTests: () => dispatch(clearAllTests()),
 
     }
 }

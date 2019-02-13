@@ -155,21 +155,16 @@ class SearchTestView extends React.Component {
         let test ={}
         let found = false
         let selectedCriteria = []
+        let nextSelectedCriterias = []
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
             test.id = this.props.searchTestInfoData[0].id
             test.name = this.props.searchTestInfoData[0].name
             test.show_details = this.props.searchTestInfoData[0].show_details
-            selectedCriteria = this.props.selectedCriterias
-            selectedCriteria = selectedCriteria.filter((x) => {
-                if (x.id == this.props.searchTestInfoData[0].id) {
-                    found = true
-                    return false
-                }
-                return true
-            })
-            if (!found) {
-                this.props.toggleDiagnosisCriteria('test', test, false)
-            }
+            test.url = this.props.searchTestInfoData[0].url
+            test.type = 'test'
+            this.props.clearAllTests()
+            nextSelectedCriterias = nextSelectedCriterias.concat(test)
+            this.props.toggleDiagnosisCriteria('test', test, false)
         }
         // handle doctor name, hospital name
         this.props.mergeLABState({
@@ -181,8 +176,8 @@ class SearchTestView extends React.Component {
                 ...this.props.filterCriteria,
                 lab_name
             },
-            currentSearchedCriterias: this.props.selectedCriterias,
-            nextSelectedCriterias: this.props.selectedCriterias
+            currentSearchedCriterias: nextSelectedCriterias,
+            nextSelectedCriterias: nextSelectedCriterias
         }, true)
 
 

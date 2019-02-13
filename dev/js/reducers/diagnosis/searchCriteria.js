@@ -226,7 +226,8 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 selectedCriterias: [],
-                lab_test_data: {}
+                lab_test_data: {},
+                nextSelectedCriterias:[]
             }
 
             return newState
