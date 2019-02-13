@@ -106,7 +106,7 @@ class SearchTestView extends React.Component {
         added_test.push(field)
         self.setState({ disableAddTest: added_test })
         if (lab_id != null) {
-            test.lab_id = this.state.lab_id
+            test.lab_id = lab_id
             test.extra_test = true
             test.type = 'test'
             test.name = name
