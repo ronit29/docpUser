@@ -370,7 +370,7 @@ class DoctorProfileView extends React.Component {
                 </section>
 
                 <Footer footerData={this.state.footerData} />
-            </div>
+            </div >
         );
     }
 }
