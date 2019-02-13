@@ -159,18 +159,16 @@ class SearchTestView extends React.Component {
             test.id = this.props.searchTestInfoData[0].id
             test.name = this.props.searchTestInfoData[0].name
             test.show_details = this.props.searchTestInfoData[0].show_details
-            if(this.props.selectedCriterias.length > 0){
-                selectedCriteria = this.props.selectedCriterias
-                selectedCriteria = selectedCriteria.filter((x) => {
-                    if (x.id == this.props.searchTestInfoData[0].id) {
-                        found = true
-                        return false
-                    }
-                    return true
-                })
-                if (!found) {
-                    this.props.toggleDiagnosisCriteria('test', test, false)
+            selectedCriteria = this.props.selectedCriterias
+            selectedCriteria = selectedCriteria.filter((x) => {
+                if (x.id == this.props.searchTestInfoData[0].id) {
+                    found = true
+                    return false
                 }
+                return true
+            })
+            if (!found) {
+                this.props.toggleDiagnosisCriteria('test', test, false)
             }
         }
         // handle doctor name, hospital name
