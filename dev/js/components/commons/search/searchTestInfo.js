@@ -372,7 +372,7 @@ class SearchTestView extends React.Component {
                                                                 }
                                                             </div>
                                                         </div>
-                                                        {this.state.isSeo
+                                                        {!parsed.test_ids
                                                             ? <div>
                                                                 <div className="filter-title"
                                                                     style={{ height: 'auto', marginBottom: '10px' }}>
@@ -400,9 +400,13 @@ class SearchTestView extends React.Component {
                                                                             </div>
                                                                         }) : ''
                                                                 }
-                                                                <div>
-                                                                    <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
-                                                                </div>
+                                                                {
+                                                                  labs.count>0?
+                                                                    <div>
+                                                                        <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
+                                                                    </div>
+                                                                :''  
+                                                                }
                                                             </div> : ''}
 
                                                         {
@@ -424,7 +428,7 @@ class SearchTestView extends React.Component {
                                                         }
                                                     </div>
                                                 </div>
-                                                {this.state.isSeo ?
+                                                {!parsed.test_ids ?
                                                     <button onClick={this.proceedBookNow.bind(this, '')} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now
                                                 <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 }}> {`(${disableAddTest.length} Selected)`}</span>
                                                     </button>
