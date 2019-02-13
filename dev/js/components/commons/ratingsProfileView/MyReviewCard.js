@@ -1,5 +1,5 @@
 import React from 'react';
-
+import SharePopUp from './SharePopUp.js';
 
 class MyReviewCard extends React.Component {
     constructor(props) {
@@ -9,6 +9,7 @@ class MyReviewCard extends React.Component {
             data: this.props.details,
             selectedRating: this.props.details ? this.props.details.ratings : 0,
             type: 1,
+            toggle_share: false,
             compliments: [],
             review_field: this.props.details.review,
             selected_compliments: this.props.details.compliments_list ? this.props.details.compliments_list : []
@@ -21,7 +22,6 @@ class MyReviewCard extends React.Component {
         this.setState({ sms_id: this.props.sms_id })
         console.log(this.props);
         if (this.state.sms_id !== null && (this.props.details.id == this.state.sms_id)) {
-            console.log('innnn');
             this.setState({ type: 0 })
         }
     }
@@ -53,6 +53,14 @@ class MyReviewCard extends React.Component {
         })
     }
 
+    thanYouButton = () => {
+        this.setState({ toggle_share: false })
+    }
+
+    sharePopUp() {
+        this.setState({ toggle_share: true })
+    }
+
     submitRating() {
         let post_data = { 'id': this.props.details.id, 'rating': this.state.selectedRating, 'review': this.state.review_field, 'compliment': this.state.selected_compliments, 'appointment_id': this.props.details.appointment_id };
         this.props.updateAppointmentRating(post_data, (err, data) => {
@@ -66,8 +74,11 @@ class MyReviewCard extends React.Component {
 
     render() {
         if (this.state.type == 1) {
+            if (this.state.toggle_share) {
+                return <SharePopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} details={this.state.data} />
+            }
             return (
-                <div className="widget mrb-15" key={this.state.data.id}>
+                < div className="widget mrb-15" key={this.state.data.id} >
                     <div className="widget-content">
                         <div className="first-sec">
                             <img src={this.state.data.icon} className="img-fluid" />
@@ -85,16 +96,18 @@ class MyReviewCard extends React.Component {
                         <div className="btn-div">
                             <ul>
                                 <li><a href="javascript:void(0);" onClick={this.editRating.bind(this)}>Edit</a></li>
-                                {this.state.data.ratings > 3 ? <li><a href="javascript:void(0);">Share</a></li> : ""}
+                                {this.state.data.ratings > 3 ?
+                                    <li><a href="javascript:void(0);" onClick={this.sharePopUp.bind(this)}>Share</a></li>
+                                    : ""}
                             </ul>
                         </div>
                     </div>
-                </div>);
+                </div >);
         }
         else {
             return (<div className="widget mrb-15">
                 <div className="widget-content">
-                    <div className="rate-star-icon" style={{width:'70%', margin:'auto'}}>
+                    <div className="rate-star-icon" style={{ width: '70%', margin: 'auto' }}>
                         {
                             [1, 2, 3, 4, 5].map((x, i) => {
                                 return <img key={i} onClick={this.selectRating.bind(this, x)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />

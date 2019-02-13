@@ -131,7 +131,7 @@ export const getAppointmentReports = (appointmentId, type, cb) => (dispatch) => 
 		if (cb) cb(error, null);
 	})
 }
-toggleLe
+
 export const fetchNotifications = (cb) => (dispatch) => {
 	API_GET(`/api/v1/notification/appnotifications`).then(function (response) {
 		dispatch({
