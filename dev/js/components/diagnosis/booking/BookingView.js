@@ -69,7 +69,7 @@ class BookingView extends React.Component {
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
-                    
+
                     let info = {}
                     info[appointmentId] = []
                     let mrp = 0
@@ -80,7 +80,7 @@ class BookingView extends React.Component {
                             deal_price += parseInt(test.deal_price)
                         })
                     }
-                    info[appointmentId].push({'booking_id': appointmentId, 'mrp': mrp, 'deal_price': deal_price})
+                    info[appointmentId].push({ 'booking_id': appointmentId, 'mrp': mrp, 'deal_price': deal_price })
                     info = JSON.stringify(info)
                     STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
@@ -89,7 +89,8 @@ class BookingView extends React.Component {
                             let analyticData = {
                                 'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
                             }
-                            GTM.sendEvent({ data: analyticData })
+
+                            GTM.sendEvent({ data: analyticData }, true, false)
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
                             this.props.setCorporateCoupon(null)
                         }
@@ -403,7 +404,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments = {this.state.data && this.state.data.cancellation_reason?this.state.data.cancellation_reason:[]} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} /> : ""
                             }
 
                         </div>
