@@ -258,7 +258,11 @@ class DoctorProfileView extends React.Component {
                                                             nearbyDoctors && Object.keys(nearbyDoctors).length ?
                                                                 <div className="widge-content pd-0">
                                                                     <div className="widget-panel">
-                                                                        <h4 className="panel-title mb-rmv p-relative">Book Top Dentist Nearby <span className="offerBanner">Save <br />Upto 50%</span></h4>
+                                                                        {
+                                                                            nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
+                                                                                <h4 className="panel-title mb-rmv p-relative"><span className="docSliderhdellipsis">Book Top {nearbyDoctors.specializations[0].name}s Nearby</span> <span className="offerBanner">Save <br />Upto 50%</span></h4> : ''
+                                                                        }
+
                                                                         <div className="panel-content pd-0 border-bottom-panel">
                                                                             <div className="docScrollSliderContainer">
                                                                                 {
@@ -266,10 +270,10 @@ class DoctorProfileView extends React.Component {
                                                                                         nearbyDoctors.result.map((doctor, id) => {
                                                                                             return <div className="docSlideCard" key={id} onClick={() => this.props.history.push(doctor.url)}>
                                                                                                 <div className="docSlideHead">
-                                                                                                    {
+                                                                                                    {/* {
                                                                                                         doctor.rating_graph.avg_rating ?
                                                                                                             <span className="slideDocRating">{doctor.rating_graph.avg_rating} <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span> : ''
-                                                                                                    }
+                                                                                                    } */}
                                                                                                     <InitialsPicture name={doctor.name} has_image={!!doctor.thumbnail} className="initialsPicture-ds slideDocMainImg" style={{ width: 80, height: 80, fontSize: '2.5rem' }} >
                                                                                                         <img className="fltr-usr-image img-round slideDocMainImg" src={doctor.thumbnail} alt={doctor.display_name} title={doctor.display_name} />
                                                                                                     </InitialsPicture>
