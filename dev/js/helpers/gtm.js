@@ -48,7 +48,7 @@ const GTM = {
             }
 
             data.visitor_info = GTM.getVisitorInfo()
-            data.triggered_at = Math.floor((new Date()).getTime() / 1000)
+            data.triggered_at = Math.floor((new Date()).getTime())
             if (send_to_backend) {
                 setGTMSession(data);
             }
