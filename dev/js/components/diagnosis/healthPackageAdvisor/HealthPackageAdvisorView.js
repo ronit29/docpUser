@@ -249,8 +249,8 @@ class HealthPackageAdvisorView extends React.Component {
                                                         <div className="d-flex" style={{ flexWrap: 'wrap' }}>
                                                             {this.props.recommended_package.filters && this.props.recommended_package.filters.length > 0 ?
                                                                 Object.entries(this.props.recommended_package.filters).map(function ([key, filter]) {
-                                                                    return <div className="dtl-radio d-flex align-items-center dtl-margin-lg" key={key}>
-                                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
+                                                                    return <div className="dtl-radio d-flex align-items-center dtl-margin-lg pkgTypeBorder" key={key}>
+                                                                        <label className="container-radio mb-0 hpa-container-radio pl-0" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
                                                                             {/*<input type="radio" name={`radio2_${filter.id}`} checked={self.state.packageType == filter.id ? true : false} style={{ left: 0 }} />
                                                                             <span className="doc-checkmark hpa-radio hpa-radio-gender"></span>*/}
                                                                         </label>

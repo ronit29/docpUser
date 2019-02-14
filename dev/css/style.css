@@ -5711,3 +5711,11 @@ h3.pkg-include{
 }
 
 /* ==================== tax panel ==================== */
+.pkgTypeBorder{
+    border-right: 1px solid #cdcdcd;
+    padding-right: 9px;	
+}
+.pkgTypeBorder:last-child{
+	border-right: none;
+    padding-right: 0px;	
+}
