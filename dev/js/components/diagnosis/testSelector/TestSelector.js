@@ -114,6 +114,9 @@ class TestSelectorView extends React.Component {
         if(this.props.selectedLocation !== null){
             lat = this.props.selectedLocation.geometry.location.lat
             long = this.props.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
         }
         if(url && url !=''){
             this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long)

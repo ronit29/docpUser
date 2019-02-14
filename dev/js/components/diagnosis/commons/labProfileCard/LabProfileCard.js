@@ -102,6 +102,9 @@ class LabProfileCard extends React.Component {
         if(this.props.selectedLocation !== null){
             lat = this.props.selectedLocation.geometry.location.lat
             long = this.props.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
         }
         if(test_url && test_url !=''){
             this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat='+lat+'&long='+long)
