@@ -19,6 +19,9 @@ class AllRatingsView extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         const parsed = queryString.parse(this.props.location.search)
         let content_type = parsed.content_type
         let object_id = parsed.id
