@@ -119,6 +119,12 @@ class SharePopUp extends React.Component {
                                         </EmailShareButton>
                                         <span>Email referral link</span>
                                     </div>
+                                    <div className="whtsappIcon-styling">
+                                        <a className="whtsAppico" href={"whatsapp://send?text=" + social_message}>
+                                            <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
+                                            <span>Whatsapp referral link</span>
+                                        </a>
+                                    </div>
                                 </div>
                                 : ""
                         }

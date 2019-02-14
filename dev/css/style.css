@@ -4891,10 +4891,13 @@ font-weight: 700;
 .emailIcon-styling{
     flex: 1;
     position: relative;
-    background: #7f7f7f;
+    background: #c95b50;
     margin: 10px 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+}
+.emailIcon-styling svg rect{
+	fill:#c95b50;
 }
 .typ-close{
 	position: absolute;
@@ -6068,6 +6071,29 @@ h3.pkg-include{
 }
 .rate-mg-top{
 	margin-top: 8px;
+}
+.whtsappIcon-styling{
+    background: #25d366;
+    flex: 1;
+    position: relative;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 6px 10px;
+}
+.whtsAppico{
+    display: flex;
+    align-items: center;
+}
+.whtsAppico img{
+    width: 16px;
+	margin-right: 35px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.whtsAppico span{
+	color: white;
+    font-weight: 500;
 }
 /* ==================== ratingUi Update ==================== */
 
