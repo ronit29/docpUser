@@ -331,6 +331,12 @@ textarea.form-control.chat-text-area {
 	.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 		font-size: 16px;
 	}
+	.rate-col-stars{
+		width: 88%;
+		margin: auto;
+		margin-top: 8px;
+		border-radius: 4px;
+	}
 }
 
 @media(max-width : 359px){
@@ -6094,6 +6100,23 @@ h3.pkg-include{
 .whtsAppico span{
 	color: white;
     font-weight: 500;
+}
+.rate-col-container{
+	display: flex;
+	align-items: center;
+}
+.rate-col-stars{
+	width: 70%;
+    margin: auto;
+    margin-top: 8px;
+    border-radius: 4px;
+}
+ul.edit-compliment{
+	padding: 0px;
+}
+.compliment-lising.edit-compliment li{
+display: inline-block;
+margin-right: 10px;
 }
 /* ==================== ratingUi Update ==================== */
 

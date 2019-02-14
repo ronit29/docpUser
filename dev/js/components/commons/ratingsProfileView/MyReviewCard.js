@@ -107,16 +107,26 @@ class MyReviewCard extends React.Component {
         else {
             return (<div className="widget mrb-15">
                 <div className="widget-content">
-                    <div className="rate-star-icon" style={{ width: '70%', margin: 'auto' }}>
+                    <div className="rate-col-container">
+                        <div className="first-sec">
+                            <img src={this.state.data.icon} className="img-fluid" />
+                            <div className="c-date">{this.state.data.date}</div>
+                        </div>
+                        <div className="last-sec">
+                            <div className="clnc-nam">{this.state.data.entity_name}</div>
+                            <div className="clnc-add">{this.state.data.address}</div>
+                        </div>
+                    </div>
+                    <div className="rate-star-icon rate-col-stars" style={{ width: '70%', margin: 'auto' }}>
                         {
                             [1, 2, 3, 4, 5].map((x, i) => {
-                                return <img key={i} onClick={this.selectRating.bind(this, x)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
+                                return <img style={{ width: 25, height: 25 }} key={i} onClick={this.selectRating.bind(this, x)} className="img-fluid" src={"/assets/img/customer-icons/" + (this.state.selectedRating > 0 && this.state.selectedRating >= x ? "" : "un") + "selected-star.svg"} />
                             })
                         }
                     </div>
                     <div className="rate-compliment-section">
                         <p className="cmplmnt-para">Give your compliment</p>
-                        <ul className="compliment-lising">
+                        <ul className="compliment-lising edit-compliment">
                             {this.state.compliments.map(comp => {
                                 if (comp.type == this.state.data.appointment_type && this.state.selectedRating == comp.rating_level) {
                                     let check = this.state.selected_compliments.includes(comp.id);
