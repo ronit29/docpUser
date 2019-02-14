@@ -229,7 +229,6 @@ class TopBar extends React.Component {
     }
 
     render() {
-        console.log(this.props.forOrganicSearch)
         var selectedTests = []
         if (this.props.currentSearchedCriterias.length) {
             for (var i = 0; i < this.props.currentSearchedCriterias.length; i++) {
