@@ -205,6 +205,7 @@ export const selectPickupAddress = (address) => (dispatch) => {
 }
 
 export const createLABAppointment = (postData, callback) => (dispatch) => {
+	postData['visitor_info'] = GTM.getVisitorInfo()
 	return API_POST(`/api/v1/diagnostic/labappointment/create`, postData).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {

@@ -37,6 +37,7 @@ const mapStateToProps = (state) => {
     return {
         lab_test_data,
         selectedCriterias,
+        selectedLocation,
         LABS
     }
 }

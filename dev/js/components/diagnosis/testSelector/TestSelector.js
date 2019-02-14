@@ -105,11 +105,21 @@ class TestSelectorView extends React.Component {
 
     }
 
-    testInfo(test_id,event) {
+    testInfo(test_id,url,event) {
         let lab_id = this.state.selectedLab
         let selected_test_ids = this.props.selectedCriterias || []
         selected_test_ids = selected_test_ids.map(x => x.id)
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&from=searchbooknow')
+        let lat = 28.644800
+        let long = 77.216721
+        if(this.props.selectedLocation !== null){
+            lat = this.props.selectedLocation.geometry.location.lat
+            long = this.props.selectedLocation.geometry.location.lng
+        }
+        if(url && url !=''){
+            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long)
+        }else{
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long)
+        }
         event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
@@ -194,7 +204,7 @@ class TestSelectorView extends React.Component {
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
                                                                                     {test.test.show_details?
-                                                                                    <span style={{'marginLeft':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id)}>
+                                                                                    <span style={{'marginLeft':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
                                                                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                                                         </span>:''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
@@ -211,7 +221,7 @@ class TestSelectorView extends React.Component {
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
                                                                                     {test.test.show_details?
-                                                                                    <span style={{'marginLeft':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id)}>
+                                                                                    <span style={{'marginLeft':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
                                                                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                                                         </span>:''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />

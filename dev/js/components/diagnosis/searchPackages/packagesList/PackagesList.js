@@ -74,6 +74,12 @@ class packagesList extends React.Component {
             }, 1000)
         })
     }
+    testInfo() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var test_ids = url.searchParams.get("test_ids");
+        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
+    }
     toggleScroll() {
         if (window) {
             window.scrollTo(0, 0)
@@ -116,7 +122,7 @@ class packagesList extends React.Component {
                                     </div>
                                     <div className="taxContent">
                                         {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
-                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto ₹ 5000 under section 80D <span onClick={this.showTc.bind(this)}> click here</span></p>
+                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{display: 'inline-block'}}>₹ 5000</span> under section 80D. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
                                     </div>
                                 </div>
                                     : ''
