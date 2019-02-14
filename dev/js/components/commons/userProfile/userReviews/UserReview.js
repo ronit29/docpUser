@@ -35,6 +35,9 @@ class UserReview extends React.Component {
     }
 
     componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         const parsed = queryString.parse(this.props.location.search)
         let sms_token = parsed.token ? parsed.token : null;
         let sms_id = parsed.id ? parsed.id : null;

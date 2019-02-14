@@ -37,6 +37,9 @@ class SharePopUp extends React.Component {
         } else if (btnType == 'twitter') {
             actionVal = 'BookingRatingTwitterShare'
             eventVal = 'booking-rating-twitter-share'
+        } else if (btnType == 'whtsapp') {
+            actionVal = 'BookingRatingWhatsAppShare'
+            eventVal = 'booking-rating-whatsapp-share'
         } else {
             actionVal = 'BookingRatingEmailShare'
             eventVal = 'booking-rating-email-share'
@@ -119,7 +122,7 @@ class SharePopUp extends React.Component {
                                         </EmailShareButton>
                                         <span>Email referral link</span>
                                     </div>
-                                    <div className="whtsappIcon-styling">
+                                    <div className="whtsappIcon-styling" onClick={this.gaTracking.bind(this, 'whtsapp')} >
                                         <a className="whtsAppico" href={"whatsapp://send?text=" + social_message}>
                                             <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
                                             <span>Whatsapp referral link</span>
