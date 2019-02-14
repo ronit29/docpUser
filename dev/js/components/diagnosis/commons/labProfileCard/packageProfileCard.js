@@ -99,7 +99,7 @@ class LabProfileCard extends React.Component {
         }
 
         if (pickup_available == 0) {
-            pickup_text = "Center visit mandatory"
+            pickup_text = "Center visit required"
         }
 
         // let hide_price = false
