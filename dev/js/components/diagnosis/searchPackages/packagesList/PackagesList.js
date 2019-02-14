@@ -91,7 +91,7 @@ class packagesList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.forOrganicSearch ?
+                                this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count >0?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.packagesList.search_content }} >
                                         </div>
