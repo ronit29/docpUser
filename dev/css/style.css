@@ -5550,6 +5550,11 @@ button.add-shpng-cart-btn.update-btn {
     /*background: #f78631;*/
     cursor: pointer;
 }
+.leftIntiaspic{
+	height: 60px !important;
+	width: 60px !important;
+	float: left;
+}
 .user-profile-img{
     height: 70px;
     width: 70px;
