@@ -215,7 +215,7 @@ class HealthPackageAdvisorView extends React.Component {
                                     {
                                         this.state.searchCities.length == 0 ?
                                             <div>
-                                                <div className="hpa-flex mrb-20">
+                                                {/*<div className="hpa-flex mrb-20">
                                                     <div className="hpa-flex hpa-age">
                                                         <label className="fw-500">Age :</label>
                                                         <select id="selectage" value={this.state.age} onChange={this.selectAge.bind(this)}>
@@ -242,17 +242,17 @@ class HealthPackageAdvisorView extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>*/}
                                                 <div className="hpa-flex">
                                                     <div className="hpa-flex">
                                                         <label className="fw-500">Package Type :</label>
                                                         <div className="d-flex" style={{ flexWrap: 'wrap' }}>
                                                             {this.props.recommended_package.filters && this.props.recommended_package.filters.length > 0 ?
                                                                 Object.entries(this.props.recommended_package.filters).map(function ([key, filter]) {
-                                                                    return <div className="dtl-radio d-flex align-items-center dtl-margin-lg" key={key}>
-                                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
-                                                                            <input type="radio" name={`radio2_${filter.id}`} checked={self.state.packageType == filter.id ? true : false} style={{ left: 0 }} />
-                                                                            <span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+                                                                    return <div className="dtl-radio d-flex align-items-center dtl-margin-lg pkgTypeBorder" key={key}>
+                                                                        <label className="container-radio mb-0 hpa-container-radio pl-0" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
+                                                                            {/*<input type="radio" name={`radio2_${filter.id}`} checked={self.state.packageType == filter.id ? true : false} style={{ left: 0 }} />
+                                                                            <span className="doc-checkmark hpa-radio hpa-radio-gender"></span>*/}
                                                                         </label>
                                                                         {
                                                                             filter.information != '' ? <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={self.showInfo.bind(self, filter.id)} /> : ''
