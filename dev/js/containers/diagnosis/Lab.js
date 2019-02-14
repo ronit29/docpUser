@@ -114,7 +114,8 @@ const mapStateToProps = (state, passedProps) => {
         rated_appoinments,
         profiles,
         selectedProfile,
-        currentLabSelectedTests
+        currentLabSelectedTests,
+        selectedLocation
     }
 }
 

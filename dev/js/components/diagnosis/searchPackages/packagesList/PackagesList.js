@@ -74,6 +74,12 @@ class packagesList extends React.Component {
             }, 1000)
         })
     }
+    testInfo() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var test_ids = url.searchParams.get("test_ids");
+        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
+    }
     toggleScroll() {
         if (window) {
             window.scrollTo(0, 0)
@@ -91,7 +97,7 @@ class packagesList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.forSeo ?
+                                this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count >0?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.packagesList.search_content }} >
                                         </div>

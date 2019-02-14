@@ -34,18 +34,18 @@ class LeftMenu extends React.Component {
                                 this.props.toggleLeftMenu()
                                 this.props.history.push(`/user`)} }>
                                 {/*<img src="/assets/images/profile-photo.jpeg" alt="profile-photo" className="user-profile-img" />*/}
-                                <InitialsPicture name={user.name} has_image={!!thumbnail} className="initialsPicture-dp">
-                                    <img src={thumbnail} className="img-fluid img-round" alt={user.name} title={user.name} style={{width:'80px', height:'80px', float:'left'}} />
+                                <InitialsPicture name={user.name} has_image={!!thumbnail} className="initialsPicture-dp leftIntiaspic">
+                                    <img src={thumbnail} className="img-fluid img-round" alt={user.name} title={user.name} style={{width:'60px', height:'60px', float:'left'}} />
                                 </InitialsPicture>
                                 <span className="user-name">{user.name}</span>
-                                <span className="right-arrow r-arrow"></span>
+                                <span className="right-arrow r-arrow" style={{marginTop: '25px'}}></span>
                               </div>
                               :<div className="header-box" onClick={()=>{
                                 this.props.toggleLeftMenu()
                                 this.props.history.push('/user')} }>
                                 {/*<img src="/assets/images/profile-photo.jpeg" alt="profile-photo" className="user-profile-img" />*/}
                                 <span className="user-name">Login</span>
-                                <span className="right-arrow r-arrow"></span>
+                                <span className="right-arrow r-arrow" style={{marginTop: '24px'}}></span>
                               </div>
                             }
                             <ul className="drop-list-menu list_1">
