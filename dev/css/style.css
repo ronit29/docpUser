@@ -4347,7 +4347,7 @@ input.rc-calendar-input {
     border: none;
     text-align: left;
     padding: 10px 10px;
-    font-weight: 400;
+    font-weight: 500;
     display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -5552,13 +5552,17 @@ button.add-shpng-cart-btn.update-btn {
     background: #f78631 url(/assets/images/doc-logo.png) no-repeat top right;
     padding: 15px 15px 30px;
     position: relative;
-    border-radius: 50%/30px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     box-shadow: 1px 1.7px 4px 0 rgba(0, 0, 0, 0.15);
     background-size: 34%;
     /*background: #f78631;*/
     cursor: pointer;
+}
+.leftIntiaspic{
+	height: 60px !important;
+	width: 60px !important;
+	float: left;
 }
 .user-profile-img{
     height: 70px;
@@ -5571,7 +5575,8 @@ button.add-shpng-cart-btn.update-btn {
     padding-left: 15px;
     font-size: 18px;
     display: inline-block;
-    margin-top: 25px;
+    margin-top: 15px;
+    width: 54%;
 }
 .drop-list-menu li a{
     font-size: 14px;
@@ -5799,6 +5804,7 @@ button.add-shpng-cart-btn.update-btn {
 }
 
 
+
 .rev-txt{
 	font-size: 16px;
 	font-weight: 500;
@@ -5886,6 +5892,36 @@ button.add-shpng-cart-btn.update-btn {
 	.first-sec{
 		width: 25%;
 	}
+}
+.viewAllLab{
+	display: block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 16px;
+    background: rgba(246, 135, 58, .2);
+    font-weight: 500;
+    color: #f6873a;
+    border-radius: 5px
+}
+.testInfoHeadTitle{
+	font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.testInfoHeadTitle img{
+	margin-right: 14px;
+}
+.appBaseColor{
+	color:#f78631 !important;
+}
+.border-radius{
+	border-radius: 10px;
+	overflow: hidden;
+}
+.bottomMargin{
+	margin-bottom: 50px;
+
 }
 /* ================ cancel popup ================ */
 .cancelPopupContainerOverlay{
