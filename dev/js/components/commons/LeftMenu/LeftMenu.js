@@ -13,8 +13,15 @@ class LeftMenu extends React.Component {
   }
   render(){
 
-    let user = this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile]:null
+    let user = null
     let thumbnail = null
+
+    if(this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]){
+
+      user = this.props.profiles[this.props.defaultProfile]
+      thumbnail = this.props.profiles[this.props.defaultProfile].profile_image || null
+    }
+    
     return(
            
             <section>
@@ -28,7 +35,7 @@ class LeftMenu extends React.Component {
                                 this.props.history.push(`/user`)} }>
                                 {/*<img src="/assets/images/profile-photo.jpeg" alt="profile-photo" className="user-profile-img" />*/}
                                 <InitialsPicture name={user.name} has_image={!!thumbnail} className="initialsPicture-dp">
-                                    <img src={thumbnail} className="img-fluid img-round" alt={user.name} title={user.name} />
+                                    <img src={thumbnail} className="img-fluid img-round" alt={user.name} title={user.name} style={{width:'80px', height:'80px', float:'left'}} />
                                 </InitialsPicture>
                                 <span className="user-name">{user.name}</span>
                                 <span className="right-arrow r-arrow"></span>

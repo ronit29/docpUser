@@ -11,6 +11,7 @@ import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
 const queryString = require('query-string');
+import CRITEO from '../../../helpers/criteo.js'
 
 const GENDER = {
 	"m": "Male",
@@ -39,12 +40,12 @@ class HomeView extends React.Component {
 			this.setState({ specialityFooterData: cb });
 		});
 
-		let data = {
-			'Category': 'ConsumerApp', 'Action': 'HomePageRender', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-page-render'
-		}
-		GTM.sendEvent({ data: data })
-
 		this.props.getOfferList();
+
+		let data = { 'event': "viewHome"}
+
+		CRITEO.sendData(data)
+
 	}
 
 	navigateTo(where, data, e) {

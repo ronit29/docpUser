@@ -5543,7 +5543,6 @@ button.add-shpng-cart-btn.update-btn {
     background: #f78631 url(/assets/images/doc-logo.png) no-repeat top right;
     padding: 15px 15px 30px;
     position: relative;
-    border-radius: 50%/30px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     box-shadow: 1px 1.7px 4px 0 rgba(0, 0, 0, 0.15);
@@ -5562,7 +5561,8 @@ button.add-shpng-cart-btn.update-btn {
     padding-left: 15px;
     font-size: 18px;
     display: inline-block;
-    margin-top: 25px;
+    margin-top: 15px;
+    width: 54%;
 }
 .drop-list-menu li a{
     font-size: 14px;
