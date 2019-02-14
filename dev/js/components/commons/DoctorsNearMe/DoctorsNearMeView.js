@@ -33,7 +33,7 @@ class DoctorsNearMeView extends React.Component {
     }
 
     render() {
-        console.log('usadiusaudioasuas'); console.log(this.props);
+
         return (
             <div className="profile-body-wrap sitemap-body">
                 <ProfileHeader />

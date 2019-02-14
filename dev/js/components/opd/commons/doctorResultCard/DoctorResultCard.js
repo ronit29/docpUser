@@ -101,7 +101,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, schema, enabled_for_online_booking, discounted_price, parent_url } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -121,14 +121,10 @@ class DoctorProfileCard extends React.Component {
         }
 
         try {
-            if (schema) {
-                schema = JSON.stringify(schema)
-            }
             if (new_schema) {
                 new_schema = JSON.stringify(new_schema)
             }
         } catch (e) {
-            schema = ""
             new_schema = ""
         }
         let is_procedure = false
@@ -158,12 +154,6 @@ class DoctorProfileCard extends React.Component {
 
             return (
                 <div className="filter-card-dl mb-3" >
-                    {
-                        schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
-                            __html: schema
-                        }} />
-                            : ""
-                    }
                     {
                         new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: new_schema
