@@ -5819,12 +5819,12 @@ button.add-shpng-cart-btn.update-btn {
 }
 .first-sec{
 	float: left;
-	width: 20%;
+	width: 19%;
 }
 .last-sec{
 	width: 69%;
 	float: left;
-	margin-left: 15px;
+	margin-left: 5px;
 }
 .c-date{
 	color: #000;
@@ -5832,6 +5832,17 @@ button.add-shpng-cart-btn.update-btn {
 	font-weight: 500;
 	margin-top: 2px;
 	text-align: center;
+}
+.c-date.curr-date{
+	text-align: left;
+}
+.doc-img{
+	height: 54px;
+	width: 54px;
+	border-radius: 50%;
+}
+.sqr-img{
+	width: 70px;
 }
 .clnc-nam{
 	color: #000;
@@ -5849,7 +5860,7 @@ button.add-shpng-cart-btn.update-btn {
 }
 .rating-sec{
 	clear: both;
-	padding:15px 0;
+	padding:10px 0;
 	border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 .rating-sec span.rating-img{
@@ -5860,6 +5871,7 @@ button.add-shpng-cart-btn.update-btn {
     display: inline-flex;
     align-items: center;
     margin-right: 15px;
+    padding-right: 10px;
 }
 .rating-sec span>img {
     width: 11px;
@@ -5870,10 +5882,14 @@ button.add-shpng-cart-btn.update-btn {
     margin-right: 10px;
     display: block;
 }
+.btn-div ul {
+	display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 .btn-div ul li{
-	display: inline-block;
-	width: 50%;
-	padding-top: 15px;
+	flex: 1;
+	padding-top: 10px;
 }
 .btn-div ul li a{
 	display: block;
@@ -5890,7 +5906,7 @@ button.add-shpng-cart-btn.update-btn {
 
 @media screen and (max-width: 330px){
 	.first-sec{
-		width: 25%;
+		width: 19% !important;
 	}
 }
 .viewAllLab{

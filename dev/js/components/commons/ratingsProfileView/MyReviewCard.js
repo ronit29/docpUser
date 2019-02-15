@@ -81,8 +81,8 @@ class MyReviewCard extends React.Component {
                 < div className="widget mrb-15" key={this.state.data.id} >
                     <div className="widget-content">
                         <div className="first-sec">
-                            <img src={this.state.data.icon} className="img-fluid" />
-                            <div className="c-date">{this.state.data.date}</div>
+                            <img src={this.state.data.icon} className= {this.props.details && this.props.details.appointment_type == 1?'img-fluid sqr-img':'img-fluid doc-img'} />
+                            <div className="c-date curr-date">{this.state.data.date}</div>
                         </div>
                         <div className="last-sec">
                             <div className="clnc-nam">{this.state.data.entity_name}</div>
