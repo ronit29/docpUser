@@ -61,9 +61,24 @@ class DoctorsNearMeView extends React.Component {
                         </div>
 
                         {
-                            this.props.articleListData.bottom_content && this.props.articleListData.bottom_content != '' ?
+                            this.props.articleListData.search_content && this.props.articleListData.search_content != '' ?
                                 <div className="col-12 mrt-10">
-                                    <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.articleListData.bottom_content }}>
+                                    <div className="search-result-card-collpase">
+                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.articleListData.search_content }} >
+                                        </div>
+
+                                        {
+                                            this.state.readMore && this.state.readMore != '' ?
+                                                <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
+                                                : ''
+                                        }
+
+                                        {
+                                            this.state.readMore == '' ?
+                                                <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                                                : ''
+                                        }
+
                                     </div>
                                 </div>
                                 : ''
@@ -99,24 +114,9 @@ class DoctorsNearMeView extends React.Component {
                         </div>
 
                         {
-                            this.props.articleListData.search_content && this.props.articleListData.search_content != '' ?
+                            this.props.articleListData.bottom_content && this.props.articleListData.bottom_content != '' ?
                                 <div className="col-12 mrt-10">
-                                    <div className="search-result-card-collpase">
-                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.articleListData.search_content }} >
-                                        </div>
-
-                                        {
-                                            this.state.readMore && this.state.readMore != '' ?
-                                                <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
-                                                : ''
-                                        }
-
-                                        {
-                                            this.state.readMore == '' ?
-                                                <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
-                                                : ''
-                                        }
-
+                                    <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.articleListData.bottom_content }}>
                                     </div>
                                 </div>
                                 : ''
