@@ -8,9 +8,11 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
+
+import { Swipeable } from 'react-swipeable'
 
 require('../css/custom-bootstrap.css')
 require('../css/carousel.css')
@@ -55,6 +57,7 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            
         }
     }
 
@@ -203,10 +206,18 @@ class App extends React.Component {
 
     }
 
+    toggleLeftMenu(toggle, defaultVal){
+        if(document.getElementById('is_header') && document.getElementById('is_header').offsetHeight){
+            this.props.toggleLeftMenuBar(toggle, defaultVal)
+        }
+    }
+
+
+
     render() {
 
         return (
-            <div>
+            <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true) } onSwipedRight={(eventData) => this.toggleLeftMenu(true, true) }>
                 <NotificationsBoot />
                 <BrowserRouter>
                     <div>
@@ -215,7 +226,7 @@ class App extends React.Component {
                     </div>
                 </BrowserRouter>
                 <RatingsPopUp {...this.props} />
-            </div>
+            </Swipeable>
         );
     }
 }
@@ -258,7 +269,8 @@ const mapDispatchToProps = (dispatch) => {
         set_summary_utm: (toggle, validity) => dispatch(set_summary_utm(toggle, validity)),
         mergeUrlState: (flag) => dispatch(mergeUrlState(flag)),
         getCartItems: () => dispatch(getCartItems()),
-        loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias())
+        loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
+        toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal))
     }
 
 }

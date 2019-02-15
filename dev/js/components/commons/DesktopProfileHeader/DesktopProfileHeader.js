@@ -1,15 +1,29 @@
 import React from 'react';
 import InitialsPicture from '../initialsPicture'
 import GTM from '../../../helpers/gtm'
+import LeftMenu from '../LeftMenu/LeftMenu.js'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             headerButtonsState: false,
-            medicinePopup: false
+            medicinePopup: false,
+            toggleHamburger: this.props.toggleLeftMenu || false
         }
     }
+
+   componentWillReceiveProps(nextProps){
+        if(this.state.toggleHamburger != nextProps.toggleLeftMenu){
+            this.setState({toggleHamburger: nextProps.toggleLeftMenu}, ()=>{
+                if(this.state.toggleHamburger){
+                    document.body.style.overflow="hidden"
+                }else{
+                    document.body.style.overflow=""
+                }
+            })
+        }
+   }
 
     navigateTo(where, e) {
         e.preventDefault()
@@ -55,6 +69,10 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
+    toggleLeftMenu(){
+        this.props.toggleLeftMenuBar()
+    }
+
     render() {
 
         let profileData = ''
@@ -93,7 +111,7 @@ class DesktopProfileHeader extends React.Component {
         }
 
         return (
-            <header className={headerClass} style={styles}>
+            <header id="is_header" className={headerClass} style={styles}>
 
                 <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
@@ -118,11 +136,28 @@ class DesktopProfileHeader extends React.Component {
                 </div>
 
                 <div className="container">
+                    {
+                        this.state.toggleHamburger?
+                        <div className="cancel-overlay cl-overlay" onClick={(e) => {
+                        e.stopPropagation()
+                        this.toggleLeftMenu() }}>
+                        </div>
+                        :''
+                    }
+
+                    <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)}/>
+
                     <div className="row align-items-center">
 
-                        <div className="col-lg-3 col-md-4 col-4 align-items-center pr-0" onClick={() => {
+                        <div className="col-lg-3 col-md-4 col-5 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
+                            <div className="ham-menu" onClick={(e) => {
+                                e.stopPropagation()
+                                document.body.style.overflow="hidden"
+                                this.toggleLeftMenu()}}>
+                                <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
+                            </div>
                             <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
                                 <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
                                 <img style={{ width: '45px', marginBottom: '5px' }} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
@@ -226,32 +261,32 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 ml-auto text-right d-lg-none pl-0">
+                        <div className="col-lg-9 col-md-8 col-7 ml-auto text-right d-lg-none pl-0">
                             {
                                 this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
                                     <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
                                 </div>
                             }
 
-                            <div className="head-links" onClick={() => {
+                            <div className="head-links d-none" onClick={() => {
                                 this.props.history.push('/contact')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
                             </div>
 
-                            <div className="head-links">
+                            <div className="head-links d-none">
                                 <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
                             </div>
 
                             {
-                                profileData ? <div className="head-links" onClick={() => {
+                                profileData ? <div className="head-links d-none" onClick={() => {
                                     this.props.history.push('/user')
                                 }}>
                                     {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
                                         <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
                                     </InitialsPicture> */}
                                     <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
-                                </div> : <div className="head-links" onClick={() => {
+                                </div> : <div className="head-links " onClick={() => {
                                     this.props.homePage ? this.props.history.push('/user?ref=home') :
                                         this.props.history.push('/user')
                                 }}>
