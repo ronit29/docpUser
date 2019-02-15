@@ -5672,6 +5672,7 @@ h3.pkg-include{
     border-radius: 5px;
 	max-width: 200px;
 	min-width: 200px;
+	min-height: 230px;
     display: inline-block;
     text-align: center;
     overflow: hidden;
@@ -5770,7 +5771,8 @@ span.slideCutPrc{
 .docScrollSliderContainer{
 	background: #f8f8f8;
 	white-space: nowrap;
-    overflow-y: auto;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 .offerBanner{
