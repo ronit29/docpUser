@@ -162,8 +162,7 @@ class DoctorProfileView extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
-    viewAllDocClick(nearbyDoctors, e) {
-        e.preventDefault();
+    viewAllDocClick(nearbyDoctors) {
         this.props.history.push(nearbyDoctors.doctors_url);
 
         let data = {
@@ -322,15 +321,15 @@ class DoctorProfileView extends React.Component {
                                                                                             </a>
                                                                                         }) : ''
                                                                                 }
-                                                                                {
+                                                                                {/* {
                                                                                     nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation && this.props.selectedLocation.formatted_address != '' && nearbyDoctors.doctors_url ?
-                                                                                        <a href={nearbyDoctors.doctors_url} className="docSlideCard" onClick={(e) => this.viewAllDocClick(nearbyDoctors, e)}>
+                                                                                        <div className="docSlideCard" onClick={() => this.viewAllDocClick(nearbyDoctors)}>
                                                                                             <div className="docScrollSearchAll">
                                                                                                 <img className="img-fluid" src="/assets/images/vall.png" />
                                                                                                 <p>View all {nearbyDoctors.count} {nearbyDoctors.specializations[0].name}<br /> in {this.props.selectedLocation.formatted_address} </p>
                                                                                             </div>
-                                                                                        </a> : ''
-                                                                                }
+                                                                                        </div> : ''
+                                                                                } */}
                                                                             </div>
                                                                         </div>
                                                                     </div>
