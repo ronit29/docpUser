@@ -163,12 +163,20 @@ class DoctorProfileView extends React.Component {
     }
 
     viewAllDocClick(nearbyDoctors) {
-        this.props.history.push(nearbyDoctors.doctors_url);
+
+        let speciality = {...nearbyDoctors.specializations[0]};
+        speciality.type = 'speciality';
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'viewAllDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-all-doctors-click'
         }
         GTM.sendEvent({ data: data })
+
+        this.props.toggleOPDCriteria('speciality', speciality, true);
+
+        setTimeout(() => {
+            this.props.history.push('/opd/searchresults')
+        }, 100)
     }
 
     render() {
@@ -321,7 +329,7 @@ class DoctorProfileView extends React.Component {
                                                                                             </a>
                                                                                         }) : ''
                                                                                 }
-                                                                                {/* {
+                                                                                {
                                                                                     nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation && this.props.selectedLocation.formatted_address != '' && nearbyDoctors.doctors_url ?
                                                                                         <div className="docSlideCard" onClick={() => this.viewAllDocClick(nearbyDoctors)}>
                                                                                             <div className="docScrollSearchAll">
@@ -329,7 +337,7 @@ class DoctorProfileView extends React.Component {
                                                                                                 <p>View all {nearbyDoctors.count} {nearbyDoctors.specializations[0].name}<br /> in {this.props.selectedLocation.formatted_address} </p>
                                                                                             </div>
                                                                                         </div> : ''
-                                                                                } */}
+                                                                                }
                                                                             </div>
                                                                         </div>
                                                                     </div>
