@@ -63,7 +63,7 @@ class TopBar extends React.Component {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
             }
         }
-        if(!this.props.forSeo){
+        if(!this.props.forOrganicSearch){
             var url_string = window.location.href
             var url = new URL(url_string);
             var cat_ids = url.searchParams.get("category_ids")
@@ -273,7 +273,7 @@ class TopBar extends React.Component {
                         </div>
                     </div> : ""
                 }
-                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forSeo?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
+                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forOrganicSearch?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
                 <section className="filter-row sticky-header mbl-stick">
                 {
                     this.props.forTaxSaver?'':
@@ -302,7 +302,7 @@ class TopBar extends React.Component {
                                                 <div style={{ flex: 1 }}>
                                                     <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
                                                         <h1 className="search-result-heading">
-                                                        <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
+                                                        <span className="fw-700"> {this.props.forOrganicSearch?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
                                                         </h1>
                                                         <span className="search-result-span"> {criteriaStr}
                                                             {
@@ -328,7 +328,7 @@ class TopBar extends React.Component {
                                         </div>
                                         :
                                         <div className="filter-pdng">
-                                            {/* <div className="action-filter">
+                                             <div className="action-filter d-none d-md-block alignShareBtn">
                                                 <ul className="inline-list">
                                                     <li className="d-none d-md-inline-block">
                                                         <CopyToClipboard text={this.state.shortURL}
@@ -338,7 +338,7 @@ class TopBar extends React.Component {
                                                             </span>
                                                         </CopyToClipboard>
                                                     </li>
-                                                    <li style={{display:'none'}} onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                                    {/*<li style={{display:'none'}} onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
                                                     <li style={{display:'none'}} onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
@@ -351,14 +351,14 @@ class TopBar extends React.Component {
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                                         }
-                                                    </li>
+                                                    </li>*/}
                                                 </ul>
-                                            </div> */}
+                                            </div> 
                                             <div className="filter-title">
                                             
                                                 {this.props.packagesList?this.props.packagesList.count:''} Results found for 
                                                 <h1 className="search-result-heading">
-                                                <span className="fw-700"> {this.props.forSeo?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
+                                                <span className="fw-700"> {this.props.forOrganicSearch?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
                                                 </h1>
                                                 <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
 

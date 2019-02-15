@@ -18,9 +18,30 @@ class LabProfileCard extends React.Component {
         this.setState({ openViewMore: !this.state.openViewMore })
     }
 
+
     openLab(id, url, e) {
         let dedupe_ids = {}
         this.props.clearExtraTests()
+        if(this.props.noClearTest){
+            let lab_id
+            let test={} 
+            let data = this.props.details
+            if(data.id != id){
+                lab_id = id
+            }else{
+                lab_id = data.id
+            }
+            test.type = 'test'
+            test.name = data.tests[0].name
+            test.id = data.tests[0].id
+            test.deal_price = data.tests[0].deal_price
+            test.mrp = data.tests[0].mrp
+            test.url = data.tests[0].url
+
+            test.lab_id = lab_id
+            test.extra_test = true
+            this.props.toggleDiagnosisCriteria('test', test, true)
+        }else{
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
@@ -45,6 +66,7 @@ class LabProfileCard extends React.Component {
                 new_test.lab_id = id
                 this.props.toggleDiagnosisCriteria('test', new_test, true)
             })
+        }
         let data = {
             'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
         }
@@ -67,7 +89,7 @@ class LabProfileCard extends React.Component {
             }
         }
     }
-    testInfo(test_id, lab_id, event) {
+    testInfo(test_id, lab_id, test_url,event) {
         let selected_test_ids = []
         Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
             selected_test_ids.push(value.id)
@@ -75,7 +97,20 @@ class LabProfileCard extends React.Component {
         var url_string = window.location.href;
         var url = new URL(url_string);
         var search_id = url.searchParams.get("search_id");
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&from=searchresults')
+        let lat = 28.644800
+        let long = 77.216721
+        if(this.props.selectedLocation !== null){
+            lat = this.props.selectedLocation.geometry.location.lat
+            long = this.props.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+        if(test_url && test_url !=''){
+            this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat='+lat+'&long='+long)
+        }else{
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
+        }
         event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-result-page'
@@ -118,12 +153,14 @@ class LabProfileCard extends React.Component {
             })
         }
         let show_detailsIds = []
-        {
-            Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
-                if (value.show_details) {
-                    show_detailsIds.push(value.id)
-                }
-            })
+        if(!this.props.isTestInfo){
+            {
+                Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
+                    if (value.show_details) {
+                        show_detailsIds.push(value.id)
+                    }
+                })
+            }
         }
         return (
 
@@ -154,7 +191,7 @@ class LabProfileCard extends React.Component {
                                         {
                                             this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
                                                 {
-                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id)}>
+                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id,this.props.details.tests[0].url)}>
                                                         <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                     </span> : ''
                                                 }
@@ -193,7 +230,7 @@ class LabProfileCard extends React.Component {
                                                         {
 
                                                             show_detailsIds.indexOf(test.id) > -1 ?
-                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id)}>
+                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id,test.url)}>
                                                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                                 </span> : ''
                                                         }
@@ -244,9 +281,9 @@ class LabProfileCard extends React.Component {
                             other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
                                 {
                                     this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
-                                        <p style={{ marginLeft: '0px' }}>Show less</p>
+                                        <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
                                     </div> : <div style={{ paddingRight: "8px" }}>
-                                            <p style={{ marginLeft: '0px' }}>View {other_labs.length} more locations</p>
+                                            <p className="appBaseColor" style={{ marginLeft: '0px' }}>View {other_labs.length} more locations</p>
                                         </div>
                                 }
 

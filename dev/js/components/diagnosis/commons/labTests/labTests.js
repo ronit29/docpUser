@@ -36,11 +36,24 @@ class LabTests extends React.Component {
 
         this.props.toggleDiagnosisCriteria('test', test)
     }
-    testInfo(test_id, event) {
+    testInfo(test_id,url,event) {
         let lab_id = this.props.selectedLab
         let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
         selected_test_ids = selected_test_ids.map(x => x.id)
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lab_id=' + lab_id + '&from=searchbooknow')
+            let lat = 28.644800
+            let long = 77.216721
+            if(this.props.selectedLocation !== null){
+                lat = this.props.selectedLocation.geometry.location.lat
+                long = this.props.selectedLocation.geometry.location.lng
+
+                if (typeof lat === 'function') lat = lat()
+                if (typeof long === 'function') long = long()
+            }
+        if(url && url !=''){
+            this.props.history.push('/'+url+'?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
+        }else{
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
+        }
         event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
@@ -83,8 +96,8 @@ class LabTests extends React.Component {
                     if (test.is_selected) {
                         if (test.test.show_details) {
                             // test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span>
-                            test_info = <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.test.id)}>
-                                <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                            test_info= <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
+                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                             </span>
                         }
                         selectedTests.push(hide_price ? <li key={i + "srt"}>
