@@ -323,7 +323,7 @@ class DoctorProfileView extends React.Component {
                                                                                         }) : ''
                                                                                 }
                                                                                 {
-                                                                                    nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation.formatted_address != '' && nearbyDoctors.doctors_url ?
+                                                                                    nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation && this.props.selectedLocation.formatted_address != '' && nearbyDoctors.doctors_url ?
                                                                                         <a href={nearbyDoctors.doctors_url} className="docSlideCard" onClick={(e) => this.viewAllDocClick(nearbyDoctors, e)}>
                                                                                             <div className="docScrollSearchAll">
                                                                                                 <img className="img-fluid" src="/assets/images/vall.png" />
