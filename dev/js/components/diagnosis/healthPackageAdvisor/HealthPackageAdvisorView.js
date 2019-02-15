@@ -59,22 +59,29 @@ class HealthPackageAdvisorView extends React.Component {
         }
         self.setState({ testInfoIds: test_ids })
     }
-    selectCategory(cat_id, isSubset) {
+    selectCategory(cat_id, isSubset,cat_data) {
         let ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) == parseInt(cat_id))
         let selected_catIds = [].concat(this.state.selectCatIDs)
+        let selected_testids= [].concat(this.state.selectedTestIds)
         if (ids.length) {
-            if (ids[0].isSubset != isSubset) {
+            if (ids[0].isSubset != isSubset) {alert('abcd')
                 selected_catIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
                 selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest: [] })
             } else {
                 if (ids[0].cat_id == cat_id) {
+                    alert('abc')
                     selected_catIds = selected_catIds.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
                 }
             }
-        } else {
+        } else {alert('a')
+            Object.entries(cat_data.tests).map(function ([key, value]) {
+                selected_testids.push(value.id)
+            })
             selected_catIds.push({ cat_id: cat_id, isSubset: isSubset, subSetTest: [] })
         }
-        this.setState({ selectCatIDs: selected_catIds })
+        // console.log(selected_catIds)
+        console.log(cat_data)
+        this.setState({ selectCatIDs: selected_catIds, selectedTestIds:selected_testids })
     }
     selectTest(test_id, package_id) {
         let test_ids = [].concat(this.state.selectedTestIds)
@@ -197,15 +204,12 @@ class HealthPackageAdvisorView extends React.Component {
         let self = this
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
-                <div className="d-none d-md-block">
-                    <ProfileHeader />
-                </div>
+                <ProfileHeader />
                 <section className="container parent-section book-appointment-section mp0">
                     <div className="row main-row parent-section-row">
                         <div className="col-12 col-md-7 col-lg-7 pt-0">
                             <div className="widget mb-10 mrng-top-20">
                                 <div className="d-flex advisorContainer">
-                                    <img src={ASSETS_BASE_URL + '/img/icons/back-arrow.png'} onClick={this.goBack.bind(this)} />
                                     <h1 className="fw-500">Health Package Advisor</h1>
                                 </div>
                                 <div className="search-top-container">
@@ -299,18 +303,18 @@ class HealthPackageAdvisorView extends React.Component {
                                         return <div className="widget mb-10 mrt-10" key={key}>
                                             <div className="search-top-container">
                                                 <div className="d-flex justify-content-between" style={{ alignItems: 'center' }} >
-                                                    <label className="ck-bx" onChange={self.selectCategory.bind(self, rPackages.id, false)}>{rPackages.name}
+                                                    <label className="ck-bx" onChange={self.selectCategory.bind(self, rPackages.id, false,rPackages)}>{rPackages.name}
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>*/}
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
-                                                    <label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
+                                                    {/*<label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
-                                                        <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>*/}
+                                                        <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
                                                         <span className="checkmark hpa-checkmark"></span>
-                                                    </label>
+                                                    </label>*/}
                                                 </div>
                                                 <div>
                                                     <ul className="list hpa-list">
@@ -318,14 +322,18 @@ class HealthPackageAdvisorView extends React.Component {
                                                             Object.entries(rPackages.tests).map(function ([k, test]) {
                                                                 return <li key={k}>
                                                                     <div style={{ display: 'block', position: 'relative' }}>
-                                                                        {
+                                                                        {/*
                                                                             self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ?
                                                                                 <label className="ck-bx fw-400" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id, rPackages.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
                                                                                     <input type="checkbox" value="on" checked={self.state.selectedTestIds.indexOf(test.id) > -1 ? true : false} />
                                                                                     <span className="checkmark hpa-checkmark"></span>
                                                                                 </label>
                                                                                 : <p className="fw-400" style={{ paddingLeft: 24, lineHeight: '20px' }}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}</p>
-                                                                        }
+                                                                        */}
+                                                                        <label className="ck-bx fw-400" style={{ fontSize: 14, flex: 1, paddingLeft: 24 }} onChange={self.selectTest.bind(self, test.id, rPackages.id)}>{test.name} {test.num_of_parameters != 0 ? '(' + test.num_of_parameters + ')' : ''}
+                                                                            <input type="checkbox" value="on" checked={self.state.selectedTestIds.indexOf(test.id) > -1 ? true : false} />
+                                                                            <span className="checkmark hpa-checkmark"></span>
+                                                                        </label>
                                                                         {
                                                                             test.parameters.length > 0 ? <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} onClick={self.toggleInfo.bind(self, test.id)} /> : ''
                                                                         }
