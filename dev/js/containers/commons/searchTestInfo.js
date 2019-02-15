@@ -20,7 +20,7 @@ class searchTestInfo extends React.Component {
         }
 
         return new Promise((resolve, reject) => {
-            store.dispatch(searchTestData(query.test_ids || '', seo_url, query.lab_id || '', {}, (data) => {
+            store.dispatch(searchTestData(query.test_ids || '', seo_url, query.lab_id || '', {}, false,(data) => {
                 resolve({})
             }))
         })
