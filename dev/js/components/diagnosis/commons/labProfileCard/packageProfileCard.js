@@ -67,12 +67,12 @@ class LabProfileCard extends React.Component {
             }
         }
     }
-    testInfo(test_id,event) {
+    testInfo(test_id, event) {
         let lab_id = this.props.details.lab.id
         // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
         // selected_test_ids = selected_test_ids.map(x => x.id)
         let selected_test_ids = test_id
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id + '&from=searchbooknow')
+        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lab_id=' + lab_id + '&from=searchbooknow')
         event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
@@ -80,7 +80,8 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
     render() {
-        let {discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id,number_of_tests,show_details,categories } = this.props.details;
+
+        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories } = this.props.details;
         distance = Math.ceil(distance / 1000);
         var openingTime = ''
         if (this.props.details.lab_timing) {
@@ -88,13 +89,17 @@ class LabProfileCard extends React.Component {
         }
 
         let pickup_text = ""
-        if (lab.is_home_collection_enabled && distance_related_charges == 1) {
+        if (pickup_available == 1 && distance_related_charges == 1) {
             pickup_text = "Home pickup charges applicable"
         }
 
-        if (lab.is_home_collection_enabled && !distance_related_charges) {
+        if (pickup_available == 1 && !distance_related_charges) {
             pickup_text = "Inclusive of home visit charges"
             discounted_price = parseInt(discounted_price) + parseInt(pickup_charges)
+        }
+
+        if (pickup_available == 0) {
+            pickup_text = "Center visit required"
         }
 
         // let hide_price = false
@@ -115,17 +120,17 @@ class LabProfileCard extends React.Component {
                     <div className="fltr-lctn-dtls">
                         <p>
                             <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                            <span className="fltr-loc-txt">{lab.locality} {lab.city} </span> | 
+                            <span className="fltr-loc-txt">{lab.locality} {lab.city} </span> |
                             <span> {distance} Km</span>
                         </p>
                     </div>
                     <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                         <div className="col-12 mrt-10">
                             <a>
-                                <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name} {show_details?
-                                    <span style={{'marginLeft':'5px',marginTop:'4px',display:'inline-block'}} onClick={this.testInfo.bind(this,id)}>
-                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
-                                        </span>:''}
+                                <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name} {show_details ?
+                                    <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block' }} onClick={this.testInfo.bind(this, id)}>
+                                        <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                    </span> : ''}
                                 </h2>
                                 <h3 className="lab-fltr-dc-name fw-500 pkg-include">{number_of_tests ? `${number_of_tests} Tests Included` : ''} </h3>
                                 {/*<h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{lab.name}</h2>*/}
@@ -150,17 +155,17 @@ class LabProfileCard extends React.Component {
                                     </div>*/}
                             </div>
                             {categories.length > 0 ?
-                                <ul style={{marginTop:'5px'}}>
-                                {
-                                    categories.map((category, k) => {
-                                        return <li className="pkg-listing-tick" key={k} id={category.id}>
-                                            <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px',marginTop:'6px' }} /> 
-                                            {category.name}
-                                        </li>    
-                                    })
-                                }
+                                <ul style={{ marginTop: '5px' }}>
+                                    {
+                                        categories.map((category, k) => {
+                                            return <li className="pkg-listing-tick" key={k} id={category.id}>
+                                                <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
+                                                {category.name}
+                                            </li>
+                                        })
+                                    }
                                 </ul>
-                            :''}
+                                : ''}
                         </div>
                         <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
                             {

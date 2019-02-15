@@ -62,7 +62,7 @@ class HomePageWidget extends React.Component {
 
                         {
                             this.props.searchType ?
-                                <div className="col-4 home-card-col">
+                                <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
                                     <div className="grid-img-cnt brdr-btm">
                                         <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, this.props.navTo)}>
                                             <img className="img-fluid" src="/assets/images/vall.png" />
