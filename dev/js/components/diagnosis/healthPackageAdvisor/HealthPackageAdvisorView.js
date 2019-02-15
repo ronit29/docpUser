@@ -2,6 +2,8 @@ import React from 'react';
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import LocationElements from '../../../containers/commons/locationElements'
 import InfoPopup from './healthPackageInfoPopup.js'
+import GTM from '../../../helpers/gtm';
+const queryString = require('query-string');
 
 class HealthPackageAdvisorView extends React.Component {
     constructor(props) {
@@ -32,9 +34,18 @@ class HealthPackageAdvisorView extends React.Component {
                 this.setState({ age: 3 })
             }
         })
+
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpenHealthPackageAdvisorPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-health-package-advisor-from-${parsed.from || "default"}`, 'from': parsed.from
+        }
+
+        GTM.sendEvent({ data: data })
     }
     searchLab(test, isPackage = false, event) {
         test.type = 'test'
