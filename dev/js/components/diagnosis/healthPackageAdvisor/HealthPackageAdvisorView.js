@@ -2,6 +2,8 @@ import React from 'react';
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import LocationElements from '../../../containers/commons/locationElements'
 import InfoPopup from './healthPackageInfoPopup.js'
+import GTM from '../../../helpers/gtm';
+const queryString = require('query-string');
 
 class HealthPackageAdvisorView extends React.Component {
     constructor(props) {
@@ -32,9 +34,18 @@ class HealthPackageAdvisorView extends React.Component {
                 this.setState({ age: 3 })
             }
         })
+
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpenHealthPackageAdvisorPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-health-package-advisor-from-${parsed.from || "default"}`, 'from': parsed.from
+        }
+
+        GTM.sendEvent({ data: data })
     }
     searchLab(test, isPackage = false, event) {
         test.type = 'test'
@@ -170,6 +181,12 @@ class HealthPackageAdvisorView extends React.Component {
         setTimeout(() => {
             this.props.history.push('/searchpackages')
         }, 100)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'showPackagesButtonClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-packages-button-click', 'SelectedCategories': this.state.selectCatIDs || {}
+        }
+
+        GTM.sendEvent({ data: data })
     }
     getCityListLayout(searchResults = []) {
         if (searchResults.length) {
@@ -305,7 +322,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
-                                                    <label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
+                                                    <label className="ck-bx" style={{ fontSize: 12, paddingLeft: 24 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>*/}
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
