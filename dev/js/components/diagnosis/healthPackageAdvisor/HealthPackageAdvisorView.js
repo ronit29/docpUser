@@ -63,27 +63,34 @@ class HealthPackageAdvisorView extends React.Component {
         let ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) == parseInt(cat_id))
         let selected_catIds = [].concat(this.state.selectCatIDs)
         let selected_testids= [].concat(this.state.selectedTestIds)
+        let subSetTestIds = []
         if (ids.length) {
             if (ids[0].isSubset != isSubset) {alert('abcd')
                 selected_catIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
                 selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest: [] })
             } else {
                 if (ids[0].cat_id == cat_id) {
-                    alert('abc')
+                    Object.entries(ids[0].subSetTest).map(function ([key, value]) {
+                        selected_testids = selected_testids.filter(x => parseInt(x) != parseInt(value))
+                    })
                     selected_catIds = selected_catIds.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
                 }
             }
-        } else {alert('a')
+        } else {
             Object.entries(cat_data.tests).map(function ([key, value]) {
                 selected_testids.push(value.id)
+                subSetTestIds.push(value.id)
             })
-            selected_catIds.push({ cat_id: cat_id, isSubset: isSubset, subSetTest: [] })
+            selected_catIds.push({ cat_id: cat_id, isSubset: isSubset, subSetTest: subSetTestIds })
         }
-        // console.log(selected_catIds)
-        console.log(cat_data)
+        selected_testids = selected_testids.filter(function(item, index){
+            return selected_testids.indexOf(item) >= index;
+        })
         this.setState({ selectCatIDs: selected_catIds, selectedTestIds:selected_testids })
     }
     selectTest(test_id, package_id) {
+        let selected_catIds = [].concat(this.state.selectCatIDs)
+        selected_catIds = selected_catIds.filter(x => parseInt(x.cat_id) != parseInt(package_id))
         let test_ids = [].concat(this.state.selectedTestIds)
         let self = this
         let found = false
@@ -126,7 +133,7 @@ class HealthPackageAdvisorView extends React.Component {
             }
             finalIds = [...package_ids, ...selectedIds]
         }
-        self.setState({ selectedTestIds: test_ids, selectCatIDs: finalIds })
+        self.setState({ selectedTestIds: test_ids, selectCatIDs: finalIds, selectCatIDs: selected_catIds })
     }
     selectAge(event) {
         var event = document.getElementById("selectage")
@@ -201,6 +208,8 @@ class HealthPackageAdvisorView extends React.Component {
         this.props.history.push('/')
     }
     render() {
+        console.log(this.state.selectCatIDs)
+        console.log(this.state.selectedTestIds)
         let self = this
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
