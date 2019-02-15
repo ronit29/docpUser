@@ -167,7 +167,7 @@ class DoctorProfileView extends React.Component {
         this.props.history.push(nearbyDoctors.doctors_url);
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'viewAllRecommendedDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-all-recommended-doctors-click'
+            'Category': 'ConsumerApp', 'Action': 'viewAllDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-all-doctors-click'
         }
         GTM.sendEvent({ data: data })
     }
@@ -324,7 +324,7 @@ class DoctorProfileView extends React.Component {
                                                                                 }
                                                                                 {
                                                                                     nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation.formatted_address != '' && nearbyDoctors.doctors_url ?
-                                                                                        <a href={`/${nearbyDoctors.doctors_url}`} className="docSlideCard" onClick={(e) => this.viewAllDocClick(nearbyDoctors, e)}>
+                                                                                        <a href={nearbyDoctors.doctors_url} className="docSlideCard" onClick={(e) => this.viewAllDocClick(nearbyDoctors, e)}>
                                                                                             <div className="docScrollSearchAll">
                                                                                                 <img className="img-fluid" src="/assets/images/vall.png" />
                                                                                                 <p>View all {nearbyDoctors.count} {nearbyDoctors.specializations[0].name}<br /> in {this.props.selectedLocation.formatted_address} </p>
@@ -381,7 +381,7 @@ class DoctorProfileView extends React.Component {
                                         {
                                             this.state.is_live ?
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
-                                                    {
+                                                    {/* {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
                                                             <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
                                                                 e.preventDefault()
@@ -394,7 +394,7 @@ class DoctorProfileView extends React.Component {
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
-                                                    }
+                                                    } */}
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
                                                         <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }} className="">Book Now</span></p>
@@ -403,7 +403,7 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                                 :
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
-                                                    {
+                                                    {/* {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
                                                             <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
                                                                 e.preventDefault()
@@ -416,7 +416,7 @@ class DoctorProfileView extends React.Component {
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
-                                                    }
+                                                    } */}
                                                     {
                                                         this.state.clinicPhoneNo[this.state.selectedClinic]
                                                             ? <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
