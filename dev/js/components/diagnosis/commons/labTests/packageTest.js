@@ -19,10 +19,11 @@ class PackageTest extends React.Component {
         let test_package = test.package || []
         let test_info
         if (test.test.show_details) {
-            test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.props.testInfo.bind(this,test.test.id)}>
+            test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
             </span>
         }
+        console.log(test)
         return (
             <li key={i} style={{ paddingRight: '0px' }} className="clearfix">
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
