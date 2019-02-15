@@ -152,6 +152,16 @@ class DoctorProfileView extends React.Component {
         this.setState({ [which]: !this.state[which] })
     }
 
+    navigateToDoctor(doctor, e) {
+        e.preventDefault();
+        this.props.history.push(doctor.url);
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'recommendedDoctorClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'recommended-doctor-click', 'DoctorID': doctor.doctor_id
+        }
+        GTM.sendEvent({ data: data })
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -268,7 +278,7 @@ class DoctorProfileView extends React.Component {
                                                                                 {
                                                                                     nearbyDoctors.result && nearbyDoctors.result.length ?
                                                                                         nearbyDoctors.result.map((doctor, id) => {
-                                                                                            return <div className="docSlideCard" key={id} onClick={() => this.props.history.push(doctor.url)}>
+                                                                                            return <a href={`/${doctor.url}`} className="docSlideCard" key={id} onClick={(e) => this.navigateToDoctor(doctor, e)}>
                                                                                                 <div className="docSlideHead">
                                                                                                     {/* {   // RATING CODE BELOW, DONT DELETE
                                                                                                         doctor.rating_graph.avg_rating ?
@@ -299,7 +309,7 @@ class DoctorProfileView extends React.Component {
                                                                                                         <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                            </div>
+                                                                                            </a>
                                                                                         }) : ''
                                                                                 }
                                                                                 {
