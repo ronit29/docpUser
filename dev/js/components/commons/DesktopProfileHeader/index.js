@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout, fetchNotifications, getUserProfile } from '../../../actions/index.js'
+import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar } from '../../../actions/index.js'
 import STORAGE from '../../../helpers/storage'
 import { withRouter } from 'react-router'
 
@@ -35,22 +35,23 @@ class DesktopProfileHeader extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let { profiles, selectedProfile, defaultProfile, notifications, newNotification, cart } = state.USER
+    let { profiles, selectedProfile, defaultProfile, notifications, newNotification, currentRoomId, cart, unread_count, toggleLeftMenu } = state.USER
 
     let {
         selectedLocation
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation, cart
+        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation, currentRoomId, cart, unread_count, toggleLeftMenu
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => dispatch(logout()),
+        logout: (chatRoomId) => dispatch(logout(chatRoomId)),
         fetchNotifications: (cb) => dispatch(fetchNotifications(cb)),
-        getUserProfile: () => dispatch(getUserProfile())
+        getUserProfile: () => dispatch(getUserProfile()),
+        toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal))
     }
 }
 

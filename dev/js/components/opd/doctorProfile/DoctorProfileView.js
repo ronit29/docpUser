@@ -383,7 +383,14 @@ class DoctorProfileView extends React.Component {
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
-                                                            <a className="dpp-btn-view" href={'/' + search_data.url}>
+                                                            <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
+                                                                e.preventDefault()
+                                                                this.props.history.push(`/${search_data.url}`)
+                                                                let data = {
+                                                                    'Category': 'ConsumerApp', 'Action': 'viewMoreDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-more-doctors-click'
+                                                                }
+                                                                GTM.sendEvent({ data: data })
+                                                            }} >
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
@@ -398,7 +405,14 @@ class DoctorProfileView extends React.Component {
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
                                                     {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
-                                                            <a className="dpp-btn-view" href={'/' + search_data.url}>
+                                                            <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
+                                                                e.preventDefault()
+                                                                this.props.history.push(`/${search_data.url}`)
+                                                                let data = {
+                                                                    'Category': 'ConsumerApp', 'Action': 'viewMoreDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-more-doctors-click'
+                                                                }
+                                                                GTM.sendEvent({ data: data })
+                                                            }} >
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''

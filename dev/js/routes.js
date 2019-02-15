@@ -50,6 +50,8 @@ import Referral from './containers/commons/referral'
 import Cart from './containers/commons/cart'
 import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
+import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
+import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -119,6 +121,7 @@ const routes = [
     { path: '/cancelpolicy', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/doctorsignup', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
     { path: '/health-package-compare', exact: true, component: HealthPackage, RENDER_ON_SERVER: true },
+    { path: '/thyrocare-aarogyam-packages', exact: true, component: ThyrocarePackage, RENDER_ON_SERVER: true },
 
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },
@@ -127,11 +130,14 @@ const routes = [
     { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
-    { path: '/search/testinfo', exact: true, component: searchTestInfo },
+    { path: '/search/testinfo', exact: true, component: searchTestInfo , RENDER_ON_SERVER: true },
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
     { path: '/health-package-advisor', exact: true, component: HealthPackageAdvisor, RENDER_ON_SERVER: true },
     { path: '/searchpackages', exact: true, component: DX_SearchPackages, redirect: false, redirectTo: "full-body-checkup-health-packages", RENDER_ON_SERVER: true },
+    { path: '/tax-saver-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
+    { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
+    { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
