@@ -181,6 +181,12 @@ class HealthPackageAdvisorView extends React.Component {
         setTimeout(() => {
             this.props.history.push('/searchpackages')
         }, 100)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'showPackagesButtonClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-packages-button-click', 'SelectedCategories': this.state.selectCatIDs || {}
+        }
+
+        GTM.sendEvent({ data: data })
     }
     getCityListLayout(searchResults = []) {
         if (searchResults.length) {
@@ -316,7 +322,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
-                                                    <label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
+                                                    <label className="ck-bx" style={{ fontSize: 12, paddingLeft: 24 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>*/}
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
