@@ -2056,14 +2056,15 @@ text-align: center;
     margin-top: 10px;
 }
 .user-satisfaction-images span{
-	color: white;
+    color: white;
     background: #f78631;
     position: absolute;
     top: 1px;
     right: 5px;
-    height: 25px;
-    width: 25px;
-    border-radius: 15px;
+    height: 32px;
+    width: 32px;
+    font-size: 12px;
+    border-radius: 50px;
     border: 2px solid white;
     display: flex;
     align-items: center;
@@ -5785,7 +5786,7 @@ button.add-shpng-cart-btn.update-btn {
 
 .coupon-auto-applied-lab{
 	font-size: 11px;
-    bottom: 2px;
+    bottom: 10px;
     position: absolute;
     left: 0;
     right: 0;
@@ -6008,4 +6009,7 @@ h3.pkg-include{
 .pkgTypeBorder:last-child{
 	border-right: none;
     padding-right: 0px;	
+}
+.ratingBtnmrgn{
+	padding: 7px 0 25px 0 !important;
 }
