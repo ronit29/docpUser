@@ -17,7 +17,8 @@ class HealthPackageAdvisorView extends React.Component {
             max_age: '',
             searchCities: [],
             showInfo: false,
-            showInfoText: ''
+            showInfoText: '',
+            initialData:[]
         }
     }
 
@@ -32,6 +33,21 @@ class HealthPackageAdvisorView extends React.Component {
                 this.setState({ age: 3 })
             }
         })
+        if(this.props.recommended_package && this.props.recommended_package.result.length>0){
+            let data ={}
+            let newData =[]
+            Object.entries(this.props.recommended_package.result).map(function ([key, rPackages]) {
+                let data = {}
+                data.cat_id=rPackages.id
+                data.subSetTest = []
+                data.isSubset=false
+                Object.entries(rPackages.tests).map(function ([key, value]) {
+                    data.subSetTest.push(value.id)
+                })
+                newData.push(data)
+            })
+            this.setState({initialData:newData})
+        }
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -64,10 +80,16 @@ class HealthPackageAdvisorView extends React.Component {
         let selected_catIds = [].concat(this.state.selectCatIDs)
         let selected_testids= [].concat(this.state.selectedTestIds)
         let subSetTestIds = []
+        let initialDataVal = []
         if (ids.length) {
-            if (ids[0].isSubset != isSubset) {alert('abcd')
+            initialDataVal = this.state.initialData.filter(x => parseInt(x.cat_id) == parseInt(cat_id))
+            if (initialDataVal[0].subSetTest.length != ids[0].subSetTest.length ) {
                 selected_catIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(cat_id))
-                selected_catIds.push({ cat_id: cat_id, isSubset: !ids[0].isSubset, subSetTest: [] })
+                Object.entries(cat_data.tests).map(function ([key, value]) {
+                    selected_testids.push(value.id)
+                    subSetTestIds.push(value.id)
+                })
+                selected_catIds.push({ cat_id: cat_id, isSubset: ids[0].isSubset, subSetTest:subSetTestIds })
             } else {
                 if (ids[0].cat_id == cat_id) {
                     Object.entries(ids[0].subSetTest).map(function ([key, value]) {
@@ -89,8 +111,6 @@ class HealthPackageAdvisorView extends React.Component {
         this.setState({ selectCatIDs: selected_catIds, selectedTestIds:selected_testids })
     }
     selectTest(test_id, package_id) {
-        let selected_catIds = [].concat(this.state.selectCatIDs)
-        selected_catIds = selected_catIds.filter(x => parseInt(x.cat_id) != parseInt(package_id))
         let test_ids = [].concat(this.state.selectedTestIds)
         let self = this
         let found = false
@@ -109,14 +129,17 @@ class HealthPackageAdvisorView extends React.Component {
 
         let package_ids = []
         let selectedIds = []
-        let finalIds = []
+        let finalIds = [].concat(this.state.selectCatIDs)
         if (this.state.selectCatIDs.length > 0) {
             selectedIds = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) == parseInt(package_id))
-            package_ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(package_id))
+            package_ids = this.state.selectCatIDs.filter(x => parseInt(x.cat_id) != parseInt(package_id
+                ))
             if (selectedIds.length > 0) {
                 Object.entries(selectedIds).map(function ([key, value]) {
-                    if (value.isSubset) {
+
+                    if (value.cat_id == package_id) {
                         let found = false
+                        value.isSubset = false
                         value.subSetTest = value.subSetTest.filter((x) => {
                             if (x == test_id) {
                                 found = true
@@ -127,13 +150,30 @@ class HealthPackageAdvisorView extends React.Component {
                         if (!found) {
                             value.subSetTest.push(test_id)
                         }
-                        // value.subSetTest.push(test_id)
                     }
                 })
+                finalIds = [...package_ids, ...selectedIds]
             }
-            finalIds = [...package_ids, ...selectedIds]
+            if(package_ids.length > 0){
+                Object.entries(package_ids).map(function ([key, val]) {
+                    if(selectedIds.length>0){
+                        Object.entries(package_ids).map(function ([key, selectedId]) {
+                            if(parseInt(val.cat_id) != parseInt(package_id) && selectedId.cat_id != package_id){
+                                return
+                            } 
+                        })
+                    }else{
+                        if(parseInt(val.cat_id) != parseInt(package_id)){
+                            finalIds.push({ cat_id: package_id, isSubset: false, subSetTest: [].concat(test_id) })
+                        }
+                    }
+                })                
+                finalIds = Array.from(new Set(finalIds.map(JSON.stringify))).map(JSON.parse)
+            }
+        }else{
+            finalIds.push({ cat_id: package_id, isSubset: false, subSetTest: [].concat(test_id) })
         }
-        self.setState({ selectedTestIds: test_ids, selectCatIDs: finalIds, selectCatIDs: selected_catIds })
+        self.setState({ selectedTestIds: test_ids, selectCatIDs: finalIds})
     }
     selectAge(event) {
         var event = document.getElementById("selectage")
@@ -209,8 +249,18 @@ class HealthPackageAdvisorView extends React.Component {
     }
     render() {
         console.log(this.state.selectCatIDs)
-        console.log(this.state.selectedTestIds)
         let self = this
+        let selectedCatIDs=[]
+        if(this.state.selectCatIDs.length > 0){
+            Object.entries(this.state.selectCatIDs).map(function ([key, selectedCats]) {
+                Object.entries(self.state.initialData).map(function ([key, initialResp]) {
+                    if(selectedCats.cat_id == initialResp.cat_id && selectedCats.subSetTest.length == initialResp.subSetTest.length){
+                        selectedCatIDs.push(selectedCats.cat_id)
+                    }
+                })
+            })
+        }
+        console.log(selectedCatIDs)
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
                 <ProfileHeader />
@@ -315,7 +365,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                     <label className="ck-bx" onChange={self.selectCategory.bind(self, rPackages.id, false,rPackages)}>{rPackages.name}
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>*/}
-                                                        <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
+                                                        <input type="checkbox" value="on" checked={selectedCatIDs.indexOf(rPackages.id) > -1 ? true : false} />
                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
                                                     {/*<label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
@@ -325,7 +375,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>*/}
                                                 </div>
-                                                <div>
+                                                <div style={{display: self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ?'block':'none'}}>
                                                     <ul className="list hpa-list">
                                                         {
                                                             Object.entries(rPackages.tests).map(function ([k, test]) {
