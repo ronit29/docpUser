@@ -57,38 +57,39 @@ class MyReviewCard extends React.Component {
 
 
     render() {
-        if (this.state.toggle_share) {
-            return <SharePopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} details={this.state.data} />
-        }
-        if (this.state.type == 0) {
-            return <EditReviewPopUp {...this.props} details={this.state.data} submit={this.submitRating.bind(this)} selected_rating={this.state.data.ratings} compliments={this.state.compliments} cancel={this.cancelUpdate.bind(this)} />
-
-        }
         return (
-            < div className="widget mrb-15" key={this.state.data.id} >
-                <div className="widget-content">
-                    <div className="first-sec">
-                        <img src={this.state.data.icon} className="img-fluid" />
-                        <div className="c-date">{this.state.data.date}</div>
-                    </div>
-                    <div className="last-sec">
-                        <div className="clnc-nam">{this.state.data.entity_name}</div>
-                        <div className="clnc-add">{this.state.data.address}</div>
-                    </div>
-                    <div className="rating-sec">
-                        <span className="rating-img"><img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /> {this.state.data.ratings} </span>
-                        <span className="clnc-nam">{this.state.data.compliments}</span>
-                        <div className="clnc-nam pad-t6 rate-mg-top">{this.state.data.review}</div>
-                    </div>
-                    <div className="btn-div">
-                        <ul>
-                            <li><a href="javascript:void(0);" onClick={this.editRating.bind(this)}>Edit</a></li>
-                            {this.state.data.ratings > 3 ?
-                                <li><a href="javascript:void(0);" onClick={this.sharePopUp.bind(this)}>Share</a></li>
-                                : ""}
-                        </ul>
+            <div>
+                < div className="widget mrb-15" key={this.state.data.id} >
+                    <div className="widget-content">
+                        <div className="first-sec">
+                            <img src={this.state.data.icon} className="img-fluid" />
+                            <div className="c-date">{this.state.data.date}</div>
+                        </div>
+                        <div className="last-sec">
+                            <div className="clnc-nam">{this.state.data.entity_name}</div>
+                            <div className="clnc-add">{this.state.data.address}</div>
+                        </div>
+                        <div className="rating-sec">
+                            <span className="rating-img"><img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /> {this.state.data.ratings} </span>
+                            <span className="clnc-nam">{this.state.data.compliments}</span>
+                            <div className="clnc-nam pad-t6 rate-mg-top">{this.state.data.review}</div>
+                        </div>
+                        <div className="btn-div">
+                            <ul>
+                                <li><a href="javascript:void(0);" onClick={this.editRating.bind(this)}>Edit</a></li>
+                                {this.state.data.ratings > 3 ?
+                                    <li><a href="javascript:void(0);" onClick={this.sharePopUp.bind(this)}>Share</a></li>
+                                    : ""}
+                            </ul>
+                        </div>
                     </div>
                 </div>
+                {
+                    this.state.type == 0 ? <EditReviewPopUp {...this.props} details={this.state.data} submit={this.submitRating.bind(this)} selected_rating={this.state.data.ratings} compliments={this.state.compliments} cancel={this.cancelUpdate.bind(this)} /> : ""
+                }
+                {
+                    this.state.toggle_share ? <SharePopUp {...this.props} submit={this.thanYouButton} selectedRating={this.state.selectedRating} details={this.state.data} /> : ""
+                }
             </div>
         );
     }
