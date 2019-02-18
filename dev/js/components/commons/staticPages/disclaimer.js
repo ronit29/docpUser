@@ -10,15 +10,23 @@ class Disclaimer extends React.Component {
     }
 
     render() {
-
+        let mainClass
+        let headingClass
+        if(this.props.fromApp){
+            mainClass = "container about-container appUrlPadding"
+            headingClass = "col-12 text-center d-none d-md-block"
+        }else{
+            mainClass = 'container about-container'
+            headingClass = "col-12 text-center"
+        }
         return (
-            <div className="container about-container">
+            <div className={mainClass}>
                 <HelmetTags tagsData={{
                     title: ('Disclaimer | docprime'),
                     description: ('Disclaimer: Read Disclaimer document of docprime.')
                 }} />
                 <div className="row">
-                    <div className="col-12 text-center">
+                    <div className={headingClass}>
                         <p className="fw-500 about-heading" style={{ marginBottom: 20 }}>Disclaimer</p>
                     </div>
                 </div>

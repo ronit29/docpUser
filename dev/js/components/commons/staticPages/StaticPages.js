@@ -81,7 +81,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/disclaimer'} render={(props) => {
-                    return <Disclaimer {...this.props} {...props} />
+                    return <Disclaimer {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
                 }} />
 
                 <Route exact path={'/terms'} render={(props) => {
