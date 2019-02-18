@@ -118,7 +118,7 @@ class packagesList extends React.Component {
                             {
                                 this.props.forTaxSaver ? <div>
                                     <div className="taxBanner">
-                                        <img className="img-fluid" src="https://cdn.docprime.com/images/layer-2898.png" />
+                                        <img className="img-fluid" src="https://cdn.docprime.com/images/artboard1243.png" />
                                     </div>
                                     <div className="taxContent">
                                         {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
