@@ -6379,12 +6379,20 @@ margin-right: 10px;
 .home-rating-card.review-popup .rate-submit-btn{
 	margin-top: 40px;
 	margin-bottom: 20px;
-	padding: 13px 60px;
+	padding: 11px 50px;
 	font-weight: 500;
 
 }
 .home-rating-card.review-popup .rate-card-header{
 	padding-bottom: 10px;
+}
+.home-rating-card.review-popup .rate-star-icon{
+	justify-content: center;
+}
+.home-rating-card.review-popup .rate-star-icon img{
+	margin: 0 10px;
+	height: 28px;
+	width: 28px;
 }
 @media screen and (max-width: 480px){
 	.home-rating-card.review-popup{
