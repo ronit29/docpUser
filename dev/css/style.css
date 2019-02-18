@@ -850,6 +850,9 @@ p.top-head-link.card-lab-link span {
 	.sticky-pk-container{
 		top: 44px !important;
 	}
+	.sticky-pk-container-2{
+		top: 129px !important;
+	}
 
 }
 @media(max-width: 470px) {
@@ -2062,14 +2065,15 @@ text-align: center;
     margin-top: 10px;
 }
 .user-satisfaction-images span{
-	color: white;
+    color: white;
     background: #f78631;
     position: absolute;
     top: 1px;
     right: 5px;
-    height: 25px;
-    width: 25px;
-    border-radius: 15px;
+    height: 32px;
+    width: 32px;
+    font-size: 12px;
+    border-radius: 50px;
     border: 2px solid white;
     display: flex;
     align-items: center;
@@ -2289,7 +2293,7 @@ p.rt-doc-nm{
 	border-radius: 10px;
 	background-color: #a0a0a0;
 	display: flex;
-	align-items: end;
+	align-items: start;
 	padding: 10px;
 }
 .toast-close-btn{
@@ -3961,12 +3965,15 @@ ul li.time-slot-li-listing{
     text-align: center;
 }
 
-.sticky-pk-container{
+.sticky-pk-container, .sticky-pk-container-2{
 	position: sticky;
     top: 107px;
     background-color: #fff;
 	z-index: 1;
+}
+.sticky-pk-container-2{
 	border-bottom: 1px solid #d3d3d3;
+	top: 192px;
 }
 .stc-no-cursor{
 	cursor: auto;
@@ -5794,7 +5801,7 @@ button.add-shpng-cart-btn.update-btn {
 
 .coupon-auto-applied-lab{
 	font-size: 11px;
-    bottom: 2px;
+    bottom: 10px;
     position: absolute;
     left: 0;
     right: 0;
@@ -6043,6 +6050,174 @@ h3.pkg-include{
     border-radius: 4px;
     display: inline;
 }
+
+/* ================= docSliderStyling ================= */
+.docScrollSliderContainer{
+	padding: 12px;
+}
+.docSlideCard{
+	background: white;
+    border-radius: 5px;
+	max-width: 200px;
+	min-width: 200px;
+	min-height: 230px;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+	box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.2);
+	margin-right: 12px;
+	cursor:pointer;
+}
+.docSlideHead{
+	position: relative;
+    background: rgba(247, 134, 49, 0.3);
+    height: 55px;
+    text-align: right;
+}
+.slideDocRating{
+    position: relative;
+    top: 2px;
+    right: 8px;
+    font-weight: 500;
+	color: #f78637;
+	font-size: 16px;
+}
+.slideDocRating img{
+	margin-top:4px;
+}
+.slideDocMainImg{
+	position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+	top: 18px;
+	height: 60px;
+	width: 60px;
+}
+.slideDocContent{
+	margin-top: 25px;
+}
+.slideDocName{
+	padding: 10px;
+	width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.ct-profile p.slideDocExp{
+    padding: 0 10px;
+    color: #757373;
+	font-weight: 400;
+	width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ct-profile p.slideDocdeg{
+    padding: 0 10px;
+    color: #757373;
+	font-weight: 400;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: 5px;
+	line-height: 14px;
+}
+.ct-profile p.slideDocdeg span{
+	padding: 0 4px;
+	border-right: 1px solid #a2a2a2;
+}
+.ct-profile p.slideDocdeg span:first-of-type{
+	padding-left: 0px;
+}
+.ct-profile p.slideDocdeg span:last-of-type{
+	padding-right: 0px;
+	border-right: none;
+}
+.slideDocPrice {
+    background: white;
+    border: 1px solid #f78631;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 8px 0;
+    padding: 5px 40px;
+}
+span.slideNamePrc {
+    color: #f78631;
+    font-size: 16px;
+    font-weight: 500;
+}
+span.slideCutPrc{
+	color: #757575;
+    font-weight: 500;
+    margin-left: 7px;
+    font-size: 14px;
+    margin-top: 2px;
+    display: inline-block;
+    text-decoration: line-through;
+}
+.docScrollSliderContainer{
+	background: #f8f8f8;
+	white-space: nowrap;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.offerBanner{
+    background: #55a740;
+    position: absolute;
+    top: -6px;
+    right: 10px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    padding: 4px 7px;
+}
+.offerBanner::before{
+    border-width: 3px;
+    border-style: solid;
+    border-color: #2197d200 #466d30 #377228 #00000000;
+    top: 0px;
+    content: "";
+    position: absolute;
+    left: -6px;
+}
+.offerBanner::after{
+    border-width: 3px;
+    border-style: solid;
+    border-color: #73818800 #ed3f3a00 #377228 #377228;
+    top: 0px;
+    content: "";
+    position: absolute;
+    right: -6px;
+}
+.docScrollSearchAll{
+    height: 206px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+	width: 200px;
+	padding: 0 2px;
+}
+.docScrollSearchAll img{
+	width: 40px;
+}
+.docScrollSearchAll p{
+	color: #f78621;
+	margin-top: 12px;
+}
+.docSlideCard:last-child{
+	margin-right: 0px;
+	white-space: normal;
+}
+.panel-title.docScrollWidgetheader{
+    background-color: #f78631;
+    color: white;
+    font-weight: 600;
+}
+
+/* ================= docSliderStyling ================= */
 /* ==================== tax panel ==================== */
 .taxContent{
 	margin: 5px 0 12px 0;
@@ -6062,9 +6237,6 @@ h3.pkg-include{
 	text-transform: uppercase;
 	font-size: 15px;
 	cursor: pointer;
-}
-.taxFullContent{
-
 }
 
 .taxFullContent h4{
@@ -6203,3 +6375,56 @@ margin-right: 10px;
 		margin: 12px;
 	}	
 }
+.ratingBtnmrgn{
+	padding: 7px 0 25px 0 !important;
+}
+
+/* ==================== popDesign ==================== */
+.shareLinkpopupOverlay{
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #000000d1;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.shareLinkpopup{
+    min-width: 300px;
+    width: 40%;
+    background: white;
+    padding: 12px;
+    border-radius: 5px;	
+}
+.shareLinkpopup p{
+	font-weight: 500;
+    font-size: 15px;
+    text-align: center;
+    padding: 5px;
+    background-color: gray;
+    color: white;
+    border-radius: 4px;
+	box-shadow: 1px 1px 1px #454545;
+	word-wrap: break-word;
+}
+.shareLinkpopup span.shrelinkBtn{
+	cursor: pointer;
+    display: block;
+    margin: auto;
+    text-align: center;
+    margin-top: 15px;
+}
+.shareLinkpopup span.shrelinkBtn button{
+	background: #f78631;
+    border: none;
+    color: white;
+    font-weight: 500;
+    padding: 10px 30px;
+    border-radius: 4px;
+    text-transform: uppercase;
+
+}
+/* ==================== popDesign ==================== */

@@ -129,7 +129,7 @@ class LabView extends React.Component {
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1
-                                        } onClick={this.bookLab.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">
+                                        } onClick={this.bookLab.bind(this)} className="ratingBtnmrgn p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">
                                             <span className="coupon-auto-applied-lab">*Coupon auto applied on checkout</span>
                                             <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.currentLabSelectedTests.filter(x => x.is_selected).length} Selected) </span>
                                             Book

@@ -45,6 +45,9 @@ class LabTests extends React.Component {
             if(this.props.selectedLocation !== null){
                 lat = this.props.selectedLocation.geometry.location.lat
                 long = this.props.selectedLocation.geometry.location.lng
+
+                if (typeof lat === 'function') lat = lat()
+                if (typeof long === 'function') long = long()
             }
         if(url && url !=''){
             this.props.history.push('/'+url+'?test_ids=' + test_id + '&selected_test_ids='+selected_test_ids +'&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
@@ -58,6 +61,7 @@ class LabTests extends React.Component {
         GTM.sendEvent({ data: data })
     }
     render() {
+
         let is_package = false
         let number_of_tests = 0
         let defaultTests = []
@@ -69,7 +73,7 @@ class LabTests extends React.Component {
         let unSelectedTests = []
         let unSelectedPackage = []
         let test_info = ''
-        let show_details=''
+        let show_details = ''
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -83,9 +87,9 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     if (test.is_selected) {
-                        selectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price}/>)
+                        selectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} />)
                     } else {
-                        unSelectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)}/>)
+                        unSelectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} />)
                     }
 
                 } else {
@@ -96,17 +100,17 @@ class LabTests extends React.Component {
                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                             </span>
                         }
-                        selectedTests.push(hide_price? <li key={i + "srt"}>
+                        selectedTests.push(hide_price ? <li key={i + "srt"}>
+                            <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                {test.test.name}
+                                <input type="checkbox" checked={test.is_selected ? true : false} />
+                                <span className="checkmark" />
+                            </label>
+                            <span className="test-price text-sm">Free</span>
+                        </li>
+                            : <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                    {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} />
-                                    <span className="checkmark" />
-                                </label>
-                                <span className="test-price text-sm">Free</span>
-                            </li>
-                            :<li key={i + "srt"}>
-                                <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                    {test.test.name} {test.test.show_details?test_info:''}
+                                    {test.test.name} {test.test.show_details ? test_info : ''}
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this)} />
                                     <span className="checkmark" />
                                 </label>
@@ -154,25 +158,40 @@ class LabTests extends React.Component {
         let is_home_collection_enabled = false
         let distance_related_charges = 0
         let home_pickup_charges = false
+        let testsArray = []
         if (this.props.data && this.props.data.lab) {
             is_home_collection_enabled = this.props.data.lab.is_home_collection_enabled
             distance_related_charges = this.props.data.distance_related_charges
             home_pickup_charges = this.props.data.lab.home_pickup_charges
         }
 
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            testsArray = this.props.currentLabSelectedTests.filter(x => x.is_selected)
+        }
+
         let pickup_text = ""
         let extra_price = ""
         let showPriceTag = 0
+        let showPickupText = true
 
-        if (is_home_collection_enabled && distance_related_charges == 1 && !hide_price) {
+        if (testsArray.length) {
+            for (let i = 0; i < testsArray.length; i++) {
+                if (!testsArray[i].is_home_collection_enabled) {
+                    showPickupText = false
+                }
+            }
+        }
+
+        if (is_home_collection_enabled && distance_related_charges == 1 && !hide_price && showPickupText) {
             pickup_text = "Home pickup charges applicable"
         }
 
-        if (is_home_collection_enabled && !distance_related_charges && !hide_price) {
+        if (is_home_collection_enabled && !distance_related_charges && !hide_price && showPickupText) {
             pickup_text = "Home visit charges"
             showPriceTag = 1
             extra_price = this.props.data.lab.home_pickup_charges
         }
+
 
         return (
             <div>
@@ -185,8 +204,8 @@ class LabTests extends React.Component {
                     <ul className="list all-test-list">
                         {selectedTests}
                         {selectedPackage}
-                        {hide_price?'':unSelectedTests}
-                        {hide_price?'':unSelectedPackage}
+                        {hide_price ? '' : unSelectedTests}
+                        {hide_price ? '' : unSelectedPackage}
                     </ul>
                     {
                         pickup_text ? <div className="clearfix">
@@ -210,7 +229,7 @@ class LabTests extends React.Component {
                             </div>
                     }
                     {
-                        hide_price? "" : <div className="pb-view text-right">
+                        hide_price ? "" : <div className="pb-view text-right">
                             <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
                         </div>
                     }

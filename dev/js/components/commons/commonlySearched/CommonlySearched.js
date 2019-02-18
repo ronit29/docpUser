@@ -58,6 +58,9 @@ class CommonlySearched extends React.Component {
         if(this.props.dataState.selectedLocation !== null){
             lat = this.props.dataState.selectedLocation.geometry.location.lat
             long = this.props.dataState.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
         }
         let selected_test_ids = []
         this.props.data.map((row, i) => {
