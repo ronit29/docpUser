@@ -280,9 +280,9 @@ class HealthPackageAdvisorView extends React.Component {
             })
         }
         return (
-            <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
+            <div className="profile-body-wrap dp-container-div" style={{ paddingBottom: 54 }} >
                 <ProfileHeader />
-                <section className="container parent-section book-appointment-section mp0">
+                <section className="container">
                     <div className="row main-row parent-section-row">
                         <div className="col-12 col-md-7 col-lg-7 pt-0">
                             <div className="widget mb-10 mrng-top-20">

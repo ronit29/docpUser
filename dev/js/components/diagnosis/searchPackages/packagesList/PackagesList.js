@@ -127,6 +127,10 @@ class packagesList extends React.Component {
                                 </div>
                                     : ''
                             }
+                            {
+                                !this.props.forOrganicSearch && !this.props.forTaxSaver? <button onClick={() => this.props.history.push('/health-package-advisor')}>Click here
+                                </button> :''
+                            }
                             <div className="row">
                                 <div className="col-12">
                                     {
