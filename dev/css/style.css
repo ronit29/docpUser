@@ -6001,11 +6001,16 @@ h3.pkg-include{
 }
 
 /* ==================== tax panel ==================== */
-.pkgTypeBorder{
+/*.pkgTypeBorder{
     border-right: 1px solid #cdcdcd;
     padding-right: 9px;	
 }
 .pkgTypeBorder:last-child{
 	border-right: none;
     padding-right: 0px;	
+}*/
+
+.pkgCatImg img{
+width: 18px;
+cursor: pointer;
 }
