@@ -7,6 +7,7 @@ const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const queryString = require('query-string');
 import STORAGE from './../../helpers/storage'
+import Loader from '../commons/Loader'
 
 class LabDateTimeSelector extends React.Component {
 
@@ -178,13 +179,7 @@ class LabDateTimeSelector extends React.Component {
 
     }
 
-    render() {console.log(this.state);
-    console.log(this.props.timeSlots);
-console.log('ccccccccccccccc')
-
-    if(this.props.timeSlots[this.state.currentFormattedDate] && this.props.timeSlots[this.state.currentFormattedDate] ){
-    console.log(this.props.timeSlots[this.state.currentFormattedDate])
-}
+    render() {
 
         let currentDate = this.props.getFormattedDate(new Date())
         const parsed = queryString.parse(this.props.location.search)
@@ -250,14 +245,16 @@ console.log('ccccccccccccccc')
                     </div>
                     <div className="select-time-slot-container">
                         {
-                            this.props.timeSlots && this.props.timeSlots[this.state.currentFormattedDate] && this.props.timeSlots[this.state.currentFormattedDate].length ?
-                                <div className="slect-date-img-content mb-0">
-                                    <div className="date-text-img">
-                                        <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
-                                        <p>Select Time Slot</p>
+                            this.props.timeSlots && this.props.timeSlots[this.state.currentFormattedDate]?
+                                this.props.timeSlots[this.state.currentFormattedDate].length ?
+                                    <div className="slect-date-img-content mb-0">
+                                        <div className="date-text-img">
+                                            <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                            <p>Select Time Slot</p>
+                                        </div>
                                     </div>
-                                </div>
-                                : <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+                                    : <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+                            :<Loader/>
                         }
 
                         {

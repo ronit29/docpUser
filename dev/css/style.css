@@ -5714,3 +5714,19 @@ h3.pkg-include{
     border-radius: 4px;
     display: inline;
 }
+.area-pin{
+	font-size: 14px;
+	font-weight: 500;
+	padding-bottom: 10px;	
+}
+.area-pin b{
+	font-weight: 700;
+}
+.area-pin a{
+	display: inline-block;
+	color: #f78631;
+	padding: 0 10px;
+} 
+.area-pin a:hover{
+	color: #f78631;
+}

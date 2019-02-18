@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData , getLabTests } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData , getLabTests, savePincode } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -76,6 +76,7 @@ class Lab extends React.Component {
         //always clear selected time at lab profile
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
+        this.props.savePincode(null)
     }
 
     render() {
@@ -130,7 +131,8 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
-        getLabTests: (labId, testName) => dispatch(getLabTests(labId, testName))
+        getLabTests: (labId, testName) => dispatch(getLabTests(labId, testName)),
+        savePincode: (pincode) => dispatch(savePincode(pincode))
     }
 }
 

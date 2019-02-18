@@ -239,7 +239,7 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
@@ -251,7 +251,7 @@ class BookingSummaryViewNew extends React.Component {
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
                             : ''
                     }
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
@@ -443,7 +443,8 @@ class BookingSummaryViewNew extends React.Component {
 
     setPincode(pincode){
         this.props.savePincode(pincode)
-
+        let slot = { time: {} }
+        this.props.selectLabTimeSLot(slot, false)
         this.setState({showPincodePopup: false, pincode: pincode}, ()=>{
             this.navigateTo('time')    
         })
