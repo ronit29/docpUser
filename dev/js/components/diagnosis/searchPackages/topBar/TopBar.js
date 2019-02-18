@@ -250,7 +250,7 @@ class TopBar extends React.Component {
             locationName = this.props.seoData.location
         }
         return (
-            <div>
+            <div className="filter-row sticky-header mbl-stick">
                 {
                     this.state.dropdown_visible ?
                      <div>
@@ -274,7 +274,7 @@ class TopBar extends React.Component {
                     </div> : ""
                 }
                 <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forOrganicSearch?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
-                <section className="filter-row sticky-header mbl-stick">
+                <section>
                 {
                     this.props.forTaxSaver?'':
                     <div className="top-filter-tab-container">

@@ -209,7 +209,7 @@ class TopBar extends React.Component {
         }
 
         return (
-            <div>
+            <div className="filter-row sticky-header mbl-stick">
                 {this.state.dropdown_visible ?
                  <div>
                     <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
@@ -230,7 +230,7 @@ class TopBar extends React.Component {
                         
                     </div>
                 </div> : ""}
-                <section className="filter-row sticky-header mbl-stick">
+                <section>
                     <div className="top-filter-tab-container">
                         <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
                             {
