@@ -62,6 +62,46 @@ class CategoryPopup extends React.Component {
         this.props.applyCategories(categoryState)
     }
     render() {
+        let isSelected = []
+        let unSelected = []
+        let isSelectedCat=[]
+        let unSelectedCat=[]
+        if(this.props.packagesList.categories && this.props.packagesList.categories.length>0){
+            this.props.packagesList.categories.map((categories, i) => {
+                if(categories.is_selected){
+                    isSelected.push(categories)
+                }else{
+                    unSelected.push(categories)
+                }
+            })
+            if(isSelected.length>0){
+                {
+                isSelected.map((categories, i) => {
+                    isSelectedCat.push(<li key={i}>
+                            <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                {categories.name}
+                                <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
+                                <span className="checkmark" />
+                            </label>
+                        </li>)
+                    })
+                }
+            }
+            if(unSelected.length>0){
+                {
+                unSelected.map((categories, i) => {
+                    unSelectedCat.push(<li key={i}>
+                            <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                {categories.name}
+                                <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
+                                <span className="checkmark" />
+                            </label>
+                        </li>)
+                    })
+                }
+            }
+        }
+
         return (<div>
             <div className="cancel-overlay"></div>
             <div className="widget cancel-appointment-div cancel-popup">    
@@ -80,17 +120,8 @@ class CategoryPopup extends React.Component {
                                 <span className="checkmark" />
                             </label>
                         </li>
-                        {
-                        this.props.packagesList.categories.map((categories, i) => {
-                        return  <li key={i}>
-                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                        {categories.name}
-                                        <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
-                                        <span className="checkmark" />
-                                    </label>
-                                </li>
-                            })
-                        }
+                        {isSelectedCat}
+                        {unSelectedCat}
                         </ul>
                     </div>
                 </div>
