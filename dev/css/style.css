@@ -6184,3 +6184,6 @@ span.slideCutPrc{
 .ratingBtnmrgn{
 	padding: 7px 0 25px 0 !important;
 }
+.scroll-shadow-bar{
+	box-shadow: 0px 1px 1px #dedede;
+}

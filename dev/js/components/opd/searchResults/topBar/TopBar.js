@@ -285,7 +285,7 @@ class TopBar extends React.Component {
                         {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>*/}
                     </div>
-                    <div className="container-fluid">
+                    <div className="container-fluid scroll-shadow-bar">
                         <div className="row">
                             <div className="col-12">
                                 <div className="filter-pdng">
