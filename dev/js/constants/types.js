@@ -126,6 +126,7 @@ export const SET_URL_PAGE = 'SET_URL_PAGE'
 export const SET_LAB_URL_PAGE = 'SET_LAB_URL_PAGE'
 
 export const SET_NEXT_SEARCH_CRITERIA = 'SET_NEXT_SEARCH_CRITERIA'
-//Lab Booking
-export const SAVE_PINCODE = 'SAVE_PINCODE'
 export const TOGGLE_404 = 'TOGGLE_404'
+export const TOGGLE_LEFT_MENU = 'TOGGLE_LEFT_MENU'
+export const SAVE_PINCODE = 'SAVE_PINCODE'
+

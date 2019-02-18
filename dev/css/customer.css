@@ -1914,3 +1914,7 @@ p.rt-doc-nm{
         padding-top: 107px;
     }
 }
+.alignShareBtn{
+	text-align: right;
+	width: auto !important;
+}

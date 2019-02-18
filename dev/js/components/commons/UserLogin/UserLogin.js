@@ -192,13 +192,13 @@ class UserLoginView extends React.Component {
                                         <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
                                         {
                                             this.state.showOTP ?
-                                                <div class="text-center">
-                                                    <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} class="v-btn v-btn-primary btn-sm">
+                                                <div className="text-center">
+                                                    <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} className="v-btn v-btn-primary btn-sm">
                                                         Verify
                                                 </button>
                                                 </div> :
-                                                <div class="text-center">
-                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} class="v-btn v-btn-primary btn-sm">
+                                                <div className="text-center">
+                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
                                                         Continue
                                                 </button>
                                                 </div>

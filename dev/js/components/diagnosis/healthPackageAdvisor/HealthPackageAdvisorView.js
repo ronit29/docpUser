@@ -2,6 +2,8 @@ import React from 'react';
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import LocationElements from '../../../containers/commons/locationElements'
 import InfoPopup from './healthPackageInfoPopup.js'
+import GTM from '../../../helpers/gtm';
+const queryString = require('query-string');
 
 class HealthPackageAdvisorView extends React.Component {
     constructor(props) {
@@ -32,9 +34,18 @@ class HealthPackageAdvisorView extends React.Component {
                 this.setState({ age: 3 })
             }
         })
+
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpenHealthPackageAdvisorPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-health-package-advisor-from-${parsed.from || "default"}`, 'from': parsed.from
+        }
+
+        GTM.sendEvent({ data: data })
     }
     searchLab(test, isPackage = false, event) {
         test.type = 'test'
@@ -170,6 +181,12 @@ class HealthPackageAdvisorView extends React.Component {
         setTimeout(() => {
             this.props.history.push('/searchpackages')
         }, 100)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'showPackagesButtonClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-packages-button-click', 'SelectedCategories': this.state.selectCatIDs || {}
+        }
+
+        GTM.sendEvent({ data: data })
     }
     getCityListLayout(searchResults = []) {
         if (searchResults.length) {
@@ -215,7 +232,7 @@ class HealthPackageAdvisorView extends React.Component {
                                     {
                                         this.state.searchCities.length == 0 ?
                                             <div>
-                                                <div className="hpa-flex mrb-20">
+                                                {/*<div className="hpa-flex mrb-20">
                                                     <div className="hpa-flex hpa-age">
                                                         <label className="fw-500">Age :</label>
                                                         <select id="selectage" value={this.state.age} onChange={this.selectAge.bind(this)}>
@@ -242,17 +259,17 @@ class HealthPackageAdvisorView extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>*/}
                                                 <div className="hpa-flex">
                                                     <div className="hpa-flex">
                                                         <label className="fw-500">Package Type :</label>
                                                         <div className="d-flex" style={{ flexWrap: 'wrap' }}>
                                                             {this.props.recommended_package.filters && this.props.recommended_package.filters.length > 0 ?
                                                                 Object.entries(this.props.recommended_package.filters).map(function ([key, filter]) {
-                                                                    return <div className="dtl-radio d-flex align-items-center dtl-margin-lg" key={key}>
-                                                                        <label className="container-radio mb-0 hpa-container-radio" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
-                                                                            <input type="radio" name={`radio2_${filter.id}`} checked={self.state.packageType == filter.id ? true : false} style={{ left: 0 }} />
-                                                                            <span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+                                                                    return <div className="dtl-radio d-flex align-items-center dtl-margin-lg pkgTypeBorder" key={key}>
+                                                                        <label className="container-radio mb-0 hpa-container-radio pl-0" style={{ marginRight: 0 }} onChange={self.selectPackage.bind(self, filter.id)}>{filter.name}
+                                                                            {/*<input type="radio" name={`radio2_${filter.id}`} checked={self.state.packageType == filter.id ? true : false} style={{ left: 0 }} />
+                                                                            <span className="doc-checkmark hpa-radio hpa-radio-gender"></span>*/}
                                                                         </label>
                                                                         {
                                                                             filter.information != '' ? <img className="hpa-info-icon" src={ASSETS_BASE_URL + "/img/icons/info.svg"} onClick={self.showInfo.bind(self, filter.id)} /> : ''
@@ -305,7 +322,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
-                                                    <label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
+                                                    <label className="ck-bx" style={{ fontSize: 12, paddingLeft: 24 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 0 }}></span>*/}
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />

@@ -9,6 +9,7 @@ import BookingError from '../../opd/patientDetails/bookingErrorPopUp'
 const queryString = require('query-string');
 import STORAGE from '../../../helpers/storage'
 import SnackBar from 'node-snackbar'
+import GTM from '../../../helpers/gtm';
 
 class CartView extends React.Component {
     constructor(props) {
@@ -92,6 +93,12 @@ class CartView extends React.Component {
         }).catch((e) => {
             SnackBar.show({ pos: 'bottom-center', text: "Error Processing cart" });
         })
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'continueToPay', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'continue-to-pay'
+        }
+
+        GTM.sendEvent({ data: data })
     }
 
     getBookingButtonText(total_wallet_balance, price_to_pay) {
@@ -268,7 +275,13 @@ class CartView extends React.Component {
                                         {
                                             !STORAGE.isAgent() && valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={() => {
-                                                    this.props.history.push('/search?from=cart')
+                                                    this.props.history.push('/search?from=cart');
+
+                                                    let data = {
+                                                        'Category': 'ConsumerApp', 'Action': 'addMoreToCart', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'add-more-to-cart'
+                                                    }
+                                                    GTM.sendEvent({ data: data });
+
                                                 }}>Add more to cart</button>
                                                 <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                             </div> : ""
