@@ -5422,6 +5422,9 @@ color: 	#fe7108;
 .pb-5{
 	padding-bottom: 5px;
 }
+.pb-10{
+	padding-bottom:10px !important;
+}
 .cart-viewdtls-btn{
 	color: #f78631;
 	font-weight: 500;
@@ -6240,3 +6243,8 @@ cursor: pointer;
 
 }
 /* ==================== popDesign ==================== */
+.pop-onscreen-scroll{
+	min-height: 30vh;
+	max-height: 40vh;
+	overflow: auto;
+}
