@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, TOGGLE_404 } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -105,6 +105,12 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 
 		let commonSelectedCriterias = [...specializations, ...conditions, ...procedure_category, ...procedures]
 
+		let show404 = false
+		// show 404 on server when no resultd
+		if (response.result && response.result.length == 0 && from_server && searchByUrl) {
+			show404 = true
+		}
+
 		dispatch({
 			type: MERGE_SEARCH_STATE_OPD,
 			payload: {
@@ -135,6 +141,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			dispatch({
 				type: HOSPITAL_SEARCH,
 				payload: {
+					show404,
 					page,
 					...response
 				}
@@ -144,6 +151,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			dispatch({
 				type: DOCTOR_SEARCH,
 				payload: {
+					show404,
 					page,
 					...response
 				}
@@ -151,14 +159,22 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			})
 		}
 
+		let specialization_ids = specializations && specializations.length?specializations.map(x=>x.id).join(','):''
+		let condition_ids = conditions && conditions.length?conditions.map(x=>x.id).join(','):''
+		let procedure_ids = procedures&& procedures.length?procedures.map(x=>x.id).join(','):''
+		let procedure_category_ids = procedure_category && procedure_category.length?procedure_category.map(x=>x.id).join(','):''
 		if (page == 1) {
 			let data = {
-				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0
+				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': procedure_category_ids , 'doctor_name': filterCriteria.doctor_name || '', 'hospital_name': filterCriteria.hospital_name||'', 'hospital_id': filterCriteria.hospital_id||''
 			}
 			GTM.sendEvent({ data: data })
 		}
 
 		if (cb) {
+			// if no results redirect to 404 page
+			if (response.result && response.result.length == 0) {
+				cb(false, true)
+			}
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
 				cb(true)
@@ -234,6 +250,7 @@ export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
 }
 
 export const createOPDAppointment = (postData, callback) => (dispatch) => {
+	postData['visitor_info'] = GTM.getVisitorInfo()
 	return API_POST(`/api/v1/doctor/appointment/create`, postData).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
@@ -430,5 +447,12 @@ export const mergeUrlState = (flag = false) => (dispatch) => {
 export const setNextSearchCriteria = () => (dispatch) => {
 	dispatch({
 		type: SET_NEXT_SEARCH_CRITERIA
+	})
+}
+
+export const toggle404 = (status = false) => (dispatch) => {
+	dispatch({
+		type: TOGGLE_404,
+		payload: status
 	})
 }

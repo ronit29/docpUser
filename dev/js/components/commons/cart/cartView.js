@@ -7,6 +7,9 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CartItem from './cartItem'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp'
 const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
+import SnackBar from 'node-snackbar'
+import GTM from '../../../helpers/gtm';
 
 class CartView extends React.Component {
     constructor(props) {
@@ -90,6 +93,12 @@ class CartView extends React.Component {
         }).catch((e) => {
             SnackBar.show({ pos: 'bottom-center', text: "Error Processing cart" });
         })
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'continueToPay', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'continue-to-pay'
+        }
+
+        GTM.sendEvent({ data: data })
     }
 
     getBookingButtonText(total_wallet_balance, price_to_pay) {
@@ -107,6 +116,16 @@ class CartView extends React.Component {
         }
 
         return `Confirm Booking`
+    }
+
+    sendAgentBookingURL() {
+        this.props.sendAgentBookingURL(null, 'sms', (err, res) => {
+            if (err) {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+            } else {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+            }
+        })
     }
 
     render() {
@@ -185,11 +204,11 @@ class CartView extends React.Component {
                                                                 <h4 className="title mb-20">Payment Summary</h4>
                                                                 <div className="payment-summary-content">
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>Total fees</p>
+                                                                        <p>Total Fees</p>
                                                                         <p>&#8377; {parseInt(total_mrp)}</p>
                                                                     </div>
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>docprime discount</p>
+                                                                        <p>Docprime Discount</p>
                                                                         <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
                                                                     </div>
                                                                     {
@@ -254,11 +273,23 @@ class CartView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                            !STORAGE.isAgent() && valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={() => {
-                                                    this.props.history.push('/search?from=cart')
+                                                    this.props.history.push('/search?from=cart');
+
+                                                    let data = {
+                                                        'Category': 'ConsumerApp', 'Action': 'addMoreToCart', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'add-more-to-cart'
+                                                    }
+                                                    GTM.sendEvent({ data: data });
+
                                                 }}>Add more to cart</button>
                                                 <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                            </div> : ""
+                                        }
+
+                                        {
+                                            STORAGE.isAgent() ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                                <button className="add-shpng-cart-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS EMAIL</button>
                                             </div> : ""
                                         }
 
@@ -267,13 +298,16 @@ class CartView extends React.Component {
                                         }
 
 
-                                    </section> : <div className="norf widget" style={{ marginTop: '10px', height: '74vh' }}>
-                                            {
-                                                cart == null ? "" : <div className="">
-                                                    <img style={{}} src={ASSETS_BASE_URL + "/img/emptyCart.svg"} />
-                                                    <p className="emptyCardText">Your Cart is Empty!</p>
-                                                </div>
-                                            }
+                                    </section> : <div className="container-fluid">
+                                            <div className="norf widget" style={{ marginTop: '10px', height: '69vh' }}>
+                                                {
+                                                    cart == null ? "" : <div className="text-center">
+                                                        <img style={{ width: '150px' }} src={ASSETS_BASE_URL + "/img/emptyCart1.png"} />
+                                                        <p className="emptyCardText">Your Cart is Empty!</p>
+                                                        <button onClick={() => { this.props.history.push('/search') }} className="emptyCartRedirect">Book Appointments Now</button>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
                                 }
                             </div>

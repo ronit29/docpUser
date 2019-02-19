@@ -12,7 +12,8 @@ class packagesList extends React.Component {
             hasMore: false,
             loading: false,
             renderBlock: false,
-            page: 0
+            page: 0,
+            readMore: 'search-details-data-less'
         }
     }
 
@@ -73,6 +74,21 @@ class packagesList extends React.Component {
             }, 1000)
         })
     }
+    testInfo() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var test_ids = url.searchParams.get("test_ids");
+        this.props.history.push('/search/testinfo?test_ids=' + test_ids + '&from=searchresults')
+    }
+    toggleScroll() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        this.setState({ readMore: 'search-details-data-less' })
+    }
+    showTc() {
+        this.props.history.push('/tax-saver-health-packages-tc')
+    }
     render() {
         let { LABS, labList } = this.props
         return (
@@ -80,16 +96,47 @@ class packagesList extends React.Component {
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
+                            {
+                                this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count >0?
+                                    <div className="search-result-card-collpase">
+                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.packagesList.search_content }} >
+                                        </div>
+
+                                        {this.state.readMore && this.state.readMore != '' ?
+                                            <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
+                                            : ''
+                                        }
+
+                                        {this.state.readMore == '' ?
+                                            <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                                            : ''
+                                        }
+
+                                    </div>
+                                    : ''
+                            }
+                            {
+                                this.props.forTaxSaver ? <div>
+                                    <div className="taxBanner">
+                                        <img className="img-fluid" src="https://cdn.docprime.com/images/artboard1243.png" />
+                                    </div>
+                                    <div className="taxContent">
+                                        {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
+                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{display: 'inline-block'}}>₹ 5000</span> under section 80D. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
+                                    </div>
+                                </div>
+                                    : ''
+                            }
                             <div className="row">
                                 <div className="col-12">
-                                {
-                                    this.props.packagesList && this.props.packagesList.result ?this.props.packagesList.result.map((packages, i) => {
-                                    return <div key={i}>
-                                            <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
-                                        </div>
+                                    {
+                                        this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
+                                            return <div key={i}>
+                                                <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                            </div>
                                         })
-                                    :''
-                                }
+                                            : ''
+                                    }
 
                                     {/*<InfiniteScroll
                                         pageStart={0}

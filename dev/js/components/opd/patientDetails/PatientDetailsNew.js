@@ -306,6 +306,11 @@ class PatientDetailsNew extends React.Component {
         }
 
         if (addToCart) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'OpdAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-add-to-cart-clicked'
+            }
+
+            GTM.sendEvent({ data: data })
             this.props.addToCart(1, postData).then((res) => {
                 this.props.history.push('/cart')
             }).catch((err) => {
@@ -321,6 +326,11 @@ class PatientDetailsNew extends React.Component {
 
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'OpdProceedButtonClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-proceed-button-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+
+        analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
         }
         GTM.sendEvent({ data: analyticData })
 
@@ -342,7 +352,7 @@ class PatientDetailsNew extends React.Component {
 
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/order/summary/${data.data.orderId}`)
+                    this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
@@ -592,13 +602,13 @@ class PatientDetailsNew extends React.Component {
                                                                         <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                     </div>
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>docprime discount</p>
+                                                                        <p>Docprime Discount</p>
                                                                         <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                     </div>
                                                                     {
                                                                         this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                             ? <div className="payment-detail d-flex">
-                                                                                <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                 <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
                                                                             </div>
                                                                             : ''
@@ -676,7 +686,7 @@ class PatientDetailsNew extends React.Component {
                                 </button>
 
                                 {
-                                    this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                     } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
                                 }

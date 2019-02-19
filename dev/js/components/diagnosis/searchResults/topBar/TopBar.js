@@ -210,7 +210,41 @@ class TopBar extends React.Component {
 
         return (
             <div>
+                {this.state.dropdown_visible ?
+                 <div>
+                    <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
+                    </div>
+                    <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
+                        <div className="pop-top-heading">
+                            Sort                        
+                        </div>
+                        <div className="col-12">
+                            <div className="ins-form-radio insradio-on-popup">
+                            <ul>
+                            <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight:'10px' }} />Relevance</li>
+                            <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 18, marginRight:'10px' }} />Fee</li>
+                            <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 11, marginRight:'10px' }} />Distance</li>
+                            </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> : ""}
                 <section className="filter-row sticky-header mbl-stick">
+                    <div className="top-filter-tab-container">
+                        <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
+                            {
+                                this.state.sort_on != null? <span className="applied-filter-noti-new" /> : ""
+                            }
+                        </div>
+                        <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
+                            {
+                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
+                            }
+                        </div>
+                        {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
+                        </div>*/}
+                    </div>
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
@@ -244,7 +278,7 @@ class TopBar extends React.Component {
                                         </div>
                                         :
                                         <div className="filter-pdng">
-                                            <div className="action-filter">
+                                            <div className="action-filter d-none d-md-block alignShareBtn">
                                                 <ul className="inline-list">
                                                     <li className="d-none d-md-inline-block">
                                                         <CopyToClipboard text={this.state.shortURL}
@@ -254,12 +288,12 @@ class TopBar extends React.Component {
                                                             </span>
                                                         </CopyToClipboard>
                                                     </li>
-                                                    <li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
+                                                    {/*<li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
                                                     <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
                                                         {
                                                             this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
                                                         }
-                                                    </li>
+                                                    </li>*/}
                                                 </ul>
                                             </div>
                                             <div className="filter-title">
@@ -276,7 +310,7 @@ class TopBar extends React.Component {
                                             </div>
                                         </div>
                                 }
-                                {
+                                {/*
                                     this.state.dropdown_visible ?
                                         <div>
                                             <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
@@ -288,7 +322,7 @@ class TopBar extends React.Component {
                                                 </ul>
                                             </div>
                                         </div> : ""
-                                }
+                                */}
                             </div>
                         </div>
                         {

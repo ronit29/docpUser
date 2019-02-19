@@ -24,7 +24,7 @@ class SearchElasticView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from
+            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from, 'defaultSearchButton' : this.props.selectedSearchType || ''
         }
 
         GTM.sendEvent({ data: data })

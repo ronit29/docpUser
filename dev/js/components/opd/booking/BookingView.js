@@ -9,7 +9,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
-
+import CRITEO from '../../../helpers/criteo.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -44,22 +44,30 @@ class BookingView extends React.Component {
             if (!err) {
                 this.setState({ data: data[0], loading: false })
                 let info = {}
-                info[appointmentId] = {}
-                info[appointmentId].deal_price = data.length?data[0].deal_price:''
-                info[appointmentId].mrp = data.length?data[0].mrp:''
+                info[appointmentId] = []
+                info[appointmentId].push({ 'booking_id': appointmentId, 'mrp': data.length ? data[0].mrp : '', 'deal_price': data.length ? data[0].deal_price : '' })
+
                 info = JSON.stringify(info)
-                STORAGE.setAppointmentDetails(info).then((setCookie)=> {
+                STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
                     if (this.state.payment_success) {
 
                         let analyticData = {
                             'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
                         }
-                        GTM.sendEvent({ data: analyticData })
+                        GTM.sendEvent({ data: analyticData }, true, false)
+
+                        let criteo_data = 
+                            { 'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                {'id': "1", 'price': data.length?data[0].deal_price:'', 'quantity': 1 }
+                            ]}
+
+                        CRITEO.sendData(criteo_data)
+
                         this.props.history.replace(this.props.location.pathname + "?hide_button=true")
                     }
                 })
-                
+
             } else {
                 this.setState({ data: null, loading: false })
             }
@@ -352,7 +360,7 @@ class BookingView extends React.Component {
                             }
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments = {this.state.data && this.state.data.cancellation_reason?this.state.data.cancellation_reason:[]} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} /> : ""
                             }
 
                         </div>

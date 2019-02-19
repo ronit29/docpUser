@@ -19,7 +19,7 @@ class PackageTest extends React.Component {
         let test_package = test.package || []
         let test_info
         if (test.test.show_details) {
-            test_info= <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block'}} onClick={this.props.testInfo.bind(this,test.test.id)}>
+            test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
             </span>
         }
@@ -27,9 +27,9 @@ class PackageTest extends React.Component {
             <li key={i} style={{ paddingRight: '0px' }} className="clearfix">
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
-                        {test.test.name}
+                        {test.test.name} {test.test.show_details?test_info:''}
                     </p>
-                    {test.test.show_details?test_info:''}
+                    
                     {
                         test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575' }}>{
                             `(includes ${test.number_of_tests} Tests)`}

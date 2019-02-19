@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router'
+import GTM from '../../../helpers/gtm';
 
 class Footer extends React.Component {
     constructor(props) {
@@ -179,15 +180,33 @@ class Footer extends React.Component {
                                 <ul>
                                     <li><a href="/doctorsignup" onClick={(e) => {
                                         e.preventDefault();
-                                        this.navigateTo("/doctorsignup")
+                                        this.navigateTo("/doctorsignup");
+
+                                        let data = {
+                                            'Category': 'ConsumerApp', 'Action': 'addYourClinicClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'add-your-clinic-click'
+                                        }
+                                        GTM.sendEvent({ data: data });
+
                                     }}>Add Your Clinic</a></li>
                                     <li><a href="/doctorsignup" onClick={(e) => {
                                         e.preventDefault();
-                                        this.navigateTo("/doctorsignup")
+                                        this.navigateTo("/doctorsignup");
+
+                                        let data = {
+                                            'Category': 'ConsumerApp', 'Action': 'addYourLabClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'add-your-lab-click'
+                                        }
+                                        GTM.sendEvent({ data: data });
+
                                     }}>Add Your Lab</a></li>
                                     <li><a href="/doctorsignup" onClick={(e) => {
                                         e.preventDefault();
-                                        this.navigateTo("/doctorsignup")
+                                        this.navigateTo("/doctorsignup");
+
+                                        let data = {
+                                            'Category': 'ConsumerApp', 'Action': 'doctorSignUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-sign-up'
+                                        }
+                                        GTM.sendEvent({ data: data });
+
                                     }}>Doctor Sign Up</a></li>
                                 </ul>
                             </div>
@@ -197,45 +216,45 @@ class Footer extends React.Component {
                                 <h3>Labs in Top Cities</h3>
                                 <ul>
                                     <li><a href="/labs-in-delhi-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-delhi-lbcit')
-                                                            }}>Labs in Delhi</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-delhi-lbcit')
+                                    }}>Labs in Delhi</a></li>
                                     <li><a href="/labs-in-gurgaon-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-gurgaon-lbcit')
-                                                            }}>Labs in Gurgaon</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-gurgaon-lbcit')
+                                    }}>Labs in Gurgaon</a></li>
                                     <li><a href="/labs-in-bangalore-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-bangalore-lbcit')
-                                                            }}>Labs in Bangalore</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-bangalore-lbcit')
+                                    }}>Labs in Bangalore</a></li>
                                     <li><a href="/labs-in-noida-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-noida-lbcit')
-                                                            }}>Labs in Noida</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-noida-lbcit')
+                                    }}>Labs in Noida</a></li>
                                     <li><a href="/labs-in-mumbai-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-mumbai-lbcit')
-                                                            }}>Labs in Mumbai</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-mumbai-lbcit')
+                                    }}>Labs in Mumbai</a></li>
                                     <li><a href="/labs-in-kolkata-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-kolkata-lbcit')
-                                                            }}>Labs in Kolkata</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-kolkata-lbcit')
+                                    }}>Labs in Kolkata</a></li>
                                     <li><a href="/labs-in-hyderabad-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-hyderabad-lbcit')
-                                                            }}>Labs in Hyderabad</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-hyderabad-lbcit')
+                                    }}>Labs in Hyderabad</a></li>
                                     <li><a href="/labs-in-chennai-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-chennai-lbcit')
-                                                            }}>Labs in Chennai</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-chennai-lbcit')
+                                    }}>Labs in Chennai</a></li>
                                     <li><a href="/labs-in-pune-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-pune-lbcit')
-                                                            }}>Labs in Pune</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-pune-lbcit')
+                                    }}>Labs in Pune</a></li>
                                     <li><a href="/labs-in-ghaziabad-lbcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/labs-in-ghaziabad-lbcit')
-                                                            }}>Labs in Ghaziabad</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/labs-in-ghaziabad-lbcit')
+                                    }}>Labs in Ghaziabad</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -244,45 +263,45 @@ class Footer extends React.Component {
                                 <h3>Doctors in Top Cities</h3>
                                 <ul>
                                     <li><a href="/doctors-in-delhi-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-delhi-sptcit')
-                                                            }}>Doctors in Delhi</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-delhi-sptcit')
+                                    }}>Doctors in Delhi</a></li>
                                     <li><a href="/doctors-in-gurgaon-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-gurgaon-sptcit')
-                                                            }}>Doctors in Gurgaon</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-gurgaon-sptcit')
+                                    }}>Doctors in Gurgaon</a></li>
                                     <li><a href="/doctors-in-bangalore-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-bangalore-sptcit')
-                                                            }}>Doctors in Bangalore</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-bangalore-sptcit')
+                                    }}>Doctors in Bangalore</a></li>
                                     <li><a href="/doctors-in-noida-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-noida-sptcit')
-                                                            }}>Doctors in Noida</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-noida-sptcit')
+                                    }}>Doctors in Noida</a></li>
                                     <li><a href="/doctors-in-mumbai-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-mumbai-sptcit')
-                                                            }}>Doctors in Mumbai</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-mumbai-sptcit')
+                                    }}>Doctors in Mumbai</a></li>
                                     <li><a href="/doctors-in-kolkata-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-kolkata-sptcit')
-                                                            }}>Doctors in Kolkata</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-kolkata-sptcit')
+                                    }}>Doctors in Kolkata</a></li>
                                     <li><a href="/doctors-in-hyderabad-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-hyderabad-sptcit')
-                                                            }}>Doctors in Hyderabad</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-hyderabad-sptcit')
+                                    }}>Doctors in Hyderabad</a></li>
                                     <li><a href="/doctors-in-chennai-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-chennai-sptcit')
-                                                            }}>Doctors in Chennai</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-chennai-sptcit')
+                                    }}>Doctors in Chennai</a></li>
                                     <li><a href="/doctors-in-pune-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-pune-sptcit')
-                                                            }}>Doctors in Pune</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-pune-sptcit')
+                                    }}>Doctors in Pune</a></li>
                                     <li><a href="/doctors-in-ghaziabad-sptcit" onClick={(e) => {
-                                                                e.preventDefault();
-                                                                this.navigateTo('/doctors-in-ghaziabad-sptcit')
-                                                            }}>Doctors in Ghaziabad</a></li>
+                                        e.preventDefault();
+                                        this.navigateTo('/doctors-in-ghaziabad-sptcit')
+                                    }}>Doctors in Ghaziabad</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -310,6 +329,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/speciality-inventory")
                                     }}>All Specialities</a></li>
+                                    <li><a href="/doctors-near-me" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.navigateTo("/doctors-near-me")
+                                    }}>Find a Doctor Near You</a></li>
                                 </ul>
                             </div>
                         </div>

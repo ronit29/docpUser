@@ -317,6 +317,11 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         if (addToCart) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'LabAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-add-to-cart-clicked'
+            }
+
+            GTM.sendEvent({ data: data })
             this.props.addToCart(2, postData).then((res) => {
                 this.props.history.push('/cart')
             }).catch((err) => {
@@ -342,6 +347,12 @@ class BookingSummaryViewNew extends React.Component {
 
         GTM.sendEvent({ data: data })
 
+
+        let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'LabConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-confirm-booking-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 this.props.removeLabCoupons(this.state.selectedLab, this.state.couponId)
@@ -360,7 +371,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 } else {
                     // send back to appointment page
-                    this.props.history.replace(`/order/summary/${data.data.orderId}`)
+                    this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
                 let message = "Could not create appointment. Try again later !"
@@ -552,10 +563,10 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                             <ul className="inline-list booking-type search-list-radio">
                                                                                 {
-                                                                                    is_home_collection_enabled?
-                                                                                    <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li> :""   
+                                                                                    is_home_collection_enabled ?
+                                                                                        <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li> : ""
                                                                                 }
-                                                                                
+
                                                                                 {
                                                                                     center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
                                                                                 }
@@ -627,7 +638,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
-                                                                                <p>Lab fees</p>
+                                                                                <p>Lab Fees</p>
                                                                                 <p>&#8377; {finalMrp}</p>
                                                                             </div>
                                                                             {
@@ -637,13 +648,13 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 </div> : ""
                                                                             }
                                                                             <div className="payment-detail d-flex">
-                                                                                <p>Docprime discount</p>
+                                                                                <p>Docprime Discount</p>
                                                                                 <p>- &#8377; {finalMrp - finalPrice}</p>
                                                                             </div>
                                                                             {
                                                                                 this.props.disCountedLabPrice && !this.state.is_cashback
                                                                                     ? <div className="payment-detail d-flex">
-                                                                                        <p style={{ color: 'green' }}>Coupon discount</p>
+                                                                                        <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                         <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
                                                                                     </div>
                                                                                     : ''
@@ -731,7 +742,7 @@ class BookingSummaryViewNew extends React.Component {
                                     {this.state.cart_item ? "Update" : "Add to Cart"}
                                 </button>
                                 {
-                                    this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                     } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
