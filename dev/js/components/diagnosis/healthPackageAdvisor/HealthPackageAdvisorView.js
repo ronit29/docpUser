@@ -241,7 +241,8 @@ class HealthPackageAdvisorView extends React.Component {
         }
         let newCategoryState = {}
         let filterstate = { ...this.props.filterCriteriaPackages }
-        newCategoryState['catIds'] = cat_ids
+        // newCategoryState['catIds'] = cat_ids
+        newCategoryState['catIds'] = this.state.selectCatIDs
         newCategoryState['selectCatIDs'] = this.state.selectCatIDs
         newCategoryState['test_ids'] = test_ids
         newCategoryState['distanceRange'] = [0, 15]
