@@ -204,7 +204,7 @@ class AppointmentReschedule extends React.Component {
                                             </div>
 
                                             {
-                                                this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                                             }
 
 

@@ -85,7 +85,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/terms'} render={(props) => {
-                    return <Terms {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
+                    return <Terms {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false} forScroll={parsed.forBookingScroll?parsed.forBookingScroll:false}/>
                 }} />
 
                 <Route exact path={'/careers'} render={(props) => {
