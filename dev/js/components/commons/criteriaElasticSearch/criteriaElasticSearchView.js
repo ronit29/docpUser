@@ -28,7 +28,9 @@ class CriteriaElasticSearchView extends React.Component {
             searchResults: [],
             loading: false,
             searchCities: [],
-            currentTestType: {}
+            currentTestType: {},
+            type: '',
+            visibleType:''
         }
     }
 
@@ -56,7 +58,13 @@ class CriteriaElasticSearchView extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.type != nextProps.type) {
-            this.setState({ searchValue: '', searchResults: [] })
+            
+            if(nextProps.elasticSearchString){
+                this.setState({ searchValue: nextProps.elasticSearchString, searchResults: []})
+                this.getSearchResults()
+            }else{
+                this.setState({ searchValue: '', searchResults: [] })    
+            }
         }
     }
 
@@ -90,12 +98,42 @@ class CriteriaElasticSearchView extends React.Component {
 
         let location = { lat: lat, long: long }
 
-        this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type, location, (searchResults) => {
-            if (searchResults) {
-                this.setState({ searchResults: searchResults.suggestion, searchedCategories: searchResults.suggestedCategories, loading: false })
+        let LAB_TYPES = ['lab_test_synonym','lab_test', 'lab']
+
+        let OPD_TYPES = ['visit_reason', 'practice_specialization', 'doctor', 'hospital', 'practice_specialization_synonym']
+        
+        let PROCEDURE_TYPES = ['procedure_category', 'procedure']
+        
+        let type = ''
+        let visibleType = ''
+       let filterResults = this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type, location)
+
+       let allSearchResults = this.props.getElasticCriteriaResults(this.state.searchValue.trim(), '', location)
+
+       Promise.all([filterResults, allSearchResults]).then(([filterSearchResults, searchResults])=>{
+
+            if(searchResults && searchResults.suggestion && searchResults.suggestion.length){
+
+                if(LAB_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='lab'){
+
+                    type = 'lab'
+                    visibleType = searchResults.suggestion[0]
+                }else if(OPD_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='opd'){
+
+                    type = 'opd'
+                    visibleType = searchResults.suggestion[0]
+                }else if(PROCEDURE_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='procedures'){
+
+                    type = 'procedures'
+                    visibleType = searchResults.suggestion[0]
+                }
 
             }
-        })
+            if (filterSearchResults) {
+                this.setState({ searchResults: filterSearchResults.suggestion, searchedCategories: filterSearchResults.suggestedCategories, loading: false, type: type, visibleType: visibleType })
+            }
+
+       })
     }
 
     addCriteria(criteria) {
@@ -291,19 +329,19 @@ class CriteriaElasticSearchView extends React.Component {
                                                     <div className="srch-radio-btns" id="search_results_view">
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Doctor
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'opd', this.state.searchValue)} checked={this.props.selected == 'opd'} name="radio" />
+                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'opd', '')} checked={this.props.selected == 'opd'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Test
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'lab', this.state.searchValue)} checked={this.props.selected == 'lab'} name="radio" />
+                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'lab', '')} checked={this.props.selected == 'lab'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Dental Treatments
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'procedures', this.state.searchValue)} checked={this.props.selected == 'procedures'} name="radio" />
+                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'procedures', '')} checked={this.props.selected == 'procedures'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
@@ -363,6 +401,27 @@ class CriteriaElasticSearchView extends React.Component {
                                                                 <div className="common-listing-cont">
                                                                     <ul>
                                                                         {
+                                                                            this.state.type?
+                                                                            <li onClick={() => {
+
+                                                                                let data = {
+                                                                                    'Category': 'ConsumerApp', 'Action': 'ChangeTypeClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-type-clicked', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                                                }
+                                                                                GTM.sendEvent({ data: data })
+
+                                                                                this.props.changeSelection(this.state.type, this.state.searchValue)
+                                                                            }}>
+                                                                                <div className="serach-rslt-with-img">
+                                                                                    <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                        <img style={{ width: '20px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                    </span>
+                                                                                    <p className="p-0" >Did you mean? <span className="search-span-sub">{this.state.searchValue}</span> in {this.state.visibleType.visible_name}</p>
+                                                                                </div>
+                                                                            </li>
+                                                                            :''
+                                                                        }
+
+                                                                        {
                                                                             this.state.searchResults.map((cat, j) => {
                                                                                 return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
                                                                                     <div className="serach-rslt-with-img">
@@ -386,7 +445,9 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                         <p style={{ padding: '0 50px 0 0' }} >
                                                                                             {cat.name}
                                                                                             {
-                                                                                                cat.type == "hospital"
+                                                                                                cat.is_package && cat.is_package.length && cat.is_package[0]?
+                                                                                                <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0]?` | ${cat.number_of_tests[0]} Test Included`:''}</span>
+                                                                                                :cat.type == "hospital"
                                                                                                     ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
                                                                                                     : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
                                                                                             }
