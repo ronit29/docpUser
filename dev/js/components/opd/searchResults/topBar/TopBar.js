@@ -219,6 +219,17 @@ class TopBar extends React.Component {
             locationName = this.props.seoData.location
         }
 
+        if(document.getElementById("filter-scroll")){
+            window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset
+              if (currentScrollPos > 0) {
+                document.getElementById("filter-scroll").classList.add("d-none")
+              } else {
+                document.getElementById("filter-scroll").classList.remove("d-none")
+              }
+            }
+        }
+
         return (
             <div className="filter-row sticky-header mbl-stick">
             {this.state.dropdown_visible ?
@@ -270,7 +281,7 @@ class TopBar extends React.Component {
                 :''
             }
                 
-                <section>
+                <section className="scroll-shadow-bar">
                     <div className="top-filter-tab-container">
                         <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
                             {
@@ -285,7 +296,7 @@ class TopBar extends React.Component {
                         {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>*/}
                     </div>
-                    <div className="container-fluid scroll-shadow-bar">
+                    <div className="container-fluid" id="filter-scroll">
                         <div className="row">
                             <div className="col-12">
                                 <div className="filter-pdng">

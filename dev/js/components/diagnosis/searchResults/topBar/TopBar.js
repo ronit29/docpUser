@@ -194,6 +194,17 @@ class TopBar extends React.Component {
 
     render() {
 
+        if(document.getElementById("filter-scroll")){
+            window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset
+              if (currentScrollPos > 0) {
+                document.getElementById("filter-scroll").classList.add("d-none")
+              } else {
+                document.getElementById("filter-scroll").classList.remove("d-none")
+              }
+            }
+        }
+        
         let sortType = ''
         if (this.state.sort_on) {
             sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
@@ -230,7 +241,7 @@ class TopBar extends React.Component {
                         
                     </div>
                 </div> : ""}
-                <section>
+                <section className="scroll-shadow-bar">
                     <div className="top-filter-tab-container">
                         <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
                             {
@@ -245,7 +256,7 @@ class TopBar extends React.Component {
                         {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>*/}
                     </div>
-                    <div className="container-fluid">
+                    <div className="container-fluid" id="filter-scroll">
                         <div className="row">
                             <div className="col-12">
                                 {

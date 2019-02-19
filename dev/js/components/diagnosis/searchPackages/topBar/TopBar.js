@@ -229,6 +229,18 @@ class TopBar extends React.Component {
     }
 
     render() {
+
+        if(document.getElementById("filter-scroll")){
+            window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset
+              if (currentScrollPos > 0) {
+                document.getElementById("filter-scroll").classList.add("d-none")
+              } else {
+                document.getElementById("filter-scroll").classList.remove("d-none")
+              }
+            }
+        }
+
         var selectedTests = []
         if (this.props.currentSearchedCriterias.length) {
             for (var i = 0; i < this.props.currentSearchedCriterias.length; i++) {
@@ -274,7 +286,7 @@ class TopBar extends React.Component {
                     </div> : ""
                 }
                 <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forOrganicSearch?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
-                <section>
+                <section className="scroll-shadow-bar">
                 {
                     this.props.forTaxSaver?'':
                     <div className="top-filter-tab-container">
@@ -292,7 +304,7 @@ class TopBar extends React.Component {
                         </div>
                     </div>
                 }
-                    <div className="container-fluid">
+                    <div className="container-fluid" id="filter-scroll">
                         <div className="row">
                             <div className="col-12">
                                 {
