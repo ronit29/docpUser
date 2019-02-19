@@ -4,6 +4,8 @@ const queryString = require('query-string');
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import Calendar from 'rc-calendar';
+const moment = require('moment');
 
 const stepperStyle = {
     padding: 60,
@@ -34,7 +36,8 @@ class UserSignupView extends React.Component {
             showMedical: false,
             err: "",
             referralCode: parsed.referral || null,
-            have_referralCode: !!parsed.referral
+            have_referralCode: !!parsed.referral,
+            dateModal: false
         }
     }
 
@@ -44,6 +47,30 @@ class UserSignupView extends React.Component {
 
     toggleReferral(e) {
         this.setState({ have_referralCode: e.target.checked })
+    }
+
+    selectDateFromCalendar(date) {
+        if (date) {
+            date = date.toDate()
+            date = this.getFormattedDate(date)
+            this.setState({ age: date, dateModal: false})
+        } else {
+            this.setState({ dateModal: false })
+        }
+    }
+
+    getFormattedDate(date){
+        var dd = date.getDate();
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10){
+            dd='0'+dd;
+        }
+        if(mm<10){
+            mm='0'+mm;
+        }
+        var today = dd+'-'+mm+'-'+yyyy;
+        return today
     }
 
     submitForm() {
@@ -70,15 +97,15 @@ class UserSignupView extends React.Component {
                     break
                 }
                 case "email": {
-                    if (!!this.refs[prp].value) {
-                        validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
+                    if (!this.refs[prp].value) {
+                        validated = false
                     } else {
-                        validated = true
+                        validated = this.refs[prp].value.match(/\S+@\S+\.\S+/)
                     }
                     break
                 }
                 case "age": {
-                    validated = this.refs[prp].value > 0 && this.refs[prp].value < 100
+                    validated = this.refs[prp].value
                     break
                 }
                 default: {
@@ -210,9 +237,23 @@ class UserSignupView extends React.Component {
                                                                     <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
                                                                 </div>
                                                                 <div className="labelWrap">
-                                                                    <input id="age" name="age" type="number" value={this.state.age} onChange={this.inputHandler.bind(this)} required ref="age" onKeyPress={this.handleEnterPress.bind(this)} />
-                                                                    <label htmlFor="age">Age</label>
+                                                                    <input id="age" name="age" type="text" value={this.state.age} onClick={()=>this.setState({dateModal:!this.state.dateModal})} required ref="age" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <label htmlFor="age">Date of Birth</label>
                                                                 </div>
+
+                                                                {   
+                                                                    this.state.dateModal ? <div className="calendar-overlay" onClick={()=>this.setState({dateModal:!this.state.dateModal})}><div className="date-picker-modal">
+                                                                        <Calendar
+                                                                            showWeekNumber={false}
+                                                                            defaultValue={moment(new Date())}
+                                                                            disabledDate={(date) => {
+                                                                                return date.diff(moment((new Date)), 'days') > -1
+                                                                            }}
+                                                                            showToday
+                                                                            onSelect={this.selectDateFromCalendar.bind(this)}
+                                                                        />
+                                                                    </div></div> : ""
+                                                                }
                                                                 <div className="form-group input-group">
                                                                     <label className="inline input-label">Gender</label>
                                                                     <div className="choose-gender slt-label-radio">

@@ -114,9 +114,7 @@ class ChoosePatientNewView extends React.Component {
             return 
         }
 
-        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-        if(reg.test(this.state.email) == false) 
+        if(!this.state.email.match(/\S+@\S+\.\S+/)) 
         {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
