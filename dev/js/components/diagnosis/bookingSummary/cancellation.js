@@ -16,7 +16,7 @@ In the event, the services are not availed at the appointed date and time and ou
 
 Occasionally, appointments may be cancelled or postponed by the Third Party Service Provider. Should this occur, we will attempt to contact or inform you and you may re-schedule your appointment as per your convenience or visit www.docprime.com for fresh/re-booking on the Website.
 
-Cancellation through mail or call center is allowed for all the bookings until the time of appointment or 12:00 midnight of next date of your appointment date. In such cases, we will initiate an immediate refund of your money as per the process defined under Refund, Rescheduling and Cancellation section under the End User Agreement. <a onClick={() =>props.history.push('/terms?forBookingScroll=true')}>click here</a></p>
+Cancellation through mail or call center is allowed for all the bookings until the time of appointment or 12:00 midnight of next date of your appointment date. In such cases, we will initiate an immediate refund of your money as per the process defined under Refund, Rescheduling and Cancellation section under the End User Agreement. <u style={{color: '#f78631',cursor:'pointer',display:'inline-block'}} onClick={() =>props.history.push('/terms?forBookingScroll=true')}>click here</u></p>
             </div>
         </div>
     </div>

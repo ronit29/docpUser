@@ -14,7 +14,7 @@ class Terms extends React.Component {
         this.setState({ selected: val })
     }
 
-    componentDidMount(){
+    render() {
         if(this.props.forScroll){
              if (document.getElementById('rescheduling_9')) {
                 var elementTop = document.getElementById('rescheduling_9').getBoundingClientRect().top;
@@ -23,9 +23,7 @@ class Terms extends React.Component {
                 window.scrollTo(0, parseInt(scrollPosition))
             }  
         }
-    }
-
-    render() {
+        
         let mainClass
         let headingClass
         if(this.props.fromApp){
