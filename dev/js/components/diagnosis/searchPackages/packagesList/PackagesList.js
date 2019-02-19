@@ -128,7 +128,7 @@ class packagesList extends React.Component {
                                     : ''
                             }
                             {
-                                !this.props.forOrganicSearch && !this.props.forTaxSaver? <a style={{color:'#f78631',cursor:'pointer'}} onClick={() => this.props.history.push('/health-package-advisor')}>Click here for more Health packages
+                                !this.props.forOrganicSearch && !this.props.forTaxSaver? <a style={{color:'#f78631',cursor:'pointer',marginTop:'-5px', display:'inline-block'}} onClick={() => this.props.history.push('/health-package-advisor')}>Click here for more Health packages
                                 </a> :''
                             }
                             <div className="row">
