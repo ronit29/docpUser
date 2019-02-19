@@ -103,7 +103,7 @@ class CategoryPopup extends React.Component {
         }
 
         return (<div>
-            <div className="cancel-overlay"></div>
+            <div className="cancel-overlay cancel-overlay-zindex"></div>
             <div className="widget cancel-appointment-div cancel-popup">    
                 <div className="pop-top-heading mb-0">
                         Select Categories   
