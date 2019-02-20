@@ -98,7 +98,7 @@ class Booking extends React.Component {
         return (
             <div>
                 {
-                    this.state.isLoggedIn?<BookingView {...this.props} />: <Loader />
+                    this.state.isLoggedIn?<BookingView {...this.props} isCompleted={this.state.isCompleted/>: <Loader />
                 }
             </div>
             
