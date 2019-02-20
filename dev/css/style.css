@@ -6271,6 +6271,16 @@ span.slideCutPrc{
 	margin: 3px 0 0 5px;
     display: inline-block;
 }
+.pay-at-clinic{
+	position: absolute;
+    right: 0;
+    top: 10px;
+    border: 1px dashed #f18031;
+    border-radius: 4px;
+    padding: 2px 10px;
+    font-weight: 500;
+    color: #f18031;
+}
 @media screen and (max-width: 428px){
 	.light-txts{
 		display: block;

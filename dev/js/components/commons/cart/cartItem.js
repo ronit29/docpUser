@@ -166,9 +166,11 @@ class CartItem extends React.Component {
                             {
                                 doctor ? <div className="dr-profile mrt-10">
                                     <h1 className="dr-name">Dr. {doctor.name}</h1>
+                                    <span className="pay-at-clinic">Pay at Clinic</span>
                                     <p className="clinic-name text-sm">{hospital.name}</p>
                                 </div> : <div className="dr-profile mrt-10">
                                         <h1 className="dr-name">{lab.name}</h1>
+
                                     </div>
                             }
 
