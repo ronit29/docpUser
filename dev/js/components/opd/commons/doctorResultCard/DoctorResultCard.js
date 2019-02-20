@@ -20,7 +20,7 @@ class DoctorProfileCard extends React.Component {
         // }
     }
 
-    cardClick(id, url, hospital_id, e) {
+    viewProfileClicked(id, url, hospital_id, e) {
         e.stopPropagation();
 
         let Distance = ''
@@ -60,6 +60,15 @@ class DoctorProfileCard extends React.Component {
                 }
             }
         }
+    }
+
+    bookNowClicked(id, url, hospital_id, e){
+        //always clear selected time at doctor profile
+        let slot = { time: {} }
+        this.props.selectOpdTimeSLot(slot, false)
+        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
+        this.props.saveProfileProcedures('', '', procedure_ids, true)
+        this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
     }
 
     bookNow(id, e) {
@@ -216,7 +225,7 @@ class DoctorProfileCard extends React.Component {
                                     }
                                 </div>
                         }
-                        <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
+                        <div className="row no-gutters" >
                             <div className="col-12 mrt-10">
                                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()} title={display_name}>
                                     <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
@@ -286,9 +295,25 @@ class DoctorProfileCard extends React.Component {
                                         <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                     </div> : ''
                                 }
-
+                            </div>
+                            <div className="col-12 mrt-10">
                                 {
-                                    enabled_for_hospital_booking ? <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button> : <button className="fltr-cntct-btn" style={{ width: '100%' }}>Contact</button>
+                                    enabled_for_hospital_booking ?
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <button className="fltr-cntct-btn btn-pdng" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Profile</button>
+                                        </div>
+                                        <div className="col-6">
+                                            <button onClick={this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-bkng-btn btn-pdng" >Book Now</button>
+                                        </div> 
+                                    </div>
+                                    :<div className="row">
+                                        <div className="col-6"></div>
+                                        <div className="col-6">
+                                            <button onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-cntct-btn btn-pdng" >Contact
+                                            </button>
+                                        </div>
+                                    </div>
                                 }
                             </div>
                         </div>

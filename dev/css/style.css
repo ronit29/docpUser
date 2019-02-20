@@ -6184,3 +6184,11 @@ span.slideCutPrc{
 .ratingBtnmrgn{
 	padding: 7px 0 25px 0 !important;
 }
+.btn-pdng{
+	padding: 10px 10px;
+    width: 100%;
+}
+.shw-cntct{
+	display: flex;
+	justify-content: flex-end;	
+}
