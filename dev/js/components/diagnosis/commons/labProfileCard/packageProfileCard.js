@@ -81,7 +81,7 @@ class LabProfileCard extends React.Component {
     }
     render() {
 
-        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories } = this.props.details;
+        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details } = this.props.details;
         distance = Math.ceil(distance / 1000);
         var openingTime = ''
         if (this.props.details.lab_timing) {
@@ -154,13 +154,25 @@ class LabProfileCard extends React.Component {
                                         <h3 className="fw-500">15 Years of Experience</h3>
                                     </div>*/}
                             </div>
-                            {categories.length > 0 ?
+                            {/*categories.length > 0 ?
                                 <ul style={{ marginTop: '5px' }}>
                                     {
                                         categories.map((category, k) => {
                                             return <li className="pkg-listing-tick" key={k} id={category.id}>
                                                 <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
                                                 {category.name}
+                                            </li>
+                                        })
+                                    }
+                                </ul>
+                            : ''*/}
+                            {category_details.length > 0 ?
+                                <ul style={{ marginTop: '5px' }}>
+                                    {
+                                        category_details[0].map((category_detail, k) => {
+                                            return <li className="pkg-listing-tick" key={k} id={k}>
+                                                <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
+                                                {category_detail.category} ({category_detail.count})
                                             </li>
                                         })
                                     }
