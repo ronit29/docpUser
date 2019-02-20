@@ -164,19 +164,13 @@ class DoctorProfileView extends React.Component {
 
     viewAllDocClick(nearbyDoctors) {
 
-        let speciality = {...nearbyDoctors.specializations[0]};
-        speciality.type = 'speciality';
-
         let data = {
             'Category': 'ConsumerApp', 'Action': 'viewAllDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-all-doctors-click'
         }
         GTM.sendEvent({ data: data })
 
-        this.props.toggleOPDCriteria('speciality', speciality, true);
+        window.open(nearbyDoctors.doctors_url, '_self');
 
-        setTimeout(() => {
-            this.props.history.push('/opd/searchresults')
-        }, 100)
     }
 
     render() {
@@ -287,7 +281,7 @@ class DoctorProfileView extends React.Component {
                                                                     <div className="widget-panel">
                                                                         {
                                                                             nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
-                                                                                <h4 className="panel-title mb-rmv p-relative docScrollWidgetheader"><span>Book Top {nearbyDoctors.specializations[0].name}s Nearby</span> </h4> : ''
+                                                                                <h4 className="panel-title mb-rmv p-relative docScrollWidgetheader"><span>Book experienced {nearbyDoctors.specializations[0].name}s at excluisive docprime dates</span> </h4> : ''
                                                                         }
 
                                                                         <div className="panel-content pd-0 border-bottom-panel">

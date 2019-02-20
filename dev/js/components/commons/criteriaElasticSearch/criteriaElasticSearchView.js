@@ -177,7 +177,7 @@ class CriteriaElasticSearchView extends React.Component {
                     'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
                 }
                 GTM.sendEvent({ data: data })
-                
+
                 this.props.history.push(`/lab/${criteria.action.value[0]}`)
                 return
             } else if (criteria.type == "lab_test") {
@@ -394,6 +394,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                     </div>
                                                                                     {
                                                                                         cat.popularity && cat.popularity >= 5000 ?
+                                                                                            <div className="popular-txt">
+                                                                                                <span className="fw-500">Popular</span>
+                                                                                            </div> : ''
+                                                                                    }
+                                                                                    {
+                                                                                        cat.name.includes('Aarogyam C') ?
                                                                                             <div className="popular-txt">
                                                                                                 <span className="fw-500">Popular</span>
                                                                                             </div> : ''
