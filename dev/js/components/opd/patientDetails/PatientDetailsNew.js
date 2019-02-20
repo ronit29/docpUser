@@ -592,6 +592,48 @@ class PatientDetailsNew extends React.Component {
                                                                 </div> : ''
                                                         }
 
+
+
+                                                    {/*Payment Mode*/}
+
+                                                    <div className="widget mrb-15">
+
+                                                            <div className="widget-content">
+                                                                <h4 className="title mb-20">Payment Mode</h4>
+                                                                <div className="payment-summary-content">
+                                                                    <div className="payment-detail d-flex">
+                                                                        
+                                                                            
+                                                                        <label class="container-radio payment-type-radio">
+                                                                           <h3>Online Payment</h3>
+                                                                           <span className="save-upto">Save upto 40%</span>
+                                                                           <input type="radio" name="payment-mode" />
+                                                                           <span class="doc-checkmark"></span>
+                                                                        </label>
+
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <hr />
+
+                                                                
+                                                                   <div className="test-report payment-detail mt-20">
+                                                                        <label class="container-radio payment-type-radio">
+                                                                          <h4 className="title payment-amt-label">Pay at Clinic</h4>
+                                                                           <span className="light-txts"> (No Coupon code and discount will be applied)</span>
+                                                                           <input type="radio" name="payment-mode" />
+                                                                           <span class="doc-checkmark"></span>
+                                                                        </label>
+                                                                    </div> 
+                                                               
+
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    
+                                                {/*Payment Mode*/}
+
+
                                                         <div className="widget mrb-15">
 
                                                             <div className="widget-content">
@@ -630,8 +672,8 @@ class PatientDetailsNew extends React.Component {
                                                                 }
 
                                                             </div>
-                                                        </div>
 
+                                                        </div>
                                                         {
                                                             total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
