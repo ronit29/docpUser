@@ -26,14 +26,14 @@ class OrderSummaryView extends React.Component {
             this.props.fetchOrderSummary(this.props.match.params.id).then((res) => {
                 if (res.data && res.data.length) {
                     this.setState({ items: res.data })
-                    
+
                     let orderId = this.props.match.params.id
                     let deal_price = 0
                     let info = {}
                     info[orderId] = []
-                    res.data.map((data)=>{
-                        info[orderId].push({'booking_id': data.booking_id, 'mrp': data.mrp, 'deal_price': data.deal_price})
-                        deal_price+=parseInt(data.deal_price)
+                    res.data.map((data) => {
+                        info[orderId].push({ 'booking_id': data.booking_id, 'mrp': data.mrp, 'deal_price': data.deal_price })
+                        deal_price += parseInt(data.deal_price)
                     })
                     info = JSON.stringify(info)
 
@@ -47,10 +47,12 @@ class OrderSummaryView extends React.Component {
                             GTM.sendEvent({ data: analyticData })
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
 
-                            let criteo_data = 
-                            { 'event': "trackTransaction", 'id': orderId, 'item': [
-                                {'id': "1", 'price': deal_price, 'quantity': 1 }
-                            ]}
+                            let criteo_data =
+                                {
+                                    'event': "trackTransaction", 'id': orderId, 'item': [
+                                        { 'id': "1", 'price': deal_price, 'quantity': 1 }
+                                    ]
+                                }
 
                             CRITEO.sendData(criteo_data)
                         }
@@ -106,10 +108,15 @@ class OrderSummaryView extends React.Component {
                                                         </div>
                                                         <div className={item.booking_id ? "" : "cart-card-blur-opacity"}>
                                                             <div className="shopng-cart-price">
-                                                                <p>
-                                                                    <img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />
-                                                                    {" " + item.effective_price}
-                                                                </p>
+                                                                {
+                                                                    item.payment_type == 1 ? <p>
+                                                                        <img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />
+                                                                        {" " + item.effective_price}
+                                                                    </p> : <p>
+                                                                            <img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />
+                                                                            {" " + item.mrp}
+                                                                        </p>
+                                                                }
                                                             </div>
                                                             <div className="widget-header dr-qucik-info">
                                                                 <div>

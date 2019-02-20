@@ -18,6 +18,7 @@ import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import ProcedureView from './procedureView.js'
 import BookingError from './bookingErrorPopUp.js'
+import { APPEND_HEALTH_TIP } from '../../../constants/types';
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -285,11 +286,11 @@ class PatientDetailsNew extends React.Component {
             hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
             start_date, start_time,
-            payment_type: 1,
+            payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item
         }
-        if (this.props.disCountedOpdPrice) {
+        if (this.props.disCountedOpdPrice && this.props.payment_type == 1) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
 
@@ -440,6 +441,9 @@ class PatientDetailsNew extends React.Component {
     }
 
     getBookingButtonText(total_wallet_balance, price_to_pay) {
+        if (this.props.payment_type != 1) {
+            return "Confirm Booking"
+        }
         let price_from_wallet = 0
         let price_from_pg = 0
 
@@ -514,6 +518,9 @@ class PatientDetailsNew extends React.Component {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
 
+        let percent_discount = Math.max(0, (finalPrice / (parseInt(priceData.mrp) + treatment_mrp)) * 100)
+        percent_discount = 100 - percent_discount
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -545,7 +552,7 @@ class PatientDetailsNew extends React.Component {
                                                         }
 
                                                         {
-                                                            (parseInt(priceData.deal_price) + treatment_Price) != 0 ?
+                                                            this.props.payment_type == 1 && ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
                                                                 <div className="widget mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         doctorCoupons.length ?
@@ -594,88 +601,92 @@ class PatientDetailsNew extends React.Component {
 
 
 
-                                                    {/*Payment Mode*/}
-
-                                                    <div className="widget mrb-15">
-
-                                                            <div className="widget-content">
-                                                                <h4 className="title mb-20">Payment Mode</h4>
-                                                                <div className="payment-summary-content">
-                                                                    <div className="payment-detail d-flex">
-                                                                        
-                                                                            
-                                                                        <label class="container-radio payment-type-radio">
-                                                                           <h3>Online Payment</h3>
-                                                                           <span className="save-upto">Save upto 40%</span>
-                                                                           <input type="radio" name="payment-mode" />
-                                                                           <span class="doc-checkmark"></span>
-                                                                        </label>
-
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                <hr />
-
-                                                                
-                                                                   <div className="test-report payment-detail mt-20">
-                                                                        <label class="container-radio payment-type-radio">
-                                                                          <h4 className="title payment-amt-label">Pay at Clinic</h4>
-                                                                           <span className="light-txts"> (No Coupon code and discount will be applied)</span>
-                                                                           <input type="radio" name="payment-mode" />
-                                                                           <span class="doc-checkmark"></span>
-                                                                        </label>
-                                                                    </div> 
-                                                               
-
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    
-                                                {/*Payment Mode*/}
-
+                                                        {/*Payment Mode*/}
 
                                                         <div className="widget mrb-15">
 
                                                             <div className="widget-content">
-                                                                <h4 className="title mb-20">Payment Summary</h4>
-                                                                <div className="payment-summary-content">
+                                                                <h4 className="title mb-20">Payment Mode</h4>
+
+                                                                <div className="payment-summary-content" onClick={() => {
+                                                                    this.props.select_opd_payment_type(1)
+                                                                }}>
                                                                     <div className="payment-detail d-flex">
-                                                                        <p>Subtotal</p>
-                                                                        <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                        <label class="container-radio payment-type-radio">
+                                                                            <h3>Online Payment</h3>
+                                                                            <span className="save-upto">Save {percent_discount}%</span>
+                                                                            <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
+                                                                            <span class="doc-checkmark"></span>
+                                                                        </label>
                                                                     </div>
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>Docprime Discount</p>
-                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
-                                                                    </div>
-                                                                    {
-                                                                        this.props.disCountedOpdPrice && !this.state.is_cashback
-                                                                            ? <div className="payment-detail d-flex">
-                                                                                <p style={{ color: 'green' }}>Coupon Discount</p>
-                                                                                <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
-                                                                            </div>
-                                                                            : ''
-                                                                    }
                                                                 </div>
                                                                 <hr />
 
-                                                                {
-                                                                    priceData ? <div className="test-report payment-detail mt-20">
-                                                                        <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                        <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
-                                                                    </div> : ""
-                                                                }
-                                                                {
-                                                                    this.state.is_cashback && this.props.disCountedOpdPrice ? <div className="csh-back-applied-container">
-                                                                        <p className="csh-mny-applied">+ &#8377; {this.props.disCountedOpdPrice} Cashback Applied</p>
-                                                                        <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
-                                                                    </div> : ""
-                                                                }
+
+                                                                <div className="test-report payment-detail mt-20" onClick={() => {
+                                                                    this.props.select_opd_payment_type(2)
+                                                                }}>
+                                                                    <label class="container-radio payment-type-radio">
+                                                                        <h4 className="title payment-amt-label">Pay at Clinic</h4>
+                                                                        <span className="light-txts"> (No Coupon code and discount will be applied)</span>
+                                                                        <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
+                                                                        <span class="doc-checkmark"></span>
+                                                                    </label>
+                                                                </div>
+
 
                                                             </div>
 
                                                         </div>
+
+                                                        {/*Payment Mode*/}
+
                                                         {
-                                                            total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                            this.props.payment_type == 1 ? <div className="widget mrb-15">
+
+                                                                <div className="widget-content">
+                                                                    <h4 className="title mb-20">Payment Summary</h4>
+                                                                    <div className="payment-summary-content">
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Subtotal</p>
+                                                                            <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                        </div>
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Docprime Discount</p>
+                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                        </div>
+                                                                        {
+                                                                            this.props.disCountedOpdPrice && !this.state.is_cashback
+                                                                                ? <div className="payment-detail d-flex">
+                                                                                    <p style={{ color: 'green' }}>Coupon Discount</p>
+                                                                                    <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
+                                                                                </div>
+                                                                                : ''
+                                                                        }
+                                                                    </div>
+                                                                    <hr />
+
+                                                                    {
+                                                                        priceData ? <div className="test-report payment-detail mt-20">
+                                                                            <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                            <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
+                                                                        </div> : ""
+                                                                    }
+                                                                    {
+                                                                        this.state.is_cashback && this.props.disCountedOpdPrice ? <div className="csh-back-applied-container">
+                                                                            <p className="csh-mny-applied">+ &#8377; {this.props.disCountedOpdPrice} Cashback Applied</p>
+                                                                            <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
+                                                                        </div> : ""
+                                                                    }
+
+                                                                </div>
+
+                                                            </div> : ""
+                                                        }
+
+
+                                                        {
+                                                            this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="select-pt-form">
                                                                         <div className="referral-select">

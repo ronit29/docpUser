@@ -80,6 +80,10 @@ class CartItem extends React.Component {
             if (data.actual_data.coupon_code) {
                 this.props.applyCoupons('1', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.doctor)
             }
+
+            if (data.actual_data.payment_type >= 0) {
+                this.props.select_opd_payment_type(data.actual_data.payment_type)
+            }
         }
 
         this.props.selectProfile(data.actual_data.profile)
@@ -129,7 +133,7 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup } = this.props.actual_data
+        let { is_home_pickup, payment_type } = this.props.actual_data
 
         if (date) {
             date = new Date(date)
@@ -145,12 +149,17 @@ class CartItem extends React.Component {
                             !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         } */}
 
-                        <div className="shopng-cart-price">
-                            {
-                                mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
-                            }
-
-                        </div>
+                        {
+                            payment_type == 1 ? <div className="shopng-cart-price">
+                                {
+                                    mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
+                                }
+                            </div> : <div className="shopng-cart-price">
+                                    {
+                                        mrp ? <p>₹ {mrp}</p> : ""
+                                    }
+                                </div>
+                        }
                         <div className="widget-header dr-qucik-info widgetHeaderPaddingTop">
                             <div>
                                 <div>
@@ -158,7 +167,7 @@ class CartItem extends React.Component {
                                         doctor ? <InitialsPicture name={doctor.name} has_image={!!thumbnail} className="initialsPicture-dbd cart-initialspic">
                                             <img src={thumbnail} style={{ width: '50px', height: '50px', marginTop: '8px' }} className="img-fluid img-round" />
                                         </InitialsPicture> : <InitialsPicture name={lab.name} has_image={!!thumbnail} className="initialsPicture-xs-cart">
-                                                <img style={{height:'auto', width:'auto', marginTop: '15px'}} src={thumbnail} className="fltr-usr-image-lab" />
+                                                <img style={{ height: 'auto', width: 'auto', marginTop: '15px' }} src={thumbnail} className="fltr-usr-image-lab" />
                                             </InitialsPicture>
                                     }
                                 </div>
