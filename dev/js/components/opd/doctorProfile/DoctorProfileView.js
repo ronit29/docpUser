@@ -281,7 +281,7 @@ class DoctorProfileView extends React.Component {
                                                                     <div className="widget-panel">
                                                                         {
                                                                             nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
-                                                                                <h4 className="panel-title mb-rmv p-relative docScrollWidgetheader"><span>Book experienced {nearbyDoctors.specializations[0].name}s at excluisive docprime dates</span> </h4> : ''
+                                                                                <h4 className="panel-title mb-rmv p-relative"><span>Book experienced {nearbyDoctors.specializations[0].name}s at excluisive docprime rates</span> </h4> : ''
                                                                         }
 
                                                                         <div className="panel-content pd-0 border-bottom-panel">
@@ -318,6 +318,9 @@ class DoctorProfileView extends React.Component {
                                                                                                     }
                                                                                                     <div className="slideDocPrice">
                                                                                                         <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
+                                                                                                    </div>
+                                                                                                    <div className="slidBookBtn">
+                                                                                                        <button>Book Now</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </a>
