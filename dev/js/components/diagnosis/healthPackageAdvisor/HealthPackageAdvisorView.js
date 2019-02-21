@@ -407,7 +407,7 @@ class HealthPackageAdvisorView extends React.Component {
                                                     {
                                                         rPackages.icon && rPackages.icon.length>0?
                                                         <div className="pkgCatImg">
-                                                        <img  className="img-fluid" src={rPackages.icon[0].image_url}/>
+                                                        <img  className="img-fluid" src={rPackages.icon}/>
                                                         </div>
                                                         :''
                                                     }
