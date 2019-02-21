@@ -55,8 +55,9 @@ class SharePopUp extends React.Component {
     }
 
     getWhatsappText(social_message, url) {
-        return `${social_message}
+        let msg = `${social_message}
         ${url}`
+        return window.encodeURIComponent(msg);
     }
 
     render() {
