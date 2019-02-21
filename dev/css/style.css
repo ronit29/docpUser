@@ -6139,7 +6139,8 @@ span.slideCutPrc{
     font-size: 13px;
     color: #f78631;
     width: 75px;
-    justify-content: flex-end;
+	justify-content: flex-end;
+	cursor: pointer;
 }
 .docSlideviewAll img{
 	flex-grow: 0;
