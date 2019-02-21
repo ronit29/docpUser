@@ -6184,3 +6184,11 @@ span.slideCutPrc{
 .ratingBtnmrgn{
 	padding: 7px 0 25px 0 !important;
 }
+.search-prnsl-rslts{
+	color: #f78631;
+    margin-top: 2px;
+}
+.srch-prnsl-txt{
+	margin-bottom: 10px;
+    font-weight: 500;
+}
