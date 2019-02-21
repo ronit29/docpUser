@@ -54,9 +54,8 @@ class SharePopUp extends React.Component {
         return `${CONFIG.API_BASE_URL}/login?referral=${this.state.referralCode}`
     }
 
-    getWhatsappText(social_message, url) {
-        let msg = `${social_message}
-        ${url}`
+    getWhatsappText(data, url) {
+        let msg = data.ratings + ' out of 5 stars\n' + data.compliments + '\n\n"' + data.review + '"\n' + url
         return window.encodeURIComponent(msg);
     }
 
@@ -116,7 +115,7 @@ class SharePopUp extends React.Component {
                                         <span>Twitter</span>
                                     </div>
                                     <div className="whtsappIcon-styling" onClick={this.gaTracking.bind(this, 'whtsapp')} >
-                                        <a className="whtsAppico" href={"whatsapp://send?text=" + this.getWhatsappText(social_message, url)}>
+                                        <a className="whtsAppico" href={"whatsapp://send?text=" + this.getWhatsappText(this.props.details, url)}>
                                             <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
                                             <span>Whatsapp</span>
                                         </a>
