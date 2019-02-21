@@ -3382,7 +3382,6 @@ border: 1px solid #aaaa;
     padding: 0;
 	font-size: 12px;
 	width: 100%;
-	margin-top: 20px;
 	text-align: left;
 }
 .alert-success {
@@ -6122,7 +6121,36 @@ span.slideCutPrc{
 	margin-right: 0px;
 	white-space: normal;
 }
-
+.ct-profile p.notAvlDoc{
+	background: #f5e28a;
+    color: #0c0c0c;
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 5px;
+}
+.docSlideSubHeading{
+	display: block;
+    font-size: 12px;
+}
+.docSlideviewAll{
+	display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    color: #f78631;
+    width: 75px;
+    justify-content: flex-end;
+}
+.docSlideviewAll img{
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-left: 4px;
+}
+.docslideHeadAlign{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 /* ================= docSliderStyling ================= */
 /* ==================== tax panel ==================== */
 .taxContent{

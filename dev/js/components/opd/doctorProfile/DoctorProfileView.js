@@ -279,11 +279,15 @@ class DoctorProfileView extends React.Component {
                                                             nearbyDoctors && Object.keys(nearbyDoctors).length ?
                                                                 <div className="widge-content pd-0">
                                                                     <div className="widget-panel">
-                                                                        {
+                                                                        {/* {
                                                                             nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
                                                                                 <h4 className="panel-title mb-rmv p-relative"><span>Book experienced {nearbyDoctors.specializations[0].name}s at excluisive docprime rates</span> </h4> : ''
-                                                                        }
-
+                                                                        } */}
+                                                                        <div className="panel-title mb-rmv p-relative docslideHeadAlign">
+                                                                            <p>Book Experienced Doctors Near Yo<span className="docSlideSubHeading">Get Exclusive Docprime Discount</span>
+                                                                            </p>
+                                                                            <span className="docSlideviewAll">View All <img src={ASSETS_BASE_URL + "/img/arrowRight.svg"} /> </span>
+                                                                        </div>
                                                                         <div className="panel-content pd-0 border-bottom-panel">
                                                                             <div className="docScrollSliderContainer">
                                                                                 {
