@@ -39,30 +39,30 @@ class TopBar extends React.Component {
 
     componentWillReceiveProps(props) {
         this.setState({ ...props.filterCriteriaPackages })
-        if (props.locationType && !props.locationType.includes("geo")) {
-            this.setState({ showLocationPopup: false })
-        } else {
-            if (props.seoData && props.seoData.location) {
-                this.setState({ showLocationPopup: false })
-            } else {
-                if (props.selectedLocation != this.props.selectedLocation) {
-                    this.setState({ showLocationPopup: true, overlayVisible: true })
-                }
-            }
-        }
-        this.shortenUrl()
+        // if (props.locationType && !props.locationType.includes("geo")) {
+        //     this.setState({ showLocationPopup: false })
+        // } else {
+        //     if (props.seoData && props.seoData.location) {
+        //         this.setState({ showLocationPopup: false })
+        //     } else {
+        //         if (props.selectedLocation != this.props.selectedLocation) {
+        //             this.setState({ showLocationPopup: true, overlayVisible: true })
+        //         }
+        //     }
+        // }
+        // this.shortenUrl()
     }
 
     componentDidMount() {
         this.setState({ ...this.props.filterCriteriaPackages })
-        this.shortenUrl()
-        if (this.props.seoData && this.props.seoData.location) {
-            this.setState({ showLocationPopup: false })
-        } else {
-            if (this.props.locationType.includes("geo")) {
-                this.setState({ showLocationPopup: true, overlayVisible: true })
-            }
-        }
+        // this.shortenUrl()
+        // if (this.props.seoData && this.props.seoData.location) {
+        //     this.setState({ showLocationPopup: false })
+        // } else {
+        //     if (this.props.locationType.includes("geo")) {
+        //         this.setState({ showLocationPopup: true, overlayVisible: true })
+        //     }
+        // }
         if(!this.props.forOrganicSearch){
             var url_string = window.location.href
             var url = new URL(url_string);
@@ -160,16 +160,16 @@ class TopBar extends React.Component {
         }
     }
 
-    shortenUrl() {
-        if (window) {
-            let url = window.location.href + '&force_location=true'
-            this.props.urlShortner(url, (err, data) => {
-                if (!err) {
-                    this.setState({ shortURL: data.tiny_url })
-                }
-            })
-        }
-    }
+    // shortenUrl() {
+    //     if (window) {
+    //         let url = window.location.href + '&force_location=true'
+    //         this.props.urlShortner(url, (err, data) => {
+    //             if (!err) {
+    //                 this.setState({ shortURL: data.tiny_url })
+    //             }
+    //         })
+    //     }
+    // }
 
     // overlayClick() {
     //     this.setState({ overlayVisible: false, searchCities: [] });

@@ -13,27 +13,27 @@ class ResultCount extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            anchorEl: null,
-            openFilter: false,
-            priceRange: [0, 20000],
-            distanceRange: [0, 15],
-            sort_on: null,
+            // anchorEl: null,
+            // openFilter: false,
+            // priceRange: [0, 20000],
+            // distanceRange: [0, 15],
+            // sort_on: null,
             shortURL: "",
-            dropdown_visible: false,
+            // dropdown_visible: false,
             showLocationPopup: false,
             overlayVisible: false,
             showPopupContainer: true,
-            sortText: 'Relevance',
-            openCategory: false,
-            isCategoryApplied:false,
-            appliedCategoryCount:'',
-            initialSelectedCatIds:'',
-            max_age:'',
-            min_age:'',
-            packageType:'',
-            gender:'',
-            catIds:[],
-            test_ids:''
+            // sortText: 'Relevance',
+            // openCategory: false,
+            // isCategoryApplied:false,
+            // appliedCategoryCount:'',
+            // initialSelectedCatIds:'',
+            // max_age:'',
+            // min_age:'',
+            // packageType:'',
+            // gender:'',
+            // catIds:[],
+            // test_ids:''
         }
     }
 
