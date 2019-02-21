@@ -150,7 +150,7 @@ class LeftMenu extends React.Component {
                             </ul>*/}
                             
                             <ul className="final-list">
-                              <li><a onClick={(e) => {
+                              {/*<li><a onClick={(e) => {
                                       e.preventDefault();
                                       this.props.toggleLeftMenu()
                                       this.props.history.push("/about")
@@ -160,7 +160,7 @@ class LeftMenu extends React.Component {
                                       e.preventDefault();
                                       this.props.toggleLeftMenu()
                                       this.props.history.push("/howitworks")
-                                  }} href="#">Terms and Conditions</a></li>
+                                  }} href="#">Terms and Conditions</a></li>*/}
                                 {
                                   STORAGE.checkAuth()?
                                   <li className="logout" ><a onClick={(e)=>{
