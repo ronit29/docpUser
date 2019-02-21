@@ -122,11 +122,11 @@ class CriteriaElasticSearchView extends React.Component {
 
                     type = 'opd'
                     visibleType = searchResults.suggestion[0]
-                }else if(PROCEDURE_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='procedures'){
+                }/*else if(PROCEDURE_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='procedures'){
 
                     type = 'procedures'
                     visibleType = searchResults.suggestion[0]
-                }
+                }*/
 
             }
             if (filterSearchResults) {
@@ -339,12 +339,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
-                                                        <div className="dtl-radio">
+                                                        {/*<div className="dtl-radio">
                                                             <label className="container-radio">Dental Treatments
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'procedures', '')} checked={this.props.selected == 'procedures'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
-                                                        </div>
+                                                        </div>*/}
                                                     </div>
                                                     <div className="serch-nw-inputs mb-0">
                                                         <input type="text" autoComplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
