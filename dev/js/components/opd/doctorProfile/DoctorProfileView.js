@@ -286,10 +286,10 @@ class DoctorProfileView extends React.Component {
                                                                                 <div className="panel-title mb-rmv p-relative docslideHeadAlign">
                                                                                     <p>Book experienced {nearbyDoctors.specializations[0].name}s near you<span className="docSlideSubHeading">Get exclusive Docprime discount</span>
                                                                                     </p>
-                                                                                    {
+                                                                                    {/* {
                                                                                         nearbyDoctors.count >= 1 && nearbyDoctors.doctors_url ?
                                                                                             <span className="docSlideviewAll" onClick={() => this.viewAllDocClick(nearbyDoctors)}>View All <img src={ASSETS_BASE_URL + "/img/arrowRight.svg"} /></span> : ''
-                                                                                    }
+                                                                                    } */}
                                                                                 </div> : ''
                                                                         }
                                                                         <div className="panel-content pd-0 border-bottom-panel">
