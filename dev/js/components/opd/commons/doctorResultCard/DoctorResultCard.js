@@ -281,6 +281,28 @@ class DoctorProfileCard extends React.Component {
                                                 </p> : ''
                                 }
 
+                                {/* {
+                                    enabled_for_hospital_booking ?
+                                        <div className="dp-price-dtls-div">
+                                            {
+                                                is_procedure
+                                                    ? finalProcedureMrp != finalProcedureDealPrice ?
+                                                        <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p> : ''
+                                                    : mrp != discounted_price ? <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p> : ''
+                                            }
+                                            <p className="fw-500 exclsv-price">Exclusive Docprime fee : &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}</p>
+                                        </div>
+                                        :
+                                        is_procedure ?
+                                            <div className="dp-price-dtls-div">
+                                                <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p>
+                                            </div>
+                                            : mrp ?
+                                                <div className="dp-price-dtls-div">
+                                                    <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p>
+                                                </div> : ''
+                                } */}
+
                                 {
                                     deal_price != discounted_price && enabled_for_hospital_booking ? <div className="signup-off-container">
                                         <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>

@@ -47,6 +47,10 @@ class DoctorsList extends React.Component {
             this.setState({ hasMore: true })
         }, 0)
 
+        if (this.props.clinic_card) {
+            this.props.getOfferList();
+        }
+
     }
 
     componentWillUnmount() {
@@ -85,10 +89,6 @@ class DoctorsList extends React.Component {
         this.setState({ readMore: 'search-details-data-less' })
     }
 
-    getResultCard() {
-
-    }
-
     render() {
 
         let { HOSPITALS, DOCTORS, doctorList, hospitalList } = this.props
@@ -115,7 +115,7 @@ class DoctorsList extends React.Component {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.search_content && this.props.search_content != '' && parseInt(this.props.page)==1?
+                                this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
@@ -134,6 +134,19 @@ class DoctorsList extends React.Component {
                                     : ''
                             }
                             <div className="row">
+                                {
+                                    this.props.clinic_card && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length ?
+                                        <div className="col-12">
+                                            {
+                                                this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').map((offer, i) => {
+                                                    return <div key={i} className="doc-list-offrs mrb-20">
+                                                        <img src={offer.image} />
+                                                    </div>
+                                                })
+                                            }
+                                        </div> : ''
+                                }
+
                                 <div className="col-12">
                                     <InfiniteScroll
                                         pageStart={start_page}
@@ -146,20 +159,23 @@ class DoctorsList extends React.Component {
                                             result_list.map((cardId, i) => {
                                                 if (i == 1 && result_data[cardId]) {
                                                     return <div key={i}>
-                                                        <div className="no-risk-container mt-3">
-                                                            <div className="no-rsk">
-                                                                <div className="rsk-image">
-                                                                    <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
-                                                                </div>
-                                                                <div className="rsk-content">
-                                                                    <h4 className="rsk-hdng">Amazing Savings... No Risks!</h4>
-                                                                    <ul className="rsk-lstng ff">
-                                                                        <li className="lst-bfr">Upto 50% Off on doctor and lab bookings</li>
-                                                                        <li className="lst-bfr">100% money back guarantee -  No questions!</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        {
+                                                            !!!this.props.clinic_card ?
+                                                                <div className="no-risk-container mt-3">
+                                                                    <div className="no-rsk">
+                                                                        <div className="rsk-image">
+                                                                            <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
+                                                                        </div>
+                                                                        <div className="rsk-content">
+                                                                            <h4 className="rsk-hdng">Amazing Savings... No Risks!</h4>
+                                                                            <ul className="rsk-lstng ff">
+                                                                                <li className="lst-bfr">Upto 50% Off on doctor and lab bookings</li>
+                                                                                <li className="lst-bfr">100% money back guarantee -  No questions!</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> : ''
+                                                        }
                                                         {
                                                             this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
                                                         }

@@ -1918,3 +1918,24 @@ p.rt-doc-nm{
 	text-align: right;
 	width: auto !important;
 }
+
+.dp-price-dtls-div{
+    margin-top: 4px;
+}
+
+.dp-price-dtls-div p{
+    font-size: 12px;
+}
+
+.dp-price{
+    color: #757575;
+}
+
+.exclsv-price{
+    color: #f78631;
+}
+
+.doc-list-offrs img{
+    width: 100%;
+    cursor: pointer;
+}
