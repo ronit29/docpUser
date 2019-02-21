@@ -107,7 +107,7 @@ class SharePopUp extends React.Component {
                                         <span>Twitter</span>
                                     </div>
                                     <div className="whtsappIcon-styling" onClick={this.gaTracking.bind(this, 'whtsapp')} >
-                                        <a className="whtsAppico" href={"whatsapp://send?text=" + social_message}>
+                                        <a className="whtsAppico" href={"whatsapp://send?text=" + social_message + "\n" + url}>
                                             <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
                                             <span>Whatsapp</span>
                                         </a>

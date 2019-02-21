@@ -1,6 +1,6 @@
 import React from "react";
 const queryString = require('query-string');
-
+import InfiniteScroll from 'react-infinite-scroller';
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import ComplimentListView from '../../commons/ratingsProfileView/ComplimentListView.js'
 import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
@@ -14,6 +14,7 @@ class AllRatingsView extends React.Component {
         super(props);
         this.state = {
             data: null,
+            hasMore: false,
             footerData: null,
         }
     }
@@ -30,9 +31,31 @@ class AllRatingsView extends React.Component {
                 this.setState({ data })
             }
         })
+        setTimeout(() => {
+            this.setState({ hasMore: true })
+        }, 0)
+    }
+
+    loadMore(page) {
+        this.setState({ hasMore: false, loading: true })
+        this.props.getDoctorList(null, page + 1, (hasMore) => {
+            this.setState({ loading: false, page: page + 1 })
+            setTimeout(() => {
+                this.setState({ hasMore })
+            }, 1000)
+        })
+
     }
 
     render() {
+        let start_page = 0
+        if (this.props.curr_page) {
+            start_page = Math.max(0, this.props.curr_page - 1)
+        } else {
+            if (this.props.page) {
+                start_page = Math.max(0, this.props.page - 1)
+            }
+        }
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -52,7 +75,16 @@ class AllRatingsView extends React.Component {
                                                             <ComplimentListView key={compliment.id} details={compliment} />) : ""}
                                                     </div>
                                                 </div>
-                                                <ReviewList details={this.state.data} />
+                                                <InfiniteScroll
+                                                    pageStart={start_page}
+                                                    loadMore={this.loadMore.bind(this)}
+                                                    hasMore={this.state.hasMore}
+                                                    useWindow={true}
+                                                    initialLoad={false}
+                                                >
+                                                    <ReviewList details={this.state.data} />
+                                                </InfiniteScroll>
+
                                             </div> : ""}
                                     </div>
                                 </div>

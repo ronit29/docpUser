@@ -4885,7 +4885,7 @@ font-weight: 700;
     border-radius: 5px;
     cursor: pointer;
 }
-.facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
+.facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span, .whtsappIcon-styling span{
 	position: absolute;
     top: 50%;
 	left: 50%;
