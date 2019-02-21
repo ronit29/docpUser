@@ -54,6 +54,11 @@ class SharePopUp extends React.Component {
         return `${CONFIG.API_BASE_URL}/login?referral=${this.state.referralCode}`
     }
 
+    getWhatsappText(social_message, url) {
+        return `${social_message}
+        ${url}`
+    }
+
     render() {
         let profileData = ''
         if (this.props.profiles && this.props.selectedProfile) {
@@ -70,7 +75,10 @@ class SharePopUp extends React.Component {
         } else {
             url = "https://docprime.com/lab/" + this.props.details.entity_id
         }
-        social_message = `${this.props.details.ratings} out of 5 stars \n ${this.props.details.compliments} \n\n "${this.props.details.review}"`
+        social_message = `${this.props.details.ratings} out of 5 stars 
+         ${this.props.details.compliments} 
+         
+         "${this.props.details.review}"`
         return (
             <div className="raiting-popup">
                 <div style={{ backgroundColor: '#fff', borderRadius: 5, position: 'relative' }} >
@@ -107,7 +115,7 @@ class SharePopUp extends React.Component {
                                         <span>Twitter</span>
                                     </div>
                                     <div className="whtsappIcon-styling" onClick={this.gaTracking.bind(this, 'whtsapp')} >
-                                        <a className="whtsAppico" href={"whatsapp://send?text=" + social_message + "\n" + url}>
+                                        <a className="whtsAppico" href={"whatsapp://send?text=" + this.getWhatsappText.bind(this)}>
                                             <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
                                             <span>Whatsapp</span>
                                         </a>
