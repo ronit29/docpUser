@@ -76,7 +76,7 @@ class LeftMenu extends React.Component {
                               <li className="pos-rel"><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
-                                this.props.history.push('/notifications')} } href="#"><img src="/assets/images/notification.png" alt="" className="" />Notification</a>
+                                this.props.history.push('/notifications')} } href="#"><img src="/assets/images/notification.png" alt="" className="" />Notifications</a>
                                 {
                                     this.props.unread_count ?
                                         <div className="notification-count">
@@ -160,7 +160,7 @@ class LeftMenu extends React.Component {
                                       e.preventDefault();
                                       this.props.toggleLeftMenu()
                                       this.props.history.push("/howitworks")
-                                  }} href="#">Terms and Condition</a></li>
+                                  }} href="#">Terms and Conditions</a></li>
                                 {
                                   STORAGE.checkAuth()?
                                   <li className="logout" ><a onClick={(e)=>{
