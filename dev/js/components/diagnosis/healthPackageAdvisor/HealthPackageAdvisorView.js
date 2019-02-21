@@ -404,9 +404,13 @@ class HealthPackageAdvisorView extends React.Component {
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.indexOf(rPackages.id) > -1 ? true : false} />
                                                         <span className="checkmark hpa-checkmark"></span>
                                                     </label>
-                                                    <div className="pkgCatImg">
-                                                        <img  className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_test_icons/lipid.png"/>
-                                                    </div>
+                                                    {
+                                                        rPackages.icon && rPackages.icon.length>0?
+                                                        <div className="pkgCatImg">
+                                                        <img  className="img-fluid" src={rPackages.icon[0].image_url}/>
+                                                        </div>
+                                                        :''
+                                                    }
                                                     {/*<label className="ck-bx" style={{ fontSize: 12 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
                                                     <label className="ck-bx" style={{ fontSize: 12, paddingLeft: 24 }} onChange={self.selectCategory.bind(self, rPackages.id, true)}>Select Test
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && x.isSubset).length ? true : false} />
