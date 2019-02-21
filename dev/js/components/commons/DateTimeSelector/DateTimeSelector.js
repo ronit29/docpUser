@@ -133,7 +133,7 @@ class DateTimeSelector extends React.Component {
             return false
         }
 
-        if(!type && new Date(dateAfterOneHour).toDateString() == today.toDateString() && new Date(dateAfterOneHour).getHours()>timeSlot.value){
+        if(!type && new Date(dateAfterOneHour).toDateString() == today.toDateString() && (new Date(dateAfterOneHour).getHours() + new Date(dateAfterOneHour).getMinutes()/60 )>timeSlot.value){
             return false
         }
         if (this.props.doctor_leaves && this.props.doctor_leaves.length) {
