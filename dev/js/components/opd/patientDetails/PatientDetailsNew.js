@@ -519,7 +519,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         let percent_discount = Math.max(0, (finalPrice / (parseInt(priceData.mrp) + treatment_mrp)) * 100)
-        percent_discount = 100 - percent_discount
+        percent_discount = parseInt(100 - percent_discount)
 
         return (
             <div className="profile-body-wrap">

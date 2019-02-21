@@ -134,6 +134,10 @@ class OrderSummaryView extends React.Component {
                                                                     {
                                                                         item.data.hospital ? <p className="clinic-name text-sm">{item.data.hospital.name}</p> : ""
                                                                     }
+
+                                                                    {
+                                                                        item.payment_type == 2 ? <span style={{ top: -50 }} className="pay-at-clinic">Pay at Clinic</span> : ""
+                                                                    }
                                                                 </div>
                                                             </div>
                                                             <div className="shopping-card-details-list">
