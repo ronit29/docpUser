@@ -13,7 +13,8 @@ class DoctorsNearMeView extends React.Component {
         title = title.substring(1, title.length)
 
         this.state = {
-            title: title
+            title: title,
+            readMore: 'search-details-data-less'
         }
     }
 
@@ -24,7 +25,15 @@ class DoctorsNearMeView extends React.Component {
         this.props.getArticleList(this.state.title, 1, true);
     }
 
+    toggleScroll() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        this.setState({ readMore: 'search-details-data-less' })
+    }
+
     render() {
+
         return (
             <div className="profile-body-wrap sitemap-body">
                 <ProfileHeader />
@@ -50,6 +59,31 @@ class DoctorsNearMeView extends React.Component {
                                 </li>
                             </ul>
                         </div>
+
+                        {
+                            this.props.articleListData.search_content && this.props.articleListData.search_content != '' ?
+                                <div className="col-12 mrt-10">
+                                    <div className="search-result-card-collpase">
+                                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.articleListData.search_content }} >
+                                        </div>
+
+                                        {
+                                            this.state.readMore && this.state.readMore != '' ?
+                                                <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
+                                                : ''
+                                        }
+
+                                        {
+                                            this.state.readMore == '' ?
+                                                <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                                                : ''
+                                        }
+
+                                    </div>
+                                </div>
+                                : ''
+                        }
+
                         <div className="col-12">
                             <div>
                                 <h1 className="fw-500 sitemap-title">{this.props.articleListData.category}</h1>
@@ -58,7 +92,7 @@ class DoctorsNearMeView extends React.Component {
                                 {
                                     this.props.articleList.length ?
                                         this.props.articleList.map((property, index) => {
-                                            return <div className="col-12 col-md-6 col-lg-4">
+                                            return <div className="col-12 col-md-6 col-lg-4" key={index}>
                                                 <div className="anchor-data-style">
                                                     <a href={`/${property.url}`} onClick={
                                                         (e) => {
@@ -78,6 +112,16 @@ class DoctorsNearMeView extends React.Component {
                                 }
                             </div>
                         </div>
+
+                        {
+                            this.props.articleListData.bottom_content && this.props.articleListData.bottom_content != '' ?
+                                <div className="col-12 mrt-10">
+                                    <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.articleListData.bottom_content }}>
+                                    </div>
+                                </div>
+                                : ''
+                        }
+
                     </div>
                 </section>
                 <Footer />

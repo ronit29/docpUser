@@ -21,18 +21,23 @@ class DoctorProfileCard extends React.Component {
     }
 
     cardClick(id, url, hospital_id, e) {
-        e.stopPropagation()
+        e.stopPropagation();
+
+        let Distance = ''
+        if (this.props.details && this.props.details.distance) {
+            Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
+        }
         let data = {
             'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
         }
-        GTM.sendEvent({ data: data })
+        GTM.sendEvent({ data: data });
 
         let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
         let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
         let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
         let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
         data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count,   'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids 
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids, 'Distance': Distance
         }
         GTM.sendEvent({ data: data })
 
@@ -101,7 +106,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema, enabled_for_online_booking, discounted_price, parent_url } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -121,11 +126,11 @@ class DoctorProfileCard extends React.Component {
         }
 
         try {
-            if (schema) {
-                schema = JSON.stringify(schema)
+            if (new_schema) {
+                new_schema = JSON.stringify(new_schema)
             }
         } catch (e) {
-            schema = ""
+            new_schema = ""
         }
         let is_procedure = false
         if (hospitals && hospitals.length) {
@@ -155,8 +160,8 @@ class DoctorProfileCard extends React.Component {
             return (
                 <div className="filter-card-dl mb-3" >
                     {
-                        schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
-                            __html: schema
+                        new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: new_schema
                         }} />
                             : ""
                     }

@@ -45,19 +45,24 @@ class ArticleList extends React.Component {
 	}
 
 	loadMore() {
-		let page = parseInt(this.state.page) + 1
-		this.props.getArticleList(this.state.title, page, false, this.state.searchVal, (resp) => {
-			if (resp.length) {
-				this.setState({
-					hasMore: true,
-					page
-				});
-			} else {
-				this.setState({
-					hasMore: false
-				});
-			}
-		});
+		this.setState({
+			hasMore: false
+		}, () => {
+			let page = parseInt(this.state.page) + 1
+			this.props.getArticleList(this.state.title, page, false, this.state.searchVal, (resp) => {
+				if (resp.length) {
+					this.setState({
+						hasMore: true,
+						page
+					});
+				} else {
+					this.setState({
+						hasMore: false
+					});
+				}
+			})
+		})
+
 	}
 
 	changeVal(e) {

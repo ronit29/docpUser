@@ -61,8 +61,10 @@ class LabView extends React.Component {
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
-                        <LeftBar />
-
+                        <HelmetTags tagsData={{
+                            title: 'Compare Full body Health Checkup Packages from Top Labs | Book Online & Save upto 50%',
+                            description: 'Compare and book full body health checkup packages from top labs at docprime.com. Avail exclusive discounts & save upto 50%. Get free home sample collection and online reports on time.'
+                        }} />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <h4 className="mrng-top-12">Top full body checkup packages</h4>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
@@ -94,7 +96,7 @@ class LabView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="static-pk-container">
+                                <div className="static-pk-container sticky-pk-container-2">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
@@ -136,7 +138,7 @@ class LabView extends React.Component {
                                     </div>
                                 </div>
                                 <div className="stc-acrdn-contaniner">
-                                    <h5 className="stc-expnd-btn" onClick={this.expandAll.bind(this)}>{this.state.expandText}</h5>
+                                    <h5 className="stc-expnd-btn mrt-10" onClick={this.expandAll.bind(this)}>{this.state.expandText}</h5>
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading stc-no-cursor">
                                             <p>Preparation</p>
@@ -1604,47 +1606,6 @@ class LabView extends React.Component {
                                                     </div>
                                                 </div> : ''
                                         }
-                                    </div>
-                                </div>
-                                <div className="static-pk-container">
-                                    <div className="static-pkg-top-column">
-                                        <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">
-                                                10% OFF + ₹ 100
-                                                OFF Coupon
-                                                                </p>
-                                        </div>
-                                        <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12349" onClick={(e) => {
-                                            e.preventDefault()
-                                            this.bookNowClicked('/lab/searchresults?test_ids=12349', 'TopbookNowClickedBlock1')
-                                        }} className="stc-book-btn">Book Now</a>
-                                    </div>
-                                    <div className="static-pkg-top-column stc-mid-mrgn">
-                                        <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
-                                        </div>
-                                        <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12227" onClick={(e) => {
-                                            e.preventDefault()
-                                            this.bookNowClicked('/lab/searchresults?test_ids=12227', 'TopbookNowClickedBlock2')
-                                        }}
-                                            className="stc-book-btn">Book Now</a>
-                                    </div>
-                                    <div className="static-pkg-top-column">
-                                        <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">
-                                                20% OFF + ₹ 100
-                                                OFF Coupon
-                                                                </p>
-                                        </div>
-                                        <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=11722"
-                                            onClick={(e) => {
-                                                e.preventDefault()
-                                                this.bookNowClicked('/lab/searchresults?test_ids=11722', 'TopbookNowClickedBlock3')
-                                            }}
-                                            className="stc-book-btn">Book Now</a>
                                     </div>
                                 </div>
                             </div>

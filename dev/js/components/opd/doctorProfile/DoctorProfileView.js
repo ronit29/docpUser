@@ -19,6 +19,7 @@ import Footer from '../../commons/Home/footer'
 import ContactPoupView from '../doctorProfile/ContactPopup.js'
 
 import GTM from '../../../helpers/gtm.js'
+import InitialsPicture from '../../commons/initialsPicture';
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -151,6 +152,27 @@ class DoctorProfileView extends React.Component {
         this.setState({ [which]: !this.state[which] })
     }
 
+    navigateToDoctor(doctor, e) {
+        e.preventDefault();
+        this.props.history.push(doctor.url);
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'recommendedDoctorClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'recommended-doctor-click', 'DoctorID': doctor.doctor_id
+        }
+        GTM.sendEvent({ data: data })
+    }
+
+    viewAllDocClick(nearbyDoctors) {
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'viewAllDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-all-doctors-click'
+        }
+        GTM.sendEvent({ data: data })
+
+        window.open(nearbyDoctors.doctors_url, '_self');
+
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -173,6 +195,11 @@ class DoctorProfileView extends React.Component {
             if (seo_url) {
                 seo_url = "/" + seo_url
             }
+        }
+
+        let nearbyDoctors = {}
+        if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].doctors && Object.keys(this.props.DOCTORS[doctor_id].doctors).length) {
+            nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
         }
 
         return (
@@ -246,8 +273,81 @@ class DoctorProfileView extends React.Component {
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
+                                                            liveState={this.state.is_live}
+                                                            showContact={this.state.show_contact}
                                                             {...this.props}
                                                         />
+                                                        {
+                                                            nearbyDoctors && Object.keys(nearbyDoctors).length ?
+                                                                <div className="widge-content pd-0">
+                                                                    <div className="widget-panel">
+                                                                        {
+                                                                            nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
+                                                                                <div className="panel-title mb-rmv p-relative docslideHeadAlign">
+                                                                                    <p>Book experienced {nearbyDoctors.specializations[0].name}s near you<span className="docSlideSubHeading">Get exclusive Docprime discount</span>
+                                                                                    </p>
+                                                                                    {/* {
+                                                                                        nearbyDoctors.count >= 1 && nearbyDoctors.doctors_url ?
+                                                                                            <span className="docSlideviewAll" onClick={() => this.viewAllDocClick(nearbyDoctors)}>View All <img src={ASSETS_BASE_URL + "/img/arrowRight.svg"} /></span> : ''
+                                                                                    } */}
+                                                                                </div> : ''
+                                                                        }
+                                                                        <div className="panel-content pd-0 border-bottom-panel">
+                                                                            <div className="docScrollSliderContainer">
+                                                                                {
+                                                                                    nearbyDoctors.result && nearbyDoctors.result.length ?
+                                                                                        nearbyDoctors.result.map((doctor, id) => {
+                                                                                            return <a href={`/${doctor.url}`} className="docSlideCard" key={id} onClick={(e) => this.navigateToDoctor(doctor, e)}>
+                                                                                                <div className="docSlideHead">
+                                                                                                    {/* {   // RATING CODE BELOW, DONT DELETE
+                                                                                                        doctor.rating_graph.avg_rating ?
+                                                                                                            <span className="slideDocRating">{doctor.rating_graph.avg_rating} <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span> : ''
+                                                                                                    } */}
+                                                                                                    <InitialsPicture name={doctor.name} has_image={!!doctor.thumbnail} className="initialsPicture-ds slideDocMainImg" style={{ width: 60, height: 60, fontSize: '2rem' }} >
+                                                                                                        <img className="fltr-usr-image img-round slideDocMainImg" src={doctor.thumbnail} alt={doctor.display_name} title={doctor.display_name} />
+                                                                                                    </InitialsPicture>
+                                                                                                </div>
+                                                                                                <div className="slideDocContent">
+                                                                                                    <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                    <p className="slideDocExp">{doctor.experience_years} Years of Experience</p>
+                                                                                                    {
+                                                                                                        doctor.qualifications && doctor.qualifications.length ?
+                                                                                                            <p className="slideDocdeg">
+                                                                                                                {
+                                                                                                                    doctor.qualifications.map((qualification, index) => {
+                                                                                                                        return <span key={index}>{qualification.qualification}</span>
+                                                                                                                    })
+                                                                                                                }
+                                                                                                            </p> : ''
+                                                                                                    }
+                                                                                                    {
+                                                                                                        doctor.hospitals && doctor.hospitals.length ?
+                                                                                                            <p className="slideDocExp" style={{ marginTop: 5 }} >{doctor.hospitals[0].hospital_name}</p> : ''
+                                                                                                    }
+                                                                                                    <div className="slideDocPrice">
+                                                                                                        <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
+                                                                                                    </div>
+                                                                                                    <div className="slidBookBtn">
+                                                                                                        <button>Book Now</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </a>
+                                                                                        }) : ''
+                                                                                }
+                                                                                {/* {
+                                                                                    nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation && this.props.selectedLocation.formatted_address != '' && nearbyDoctors.doctors_url ?
+                                                                                        <div className="docSlideCard">
+                                                                                            <div className="docScrollSearchAll">
+                                                                                                <img className="img-fluid" src="/assets/images/vall.png" />
+                                                                                                <p>View all {nearbyDoctors.count} {nearbyDoctors.specializations[0].name}<br /> in {this.props.selectedLocation.formatted_address} </p>
+                                                                                            </div>
+                                                                                        </div> : ''
+                                                                                } */}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> : ''
+                                                        }
                                                         <div className="widge-content pd-0">
                                                             {
                                                                 this.props.DOCTORS[doctor_id].about ? <AboutDoctor
@@ -293,7 +393,7 @@ class DoctorProfileView extends React.Component {
                                         {
                                             this.state.is_live ?
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
-                                                    {
+                                                    {/* {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
                                                             <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
                                                                 e.preventDefault()
@@ -306,7 +406,7 @@ class DoctorProfileView extends React.Component {
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
-                                                    }
+                                                    } */}
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
                                                         <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }} className="">Book Now</span></p>
@@ -315,7 +415,7 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                                 :
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
-                                                    {
+                                                    {/* {
                                                         !this.state.searchDataHidden && search_data && search_data.result_count && search_data.title && search_data.url ?
                                                             <a className="dpp-btn-view" href={'/' + search_data.url} onClick={(e) => {
                                                                 e.preventDefault()
@@ -328,7 +428,7 @@ class DoctorProfileView extends React.Component {
                                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/right-orange.svg"} />
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
-                                                    }
+                                                    } */}
                                                     {
                                                         this.state.clinicPhoneNo[this.state.selectedClinic]
                                                             ? <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
@@ -363,11 +463,9 @@ class DoctorProfileView extends React.Component {
                                     </section> : <Loader />
                             }
                         </div>
-
                         <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} />
                     </div>
                 </section>
-
                 <Footer footerData={this.state.footerData} />
             </div>
         );

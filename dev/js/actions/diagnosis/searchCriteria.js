@@ -74,18 +74,45 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
         payload: coupon
     })
 }
-export const searchTestData = (test_ids,lab_id,callback) => (dispatch) => {
-    let url = 'test_ids='+test_ids
-    if(lab_id != null){
-    url = 'test_ids='+test_ids+'&lab_id='+lab_id
+export const searchTestData = (test_ids, test_url, lab_id, state,no_labs, callback) => (dispatch) => {
+
+    let url
+    let lat = 28.644800
+    let long = 77.216721
+
+    let { selectedLocation } = state
+
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+
     }
-    return API_GET('/api/v1/diagnostic/test/details?'+url).then(function (response) {
+
+
+    if (test_url) {
+        url = '/api/v1/diagnostic/test/details_by_url?url=' + test_url + '&long=' + long + '&lat=' + lat
+    } else {
+        url = '/api/v1/diagnostic/test/details?test_ids=' + test_ids + '&long=' + long + '&lat=' + lat
+    }
+
+    if (lab_id) {
+        url += '&lab_id=' + lab_id
+    }
+
+    if(no_labs){
+        url += '&no_labs=true'
+    }
+
+    return API_GET(url).then(function (response) {
         dispatch({
             type: SEARCH_TEST_INFO,
             payload: response
 
         })
-        if(callback) callback(response);
+        if (callback) callback(response);
     }).catch(function (error) {
         dispatch({
             type: SEARCH_TEST_INFO,
