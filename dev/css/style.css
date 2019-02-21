@@ -6289,3 +6289,21 @@ span.slideCutPrc{
 }
 
 /* ============= Payment type==============*/
+/* ============= Cod ==============*/
+.payAtclinic{
+	background: #eba916;
+    color: white;
+    padding: 5px 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.payAtclinic h5{
+	font-weight: 500;
+}
+.payAtclinic p{
+    margin-top: 2px;
+}
+.payAtclinic b{
+	font-weight: 500;
+}
+/* ============= Cod ==============*/

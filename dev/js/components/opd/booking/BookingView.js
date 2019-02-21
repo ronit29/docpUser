@@ -57,10 +57,12 @@ class BookingView extends React.Component {
                         }
                         GTM.sendEvent({ data: analyticData }, true, false)
 
-                        let criteo_data = 
-                            { 'event': "trackTransaction", 'id': appointmentId, 'item': [
-                                {'id': "1", 'price': data.length?data[0].deal_price:'', 'quantity': 1 }
-                            ]}
+                        let criteo_data =
+                        {
+                            'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
+                            ]
+                        }
 
                         CRITEO.sendData(criteo_data)
 
@@ -241,7 +243,13 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div> : ""
                                                 }
+                                                {/* cart price design */}
+                                                <div className="payAtclinic">
+                                                    <h5>Pay at clinic</h5>
+                                                    <p>You have to pay <b>₹ 1900</b> at the time of appointment</p>
 
+                                                </div>
+                                                {/* cart price design */}
 
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
