@@ -281,6 +281,7 @@ class DoctorProfileCard extends React.Component {
                                                 </p> : ''
                                 }
 
+                                {/* code for new pricing UI (exclusive docprime price) */}
                                 {/* {
                                     enabled_for_hospital_booking ?
                                         <div className="dp-price-dtls-div mrb-10">
