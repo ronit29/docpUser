@@ -76,6 +76,10 @@ class UserSignupView extends React.Component {
         return today
     }
 
+    openCalendar(){
+        this.setState({dateModal:true})
+    }
+
     submitForm() {
         this.setState({ err: "" })
         // validate
@@ -240,7 +244,7 @@ class UserSignupView extends React.Component {
                                                                     <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
                                                                 </div>
                                                                 <div className="labelWrap">
-                                                                    <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={()=>this.setState({dateModal:!this.state.dateModal})} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
                                                                     <label htmlFor="dob">Date of Birth</label>
                                                                 </div>
 
