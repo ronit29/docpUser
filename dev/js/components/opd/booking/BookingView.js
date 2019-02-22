@@ -188,8 +188,6 @@ class BookingView extends React.Component {
                 summary_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
         }
-        console.log(this.state.data)
-        console.log(status)
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}

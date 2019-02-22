@@ -19,7 +19,6 @@ class DirectBooking extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let OTT = parsed.token
         let callbackurl = parsed.callbackurl 
-        console.log(callbackurl)
         if (OTT) {
             this.props.OTTLogin(OTT).then(() => {
                 if(callbackurl){
