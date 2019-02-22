@@ -32,10 +32,10 @@ class HomePageWidget extends React.Component {
                         this.props.type === 'opd' ?
                             <h1>{this.props.heading}</h1>
                             : this.props.searchType && this.props.searchType === 'packages' ?
-                                <a style={{ cursor: 'pointer' }} title="Full Body Checkup Packages" href="/searchpackages"
+                                <a style={{ cursor: 'pointer' }} title="Full Body Checkup Packages" href="/full-body-checkup-health-packages"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        this.navigateTo(this.props.navTo)
+                                        this.navigateTo(this.props.linkTo)
                                     }}
                                 >
                                     <h2 className="home-widget-heading">{this.props.heading}</h2>
