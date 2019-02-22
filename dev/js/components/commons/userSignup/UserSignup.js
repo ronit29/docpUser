@@ -245,7 +245,7 @@ class UserSignupView extends React.Component {
                                                                 </div>
 
                                                                 {   
-                                                                    this.state.dateModal ? <div className="calendar-overlay" onClick={()=>this.setState({dateModal:!this.state.dateModal})}><div className="date-picker-modal">
+                                                                    this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
                                                                         <Calendar
                                                                             showWeekNumber={false}
                                                                             defaultValue={moment(new Date())}
