@@ -150,7 +150,7 @@ class AppointmentReschedule extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
                             {
-                                this.state.data ?
+                                this.state.data && this.state.data.status !== 7?
                                     <div>
 
                                         <section className="dr-profile-screen booking-confirm-screen">
@@ -210,11 +210,23 @@ class AppointmentReschedule extends React.Component {
 
                                         </section>
 
-                                    </div> : <Loader />
+                                    </div> 
+
+                                    : this.state.data && this.state.data.status == 7?
+                                        <div className="container-fluid">
+                                        <div className="sms-reschedule mrt-10">
+                                            <div>
+                                            <p className="fw-500">This appointment cannot be reschedule as you already marked this appointment complete. </p>
+                                            <button className="sms-lgbtn" onClick={()=>(this.props.push('/'))}>Go to Homepage</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    :<Loader />
                             }
 
-                            {
+                            {this.state.data && this.state.data.status != 7?
                                 priceData.payable_amount == 0 ? <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.proceed.bind(this)}>Confirm Reschedule</button> : <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.cancelAppointment.bind(this)}>Cancel and rebook</button>
+                                :''
                             }
 
 
