@@ -61,8 +61,10 @@ class LabView extends React.Component {
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
-                        <LeftBar />
-
+                        <HelmetTags tagsData={{
+                            title: 'Compare Full body Health Checkup Packages from Top Labs | Book Online & Save upto 50%',
+                            description: 'Compare and book full body health checkup packages from top labs at docprime.com. Avail exclusive discounts & save upto 50%. Get free home sample collection and online reports on time.'
+                        }} />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <h4 className="mrng-top-12">Top full body checkup packages</h4>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">

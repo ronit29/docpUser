@@ -344,7 +344,6 @@ class ChatPanel extends React.Component {
                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
                             </div>
                 }
-
                 <div className={this.state.showChatBlock ? "floating-chat " : ""}>
                     {
                         this.state.showStaticView ?
@@ -357,7 +356,7 @@ class ChatPanel extends React.Component {
 
                                     <div className="hd-chat" style={{ flex: 1 }}>
                                         {
-                                            this.props.location.search && this.props.location.search === "?botagent=true&force_start=true" ?
+                                            this.props.location.search && this.props.location.search.includes('?botagent') ?
                                                 <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
                                                     <span className="hed-txt-lt">Get </span>
                                                     Help with Booking
