@@ -22,7 +22,7 @@ class DirectBooking extends React.Component {
         if (OTT) {
             this.props.OTTLogin(OTT).then(() => {
                 if(callbackurl){
-                    this.props.history.push('/'+callbackurl + '?complete=true')
+                    this.props.history.push('/'+callbackurl)
                 }else{
                     this.props.history.push('/cart')
                 }
