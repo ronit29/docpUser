@@ -283,22 +283,22 @@ class DoctorProfileCard extends React.Component {
 
                                 {/* {
                                     enabled_for_hospital_booking ?
-                                        <div className="dp-price-dtls-div">
+                                        <div className="dp-price-dtls-div mrb-10">
                                             {
                                                 is_procedure
                                                     ? finalProcedureMrp != finalProcedureDealPrice ?
                                                         <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p> : ''
                                                     : mrp != discounted_price ? <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p> : ''
                                             }
-                                            <p className="fw-500 exclsv-price">Exclusive Docprime fee : &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}</p>
+                                            <p className="fw-500 exclsv-price">Docprime fee : &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}</p>
                                         </div>
                                         :
                                         is_procedure ?
-                                            <div className="dp-price-dtls-div">
+                                            <div className="dp-price-dtls-div mrb-10">
                                                 <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p>
                                             </div>
                                             : mrp ?
-                                                <div className="dp-price-dtls-div">
+                                                <div className="dp-price-dtls-div mrb-10">
                                                     <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p>
                                                 </div> : ''
                                 } */}
