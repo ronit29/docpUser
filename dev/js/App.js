@@ -217,7 +217,7 @@ class App extends React.Component {
     render() {
 
         return (
-            <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true) } onSwipedRight={(eventData) => this.toggleLeftMenu(true, true) }>
+            <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true) }>
                 <NotificationsBoot />
                 <BrowserRouter>
                     <div>
