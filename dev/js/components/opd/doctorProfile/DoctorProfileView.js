@@ -369,7 +369,7 @@ class DoctorProfileView extends React.Component {
                                                             />
                                                             {this.props.DOCTORS[doctor_id].display_rating_widget ?
                                                                 <div className="widget-panel">
-                                                                    <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                                                    <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll"><span onClick={() => this.props.history.push(`/view-all-ratings?content_type=2&id=` + doctor_id)}>View All</span></a></h4>
                                                                     <div className="panel-content pd-0 border-bottom-panel">
                                                                         <RatingGraph details={this.props.DOCTORS[doctor_id]} />
                                                                         <div className="user-satisfaction-section">
@@ -467,7 +467,7 @@ class DoctorProfileView extends React.Component {
                     </div>
                 </section>
                 <Footer footerData={this.state.footerData} />
-            </div>
+            </div >
         );
     }
 }
