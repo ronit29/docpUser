@@ -3696,10 +3696,10 @@ padding-top: 0px !important;
 	padding: 2px 4px;
 	background-color: #fc092b;
 	border-radius: 5px;
-	height: 22px;
+	height: 20px;
 }
 .popular-txt span{
-	font-size: 12px;
+	font-size: 10px;
 	color: #ffffff;
 }
 .mb-10{
@@ -6218,6 +6218,14 @@ span.slideCutPrc{
 }
 .ratingBtnmrgn{
 	padding: 7px 0 25px 0 !important;
+}
+.search-prnsl-rslts{
+	color: #f78631;
+    margin-top: 2px;
+}
+.srch-prnsl-txt{
+	margin-bottom: 10px;
+    font-weight: 500;
 }
 
 /* ==================== popDesign ==================== */
