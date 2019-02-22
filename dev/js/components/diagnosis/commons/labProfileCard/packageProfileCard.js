@@ -175,7 +175,6 @@ class LabProfileCard extends React.Component {
                                 <ul style={{ marginTop: '5px' }}>
                                     {
                                         category_details.map((category_detail, k) => {
-                                            console.log(category_detail)
                                             return <li className="pkg-listing-tick" key={k} id={k}>
                                                 <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
                                                 <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_test_icons/lipid.png"/>

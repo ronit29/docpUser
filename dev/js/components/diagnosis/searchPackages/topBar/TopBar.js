@@ -33,7 +33,8 @@ class TopBar extends React.Component {
             packageType:'',
             gender:'',
             catIds:[],
-            test_ids:''
+            test_ids:'',
+            package_ids:''
         }
     }
 
@@ -88,7 +89,8 @@ class TopBar extends React.Component {
             gender: this.state.gender,
             packageType: this.state.packageType,
             catIds:this.state.catIds,
-            test_ids:this.state.test_ids
+            test_ids:this.state.test_ids,
+            package_ids:this.state.package_ids
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
@@ -201,7 +203,8 @@ class TopBar extends React.Component {
             min_age: this.state.min_age,
             gender:this.state.gender,
             packageType: this.state.packageType,
-            test_ids:this.state.test_ids
+            test_ids:this.state.test_ids,
+            package_ids:this.state.package_ids
         }
         // let isCategory = false 
         // if(this.state.initialSelectedCatIds != categoryState.length){
