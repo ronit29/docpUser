@@ -18,10 +18,15 @@ class DirectBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
         let OTT = parsed.token
-
+        let callbackurl = parsed.callbackurl 
+        console.log(callbackurl)
         if (OTT) {
             this.props.OTTLogin(OTT).then(() => {
-                this.props.history.push('/cart')
+                if(callbackurl){
+                    this.props.history.push('/'+callbackurl + '?complete=true')
+                }else{
+                    this.props.history.push('/cart')
+                }
             }).catch(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Token Expired." });
                 this.props.history.push('/')

@@ -10,6 +10,8 @@ import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 import CRITEO from '../../../helpers/criteo.js'
+import SnackBar from 'node-snackbar'
+const queryString = require('query-string');
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -29,7 +31,8 @@ class BookingView extends React.Component {
             loading: true,
             showCancel: false,
             payment_success: this.props.location.search.includes('payment_success'),
-            hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button')
+            hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button'),
+            isCompleted:false
         }
     }
 
@@ -38,11 +41,20 @@ class BookingView extends React.Component {
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
             this.props.selectOpdTimeSLot({ time: {} }, true, null)
         }
-
+        const parsed = queryString.parse(this.props.location.search)
+        let smsComplete = parsed.complete
         let appointmentId = this.props.match.params.refId;
         this.props.getOPDBookingSummary(appointmentId, (err, data) => {
             if (!err) {
-                this.setState({ data: data[0], loading: false })
+                this.setState({ data: data[0], loading: false }, () => {
+
+                    if(smsComplete){
+                        if(data[0].status != 7){
+                            this.getAppointment()
+                        }
+                    }
+                })
+                
                 let info = {}
                 info[appointmentId] = []
                 info[appointmentId].push({ 'booking_id': appointmentId, 'mrp': data.length ? data[0].mrp : '', 'deal_price': data.length ? data[0].deal_price : '' })
@@ -75,6 +87,23 @@ class BookingView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
+        }
+    }
+
+    getAppointment(props) {
+        const appointmentId = this.props.match.params.refId
+         if (!this.state.isCompleted) {
+            let appointmentData = { id: appointmentId, status: 7 }
+            this.props.updateOPDAppointment(appointmentData, (err, data) => {
+                if (data) {
+                    this.setState({ data:data, isCompleted: true })
+                } else {
+                    SnackBar.show({ pos: 'bottom-center', text: "Something went wrong." });
+                }
+            })                           
+        } 
+        else {
+            SnackBar.show({ pos: 'bottom-center', text: "Your appointment is already completed." });
         }
     }
 
@@ -159,7 +188,8 @@ class BookingView extends React.Component {
                 summary_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
         }
-
+        console.log(this.state.data)
+        console.log(status)
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
