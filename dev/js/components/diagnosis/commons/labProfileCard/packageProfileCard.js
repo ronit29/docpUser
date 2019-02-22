@@ -126,7 +126,7 @@ class LabProfileCard extends React.Component {
                     </div>
                     <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                         <div className="col-12 mrt-10">
-                            <a>
+                            <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
                                 <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name} {show_details ?
                                     <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block' }} onClick={this.testInfo.bind(this, id)}>
                                         <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />

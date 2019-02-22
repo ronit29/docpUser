@@ -3,6 +3,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import LocationElements from '../../../containers/commons/locationElements'
 import InfoPopup from './healthPackageInfoPopup.js'
 import GTM from '../../../helpers/gtm';
+import HelmetTags from '../../commons/HelmetTags';
 const queryString = require('query-string');
 
 class HealthPackageAdvisorView extends React.Component {
@@ -214,6 +215,9 @@ class HealthPackageAdvisorView extends React.Component {
         let self = this
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }} >
+                <HelmetTags tagsData={{
+                    canonicalUrl: '/full-body-checkup-health-packages'
+                }} />
                 <div className="d-none d-md-block">
                     <ProfileHeader />
                 </div>

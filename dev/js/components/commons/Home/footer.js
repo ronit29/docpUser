@@ -170,10 +170,10 @@ class Footer extends React.Component {
                                             e.preventDefault();
                                             this.navigateTo("/referral")
                                         }}>Refer & Earn</a></li>
-                                        <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
+                                        {/* <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/full-body-checkup-health-packages?fromFooter=true")
-                                        }}>Book Full Body Packages</a></li>
+                                        }}>Book Full Body Packages</a></li> */}
                                     </ul> : ""
                                 }
                                 <h3 className="foot-sub-lisitng">For Doctors</h3>
