@@ -273,6 +273,8 @@ class DoctorProfileView extends React.Component {
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
+                                                            liveState={this.state.is_live}
+                                                            showContact={this.state.show_contact}
                                                             {...this.props}
                                                         />
                                                         {
@@ -281,9 +283,15 @@ class DoctorProfileView extends React.Component {
                                                                     <div className="widget-panel">
                                                                         {
                                                                             nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
-                                                                                <h4 className="panel-title mb-rmv p-relative docScrollWidgetheader"><span>Book experienced {nearbyDoctors.specializations[0].name}s at excluisive docprime dates</span> </h4> : ''
+                                                                                <div className="panel-title mb-rmv p-relative docslideHeadAlign">
+                                                                                    <p>Book experienced {nearbyDoctors.specializations[0].name}s near you<span className="docSlideSubHeading">Get exclusive Docprime discount</span>
+                                                                                    </p>
+                                                                                    {/* {
+                                                                                        nearbyDoctors.count >= 1 && nearbyDoctors.doctors_url ?
+                                                                                            <span className="docSlideviewAll" onClick={() => this.viewAllDocClick(nearbyDoctors)}>View All <img src={ASSETS_BASE_URL + "/img/arrowRight.svg"} /></span> : ''
+                                                                                    } */}
+                                                                                </div> : ''
                                                                         }
-
                                                                         <div className="panel-content pd-0 border-bottom-panel">
                                                                             <div className="docScrollSliderContainer">
                                                                                 {
@@ -319,19 +327,22 @@ class DoctorProfileView extends React.Component {
                                                                                                     <div className="slideDocPrice">
                                                                                                         <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
                                                                                                     </div>
+                                                                                                    <div className="slidBookBtn">
+                                                                                                        <button>Book Now</button>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                             </a>
                                                                                         }) : ''
                                                                                 }
-                                                                                {
+                                                                                {/* {
                                                                                     nearbyDoctors.count > 1 && nearbyDoctors.specializations && nearbyDoctors.specializations.length && this.props.selectedLocation && this.props.selectedLocation.formatted_address != '' && nearbyDoctors.doctors_url ?
-                                                                                        <div className="docSlideCard" onClick={() => this.viewAllDocClick(nearbyDoctors)}>
+                                                                                        <div className="docSlideCard">
                                                                                             <div className="docScrollSearchAll">
                                                                                                 <img className="img-fluid" src="/assets/images/vall.png" />
                                                                                                 <p>View all {nearbyDoctors.count} {nearbyDoctors.specializations[0].name}<br /> in {this.props.selectedLocation.formatted_address} </p>
                                                                                             </div>
                                                                                         </div> : ''
-                                                                                }
+                                                                                } */}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -452,11 +463,9 @@ class DoctorProfileView extends React.Component {
                                     </section> : <Loader />
                             }
                         </div>
-
                         <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} />
                     </div>
                 </section>
-
                 <Footer footerData={this.state.footerData} />
             </div>
         );

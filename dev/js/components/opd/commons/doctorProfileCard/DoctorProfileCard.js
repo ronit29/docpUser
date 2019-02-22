@@ -109,6 +109,10 @@ class DoctorProfileCard extends React.Component {
                             : experiences ? <h2 className="add-details">{expStr}</h2> : ''
                     }
                     {
+                        this.props.showContact && !this.props.liveState ?
+                            <p className="notAvlDoc">Not available for online booking</p> : ''
+                    }
+                    {
                         this.props.details.enabled_for_online_booking == false || this.props.bookingEnabled == false ? <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button> : ''
                     }
                 </div>
