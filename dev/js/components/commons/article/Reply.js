@@ -34,8 +34,8 @@ class ReplyView extends React.Component{
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <h1 className={`dr-name ${this.props.commentData.author?'comments-rply':''}`} onClick={(e) => this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</h1>
-                            <h2 className="add-details">{this.props.commentData.submit_date?new Date(this.props.commentData.submit_date).toDateString():""}</h2>
+                            <p className={`dr-name ${this.props.commentData.author?'comments-rply':''}`} onClick={(e) => this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</p>
+                            <p className="add-details">{this.props.commentData.submit_date?new Date(this.props.commentData.submit_date).toDateString():""}</p>
                         </div>
                     </div>
                     <p className="usr-comments-para">
