@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin } from '../../actions/index.js'
+import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin, getUnratedAppointment} from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/opd/booking/BookingView.js'
 
@@ -57,6 +57,7 @@ const mapDispatchToProps = (dispatch) => {
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getCartItems: () => dispatch(getCartItems()),
+        getUnratedAppointment: (callback) => dispatch(getUnratedAppointment(callback)),
     }
 }
 

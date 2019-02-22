@@ -12,6 +12,7 @@ import STORAGE from '../../../helpers/storage'
 import CRITEO from '../../../helpers/criteo.js'
 import SnackBar from 'node-snackbar'
 const queryString = require('query-string');
+import RatingsPopUp from '../../commons/ratingsProfileView/RatingsPopUp.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -191,6 +192,9 @@ class BookingView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
+                {
+                    this.state.isCompleted?<RatingsPopUp {...this.props} />:''
+                }
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
