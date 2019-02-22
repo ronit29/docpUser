@@ -32,6 +32,7 @@ class UserSignupView extends React.Component {
             gender: 'm',
             email: '',
             dob:'',
+            formattedDate: '',
             phone_number: this.props.phoneNumber || '',
             existingUser,
             showMedical: false,
@@ -53,8 +54,9 @@ class UserSignupView extends React.Component {
     selectDateFromCalendar(date) {
         if (date) {
             date = date.toDate()
-            date = this.getFormattedDate(date)
-            this.setState({ dob: date, dateModal: false})
+            let formattedDate = this.getFormattedDate(date)
+            date = new Date(date).toISOString().split('T')[0]
+            this.setState({ dob: date, formattedDate:formattedDate, dateModal: false})
         } else {
             this.setState({ dateModal: false })
         }
@@ -238,7 +240,7 @@ class UserSignupView extends React.Component {
                                                                     <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
                                                                 </div>
                                                                 <div className="labelWrap">
-                                                                    <input id="dob" name="dob" type="text" value={this.state.dob} onClick={()=>this.setState({dateModal:!this.state.dateModal})} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={()=>this.setState({dateModal:!this.state.dateModal})} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} />
                                                                     <label htmlFor="dob">Date of Birth</label>
                                                                 </div>
 
