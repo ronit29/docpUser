@@ -31,6 +31,7 @@ class UserSignupView extends React.Component {
             age: '',
             gender: 'm',
             email: '',
+            dob:'',
             phone_number: this.props.phoneNumber || '',
             existingUser,
             showMedical: false,
@@ -53,7 +54,7 @@ class UserSignupView extends React.Component {
         if (date) {
             date = date.toDate()
             date = this.getFormattedDate(date)
-            this.setState({ age: date, dateModal: false})
+            this.setState({ dob: date, dateModal: false})
         } else {
             this.setState({ dateModal: false })
         }
@@ -104,7 +105,7 @@ class UserSignupView extends React.Component {
                     }
                     break
                 }
-                case "age": {
+                case "dob": {
                     validated = this.refs[prp].value
                     break
                 }
@@ -237,8 +238,8 @@ class UserSignupView extends React.Component {
                                                                     <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
                                                                 </div>
                                                                 <div className="labelWrap">
-                                                                    <input id="age" name="age" type="text" value={this.state.age} onClick={()=>this.setState({dateModal:!this.state.dateModal})} required ref="age" onKeyPress={this.handleEnterPress.bind(this)} />
-                                                                    <label htmlFor="age">Date of Birth</label>
+                                                                    <input id="dob" name="dob" type="text" value={this.state.dob} onClick={()=>this.setState({dateModal:!this.state.dateModal})} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} />
+                                                                    <label htmlFor="dob">Date of Birth</label>
                                                                 </div>
 
                                                                 {   
