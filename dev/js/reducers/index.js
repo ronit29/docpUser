@@ -25,7 +25,7 @@ const persistConfig = {
 const DOCTOR_LIST_PRESIST = {
     key: 'DOCTOR_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'doctorCoupons', 'selectedDoctorProcedure', 'commonProfileSelectedProcedures']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'doctorCoupons', 'selectedDoctorProcedure', 'commonProfileSelectedProcedures', 'payment_type']
 }
 
 const LAB_LIST_PRESIST = {
@@ -43,7 +43,7 @@ const USER_PERSIST = {
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page','mergeUrlState']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState']
 }
 
 const LAB_SEARCH_PERSIST = {

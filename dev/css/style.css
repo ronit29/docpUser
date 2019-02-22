@@ -331,6 +331,12 @@ textarea.form-control.chat-text-area {
 	.card.cstm-card .card-header>h2, .card.cstm-card .card-header>h1, .home-widget-heading {
 		font-size: 16px;
 	}
+	.rate-col-stars{
+		width: 88%;
+		margin: auto;
+		margin-top: 8px;
+		border-radius: 4px;
+	}
 }
 
 @media(max-width : 359px){
@@ -4882,7 +4888,7 @@ font-weight: 700;
     border-radius: 5px;
     cursor: pointer;
 }
-.facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span{
+.facebookIcon-styling span, .twitterIcon-styling span, .emailIcon-styling span, .whtsappIcon-styling span{
 	position: absolute;
     top: 50%;
 	left: 50%;
@@ -4901,10 +4907,13 @@ font-weight: 700;
 .emailIcon-styling{
     flex: 1;
     position: relative;
-    background: #7f7f7f;
+    background: #c95b50;
     margin: 10px 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+}
+.emailIcon-styling svg rect{
+	fill:#c95b50;
 }
 .typ-close{
 	position: absolute;
@@ -5804,6 +5813,112 @@ button.add-shpng-cart-btn.update-btn {
 	margin-bottom: 80px !important;
 }
 
+
+
+.rev-txt{
+	font-size: 16px;
+	font-weight: 500;
+	margin: 12px 0px;
+}
+.review-card{
+	border-radius: 10px;
+  box-shadow: -0.5px 0.9px 3px 0 rgba(0, 0, 0, 0.17);
+  background-color: #ffffff;
+  padding: 15px;
+  margin: 15px;
+}
+.first-sec{
+	float: left;
+	width: 19%;
+}
+.last-sec{
+	width: 69%;
+	float: left;
+	margin-left: 5px;
+}
+.c-date{
+	color: #000;
+	font-size: 10px;
+	font-weight: 500;
+	margin-top: 2px;
+	text-align: center;
+}
+.c-date.curr-date{
+	text-align: left;
+}
+.doc-img{
+	height: 54px;
+	width: 54px;
+	border-radius: 50%;
+}
+.sqr-img{
+	width: 70px;
+}
+.clnc-nam{
+	color: #000;
+	font-size: 14px;
+	font-weight: 700;
+}
+.clnc-add{
+	color: #767676;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.pad-t10{
+	padding-top: 10px;
+}
+.rating-sec{
+	clear: both;
+	padding:10px 0;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+.rating-sec span.rating-img{
+	border-radius: 5px;
+    background-color: #55a740;
+    color: #fff;
+    padding: 0 5px 0 5px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    padding-right: 10px;
+}
+.rating-sec span>img {
+    width: 11px;
+    height: 11px;
+    position: relative;
+    top: -1px;
+    margin-left: 3px;
+    margin-right: 10px;
+    display: block;
+}
+.btn-div ul {
+	display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.btn-div ul li{
+	flex: 1;
+	padding-top: 10px;
+}
+.btn-div ul li a{
+	display: block;
+	border-right: 1px solid rgba(0,0,0,0.12);
+	color: #f78631;
+	text-decoration: none;
+	text-align: center;
+	font-weight: 500;
+	
+}
+.btn-div ul li:last-child a{
+	border-right: 0;
+}
+
+@media screen and (max-width: 330px){
+	.first-sec{
+		width: 19% !important;
+	}
+}
 .viewAllLab{
 	display: block;
     padding: 15px 0;
@@ -5832,6 +5947,7 @@ button.add-shpng-cart-btn.update-btn {
 }
 .bottomMargin{
 	margin-bottom: 50px;
+
 }
 /* ================ cancel popup ================ */
 .cancelPopupContainerOverlay{
@@ -6208,6 +6324,62 @@ span.slideCutPrc{
 }
 
 /* ==================== tax panel ==================== */
+
+
+/* ==================== ratingUi Update ==================== */
+.rateViewAll{
+	float: right;
+    color: #f78631;
+}
+.rateViewAll:hover{
+    color: #f78631;
+}
+.rate-mg-top{
+	margin-top: 8px;
+}
+.whtsappIcon-styling{
+    background: #25d366;
+    flex: 1;
+    position: relative;
+    margin: 10px 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 6px 10px;
+}
+.whtsAppico{
+    display: flex;
+    align-items: center;
+}
+.whtsAppico img{
+    width: 16px;
+	margin-right: 35px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.whtsAppico span{
+	color: white;
+    font-weight: 500;
+}
+.rate-col-container{
+	display: flex;
+	align-items: center;
+}
+.rate-col-stars{
+	width: 70%;
+    margin: auto;
+    margin-top: 8px;
+    border-radius: 4px;
+}
+ul.edit-compliment{
+	padding: 0px;
+}
+.compliment-lising.edit-compliment li{
+display: inline-block;
+margin-right: 10px;
+}
+/* ==================== ratingUi Update ==================== */
+
+
 .pkgTypeBorder{
     border-right: 1px solid #cdcdcd;
     padding-right: 9px;	
@@ -6215,6 +6387,52 @@ span.slideCutPrc{
 .pkgTypeBorder:last-child{
 	border-right: none;
     padding-right: 0px;	
+}
+
+/*============Rating popup ==============*/
+.home-rating-card.review-popup{
+	width: 500px;
+	padding: 15px 30px;
+}
+.doc-name{
+	font-weight: 500;
+}
+.rate-doc span{
+	color: #757575;
+	font-weight: 500;
+}
+.complemnt{
+	color: #757575;
+	font-weight: 500;
+}
+.home-rating-card.review-popup .compliment-lising li{
+	margin-bottom:20px;
+}
+.home-rating-card.review-popup .rate-submit-cmnnt-box textarea{
+	resize: none;
+}
+.home-rating-card.review-popup .rate-submit-btn{
+	margin-top: 40px;
+	margin-bottom: 20px;
+	padding: 11px 50px;
+	font-weight: 500;
+
+}
+.home-rating-card.review-popup .rate-card-header{
+	padding-bottom: 10px;
+}
+.home-rating-card.review-popup .rate-star-icon{
+	justify-content: center;
+}
+.home-rating-card.review-popup .rate-star-icon img{
+	margin: 0 10px;
+	height: 28px;
+	width: 28px;
+}
+@media screen and (max-width: 480px){
+	.home-rating-card.review-popup{
+		margin: 12px;
+	}	
 }
 .ratingBtnmrgn{
 	padding: 7px 0 25px 0 !important;
@@ -6277,3 +6495,76 @@ span.slideCutPrc{
 
 }
 /* ==================== popDesign ==================== */
+
+
+
+
+/* ============= Payment type==============*/
+
+.payment-type-radio{
+	width: 100%;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+.payment-type-radio .doc-checkmark{
+	right: 0;
+	left: unset;
+}
+.save-upto{
+	background-color: #12d532;
+	color: #fefefe;
+	font-size: 12px;
+	font-weight: 500;
+	padding: 5px;
+	display: inline-block;
+	border-radius: 5px;
+	margin-left: 15px;
+}
+.payment-type-radio h3{
+	font-size: 14px;
+	font-weight: 700;
+	display: inline-block;
+	margin-top: 5px;
+}
+.light-txts{
+	font-size: 12px;
+	color: #757575;
+	margin: 3px 0 0 5px;
+    display: inline-block;
+}
+.pay-at-clinic{
+	position: absolute;
+    right: 0;
+    top: 10px;
+    border: 1px dashed #f18031;
+    border-radius: 4px;
+    padding: 2px 10px;
+    font-weight: 500;
+    color: #f18031;
+}
+@media screen and (max-width: 428px){
+	.light-txts{
+		display: block;
+    	margin: 0;
+	}
+}
+
+/* ============= Payment type==============*/
+/* ============= Cod ==============*/
+.payAtclinic{
+	background: #eba916;
+    color: white;
+    padding: 5px 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.payAtclinic h5{
+	font-weight: 500;
+}
+.payAtclinic p{
+    margin-top: 2px;
+}
+.payAtclinic b{
+	font-weight: 500;
+}
+/* ============= Cod ==============*/
