@@ -108,7 +108,7 @@ class DoctorsList extends React.Component {
         }
 
         return (
-            <section style={{ paddingTop: 10 }} ref="checkIfExists">
+            <section ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">

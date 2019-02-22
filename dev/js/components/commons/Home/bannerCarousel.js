@@ -163,19 +163,22 @@ class BannerCarousel extends React.Component {
         }
 
         return (
-            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-20 mrb-20`}>
+            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                 {
                     this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
                         <img src={offerVisible.image} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                         : ''
                 }
-                <div className="carousel-indicators mrt-10">
-                    {
-                        this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).map((offer, i) => {
-                            return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
-                        })
-                    }
-                </div>
+                {
+                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length > 1 ?
+                        <div className="carousel-indicators mrt-10">
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).map((offer, i) => {
+                                    return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
+                                })
+                            }
+                        </div> : ''
+                }
             </div>
         );
     }
