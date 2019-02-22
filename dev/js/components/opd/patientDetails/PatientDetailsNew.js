@@ -440,9 +440,9 @@ class PatientDetailsNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay) {
+    getBookingButtonText(total_wallet_balance, price_to_pay, mrp) {
         if (this.props.payment_type != 1) {
-            return "Confirm Booking"
+            return `Confirm Booking (₹ ${mrp})`
         }
         let price_from_wallet = 0
         let price_from_pg = 0
@@ -466,9 +466,11 @@ class PatientDetailsNew extends React.Component {
         let hospital = {}
         let patient = null
         let priceData = {}
+        let enabled_for_cod_payment = true
 
         if (doctorDetails) {
-            let { name, qualifications, hospitals } = doctorDetails
+            let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
+            enabled_for_cod_payment = enabled_for_cod
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
@@ -520,6 +522,10 @@ class PatientDetailsNew extends React.Component {
 
         let percent_discount = Math.max(0, (finalPrice / (parseInt(priceData.mrp) + treatment_mrp)) * 100)
         percent_discount = parseInt(100 - percent_discount)
+
+        if (!enabled_for_cod_payment && this.props.payment_type == 2) {
+            this.props.select_opd_payment_type(1)
+        }
 
         return (
             <div className="profile-body-wrap">
@@ -602,42 +608,44 @@ class PatientDetailsNew extends React.Component {
 
 
                                                         {/*Payment Mode*/}
+                                                        {
+                                                            enabled_for_cod_payment ? <div className="widget mrb-15">
 
-                                                        <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <h4 className="title mb-20">Payment Mode</h4>
 
-                                                            <div className="widget-content">
-                                                                <h4 className="title mb-20">Payment Mode</h4>
+                                                                    <div className="payment-summary-content" onClick={() => {
+                                                                        this.props.select_opd_payment_type(1)
+                                                                    }}>
+                                                                        <div className="payment-detail d-flex">
+                                                                            <label class="container-radio payment-type-radio">
+                                                                                <h3>Online Payment</h3>
+                                                                                <span className="save-upto">Save {percent_discount}%</span>
+                                                                                <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
+                                                                                <span class="doc-checkmark"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr />
 
-                                                                <div className="payment-summary-content" onClick={() => {
-                                                                    this.props.select_opd_payment_type(1)
-                                                                }}>
-                                                                    <div className="payment-detail d-flex">
+
+                                                                    <div className="test-report payment-detail mt-20" onClick={() => {
+                                                                        this.props.select_opd_payment_type(2)
+                                                                    }}>
                                                                         <label class="container-radio payment-type-radio">
-                                                                            <h3>Online Payment</h3>
-                                                                            <span className="save-upto">Save {percent_discount}%</span>
-                                                                            <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
+                                                                            <h4 className="title payment-amt-label">Pay at Clinic</h4>
+                                                                            <span className="light-txts"> (No Coupon code and discount will be applied)</span>
+                                                                            <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
                                                                             <span class="doc-checkmark"></span>
                                                                         </label>
                                                                     </div>
-                                                                </div>
-                                                                <hr />
 
 
-                                                                <div className="test-report payment-detail mt-20" onClick={() => {
-                                                                    this.props.select_opd_payment_type(2)
-                                                                }}>
-                                                                    <label class="container-radio payment-type-radio">
-                                                                        <h4 className="title payment-amt-label">Pay at Clinic</h4>
-                                                                        <span className="light-txts"> (No Coupon code and discount will be applied)</span>
-                                                                        <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
-                                                                        <span class="doc-checkmark"></span>
-                                                                    </label>
                                                                 </div>
 
+                                                            </div> : ""
+                                                        }
 
-                                                            </div>
-
-                                                        </div>
 
                                                         {/*Payment Mode*/}
 
@@ -681,7 +689,27 @@ class PatientDetailsNew extends React.Component {
 
                                                                 </div>
 
-                                                            </div> : ""
+                                                            </div> : <div className="widget mrb-15">
+
+                                                                    <div className="widget-content">
+                                                                        <h4 className="title mb-20">Payment Summary</h4>
+                                                                        <div className="payment-summary-content">
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Subtotal</p>
+                                                                                <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr />
+
+                                                                        {
+                                                                            priceData ? <div className="test-report payment-detail mt-20">
+                                                                                <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                                <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
+                                                                            </div> : ""
+                                                                        }
+                                                                    </div>
+
+                                                                </div>
                                                         }
 
 
@@ -741,7 +769,7 @@ class PatientDetailsNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</button>
                                 }
                             </div>
                         </div>
