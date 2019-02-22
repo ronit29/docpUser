@@ -334,25 +334,25 @@ class CriteriaElasticSearchView extends React.Component {
                                                             </label>
                                                         </div>
                                                         <div className="dtl-radio">
-                                                            <label className="container-radio">Test
+                                                            <label className="container-radio">Lab Test
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'lab', '')} checked={this.props.selected == 'lab'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
-                                                        {/*<div className="dtl-radio">
-                                                            <label className="container-radio">Dental Treatments
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'procedures', '')} checked={this.props.selected == 'procedures'} name="radio" />
+                                                        <div className="dtl-radio">
+                                                            <label className="container-radio">Health Packages
+                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'package', '')} checked={this.props.selected == 'package'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
-                                                        </div>*/}
+                                                        </div>
                                                     </div>
                                                     <div className="serch-nw-inputs mb-0">
-                                                        <input type="text" autoComplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input type="text" autoComplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
                                                         }} onBlur={() => this.focusOut()} />
-                                                        <input type="text" autoComplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" placeholder="Search Doctors, Labs and Tests" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                        <input type="text" autoComplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
