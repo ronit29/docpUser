@@ -22,24 +22,13 @@ class DoctorProfileCard extends React.Component {
 
     viewProfileClicked(id, url, hospital_id, e) {
         e.stopPropagation();
-
-        let Distance = ''
-        if (this.props.details && this.props.details.distance) {
-            Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
-        }
+        
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
-        }
-        GTM.sendEvent({ data: data });
-
-        let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
-        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
-        let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
-        let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
-        data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids, 'Distance': Distance
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchViewProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-search-view-profile-clicked', 'selectedId': id
         }
         GTM.sendEvent({ data: data })
+
+        let { category_ids, procedure_ids } = this.trackingEventsBookNow(id)
 
         if (e.ctrlKey || e.metaKey) {
 
@@ -66,9 +55,40 @@ class DoctorProfileCard extends React.Component {
         //always clear selected time at doctor profile
         let slot = { time: {} }
         this.props.selectOpdTimeSLot(slot, false)
-        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data })
+
+        let { procedure_ids } = this.trackingEventsBookNow(id)
         this.props.saveProfileProcedures('', '', procedure_ids, true)
         this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
+    }
+
+    trackingEventsBookNow(id){
+        let Distance = ''
+        
+        if (this.props.details && this.props.details.distance) {
+            Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
+        }
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data });
+
+        let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
+        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
+        let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
+        let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids, 'Distance': Distance
+        }
+        GTM.sendEvent({ data: data })
+
+        return ({category_ids, procedure_ids})
+
     }
 
     bookNow(id, e) {

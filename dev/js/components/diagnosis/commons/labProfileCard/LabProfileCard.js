@@ -179,10 +179,10 @@ class LabProfileCard extends React.Component {
             <div className="">
                 <div className="filter-card-dl mb-3">
                     <div className="fltr-crd-top-container">
-                        <div className="fltr-lctn-dtls">
+                        <div className="fltr-lctn-dtls" onClick={this.openLab.bind(this, id, url)} style={{ cursor: 'pointer' }}>
                             <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
                         </div>
-                        <div className="row no-gutters mrt-10" >
+                        <div className="row no-gutters mrt-10" onClick={this.openLab.bind(this, id, url)} style={{ cursor: 'pointer' }}>
                             <div className="col-12">
                                 <a>
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
@@ -231,10 +231,10 @@ class LabProfileCard extends React.Component {
                             <div className="col-12 mrt-10">
                                 <div className="row">
                                     <div className="col-6">
-                                        <button className="fltr-cntct-btn btn-pdng"  onClick={this.openLab.bind(this, id, url)} >View Profile</button>
+                                        {/*<button className="fltr-cntct-btn btn-pdng"  onClick={this.openLab.bind(this, id, url)} >View Profile</button>*/}
                                     </div>
                                     <div className="col-6">
-                                        <button onClick={this.bookNowClicked.bind(this, id)} className="fltr-bkng-btn btn-pdng">Book Now</button>
+                                        <button className="fltr-bkng-btn btn-pdng">Book Now</button>
                                     </div>
                                 </div>
                             </div>
