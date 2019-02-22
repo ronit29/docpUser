@@ -58,11 +58,11 @@ class BookingView extends React.Component {
                         GTM.sendEvent({ data: analyticData }, true, false)
 
                         let criteo_data =
-                        {
-                            'event': "trackTransaction", 'id': appointmentId, 'item': [
-                                { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
-                            ]
-                        }
+                            {
+                                'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                    { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
+                                ]
+                            }
 
                         CRITEO.sendData(criteo_data)
 
@@ -144,6 +144,8 @@ class BookingView extends React.Component {
         let actions = []
         let status = 1
         let doctor_thumbnail = ""
+        let payment_type = 1
+        let mrp = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -152,6 +154,8 @@ class BookingView extends React.Component {
             actions = this.state.data.allowed_action || []
             status = this.state.data.status
             doctor_thumbnail = this.state.data.doctor_thumbnail
+            payment_type = this.state.data.payment_type
+            mrp = this.state.data.mrp
         }
 
         let summary_utm_tag = ""
@@ -171,25 +175,6 @@ class BookingView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            {/* <header className="skin-primary fixed horizontal top sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <span className="icon back-icon" onClick={() => { this.props.history.go(-1) }}><img src={ASSETS_BASE_URL + "/img/customer-icons/back-white.png"} className="img-fluid" /></span>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-white">Your Appointment</div>
-                                        </div>
-                                        <div className="col-2" style={{ paddingLeft: 0 }} >
-                                            <div className="mobile-home-icon-div" >
-                                                <img onClick={() => {
-                                                    this.props.history.push('/')
-                                                }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
@@ -243,12 +228,16 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div> : ""
                                                 }
-                                                {/* cart price design */}
-                                                <div className="payAtclinic">
-                                                    <h5>Pay at clinic</h5>
-                                                    <p>You have to pay <b>₹ 1900</b> at the time of appointment</p>
 
-                                                </div>
+                                                {/* cart price design */}
+                                                {
+                                                    payment_type == 2 && status < 6 ? <div className="payAtclinic">
+                                                        <h5>Pay at clinic</h5>
+                                                        <p>You have to pay <b>₹ {mrp}</b> at the time of appointment</p>
+
+                                                    </div> : ""
+                                                }
+
                                                 {/* cart price design */}
 
                                                 <div className="widget mrb-10">
