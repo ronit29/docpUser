@@ -1,5 +1,6 @@
-import { MERGE_SEARCH_STATE_LAB, FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, CLEAR_OPD_SEARCH_ID } from '../../constants/types';
 
+const moment = require('moment');
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 3000],
     distanceRange: [0, 15],
@@ -33,7 +34,8 @@ const defaultState = {
     nextSelectedCriterias: [],
     nextFilterCriteria: DEFAULT_FILTER_STATE,
     currentSearchId:'',
-    mergeUrlState:false
+    mergeUrlState:false,
+    last_save_searched_date: null
 }
 
 export default function (state = defaultState, action) {
@@ -246,7 +248,9 @@ export default function (state = defaultState, action) {
                 commonSelectedCriterias:[...state.commonSelectedCriterias],
                 search_id_data: {...state.search_id_data}
             }
-
+            if(!newState.last_save_searched_date){
+                newState.last_save_searched_date = new Date()
+            }
            newState.search_id_data[action.searchId] = {}
             newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
             newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
@@ -326,6 +330,22 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.nextSelectedCriterias = newState.commonSelectedCriterias
+            return newState
+        }
+
+        case CLEAR_OPD_SEARCH_ID: {
+            let newState = {
+                ...state
+            }
+            if(newState.last_save_searched_date){
+                let currentTime = moment(new Date())
+                let lastSearchTime = moment(new Date(newState.last_save_searched_date))
+                let diffDays = currentTime.diff(lastSearchTime, 'days')
+                if(diffDays>2){
+                    newState.search_id_data = {}
+                    newState.last_save_searched_date = null
+                }
+            }
             return newState
         }
 
