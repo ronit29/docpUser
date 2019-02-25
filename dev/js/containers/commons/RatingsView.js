@@ -33,7 +33,7 @@ const mapStateToProps = (state, passedProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAllRatings: (content_type, object_id, cb) => dispatch(getAllRatings(content_type, object_id, cb)),
+        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
     }
 }
 

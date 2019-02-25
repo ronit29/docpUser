@@ -16,6 +16,7 @@ class AllRatingsView extends React.Component {
             data: null,
             hasMore: false,
             footerData: null,
+            page: 2
         }
     }
 
@@ -26,9 +27,9 @@ class AllRatingsView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let content_type = parsed.content_type
         let object_id = parsed.id
-        this.props.getAllRatings(content_type, object_id, (err, data) => {
+        this.props.getAllRatings(content_type, object_id, 1, (err, data, hasMore) => {
             if (!err && data) {
-                this.setState({ data })
+                this.setState({ data, hasMore })
             }
         })
         setTimeout(() => {
@@ -36,26 +37,22 @@ class AllRatingsView extends React.Component {
         }, 0)
     }
 
-    loadMore(page) {
-        this.setState({ hasMore: false, loading: true })
-        this.props.getDoctorList(null, page + 1, (hasMore) => {
-            this.setState({ loading: false, page: page + 1 })
-            setTimeout(() => {
-                this.setState({ hasMore })
-            }, 1000)
+    loadMore() {
+        const parsed = queryString.parse(this.props.location.search)
+        let content_type = parsed.content_type
+        let object_id = parsed.id
+        this.setState({ hasMore: false, loading: true }, () => {
+            this.props.getAllRatings(content_type, object_id, this.state.page, (err, data, hasMore) => {
+                let newData = { ...this.state.data }
+                newData.rating = newData.rating.concat(data.rating)
+                this.setState({ loading: false, page: this.state.page + 1, hasMore, data: newData })
+            })
         })
 
     }
 
     render() {
-        let start_page = 0
-        if (this.props.curr_page) {
-            start_page = Math.max(0, this.props.curr_page - 1)
-        } else {
-            if (this.props.page) {
-                start_page = Math.max(0, this.props.page - 1)
-            }
-        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -76,7 +73,7 @@ class AllRatingsView extends React.Component {
                                                     </div>
                                                 </div>
                                                 <InfiniteScroll
-                                                    pageStart={start_page}
+                                                    pageStart={1}
                                                     loadMore={this.loadMore.bind(this)}
                                                     hasMore={this.state.hasMore}
                                                     useWindow={true}

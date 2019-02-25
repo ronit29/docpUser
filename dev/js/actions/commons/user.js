@@ -581,11 +581,15 @@ export const postComment = (postData, cb) => (dispatch) => {
 	})
 }
 
-export const getAllRatings = (content_type, object_id, cb) => (dispatch) => {
-	API_GET("/api/v1/ratings/list?content_type=" + parseInt(content_type) + '&object_id=' + parseInt(object_id)).then(function (response) {
-		if (cb) cb(null, response);
+export const getAllRatings = (content_type, object_id, page = 1, cb) => (dispatch) => {
+	API_GET(`/api/v1/ratings/list?page=${page}&content_type=` + parseInt(content_type) + '&object_id=' + parseInt(object_id)).then(function (response) {
+		let hasmore = false
+		if (response && response.rating && response.rating.length) {
+			hasmore = true
+		}
+		if (cb) cb(null, response, hasmore);
 	}).catch(function (error) {
-		if (cb) cb(error, null);
+		if (cb) cb(error, null, false);
 	})
 }
 
