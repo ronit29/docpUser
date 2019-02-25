@@ -250,7 +250,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     profileDataCompleted(data) {
-        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
+        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
             this.setState({ profileDataFilled: false })
         } else if (data.otpVerifySuccess) {
             this.setState({ profileDataFilled: true })
@@ -745,7 +745,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
                             {
-                                this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                             }
 
 

@@ -12,7 +12,8 @@ class ChoosePatientNewView extends React.Component {
             name: '',
             phoneNumber: '',
             gender: '',
-            data: false
+            data: false,
+            email:''
         }
     }
 
@@ -101,10 +102,26 @@ class ChoosePatientNewView extends React.Component {
 
         if (this.state.gender == '') {
             setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Select the Gender" })
+                SnackBar.show({ pos: 'bottom-center', text: "Please Select The Gender" })
             }, 500)
             return
         }
+
+        if(this.state.email ==''){
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+            }, 500)
+            return 
+        }
+
+        if(!this.state.email.match(/\S+@\S+\.\S+/)) 
+        {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+            }, 500)
+            return 
+        }
+
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
 
@@ -163,11 +180,11 @@ class ChoosePatientNewView extends React.Component {
                             </div>
                             <div className="select-pt-form">
                                 <div className="slt-nw-input">
-                                    <label className="slt-label" htmlFor="male">Name:</label>
-                                    <input className="slt-text-input" type="text" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Name:</label>
+                                    <input className="slt-text-input" autoComplete="off" type="text" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
                                 </div>
                                 <div className="slt-nw-input radio-mbl">
-                                    <label className="slt-label" htmlFor="male" >Gender:</label>
+                                    <label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
                                     <div className="slt-label-radio">
                                         <div className="dtl-radio">
                                             <label className="container-radio">Male
@@ -190,8 +207,12 @@ class ChoosePatientNewView extends React.Component {
                                     </div>
                                 </div>
                                 <div className="slt-nw-input">
-                                    <label className="slt-label" htmlFor="male">Mobile:</label>
-                                    <input className="slt-text-input" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
+                                    <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
+                                </div>
+                                <div className="slt-nw-input">
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Mobile:</label>
+                                    <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
                                     {
                                         this.state.showVerify ?
                                             <button className="mobile-fill-btn" onClick={this.verify.bind(this)}>Verify</button>
@@ -203,7 +224,7 @@ class ChoosePatientNewView extends React.Component {
                                         <div>
                                             <div className="slt-nw-input">
                                                 <label className="slt-label" htmlFor="male">OTP:</label>
-                                                <input className="slt-text-input" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
+                                                <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
                                             <span className="resend-otp-btn" onClick={this.verify.bind(this)}>Resend OTP</span>

@@ -372,13 +372,13 @@ class CriteriaSearchView extends React.Component {
                         }
                     </div>
                 </section>
-                {
+                {/*
                     this.props.searchPackages ?
                         <FixedMobileFooter searchPackagePage={true} {...this.props} />
                         :
                         this.props.searchDoctors || this.props.searchLabs ?
                             <FixedMobileFooter {...this.props} /> : ''
-                }
+                */}
             </div>
         );
     }
