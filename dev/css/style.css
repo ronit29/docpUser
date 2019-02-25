@@ -6236,14 +6236,14 @@ span.slideCutPrc{
 /* ==================== popDesign ==================== */
 
 .sms-reschedule{
-	height: 15vh;
-    display: flex;
+	display: flex;
     align-items: center;
     text-align: center;
-   	background: white;
-	border-radius: 5px;
-	position: relative;
-	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
+    background: #eba916;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: relative;
 
 }
 .sms-lgbtn{
