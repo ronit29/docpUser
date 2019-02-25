@@ -66,7 +66,14 @@ class UserFamily extends React.Component {
                                                             }
                                                         </span>
                                                 }
-                                                {GENDER[profiles[id].gender]}{profiles[id].dob?`, ${this.getAge(profiles[id].dob)}`:''}</li>
+                                                {GENDER[profiles[id].gender]}</li>
+
+                                                {
+                                                    profiles[id].dob?
+                                                    <li className="fw-500 text-sm">{profiles[id].dob}</li>
+                                                    :''
+                                                }
+                                                
                                             <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
                                         </ul>
                                     </div>

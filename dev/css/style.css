@@ -523,7 +523,7 @@ background: black;
 	right: 0;
 	background-image: linear-gradient(to left, #f78631, #ff6d00);
 	padding: 10px 0;
-	z-index: 9;
+	z-index: 12;
 	height: auto;
 	/* min-height: 100px; */
 	padding-top: 0px;
@@ -6062,7 +6062,12 @@ button.add-shpng-cart-btn.update-btn {
 .dtl-margin-lg{
 	margin-right: 20px;
 }
-
+.requiredAst{
+	display: inline-block;
+    color: orange;
+    position: relative;
+    top: -4px;
+}
 h3.pkg-include{
 	font-size: 14px;
     padding-left: 8px;
@@ -6446,6 +6451,17 @@ cursor: pointer;
 .ratingBtnmrgn{
 	padding: 7px 0 25px 0 !important;
 }
+.btn-pdng{
+	padding: 10px 10px;
+    width: 100%;
+}
+.shw-cntct{
+	display: flex;
+	justify-content: flex-end;	
+}
+.scroll-shadow-bar{
+	box-shadow: 0px 1px 1px #dedede;
+}
 .search-prnsl-rslts{
 	color: #f78631;
     margin-top: 2px;
@@ -6727,3 +6743,25 @@ li.pkgIncludeList {
 	font-weight: 500;
 }
 /* ============= Cod ==============*/
+
+.sms-reschedule{
+	display: flex;
+    align-items: center;
+    text-align: center;
+    background: #eba916;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: relative;
+
+}
+.sms-lgbtn{
+    border-radius: 5px;
+    background-color: #f78631;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 15px;
+}
