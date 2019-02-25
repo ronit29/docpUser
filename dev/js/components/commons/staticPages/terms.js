@@ -5,7 +5,8 @@ class Terms extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selected: 0
+            selected: 0,
+            scrollPosition:0
         }
     }
 
@@ -14,6 +15,15 @@ class Terms extends React.Component {
     }
 
     render() {
+        if(this.props.forScroll){
+             if (document.getElementById('rescheduling_9')) {
+                var elementTop = document.getElementById('rescheduling_9').getBoundingClientRect().top;
+                var elementHeight = document.getElementById('rescheduling_9').clientHeight;
+                var scrollPosition = elementTop - elementHeight;
+                window.scrollTo(0, parseInt(scrollPosition))
+            }  
+        }
+        
         let mainClass
         let headingClass
         if(this.props.fromApp){
@@ -579,7 +589,7 @@ class Terms extends React.Component {
                             obligations, resolve disputes and enforce our agreements entered into for providing Services
                             and ancillary services.
          </p>
-                        <p className="privacy-desc-subheading">9.&nbsp;&nbsp;&nbsp;&nbsp;RESCHEDULING, REFUND &amp; CANCELLATION POLICY</p>
+                        <p className="privacy-desc-subheading" id="rescheduling_9">9.&nbsp;&nbsp;&nbsp;&nbsp;RESCHEDULING, REFUND &amp; CANCELLATION POLICY</p>
                         <ol className="privacy-list-group">
                             <li className="privacy-list-item">
                                 Cancellations:

@@ -141,6 +141,7 @@ const routes = [
     { path: '/tax-saver-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
     { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
+    { path: '/sms/booking', exact: true, component: DirectBooking },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

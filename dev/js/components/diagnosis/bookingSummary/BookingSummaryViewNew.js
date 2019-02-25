@@ -250,7 +250,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     profileDataCompleted(data) {
-        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || !data.otpVerifySuccess) {
+        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
             this.setState({ profileDataFilled: false })
         } else if (data.otpVerifySuccess) {
             this.setState({ profileDataFilled: true })
@@ -432,6 +432,14 @@ class BookingSummaryViewNew extends React.Component {
         return `Confirm Booking`
     }
 
+    goToProfile(id, url){
+        if (url) {
+            this.props.history.push(`/${url}`)
+        } else {
+            this.props.history.push(`/lab/${id}`)
+        }
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -534,12 +542,21 @@ class BookingSummaryViewNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        <div className="widget mrb-15 mrng-top-12">
+                                                        <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.state.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title d-flex"><span>
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>{labDetail.name}</h4>
+
+                                                                    <div className="float-right  mbl-view-formatting text-right">
+                                                                        <a href="" style={{width:'100px', display:'inline-block'}} onClick={(e) => {
+                                                                        e.preventDefault()
+                                                                        e.stopPropagation()
+                                                                        this.goToProfile(this.state.selectedLab, labDetail.url)
+                                                                    }} className="text-primary fw-700 text-sm">View Profile</a>
+                                                                    
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -728,7 +745,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
                             {
-                                this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                             }
 
 
