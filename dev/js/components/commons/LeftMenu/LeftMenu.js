@@ -54,12 +54,12 @@ class LeftMenu extends React.Component {
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
-                                this.props.history.push('/user/onlinePrescriptions')} } href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />My Online Prescription</a></li>
+                                this.props.history.push('/user/onlinePrescriptions')} } href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />My Online Prescriptions</a></li>
 
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
-                                this.props.history.push('/user/appointments')} } href="#"><img src="/assets/images/my-appointment.png" alt="" className="" />My Appoinments</a></li>
+                                this.props.history.push('/user/appointments')} } href="#"><img src="/assets/images/my-appointment.png" alt="" className="" />My Appointments</a></li>
                               
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
@@ -76,7 +76,7 @@ class LeftMenu extends React.Component {
                               <li className="pos-rel"><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
-                                this.props.history.push('/notifications')} } href="#"><img src="/assets/images/notification.png" alt="" className="" />Notification</a>
+                                this.props.history.push('/notifications')} } href="#"><img src="/assets/images/notification.png" alt="" className="" />Notifications</a>
                                 {
                                     this.props.unread_count ?
                                         <div className="notification-count">
@@ -138,7 +138,7 @@ class LeftMenu extends React.Component {
                                       e.preventDefault();
                                       this.props.toggleLeftMenu()
                                       this.props.history.push("/all-medicines")
-                                  }}  href="#">All Mediciness</a></li>
+                                  }}  href="#">All Medicines</a></li>
                                 </div>
                                 :''
                               }
@@ -150,7 +150,7 @@ class LeftMenu extends React.Component {
                             </ul>*/}
                             
                             <ul className="final-list">
-                              <li><a onClick={(e) => {
+                              {/*<li><a onClick={(e) => {
                                       e.preventDefault();
                                       this.props.toggleLeftMenu()
                                       this.props.history.push("/about")
@@ -160,7 +160,7 @@ class LeftMenu extends React.Component {
                                       e.preventDefault();
                                       this.props.toggleLeftMenu()
                                       this.props.history.push("/howitworks")
-                                  }} href="#">Terms and Condition</a></li>
+                                  }} href="#">Terms and Conditions</a></li>*/}
                                 {
                                   STORAGE.checkAuth()?
                                   <li className="logout" ><a onClick={(e)=>{

@@ -73,7 +73,8 @@ class LabDetails extends React.Component {
 
                                 {this.props.data.lab.display_rating_widget ?
                                     <div className="widget-panel">
-                                        <h4 className="panel-title mb-rmv">Patient Feedback</h4>
+                                        <h4 className="panel-title mb-rmv">Patient Feedback<a className="rateViewAll"><span onClick={() => this.props.history.push(`/view-all-ratings?content_type=1&id=` + this.props.data.lab.id)}>View All</span></a></h4>
+
                                         <div className="panel-content pd-0 border-bottom-panel">
                                             <RatingGraph details={this.props.data.lab} />
                                             <div className="user-satisfaction-section">
