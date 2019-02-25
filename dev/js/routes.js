@@ -26,6 +26,8 @@ import Payment from './containers/commons/Payment'
 import ChatHistory from './containers/commons/chatHistory'
 import StaticPages from './containers/commons/StaticPages'
 import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
+import RatingsView from './containers/commons/RatingsView.js'
+import MyRatings from './containers/commons/MyRatings.js'
 
 import Booking_LAB from './containers/diagnosis/Booking.js'
 import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
@@ -125,7 +127,8 @@ const routes = [
 
     { path: '/agent/login', exact: true, component: AgentLogin },
     { path: '/agent/booking', exact: true, component: DirectBooking },
-
+    { path: '/view-all-ratings', exact: true, component: RatingsView, RENDER_ON_SERVER: false },
+    { path: '/myratings', exact: true, component: MyRatings, RENDER_ON_SERVER: false },
     { path: '/speciality-inventory', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
     { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
