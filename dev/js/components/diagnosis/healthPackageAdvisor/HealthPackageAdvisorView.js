@@ -400,7 +400,7 @@ class HealthPackageAdvisorView extends React.Component {
                                         return <div className="widget mb-10 mrt-10" key={key}>
                                             <div className="search-top-container">
                                                 <div className="d-flex justify-content-between" style={{ alignItems: 'center' }} >
-                                                    <label className="ck-bx" onChange={self.selectCategory.bind(self, rPackages.id, false,rPackages)}>{rPackages.name}
+                                                    <label className="ck-bx pkgCheck-box" onChange={self.selectCategory.bind(self, rPackages.id, false,rPackages)}>{rPackages.name}
                                                         {/*<input type="radio" name={`radio_${rPackages.id}`} checked={self.state.selectCatIDs.filter(x => x.cat_id == rPackages.id && !x.isSubset).length ? true : false} />
                                                         <span className="doc-checkmark hpa-radio" style={{ top: 4 }} ></span>*/}
                                                         <input type="checkbox" value="on" checked={self.state.selectCatIDs.indexOf(rPackages.id) > -1 ? true : false} />
