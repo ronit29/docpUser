@@ -523,7 +523,7 @@ background: black;
 	right: 0;
 	background-image: linear-gradient(to left, #f78631, #ff6d00);
 	padding: 10px 0;
-	z-index: 9;
+	z-index: 12;
 	height: auto;
 	/* min-height: 100px; */
 	padding-top: 0px;

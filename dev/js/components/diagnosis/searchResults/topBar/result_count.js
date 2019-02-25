@@ -146,6 +146,9 @@ class TopBar extends React.Component {
 
     overlayClick() {
         this.setState({ overlayVisible: false, searchCities: [] });
+        if(document.getElementById('location_element')){
+            document.getElementById('location_element').style.zIndex ='0'
+        }
     }
 
     hideLocationPopup() {
