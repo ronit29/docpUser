@@ -1505,7 +1505,6 @@ p.rt-doc-nm{
 
 .banner-carousel-div>img{
     width: 100%;
-    cursor: pointer;
 }
 
 .banner-carousel-div .clickable-banner{
@@ -1917,4 +1916,20 @@ p.rt-doc-nm{
 .alignShareBtn{
 	text-align: right;
 	width: auto !important;
+}
+
+.dp-price-dtls-div{
+    margin-top: 4px;
+}
+
+.dp-price-dtls-div p{
+    font-size: 12px;
+}
+
+.dp-price{
+    color: #757575;
+}
+
+.exclsv-price{
+    color: #f78631;
 }

@@ -49,7 +49,7 @@ class CartView extends React.Component {
         let coupon_breakup = {}
         let cashback_breakup = {}
         for (let item of cart_items) {
-            if (item.valid) {
+            if (item.valid && item.actual_data.payment_type == 1) {
                 total_mrp += item.mrp
                 total_deal_price += item.deal_price
                 total_home_pickup_charges += item.total_home_pickup_charges || 0
