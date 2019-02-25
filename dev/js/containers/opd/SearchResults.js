@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria } from '../../actions/index.js'
+import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -116,6 +116,10 @@ const mapStateToProps = (state, passedProps) => {
 
     let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404 } = state.DOCTOR_SEARCH
 
+    const {
+        offerList
+    } = state.USER
+
     return {
         DOCTORS, doctorList, LOADED_DOCTOR_SEARCH,
         LOADED_SEARCH_CRITERIA_OPD,
@@ -141,7 +145,8 @@ const mapStateToProps = (state, passedProps) => {
         breadcrumb,
         seoData,
         mergeUrlState,
-        show404
+        show404,
+        offerList
     }
 }
 
@@ -149,7 +154,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
-        toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
+        toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
         getDoctors: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb, clinic_card)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
@@ -161,7 +166,9 @@ const mapDispatchToProps = (dispatch) => {
         getSearchIdResults: (searchId, searchResults) => dispatch(getSearchIdResults(searchId, searchResults)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         setNextSearchCriteria: () => dispatch(setNextSearchCriteria()),
-        toggle404: (status) => dispatch(toggle404(status))
+        toggle404: (status) => dispatch(toggle404(status)),
+        getOfferList: () => dispatch(getOfferList()),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd))
     }
 }
 

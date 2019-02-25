@@ -11,13 +11,15 @@ import GTM from '../../helpers/gtm.js'
 class Search extends React.Component {
     constructor(props) {
         super(props)
+        this.state = { elasticSearchString : ''}
     }
 
-    changeSelection(which) {
+    changeSelection(which, searchString='') {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'ToggleSearchType', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'toogle-search-type', 'type': which || ''
         }
 
+        this.setState({elasticSearchString: searchString})
         GTM.sendEvent({ data: data })
         this.props.selectSearchType(which)
     }
@@ -42,7 +44,7 @@ class Search extends React.Component {
 
         if(CONFIG.SEARCH_ELASTIC_VIEW){
             return (
-                <SearchElasticView {...this.props} dataState = {this.props.selectedSearchType == 'opd' || this.props.selectedSearchType == 'procedures' ?this.props.OPD_STATE:this.props.LAB_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                <SearchElasticView {...this.props} dataState = {this.props.selectedSearchType == 'opd' || this.props.selectedSearchType == 'procedures' ?this.props.OPD_STATE:this.props.LAB_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} elasticSearchString={this.state.elasticSearchString}/>
                 )
 
         }else{

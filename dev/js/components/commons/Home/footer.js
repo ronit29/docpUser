@@ -162,9 +162,9 @@ class Footer extends React.Component {
                                             e.preventDefault();
                                             this.navigateTo("/search?from=footer")
                                         }}>Book a Medical Test</a></li>
-                                        <li><a href="/mobileviewchat" onClick={(e) => {
+                                        <li><a href="/online-consultation" onClick={(e) => {
                                             e.preventDefault();
-                                            this.navigateTo("/mobileviewchat")
+                                            this.navigateTo("/online-consultation")
                                         }}>Consult a Doctor</a></li>
                                         <li><a href="/referral" onClick={(e) => {
                                             e.preventDefault();

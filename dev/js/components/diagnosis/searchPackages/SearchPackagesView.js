@@ -100,6 +100,7 @@ class SearchPackagesView extends React.Component {
         newCategoryState['gender'] = filterstate.gender
         newCategoryState['packageType'] = filterstate.packageType
         newCategoryState['test_ids'] = filterstate.test_ids
+        newCategoryState['package_ids'] = filterstate.package_ids
 
         // this.props.mergeLABState({ filterCriteria: newCategoryState })
         this.props.mergeLABState({ filterCriteriaPackages: newCategoryState })
@@ -139,6 +140,7 @@ class SearchPackagesView extends React.Component {
         let gender=filterCriteriaPackages.gender || ""
         let package_type=filterCriteriaPackages.packageType || ""
         let test_ids = filterCriteriaPackages.test_ids || ""
+        let package_ids = filterCriteriaPackages.package_ids || ""
         let page=1
         
         let url
@@ -146,7 +148,7 @@ class SearchPackagesView extends React.Component {
         if(this.props.forTaxSaver){
             url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=41`
         } else{
-            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
         return url

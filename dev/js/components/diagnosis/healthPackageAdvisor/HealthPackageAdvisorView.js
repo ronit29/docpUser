@@ -20,7 +20,8 @@ class HealthPackageAdvisorView extends React.Component {
             searchCities: [],
             showInfo: false,
             showInfoText: '',
-            initialData:[]
+            initialData:[],
+            package_ids:''
         }
     }
 
@@ -252,6 +253,7 @@ class HealthPackageAdvisorView extends React.Component {
         newCategoryState['min_age'] = this.state.min_age
         newCategoryState['gender'] = this.state.gender
         newCategoryState['packageType'] = this.state.packageType
+        newCategoryState['package_ids'] = []
         this.props.mergeLABState({ filterCriteriaPackages: newCategoryState })
         setTimeout(() => {
             this.props.history.push('/searchpackages')
