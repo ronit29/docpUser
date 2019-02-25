@@ -168,7 +168,7 @@ class AppointmentReschedule extends React.Component {
 
                                                         {
                                                             priceData.payable_amount != 0 && this.state.data.status !== 7 ? <div className="csh-back-applied-container" style={{ marginBottom: 20 }}>
-                                                                <p className="csh-mny-applied-content">This appointment cannot be rescheduled as you have already marked this appointment complete.</p>
+                                                                <p className="csh-mny-applied-content">Amount for the appointment is changed, to proceed you need to cancel this order and place a new one.</p>
                                                             </div> : ""
                                                         }
 
@@ -204,7 +204,7 @@ class AppointmentReschedule extends React.Component {
                                             {this.state.data && this.state.data.status == 7?
                                                 <div className="sms-reschedule mrt-10">
                                                     <div>
-                                                    <p className="fw-500">This appointment cannot be reschedule as you already marked this appointment complete. </p>
+                                                    <p className="fw-500">This appointment cannot be rescheduled as you have already marked this appointment complete. </p>
                                                     <button className="sms-lgbtn" onClick={()=>(this.props.history.push('/'))}>Go to Homepage</button>
                                                     </div>
                                                 </div>
