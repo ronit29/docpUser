@@ -196,7 +196,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-								<BannerCarousel {...this.props} hideClass="d-md-none" /> : ''
+								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 						}
 
 						<div className="fw-500 doc-lap-link d-md-none">
@@ -230,7 +230,8 @@ class HomeView extends React.Component {
 									type="lab"
 									searchType="packages"
 									{...this.props}
-									// navTo="/full-body-checkup-health-packages?from=home"
+									linkTo="/full-body-checkup-health-packages?from=home"
+									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
 								/> : ""
 						}
@@ -287,7 +288,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-								<BannerCarousel {...this.props} hideClass="d-md-none" /> : ''
+								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
@@ -305,9 +306,10 @@ class HomeView extends React.Component {
 									type="lab"
 									searchType="packages"
 									{...this.props}
-									// navTo="/full-body-checkup-health-packages?from=home"
+									linkTo="/full-body-checkup-health-packages?from=home"
+									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
-								/> : ""
+									/> : ""
 						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>

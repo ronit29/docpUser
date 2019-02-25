@@ -195,7 +195,7 @@ class LabProfileCard extends React.Component {
                                     <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                 </div> : ""
                             }
-                            <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
+                            <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}><button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button></a>
                         </div>
                     </div>
                     {
