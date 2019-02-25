@@ -168,7 +168,7 @@ class AppointmentReschedule extends React.Component {
 
                                                         {
                                                             priceData.payable_amount != 0 && this.state.data.status !== 7 ? <div className="csh-back-applied-container" style={{ marginBottom: 20 }}>
-                                                                <p className="csh-mny-applied-content">Amount for the appointment is changed, to proceed you need to cancel this order and place a new one.</p>
+                                                                <p className="csh-mny-applied-content">This appointment cannot be rescheduled as you have already marked this appointment complete.</p>
                                                             </div> : ""
                                                         }
 
