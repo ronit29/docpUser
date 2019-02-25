@@ -171,7 +171,7 @@ class LabProfileCard extends React.Component {
                                     }
                                 </ul>
                             : ''*/}
-                            {category_details.length > 0 ?
+                            {/*category_details.length > 0 ?
                                 <ul style={{ marginTop: '5px' }}>
                                     {
                                         category_details.map((category_detail, k) => {
@@ -183,7 +183,7 @@ class LabProfileCard extends React.Component {
                                         })
                                     }
                                 </ul>
-                            : ''}
+                                : ''*/}
                         </div>
                         <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
                             {
