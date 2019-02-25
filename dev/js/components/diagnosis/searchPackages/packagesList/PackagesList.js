@@ -133,60 +133,6 @@ class packagesList extends React.Component {
                             }
                             <div className="row">
                                 <div className="col-12">
-                                    <div className="pkg-card-container mb-3">
-                                        <div className="pkg-content-section">
-                                            <span className="pkg-ofr-ribbon fw-700">30% OFF</span>
-                                            <div className="pkg-card-location p-relative">
-                                                <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /> Huda City Centre Mall Sector 44 | 3.5 Km</p>
-                                            </div>
-                                            <div className="pkg-card-content">
-                                                <div className="row no-gutters">
-                                                    <div className="col-8">
-                                                        <div className="pkg-cardleft-img">
-                                                            <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
-                                                        </div>
-                                                        <h4 className="pkg-labDoc-Name">Thyocare Aarogyam B Package
-                                                        <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block' }} >
-                                                                <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
-                                                            </span>
-                                                        </h4>
-                                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Test Included</h3>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <div className="pkg-card-price">
-                                                            <p>₹ 5000 <span className="pkg-cut-price">₹ 9090</span></p>
-                                                        </div>
-                                                        <button className="pkg-btn-nw">Book Now</button>
-                                                        <p className="pkg-discountCpn">Includes coupon discount</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="pkg-includes-container">
-                                                <div className="pkgLblheading">
-                                                    <p className="fw-500" style={{paddingTop:'8px'}}>Includes:</p>
-                                                </div>
-                                                <ul>
-                                                    <li className="pkgIncludeList">
-                                                        <p>
-                                                            <img style={{ width: '20px',marginRight: '5px' }} src="https://cdn.docprime.com/media/diagnostic/common_test_icons/liver.png" />
-                                                            <span className="fw-500">Heart (23)</span>
-                                                        </p>
-                                                    </li>
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                        <div className="pkg-crd-footer">
-                                            <div className="pkg-crd-foot-img-text">
-                                                <img src={ASSETS_BASE_URL + "/img/infoerror.svg"} style={{ marginTop: '2px', width: '15px' }} />
-                                                <p>Home Sample Pickup Not Available</p>
-                                            </div>
-                                            <div className="pkg-crd-foot-img-text">
-                                                <img src= {ASSETS_BASE_URL + "/img/watch-date.svg"} style={{ marginTop: '2px', width: '15px' }} />
-                                                <p>8:00 AM to 8:00 PM</p>
-                                            </div>
-                                        </div>
-                                    </div>
                                     {
                                         this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
                                             return <div key={i}>
