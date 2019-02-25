@@ -204,7 +204,7 @@ class AppointmentReschedule extends React.Component {
                                             {this.state.data && this.state.data.status == 7?
                                                 <div className="sms-reschedule mrt-10">
                                                     <div>
-                                                    <p className="fw-500">This appointment cannot be rescheduled as you have already marked this appointment complete.</p>
+                                                    <p className="fw-500">This appointment cannot be reschedule as you already marked this appointment complete. </p>
                                                     <button className="sms-lgbtn" onClick={()=>(this.props.history.push('/'))}>Go to Homepage</button>
                                                     </div>
                                                 </div>
