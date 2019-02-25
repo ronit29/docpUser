@@ -432,6 +432,14 @@ class BookingSummaryViewNew extends React.Component {
         return `Confirm Booking`
     }
 
+    goToProfile(id, url){
+        if (url) {
+            this.props.history.push(`/${url}`)
+        } else {
+            this.props.history.push(`/lab/${id}`)
+        }
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -534,7 +542,7 @@ class BookingSummaryViewNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        <div className="widget mrb-15 mrng-top-12">
+                                                        <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.state.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title d-flex"><span>
