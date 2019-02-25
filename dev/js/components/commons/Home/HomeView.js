@@ -40,9 +40,20 @@ class HomeView extends React.Component {
 			this.setState({ specialityFooterData: cb });
 		});
 
-		this.props.getOfferList();
+		let selectedLocation = ''
+		let lat = 28.644800
+		let long = 77.216721
+		if (this.props.selectedLocation) {
+			selectedLocation = this.props.selectedLocation;
+			lat = selectedLocation.geometry.location.lat
+			long = selectedLocation.geometry.location.lng
+			if (typeof lat === 'function') lat = lat()
+			if (typeof long === 'function') long = long()
+		}
 
-		let data = { 'event': "viewHome"}
+		this.props.getOfferList(lat, long, 15);
+
+		let data = { 'event': "viewHome" }
 
 		CRITEO.sendData(data)
 
@@ -155,6 +166,7 @@ class HomeView extends React.Component {
 	}
 
 	render() {
+
 		let profileData = this.props.profiles[this.props.selectedProfile]
 		let articles = this.props.articles || []
 		const parsed = queryString.parse(this.props.location.search)

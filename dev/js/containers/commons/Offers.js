@@ -20,17 +20,22 @@ const mapStateToProps = (state) => {
         offerList
     } = state.USER
 
+    const {
+        selectedLocation
+    } = state.SEARCH_CRITERIA_LABS
+
     return {
-        offerList
+        offerList,
+        selectedLocation
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filters)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filters)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
-        getOfferList: () => dispatch(getOfferList())
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long))
     }
 }
 
