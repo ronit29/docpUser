@@ -237,10 +237,10 @@ class ResultCount extends React.Component {
             }
         }
 
-        let sortType = ''
-        if (this.state.sort_on) {
-            sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
-        }
+        // let sortType = ''
+        // if (this.state.sort_on) {
+        //     sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
+        // }
 
         let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
         let locationName = ""
@@ -331,19 +331,6 @@ class ResultCount extends React.Component {
                                             </div>
                                         </div>
                                 }
-                                {/*{
-                                    this.state.dropdown_visible ?
-                                        <div>
-                                            <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
-                                            <div className="sort-dropdown-div">
-                                                <ul className="sort-dropdown-list">
-                                                    <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
-                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
-                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'distance' ? 'sort-item-selected' : ''} `} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
-                                                </ul>
-                                            </div>
-                                        </div> : ""
-                                }*/}
                             </div>
                         </div>
                         {
