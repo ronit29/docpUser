@@ -124,7 +124,7 @@ class LabProfileCard extends React.Component {
                         <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /> {lab.address} | {distance} Km</p>
                     </div>
                     <div className="pkg-card-content">
-                        <div className="row no-gutters">
+                        <div className="row no-gutters" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                             <div className="col-8">
                                 <div className="pkg-cardleft-img">
                                     <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
@@ -132,7 +132,7 @@ class LabProfileCard extends React.Component {
                                     </InitialsPicture>
                                 </div>
 
-                                <h4 className="pkg-labDoc-Name">{lab.name} {show_details ?
+                                <h4 className="pkg-labDoc-Name">{name} {show_details ?
                                     <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block' }} onClick={this.testInfo.bind(this, id)}>
                                         <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                     </span> : ''}
