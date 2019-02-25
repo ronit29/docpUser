@@ -581,7 +581,27 @@ export const postComment = (postData, cb) => (dispatch) => {
 	})
 }
 
-export const toggleLeftMenuBar = (toggle, defaultVal=false) => (dispatch) =>{
+export const getAllRatings = (content_type, object_id, page = 1, cb) => (dispatch) => {
+	API_GET(`/api/v1/ratings/list?page=${page}&content_type=` + parseInt(content_type) + '&object_id=' + parseInt(object_id)).then(function (response) {
+		let hasmore = false
+		if (response && response.rating && response.rating.length) {
+			hasmore = true
+		}
+		if (cb) cb(null, response, hasmore);
+	}).catch(function (error) {
+		if (cb) cb(error, null, false);
+	})
+}
+
+export const getUserReviews = (cb) => (dispatch) => {
+	API_GET("/api/v1/user/myratings").then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const toggleLeftMenuBar = (toggle, defaultVal = false) => (dispatch) => {
 
 	dispatch({
 		type: TOGGLE_LEFT_MENU,

@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests } from '../../actions/index.js'
+
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems } from '../../actions/index.js'
+
 import STORAGE from '../../helpers/storage'
 
 import UserProfileView from '../../components/commons/userProfile/index.js'
@@ -79,6 +81,10 @@ const mapDispatchToProps = (dispatch) => {
         getAppointmentReports: (appointmentId, type, cb) => dispatch(getAppointmentReports(appointmentId, type, cb)),
         getUserPrescription: (mobileNo) => dispatch(getUserPrescription(mobileNo)),
         getCoupons: (productId) => dispatch(getCoupons(productId)),
+        getUserReviews: (cb) => dispatch(getUserReviews(cb)),
+        getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
+        updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
+        OTTLogin: (ott) => dispatch(OTTLogin(ott)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         getCartItems: () => dispatch(getCartItems()),
