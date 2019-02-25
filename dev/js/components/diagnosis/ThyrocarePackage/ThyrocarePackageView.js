@@ -81,7 +81,7 @@ class ThyrocarePackageView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="static-pk-container sticky-pk-container-2">
+                                <div className="static-pk-container sticky-pk-container-2" style={{ paddingTop: 0, paddingBottom: 30 }} >
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
@@ -95,7 +95,7 @@ class ThyrocarePackageView extends React.Component {
                                             this.bookNowClicked('/lab/searchresults?test_ids=12227', 'TopbookNowClickedBlock1')
                                         }} className="stc-book-btn">Book Now</a>
                                     </div>
-                                    <div className="static-pkg-top-column stc-mid-mrgn">
+                                    <div className="static-pkg-top-column stc-mid-mrgn" style={{ position: 'relative' }} >
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
@@ -103,8 +103,12 @@ class ThyrocarePackageView extends React.Component {
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
                                             e.preventDefault()
                                             this.bookNowClicked('/lab/searchresults?test_ids=12213', 'TopbookNowClickedBlock2')
-                                        }}
-                                            className="stc-book-btn">Book Now</a>
+                                        }} className="stc-book-btn">
+                                            Book Now
+                                        </a>
+                                        <div className="popular-txt" style={{ top: 'unset', right: 'unset', bottom: '-26px', left: '50%', transform: 'translateX(-50%)' }} >
+                                            <span className="fw-500">Popular</span>
+                                        </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">

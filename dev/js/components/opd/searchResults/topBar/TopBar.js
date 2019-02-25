@@ -20,11 +20,11 @@ class TopBar extends React.Component {
             sits_at_hospital: false,
             is_female: false,
             is_available: false,
-            shortURL: "",
+            // shortURL: "",
             dropdown_visible: false,
-            showLocationPopup: false,
-            overlayVisible: false,
-            showPopupContainer: true
+            // showLocationPopup: false,
+            // overlayVisible: false,
+            // showPopupContainer: true
         }
     }
 
@@ -122,20 +122,20 @@ class TopBar extends React.Component {
         })
     }
 
-    getCriteriaString(selectedCriterias) {
-        if (selectedCriterias && selectedCriterias.length) {
-            let selectedProcedureCategory = selectedCriterias.filter(x => x.type == 'procedures_category')
-            let procedures = selectedCriterias.filter(x => x.type == 'procedures')
+    // getCriteriaString(selectedCriterias) {
+    //     if (selectedCriterias && selectedCriterias.length) {
+    //         let selectedProcedureCategory = selectedCriterias.filter(x => x.type == 'procedures_category')
+    //         let procedures = selectedCriterias.filter(x => x.type == 'procedures')
 
-            return selectedCriterias.reduce((final, curr, i) => {
-                if (i != 0) {
-                    final += ', '
-                }
-                final += `${curr.name}`
-                return final
-            }, "")
-        }
-    }
+    //         return selectedCriterias.reduce((final, curr, i) => {
+    //             if (i != 0) {
+    //                 final += ', '
+    //             }
+    //             final += `${curr.name}`
+    //             return final
+    //         }, "")
+    //     }
+    // }
 
     isFilterApplied() {
         const def = {
@@ -164,63 +164,74 @@ class TopBar extends React.Component {
         }
     }
 
-    shortenUrl() {
-        if (window) {
-            let url = window.location.href + '&force_location=true'
-            this.props.urlShortner(url, (err, data) => {
-                if (!err) {
-                    this.setState({ shortURL: data.tiny_url })
-                }
-            })
-        }
-    }
+    // shortenUrl() {
+    //     if (window) {
+    //         let url = window.location.href + '&force_location=true'
+    //         this.props.urlShortner(url, (err, data) => {
+    //             if (!err) {
+    //                 this.setState({ shortURL: data.tiny_url })
+    //             }
+    //         })
+    //     }
+    // }
 
-    overlayClick() {
-        this.setState({ overlayVisible: false, searchCities: [] });
-    }
+    // overlayClick() {
+    //     this.setState({ overlayVisible: false, searchCities: [] });
+    // }
 
-    hideLocationPopup() {
-        this.setState({ showLocationPopup: false });
-    }
+    // hideLocationPopup() {
+    //     this.setState({ showLocationPopup: false });
+    // }
 
-    popupContainer() {
-        this.setState({ showPopupContainer: false, showLocationPopup: false });
-    }
+    // popupContainer() {
+    //     this.setState({ showPopupContainer: false, showLocationPopup: false });
+    // }
 
-    goToLocation() {
-        this.setState({
-            searchCities: []
-        })
-        let redirect_to = ""
-        if (window.location.pathname.includes('sptcit') || window.location.pathname.includes('sptlitcit')) {
-            redirect_to = "/opd/searchresults"
-        }
+    // goToLocation() {
+    //     this.setState({
+    //         searchCities: []
+    //     })
+    //     let redirect_to = ""
+    //     if (window.location.pathname.includes('sptcit') || window.location.pathname.includes('sptlitcit')) {
+    //         redirect_to = "/opd/searchresults"
+    //     }
 
-        let location_url = '/locationsearch'
-        if (redirect_to) {
-            location_url += `?redirect_to=${redirect_to}`
-        }
-        this.props.setNextSearchCriteria()
-        let data = {
-            'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
-        }
-        GTM.sendEvent({ data: data })
-        this.props.history.push(location_url)
-    }
+    //     let location_url = '/locationsearch'
+    //     if (redirect_to) {
+    //         location_url += `?redirect_to=${redirect_to}`
+    //     }
+    //     this.props.setNextSearchCriteria()
+    //     let data = {
+    //         'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+    //     }
+    //     GTM.sendEvent({ data: data })
+    //     this.props.history.push(location_url)
+    // }
 
     render() {
 
-        let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
-        let locationName = ""
-        if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-            locationName = this.props.selectedLocation.formatted_address
-        }
-        if (this.props.seoData && this.props.seoData.location) {
-            locationName = this.props.seoData.location
-        }
+        // let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
+        // let locationName = ""
+        // if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+        //     locationName = this.props.selectedLocation.formatted_address
+        // }
+        // if (this.props.seoData && this.props.seoData.location) {
+        //     locationName = this.props.seoData.location
+        // }
+
+        // if(document.getElementById("filter-scroll")){
+        //     window.onscroll = function() {
+        //     var currentScrollPos = window.pageYOffset
+        //       if (currentScrollPos > 0) {
+        //         document.getElementById("filter-scroll").classList.add("d-none")
+        //       } else {
+        //         document.getElementById("filter-scroll").classList.remove("d-none")
+        //       }
+        //     }
+        // }
 
         return (
-            <div>
+            <div className="filter-row sticky-header mbl-stick">
                 {this.state.dropdown_visible ?
                     <div>
                         <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
@@ -271,7 +282,7 @@ class TopBar extends React.Component {
                     : ''
                 }
 
-                <section className="filter-row sticky-header mbl-stick">
+                <section className="scroll-shadow-bar">
                     <div className="top-filter-tab-container">
                         <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
                             {
@@ -286,99 +297,6 @@ class TopBar extends React.Component {
                         {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>*/}
                     </div>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="filter-pdng">
-                                    <div className="action-filter d-none d-md-block alignShareBtn">
-                                        <ul className="inline-list">
-                                            <li className="d-none d-md-inline-block">
-                                                <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                                </span>
-                                            </li>
-                                            {
-                                                this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
-                                                    this.setState({ shortURL: "" })
-                                                }}>
-                                                    <div className="shareLinkpopup" onClick={(e) => {
-                                                        e.stopPropagation()
-                                                    }}>
-                                                        <p>{this.state.shortURL}</p>
-                                                        <CopyToClipboard text={this.state.shortURL}
-                                                            onCopy={() => {
-                                                                SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
-                                                                this.setState({ shortURL: "" })
-                                                            }}>
-                                                            <span className="shrelinkBtn">
-                                                                <button>Copy</button>
-                                                            </span>
-                                                        </CopyToClipboard>
-                                                    </div>
-                                                </div> : ""
-                                            }
-                                            {/*<li onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
-                                            <li onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
-                                                {
-                                                    this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
-                                                }
-                                            </li>*/}
-                                        </ul>
-                                    </div>
-                                    <div className="filter-title">
-                                        {this.props.count} Results found {criteriaStr ? "for" : ""}
-                                        <h1 className="search-result-heading">
-                                            <span className="fw-700"> {criteriaStr} </span>
-                                            <span className="search-result-span" onClick={
-                                                this.goToLocation.bind(this)}>
-                                                {
-                                                    this.state.showLocationPopup && false ? ''
-                                                        : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
-                                                }
-                                            </span>
-                                        </h1>
-                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={
-                                            this.goToLocation.bind(this)} />
-                                    </div>
-                                </div>
-                                {/*
-                                    this.state.dropdown_visible ?
-                                        <div>
-                                            <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
-                                            <div className="sort-dropdown-div">
-                                                <ul className="sort-dropdown-list">
-                                                    <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
-                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
-                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'distance' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
-                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'experience' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'experience')}>Experience</li>
-                                                </ul>
-                                            </div>
-                                        </div> : ""
-                                */}
-                            </div>
-                        </div>
-                        {
-                            this.state.showLocationPopup ?
-                                this.props.clinic_card && this.state.showPopupContainer ?
-                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
-                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                                : ''
-                        }
-
-                        {
-                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.clinic_card ?
-                                <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div>
-                                : ''
-                        }
-
-                        {
-                            this.state.showLocationPopup && this.props.clinic_card && this.state.showPopupContainer ?
-                                <div className="popupContainer-overlay"></div>
-                                : ''
-                        }
-
-                    </div>
-
                 </section>
                 {
                     this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
