@@ -150,9 +150,8 @@ class AppointmentReschedule extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
                             {
-                                this.state.data && this.state.data.status !== 7?
+                                this.state.data?
                                     <div>
-
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
 
@@ -168,7 +167,7 @@ class AppointmentReschedule extends React.Component {
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.rescheduleSlot} hideChangeTime={true} timeError={null} />
 
                                                         {
-                                                            priceData.payable_amount != 0 ? <div className="csh-back-applied-container" style={{ marginBottom: 20 }}>
+                                                            priceData.payable_amount != 0 && this.state.data.status !== 7 ? <div className="csh-back-applied-container" style={{ marginBottom: 20 }}>
                                                                 <p className="csh-mny-applied-content">Amount for the appointment is changed, to proceed you need to cancel this order and place a new one.</p>
                                                             </div> : ""
                                                         }
@@ -186,7 +185,7 @@ class AppointmentReschedule extends React.Component {
                                                             </div>
                                                         </div>
 
-
+                                                        {this.state.data && this.state.data.status !== 7?<div>
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
@@ -197,30 +196,27 @@ class AppointmentReschedule extends React.Component {
                                                                 <span className="errorMessage">{this.state.error}</span>
                                                             </div>
                                                         </a>
-
+                                                        </div>:''
+                                                        }
                                                     </div>
 
                                                 </div>
+                                            {this.state.data && this.state.data.status == 7?
+                                                <div className="sms-reschedule mrt-10">
+                                                    <div>
+                                                    <p className="fw-500">This appointment cannot be reschedule as you already marked this appointment complete. </p>
+                                                    <button className="sms-lgbtn" onClick={()=>(this.props.history.push('/'))}>Go to Homepage</button>
+                                                    </div>
+                                                </div>
+                                            :''
+                                            }
                                             </div>
 
                                             {
                                                 this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                                             }
-
-
                                         </section>
-
                                     </div> 
-
-                                    : this.state.data && this.state.data.status == 7?
-                                        <div className="container-fluid">
-                                        <div className="sms-reschedule mrt-10">
-                                            <div>
-                                            <p className="fw-500">This appointment cannot be reschedule as you already marked this appointment complete. </p>
-                                            <button className="sms-lgbtn" onClick={()=>(this.props.push('/'))}>Go to Homepage</button>
-                                            </div>
-                                        </div>
-                                        </div>
                                     :<Loader />
                             }
 
