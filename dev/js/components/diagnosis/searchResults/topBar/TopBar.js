@@ -193,17 +193,6 @@ class TopBar extends React.Component {
     // }
 
     render() {
-
-        if(document.getElementById("filter-scroll")){
-            window.onscroll = function() {
-            var currentScrollPos = window.pageYOffset
-              if (currentScrollPos > 0) {
-                document.getElementById("filter-scroll").classList.add("d-none")
-              } else {
-                document.getElementById("filter-scroll").classList.remove("d-none")
-              }
-            }
-        }
         
         let sortType = ''
         if (this.state.sort_on) {
