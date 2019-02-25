@@ -6391,7 +6391,7 @@ margin-right: 10px;
 .pkgTypeBorder:last-child{
 	border-right: none;
     padding-right: 0px;	
-}*/
+}
 
 .pkgCatImg img{
 width: 18px;
@@ -6631,6 +6631,10 @@ li.pkgIncludeList {
 	margin-left: 5px;
     font-weight: 500;
     font-size: 12px;
+}
+.ck-bx.pkgCheck-box{
+	font-size: 14px;
+    font-weight: 500;
 }
 /* ==================== package new card style ==================== */
 
