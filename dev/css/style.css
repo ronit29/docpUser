@@ -6543,12 +6543,14 @@ span.pkg-ofr-ribbon:after {
     box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
 }
 .pkg-card-location p{
-    padding-right: 59px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #757575;
     font-weight: 500;
+    display: inline-block;
+	max-width: 70%;
+	margin-right: 2px;
 }
 .pkg-content-section{
 	padding: 10px;
@@ -6570,7 +6572,8 @@ span.pkg-ofr-ribbon:after {
     text-decoration: line-through;
     font-size: 13px;
     margin-top: 2px;
-    display: inline-block;
+	display: inline-block;
+	margin-left: 5px;
 }
 .pkg-btn-nw{
 	background: #f78631;
@@ -6602,7 +6605,7 @@ li.pkgIncludeList {
     padding: 2px 7px;
     border-radius: 4px;
     font-weight: 500;
-    display: inline-block;
+    display: inline-flex;
     margin-right: 10px;
     margin-bottom: 10px;
 }
@@ -6635,6 +6638,20 @@ li.pkgIncludeList {
 .ck-bx.pkgCheck-box{
 	font-size: 14px;
     font-weight: 500;
+}
+.pkgTost{
+	position: fixed;
+    bottom: 20px;
+    z-index: 999;
+    background: rgba(0, 0, 0, .7);
+    left: 0;
+    right: 0;
+    width: 50%;
+    color: white;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    border-radius: 4px;
 }
 /* ==================== package new card style ==================== */
 

@@ -91,8 +91,23 @@ class packagesList extends React.Component {
     }
     render() {
         let { LABS, labList } = this.props
+
+        if(document.getElementById("pkgTost")){
+                window.onscroll = function() {
+                var currentScrollPos = window.pageYOffset
+                  if (currentScrollPos == 0) {
+                    document.getElementById("pkgTost").classList.add("d-none")
+                  } else {
+                    document.getElementById("pkgTost").classList.remove("d-none")
+                  }
+                }
+        }
+
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
+                {!this.props.forOrganicSearch && !this.props.forTaxSaver ? <div className="pkgTost" id="pkgTost"><p onClick={() => this.props.history.push('/health-package-advisor')}>Need Help in Booking Health Package? </p>
+                </div> : ''
+                }
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
@@ -126,10 +141,6 @@ class packagesList extends React.Component {
                                     </div>
                                 </div>
                                     : ''
-                            }
-                            {
-                                !this.props.forOrganicSearch && !this.props.forTaxSaver ? <a style={{ color: '#f78631', cursor: 'pointer', marginTop: '-5px', display: 'inline-block' }} onClick={() => this.props.history.push('/health-package-advisor')}>Click here for more Health packages
-                                </a> : ''
                             }
                             <div className="row">
                                 <div className="col-12">

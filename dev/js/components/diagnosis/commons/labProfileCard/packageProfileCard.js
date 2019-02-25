@@ -121,7 +121,7 @@ class LabProfileCard extends React.Component {
                             <span className="pkg-ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                     }
                     <div className="pkg-card-location p-relative">
-                        <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /> {lab.address} | {distance} Km</p>
+                        <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div>
                     <div className="pkg-card-content">
                         <div className="row no-gutters" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
@@ -133,7 +133,7 @@ class LabProfileCard extends React.Component {
                                 </div>
 
                                 <h4 className="pkg-labDoc-Name">{name} {show_details ?
-                                    <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block' }} onClick={this.testInfo.bind(this, id)}>
+                                    <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block',cursor:'pointer' }} onClick={this.testInfo.bind(this, id)}>
                                         <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                     </span> : ''}
                                 </h4>
@@ -162,9 +162,6 @@ class LabProfileCard extends React.Component {
                         </div>
                     </div>
                     <div className="pkg-includes-container">
-                        <div className="pkgLblheading">
-                            <p className="fw-500" style={{paddingTop:'8px'}}>Includes:</p>
-                        </div>
                         {category_details.length > 0 ?
                         <ul>
                             {
