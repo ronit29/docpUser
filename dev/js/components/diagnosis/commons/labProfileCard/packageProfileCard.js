@@ -170,7 +170,7 @@ class LabProfileCard extends React.Component {
                                         {category_detail.icon?
                                             <img style={{ width: '20px',marginRight: '5px' }} src={category_detail.icon}/>
                                         :''}
-                                        <span className="fw-500">{category_detail.name} {category_detail.parameter_count !=0 ?`(${category_detail.parameter_count})`:''} </span>
+                                        <span className="fw-500">{category_detail.name} {category_detail.parameter_count >1 ?`(${category_detail.parameter_count})`:''} </span>
                                     </li>
                                 })
                             }
