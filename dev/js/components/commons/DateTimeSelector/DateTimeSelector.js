@@ -178,7 +178,7 @@ class DateTimeSelector extends React.Component {
 
     }
 
-    render() {
+    render() {console.log(this.state);
 
         let currentDate = new Date().getDate()
         const parsed = queryString.parse(this.props.location.search)
@@ -270,11 +270,14 @@ class DateTimeSelector extends React.Component {
                                                 <ul className="inline-list time-items">
                                                     {
                                                         schedule.timing.map((time, i) => {
-                                                            return <li key={i} className="time-slot-li-listing" onClick={
+
+                                                            return this.isTimeSlotAvailable(time)?
+                                                            <li key={i} className="time-slot-li-listing" onClick={
                                                                 this.selectTime.bind(this, time, time.value, schedule.title,this.isTimeSlotAvailable(time))}>
                                                                 <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.value == time.value? " time-active" : ''
                                                                     : " time-disable")}>{time.text}</p>
                                                             </li>
+                                                            :''
                                                         })
                                                     }
                                                 </ul>
@@ -290,11 +293,14 @@ class DateTimeSelector extends React.Component {
                                                 <ul className="inline-list time-items">
                                                     {
                                                         schedule.timing.filter(x=>x.value>=10.5 && x.value<=19.75).map((time, i) => {
-                                                            return <li key={i} className="time-slot-li-listing" onClick={
+
+                                                            return this.isTimeSlotAvailable(time)?
+                                                            <li key={i} className="time-slot-li-listing" onClick={
                                                                 this.selectTime.bind(this, time, i, schedule.title,this.isTimeSlotAvailable(time))}>
-                                                                <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.selectedSlot == i && this.state.currentTimeSlot.title == schedule.title ? " time-active" : ''
+                                                                <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.currentTimeSlot.title == schedule.title ? " time-active" : ''
                                                                     : " time-disable")}>{time.text}</p>
                                                             </li>
+                                                            :''
                                                         })
                                                     }
                                                 </ul>

@@ -460,6 +460,13 @@ class PatientDetailsNew extends React.Component {
         return `Confirm Booking`
     }
 
+    selectTimeSlot(slot) {
+        const parsed = queryString.parse(this.props.location.search)
+        slot.selectedDoctor = this.state.selectedDoctor
+        slot.selectedClinic = this.state.selectedClinic
+        this.props.selectOpdTimeSLot(slot, false)
+    }
+
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
@@ -547,7 +554,15 @@ class PatientDetailsNew extends React.Component {
                                                             selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                             selectedClinic={this.state.selectedClinic}
                                                         />
-                                                        <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                                                        {
+                                                            this.props.timeSlots?
+                                                            <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} 
+
+                                                            timeSlots={this.props.timeSlots}
+                                                                selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                                doctor_leaves={this.props.doctor_leaves || []}
+                                                            />:''
+                                                        }
 
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
