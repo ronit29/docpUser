@@ -133,11 +133,11 @@ class LabProfileCard extends React.Component {
                                     </InitialsPicture>
                                 </div>
                                 <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
-                                    <h4 className="pkg-labDoc-Name">{name} {show_details ?
+                                    <h2 className="pkg-labDoc-Name">{name} {show_details ?
                                         <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block', cursor: 'pointer' }} onClick={this.testInfo.bind(this, id)}>
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                         </span> : ''}
-                                    </h4>
+                                    </h2>
                                 </a>
                                 {
                                     number_of_tests > 0 ?
