@@ -548,7 +548,40 @@ class PatientDetailsNew extends React.Component {
                                                             selectedClinic={this.state.selectedClinic}
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                                                        {/* time slot sectiont */}
+                                                        <div className="widget mrb-15">
+                                                            <div className="widget-content pos-relative">
+                                                                <div className="lab-visit-time d-flex jc-spaceb">
+                                                                    <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="visit-time-icon" /></span>Visit Time</h4>
+                                                                    <div className="float-right  mbl-view-formatting text-right">
+                                                                        <a href="" className="text-primary fw-700 text-sm"> View all</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div className='nw-timeslot-container'>
+                                                                    <p className="avl-time-slot">Next available time slot</p>
+                                                                    <div className="select-time-listing-container">
+                                                                        <div className="nw-tm-shift">
+                                                                            Wed, 16 feb:
+                                                                        </div>
+                                                                        <div className="time-slot-main-listing">
+                                                                            <ul className="inline-list nw-time-st">
+                                                                                <li className="nw-time-slot-li">
+                                                                                    <p className="time-slot-timmings time-active">04:00 PM</p>
+                                                                                </li>
+                                                                                <li className="nw-time-slot-li">
+                                                                                    <p className="time-slot-timmings">05:00 PM</p>
+                                                                                </li>
+                                                                                <li className="nw-time-slot-li">
+                                                                                    <p className="time-slot-timmings">07:00 PM</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                        {/* time slot sectiont */}
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
