@@ -147,7 +147,7 @@ class IPD extends React.Component{
 						                     </div>
 						                     <div className="form-group fm-grp">
 						                        <div className="lbl-txt">Email Id:</div>
-						                        <div className="input-form"><input type="text" className="form-control" /></div>
+						                        <div className="input-form"><input type="text" className="form-control error-on" /></div>
 						                        <span className="error-msg">Required</span>
 						                     </div>
 						                     <div className="form-group fm-grp mrg-mb0">
