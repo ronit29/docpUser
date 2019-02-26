@@ -355,7 +355,7 @@ class SearchTestView extends React.Component {
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                                         <ul>
                                                                                             {Object.entries(this_package_will_include.tests).map(function ([k, test_include]) {
-                                                                                                return <li key={k} id={test_include.id}>
+                                                                                                return <li key={k} id={test_include.id} className="mb-rmv">
                                                                                                         <div>
                                                                                                             <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length>0?<span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span>:''}</button>
                                                                                                         </div>

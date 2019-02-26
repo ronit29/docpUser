@@ -162,7 +162,7 @@ class LabProfileCard extends React.Component {
                         </div>
                     </div>
                     <div className="pkg-includes-container">
-                        {category_details.length > 0 ?
+                        {category_details && category_details.length > 0 ?
                         <ul>
                             {
                                 category_details.map((category_detail, k) => {
