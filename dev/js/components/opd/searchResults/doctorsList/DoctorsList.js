@@ -59,7 +59,7 @@ class DoctorsList extends React.Component {
             if (typeof long === 'function') long = long()
         }
 
-        this.props.getOfferList(lat, long, 15);
+        this.props.getOfferList(lat, long);
     }
 
     componentWillUnmount() {
