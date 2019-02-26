@@ -83,6 +83,7 @@ class HomeView extends React.Component {
 		this.props.toggleDiagnosisCriteria('test', test, true)
 		let data
 		if (isPackage) {
+			this.props.setPackageId(test.id)
 			data = {
 				'Category': 'ConsumerApp', 'Action': 'SelectedHealthPackage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-health-package', 'selected': test.name || '', 'selectedId': test.id || ''
 			}
@@ -94,9 +95,15 @@ class HomeView extends React.Component {
 
 		GTM.sendEvent({ data: data })
 
-		setTimeout(() => {
-			this.props.history.push('/lab/searchresults')
-		}, 100)
+		if(isPackage){
+			setTimeout(() => {
+				this.props.history.push('/searchpackages')
+			}, 100)
+		}else{
+			setTimeout(() => {
+				this.props.history.push('/lab/searchresults')
+			}, 100)
+		}
 	}
 
 	searchDoctor(speciality) {
@@ -236,7 +243,8 @@ class HomeView extends React.Component {
 									searchType="packages"
 									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
-									navTo="/health-package-advisor"
+									// navTo="/health-package-advisor"
+									navTo="/searchpackages"
 								/> : ""
 						}
 
@@ -311,8 +319,9 @@ class HomeView extends React.Component {
 									searchType="packages"
 									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
-									navTo="/health-package-advisor"
-								/> : ""
+									// navTo="/health-package-advisor"
+									navTo="/searchpackages"
+									/> : ""
 						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>

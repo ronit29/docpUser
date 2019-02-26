@@ -7,6 +7,7 @@ import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
+import ResultCount from './topBar/result_count.js'
 
 class SearchPackagesView extends React.Component {
     constructor(props) {
@@ -100,6 +101,7 @@ class SearchPackagesView extends React.Component {
         newCategoryState['gender'] = filterstate.gender
         newCategoryState['packageType'] = filterstate.packageType
         newCategoryState['test_ids'] = filterstate.test_ids
+        newCategoryState['package_ids'] = filterstate.package_ids
 
         // this.props.mergeLABState({ filterCriteria: newCategoryState })
         this.props.mergeLABState({ filterCriteriaPackages: newCategoryState })
@@ -139,6 +141,7 @@ class SearchPackagesView extends React.Component {
         let gender=filterCriteriaPackages.gender || ""
         let package_type=filterCriteriaPackages.packageType || ""
         let test_ids = filterCriteriaPackages.test_ids || ""
+        let package_ids = filterCriteriaPackages.package_ids || ""
         let page=1
         
         let url
@@ -146,7 +149,7 @@ class SearchPackagesView extends React.Component {
         if(this.props.forTaxSaver){
             url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=41`
         } else{
-            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
         return url
@@ -206,6 +209,7 @@ class SearchPackagesView extends React.Component {
                 }} noIndex={false} />                
                 <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
+                    <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                     <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />

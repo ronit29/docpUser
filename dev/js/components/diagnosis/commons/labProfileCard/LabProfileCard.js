@@ -20,9 +20,9 @@ class LabProfileCard extends React.Component {
 
 
     openLab(id, url, e) {
-        let dedupe_ids = {}
         this.props.clearExtraTests()
         if(this.props.noClearTest){
+            //package conditions for seo page
             let lab_id
             let test={} 
             let data = this.props.details
@@ -42,6 +42,34 @@ class LabProfileCard extends React.Component {
             test.extra_test = true
             this.props.toggleDiagnosisCriteria('test', test, true)
         }else{
+            //for tests
+            this.mergeTests(id)
+        }
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
+        }
+        GTM.sendEvent({ data: data })
+
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
+        }
+        GTM.sendEvent({ data: data })
+
+        if (e.ctrlKey || e.metaKey) {
+
+        } else {
+            e.preventDefault();
+
+            if (url) {
+                this.props.history.push(`/${url}`)
+            } else {
+                this.props.history.push(`/lab/${id}`)
+            }
+        }
+    }
+
+    mergeTests(id){
+        let dedupe_ids = {}
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
@@ -66,29 +94,13 @@ class LabProfileCard extends React.Component {
                 new_test.lab_id = id
                 this.props.toggleDiagnosisCriteria('test', new_test, true)
             })
-        }
-        let data = {
-            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
-        }
-        GTM.sendEvent({ data: data })
-
-        data = {
-            'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
-        }
-        GTM.sendEvent({ data: data })
-
-        if (e.ctrlKey || e.metaKey) {
-
-        } else {
-            e.preventDefault();
-
-            if (url) {
-                this.props.history.push(`/${url}`)
-            } else {
-                this.props.history.push(`/lab/${id}`)
-            }
-        }
     }
+
+    bookNowClicked(id, url=''){
+        this.mergeTests(id)
+        this.props.history.push(`/lab/${id}/book`)
+    }
+
     testInfo(test_id, lab_id, test_url,event) {
         let selected_test_ids = []
         Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
@@ -167,10 +179,10 @@ class LabProfileCard extends React.Component {
             <div className="">
                 <div className="filter-card-dl mb-3">
                     <div className="fltr-crd-top-container">
-                        <div className="fltr-lctn-dtls" onClick={this.openLab.bind(this, id, url)} style={{ cursor: 'pointer' }}>
+                        <div className="fltr-lctn-dtls" onClick={this.bookNowClicked.bind(this, id, url)} style={{ cursor: 'pointer' }}>
                             <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
                         </div>
-                        <div style={{ cursor: 'pointer' }} className="row no-gutters mrt-10" onClick={this.openLab.bind(this, id, url)}>
+                        <div className="row no-gutters mrt-10" onClick={this.bookNowClicked.bind(this, id, url)} style={{ cursor: 'pointer' }}>
                             <div className="col-12">
                                 <a>
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
@@ -201,6 +213,18 @@ class LabProfileCard extends React.Component {
                                 </div>
                                 {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests !=null ? <div style={{marginTop:'10px'}}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
                                 :''}
+                                {this.props.details.tests && this.props.details.tests[0].category_details && this.props.details.tests[0].category_details.length > 0 ?
+                                <ul style={{ marginTop: '5px' }}>
+                                    {
+                                        this.props.details.tests[0].category_details.map((category_detail, k) => {
+                                            return <li className="pkg-listing-tick" key={k} id={k}>
+                                                <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
+                                                {category_detail.category} ({category_detail.count})
+                                            </li>
+                                        })
+                                    }
+                                </ul>
+                            : ''}
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
                                 {
@@ -215,7 +239,16 @@ class LabProfileCard extends React.Component {
                                         <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                     </div> : ""
                                 }
-                                <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
+                            </div>
+                            <div className="col-12 mrt-10">
+                                <div className="row">
+                                    <div className="col-6">
+                                        {/*<button className="fltr-cntct-btn btn-pdng"  onClick={this.openLab.bind(this, id, url)} >View Profile</button>*/}
+                                    </div>
+                                    <div className="col-6">
+                                        <button className="fltr-bkng-btn btn-pdng">Book Now</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {
@@ -269,7 +302,7 @@ class LabProfileCard extends React.Component {
                                         other_labs.map((olab, x) => {
                                             return <li key={x}>
                                                 <p className="showBookTestListImg"> <img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km </p>
-                                                <button className="showBookTestListBtn" onClick={this.openLab.bind(this, olab.id, olab.url)}>Book Now</button>
+                                                <button className="showBookTestListBtn" onClick={this.bookNowClicked.bind(this, olab.id, olab.url)}>Book Now</button>
                                             </li>
                                         })
                                     }
