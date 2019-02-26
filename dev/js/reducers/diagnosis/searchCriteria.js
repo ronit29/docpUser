@@ -23,7 +23,7 @@ const DEFAULT_FILTER_STATE_PACKAGES = {
     packageType:'',
     test_ids:'',
     selectCatIDs:[],
-    package_ids:[]
+    package_ids:''
 }
 
 const defaultState = {
@@ -401,7 +401,7 @@ export default function (state = defaultState, action) {
             }
             newState.page = action.payload
             if(newState.filterCriteriaPackages){
-                newState.filterCriteriaPackages.package_ids.push(action.package_id)
+                newState.filterCriteriaPackages.package_ids = action.package_id
             }
             return newState
         }

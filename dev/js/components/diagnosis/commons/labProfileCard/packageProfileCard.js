@@ -12,6 +12,7 @@ class LabProfileCard extends React.Component {
     }
 
     openLab(id, url, test_id, test_name, e) {
+        this.props.clearExtraTests()
         let testIds = test_id
         // let dedupe_ids = {}
         // let testIds = this.props.selectedCriterias
