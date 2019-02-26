@@ -23,7 +23,6 @@ class PackageTest extends React.Component {
                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
             </span>
         }
-        console.log(test)
         return (
             <li key={i} style={{ paddingRight: '0px' }} className="clearfix">
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
