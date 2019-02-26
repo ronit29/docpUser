@@ -6671,6 +6671,9 @@ li.pkgIncludeList {
     border-radius: 4px;
     cursor: pointer;
 }
+button.padding-btn-adjust{
+	padding: 6px 10px !important;
+}
 /* ==================== package new card style ==================== */
 
 
