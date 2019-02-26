@@ -6624,6 +6624,7 @@ li.pkgIncludeList {
     display: inline-flex;
     margin-right: 10px;
     margin-bottom: 10px;
+    font-size: 12px;
 }
 .pkgLblheading{
 	margin-right: 10px;
