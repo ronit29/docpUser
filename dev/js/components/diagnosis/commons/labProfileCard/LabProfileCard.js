@@ -213,7 +213,7 @@ class LabProfileCard extends React.Component {
                                 </div>
                                 {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests !=null ? <div style={{marginTop:'10px'}}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
                                 :''}
-                                {this.props.details.tests && this.props.details.tests[0].category_details && this.props.details.tests[0].category_details.length > 0 ?
+                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].category_details && this.props.details.tests[0].category_details.length > 0 ?
                                 <ul style={{ marginTop: '5px' }}>
                                     {
                                         this.props.details.tests[0].category_details.map((category_detail, k) => {
