@@ -150,8 +150,8 @@ class IPD extends React.Component{
 						                        <div className="input-form"><input type="text" className="form-control" /></div>
 						                        <span className="error-msg">Required</span>
 						                     </div>
-						                     <div className="form-group fm-grp">
-						                        <div className="lbl-txt">gender:</div>
+						                     <div className="form-group fm-grp mrg-mb0">
+						                        <div className="lbl-txt gender-label">gender:</div>
 						                        <div className="input-form dis-flx">
 						                           <div className="dtl-radio">
 						                              <label className="container-radio">Male
@@ -173,7 +173,7 @@ class IPD extends React.Component{
 						                           </div>
 						                        </div>
 						                     </div>
-						                     <div className="form-group fm-grp">
+						                     <div className="form-group fm-grp mrg-mt0">
 						                        <div className="lbl-txt">Age:</div>
 						                        <div className="input-form"><input type="text" class="form-control" /></div>
 						                     </div>

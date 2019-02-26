@@ -6810,7 +6810,7 @@ margin-right: 10px;
     margin-top: 3px;
 }
 .ipd-section .tab-head{
-    margin: 0 -30px;
+    margin: 0 -15px;
 }
 .ipd-section .img-hospital{
         width: 100px;
@@ -6872,6 +6872,7 @@ margin-right: 10px;
 }
 .ipd-section .dis-flx .container-radio{
     margin-bottom: 0;
+    font-size: 14px;
 }
 .ipd-section .error-msg{
     font-size: 12px;
@@ -7260,9 +7261,6 @@ margin-right: 10px;
     .ipd-section .hospital-info{
         padding-top: 15px;
     }
-    .ipd-section .info-img{
-    	margin-top: -9px;
-    }
     .ipd-section .custom-popup{
         top: unset;
         bottom: 0;
@@ -7277,7 +7275,27 @@ margin-right: 10px;
     }
 }
 @media screen and (max-width: 320px){
+	.ipd-section .dis-flx{
+		display: block;
+	}
+	.gender-label{
+		position: relative;
+		top:-45px;
+		margin-right: 10px;
+	}
+	.ipd-section .dis-flx .container-radio{
+		margin-bottom: 10px;
+	}
     .ipd-section .custom-popup{
         transform: translateY(-17%);
     } 
+    .ipd-section .form-group.fm-grp.mrg-mb0{
+    	margin-bottom: 0;
+    }
+    .ipd-section .form-group.fm-grp.mrg-mt0{
+    	margin-top: 0;
+    }
+    .ipd-section .info-img{
+    	margin-top: -9px;
+    }
 }
