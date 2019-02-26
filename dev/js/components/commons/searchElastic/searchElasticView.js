@@ -90,6 +90,19 @@ class SearchElasticView extends React.Component {
         })
     }
 
+    searchProceedPackages(package_name = "") {
+        this.props.mergeLABState({
+            filterCriteria: {
+                ...this.props.dataState.filterCriteriaPackages
+            }
+        }, true)
+
+        this.props.history.push({
+            pathname: '/searchpackages',
+            state: { search_back: true }
+        })
+    }
+
     showDoctors(type) {
         if (this.props.locationType == "geo") {
             this.setState({ focusInput: 1 })
@@ -118,6 +131,17 @@ class SearchElasticView extends React.Component {
             return null
         }
         this.searchProceedLAB("")
+    }
+
+    showPackages() {
+        if (this.props.locationType == "geo") {
+            this.setState({ focusInput: 1 })
+            if (window) {
+                window.scrollTo(0, 0)
+            }
+            return null
+        }
+        this.searchProceedPackages("")
     }
 
     clickPopUp(type) {
@@ -169,6 +193,9 @@ class SearchElasticView extends React.Component {
 
     render() {
 
+        console.log('ewuyriweiuyqweiuy')
+        console.log(this.props)
+
         let title = ''
         let searchProceed = ''
         let showResults = ''
@@ -203,30 +230,24 @@ class SearchElasticView extends React.Component {
                 selectedCriterias={this.props.dataState.selectedCriterias}
             />
 
-        } else {
+        } else if (this.props.selectedSearchType.includes('package')) {
             title = "health packages"
-            searchProceed = ''
-            showResults = ''
+            searchProceed = this.searchProceedPackages.bind(this)
+            showResults = this.showPackages.bind(this)
 
-            // commonSearched = <CommonlySearched
-            //     heading="Common Dental Treatments"
-            //     type="procedures"
-            //     selectedSearchType = {this.props.selectedSearchType}
-            //     data={this.props.dataState.procedures}
-            //     selected={[]}
-            //     toggle={this.setCommonSelectedCriterias.bind(this)}
-            // />
-
-
-
-            /*<CommonlySearched
-                        heading="Common Dental Treatments"
-                        type="procedures_category"
-                        data={this.props.dataState.procedure_categories}
-                        selected={[]}
-                        toggle={this.setCommonSelectedCriterias.bind(this)}
-                    />*/
+            commonSearched = <CommonlySearched
+                heading="Common Packages"
+                type="package"
+                selectedSearchType={this.props.selectedSearchType}
+                data={this.props.dataState.common_package}
+                selected={this.props.dataState.selectedCriterias.filter(x => x.is_package)}
+                toggle={this.toggleLabTests.bind(this)}
+                selectedCriterias={this.props.dataState.selectedCriterias.filter(x => x.is_package)}
+            />
         }
+
+        console.log('kjhgfdsadyuilkjhgfdghjk')
+        console.log(this.props)
 
         return (
             <section>
@@ -268,7 +289,7 @@ class SearchElasticView extends React.Component {
 
                             {
                                 this.props.selectedSearchType == 'package' ?
-                                    <button className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Packages</button>
+                                    <button onClick={this.showPackages.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Packages</button>
                                     : ''
                             }
 
