@@ -92,16 +92,16 @@ class packagesList extends React.Component {
     render() {
         let { LABS, labList } = this.props
 
-        if(document.getElementById("pkgTost")){
-                window.onscroll = function() {
-                var currentScrollPos = window.pageYOffset
-                  if (currentScrollPos == 0) {
-                    document.getElementById("pkgTost").classList.add("d-none")
-                  } else {
-                    document.getElementById("pkgTost").classList.remove("d-none")
-                  }
-                }
-        }
+        // if(document.getElementById("pkgTost") !== null){
+        //     window.onscroll = function() {
+        //     var currentScrollPos = window.pageYOffset
+        //       if (currentScrollPos == 0) {
+        //         document.getElementById("pkgTost").classList.add("d-none")
+        //       } else {
+        //         document.getElementById("pkgTost").classList.remove("d-none")
+        //       }
+        //     }
+        // }
 
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
