@@ -1,5 +1,6 @@
 import React from 'react';
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 
 class VisitTimeNew extends React.Component {
     constructor(props) {
@@ -22,9 +23,12 @@ class VisitTimeNew extends React.Component {
                     if(timeSlot.value> currentTime){
 
                         let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
-                        let time = isAvailable?timeSlot:[]
-                        availableTimeSlots = availableTimeSlots.concat(time)
+                        if(isAvailable){
 
+                            let timeData = Object.assign({}, timeSlot)
+                            timeData.title = time.title
+                            availableTimeSlots = availableTimeSlots.concat(timeData)
+                        }
                     }
                 })
             })
@@ -60,12 +64,26 @@ class VisitTimeNew extends React.Component {
             }
         }
 
-        return availableTimeSlots.slice(0,3).map((time, i)=>{
-            return <li key={i} className="time-slot-li-listing" onClick={
-                this.selectTime.bind(this, time, selectedTimeSlotDate)}>
-                <p className={"time-slot-timmings" + this.props.selectedSlot.value == time.value? " time-active" : ''}>{time.text}</p>
-            </li>
-        })
+        return availableTimeSlots.length?
+        <div className="select-time-listing-container">
+            <div className="nw-tm-shift">
+                {WEEK_DAYS[selectedTimeSlotDate.getDay()]} {MONTHS[selectedTimeSlotDate.getMonth()] } {selectedTimeSlotDate.getMonth()}:
+            </div>
+            <div className="time-slot-main-listing">
+                <ul className="inline-list nw-time-st">
+                    {
+                        availableTimeSlots.slice(0,3).map((time, i)=>{
+                            return <li key={i} className="nw-time-slot-li" onClick={
+                                this.selectTime.bind(this, time, selectedTimeSlotDate)}>
+                                <p className={`time-slot-timmings ${this.props.selectedSlot && this.props.selectedSlot.time?`${this.props.selectedSlot.time.value == time.value? " time-active" : ''}`:''}`}
+>{time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</p>
+                            </li>
+                        })
+                    }
+                </ul>
+            </div>
+        </div>
+        :<div>No time slots Available</div>
     } 
 
     selectTime(time, selectedTimeSlotDate) {
@@ -73,12 +91,12 @@ class VisitTimeNew extends React.Component {
         let self = this
         let timeSpan = Object.assign({}, time)
         timeSpan.title = time.title
-
         let data = {
             date: selectedTimeSlotDate,
             month: MONTHS[new Date(selectedTimeSlotDate).getMonth()],
             slot: '',
-            time: timeSpan
+            time: timeSpan,
+            summaryPage: true
         }
         this.props.selectTimeSlot(data)
     } 
@@ -140,6 +158,11 @@ class VisitTimeNew extends React.Component {
 
     }
 
+    viewAllClicked(){
+
+        this.props.navigateTo('time')
+    }
+
     render() {
 
         let { date, time } = this.props.selectedSlot
@@ -152,8 +175,20 @@ class VisitTimeNew extends React.Component {
                 <div className="widget-content pos-relative">
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="visit-time-icon" /></span>Visit Time</h4>
-                        {this.getTimeSlots()}
                         <div className="float-right  mbl-view-formatting text-right">
+                            <a href="" className="text-primary fw-700 text-sm" onClick={(e)=>{
+                                e.preventDefault()
+                                this.viewAllClicked()
+                            }}> View all</a>
+                        </div>
+                    </div>
+                    {
+                        ((this.props.selectedSlot && this.props.selectedSlot.summaryPage) || !date )?
+                        <div className='nw-timeslot-container'>
+                            <p className="avl-time-slot">Next available time slot</p>
+                             {this.getTimeSlots()}
+                        </div>
+                        :<div className="float-right  mbl-view-formatting text-right">
                             <h4 className="date-time title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>
                             {
                                 !this.props.hideChangeTime ? <a href="" onClick={(e) => {
@@ -162,12 +197,12 @@ class VisitTimeNew extends React.Component {
                                     this.props.navigateTo('time')
                                 }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Select"} Time</a> : ""
                             }
-                        </div>
+                        </div>             
+                    }
                     </div>
                     {
                         this.props.timeError ? <span className="fw-500 time-error nw-error">Required</span> : ''
                     }
-                </div>
             </div>
         );
     }
