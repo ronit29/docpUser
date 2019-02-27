@@ -178,6 +178,55 @@ class DateTimeSelector extends React.Component {
 
     }
 
+    getTimeSlots(type){
+        let isAnyTimeAvailable = false
+        let timeSlotData = []
+
+        this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].map((schedule, key) => {
+            let timeSlots = []
+            let timeSchedule = Object.assign(schedule, {})
+           
+            //type =0 for opd ,in case of opd only slots bw 10:30 & 7:45 will be available for current day
+            if(type == 1 || STORAGE.isAgent() || new Date().toDateString() != new Date(this.state.selectedDateSpan).toDateString()){
+
+            }else{
+                timeSchedule.timing = timeSchedule.timing.filter(x=>x.value>=10.5 && x.value<=19.75)
+            }
+            
+            timeSchedule.timing.map((time, i) => {
+                //only current available time slots will be visible
+                if(this.isTimeSlotAvailable(time)){
+                    timeSlots.push(<li key={i} className="time-slot-li-listing" onClick={
+                        this.selectTime.bind(this, time, time.value, schedule.title,this.isTimeSlotAvailable(time))}>
+                        <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.value == time.value? " time-active" : ''
+                            : " time-disable")}>{time.text}</p>
+                    </li>)
+                }
+            })
+
+            if(timeSlots.length){
+                isAnyTimeAvailable = true
+                timeSlotData.push(<div key={key} className="select-time-listing-container">
+                    <div className="time-shift">
+                        {schedule.title}
+                    </div>
+                    <div className="time-slot-main-listing">
+                        <ul className="inline-list time-items">
+                            {timeSlots}
+                        </ul>
+                    </div>
+                </div>)
+            }
+
+        })
+
+
+        return isAnyTimeAvailable?
+        timeSlotData
+        :<div>No timeslot available</div>
+
+    }
+
     render() {console.log(this.state);
 
         let currentDate = new Date().getDate()
@@ -258,57 +307,8 @@ class DateTimeSelector extends React.Component {
 
                         {
                             this.props.timeSlots && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1] && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].length ?
-                                this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].map((schedule, key) => {
-
-                                    return type == 1 || STORAGE.isAgent()?
-                                    schedule.timing.length ?
-                                        <div key={key} className="select-time-listing-container">
-                                            <div className="time-shift">
-                                                {schedule.title}
-                                            </div>
-                                            <div className="time-slot-main-listing">
-                                                <ul className="inline-list time-items">
-                                                    {
-                                                        schedule.timing.map((time, i) => {
-
-                                                            return this.isTimeSlotAvailable(time)?
-                                                            <li key={i} className="time-slot-li-listing" onClick={
-                                                                this.selectTime.bind(this, time, time.value, schedule.title,this.isTimeSlotAvailable(time))}>
-                                                                <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.value == time.value? " time-active" : ''
-                                                                    : " time-disable")}>{time.text}</p>
-                                                            </li>
-                                                            :''
-                                                        })
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        : ''
-                                    :schedule.timing.filter(x=>x.value>=10.5 && x.value<=19.75).length ?
-                                        <div key={key} className="select-time-listing-container">
-                                            <div className="time-shift">
-                                                {schedule.title}
-                                            </div>
-                                            <div className="time-slot-main-listing">
-                                                <ul className="inline-list time-items">
-                                                    {
-                                                        schedule.timing.filter(x=>x.value>=10.5 && x.value<=19.75).map((time, i) => {
-
-                                                            return this.isTimeSlotAvailable(time)?
-                                                            <li key={i} className="time-slot-li-listing" onClick={
-                                                                this.selectTime.bind(this, time, i, schedule.title,this.isTimeSlotAvailable(time))}>
-                                                                <p className={"time-slot-timmings" + (this.isTimeSlotAvailable(time) ? this.state.currentTimeSlot.text == time.text && this.state.currentTimeSlot.title == schedule.title ? " time-active" : ''
-                                                                    : " time-disable")}>{time.text}</p>
-                                                            </li>
-                                                            :''
-                                                        })
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        : ''
-                                })
-                                : ''
+                                this.getTimeSlots(type)
+                                :<div>No time slot available</div>
                         }
                     </div>
                 </div>
