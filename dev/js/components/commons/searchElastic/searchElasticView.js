@@ -236,7 +236,7 @@ class SearchElasticView extends React.Component {
             showResults = this.showPackages.bind(this)
 
             commonSearched = <CommonlySearched
-                heading="Common Packages"
+                heading="Common Health Packages"
                 type="package"
                 selectedSearchType={this.props.selectedSearchType}
                 data={this.props.dataState.common_package}
@@ -267,19 +267,18 @@ class SearchElasticView extends React.Component {
                                 /> : ""
                             }
 
-                            {commonSearched}
-
                             {
-                                this.props.selectedSearchType.includes('package') ?
-                                    <CommonlySearched {...this.props}
-                                        heading="Common Health Packages"
-                                        type="test"
-                                        data={this.props.dataState.common_package}
-                                        selectedSearchType={this.props.selectedSearchType}
-                                        selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test')}
-                                        toggle={this.props.toggleDiagnosisCriteria.bind(this)}
-                                    /> : ''
+                                (this.props.selectedSearchType.includes('package') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched {...this.props}
+                                    heading={`View Selected (${this.props.dataState.selectedCriterias.length})`}
+                                    data={this.props.dataState.selectedCriterias}
+                                    selectedSearchType={this.props.selectedSearchType}
+                                    selected={[]}
+                                    selectedPills={true}
+                                    toggle={this.props.toggleDiagnosisCriteria.bind(this)}
+                                /> : ""
                             }
+
+                            {commonSearched}
 
                             {
                                 this.props.selectedSearchType == 'lab' ?
