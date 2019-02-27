@@ -1,4 +1,6 @@
-import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE } from '../../constants/types';
+import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID } from '../../constants/types';
+
+const moment = require('moment');
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -20,7 +22,8 @@ const DEFAULT_FILTER_STATE_PACKAGES = {
     gender:'',
     packageType:'',
     test_ids:'',
-    selectCatIDs:[]
+    selectCatIDs:[],
+    package_ids:''
 }
 
 const defaultState = {
@@ -45,7 +48,8 @@ const defaultState = {
     currentSearchId: '',
     nextFilterCriteria: DEFAULT_FILTER_STATE,
     filterCriteriaPackages: DEFAULT_FILTER_STATE_PACKAGES,
-    recommended_package:[]
+    recommended_package:[],
+    last_save_searched_date: null
 }
 
 export default function (state = defaultState, action) {
@@ -322,6 +326,10 @@ export default function (state = defaultState, action) {
                 search_id_data: {...state.search_id_data}
             }
 
+            if(!newState.last_save_searched_date){
+                newState.last_save_searched_date = new Date()
+            }
+
             newState.search_id_data[action.searchId] = {}
             newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
             newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
@@ -384,6 +392,32 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.page = action.payload
+            return newState
+        }
+
+        case TOGGLE_PACKAGE_ID:{
+            let newState = {
+                ...state
+            }
+            newState.page = action.payload
+            if(newState.filterCriteriaPackages){
+                newState.filterCriteriaPackages.package_ids = action.package_id
+            }
+            return newState
+        }
+        case CLEAR_LAB_SEARCH_ID: {
+            let newState = {
+                ...state
+            }
+            if(newState.last_save_searched_date){
+                let currentTime = moment(new Date())
+                let lastSearchTime = moment(new Date(newState.last_save_searched_date))
+                let diffDays = currentTime.diff(lastSearchTime, 'days')
+                if(diffDays>2){
+                    newState.search_id_data = {}
+                    newState.last_save_searched_date = null
+                }
+            }
             return newState
         }
 

@@ -20,26 +20,15 @@ class DoctorProfileCard extends React.Component {
         // }
     }
 
-    cardClick(id, url, hospital_id, e) {
+    viewProfileClicked(id, url, hospital_id, e) {
         e.stopPropagation();
-
-        let Distance = ''
-        if (this.props.details && this.props.details.distance) {
-            Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
-        }
+        
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
-        }
-        GTM.sendEvent({ data: data });
-
-        let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
-        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
-        let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
-        let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
-        data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids, 'Distance': Distance
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchViewProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-search-view-profile-clicked', 'selectedId': id
         }
         GTM.sendEvent({ data: data })
+
+        let { category_ids, procedure_ids } = this.trackingEventsBookNow(id)
 
         if (e.ctrlKey || e.metaKey) {
 
@@ -60,6 +49,46 @@ class DoctorProfileCard extends React.Component {
                 }
             }
         }
+    }
+
+    bookNowClicked(id, url, hospital_id, e){
+        //always clear selected time at doctor profile
+        let slot = { time: {} }
+        this.props.selectOpdTimeSLot(slot, false)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data })
+
+        let { procedure_ids } = this.trackingEventsBookNow(id)
+        this.props.saveProfileProcedures('', '', procedure_ids, true)
+        this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
+    }
+
+    trackingEventsBookNow(id){
+        let Distance = ''
+        
+        if (this.props.details && this.props.details.distance) {
+            Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
+        }
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data });
+
+        let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
+        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
+        let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
+        let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids, 'Distance': Distance
+        }
+        GTM.sendEvent({ data: data })
+
+        return ({category_ids, procedure_ids})
+
     }
 
     bookNow(id, e) {
@@ -216,7 +245,7 @@ class DoctorProfileCard extends React.Component {
                                     }
                                 </div>
                         }
-                        <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
+                        <div className="row no-gutters" >
                             <div className="col-12 mrt-10">
                                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()} title={display_name}>
                                     <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
@@ -281,14 +310,53 @@ class DoctorProfileCard extends React.Component {
                                                 </p> : ''
                                 }
 
+                                {/* code for new pricing UI (exclusive docprime price) */}
+                                {/* {
+                                    enabled_for_hospital_booking ?
+                                        <div className="dp-price-dtls-div mrb-10">
+                                            {
+                                                is_procedure
+                                                    ? finalProcedureMrp != finalProcedureDealPrice ?
+                                                        <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p> : ''
+                                                    : mrp != discounted_price ? <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p> : ''
+                                            }
+                                            <p className="fw-500 exclsv-price">Docprime fee : &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}</p>
+                                        </div>
+                                        :
+                                        is_procedure ?
+                                            <div className="dp-price-dtls-div mrb-10">
+                                                <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p>
+                                            </div>
+                                            : mrp ?
+                                                <div className="dp-price-dtls-div mrb-10">
+                                                    <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p>
+                                                </div> : ''
+                                } */}
+
                                 {
                                     deal_price != discounted_price && enabled_for_hospital_booking ? <div className="signup-off-container">
                                         <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                     </div> : ''
                                 }
-
+                            </div>
+                            <div className="col-12 mrt-10">
                                 {
-                                    enabled_for_hospital_booking ? <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button> : <button className="fltr-cntct-btn" style={{ width: '100%' }}>Contact</button>
+                                    enabled_for_hospital_booking ?
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <button className="fltr-cntct-btn btn-pdng" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Profile</button>
+                                        </div>
+                                        <div className="col-6">
+                                            <button onClick={this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-bkng-btn btn-pdng" >Book Now</button>
+                                        </div> 
+                                    </div>
+                                    :<div className="row">
+                                        <div className="col-6"></div>
+                                        <div className="col-6">
+                                            <button onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-cntct-btn btn-pdng" >Contact
+                                            </button>
+                                        </div>
+                                    </div>
                                 }
                             </div>
                         </div>

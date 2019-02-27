@@ -35,7 +35,11 @@ class AboutUs extends React.Component {
                         <p className="fw-500 about-heading">About Us</p>
                     </div>
                     <div className="col-12">
-                        <p className="fw-500 about-content">docprime, a PolicyBazaar group company, is a young online medical services provider. Started with a team of young, experienced and vibrant professionals, the company has a humanitarian approach towards providing easy access to health care services.</p>
+                        {
+                            this.props.fromApp? <span>This Mobile App is managed and operated by Docprime Technologies Private Limited. </span>:''
+                        }
+                        <p className="fw-500 about-content">
+                        Docprime, a PolicyBazaar group company, is a young online medical services provider. Started with a team of young, experienced and vibrant professionals, the company has a humanitarian approach towards providing easy access to health care services.</p>
                     </div>
                     <div className="col-12 col-md-4 feature-col">
                         <div className="feature-img-div text-center">

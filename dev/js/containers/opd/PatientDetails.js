@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -41,10 +41,10 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
     const { selectedProfile, profiles, userWalletBalance, userCashbackBalance } = state.USER
-    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures } = state.DOCTOR_SEARCH
+    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type } = state.DOCTOR_SEARCH
 
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type
     }
 }
 
@@ -66,6 +66,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchTransactions: () => dispatch(fetchTransactions()),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
         getCartItems: () => dispatch(getCartItems()),
+        select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type))
     }
 }
 
