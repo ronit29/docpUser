@@ -273,8 +273,7 @@ class DoctorProfileView extends React.Component {
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
-                                                            liveState={this.state.is_live}
-                                                            showContact={this.state.show_contact}
+                                                            recommendDocs={nearbyDoctors.result && nearbyDoctors.result.length}
                                                             {...this.props}
                                                         />
                                                         {
@@ -286,10 +285,10 @@ class DoctorProfileView extends React.Component {
                                                                                 <div className="panel-title mb-rmv p-relative docslideHeadAlign">
                                                                                     <p>Book experienced {nearbyDoctors.specializations[0].name}s near you<span className="docSlideSubHeading">Get exclusive Docprime discount</span>
                                                                                     </p>
-                                                                                    {/* {
+                                                                                    {
                                                                                         nearbyDoctors.count >= 1 && nearbyDoctors.doctors_url ?
                                                                                             <span className="docSlideviewAll" onClick={() => this.viewAllDocClick(nearbyDoctors)}>View All <img src={ASSETS_BASE_URL + "/img/arrowRight.svg"} /></span> : ''
-                                                                                    } */}
+                                                                                    }
                                                                                 </div> : ''
                                                                         }
                                                                         <div className="panel-content pd-0 border-bottom-panel">
