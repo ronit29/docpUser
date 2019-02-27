@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, getLabTimeSlots } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -9,7 +9,13 @@ import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/ind
 class BookingSummary extends React.Component {
     constructor(props) {
         super(props)
-
+        this.state = {
+            timeSlots: null,
+            pickupType: this.props.location.search.includes('type=lab') ? 0 : 1,
+            today_min: null,
+            tomorrow_min: null,
+            today_max: null,
+        }
     }
 
     static contextTypes = {
@@ -31,13 +37,18 @@ class BookingSummary extends React.Component {
         let testIds = this.props.lab_test_data[this.props.match.params.id] || []
         testIds = testIds.map(x => x.id)
 
+        this.props.getLabTimeSlots(this.props.match.params.id, this.state.pickupType, (data) => {
+            let { time_slots, today_min, tomorrow_min, today_max } = data
+            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
+        })
+
         this.props.getLabById(this.props.match.params.id, testIds)
     }
 
     render() {
 
         return (
-            <BookingSummaryViewNew {...this.props} />
+            <BookingSummaryViewNew {...this.props} {...this.state}/>
         );
     }
 }
@@ -85,6 +96,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchTransactions: () => dispatch(fetchTransactions()),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
         getCartItems: () => dispatch(getCartItems()),
+        getLabTimeSlots: (labId, pickup, callback) => dispatch(getLabTimeSlots(labId, pickup, callback))
     }
 }
 

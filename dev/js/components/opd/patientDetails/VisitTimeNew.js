@@ -20,7 +20,7 @@ class VisitTimeNew extends React.Component {
             this.props.timeSlots[today].map((time)=>{
 
                 time.timing.map((timeSlot)=>{
-                    if(timeSlot.value> currentTime){
+                    if(timeSlot.value> currentTime && timeSlot.value>=10.5 && timeSlot.value<=19.75){
 
                         let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
                         if(isAvailable){
@@ -47,15 +47,12 @@ class VisitTimeNew extends React.Component {
 
                         time.timing.map((timeSlot)=>{
 
-                            if(timeSlot.value>=10.5 && timeSlot.value<=19.75){
+                            let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
+                            if(isAvailable){
 
-                                let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
-                                if(isAvailable){
-
-                                    let timeData = Object.assign({}, timeSlot)
-                                    timeData.title = time.title
-                                    availableTimeSlots = availableTimeSlots.concat(timeData)
-                                }
+                                let timeData = Object.assign({}, timeSlot)
+                                timeData.title = time.title
+                                availableTimeSlots = availableTimeSlots.concat(timeData)
                             }
                         })
                     })
@@ -67,7 +64,7 @@ class VisitTimeNew extends React.Component {
         return availableTimeSlots.length?
         <div className="select-time-listing-container">
             <div className="nw-tm-shift">
-                {WEEK_DAYS[selectedTimeSlotDate.getDay()]} {MONTHS[selectedTimeSlotDate.getMonth()] } {selectedTimeSlotDate.getMonth()}:
+                {WEEK_DAYS[selectedTimeSlotDate.getDay()]} {MONTHS[selectedTimeSlotDate.getMonth()] } {selectedTimeSlotDate.getDate()}:
             </div>
             <div className="time-slot-main-listing">
                 <ul className="inline-list nw-time-st">

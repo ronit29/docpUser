@@ -184,7 +184,7 @@ class DateTimeSelector extends React.Component {
 
         this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].map((schedule, key) => {
             let timeSlots = []
-            let timeSchedule = Object.assign(schedule, {})
+            let timeSchedule = Object.assign({}, schedule)
            
             //type =0 for opd ,in case of opd only slots bw 10:30 & 7:45 will be available for current day
             if(type == 1 || STORAGE.isAgent() || new Date().toDateString() != new Date(this.state.selectedDateSpan).toDateString()){
