@@ -69,8 +69,8 @@ class AboutDoctor extends React.Component {
             <div className="widget-panel">
                 <h4 className="panel-title mb-rmv">About Dr. {name}</h4>
                 <div className="panel-content">
-                    <p className="fw-10000 text-md" dangerouslySetInnerHTML={{ __html: aboutTxt }}>
-                    </p>
+                    <div className="fw-10000 text-md" dangerouslySetInnerHTML={{ __html: aboutTxt }}>
+                    </div>
                     {button}
                 </div>
             </div>
