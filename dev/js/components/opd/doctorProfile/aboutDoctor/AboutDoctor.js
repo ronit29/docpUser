@@ -63,6 +63,8 @@ class AboutDoctor extends React.Component {
                     button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() =>         {this.setState({ readMore: !this.state.readMore}) 
                                 }}> SHOW LESS &#9650;</a>
                 }
+            }else{
+                aboutTxt = this.props.details.about
             } 
         }
         return (
