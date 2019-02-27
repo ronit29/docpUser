@@ -67,7 +67,7 @@ class VisitTimeNew extends React.Component {
         return availableTimeSlots.length?
         <div className="select-time-listing-container">
             <div className="nw-tm-shift">
-                {WEEK_DAYS[selectedTimeSlotDate.getDay()]} {MONTHS[selectedTimeSlotDate.getMonth()] } {selectedTimeSlotDate.getMonth()}:
+                {WEEK_DAYS[selectedTimeSlotDate.getDay()]} {selectedTimeSlotDate.getMonth()} {MONTHS[selectedTimeSlotDate.getMonth()] }  :
             </div>
             <div className="time-slot-main-listing">
                 <ul className="inline-list nw-time-st">
@@ -188,7 +188,7 @@ class VisitTimeNew extends React.Component {
                             <p className="avl-time-slot">Next available time slot</p>
                              {this.getTimeSlots()}
                         </div>
-                        :<div className="float-right  mbl-view-formatting text-right">
+                        :<div className="timeAfterSelect mbl-view-formatting text-right">
                             <h4 className="date-time title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>
                             {
                                 !this.props.hideChangeTime ? <a href="" onClick={(e) => {

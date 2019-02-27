@@ -6609,11 +6609,11 @@ margin-right: 10px;
 /* ============ time slot new card ============ */
 .avl-time-slot{
 	margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 500;
     margin-right: 10px;
     padding-top: 5px;
-	color: #0ba624;
-	font-weight: 12px;
+    color: #0ba624;
+    font-size: 13px;
 }
 .nw-tm-shift{
 	font-weight: 600;
@@ -6636,5 +6636,10 @@ margin-right: 10px;
 }
 .nw-time-slot-li:last-child {
 	border-right: 0px;
+}
+.timeAfterSelect{
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
 }
 /* ============ time slot new card ============ */

@@ -270,7 +270,7 @@ class DateTimeSelector extends React.Component {
                                         })
                                     }
                                     <li className="scrll-date" onClick={this.openDateModal.bind(this)}>
-                                        <img src={ASSETS_BASE_URL + "/img/right-sc.svg"} />
+                                        <img style={{width:'22px', top:'10px'}} src={ASSETS_BASE_URL + "/img/calnext.svg"} />
                                     </li>
                                 </ul>
 
