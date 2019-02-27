@@ -6770,3 +6770,9 @@ button.padding-btn-adjust{
     cursor: pointer;
     margin-top: 15px;
 }
+.abt-doc-inlinetext{
+	display: inline;
+}
+.abt-doc-inlinetext p{
+	display: inline;
+}
