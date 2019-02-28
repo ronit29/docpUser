@@ -40,8 +40,7 @@ class PatientDetailsNew extends React.Component {
             // order_id: !!parsed.order_id,
             use_wallet: true,
             profileError: false,
-            cart_item: parsed.cart_item,
-            nextAvailableTimeSlot:''
+            cart_item: parsed.cart_item
         }
     }
 
@@ -369,7 +368,7 @@ class PatientDetailsNew extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true&type=opd&nextAvailableTime=${this.state.nextAvailableTimeSlot}`)
+                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true&type=opd`)
                 return
             }
 
@@ -468,13 +467,6 @@ class PatientDetailsNew extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
     }
 
-    saveNextAvailableTimeslot(slot){
-                   
-        if(!this.state.nextAvailableTimeSlot && slot){
-            this.setState({nextAvailableTimeSlot: slot.toDateString()})    
-        }
-    }
-
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
@@ -567,7 +559,6 @@ class PatientDetailsNew extends React.Component {
                                                                 timeSlots={this.props.timeSlots}
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 doctor_leaves={this.props.doctor_leaves || []}
-                                                                saveNextAvailableTimeslot={this.saveNextAvailableTimeslot.bind(this)}
                                                             />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {

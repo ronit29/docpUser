@@ -63,10 +63,7 @@ class VisitTimeNew extends React.Component {
                 currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
             }
         }
-
-        if(availableTimeSlots.length){
-            this.props.saveNextAvailableTimeslot(selectedTimeSlotDate)
-        }
+        
         return availableTimeSlots.length?
         <div className="select-time-listing-container">
             <div className="nw-tm-shift">

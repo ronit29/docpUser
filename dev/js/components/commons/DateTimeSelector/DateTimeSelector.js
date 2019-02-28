@@ -12,33 +12,14 @@ class DateTimeSelector extends React.Component {
 
     constructor(props) {
         super(props)
-        const parsed = queryString.parse(this.props.location.search)
-        let currentDate = new Date().getDate()
-        let currentDay = new Date().getDay()
-        let selectedDateSpan = new Date()
-        let selectedMonth = new Date().getMonth()
-
-        if(props.selectedSlot && props.selectedSlot.date){
-
-            currentDate = props.selectedSlot.date
-            currentDay = new Date(props.selectedSlot.date).getDay()
-            selectedDateSpan = new Date(props.selectedSlot.date)
-            selectedMonth = new Date(props.selectedSlot.date).getMonth()
-        }else if(parsed.nextAvailableTime){
-
-            currentDate = new Date(parsed.nextAvailableTime).getDate()
-            currentDay = new Date(parsed.nextAvailableTime).getDay()
-            selectedDateSpan = new Date(parsed.nextAvailableTime)
-            selectedMonth = new Date(parsed.nextAvailableTime).getMonth()
-        }
         this.state = {
             daySeries: [],
-            currentDate: currentDate,
-            currentDay: currentDay,
+            currentDate: props.selectedSlot && props.selectedSlot.date?props.selectedSlot.date:new Date().getDate(),
+            currentDay: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date).getDay():new Date().getDay(),
             currentTimeSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time : {},
             selectedSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time.value: '',
-            selectedDateSpan: selectedDateSpan,
-            selectedMonth: selectedMonth ,
+            selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):new Date(),
+            selectedMonth: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date).getMonth():new Date(props.selectedSlot.date).getMonth() ,
             dateModal: false
         }
     }
@@ -55,9 +36,58 @@ class DateTimeSelector extends React.Component {
             this.props.enableProceed(true)
             this.generateDays(true, this.props.selectedSlot.date)
         } else {
-            this.generateDays()
+            //this.generateDays()
+            let time = this.getNextAvailableDate()
+            this.setState({selectedDateSpan: time, currentDate :new Date(time).getDate(), currentDay: new Date(time).getDay(), selectedMonth: new Date(time).getMonth()})
+            this.generateDays(true, time)
         }
 
+    }
+
+    getNextAvailableDate(){
+
+        let today = new Date().getDay() == 0?6:new Date().getDay()-1
+        let currentTimeSlotDay = today
+        let selectedTimeSlotDate = new Date()
+        let sameDayTimeAvailable = false
+        let availableTimeSlots = []
+
+        do{
+            if(this.props.timeSlots && this.props.timeSlots[currentTimeSlotDay] && this.props.timeSlots[currentTimeSlotDay].length){
+
+                this.props.timeSlots[currentTimeSlotDay].map((time)=>{
+
+                    time.timing.map((timeSlot)=>{
+
+                        let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
+                        if(isAvailable){
+                            let available = true
+                            //Only for OPD
+                            if(new Date().toDateString() == new Date(this.state.selectedDateSpan).toDateString()){
+
+                                if(timeSlot.value>=10.5 && timeSlot.value<=19.75){
+                                }else{
+                                    available = false
+                                    sameDayTimeAvailable = true
+                                }
+
+                            }
+                            if(available){
+                                availableTimeSlots = availableTimeSlots.concat(timeSlot)
+                            }
+                        }
+                    })
+                })
+            }
+            if(availableTimeSlots.length){
+                break;
+            }
+            currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
+            selectedTimeSlotDate.setDate(selectedTimeSlotDate.getDate() + 1)
+
+        }while((sameDayTimeAvailable || currentTimeSlotDay != today) && availableTimeSlots.length==0)
+
+        return selectedTimeSlotDate
     }
 
     generateDays(getNewDates = false, selectedDate = '') {
@@ -134,7 +164,7 @@ class DateTimeSelector extends React.Component {
         }
     }
 
-    isTimeSlotAvailable(timeSlot) {
+    isTimeSlotAvailable(timeSlot, currentDate= this.state.selectedDateSpan) {
 
         const parsed = queryString.parse(this.props.location.search)
         let type = 1
@@ -146,13 +176,13 @@ class DateTimeSelector extends React.Component {
         let tomorrow = new Date()
         tomorrow.setDate(today.getDate() + 1)
 
-        let dateAfterOneHour = new Date(this.state.selectedDateSpan).setHours(today.getHours()+1)
+        let dateAfterOneHour = new Date(currentDate).setHours(today.getHours()+1)
 
-        if(timeSlot.on_call && today.toDateString() == new Date(this.state.selectedDateSpan).toDateString()){
+        if(timeSlot.on_call && today.toDateString() == new Date(currentDate).toDateString()){
             return false
         }
 
-        if(!type && new Date(dateAfterOneHour).toDateString() == today.toDateString() && (new Date(dateAfterOneHour).getHours() + new Date(dateAfterOneHour).getMinutes()/60 )>timeSlot.value){
+        if(!type && new Date(dateAfterOneHour).toDateString() == today.toDateString() && (new Date(dateAfterOneHour).getHours()+ (new Date(dateAfterOneHour).getMinutes())/60) >timeSlot.value){
             return false
         }
         if (this.props.doctor_leaves && this.props.doctor_leaves.length) {
@@ -163,7 +193,7 @@ class DateTimeSelector extends React.Component {
                 start_date = start_date.setHours(0, 0, 0, 0)
                 let end_date = new Date(leave.end_date)
                 end_date = end_date.setHours(0, 0, 0, 0)
-                let curr_date = new Date(this.state.selectedDateSpan)
+                let curr_date = new Date(currentDate)
                 curr_date = curr_date.setHours(0, 0, 0, 0)
                 if (curr_date >= start_date && curr_date <= end_date) {
                     if (timeSlot.value >= leave.leave_start_time && timeSlot.value <= leave.leave_end_time) {
@@ -177,41 +207,19 @@ class DateTimeSelector extends React.Component {
             }
         }
 
-        if (this.props.global_leaves && this.props.global_leaves.length) {
-
-            let blocked = false
-            this.props.global_leaves.map((leave) => {
-                let start_date = new Date(leave.start_date)
-                start_date = start_date.setHours(0, 0, 0, 0)
-                let end_date = new Date(leave.end_date)
-                end_date = end_date.setHours(0, 0, 0, 0)
-                let curr_date = new Date(this.state.selectedDateSpan)
-                curr_date = curr_date.setHours(0, 0, 0, 0)
-                if (curr_date >= start_date && curr_date <= end_date) {
-                    if (timeSlot.value >= leave.leave_start_time && timeSlot.value <= leave.leave_end_time) {
-                        blocked = true
-                    }
-                }
-            })
-
-            if (blocked) {
-                return false
-            }
-        }
-
-        if (today.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.today_min) {
+        if (today.toDateString() == new Date(currentDate).toDateString() && this.props.today_min) {
             if (this.props.today_max) {
                 return timeSlot.value > this.props.today_min && timeSlot.value < this.props.today_max
             }
             return timeSlot.value > this.props.today_min
         }
 
-        if (tomorrow.toDateString() == new Date(this.state.selectedDateSpan).toDateString() && this.props.tomorrow_min) {
+        if (tomorrow.toDateString() == new Date(currentDate).toDateString() && this.props.tomorrow_min) {
             return timeSlot.value > this.props.tomorrow_min
         }
 
         // base case if nothing works :)
-        if (today.toDateString() == new Date(this.state.selectedDateSpan).toDateString()) {
+        if (today.toDateString() == new Date(currentDate).toDateString()) {
             return timeSlot.value > (today.getHours() + 1)
         }
 
