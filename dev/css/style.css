@@ -6771,3 +6771,12 @@ button.padding-btn-adjust{
     cursor: pointer;
     margin-top: 15px;
 }
+.pdd-12{
+	padding: 12px 0px
+}
+.abt-doc-inlinetext{
+	display: inline;
+}
+.abt-doc-inlinetext p{
+	display: inline;
+}
