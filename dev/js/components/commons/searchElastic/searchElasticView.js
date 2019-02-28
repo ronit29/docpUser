@@ -191,6 +191,22 @@ class SearchElasticView extends React.Component {
         this.props.toggleDiagnosisCriteria('test', criteria)
     }
 
+    togglePackages(type, criteria, searchString = "") {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
+        }
+        GTM.sendEvent({ data: data })
+
+        let selectedPackageIds = []
+        this.props.dataState.selectedCriterias.map((x) => {
+            if (x.test_type) {
+                selectedPackageIds.push(x.test_type)
+            }
+        })
+
+        this.props.setPackageId(criteria.id)
+    }
+
     render() {
 
         console.log('ewuyriweiuyqweiuy')
@@ -241,13 +257,10 @@ class SearchElasticView extends React.Component {
                 selectedSearchType={this.props.selectedSearchType}
                 data={this.props.dataState.common_package}
                 selected={this.props.dataState.selectedCriterias.filter(x => x.is_package)}
-                toggle={this.toggleLabTests.bind(this)}
+                toggle={this.togglePackages.bind(this)}
                 selectedCriterias={this.props.dataState.selectedCriterias.filter(x => x.is_package)}
             />
         }
-
-        console.log('kjhgfdsadyuilkjhgfdghjk')
-        console.log(this.props)
 
         return (
             <section>
@@ -274,7 +287,7 @@ class SearchElasticView extends React.Component {
                                     selectedSearchType={this.props.selectedSearchType}
                                     selected={[]}
                                     selectedPills={true}
-                                    toggle={this.props.toggleDiagnosisCriteria.bind(this)}
+                                    toggle={this.props.setPackageId.bind(this)}
                                 /> : ""
                             }
 
