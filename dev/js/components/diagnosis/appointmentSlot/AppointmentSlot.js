@@ -60,7 +60,12 @@ class AppointmentSlot extends React.Component {
             this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
         })*/
 
-        this.getTimeSlots(new Date())
+        if(this.props.selectedSlot && this.props.selectedSlot.date){
+            this.getTimeSlots(new Date(this.props.selectedSlot.date))
+        }else{
+            this.getTimeSlots(new Date())    
+        }
+        
 
     }
 
