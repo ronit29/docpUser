@@ -398,7 +398,6 @@ class CriteriaElasticSearchView extends React.Component {
 
                                     this.props.changeSelection(this.state.type, this.state.searchValue)
                                 }}>
-                                    <p className="p-0 srch-prnsl-txt" >Did you mean? <span className="search-prnsl-rslts">{this.state.searchValue}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
                                 </div>
                                 :''
                             }
@@ -413,7 +412,11 @@ class CriteriaElasticSearchView extends React.Component {
                                                         <div className="widget searchMargin" >
                                                             <div className="common-search-container">
                                                                 <p className="srch-heading">Search Results</p>
-
+                                                                {
+                                                                    !this.state.searchCities.length && this.state.type && (this.state.searchValue || Object.values(this.state.currentTestType).length)?
+                                                                        <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.searchValue}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
+                                                                        :''
+                                                                }
                                                                 {/*<p className="srch-heading">{cat.name}</p>*/}
                                                                 <div className="common-listing-cont">
                                                                     <ul>
