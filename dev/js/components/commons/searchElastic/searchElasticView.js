@@ -24,7 +24,7 @@ class SearchElasticView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from
+            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from, 'defaultSearchButton' : this.props.selectedSearchType || ''
         }
 
         GTM.sendEvent({ data: data })
@@ -204,7 +204,7 @@ class SearchElasticView extends React.Component {
             />
 
         } else {
-            title = "dental treatment, procedures"
+            /*title = "dental treatment, procedures"
             searchProceed = this.searchProceedOPD.bind(this)
             showResults = this.showDoctors.bind(this)
 
@@ -213,9 +213,9 @@ class SearchElasticView extends React.Component {
                 type="procedures"
                 selectedSearchType = {this.props.selectedSearchType}
                 data={this.props.dataState.procedures}
-                selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'procedures_category')*/}
+                selected={[]}
                 toggle={this.setCommonSelectedCriterias.bind(this)}
-            />
+            />*/
 
 
 

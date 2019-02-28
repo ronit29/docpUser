@@ -59,28 +59,31 @@ class EditProfile extends React.Component {
                 case "phone_number": {
                     if (!this.state.profileData[field]) {
                         validated = true
+                        errors[field] = !validated
                         return
                     } else {
                         validated = this.state.profileData[field].toString().match(/^[56789]{1}[0-9]{9}$/)
+                        errors[field] = !validated
                     }
                     break
                 }
                 case "email": {
                     if (!this.state.profileData[field]) {
-                        validated = true
+                        validated = false
+                        errors[field] = !validated
                         return
                     } else {
                         validated = this.state.profileData[field].match(/\S+@\S+\.\S+/)
-                        break
+                        errors[field] = !validated
                     }
                     break
                 }
                 default: {
                     validated = true
+                    errors[field] = !validated
                     break
                 }
             }
-            errors[field] = !validated
         })
 
         this.setState({ errors }, () => {

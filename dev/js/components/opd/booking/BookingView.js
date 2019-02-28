@@ -9,6 +9,10 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
+import CRITEO from '../../../helpers/criteo.js'
+import SnackBar from 'node-snackbar'
+const queryString = require('query-string');
+import RatingsPopUp from '../../commons/ratingsProfileView/RatingsPopUp.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -28,7 +32,8 @@ class BookingView extends React.Component {
             loading: true,
             showCancel: false,
             payment_success: this.props.location.search.includes('payment_success'),
-            hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button')
+            hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button'),
+            isCompleted:false
         }
     }
 
@@ -37,28 +42,47 @@ class BookingView extends React.Component {
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
             this.props.selectOpdTimeSLot({ time: {} }, true, null)
         }
-
+        const parsed = queryString.parse(this.props.location.search)
+        let smsComplete = parsed.complete
         let appointmentId = this.props.match.params.refId;
         this.props.getOPDBookingSummary(appointmentId, (err, data) => {
             if (!err) {
-                this.setState({ data: data[0], loading: false })
+                this.setState({ data: data[0], loading: false }, () => {
+
+                    if(smsComplete){
+                        if(data[0].status != 7){
+                            this.getAppointment()
+                        }
+                    }
+                })
+                
                 let info = {}
-                info[appointmentId] = {}
-                info[appointmentId].deal_price = data.length?data[0].deal_price:''
-                info[appointmentId].mrp = data.length?data[0].mrp:''
+                info[appointmentId] = []
+                info[appointmentId].push({ 'booking_id': appointmentId, 'mrp': data.length ? data[0].mrp : '', 'deal_price': data.length ? data[0].deal_price : '' })
+
                 info = JSON.stringify(info)
-                STORAGE.setAppointmentDetails(info).then((setCookie)=> {
+                STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
                     if (this.state.payment_success) {
 
                         let analyticData = {
                             'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
                         }
-                        GTM.sendEvent({ data: analyticData })
+                        GTM.sendEvent({ data: analyticData }, true, false)
+
+                        let criteo_data =
+                            {
+                                'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                    { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
+                                ]
+                            }
+
+                        CRITEO.sendData(criteo_data)
+
                         this.props.history.replace(this.props.location.pathname + "?hide_button=true")
                     }
                 })
-                
+
             } else {
                 this.setState({ data: null, loading: false })
             }
@@ -66,6 +90,23 @@ class BookingView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
+        }
+    }
+
+    getAppointment(props) {
+        const appointmentId = this.props.match.params.refId
+         if (!this.state.isCompleted) {
+            let appointmentData = { id: appointmentId, status: 7 }
+            this.props.updateOPDAppointment(appointmentData, (err, data) => {
+                if (data) {
+                    this.setState({ data:data, isCompleted: true })
+                } else {
+                    SnackBar.show({ pos: 'bottom-center', text: "Something went wrong." });
+                }
+            })                           
+        } 
+        else {
+            SnackBar.show({ pos: 'bottom-center', text: "Your appointment is already completed." });
         }
     }
 
@@ -77,10 +118,10 @@ class BookingView extends React.Component {
         }, "")
     }
 
-    cancelAppointment(type) {
+    cancelAppointment(cancelData) {
         this.setState({ loading: true, showCancel: false })
         let data;
-        if (type) {
+        if (cancelData.cancelStatus) {
 
             data = {
                 'Category': 'ConsumerApp', 'Action': 'CancelOpdAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-opd-appointment-Refund', 'appointmentId': this.state.data.id
@@ -94,7 +135,7 @@ class BookingView extends React.Component {
 
         GTM.sendEvent({ data: data })
 
-        let appointmentData = { id: this.state.data.id, status: 6, refund: type }
+        let appointmentData = { id: this.state.data.id, status: 6, refund: cancelData.cancelStatus, cancellation_comment: cancelData.cancelText, cancellation_reason: cancelData.cancelId }
 
         this.props.updateOPDAppointment(appointmentData, (err, data) => {
             if (data) {
@@ -115,7 +156,7 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
-        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=${this.props.match.params.refId}`)
+        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/book?reschedule=${this.props.match.params.refId}&type=opd`)
     }
 
     navigateTo(where, e) {
@@ -133,6 +174,8 @@ class BookingView extends React.Component {
         let actions = []
         let status = 1
         let doctor_thumbnail = ""
+        let payment_type = 1
+        let mrp = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -141,6 +184,8 @@ class BookingView extends React.Component {
             actions = this.state.data.allowed_action || []
             status = this.state.data.status
             doctor_thumbnail = this.state.data.doctor_thumbnail
+            payment_type = this.state.data.payment_type
+            mrp = this.state.data.mrp
         }
 
         let summary_utm_tag = ""
@@ -150,35 +195,18 @@ class BookingView extends React.Component {
                 summary_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
         }
-
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
+                {
+                    this.state.isCompleted?<RatingsPopUp {...this.props} />:''
+                }
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            {/* <header className="skin-primary fixed horizontal top sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <span className="icon back-icon" onClick={() => { this.props.history.go(-1) }}><img src={ASSETS_BASE_URL + "/img/customer-icons/back-white.png"} className="img-fluid" /></span>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-white">Your Appointment</div>
-                                        </div>
-                                        <div className="col-2" style={{ paddingLeft: 0 }} >
-                                            <div className="mobile-home-icon-div" >
-                                                <img onClick={() => {
-                                                    this.props.history.push('/')
-                                                }} src={ASSETS_BASE_URL + "/img/doc-prime-logo.png"} className="mobile-home-icon" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
@@ -233,6 +261,16 @@ class BookingView extends React.Component {
                                                     </div> : ""
                                                 }
 
+                                                {/* cart price design */}
+                                                {
+                                                    payment_type == 2 && status < 6 ? <div className="payAtclinic">
+                                                        <h5>Pay at clinic</h5>
+                                                        <p>You have to pay <b>₹ {mrp}</b> at the time of appointment</p>
+
+                                                    </div> : ""
+                                                }
+
+                                                {/* cart price design */}
 
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
@@ -270,12 +308,12 @@ class BookingView extends React.Component {
                                                     <div className="widget-content pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{hospital.name}</h4>
                                                         <div className="address-details">
-                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
-                                                            <p className="add-info fw-500">{hospital.address}</p>
+                                                            {/*<img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
+*/}                                                            <p className="add-info fw-500">{hospital.address}</p>
                                                         </div>
-                                                        <div className="pb-view text-left">
+                                                        {/*<div className="pb-view text-left">
                                                             <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
-                                                        </div>
+                                                        </div>*/}
                                                     </div>
                                                     {
                                                         this.state.data && this.state.data.procedures && this.state.data.procedures.length ?
@@ -351,7 +389,7 @@ class BookingView extends React.Component {
                             }
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} /> : ""
                             }
 
                         </div>

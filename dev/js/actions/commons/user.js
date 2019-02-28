@@ -1,6 +1,6 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
-
+import GTM from '../../helpers/gtm.js'
 
 export const getUserProfile = () => (dispatch) => {
 	return API_GET('/api/v1/user/userprofile').then(function (response) {
@@ -286,7 +286,7 @@ export const fetchOrderById = (orderId) => (dispatch) => {
 }
 
 export const sendAgentBookingURL = (orderId, type, cb) => (dispatch) => {
-	API_POST(`/api/v1/user/order/${orderId}/send`, { order_id: orderId, type }).then(function (response) {
+	API_POST(`/api/v1/user/order/send`, { type }).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
@@ -391,12 +391,13 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 	})
 }
 
-export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id = null, test_ids = null, coupon_code = null, save_in_store = true, profile_id = null, doctor_id = null, hospital_id = null, procedures_ids = null }) => (dispatch) => {
+export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id = null, test_ids = null, coupon_code = null, save_in_store = true, profile_id = null, doctor_id = null, hospital_id = null, procedures_ids = null, cart_item = null }) => (dispatch) => {
 
 	let url = `/api/v1/coupon/applicablecoupons?`
 	if (productId) {
 		url += `product_id=${productId}`
 	}
+
 	if (deal_price) {
 		url += `&deal_price=${deal_price}`
 	}
@@ -424,6 +425,12 @@ export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id =
 	if (procedures_ids) {
 		url += `&procedures_ids=${procedures_ids}`
 	}
+
+	if (cart_item) {
+		url += `&cart_item=${cart_item}`
+	}
+
+	url += `&show_all=${true}`
 
 	API_GET(url).then(function (response) {
 		if (save_in_store) {
@@ -509,8 +516,8 @@ export const set_summary_utm = (toggle = false, validity = null) => (dispatch) =
 	})
 }
 
-export const getOfferList = () => (dispatch) => {
-	API_GET(`/api/v1/banner/list`).then(function (response) {
+export const getOfferList = (lat, long) => (dispatch) => {
+	API_GET(`/api/v1/banner/list?lat=${lat}&long=${long}`).then(function (response) {
 		dispatch({
 			type: GET_OFFER_LIST,
 			payload: response
@@ -524,4 +531,81 @@ export const fetchReferralCode = (code = null) => (dispatch) => {
 		url += `/${code}`
 	}
 	return API_GET(url)
+}
+
+export const getCartItems = () => (dispatch) => {
+	return API_GET('/api/v1/cart/all').then(function (response) {
+		dispatch({
+			type: APPEND_CART,
+			payload: response
+		})
+
+	}).catch(function (error) {
+
+	})
+}
+
+export const addToCart = (product_id, data) => (dispatch) => {
+	return API_POST('/api/v1/cart/add', {
+		product_id, data
+	})
+}
+
+export const removeFromCart = (id) => (dispatch) => {
+	return API_POST('/api/v1/cart/remove', {
+		id
+	}).then((res) => {
+		return getCartItems()(dispatch)
+	}).catch((e) => {
+
+	})
+}
+
+export const processCartItems = (use_wallet = true) => (dispatch) => {
+	let postData = {}
+	postData['visitor_info'] = GTM.getVisitorInfo()
+	use_wallet = use_wallet ? 1 : 0
+	return API_POST(`/api/v1/cart/process?use_wallet=${use_wallet}`, postData)
+}
+
+export const fetchOrderSummary = (order_id) => (dispatch) => {
+	return API_GET(`/api/v1/user/order/summary/${order_id}`)
+}
+
+export const postComment = (postData, cb) => (dispatch) => {
+
+	API_POST("/api/v1/article/comment/post", postData).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const getAllRatings = (content_type, object_id, page = 1, cb) => (dispatch) => {
+	API_GET(`/api/v1/ratings/list?page=${page}&content_type=` + parseInt(content_type) + '&object_id=' + parseInt(object_id)).then(function (response) {
+		let hasmore = false
+		if (response && response.rating && response.rating.length) {
+			hasmore = true
+		}
+		if (cb) cb(null, response, hasmore);
+	}).catch(function (error) {
+		if (cb) cb(error, null, false);
+	})
+}
+
+export const getUserReviews = (cb) => (dispatch) => {
+	API_GET("/api/v1/user/myratings").then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
+export const toggleLeftMenuBar = (toggle, defaultVal = false) => (dispatch) => {
+
+	dispatch({
+		type: TOGGLE_LEFT_MENU,
+		toggle: toggle,
+		defaultVal: defaultVal
+	})
 }

@@ -1167,7 +1167,8 @@
     -moz-animation: FadeIn 0.5s;
     -ms-animation: FadeIn 0.5s;
     -o-animation: FadeIn 0.5s;
-    animation: FadeIn 0.5s;
+	animation: FadeIn 0.5s;
+	height:10000px;
 }
 
 .cancel-appointment-div{
@@ -1178,7 +1179,7 @@
 	left: 50%;
 	right: unset;
 	transform: translate(-50%, -50%);
-	z-index: 100;
+	z-index: 999;
 	width: 500px;	
 	padding: 8px;
 	box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.3);
@@ -1458,4 +1459,7 @@
 #tip-card-5{
 	z-index: 5;
 	background: linear-gradient(#4568dc , #b06ab3);
+}
+.cancel-overlay-zindex{
+	z-index: 999 !important;
 }

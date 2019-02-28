@@ -12,7 +12,8 @@ class ChoosePatientNewView extends React.Component {
             name: '',
             phoneNumber: '',
             gender: '',
-            data: false
+            data: false,
+            email:''
         }
     }
 
@@ -48,7 +49,7 @@ class ChoosePatientNewView extends React.Component {
     handleOtpContinuePress(e) {
         if (e.key === 'Enter') {
             this.submitOTPRequest()
-        }   
+        }
     }
 
     submitOTPRequest(number) {
@@ -59,24 +60,24 @@ class ChoosePatientNewView extends React.Component {
         }
         let self = this
         this.props.submitOTP(this.state.phoneNumber, this.state.otp, (response) => {
-            if(response.token){
-                
+            if (response.token) {
+
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'BookingPage', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo':this.state.phoneNumber
+                    'Category': 'ConsumerApp', 'Action': 'LoginSuccess', 'pageSource': 'BookingPage', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'login-success', 'mobileNo': this.state.phoneNumber
                 }
                 GTM.sendEvent({ data: data })
-                
+
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
                     self.props.createProfile(this.state, (err, res) => {
                         //self.setState({data:true})
                         self.props.getUserProfile()
                     })
-                })    
-            }else{
+                })
+            } else {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Otp" })
             }
-            
+
         })
 
     }
@@ -88,29 +89,47 @@ class ChoosePatientNewView extends React.Component {
     verify() {
         let self = this
 
-        if(this.state.name==''){
-
+        if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
             setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Enter your Name" })
+                if (!this.state.name) {
+                    SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
+                } else {
+                    SnackBar.show({ pos: 'bottom-center', text: "Name should only contain alphabets." })
+                }
             }, 500)
-            return 
-            //this.setState({ validationError: "Please provide a valid number (10 digits)" })
+            return
         }
 
-        if(this.state.gender ==''){
+        if (this.state.gender == '') {
             setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Select the Gender" })
+                SnackBar.show({ pos: 'bottom-center', text: "Please Select The Gender" })
+            }, 500)
+            return
+        }
+
+        if(this.state.email ==''){
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             }, 500)
             return 
         }
+
+        if(!this.state.email.match(/\S+@\S+\.\S+/)) 
+        {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+            }, 500)
+            return 
+        }
+
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            
+
             let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request','mobileNo':this.state.phoneNumber,'pageSource': 'BookingPage'
+                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
             }
             GTM.sendEvent({ data: analyticData })
-            
+
             this.props.sendOTP(this.state.phoneNumber, (error) => {
                 if (error) {
                     setTimeout(() => {
@@ -118,7 +137,7 @@ class ChoosePatientNewView extends React.Component {
                     }, 500)
                     //self.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    self.setState({ showOtp: true , showVerify: false})
+                    self.setState({ showOtp: true, showVerify: false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
@@ -135,7 +154,7 @@ class ChoosePatientNewView extends React.Component {
     render() {
 
         return (
-            <div className="widget mrb-15">
+            <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
                     this.props.patient ?
                         <div className="widget-content">
@@ -161,11 +180,11 @@ class ChoosePatientNewView extends React.Component {
                             </div>
                             <div className="select-pt-form">
                                 <div className="slt-nw-input">
-                                    <label className="slt-label" htmlFor="male">Name:</label>
-                                    <input className="slt-text-input" type="text" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Name:</label>
+                                    <input className="slt-text-input" autoComplete="off" type="text" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
                                 </div>
                                 <div className="slt-nw-input radio-mbl">
-                                    <label className="slt-label" htmlFor="male" >Gender:</label>
+                                    <label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
                                     <div className="slt-label-radio">
                                         <div className="dtl-radio">
                                             <label className="container-radio">Male
@@ -188,8 +207,12 @@ class ChoosePatientNewView extends React.Component {
                                     </div>
                                 </div>
                                 <div className="slt-nw-input">
-                                    <label className="slt-label" htmlFor="male">Mobile:</label>
-                                    <input className="slt-text-input" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
+                                    <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
+                                </div>
+                                <div className="slt-nw-input">
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Mobile:</label>
+                                    <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
                                     {
                                         this.state.showVerify ?
                                             <button className="mobile-fill-btn" onClick={this.verify.bind(this)}>Verify</button>
@@ -201,7 +224,7 @@ class ChoosePatientNewView extends React.Component {
                                         <div>
                                             <div className="slt-nw-input">
                                                 <label className="slt-label" htmlFor="male">OTP:</label>
-                                                <input className="slt-text-input" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
+                                                <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
                                             <span className="resend-otp-btn" onClick={this.verify.bind(this)}>Resend OTP</span>

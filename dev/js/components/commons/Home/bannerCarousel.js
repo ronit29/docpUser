@@ -16,8 +16,8 @@ class BannerCarousel extends React.Component {
 
     componentDidMount() {
         let totalOffers = ''
-        if (this.props.offerList) {
-            totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+        if (this.props.offerList && this.props.sliderLocation) {
+            totalOffers = this.props.offerList.filter(x => x.slider_location == this.props.sliderLocation).length;
             setInterval(() => {
                 let curr_index = this.state.index
                 if(this.state.intervalFlag){
@@ -215,23 +215,26 @@ class BannerCarousel extends React.Component {
 
         let offerVisible = {}
         if (this.props.offerList) {
-            offerVisible = this.props.offerList.filter(x => x.slider_location === 'home_page')[this.state.index];
+            offerVisible = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation)[this.state.index];
         }
 
         return (
-            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-20 mrb-20`}>
+            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                 {
-                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                        <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} />
+                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
+                        <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                         : ''
                 }
-                <div className="carousel-indicators mrt-10">
-                    {
-                        this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').map((offer, i) => {
-                            return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
-                        })
-                    }
-                </div>
+                {
+                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length > 1 ?
+                        <div className="carousel-indicators mrt-10">
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).map((offer, i) => {
+                                    return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
+                                })
+                            }
+                        </div> : ''
+                }
             </div>
         );
     }

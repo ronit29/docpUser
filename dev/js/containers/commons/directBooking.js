@@ -18,18 +18,13 @@ class DirectBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
         let OTT = parsed.token
-        // let order_id = parsed.order_id
-
+        let callbackurl = parsed.callbackurl 
         if (OTT) {
-            this.props.OTTLogin(OTT).then((order_id) => {
-                return this.props.fetchOrderById(order_id)
-            }).then((data) => {
-                if (data) {
-                    if (data.product_id == 1) {
-                        this.setOpdBooking(data)
-                    } else if (data.product_id == 2) {
-                        this.setLabBooking(data)
-                    }
+            this.props.OTTLogin(OTT).then(() => {
+                if(callbackurl){
+                    this.props.history.push('/'+callbackurl)
+                }else{
+                    this.props.history.push('/cart')
                 }
             }).catch(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Token Expired." });
@@ -79,8 +74,8 @@ class DirectBooking extends React.Component {
         this.props.selectProfile(data.profile)
         let time_slot = this.buildOPDTimeSlot(data)
         this.props.selectOpdTimeSLot(time_slot, false)
-        if(data.procedure_ids && data.procedure_ids.length){
-            this.props.saveProfileProcedures('','', data.procedure_ids, true)
+        if (data.procedure_ids && data.procedure_ids.length) {
+            this.props.saveProfileProcedures('', '', data.procedure_ids, true)
         }
         this.props.history.push(`/opd/doctor/${data.doctor}/${data.hospital}/bookdetails`)
     }
@@ -113,7 +108,7 @@ const mapDispatchToProps = (dispatch) => {
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures , forceAdd))
+        saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures, forceAdd))
     }
 }
 

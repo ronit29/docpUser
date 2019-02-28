@@ -1,4 +1,6 @@
-import { SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE } from '../../constants/types';
+import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID } from '../../constants/types';
+
+const moment = require('moment');
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -6,6 +8,22 @@ const DEFAULT_FILTER_STATE = {
     sort_on: null,
     lab_name: "",
     network_id: ""
+}
+
+const DEFAULT_FILTER_STATE_PACKAGES = {
+    priceRange: [0, 20000],
+    distanceRange: [0, 15],
+    sort_on: null,
+    lab_name: "",
+    network_id: "",
+    catIds:[],
+    max_age:'',
+    min_age:'',
+    gender:'',
+    packageType:'',
+    test_ids:'',
+    selectCatIDs:[],
+    package_ids:''
 }
 
 const defaultState = {
@@ -28,7 +46,10 @@ const defaultState = {
     nextSelectedCriterias: [],
     currentSearchedCriterias: [],
     currentSearchId: '',
-    nextFilterCriteria: DEFAULT_FILTER_STATE
+    nextFilterCriteria: DEFAULT_FILTER_STATE,
+    filterCriteriaPackages: DEFAULT_FILTER_STATE_PACKAGES,
+    recommended_package:[],
+    last_save_searched_date: null
 }
 
 export default function (state = defaultState, action) {
@@ -49,7 +70,8 @@ export default function (state = defaultState, action) {
                 selectedCriterias: [].concat(state.selectedCriterias),
                 lab_test_data: { ...state.lab_test_data },
                 filterCriteria: { ...state.filterCriteria },
-                nextFilterCriteria: {...state.nextFilterCriteria}
+                nextFilterCriteria: {...state.nextFilterCriteria},
+                filterCriteriaPackages: {...state.filterCriteriaPackages}
             }
 
             newState.filterCriteria.lab_name = ""
@@ -57,6 +79,9 @@ export default function (state = defaultState, action) {
 
             newState.nextFilterCriteria.lab_name = ""
             newState.nextFilterCriteria.network_id = ""
+
+            newState.filterCriteriaPackages.lab_name = ""
+            newState.filterCriteriaPackages.network_id = ""
 
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
@@ -177,10 +202,21 @@ export default function (state = defaultState, action) {
             return newState
         }
 
+        case MERGE_SEARCH_STATE_OPD: {
+            let newState = {...state }
+
+            if(action.payload.selectedLocation){
+                newState.selectedLocation = action.payload.selectedLocation
+            }
+
+            return newState
+        }
+
         case RESET_FILTER_STATE: {
             let newState = { ...state }
             newState.filterCriteria = DEFAULT_FILTER_STATE
             newState.nextFilterCriteria = DEFAULT_FILTER_STATE
+            newState.filterCriteriaPackages = DEFAULT_FILTER_STATE_PACKAGES
             // newState.fetchNewResults = true
             return newState
         }
@@ -189,7 +225,9 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 selectedCriterias: [].concat(state.selectedCriterias),
-                lab_test_data: {}
+                lab_test_data: {},
+                currentLabSelectedTests:[],
+                currentSearchedCriterias:[]
             }
 
             newState.selectedCriterias = newState.selectedCriterias.filter((x) => {
@@ -202,7 +240,8 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state,
                 selectedCriterias: [],
-                lab_test_data: {}
+                lab_test_data: {},
+                nextSelectedCriterias:[]
             }
 
             return newState
@@ -287,6 +326,10 @@ export default function (state = defaultState, action) {
                 search_id_data: {...state.search_id_data}
             }
 
+            if(!newState.last_save_searched_date){
+                newState.last_save_searched_date = new Date()
+            }
+
             newState.search_id_data[action.searchId] = {}
             newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
             newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
@@ -349,6 +392,32 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.page = action.payload
+            return newState
+        }
+
+        case TOGGLE_PACKAGE_ID:{
+            let newState = {
+                ...state
+            }
+            newState.page = action.payload
+            if(newState.filterCriteriaPackages){
+                newState.filterCriteriaPackages.package_ids = action.package_id
+            }
+            return newState
+        }
+        case CLEAR_LAB_SEARCH_ID: {
+            let newState = {
+                ...state
+            }
+            if(newState.last_save_searched_date){
+                let currentTime = moment(new Date())
+                let lastSearchTime = moment(new Date(newState.last_save_searched_date))
+                let diffDays = currentTime.diff(lastSearchTime, 'days')
+                if(diffDays>2){
+                    newState.search_id_data = {}
+                    newState.last_save_searched_date = null
+                }
+            }
             return newState
         }
 

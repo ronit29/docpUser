@@ -34,9 +34,9 @@ class ContactUs extends React.Component {
 
     render() {
         let mainClass
-        if(this.props.fromApp){
+        if (this.props.fromApp) {
             mainClass = "container about-container appUrlPadding"
-        }else{
+        } else {
             mainClass = 'container about-container'
         }
         return (
@@ -47,15 +47,15 @@ class ContactUs extends React.Component {
                 }} />
                 <div className="row">
                     <div className="col-12 text-center">
-                        <p className="fw-500 about-heading">Contact Us</p>
+                        <p className="fw-500 about-heading" style={{ fontSize: 20 }} >Contact Us</p>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6 col-12 contact-background">
+                    <div className="col-12">
                         <div className="contact-text">
-                            Feel like contacting us? Submit your queries here and we will try to get back you as soon as possible. You can also mail us at customercare@docprime.com or call our customer care executive on 1800-123-9419.
+                            <p className="fw-500">Feel like contacting us? Submit your queries here and we will get back to you as soon as possible.</p>
                         </div>
-                        <div className="gps">
+                        {/* <div className="gps">
                             <div className="contact-location">
                                 Plot No. 119, Sector-44, Gurugram
                                 - 122001, Haryana (India)
@@ -65,11 +65,11 @@ class ContactUs extends React.Component {
                             <div className="image-location">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/location.png"} />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
-                    <div className="col-md-6 col-12">
+                    <div className="col-12 col-md-6 mrt-20">
                         <div className="shadow">
-                            <div className="form-title mrt-10">Send Us a Message</div>
+                            <div className="form-title" style={{ fontSize: 16 }} >Send Us a Message</div>
                             <form onSubmit={this.onSubmitData.bind(this)}>
                                 <div className="contact-fields">
                                     <input type="text" className="form-control" placeholder="Name" value={this.state.name} onChange={(e) => { this.changeHandler(e, 'name') }} required />
@@ -84,9 +84,16 @@ class ContactUs extends React.Component {
                                     <textarea className="form-control" placeholder="Message" rows={3} value={this.state.message} onChange={(e) => { this.changeHandler(e, 'message') }} required />
                                 </div>
                                 <div className="submit">
-                                    <button type="submit" className="btn submit-btn">Submit</button>
+                                    <button type="submit" className="btn submit-btn mrt-20">Submit</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                    <div className="col-12 offset-md-1 col-md-5 mrt-20">
+                        <div className="contact-text">
+                            <p className="fw-500 mrb-10">You can also contact us via :</p>
+                            <p className="fw-500 mrb-10"><span className="fw-700">E-mail :</span> customercare@docprime.com</p>
+                            <p className="fw-500"><span className="fw-700">Phone :</span> 1800-123-9419</p>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID,TOGGLE_PACKAGE_ID } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
@@ -69,6 +69,12 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 
 		let currentSearchedCriterias = tests || []
 
+		let show404 = false
+		// show 404 on server when no resultd
+		if (response.result && response.result.length == 0 && from_server && searchByUrl) {
+			show404 = true
+		}
+
 		dispatch({
 			type: MERGE_SEARCH_STATE_LAB,
 			payload: {
@@ -76,12 +82,12 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 			},
 			fetchNewResults: false
 		})
-		let searchIdData = Object.assign({},response)
+		let searchIdData = Object.assign({}, response)
 		searchIdData.currentSearchedCriterias = currentSearchedCriterias
 		dispatch({
 			type: SAVE_LAB_RESULTS_WITH_SEARCHID,
 			payload: searchIdData,
-			page:page
+			page: page
 		})
 
 		dispatch({
@@ -97,7 +103,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		dispatch({
 			type: LAB_SEARCH,
 			payload: {
-				page, ...response
+				show404, page, ...response
 			}
 
 		})
@@ -110,6 +116,10 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		}
 
 		if (cb) {
+			// if no results redirect to 404 page
+			if (response.result && response.result.length == 0) {
+				cb(false, true)
+			}
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
 				cb(true)
@@ -195,6 +205,7 @@ export const selectPickupAddress = (address) => (dispatch) => {
 }
 
 export const createLABAppointment = (postData, callback) => (dispatch) => {
+	postData['visitor_info'] = GTM.getVisitorInfo()
 	return API_POST(`/api/v1/diagnostic/labappointment/create`, postData).then(function (response) {
 		callback(null, response)
 	}).catch(function (error) {
@@ -226,7 +237,7 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
-export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = [], profile_id = null) => (dispatch) => {
+export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = [], profile_id = null, cart_item = null) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {
 		coupon_code: [couponCode],
@@ -234,7 +245,8 @@ export const applyLabCoupons = (productId = '', couponCode, couponId, labId = nu
 		product_id: productId,
 		tests: test_ids,
 		lab: labId,
-		profile: profile_id || null
+		profile: profile_id || null,
+		cart_item
 	}).then(function (response) {
 		let analyticData = {
 			'Category': 'ConsumerApp', 'Action': 'LabCouponApplied', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupon-applied', 'couponId': couponId
@@ -278,18 +290,20 @@ export const resetLabCoupons = () => (dispatch) => {
 }
 export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
-	// if (page == 1) {
-	// 	dispatch({
-	// 		type: SEARCH_HEALTH_PACKAGES,
-	// 		payload: null
-	// 	})
-	// }
-	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType } = state
-	let testIds = currentSearchedCriterias.map((x) => x.id)
+	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
 
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
+	let url_string
+	let new_url
+	let forTaxSaver = false
+
+	if (typeof window == "object") {
+		url_string = window.location.href
+		new_url = new URL(url_string)
+		forTaxSaver = window.location.pathname.includes("tax-saver-health-packages")
+	}
 
 	if (selectedLocation) {
 		lat = selectedLocation.geometry.location.lat
@@ -300,41 +314,46 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		if (typeof long === 'function') long = long()
 
 	}
-	// let min_distance = filterCriteria.distanceRange[0]
-	// let max_distance = filterCriteria.distanceRange[1]
-	// let min_price = filterCriteria.priceRange[0]
-	// let max_price = filterCriteria.priceRange[1]
-	// let sort_on = filterCriteria.sort_on || ""
 
-	// do not check specialization_ids if doctor_name || hospital_name search
-	// if (!!filterCriteria.lab_name) {
-	// 	testIds = ""
-	// }
-	let catIds = filterCriteria.catIds || ""
+	let min_distance = filterCriteriaPackages.distanceRange[0]
+	let max_distance = filterCriteriaPackages.distanceRange[1]
+	let min_price = filterCriteriaPackages.priceRange[0]
+	let max_price = filterCriteriaPackages.priceRange[1]
+	let sort_on = filterCriteriaPackages.sort_on || ""
+	let catIds = filterCriteriaPackages.catIds || ""
+	let max_age = filterCriteriaPackages.max_age || ""
+	let min_age = filterCriteriaPackages.min_age || ""
+	let gender = filterCriteriaPackages.gender || ""
+	let package_type = filterCriteriaPackages.packageType || ""
+	let test_ids = filterCriteriaPackages.test_ids || ""
+	let package_ids = filterCriteriaPackages.package_ids || ""
+
 	let url = `/api/v1/diagnostic/packagelist?`
-
+	
 	if (searchByUrl) {
 		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	// url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
-	url += `long=${long || ""}&lat=${lat || ""}&category_ids=${catIds || ""}`
+	if (forTaxSaver) {
+		url += `long=${long || ""}&lat=${lat || ""}&category_ids=41`
+	}
 
-	if (!!filterCriteria.lab_name) {
+	if (!forTaxSaver) {
+
+		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
+	}
+
+	if (!!filterCriteriaPackages.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
 	}
 
-	if (!!filterCriteria.network_id) {
+	if (!!filterCriteriaPackages.network_id) {
 		url += `&network_id=${filterCriteria.network_id || ""}`
 	}
 
 	return API_GET(url).then(function (response) {
 		if (response) {
-		// let tests = response.tests.map((x) => {
-		// 	x.type = 'test'
-		// 	return x
-		// })
-			let tests=''
+			let tests = ''
 			let currentSearchedCriterias = tests || []
 
 			dispatch({
@@ -350,24 +369,6 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 				payload: response,
 			})
 		}
-
-		// dispatch({
-		// 	type: SET_FETCH_RESULTS_LAB,
-		// 	payload: false
-		// })
-
-		// dispatch({
-		// 	type: APPEND_LABS_SEARCH,
-		// 	payload: response.result
-		// })
-
-		// dispatch({
-		// 	type: LAB_SEARCH,
-		// 	payload: {
-		// 		page, ...response
-		// 	}
-
-		// })
 
 		if (page == 1) {
 			let data = {
@@ -389,7 +390,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	})
 }
 
-export const setLabSearchId = (searchId, filters, page=1) => (dispatch) => {
+export const setLabSearchId = (searchId, filters, page = 1) => (dispatch) => {
 	dispatch({
 		type: SET_LAB_SEARCH_ID,
 		payload: filters,
@@ -404,7 +405,7 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 		searchId: searchId
 	})
 	dispatch({
-		type:SET_LAB_URL_PAGE,
+		type: SET_LAB_URL_PAGE,
 		payload: response.page
 	})
 	dispatch({
@@ -415,12 +416,26 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 	dispatch({
 		type: LAB_SEARCH,
 		payload: {
-			page:response.page, ...response.data
+			page: response.page, ...response.data
 		}
 
 	})
 
 }
+
+export const setPackageId = (package_id) =>(dispatch) =>{
+
+	dispatch({
+		type: TOGGLE_PACKAGE_ID,
+		package_id: package_id
+	})
+
+}
+export const clearLabSearchId = () => (dispatch)=>{
+	dispatch({
+		type: CLEAR_LAB_SEARCH_ID
+	})
+} 
 
 
 

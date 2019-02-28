@@ -8,6 +8,12 @@ import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../Home/footer'
 import GTM from '../../../helpers/gtm'
 import InitialsPicture from '../initialsPicture';
+import STORAGE from '../../../helpers/storage';
+import CommentBox from './ArticleCommentBox.js'
+import SnackBar from 'node-snackbar'
+import Reply from './Reply.js'
+
+
 // import RelatedArticles from './RelatedArticles'
 
 class Article extends React.Component {
@@ -15,28 +21,22 @@ class Article extends React.Component {
         super(props)
         let footerData = null
         let articleData = null
+        let articleLoaded = false
         if (this.props.initialServerData) {
             articleData = this.props.initialServerData.articleData
+            articleLoaded = true
         }
         this.state = {
             articleData: articleData,
             medicineURL: false,
+            replyOpenFor: null,
+            comment: '',
+            articleLoaded: articleLoaded
         }
     }
 
     componentDidMount() {
-        let articleId = this.props.match.url
-        if (articleId) {
-            articleId = articleId.toLowerCase().substring(1, articleId.length)
-            this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
-                if (!err && !this.state.articleData) {
-                    this.setState({ articleData: data })
-                } else {
-
-                }
-            })
-        }
-
+        this.getArticleData()
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -45,6 +45,20 @@ class Article extends React.Component {
             // this.setState({ medicineURL: true });
         }
 
+    }
+
+    getArticleData() {
+        let articleId = this.props.match.url
+        if (articleId) {
+            articleId = articleId.toLowerCase().substring(1, articleId.length)
+            this.props.fetchArticle(articleId, this.props.location.search.includes('preview'), (err, data) => {
+                if (!err /*&& !this.state.articleData*/) {
+                    this.setState({ articleData: data, articleLoaded: true, replyOpenFor: '' })
+                } else {
+
+                }
+            })
+        }
     }
 
     onHomeClick(event, link) {
@@ -85,7 +99,49 @@ class Article extends React.Component {
         }
     }
 
+    commentReplyClicked(id) {
+        this.setState({ replyOpenFor: id })
+    }
+
+    postReply(e) {
+        e.preventDefault()
+        if (!this.state.comment) {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please write valid comment" })
+            }, 500)
+            return
+        }
+        let postData = {
+            article: this.state.articleData.id,
+            comment: this.state.comment,
+            name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].name : '',
+            email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].email : '',
+            parent: this.state.replyOpenFor
+        }
+        this.props.postComment(postData, (error, data) => {
+            if (data) {
+                this.setState({ comment: '' })
+                this.getArticleData()
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation" })
+                }, 500)
+            } else {
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Could not post your comment, Try again!" })
+                }, 500)
+            }
+        })
+        return
+    }
+
+    handleInputComment(e) {
+        this.setState({ comment: e.target.value })
+    }
+
     render() {
+
+        let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
+        let commentsExists = this.state.articleData && this.state.articleData.comments.length ? this.state.articleData.comments.length : null
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -177,7 +233,11 @@ class Article extends React.Component {
                                             <span className="breadcrumb-arrow">&gt;</span>
                                         </li>
                                         <li className="breadcrumb-list-item">
-                                            <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
+                                            {
+                                                this.props.match.path.split('-')[1] === 'nmdp' ?
+                                                    <h2 className="fw-500 breadcrumb-title">{this.state.articleData.heading_title}</h2>
+                                                    : <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
+                                            }
                                         </li>
                                     </ul>
 
@@ -251,6 +311,29 @@ class Article extends React.Component {
                         </div>
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
+
+                    <div className="row">
+                        {
+                            this.state.articleLoaded && this.props.match.path.split('-')[1] != 'nmdp' ?
+                                this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length ?
+                                    <div className="col-12 col-md-7 col-lg-8 center-column">
+                                        <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
+                                        {
+                                            this.state.articleData.comments.map((comment, key) => {
+                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} />
+                                            })}
+                                    </div>
+                                    : <div className="col-12 col-md-7 col-lg-8 center-column">
+                                        <div className="widget mrb-15 mrng-top-12">
+                                            <div className="widget-content">
+                                                <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                : ''
+                        }
+                    </div>
+
                 </section>
                 <Footer />
             </div>

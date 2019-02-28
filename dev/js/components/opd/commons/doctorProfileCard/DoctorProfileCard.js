@@ -34,15 +34,38 @@ class DoctorProfileCard extends React.Component {
     }
 
     moreExpClick() {
-        var elementTop = document.getElementById('experience').getBoundingClientRect().top;
-        var elementHeight = document.getElementById('experience').clientHeight;
-        var scrollPosition = elementTop - elementHeight;
+        let elementTop = document.getElementById('experience').getBoundingClientRect().top;
+        let elementHeight = document.getElementById('experience').clientHeight;
+        let scrollPosition = elementTop - elementHeight;
+        window.scrollTo(0, scrollPosition);
+    }
+
+    moreQualificationClick() {
+        let elementTop = document.getElementById('qualification').getBoundingClientRect().top;
+        let elementHeight = document.getElementById('qualification').clientHeight;
+        let scrollPosition = elementTop - elementHeight;
         window.scrollTo(0, scrollPosition);
     }
 
     render() {
-        let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified } = this.props.details
+        let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified, rating_graph } = this.props.details
         let expStr = ""
+
+        // let qualificationStr = ''
+        // if (general_specialization && general_specialization.length) {
+        //     if (general_specialization.length <= 3) {
+        //         for (let i = 0; i < general_specialization.length; i++) {
+        //             qualificationStr += general_specialization[i].name;
+        //             if (i < general_specialization.length - 1) qualificationStr += `, `;
+        //         }
+        //     }
+        //     else {
+        //         for (let i = 0; i < 3; i++) {
+        //             qualificationStr += general_specialization[i].name;
+        //             if (i < general_specialization.length - 1) qualificationStr += `, `;
+        //         }
+        //     }
+        // }
 
         if (experiences && experiences.length) {
             expStr += `EXP - ${experiences[0].hospital}`
@@ -59,11 +82,24 @@ class DoctorProfileCard extends React.Component {
                         <img src={thumbnail} className="img-fluid img-round" alt={display_name} title={display_name} />
                     </InitialsPicture>
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
+                    {
+                        rating_graph && rating_graph.avg_rating ?
+                            <div className="d-flex justify-content-center" style={{ marginTop: 5, alignItems: 'baseline' }} >
+                                <span className="text-primary fw-500" style={{ fontSize: 12, marginRight: 4 }} >{parseFloat(rating_graph.avg_rating).toFixed(1)}</span>
+                                <img src={ASSETS_BASE_URL + '/img/customer-icons/star.svg'} style={{ width: 10, height: 'auto' }} />
+                            </div> : ''
+                    }
                 </div>
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
-                    <h2 className="desg">{this.getQualificationStr(general_specialization || [])}</h2>
+                    <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
+                    {/* {
+                        general_specialization && general_specialization.length > 3 ?
+                            <h2 className="desg">{qualificationStr} & <span style={{ cursor: 'pointer', color: '#f78631' }} onClick={() => this.moreQualificationClick()}>{general_specialization.length - 3} more</span></h2>
+                            :
+                            <h2 className="desg">{qualificationStr}</h2>
+                    } */}
                     {
                         experience_years ? <h2 className="add-details">{experience_years} Years of Experience</h2> : ""
                     }
@@ -76,6 +112,10 @@ class DoctorProfileCard extends React.Component {
                         this.props.details.enabled_for_online_booking == false || this.props.bookingEnabled == false ? <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button> : ''
                     }
                 </div>
+                {
+                    this.props.showContact && !this.props.liveState ?
+                        <p className="notAvlDoc mrt-10"><span className="text-primary fw-700">Not available for online booking</span>: See bookable doctors with great discounts below</p> : ''
+                }
             </div>
         );
     }

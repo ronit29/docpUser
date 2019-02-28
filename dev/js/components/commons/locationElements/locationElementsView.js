@@ -92,19 +92,21 @@ class LocationElementsView extends React.Component {
     }
 
     getLocation(location) {
-        var auto = new google.maps.places.AutocompleteService()
+        if (typeof google != undefined) {
+            var auto = new google.maps.places.AutocompleteService()
 
-        var request = {
-            input: location,
-            types: ['geocode'],
-            componentRestrictions: { country: 'in' }
-        };
-        if (location) {
-            auto.getPlacePredictions(request, function (results, status) {
-                results = results || []
-                this.setState({ searchResults: results })
-                this.props.getCityListLayout(results)
-            }.bind(this))
+            var request = {
+                input: location,
+                types: ['geocode'],
+                componentRestrictions: { country: 'in' }
+            };
+            if (location) {
+                auto.getPlacePredictions(request, function (results, status) {
+                    results = results || []
+                    this.setState({ searchResults: results })
+                    this.props.getCityListLayout(results)
+                }.bind(this))
+            }
         }
     }
 
@@ -211,7 +213,7 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }}>
+            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }} id="location_element">
 
                 <div className="col-12">
                     {

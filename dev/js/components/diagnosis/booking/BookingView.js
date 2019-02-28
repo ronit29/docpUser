@@ -11,6 +11,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
+import CRITEO from '../../../helpers/criteo.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -69,28 +70,37 @@ class BookingView extends React.Component {
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
+
                     let info = {}
-                    info[appointmentId] = {}
+                    info[appointmentId] = []
                     let mrp = 0
                     let deal_price = 0
-                    if(data.length && data[0].lab_test){
+                    if (data.length && data[0].lab_test) {
                         data[0].lab_test.map((test) => {
-                            mrp+= parseInt(test.mrp)
-                            deal_price+= parseInt(test.deal_price)
+                            mrp += parseInt(test.mrp)
+                            deal_price += parseInt(test.deal_price)
                         })
                     }
-                    info[appointmentId].mrp = mrp
-                    info[appointmentId].deal_price = deal_price
+                    info[appointmentId].push({ 'booking_id': appointmentId, 'mrp': mrp, 'deal_price': deal_price })
                     info = JSON.stringify(info)
-                    STORAGE.setAppointmentDetails(info).then((setCookie)=> {
+                    STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
                         if (this.state.payment_success) {
 
                             let analyticData = {
                                 'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
                             }
-                            GTM.sendEvent({ data: analyticData })
+
+                            GTM.sendEvent({ data: analyticData }, true, false)
+                            let criteo_data = 
+                            { 'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                {'id': "1", 'price': data.length?data[0].deal_price:'', 'quantity': 1 }
+                            ]}
+
+                            CRITEO.sendData(criteo_data)
+
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
+                            this.props.setCorporateCoupon(null)
                         }
                     })
                 } else {
@@ -104,10 +114,10 @@ class BookingView extends React.Component {
         }
     }
 
-    cancelAppointment(type) {
+    cancelAppointment(cancelData) {
         this.setState({ loading: true, showCancel: false })
         let data;
-        if (type) {
+        if (cancelData.cancelStatus) {
 
             data = {
                 'Category': 'ConsumerApp', 'Action': 'CancelLabAppointmentAndRefund', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'cancel-lab-appointment-Refund', 'appointmentId': this.state.data.id
@@ -122,7 +132,7 @@ class BookingView extends React.Component {
         GTM.sendEvent({ data: data })
 
 
-        let appointmentData = { id: this.state.data.id, status: 6, refund: type }
+        let appointmentData = { id: this.state.data.id, status: 6, refund: cancelData.cancelStatus, cancellation_comment: cancelData.cancelText, cancellation_reason: cancelData.cancelId }
 
         this.props.updateLabAppointment(appointmentData, (err, data) => {
             if (data) {
@@ -303,12 +313,12 @@ class BookingView extends React.Component {
 
                                                                 <p className="add-info fw-500">{lab.address}</p>
                                                             </div>
-                                                            <div className="pb-view text-left clearfix mrt-10">
+                                                            {/*<div className="pb-view text-left clearfix mrt-10">
                                                                 <a href={`https://www.google.com/maps/search/?api=1&query=${lab.lat},${lab.long}`} target="_blank" className="link-text text-md fw-700 mrt-10" style={{ float: 'left' }} >View in Google Map</a>
                                                                 <a href={`https://www.google.com/maps/search/?api=1&query=${lab.lat},${lab.long}`} className="link-text text-md fw-700" target="_blank" style={{ width: 50, height: 50, float: 'right' }} >
                                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} style={{ width: '100%' }} />
                                                                 </a>
-                                                            </div>
+                                                            </div>*/}
                                                         </div>
                                                     </div>
 
@@ -402,7 +412,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} /> : ""
                             }
 
                         </div>

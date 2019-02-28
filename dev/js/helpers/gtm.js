@@ -27,13 +27,13 @@ function getVisitId() {
 }
 
 const GTM = {
-    sendEvent: ({ data }) => {
+    sendEvent: ({ data }, send_to_GA = true, send_to_backend = true) => {
         try {
             /**
              * dataLayer is expected to be a global variable set by gtm - not to be used on server-side
              */
 
-            if (dataLayer) {
+            if (dataLayer && send_to_GA) {
                 data.UAID = CONFIG.UAID
                 data.Tracker = CONFIG.Tracker
                 let gtmData = JSON.parse(JSON.stringify(data))
@@ -47,36 +47,59 @@ const GTM = {
                 data.userAgent = navigator.userAgent
             }
 
-            let visitor_info = STORAGE.getVisitorInfo()
-
-            if (visitor_info) {
-                visitor_info = JSON.parse(visitor_info)
-                let last_visit_difference = new Date().getTime() - visitor_info.last_visit_time;
-
-                if (last_visit_difference > 1800000) {
-                    visitor_info.visit_id = getVisitId()
-                }
-                visitor_info.last_visit_time = new Date().getTime()
-
-            } else {
-
-                let visitor_id = getVisitorId();
-                let visit_id = getVisitId();
-                visitor_info = {
-                    visit_id: visit_id,
-                    visitor_id: visitor_id,
-                    last_visit_time: new Date().getTime()
-                }
+            data.visitor_info = GTM.getVisitorInfo()
+            data.triggered_at = Math.floor((new Date()).getTime())
+            if (send_to_backend) {
+                setGTMSession(data);
             }
-
-            let updated_cookie_val = JSON.stringify(visitor_info)
-            STORAGE.setVisitorInfo(updated_cookie_val)
-            data.visitor_info = visitor_info
-            setGTMSession(data);
 
         } catch (e) {
             //
         }
+    },
+
+    getVisitorInfo: () => {
+        let visitor_info = ""
+
+        if (typeof window == "object") {
+            visitor_info = window.VISITOR_INFO
+        }
+
+        if (!visitor_info) {
+            visitor_info = STORAGE.getVisitorInfo()
+        }
+
+        if (visitor_info && visitor_info.length) {
+            visitor_info = JSON.parse(visitor_info)
+        }
+
+        if (visitor_info && visitor_info.visit_id && visitor_info.visitor_id) {
+            let last_visit_difference = new Date().getTime() - visitor_info.last_visit_time;
+
+            if (last_visit_difference > 1800000) {
+                visitor_info.visit_id = getVisitId()
+            }
+            visitor_info.last_visit_time = new Date().getTime()
+
+        } else {
+
+            let visitor_id = getVisitorId();
+            let visit_id = getVisitId();
+            visitor_info = {
+                visit_id: visit_id,
+                visitor_id: visitor_id,
+                last_visit_time: new Date().getTime()
+            }
+        }
+
+        let updated_cookie_val = JSON.stringify(visitor_info)
+
+        if (typeof window == "object") {
+            window.VISITOR_INFO = updated_cookie_val
+        }
+        STORAGE.setVisitorInfo(updated_cookie_val)
+
+        return visitor_info
     },
 
     getUserId: () => {

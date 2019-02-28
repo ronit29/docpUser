@@ -150,9 +150,8 @@ class AppointmentReschedule extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
                             {
-                                this.state.data ?
+                                this.state.data?
                                     <div>
-
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
 
@@ -168,7 +167,7 @@ class AppointmentReschedule extends React.Component {
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.rescheduleSlot} hideChangeTime={true} timeError={null} />
 
                                                         {
-                                                            priceData.payable_amount != 0 ? <div className="csh-back-applied-container" style={{ marginBottom: 20 }}>
+                                                            priceData.payable_amount != 0 && this.state.data.status !== 7 ? <div className="csh-back-applied-container" style={{ marginBottom: 20 }}>
                                                                 <p className="csh-mny-applied-content">Amount for the appointment is changed, to proceed you need to cancel this order and place a new one.</p>
                                                             </div> : ""
                                                         }
@@ -186,35 +185,44 @@ class AppointmentReschedule extends React.Component {
                                                             </div>
                                                         </div>
 
-
-                                                        <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
-                                                            <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                        </div>
-
-                                                        <a href="/terms" target="_blank">
-                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
-                                                                <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
-                                                                <span className="errorMessage">{this.state.error}</span>
+                                                        {this.state.data && this.state.data.status !== 7 ? <div>
+                                                            <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
+                                                                <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                             </div>
-                                                        </a>
 
+                                                            <a href="/terms" target="_blank">
+                                                                <div className="lab-visit-time test-report" style={{ marginTop: 10 }}>
+                                                                    <h4 className="title payment-amt-label fs-italic">Terms of Use<span><img className="info-icon-img" src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
+                                                                    <span className="errorMessage">{this.state.error}</span>
+                                                                </div>
+                                                            </a>
+                                                        </div> : ''
+                                                        }
                                                     </div>
 
                                                 </div>
+                                                {this.state.data && this.state.data.status == 7 ?
+                                                    <div className="text-center">
+                                                        <div className="sms-reschedule mrt-10">
+                                                            <p className="fw-500">This appointment cannot be rescheduled as you have already marked this appointment complete. </p>
+                                                        </div>
+                                                        <button className="sms-lgbtn" onClick={() => (this.props.history.push('/'))}>Go to Homepage</button>
+                                                    </div>
+                                                    : ''
+                                                }
                                             </div>
 
                                             {
-                                                this.state.openCancellation ? <CancelationPolicy toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
                                             }
-
-
                                         </section>
-
-                                    </div> : <Loader />
+                                    </div>
+                                    : <Loader />
                             }
 
-                            {
+                            {this.state.data && this.state.data.status != 7 ?
                                 priceData.payable_amount == 0 ? <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.proceed.bind(this)}>Confirm Reschedule</button> : <button disabled={this.state.loading} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg static-btn" onClick={this.cancelAppointment.bind(this)}>Cancel and rebook</button>
+                                : ''
                             }
 
 

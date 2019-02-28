@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
 import ClinicResultCard from '../../commons/clinicResultCard';
+import BannerCarousel from '../../../commons/Home/bannerCarousel';
 
 class DoctorsList extends React.Component {
     constructor(props) {
@@ -47,6 +48,18 @@ class DoctorsList extends React.Component {
             this.setState({ hasMore: true })
         }, 0)
 
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     componentWillUnmount() {
@@ -85,10 +98,6 @@ class DoctorsList extends React.Component {
         this.setState({ readMore: 'search-details-data-less' })
     }
 
-    getResultCard() {
-
-    }
-
     render() {
 
         let { HOSPITALS, DOCTORS, doctorList, hospitalList } = this.props
@@ -110,12 +119,12 @@ class DoctorsList extends React.Component {
         }
 
         return (
-            <section style={{ paddingTop: 10 }} ref="checkIfExists">
+            <section ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.search_content && this.props.search_content != '' && parseInt(this.props.page)==1?
+                                this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
@@ -129,11 +138,17 @@ class DoctorsList extends React.Component {
                                             <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
                                             : ''
                                         }
-
                                     </div>
                                     : ''
                             }
                             <div className="row">
+                                {
+                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length ?
+                                        <div className="col-12">
+                                            <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
+                                        </div> : ''
+                                }
+
                                 <div className="col-12">
                                     <InfiniteScroll
                                         pageStart={start_page}
@@ -146,7 +161,7 @@ class DoctorsList extends React.Component {
                                             result_list.map((cardId, i) => {
                                                 if (i == 1 && result_data[cardId]) {
                                                     return <div key={i}>
-                                                        <div className="no-risk-container mt-3">
+                                                        {/* <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
                                                                 <div className="rsk-image">
                                                                     <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
@@ -159,7 +174,7 @@ class DoctorsList extends React.Component {
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         {
                                                             this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
                                                         }

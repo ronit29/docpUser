@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp } from '../../actions/index.js'
-
+import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin, getUnratedAppointment,closeAppointmentRating} from '../../actions/index.js'
+import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/opd/booking/BookingView.js'
 
 class Booking extends React.Component {
@@ -14,11 +14,22 @@ class Booking extends React.Component {
         router: () => null
     }
 
+    componentDidMount() {
+        if (STORAGE.checkAuth()) {
+            this.props.getCartItems()
+        }else{
+            this.props.history.push('/')
+        }    
+    }
+
     render() {
 
         return (
-            <BookingView {...this.props} />
-        );
+            <div>
+                <BookingView {...this.props}/>
+            </div>
+            
+        )
     }
 }
 
@@ -36,6 +47,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+         OTTLogin: (ott) => dispatch(OTTLogin(ott)),
         getOPDBookingSummary: (appointmentID, callback) => dispatch(getOPDBookingSummary(appointmentID, callback)),
         updateOPDAppointment: (appointmentData, callback) => dispatch(updateOPDAppointment(appointmentData, callback)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
@@ -44,6 +56,9 @@ const mapDispatchToProps = (dispatch) => {
         createAppointmentRating: (appointmentData, callback) => dispatch(createAppointmentRating(appointmentData, callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
+        getCartItems: () => dispatch(getCartItems()),
+        getUnratedAppointment: (callback) => dispatch(getUnratedAppointment(callback)),
+        closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
     }
 }
 
