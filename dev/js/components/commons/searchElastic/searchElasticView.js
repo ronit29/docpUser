@@ -90,13 +90,17 @@ class SearchElasticView extends React.Component {
         })
     }
 
-    searchProceedPackages(package_name = "") {
-        this.props.mergeLABState({
-            filterCriteria: {
-                ...this.props.dataState.filterCriteriaPackages
-            }
-        }, true)
-
+    searchProceedPackages() {
+        console.log(this.props.dataState.selectedPackages)
+        let selectedPackagesIds = []
+        if (this.props.dataState.selectedPackages.length > 0) {
+            this.props.dataState.selectedPackages.map(x => {
+                selectedPackagesIds.push(x.id)
+            })
+            console.log(selectedPackagesIds)
+            this.props.setPackageId(selectedPackagesIds, false)
+        }
+        // selectedPackages
         this.props.history.push({
             pathname: '/searchpackages',
             state: { search_back: true }
@@ -197,14 +201,7 @@ class SearchElasticView extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
-        let selectedPackageIds = []
-        this.props.dataState.selectedCriterias.map((x) => {
-            if (x.test_type) {
-                selectedPackageIds.push(x.test_type)
-            }
-        })
-
-        this.props.setPackageId(criteria.id)
+        this.props.toggleSearchPackages(criteria)
     }
 
     render() {

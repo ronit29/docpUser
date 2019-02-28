@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType, filterSelectedCriteria, getElasticCriteriaResults, setPackageId } from '../../actions/index.js'
+import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType, filterSelectedCriteria, getElasticCriteriaResults, setPackageId, toggleSearchPackages } from '../../actions/index.js'
 
 import SearchView from '../../components/commons/search'
 import SearchElasticView from '../../components/commons/searchElastic'
@@ -110,7 +110,8 @@ const mapStateToProps = (state) => {
             filterCriteria,
             locationType,
             common_package,
-            filterCriteriaPackages
+            filterCriteriaPackages,
+            selectedPackages
         } = state.SEARCH_CRITERIA_LABS
 
         return {
@@ -123,7 +124,8 @@ const mapStateToProps = (state) => {
             filterCriteria,
             locationType,
             common_package,
-            filterCriteriaPackages
+            filterCriteriaPackages,
+            selectedPackages
         }
     })()
 
@@ -153,7 +155,8 @@ const mapDispatchToProps = (dispatch) => {
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         getElasticCriteriaResults: (searchString, type, location, callback) => dispatch(getElasticCriteriaResults(searchString, type, location, callback)),
         // package
-        setPackageId: (package_id) => dispatch(setPackageId(package_id))
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
+        toggleSearchPackages: (healthPackage) => dispatch(toggleSearchPackages(healthPackage))
     }
 }
 
