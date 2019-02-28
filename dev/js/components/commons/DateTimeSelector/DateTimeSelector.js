@@ -86,7 +86,7 @@ class DateTimeSelector extends React.Component {
             })
             offset = new Date(currentDate)
         }
-        this.setState({ daySeries: daySeries })
+        this.setState({ daySeries: daySeries  })
     }
 
     selectDate(date, day, dateString, month, dateFormat) {
