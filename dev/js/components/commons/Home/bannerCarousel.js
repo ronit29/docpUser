@@ -195,7 +195,7 @@ class BannerCarousel extends React.Component {
                         if (curr_index >= totalOffers) {
                             curr_index = 0
                         }
-                        this.setState({ index: curr_index,intervalFlag:!this.state.intervalFlag })
+                        this.setState({ index: curr_index,intervalFlag:false })
                     }
                 }else{
                     if (this.props.offerList) {
@@ -205,7 +205,7 @@ class BannerCarousel extends React.Component {
                         if(curr_index < 0){
                             curr_index = totalOffers -1
                         }
-                        this.setState({ index: curr_index,intervalFlag:!this.state.intervalFlag })
+                        this.setState({ index: curr_index,intervalFlag:false })
                     }
                 }
             }
