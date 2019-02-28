@@ -91,19 +91,15 @@ class SearchElasticView extends React.Component {
     }
 
     searchProceedPackages() {
-        console.log(this.props.dataState.selectedPackages)
         let selectedPackagesIds = []
         if (this.props.dataState.selectedPackages.length > 0) {
             this.props.dataState.selectedPackages.map(x => {
                 selectedPackagesIds.push(x.id)
             })
-            console.log(selectedPackagesIds)
             this.props.setPackageId(selectedPackagesIds, false)
         }
-        // selectedPackages
         this.props.history.push({
-            pathname: '/searchpackages',
-            state: { search_back: true }
+            pathname: '/searchpackages'
         })
     }
 
@@ -145,7 +141,7 @@ class SearchElasticView extends React.Component {
             }
             return null
         }
-        this.searchProceedPackages("")
+        this.searchProceedPackages()
     }
 
     clickPopUp(type) {
@@ -206,9 +202,6 @@ class SearchElasticView extends React.Component {
 
     render() {
 
-        console.log('ewuyriweiuyqweiuy')
-        console.log(this.props)
-
         let title = ''
         let searchProceed = ''
         let showResults = ''
@@ -253,9 +246,9 @@ class SearchElasticView extends React.Component {
                 type="package"
                 selectedSearchType={this.props.selectedSearchType}
                 data={this.props.dataState.common_package}
-                selected={this.props.dataState.selectedCriterias.filter(x => x.is_package)}
+                selected={this.props.dataState.selectedPackages}
                 toggle={this.togglePackages.bind(this)}
-                selectedCriterias={this.props.dataState.selectedCriterias.filter(x => x.is_package)}
+                selectedCriterias={this.props.dataState.selectedPackages}
             />
         }
 
@@ -278,13 +271,14 @@ class SearchElasticView extends React.Component {
                             }
 
                             {
-                                (this.props.selectedSearchType.includes('package') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched {...this.props}
-                                    heading={`View Selected (${this.props.dataState.selectedCriterias.length})`}
-                                    data={this.props.dataState.selectedCriterias}
+                                (this.props.selectedSearchType.includes('package') && this.props.dataState.selectedPackages && this.props.dataState.selectedPackages.length > 0) ? <CommonlySearched {...this.props}
+                                    heading={`View Selected (${this.props.dataState.selectedPackages.length})`}
+                                    type="package"
+                                    data={this.props.dataState.selectedPackages}
                                     selectedSearchType={this.props.selectedSearchType}
                                     selected={[]}
                                     selectedPills={true}
-                                    toggle={this.props.setPackageId.bind(this)}
+                                    toggle={this.togglePackages.bind(this)}
                                 /> : ""
                             }
 

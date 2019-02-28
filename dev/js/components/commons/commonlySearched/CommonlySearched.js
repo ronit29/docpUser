@@ -89,10 +89,8 @@ class CommonlySearched extends React.Component {
         }
         GTM.sendEvent({ data: data })
     }
-    render() {
 
-        console.log('kjhgfdsadyuilkjhgfdghjk')
-        console.log(this.props)
+    render() {
 
         let test_info = ''
         let rows = this.props.data.map((row, i) => {
@@ -111,9 +109,7 @@ class CommonlySearched extends React.Component {
                             : ''
                         }
                     </p>
-                    <img style={{ width: '15px' }} onClick={() => {
-                        return this.props.toggle((this.props.type || row.type), row)
-                    }} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
+                    <img style={{ width: '15px' }} onClick={() => this.props.toggle((this.props.type || row.type), row)} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
                 </li>
             } else {
                 let selected = false
@@ -122,8 +118,8 @@ class CommonlySearched extends React.Component {
                         selected = true
                     }
                 })
-                return <li key={i}>
-                    <p className={selected ? "click-active" : ""} onClick={this.toggle.bind(this, row)}>{row.name} </p>
+                return <li key={i} onClick={this.toggle.bind(this, row)}>
+                    <p className={selected ? "click-active" : ""}>{row.name} </p>
                     {
                         selected ? "" : <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
                     }
