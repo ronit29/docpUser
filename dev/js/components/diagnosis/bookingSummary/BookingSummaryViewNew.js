@@ -38,8 +38,7 @@ class BookingSummaryViewNew extends React.Component {
             profileDataFilled: true,
             is_cashback: false,
             use_wallet: true,
-            cart_item: parsed.cart_item,
-            nextAvailableTimeSlot: ''
+            cart_item: parsed.cart_item
         }
     }
 
@@ -196,14 +195,13 @@ class BookingSummaryViewNew extends React.Component {
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
         this.props.selectLabAppointmentType(e.target.value)
-        this.props.getLabTiming(e.target.value)
         this.setState({ showTimeError: false, showAddressError: false });
     }
 
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&nextAvailableTime=${this.state.nextAvailableTimeSlot}`)
+                this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true`)
                 return
             }
 
@@ -232,9 +230,7 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} saveNextAvailableTimeslot={this.saveNextAvailableTimeslot.bind(this)}/>
-                 
-                    
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
@@ -246,9 +242,7 @@ class BookingSummaryViewNew extends React.Component {
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
                             : ''
                     }
-
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} saveNextAvailableTimeslot={this.saveNextAvailableTimeslot.bind(this)}/>
-                    
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
@@ -446,13 +440,6 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    saveNextAvailableTimeslot(slot){
-                   
-        if(!this.state.nextAvailableTimeSlot && slot){
-            this.setState({nextAvailableTimeSlot: slot.toDateString()})    
-        }
-    }
-
     render() {
         let tests = []
         let finalPrice = 0
@@ -549,7 +536,7 @@ class BookingSummaryViewNew extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.LABS[this.state.selectedLab] && this.props.DATA_FETCH?
+                                this.props.LABS[this.state.selectedLab] ?
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
