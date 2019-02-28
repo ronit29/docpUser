@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType } from '../../actions/index.js'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -150,7 +150,8 @@ const mapDispatchToProps = (dispatch) => {
         setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
         getLabSearchIdResults: (searchId, searchResults) => dispatch(getLabSearchIdResults(searchId, searchResults)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
-        toggle404: (status) => dispatch(toggle404(status))
+        toggle404: (status) => dispatch(toggle404(status)),
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
     }
 }
 
