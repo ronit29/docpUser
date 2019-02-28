@@ -281,7 +281,7 @@ class DoctorProfileView extends React.Component {
                                                                 <div className="widge-content pd-0">
                                                                     <div className="widget-panel">
                                                                         {
-                                                                            nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
+                                                                            nearbyDoctors.result && nearbyDoctors.result.length && nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
                                                                                 <div className="panel-title mb-rmv p-relative docslideHeadAlign">
                                                                                     <p>Book experienced {nearbyDoctors.specializations[0].name}s near you<span className="docSlideSubHeading">Get exclusive Docprime discount</span>
                                                                                     </p>
