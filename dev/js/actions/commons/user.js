@@ -516,8 +516,8 @@ export const set_summary_utm = (toggle = false, validity = null) => (dispatch) =
 	})
 }
 
-export const getOfferList = () => (dispatch) => {
-	API_GET(`/api/v1/banner/list`).then(function (response) {
+export const getOfferList = (lat, long) => (dispatch) => {
+	API_GET(`/api/v1/banner/list?lat=${lat}&long=${long}`).then(function (response) {
 		dispatch({
 			type: GET_OFFER_LIST,
 			payload: response

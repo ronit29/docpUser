@@ -91,13 +91,28 @@ class packagesList extends React.Component {
     }
     render() {
         let { LABS, labList } = this.props
+
+        // if(document.getElementById("pkgTost") !== null){
+        //     window.onscroll = function() {
+        //     var currentScrollPos = window.pageYOffset
+        //       if (currentScrollPos == 0) {
+        //         document.getElementById("pkgTost").classList.add("d-none")
+        //       } else {
+        //         document.getElementById("pkgTost").classList.remove("d-none")
+        //       }
+        //     }
+        // }
+
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
+                {!this.props.forOrganicSearch && !this.props.forTaxSaver ? <div className="pkgTost d-none" id="pkgTost"><p onClick={() => this.props.history.push('/health-package-advisor')}>Need Help in Booking Health Package? </p>
+                </div> : ''
+                }
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid">
                             {
-                                this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count >0?
+                                this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count > 0 ?
                                     <div className="search-result-card-collpase">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.packagesList.search_content }} >
                                         </div>
@@ -122,7 +137,7 @@ class packagesList extends React.Component {
                                     </div>
                                     <div className="taxContent">
                                         {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
-                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{display: 'inline-block'}}>₹ 5000</span> under section 80D. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
+                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{ display: 'inline-block' }}>₹ 5000</span> under section 80D. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
                                     </div>
                                 </div>
                                     : ''

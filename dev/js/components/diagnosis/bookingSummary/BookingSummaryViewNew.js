@@ -763,16 +763,21 @@ class BookingSummaryViewNew extends React.Component {
 
 
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                                <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
-                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
-                                    {
-                                        this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
-                                    }
-                                    {this.state.cart_item ? "Update" : "Add to Cart"}
-                                </button>
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    !is_corporate?
+                                    <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
+                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
+                                        {
+                                            this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
+                                        }
+                                        {this.state.cart_item ? "Update" : "Add to Cart"}
+                                    </button>
+                                    :''
+                                }
+
+                                {
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                     } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }

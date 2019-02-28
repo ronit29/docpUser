@@ -40,9 +40,20 @@ class HomeView extends React.Component {
 			this.setState({ specialityFooterData: cb });
 		});
 
-		this.props.getOfferList();
+		let selectedLocation = ''
+		let lat = 28.644800
+		let long = 77.216721
+		if (this.props.selectedLocation) {
+			selectedLocation = this.props.selectedLocation;
+			lat = selectedLocation.geometry.location.lat
+			long = selectedLocation.geometry.location.lng
+			if (typeof lat === 'function') lat = lat()
+			if (typeof long === 'function') long = long()
+		}
 
-		let data = { 'event': "viewHome"}
+		this.props.getOfferList(lat, long);
+
+		let data = { 'event': "viewHome" }
 
 		CRITEO.sendData(data)
 
@@ -72,6 +83,7 @@ class HomeView extends React.Component {
 		this.props.toggleDiagnosisCriteria('test', test, true)
 		let data
 		if (isPackage) {
+			this.props.setPackageId(test.id)
 			data = {
 				'Category': 'ConsumerApp', 'Action': 'SelectedHealthPackage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-health-package', 'selected': test.name || '', 'selectedId': test.id || ''
 			}
@@ -83,9 +95,15 @@ class HomeView extends React.Component {
 
 		GTM.sendEvent({ data: data })
 
-		setTimeout(() => {
-			this.props.history.push('/lab/searchresults')
-		}, 100)
+		if(isPackage){
+			setTimeout(() => {
+				this.props.history.push('/searchpackages')
+			}, 100)
+		}else{
+			setTimeout(() => {
+				this.props.history.push('/lab/searchresults')
+			}, 100)
+		}
 	}
 
 	searchDoctor(speciality) {
@@ -155,6 +173,7 @@ class HomeView extends React.Component {
 	}
 
 	render() {
+
 		let profileData = this.props.profiles[this.props.selectedProfile]
 		let articles = this.props.articles || []
 		const parsed = queryString.parse(this.props.location.search)
@@ -224,7 +243,8 @@ class HomeView extends React.Component {
 									searchType="packages"
 									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
-									navTo="/health-package-advisor"
+									// navTo="/health-package-advisor"
+									navTo="/searchpackages"
 								/> : ""
 						}
 
@@ -299,8 +319,9 @@ class HomeView extends React.Component {
 									searchType="packages"
 									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
-									navTo="/health-package-advisor"
-								/> : ""
+									// navTo="/health-package-advisor"
+									navTo="/searchpackages"
+									/> : ""
 						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
