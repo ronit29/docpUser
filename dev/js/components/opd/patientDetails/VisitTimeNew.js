@@ -63,11 +63,11 @@ class VisitTimeNew extends React.Component {
                 currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
             }
         }
-        
+
         return availableTimeSlots.length?
         <div className="select-time-listing-container">
             <div className="nw-tm-shift">
-                {WEEK_DAYS[selectedTimeSlotDate.getDay()]} {MONTHS[selectedTimeSlotDate.getMonth()] } {selectedTimeSlotDate.getDate()}:
+                {WEEK_DAYS[selectedTimeSlotDate.getDay()]}, {selectedTimeSlotDate.getDate()} {MONTHS[selectedTimeSlotDate.getMonth()] }:
             </div>
             <div className="time-slot-main-listing">
                 <ul className="inline-list nw-time-st">
@@ -193,7 +193,7 @@ class VisitTimeNew extends React.Component {
                              {this.getTimeSlots()}
                         </div>
                         :<div className="timeAfterSelect mbl-view-formatting text-right">
-                            <h4 className="date-time title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>
+                            <h4 className="date-time title">{ date? `${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()] }` :''} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>
                             {
                                 !this.props.hideChangeTime ? <a href="" onClick={(e) => {
                                     e.preventDefault()
