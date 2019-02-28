@@ -22,7 +22,8 @@ class AppointmentSlot extends React.Component {
             tomorrow_min: null,
             today_max: null,
             enableProceed: false,
-            selectedTimeSlot: {}
+            selectedTimeSlot: {},
+            global_leaves: []
         }
     }
 
@@ -56,8 +57,8 @@ class AppointmentSlot extends React.Component {
         let selectedLab = this.props.match.params.id
 
         this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (data) => {
-            let { time_slots, today_min, tomorrow_min, today_max } = data
-            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
+            let { time_slots, today_min, tomorrow_min, today_max, global_leaves } = data
+            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null, global_leaves: global_leaves })
         })
 
     }
@@ -121,6 +122,7 @@ class AppointmentSlot extends React.Component {
                                                                 tomorrow_min={this.state.tomorrow_min}
                                                                 today_max={this.state.today_max}
                                                                 enableProceed = {this.enableProceed.bind(this)}
+                                                                global_leaves={this.state.global_leaves}
                                                             /> : <Loader />
                                                     }
 

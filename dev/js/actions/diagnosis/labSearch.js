@@ -132,10 +132,11 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	})
 }
 
-export const getLabById = (labId, testIds = []) => (dispatch) => {
+export const getLabById = (labId, testIds = [], cb) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablist/${labId}?test_ids=${testIds.join(',')}`
 
 	return API_GET(url).then(function (response) {
+		if(cb)cb(response)
 
 		dispatch({
 			type: APPEND_LABS,

@@ -15,6 +15,8 @@ class BookingSummary extends React.Component {
             today_min: null,
             tomorrow_min: null,
             today_max: null,
+            global_leaves: [],
+            DATA_FETCH: false
         }
     }
 
@@ -37,18 +39,41 @@ class BookingSummary extends React.Component {
         let testIds = this.props.lab_test_data[this.props.match.params.id] || []
         testIds = testIds.map(x => x.id)
 
-        this.props.getLabTimeSlots(this.props.match.params.id, this.state.pickupType, (data) => {
-            let { time_slots, today_min, tomorrow_min, today_max } = data
-            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
-        })
+        this.props.getLabById(this.props.match.params.id, testIds, (data)=>{
 
-        this.props.getLabById(this.props.match.params.id, testIds)
+            if(this.props.selectedSlot && this.props.selectedSlot.date && !this.props.selectedSlot.summaryPage){
+                this.setState({DATA_FETCH: true})
+            }else{
+
+                if(this.props.LABS[this.props.match.params.id] && this.props.LABS[this.props.match.params.id].lab){
+
+                this.getLabTiming(this.props.selectedAppointmentType)
+                }else if (data && data.lab) {
+                    
+                    let type = ''
+                    if(data.lab.center_visit_enabled){
+                        type = 'lab'
+                    }else{
+                        type = 'home'
+                    }
+                    this.getLabTiming(type)
+                }
+            }
+        })
+    }
+
+    getLabTiming(type){
+
+        this.props.getLabTimeSlots(this.props.match.params.id, type.includes('lab')?0:1, (data) => {
+            let { time_slots, today_min, tomorrow_min, today_max, global_leaves } = data
+            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null, global_leaves: global_leaves, DATA_FETCH: true })
+        })
     }
 
     render() {
 
         return (
-            <BookingSummaryViewNew {...this.props} {...this.state}/>
+            <BookingSummaryViewNew {...this.props} {...this.state} getLabTiming={this.getLabTiming.bind(this)}/>
         );
     }
 }
@@ -78,7 +103,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
+        getLabById: (labId, testIds, cb) => dispatch(getLabById(labId, testIds, cb)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         getUserAddress: () => dispatch(getUserAddress()),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),

@@ -11,7 +11,8 @@ class PatientDetails extends React.Component {
         super(props)
         this.state = {
             timeSlots: null,
-            doctor_leaves: []
+            doctor_leaves: [],
+            DATA_FETCH: false
         }
     }
 
@@ -30,12 +31,16 @@ class PatientDetails extends React.Component {
             this.props.getCartItems()
         }
 
-        this.props.getTimeSlots(this.props.match.params.id, this.props.match.params.clinicId, (timeSlots) => {
-            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves })
-        })
-
         this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
 
+        if(this.props.selectedSlot && this.props.selectedSlot.date && !this.props.selectedSlot.summaryPage){
+            this.setState({DATA_FETCH: true})
+        }else{
+            
+            this.props.getTimeSlots(this.props.match.params.id, this.props.match.params.clinicId, (timeSlots) => {
+                this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true })
+            })   
+        }
 
     }
 
