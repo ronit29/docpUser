@@ -276,6 +276,13 @@ class DoctorProfileView extends React.Component {
                                                             recommendDocs={nearbyDoctors.result && nearbyDoctors.result.length}
                                                             {...this.props}
                                                         />
+                                                        <div className="widge-content pd-0">
+                                                            {
+                                                                this.props.DOCTORS[doctor_id].about ? <AboutDoctor
+                                                                    details={this.props.DOCTORS[doctor_id]}
+                                                                /> : ""
+                                                            }
+                                                        </div>
                                                         {
                                                             nearbyDoctors && Object.keys(nearbyDoctors).length ?
                                                                 <div className="widge-content pd-0">
@@ -348,11 +355,6 @@ class DoctorProfileView extends React.Component {
                                                                 </div> : ''
                                                         }
                                                         <div className="widge-content pd-0">
-                                                            {
-                                                                this.props.DOCTORS[doctor_id].about ? <AboutDoctor
-                                                                    details={this.props.DOCTORS[doctor_id]}
-                                                                /> : ""
-                                                            }
 
                                                             {
                                                                 (this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) ? <ClinicSelector
