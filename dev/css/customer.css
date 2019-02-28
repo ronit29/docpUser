@@ -102,7 +102,7 @@
 /*search book*/
 .search-book-result{padding-top: 0px;}
 .search-book-header{height: auto;top: 104px !important;}
-.filter-row{position: fixed; left: 0; right: 0; top: 100px; z-index: 8; background-color: #f8f8f8;}
+.filter-row{position: fixed; left: 0; right: 0; top: 89px; z-index: 8; background-color: #f8f8f8;}
 
 .filter-item{padding: 10px 0;}
 .filter-title{ font-size: 14px; font-weight: 500;}
@@ -1505,7 +1505,6 @@ p.rt-doc-nm{
 
 .banner-carousel-div>img{
     width: 100%;
-    cursor: pointer;
 }
 
 .banner-carousel-div .clickable-banner{
@@ -1917,4 +1916,20 @@ p.rt-doc-nm{
 .alignShareBtn{
 	text-align: right;
 	width: auto !important;
+}
+
+.dp-price-dtls-div{
+    margin-top: 4px;
+}
+
+.dp-price-dtls-div p{
+    font-size: 12px;
+}
+
+.dp-price{
+    color: #757575;
+}
+
+.exclsv-price{
+    color: #f78631;
 }

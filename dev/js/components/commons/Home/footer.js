@@ -162,18 +162,18 @@ class Footer extends React.Component {
                                             e.preventDefault();
                                             this.navigateTo("/search?from=footer")
                                         }}>Book a Medical Test</a></li>
-                                        <li><a href="/mobileviewchat" onClick={(e) => {
+                                        <li><a href="/online-consultation" onClick={(e) => {
                                             e.preventDefault();
-                                            this.navigateTo("/mobileviewchat")
+                                            this.navigateTo("/online-consultation")
                                         }}>Consult a Doctor</a></li>
                                         <li><a href="/referral" onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/referral")
                                         }}>Refer & Earn</a></li>
-                                        <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
+                                        {/* <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/full-body-checkup-health-packages?fromFooter=true")
-                                        }}>Book Full Body Packages</a></li>
+                                        }}>Book Full Body Packages</a></li> */}
                                     </ul> : ""
                                 }
                                 <h3 className="foot-sub-lisitng">For Doctors</h3>

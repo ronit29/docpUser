@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, TOGGLE_404 } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, TOGGLE_404, CLEAR_OPD_SEARCH_ID, SELECT_OPD_PAYMENT_TYPE } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -159,13 +159,13 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			})
 		}
 
-		let specialization_ids = specializations && specializations.length?specializations.map(x=>x.id).join(','):''
-		let condition_ids = conditions && conditions.length?conditions.map(x=>x.id).join(','):''
-		let procedure_ids = procedures&& procedures.length?procedures.map(x=>x.id).join(','):''
-		let procedure_category_ids = procedure_category && procedure_category.length?procedure_category.map(x=>x.id).join(','):''
+		let specialization_ids = specializations && specializations.length ? specializations.map(x => x.id).join(',') : ''
+		let condition_ids = conditions && conditions.length ? conditions.map(x => x.id).join(',') : ''
+		let procedure_ids = procedures && procedures.length ? procedures.map(x => x.id).join(',') : ''
+		let procedure_category_ids = procedure_category && procedure_category.length ? procedure_category.map(x => x.id).join(',') : ''
 		if (page == 1) {
 			let data = {
-				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': procedure_category_ids , 'doctor_name': filterCriteria.doctor_name || '', 'hospital_name': filterCriteria.hospital_name||'', 'hospital_id': filterCriteria.hospital_id||''
+				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': procedure_category_ids, 'doctor_name': filterCriteria.doctor_name || '', 'hospital_name': filterCriteria.hospital_name || '', 'hospital_id': filterCriteria.hospital_id || ''
 			}
 			GTM.sendEvent({ data: data })
 		}
@@ -454,5 +454,18 @@ export const toggle404 = (status = false) => (dispatch) => {
 	dispatch({
 		type: TOGGLE_404,
 		payload: status
+	})
+}
+
+export const clearOpdSearchId = () => (dispatch)=>{
+	dispatch({
+		type: CLEAR_OPD_SEARCH_ID
+	})
+} 
+
+export const select_opd_payment_type = (type = 1) => (dispatch) => {
+	dispatch({
+		type: SELECT_OPD_PAYMENT_TYPE,
+		payload: type
 	})
 }

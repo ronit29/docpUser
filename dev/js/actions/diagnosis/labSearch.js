@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID,TOGGLE_PACKAGE_ID } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
@@ -326,6 +326,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let gender = filterCriteriaPackages.gender || ""
 	let package_type = filterCriteriaPackages.packageType || ""
 	let test_ids = filterCriteriaPackages.test_ids || ""
+	let package_ids = filterCriteriaPackages.package_ids || ""
 
 	let url = `/api/v1/diagnostic/packagelist?`
 	
@@ -339,7 +340,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!forTaxSaver) {
 
-		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}`
+		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {
@@ -430,6 +431,20 @@ export const getNewLabTimeSlots = (labId, pickup, pincode, date, callback) => (d
 
 	})
 }
+
+export const setPackageId = (package_id) =>(dispatch) =>{
+
+	dispatch({
+		type: TOGGLE_PACKAGE_ID,
+		package_id: package_id
+	})
+
+}
+export const clearLabSearchId = () => (dispatch)=>{
+	dispatch({
+		type: CLEAR_LAB_SEARCH_ID
+	})
+} 
 
 
 

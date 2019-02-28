@@ -268,7 +268,7 @@ class DesktopProfileHeader extends React.Component {
                                 </div>
                             }
 
-                            <div className="head-links d-none" onClick={() => {
+                            <div className="head-links" onClick={() => {
                                 this.props.history.push('/contact')
                             }}>
                                 <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />

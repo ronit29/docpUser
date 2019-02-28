@@ -18,11 +18,11 @@ class TopBar extends React.Component {
             priceRange: [0, 20000],
             distanceRange: [0, 15],
             sort_on: null,
-            shortURL: "",
+            // shortURL: "",
             dropdown_visible: false,
-            showLocationPopup: false,
-            overlayVisible: false,
-            showPopupContainer: true,
+            // showLocationPopup: false,
+            // overlayVisible: false,
+            // showPopupContainer: true,
             sortText: 'Relevance',
             openCategory: false,
             isCategoryApplied:false,
@@ -33,36 +33,37 @@ class TopBar extends React.Component {
             packageType:'',
             gender:'',
             catIds:[],
-            test_ids:''
+            test_ids:'',
+            package_ids:''
         }
     }
 
     componentWillReceiveProps(props) {
         this.setState({ ...props.filterCriteriaPackages })
-        if (props.locationType && !props.locationType.includes("geo")) {
-            this.setState({ showLocationPopup: false })
-        } else {
-            if (props.seoData && props.seoData.location) {
-                this.setState({ showLocationPopup: false })
-            } else {
-                if (props.selectedLocation != this.props.selectedLocation) {
-                    this.setState({ showLocationPopup: true, overlayVisible: true })
-                }
-            }
-        }
-        this.shortenUrl()
+        // if (props.locationType && !props.locationType.includes("geo")) {
+        //     this.setState({ showLocationPopup: false })
+        // } else {
+        //     if (props.seoData && props.seoData.location) {
+        //         this.setState({ showLocationPopup: false })
+        //     } else {
+        //         if (props.selectedLocation != this.props.selectedLocation) {
+        //             this.setState({ showLocationPopup: true, overlayVisible: true })
+        //         }
+        //     }
+        // }
+        // this.shortenUrl()
     }
 
     componentDidMount() {
         this.setState({ ...this.props.filterCriteriaPackages })
-        this.shortenUrl()
-        if (this.props.seoData && this.props.seoData.location) {
-            this.setState({ showLocationPopup: false })
-        } else {
-            if (this.props.locationType.includes("geo")) {
-                this.setState({ showLocationPopup: true, overlayVisible: true })
-            }
-        }
+        // this.shortenUrl()
+        // if (this.props.seoData && this.props.seoData.location) {
+        //     this.setState({ showLocationPopup: false })
+        // } else {
+        //     if (this.props.locationType.includes("geo")) {
+        //         this.setState({ showLocationPopup: true, overlayVisible: true })
+        //     }
+        // }
         if(!this.props.forOrganicSearch){
             var url_string = window.location.href
             var url = new URL(url_string);
@@ -88,7 +89,8 @@ class TopBar extends React.Component {
             gender: this.state.gender,
             packageType: this.state.packageType,
             catIds:this.state.catIds,
-            test_ids:this.state.test_ids
+            test_ids:this.state.test_ids,
+            package_ids:this.state.package_ids
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
@@ -131,17 +133,17 @@ class TopBar extends React.Component {
         })
     }
 
-    getCriteriaString(selectedCriterias) {
-        if (selectedCriterias && selectedCriterias.length) {
-            return selectedCriterias.reduce((final, curr, i) => {
-                if (i != 0) {
-                    final += ', '
-                }
-                final += `${curr.name}`
-                return final
-            }, "")
-        }
-    }
+    // getCriteriaString(selectedCriterias) {
+    //     if (selectedCriterias && selectedCriterias.length) {
+    //         return selectedCriterias.reduce((final, curr, i) => {
+    //             if (i != 0) {
+    //                 final += ', '
+    //             }
+    //             final += `${curr.name}`
+    //             return final
+    //         }, "")
+    //     }
+    // }
 
     isFilterApplied() {
         const def = {
@@ -160,28 +162,28 @@ class TopBar extends React.Component {
         }
     }
 
-    shortenUrl() {
-        if (window) {
-            let url = window.location.href + '&force_location=true'
-            this.props.urlShortner(url, (err, data) => {
-                if (!err) {
-                    this.setState({ shortURL: data.tiny_url })
-                }
-            })
-        }
-    }
+    // shortenUrl() {
+    //     if (window) {
+    //         let url = window.location.href + '&force_location=true'
+    //         this.props.urlShortner(url, (err, data) => {
+    //             if (!err) {
+    //                 this.setState({ shortURL: data.tiny_url })
+    //             }
+    //         })
+    //     }
+    // }
 
-    overlayClick() {
-        this.setState({ overlayVisible: false, searchCities: [] });
-    }
+    // overlayClick() {
+    //     this.setState({ overlayVisible: false, searchCities: [] });
+    // }
 
-    hideLocationPopup() {
-        this.setState({ showLocationPopup: false });
-    }
+    // hideLocationPopup() {
+    //     this.setState({ showLocationPopup: false });
+    // }
 
-    popupContainer() {
-        this.setState({ showPopupContainer: false, showLocationPopup: false });
-    }
+    // popupContainer() {
+    //     this.setState({ showPopupContainer: false, showLocationPopup: false });
+    // }
     toggleCategory(event) {
         this.setState({
             openCategory: !this.state.openCategory
@@ -201,7 +203,8 @@ class TopBar extends React.Component {
             min_age: this.state.min_age,
             gender:this.state.gender,
             packageType: this.state.packageType,
-            test_ids:this.state.test_ids
+            test_ids:this.state.test_ids,
+            package_ids:this.state.package_ids
         }
         // let isCategory = false 
         // if(this.state.initialSelectedCatIds != categoryState.length){
@@ -216,19 +219,31 @@ class TopBar extends React.Component {
         this.setState({initialSelectedCatIds:selectedcategory.length})
     }
 
-    goToLocation() {
-        this.setState({
-            searchCities: []
-        })
-        let location_url = '/locationsearch'
-        let data = {
-            'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
-        }
-        GTM.sendEvent({ data: data })
-        this.props.history.push(location_url)
-    }
+    // goToLocation() {
+    //     this.setState({
+    //         searchCities: []
+    //     })
+    //     let location_url = '/locationsearch'
+    //     let data = {
+    //         'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
+    //     }
+    //     GTM.sendEvent({ data: data })
+    //     this.props.history.push(location_url)
+    // }
 
     render() {
+
+        // if(document.getElementById("filter-scroll")){
+        //     window.onscroll = function() {
+        //     var currentScrollPos = window.pageYOffset
+        //       if (currentScrollPos > 0) {
+        //         document.getElementById("filter-scroll").classList.add("d-none")
+        //       } else {
+        //         document.getElementById("filter-scroll").classList.remove("d-none")
+        //       }
+        //     }
+        // }
+
         var selectedTests = []
         if (this.props.currentSearchedCriterias.length) {
             for (var i = 0; i < this.props.currentSearchedCriterias.length; i++) {
@@ -241,16 +256,16 @@ class TopBar extends React.Component {
             sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
         }
 
-        let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
-        let locationName = ""
-        if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-            locationName = this.props.selectedLocation.formatted_address
-        }
-        if (this.props.seoData && this.props.seoData.location) {
-            locationName = this.props.seoData.location
-        }
+        // let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
+        // let locationName = ""
+        // if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+        //     locationName = this.props.selectedLocation.formatted_address
+        // }
+        // if (this.props.seoData && this.props.seoData.location) {
+        //     locationName = this.props.seoData.location
+        // }
         return (
-            <div>
+            <div className="filter-row sticky-header mbl-stick">
                 {
                     this.state.dropdown_visible ?
                      <div>
@@ -269,12 +284,13 @@ class TopBar extends React.Component {
                                 </ul>
                                 </div>
                             </div>
-                            
                         </div>
                     </div> : ""
                 }
-                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">{this.props.forOrganicSearch?'Full Body Checkup Packages':'Health Packages'}</span></li></ul></div>
-                <section className="filter-row sticky-header mbl-stick">
+                {this.props.forOrganicSearch?
+                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
+                :''}
+                <section className="scroll-shadow-bar">
                 {
                     this.props.forTaxSaver?'':
                     <div className="top-filter-tab-container">
@@ -292,121 +308,6 @@ class TopBar extends React.Component {
                         </div>
                     </div>
                 }
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-12">
-                                {
-                                    this.props.lab_card ?
-                                        <div style={{ padding: '10px 0px' }}>
-                                            <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
-                                                <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
-                                                        <h1 className="search-result-heading">
-                                                        <span className="fw-700"> {this.props.forOrganicSearch?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
-                                                        </h1>
-                                                        <span className="search-result-span"> {criteriaStr}
-                                                            {
-                                                                locationName ? ` in ${locationName}` : ''
-                                                            }
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div className="text-right" style={{ width: 65, cursor: 'pointer' }} onClick={() => this.props.history.push(`/locationsearch?lab_card=true&id=${selectedTests}`)}>
-                                                    <p className="fw-500 text-primary" style={{ fontSize: 14 }} >Change</p>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex lc-filter-sort-div mrt-10">
-                                                <div className="lc-filter-div d-flex" onClick={this.toggleFilter.bind(this)}>
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/lc-filter.svg"} style={{ width: 18 }} />
-                                                    <p className="fw-500 text-primary" style={{ marginLeft: 4 }}>Filter</p>
-                                                </div>
-                                                <div className="lc-sort-div d-flex" onClick={this.handleOpen.bind(this)}>
-                                                    <p className="fw-500 text-primary" style={{ marginRight: 4 }}>{this.state.sort_on === "" || !this.state.sort_on ? 'Relevance' : sortType}</p>
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/orange-down.svg"} style={{ width: 10 }} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        :
-                                        <div className="filter-pdng">
-                                             <div className="action-filter d-none d-md-block alignShareBtn">
-                                                <ul className="inline-list">
-                                                    <li className="d-none d-md-inline-block">
-                                                        <CopyToClipboard text={this.state.shortURL}
-                                                            onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." }); }}>
-                                                            <span style={{ cursor: 'pointer' }}>
-                                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                                            </span>
-                                                        </CopyToClipboard>
-                                                    </li>
-                                                    {/*<li style={{display:'none'}} onClick={this.handleOpen.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/range.svg"} className="img-fluid" /></span></li>
-                                                    <li style={{display:'none'}} onClick={this.toggleFilter.bind(this)}><span className="ct-img ct-img-sm filter-icon text-right applied-filter"><img src={ASSETS_BASE_URL + "/img/customer-icons/filter.svg"} className="img-fluid" /></span>
-                                                        {
-                                                            this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
-                                                        }
-                                                    </li>
-                                                    <li className="cat-ico-text" onClick={this.toggleCategory.bind(this)}>
-                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/categories.svg"} className="img-fluid" />
-                                                    <span style={{marginTop:'1px'}} className="ct-img ct-img-sm filter-icon text-right applied-filter">Category
-                                                    </span>
-                                                        {
-                                                            this.isFilterApplied.call(this) ? <span className="applied-filter-noti" /> : ""
-                                                        }
-                                                    </li>*/}
-                                                </ul>
-                                            </div> 
-                                            <div className="filter-title">
-                                            
-                                                {this.props.packagesList?this.props.packagesList.count:''} Results found for 
-                                                <h1 className="search-result-heading">
-                                                <span className="fw-700"> {this.props.forOrganicSearch?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
-                                                </h1>
-                                                <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
-
-                                                    {
-                                                        this.state.showLocationPopup && false ? ''
-                                                            : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
-                                                    }
-                                                    <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                                </span>
-                                            </div>
-                                        </div>
-                                }
-                                {/*{
-                                    this.state.dropdown_visible ?
-                                        <div>
-                                            <div className="sort-dropdown-overlay" onClick={this.hideSortDiv.bind(this)} ></div>
-                                            <div className="sort-dropdown-div">
-                                                <ul className="sort-dropdown-list">
-                                                    <li className={`sort-dropdown-list-item  ${!!!this.state.sort_on ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, "")}>Relevance</li>
-                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'fees' ? 'sort-item-selected' : ''}`} onClick={this.handleClose.bind(this, 'fees')}>Fee</li>
-                                                    <li className={`sort-dropdown-list-item ${this.state.sort_on == 'distance' ? 'sort-item-selected' : ''} `} onClick={this.handleClose.bind(this, 'distance')}>Distance</li>
-                                                </ul>
-                                            </div>
-                                        </div> : ""
-                                }*/}
-                            </div>
-                        </div>
-                        {
-                            this.state.showLocationPopup ?
-                                this.props.lab_card && this.state.showPopupContainer ?
-                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
-                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                                : ''
-                        }
-
-                        {
-                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.lab_card ?
-                                <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div> : ''
-                        }
-
-                        {
-                            this.state.showLocationPopup && this.props.lab_card && this.state.showPopupContainer ?
-                                <div className="popupContainer-overlay"></div>
-                                : ''
-                        }
-
-                    </div>
-
                 </section>
                 {
                     this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">

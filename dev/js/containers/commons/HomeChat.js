@@ -83,8 +83,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
-        toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filters)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filters)),
         getUserProfile: () => dispatch(getUserProfile()),
         fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
         fetchArticles: () => dispatch(fetchArticles()),
