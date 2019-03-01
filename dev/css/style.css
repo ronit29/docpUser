@@ -6568,6 +6568,7 @@ span.pkg-ofr-ribbon:after {
     display: inline-block;
 	max-width: 70%;
 	margin-right: 2px;
+	font-size: 13px;
 }
 .pkg-content-section{
 	padding: 10px;
@@ -6576,7 +6577,7 @@ span.pkg-ofr-ribbon:after {
 	margin-top: 10px;
 }
 .pkg-labDoc-Name{
-	font-size: 16px;
+	font-size: 14px;
     font-weight: 500;
     margin: 5px 0px;
 }
@@ -6609,23 +6610,29 @@ span.pkg-ofr-ribbon:after {
     padding: 4px;
     text-align: center;
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 11px;
 }
 .pkg-includes-container{
-	margin-top: 15px;
+	margin-top: 8px;
 	display: flex;
 }
 li.pkgIncludeList {
-    align-items: center;
+	align-items: center;
     background: #fff0e5;
     color: #e3711c;
-    padding: 2px 7px;
+    padding: 2px 3px;
     border-radius: 4px;
     font-weight: 500;
     display: inline-flex;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    font-size: 10px;
+}
+.pkgIncludeList img{
+	flex-grow: 0;
+	flex-shrink: 0;
+	width: 14px;
+    margin-right: 2px;
 }
 .pkgLblheading{
 	margin-right: 10px;
