@@ -21,14 +21,14 @@ class LabProfileCard extends React.Component {
 
     openLab(id, url, e) {
         this.props.clearExtraTests()
-        if(this.props.noClearTest){
+        if (this.props.noClearTest) {
             //package conditions for seo page
             let lab_id
-            let test={} 
+            let test = {}
             let data = this.props.details
-            if(data.id != id){
+            if (data.id != id) {
                 lab_id = id
-            }else{
+            } else {
                 lab_id = data.id
             }
             test.type = 'test'
@@ -41,7 +41,7 @@ class LabProfileCard extends React.Component {
             test.lab_id = lab_id
             test.extra_test = true
             this.props.toggleDiagnosisCriteria('test', test, true)
-        }else{
+        } else {
             //for tests
             this.mergeTests(id)
         }
@@ -68,7 +68,7 @@ class LabProfileCard extends React.Component {
         }
     }
 
-    mergeTests(id){
+    mergeTests(id) {
         let dedupe_ids = {}
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
@@ -96,12 +96,12 @@ class LabProfileCard extends React.Component {
             })
     }
 
-    bookNowClicked(id, url=''){
+    bookNowClicked(id, url = '') {
         this.mergeTests(id)
         this.props.history.push(`/lab/${id}/book`)
     }
 
-    testInfo(test_id, lab_id, test_url,event) {
+    testInfo(test_id, lab_id, test_url, event) {
         let selected_test_ids = []
         Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
             selected_test_ids.push(value.id)
@@ -111,17 +111,17 @@ class LabProfileCard extends React.Component {
         var search_id = url.searchParams.get("search_id");
         let lat = 28.644800
         let long = 77.216721
-        if(this.props.selectedLocation !== null){
+        if (this.props.selectedLocation !== null) {
             lat = this.props.selectedLocation.geometry.location.lat
             long = this.props.selectedLocation.geometry.location.lng
 
             if (typeof lat === 'function') lat = lat()
             if (typeof long === 'function') long = long()
         }
-        if(test_url && test_url !=''){
-            this.props.history.push('/'+test_url+'?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat='+lat+'&long='+long)
-        }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id +'&lat='+lat+'&long='+long)
+        if (test_url && test_url != '') {
+            this.props.history.push('/' + test_url + '?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat=' + lat + '&long=' + long)
+        } else {
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat=' + lat + '&long=' + long)
         }
         event.stopPropagation()
         let data = {
@@ -165,7 +165,7 @@ class LabProfileCard extends React.Component {
             })
         }
         let show_detailsIds = []
-        if(!this.props.isTestInfo){
+        if (!this.props.isTestInfo) {
             {
                 Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
                     if (value.show_details) {
@@ -184,7 +184,7 @@ class LabProfileCard extends React.Component {
                         </div>
                         <div className="row no-gutters mrt-10" onClick={this.bookNowClicked.bind(this, id, url)} style={{ cursor: 'pointer' }}>
                             <div className="col-12">
-                                <a>
+                                <a href={url} onClick={(e) => e.preventDefault()}>
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
                                 </a>
                                 {
@@ -199,11 +199,11 @@ class LabProfileCard extends React.Component {
                                             <img className="fltr-usr-image-lab" src={lab_thumbnail} />
                                         </InitialsPicture>
                                     </div>
-                                    <div style={{ marginLeft: '8px',marginRight: '8px' }}>
+                                    <div style={{ marginLeft: '8px', marginRight: '8px' }}>
                                         {
                                             this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
                                                 {
-                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id,this.props.details.tests[0].url)}>
+                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id, this.props.details.tests[0].url)}>
                                                         <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                     </span> : ''
                                                 }
@@ -211,20 +211,20 @@ class LabProfileCard extends React.Component {
                                         }
                                     </div>
                                 </div>
-                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests !=null ? <div style={{marginTop:'10px'}}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
-                                :''}
+                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests != null ? <div style={{ marginTop: '10px' }}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
+                                    : ''}
                                 {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].category_details && this.props.details.tests[0].category_details.length > 0 ?
-                                <ul style={{ marginTop: '5px' }}>
-                                    {
-                                        this.props.details.tests[0].category_details.map((category_detail, k) => {
-                                            return <li className="pkg-listing-tick" key={k} id={k}>
-                                                <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
-                                                {category_detail.category} ({category_detail.count})
+                                    <ul style={{ marginTop: '5px' }}>
+                                        {
+                                            this.props.details.tests[0].category_details.map((category_detail, k) => {
+                                                return <li className="pkg-listing-tick" key={k} id={k}>
+                                                    <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
+                                                    {category_detail.category} ({category_detail.count})
                                             </li>
-                                        })
-                                    }
-                                </ul>
-                            : ''}
+                                            })
+                                        }
+                                    </ul>
+                                    : ''}
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
                                 {
@@ -263,7 +263,7 @@ class LabProfileCard extends React.Component {
                                                         {
 
                                                             show_detailsIds.indexOf(test.id) > -1 ?
-                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id,test.url)}>
+                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id, test.url)}>
                                                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                                 </span> : ''
                                                         }
