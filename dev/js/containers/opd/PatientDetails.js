@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -9,6 +9,11 @@ import PatientDetailsView from '../../components/opd/patientDetails/index.js'
 class PatientDetails extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            timeSlots: null,
+            doctor_leaves: [],
+            DATA_FETCH: false
+        }
     }
 
     static contextTypes = {
@@ -25,14 +30,24 @@ class PatientDetails extends React.Component {
             this.props.fetchTransactions()
             this.props.getCartItems()
         }
+
         this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
+
+        if(this.props.selectedSlot && this.props.selectedSlot.date && !this.props.selectedSlot.summaryPage){
+            this.setState({DATA_FETCH: true})
+        }else{
+            
+            this.props.getTimeSlots(this.props.match.params.id, this.props.match.params.clinicId, (timeSlots) => {
+                this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true })
+            })   
+        }
 
     }
 
     render() {
 
         return (
-            <PatientDetailsView {...this.props} />
+            <PatientDetailsView {...this.props} {...this.state}/>
         );
     }
 }
@@ -66,7 +81,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchTransactions: () => dispatch(fetchTransactions()),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
         getCartItems: () => dispatch(getCartItems()),
-        select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type))
+        select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
+        getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback))
     }
 }
 

@@ -6779,6 +6779,43 @@ button.padding-btn-adjust{
     cursor: pointer;
     margin-top: 15px;
 }
+/* ============ time slot new card ============ */
+.avl-time-slot{
+	margin-bottom: 10px;
+    font-weight: 500;
+    margin-right: 10px;
+    padding-top: 5px;
+    color: #0ba624;
+    font-size: 13px;
+}
+.nw-tm-shift{
+	font-weight: 600;
+    margin-right: 5px;
+	padding-top: 4px;
+	font-size: 12px;
+	min-width: 70px;
+}
+.nw-time-st {
+    margin: 0;
+}
+.nw-time-slot-li{
+	margin: 0 0 0px 0 !important;
+    display: inline-block;
+    border-right: 1px solid rgba(0, 0, 0, .12);
+    text-align: center;
+    padding: 0px 6px;
+    color: #f78631;
+    font-size: 12px;
+}
+.nw-time-slot-li:last-child {
+	border-right: 0px;
+}
+.timeAfterSelect{
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+/* ============ time slot new card ============ */
 .pdd-12{
 	padding: 12px 0px
 }

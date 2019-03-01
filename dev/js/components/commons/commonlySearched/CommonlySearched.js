@@ -28,10 +28,10 @@ class CommonlySearched extends React.Component {
 
         } else if (this.props.type == 'test') {
 
-            let data = {
+            /*let data = {
                 'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
-            GTM.sendEvent({ data: data })
+            GTM.sendEvent({ data: data })*/
 
             row = Object.assign({}, row)
             row.type = 'test'
