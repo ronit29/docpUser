@@ -230,8 +230,8 @@ class SearchElasticView extends React.Component {
                 heading="Common Test"
                 type="test"
                 selectedSearchType={this.props.selectedSearchType}
-                data={this.props.dataState.common_tests.filter(x => !x.is_package)}
-                selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test').filter(x => !x.is_package)}
+                data={this.props.dataState.common_tests}
+                selected={this.props.dataState.selectedCriterias}
                 toggle={this.toggleLabTests.bind(this)}
                 selectedCriterias={this.props.dataState.selectedCriterias}
             />
