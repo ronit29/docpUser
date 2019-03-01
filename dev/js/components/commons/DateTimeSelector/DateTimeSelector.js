@@ -67,6 +67,10 @@ class DateTimeSelector extends React.Component {
             type = 0
         }
 
+        if(this.props.timeSlots && !Object.values(this.props.timeSlots).length){
+            return ({selectedTimeSlotDate, availableTimeSlots})
+        }
+
         do{
             if(this.props.timeSlots && this.props.timeSlots[currentTimeSlotDay] && this.props.timeSlots[currentTimeSlotDay].length){
 
@@ -112,16 +116,39 @@ class DateTimeSelector extends React.Component {
         let nextDate = new Date(selectedTimeSlotDate)
         nextDate.setDate(nextDate.getDate() + 1)
         let selectedDateCount = 1
+        let noTimeAvailable = false
         while(selectedDateCount!=3){
 
-            if(this.props.timeSlots[nextDate.getDay()== 0 ? 6 : nextDate.getDay() - 1].length){
-                let newDate = new Date(nextDate)
-                dateArray.push(newDate)
-                selectedDateCount++
+            if(this.props.timeSlots && Object.values(this.props.timeSlots).length){
+
+                if(this.props.timeSlots[nextDate.getDay()== 0 ? 6 : nextDate.getDay() - 1].length){
+                    let newDate = new Date(nextDate)
+                    dateArray.push(newDate)
+                    selectedDateCount++
+                }else{
+                    
+                    let currentTime = moment(new Date(selectedTimeSlotDate))
+                    let lastSearchTime = moment(new Date(nextDate))
+                    let diffDays = currentTime.diff(lastSearchTime, 'days')
+                    
+                    if(diffDays>8 && dateArray.length==0){
+                        noTimeAvailable = true
+                        break;
+                    }
+                }
+                nextDate.setDate(nextDate.getDate() + 1)    
+            }else{
+                noTimeAvailable = true
+                break
             }
-            nextDate.setDate(nextDate.getDate() + 1)
+            
         }
-        this.saveNextAvailableDate(dateArray)
+        if(noTimeAvailable){
+            this.generateDays(true, selectedTimeSlotDate)
+        }else{
+            this.saveNextAvailableDate(dateArray)    
+        }
+        
     }
 
     saveNextAvailableDate(dateArray){
@@ -156,7 +183,7 @@ class DateTimeSelector extends React.Component {
             currentDate = new Date()
 
         }
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
 
             offset.setDate(currentDate.getDate() + i)
             daySeries.push({
@@ -327,7 +354,7 @@ class DateTimeSelector extends React.Component {
 
         return isAnyTimeAvailable?
         timeSlotData
-        :<div>No timeslot available</div>
+        :''
 
     }
 
@@ -368,7 +395,7 @@ class DateTimeSelector extends React.Component {
 
                                             return <li key={key} onClick={this.selectDate.bind(this, day.dateNumber, day.day, day.dateString, day.month, day.dateFormat)}>
                                                 <p className={new Date(day.dateFormat).toDateString() == new Date(this.state.selectedDateSpan).toDateString() ? 'date-list-active' : (this.props.timeSlots && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1] && this.props.timeSlots[day.day == 0 ? 6 : day.day - 1].length > 0) ? '' : "time-disable"}>{day.dateNumber}
-                                                    <span>{day.dateNumber == currentDate ? 'Today' : day.tag}</span>
+                                                    <span>{new Date(day.dateFormat).toDateString() == new Date().toDateString() ? 'Today' : day.tag}</span>
                                                 </p>
                                             </li>
                                         })
@@ -412,7 +439,7 @@ class DateTimeSelector extends React.Component {
                         {
                             this.props.timeSlots && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1] && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].length ?
                                 this.getTimeSlots(type)
-                                :<div>No time slot available</div>
+                                :''
                         }
                     </div>
                 </div>
