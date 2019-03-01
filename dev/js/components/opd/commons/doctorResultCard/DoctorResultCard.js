@@ -22,7 +22,7 @@ class DoctorProfileCard extends React.Component {
 
     viewProfileClicked(id, url, hospital_id, e) {
         e.stopPropagation();
-        
+
         let data = {
             'Category': 'ConsumerApp', 'Action': 'OpdSearchViewProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-search-view-profile-clicked', 'selectedId': id
         }
@@ -51,7 +51,7 @@ class DoctorProfileCard extends React.Component {
         }
     }
 
-    bookNowClicked(id, url, hospital_id, e){
+    bookNowClicked(id, url, hospital_id, e) {
         //always clear selected time at doctor profile
         let slot = { time: {} }
         this.props.selectOpdTimeSLot(slot, false)
@@ -66,9 +66,9 @@ class DoctorProfileCard extends React.Component {
         this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
     }
 
-    trackingEventsBookNow(id){
+    trackingEventsBookNow(id) {
         let Distance = ''
-        
+
         if (this.props.details && this.props.details.distance) {
             Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
         }
@@ -87,7 +87,7 @@ class DoctorProfileCard extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
-        return ({category_ids, procedure_ids})
+        return ({ category_ids, procedure_ids })
 
     }
 
@@ -247,7 +247,7 @@ class DoctorProfileCard extends React.Component {
                         }
                         <div className="row no-gutters" >
                             <div className="col-12 mrt-10">
-                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()} title={display_name}>
+                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
                                     <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
                                 </a>
                                 {
@@ -304,7 +304,7 @@ class DoctorProfileCard extends React.Component {
                                             <p className="fltr-prices" style={{ marginTop: 4 }}>
                                                 &#x20B9;{finalProcedureMrp}
                                             </p>
-                                            : mrp ?
+                                            : mrp && mrp != 0 ?
                                                 <p className="fltr-prices" style={{ marginTop: 4 }}>
                                                     &#x20B9;{mrp}
                                                 </p> : ''
@@ -342,21 +342,23 @@ class DoctorProfileCard extends React.Component {
                             <div className="col-12 mrt-10">
                                 {
                                     enabled_for_hospital_booking ?
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <button className="fltr-cntct-btn btn-pdng" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Profile</button>
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <a href={url} onClick={(e) => e.preventDefault()}>
+                                                    <button className="fltr-cntct-btn btn-pdng" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Profile</button>
+                                                </a>
+                                            </div>
+                                            <div className="col-6">
+                                                <button onClick={this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-bkng-btn btn-pdng" >Book Now</button>
+                                            </div>
                                         </div>
-                                        <div className="col-6">
-                                            <button onClick={this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-bkng-btn btn-pdng" >Book Now</button>
-                                        </div> 
-                                    </div>
-                                    :<div className="row">
-                                        <div className="col-6"></div>
-                                        <div className="col-6">
-                                            <button onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-cntct-btn btn-pdng" >Contact
+                                        : <div className="row">
+                                            <div className="col-6"></div>
+                                            <div className="col-6">
+                                                <button onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-cntct-btn btn-pdng" >Contact
                                             </button>
+                                            </div>
                                         </div>
-                                    </div>
                                 }
                             </div>
                         </div>
