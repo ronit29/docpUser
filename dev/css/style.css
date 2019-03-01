@@ -6626,7 +6626,8 @@ li.pkgIncludeList {
     display: inline-flex;
     margin-right: 3px;
     margin-bottom: 3px;
-    font-size: 10px;
+	font-size: 10px;
+	min-height: 24px;
 }
 .pkgIncludeList img{
 	flex-grow: 0;
