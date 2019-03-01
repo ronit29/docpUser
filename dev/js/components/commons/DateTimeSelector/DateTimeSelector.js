@@ -34,12 +34,22 @@ class DateTimeSelector extends React.Component {
         }
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text) {
             this.props.enableProceed(true)
-            this.generateDays(true, this.props.selectedSlot.date)
+            //this.saveNextAvailableDate([this.props.selectedSlot.date])
+            this.getNextDates(this.props.selectedSlot.date)
+            //this.generateDays(true, this.props.selectedSlot.date)
         } else {
             //this.generateDays()
-            let time = this.getNextAvailableDate()
-            this.setState({selectedDateSpan: time, currentDate :new Date(time).getDate(), currentDay: new Date(time).getDay(), selectedMonth: new Date(time).getMonth()})
-            this.generateDays(true, time)
+            let { selectedTimeSlotDate, availableTimeSlots} = this.getNextAvailableDate()
+            
+            if(availableTimeSlots.length){
+               // this.saveNextAvailableDate([selectedTimeSlotDate])
+                this.setState({selectedDateSpan: selectedTimeSlotDate, currentDate :new Date(selectedTimeSlotDate).getDate(), currentDay: new Date(selectedTimeSlotDate).getDay(), selectedMonth: new Date(selectedTimeSlotDate).getMonth()})
+                this.getNextDates(selectedTimeSlotDate)
+            }else{
+                this.generateDays()    
+            }
+            
+            //this.generateDays(true, time)
         }
 
     }
@@ -51,6 +61,11 @@ class DateTimeSelector extends React.Component {
         let selectedTimeSlotDate = new Date()
         let sameDayTimeAvailable = false
         let availableTimeSlots = []
+        const parsed = queryString.parse(this.props.location.search)
+        let type = 1
+        if(parsed.type && parsed.type == 'opd'){
+            type = 0
+        }
 
         do{
             if(this.props.timeSlots && this.props.timeSlots[currentTimeSlotDay] && this.props.timeSlots[currentTimeSlotDay].length){
@@ -63,7 +78,7 @@ class DateTimeSelector extends React.Component {
                         if(isAvailable){
                             let available = true
                             //Only for OPD
-                            if(new Date().toDateString() == new Date(selectedTimeSlotDate).toDateString()){
+                            if(!type && new Date().toDateString() == new Date(selectedTimeSlotDate).toDateString()){
 
                                 if(timeSlot.value>=10.5 && timeSlot.value<=19.75){
                                 }else{
@@ -87,7 +102,46 @@ class DateTimeSelector extends React.Component {
 
         }while((sameDayTimeAvailable || currentTimeSlotDay != today) && availableTimeSlots.length==0)
 
-        return selectedTimeSlotDate
+
+        return ({selectedTimeSlotDate, availableTimeSlots})
+    }
+
+    getNextDates(selectedTimeSlotDate){
+        let dateArray = []
+        dateArray.push(selectedTimeSlotDate)
+        let nextDate = new Date(selectedTimeSlotDate)
+        nextDate.setDate(nextDate.getDate() + 1)
+        let selectedDateCount = 1
+        while(selectedDateCount!=3){
+
+            if(this.props.timeSlots[nextDate.getDay()== 0 ? 6 : nextDate.getDay() - 1].length){
+                let newDate = new Date(nextDate)
+                dateArray.push(newDate)
+                selectedDateCount++
+            }
+            nextDate.setDate(nextDate.getDate() + 1)
+        }
+        this.saveNextAvailableDate(dateArray)
+    }
+
+    saveNextAvailableDate(dateArray){
+        let daySeries = []
+
+        for(var i =0; i<dateArray.length;i++){
+
+            let offset = new Date(dateArray[i])
+            daySeries.push({
+                tag: WEEK_DAYS[offset.getDay()],
+                dateNumber: offset.getDate(),
+                day: offset.getDay(),
+                month: offset.getMonth(),
+                dateString: new Date(offset).toDateString(),
+                year: offset.getFullYear(),
+                dateFormat: new Date(offset)
+            })    
+        }
+    
+        this.setState({ daySeries: daySeries })
     }
 
     generateDays(getNewDates = false, selectedDate = '') {
@@ -141,7 +195,8 @@ class DateTimeSelector extends React.Component {
     pickDate() {
         if (this.state.pickedDate) {
             let selectedDate = new Date(this.state.pickedDate)
-            this.generateDays(true, selectedDate)
+            //this.generateDays(true, selectedDate)
+            this.getNextDates(selectedDate)
             this.selectDate(selectedDate.getDate(), selectedDate.getDay(), new Date(selectedDate).toDateString(), selectedDate.getMonth(), selectedDate)
         }
     }

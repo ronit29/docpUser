@@ -15,8 +15,46 @@ class VisitTimeNew extends React.Component {
         let selectedTimeSlotDate = new Date()
         let sameDayTimeAvailable = false
 
+        do{
+            if(this.props.timeSlots && this.props.timeSlots[currentTimeSlotDay] && this.props.timeSlots[currentTimeSlotDay].length){
+
+                this.props.timeSlots[currentTimeSlotDay].map((time)=>{
+
+                    time.timing.map((timeSlot)=>{
+
+                        let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
+                        if(isAvailable){
+                            let available = true
+                            //Only for OPD
+                            if(new Date().toDateString() == new Date(selectedTimeSlotDate).toDateString()){
+
+                                if(timeSlot.value>=10.5 && timeSlot.value<=19.75){
+                                }else{
+                                    available = false
+                                    sameDayTimeAvailable = true
+                                }
+
+                            }
+                            if(available){
+                                let timeData = Object.assign({}, timeSlot)
+                                timeData.title = time.title
+                                availableTimeSlots = availableTimeSlots.concat(timeData)
+                            }
+                        }
+                    })
+                })
+            }
+            if(availableTimeSlots.length){
+                break;
+            }
+            currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
+            selectedTimeSlotDate.setDate(selectedTimeSlotDate.getDate() + 1)
+
+        }while((sameDayTimeAvailable || currentTimeSlotDay != today) && availableTimeSlots.length==0)
+
+
         //Check if any timeslot available in current day
-        if(this.props.timeSlots && this.props.timeSlots[today] && this.props.timeSlots[today].length){
+      /*  if(this.props.timeSlots && this.props.timeSlots[today] && this.props.timeSlots[today].length){
 
             this.props.timeSlots[today].map((time)=>{
 
@@ -62,7 +100,8 @@ class VisitTimeNew extends React.Component {
                 }
                 currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
             }
-        }
+        }*/
+
 
         return availableTimeSlots.length?
         <div className="select-time-listing-container">
