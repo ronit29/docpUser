@@ -1,6 +1,7 @@
 import React from 'react';
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
+const moment = require('moment');
 
 class VisitTimeNew extends React.Component {
     constructor(props) {
@@ -21,10 +22,9 @@ class VisitTimeNew extends React.Component {
                 this.props.timeSlots[currentTimeSlotDay].map((time)=>{
 
                     time.timing.map((timeSlot)=>{
-
+                        let available = true
                         let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
                         if(isAvailable){
-                            let available = true
                             //Only for OPD
                             if(new Date().toDateString() == new Date(selectedTimeSlotDate).toDateString()){
 
@@ -40,6 +40,8 @@ class VisitTimeNew extends React.Component {
                                 timeData.title = time.title
                                 availableTimeSlots = availableTimeSlots.concat(timeData)
                             }
+                        }else{
+                            sameDayTimeAvailable = true
                         }
                     })
                 })
@@ -47,6 +49,15 @@ class VisitTimeNew extends React.Component {
             if(availableTimeSlots.length){
                 break;
             }
+
+            let currentSearch = moment(new Date())
+            let lastSearchTime = moment(new Date(selectedTimeSlotDate))
+            let diffDays = lastSearchTime.diff(currentSearch, 'days')
+            
+            if(diffDays>8 && availableTimeSlots.length==0){
+                break;
+            }
+
             currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
             selectedTimeSlotDate.setDate(selectedTimeSlotDate.getDate() + 1)
 

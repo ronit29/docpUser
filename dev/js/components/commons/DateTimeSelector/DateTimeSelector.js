@@ -78,9 +78,10 @@ class DateTimeSelector extends React.Component {
 
                     time.timing.map((timeSlot)=>{
 
+                        let available = true
                         let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
                         if(isAvailable){
-                            let available = true
+                            
                             //Only for OPD
                             if(!type && new Date().toDateString() == new Date(selectedTimeSlotDate).toDateString()){
 
@@ -94,6 +95,8 @@ class DateTimeSelector extends React.Component {
                             if(available){
                                 availableTimeSlots = availableTimeSlots.concat(timeSlot)
                             }
+                        }else{
+                            sameDayTimeAvailable = true
                         }
                     })
                 })
@@ -101,6 +104,15 @@ class DateTimeSelector extends React.Component {
             if(availableTimeSlots.length){
                 break;
             }
+
+            let currentSearch = moment(new Date())
+            let lastSearchTime = moment(new Date(selectedTimeSlotDate))
+            let diffDays = lastSearchTime.diff(currentSearch, 'days')
+            
+            if(diffDays>8 && availableTimeSlots.length==0){
+                break;
+            }
+
             currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
             selectedTimeSlotDate.setDate(selectedTimeSlotDate.getDate() + 1)
 
