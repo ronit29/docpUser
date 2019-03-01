@@ -365,8 +365,18 @@ class DateTimeSelector extends React.Component {
 
 
         return isAnyTimeAvailable?
-        timeSlotData
-        :''
+        <div className="select-time-slot-container">
+            <div className="slect-date-img-content mb-0">
+                <div className="date-text-img">
+                    <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                    <p>Select Time Slot</p>
+                </div>
+            </div>
+            {timeSlotData}
+        </div>
+        :<div className="select-time-slot-container">
+            <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+        </div>
 
     }
 
@@ -436,7 +446,7 @@ class DateTimeSelector extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="select-time-slot-container">
+                    {/*<div className="select-time-slot-container">
                         {
                             this.props.timeSlots && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1] && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].length ?
                                 <div className="slect-date-img-content mb-0">
@@ -448,12 +458,13 @@ class DateTimeSelector extends React.Component {
                                 : <p style={{ textAlign: 'center' }}>Not available on this day.</p>
                         }
 
-                        {
-                            this.props.timeSlots && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1] && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].length ?
-                                this.getTimeSlots(type)
-                                :''
-                        }
-                    </div>
+                        
+                    </div>*/}
+                    {
+                        this.props.timeSlots && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1] && this.props.timeSlots[this.state.currentDay == 0 ? 6 : this.state.currentDay - 1].length ?
+                            this.getTimeSlots(type)
+                            :''
+                    }
                 </div>
             </div>
         )
