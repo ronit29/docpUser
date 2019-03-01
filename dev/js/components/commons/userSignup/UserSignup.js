@@ -39,7 +39,8 @@ class UserSignupView extends React.Component {
             err: "",
             referralCode: parsed.referral || null,
             have_referralCode: !!parsed.referral,
-            dateModal: false
+            dateModal: false,
+            whatsaap_optin:true
         }
     }
 
@@ -49,6 +50,10 @@ class UserSignupView extends React.Component {
 
     toggleReferral(e) {
         this.setState({ have_referralCode: e.target.checked })
+    }
+
+    toggleWhatsap(e) {
+        this.setState({ whatsaap_optin: e.target.checked })
     }
 
     selectDateFromCalendar(date) {
@@ -133,7 +138,6 @@ class UserSignupView extends React.Component {
             if (this.state.referralCode && this.state.have_referralCode) {
                 post_data["referral_code"] = this.state.referralCode
             }
-
             this.props.createProfile(post_data, (err, res) => {
                 if (!err) {
                     // this.setState({ showMedical: true })
@@ -165,7 +169,6 @@ class UserSignupView extends React.Component {
     }
 
     render() {
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -281,6 +284,10 @@ class UserSignupView extends React.Component {
                                                                 </div>
                                                                 <div className="referral-select">
                                                                     <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have a referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
+                                                                </div>
+
+                                                                <div className="referral-select">
+                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsaap_optin} /><span className="checkmark"></span></label>
                                                                 </div>
                                                                 {
                                                                     this.state.have_referralCode ? <div className="referralContainer">

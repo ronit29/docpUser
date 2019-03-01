@@ -38,7 +38,8 @@ class BookingSummaryViewNew extends React.Component {
             profileDataFilled: true,
             is_cashback: false,
             use_wallet: true,
-            cart_item: parsed.cart_item
+            cart_item: parsed.cart_item,
+            whatsaap_optin: true,
         }
     }
 
@@ -309,7 +310,8 @@ class BookingSummaryViewNew extends React.Component {
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
-            cart_item: this.state.cart_item
+            cart_item: this.state.cart_item,
+            whatsaap_optin: this.state.whatsaap_optin
         }
 
         if (this.props.disCountedLabPrice) {
@@ -438,6 +440,10 @@ class BookingSummaryViewNew extends React.Component {
         } else {
             this.props.history.push(`/lab/${id}`)
         }
+    }
+
+    toggleWhatsap(e) {
+        this.setState({ whatsaap_optin: e.target.checked })
     }
 
     render() {
@@ -735,6 +741,9 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </a>
 
+                                                    </div>
+                                                    <div className="referral-select">
+                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsaap_optin} /><span className="checkmark"></span></label>
                                                     </div>
 
                                                 </div>

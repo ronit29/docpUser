@@ -45,7 +45,7 @@ export const getUpcomingAppointments = () => (dispatch) => {
 }
 
 export const createProfile = (postData, cb) => (dispatch) => {
-
+	console.log(postData)
 	API_POST('/api/v1/user/userprofile/add', postData).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
