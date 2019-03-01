@@ -71,8 +71,7 @@ export default function (state = defaultState, action) {
                 selectedCriterias: [].concat(state.selectedCriterias),
                 lab_test_data: { ...state.lab_test_data },
                 filterCriteria: { ...state.filterCriteria },
-                nextFilterCriteria: { ...state.nextFilterCriteria },
-                filterCriteriaPackages: { ...state.filterCriteriaPackages }
+                nextFilterCriteria: { ...state.nextFilterCriteria }
             }
 
             newState.filterCriteria.lab_name = ""
@@ -80,9 +79,6 @@ export default function (state = defaultState, action) {
 
             newState.nextFilterCriteria.lab_name = ""
             newState.nextFilterCriteria.network_id = ""
-
-            newState.filterCriteriaPackages.lab_name = ""
-            newState.filterCriteriaPackages.network_id = ""
 
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
@@ -398,7 +394,8 @@ export default function (state = defaultState, action) {
 
         case TOGGLE_PACKAGE_ID: {
             let newState = {
-                ...state
+                ...state,
+                filterCriteriaPackages: { ...state.filterCriteriaPackages }
             }
 
             if (newState.filterCriteriaPackages) {

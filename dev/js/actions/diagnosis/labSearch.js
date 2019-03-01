@@ -424,13 +424,11 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 }
 
 export const setPackageId = (package_id, isHomePage) => (dispatch) => {
-
 	dispatch({
 		type: TOGGLE_PACKAGE_ID,
 		package_id: package_id,
 		isHomePage: isHomePage
 	})
-
 }
 
 export const toggleSearchPackages = (healthPackage) => (dispatch) => {

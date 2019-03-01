@@ -98,9 +98,9 @@ class SearchElasticView extends React.Component {
             })
             this.props.setPackageId(selectedPackagesIds, false)
         }
-        this.props.history.push({
-            pathname: '/searchpackages'
-        })
+        setTimeout(() => {
+            this.props.history.push('/searchpackages')
+        }, 100)
     }
 
     showDoctors(type) {
