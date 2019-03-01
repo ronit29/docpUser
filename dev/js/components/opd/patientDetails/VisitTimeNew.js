@@ -242,7 +242,7 @@ class VisitTimeNew extends React.Component {
                             <p className="avl-time-slot">Next available time slot</p>
                              {this.getTimeSlots()}
                         </div>
-                        :<div className="timeAfterSelect mbl-view-formatting text-right">
+                        :<div className="timeAfterSelect text-right">
                             <h4 className="date-time title">{ date? `${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()] }` :''} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>
                             {
                                 !this.props.hideChangeTime ? <a href="" onClick={(e) => {
