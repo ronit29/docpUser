@@ -6469,6 +6469,7 @@ cursor: pointer;
 .srch-prnsl-txt{
 	margin-bottom: 10px;
     font-weight: 500;
+    font-size: 12px;
 }
 
 /* ==================== popDesign ==================== */
@@ -6809,4 +6810,10 @@ button.padding-btn-adjust{
 /* ============ time slot new card ============ */
 .pdd-12{
 	padding: 12px 0px
+}
+.abt-doc-inlinetext{
+	display: inline;
+}
+.abt-doc-inlinetext p{
+	display: inline;
 }
