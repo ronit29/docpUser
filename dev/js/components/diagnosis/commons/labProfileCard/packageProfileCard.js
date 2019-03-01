@@ -68,13 +68,12 @@ class LabProfileCard extends React.Component {
             }
         }
     }
-    testInfo(test_id, event) {
+    testInfo(test_id) {
         let lab_id = this.props.details.lab.id
         // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
         // selected_test_ids = selected_test_ids.map(x => x.id)
         let selected_test_ids = test_id
         this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lab_id=' + lab_id + '&from=searchbooknow')
-        event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
         }
@@ -132,9 +131,14 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
+                                <a href={this.props.details.lab.url} onClick={(e) => 
+                                    {e.preventDefault()}}>
                                     <h2 className="pkg-labDoc-Name">{name} {show_details ?
-                                        <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block', cursor: 'pointer' }} onClick={this.testInfo.bind(this, id)}>
+                                        <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block', cursor: 'pointer' }} onClick={(e)=>{
+                                            e.preventDefault()
+                                            e.stopPropagation()
+                                            this.testInfo(id)}}>
+                                            
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                         </span> : ''}
                                     </h2>
