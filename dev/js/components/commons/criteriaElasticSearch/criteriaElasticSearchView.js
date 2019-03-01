@@ -388,20 +388,6 @@ class CriteriaElasticSearchView extends React.Component {
                                     </section> : ''
                             }
                             {
-                                !this.state.searchCities.length && this.state.type && (this.state.searchValue || Object.values(this.state.currentTestType).length)?
-                                <div style={{cursor:'pointer'}} onClick={() => {
-
-                                    let data = {
-                                        'Category': 'ConsumerApp', 'Action': 'ChangeTypeClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-type-clicked', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || ''
-                                    }
-                                    GTM.sendEvent({ data: data })
-
-                                    this.props.changeSelection(this.state.type, this.state.searchValue)
-                                }}>
-                                </div>
-                                :''
-                            }
-                            {
                                 this.state.searchCities.length > 0 ? "" : <div>
                                     {
                                         this.state.searchValue || Object.values(this.state.currentTestType).length ?
@@ -414,8 +400,18 @@ class CriteriaElasticSearchView extends React.Component {
                                                                 <p className="srch-heading">Search Results</p>
                                                                 {
                                                                     !this.state.searchCities.length && this.state.type && (this.state.searchValue || Object.values(this.state.currentTestType).length)?
-                                                                        <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.searchValue}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
-                                                                        :''
+                                                                    <div style={{cursor:'pointer'}} onClick={() => {
+
+                                                                        let data = {
+                                                                            'Category': 'ConsumerApp', 'Action': 'ChangeTypeClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-type-clicked', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                                        }
+                                                                        GTM.sendEvent({ data: data })
+
+                                                                        this.props.changeSelection(this.state.type, this.state.searchValue)
+                                                                    }}>
+                                                                    <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.searchValue}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
+                                                                    </div>
+                                                                    :''
                                                                 }
                                                                 {/*<p className="srch-heading">{cat.name}</p>*/}
                                                                 <div className="common-listing-cont">
