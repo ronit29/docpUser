@@ -96,7 +96,9 @@ class LabProfileCard extends React.Component {
             })
     }
 
-    bookNowClicked(id, url = '') {
+    bookNowClicked(id, url=''){
+        let slot = { time: {} }
+        this.props.selectLabTimeSLot(slot, false)
         this.mergeTests(id)
         this.props.history.push(`/lab/${id}/book`)
     }
