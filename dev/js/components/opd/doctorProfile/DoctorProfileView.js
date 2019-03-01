@@ -278,7 +278,7 @@ class DoctorProfileView extends React.Component {
                                                         />
                                                         <div className="widge-content pd-0">
                                                             {
-                                                                this.props.DOCTORS[doctor_id].about ? <AboutDoctor
+                                                                this.props.DOCTORS[doctor_id].about_web ? <AboutDoctor
                                                                     details={this.props.DOCTORS[doctor_id]}
                                                                 /> : ""
                                                             }
