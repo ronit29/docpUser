@@ -73,7 +73,13 @@ class AppointmentSlot extends React.Component {
         //2325
         let selectedLab = this.props.match.params.id
         date = this.getFormattedDate(date)
-        this.props.getNewLabTimeSlots(selectedLab, this.state.pickupType, this.props.pincode||'', date, (data) => {
+        let pincode = this.props.pincode
+        if(this.props.LABS[selectedLab] && this.props.LABS[selectedLab].lab && !this.props.LABS[selectedLab].lab.is_thyrocare){
+            pincode = ''
+        }
+
+
+        this.props.getNewLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
             let { time_slots, today_min, tomorrow_min, today_max } = data
             this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
         })
