@@ -130,6 +130,14 @@ class CriteriaElasticSearchView extends React.Component {
 
             }
             if (filterSearchResults) {
+
+                let filterResultsName = filterSearchResults.suggestion.map(x=>x.name).join(',')||''
+                let gtmData = {
+                    'Category': 'ConsumerApp', 'Action': 'searchquery', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-query', 'searchString': this.state.searchValue,
+                    'searchType': this.props.type, 'results': filterResultsName
+                }
+                GTM.sendEvent({ data: gtmData })
+
                 this.setState({ searchResults: filterSearchResults.suggestion, searchedCategories: filterSearchResults.suggestedCategories, loading: false, type: type, visibleType: visibleType })
             }
 
