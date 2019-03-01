@@ -6568,6 +6568,7 @@ span.pkg-ofr-ribbon:after {
     display: inline-block;
 	max-width: 70%;
 	margin-right: 2px;
+	font-size: 13px;
 }
 .pkg-content-section{
 	padding: 10px;
@@ -6576,7 +6577,7 @@ span.pkg-ofr-ribbon:after {
 	margin-top: 10px;
 }
 .pkg-labDoc-Name{
-	font-size: 16px;
+	font-size: 14px;
     font-weight: 500;
     margin: 5px 0px;
 }
@@ -6609,23 +6610,30 @@ span.pkg-ofr-ribbon:after {
     padding: 4px;
     text-align: center;
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 11px;
 }
 .pkg-includes-container{
-	margin-top: 15px;
+	margin-top: 8px;
 	display: flex;
 }
 li.pkgIncludeList {
-    align-items: center;
+	align-items: center;
     background: #fff0e5;
     color: #e3711c;
-    padding: 2px 7px;
+    padding: 2px 3px;
     border-radius: 4px;
     font-weight: 500;
     display: inline-flex;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+	font-size: 10px;
+	min-height: 24px;
+}
+.pkgIncludeList img{
+	flex-grow: 0;
+	flex-shrink: 0;
+	width: 14px;
+    margin-right: 2px;
 }
 .pkgLblheading{
 	margin-right: 10px;
@@ -6771,6 +6779,43 @@ button.padding-btn-adjust{
     cursor: pointer;
     margin-top: 15px;
 }
+/* ============ time slot new card ============ */
+.avl-time-slot{
+	margin-bottom: 10px;
+    font-weight: 500;
+    margin-right: 10px;
+    padding-top: 5px;
+    color: #0ba624;
+    font-size: 13px;
+}
+.nw-tm-shift{
+	font-weight: 600;
+    margin-right: 5px;
+	padding-top: 4px;
+	font-size: 12px;
+	min-width: 70px;
+}
+.nw-time-st {
+    margin: 0;
+}
+.nw-time-slot-li{
+	margin: 0 0 0px 0 !important;
+    display: inline-block;
+    border-right: 1px solid rgba(0, 0, 0, .12);
+    text-align: center;
+    padding: 0px 6px;
+    color: #f78631;
+    font-size: 12px;
+}
+.nw-time-slot-li:last-child {
+	border-right: 0px;
+}
+.timeAfterSelect{
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+/* ============ time slot new card ============ */
 .pdd-12{
 	padding: 12px 0px
 }
