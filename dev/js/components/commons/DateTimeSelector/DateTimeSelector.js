@@ -380,7 +380,7 @@ class DateTimeSelector extends React.Component {
 
     }
 
-    render() {console.log(this.state);
+    render() {
 
         let currentDate = new Date().getDate()
         const parsed = queryString.parse(this.props.location.search)
