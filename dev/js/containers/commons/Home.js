@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         clearAllTests: () => dispatch(clearAllTests()),
-        setPackageId: (package_id) => dispatch(setPackageId(package_id))
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage))
     }
 }
 

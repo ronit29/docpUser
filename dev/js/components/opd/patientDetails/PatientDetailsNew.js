@@ -462,6 +462,13 @@ class PatientDetailsNew extends React.Component {
         return `Confirm Booking`
     }
 
+    selectTimeSlot(slot) {
+        const parsed = queryString.parse(this.props.location.search)
+        slot.selectedDoctor = this.state.selectedDoctor
+        slot.selectedClinic = this.state.selectedClinic
+        this.props.selectOpdTimeSLot(slot, false)
+    }
+
     toggleWhatsap(e) {
         this.setState({ whatsaap_optin: e.target.checked })
     }
@@ -541,7 +548,7 @@ class PatientDetailsNew extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.DOCTORS[this.state.selectedDoctor] ?
+                                this.props.DOCTORS[this.state.selectedDoctor] && this.props.DATA_FETCH?
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
@@ -553,8 +560,12 @@ class PatientDetailsNew extends React.Component {
                                                             selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                             selectedClinic={this.state.selectedClinic}
                                                         />
-                                                        <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                                                        <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
+                                                                timeSlots={this.props.timeSlots}
+                                                                selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                                doctor_leaves={this.props.doctor_leaves || []}
+                                                            />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
