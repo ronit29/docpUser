@@ -729,7 +729,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div> : ""
                                                         }
 
-                                                        {patient && patient.whatsapp_optin == null  
+                                                        {patient && patient.whatsapp_optin == null ?
                                                             <div className="referral-select">
                                                                 <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                             </div>
