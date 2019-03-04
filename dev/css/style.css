@@ -6006,7 +6006,8 @@ h3.pkg-include{
 	background: white;
     box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    display: flex;
+	display: flex;
+	justify-content: space-between;
     margin: 12px 0;
     overflow: hidden;
 }
@@ -6015,11 +6016,17 @@ h3.pkg-include{
 }
 .wa-container{
 	background: #25d366;
-    padding: 12px;
+	padding: 12px;
+	display: flex;
+    align-items: center;
+}
+.wa-container img{ 
+flex-grow: 0;
+flex-shrink: 0;
 }
 .wa-logo-content p{
 	font-weight: 500;
-    padding: 0 10px;
+    padding: 10px;
     display: flex;
     align-items: center;
 }
