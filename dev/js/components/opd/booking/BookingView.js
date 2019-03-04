@@ -34,7 +34,7 @@ class BookingView extends React.Component {
             payment_success: this.props.location.search.includes('payment_success'),
             hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button'),
             isCompleted:false,
-            whatsaap_optin:true
+            whatsapp_optin:true
         }
     }
 
@@ -167,7 +167,10 @@ class BookingView extends React.Component {
     }
 
     toggleWhatsap(e) {
-        this.setState({ whatsaap_optin: e.target.checked })
+        this.setState({ whatsapp_optin: e.target.checked })
+        let profile = this.state.data.profile
+        console.log(profile)
+        console.log(this.props.updateUserAddress)
     }
 
     render() {
@@ -199,7 +202,7 @@ class BookingView extends React.Component {
                 let src = `https://cplcps.com/p.ashx?o=116216&e=4531&f=img&t=${this.state.data.id}`
                 summary_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
-        }
+        }   
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
@@ -215,7 +218,7 @@ class BookingView extends React.Component {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
                                         <div className="referral-select">
-                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsaap_optin} /><span className="checkmark"></span></label>
+                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                         </div>
                                         <div className="row">
                                             <div className="col-12">

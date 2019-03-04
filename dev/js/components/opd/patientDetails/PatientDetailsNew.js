@@ -41,7 +41,7 @@ class PatientDetailsNew extends React.Component {
             use_wallet: true,
             profileError: false,
             cart_item: parsed.cart_item,
-            whatsaap_optin: true,
+            whatsapp_optin: true,
         }
     }
 
@@ -290,7 +290,7 @@ class PatientDetailsNew extends React.Component {
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            whatsaap_optin: this.state.whatsaap_optin
+            whatsapp_optin: this.state.whatsapp_optin
         }
         if (this.props.disCountedOpdPrice && this.props.payment_type == 1) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -470,7 +470,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     toggleWhatsap(e) {
-        this.setState({ whatsaap_optin: e.target.checked })
+        this.setState({ whatsapp_optin: e.target.checked })
     }
 
     render() {
@@ -744,7 +744,7 @@ class PatientDetailsNew extends React.Component {
                                                         }
 
                                                         <div className="referral-select">
-                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsaap_optin} /><span className="checkmark"></span></label>
+                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                         </div>
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>

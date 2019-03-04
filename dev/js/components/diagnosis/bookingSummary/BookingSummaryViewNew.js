@@ -39,7 +39,7 @@ class BookingSummaryViewNew extends React.Component {
             is_cashback: false,
             use_wallet: true,
             cart_item: parsed.cart_item,
-            whatsaap_optin: true,
+            whatsapp_optin: true,
         }
     }
 
@@ -311,7 +311,7 @@ class BookingSummaryViewNew extends React.Component {
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            whatsaap_optin: this.state.whatsaap_optin
+            whatsapp_optin: this.state.whatsapp_optin
         }
 
         if (this.props.disCountedLabPrice) {
@@ -443,7 +443,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     toggleWhatsap(e) {
-        this.setState({ whatsaap_optin: e.target.checked })
+        this.setState({ whatsapp_optin: e.target.checked })
     }
 
     render() {
@@ -730,7 +730,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         }
 
                                                         <div className="referral-select">
-                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsaap_optin} /><span className="checkmark"></span></label>
+                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                         </div>
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
