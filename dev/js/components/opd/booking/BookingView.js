@@ -33,8 +33,7 @@ class BookingView extends React.Component {
             showCancel: false,
             payment_success: this.props.location.search.includes('payment_success'),
             hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button'),
-            isCompleted:false,
-            whatsapp_optin:true
+            isCompleted:false
         }
     }
 
@@ -166,11 +165,14 @@ class BookingView extends React.Component {
         this.props.history.push(where)
     }
 
-    toggleWhatsap(e) {
-        this.setState({ whatsapp_optin: e.target.checked })
-        let profile = this.state.data.profile
-        console.log(profile)
-        console.log(this.props.updateUserAddress)
+    toggleWhatsap(status,e) {
+        let profileData = {...this.state.data.profile}
+        if(status){
+            profileData.whatsapp_optin = true
+        }else{
+            profileData.whatsapp_is_declined = true
+        }
+        this.props.editUserProfile(profileData, profileData.id)
     }
 
     render() {
@@ -202,7 +204,7 @@ class BookingView extends React.Component {
                 let src = `https://cplcps.com/p.ashx?o=116216&e=4531&f=img&t=${this.state.data.id}`
                 summary_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
-        }   
+        }
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
@@ -217,18 +219,20 @@ class BookingView extends React.Component {
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
-                                        <div className="whatsappCardContainer">
-                                            <div className="wa-logo-content">
-                                                <div className="wa-container">
-                                                    <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
+                                        {profile && !profile.whatsapp_optin && !profile.whatsapp_is_declined ?
+                                            <div className="whatsappCardContainer">
+                                                <div className="wa-logo-content">
+                                                    <div className="wa-container">
+                                                        <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
+                                                    </div>
+                                                    <p>Docprime would like to send you updates through whatsapp</p>
                                                 </div>
-                                                <p>Docprime would like to send you updates through whatsapp</p>
+                                                <div className="allowDeclineContainer">
+                                                    <p className="allowBtns" onClick={this.toggleWhatsap.bind(this,true)}>Allow</p>
+                                                    <p className="declineBtns" onClick={this.toggleWhatsap.bind(this,false)}>Decline</p>
+                                                </div>
                                             </div>
-                                            <div className="allowDeclineContainer">
-                                                <p className="allowBtns" onClick={this.toggleWhatsap.bind(this,true)}>Allow</p>
-                                                <p className="declineBtns" onClick={this.toggleWhatsap.bind(this,false)}>Decline</p>
-                                            </div>
-                                        </div>
+                                        :''}
                                         <div className="row">
                                             <div className="col-12">
                                                 <div className="app-timeline book-confirmed-timeline">
