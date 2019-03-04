@@ -730,8 +730,12 @@ class BookingSummaryViewNew extends React.Component {
                                                         }
 
                                                         {!patient || (patient && patient.whatsapp_optin == null) ?
-                                                            <div className="referral-select">
-                                                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                            <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <div>
+                                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         :''}
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>

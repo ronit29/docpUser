@@ -92,7 +92,7 @@ class BasicDetails extends React.Component {
         let { name, email, gender, phone_number, profile_image, id, whatsapp_optin } = this.props.profileData
         profile_image = profile_image || (ASSETS_BASE_URL + "/img/customer-icons/user.png")
         return (
-            <section className="myProfile profile-details">
+            <section className="myProfile profile-details mrb-15">
                 {
                     this.state.loading ? "" : <div className="widget no-shadow no-radius">
                         <div className="widget-content">
@@ -141,14 +141,7 @@ class BasicDetails extends React.Component {
                                 <div className="labelWrap">
                                     <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="number">Mobile Number</label>
-                                </div>
-                                {
-                                    whatsapp_optin == null?
-                                    <div className="referral-select">
-                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.props.toggleWhatsap.bind(this,!this.props.whatsapp_optin)} checked={this.props.whatsapp_optin} /><span className="checkmark"></span></label>
-                                    </div>
-                                :''
-                                }    
+                                </div>    
 
                                 {/* <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
                                 e.preventDefault()

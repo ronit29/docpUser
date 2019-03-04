@@ -539,7 +539,6 @@ class PatientDetailsNew extends React.Component {
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
         }
-        console.log(patient)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />

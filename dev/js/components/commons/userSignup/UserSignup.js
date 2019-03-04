@@ -233,7 +233,7 @@ class UserSignupView extends React.Component {
 
                                             {
                                                 !this.state.showMedical ?
-                                                    <div className="widget mrng-top-12">
+                                                    <div className="widget mrng-top-12 mrb-15">
                                                         <div className="widget-content">
                                                             <form className="go-bottom" >
 
@@ -286,9 +286,6 @@ class UserSignupView extends React.Component {
                                                                     <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have a referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
                                                                 </div>
 
-                                                                <div className="referral-select">
-                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
-                                                                </div>
                                                                 {
                                                                     this.state.have_referralCode ? <div className="referralContainer">
                                                                         <div className="slt-nw-input">
@@ -301,7 +298,13 @@ class UserSignupView extends React.Component {
                                                     </div> : ""
                                             }
 
-
+                                            <div className="widget mrb-15">
+                                                <div className="widget-content">
+                                                    <div>
+                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </section>
 
                                         <span className="errorMessage">{this.state.err}</span>
