@@ -61,6 +61,12 @@ class CommonlySearched extends React.Component {
                 'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
             GTM.sendEvent({ data: data })
+
+        }else if (this.props.type == 'ipd') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'CommonIPDSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-ipd-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+            }
+            GTM.sendEvent({ data: data })            
         }
         this.props.toggle((this.props.type || row.type), row)
     }

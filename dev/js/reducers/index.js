@@ -15,6 +15,7 @@ import AUTH from './commons/auth.js'
 import SITE_MAP from './commons/siteMap.js'
 import LAB_SEARCH_DATA from './diagnosis/labSearchData.js'
 import ELASTIC_SEARCH from './commons/elasticSearch.js'
+import SEARCH_CRITERIA_IPD from './ipd/searchCriteria.js'
 
 const persistConfig = {
     key: 'root',
@@ -71,7 +72,8 @@ const allReducers = combineReducers({
     SITE_MAP,
     DOCTOR_PROFILES,
     LAB_SEARCH_DATA,
-    ELASTIC_SEARCH
+    ELASTIC_SEARCH,
+    SEARCH_CRITERIA_IPD
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers)

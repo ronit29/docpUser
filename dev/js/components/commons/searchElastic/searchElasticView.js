@@ -200,6 +200,22 @@ class SearchElasticView extends React.Component {
         this.props.toggleSearchPackages(criteria)
     }
 
+    searchProceedIPD(){
+
+    }
+
+    showIPD(){
+
+        this.props.history.push('/ipdInfo')
+    }
+
+    toggleIpd(type, criteria, searchString = ""){
+        let selectedCriteria = { ...criteria }
+        selectedCriteria.type = 'ipd'
+        this.props.toggleIPDCriteria(selectedCriteria, true)
+        this.showIPD()
+    }
+
     render() {
 
         let title = ''
@@ -250,6 +266,22 @@ class SearchElasticView extends React.Component {
                 toggle={this.togglePackages.bind(this)}
                 selectedCriterias={this.props.dataState.selectedPackages}
             />
+        }else if (this.props.selectedSearchType.includes('ipd')) {
+
+            title = "Search Surgery/Procedure"
+            searchProceed = this.searchProceedIPD.bind(this)
+            showResults = this.showIPD.bind(this)
+
+            commonSearched = <CommonlySearched
+                heading="Commonly Searched"
+                type="ipd"
+                selectedSearchType={this.props.selectedSearchType}
+                data={this.props.dataState.ipd_procedures}
+                selected={this.props.dataState.selectedCriterias}
+                toggle={this.toggleIpd.bind(this)}
+                selectedCriterias={this.props.dataState.selectedCriterias}
+            />
+
         }
 
         return (
