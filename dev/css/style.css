@@ -6618,16 +6618,17 @@ span.pkg-ofr-ribbon:after {
 }
 li.pkgIncludeList {
 	align-items: center;
-    background: #fff0e5;
+    background: #ffffff;
     color: #e3711c;
+    border: 1px solid #f7e1d0;
     padding: 2px 3px;
     border-radius: 4px;
     font-weight: 500;
     display: inline-flex;
     margin-right: 4px;
     margin-bottom: 4px;
-	font-size: 10px;
-	min-height: 24px;
+    font-size: 10px;
+    min-height: 24px;
 }
 .pkgIncludeList img{
 	flex-grow: 0;

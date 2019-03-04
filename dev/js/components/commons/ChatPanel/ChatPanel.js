@@ -334,9 +334,9 @@ class ChatPanel extends React.Component {
                 {
                     this.props.homePage || this.props.mobilechatview || this.props.noChatButton ? '' :
                         this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
-                            <div className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
+                            <section className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
-                            </div> : ""
+                            </section> : ""
                     // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
                     //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
                     // </div>

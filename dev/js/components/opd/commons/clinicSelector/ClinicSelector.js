@@ -143,8 +143,9 @@ class ClinicSelector extends React.Component {
                                                                 ? ''
                                                                 : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                         }
-                                                    </span> :
-                                                    <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
+                                                    </span>
+                                                    : hospital.mrp && hospital.mrp != 0 ?
+                                                        <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                             }
                                             <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
@@ -224,8 +225,9 @@ class ClinicSelector extends React.Component {
                                                                     ? ''
                                                                     : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                             }
-                                                        </span> :
-                                                        <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
+                                                        </span>
+                                                        : hospital.mrp && hospital.mrp != 0 ?
+                                                            <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                                 }
                                                 <span className="fw-500 test-name-item">Consultation Fee</span>
                                             </div>
