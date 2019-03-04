@@ -106,7 +106,7 @@ class CriteriaElasticSearchView extends React.Component {
 
         let type = ''
         let visibleType = ''
-        let filterResults = this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type, location)
+        let filterResults = this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type.includes('package') ? 'test' : this.props.type, location)
 
         let allSearchResults = this.props.getElasticCriteriaResults(this.state.searchValue.trim(), '', location)
 
@@ -137,8 +137,23 @@ class CriteriaElasticSearchView extends React.Component {
                     'searchType': this.props.type, 'results': filterResultsName
                 }
                 GTM.sendEvent({ data: gtmData })
-
-                this.setState({ searchResults: filterSearchResults.suggestion, searchedCategories: filterSearchResults.suggestedCategories, loading: false, type: type, visibleType: visibleType })
+                let filterData = filterSearchResults.suggestion
+                if (this.props.type.includes('package')) {
+                    filterData = filterSearchResults.suggestion.filter((x) => {
+                        if (x.is_package && x.is_package.length && x.is_package[0]) {
+                            return true
+                        }
+                        return false
+                    })
+                } else if (this.props.type.includes('lab')) {
+                    filterData = filterSearchResults.suggestion.filter((x) => {
+                        if (x.is_package && x.is_package.length && !x.is_package[0]) {
+                            return true
+                        }
+                        return false
+                    })
+                }
+                this.setState({ searchResults: filterData, searchedCategories: filterSearchResults.suggestedCategories, loading: false, type: type, visibleType: visibleType })
             }
 
         })
@@ -498,7 +513,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                         <p className="p-0" >Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                                     </div>
                                                                                 </li>
-                                                                                : (this.state.searchValue.length > 2)
+                                                                                : (this.state.searchValue.length > 2 && (this.props.type == 'lab'))
                                                                                     ? <li onClick={() => {
 
                                                                                         let data = {
@@ -514,8 +529,24 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                             </span>
                                                                                             <p className="p-0" >Search all Labs with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                                         </div>
-                                                                                    </li> : ''
+                                                                                    </li>
+                                                                                    : (this.state.searchValue.length > 2 && (this.props.type == 'package'))
+                                                                                        ? <li onClick={() => {
 
+                                                                                            let data = {
+                                                                                                'Category': 'ConsumerApp', 'Action': 'PackageNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                                                            }
+                                                                                            GTM.sendEvent({ data: data })
+
+                                                                                            this.props.searchProceed(this.state.searchValue)
+                                                                                        }}>
+                                                                                            <div className="serach-rslt-with-img">
+                                                                                                <span className="srch-rslt-wd-span text-center srch-img">
+                                                                                                    <img style={{ width: '22px', margin: '0px 10px' }} className="" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                                                                                </span>
+                                                                                                <p className="p-0" >Search all Packages with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
+                                                                                            </div>
+                                                                                        </li> : ''
                                                                         }
                                                                         {
                                                                             (this.state.searchValue.length > 2 && (this.props.type == 'opd' || this.props.type == 'procedures'))
