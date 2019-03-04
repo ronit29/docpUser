@@ -169,8 +169,16 @@ class BookingView extends React.Component {
         let profileData = {...this.state.data.profile}
         if(status){
             profileData.whatsapp_optin = true
+            SnackBar.show({ pos: 'bottom-center', text: "You whatsApp notifications has been enabled."})
+            setTimeout(() => {
+                document.getElementsByClassName('whatsappCardContainer')[0].classList.add('d-none')
+            }, 100)    
         }else{
             profileData.whatsapp_is_declined = true
+            SnackBar.show({ pos: 'bottom-center', text: "your whatsApp notifications has been disabled."})
+            setTimeout(() => {
+                document.getElementsByClassName('whatsappCardContainer')[0].classList.add('d-none')
+            }, 100)
         }
         this.props.editUserProfile(profileData, profileData.id)
     }
@@ -219,7 +227,7 @@ class BookingView extends React.Component {
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
-                                        {profile && !profile.whatsapp_optin && !profile.whatsapp_is_declined ?
+                                        {profile && !profile.whatsapp_optin && !profile.whatsapp_is_declined?
                                             <div className="whatsappCardContainer">
                                                 <div className="wa-logo-content">
                                                     <div className="wa-container">
@@ -229,7 +237,7 @@ class BookingView extends React.Component {
                                                 </div>
                                                 <div className="allowDeclineContainer">
                                                     <p className="allowBtns" onClick={this.toggleWhatsap.bind(this,true)}>Allow</p>
-                                                    <p className="declineBtns" onClick={this.toggleWhatsap.bind(this,false)}>Decline</p>
+                                                    <p className="declineBtns" style={{color:'#757575'}}onClick={this.toggleWhatsap.bind(this,false)}>Decline</p>
                                                 </div>
                                             </div>
                                         :''}
