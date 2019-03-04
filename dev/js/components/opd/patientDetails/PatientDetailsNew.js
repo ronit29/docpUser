@@ -539,7 +539,7 @@ class PatientDetailsNew extends React.Component {
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
         }
-
+        console.log(patient)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -742,6 +742,7 @@ class PatientDetailsNew extends React.Component {
                                                                 </div>
                                                             </div> : ""
                                                         }
+                                                        {!patient || (patient && patient.whatsapp_optin == null)?
                                                         <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div>
@@ -749,6 +750,7 @@ class PatientDetailsNew extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        :''}
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation rishi<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>

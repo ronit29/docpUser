@@ -87,15 +87,10 @@ class BasicDetails extends React.Component {
         }
     }
 
-    toggleWhatsap(e) {
-        this.setState({ whatsapp_optin: e.target.checked })
-    }
-
     render() {
 
-        let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
+        let { name, email, gender, phone_number, profile_image, id, whatsapp_optin } = this.props.profileData
         profile_image = profile_image || (ASSETS_BASE_URL + "/img/customer-icons/user.png")
-        console.log(this.props.profileData)
         return (
             <section className="myProfile profile-details">
                 {
@@ -147,9 +142,13 @@ class BasicDetails extends React.Component {
                                     <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="number">Mobile Number</label>
                                 </div>
-                                <div className="referral-select">
-                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
-                                </div>
+                                {
+                                    whatsapp_optin == null?
+                                    <div className="referral-select">
+                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.props.toggleWhatsap.bind(this,!this.props.whatsapp_optin)} checked={this.props.whatsapp_optin} /><span className="checkmark"></span></label>
+                                    </div>
+                                :''
+                                }    
 
                                 {/* <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
                                 e.preventDefault()
