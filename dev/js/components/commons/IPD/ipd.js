@@ -232,11 +232,11 @@ class IPD extends React.Component{
 					                   <li><img src="assets/images/food.png" alt="" /> Cafeteria </li>  
 					                   <li><img src="assets/images/pharmacy.png" alt="" /> Pharmacy  </li>  
 					                   <li><img src="assets/images/credit-card.png" alt="" /> Credit Card </li>  
-					                   <li><img src="assets/images/radiology.png" alt="" /> Radiology </li>  
+					                   <li><img src="assets/images/radiology.png" alt="" className="img-radiology" /> Radiology </li>  
 					                   <li><img src="assets/images/icu.png" alt="" /> ICU </li>  
 					                   <li><img src="assets/images/waiting-area.png" alt="" />  Reception </li>  
 					                   <li><img src="assets/images/help-desk.png" alt="" /> International Desk </li>  
-					                   <li><img src="assets/images/telemedicine.png" alt="" /> Telemedicine </li>  
+					                   <li><img src="assets/images/telemedicine.png" alt="" className="img-telemed" /> Telemedicine </li>  
 					                 </ul>
 					                 <a href="javascript:void(0);" className="btn-view-hospital btn-more">+12 more</a>
 					               </div>   
