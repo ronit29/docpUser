@@ -21,7 +21,7 @@ class Article extends React.Component {
                             resolve({ footerData: (footerData || null), articleData: data })
                         })()
                     } else {
-                        resolve(null)
+                        reject(null)
                     }
                 })(null)
             })

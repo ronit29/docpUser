@@ -228,7 +228,7 @@ class CriteriaElasticSearchView extends React.Component {
                 return
             } else if (criteria.type == "lab_test") {
 
-                if (!criteria.is_package) {
+                if (!criteria.is_package[0]) {
                     criteria.type = 'test'
                     criteria.id = criteria.action.value[0]
                     if (criteria.action.test_type && criteria.action.test_type.length) {
