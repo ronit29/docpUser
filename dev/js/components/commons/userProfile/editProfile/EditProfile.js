@@ -39,7 +39,7 @@ class EditProfile extends React.Component {
 
         switch (this.state.selectedTab) {
             case 0: {
-                return <div>
+                return <div style={{marginBottom:'60px'}}>
                         <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} proceedUpdate={this.proceedUpdate.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)}/>
                         {this.state.profileData && this.state.profileData.whatsapp_optin == null?
                                     <div className="widget no-shadow no-radius mrb-15">
