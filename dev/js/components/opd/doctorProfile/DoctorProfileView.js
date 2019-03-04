@@ -273,23 +273,29 @@ class DoctorProfileView extends React.Component {
                                                         <DoctorProfileCard
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
-                                                            liveState={this.state.is_live}
-                                                            showContact={this.state.show_contact}
+                                                            recommendDocs={nearbyDoctors.result && nearbyDoctors.result.length}
                                                             {...this.props}
                                                         />
+                                                        <div className="widge-content pd-0">
+                                                            {
+                                                                this.props.DOCTORS[doctor_id].about_web ? <AboutDoctor
+                                                                    details={this.props.DOCTORS[doctor_id]}
+                                                                /> : ""
+                                                            }
+                                                        </div>
                                                         {
                                                             nearbyDoctors && Object.keys(nearbyDoctors).length ?
                                                                 <div className="widge-content pd-0">
                                                                     <div className="widget-panel">
                                                                         {
-                                                                            nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
+                                                                            nearbyDoctors.result && nearbyDoctors.result.length && nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
                                                                                 <div className="panel-title mb-rmv p-relative docslideHeadAlign">
                                                                                     <p>Book experienced {nearbyDoctors.specializations[0].name}s near you<span className="docSlideSubHeading">Get exclusive Docprime discount</span>
                                                                                     </p>
-                                                                                    {/* {
+                                                                                    {
                                                                                         nearbyDoctors.count >= 1 && nearbyDoctors.doctors_url ?
                                                                                             <span className="docSlideviewAll" onClick={() => this.viewAllDocClick(nearbyDoctors)}>View All <img src={ASSETS_BASE_URL + "/img/arrowRight.svg"} /></span> : ''
-                                                                                    } */}
+                                                                                    }
                                                                                 </div> : ''
                                                                         }
                                                                         <div className="panel-content pd-0 border-bottom-panel">
@@ -349,11 +355,6 @@ class DoctorProfileView extends React.Component {
                                                                 </div> : ''
                                                         }
                                                         <div className="widge-content pd-0">
-                                                            {
-                                                                this.props.DOCTORS[doctor_id].about ? <AboutDoctor
-                                                                    details={this.props.DOCTORS[doctor_id]}
-                                                                /> : ""
-                                                            }
 
                                                             {
                                                                 (this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) ? <ClinicSelector

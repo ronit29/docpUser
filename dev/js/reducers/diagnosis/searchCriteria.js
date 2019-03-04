@@ -1,4 +1,4 @@
-import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID } from '../../constants/types';
+import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES } from '../../constants/types';
 
 const moment = require('moment');
 
@@ -16,13 +16,14 @@ const DEFAULT_FILTER_STATE_PACKAGES = {
     sort_on: null,
     lab_name: "",
     network_id: "",
-    catIds:[],
-    max_age:'',
-    min_age:'',
-    gender:'',
-    packageType:'',
-    test_ids:'',
-    selectCatIDs:[]
+    catIds: [],
+    max_age: '',
+    min_age: '',
+    gender: '',
+    packageType: '',
+    test_ids: '',
+    selectCatIDs: [],
+    package_ids: []
 }
 
 const defaultState = {
@@ -41,14 +42,15 @@ const defaultState = {
     currentLabSelectedTests: [],
     searchTestInfoData: {},
     page: 1,
-    search_id_data : {},
+    search_id_data: {},
     nextSelectedCriterias: [],
     currentSearchedCriterias: [],
     currentSearchId: '',
     nextFilterCriteria: DEFAULT_FILTER_STATE,
     filterCriteriaPackages: DEFAULT_FILTER_STATE_PACKAGES,
-    recommended_package:[],
-    last_save_searched_date: null
+    recommended_package: [],
+    last_save_searched_date: null,
+    selectedPackages: []
 }
 
 export default function (state = defaultState, action) {
@@ -69,8 +71,7 @@ export default function (state = defaultState, action) {
                 selectedCriterias: [].concat(state.selectedCriterias),
                 lab_test_data: { ...state.lab_test_data },
                 filterCriteria: { ...state.filterCriteria },
-                nextFilterCriteria: {...state.nextFilterCriteria},
-                filterCriteriaPackages: {...state.filterCriteriaPackages}
+                nextFilterCriteria: { ...state.nextFilterCriteria }
             }
 
             newState.filterCriteria.lab_name = ""
@@ -78,9 +79,6 @@ export default function (state = defaultState, action) {
 
             newState.nextFilterCriteria.lab_name = ""
             newState.nextFilterCriteria.network_id = ""
-
-            newState.filterCriteriaPackages.lab_name = ""
-            newState.filterCriteriaPackages.network_id = ""
 
             if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
@@ -202,9 +200,9 @@ export default function (state = defaultState, action) {
         }
 
         case MERGE_SEARCH_STATE_OPD: {
-            let newState = {...state }
+            let newState = { ...state }
 
-            if(action.payload.selectedLocation){
+            if (action.payload.selectedLocation) {
                 newState.selectedLocation = action.payload.selectedLocation
             }
 
@@ -225,8 +223,8 @@ export default function (state = defaultState, action) {
                 ...state,
                 selectedCriterias: [].concat(state.selectedCriterias),
                 lab_test_data: {},
-                currentLabSelectedTests:[],
-                currentSearchedCriterias:[]
+                currentLabSelectedTests: [],
+                currentSearchedCriterias: []
             }
 
             newState.selectedCriterias = newState.selectedCriterias.filter((x) => {
@@ -240,7 +238,7 @@ export default function (state = defaultState, action) {
                 ...state,
                 selectedCriterias: [],
                 lab_test_data: {},
-                nextSelectedCriterias:[]
+                nextSelectedCriterias: []
             }
 
             return newState
@@ -321,11 +319,11 @@ export default function (state = defaultState, action) {
         case SET_LAB_SEARCH_ID: {
             let newState = {
                 ...state,
-                selectedCriterias:[...state.selectedCriterias],
-                search_id_data: {...state.search_id_data}
+                selectedCriterias: [...state.selectedCriterias],
+                search_id_data: { ...state.search_id_data }
             }
 
-            if(!newState.last_save_searched_date){
+            if (!newState.last_save_searched_date) {
                 newState.last_save_searched_date = new Date()
             }
 
@@ -350,7 +348,7 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            if(newState.search_id_data && newState.search_id_data[action.searchId]){
+            if (newState.search_id_data && newState.search_id_data[action.searchId]) {
                 newState.currentSearchedCriterias = newState.search_id_data[action.searchId].commonSelectedCriterias
                 newState.filterCriteria = newState.search_id_data[action.searchId].filterCriteria
                 newState.currentSearchId = action.searchId
@@ -363,22 +361,22 @@ export default function (state = defaultState, action) {
         case SAVE_LAB_RESULTS_WITH_SEARCHID: {
             let newState = {
                 ...state,
-                search_id_data: {...state.search_id_data}
+                search_id_data: { ...state.search_id_data }
             }
-            if(newState.search_id_data && newState.search_id_data[newState.currentSearchId]){
-                newState.search_id_data[newState.currentSearchId] = Object.assign({},newState.search_id_data[newState.currentSearchId])
-                if(action.page ==1){
-                    
-                    newState.search_id_data[newState.currentSearchId].data = action.payload
-                
-                }else if(newState.search_id_data[newState.currentSearchId].data){
-                    if(Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result){
+            if (newState.search_id_data && newState.search_id_data[newState.currentSearchId]) {
+                newState.search_id_data[newState.currentSearchId] = Object.assign({}, newState.search_id_data[newState.currentSearchId])
+                if (action.page == 1) {
 
-                        newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)    
-                    }else{
-                        newState.search_id_data[newState.currentSearchId].data = action.payload        
+                    newState.search_id_data[newState.currentSearchId].data = action.payload
+
+                } else if (newState.search_id_data[newState.currentSearchId].data) {
+                    if (Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result) {
+
+                        newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)
+                    } else {
+                        newState.search_id_data[newState.currentSearchId].data = action.payload
                     }
-                    
+
                 }
             }
 
@@ -394,15 +392,48 @@ export default function (state = defaultState, action) {
             return newState
         }
 
+        case TOGGLE_PACKAGE_ID: {
+            let newState = {
+                ...state,
+                filterCriteriaPackages: { ...state.filterCriteriaPackages }
+            }
+
+            if (newState.filterCriteriaPackages) {
+                newState.filterCriteriaPackages.package_ids = []
+                if (action.isHomePage) {
+                    newState.filterCriteriaPackages.package_ids.push(action.package_id);
+                } else {
+                    newState.filterCriteriaPackages.package_ids = action.package_id
+                }
+            }
+            return newState
+        }
+
+        case TOGGLE_SEARCH_PACKAGES: {
+            let newState = {
+                ...state,
+                selectedPackages: [].concat(state.selectedPackages)
+            }
+            if (action.healthPackage) {
+                let ids = newState.selectedPackages.filter(x => x.id == action.healthPackage.id)
+                if (ids.length) {
+                    newState.selectedPackages = newState.selectedPackages.filter(x => x.id != action.healthPackage.id)
+                } else {
+                    newState.selectedPackages.push(action.healthPackage)
+                }
+            }
+            return newState
+        }
+
         case CLEAR_LAB_SEARCH_ID: {
             let newState = {
                 ...state
             }
-            if(newState.last_save_searched_date){
+            if (newState.last_save_searched_date) {
                 let currentTime = moment(new Date())
                 let lastSearchTime = moment(new Date(newState.last_save_searched_date))
                 let diffDays = currentTime.diff(lastSearchTime, 'days')
-                if(diffDays>2){
+                if (diffDays > 2) {
                     newState.search_id_data = {}
                     newState.last_save_searched_date = null
                 }
@@ -413,8 +444,3 @@ export default function (state = defaultState, action) {
     }
     return state
 }
-
-
-
-
-

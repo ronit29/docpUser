@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -83,8 +83,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
-        toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filters)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filters)),
         getUserProfile: () => dispatch(getUserProfile()),
         fetchHeatlhTip: () => dispatch(fetchHeatlhTip()),
         fetchArticles: () => dispatch(fetchArticles()),
@@ -92,8 +92,9 @@ const mapDispatchToProps = (dispatch) => {
         clearExtraTests: () => dispatch(clearExtraTests()),
         getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
-        getOfferList: () => dispatch(getOfferList()),
-        clearAllTests: () => dispatch(clearAllTests())
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
+        clearAllTests: () => dispatch(clearAllTests()),
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage))
     }
 }
 

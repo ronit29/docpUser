@@ -59,10 +59,21 @@ const GTM = {
     },
 
     getVisitorInfo: () => {
-        let visitor_info = STORAGE.getVisitorInfo()
+        let visitor_info = ""
 
-        if (visitor_info) {
+        if (typeof window == "object") {
+            visitor_info = window.VISITOR_INFO
+        }
+
+        if (!visitor_info) {
+            visitor_info = STORAGE.getVisitorInfo()
+        }
+
+        if (visitor_info && visitor_info.length) {
             visitor_info = JSON.parse(visitor_info)
+        }
+
+        if (visitor_info && visitor_info.visit_id && visitor_info.visitor_id) {
             let last_visit_difference = new Date().getTime() - visitor_info.last_visit_time;
 
             if (last_visit_difference > 1800000) {
@@ -82,6 +93,10 @@ const GTM = {
         }
 
         let updated_cookie_val = JSON.stringify(visitor_info)
+
+        if (typeof window == "object") {
+            window.VISITOR_INFO = updated_cookie_val
+        }
         STORAGE.setVisitorInfo(updated_cookie_val)
 
         return visitor_info

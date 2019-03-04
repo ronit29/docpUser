@@ -154,7 +154,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
-        toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
         getDoctors: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb, clinic_card)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
@@ -169,8 +169,8 @@ const mapDispatchToProps = (dispatch) => {
         toggle404: (status) => dispatch(toggle404(status)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
-        getOfferList: () => dispatch(getOfferList()),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd))
+        getOfferList: (lat,long) => dispatch(getOfferList(lat,long)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter))
     }
 }
 

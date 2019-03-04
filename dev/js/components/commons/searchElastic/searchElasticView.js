@@ -12,7 +12,7 @@ class SearchElasticView extends React.Component {
         super(props)
         this.state = {
             currentTestType: {},
-            searchString:''
+            searchString: ''
         }
     }
 
@@ -24,7 +24,7 @@ class SearchElasticView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from, 'defaultSearchButton' : this.props.selectedSearchType || ''
+            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from, 'defaultSearchButton': this.props.selectedSearchType || ''
         }
 
         GTM.sendEvent({ data: data })
@@ -39,7 +39,7 @@ class SearchElasticView extends React.Component {
             },
             nextFilterCriteria: {
                 ...this.props.dataState.filterCriteria,
-                doctor_name, hospital_name, hospital_id  
+                doctor_name, hospital_name, hospital_id
             }
         }
 
@@ -73,8 +73,8 @@ class SearchElasticView extends React.Component {
                 ...this.props.dataState.filterCriteria,
                 lab_name
             },
-            currentSearchedCriterias:this.props.dataState.selectedCriterias,
-            nextSelectedCriterias:this.props.dataState.selectedCriterias
+            currentSearchedCriterias: this.props.dataState.selectedCriterias,
+            nextSelectedCriterias: this.props.dataState.selectedCriterias
         }, true)
 
         let selectedTestIds = this.props.dataState.selectedCriterias.map(test => test.id)
@@ -88,6 +88,19 @@ class SearchElasticView extends React.Component {
             pathname: '/lab/searchresults',
             state: { search_back: true }
         })
+    }
+
+    searchProceedPackages() {
+        let selectedPackagesIds = []
+        if (this.props.dataState.selectedPackages.length > 0) {
+            this.props.dataState.selectedPackages.map(x => {
+                selectedPackagesIds.push(x.id)
+            })
+            this.props.setPackageId(selectedPackagesIds, false)
+        }
+        setTimeout(() => {
+            this.props.history.push('/searchpackages')
+        }, 100)
     }
 
     showDoctors(type) {
@@ -120,16 +133,27 @@ class SearchElasticView extends React.Component {
         this.searchProceedLAB("")
     }
 
+    showPackages() {
+        if (this.props.locationType == "geo") {
+            this.setState({ focusInput: 1 })
+            if (window) {
+                window.scrollTo(0, 0)
+            }
+            return null
+        }
+        this.searchProceedPackages()
+    }
+
     clickPopUp(type) {
         if (type == 1) {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.id || '', 'searched': this.state.searchString?'autosuggest':'', 'searchString': this.state.searchString
+                'Category': 'ConsumerApp', 'Action': 'YesClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'yes-clicked-lab-test-popup', 'selected': this.state.currentTestType.name || '', 'selectedId': this.state.currentTestType.id || '', 'searched': this.state.searchString ? 'autosuggest' : '', 'searchString': this.state.searchString
             }
             GTM.sendEvent({ data: data })
             this.props.toggleDiagnosisCriteria('test', this.state.currentTestType, true)
         } else {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup', 'searched': this.state.searchString?'autosuggest':'', 'searchString': this.state.searchString
+                'Category': 'ConsumerApp', 'Action': 'NoClickedLabTestPopup', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'no-clicked-lab-test-popup', 'searched': this.state.searchString ? 'autosuggest' : '', 'searchString': this.state.searchString
             }
         }
         if (document.getElementById('search_results_view')) {
@@ -138,10 +162,10 @@ class SearchElasticView extends React.Component {
         this.setState({ currentTestType: {} })
     }
 
-    toggleLabTests(type, criteria, searchString=""){
+    toggleLabTests(type, criteria, searchString = "") {
         let data = {
-                'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
-            }
+            'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
+        }
         GTM.sendEvent({ data: data })
 
         let selectedTestIds = []
@@ -163,8 +187,33 @@ class SearchElasticView extends React.Component {
         if (document.getElementById('search_results_view')) {
             document.getElementById('search_results_view').scrollIntoView()
         }
-        
+
         this.props.toggleDiagnosisCriteria('test', criteria)
+    }
+
+    togglePackages(type, criteria, searchString = "") {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
+        }
+        GTM.sendEvent({ data: data })
+
+        this.props.toggleSearchPackages(criteria)
+    }
+
+    searchProceedIPD(){
+
+    }
+
+    showIPD(){
+
+        this.props.history.push('/ipdInfo')
+    }
+
+    toggleIpd(type, criteria, searchString = ""){
+        let selectedCriteria = { ...criteria }
+        selectedCriteria.type = 'ipd'
+        this.props.toggleIPDCriteria(selectedCriteria, true)
+        this.showIPD()
     }
 
     render() {
@@ -182,50 +231,57 @@ class SearchElasticView extends React.Component {
             commonSearched = <CommonlySearched
                 heading="Common Specialities"
                 type="speciality"
-                selectedSearchType = {this.props.selectedSearchType}
+                selectedSearchType={this.props.selectedSearchType}
                 data={this.props.dataState.specializations}
                 selected={[]/*this.props.selectedCriterias.filter(x => x.type == 'speciality')*/}
                 toggle={this.setCommonSelectedCriterias.bind(this)}
             />
 
         } else if (this.props.selectedSearchType.includes('lab')) {
-            title = "test, lab, health package"
+            title = "test, lab"
             searchProceed = this.searchProceedLAB.bind(this)
             showResults = this.showLabs.bind(this)
 
             commonSearched = <CommonlySearched
                 heading="Common Test"
                 type="test"
-                selectedSearchType = {this.props.selectedSearchType}
-                data={this.props.dataState.common_tests.filter(x => !x.is_package)}
-                selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test').filter(x => !x.is_package)}
+                selectedSearchType={this.props.selectedSearchType}
+                data={this.props.dataState.common_tests}
+                selected={this.props.dataState.selectedCriterias}
                 toggle={this.toggleLabTests.bind(this)}
                 selectedCriterias={this.props.dataState.selectedCriterias}
             />
 
-        } else {
-            /*title = "dental treatment, procedures"
-            searchProceed = this.searchProceedOPD.bind(this)
-            showResults = this.showDoctors.bind(this)
+        } else if (this.props.selectedSearchType.includes('package')) {
+            title = "health packages"
+            searchProceed = this.searchProceedPackages.bind(this)
+            showResults = this.showPackages.bind(this)
 
             commonSearched = <CommonlySearched
-                heading="Common Dental Treatments"
-                type="procedures"
-                selectedSearchType = {this.props.selectedSearchType}
-                data={this.props.dataState.procedures}
-                selected={[]}
-                toggle={this.setCommonSelectedCriterias.bind(this)}
-            />*/
+                heading="Common Health Packages"
+                type="package"
+                selectedSearchType={this.props.selectedSearchType}
+                data={this.props.dataState.common_package}
+                selected={this.props.dataState.selectedPackages}
+                toggle={this.togglePackages.bind(this)}
+                selectedCriterias={this.props.dataState.selectedPackages}
+            />
+        }else if (this.props.selectedSearchType.includes('ipd')) {
 
+            title = "Search Surgery/Procedure"
+            searchProceed = this.searchProceedIPD.bind(this)
+            showResults = this.showIPD.bind(this)
 
+            commonSearched = <CommonlySearched
+                heading="Commonly Searched"
+                type="ipd"
+                selectedSearchType={this.props.selectedSearchType}
+                data={this.props.dataState.ipd_procedures}
+                selected={this.props.dataState.selectedCriterias}
+                toggle={this.toggleIpd.bind(this)}
+                selectedCriterias={this.props.dataState.selectedCriterias}
+            />
 
-            /*<CommonlySearched
-                        heading="Common Dental Treatments"
-                        type="procedures_category"
-                        data={this.props.dataState.procedure_categories}
-                        selected={[]}
-                        toggle={this.setCommonSelectedCriterias.bind(this)}
-                    />*/
         }
 
         return (
@@ -239,30 +295,36 @@ class SearchElasticView extends React.Component {
                                 (this.props.selectedSearchType.includes('lab') && this.props.dataState.selectedCriterias && this.props.dataState.selectedCriterias.length > 0) ? <CommonlySearched {...this.props}
                                     heading={`View Selected (${this.props.dataState.selectedCriterias.length})`}
                                     data={this.props.dataState.selectedCriterias}
-                                    selectedSearchType = {this.props.selectedSearchType}
+                                    selectedSearchType={this.props.selectedSearchType}
                                     selected={[]}
                                     selectedPills={true}
                                     toggle={this.props.toggleDiagnosisCriteria.bind(this)}
                                 /> : ""
                             }
 
-                            {commonSearched}
-
                             {
-                                this.props.selectedSearchType.includes('lab') ?
-                                    <CommonlySearched {...this.props}
-                                        heading="Common Health Packages"
-                                        type="test"
-                                        data={this.props.dataState.common_package}
-                                        selectedSearchType = {this.props.selectedSearchType}
-                                        selected={this.props.dataState.selectedCriterias.filter(x => x.type == 'test')}
-                                        toggle={this.props.toggleDiagnosisCriteria.bind(this)}
-                                    /> : ''
+                                (this.props.selectedSearchType.includes('package') && this.props.dataState.selectedPackages && this.props.dataState.selectedPackages.length > 0) ? <CommonlySearched {...this.props}
+                                    heading={`View Selected (${this.props.dataState.selectedPackages.length})`}
+                                    type="package"
+                                    data={this.props.dataState.selectedPackages}
+                                    selectedSearchType={this.props.selectedSearchType}
+                                    selected={[]}
+                                    selectedPills={true}
+                                    toggle={this.togglePackages.bind(this)}
+                                /> : ""
                             }
+
+                            {commonSearched}
 
                             {
                                 this.props.selectedSearchType == 'lab' ?
                                     <button onClick={this.showLabs.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
+                                    : ''
+                            }
+
+                            {
+                                this.props.selectedSearchType == 'package' ?
+                                    <button onClick={this.showPackages.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Packages</button>
                                     : ''
                             }
 

@@ -54,7 +54,12 @@ import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
+//TO REMOVE
 import IPD from './components/commons/IPD/ipd.js'
+///
+import IPDInfo from './containers/ipd/IpdInfo.js'
+
+
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -143,6 +148,7 @@ const routes = [
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
     { path: '/ipd', exact: true, component: IPD },
+    { path: '/ipdInfo', exact: true, component: IPDInfo},
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
