@@ -217,8 +217,17 @@ class BookingView extends React.Component {
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
-                                        <div className="referral-select">
-                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                        <div className="whatsappCardContainer">
+                                            <div className="wa-logo-content">
+                                                <div className="wa-container">
+                                                    <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
+                                                </div>
+                                                <p>Docprime would like to send you updates through whatsapp</p>
+                                            </div>
+                                            <div className="allowDeclineContainer">
+                                                <p className="allowBtns" onClick={this.toggleWhatsap.bind(this,true)}>Allow</p>
+                                                <p className="declineBtns" onClick={this.toggleWhatsap.bind(this,false)}>Decline</p>
+                                            </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-12">

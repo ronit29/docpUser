@@ -92,10 +92,12 @@ class BookingView extends React.Component {
                             }
 
                             GTM.sendEvent({ data: analyticData }, true, false)
-                            let criteo_data = 
-                            { 'event': "trackTransaction", 'id': appointmentId, 'item': [
-                                {'id': "1", 'price': data.length?data[0].deal_price:'', 'quantity': 1 }
-                            ]}
+                            let criteo_data =
+                            {
+                                'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                    { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
+                                ]
+                            }
 
                             CRITEO.sendData(criteo_data)
 
@@ -236,6 +238,20 @@ class BookingView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+                                                    <div className="whatsappCardContainer">
+                                                        <div className="wa-logo-content">
+                                                            <div className="wa-container">
+                                                                <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
+                                                            </div>
+                                                            <p>Docprime would like to send you updates through whatsapp</p>
+                                                        </div>
+                                                        <div className="allowDeclineContainer">
+                                                            <p className="allowBtns">Allow</p>
+                                                            <p className="declineBtns">Decline</p>
+                                                        </div>
+
+                                                    </div>
+
                                                     <div className="app-timeline book-confirmed-timeline">
                                                         {
                                                             (status == 1 || status == 6) ? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4> :

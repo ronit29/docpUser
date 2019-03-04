@@ -6825,3 +6825,53 @@ button.padding-btn-adjust{
 .abt-doc-inlinetext p{
 	display: inline;
 }
+/* ==================== wa-label ==================== */
+.whatsappCardContainer{
+	background: white;
+    box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+    margin: 12px 0;
+    overflow: hidden;
+}
+.wa-logo-content{
+	display: flex;
+}
+.wa-container{
+	background: #25d366;
+	padding: 12px;
+	display: flex;
+    align-items: center;
+}
+.wa-container img{ 
+flex-grow: 0;
+flex-shrink: 0;
+}
+.wa-logo-content p{
+	font-weight: 500;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.allowDeclineContainer{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0px 7px;
+    background: #f6f6f6;
+}
+.allowBtns{
+	border-bottom: 1px solid #e0dfdf;
+    padding: 3px 18px;
+    color: #f78631;
+    font-weight: 500;
+    cursor: pointer;
+}
+.declineBtns{
+	color: #ec4343;
+    font-weight: 500;
+    cursor: pointer;
+}
+/* ==================== wa-label ==================== */
