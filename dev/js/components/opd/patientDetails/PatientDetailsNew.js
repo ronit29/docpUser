@@ -548,7 +548,7 @@ class PatientDetailsNew extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.DOCTORS[this.state.selectedDoctor] && this.props.DATA_FETCH?
+                                this.props.DOCTORS[this.state.selectedDoctor] && this.props.DATA_FETCH ?
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
@@ -562,10 +562,10 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
-                                                                timeSlots={this.props.timeSlots}
-                                                                selectTimeSlot={this.selectTimeSlot.bind(this)}
-                                                                doctor_leaves={this.props.doctor_leaves || []}
-                                                            />
+                                                            timeSlots={this.props.timeSlots}
+                                                            selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                            doctor_leaves={this.props.doctor_leaves || []}
+                                                        />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
@@ -742,9 +742,12 @@ class PatientDetailsNew extends React.Component {
                                                                 </div>
                                                             </div> : ""
                                                         }
-
-                                                        <div className="referral-select">
-                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                        <div className="widget mrb-15">
+                                                            <div className="widget-content">
+                                                                <div>
+                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>

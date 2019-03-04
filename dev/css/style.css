@@ -6874,4 +6874,12 @@ flex-shrink: 0;
     font-weight: 500;
     cursor: pointer;
 }
+.sm-wtsp-img img{
+	width: 18px;
+	margin-right: 3px;
+}
+.sm-wtsp-img{
+	color: #455a64;
+	font-weight: 600;
+}
 /* ==================== wa-label ==================== */
