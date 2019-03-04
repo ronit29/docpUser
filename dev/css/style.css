@@ -7396,6 +7396,9 @@ button.padding-btn-adjust{
 	margin-right: 17px;
     vertical-align: -4px;
 }
+.ipd-srch-radio-btn{
+	flex-wrap: wrap;
+}
 
 @media screen and (max-width: 767px){
 	 .ipd-section{
@@ -7411,6 +7414,10 @@ button.padding-btn-adjust{
 @media screen and (max-width: 576px){
 	.btn-search-div.btn-apply-div.btn-sbmt {
  	   position: fixed;
+	}
+	.ipd-srch-radio-btn.srch-radio-btns .dtl-radio{
+		width: 50%;
+		margin-right: 0;
 	}
 }
 @media screen and (max-width: 480px){

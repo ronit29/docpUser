@@ -313,7 +313,7 @@ class CriteriaElasticSearchView extends React.Component {
                                             <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
                                             {
                                                 this.state.searchCities.length > 0 ? "" : <div>
-                                                    <div className="srch-radio-btns" id="search_results_view">
+                                                    <div className="srch-radio-btns ipd-srch-radio-btn" id="search_results_view">
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Doctor
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'opd', '')} checked={this.props.selected == 'opd'} name="radio" />
@@ -333,7 +333,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                             </label>
                                                         </div>
                                                         <div className="dtl-radio">
-                                                            <label className="container-radio">Surgery/Procedure
+                                                            <label className="container-radio">Surgery / Procedure
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'ipd', '')} checked={this.props.selected == 'ipd'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
