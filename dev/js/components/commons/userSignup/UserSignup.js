@@ -287,7 +287,7 @@ class UserSignupView extends React.Component {
                                                                 </div>
 
                                                                 <div className="referral-select">
-                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                                 </div>
                                                                 {
                                                                     this.state.have_referralCode ? <div className="referralContainer">

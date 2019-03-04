@@ -744,7 +744,7 @@ class PatientDetailsNew extends React.Component {
                                                         }
 
                                                         <div className="referral-select">
-                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable Whatsaap<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable WhatsApp notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                         </div>
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>

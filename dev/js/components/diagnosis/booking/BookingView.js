@@ -249,7 +249,6 @@ class BookingView extends React.Component {
                                                             <p className="allowBtns">Allow</p>
                                                             <p className="declineBtns">Decline</p>
                                                         </div>
-
                                                     </div>
 
                                                     <div className="app-timeline book-confirmed-timeline">
