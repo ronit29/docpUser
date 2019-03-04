@@ -62,14 +62,54 @@ class CategoryPopup extends React.Component {
         this.props.applyCategories(categoryState)
     }
     render() {
+        let isSelected = []
+        let unSelected = []
+        let isSelectedCat=[]
+        let unSelectedCat=[]
+        if(this.props.packagesList.categories && this.props.packagesList.categories.length>0){
+            this.props.packagesList.categories.map((categories, i) => {
+                if(categories.is_selected){
+                    isSelected.push(categories)
+                }else{
+                    unSelected.push(categories)
+                }
+            })
+            if(isSelected.length>0){
+                {
+                isSelected.map((categories, i) => {
+                    isSelectedCat.push(<li  className="pr-0" key={i}>
+                            <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                {categories.name}
+                                <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
+                                <span className="checkmark" />
+                            </label>
+                        </li>)
+                    })
+                }
+            }
+            if(unSelected.length>0){
+                {
+                unSelected.map((categories, i) => {
+                    unSelectedCat.push(<li  className="pr-0" key={i}>
+                            <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
+                                {categories.name}
+                                <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
+                                <span className="checkmark" />
+                            </label>
+                        </li>)
+                    })
+                }
+            }
+        }
+
         return (<div>
-            <div className="cancel-overlay"></div>
+            <div className="cancel-overlay cancel-overlay-zindex"></div>
             <div className="widget cancel-appointment-div cancel-popup">    
-                <div className="pop-top-heading mb-0">
+                <div className="pop-top-heading mb-0 pb-10">
                         Select Categories   
                         <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
                 </div>
-                <div className="terms-condition-div onscreen-scroll pt-0">
+                <div className="terms-condition-div pop-onscreen-scroll pt-0">
                  <div className="">
                     <div className="ins-form-radio insradio-on-popup">
                         <ul className="list all-test-list mrt-10">
@@ -80,17 +120,8 @@ class CategoryPopup extends React.Component {
                                 <span className="checkmark" />
                             </label>
                         </li>
-                        {
-                        this.props.packagesList.categories.map((categories, i) => {
-                        return  <li key={i}>
-                                    <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                        {categories.name}
-                                        <input type="checkbox" checked={this.state.selectedCatIds.indexOf(categories.id) > -1} onChange={this.toggleTest.bind(this, categories.id)} />
-                                        <span className="checkmark" />
-                                    </label>
-                                </li>
-                            })
-                        }
+                        {isSelectedCat}
+                        {unSelectedCat}
                         </ul>
                     </div>
                 </div>

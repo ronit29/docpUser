@@ -286,6 +286,7 @@ class SearchTestView extends React.Component {
             let canonicalUrl = ''
             let title = ''
             let description = ''
+            let this_package_will_include = this.props.searchTestInfoData[0].this_package_will_include
             if(this.props.searchTestInfoData[0].seo){
                 canonicalUrl = this.props.searchTestInfoData[0].url
                 title = this.props.searchTestInfoData[0].seo.title
@@ -347,6 +348,34 @@ class SearchTestView extends React.Component {
                                                                                 </div>
                                                                                 : ''
                                                                             }
+                                                                            
+                                                                            {this_package_will_include.tests && this_package_will_include.tests.length > 0 ?
+                                                                                <div className="test-sub-accordion">
+                                                                                    <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + resp_test_id)}>{this_package_will_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                                    <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'hide' : ''}`}>
+                                                                                        <ul>
+                                                                                            {Object.entries(this_package_will_include.tests).map(function ([k, test_include]) {
+                                                                                                return <li key={k} id={test_include.id} className="mb-rmv">
+                                                                                                        <div>
+                                                                                                            <button className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length>0?<span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span>:''}</button>
+                                                                                                        </div>
+                                                                                                    {
+                                                                                                     test_include.parameters && test_include.parameters.length>0?
+                                                                                                        <ul className={self.state.tabsValue.indexOf('test_include_'+ test_include.id) == -1 ? 'acrd-sub-content hide' : 'acrd-sub-content'}>
+                                                                                                        {Object.entries(test_include.parameters).map(function ([p_k, parameter]) {
+                                                                                                            return <li key={p_k}>{parameter} </li>
+                                                                                                        })}
+                                                                                                        </ul>
+                                                                                                        :''
+                                                                                                    }           
+                                                                                                </li>
+                                                                                            })}
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                                : ''
+                                                                            }
+
                                                                             {preparations.value != '' ?
                                                                                 <div className="test-sub-accordion">
                                                                                     <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_preparations_' + resp_test_id)}>{preparations.title}<span className={self.state.tabsValue.indexOf('test_preparations_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>

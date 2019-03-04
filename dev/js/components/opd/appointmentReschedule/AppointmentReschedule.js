@@ -150,7 +150,7 @@ class AppointmentReschedule extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
 
                             {
-                                this.state.data ?
+                                this.state.data?
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">

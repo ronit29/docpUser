@@ -6,7 +6,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
-import FixedMobileFooter from '../Home/FixedMobileFooter';
+// import FixedMobileFooter from '../Home/FixedMobileFooter';
 
 
 const debouncer = (fn, delay) => {
