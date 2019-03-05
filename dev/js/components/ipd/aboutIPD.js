@@ -13,7 +13,7 @@ class IPDAboutUs extends React.Component {
 		let { ipd_info } = this.props
 		return(
              <div className="tab-pane fade show active" id="nav-overview">
-                <h4 className="section-heading top-sc-head"> {ipd_info.about.name}
+                <h4 className="section-heading top-sc-head"> <span className="about-head"> {ipd_info.about.name} </span>
                    <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" alt="" className="info-img" />
                 </h4>
                 <ul>
@@ -37,7 +37,7 @@ class IPDAboutUs extends React.Component {
 		                </div>
 		                :<div className="widget" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})}>
 		                     {ipd_info.about.details.substring(0,13)}
-		                     <a href="javascript:void(0);">Read More</a>
+		                     <a href="javascript:void(0);" className="read-more-btn">Read More</a>
 		                </div>		
                 	}
                   

@@ -6812,7 +6812,9 @@ button.padding-btn-adjust{
 .ipd-section .fw-700{
     font-weight: 700;
 }
-
+.ipd-section .full-widget.mrg-b0{
+	margin-bottom: 0;
+}
 .ipd-section .section-heading{
     font-size: 16px;
     font-weight: 500;
@@ -6853,8 +6855,11 @@ button.padding-btn-adjust{
     background: #fff;
     margin-right: -15px;
     margin-left: -15px;
-    padding: 15px;
+    padding: 15px 15px 0;
     margin-bottom: 15px;
+    position: sticky;
+    top: 107px;
+
 }
 .ipd-section .nav-top-head {
 	display: flex;
@@ -6871,8 +6876,18 @@ button.padding-btn-adjust{
     color: #6c6b6b;
     flex: 1;
     text-align: center;
-    border-right: 1px solid rgba(0,0,0,0.12);
     border-radius: 0;
+    position: relative;
+}
+.ipd-section .nav-tabs.nav-top-head a:after{
+	content: "";
+	border-right: 1px solid rgba(0,0,0,0.12);
+	position: absolute;
+    right: 0;
+    height: 25px;
+}
+.ipd-section .nav-tabs.nav-top-head a:last-child:after{
+	content: none;
 }
 .ipd-section .nav-tabs.nav-top-head a:last-child{
     border-right: 0;
@@ -6935,7 +6950,7 @@ button.padding-btn-adjust{
     color: #55a740;
     margin-bottom: 5px;
 }
-.ipd-section .btn-estimate{
+.ipd-section a.btn-estimate{
     background: #f78631;
     color: #fff;
     border-radius: 5px;
@@ -6944,7 +6959,7 @@ button.padding-btn-adjust{
     font-weight: 500;
     float: right;
 }
-.ipd-section .btn-estimate:hover{
+.ipd-section a.btn-estimate:hover{
     color: #fff;
 }
 .ipd-section .btn-view-hospital{
@@ -7021,6 +7036,7 @@ button.padding-btn-adjust{
     box-shadow: none;
     color: #000;
     font-weight: 500;
+    padding: 12px 0 0;
 }
 .ipd-section .input-form input:focus{
     box-shadow: none;
@@ -7050,7 +7066,7 @@ button.padding-btn-adjust{
 
 
 /*Button*/
-.ipd-section .btn-search {
+.ipd-section a.btn-search {
     background: #f78631;
     text-align: center;
     display: block;
@@ -7059,7 +7075,6 @@ button.padding-btn-adjust{
     color: #fff;
     font-size: 16px;
     font-weight: 500;
-    color: #fff;
 }
 
 .ipd-section .btn-search-div.btn-apply-div.btn-sbmt {
@@ -7266,9 +7281,13 @@ button.padding-btn-adjust{
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.24);
+    background: rgba(0,0,0,0.6);
     z-index: 999;
-    display:none;
+    -webkit-animation: FadeIn 0.5s;
+    -moz-animation: FadeIn 0.5s;
+    -ms-animation: FadeIn 0.5s;
+    -o-animation: FadeIn 0.5s;
+    animation: FadeIn 0.5s;
 }
 .ipd-section .custom-popup{
     width: 500px;
@@ -7367,7 +7386,7 @@ button.padding-btn-adjust{
     margin: 15px 0;
 }
 .ipd-section .med-help{
-    padding: 0 35px;
+    padding: 0 100px;
 }
 .ipd-section .med-help li{
     padding: 5px 0;
@@ -7376,6 +7395,7 @@ button.padding-btn-adjust{
 .ipd-section .med-help li img{
     width: 14px;
     margin-right: 10px;
+    vertical-align: middle;
 }
 .ipd-section .btn-search.btn-singup{
     display: inline-block;
@@ -7399,6 +7419,18 @@ button.padding-btn-adjust{
 .ipd-srch-radio-btn{
 	flex-wrap: wrap;
 }
+.ipd-section .section-heading.top-sc-head .about-head{
+	display: inline-block;
+    width: 93%;
+}
+.ipd-section .read-more-btn{
+	margin-right: 5px;
+}
+@media screen and (max-width: 991px){
+	.ipd-section .full-widget{
+		top: 89px;
+	}
+}
 
 @media screen and (max-width: 767px){
 	 .ipd-section{
@@ -7410,6 +7442,9 @@ button.padding-btn-adjust{
     .ipd-section .section-heading.top-sc-head{
     	padding-top: 5px;
     }
+    .ipd-section .med-help{
+    padding: 0 35px;
+}
 }
 @media screen and (max-width: 576px){
 	.btn-search-div.btn-apply-div.btn-sbmt {
@@ -7450,9 +7485,24 @@ button.padding-btn-adjust{
         width: auto;
         transform: translateY(-22%);
     } 
+    .ipd-section .custom-popup.thanks-popup{
+    	transform: translateY(-44%);
+    }
     .ipd-section .cross-btn{
         top: 7px;
         right: 7px;
+    }
+    .ipd-section .med-help{
+    	padding: 0 20px;
+    }
+}
+@media screen and (max-width: 350px){
+	 .ipd-section .med-help li{
+    	text-indent: -25px;
+  	    padding-left: 20px;
+    }
+    .ipd-section .custom-popup.thanks-popup{
+    	transform: translateY(-27%);
     }
 }
 @media screen and (max-width: 320px){
@@ -7476,9 +7526,7 @@ button.padding-btn-adjust{
     .ipd-section .form-group.fm-grp.mrg-mt0{
     	margin-top: 0;
     }
-    .ipd-section .info-img{
-    	margin-top: -9px;
-    }
+   
 }
 /* ============ time slot new card ============ */
 .avl-time-slot{

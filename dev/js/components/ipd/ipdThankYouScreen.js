@@ -16,9 +16,9 @@ class IpdThankYouScreen extends React.Component{
 	           <div className="pop-head text-center">Thank you for using Docprime!</div>
 	           <p>Our medical expert will call you shortly and help you with the following:</p>
 	           <ul className="med-help">
-	             <li><img src="assets/images/tick.png" alt="" />Find the right Doctor and Hospital </li>
-	             <li><img src="assets/images/tick.png" alt="" />Comparing Surgery/Procedure cost</li>
-	             <li><img src="assets/images/tick.png" alt="" />Managing Hospital Process</li>
+	             <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Find the right Doctor and Hospital </li>
+	             <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Comparing Surgery/Procedure cost</li>
+	             <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Managing Hospital Process</li>
 	           </ul>
 	           	{
 	           		STORAGE.checkAuth()?''
