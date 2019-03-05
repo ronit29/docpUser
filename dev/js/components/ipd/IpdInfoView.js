@@ -56,9 +56,9 @@ class IpdInfo extends React.Component {
 	                    	{
 	                    	   this.props.IPD_INFO_LOADED?                    		
 		                       <div className ="ipd-section">
-		                          <div className="full-widget">
+		                          <div className="full-widget mrg-b0">
 				                     <nav className="tab-head">
-				                        <div className="container">
+				                        <div className="">
 				                           <div className="nav nav-tabs nav-top-head" id="nav-tab" role="tablist">
 				                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} id="overview-tab" data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>About
 				                              </a>
