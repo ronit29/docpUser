@@ -12,6 +12,7 @@ import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 import CRITEO from '../../../helpers/criteo.js'
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -167,20 +168,6 @@ class BookingView extends React.Component {
         this.props.history.push(where)
     }
 
-    toggleWhatsap(status,e) {
-        let profileData = {...this.state.data.profile}
-        if(status){
-            profileData.whatsapp_optin = true
-            SnackBar.show({ pos: 'bottom-center', text: "You whatsApp notifications has been enabled."})   
-        }else{
-            profileData.whatsapp_is_declined = true
-            SnackBar.show({ pos: 'bottom-center', text: "your whatsApp notifications has been disabled."})
-        }
-        this.props.editUserProfile(profileData, profileData.id ,()=>{
-            document.getElementsByClassName('whatsappCardContainer')[0].classList.add('d-none')
-        })
-    }
-
     render() {
         let profile = {}
         let lab_test = []
@@ -251,18 +238,7 @@ class BookingView extends React.Component {
                                     <section className="booking-confirm-screen">
                                         <div className="container-fluid">
                                             {profile && !profile.whatsapp_optin && !profile.whatsapp_is_declined?
-                                                <div className="whatsappCardContainer">
-                                                    <div className="wa-logo-content">
-                                                        <div className="wa-container">
-                                                            <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
-                                                        </div>
-                                                        <p>Docprime would like to send you updates through whatsapp</p>
-                                                    </div>
-                                                    <div className="allowDeclineContainer">
-                                                        <p className="allowBtns" onClick={this.toggleWhatsap.bind(this,true)}>Allow</p>
-                                                        <p className="declineBtns" style={{color:'#757575'}}onClick={this.toggleWhatsap.bind(this,false)}>Decline</p>
-                                                    </div>
-                                                </div>
+                                                <WhatsAppOptinView {...this.props} profile={profile} isAppointment = {true}/>
                                             :''}
                                             <div className="row">
                                                 <div className="col-12">

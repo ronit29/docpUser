@@ -5,6 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import Calendar from 'rc-calendar';
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 const moment = require('moment');
 
 const stepperStyle = {
@@ -53,7 +54,7 @@ class UserSignupView extends React.Component {
     }
 
     toggleWhatsap(status,e) {
-        this.setState({ whatsapp_optin: !status })
+        this.setState({ whatsapp_optin: status })
     }
 
     selectDateFromCalendar(date) {
@@ -298,13 +299,7 @@ class UserSignupView extends React.Component {
                                                     </div> : ""
                                             }
 
-                                            <div className="widget mrb-15">
-                                                <div className="widget-content">
-                                                    <div>
-                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,this.state.whatsapp_optin)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
                                         </section>
 
                                         <span className="errorMessage">{this.state.err}</span>

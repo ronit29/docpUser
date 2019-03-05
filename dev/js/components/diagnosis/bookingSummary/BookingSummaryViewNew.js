@@ -16,6 +16,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -312,11 +313,13 @@ class BookingSummaryViewNew extends React.Component {
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
         }
-        if(patient && patient.whatsapp_optin != null){
-            postData['whatsapp_optin']= patient.whatsapp_optin
+        let profileData = {...patient}
+        if(profileData && profileData.whatsapp_optin != null){
+            profileData['whatsapp_optin']= profileData.whatsapp_optin
         }else{
-            postData['whatsapp_optin']= this.state.whatsapp_optin
+            profileData['whatsapp_optin']= this.state.whatsapp_optin
         }
+        this.props.editUserProfile(profileData, profileData.id)
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
@@ -446,7 +449,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     toggleWhatsap(status,e) {
-        this.setState({ whatsapp_optin: !status })
+        this.setState({ whatsapp_optin: status })
     }
 
     render() {
@@ -733,13 +736,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         }
 
                                                         {!patient || (patient && patient.whatsapp_optin == null) ?
-                                                            <div className="widget mrb-15">
-                                                                <div className="widget-content">
-                                                                    <div>
-                                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,this.state.whatsapp_optin)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                            <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
                                                         :''}
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>

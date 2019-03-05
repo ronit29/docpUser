@@ -3,6 +3,7 @@ import React from 'react';
 import BasicDetails from './basic'
 import MedialDetails from './medical'
 import Loader from '../../Loader'
+import WhatsAppOptinView from '../../WhatsAppOptin/WhatsAppOptinView.js'
 
 class EditProfile extends React.Component {
     constructor(props) {
@@ -42,13 +43,8 @@ class EditProfile extends React.Component {
                 return <div style={{marginBottom:'60px'}}>
                             <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} proceedUpdate={this.proceedUpdate.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)}/>
                             {this.state.profileData && this.state.profileData.whatsapp_optin == null?
-                                <div className="widget no-shadow no-radius mrb-15">
-                                    <div className="widget-content">
-                                        <div>
-                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,!this.state.whatsapp_optin)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
-                                        </div>
-                                    </div>
-                                </div>
+                                <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
+
                             :''}
                         </div>
 
