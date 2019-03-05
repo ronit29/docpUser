@@ -5,12 +5,12 @@ class HospitalCard extends React.Component {
 
 	render(){
 		let { data } = this.props
-		let distance = data && data.distance?(Math.round(data.distance * 10) / 10).toFixed(1):null
+		let distance = data && data.distance?(Math.round(data.distance) / 1000).toFixed(1):null
 		return(
 			<div className="widget">
                <div className="loc-info">
                   <img src="https://cdn.docprime.com/cp/assets/img/new-loc-ico.svg" alt="loc" className="img-loc" />
-                  <p>{`${data.address} ${distance?` | ${distance}`:''}` }</p>
+                  <p>{`${data.address} ${distance?` | ${distance} Km`:''}` }</p>
                </div>
                <div className="hospital-info">
                   <div className="left-side-info">

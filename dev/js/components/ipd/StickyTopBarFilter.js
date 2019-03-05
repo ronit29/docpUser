@@ -9,25 +9,29 @@ class StickyFilter extends React.Component{
 		this.state = {
 			toggleFilterPopup :false,
 			currentSelectedFilters: [],
-			toggleProviderFilter: [],
-			distanceFilter: [0, 25]
+			provider_ids: [],
+			distance: [0, 25]
 		}
 	}
 
 	applyFilters(){
 		let filterCriteria =  {
-			distance: this.stat.distanceFilter,
-			provider_ids: this.stat.toggleProviderFilter
+			distance: this.state.distance,
+			provider_ids: this.state.provider_ids
 		}
 		this.props.mergeIpdCriteria({
 			filterCriteria:filterCriteria
 		})
+		setTimeout(()=>{
+			this.props.fetchNewResults()
+			this.setState({toggleFilterPopup: false})
+		},100)
 	}
 
 	toggleProviderFilter(id){
 		let provider_ids = [] 
 		let found = false
-		provider_ids = this.state.toggleProviderFilter.filter((x) => {
+		provider_ids = this.state.provider_ids.filter((x) => {
 			if(x==id){
 				found = true
 				return false
@@ -39,7 +43,7 @@ class StickyFilter extends React.Component{
 			provider_ids.push(id)
 		}
 
-		this.setState({toggleProviderFilter: provider_ids, currentSelectedFilters: provider_ids})
+		this.setState({provider_ids: provider_ids, currentSelectedFilters: provider_ids})
 	}
 
 	closeFiltersPopUp(){
@@ -94,17 +98,17 @@ class StickyFilter extends React.Component{
 	                       <div className="widget-content">
                                 <div className="filterRow">
                                     <span className="tl">Distance</span>
-                                    <span className="tr">&#8377; {this.state.distanceFilter[0]} to {this.state.distanceFilter[1]}</span>
+                                    <span className="tr">&#8377; {this.state.distance[0]} to {this.state.distance[1]}</span>
                                     <span className="bl">&#8377; 0</span>
                                     <span className="br">&#8377; 50</span>
 
                                     <Range
                                         min={0}
                                         max={50}
-                                        value={this.state.distanceFilter}
+                                        value={this.state.distance}
                                         step={2}
                                         className="range"
-                                        onChange={this.handleRange.bind(this, 'distanceFilter')}
+                                        onChange={this.handleRange.bind(this, 'distance')}
                                     />
                                 </div>
                             </div>
@@ -131,7 +135,7 @@ class StickyFilter extends React.Component{
 
 			                       				return <li key={i}>
 					                                <label className="ck-bx">{provider.name} 
-					                                    <input type="checkbox" value="on" checked={this.state.toggleProviderFilter.indexOf(provider.id)>-1?true:false} onChange={this.toggleProviderFilter.bind(this, provider.id)}/>
+					                                    <input type="checkbox" value="on" checked={this.state.provider_ids.indexOf(provider.id)>-1?true:false} onChange={this.toggleProviderFilter.bind(this, provider.id)}/>
 					                                    <span className="checkmark"></span>
 					                                </label>
 					                            </li>
