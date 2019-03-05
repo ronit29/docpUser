@@ -167,6 +167,20 @@ class BookingView extends React.Component {
         this.props.history.push(where)
     }
 
+    toggleWhatsap(status,e) {
+        let profileData = {...this.state.data.profile}
+        if(status){
+            profileData.whatsapp_optin = true
+            SnackBar.show({ pos: 'bottom-center', text: "You whatsApp notifications has been enabled."})   
+        }else{
+            profileData.whatsapp_is_declined = true
+            SnackBar.show({ pos: 'bottom-center', text: "your whatsApp notifications has been disabled."})
+        }
+        this.props.editUserProfile(profileData, profileData.id ,()=>{
+            document.getElementsByClassName('whatsappCardContainer')[0].classList.add('d-none')
+        })
+    }
+
     render() {
         let profile = {}
         let lab_test = []
@@ -236,21 +250,22 @@ class BookingView extends React.Component {
                                 (!this.state.loading && this.state.data) ?
                                     <section className="booking-confirm-screen">
                                         <div className="container-fluid">
+                                            {profile && !profile.whatsapp_optin && !profile.whatsapp_is_declined?
+                                                <div className="whatsappCardContainer">
+                                                    <div className="wa-logo-content">
+                                                        <div className="wa-container">
+                                                            <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
+                                                        </div>
+                                                        <p>Docprime would like to send you updates through whatsapp</p>
+                                                    </div>
+                                                    <div className="allowDeclineContainer">
+                                                        <p className="allowBtns" onClick={this.toggleWhatsap.bind(this,true)}>Allow</p>
+                                                        <p className="declineBtns" style={{color:'#757575'}}onClick={this.toggleWhatsap.bind(this,false)}>Decline</p>
+                                                    </div>
+                                                </div>
+                                            :''}
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <div className="whatsappCardContainer">
-                                                        <div className="wa-logo-content">
-                                                            <div className="wa-container">
-                                                                <img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
-                                                            </div>
-                                                            <p>Docprime would like to send you updates through whatsapp</p>
-                                                        </div>
-                                                        <div className="allowDeclineContainer">
-                                                            <p className="allowBtns">Allow</p>
-                                                            <p className="declineBtns">Decline</p>
-                                                        </div>
-                                                    </div>
-
                                                     <div className="app-timeline book-confirmed-timeline">
                                                         {
                                                             (status == 1 || status == 6) ? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4> :
