@@ -165,7 +165,7 @@ class BookingView extends React.Component {
         e.stopPropagation()
         this.props.history.push(where)
     }
-    
+
     render() {
 
         let doctor = {}
@@ -210,7 +210,7 @@ class BookingView extends React.Component {
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
-                                        {profile && profile.whatsapp_optin && !profile.whatsapp_is_declined?
+                                        {profile && !profile.whatsapp_optin && !profile.whatsapp_is_declined?
                                             <WhatsAppOptinView {...this.props} profile={profile} isAppointment ={true}/>
                                         :''}
                                         <div className="row">
