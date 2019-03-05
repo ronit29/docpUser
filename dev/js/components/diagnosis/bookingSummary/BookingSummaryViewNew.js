@@ -311,9 +311,12 @@ class BookingSummaryViewNew extends React.Component {
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            whatsapp_optin: this.state.whatsapp_optin
         }
-
+        if(patient && patient.whatsapp_optin != null){
+            postData['whatsapp_optin']= patient.whatsapp_optin
+        }else{
+            postData['whatsapp_optin']= this.state.whatsapp_optin
+        }
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
@@ -733,7 +736,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div>
-                                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,this.state.status)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,this.state.whatsapp_optin)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>

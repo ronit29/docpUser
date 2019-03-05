@@ -290,7 +290,11 @@ class PatientDetailsNew extends React.Component {
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            whatsapp_optin: this.state.whatsapp_optin
+        }
+        if(patient && patient.whatsapp_optin != null){
+            postData['whatsapp_optin']= patient.whatsapp_optin
+        }else{
+            postData['whatsapp_optin']= this.state.whatsapp_optin
         }
         if (this.props.disCountedOpdPrice && this.props.payment_type == 1) {
             postData['coupon_code'] = [this.state.couponCode] || []
