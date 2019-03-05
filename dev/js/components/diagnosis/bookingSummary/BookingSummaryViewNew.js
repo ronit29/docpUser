@@ -442,8 +442,8 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    toggleWhatsap(e) {
-        this.setState({ whatsapp_optin: e.target.checked })
+    toggleWhatsap(status,e) {
+        this.setState({ whatsapp_optin: !status })
     }
 
     render() {
@@ -733,7 +733,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div>
-                                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,this.state.status)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
