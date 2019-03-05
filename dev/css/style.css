@@ -6869,7 +6869,7 @@ button.padding-btn-adjust{
 }
 
 .ipd-section .nav-tabs.nav-top-head a {
-    padding: 5px 0;
+    padding: 5px 0 15px;
     font-size: 16px;
     font-weight: 500;
     border: 0;
@@ -6884,7 +6884,7 @@ button.padding-btn-adjust{
 	border-right: 1px solid rgba(0,0,0,0.12);
 	position: absolute;
     right: 0;
-    height: 25px;
+    height: 32px;
 }
 .ipd-section .nav-tabs.nav-top-head a:last-child:after{
 	content: none;
@@ -7013,7 +7013,7 @@ button.padding-btn-adjust{
 .ipd-section .pop-head{
     font-size: 16px;
     text-align: left;
-    font-weight: 500;
+    font-weight: 700;
 }
 .ipd-section .form-group.fm-grp{
     display: flex;
@@ -7304,9 +7304,6 @@ button.padding-btn-adjust{
     padding: 15px;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.3);
 }
-.ipd-section .custom-popup.hlth-ins-pop{
-    display:none;
-}
 .ipd-section .info-popup{
     background: #fff;
     border-radius: 10px;
@@ -7325,9 +7322,7 @@ button.padding-btn-adjust{
 .ipd-section .ins-listing li{
     padding-top: 15px;
 }
-.ipd-section .orng-txt{
-    color: #f78631;
-}
+
 .ipd-section .distance-slider{
     display: flex;
     justify-content: space-between;
@@ -7335,7 +7330,16 @@ button.padding-btn-adjust{
 }
 
 .ipd-section .distance-slider-bar{
-    padding: 25px 10px 10px;
+    padding: 10px 10px 10px;
+    border-bottom: 0;
+}
+.ipd-section .distance-slider-bar span{
+	font-weight: 500;
+	color: #000 !important;
+	
+}
+.ipd-section span.tr.orng-txt{
+    color: #f78631 !important;
 }
 .ipd-section .dis-slider{
   -webkit-appearance: none;
@@ -7426,9 +7430,48 @@ button.padding-btn-adjust{
 .ipd-section .read-more-btn{
 	margin-right: 5px;
 }
+.ipd-section .range-slider-ul{
+	margin-bottom: 60px;
+}
+
+/*Range SLider*/
+.ipd-section .rc-slider-rail{
+	height: 1px;
+}
+.ipd-section .rc-slider-track{
+	height: 2px;
+	background-color: #f78631;
+}
+.ipd-section .rc-slider-handle{
+	background-color: #f78631;
+	border:0;
+	height: 20px;
+	width: 20px;
+	margin-top: -10px;
+	box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.2);
+}
+.stick-it{
+	position: sticky !important;
+	top: 107px !important;
+	margin-top: -12px;
+	z-index: 9;
+}
+.stick-prnt .alignShareBtn{
+	 margin: 0;
+    padding: 0;
+    height: auto;
+    padding: 2px 0;
+    margin-top: -4px;
+}
+
+
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
 		top: 89px;
+	}
+	.stick-it{
+		top: 89px !important;
+		margin-top: 7px;
 	}
 }
 

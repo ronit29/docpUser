@@ -70,18 +70,20 @@ class StickyFilter extends React.Component{
 		}
 		return(
 			<div>
-		        <section className="filter-row sticky-header mbl-stick">
-		           <div className="top-filter-tab-container">
-		              {/*<div className="top-filter-tabs-select"><img src="https://cdn.docprime.com/cp/assets/img/sort.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Sort</span></div>*/}
-		              <div className="top-filter-tabs-select" onClick={()=>this.setState({toggleFilterPopup: true})}><img src="https://cdn.docprime.com/cp/assets/img/filter.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Filter</span></div>
+			
+		        <section className="stick-prnt">
+		         <div className="stick-it">
+			           <div className="top-filter-tab-container">
+			              {/*<div className="top-filter-tabs-select"><img src="https://cdn.docprime.com/cp/assets/img/sort.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Sort</span></div>*/}
+			              <div className="top-filter-tabs-select" onClick={()=>this.setState({toggleFilterPopup: true})}><img src="https://cdn.docprime.com/cp/assets/img/filter.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Filter</span></div>
+			           </div>
 		           </div>
-
 		           <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={seoData} lab_card={false} seoFriendly={false}/>
 		        </section>
 
 		        {
 		        	this.state.toggleFilterPopup?
-		        	<div>
+		        	<div className="ipd-section">
 			        	<div className="custom-overlay" onClick={this.closeFiltersPopUp.bind(this)}></div>
 	                    <div className="custom-popup hlth-ins-pop">
 	                       <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" onClick={this.closeFiltersPopUp.bind(this)}/></div>
@@ -92,11 +94,11 @@ class StickyFilter extends React.Component{
 	                       </div>*/}
 
 	                       <div className="widget-content">
-                                <div className="filterRow">
+                                <div className="filterRow distance-slider-bar">
                                     <span className="tl">Distance</span>
-                                    <span className="tr">&#8377; {this.state.distanceFilter[0]} to {this.state.distanceFilter[1]}</span>
-                                    <span className="bl">&#8377; 0</span>
-                                    <span className="br">&#8377; 50</span>
+                                    <span className="tr orng-txt"> {this.state.distanceFilter[0]} Km to {this.state.distanceFilter[1]} Km </span>
+                                    <span className="bl ">0 Km</span>
+                                    <span className="br">50 Km</span>
 
                                     <Range
                                         min={0}
@@ -124,7 +126,7 @@ class StickyFilter extends React.Component{
 	                       	health_insurance_provider.length?
 	                       	<div className="ins-listing">
 	                          <div className="pop-head">Health Insurance Providers</div>
-	                          <ul>
+	                          <ul className="range-slider-ul">
 	                       			{
 				                    	health_insurance_provider.length?
 				                    	health_insurance_provider.map((provider, i) => {
