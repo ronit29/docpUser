@@ -10,6 +10,7 @@ import HomePageWidget from './HomePageWidget'
 import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
+import UpComingAppointmentView from './upComingAppointment.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 
@@ -188,35 +189,13 @@ class HomeView extends React.Component {
 		}
 
 		let slabOrder = []
-
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
 			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-
-						<div className="card cstm-card aptmnt-card mb-3">
-                            <div className="float-l leftBlock">
-                                <div className="float-l">
-                                    <img src={ASSETS_BASE_URL + "/images/ic-time-date.png"} alt="" />
-                                </div>
-                                <div className="float-l">
-                                    <div>Appointment for Ravi singh</div>
-                                    <div className="date-time">On 18 Feb, 11:12 AM</div>
-                                    <div> with Dr. Anil Vardani</div>
-                                </div>
-                            </div>
-                            <div className="rightBlock">
-                                <a href="javascript:void(0);" className="anchr-img">View Detail</a>
-                            </div>
-                            <div className="carousel-indicators crsl-indicators cr-indicator">
-                                <span className="active"></span>
-                                <span className=""></span>
-                                <span className=""></span>
-                            </div>
-                        </div>
-
+						<UpComingAppointmentView {...this.props}/>
 						<HomePageWidget
 							heading="Find a Doctor"
 							discount="50%"
@@ -242,7 +221,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-
+					<UpComingAppointmentView {...this.props}/>
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
@@ -286,7 +265,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-
+					<UpComingAppointmentView {...this.props}/>
 						{/* {
                             !!!profileData ?
                                 <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>
