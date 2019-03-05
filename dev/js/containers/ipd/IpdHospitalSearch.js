@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getIpdInfo, getIpdHospitals } from '../../actions/index.js'
+import { getIpdInfo, getIpdHospitals, mergeIpdCriteria } from '../../actions/index.js'
+import IpdHospitalSearchView from '../../components/ipd/IpdHospitalSearchView.js'
 
 class IpdHospitals extends React.Component {
 
@@ -10,7 +11,7 @@ class IpdHospitals extends React.Component {
 	render(){
 
 		return(
-				<div>Prince</div>
+				<IpdHospitalSearchView {...this.props} />
 			)
 	}
 }
@@ -18,25 +19,34 @@ class IpdHospitals extends React.Component {
 const mapStateToProps = (state) => {
 	
 	const {
-        selectedLocation
+        selectedLocation,
+        locationType
     } = state.SEARCH_CRITERIA_OPD
 
 	const {
 		filterCriteria,
-		provider_ids
+		provider_ids,
+		hospital_list,
+		hospital_search_results,
+		HOSPITAL_DATA
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
 		selectedLocation,
+		locationType,
 		filterCriteria,
-		provider_ids
+		provider_ids,
+		hospital_list,
+		hospital_search_results,
+		HOSPITAL_DATA
 	}
 }
 
 const mapDisptachToProps = (dispatch) => {
 
 	return{
-		getIpdHospitals: (ipdId, selectedLocation, filterCriteria, provider_ids)=> dispatch(getIpdHospitals(ipdId, selectedLocation, filterCriteria, provider_ids))
+		getIpdHospitals: (ipdId, selectedLocation, filterCriteria, provider_ids)=> dispatch(getIpdHospitals(ipdId, selectedLocation, filterCriteria, provider_ids)),
+		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(IpdHospitals)

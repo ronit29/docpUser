@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
@@ -48,8 +48,21 @@ export const getIpdHospitals = (ipdId, selectedLocation, filterCriteria, provide
 
     let url = `/api/v1/doctor/ipd_procedure/${ipdId}/hospitals?long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}`
     return API_GET(url).then( function (response) {
-        console.log(response)
+        
+        dispatch({
+            type: GET_IPD_HOSPITALS,
+            payload: response
+        })
+
     }).catch( function (error) {
 
     })
 }
+
+
+export const mergeIpdCriteria = (filterCriteria) => (dispatch) => {
+    dispatch({
+        type: MERGE_IPD_CRITERIA,
+        payload: filterCriteria
+    })
+} 

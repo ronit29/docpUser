@@ -17,7 +17,7 @@ class IPD extends React.Component{
 	                <div className="row main-row parent-section-row">
 	                    <LeftBar />
 	                    <div className="col-12 col-md-7 col-lg-7 center-column">
-
+	                    
 	                    
 
 	                    	<section className="filter-row sticky-header mbl-stick">
