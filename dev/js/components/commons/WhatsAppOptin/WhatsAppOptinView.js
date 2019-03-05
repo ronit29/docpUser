@@ -12,13 +12,15 @@ class WhatsAppOptinView extends React.Component {
 
     shouldRender(){
         if(this.props.profiles){
-            if (!this.props.profiles || this.props.profiles.whatsapp_optin!=null)
+            if (this.props.profiles.whatsapp_optin !=null){
                 if(this.props.isAppointment && !this.props.profiles.whatsapp_optin && !this.props.profiles.whatsapp_is_declined){
                     return true
                 }else{
                     return false
                 }
-            return true
+            }else{
+                return true
+            }
         }else if(this.props.isUserProfile){
             return true
         }else{
